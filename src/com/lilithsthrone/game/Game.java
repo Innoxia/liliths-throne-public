@@ -2907,6 +2907,25 @@ public class Game implements Serializable, XMLSaving {
 		return (int) (getHour()%24);
 	}
 	
+	/**
+	 * @return The number of minutes that have passed in the current day.
+	 */
+	public int getDayMinutes() {
+		return (int) (getMinutesPassed()%(24*60));
+	}
+	
+	/**
+	 * @param desiredTime The targeted time, in minutes of the day. (i.e. a number from 0 to 1440)
+	 * @return The number of minutes it will take to reach this time, flowing over into the next day if necessary. Returned number will be at max 1439.
+	 */
+	public int getMinutesUntilTimeInMinutes(int desiredTime) {
+		int timeDifference = desiredTime - getDayMinutes();
+		if(timeDifference<0) {
+			timeDifference+=(24*60);
+		}
+		return timeDifference;
+	}
+	
 	public boolean isDayTime() {
 		return minutesPassed % (24 * 60) >= (60 * 7) && minutesPassed % (24 * 60) < (60 * 21);
 	}

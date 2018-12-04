@@ -341,6 +341,11 @@ public class FortressMalesLeader extends NPC {
 	}
 	
 	// Combat:
+	
+	@Override
+	public int getEscapeChance() {
+		return 0;
+	}
 
 	public Attack attackType() {
 		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
@@ -371,13 +376,7 @@ public class FortressMalesLeader extends NPC {
 		//This is the fight at the citadel:
 		if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
 			if (victory) {
-				return new Response("", "", ImpCitadelDialogue.KEEP_CHALLENGE) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "KEEP_CHALLENGE_LEADER_VICTORY", ImpCitadelDialogue.getAllCharacters()));
-					}
-				};
+				return new Response("", "", ImpCitadelDialogue.KEEP_DEMONS_DEFEATED);
 				
 			} else {
 				return new Response("", "", ImpCitadelDialogue.KEEP_AFTER_COMBAT_DEFEAT) {

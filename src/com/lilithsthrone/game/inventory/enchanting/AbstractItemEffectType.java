@@ -121,8 +121,8 @@ public abstract class AbstractItemEffectType {
 		if(Main.game.getPlayer().addRaceDiscoveredFromBook(subspecies)) {
 			return subspecies.getBasicDescription(null)
 					+subspecies.getAdvancedDescription(null)
-					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getDamageMultiplier(), 5f)
-					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getResistanceMultiplier(), 5f);
+					+Main.game.getPlayer().incrementAttribute(subspecies.getDamageMultiplier(), 5f)
+					+Main.game.getPlayer().incrementAttribute(subspecies.getResistanceMultiplier(), 5f);
 			
 		} else {
 			return subspecies.getBasicDescription(null)

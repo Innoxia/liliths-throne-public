@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -234,6 +235,14 @@ public class ImpAttacker extends NPC {
 
 	// Combat:
 	
+	@Override
+	public int getEscapeChance() {
+		if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+			return 0;
+		}
+		return super.getEscapeChance();
+	}
+	
 	public Attack attackType() {
 		
 		// If can cast spells, then do that:
@@ -313,6 +322,10 @@ public class ImpAttacker extends NPC {
 									UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST", ImpCitadelDialogue.getAllCharacters()));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.DAMAGE_IMP, 100));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
+							if(ImpCitadelDialogue.isCompanionDialogue()) {
+								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.DAMAGE_IMP, 100));
+								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
+							}
 						}
 					};
 				} else {
@@ -328,6 +341,12 @@ public class ImpAttacker extends NPC {
 				return new Response("", "", ImpCitadelDialogue.IMP_FIGHT_AFTER_COMBAT_DEFEAT) {
 					@Override
 					public void effects() {
+						if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_LAB) {
+							if(Main.game.getPlayer().isFeminine() || (ImpCitadelDialogue.isCompanionDialogue() && ImpCitadelDialogue.getMainCompanion().isFeminine())) {
+								ImpCitadelDialogue.getArcanist().displaceClothingForAccess(CoverableArea.VAGINA);
+								ImpCitadelDialogue.getArcanist().setLust(50);
+							}
+						}
 						ImpCitadelDialogue.getArcanist().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_LAB);
 					}
 				};
@@ -413,11 +432,7 @@ public class ImpAttacker extends NPC {
 			case HUMAN:
 			case NONE:
 			case SLIME:
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
+			case ELEMENTAL:
 				break;
 		}
 		

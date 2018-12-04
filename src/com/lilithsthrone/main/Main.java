@@ -52,7 +52,7 @@ import java.util.List;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.2.12
  * @author Innoxia
  */
 public class Main extends Application {
@@ -67,7 +67,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.12.5";
+	public static final String VERSION_NUMBER = "0.2.12.6";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -89,12 +89,7 @@ public class Main extends Application {
 			
 		// If you're building this from github, please be aware that there will be a more detailed post on my blog soon
 		+ "<p>"
-			+ "For this preview version, I've got a lot of the pull requests merged into the game from github."
-			+ " I've also got the majority of the imp citadel framework done, but it has placeholder text at the moment."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I will release another preview version before the weekend is over, which will have all the citadel dialogue added!"
+			+ "Here's the slightly-delayed update to 0.2.12.5! I've added in dialogue for all of the citadel's scenes, as well as getting several bugs fixed. There's still some polishing work to do, but that will all be done for 0.3. ^^"
 		+ "</p>"
 			
 		+ "<p>"
@@ -105,7 +100,40 @@ public class Main extends Application {
 		+ "<br/>"
 
 		+ "<list>"
-			+ "<h6>v0.2.12</h6>"
+			+ "<h6>v0.2.12.6</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added all dialogue for solo and companion scenes in the imp citadel.</ul>"
+			+"<ul>Added post-defeat sex scene for losing Siren combat. (There was a more involved sequence of events planned for this, but I didn't have time to add it - it will be added at some point in the future.)</ul>"
+	
+			+"<li>Other:</li>"
+			+"<ul>Switched primary and secondary colours for tagged choker, and changed the icon's scribble to read 'Bound Bitch'.</ul>"
+			+"<ul>Female horses and reindeer now have a base ass size of 'large', and female cows have 'huge'. (This is randomised when NPCs are generated, so some will still have larger or smaller asses.)</ul>"
+			+"<ul>Increased base size of all race's female nipples, and additionally increased base size of female cow areolae.</ul>"
+			+"<ul>Improved race menu in encyclopedia, so that subspecies of a race are displayed in a sub-menu.</ul>"
+			+"<ul>Consolidated all elemental races into one 'elemental' race (keeping the elemental types as subspecies), and converted individual elemental damage/resistance to a universal 'elemental' one.</ul>"
+			+"<ul>Moved witch set out into res folder, added tertiary colour to witch hat, and added 'wide-brimmed' hat variation.</ul>"
+	
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed BDSM clothing set icon to be black instead of white.</ul>"
+			+"<ul>You can no longer escape from the boss fights in imp fortresses, nor the imp 'challenge' fight in the citadel.</ul>"
+			+"<ul>Fixed cause of tattoo tooltips being cut off at the bottom. (The tooltip formatting system is still a little buggy - I'll remake it at some point.)</ul>"
+			+"<ul>Fixed breast size in subspecies encyclopedia using the enum name for the description.</ul>"
+			+"<ul>Added some error handling for if clothing throws errors related to patterns not being present.</ul>"
+			+"<ul>Fixed issue with youko icons not having a background circle.</ul>"
+			+"<ul>Fixed imp damage/resistance attributes not working.</ul>"
+			+"<ul>Fixed imps sometimes giving birth to non-imps.</ul>"
+			+"<ul>Your companion now gets the same attribute boost as you do after winning the imp fight when using 'challenge' in the citadel.</ul>"
+			+"<ul>Fixed being able to start the imp challenge even after the siren had been defeated.</ul>"
+			+"<ul>Fixed issue with the citadel's imp challenge freezing at the end of combat.</ul>"
+			+"<ul>Your status panel is no longer minimised when acting as a spectator.</ul>"
+			+"<ul>Fixed issues with some unique NPCs not putting their clothing back on correctly after sex.</ul>"
+			+"<ul>Takahashi will now correctly deny orgasms during her oral scene.</ul>"
+			+"<ul>Fixed issue where dropping equipped clothing during sex wouldn't work on the first button press.</ul>"
+			+"<ul>The demon leaders should now correctly be in the siren's throne room when you get there.</ul>"
+		
+			+"<br/>"
+			
+			+ "<h6>v0.2.12.5</h6>"
 			+"<li>Gameplay:</li>"
 			+"<ul>Added the majority of the framework for the citadel, which can be entered and tested. <b>Warning:</b> I'd advise saving your game before going through it, so you can reload and do the content once it's fully finished in 0.2.12.6.</ul>"
 			+"<ul>Added a map of the museum in the prologue.</ul>"
@@ -221,6 +249,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("BRobort", "", 0, 0, 9, 0));
 		credits.add(new CreditsSlot("BloodsailXXII", "", 0, 0, 0, 15));
 		credits.add(new CreditsSlot("Burt", "", 0, 0, 6, 0));
+		credits.add(new CreditsSlot("Atroykus", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Calrak", "", 0, 0, 0, 14));
 		credits.add(new CreditsSlot("CancerMage", "", 0, 0, 8, 0));
 		credits.add(new CreditsSlot("Casper &quot;Cdaser&quot; D.", "", 0, 0, 10, 0));
@@ -275,6 +304,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Assiyalos", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("Hedgehog", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("Helyriel", "", 0, 0, 11, 0));
+		credits.add(new CreditsSlot("Evit", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Jatch", "", 0, 0, 7, 0));
 		credits.add(new CreditsSlot("Bocaj91", "", 0, 0, 0, 13));
 		credits.add(new CreditsSlot("Krejil", "", 0, 0, 11, 0));
@@ -291,6 +321,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Kelly999", "", 0, 1, 10, 0));
 		credits.add(new CreditsSlot("kenshin5491", "", 0, 0, 14, 0));
 		credits.add(new CreditsSlot("Kestrel", "", 0, 0, 15, 0));
+		credits.add(new CreditsSlot("BlueVulcan", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Kiroberos", "", 0, 0, 0, 13));
 		credits.add(new CreditsSlot("Kernog", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 15));
@@ -318,6 +349,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Kobu", "", 0, 0, 0, 10));
 		credits.add(new CreditsSlot("IreCobra", "", 0, 0, 6, 0));
 		credits.add(new CreditsSlot("NeonRaven94", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Neon Swaglord Chen", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Nick LaBlue", "", 0, 0, 14, 0));
 		credits.add(new CreditsSlot("Kvernik", "", 0, 0, 6, 0));
 		credits.add(new CreditsSlot("Niko", "", 0, 0, 15, 0));
@@ -331,6 +363,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("BLKCandy", "", 0, 0, 11, 0));
 		credits.add(new CreditsSlot("Pierre Mura", "", 0, 0, 0, 11));
 		credits.add(new CreditsSlot("Pokys", "", 0, 0, 9, 0));
+		credits.add(new CreditsSlot("PoyntFury", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 15));
 		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 8, 0));
 		credits.add(new CreditsSlot("R.W", "", 0, 3, 7, 0));
@@ -376,6 +409,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("xerton", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Timmybond24", "", 0, 0, 0, 4));
 		credits.add(new CreditsSlot("TKaempfer", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Tom Clancy's Pro Skater", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("FreakyHydra", "", 0, 0, 0, 4));
 		credits.add(new CreditsSlot("Kahvi_Toope", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("Torinir", "", 0, 0, 14, 0));
@@ -383,6 +417,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("TreenVall", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("triangleman", "", 0, 0, 15, 0));
 		credits.add(new CreditsSlot("Antriad", "", 0, 0, 1, 9));
+		credits.add(new CreditsSlot("Jess", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Isidoros", "", 0, 0, 7, 0));
 		credits.add(new CreditsSlot("SolarEidolon", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("Vaelin", "", 0, 0, 4, 10));

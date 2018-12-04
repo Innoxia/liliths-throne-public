@@ -269,11 +269,7 @@ public enum Name {
 			case BAT_MORPH:
 			case RAT_MORPH:
 			case RABBIT_MORPH:
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
+			case ELEMENTAL:
 				break;
 				
 			case REINDEER_MORPH:
@@ -321,11 +317,7 @@ public enum Name {
 			break;
 			
 			case DEMON:
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
+			case ELEMENTAL:
 				return getDemonName();
 			case REINDEER_MORPH:
 				name = Name.REINDEER;

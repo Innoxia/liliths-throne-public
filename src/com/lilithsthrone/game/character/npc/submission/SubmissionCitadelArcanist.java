@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -45,7 +46,6 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -61,6 +61,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.sexActions.submission.CitadelYoukoSA;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -102,6 +103,10 @@ public class SubmissionCitadelArcanist extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6")) {
+			this.setStartingBody(true);
+			this.equipClothing(true, true, true, true);
+		}
 	}
 
 	@Override
@@ -112,7 +117,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		if(setPersona) {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 15);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 35);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 60);
 			
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
@@ -130,7 +135,7 @@ public class SubmissionCitadelArcanist extends NPC {
 			
 			this.addFetish(Fetish.FETISH_DENIAL);
 			this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
-			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
 			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.ZERO_HATE);
 		}
@@ -178,7 +183,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.D.getMeasurement());
+		this.setBreastSize(CupSize.C.getMeasurement());
 		this.setBreastShape(BreastShape.PERKY);
 		this.setNippleSize(NippleSize.TWO_BIG);
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
@@ -222,14 +227,14 @@ public class SubmissionCitadelArcanist extends NPC {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.ICE));
 		}
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_BLACK, Colour.CLOTHING_PURPLE_VERY_DARK, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_WHITE, Colour.CLOTHING_PURPLE_VERY_DARK, Colour.CLOTHING_WHITE, false), true, this);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, Colour.CLOTHING_WHITE, false), true, this);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_PLATFORM_BOOTS, Colour.CLOTHING_BLACK, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false), true, this);
+//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false), true, this);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SCIENTIST_TORSO_OVER_LAB_COAT, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES, false), true, this);
@@ -242,14 +247,14 @@ public class SubmissionCitadelArcanist extends NPC {
 	public String getDescription() {
 		if(ImpCitadelDialogue.isDefeated() || ImpCitadelDialogue.isImpsDefeated()) {
 			return UtilText.parse(this,
-					"[npc.Name] is a sly, three-tailed youko, who has a particular fondness for tricking people with her illusions."
+					"[npc.Name] is a rude, three-tailed youko, who treats others with very little respect."
 							+ " At the first sign of trouble in the citadel, she vanished, leaving nothing but an empty laboratory behind."
 							+ " You get the feeling that someday your paths will cross again...");
 		}
 		
 		return UtilText.parse(this,
-				"[npc.Name] is a sly, three-tailed youko, who has a particular fondness for tricking people with her illusions."
-						+ " Placed in charge of overseeing transformative potion production in the Dark Siren's laboratory, she spends most of her time creating potions with which to test on visitors to the citadel...");
+				"[npc.Name] is a rude, three-tailed youko, who treats others with very little respect."
+						+ " Placed in charge of the Dark Siren's laboratory, she oversees the production of transformative potions.");
 	}
 	
 	@Override
@@ -259,6 +264,12 @@ public class SubmissionCitadelArcanist extends NPC {
 	
 	@Override
 	public void endSex() {
+		this.replaceAllClothing();
+	}
+	
+	@Override
+	public List<Class<?>> getUniqueSexClasses() {
+		return Util.newArrayListOfValues(CitadelYoukoSA.class);
 	}
 
 	@Override
@@ -298,20 +309,6 @@ public class SubmissionCitadelArcanist extends NPC {
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_FOX_MORPH;
 		
 		List<ItemEffect> effects = new ArrayList<>();
-
-		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF)) {
-			effects.addAll(getFeminineEffects(target, itemType));
-			if(target.hasVagina()&&!target.isVaginaVirgin()) {
-				effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1));
-			}
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1));
-
-			AbstractItem ingredient = AbstractItemType.generateItem(itemType);
-			AbstractItem potion = EnchantingUtils.craftItem(ingredient, effects);
-			potion.setName("Foxy Pussy");
-			
-			return new Value<>("", potion);
-		}
 		
 		List<ItemEffect> minimumEffects = new ArrayList<>();
 		List<ItemEffect> reducedEffects = new ArrayList<>();

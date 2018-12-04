@@ -1408,40 +1408,37 @@ public abstract class GameCharacter implements XMLSaving {
 				Element e = ((Element)attributeList.item(i));
 				
 				try {
-					if(e.getAttribute("type").equals("CORRUPTION")) {
-						character.setAttribute(Attribute.MAJOR_CORRUPTION, Float.valueOf(e.getAttribute("value")), false);
+					Attribute attribute = Attribute.getAttributeFromId(e.getAttribute("type"));
+					if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.0")) {
+						switch(attribute) {
+							case DAMAGE_FIRE: case DAMAGE_ICE: case DAMAGE_LUST: case DAMAGE_PHYSICAL: case DAMAGE_POISON: case DAMAGE_SPELLS:
+								character.setAttribute(attribute, Float.valueOf(e.getAttribute("value"))-100, false);
+								break;
+							default:
+								character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+								break;
+						}
 						
-					} else if(e.getAttribute("type").equals("STRENGTH") || e.getAttribute("type").equals("MAJOR_STRENGTH")) {
-						character.setAttribute(Attribute.MAJOR_PHYSIQUE, Float.valueOf(e.getAttribute("value")), false);
+					} else if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.12")) {
+						Attribute att = attribute;
+						switch(att) {
+							case MANA_MAXIMUM:
+							case HEALTH_MAXIMUM:
+								break;
+							default:
+								character.setAttribute(att, Float.valueOf(e.getAttribute("value")), false);
+								break;
+						}
 						
 					} else {
-						if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.0")) {
-							Attribute att = Attribute.valueOf(e.getAttribute("type"));
-							switch(att) {
-								case DAMAGE_FIRE: case DAMAGE_ICE: case DAMAGE_LUST: case DAMAGE_PHYSICAL: case DAMAGE_POISON: case DAMAGE_SPELLS:
-									character.setAttribute(att, Float.valueOf(e.getAttribute("value"))-100, false);
-									break;
-								default:
-									character.setAttribute(att, Float.valueOf(e.getAttribute("value")), false);
-									break;
-							}
-							
-						} else if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.12")) {
-							Attribute att = Attribute.valueOf(e.getAttribute("type"));
-							switch(att) {
-								case MANA_MAXIMUM:
-								case HEALTH_MAXIMUM:
-									break;
-								default:
-									character.setAttribute(att, Float.valueOf(e.getAttribute("value")), false);
-									break;
-							}
-							
+						if(attribute == Attribute.DAMAGE_ELEMENTAL || attribute == Attribute.RESISTANCE_ELEMENTAL) {
+							character.incrementAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
 						} else {
-							character.setAttribute(Attribute.valueOf(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")), false);
+							character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
 						}
 					}
-					CharacterUtils.appendToImportLog(log, "<br/>Set Attribute: "+Attribute.valueOf(e.getAttribute("type")).getName() +" to "+ Float.valueOf(e.getAttribute("value")));
+					
+					CharacterUtils.appendToImportLog(log, "<br/>Set Attribute: "+attribute.getName() +" to "+ Float.valueOf(e.getAttribute("value")));
 				}catch(IllegalArgumentException ex){
 				}
 			}
@@ -1726,8 +1723,8 @@ public abstract class GameCharacter implements XMLSaving {
 				Element e = ((Element)potionAttributesList.item(i));
 
 				try {
-					character.addPotionEffect(Attribute.valueOf(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")));
-					CharacterUtils.appendToImportLog(log, "<br/>Set Potion Attribute: "+Attribute.valueOf(e.getAttribute("type")).getName() +" to "+ Float.valueOf(e.getAttribute("value")));
+					character.addPotionEffect(Attribute.getAttributeFromId(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")));
+					CharacterUtils.appendToImportLog(log, "<br/>Set Potion Attribute: "+Attribute.getAttributeFromId(e.getAttribute("type")).getName() +" to "+ Float.valueOf(e.getAttribute("value")));
 				}catch(IllegalArgumentException ex){
 				}
 			}
@@ -12377,6 +12374,41 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
+	private StringBuilder unequipAllClothingSB = new StringBuilder(0);
+	
+	public String getUnequipAllClothingDescription() {
+		return unequipAllClothingSB.toString();
+	}
+
+	/**
+	 * <b>Note:</b> You can get the generated description of this action by calling:<br/>
+	 * <i>getUnequipAllClothingDescription()</i>
+	 * @param remover The character who is removing the clothing.
+	 * @return A list containing all of the clothing that was unequipped.
+	 */
+	public List<AbstractClothing> unequipAllClothing(GameCharacter remover, boolean removeSeals) {
+		unequipAllClothingSB.setLength(0);
+		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
+		List<AbstractClothing> clothingRemoved = new ArrayList<>();
+		
+		clothingEquipped.sort((c1, c2) -> c1.getClothingType().getSlot().getZLayer() - c2.getClothingType().getSlot().getZLayer());
+		
+		if(removeSeals) {
+			for(AbstractClothing clothing : clothingEquipped) {
+				clothing.setSealed(false);
+			}
+		}
+		
+		for(AbstractClothing clothing : clothingEquipped) {
+			if(this.isAbleToUnequip(clothing, true, remover)) {
+				clothingRemoved.add(clothing);
+				unequipAllClothingSB.append(this.unequipClothingIntoVoid(clothing, true, remover));
+			}
+		}
+		
+		return clothingRemoved;
+	}
+	
 	public int getMoney() {
 		return inventory.getMoney();
 	}
@@ -12913,11 +12945,9 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 
-
 	public boolean removeClothing(AbstractClothing clothing) {
 		return inventory.removeClothing(clothing);
 	}
-
 
 	public String dropClothing(AbstractClothing clothing) {
 		if (inventory.dropClothing(clothing, location)) {
@@ -12934,6 +12964,15 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public boolean hasClothingType(AbstractClothingType type, boolean includeEquipped) {
 		return inventory.hasClothingType(type, includeEquipped);
+	}
+	
+	public boolean isAnyEquippedClothingSealed() {
+		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+			if(clothing.isSealed()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public List<AbstractClothing> getClothingCurrentlyEquipped() {
@@ -12961,7 +13000,6 @@ public abstract class GameCharacter implements XMLSaving {
 	public AbstractClothing getClothingInSlot(InventorySlot invSlot) {
 		return inventory.getClothingInSlot(invSlot);
 	}
-
 
 	public int getClothingSetCount(ClothingSet clothingSet) {
 		return inventory.getClothingSetCount(clothingSet);

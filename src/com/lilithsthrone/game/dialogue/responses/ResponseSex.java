@@ -335,12 +335,18 @@ public class ResponseSex extends Response {
 			this.dominantSpectators = new ArrayList<>();
 		} else {
 			this.dominantSpectators = dominantSpectators;
+			while(this.dominantSpectators.contains(null)) {
+				this.dominantSpectators.remove(null);
+			}
 		}
 		
 		if(submissiveSpectators==null) {
 			this.submissiveSpectators = new ArrayList<>();
 		} else {
 			this.submissiveSpectators = submissiveSpectators;
+			while(this.submissiveSpectators.contains(null)) {
+				this.submissiveSpectators.remove(null);
+			}
 		}
 		
 		this.postSexDialogue = postSexDialogue;

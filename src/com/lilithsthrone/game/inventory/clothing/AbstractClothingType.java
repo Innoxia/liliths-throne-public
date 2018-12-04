@@ -618,6 +618,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return result;
 	}
 	
+
+	public static AbstractClothing generateClothing(String clothingTypeId, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
+		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), primaryColour, secondaryColour, tertiaryColour, allowRandomEnchantment);
+	}
+	
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		Colour c1 = primaryColour;
 		Colour c2 = secondaryColour;
@@ -667,18 +672,24 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return AbstractClothingType.generateClothing(clothingType, colourShade, null, null, allowRandomEnchantment);
 	}
 
-	/**
-	 * Allows random enchantment. Uses random colour.
-	 */
+	public static AbstractClothing generateClothing(String clothingTypeId, Colour colourShade, boolean allowRandomEnchantment) {
+		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), colourShade, null, null, allowRandomEnchantment);
+	}
+
+	/** Allows random enchantment. Uses random colour.*/
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType) {
 		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), true);
 	}
 
-	/**
-	 * Uses random colour.
-	 */
+	/** Uses random colour.*/
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, boolean allowRandomEnchantment) {
 		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), allowRandomEnchantment);
+	}
+
+	/** Uses random colour.*/
+	public static AbstractClothing generateClothing(String clothingTypeId, boolean allowRandomEnchantment) {
+		AbstractClothingType type = ClothingType.getClothingTypeFromId(clothingTypeId);
+		return AbstractClothingType.generateClothing(type, type.getAvailablePrimaryColours().get(Util.random.nextInt(type.getAvailablePrimaryColours().size())), allowRandomEnchantment);
 	}
 	
 	
@@ -1773,8 +1784,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 		
 		// Loading pattern
-		String loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
-		
+			String loadedPattern;
+		try {
+			loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
+		} catch(Exception ex) {
+			System.err.println("Error in pattern loading method getSVGWithHandledPattern(). Clothing causing error: "+this.getName());
+			return s;
+		}
 		// Getting shapes from the pattern
 		String newPattern = "";
 		

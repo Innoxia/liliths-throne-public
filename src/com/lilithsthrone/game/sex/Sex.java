@@ -52,6 +52,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
+import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
@@ -522,13 +523,6 @@ public class Sex {
 
 	private static void endSex() {
 		Main.game.setInSex(false);
-
-		for(GameCharacter participant : Sex.getAllParticipants()) {
-			if(participant instanceof NPC) {
-				((NPC) participant).setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfOrgasms(participant)>0);
-				((NPC)participant).endSex();
-			}
-		}
 		
 		// Restore clothes:
 		for(Entry<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> entry : clothingPreSexMap.entrySet()) {
@@ -554,6 +548,13 @@ public class Sex {
 						entry.getKey().addClothing(c, true);
 					}
 				}
+			}
+		}
+
+		for(GameCharacter participant : Sex.getAllParticipants()) {
+			if(participant instanceof NPC) {
+				((NPC) participant).setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfOrgasms(participant)>0);
+				((NPC)participant).endSex();
 			}
 		}
 		
@@ -1439,11 +1440,24 @@ public class Sex {
 		if (isReadyToOrgasm(Main.game.getPlayer())) { // Add orgasm actions if player ready to orgasm:
 			characterOrgasming = Main.game.getPlayer();
 			
+			// If there are unique maximum priority actions, only add those.
+			List<SexActionInterface> uniqueActions = new ArrayList<>();
+			List<SexActionInterface> normalActions = new ArrayList<>();
 			for (SexActionInterface sexAction : Sex.getOrgasmActionsPlayer()) {
 				if (sexAction.isAddedToAvailableSexActions()) {
-					availableSexActionsPlayer.add(sexAction);
+					if(sexAction.getPriority()==SexActionPriority.UNIQUE_MAX) {
+						uniqueActions.add(sexAction);
+					} else {
+						normalActions.add(sexAction);
+					}
 				}
 			}
+			if(!uniqueActions.isEmpty()) {
+				availableSexActionsPlayer.addAll(uniqueActions);
+			} else {
+				availableSexActionsPlayer.addAll(normalActions);
+			}
+			
 
 		} else {
 			boolean partnerOrgasming = false;

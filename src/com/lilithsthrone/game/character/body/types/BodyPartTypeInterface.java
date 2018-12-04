@@ -98,16 +98,8 @@ public interface BodyPartTypeInterface {
 				return "rat";
 			case RABBIT_MORPH:
 				return "rabbit";
-			case ELEMENTAL_AIR:
-				return "elemental air";
-			case ELEMENTAL_ARCANE:
-				return "elemental arcane";
-			case ELEMENTAL_EARTH:
-				return "elemental earth";
-			case ELEMENTAL_FIRE:
-				return "elemental fire";
-			case ELEMENTAL_WATER:
-				return "elemental water";
+			case ELEMENTAL:
+				return "elemental";
 			case NONE:
 				break;
 			case SLIME:

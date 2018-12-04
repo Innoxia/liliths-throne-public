@@ -1226,7 +1226,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			}
 			
 			if (tattoo.getCounter()!=null && tattoo.getCounter().getType()!=TattooCounterType.NONE) {
-				tooltipSB.append("<div class='container-full-width' style='padding:8px; height:54px; text-align:center;'>"
+				tooltipSB.append("<div class='container-full-width' style='padding:8px; height:68px; text-align:center;'>"
 									+ "An enchanted, "+tattoo.getCounter().getColour().getName()+" "+tattoo.getCounter().getType().getName()+" counter reads:<br/>"
 										+ "<span style='color:"+tattoo.getCounter().getColour().toWebHexString()+";'>"
 												+tattoo.getFormattedCounterOutput(equippedToCharacter)
@@ -1247,7 +1247,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		if(tattoo.getDisplayName(false).length()>40) {
 			specialIncrease = 26;
 		}
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 396 + ((lSize+yIncrease) * LINE_HEIGHT) + yIncrease*8 + specialIncrease);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 410 + ((lSize+yIncrease) * LINE_HEIGHT) + yIncrease*8 + specialIncrease);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 	}
 	

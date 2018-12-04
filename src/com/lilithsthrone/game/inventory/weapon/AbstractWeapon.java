@@ -211,7 +211,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		
 		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
 			try {
-				weapon.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+				weapon.coreEnchantment = Attribute.getAttributeFromId(parentElement.getAttribute("coreEnchantment"));
 			} catch(Exception ex) {
 			}
 		}

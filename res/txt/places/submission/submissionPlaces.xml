@@ -764,4 +764,68 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="IMP_CITADEL_KEY_ENTRY"><![CDATA[
+	<p>
+		You decide that the time has come to use the three keys required to open the gates to the dark siren's citadel. As you insert the first of them into its corresponding hole, it suddenly disappears from sight in a bright purple flash. Around the keyhole, a glowing pentagram appears, and, encouraged that this is the right thing to do, you quickly insert the other two keys into their respective locks, each of which produces much the same effect.
+	</p>
+	<p>
+		As the third key vanishes, a vertical purple line splits the stone gates down the very middle, and, with a loud grinding noise, they slowly start to swing open before you. At that moment, yet another bright purple flash is emitted by each of the three keyholes, causing you to blink and turn your head to one side. As you rub your [pc.eyes] to clear the lingering afterimage, you see that the three keys have reappeared in the keyholes before you, and have been linked by a thin silver chain. Grabbing this key-chain necklace from out of the gates, you wait as they fully swing open before you.
+	</p>
+	<p>
+		Stepping forwards into the citadel, you find yourself looking out across the inner courtyard, and you see that the material used in the construction of the outer walls and gateway has been obtained by mining out a large portion of the far wall. Carved into this recess, there's a huge stone archway, which houses a pair of massive, iron-reinforced wooden doors. Off to your left, you see a well in one corner of the courtyard, and beside that, there sits a squat, stone tower. On the opposite side of the courtyard to this tower, the cave's wall curves inwards, and into this, a small doorway has been carved.
+	</p>
+	<p>
+		The most alarming thing about the scene before you is that there are at least twenty imps and alpha-imps scattered around the courtyard. A few of them are simply loitering about, but most are engaged in simple tasks such as cleaning and mending clothes, sparring with one another, or preparing and eating food. You also notice that there are a few who are openly having sex over in one corner.
+	</p>
+	<p>
+		None of these imps seem bothered about your sudden arrival, and you assume that it's because only expected guests would be in possession of the three keys required to gain entry. As you move forwards into the courtyard, the nearest of the imp guards calls out, [genericMale.speech(The siren's in 'er throne room, if yer were lookin' fer 'er!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_KEY_ENTRY_REPEAT"><![CDATA[
+	<p>
+		Once again, you find yourself wanting to enter the dark siren's citadel. Unlike the first time, when you insert each of the three keys into their respective holes, they produce a glowing pentagram around their locks without first disappearing.
+	</p>
+	<p>
+		As the third key is inserted, a vertical purple line splits the stone gates down the very middle, and, with a loud grinding noise, they slowly start to swing open before you. Grabbing your key-chain necklace from out of the gates, you wait as they fully swing open before you.
+	</p>
+	<p>
+		Stepping forwards into the citadel, you find yourself looking out across the inner courtyard, and you see that the material used in the construction of the outer walls and gateway has been obtained by mining out a large portion of the far wall. Carved into this recess, there's a huge stone archway, which houses a pair of massive, iron-reinforced wooden doors. Off to your left, you see a well in one corner of the courtyard, and beside that, there sits a squat, stone tower. On the opposite side of the courtyard to this tower, the cave's wall curves inwards, and into this, a small doorway has been carved.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_KEY_ENTRY_REPEAT_IMPS"><![CDATA[
+	<p>
+		Just as before, there are at least twenty imps and alpha-imps scattered around the courtyard. A few of them are simply loitering about, but most are engaged in simple tasks such as cleaning and mending clothes, sparring with one another, or preparing and eating food. You also notice that there are a few who are openly having sex over in one corner.
+	</p>
+	<p>
+		None of these imps seem bothered about your sudden arrival, and you assume that it's because only expected guests would be in possession of the three keys required to gain entry. As you move forwards into the courtyard, the nearest of the imp guards calls out, [genericMale.speech(The siren's in 'er throne room, if yer were lookin' fer 'er!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_KEY_ENTRY_REPEAT_NO_IMPS"><![CDATA[
+	<p>
+		You're surprised to see that none of the imps have returned, and that the courtyard before you is completely deserted. Although there's no sign of anyone being inside the laboratory tower or cell block, you can see slivers of light shining out from the cracks around the keep's huge wooden doors, letting you know that the siren is still at home...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_RUINS_ENTRY"><![CDATA[
+	<p>
+		Although the dark siren's citadel now lies in ruin, you find yourself wanting to head back inside and explore. You don't need to use your key-chain necklace to gain entry, as the stone gates have been permanently jammed open. Taking care as you step around the piles of smashed rock piled up against the gates, you walk forwards through the entranceway.
+	</p>
+	<p>
+		Looking over the cracked, rubble-strewn courtyard, you find yourself gazing at the huge, ruined archway of the main keep. One of the huge wooden doors has completely splintered into pieces, while the other looks to be straining under the weight of the crumbling masonry above. Off to your left, the citadel's well looks to have been completely crushed beneath the collapsed left-side wall of the laboratory tower. On the opposite side of the courtyard, you see rubble and smashed rock blocking the small doorway of the cell block.
+	</p>
+	<p>
+		All in all, the citadel looks to be in a dangerously unstable condition, which would explain why there's absolutely no sign of life anywhere before you. Exploring these ruins will be slow going, as you need to carefully navigate around gaping fissures and piles of precariously stacked rocks.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
 </dialogue>

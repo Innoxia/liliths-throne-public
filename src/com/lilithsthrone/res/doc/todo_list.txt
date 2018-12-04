@@ -114,107 +114,91 @@
 	Patch notes:
 	
 	Gameplay:
-		Added the majority of the framework for the citadel, which can be entered and tested. <b>Warning:</b> I'd advise saving your game before going through it, so you can reload and do the content once it's fully finished in 0.2.12.6.
-		Added a map of the museum in the prologue.
-	
-	Contributors:
-		Simplified getting data from XML. Refactored clothing mod loading from file. Fixed mod loading issue, so that when XML file is found invalid, the loading of it is halted, error logged and program continues trying loading other mods. (#657 by BlazingMagpie)
-		Tidied up pregnancy calculation code. (#736 by Pimgd)
-		Added sexual orientation preferences. (#766 by GalacticOtter)
-		Added condom durability code. (#903 by picobyte)
-		Fixed bug where occupants who have moved out get duplicated descriptions on Harpy Nest tiles. (#934 by KittenBarrage)
-		Improved mod error descriptions, and fixed support for core attributes. (#969 by Pimgd, #945 by CognitiveMist)
-		Corrected misspelled instances of 'coreAtributes' in clothing xml files. (#967 by Pimgd)
-		Deduplicated code in the Pregnancy Stats screen, and added a percentage of offspring encountered readout at the top. (#917 by uglybeard)
-		Added font support for non-windows systems. (#919 by DJ4ddi)
-		Typo fixes in weapon files. (#965 by Pimgd)
-		Made improvements to NPC loading method, so games now load faster. (#949 by AlacoGit)
-		Made considerable optimizations to all svg images, which should speed up the game wherever lots of icons are rendered. (#940 by DJ4ddi)
+		Added all dialogue for solo and companion scenes in the imp citadel.
+		Added post-defeat sex scene for losing Siren combat. (There was a more involved sequence of events planned for this, but I didn't have time to add it - it will be added at some point in the future.)
 	
 	Other:
-		For clothing: Added a 'midnight' colour variation for purple, blue, and red. Also added 'deep pink', 'hot pink' and 'mustard yellow'.
-		Made 'leather belt' unisex.
-		NPC affection displays in the character sheet screen now only shows affection towards their relations, unique NPCs, your slaves, and friendly occupants.
-		In the 'Characters present' box in the top-right, added an indication of background NPCs present in each tile.
-		The eggplant can now be enchanted.
-	
+		Switched primary and secondary colours for tagged choker, and changed the icon's scribble to read 'Bound Bitch'.
+		Female horses and reindeer now have a base ass size of 'large', and female cows have 'huge'. (This is randomised when NPCs are generated, so some will still have larger or smaller asses.)
+		Increased base size of all race's female nipples, and additionally increased base size of female cow areolae.
+		Improved race menu in encyclopedia, so that subspecies of a race are displayed in a sub-menu.
+		Consolidated all elemental races into one 'elemental' race (keeping the elemental types as subspecies), and converted individual elemental damage/resistance to a universal 'elemental' one.
+		Moved witch set out into res folder, added tertiary colour to witch hat, and added 'wide-brimmed' hat variation.
+		
 	Bugs:
-		Fixed parsing error in Hyorlyss's fortress.
-		Fixed issue with button tooltips when managing NPCs clothing in the inventory screen.
-		Fixed issue where if you had the sadist fetish, dealing damage would softlock combat.
-		Fixed issue with 'kneeling oral' position having incorrect description at start of sex.
-		Fixed background errors when saving a game after removing modding clothing/weapons from your mod folders.
-		Fixed reindeer overseers' interaction menu being available on their 'home' tile, but not the tile they're actually in. (Fixed by moving their home tile to always be the tile they're in.)
-		Fixed katherine and Kelly getting stuck on the stairs in Zaranix's home. (They move around the area after you're cleared that part of the main quest.)
-		Fixed some minor inconsistent descriptions, typos, and parsing errors.
-		Fixed issue where spectators would join the sex scene when switching to the doggy style position.
-		Fixed issue where combat in the imp fortresses would never end if you were playing on higher difficulties. Also fixed bug where post-combat sex could sometimes result in a never-ending masturbation scene.
-		Fixed fluids not being described correctly when you gained an addiction for them.
-		Fixed incorrect equip/unequip descriptions for all of the Siren's clothing, distressed jeans, hakama, gothic boots, and striped gloves.
-		Added correct association with oral fetishes to the 'Thrust into mouth' and 'Take into mouth' actions during paizuri.
-		Fixed incorrect title for the stop paizuri action.
-		Fixed issue with oral actions not being available in face sitting position is the one doing the sitting was interacting with their partner's groin in any way.
-		Fixed arcane elemental being described as being bound to air.
-		Fixed 'initial penetration' text when starting a footjob not taking into account any shoes/socks being worn.
-		Fixed parser error in the prologue's sex scene.
-		You can no longer modify unique and non-slave NPCs' fetishes, just like you can't TF them. The hypno watch is considered a fetish-altering item for this.
+		Fixed BDSM clothing set icon to be black instead of white.
+		You can no longer escape from the boss fights in imp fortresses, nor the imp 'challenge' fight in the citadel.
+		Fixed cause of tattoo tooltips being cut off at the bottom. (The tooltip formatting system is still a little buggy - I'll remake it at some point.)
+		Fixed breast size in subspecies encyclopedia using the enum name for the description.
+		Added some error handling for if clothing throws errors related to patterns not being present.
+		Fixed issue with youko icons not having a background circle.
+		Fixed imp damage/resistance attributes not working.
+		Fixed imps sometimes giving birth to non-imps.
+		Your companion now gets the same attribute boost as you do after winning the imp fight when using 'challenge' in the citadel.
+		Fixed being able to start the imp challenge even after the siren had been defeated.
+		Fixed issue with the citadel's imp challenge freezing at the end of combat.
+		Your status panel is no longer minimised when acting as a spectator.
+		Fixed issues with some unique NPCs not putting their clothing back on correctly after sex.
+		Takahashi will now correctly deny orgasms during her oral scene.
+		Fixed issue where dropping equipped clothing during sex wouldn't work on the first button press.
+		The demon leaders should now correctly be in the siren's throne room when you get there.
 	
 	
 	
 	
 	
 	
-	youko map background icon
-	
-	Youko to use surname unless full name known
-	
-	Add arcane cost to tooltip
-	
-	Make sure arcanist ends sex once satisfied
-	
-	Make sure arcanist denies player
-	
-	Siren victory needs to reset imps & arcanist.
 	
 	Do quest checks
 		Make sure you have the already-completed citadel quest done properly when approaching Lyssieth palace
-	
-	Make sure siren doesn't use siren's call in combat
-	
-	For now, make defeat result in sex with chosen demon, then thrown out?
-	
-	Get all flags set correctly
-		Reset imps defeated upon loss to Siren (keep defeated flag though)
-	
-	Add repeat dialogue variations
-	
-	Combat should only show health/mana bars and status effects
-	
-	Change all "The Dark Siren"... And make it non-capitalised
-	
-	Make chuuni have heterochromatic eyes, with glow
-		Stage 2 of combat is she reveals it and uses telekenesis to grab her scythe - she twirls it around and slams it into the floor, applies ground shake
+		Also the uniform dialogue, and adding Elizabeth as an NPC, and to add proper detection for knowing her in the post-collapse scenes
+		
 		
 	
+	Remove ring
+	Add ring to siren if tricked
 	
+	imps on exit?
 	
+	Need shrouded identity for the 4 of them
 	
+	Stop allies recovering full HP after combat
 	
-	Credits
+	when equipping items to your elemental is it suppsed to always use the rough description text
+		the NPC replace and displacement text for the new method seems to always default to the rough option
+	
 	
 	In game\dialogue\npcDialogue\submission\TunnelImpsDialogue.java, there's a function called IMP_ENSLAVEMENT_DIALOGUE which has a response that allows you to enslave multiple Imps without having to fight all of them more than once.
 	 There's a line, at 1454, which is the if statement meant to keep the player from getting stuck, which displays the option to keep enslaving if there's still imps left, and then kicks you out to the main game if there isn't.
 	  Problem is, the original if statement's parameter is getImpGroup().size()>1, and therefore it doesn't work on, say, the imps in fortresses, creating an inconvenient and ugly mess with visible parser errors and at least one infinite loop.
 	
+	
+	Youko to use surname unless full name known
+		Needs better handling
+	
+	Make names in speech use petNames
+	
+	Make it so if lose combat, stolen items are returned
+	
+	Add arcane cost of weapons to tooltip
+	
+	Anyway when is the potion discount going to be moved over to a perk
+		Make TF fetish remove corruption gains?
+	
+	Make sure siren doesn't use siren's call in combat
+	
+	Combat should only show health/mana bars and status effects
+	
+	Change all "The Dark Siren"... And make it non-capitalised
+	
 	make it so only normal nipples have any breast-feeding references
 		Also breast-feeding reference is onw hen lactation turned off
 		
-	Check BDSM set icon
-	
-	
 	
 	----------
 	use picobyte's condom code and run through all condom todos:
+	
+	Need mineral oil TF effect
 	
 	track cum
 	inseminate action
@@ -244,6 +228,8 @@
 	NPCs to use condoms
 	Need to refuse condoms if impregnation/pregnancy fetishes
 	Broken condom
+	
+	when using one with Lilaya and it breaks and theres a risk of pregnancy she doesnt get mad at you. She just hopes she doesnt get pregnant and she says something like. "Its not your fault at least you wore a condom. Too bad it broke".
 	----------
 	
 	Essence extractor milking room upgrades - extremely expensive.
@@ -254,6 +240,8 @@
 	>After getting raped
 	>Make potion to remove the othe one's effects
 	>"Heh, nice try, but do you really expect me to drink a random potion?"
+	
+	Need to be able to appendage interact with kneeling oral beside you
 	
 	Make it so completing a sex scene without virginity levels fetish up
 	

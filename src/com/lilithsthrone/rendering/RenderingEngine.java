@@ -2131,7 +2131,9 @@ public enum RenderingEngine {
 	}
 	
 	
-	
+	private static boolean isLimitedSpectatorPanel(GameCharacter character) {
+		return Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING && !character.isPlayer();
+	}
 	
 	private static String getCharacterPanelSexDiv(boolean compact, String idPrefix, GameCharacter character) {
 		StringBuilder panelSB = new StringBuilder();
@@ -2156,7 +2158,7 @@ public enum RenderingEngine {
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
 											: Util.capitaliseSentence(character.getName()))
 								+"</b>"
-									+ (Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING
+									+ (isLimitedSpectatorPanel(character)
 										?""
 										:" - <span style='color:"+Sex.getSexPace(character).getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(Sex.getSexPace(character).getName())+"</span>")
 							+"</div>"
@@ -2168,14 +2170,14 @@ public enum RenderingEngine {
 							+"</div>"
 							+"<div class='overlay' id='"+idPrefix+"ATTRIBUTES' style='cursor:pointer;'></div>"
 						+"</div>"
-						+(Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING
+						+(isLimitedSpectatorPanel(character)
 							?""
 							:"<div class='full-width-container' style='text-align:center;'>"
 								+ Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName(character))
 							+ "</div>")
 					+"</div>");
 		
-		if(Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING) {
+		if(isLimitedSpectatorPanel(character)) {
 			panelSB.append("<p style='padding:0;margin:auto 0;text-align:center;color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName(character))+"</p>");
 			panelSB.append("</div>");
 			

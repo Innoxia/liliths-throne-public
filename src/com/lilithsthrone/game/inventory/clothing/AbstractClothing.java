@@ -11,6 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -246,11 +247,16 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		
 		// Try to load colour:
 		try {
-			clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
-			if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
-				Colour secColour = Colour.valueOf(parentElement.getAttribute("colourSecondary"));
-				if(clothing.clothingType.getAllAvailableSecondaryColours().contains(secColour)) {
-					clothing.setSecondaryColour(secColour);
+			if(clothing.getClothingType().getId()=="BDSM_CHOKER" && Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6")) {
+				clothing.setColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+				clothing.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colour")));
+			} else {
+				clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
+				if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
+					Colour secColour = Colour.valueOf(parentElement.getAttribute("colourSecondary"));
+					if(clothing.clothingType.getAllAvailableSecondaryColours().contains(secColour)) {
+						clothing.setSecondaryColour(secColour);
+					}
 				}
 			}
 			if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
@@ -301,7 +307,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				for(int i = 0; i < modifierElements.getLength(); i++){
 					Element e = ((Element)modifierElements.item(i));
 					try {
-						Attribute att = Attribute.valueOf(e.getAttribute("attribute"));
+						Attribute att = Attribute.getAttributeFromId(e.getAttribute("attribute"));
 						int value = Integer.valueOf(e.getAttribute("value"));
 						
 						TFPotency pot = TFPotency.BOOST;

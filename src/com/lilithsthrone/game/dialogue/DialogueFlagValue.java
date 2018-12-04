@@ -161,6 +161,7 @@ public enum DialogueFlagValue {
 	impCitadelArcanistEncountered,
 	impCitadelArcanistAcceptedTF,
 	impCitadelTreasurySearched,
+	impCitadelLaboratorySearched,
 
 	impCitadelPrisonerMale,
 	impCitadelPrisonerFemale,

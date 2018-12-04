@@ -53,12 +53,18 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.12
  * @author Innoxia
  */
 public class TooltipInformationEventListener implements EventListener {
-	private String title, description;
-	private boolean extraAttributes = false, weather = false, protection = false, tattoo = false, copyInformation=false;
+	private String title;
+	private String description;
+	
+	private boolean extraAttributes = false;
+	private boolean weather = false;
+	private boolean protection = false;
+	private boolean copyInformation = false;
+	
 	private GameCharacter owner;
 	private StatusEffect statusEffect;
 	private Perk perk, levelUpPerk;
@@ -847,18 +853,6 @@ public class TooltipInformationEventListener implements EventListener {
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
-		} else if (tattoo) {
-
-			Main.mainController.setTooltipSize(360, 100);
-
-			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title'>Tattoos</div>"
-					+ "<div class='subTitle'>"
-					+ "TODO"
-					+"</div>");
-
-			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
-
 		} else if (copyInformation) {
 
 			Main.mainController.setTooltipSize(360, 170);
@@ -1121,14 +1115,6 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 	
-	public TooltipInformationEventListener setTattoo(GameCharacter owner) {
-		resetFields();
-		this.owner = owner;
-		tattoo=true;
-
-		return this;
-	}
-	
 	public TooltipInformationEventListener setCopyInformation() {
 		resetFields();
 		copyInformation = true;
@@ -1166,7 +1152,6 @@ public class TooltipInformationEventListener implements EventListener {
 		spellUpgrade = null;
 		attribute = null;
 		protection=false;
-		tattoo=false;
 		copyInformation=false;
 		concealedSlot=null;
 		loadedEnchantment=null;

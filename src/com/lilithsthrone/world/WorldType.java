@@ -406,7 +406,12 @@ public enum WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_ALPHA_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_ALPHA_ENTRANCE),
-					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_ALPHA_KEEP))),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_ALPHA_KEEP))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 
 	IMP_FORTRESS_DEMON("Imp Citadel",
 			Colour.BASE_PURPLE_DARK,
@@ -422,7 +427,12 @@ public enum WorldType {
 					
 					new Value<>(new Color(0x80ff00), PlaceType.FORTRESS_LAB),
 					
-					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_TREASURY))),
+					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_TREASURY))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 
 	IMP_FORTRESS_FEMALES("Imp Fortress",
 			Colour.BASE_PINK,
@@ -432,7 +442,12 @@ public enum WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_FEMALES_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_FEMALES_ENTRANCE),
-					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_FEMALES_KEEP))),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_FEMALES_KEEP))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 
 	IMP_FORTRESS_MALES("Imp Fortress",
 			Colour.BASE_BLUE,
@@ -442,7 +457,12 @@ public enum WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_MALES_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_MALES_ENTRANCE),
-					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_MALES_KEEP))),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_MALES_KEEP))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 
 	BAT_CAVERNS("Bat Caverns",
 			Colour.BASE_BLACK,

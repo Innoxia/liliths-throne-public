@@ -254,10 +254,6 @@ public class Lumi extends NPC {
 	}
 	
 	@Override
-	public void endSex() {
-	}
-	
-	@Override
 	public SexPace getSexPaceSubPreference(GameCharacter character){
 		return SexPace.SUB_RESISTING;
 	}

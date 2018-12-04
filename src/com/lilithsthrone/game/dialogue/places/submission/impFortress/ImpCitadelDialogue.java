@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.submission.impFortress;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,11 +9,13 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -30,6 +33,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -40,6 +44,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
+import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -67,6 +72,32 @@ public class ImpCitadelDialogue {
 	private static boolean isBossEncountered() {
 		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonBossEncountered);
 	}
+
+	/**
+	 * The demon leaders are placed in the siren's throne room.
+	 */
+	public static void applyEntry() {
+		Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+		Main.game.getFortressMalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+		Main.game.getFortressFemalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+	}
+	
+	/**
+	 * If the demon leaders haven't been defeated, they return to their keeps.
+	 */
+	public static void applyExit() {
+		Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
+		
+		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated) && !isDefeated()) {
+			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
+		}
+		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated) && !isDefeated()) {
+			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
+		}
+		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated) && !isDefeated()) {
+			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
+		}
+	}
 	
 	public static void clearFortress() {
 		
@@ -77,6 +108,7 @@ public class ImpCitadelDialogue {
 		// Sort out boss:
 		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_THRONE_ROOM);
 		Main.game.getLyssieth().addSlave((NPC) getBoss());
+		((NPC) getBoss()).equipClothing(true, true, true, true); // In case the player used steal on her.
 		
 		// Increment quest:
 		if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_2_B_SIRENS_CALL) {
@@ -120,7 +152,12 @@ public class ImpCitadelDialogue {
 			impGroup = new ArrayList<>();
 			List<String> impAdjectives = new ArrayList<>();
 			
-			for(int i=0; i<6; i++) {
+			int impCount = 6;
+			if(Main.game.getDialogueFlags().impCitadelImpWave==5) {
+				impCount = 4;
+			}
+			
+			for(int i=0; i<impCount; i++) {
 				Subspecies subspecies = i<3?Subspecies.IMP_ALPHA:Subspecies.IMP;
 				
 				ImpAttacker imp = new ImpAttacker(subspecies, Gender.getGenderFromUserPreferences(false, false), false);
@@ -242,11 +279,11 @@ public class ImpCitadelDialogue {
 		return Main.game.getSubmissionCitadelArcanist();
 	}
 
-	private static GameCharacter getMainCompanion() {
+	public static GameCharacter getMainCompanion() {
 		return Main.game.getPlayer().getMainCompanion();
 	}
 	
-	private static boolean isCompanionDialogue() {
+	public static boolean isCompanionDialogue() {
 		return !Main.game.getPlayer().getCompanions().isEmpty();
 	}
 	
@@ -334,18 +371,36 @@ public class ImpCitadelDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Head back out into the tunnels.", PlaceType.SUBMISSION_IMP_FORTRESS_DEMON.getDialogue(false)) {
+				return new Response("Leave", "Head back out into the tunnels.", LEAVE_FORTRESS) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LEAVE_FORTRESS", getAllCharacters()));
+						applyExit();
 					}
 				};
 
-			} else if(index==5 && !isImpsDefeated()) {
+			} else if(index==5 && !isImpsDefeated() && !isDefeated()) {
 				return getImpChallengeResponse();
 			}
 			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld LEAVE_FORTRESS = new DialogueNodeOld("", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LEAVE_FORTRESS", getAllCharacters());
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return PlaceType.SUBMISSION_IMP_FORTRESS_DEMON.getDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	
@@ -420,7 +475,6 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	//TODO Don't forget IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST
 	public static final DialogueNodeOld IMP_FIGHT_AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", ".", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -432,6 +486,7 @@ public class ImpCitadelDialogue {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY", getAllCharacters());
+			// IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST is appended to this (in ImpAttacker class's endCOmbat() method)
 		}
 
 		@Override
@@ -549,7 +604,7 @@ public class ImpCitadelDialogue {
 				return null;
 			
 			} else {
-				if(responseTab == 0) { //TODO Companion variations
+				if(responseTab == 0) {
 					if (index == 1) {
 						return new Response("Scare off", "Tell the imps to get out of here while they still can...", Main.game.getDefaultDialogueNoEncounter()) {
 							@Override
@@ -568,7 +623,7 @@ public class ImpCitadelDialogue {
 								getImpGroup(),
 								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadelDemonCompanions", "IMP_COMBAT_VICTORY_SEX", getAllCharacters()));
+								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Solo sex (Gentle)",
@@ -580,7 +635,7 @@ public class ImpCitadelDialogue {
 								null,
 								Util.newArrayListOfValues(getMainCompanion()),
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadelDemonCompanions", "IMP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Solo sex (Rough)",
@@ -592,7 +647,7 @@ public class ImpCitadelDialogue {
 								null,
 								Util.newArrayListOfValues(getMainCompanion()),
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadelDemonCompanions", "IMP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Solo submission",
@@ -609,7 +664,7 @@ public class ImpCitadelDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								IMP_AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("places/submission/impCitadelDemonCompanions", "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								IMP_AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 						
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
@@ -627,7 +682,7 @@ public class ImpCitadelDialogue {
 									getImpGroup(),
 									null,
 									null,
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadelDemonCompanions", "IMP_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
 						}
 						
 					} else if (index == 7) {
@@ -646,7 +701,7 @@ public class ImpCitadelDialogue {
 									Main.game.getPlayer().getParty(),
 									null,
 									null,
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadelDemonCompanions", "IMP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
 						}
 						
 					} else if (index == 8) {
@@ -665,7 +720,7 @@ public class ImpCitadelDialogue {
 									getImpGroup(),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadelDemonCompanions", "IMP_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
 						}
 						
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -685,7 +740,7 @@ public class ImpCitadelDialogue {
 									Util.newArrayListOfValues(getMainCompanion()),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadelDemonCompanions", "IMP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
 								@Override
 								public void effects() {
 									if(!companion.isAttractedTo(getImpGroupLeader()) && Main.game.isNonConEnabled()) {
@@ -746,7 +801,7 @@ public class ImpCitadelDialogue {
 		@Override
 		public String getContent() {
 			if(Main.game.isNonConEnabled()) {
-				if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.FORTRESS_LAB) { //TODO remember Need variations for companion and player feminine
+				if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.FORTRESS_LAB) {
 					return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_DEFEAT_IN_LAB", getAllCharacters());
 				}
 				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_DEFEAT", getAllCharacters());
@@ -818,46 +873,64 @@ public class ImpCitadelDialogue {
 					}
 				};
 				
-				if(index==1) {
-					return new ResponseSex(
-							"Sex",
-							isCompanionDialogue()
-								?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to perform oral on [npc.name].")
-								:UtilText.parse(getArcanist(), "Accept the price of your defeat, and prepare to perform oral on [npc.name]."),
-							false,
-							false,
-							manager,
-							null,
-							null,
-							IMP_AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST", getAllCharacters()));
+				//If the arcanist is just using the player's companion, then just "watch":
+				if(spectators.contains(Main.game.getPlayer())) {
+					if(index==1) {
+						return new ResponseSex(
+								"Watch",
+								UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and watch as [npc2.name] is forced to perform oral on [npc.name]."),
+								false,
+								false,
+								manager,
+								null,
+								null,
+								IMP_AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST_WATCH", getAllCharacters()));
+					} 
 					
-				} else if(index==2) {
-					return new ResponseSex(
-							"Eager sex",
-							isCompanionDialogue()
-								?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's being demanded of you, and, alongside [pc2.name], eagerly prepare to perform oral on [npc.name].")
-								:UtilText.parse(getArcanist(), "Happily accept what's being demanded of you, and eagerly prepare to perform oral on [npc.name]."),
-							false,
-							false,
-							manager,
-							null,
-							null,
-							IMP_AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST_EAGER", getAllCharacters()));
+				} else {
+					if(index==1) {
+						return new ResponseSex(
+								"Sex",
+								isCompanionDialogue() && !spectators.contains(getMainCompanion())
+									?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to perform oral on [npc.name].")
+									:UtilText.parse(getArcanist(), "Accept the price of your defeat, and prepare to perform oral on [npc.name]."),
+								false,
+								false,
+								manager,
+								null,
+								null,
+								IMP_AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST", getAllCharacters()));
+						
+					} else if(index==2) {
+						return new ResponseSex(
+								"Eager sex",
+								isCompanionDialogue() && !spectators.contains(getMainCompanion())
+									?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's being demanded of you, and, alongside [pc2.name], eagerly prepare to perform oral on [npc.name].")
+									:UtilText.parse(getArcanist(), "Happily accept what's being demanded of you, and eagerly prepare to perform oral on [npc.name]."),
+								false,
+								false,
+								manager,
+								null,
+								null,
+								IMP_AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST_EAGER", getAllCharacters()));
 
-				} else if (index == 3 && Main.game.isNonConEnabled()) {
-					return new ResponseSex(
-							"Resist sex",
-							UtilText.parse(getArcanist(), "Struggle against [npc.name] and try to push [npc.herHim] away from you."),
-							false,
-							false,
-							manager,
-							null,
-							null,
-							IMP_AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST_RESIST", getAllCharacters()));
+					} else if (index == 3 && Main.game.isNonConEnabled()) {
+						return new ResponseSex(
+								"Resist sex",
+								UtilText.parse(getArcanist(), "Struggle against [npc.name] and try to push [npc.herHim] away from you."),
+								false,
+								false,
+								manager,
+								null,
+								null,
+								IMP_AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST_RESIST", getAllCharacters()));
+					}
 				}
+				
 				
 			} else {
 				if (index == 1) {
@@ -954,14 +1027,18 @@ public class ImpCitadelDialogue {
 		
 		@Override
 		public String getDescription(){
-			return "You're completely worn out from [npc.namePos] dominant treatment, and need a while to recover.";
+			return "You're completely worn out from sex with these imps...";
 		}
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().contains(getArcanist())) { //TODO from here
-				if(Sex.getAllParticipants().contains(getMainCompanion())) {
-					return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "AFTER_IMP_DEFEAT_ARCANIST_SEX_WITH_COMPANION", getAllCharacters());
+			if(Sex.getAllParticipants().contains(getArcanist())) {
+				if(isCompanionDialogue() && Sex.getAllParticipants().contains(getMainCompanion())) {
+					if(Sex.getAllParticipants().contains(Main.game.getPlayer())) {
+						return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "AFTER_IMP_DEFEAT_ARCANIST_SEX_BOTH", getAllCharacters());
+					} else {
+						return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "AFTER_IMP_DEFEAT_ARCANIST_SEX_COMPANION", getAllCharacters());
+					}
 				} else {
 					return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "AFTER_IMP_DEFEAT_ARCANIST_SEX", getAllCharacters());
 				}
@@ -976,7 +1053,16 @@ public class ImpCitadelDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				if(index==1) {
+					return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogue()) {
+						@Override
+						public void effects() {
+							banishImps();
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_SEX_DEFEAT_RECOVER", getAllCharacters()));
+						}
+					};
+				}
+				return null;
 				
 			} else {
 				return null;
@@ -1014,7 +1100,7 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==5 && !isImpsDefeated()) {
+			if(index==5 && !isImpsDefeated() && !isDefeated()) {
 				return getImpChallengeResponse();
 			}
 			return null;
@@ -1051,11 +1137,10 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==5 && !isImpsDefeated()) {
+			if(index==5 && !isImpsDefeated() && !isDefeated()) {
 				return getImpChallengeResponse();
 			}
 			
-			//TODO escape method
 			return null;
 		}
 	};
@@ -1096,15 +1181,60 @@ public class ImpCitadelDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!isDefeated() && !isImpsDefeated()) {
 				if(index==1) {
-					return new Response("Arcanist", "Approach the imp arcanist who's overseeing the production of transformation potions.", LABORATORY_ARCANIST) {
+					return new Response("Overseer",
+							getArcanist().isPlayerKnowsName()
+								?"Approach the youko overseer."
+								:"Approach the fox-girl overseer.",
+							LABORATORY_ARCANIST) {
 						@Override
 						public void effects() {
 							getArcanist().setPlayerKnowsName(true);
 						}
 					};
 				}
+			} else if(isDefeated()) {
+				if(index==1) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelLaboratorySearched)) {
+						return new Response("Search", "You've already searched the laboratory. There's nothing left to find!", null);
+					}
+					return new Response("Search", "Search through the rubble to see if you can find anything of value.", LABORATORY_SEARCH) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelLaboratorySearched, true);
+
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(1000));
+
+							Value<String, AbstractItem> potion = ((NPC)getArcanist()).getTransformativePotion(Main.game.getPlayer(), true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion.getValue(), false));
+
+							if(isCompanionDialogue()) {
+								potion = ((NPC)getArcanist()).getTransformativePotion(getMainCompanion(), true);
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion.getValue(), false));
+							}
+						}
+					};
+				}
 			}
 			return null;
+		}
+	};
+
+	public static final DialogueNodeOld LABORATORY_SEARCH = new DialogueNodeOld("", "", false, true) {
+		private static final long serialVersionUID = 1L;
+	
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+	
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_SEARCH", getAllCharacters());
+		}
+	
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LABORATORY.getResponse(responseTab, index);
 		}
 	};
 
@@ -1118,9 +1248,9 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public String getContent() {
+			//TODO check for mouth blocked
+			//TODO add conversation action?
 			// TODO Go over all of this and check for companion variations
-				// She offers to eat you out if she can use TF potion on you (doesn't mention denying you)
-				// If imps defeated, change option into 'loot' - gain two fox-girl potions
 			UtilText.nodeContentSB.setLength(0);
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelArcanistEncountered)) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF)) {
@@ -1184,6 +1314,10 @@ public class ImpCitadelDialogue {
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_SOLO_TF_OFFER_SEX", getAllCharacters()));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF, true);
 					}
+					@Override
+					public Colour getHighlightColour() {
+						return Colour.TRANSFORMATION_GENERIC;
+					}
 				};
 
 			// Action 3: Companion accepts TF potion.
@@ -1243,6 +1377,10 @@ public class ImpCitadelDialogue {
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion.getValue(), getMainCompanion(), false));
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_COMPANION_TF_OFFER_SEX", getAllCharacters()));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF, true);
+					}
+					@Override
+					public Colour getHighlightColour() {
+						return Colour.TRANSFORMATION_GENERIC;
 					}
 				};
 
@@ -1322,11 +1460,15 @@ public class ImpCitadelDialogue {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 						Value<String, AbstractItem> potion = ((NPC)getArcanist()).getTransformativePotion(Main.game.getPlayer(), true);
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion.getValue(), Main.game.getPlayer(), false));
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF_COMPANION_TF", getAllCharacters()));
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF", getAllCharacters()));
 						potion = ((NPC)getArcanist()).getTransformativePotion(getMainCompanion(), true);
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion.getValue(), getMainCompanion(), false));
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF_COMPANION_TF_OFFER_SEX", getAllCharacters()));
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF_OFFER_SEX", getAllCharacters()));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF, true);
+					}
+					@Override
+					public Colour getHighlightColour() {
+						return Colour.TRANSFORMATION_GENERIC;
 					}
 				};
 				
@@ -1516,8 +1658,13 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_POST_SEX = new DialogueNodeOld("Finished", ".", true) {
+	public static final DialogueNodeOld LABORATORY_ARCANIST_POST_SEX = new DialogueNodeOld("Finished", "", true) {
 		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getDescription(){
+			return "[citadelArcanist.Name] has finished with you, and pushes you away as she steps back.";
+		}
 
 		@Override
 		public String getContent() {
@@ -1551,11 +1698,15 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelTreasurySearched)) {
-				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "TREASURY_SEARCHED", getAllCharacters());
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "TREASURY_SEARCHED", getAllCharacters()));
 			} else {
-				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "TREASURY", getAllCharacters());
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "TREASURY_NOT_SEARCHED", getAllCharacters()));
 			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -1564,11 +1715,13 @@ public class ImpCitadelDialogue {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelTreasurySearched)) {
 					return new Response("Search", "You've already searched the treasury. There's nothing left to find!", null);
 				}
-				return new Response("Search", "Search through the rubble to see if you can find anything of value.", TREASURY) {
+				return new Response("Search", "Search through the rubble to see if you can find anything of value.", TREASURY_SEARCH) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelTreasurySearched, true);
-
+						
+						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+						
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(15000));
 						
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(
@@ -1591,12 +1744,12 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld TREASURY_SEARCH = new DialogueNodeOld("Treasury", ".", false) {
+	public static final DialogueNodeOld TREASURY_SEARCH = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public int getMinutesPassed() {
-			return 5;
+			return 15;
 		}
 
 		@Override
@@ -1690,12 +1843,7 @@ public class ImpCitadelDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().hasTraitActivated(Perk.CHUUNI)) {
-					return new Response("Challenge", UtilText.parse(getBoss(), "Challenge [npc.name] to a duel between the two greatest arcane-users in the world!"), KEEP_CHALLENGE) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE", getAllCharacters()));
-						}
-					};
+					return new Response("Challenge", UtilText.parse(getBoss(), "Challenge [npc.name] to a duel between the two greatest arcane-users in the world!"), KEEP_CHALLENGE);
 					
 				} else {
 					return new Response("Challenge", "You can't bring yourself to engage in the same level of dialogue as this embarrassing succubus. Perhaps if you were a chuuni as well, things would be different...", null);
@@ -1704,50 +1852,65 @@ public class ImpCitadelDialogue {
 			} else if(index==2) {
 				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Defend yourself against the three demons!"), getDemonLeader(), getBossGroup(false), null);
 				
-			} else {
-				return null;
 			}
+				
+			return null;
 		}
 	};
-
-	// Used for post-demon player victory as well:
-	public static final DialogueNodeOld KEEP_CHALLENGE = new DialogueNodeOld("Keep", ".", true) { // TODO make dialogue continue for non-post-combat scene
+	
+	public static final DialogueNodeOld KEEP_DEMONS_DEFEATED = new DialogueNodeOld("Victory", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public String getDescription() {
+			return "You have defeated the demons!";
 		}
-
+		
 		@Override
 		public String getContent() {
-			 // Males demon leader combat defeat appends: KEEP_CHALLENGE_LEADER_VICTORY
-			
-			if(Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
-				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING", getAllCharacters());
-			} else {
-				return "";
-			}
+			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_DEMONS_DEFEATED", getAllCharacters());
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Duel", UtilText.parse(getBoss(), "Accept [npc.namePos] offer, and fight [npc.herHim] one-on-one!"), (NPC) getBoss(), null);
+				return new ResponseCombat("Duel", UtilText.parse(getBoss(), "Accept [npc.namePos] offer, and fight [npc.herHim] one-on-one!"), null, (NPC) getBoss(), Util.newArrayListOfValues(getBoss()), null);
 
 			} else if(index==2 && Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
 				return new Response("Use ring",
 						UtilText.parse(getBoss(), "Show [npc.name] that you have [npc.her] mother's ring, and trick her into taking it from you and putting it on!<br/>"
-								+ "[style.italicsExcellent(You can tell that [npc.sheWill] instantly put it on, thus enslaving [npc.herHim] without having to fight!)]"),
+								+ "[style.italicsExcellent(You can tell that [npc.she] will instantly put it on, thus enslaving [npc.herHim] without having to fight!)]"),
 						KEEP_CHALLENGE_RING_TRICK) {
 					@Override
 					public void effects() {
+						Main.game.getTextEndStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
 						clearFortress();
 					}
 				};
 				
 			}
 			return null;
+		}
+	};
+
+	public static final DialogueNodeOld KEEP_CHALLENGE = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE", getAllCharacters()));
+			if(Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING", getAllCharacters()));
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return KEEP_DEMONS_DEFEATED.getResponse(responseTab, index);
 		}
 	};
 
@@ -1762,9 +1925,7 @@ public class ImpCitadelDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK", getAllCharacters()));
-			
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -1776,9 +1937,12 @@ public class ImpCitadelDialogue {
 						KEEP_COLLAPSE_ESCAPE) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK_ESCAPE", getAllCharacters()));
-						Main.game.getTextStartStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
+						applyExit();
+						if(isImpsDefeated()) {
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK_ESCAPE_NO_IMPS", getAllCharacters()));
+						} else {
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK_ESCAPE", getAllCharacters()));
+						}
 					}
 				};
 
@@ -1803,27 +1967,33 @@ public class ImpCitadelDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getCharactersPresent().contains(getBoss())) {
-					return new Response("Explain",
-							UtilText.parse(getBoss(), "Explain to Lyssieth's guards what happened."),
-							KEEP_COLLAPSE_ESCAPE_END) {
-						@Override
-						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE", getAllCharacters()));
-							clearFortress();
-						}
-					};
-				}
 				return new Response("Explain",
 						UtilText.parse(getBoss(), "Explain to Lyssieth's guards what happened."),
 						KEEP_COLLAPSE_ESCAPE_END) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN", getAllCharacters()));
+						if(Main.game.getCharactersPresent().contains(getBoss())) {
+							if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_2_B_SIRENS_CALL) {
+								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE", getAllCharacters()));
+							} else {
+								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE_PRE_QUEST", getAllCharacters()));
+							}
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN", getAllCharacters()));
+						}
+						
+						if(isImpsDefeated()) {
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_GUARDS_NO_IMPS", getAllCharacters()));
+						} else {
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_GUARDS_IMPS", getAllCharacters()));
+						}
+						
+						clearFortress();
 					}
 				};
-
 			}
+			
 			return null;
 		}
 	};
@@ -1863,30 +2033,36 @@ public class ImpCitadelDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				return new Response(UtilText.parse(getBoss(), "Save her"),
+						UtilText.parse(getBoss(), "The citadel is collapsing! Save [npc.name] by carrying [npc.herHim] out to the safety of Submission before the two of you are crushed!"),
+						KEEP_COLLAPSE_ESCAPE) {
+					@Override
+					public void effects() {
+						applyExit();
+						getBoss().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
+						if(isImpsDefeated()) {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_COMBAT_HERO_NO_IMPS", getAllCharacters()));
+						} else {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_COMBAT_HERO", getAllCharacters()));
+						}
+						Main.game.getTextStartStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), 50));
+
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_COMBAT_HERO_END", getAllCharacters()));
+					}
+				};
+
+			} else if (index == 2) {
 				return new Response("Run",
 						UtilText.parse(getBoss(), "The citadel is collapsing! Abandon [npc.name] and rush out to the safety of Submission before you're crushed!"),
 						KEEP_COLLAPSE_ESCAPE) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementKarma(-25); // Really? You'd just leave her to die? ;_;
-						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
+						applyExit();
 						getBoss().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_COMBAT", getAllCharacters()));
 						Main.game.getTextStartStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -100));
-					}
-				};
-
-			} else if (index == 2) {
-				return new Response(UtilText.parse(getBoss(), "Save [npc.name]"),
-						UtilText.parse(getBoss(), "The citadel is collapsing! Save [npc.name] by carrying [npc.herHim] out to the safety of Submission before the two of you are crushed!"),
-						KEEP_COLLAPSE_ESCAPE) {
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
-						getBoss().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_COMBAT_HERO", getAllCharacters()));
-						Main.game.getTextStartStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), 50));
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_COMBAT_HERO_END", getAllCharacters()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_COMBAT_END", getAllCharacters()));
 					}
 				};
 
@@ -1908,61 +2084,180 @@ public class ImpCitadelDialogue {
 		public String getContent() {
 			// KEEP_CHALLENGE_LEADER_DEFEAT or KEEP_CHALLENGE_BOSS_DEFEAT are appended to the start of this content (from DS's or Male leader's endCombat() methods)
 			
-//			if(Main.game.isNonConEnabled()) { TODO prisoner stuff
+			if(Main.game.isNonConEnabled()) { 
+				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SIREN_VOYEUR", getAllCharacters());
 //				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_CHOICES", getAllCharacters());
-//			} else {
+			} else {
 				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_NO_NON_CON", getAllCharacters());
-//			}
+			}
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-//			if(!Main.game.isNonConEnabled()) {
+			if(!Main.game.isNonConEnabled()) {
 				if(index==1) {
-					return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", THROWN_OUT) {
+					return new Response("Thrown out", "The three demons drag you out of the citadel.", THROWN_OUT) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_NO_NON_CON_THROWN_OUT", getAllCharacters()));
+							applyExit();
 						}
 					};
 				}
-				return null;
-//			}
+				
+			} else {
+				Map<GameCharacter, SexPositionSlot> domSlots = new HashMap<>();
+				
+				if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					domSlots.put(Main.game.getFortressMalesLeader(), SexPositionSlot.DOGGY_BEHIND);
+				} else if(isCompanionDialogue() && getMainCompanion().hasVagina() && getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					domSlots.put(Main.game.getFortressMalesLeader(), SexPositionSlot.DOGGY_BEHIND_SECOND);
+				} else {
+					domSlots.put(Main.game.getFortressMalesLeader(), SexPositionSlot.DOGGY_BEHIND);
+				}
+				if(isCompanionDialogue()) {
+					domSlots.put(Main.game.getFortressAlphaLeader(),
+							domSlots.get(Main.game.getFortressMalesLeader())==SexPositionSlot.DOGGY_BEHIND_SECOND
+								?SexPositionSlot.DOGGY_BEHIND
+								:SexPositionSlot.DOGGY_BEHIND_SECOND);
+					domSlots.put(Main.game.getFortressFemalesLeader(), SexPositionSlot.DOGGY_INFRONT);
+				} else {
+					domSlots.put(Main.game.getFortressAlphaLeader(), SexPositionSlot.DOGGY_INFRONT);
+					domSlots.put(Main.game.getFortressFemalesLeader(), SexPositionSlot.DOGGY_INFRONT_TWO);
+				}
+				
+				Map<GameCharacter, SexPositionSlot> subSlots = new HashMap<>();
+
+				subSlots.put(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS);
+				if(isCompanionDialogue()) {
+					subSlots.put(getMainCompanion(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND);
+				}
+				
+				SexManagerInterface manager = new SMDoggy(
+						domSlots,
+						subSlots) {
+					@Override
+					public boolean isPositionChangingAllowed(GameCharacter character) {
+						return false;
+					}
+					@Override
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							if(index==2) {
+								return SexPace.SUB_EAGER;
+							} else if(index==3) {
+								return SexPace.SUB_RESISTING;
+							}
+						}
+						return null;
+					}
+				};
+				
+				if(index==1) {
+					return new ResponseSex(
+							"Sex",
+							isCompanionDialogue()
+								?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to get fucked by the three demons.")
+								:UtilText.parse(getArcanist(), "Accept the price of your defeat, and prepare to get fucked by the three demons."),
+							false,
+							false,
+							manager,
+							Util.newArrayListOfValues(getBoss()),
+							null,
+							KEEP_AFTER_COMBAT_DEFEAT_POST_SEX,
+							UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
+					
+				} else if(index==2) {
+					return new ResponseSex(
+							"Eager sex",
+							isCompanionDialogue()
+								?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's about to happen, and, alongside [pc2.name], eagerly prepare to get fucked by the three demons.")
+								:UtilText.parse(getArcanist(), "Happily accept the price of your defeat, and eagerly prepare to get fucked by the three demons."),
+							false,
+							false,
+							manager,
+							Util.newArrayListOfValues(getBoss()),
+							null,
+							KEEP_AFTER_COMBAT_DEFEAT_POST_SEX,
+							UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
+					
+				} else if (index == 3 && Main.game.isNonConEnabled()) {
+					return new ResponseSex(
+							"Resist sex",
+							UtilText.parse(getArcanist(), "Struggle against the three demons and try to push them away from you."),
+							false,
+							false,
+							manager,
+							Util.newArrayListOfValues(getBoss()),
+							null,
+							KEEP_AFTER_COMBAT_DEFEAT_POST_SEX,
+							UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
+				}
+				
+			}
 			
-			/* TODO
-				Mark which one selected
-				DS removes all your clothing - uses her arcane power to remove jinxed clothing. (Put clothing in treasury)
-				She tells the one you chose to fuck you in front of her
-				Then you are put in cells.
-				Wake up
-					Youko feeds you potion to TF into chosen type.
-					Demon puts bitch collar on you, then fucks you
-			 */
+
+			return null;
+			
+			
+			// Removed for now due to unexpected complexity. Will be added at some point.
 			
 //			if (index == 1) {
 //				return new Response(UtilText.parse(Main.game.getFortressMalesLeader(), "[npc.Name]"),
 //						UtilText.parse(Main.game.getFortressMalesLeader(), getBoss(),
 //								"Tell [npc2.name] that you submit to [npc.name]...<br/><i>It's obvious from what [npc.sheHas] just said that [npc.she] wants to turn you into an imp broodmother!</i>"),
-//						null);
+//						PRISONER_INITIAL_SCENE) {
+//					@Override
+//					public void effects() {
+//						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelPrisonerMale, true);
+//						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_CHOOSE_MALE", getAllCharacters()));
+//					}
+//				};
 //				
 //			} else if (index == 2) {
 //				return new Response(UtilText.parse(Main.game.getFortressAlphaLeader(), "[npc.Name]"),
 //						UtilText.parse(Main.game.getFortressAlphaLeader(), getBoss(),
 //								"Tell [npc2.name] that you submit to [npc.name]...<br/><i>It's obvious from what [npc.sheHas] just said that [npc.she] wants to abuse you and turn you into [npc.her] worthless cum-dump!</i>"),
-//						null);
+//						PRISONER_INITIAL_SCENE) {
+//					@Override
+//					public void effects() {
+//						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelPrisonerAlpha, true);
+//						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_CHOOSE_ALPHA", getAllCharacters()));
+//					}
+//				};
 //				
 //			} else if (index == 3) {
 //				return new Response(UtilText.parse(Main.game.getFortressFemalesLeader(), "[npc.Name]"),
 //						UtilText.parse(Main.game.getFortressFemalesLeader(), getBoss(),
 //								"Tell [npc2.name] that you submit to [npc.name]...<br/><i>It's obvious from what [npc.sheHas] just said that [npc.she] wants to give you a big cock and put you to work breeding imps!</i>"),
-//						null);
+//						PRISONER_INITIAL_SCENE) {
+//					@Override
+//					public void effects() {
+//						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelPrisonerFemale, true);
+//						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_CHOOSE_FEMALE", getAllCharacters()));
+//					}
+//				};
 //				
 //			} else if (index == 4) {
 //				return new Response("Refuse",
 //						UtilText.parse(getBoss(),
 //								"Tell [npc.name] that you refuse to submit to anyone!<br/><i>It's obvious from what [npc.sheHas] just said that [npc.she] will let the demons decide amongst themselves as to who gets possession of you!</i>"),
-//						null);
+//						PRISONER_INITIAL_SCENE) {
+//					@Override
+//					public void effects() {
+//						if(Main.game.getPlayer().hasVagina()) {
+//							if(Main.game.getPlayer().isFeminine()) {
+//								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelPrisonerMale, true);
+//								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_CHOOSE_REFUSE_MALE", getAllCharacters()));
+//							} else {
+//								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelPrisonerAlpha, true);
+//								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_CHOOSE_REFUSE_ALPHA", getAllCharacters()));
+//							}
+//						} else {
+//							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelPrisonerFemale, true);
+//							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_CHOOSE_REFUSE_FEMALE", getAllCharacters()));
+//						}
+//					}
+//				};
 //				
 //			} else {
 //				return null;
@@ -1970,7 +2265,6 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-
 	public static final DialogueNodeOld THROWN_OUT = new DialogueNodeOld("", "", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -1981,7 +2275,12 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public String getContent() {
-			return "";
+			if(isImpsDefeated()) {
+				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "THROWN_OUT_NO_IMPS", getAllCharacters());
+			} else {
+				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "THROWN_OUT", getAllCharacters());
+			}
+			
 		}
 
 		@Override
@@ -1990,8 +2289,30 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
+	public static final DialogueNodeOld KEEP_AFTER_COMBAT_DEFEAT_POST_SEX = new DialogueNodeOld("", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_POST_SEX", getAllCharacters());
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Thrown out", "The three demons drag you out of the citadel.", THROWN_OUT) {
+					@Override
+					public void effects() {
+						applyExit();
+					}
+				};
+			}
+			return null;
+		}
+	};
 	
-	// Kept as prisoner dialogue:
+	
+	// Kept as prisoner dialogue: TODO Come back to this and add it another time.
 
 	private static boolean isPrisonerMale() {
 		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelPrisonerMale);
@@ -2004,51 +2325,42 @@ public class ImpCitadelDialogue {
 	private static boolean isPrisonerAlpha() {
 		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelPrisonerAlpha);
 	}
-
+	
+	private static NPC getOwner() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelPrisonerAlpha)) {
+			return Main.game.getFortressAlphaLeader();
+		} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelPrisonerFemale)) {
+			return Main.game.getFortressFemalesLeader();
+		}
+		return Main.game.getFortressMalesLeader();
+	}
+	
+	private static String getOwnerDialogueIdEnding() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelPrisonerAlpha)) {
+			return "_ALPHA";
+		} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelPrisonerFemale)) {
+			return "_FEMALE";
+		}
+		return "_MALE";
+	}
+	
 	private static boolean isPrisoner() {
 		return isPrisonerMale() || isPrisonerFemale() || isPrisonerAlpha();
 	}
 	
+	private static int cellTimePassed = 0;
+	
+	/* TODO
+		She tells the one you chose to fuck you in front of her
+		Then you are put in cells.
+		Wake up
+			Youko feeds you potion to TF into chosen type.
+			Demon puts bitch collar on you, then fucks you
+	 */
+	
+	// TODO parsing allCharacters() needs owner as second npc
+	
 	public static final DialogueNodeOld PRISONER_INITIAL_SCENE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 60;
-		}
-
-		@Override
-		public String getContent() {
-			return "";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return null;
-		}
-	};
-
-	
-	public static final DialogueNodeOld PRISONER_CELLS_TF = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 60;
-		}
-
-		@Override
-		public String getContent() {
-			return "";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return null;
-		}
-	};
-	
-	public static final DialogueNodeOld CELLS = new DialogueNodeOld("Cells", ".", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -2058,27 +2370,236 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Stripped",
+						UtilText.parse(getOwner(), "[npc.Name] strips you of all of your non-sealed clothing!"),
+						isCompanionDialogue()
+							?PRISONER_INITIAL_SCENE_COMPANION_STRIP
+							:PRISONER_STRIPPED) {
+					@Override
+					public void effects() {
+						List<AbstractClothing> clothingRemoved = Main.game.getPlayer().unequipAllClothing(getOwner(), true);
+
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED"+getOwnerDialogueIdEnding(), getAllCharacters()));
+						
+						for(AbstractClothing clothing : clothingRemoved) {
+							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
+						}
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().getUnequipAllClothingDescription());
+						
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_END"+getOwnerDialogueIdEnding(), getAllCharacters()));
+						
+						// Equip collar and wrist restraints
+						Colour c = Colour.CLOTHING_PINK_HOT;
+						if(isPrisonerFemale()) {
+							c = Colour.CLOTHING_BLACK;
+						}
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						
+						//TODO siren wants to watch them fuck your face(s)
+						if(getOwner() instanceof FortressFemalesLeader) {
+							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+						}
+					}
+				};
+			}
+			return null;
+		}
+	};
+
+
+	public static final DialogueNodeOld PRISONER_INITIAL_SCENE_COMPANION_STRIP = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 2;
+		}
+
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response(UtilText.parse(getMainCompanion(), "[npc.NamePos] turn"),
+						UtilText.parse(getOwner(), getMainCompanion(), "[npc.Name] strips your companion of all of [npc2.her]non-sealed clothing!"),
+						PRISONER_STRIPPED) {
+					@Override
+					public void effects() {
+						List<AbstractClothing> clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
+						
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_COMPANION"+getOwnerDialogueIdEnding(), getAllCharacters()));
+						clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
+						for(AbstractClothing clothing : clothingRemoved) {
+							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
+						}
+						Main.game.getTextEndStringBuilder().append(getMainCompanion().getUnequipAllClothingDescription());
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_COMPANION_END"+getOwnerDialogueIdEnding(), getAllCharacters()));
+
+						// Equip collar and wrist restraints
+						Colour c = Colour.CLOTHING_PINK_LIGHT;
+						if(isPrisonerFemale()) {
+							c = Colour.CLOTHING_BROWN_DARK;
+						}
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld PRISONER_STRIPPED = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 2;
+		}
+
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			
+			Map<GameCharacter, SexPositionSlot> subSlots;
+			if(isCompanionDialogue()) {
+				subSlots = Util.newHashMapOfValues(
+						new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL),
+						new Value<>(getMainCompanion(), SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO));
+			} else {
+				subSlots = Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL));
+			}
+			
+			SexManagerInterface manager = new SMKneeling(
+					Util.newHashMapOfValues(new Value<>(getOwner(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+					subSlots) {
+				@Override
+				public boolean isPositionChangingAllowed(GameCharacter character) {
+					return false;
+				}
+				@Override
+				public SexPace getStartingSexPaceModifier(GameCharacter character) {
+					if(character.isPlayer()) {
+						if(index==2) {
+							return SexPace.SUB_EAGER;
+						} else if(index==3) {
+							return SexPace.SUB_RESISTING;
+						}
+					}
+					return null;
+				}
+			};
+			
+			if(index==1) {
+				return new ResponseSex(
+						"Oral",
+						isCompanionDialogue()
+							?UtilText.parse(getOwner(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to perform oral on [npc.name].")
+							:UtilText.parse(getOwner(), "Accept the price of your defeat, and prepare to perform oral on [npc.name]."),
+						false,
+						false,
+						manager,
+						Util.newArrayListOfValues(getBoss()),
+						null,
+						PRISONER_STRIPPED_AFTER_SEX,
+						UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_START_ORAL"+getOwnerDialogueIdEnding(), getAllCharacters()));
+				
+			} else if(index==2) {
+				return new ResponseSex(
+						"Eager oral",
+						isCompanionDialogue()
+							?UtilText.parse(getOwner(), getMainCompanion(), "Happily accept what's being demanded of you, and, alongside [pc2.name], eagerly prepare to perform oral on [npc.name].")
+							:UtilText.parse(getOwner(), "Happily accept what's being demanded of you, and eagerly prepare to perform oral on [npc.name]."),
+						false,
+						false,
+						manager,
+						Util.newArrayListOfValues(getBoss()),
+						null,
+						PRISONER_STRIPPED_AFTER_SEX,
+						UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_START_ORAL_EAGER"+getOwnerDialogueIdEnding(), getAllCharacters()));
+
+			} else if (index == 3 && Main.game.isNonConEnabled()) {
+				return new ResponseSex(
+						"Resist oral",
+						UtilText.parse(getOwner(), "Struggle against [npc.name] and try to push [npc.herHim] away from you."),
+						false,
+						false,
+						manager,
+						Util.newArrayListOfValues(getBoss()),
+						null,
+						PRISONER_STRIPPED_AFTER_SEX,
+						UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_START_ORAL_RESIST"+getOwnerDialogueIdEnding(), getAllCharacters()));
+			}
+			
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld PRISONER_STRIPPED_AFTER_SEX = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_AFTER_SEX"+getOwnerDialogueIdEnding(), getAllCharacters());
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Cells",
+						isCompanionDialogue()
+							?UtilText.parse(getOwner(), getMainCompanion(), "[npc.Name] takes you and [npc2.name] to the citadel's cell block...")
+							:UtilText.parse(getOwner(), "[npc.Name] takes you to the citadel's cell block..."),
+							CELLS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_CELLS);
+						cellTimePassed = Main.game.getMinutesUntilTimeInMinutes(7*60);
+						if(cellTimePassed<120) {
+							cellTimePassed+=24*60;
+						}
+					}
+				};	
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld CELLS = new DialogueNodeOld("Cells", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return cellTimePassed;
+		}
+
+		@Override
+		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(isPrisonerAlpha()) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_ALPHA_CELL", getAllCharacters()));
-				
-			} else if(isPrisonerMale()) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_MALE_CELL", getAllCharacters()));
-				
-			} else if(isPrisonerFemale()) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_FEMALE_CELL", getAllCharacters()));
+			if(isPrisoner()) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_CELL"+getOwnerDialogueIdEnding(), getAllCharacters()));
 				
 			} else {
 				if(isDefeated()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "CELLS_RUINS", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "CELLS", getAllCharacters()));
-					if(isImpsDefeated()) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "CELLS_IMPS_DEFEATED", getAllCharacters()));
-					} else {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "CELLS_IMP_GUARDS", getAllCharacters()));
-					}
 				}
 			}
 			
@@ -2089,32 +2610,80 @@ public class ImpCitadelDialogue {
 		public Response getResponse(int responseTab, int index) {
 			/* It's ok if some are randomised. I don't mind players save/loading to try to get different events.
 			(Maximum times/day)Events:
-				(1) Fucked by demon
+				(1) Fucked by demon - unjinxes clothing one at a time
 				(-) Fucked by imps
-				(1) Use as trophy foot-rest
+				(1) Siren summon
+					Use as trophy foot-rest
+					Watch imps fuck you
 				(-) Milked/cum milked
 				(1) DS watches imps fuck you as amusement
-				(1) If female owner, gets you to breed trespasser she caught
-				(1) If alpha owner, she tattoos you
+				(1) If female owner
+					gets you to breed trespasser she caught
+				(1) If alpha owner
+					Tattoos you
+					Punishes you
+					Orifice training
+					Walks around citadel
 			*/
+			
 			if(isPrisoner()) {
-				if(Main.game.getHourOfDay()<7) { // Wake up event
+				if(Main.game.getHourOfDay()<=8) { // Wake up event
 					// Imp arrives to give breakfast. Imp is generated based on player's SO.
+					// Fucks player's throat. If player refuses, gain ring gag.
+					// If player has cum addict, the imp cums on food.
 					
-				} else if(Main.game.getHourOfDay()<11) { // Morning event
+					// TF
 					
-				} else if(Main.game.getHourOfDay()<14) { // Lunch event
+				} else if(Main.game.getHourOfDay()<=11) { // Morning event
+					// If being milked, append milking description
+					if(getOwner().getMinutesSinceLastTimeHadSex()>36*60) {
+						// Demon sex. If player refuses, gain spreader bar.
+					}
+					
+				} else if(Main.game.getHourOfDay()<=14) { // Lunch event
 					// Imp feeds you. If player has cum addict, the imp cums on food.
+
+					// TF
 					
-				} else if(Main.game.getHourOfDay()<18) { // Afternoon event
+				} else if(Main.game.getHourOfDay()<=18) { // Afternoon event
+					// Use same as morning
 					
-				} else if(Main.game.getHourOfDay()<21) { // Dinner event
+				} else if(Main.game.getHourOfDay()<=21) { // Dinner event
+
+					// TF
 					
 				} else if(Main.game.getHourOfDay()<=24) { // Night event
-					
+					// Sleep or Escape chance
 				}
 			}
 			
+			return null;
+		}
+	};
+	
+
+	public static final DialogueNodeOld PRISONER_BREAKFAST = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_BREAKFAST"+getOwnerDialogueIdEnding(), getAllCharacters());
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Cells",
+						isCompanionDialogue()
+							?UtilText.parse(getOwner(), getMainCompanion(), "[npc.Name] takes you and [npc2.name] to the citadel's cell block...")
+							:UtilText.parse(getOwner(), "[npc.Name] takes you to the citadel's cell block..."),
+							CELLS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_CELLS);
+					}
+				};	
+			}
 			return null;
 		}
 	};

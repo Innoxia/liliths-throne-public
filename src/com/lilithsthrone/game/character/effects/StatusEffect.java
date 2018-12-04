@@ -5472,7 +5472,7 @@ public enum StatusEffect {
 			70,
 			"BDSM",
 			"set_bdsm",
-			Colour.CLOTHING_WHITE,
+			Colour.CLOTHING_BLACK,
 			false,
 			Util.newHashMapOfValues( new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -15f)),
 			null) {

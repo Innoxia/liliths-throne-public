@@ -337,11 +337,7 @@ public class Body implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_RAT_FUR;
 			case RABBIT_MORPH:
 				return BodyCoveringType.BODY_HAIR_RABBIT_FUR;
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
+			case ELEMENTAL:
 				break; // Doesn't matter what is passed in here, as getCovering will catch whatever BodyCoveringType the body is made up of.
 			case FOX_MORPH:
 				return BodyCoveringType.BODY_HAIR_FOX_FUR;
@@ -1462,11 +1458,7 @@ public class Body implements Serializable, XMLSaving {
 
 	private String getCoveredInDescriptor(GameCharacter owner) {
 		if(owner.getRace()==Race.SLIME
-				|| owner.getRace()==Race.ELEMENTAL_EARTH
-				|| owner.getRace()==Race.ELEMENTAL_WATER
-				|| owner.getRace()==Race.ELEMENTAL_AIR
-				|| owner.getRace()==Race.ELEMENTAL_FIRE
-				|| owner.getRace()==Race.ELEMENTAL_ARCANE) {
+				|| owner.getRace()==Race.ELEMENTAL) {
 			return UtilText.returnStringAtRandom(
 					"made from",
 					"composed entirely of",
@@ -3630,15 +3622,15 @@ public class Body implements Serializable, XMLSaving {
 		Race race = Race.HUMAN;
 		switch(this.getBodyMaterial()) {
 			case AIR:
-				race = Race.ELEMENTAL_AIR;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case ARCANE:
-				race = Race.ELEMENTAL_ARCANE;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case FIRE:
-				race = Race.ELEMENTAL_FIRE;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case FLESH:
@@ -3656,12 +3648,12 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case ICE:
 			case WATER:
-				race = Race.ELEMENTAL_WATER;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case RUBBER:
 			case STONE:
-				race = Race.ELEMENTAL_EARTH;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case SLIME:
@@ -6350,15 +6342,7 @@ public class Body implements Serializable, XMLSaving {
 				case WOLF_MORPH:
 					coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
 					break;
-				case ELEMENTAL_AIR:
-					break;
-				case ELEMENTAL_ARCANE:
-					break;
-				case ELEMENTAL_EARTH:
-					break;
-				case ELEMENTAL_FIRE:
-					break;
-				case ELEMENTAL_WATER:
+				case ELEMENTAL:
 					break;
 			}
 		}
@@ -6449,15 +6433,7 @@ public class Body implements Serializable, XMLSaving {
 					case WOLF_MORPH:
 						coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
 						break;
-					case ELEMENTAL_AIR:
-						break;
-					case ELEMENTAL_ARCANE:
-						break;
-					case ELEMENTAL_EARTH:
-						break;
-					case ELEMENTAL_FIRE:
-						break;
-					case ELEMENTAL_WATER:
+					case ELEMENTAL:
 						break;
 				}
 			}

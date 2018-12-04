@@ -5147,8 +5147,9 @@ public class InventoryDialogue {
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
+												GameCharacter unequipOwner = owner;
 												unequipClothingToFloor(Main.game.getPlayer(), clothing);
-												Sex.setUnequipClothingText(owner.getUnequipDescription());
+												Sex.setUnequipClothingText(unequipOwner.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 												Sex.setSexStarted(true);
@@ -5174,8 +5175,9 @@ public class InventoryDialogue {
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
+												GameCharacter unequipOwner = owner;
 												unequipClothingToFloor(Main.game.getPlayer(), clothing);
-												Sex.setUnequipClothingText(owner.getUnequipDescription());
+												Sex.setUnequipClothingText(unequipOwner.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 												Sex.setSexStarted(true);

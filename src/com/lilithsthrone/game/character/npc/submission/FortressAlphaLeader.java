@@ -417,6 +417,11 @@ public class FortressAlphaLeader extends NPC {
 	}
 	
 	// Combat:
+	
+	@Override
+	public int getEscapeChance() {
+		return 0;
+	}
 
 	public Attack attackType() {
 		Map<Attack, Integer> attackWeightingMap = new HashMap<>();

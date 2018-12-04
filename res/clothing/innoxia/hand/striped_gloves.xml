@@ -62,28 +62,28 @@
 		</itemTags>
 	</coreAttributes>
 
-  <replacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc.her] [npc.hands], before pulling them up to [npc.her] elbows.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc2.namePos] [npc2.hands], before pulling them up to [npc2.her] elbows.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(forces)] the gloves onto [npc2.namePos] [npc2.hands], before yanking them up to [npc2.her] elbows.]]>
-    </otherRough>
-  </replacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc.her] [npc.hands], before pulling them up to [npc.her] elbows.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc2.namePos] [npc2.hands], before pulling them up to [npc2.her] elbows.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the gloves onto [npc2.namePos] [npc2.hands], before yanking them up to [npc2.her] elbows.]]>
+	  </otherRough>
+	</replacementText>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc.her] elbows, before pulling free from [npc.her] [npc.hands].]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc2.namePos] elbows, before pulling free from [npc2.her] [npc2.hands].]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(yank)] the gloves down from [npc2.namePos] elbows, before roughly pulling them free from [npc2.her] [npc2.hands].]]>
-    </otherRough>
-  </displacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc.her] elbows, before pulling free from [npc.her] [npc.hands].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc2.namePos] elbows, before pulling free from [npc2.her] [npc2.hands].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] the gloves down from [npc2.namePos] elbows, before roughly pulling them free from [npc2.her] [npc2.hands].]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

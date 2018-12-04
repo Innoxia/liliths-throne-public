@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
@@ -435,34 +437,10 @@ public enum Attribute {
 			return "Increases damage vs slimes.";
 		}
 	},
-	DAMAGE_ELEMENTAL_EARTH(0, -100, 100, "earth elemental damage", "Earth elemental damage", "swordIcon", Colour.SPELL_SCHOOL_EARTH, "earth elemental-obliteration", "earth elemental-mercy", null) {
+	DAMAGE_ELEMENTAL(0, -100, 100, "elemental damage", "Elemental damage", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "elemental-obliteration", "elemental-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs earth elementals.";
-		}
-	},
-	DAMAGE_ELEMENTAL_WATER(0, -100, 100, "water elemental damage", "Water elemental damage", "swordIcon", Colour.SPELL_SCHOOL_WATER, "water elemental-obliteration", "water elemental-mercy", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs water elementals.";
-		}
-	},
-	DAMAGE_ELEMENTAL_AIR(0, -100, 100, "air elemental damage", "Air elemental damage", "swordIcon", Colour.SPELL_SCHOOL_AIR, "air elemental-obliteration", "air elemental-mercy", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs air elementals.";
-		}
-	},
-	DAMAGE_ELEMENTAL_FIRE(0, -100, 100, "fire elemental damage", "Fire elemental damage", "swordIcon", Colour.SPELL_SCHOOL_FIRE, "fire elemental-obliteration", "fire elemental-mercy", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs fire elementals.";
-		}
-	},
-	DAMAGE_ELEMENTAL_ARCANE(0, -100, 100, "arcane elemental damage", "Arcane elemental damage", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "arcane elemental-obliteration", "arcane elemental-mercy", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs arcane elementals.";
+			return "Increases damage vs elementals.";
 		}
 	},
 	
@@ -574,37 +552,12 @@ public enum Attribute {
 			return "Increases resistance vs damage inflicted by slimes.";
 		}
 	},
-	RESISTANCE_ELEMENTAL_EARTH(0, -100, 100, "earth elemental resistance", "Earth elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_EARTH, "earth elemental-immunity", "earth elemental-vulnerability", null) {
+	RESISTANCE_ELEMENTAL(0, -100, 100, "elemental resistance", "Elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "elemental-immunity", "elemental-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs earth elementals.";
+			return "Increases resistance vs elementals.";
 		}
-	},
-	RESISTANCE_ELEMENTAL_WATER(0, -100, 100, "water elemental resistance", "Water elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_WATER, "water elemental-immunity", "water elemental-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs water elementals.";
-		}
-	},
-	RESISTANCE_ELEMENTAL_AIR(0, -100, 100, "air elemental resistance", "Air elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_AIR, "air elemental-immunity", "air elemental-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs air elementals.";
-		}
-	},
-	RESISTANCE_ELEMENTAL_FIRE(0, -100, 100, "fire elemental resistance", "Fire elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_FIRE, "fire elemental-immunity", "fire elemental-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs fire elementals.";
-		}
-	},
-	RESISTANCE_ELEMENTAL_ARCANE(0, -100, 100, "arcane elemental resistance", "Arcane elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "arcane elemental-immunity", "arcane elemental-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs arcane elementals.";
-		}
-	},
-	
+	}
 	;
 
 	
@@ -675,11 +628,27 @@ public enum Attribute {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static Attribute[] getCoreAttributes() {
 		return new Attribute[] { MAJOR_PHYSIQUE, MAJOR_ARCANE, MAJOR_CORRUPTION };
 	}
 
+	public static Attribute getAttributeFromId(String attributeId) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6")) {
+			if(attributeId.startsWith("RESISTANCE_ELEMENTAL")) {
+				attributeId = "RESISTANCE_ELEMENTAL";
+			} else if(attributeId.startsWith("DAMAGE_ELEMENTAL")) {
+				attributeId = "DAMAGE_ELEMENTAL";
+			} else if(attributeId.equals("CORRUPTION")) {
+				attributeId = "MAJOR_CORRUPTION";
+			} else if(attributeId.equals("STRENGTH") || attributeId.equals("MAJOR_STRENGTH")) {
+				attributeId = "MAJOR_PHYSIQUE";
+			}
+		}
+		
+		return Attribute.valueOf(attributeId);
+	}
+	
 	public int getBaseValue() {
 		return baseValue;
 	}
@@ -715,43 +684,26 @@ public enum Attribute {
 			return "";
 		}
 		
-		if(target.isPlayer()) {
-			if (value > 0) {
-				return "<p style='text-align:center;'>"
-							+ "You gain <b>"+value+"</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-						+ "</p>";
-	
-			} else if (value < 0) {
-				return "<p style='text-align:center;'>"
-							+ "You lose <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-						+ "</p>";
-	
-			} else {
-				return "<p style='text-align:center;'>"
-							+ "Your <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> doesn't change..."
-						+ "</p>";
-			}
+		if (value > 0) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+						+ "[npc.Name] [npc.verb(gain)] <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
+					+ "</p>");
+
+		} else if (value < 0) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+						+ "[npc.Name] [npc.verb(lose)] <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
+					+ "</p>");
+			
+
 		} else {
-			if (value > 0) {
-				return UtilText.parse(target,
-						"<p>"
-							+ "[npc.Name] gains <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-						+ "</p>");
-	
-			} else if (value < 0) {
-				return UtilText.parse(target,
-						"<p>"
-							+ "[npc.Name] loses <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-						+ "</p>");
-				
-	
-			} else {
-				return UtilText.parse(target,
-						"<p>"
-							+ "[npc.NamePos] <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> remains unchanged..."
-						+ "</p>");
-			}
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+						+ "[npc.NamePos] <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> remains unchanged..."
+					+ "</p>");
 		}
+		
 	}
 
 	private StringBuilder descriptionSB = new StringBuilder();
