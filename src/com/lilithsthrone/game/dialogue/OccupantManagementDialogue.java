@@ -1072,7 +1072,7 @@ public class OccupantManagementDialogue {
 								i++;
 							}
 						} catch (Exception e) {
-							System.err.println("Main.game.getNPCById("+id+") returning null in method: SLAVE_LIST.getResponse()");
+							Util.logGetNpcByIdError("SLAVE_LIST.getResponse()", id);
 						}
 					}
 				}

@@ -170,7 +170,7 @@ public class OccupancyUtil implements XMLSaving {
 					}
 				}
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getFriendlyOccupants() section.");
+				Util.logGetNpcByIdError("performHourlyUpdate(), getFriendlyOccupants() section.", id);
 			}
 		}
 		
@@ -207,7 +207,7 @@ public class OccupancyUtil implements XMLSaving {
 					}
 				}
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getSlavesOwned() section.");
+				Util.logGetNpcByIdError("performHourlyUpdate(), getSlavesOwned() section.", id);
 			}
 		}
 		
@@ -218,7 +218,7 @@ public class OccupancyUtil implements XMLSaving {
 			try {
 				slave = (NPC) Main.game.getNPCById(id);
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getSlavesOwned() section second instance.");
+				Util.logGetNpcByIdError("performHourlyUpdate(), getSlavesOwned() section second instance.", id);
 				continue;
 			}
 			
@@ -383,7 +383,7 @@ public class OccupancyUtil implements XMLSaving {
 						generatedIncome += PlaceUpgrade.LILAYA_GUEST_ROOM.getUpkeep();
 					}
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getFriendlyOccupants() section second instance.");
+					Util.logGetNpcByIdError("performHourlyUpdate(), getFriendlyOccupants() section second instance.", id);
 				}
 			}
 		}
@@ -563,8 +563,10 @@ public class OccupancyUtil implements XMLSaving {
 								}
 
 								String tf = "";
+								SlaveEventTag tag = SlaveEventTag.JOB_LILAYA_FEMININE_TF;
 								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)) {
 									tf = getTestSubjectFutanariTransformation(slave);
+									tag = SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING;
 								} else {
 									tf = getTestSubjectFeminineTransformation(slave);
 								}
@@ -573,8 +575,7 @@ public class OccupancyUtil implements XMLSaving {
 								}
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
-										Util.newArrayListOfValues(
-												SlaveEventTag.JOB_LILAYA_FEMININE_TF),
+										Util.newArrayListOfValues(tag),
 										list,
 										true));
 								return events;
@@ -594,8 +595,10 @@ public class OccupancyUtil implements XMLSaving {
 								}
 								
 								String tf2 = "";
+								SlaveEventTag mascTag = SlaveEventTag.JOB_LILAYA_MASCULINE_TF;
 								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE)) {
 									tf2 = getTestSubjectFutanariTransformation(slave);
+									mascTag = SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING;
 								} else {
 									tf2 = getTestSubjectMasculineTransformation(slave);
 								}
@@ -604,8 +607,7 @@ public class OccupancyUtil implements XMLSaving {
 								}
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
-										Util.newArrayListOfValues(
-												SlaveEventTag.JOB_LILAYA_MASCULINE_TF),
+										Util.newArrayListOfValues(mascTag),
 										list2,
 										true));
 								return events;

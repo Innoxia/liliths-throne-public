@@ -382,8 +382,23 @@ public class Body implements Serializable, XMLSaving {
 				availablePatterns.remove(CoveringPattern.FRECKLED); // Do not start with freckles.
 			}
 			
+			CoveringPattern pattern = availablePatterns.get(Util.random.nextInt(availablePatterns.size()));
+			
+			if(pattern == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+				if(Math.random()>0.02f) { // As it's already selected heterochromatic eyes (0.5 chance), this 0.02 chance corresponds to an overall heterochromatic chance of 0.01, or 1%
+					pattern = CoveringPattern.EYE_IRISES;
+				} else {
+					if(primary==secondary) {
+						List<Colour> secondaryIrisColours = new ArrayList<>();
+						secondaryIrisColours.addAll(colourApplicationList);
+						secondaryIrisColours.remove(primary);
+						secondary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
+					}
+				}
+			}
+			
 			coverings.put(s, new Covering(s,
-					availablePatterns.get(Util.random.nextInt(availablePatterns.size())),
+					pattern,
 					primary, false,
 					secondary, false));
 		}
@@ -1954,43 +1969,24 @@ public class Body implements Serializable, XMLSaving {
 				break;
 		}
 		
-		if (owner.isPlayer()) {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
-				sb.append(", with [pc.irisShape], heterochromatic [pc.irisPrimaryColour(true)]-and-[pc.irisSecondaryColour(true)] irises");
-			} else {
-				sb.append(", with [pc.irisShape], [pc.irisPrimaryColour(true)] irises");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append(", [pc.pupilShape], heterochromatic [pc.pupilPrimaryColour(true)]-and-[pc.pupilSecondaryColour(true)] pupils");
-			} else {
-				sb.append(", [pc.pupilShape], [pc.pupilPrimaryColour(true)] pupils");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
-				sb.append(", and heterochromatic [pc.scleraPrimaryColour(true)]-and-[pc.scleraSecondaryColour(true)] sclerae.");
-			} else {
-				sb.append(", and [pc.scleraPrimaryColour(true)] sclerae.");
-			}
+		if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+			sb.append(", with [npc.irisShape], heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] irises");
 		} else {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
-				sb.append(", with [npc.irisShape], heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] irises, ");
-			} else {
-				sb.append(", with [npc.irisShape], [npc.irisPrimaryColour(true)] irises ");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append(", [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils");
-			} else {
-				sb.append(", [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
-				sb.append(", and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.");
-			} else {
-				sb.append(", and [npc.scleraPrimaryColour(true)] sclerae.");
-			}
+			sb.append(", with [npc.irisShape], [npc.irisPrimaryColour(true)] irises");
 		}
+		
+		if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
+			sb.append(", [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils");
+		} else {
+			sb.append(", [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils");
+		}
+		
+		if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
+			sb.append(", and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.");
+		} else {
+			sb.append(", and [npc.scleraPrimaryColour(true)] sclerae.");
+		}
+		
 		
 		// Eye makeup:
 		if(owner.getEyeLiner().getPrimaryColour()!=Colour.COVERING_NONE) {

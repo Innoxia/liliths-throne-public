@@ -224,7 +224,7 @@ public class Ashley extends NPC {
 					infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
 				}
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+entry.getKey()+") returning null in method: Ashley.getCharacterInformationScreen()");
+				Util.logGetNpcByIdError("Ashley.getCharacterInformationScreen()", entry.getKey());
 			}
 		}
 		

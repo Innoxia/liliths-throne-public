@@ -3399,7 +3399,7 @@ public abstract class GameCharacter implements XMLSaving {
 						i++;
 					}
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+id+") returning null in method: getSlavesWorkingJob()");
+					Util.logGetNpcByIdError("getSlavesWorkingJob()", id);
 				}
 			}
 		return i;
@@ -3618,40 +3618,34 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setAffection(GameCharacter character, float affection) {
 		affectionMap.put(character.getId(), Math.max(-100, Math.min(100, affection)));
 		
-		if(character.isPlayer()) {
-			return UtilText.parse(this,
-					"<p style='text-align:center'>"
-						+ "[npc.Name] now has <b>"+(affection>0?"+":"")+affection+"</b> [style.boldAffection(affection)] towards you!<br/>"
-						+ AffectionLevel.getDescription(this, character, AffectionLevel.getAffectionLevelFromValue(affection), true)
-					+ "</p>");
-			
-		} else {
-			return UtilText.parse(character,
-					"<p style='text-align:center'>"
-						+ getName("The")+" now has <b>"+(affection>0?"+":"")+affection+"</b> [style.boldAffection(affection)] towards [npc.name]!<br/>"
-						+ AffectionLevel.getDescription(this, character, AffectionLevel.getAffectionLevelFromValue(affection), true)
-					+ "</p>");
-		}
+		return UtilText.parse(this, character,
+				"<p style='text-align:center'>"
+					+ "[npc.Name] now [npc.has] <b>"+(affection>0?"+":"")+affection+"</b> [style.boldAffection(affection)] towards [npc2.name].<br/>"
+					+ AffectionLevel.getDescription(this, character, getAffectionLevel(character), true)
+				+ "</p>");
 	}
 	
 	public void setAffection(String id, float affection) {
 		affectionMap.put(id, Math.max(-100, Math.min(100, affection)));
 	}
+
+	public String incrementAffection(GameCharacter character, float affectionIncrement) {
+		return incrementAffection(character, affectionIncrement, "");
+	}
 	
 	/**
 	 * Increments this character's affection towards the supplied GameCharacter.
-	 * 
-	 * @param character
-	 * @param affectionIncrement
-	 * @return
+	 * @param affectionLossDescription The description to be added to the returned affection loss String. Is parsed with "npc" being this character, and "npc2" being the passed in character. 
 	 */
-	public String incrementAffection(GameCharacter character, float affectionIncrement) {
+	public String incrementAffection(GameCharacter character, float affectionIncrement, String affectionLossDescription) {
 		setAffection(character, getAffection(character) + affectionIncrement);
 		
 		return UtilText.parse(this, character,
 				"<p style='text-align:center'>"
-						+ "[npc.Name] "+(affectionIncrement>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(affectionIncrement)+"</b> [style.boldAffection(affection)] towards "+(character.isPlayer()?"you":"[npc2.name]")+"!"
-					+ "</p>");
+					+ (affectionLossDescription!=null && affectionLossDescription.isEmpty()?affectionLossDescription+"<br/>":"")
+					+ "[npc.Name] "+(affectionIncrement>0?"[style.boldGood(gains)]":"[style.boldBad(loses)]")+" <b>"+Math.abs(affectionIncrement)+"</b> [style.boldAffection(affection)] towards [npc2.name]!<br/>"
+					+ AffectionLevel.getDescription(this, character, getAffectionLevel(character), true)
+				+ "</p>");
 	}
 	
 	public String getGiftReaction(AbstractCoreItem gift, boolean applyEffects) {
@@ -3701,7 +3695,7 @@ public abstract class GameCharacter implements XMLSaving {
 					i++;
 				}
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: getNumberOfSlavesIdle()");
+				Util.logGetNpcByIdError("getNumberOfSlavesIdle()", id);
 			}
 		}
 		return i;
@@ -3715,7 +3709,7 @@ public abstract class GameCharacter implements XMLSaving {
 					i++;
 				}
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: getNumberOfSlavesInAdministration()");
+				Util.logGetNpcByIdError("getNumberOfSlavesInAdministration()", id);
 			}
 		}
 		return i;
@@ -3727,7 +3721,7 @@ public abstract class GameCharacter implements XMLSaving {
 			try {
 				i += Main.game.getNPCById(id).getSlaveJob().getFinalDailyIncomeAfterModifiers(Main.game.getNPCById(id));
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: getSlaveryTotalDailyIncome()");
+				Util.logGetNpcByIdError("getSlaveryTotalDailyIncome()", id);
 			}
 		}
 		return i;
@@ -3772,7 +3766,7 @@ public abstract class GameCharacter implements XMLSaving {
 				try {
 					Main.game.getNPCById(id).setOwner("");
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+id+") returning null in method: removeAllSlaves()");
+					Util.logGetNpcByIdError("removeAllSlaves()", id);
 				}
 			}
 		}
@@ -3791,7 +3785,7 @@ public abstract class GameCharacter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(owner);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+owner+") returning null in method: getOwner()");
+			Util.logGetNpcByIdError("getOwner()", owner);
 			return null;
 		}
 	}
@@ -3940,7 +3934,7 @@ public abstract class GameCharacter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(partyLeader);
 		} catch(Exception e) {
-			System.err.println("Main.game.getNPCById("+partyLeader+") returning null in method: getPartyLeader()");
+			Util.logGetNpcByIdError("getPartyLeader()", partyLeader);
 			return null;
 		}
 	}
@@ -3997,7 +3991,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * Gets the character's main companion, if any. Returns null if no companions in party.
+	 * Gets the character's main companion, if any, preferring non-elementals. Returns null if no companions in party.
 	 */
 	public GameCharacter getMainCompanion() {
 		if(getCompanions()==null || getCompanions().isEmpty()) {
@@ -4007,7 +4001,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * Gets the character's companion NPCs, if any.
+	 * Gets the character's companion NPCs, if any. Sorted with elementals being last.
 	 */
 	public List<GameCharacter> getCompanions() {
 		List<GameCharacter> listToReturn = new ArrayList<>();
@@ -4016,9 +4010,10 @@ public abstract class GameCharacter implements XMLSaving {
 				try {
 					listToReturn.add(Main.game.getNPCById(companionID));
 				} catch(Exception e) {
-					System.err.println("Main.game.getNPCById("+companionID+") returning null in method: getCompanions()");
+					Util.logGetNpcByIdError("getCompanions()", companionID);
 				}
 			}
+			Collections.sort(listToReturn, (c1, c2) -> c1 instanceof Elemental?(c2 instanceof Elemental?0:1):(c2 instanceof Elemental?-1:0));
 		}
 		return listToReturn;
 	}
@@ -4070,7 +4065,7 @@ public abstract class GameCharacter implements XMLSaving {
 				this.returnToHome();
 			}
 		} catch(Exception e) {
-			System.err.println("Main.game.getNPCById("+partyLeader+") returning null in method: companionshipCheck()");
+			Util.logGetNpcByIdError("companionshipCheck()", partyLeader);
 		}
 	}
 	
@@ -4253,7 +4248,7 @@ public abstract class GameCharacter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(motherId);
 		} catch(Exception e) {
-			System.err.println("Main.game.getNPCById("+motherId+") returning null in method: getMother()");
+			Util.logGetNpcByIdError("getMother()", motherId);
 			return null;
 		}
 	}
@@ -4277,7 +4272,7 @@ public abstract class GameCharacter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(fatherId);
 		} catch(Exception e) {
-			System.err.println("Main.game.getNPCById("+fatherId+") returning null in method: getFather()");
+			Util.logGetNpcByIdError("getFather()", fatherId);
 			return null;
 		}
 	}
@@ -5494,7 +5489,7 @@ public abstract class GameCharacter implements XMLSaving {
 				return UtilText.parse(Main.game.getNPCById(this.getVirginityLoss(sexType).getKey()),
 						"[npc.name] "+virginityLossMap.get(sexType).getValue());
 			} catch(Exception e) {
-				System.err.println("Main.game.getNPCById("+this.getVirginityLoss(sexType).getKey()+") returning null in method: getVirginityLossDescription()");
+				Util.logGetNpcByIdError("getVirginityLossDescription()", this.getVirginityLoss(sexType).getKey());
 				return "someone";
 			}
 		}
@@ -11736,7 +11731,7 @@ public abstract class GameCharacter implements XMLSaving {
 						try {
 							partner = Main.game.getNPCById(fs.getCharactersFluidID());
 						} catch(Exception e) {
-							System.err.println("Main.game.getNPCById("+fs.getCharactersFluidID()+") returning null in method: performImpregnationCheck()");
+							Util.logGetNpcByIdError("performImpregnationCheck()", fs.getCharactersFluidID());
 						}
 					}
 					if(partner!=null) {
@@ -11882,7 +11877,7 @@ public abstract class GameCharacter implements XMLSaving {
 						npc.setConceptionDate(birthedLitter.getConceptionDate());
 						npc.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
 					} catch(Exception e) {
-						System.err.println("Main.game.getNPCById("+id+") returning null in method: endPregnancy()");
+						Util.logGetNpcByIdError("endPregnancy()", id);
 					}
 				}
 			}
@@ -12101,7 +12096,7 @@ public abstract class GameCharacter implements XMLSaving {
 				try {
 					Main.game.getNPCById(companionID).setLocation(getWorldLocation(), location, false);
 				} catch(Exception e) {
-					System.err.println("Main.game.getNPCById("+companionID+") returning null in method: setLocation()");
+					Util.logGetNpcByIdError("setLocation()", companionID);
 				}
 			}
 		}

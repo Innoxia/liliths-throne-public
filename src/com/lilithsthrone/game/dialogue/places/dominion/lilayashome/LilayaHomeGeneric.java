@@ -215,7 +215,7 @@ public class LilayaHomeGeneric {
 						slavesAssignedToRoom.add(slaveNPC);
 					}
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+slave+") returning null in method: getRoomResponse()");
+					Util.logGetNpcByIdError("getRoomResponse()", slave);
 				}
 			}
 		}
@@ -608,7 +608,7 @@ public class LilayaHomeGeneric {
 								+ "</i></p>"));
 					}
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+occupantId+") returning null in method: getRoomModificationsDescription()");
+					Util.logGetNpcByIdError("getRoomModificationsDescription()", occupantId);
 				}
 			}
 		}

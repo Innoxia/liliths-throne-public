@@ -366,21 +366,21 @@ public class FingerVagina {
 							"Eagerly teasing [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.labia+], [npc.name] [npc.verb(let)] out [npc.a_moan+] before greedily sinking [npc.her] digits into [npc2.her] [npc2.pussy+].",
 
 							"[npc.Name] eagerly [npc.verb(press)] [npc.her] [npc.fingers+] down between [npc2.namePos] [npc2.legs+],"
-									+ " and with a determined [npc2.verb(thrust)], [npc.she] greedily [npc.verb(sink)] [npc.her] digits into [npc2.her] [npc2.pussy+]."));
+									+ " and with a determined thrust, [npc.she] greedily [npc.verb(sink)] [npc.her] digits into [npc2.her] [npc2.pussy+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly grinding [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.labia+], [npc.name] [npc.verb(let)] out [npc.a_moan+] before violently slamming [npc.her] digits deep into [npc2.her] [npc2.pussy+].",
 
 							"[npc.Name] roughly grinds [npc.her] [npc.fingers+] down between [npc2.namePos] [npc2.legs+],"
-									+ " and with a forceful [npc2.verb(thrust)], [npc.she] greedily slams [npc.her] digits deep into [npc2.her] [npc2.pussy+]."));
+									+ " and with a forceful thrust, [npc.she] greedily slams [npc.her] digits deep into [npc2.her] [npc2.pussy+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Eagerly teasing [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.labia+], [npc.name] [npc.verb(let)] out [npc.a_moan+] before greedily sinking [npc.her] digits into [npc2.her] [npc2.pussy+].",
 
 							"[npc.Name] eagerly [npc.verb(press)] [npc.her] [npc.fingers+] down between [npc2.namePos] [npc2.legs+],"
-									+ " and with a determined [npc2.verb(thrust)], [npc.she] greedily [npc.verb(sink)] [npc.her] digits into [npc2.her] [npc2.pussy+]."));
+									+ " and with a determined thrust, [npc.she] greedily [npc.verb(sink)] [npc.her] digits into [npc2.her] [npc2.pussy+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

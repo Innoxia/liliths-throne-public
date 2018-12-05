@@ -340,7 +340,7 @@ public class TailVagina {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.tail+] into [npc2.her] [npc2.vagina+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] [npc2.labia+], "
-									+ "and with a determined [npc2.verb(thrust)], [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.vagina+]."));
+									+ "and with a determined thrust, [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.vagina+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -348,7 +348,7 @@ public class TailVagina {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before violently slamming forwards, forcing [npc.her] [npc.tail+] deep into [npc2.her] [npc2.vagina+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] [npc2.labia+],"
-									+ " and with a forceful [npc2.verb(thrust)], [npc.she] roughly slams it deep into [npc2.her] [npc2.vagina+]."));
+									+ " and with a forceful thrust, [npc.she] roughly slams it deep into [npc2.her] [npc2.vagina+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -356,7 +356,7 @@ public class TailVagina {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.tail+] into [npc2.her] [npc2.vagina+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] [npc2.labia+],"
-									+ " and with a determined [npc2.verb(thrust)], [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.vagina+]."));
+									+ " and with a determined thrust, [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.vagina+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -364,7 +364,7 @@ public class TailVagina {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, sinking [npc.her] [npc.tail+] into [npc2.her] [npc2.vagina+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] [npc2.labia+],"
-									+ " and with a little [npc2.verb(thrust)], [npc.she] [npc.verb(sink)] it deep into [npc2.her] [npc2.vagina+]."));
+									+ " and with a little thrust, [npc.she] [npc.verb(sink)] it deep into [npc2.her] [npc2.vagina+]."));
 					break;
 				default:
 					break;

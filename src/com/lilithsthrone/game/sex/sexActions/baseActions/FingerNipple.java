@@ -554,7 +554,7 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breasts],"
 									+ " gently pushing [npc2.her] chest out as [npc2.she] [npc2.verb(help)] [npc.name] sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.nipple+].",
 
-							" With a soft [npc2.moan], [npc2.name] slowly [npc2.verb(push)] [npc2.namePos] chest out,"
+							" With a soft [npc2.moan], [npc2.name] slowly [npc2.verb(push)] [npc2.her] chest out,"
 									+ " imploring [npc.name] to sink [npc.her] [npc.fingers+] even deeper into [npc2.her] breast."));
 					break;
 				case DOM_NORMAL:
@@ -562,7 +562,7 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breast],"
 									+ " eagerly pushing [npc2.her] chest out as [npc2.she] [npc2.verb(help)] [npc.name] sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.nipple+].",
 
-							" With [npc.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.namePos] chest out,"
+							" With [npc.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out,"
 									+ " imploring [npc.name] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] breast."));
 					break;
 				case DOM_ROUGH:
@@ -570,7 +570,7 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breasts],"
 									+ " violently thrusting [npc2.her] chest out against [npc.her] touch as [npc2.she] [npc2.verb(command)] [npc.name] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.nipple+].",
 
-							" With [npc2.a_moan+], [npc2.name] respond by violently thrusting [npc2.namePos] chest out,"
+							" With [npc2.a_moan+], [npc2.name] respond by violently thrusting [npc2.her] chest out,"
 									+ " commanding [npc.name] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] breast."));
 					break;
 				case SUB_EAGER:
@@ -578,7 +578,7 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breasts],"
 									+ " eagerly pushing [npc2.her] chest out as [npc2.name] [npc2.verb(help)] [npc.name] sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.nipple+].",
 
-							" With [npc.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.namePos] chest out,"
+							" With [npc.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out,"
 									+ " imploring [npc.name] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] breast."));
 					break;
 				case SUB_NORMAL:
@@ -586,7 +586,7 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breast],"
 									+ " eagerly pushing [npc2.her] chest out as [npc2.name] [npc2.verb(help)] [npc.name] sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.nipple+].",
 
-							" With [npc.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.namePos] chest out,"
+							" With [npc.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out,"
 									+ " imploring [npc.name] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] breast."));
 					break;
 				case SUB_RESISTING:

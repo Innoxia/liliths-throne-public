@@ -148,7 +148,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 		try {
 			return Main.game.getNPCById(milkProvidor);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+milkProvidor+") returning null in method: getMilkProvidor()");
+			Util.logGetNpcByIdError("getMilkProvidor()", milkProvidor);
 			return null;
 		}
 	}

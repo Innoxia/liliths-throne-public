@@ -1221,7 +1221,7 @@ public class MainControllerInitMethod {
 											try {
 												Main.game.getNPCById(id).setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 											} catch (Exception e) {
-												System.err.println("Main.game.getNPCById("+id+") returning null in method: initMainControllerListeners(), instance 1.");
+												Util.logGetNpcByIdError("initMainControllerListeners(), instance 1.", id);
 											}
 										}
 									}
@@ -1419,7 +1419,7 @@ public class MainControllerInitMethod {
 				try {
 					slave = (NPC) Main.game.getNPCById(slaveId);
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+slaveId+") returning null in method: initMainControllerListeners(), instance 2.");
+					Util.logGetNpcByIdError("initMainControllerListeners(), instance 2.", slaveId);
 					continue;
 				}
 				
@@ -1574,7 +1574,7 @@ public class MainControllerInitMethod {
 				try {
 					occupant = (NPC) Main.game.getNPCById(occupantId);
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+occupantId+") returning null in method: initMainControllerListeners(), instance 3.");
+					Util.logGetNpcByIdError("initMainControllerListeners(), instance 3.", occupantId);
 					continue;
 				}
 				
@@ -1690,7 +1690,7 @@ public class MainControllerInitMethod {
 					try {
 						slave = (NPC) Main.game.getNPCById(slaveId);
 					} catch (Exception e) {
-						System.err.println("Main.game.getNPCById("+slaveId+") returning null in method: initMainControllerListeners(), instance 4.");
+						Util.logGetNpcByIdError("initMainControllerListeners(), instance 4.", slaveId);
 						continue;
 					}
 					

@@ -92,7 +92,6 @@ public enum SlaveEventTag {
 	JOB_LILAYA_INTRUSIVE_TESTING("Lilaya ran some rather intrusive tests on [npc.name]."),
 	
 	JOB_LILAYA_FEMININE_TF("Lilaya tested some very intrusive feminine transformations on [npc.name]."),
-	
 	JOB_LILAYA_MASCULINE_TF("Lilaya tested some very intrusive masculine transformations on [npc.name]."),
 
 	JOB_STOCKS_USED("[npc.Name] was used by an unknown member of the public."),

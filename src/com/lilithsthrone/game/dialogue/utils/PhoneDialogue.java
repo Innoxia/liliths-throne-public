@@ -1545,7 +1545,7 @@ public class PhoneDialogue {
 						}
 					};
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+Main.game.getPlayer().getCharactersEncountered().get(index - 1)+") returning null in method: CONTACTS_CHARACTER.getResponse()");
+					Util.logGetNpcByIdError("CONTACTS_CHARACTER.getResponse()", Main.game.getPlayer().getCharactersEncountered().get(index - 1));
 					return null;
 				}
 			

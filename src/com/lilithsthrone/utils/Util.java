@@ -946,4 +946,13 @@ public class Util {
 		}
 		return costs[inputTwo.length()];
 	}
+	
+	private static Map<String, List<String>> errorLogMap = new HashMap<>();
+	public static void logGetNpcByIdError(String method, String id) {
+		errorLogMap.putIfAbsent(method, new ArrayList<>());
+		if(!errorLogMap.get(method).contains(id)) {
+			System.err.println("Main.game.getNPCById("+id+") returning null in method: "+method);
+			errorLogMap.get(method).add(id);
+		}
+	}
 }

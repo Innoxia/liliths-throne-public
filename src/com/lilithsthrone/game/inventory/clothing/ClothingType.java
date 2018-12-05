@@ -1886,8 +1886,7 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
 							Util.newArrayListOfValues(CoverableArea.BACK),
-							Util.newArrayListOfValues(
-							ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
 							null),
 					new BlockedParts(
 							DisplacementType.UNZIPS,

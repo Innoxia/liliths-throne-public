@@ -163,7 +163,7 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 		try {
 			return Main.game.getNPCById(cumProvidor);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+cumProvidor+") returning null in method: getCumProvidor()");
+			Util.logGetNpcByIdError("getCumProvidor()", cumProvidor);
 			return null;
 		}
 	}

@@ -384,7 +384,7 @@ public class Elemental extends NPC {
 		try {
 			return Main.game.getNPCById(summonerID);
 		} catch (Exception e) {
-//			System.err.println("Main.game.getNPCById("+id+") returning null in method: getSummoner()");
+//			Util.logGetNpcByIdError("getSummoner()", id);
 			return null;
 //			throw new NullPointerException();
 		}

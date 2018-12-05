@@ -1832,23 +1832,23 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	
 	public SimpleEntry<AbstractClothing, DisplacementType> getNextClothingToRemoveForCoverableAreaAccess(CoverableArea coverableArea) { 
 		List<AbstractClothing> zLayerSortedList = new ArrayList<>(clothingCurrentlyEquipped);
-		zLayerSortedList.sort(new ClothingZLayerComparator().reversed());
+		zLayerSortedList.sort(new ClothingZLayerComparator());
 
 		for (AbstractClothing clothing : zLayerSortedList) {
-			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
+			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 				if (bp.blockedBodyParts.contains(coverableArea) 
 						&& !clothing.getDisplacedList().contains(bp.displacementType)
 						&& !isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
 					// this clothing is blocking the part we want access to, so make that our starting point:
 					return findNextClothingDisplacement(coverableArea, clothing, bp.displacementType, zLayerSortedList);
 				}
+			}
 		}
 		//System.err.print("There is no clothing covering this part!");
 		return null;
 	}
 
-	private SimpleEntry<AbstractClothing, DisplacementType> findNextClothingDisplacement(CoverableArea coverableArea, AbstractClothing clothingToRemove, 
-			DisplacementType displacement, List<AbstractClothing> zLayerSortedList) {
+	private SimpleEntry<AbstractClothing, DisplacementType> findNextClothingDisplacement(CoverableArea coverableArea, AbstractClothing clothingToRemove, DisplacementType displacement, List<AbstractClothing> zLayerSortedList) {
 		for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList()) {
 			if (bp.displacementType == displacement) {
 				for (ClothingAccess ca : bp.clothingAccessRequired) {
@@ -1857,7 +1857,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 							for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsList()) {
 								if (bpIterated.clothingAccessBlocked.contains(ca) 
 										&& !clothing.getDisplacedList().contains(bpIterated.displacementType)
-										&& !isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
+//										&& !isCoverableAreaExposedFromElsewhere(clothing, coverableArea)
+										) {
 									// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to displace this new clothing:
 									return findNextClothingDisplacement(coverableArea, clothing, bpIterated.displacementType, zLayerSortedList);
 								}

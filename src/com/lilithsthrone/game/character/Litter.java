@@ -225,7 +225,7 @@ public class Litter implements Serializable, XMLSaving {
 		try {
 			return Main.game.getNPCById(motherId);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+motherId+") returning null in method: Litter.getMother()");
+			Util.logGetNpcByIdError("Litter.getMother()", motherId);
 			return Main.game.getGenericFemaleNPC();
 		}
 	}
@@ -238,7 +238,7 @@ public class Litter implements Serializable, XMLSaving {
 		try {
 			return Main.game.getNPCById(fatherId);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+fatherId+") returning null in method: Litter.getFather()");
+			Util.logGetNpcByIdError("Litter.getFather()", fatherId);
 			return Main.game.getGenericMaleNPC();
 		}
 	}

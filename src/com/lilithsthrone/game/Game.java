@@ -1355,7 +1355,7 @@ public class Game implements Serializable, XMLSaving {
 					NPC occupant = (NPC) Main.game.getNPCById(id);
 					Main.game.getOccupancyUtil().dailyOccupantUpdate(occupant);
 				} catch(Exception e) {
-					System.err.println("Main.game.getNPCById("+id+") returning null in method: endTurn()");
+					Util.logGetNpcByIdError("endTurn()", id);
 				}
 			}
 			
@@ -3636,7 +3636,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 			return banishNPC(npc);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+id+") returning null in method: banishNPC()");
+			Util.logGetNpcByIdError("banishNPC()", id);
 			return false;
 		}
 	}

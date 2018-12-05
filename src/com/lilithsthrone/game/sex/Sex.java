@@ -1021,7 +1021,7 @@ public class Sex {
 						if((Sex.getSexPace(participant)==SexPace.SUB_RESISTING && !participant.hasFetish(Fetish.FETISH_NON_CON_SUB))) {
 							for(GameCharacter domParticipant : Sex.getDominantParticipants().keySet()) {
 								if(Sex.getSexPositionSlot(domParticipant)!=SexPositionSlot.MISC_WATCHING) {
-									endSexSB.append(participant.incrementAffection(domParticipant, -50));
+									endSexSB.append(participant.incrementAffection(domParticipant, -200, "[npc.Name] now despises [npc2.name] for raping [npc.herHim]!"));
 								}
 							}
 							
@@ -1029,7 +1029,7 @@ public class Sex {
 							if(Sex.getNumberOfOrgasms(participant)==0 && !participant.hasFetish(Fetish.FETISH_DENIAL_SELF) && !Sex.isDom(participant)) {
 								for(GameCharacter domParticipant : Sex.getDominantParticipants().keySet()) {
 									if(Sex.getSexPositionSlot(domParticipant)!=SexPositionSlot.MISC_WATCHING) {
-										endSexSB.append(participant.incrementAffection(domParticipant, -2));
+										endSexSB.append(participant.incrementAffection(domParticipant, -2, "[npc.Name] is annoyed at [npc2.name] for finishing without bringing [npc.herHim] to orgasm."));
 									}
 								}
 							}

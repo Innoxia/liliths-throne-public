@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -234,7 +235,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		try {
 			return (NPC) Main.game.getNPCById(slaveTrader);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+slaveTrader+") returning null in method: getSlaveTrader()");
+			Util.logGetNpcByIdError("getSlaveTrader()", slaveTrader);
 			return null;
 		}
 	}
@@ -263,7 +264,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		try {
 			return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+slaveryManagerSlaveSelected+") returning null in method: getSlaveryManagerSlaveSelected()");
+			Util.logGetNpcByIdError("getSlaveryManagerSlaveSelected()", slaveryManagerSlaveSelected);
 			return null;
 		}
 	}

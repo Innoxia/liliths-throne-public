@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -38,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.11
- * @version 0.2.11
+ * @version 0.2.12
  * @author Innoxia
  */
 public class TunnelImpsDialogue {
@@ -78,7 +77,6 @@ public class TunnelImpsDialogue {
 			List<GameCharacter> allCharacters = new ArrayList<>();
 			allCharacters.add(getMainCompanion());
 			allCharacters.addAll(getImpGroup());
-			Collections.sort(allCharacters, (c1, c2) -> c1 instanceof Elemental?(c2 instanceof Elemental?0:1):(c2 instanceof Elemental?-1:0));
 			return allCharacters;
 			
 		} else {

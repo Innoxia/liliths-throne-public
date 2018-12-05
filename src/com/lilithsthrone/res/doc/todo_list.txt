@@ -113,39 +113,58 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Added all dialogue for solo and companion scenes in the imp citadel.
-		Added post-defeat sex scene for losing Siren combat. (There was a more involved sequence of events planned for this, but I didn't have time to add it - it will be added at some point in the future.)
+	Contributors:
+		Fixed classpath issue causing game to not compile correctly. (#981 by Alaco)
 	
 	Other:
-		Switched primary and secondary colours for tagged choker, and changed the icon's scribble to read 'Bound Bitch'.
-		Female horses and reindeer now have a base ass size of 'large', and female cows have 'huge'. (This is randomised when NPCs are generated, so some will still have larger or smaller asses.)
-		Increased base size of all race's female nipples, and additionally increased base size of female cow areolae.
-		Improved race menu in encyclopedia, so that subspecies of a race are displayed in a sub-menu.
-		Consolidated all elemental races into one 'elemental' race (keeping the elemental types as subspecies), and converted individual elemental damage/resistance to a universal 'elemental' one.
-		Moved witch set out into res folder, added tertiary colour to witch hat, and added 'wide-brimmed' hat variation.
-		
+		Humans, demons, cat, dog, wolf, horse, and cow-morphs now have a 1% chance to have heterochromatic eyes. (Before it was just humans, who had a chance of 50%.)
+		Added more detailed messages to any negative affection changes at the end of sex.
+	
 	Bugs:
-		Fixed BDSM clothing set icon to be black instead of white.
-		You can no longer escape from the boss fights in imp fortresses, nor the imp 'challenge' fight in the citadel.
-		Fixed cause of tattoo tooltips being cut off at the bottom. (The tooltip formatting system is still a little buggy - I'll remake it at some point.)
-		Fixed breast size in subspecies encyclopedia using the enum name for the description.
-		Added some error handling for if clothing throws errors related to patterns not being present.
-		Fixed issue with youko icons not having a background circle.
-		Fixed imp damage/resistance attributes not working.
-		Fixed imps sometimes giving birth to non-imps.
-		Your companion now gets the same attribute boost as you do after winning the imp fight when using 'challenge' in the citadel.
-		Fixed being able to start the imp challenge even after the siren had been defeated.
-		Fixed issue with the citadel's imp challenge freezing at the end of combat.
-		Your status panel is no longer minimised when acting as a spectator.
-		Fixed issues with some unique NPCs not putting their clothing back on correctly after sex.
-		Takahashi will now correctly deny orgasms during her oral scene.
-		Fixed issue where dropping equipped clothing during sex wouldn't work on the first button press.
-		The demon leaders should now correctly be in the siren's throne room when you get there.
+		Fixed grammatical errors in several sex actions.
+		Fixed parsing issues in Submission imp attack dialogue.
+		Fixed parser errors in imp citadel content.
+		Fixed issue where NPCs would sometimes get stuck trying to remove clothing during sex.
+		Heterochromatic eyes will no longer be generated with the same colour. (Although you can still make them the same colour via Kate's shop or demon/slime transformations.)
+		Fixed formatting error in eye descriptions.
+		Fixed repetitive mouth-knotting orgasm description.
+		Fixed incorrect descriptions of tests being performed on slaves in Lilaya's lab.
+		Fixed error log being spammed by messages informing you that NPCs were returning null in some methods.
 	
 	
 	
 	
+	
+	One of my friends that moved in with me apparently got a job as "Unemployed". Checking in on her is pretty fun.
+	
+	change it so that they'll TF you even if non-con is off
+	
+	Start/stop receiving footjob still an issue
+	
+	If you dye an unidentified item the quality of identified item is displayed on the dye screen
+		(Title of preview)
+	
+	Make +1 potion effect text stack
+	
+	BUGS & condoms
+	Final citadel refinements
+	Lyssieth palace
+		Demon TF
+	Fields
+	
+	
+	1) Getting the key in the friendly way and going back throws a NullPointerException (at least it did that for the female imps)
+
+java.lang.IndexOutOfBoundsException: Index: 3, Size: 3
+    at java.util.ArrayList.rangeCheck(Unknown Source)
+    at java.util.ArrayList.get(Unknown Source)
+    at com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue$12.getResponse(ImpFortressDialogue.java:2022)
+    at com.lilithsthrone.game.Game.getResponsesDiv(Game.java:2338)
+    at com.lilithsthrone.game.Game.setContent(Game.java:1912)
+    at com.lilithsthrone.controller.eventListeners.SetContentEventListener.handleEvent(SetContentEventListener.java:36)
+    [...]
+
+2) Starting the fight with the 30 imps and losing results in the "Recover" button launching a NullPointerException but I can't quite find it in my error.log (which is kinda enormous) and testing it again would be long because of the sex scenes with 6 imps
 	
 	
 	
