@@ -999,7 +999,14 @@ public class Game implements Serializable, XMLSaving {
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.5")) {
 					ImpCitadelDialogue.resetFortress();
 				}
-				
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId()) && npc.getHomeWorldLocation()==WorldType.DOMINION && !npc.hasJob()) {
+							npc.assignNewJob();
+						}
+					}
+				}
 				
 				Main.game.pendingSlaveInStocksReset = false;
 				

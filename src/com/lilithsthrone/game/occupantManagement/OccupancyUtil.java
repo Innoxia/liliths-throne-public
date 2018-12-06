@@ -21,7 +21,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
@@ -45,7 +44,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
  * A class to handle all occupant-related turn mechanics. Deals with moving slaves to/from jobs and generating events for them. Also sends friendly occupants to/from jobs.
  * 
  * @since 0.1.87
- * @version 0.2.10
+ * @version 0.2.12
  * @author Innoxia
  */
 public class OccupancyUtil implements XMLSaving {
@@ -130,20 +129,10 @@ public class OccupancyUtil implements XMLSaving {
 		occupant.resetOccupantFlags();
 		
 		if(!Main.game.getCharactersPresent().contains(occupant)) { // Don't give them a new job if the player is present...
-			if(occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+			if(!occupant.hasJob()) {
 //				System.out.println(occupant.getName());
 				if(Math.random()<0.1) {
-					List<Occupation> occupations = new ArrayList<>();
-					for(Occupation occ : Occupation.values()) {
-						if(!occ.isAvailableToPlayer()
-								&& !occ.getOccupationTags().contains(OccupationTag.HAS_PREREQUISITES)
-								&& occ.isAvailable(occupant)
-								&& occ!=Occupation.NPC_UNEMPLOYED
-								&& !occ.isLowlife()) {
-							occupations.add(occ);
-						}
-					}
-					occupant.setHistory(Util.randomItemFrom(occupations));
+					occupant.assignNewJob();
 					occupant.setFlag(NPCFlagValue.occupantHasNewJob, true);
 //					System.out.println(occupant.getHistory().getName());
 				}

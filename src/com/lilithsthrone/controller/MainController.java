@@ -1775,7 +1775,7 @@ public class MainController implements Initializable {
 					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null);
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null, false);
 					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}

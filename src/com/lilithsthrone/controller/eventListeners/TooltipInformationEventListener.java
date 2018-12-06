@@ -67,7 +67,8 @@ public class TooltipInformationEventListener implements EventListener {
 	
 	private GameCharacter owner;
 	private StatusEffect statusEffect;
-	private Perk perk, levelUpPerk;
+	private Perk perk;
+	private Perk levelUpPerk;
 	private int perkRow;
 	private Fetish fetish;
 	private boolean fetishExperience = false;

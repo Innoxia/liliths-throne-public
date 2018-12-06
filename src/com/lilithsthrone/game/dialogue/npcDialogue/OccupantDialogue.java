@@ -31,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.10
- * @version 0.2.10
+ * @version 0.2.12
  * @author Innoxia
  */
 public class OccupantDialogue {
@@ -41,7 +41,7 @@ public class OccupantDialogue {
 	}
 	
 	private static boolean hasJob() {
-		return !occupant().getHistory().isLowlife();
+		return occupant().hasJob();
 	}
 	
 	private static String getFooterText() {

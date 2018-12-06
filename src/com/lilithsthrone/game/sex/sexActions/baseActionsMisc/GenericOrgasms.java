@@ -3422,11 +3422,11 @@ public class GenericOrgasms {
 				return isTakingCock(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
 						&& (Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
 							|| ((Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
-								?!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_CUM_ADDICT)
-								:true)
+									?!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_CUM_ADDICT)
+									:true)
 							&& (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-								?(!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PREGNANCY))
-								:true)));
+									?(!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PREGNANCY))
+									:true)));
 			}
 		}
 

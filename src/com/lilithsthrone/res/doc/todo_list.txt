@@ -115,10 +115,13 @@
 	
 	Contributors:
 		Fixed classpath issue causing game to not compile correctly. (#981 by Alaco)
+		Fixed Rental Mommy & Rental Daddy t-shirt errors, which was causing the rental mommy encounter to throw errors. (#984 by CognitiveMist)
 	
 	Other:
 		Humans, demons, cat, dog, wolf, horse, and cow-morphs now have a 1% chance to have heterochromatic eyes. (Before it was just humans, who had a chance of 50%.)
 		Added more detailed messages to any negative affection changes at the end of sex.
+		Added several new item tags, allowing clothing mods to define arm/leg hinderance, speech muffling, discarding on unequip, and equip during sex.
+		The strap-on, anal beads, clover clamps, realistic dildo, and strapless dildo can now all be equipped during sex.
 	
 	Bugs:
 		Fixed grammatical errors in several sex actions.
@@ -130,19 +133,23 @@
 		Fixed repetitive mouth-knotting orgasm description.
 		Fixed incorrect descriptions of tests being performed on slaves in Lilaya's lab.
 		Fixed error log being spammed by messages informing you that NPCs were returning null in some methods.
+		Fixed rarity of unidentified clothing being displayed in the dye preview window.
+		Friendly occupants will no longer get a job as 'an unemployed', and any occupants already affected by this in your save will start looking for a new job when you load in (unemployed occupants that have already moved out will get a new job).
+		Fixed damage tooltips showing different values before and after buying a weapon from a shop. (When weapon is not held by you, tooltip now displays both the holder's and your damage.)
+		Fixed issue where returning to a Hyorlyss's keep after gaining her key would throw a background error and softlock the game. 
 	
 	
 	
 	
+	Check clothing removal after sex if equipped to character
 	
-	One of my friends that moved in with me apparently got a job as "Unemployed". Checking in on her is pretty fun.
+	2) Starting the fight with the 30 imps and losing results in the "Recover" button launching a NullPointerException but I can't quite find it in my error.log (which is kinda enormous) 
+	and testing it again would be long because of the sex scenes with 6 imps
+	
 	
 	change it so that they'll TF you even if non-con is off
 	
 	Start/stop receiving footjob still an issue
-	
-	If you dye an unidentified item the quality of identified item is displayed on the dye screen
-		(Title of preview)
 	
 	Make +1 potion effect text stack
 	
@@ -153,18 +160,6 @@
 	Fields
 	
 	
-	1) Getting the key in the friendly way and going back throws a NullPointerException (at least it did that for the female imps)
-
-java.lang.IndexOutOfBoundsException: Index: 3, Size: 3
-    at java.util.ArrayList.rangeCheck(Unknown Source)
-    at java.util.ArrayList.get(Unknown Source)
-    at com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue$12.getResponse(ImpFortressDialogue.java:2022)
-    at com.lilithsthrone.game.Game.getResponsesDiv(Game.java:2338)
-    at com.lilithsthrone.game.Game.setContent(Game.java:1912)
-    at com.lilithsthrone.controller.eventListeners.SetContentEventListener.handleEvent(SetContentEventListener.java:36)
-    [...]
-
-2) Starting the fight with the 30 imps and losing results in the "Recover" button launching a NullPointerException but I can't quite find it in my error.log (which is kinda enormous) and testing it again would be long because of the sex scenes with 6 imps
 	
 	
 	
@@ -172,8 +167,6 @@ java.lang.IndexOutOfBoundsException: Index: 3, Size: 3
 		Make sure you have the already-completed citadel quest done properly when approaching Lyssieth palace
 		Also the uniform dialogue, and adding Elizabeth as an NPC, and to add proper detection for knowing her in the post-collapse scenes
 		
-		
-	
 	Remove ring
 	Add ring to siren if tricked
 	

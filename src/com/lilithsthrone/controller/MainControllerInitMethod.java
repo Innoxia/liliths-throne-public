@@ -391,7 +391,7 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer());
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -454,7 +454,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer());
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
@@ -491,7 +491,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC());
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC(), false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -530,7 +530,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null, false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -572,7 +572,7 @@ public class MainControllerInitMethod {
 							((EventTarget) MainController.document.getElementById("WEAPON_" + i)).addEventListener("click",el, false);
 							MainController.addEventListener(MainController.document, "WEAPON_" + i, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, "WEAPON_" + i, "mouseleave", MainController.hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC());
+							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), false);
 							((EventTarget) MainController.document.getElementById("WEAPON_" + i)).addEventListener("mouseenter",el2, false);
 						}
 						
@@ -812,7 +812,7 @@ public class MainControllerInitMethod {
 					el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
 					
 				} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
-					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer());
+					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), false);
 					
 				}  else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
 					el2 = new InventoryTooltipEventListener().setTattoo(EnchantmentDialogue.getTattooSlot(), (Tattoo) EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getTattooBearer(), EnchantmentDialogue.getTattooBearer());

@@ -1337,25 +1337,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public boolean isMufflesSpeech() {
-		return false;
+		return getItemTags().contains(ItemTag.MUFFLES_SPEECH);
 	}
 	
 	public boolean isHindersLegMovement() {
-		return false;
+		return getItemTags().contains(ItemTag.HINDERS_LEG_MOVEMENT);
 	}
 	
 	public boolean isHindersArmMovement() {
-		return false;
+		return getItemTags().contains(ItemTag.HINDERS_ARM_MOVEMENT);
 	}
 	
 	// Getters & setters:
 	
 	public boolean isDiscardedOnUnequip() {
-		return false;
+		return getItemTags().contains(ItemTag.DISCARDED_WHEN_UNEQUIPPED);
 	}
 	
 	public boolean isAbleToBeEquippedDuringSex() {
-		return false;
+		return getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP);
 	}
 	
 	public String getDeterminer() {

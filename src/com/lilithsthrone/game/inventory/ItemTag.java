@@ -2,7 +2,7 @@ package com.lilithsthrone.game.inventory;
 
 /**
  * @since 0.2.1
- * @version 0.2.11
+ * @version 0.2.12
  * @author Innoxia
  */
 public enum ItemTag {
@@ -23,6 +23,16 @@ public enum ItemTag {
 	DRESS, // For helping to generate clothing in CharacterUtils
 
 	SPREADS_FEET, // Prevents double foot actions, like wrap-around footjobs
+
+	MUFFLES_SPEECH, // Causes the wearer to not be able to talk. E.g. Ball gags
+
+	HINDERS_ARM_MOVEMENT, // Hinders the ability of the wearer to use their arms. E.g. Hand cuffs
+
+	HINDERS_LEG_MOVEMENT, // Hinders the ability of the wearer to run or use their legs properly. E.g. Spreader bar
+
+	DISCARDED_WHEN_UNEQUIPPED, //  Makes the clothing be thrown away when unequipped. E.g. Condoms
+
+	ENABLE_SEX_EQUIP, // Allows this clothing to be equipped during sex. E.g. Condoms or strapons
 	
 	// To detect whether creampies should leak out or not:
 	PLUGS_ANUS,

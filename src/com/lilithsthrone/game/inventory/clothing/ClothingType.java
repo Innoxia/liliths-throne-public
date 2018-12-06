@@ -8550,17 +8550,10 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.REQUIRES_PENIS)){
-		
-		@Override
-		public boolean isDiscardedOnUnequip() {
-			return true;
-		}
-
-		@Override
-		public boolean isAbleToBeEquippedDuringSex() {
-			return true;
-		}
+			Util.newArrayListOfValues(
+					ItemTag.DISCARDED_WHEN_UNEQUIPPED,
+					ItemTag.ENABLE_SEX_EQUIP,
+					ItemTag.REQUIRES_PENIS)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9023,7 +9016,9 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
+			Util.newArrayListOfValues(
+					ItemTag.MUFFLES_SPEECH,
+					ItemTag.SOLD_BY_FINCH)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9049,11 +9044,6 @@ public class ClothingType {
 					"[npc.Name] unfastens the ball gag's straps and takes it out of [npc.her] mouth.",
 					"[npc.Name] unfastens the ball gag's straps and takes it out of your mouth.",
 					null, null, null);
-		}
-		
-		@Override
-		public boolean isMufflesSpeech() {
-			return true;
 		}
 	};
 	
@@ -9194,12 +9184,9 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
-
-		@Override
-		public boolean isHindersArmMovement() {
-			return true;
-		}
+			Util.newArrayListOfValues(
+					ItemTag.HINDERS_ARM_MOVEMENT,
+					ItemTag.SOLD_BY_FINCH)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9258,13 +9245,9 @@ public class ClothingType {
 			null,
 			Util.newArrayListOfValues(
 					ItemTag.SPREADS_FEET,
+					ItemTag.HINDERS_LEG_MOVEMENT,
 					ItemTag.SOLD_BY_FINCH,
 					ItemTag.REVEALS_CONCEALABLE_SLOT)){
-		
-		@Override
-		public boolean isHindersLegMovement() {
-			return true;
-		}
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9498,6 +9481,7 @@ public class ClothingType {
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			Util.newArrayListOfValues(
+					ItemTag.ENABLE_SEX_EQUIP,
 					ItemTag.SOLD_BY_FINCH,
 					ItemTag.REQUIRES_NO_PENIS,
 					ItemTag.DILDO_LARGE)){

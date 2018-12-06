@@ -147,6 +147,7 @@ import com.lilithsthrone.game.character.persona.MoralityValue;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.Relationship;
@@ -3192,6 +3193,24 @@ public abstract class GameCharacter implements XMLSaving {
 			return Occupation.NPC_SLAVE;
 		}
 		return history;
+	}
+
+	public boolean hasJob() {
+		return !getHistory().isLowlife() && getHistory()!=Occupation.UNEMPLOYED;
+	}
+	
+	public void assignNewJob() {
+		List<Occupation> occupations = new ArrayList<>();
+		for(Occupation occ : Occupation.values()) {
+			if(!occ.isAvailableToPlayer()
+					&& !occ.getOccupationTags().contains(OccupationTag.HAS_PREREQUISITES)
+					&& occ.isAvailable(this)
+					&& occ!=Occupation.NPC_UNEMPLOYED
+					&& !occ.isLowlife()) {
+				occupations.add(occ);
+			}
+		}
+		this.setHistory(Util.randomItemFrom(occupations));
 	}
 
 	/**
