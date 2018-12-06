@@ -56,7 +56,7 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="FERTILITY" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="FERTILITY" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_BROODMOTHER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_PREGNANCY" timer="0"/>
 		</effects>
 		
 		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->

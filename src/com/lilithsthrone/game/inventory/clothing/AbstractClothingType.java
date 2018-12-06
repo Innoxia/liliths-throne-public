@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.function.Function;
@@ -272,6 +273,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				.getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
 				.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
 				.map( e -> ItemEffect.loadFromXML(e.getInnerElement(), e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
+				.filter(Objects::nonNull) // Ensure that we only add non-null effects
 				.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need! 
 			
 			if(debug) {
