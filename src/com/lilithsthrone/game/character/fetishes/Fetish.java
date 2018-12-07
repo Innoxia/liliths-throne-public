@@ -1077,7 +1077,7 @@ public enum Fetish {
 
 		@Override
 		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
-			return getGenericFetishDesireDescription(target, desire, "having sex with your relations");
+			return getGenericFetishDesireDescription(target, desire, "having sex with your relatives");
 		}
 		
 		@Override
