@@ -122,6 +122,7 @@ public class Main extends Application {
 			+"<ul>Fixed numerous issues with clubbers in the Watering Hole - it should all work correctly again now.</ul>"
 			+"<ul>Fixed age preferences not being saved and restored between games.</ul>"
 			+"<ul>Fixed issue with changing Youko slaves' names.</ul>"
+			+ "<ul>Fixed background errors being generated when NPCs were removed from the game.</ul>"
 			+ "<br/>"
 		
 			+ "<h6>v0.2.12.9</h6>"

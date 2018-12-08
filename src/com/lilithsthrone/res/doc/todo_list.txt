@@ -126,7 +126,7 @@
 		Fixed numerous issues with clubbers in the Watering Hole - it should all work correctly again now.
 		Fixed age preferences not being saved and restored between games.
 		Fixed issue with changing Youko slaves' names.
-	
+		Fixed background errors being generated when NPCs were removed from the game.
 	
 	
 	

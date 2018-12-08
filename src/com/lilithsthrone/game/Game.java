@@ -3763,6 +3763,8 @@ public class Game implements Serializable, XMLSaving {
 		if(isInNPCUpdateLoop) {
 			npcsToRemove.add(npc);
 		} else {
+			npc.getCell().removeCharacterPresentId(npc.getId());
+			npc.getCell().removeCharacterHomeId(npc.getId());
 			NPCMap.remove(npc.getId());
 		}
 	}
