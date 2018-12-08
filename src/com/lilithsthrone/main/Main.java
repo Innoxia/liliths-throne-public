@@ -67,7 +67,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.12.95";
+	public static final String VERSION_NUMBER = "0.2.12.96";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -107,7 +107,12 @@ public class Main extends Application {
 		+ "<br/>"
 
 		+ "<list>"
-
+			+ "<h6>v0.2.12.96</h6>"
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed issue where random NPCs were appearing in tiles.</ul>"
+			+"<ul>Fixed your name being displayed as 'You' in your character panel on the left of the screen.</ul>"
+			+ "<br/>"
+			
 			+ "<h6>v0.2.12.95</h6>"
 			+"<li>Bugs:</li>"
 			+"<ul>Fixed major bug where entering a lot of areas would freeze the game.</ul>"
