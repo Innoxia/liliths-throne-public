@@ -1916,7 +1916,9 @@ public enum RenderingEngine {
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 									+ (character.getName().length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
-											: UtilText.parse(character, "[npc.Name]"))
+											: (character.isPlayer()
+													?character.getName()
+													:UtilText.parse(character, "[npc.Name]")))
 								+"</b>"
 								+ " - Level "+ character.getLevel()
 							+"</div>"

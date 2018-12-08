@@ -61,7 +61,7 @@ public class GenericSexualPartner extends NPC {
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
-			this.setLocation(Main.game.getPlayer(), false);
+			this.setLocation(worldLocation, location, false);
 			
 			setLevel(Util.random.nextInt(5) + 5);
 			

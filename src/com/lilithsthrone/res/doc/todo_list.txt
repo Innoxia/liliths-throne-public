@@ -114,19 +114,8 @@
 	Patch notes:
 	
 	Bugs:
-		Fixed major bug where entering a lot of areas would freeze the game.
-		Exiting the citadel after beating the Siren now correctly displays the 'Enter' action.
-		Beating the Siren now correctly removes Takahashi from the citadel. (Also retroactively removes her if you've already beaten the Siren.)
-		Fixed desaturated youko tile icon still being coloured.
-		Fixed (for real this time) the bug where asking Elizabeth about her uniform would lock you into that tile.
-		The arcane revolver now correctly drains 1 essence when fired.
-		Fixed issue where Fyrsia would appear in the other imp fortresses, sometimes in the place of the correct leader. (She will move back to her own keep once you leave/re-enter any fortress.)
-		Fixed missing dialogue when entering Hyorlyss's pacified keep.
-		Enemies no longer only use defensive spells in combat.
-		Fixed numerous issues with clubbers in the Watering Hole - it should all work correctly again now.
-		Fixed age preferences not being saved and restored between games.
-		Fixed issue with changing Youko slaves' names.
-		Fixed background errors being generated when NPCs were removed from the game.
+		Fixed issue where random NPCs were appearing in tiles.
+		Fixed your name being displayed as 'You' in your character panel on the left of the screen.
 	
 	
 	
