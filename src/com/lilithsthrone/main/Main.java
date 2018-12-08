@@ -96,7 +96,7 @@ public class Main extends Application {
 			
 		+ "<p>"
 			+ "As I really want v0.3 to signify that the new area is in, I've called this 0.2.12.9."
-			+ " I'm going to lose Saturday due to staying up so late trying to get this version finished in time, but I'll spend Sunday and Monday getting Lyssieth's content aded, and will release a hotfix/mini-update of v0.3 on Tuesday. ^^"
+			+ " I'm going to lose Saturday due to staying up so late trying to get this version finished in time, but I'll spend Sunday and Monday getting Lyssieth's content added, and will release a hotfix/mini-update of v0.3 on Wednesday night. ^^"
 		+ "</p>"
 			
 		+ "<p>"
