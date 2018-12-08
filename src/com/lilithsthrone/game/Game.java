@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Set;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -1045,6 +1046,11 @@ public class Game implements Serializable, XMLSaving {
 					}
 					while(Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3))>1) {
 						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
+					}
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
+						Main.game.getSubmissionCitadelArcanist().setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 					}
 				}
 				
@@ -2799,7 +2805,7 @@ public class Game implements Serializable, XMLSaving {
 	public List<NPC> getCharactersTreatingCellAsHome(Cell cell) {
 		charactersHome.clear();
 
-		List<String> ids = cell.getCharactersHomeIds();
+		Set<String> ids = cell.getCharactersHomeIds();
 		if(ids!=null) {
 			for(String id : ids) {
 				try {
@@ -2845,7 +2851,7 @@ public class Game implements Serializable, XMLSaving {
 	public List<NPC> getCharactersPresent(WorldType worldType, Vector2i location) {
 		charactersPresent.clear();
 		
-		List<String> ids = getWorlds().get(worldType).getCell(location).getCharactersPresentIds();
+		Set<String> ids = getWorlds().get(worldType).getCell(location).getCharactersPresentIds();
 		if(ids!=null) {
 			for(String id : ids) {
 				try {
@@ -2933,8 +2939,7 @@ public class Game implements Serializable, XMLSaving {
 //	 */
 	public void setActiveWorld(World world, Vector2i location, boolean setDefaultDialogue) {
 //		activeWorld = world;
-		player.setWorldLocation(world.getWorldType());
-		player.setLocation(location);
+		player.setLocation(world.getWorldType(), location, false);
 		
 		if(setDefaultDialogue) {
 			DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);

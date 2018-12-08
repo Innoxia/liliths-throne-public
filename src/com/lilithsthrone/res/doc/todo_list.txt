@@ -112,81 +112,22 @@
 		
 	
 	Patch notes:
-	There might be some issues with running the .jar using java 10 and 11. If you're having issues, please try using the .exe.
-	
-	Gameplay:
-		Added NPC 'Elizabeth' - the guard at Lyssieth's palace. Also started to update her dialogue - this will be finished for an upcoming patch.
-		If your save is from a version prior to 0.2.12.6, the imp fortresses will all reset, as several things changed from then to now, so it all needs to be reset in order to work. The imp citadel should also reset if you cleared it using the quick 'Clear' button in versions prior to 0.2.12.6.
-	
-	Contributors:
-		Fixed classpath issue causing game to not compile correctly. (#981 by Alaco)
-		Fixed Rental Mommy & Rental Daddy t-shirt errors, which was causing the rental mommy encounter to throw errors. (#984 by CognitiveMist)
-	
-	Clothing:
-		Added colours 'midnight brown' and 'olive'.
-		Added 'Lyssieth's Guard' set, which contains:
-		Service dress tunic: Over-torso slot, feminine.
-		Service dress hat: Head slot, feminine.
-		Service dress skirt: Leg slot, feminine.
-		Service dress shoes: Foot slot, feminine.
-		Arcane revolver: Ranged, on-handed.
-	
-	Other:
-		Humans, demons, cat, dog, wolf, horse, and cow-morphs now have a 1% chance to have heterochromatic eyes. (Before it was just humans, who had a chance of 50%.)
-		Added more detailed messages to any negative affection changes at the end of sex.
-		Added several new item tags, allowing clothing mods to define fuckable nipple requirement, arm/leg hinderance, speech muffling, discarding on unequip, and equip during sex.
-		Also added 'SEALS_AREA' variations for the 'PLUGS_AREA' cltohing tags. Sealing counts as sealing the orifice without being inserted into it.
-		The strap-on, anal beads, clover clamps, realistic dildo, butt plugs, insertable dildo, and strapless dildo can now all be equipped on non-unique NPCs during sex.
-		Wearing clothing with a 'PLUGS_VAGINA' tag is now detected and influences the wearer's orgasm descriptions.
-		In order to fix a bug, all characters now have surnames, with generic characters having randomly-generated ones. Surnames can be seen in the character view screen.
-		Offspring now inherit their mother's surname. If your surname is blank, your offspring will be given a random surnames. If you change your surname at the town hall, all of your offspring will have their surnames updated.
-		You can now change your slave's surnames in their inspection screen.
-		Improved map rendering performance.
-		Non-spectating participants in non-masturbation sex scenes now gain experience for the 'Pure virgin' fetish if they have a vagina, end the scene while being a virgin, and at least one of their partners orgasmed.
-		Added arcane essence cost of using/firing weapons to their tooltips (if non-zero).
-		Breast feeding part of the 'giving birth' scene is now changed to bottle-feeding if your nipples are inaccessible, your nipples are not normally-shaped, or you have lactation content turned off.
 	
 	Bugs:
-		Fixed grammatical errors in several sex actions.
-		Fixed parsing issues in Submission imp attack dialogue.
-		Fixed parser errors in imp citadel content.
-		Fixed issue where NPCs would sometimes get stuck trying to remove clothing during sex.
-		Heterochromatic eyes will no longer be generated with the same colour. (Although you can still make them the same colour via Kate's shop or demon/slime transformations.)
-		Fixed formatting error in eye descriptions.
-		Fixed repetitive mouth-knotting orgasm description.
-		Fixed incorrect descriptions of tests being performed on slaves in Lilaya's lab.
-		Fixed error log being spammed by messages informing you that NPCs were returning null in some methods.
-		Fixed rarity of unidentified clothing being displayed in the dye preview window.
-		Friendly occupants will no longer get a job as 'an unemployed', and any occupants already affected by this in your save will start looking for a new job when you load in (unemployed occupants that have already moved out will get a new job).
-		Fixed damage tooltips showing different values before and after buying a weapon from a shop. (When weapon is not held by you, tooltip now displays both the holder's and your damage.)
-		Fixed issue where returning to a Hyorlyss's keep after gaining her key would throw a background error and softlock the game. 
-		Fixed issue where imps could be transformed to be taller to the point where they were classified as demons, and vice-versa.
-		Added some error handling to catch the unusual case of an NPC's name being loaded in as an empty String.
-		Fixed issue with rarity detection in clothing sometimes throwing a background error.
-		Fixed issue with Jhortrax (the male imp fortress leader) not inserting dildo after combat loss sex scene. (Thanks to 'asymptote' for details on how to fix this.)
-		Fixed issue where trying to open the debug menu in the main menu would throw background errors and break teh game until restarted.
-		Fixed requirement of 'Tameshigiri' action in Jhortrax's imp fortress to take your weapon's modified damage into account.
-		Fixed issue where saves wouldn't load into 0.2.12.6 correctly due to Youko surnames being blank.
-		Fixed incorrect descriptions in alleyway succubus quick transform breast size tooltips.
-		Fixed issue with some clothing items (such as the croptop) not concealing slots correctly.
-		Fixed incorrect effects description of Biojuice Canister.
-		Fixed slime encyclopedia entry not working.
-		Fixed victory in Wolfgang & Karl's fight not dropping any items.
-		Fixed bug where spectators in sex were using incorrect actions (which were being drawn from the available actions of non-spectators).
-		Defeating the imps in the citadel now correctly sets the 'imps defeated' flag, resolving issues related to the youko still being in her laboratory, imps guards still being in the citadel, and the 'challenge' action remaining available.
-		Added missing dialogue after citadel's imp defeat sex scene.
-		Fixed a couple of issues with imp fortress's demon leaders not returning to their keeps.
-		Fixed game freezing if you lost to imp fortress gate guards, or had sex with the gate guards, and were then thrown out.
-		Fixed getting stuck when asking Lyssieth's gate guards about their uniforms.
-		Fixed issue with clubbers spawning in the night club having their home tile being set as the very bottom-left of Dominion's street tiles. (This will also retroactively fix all clubbers with this issue.)
-		Fixed item entries in the encyclopedia being lost between saves.
-		Self-impregnations now count offspring as just mothered, not both mothered and fathered, in the pregnancy stats screen.
-		Self-milking should now correctly take into account milking room upgrades. Also added stats into the milking room upgrades info to let you know exactly what the base maximum output per hour is.
-		Fixed issue where assigning slaves to be publicly used could sometimes result in an NPC being placed out-of-bounds of the map, which would cause your save file to not load correctly.
-		As a temporary fix to enslavement dialogue bugs, the imps inside fortresses & the citadel can no longer be enslaved. I will add support for enslaving them later, but for now, you can get just imp slaves from the tunnels.
-		Duplicate arcane keys and key-chain necklaces will be removed when you load in to 0.3. Lyssieth's ring will also be removed, if it should have been.
-		Fixed modded clothing using the new shortened equip descriptions format using the 'rough' variant in non-rough scenes, and vice-versa.
-		Fixed issue where your companion would be counted as a submissive, instead of dominant, spectator when choosing 'Solo sex' after beating imp groups.
+		Fixed major bug where entering a lot of areas would freeze the game.
+		Exiting the citadel after beating the Siren now correctly displays the 'Enter' action.
+		Beating the Siren now correctly removes Takahashi from the citadel. (Also retroactively removes her if you've already beaten the Siren.)
+		Fixed desaturated youko tile icon still being coloured.
+		Fixed (for real this time) the bug where asking Elizabeth about her uniform would lock you into that tile.
+		The arcane revolver now correctly drains 1 essence when fired.
+		Fixed issue where Fyrsia would appear in the other imp fortresses, sometimes in the place of the correct leader. (She will move back to her own keep once you leave/re-enter any fortress.)
+		Fixed missing dialogue when entering Hyorlyss's pacified keep.
+		Enemies no longer only use defensive spells in combat.
+		Fixed numerous issues with clubbers in the Watering Hole - it should all work correctly again now.
+		Fixed age preferences not being saved and restored between games.
+		Fixed issue with changing Youko slaves' names.
+	
+	
 	
 	
 	
@@ -200,6 +141,7 @@
 	Elizabeth
 	
 	Gates
+		The guard has multiple repeated lines when you tell her you beat the siren.
 		Double-check rings
 		when completing the quest it does not act like you talked to the guards earlier even if you did.
 		Make sure you have the already-completed citadel quest done properly when approaching Lyssieth palace
@@ -251,6 +193,8 @@
 	when using one with Lilaya and it breaks and theres a risk of pregnancy she doesnt get mad at you. She just hopes she doesnt get pregnant and she says something like. "Its not your fault at least you wore a condom. Too bad it broke".
 	----------
 	
+	Youko tail description "halo of arcane fire" and status effect
+	
 	Combat should only show health/mana bars and status effects
 	
 	prevent enslavement items from being put on people during sex
@@ -260,6 +204,8 @@
 	Make it so if lose combat, stolen items are returned
 	
 	Need shrouded identity for the citadel bosses and for fortresses
+	
+	Locale is setting day names
 	
 	Essence extractor milking room upgrades - extremely expensive.
 	
@@ -273,6 +219,8 @@
 	Buttplugs shouldn't count as preserving your modesty in terms of exhibitionism
 	
 	Need to be able to appendage interact with kneeling oral beside you
+	
+	also weird little thing, the only option when losing to blaze and crystal gives you corruption, theres no eager or resisting options
 	
 	Anyway when is the potion discount going to be moved over to a perk
 		Make TF fetish remove corruption gains?

@@ -56,7 +56,6 @@ import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -86,8 +85,7 @@ public class ImpAttacker extends NPC {
 				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
 
 		if(!isImported) {
-			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			this.setLocation(Main.game.getPlayer(), false);
 			
 			// Set random level from 5 to 8:
 			setLevel(5 + Util.random.nextInt(4));

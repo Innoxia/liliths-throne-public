@@ -67,7 +67,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.12.9";
+	public static final String VERSION_NUMBER = "0.2.12.95";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -107,6 +107,23 @@ public class Main extends Application {
 		+ "<br/>"
 
 		+ "<list>"
+
+			+ "<h6>v0.2.12.95</h6>"
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed major bug where entering a lot of areas would freeze the game.</ul>"
+			+"<ul>Exiting the citadel after beating the Siren now correctly displays the 'Enter' action.</ul>"
+			+"<ul>Beating the Siren now correctly removes Takahashi from the citadel. (Also retroactively removes her if you've already beaten the Siren.)</ul>"
+			+"<ul>Fixed desaturated youko tile icon still being coloured.</ul>"
+			+"<ul>Fixed (for real this time) the bug where asking Elizabeth about her uniform would lock you into that tile.</ul>"
+			+"<ul>The arcane revolver now correctly drains 1 essence when fired.</ul>"
+			+"<ul>Fixed issue where Fyrsia would appear in the other imp fortresses, sometimes in the place of the correct leader. (She will move back to her own keep once you leave/re-enter any fortress.)</ul>"
+			+"<ul>Fixed missing dialogue when entering Hyorlyss's pacified keep.</ul>"
+			+"<ul>Enemies no longer only use defensive spells in combat.</ul>"
+			+"<ul>Fixed numerous issues with clubbers in the Watering Hole - it should all work correctly again now.</ul>"
+			+"<ul>Fixed age preferences not being saved and restored between games.</ul>"
+			+"<ul>Fixed issue with changing Youko slaves' names.</ul>"
+			+ "<br/>"
+		
 			+ "<h6>v0.2.12.9</h6>"
 			+"<li>Gameplay:</li>"
 			+"<ul>Added NPC 'Elizabeth' - the guard at Lyssieth's palace. Also started to update her dialogue - this will be finished for an upcoming patch.</ul>"

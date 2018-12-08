@@ -52,7 +52,6 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -893,8 +892,7 @@ public enum Encounter {
 		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
 		Main.game.getOffspringSpawned().add(offspring);
 
-		offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-		offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+		offspring.setLocation(Main.game.getPlayer(), true);
 
 		Main.game.setActiveNPC(offspring);
 

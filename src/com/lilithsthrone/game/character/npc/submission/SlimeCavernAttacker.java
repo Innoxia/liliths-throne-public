@@ -31,7 +31,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -61,9 +60,7 @@ public class SlimeCavernAttacker extends NPC {
 				new CharacterInventory(10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
 
 		if(!isImported) {
-			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-			this.setHomeLocation();
+			this.setLocation(Main.game.getPlayer(), true);
 			
 			// Set random level from 8 to 12:
 			setLevel(8 + Util.random.nextInt(5));

@@ -45,7 +45,6 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -79,9 +78,7 @@ public class Cultist extends NPC {
 		if(!isImported) {
 			setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 	
-			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-			this.setHomeLocation();
+			this.setLocation(Main.game.getPlayer(), true);
 			
 			// BODY RANDOMISATION:
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);

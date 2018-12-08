@@ -59,6 +59,9 @@ public class NightlifeDistrict {
 	
 	public static List<GameCharacter> getClubbersPresent() {
 		List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+//		for(GameCharacter clubber : clubbers) {
+//			System.out.println(clubber.getClass().getName());
+//		}
 		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
 		return clubbers;
 	}

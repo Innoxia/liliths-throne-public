@@ -3,7 +3,9 @@ package com.lilithsthrone.world;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,8 +47,8 @@ public class Cell implements Serializable, XMLSaving {
 	private boolean blocked;
 	private GenericPlace place;
 	private CharacterInventory inventory;
-	private List<String> charactersPresentIds;
-	private List<String> charactersHomeIds;
+	private Set<String> charactersPresentIds;
+	private Set<String> charactersHomeIds;
 
 	public Cell(WorldType type, Vector2i location) {
 		this.type = type;
@@ -309,7 +311,7 @@ public class Cell implements Serializable, XMLSaving {
 		this.inventory = inventory;
 	}
 
-	public List<String> getCharactersPresentIds() {
+	public Set<String> getCharactersPresentIds() {
 		return charactersPresentIds;
 	}
 
@@ -318,7 +320,7 @@ public class Cell implements Serializable, XMLSaving {
 			return;
 		}
 		if(charactersPresentIds==null) {
-			charactersPresentIds = Collections.synchronizedList(new ArrayList<>());
+			charactersPresentIds = Collections.synchronizedSet(new HashSet<>());
 		}
 		synchronized (charactersPresentIds) {
 			charactersPresentIds.add(id);
@@ -330,11 +332,12 @@ public class Cell implements Serializable, XMLSaving {
 			return;
 		}
 		synchronized (charactersPresentIds) {
+//			System.out.println("removed "+id);
 			charactersPresentIds.remove(id);
 		}
 	}
 
-	public List<String> getCharactersHomeIds() {
+	public Set<String> getCharactersHomeIds() {
 		return charactersHomeIds;
 	}
 
@@ -343,7 +346,7 @@ public class Cell implements Serializable, XMLSaving {
 			return;
 		}
 		if(charactersHomeIds==null) {
-			charactersHomeIds = Collections.synchronizedList(new ArrayList<>());
+			charactersHomeIds = Collections.synchronizedSet(new HashSet<>());
 		}
 		synchronized (charactersHomeIds) {
 			charactersHomeIds.add(id);

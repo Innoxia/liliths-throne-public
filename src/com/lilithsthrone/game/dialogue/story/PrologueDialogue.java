@@ -373,10 +373,7 @@ public class PrologueDialogue {
 						
 						MainController.updateUI();
 						
-						Main.game.setActiveWorld(
-								Main.game.getWorlds().get(WorldType.DOMINION),
-								PlaceType.DOMINION_AUNTS_HOME,
-								false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 					}
 				};
 			} else {

@@ -881,9 +881,15 @@ public class UtilText {
 					}
 				}
 				if(arguments!=null) {
+					if(!character.isPlayer() && (character.getSubspecies()==Subspecies.FOX_ASCENDANT || character.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
+						return character.getSurname();
+					}
 					return character.getName(arguments);
 				} else {
 					if(character.isPlayerKnowsName() || character.isPlayer()) {
+						if(!character.isPlayer() && (character.getSubspecies()==Subspecies.FOX_ASCENDANT || character.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
+							return character.getSurname();
+						}
 						return character.getName();
 					}
 					return character.getName("the");

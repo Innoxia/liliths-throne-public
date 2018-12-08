@@ -70,8 +70,7 @@ public class Elemental extends NPC {
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 
 		if(!isImported) {
-			this.setWorldLocation(summoner.getWorldLocation());
-			this.setLocation(summoner.getLocation());
+			this.setLocation(summoner, false);
 			
 			setLevel(summoner.getLevel());
 			

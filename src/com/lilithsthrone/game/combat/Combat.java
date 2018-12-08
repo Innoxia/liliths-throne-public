@@ -433,10 +433,10 @@ public enum Combat {
 	}
 	
 	public static boolean isOpponent(GameCharacter character, GameCharacter target) {
-		if(allies.contains(character)) {
+		if(allies.contains(character) || character.isPlayer()) {
 			return enemies.contains(target);
 		} else {
-			return allies.contains(character);
+			return allies.contains(target) || target.isPlayer();
 		}
 	}
 	
@@ -1495,6 +1495,10 @@ public enum Combat {
 				case SPELL:
 					Map<Spell, Integer> spellsAvailableMap = npc.getWeightedSpellsAvailable(getTargetedCombatant(npc));
 					
+//					for(Entry<Spell, Integer> e : spellsAvailableMap.entrySet()) {
+//						System.out.println(e.getKey().getName()+" "+e.getValue());
+//					}
+					
 					Spell spell = Util.getRandomObjectFromWeightedMap(spellsAvailableMap);
 //					System.out.println(spellsAvailable.size());
 					attackSpell(npc, spell);
@@ -1756,6 +1760,7 @@ public enum Combat {
 		if(allies.contains(attacker)) {
 			for(NPC enemy : enemies) {
 				if(!isCombatantDefeated(enemy)) {
+//					System.out.println("T1: "+enemy.getName());
 					return enemy;
 				}
 			}
@@ -1765,6 +1770,7 @@ public enum Combat {
 		if(enemies.contains(attacker)) {
 			for(NPC playerAlly : allies) {
 				if(!isCombatantDefeated(playerAlly)) {
+//					System.out.println("T2: "+playerAlly.getName());
 					return playerAlly;
 				}
 			}

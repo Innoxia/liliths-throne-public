@@ -424,10 +424,9 @@ public abstract class GameCharacter implements XMLSaving {
 		this.worldLocation = worldLocation;
 		this.homeWorldLocation = worldLocation;
 		location = new Vector2i(0, 0);
-		
-		this.setWorldLocation(worldLocation);
-		this.setLocation(Main.game.getWorlds().get(worldLocation).getCell(startingPlace).getLocation());
 		homeLocation = location;
+		
+		this.setLocation(worldLocation, Main.game.getWorlds().get(worldLocation).getCell(startingPlace).getLocation(), true);
 		
 		// Set up personality:
 		personality = new HashMap<>();
@@ -3076,9 +3075,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 		} else {
-			if(!this.isPlayer() && (this.getSubspecies()==Subspecies.FOX_ASCENDANT || this.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
-				return this.getSurname();
-			}
 			return getNameIgnoresPlayerKnowledge();
 		}
 	}
@@ -12162,20 +12158,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public void setLocation(Vector2i location) {
-		getCell().removeCharacterPresentId(this.getId());
-		this.location = location;
-		if(this.companions != null) {
-			for(String companionID : this.companions) {
-				try {
-					Main.game.getNPCById(companionID).setLocation(getWorldLocation(), location, false);
-				} catch(Exception e) {
-					Util.logGetNpcByIdError("setLocation()", companionID);
-				}
-			}
-		}
-		getCell().addCharacterPresentId(this.getId());
-		
-		updateLocationListeners();
+		setLocation(getWorldLocation(), location, false);
 	}
 	
 	public Vector2i getHomeLocation() {
@@ -12186,16 +12169,16 @@ public abstract class GameCharacter implements XMLSaving {
 		return worldLocation;
 	}
 
-	public void setWorldLocation(WorldType worldLocation) {
-		getCell().removeCharacterPresentId(this.getId());
-		
-		if(this.worldLocation != worldLocation && this.isPlayer()) {
-			Main.game.setRequestAutosave(true);
-		}
-		this.worldLocation = worldLocation;
-		
-		getCell().addCharacterPresentId(this.getId());
-	}
+//	private void setWorldLocation(WorldType worldLocation) {
+//		getCell().removeCharacterPresentId(this.getId());
+//		
+//		if(this.worldLocation != worldLocation && this.isPlayer()) {
+//			Main.game.setRequestAutosave(true);
+//		}
+//		this.worldLocation = worldLocation;
+//		
+//		getCell().addCharacterPresentId(this.getId());
+//	}
 	
 	public WorldType getHomeWorldLocation() {
 		return homeWorldLocation;
@@ -12215,6 +12198,10 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public GenericPlace getHomeLocationPlace() {
 		return Main.game.getWorlds().get(getHomeWorldLocation()).getCell(getHomeLocation()).getPlace();
+	}
+
+	public void setLocation(GameCharacter character, boolean setAsHomeLocation) {
+		setLocation(character.getWorldLocation(), character.getLocation(), setAsHomeLocation);
 	}
 	
 	public void setLocation(WorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {
@@ -12241,6 +12228,8 @@ public abstract class GameCharacter implements XMLSaving {
 		if(setAsHomeLocation) {
 			setHomeLocation(worldLocation, location);
 		}
+		
+		updateLocationListeners();
 	}
 
 	public void setRandomUnoccupiedLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {

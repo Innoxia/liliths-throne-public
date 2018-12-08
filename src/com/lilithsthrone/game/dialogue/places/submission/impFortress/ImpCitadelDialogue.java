@@ -119,6 +119,7 @@ public class ImpCitadelDialogue {
 		for(GameCharacter character : getBossGroup(false)) {
 			character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		}
+		Main.game.getSubmissionCitadelArcanist().setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		
 		// Sort out boss:
 		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_THRONE_ROOM);
@@ -2029,7 +2030,7 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			return PlaceType.SUBMISSION_IMP_FORTRESS_DEMON.getDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	

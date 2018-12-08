@@ -505,7 +505,7 @@ public enum RenderingEngine {
 					+"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
 						+(charactersInventoryToRender.isPlayer()
 							?"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininityValue()).getColour().toWebHexString()+";'>Your</b> <b>Inventory | Page "+(charactersInventoryToRender.isPlayer()?pageLeft+1:pageRight+1)+"</b>"
-							:"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininityValue()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(charactersInventoryToRender.getName())+"'s</b> <b>Inventory</b>")
+							:"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininityValue()).getColour().toWebHexString()+";'>"+(UtilText.parse(charactersInventoryToRender, "[npc.NamePos]"))+"</b> <b>Inventory</b>")
 					+"</p>");
 			
 		} else {
@@ -1206,7 +1206,8 @@ public enum RenderingEngine {
 										+ "</div>"
 									+ "</div>"
 									+" <div style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"
-										+(!character.getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)?"&#128247; ":"")+character.getName("A")
+										+(!character.getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)?"&#128247; ":"")
+											+UtilText.parse(character, "[npc.Name(A)]")
 										+ "<div class='overlay-inventory' id='NPC_" + character.getId() + "_" + Attribute.EXPERIENCE.getName() + "' style='width:calc(11% + 8px);'></div>"
 										+ "<div class='overlay-inventory' id='NPC_"+character.getId()+"_ATTRIBUTES' style='width:calc(89% - 8px); left:calc(11% + 8px);'></div>"
 									+"</div>"
@@ -1915,7 +1916,7 @@ public enum RenderingEngine {
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 									+ (character.getName().length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
-											: Util.capitaliseSentence(character.getName()))
+											: UtilText.parse(character, "[npc.Name]"))
 								+"</b>"
 								+ " - Level "+ character.getLevel()
 							+"</div>"
@@ -2168,7 +2169,7 @@ public enum RenderingEngine {
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 									+ (character.getName().length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
-											: Util.capitaliseSentence(character.getName()))
+											: UtilText.parse(character, "[npc.Name]"))
 								+"</b>"
 									+ (isLimitedSpectatorPanel(character)
 										?""

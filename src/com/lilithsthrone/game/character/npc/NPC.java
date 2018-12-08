@@ -535,6 +535,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public Map<Spell, Integer> getWeightedSpellsAvailable(GameCharacter target) {
 		Map<Spell, Integer> weightedSpellMap = new HashMap<>();
 		
+//		System.out.println(this.getName()+" "+target.getName()+": "+Combat.isOpponent(this, target));
+		
 		for(Spell spell : getSpellsAbleToCast()) {
 			switch(spell) {
 				// Basic offensive spells:

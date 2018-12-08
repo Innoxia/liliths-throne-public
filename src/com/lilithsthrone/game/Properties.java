@@ -776,8 +776,8 @@ public class Properties implements Serializable {
 						Element e = ((Element)element.getElementsByTagName("preference").item(i));
 						
 						try {
-							if(!e.getAttribute("orientation").isEmpty()) {
-								orientationPreferencesMap.put(SexualOrientation.valueOf(e.getAttribute("orientation")), Integer.valueOf(e.getAttribute("value")));
+							for(PronounType pronoun : PronounType.values()) {
+								agePreferencesMap.get(pronoun).put(AgeCategory.valueOf(e.getAttribute("age")), Integer.valueOf(e.getAttribute(pronoun.toString())));
 							}
 						} catch(IllegalArgumentException ex){
 							System.err.println("loadPropertiesFromXML() error: agePreferences preference");
