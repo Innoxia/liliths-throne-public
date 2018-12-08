@@ -79,7 +79,7 @@ public class FortressDemonLeader extends NPC {
 	
 	public FortressDemonLeader(boolean isImported) {
 		super(isImported,
-				new NameTriplet("Mhyralyss"),
+				new NameTriplet("Mhyralyss"), "Lyssiethmartuilani",
 				"The ruler of Submission's central imp citadel, 'The Dark Siren' is an incredibly powerful arcane user...",
 				26, Month.OCTOBER, 13,
 				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
@@ -122,6 +122,8 @@ public class FortressDemonLeader extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+
+		this.setGenericName("dark siren");
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.5")) {
 			setName(new NameTriplet("Mhyralyss"));

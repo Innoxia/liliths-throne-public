@@ -81,7 +81,7 @@ public class FortressFemalesLeader extends NPC {
 	
 	public FortressFemalesLeader(boolean isImported) {
 		super(isImported,
-				new NameTriplet("Hyorlyix", "Hyorlyss", "Hyorlyss"),
+				new NameTriplet("Hyorlyix", "Hyorlyss", "Hyorlyss"), "Loviennemartu",
 				"The leader of one of Submission's imp fortresses, [npc.name] has a loyal following of female imps, who love nothing more than to join [npc.herHim] in having dominant sex with those who oppose their ruler, 'The Dark Siren'...",
 				22, Month.JANUARY, 11,
 				20, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);

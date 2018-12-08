@@ -85,7 +85,7 @@ public class Lilaya extends NPC {
 	}
 	
 	public Lilaya(boolean isImported) {
-		super(isImported, new NameTriplet("Lilaya"),
+		super(isImported, new NameTriplet("Lilaya"), "Lyssiethmartusarri",
 				"Along with your twin cousins, your aunt Lily was the only family you'd ever known." + " Although she still exists in this world, she isn't your aunt any more, and in this reality, she's a half-demon called 'Lilaya'."
 						+ " Whereas your old aunt was a researcher at the city museum, Lilaya is a privately-funded researcher of the arcane."
 						+ " Due to her demonic appearance and the fact that she's the daughter of the Lilin Lyssieth, people usually regard Lilaya with a mixture of fear and respect.",

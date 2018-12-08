@@ -44,6 +44,10 @@ public class BodyChanging {
 	private static GameCharacter target;
 	private static boolean debugMenu;
 	
+	public static boolean isDebugMenu() {
+		return debugMenu;
+	}
+
 	public static GameCharacter getTarget() {
 		if(target==null) {
 			return Main.game.getPlayer();

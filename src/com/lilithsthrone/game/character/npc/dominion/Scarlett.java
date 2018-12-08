@@ -65,7 +65,7 @@ public class Scarlett extends NPC {
 	}
 	
 	public Scarlett(boolean isImported) {
-		super(isImported, new NameTriplet("Scarlett"),
+		super(isImported, new NameTriplet("Scarlett"), "Kardos",
 				"Scarlett is the owner of the rather unoriginally named establishment 'Scarlett's shop'."
 						+ " Rude, loud, and quick to anger, Scarlett isn't a very pleasant person to have to deal with.",
 				23, Month.NOVEMBER, 14,

@@ -35,14 +35,21 @@ public enum ItemTag {
 	ENABLE_SEX_EQUIP, // Allows this clothing to be equipped during sex. E.g. Condoms or strapons
 	
 	// To detect whether creampies should leak out or not:
-	PLUGS_ANUS,
-	PLUGS_VAGINA,
-	PLUGS_NIPPLES,
+	PLUGS_ANUS, // Counts as being inserted into the wearer's anus. E.g. butt plugs or anal beads
+	SEALS_ANUS, // Counts as sealing, but not inserted into, the wearer's anus. E.g. Tape
 	
+	PLUGS_VAGINA, // Counts as being inserted into the wearer's vagina. E.g. insertable dildo
+	SEALS_VAGINA, // Counts as sealing, but not inserted into, the wearer's vagina. E.g. Tape
+	
+	PLUGS_NIPPLES, // Counts as being inserted into the wearer's nipples. E.g. insertable nipple-dildos
+	SEALS_NIPPLES, // Counts as sealing, but not inserted into, the wearer's nipples. E.g. Pasties
+	
+	// Self-explanatory requirements in order to equip this clothing:
 	REQUIRES_PENIS,
 	REQUIRES_NO_PENIS,
 	REQUIRES_VAGINA,
 	REQUIRES_NO_VAGINA,
+	REQUIRES_FUCKABLE_NIPPLES,
 	
 	REVEALS_CONCEALABLE_SLOT, // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
 	

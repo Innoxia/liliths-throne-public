@@ -43,7 +43,7 @@ public class Pazu extends NPC {
 	}
 	
 	public Pazu(boolean isImported) {
-		super(isImported, new NameTriplet("Pazu"),
+		super(isImported, new NameTriplet("Pazu"), "Pazu", //TODO
 				"Pazu is a harpy matriarch, and a particularly gorgeous one at that. She is new to the job and needs your help in whipping her flock into shape.",
 				/* TODO (Once quest advances)
 				 *  Pazu is a harpy matriarch, and a particularly gorgeous one at that. Despite this, he is actually a male harpy, a fact that he keeps hidden from everyone else for obvious reasons.

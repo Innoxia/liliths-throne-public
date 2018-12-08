@@ -682,7 +682,7 @@ public class NightlifeDistrict {
 				
 			} else {
 				if(index==1) {
-					return new Response("Search (dom)",
+					return new Response("Search (as dom)",
 							"Search for someone to approach and start talking to. This will put you in the dominant role, where you'll be the one leading your partner around the club.",
 							WATERING_HOLE_SEARCH_GENDER) {
 						@Override
@@ -693,9 +693,9 @@ public class NightlifeDistrict {
 					
 				} else if(index==2) {
 					if(clubberGender==null || clubberSubspecies==null) {
-						return new Response("Repeat search (dom)", "You need to have already searched the club!", null);
+						return new Response("Repeat search (as dom)", "You need to have already searched the club!", null);
 					} else {
-						return new Response("Repeat search (dom)",
+						return new Response("Repeat search (as dom)",
 								"Repeat your last search for someone to approach and start talking to. ("+Util.capitaliseSentence(clubberGender.getName())+" "+clubberSubspecies.getName(null)+")",
 								WATERING_HOLE_SEARCH_GENERATE) {
 							@Override
@@ -708,10 +708,10 @@ public class NightlifeDistrict {
 					
 				} else if(index==3) {
 					if(getSavedClubbers(true).isEmpty()) {
-						return new Response("Contacts (dom)", "You haven't met anybody who you said you'd meet in the club again...", null);
+						return new Response("Contacts (as dom)", "You haven't met anybody who you said you'd meet in the club again...", null);
 						
 					} else {
-						return new Response("Contacts (dom)",
+						return new Response("Contacts (as dom)",
 								"Search for someone who you've already met in the club before. This will put you in the dominant role, where you'll be the one leading your partner around the club.",
 								WATERING_HOLE_CONTACTS) {
 							@Override
@@ -722,7 +722,7 @@ public class NightlifeDistrict {
 					}
 					
 				} if(index==6) {
-					return new Response("Search (sub)",
+					return new Response("Search (as sub)",
 							"Loiter in the main area of the club and try to catch the eye of someone you like the look of. This will put you in the submissive role, where your partner will be the one leading you around the club.",
 							WATERING_HOLE_SEARCH_GENDER) {
 						@Override
@@ -733,9 +733,9 @@ public class NightlifeDistrict {
 					
 				} else if(index==7) {
 					if(clubberGender==null || clubberSubspecies==null) {
-						return new Response("Repeat search (sub)", "You need to have already searched the club!", null);
+						return new Response("Repeat search (as sub)", "You need to have already searched the club!", null);
 					} else {
-						return new Response("Repeat search (sub)",
+						return new Response("Repeat search (as sub)",
 								"Repeat your last search for someone to catch the eye of. ("+Util.capitaliseSentence(clubberGender.getName())+" "+clubberSubspecies.getName(null)+")",
 								WATERING_HOLE_SEARCH_GENERATE_DOM) {
 							@Override
@@ -749,10 +749,10 @@ public class NightlifeDistrict {
 					
 				} else if(index==8) {
 					if(getSavedClubbers(false).isEmpty()) {
-						return new Response("Contacts (sub)", "You haven't met anybody who you said you'd meet in the club again...", null);
+						return new Response("Contacts (as sub)", "You haven't met anybody who you said you'd meet in the club again...", null);
 						
 					} else {
-						return new Response("Contacts (sub)",
+						return new Response("Contacts (as sub)",
 								"Search for one of your dominant contacts who you've already met in the club before. This will put you in the submissive role, where your partner will be the one leading you around the club.",
 								WATERING_HOLE_CONTACTS_DOM) {
 							@Override

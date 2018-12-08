@@ -187,7 +187,12 @@ public class TunnelImpsDialogue {
 								Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null,
 								null,
-								null);
+								null) {
+							@Override
+							public boolean isSexHighlight() {
+								return true;
+							}
+						};
 					}
 					
 				} else if (index == 5 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -207,6 +212,10 @@ public class TunnelImpsDialogue {
 								if(!companion.isAttractedTo(getImpLeader()) && Main.game.isNonConEnabled()) {
 									Main.game.getTextEndStringBuilder().append(companion.incrementAffection(Main.game.getPlayer(), -50));
 								}
+							}
+							@Override
+							public boolean isSexHighlight() {
+								return true;
 							}
 						};
 					}
@@ -895,8 +904,8 @@ public class TunnelImpsDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGroup(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
@@ -906,8 +915,8 @@ public class TunnelImpsDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGroup(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
@@ -918,8 +927,8 @@ public class TunnelImpsDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGroup(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						

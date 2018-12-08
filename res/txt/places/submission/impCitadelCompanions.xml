@@ -397,6 +397,16 @@
 	
 	<htmlContent tag="AFTER_IMP_DEFEAT_SEX"><![CDATA[
 	<p>
+		Having had their fun, the imps all step back, leaving you to collapse down onto the floor in exhaustion. [npc2.Name] steps around in front of you as you pant for breath, and sneers, [npc2.speech(Yer ain't gonna be tryin' this again, yer hear? As fun as it is ta fuck yer, we got stuff ta do, so just stay outta our way!)]
+	</p>
+	<p>
+		Turning [npc2.her] back on you, [npc2.name] joins [npc2.her] comrades in leaving you to recover. As you push yourself back up onto your [pc.feet], you wonder what you and [npc.name] should do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_IMP_DEFEAT_SEX_WITH_COMPANION"><![CDATA[
+	<p>
 		Having had their fun, the imps all step back, leaving you and [npc.name] to collapse down onto the floor in exhaustion. [npc2.Name] steps around in front of the two of you as you pant for breath, and sneers, [npc2.speech(Yer ain't gonna be tryin' this again, yer hear? As fun as it is ta fuck the both o' yer, we got stuff ta do, so just stay outta our way!)]
 	</p>
 	<p>

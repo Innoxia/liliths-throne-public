@@ -712,6 +712,27 @@ public enum ParserTarget {
 		}
 	},
 	
+	LYSSIETH(Util.newArrayListOfValues("lyssieth"), "") {
+		public String getDescription() {
+			return Main.game.getLyssieth().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getLyssieth();
+		}
+	},
+	
+	ELIZABETH(Util.newArrayListOfValues("elizabeth"), "") {
+		public String getDescription() {
+			return Main.game.getElizabeth().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getElizabeth();
+		}
+	},
 	
 	;
 	

@@ -906,7 +906,7 @@ public class CharacterUtils {
 		
 		if(species == Subspecies.SLIME) {
 			isSlime = true;
-			if(!linkedCharacter.isUnique()) {
+			if(linkedCharacter==null || !linkedCharacter.isUnique()) {
 				List<Subspecies> slimeSubspecies = new ArrayList<>();
 				// I do it like this so that when I add a new Subspecies, the IDE tells me there's one to account for here.
 				for(Subspecies subspecies : Subspecies.values()) {

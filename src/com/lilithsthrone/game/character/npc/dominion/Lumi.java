@@ -76,8 +76,7 @@ public class Lumi extends NPC {
 	}
 	
 	public Lumi(boolean isImported) {
-		super(isImported, new NameTriplet(
-				"Lumi"),
+		super(isImported, new NameTriplet("Lumi"), "Neve",
 				"Lumi is a semi-feral wolf-girl, who you first met prowling one of Dominion's alleyways.",
 				19, Month.JULY, 15,
 				5,

@@ -1007,7 +1007,7 @@ public class PhoneDialogue {
 			output.append(word_one);
 			output.append("<br/>");
 			output.append("<b style='color:").append(color).append(";'>");
-			  output.append(word_two);
+			output.append(word_two);
 			output.append("</b>");
 			output.append("<br/>");
 			output.append(count);
@@ -1054,16 +1054,19 @@ public class PhoneDialogue {
 		@Override
 		public String getContent() {
 			
-			int sonsBirthed=0, daughtersBirthed=0,
-					sonsFathered=0, daughtersFathered=0;
+			int sonsBirthed=0;
+			int daughtersBirthed=0;
+			int sonsFathered=0;
+			int daughtersFathered=0;
 			int childrenMet = 0;
+			
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
 				daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 			}
 			for (Litter litter : Main.game.getPlayer().getLittersFathered()){
-				sonsFathered+=litter.getSonsFromMother()+litter.getSonsFromFather();
-				daughtersFathered+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
+				sonsFathered+=(litter.isSelfImpregnation()?0:litter.getSonsFromMother()+litter.getSonsFromFather());
+				daughtersFathered+=(litter.isSelfImpregnation()?0:litter.getDaughtersFromMother()+litter.getDaughtersFromFather());
 			}
 			
 			UtilText.nodeContentSB.setLength(0);

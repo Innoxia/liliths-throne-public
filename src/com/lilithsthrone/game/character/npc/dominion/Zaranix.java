@@ -74,7 +74,7 @@ public class Zaranix extends NPC {
 	}
 	
 	public Zaranix(boolean isImported) {
-		super(isImported, new NameTriplet("Zaranix", "Zaranix", "Zoelix"),
+		super(isImported, new NameTriplet("Zaranix", "Zaranix", "Zoelix"), "Lyniximartu",
 				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
 				47, Month.JULY, 3,

@@ -28,7 +28,7 @@ public class GenericMaleNPC extends NPC {
 	}
 	
 	public GenericMaleNPC(boolean isImported) {
-		super(isImported, new NameTriplet("unknown male"), "Unknown.",
+		super(isImported, new NameTriplet("unknown male"), null, "Unknown.",
 				25, Month.JUNE, 15,
 				1, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);

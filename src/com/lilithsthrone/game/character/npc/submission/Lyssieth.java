@@ -36,7 +36,7 @@ public class Lyssieth extends NPC {
 	
 	public Lyssieth(boolean isImported) { //TODO All of this is placeholder. Just needed for 0.2.12.5 so that DS can be correctly set as slave.
 		super(isImported,
-				new NameTriplet("Lyssieth"),
+				new NameTriplet("Lyssieth"), "Lilithmartuilani",
 				"One of the seven elder Lilin, Lyssieth is one of the most powerful beings in existence.",
 				5734, Month.OCTOBER, 13, //TODO
 				500, //TODO
@@ -44,7 +44,7 @@ public class Lyssieth extends NPC {
 				new CharacterInventory(10),
 				WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_THRONE_ROOM,
 				true);
-
+		
 		if(!isImported) {
 			this.setPlayerKnowsName(true);
 			//TODO spells
@@ -96,6 +96,11 @@ public class Lyssieth extends NPC {
 	
 	@Override
 	public boolean isUnique() {
+		return true;
+	}
+
+	@Override
+	public boolean isLilin() {
 		return true;
 	}
 	

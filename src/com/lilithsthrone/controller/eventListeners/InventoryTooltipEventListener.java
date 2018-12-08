@@ -803,6 +803,12 @@ public class InventoryTooltipEventListener implements EventListener {
 				+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 				);
 		
+		int cost = absWep.getWeaponType().getArcaneCost();
+		if(cost>0) {
+			listIncrease++;
+			tooltipSB.append("Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] "+(absWep.getWeaponType().isMelee()?"per attack":"to fire")+"<br/>");
+		}
+		
 		if (equippedToCharacter != null) {
 			tooltipSB.append("<b>"
 								+ Attack.getMinimumDamage(equippedToCharacter, null, Attack.MAIN, absWep) + " - " + Attack.getMaximumDamage(equippedToCharacter, null, Attack.MAIN, absWep)

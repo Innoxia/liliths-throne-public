@@ -741,7 +741,7 @@ public class CharacterCreation {
 							Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 						}
 						
-						Main.game.getPlayer().setSurname(Name.getRandomSurname());
+						Main.game.getPlayer().setSurname(Name.getSurname(Main.game.getPlayer()));
 					}
 				};
 				

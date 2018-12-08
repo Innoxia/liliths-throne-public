@@ -2531,7 +2531,8 @@ public class ClothingType {
 									ClothingAccess.ARMS_UP_TO_SHOULDER,
 									ClothingAccess.HEAD),
 							null,
-							null, null),
+							null,
+							null),
 					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
@@ -4293,7 +4294,7 @@ public class ClothingType {
 			null,
 			null,
 			Util.newArrayListOfValues(
-					ItemTag.PLUGS_NIPPLES,
+					ItemTag.SEALS_NIPPLES,
 					ItemTag.SOLD_BY_NYAN)){
 		
 		/* TODO:

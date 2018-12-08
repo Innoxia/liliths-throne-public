@@ -15,6 +15,8 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.Sex;
@@ -1915,9 +1917,16 @@ public class GenericOrgasms {
 			}
 			
 		} else { // No penetration:
-			if(characterOrgasming.isPlayer()) {
-				genericOrgasmSB.append(" Your [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through your groin.");
-			} else {
+			boolean pluggedVagina = false;
+			for(AbstractClothing c : characterOrgasming.getClothingCurrentlyEquipped()) {
+				if(c.getItemTags().contains(ItemTag.PLUGS_VAGINA)) {
+					pluggedVagina = true;
+					genericOrgasmSB.append(" [npc.NamePos] [npc.pussy+] clenches down hard,"
+							+ " causing [npc.herHim] to let out a series of high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the "+c.getName()+" inserted into [npc.her] [npc.pussy].");
+					break;
+				}
+			}
+			if(!pluggedVagina) {
 				genericOrgasmSB.append(" [npc1.NamePos] [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
 			}
 		}

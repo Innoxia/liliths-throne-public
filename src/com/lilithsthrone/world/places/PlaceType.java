@@ -1146,7 +1146,7 @@ public enum PlaceType {
 	FORTRESS_DEMON_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpCitadelDialogue.ENTRANCE, null, false, true, false, "in the Dark Siren's citadel") {
 		@Override
 		public Population getPopulation() {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonImpsDefeated) && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
+			if(ImpCitadelDialogue.isImpsDefeated() || ImpCitadelDialogue.isDefeated()) {
 				return null;
 			}
 			return new Population(PopulationType.GUARDS, PopulationDensity.NUMEROUS, Subspecies.IMP_ALPHA, Subspecies.IMP);
@@ -1173,7 +1173,7 @@ public enum PlaceType {
 	FORTRESS_DEMON_CELLS("Cells", "submission/impFortress/cells", BaseColour.TEAL, Colour.MAP_BACKGROUND, ImpCitadelDialogue.CELLS, null, false, true, false, "in the Dark Siren's citadel") {
 		@Override
 		public Population getPopulation() {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonImpsDefeated) && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
+			if(ImpCitadelDialogue.isImpsDefeated() || ImpCitadelDialogue.isDefeated()) {
 				return null;
 			}
 			return new Population(PopulationType.GUARDS, PopulationDensity.FEW, Subspecies.IMP_ALPHA, Subspecies.IMP);

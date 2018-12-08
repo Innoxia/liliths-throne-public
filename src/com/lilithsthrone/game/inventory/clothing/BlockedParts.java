@@ -48,25 +48,25 @@ public class BlockedParts implements Serializable, XMLSaving {
 		this.displacementType = displacementType;
 
 		if (clothingAccessRequired != null) {
-			this.clothingAccessRequired = clothingAccessRequired;
+			this.clothingAccessRequired = new ArrayList<>(clothingAccessRequired);
 		} else {
 			this.clothingAccessRequired = new ArrayList<>();
 		}
 		
 		if (blockedBodyParts != null) {
-			this.blockedBodyParts = blockedBodyParts;
+			this.blockedBodyParts = new ArrayList<>(blockedBodyParts);
 		} else {
 			this.blockedBodyParts = new ArrayList<>();
 		}
 		
 		if (clothingAccessBlocked != null) {
-			this.clothingAccessBlocked = clothingAccessBlocked;
+			this.clothingAccessBlocked = new ArrayList<>(clothingAccessBlocked);
 		} else {
 			this.clothingAccessBlocked = new ArrayList<>();
 		}
 		
 		if (concealedSlots != null) {
-			this.concealedSlots = concealedSlots;
+			this.concealedSlots = new ArrayList<>(concealedSlots);
 		} else {
 			this.concealedSlots = new ArrayList<>();
 		}

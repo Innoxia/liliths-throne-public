@@ -85,7 +85,7 @@ public class FortressMalesLeader extends NPC {
 	
 	public FortressMalesLeader(boolean isImported) {
 		super(isImported,
-				new NameTriplet("Jhortrax", "Jhortriss", "Jhortriss"),
+				new NameTriplet("Jhortrax", "Jhortriss", "Jhortriss"), "Liannamartu",
 				"The leader of one of Submission's imp fortresses, [npc.name] and [npc.her] all-male gang of imps take great pleasure in breeding anyone foolish enough to oppose their ruler, 'The Dark Siren'...",
 				65, Month.SEPTEMBER, 19,
 				20, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);

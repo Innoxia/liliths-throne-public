@@ -60,7 +60,7 @@ public class Ashley extends NPC {
 	}
 	
 	public Ashley(boolean isImported) {
-		super(isImported, new NameTriplet("Ashley"),
+		super(isImported, new NameTriplet("Ashley"), "Minett", //TODO
 				"Ashley is the owner of the shop 'Dream Lover', and is seemingly also its only working staff."
 						+ " They are very stand-offish and loathe helping out their customers, to the point where they'd rather stare at the walls instead of offering any help.",
 				200, Month.AUGUST, 14,//TODO

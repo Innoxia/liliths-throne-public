@@ -201,6 +201,10 @@ public class Litter implements Serializable, XMLSaving {
 				fatherRace);
 	}
 
+	public boolean isSelfImpregnation() {
+		return this.getMotherId().equals(this.getFatherId());
+	}
+	
 	public LocalDateTime getConceptionDate() {
 		return conceptionDate;
 	}

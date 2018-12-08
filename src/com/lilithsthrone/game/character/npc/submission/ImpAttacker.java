@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelImpsDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
@@ -79,7 +80,7 @@ public class ImpAttacker extends NPC {
 	}
 	
 	public ImpAttacker(Subspecies subspecies, Gender gender, boolean isImported) {
-		super(isImported, null, "",
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, subspecies, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
@@ -127,7 +128,9 @@ public class ImpAttacker extends NPC {
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 		
-		this.setEnslavementDialogue(TunnelImpsDialogue.IMP_ENSLAVEMENT_DIALOGUE);
+		if(this.getWorldLocation()==WorldType.SUBMISSION) { //TODO handle enslavement in fortresses
+			this.setEnslavementDialogue(TunnelImpsDialogue.IMP_ENSLAVEMENT_DIALOGUE);
+		}
 	}
 	
 	@Override
@@ -322,6 +325,7 @@ public class ImpAttacker extends NPC {
 									UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST", ImpCitadelDialogue.getAllCharacters()));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.DAMAGE_IMP, 100));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonImpsDefeated, true);
 							if(ImpCitadelDialogue.isCompanionDialogue()) {
 								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.DAMAGE_IMP, 100));
 								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
@@ -342,7 +346,7 @@ public class ImpAttacker extends NPC {
 					@Override
 					public void effects() {
 						if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_LAB) {
-							if(Main.game.getPlayer().isFeminine() || (ImpCitadelDialogue.isCompanionDialogue() && ImpCitadelDialogue.getMainCompanion().isFeminine())) {
+							if(Main.game.isNonConEnabled() && (Main.game.getPlayer().isFeminine() || (ImpCitadelDialogue.isCompanionDialogue() && ImpCitadelDialogue.getMainCompanion().isFeminine()))) {
 								ImpCitadelDialogue.getArcanist().displaceClothingForAccess(CoverableArea.VAGINA);
 								ImpCitadelDialogue.getArcanist().setLust(50);
 							}

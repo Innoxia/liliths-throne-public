@@ -1179,7 +1179,7 @@ public class AlleywayDemonDialogue {
 				
 			} else if (index == 5) {
 				return new Response("E-cup",
-						"Tell [npc.name] to make [npc.her] breasts H-cups.",
+						"Tell [npc.name] to make [npc.her] breasts E-cups.",
 						AFTER_COMBAT_TRANSFORMATIONS_FINISHED){
 					@Override
 					public void effects() {
@@ -1190,7 +1190,7 @@ public class AlleywayDemonDialogue {
 				
 			} else if (index == 6) {
 				return new Response("N-cup",
-						"Tell [npc.name] to make [npc.her] breasts E-cups.",
+						"Tell [npc.name] to make [npc.her] breasts N-cups.",
 						AFTER_COMBAT_TRANSFORMATIONS_FINISHED){
 					@Override
 					public void effects() {

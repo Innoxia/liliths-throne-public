@@ -310,7 +310,15 @@ public class SubmissionGenericPlaces {
 					if(Main.game.getFortressDemonLeader().isSlave()) {
 						return new Response("Audience", "Ask the guard how you can earn an audience with Lyssieth.", LILIN_PALACE_GATE_AUDIENCE_SKIP) {
 							@Override
-							public void effects() {
+							public void effects() {//TODO
+								if(Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE_GRANTED_HAS_RING"));
+									Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().removedItemFromInventoryText(ItemType.LYSSIETHS_RING));
+									
+								} else {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE_GRANTED_HAS_NO_RING"));
+								}
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN));
 							}
@@ -366,13 +374,12 @@ public class SubmissionGenericPlaces {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_UNIFORMS");
 		}
-
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			int indexForUniforms = 2;
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
-				indexForUniforms =1;
+				indexForUniforms = 1;
 			}
 			
 			if (index == indexForUniforms) {
@@ -504,6 +511,8 @@ public class SubmissionGenericPlaces {
 						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
 							if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_ALPHA, false).isEmpty()) {
 								ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
+							} else if(!ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_ALPHA, false).contains(Main.game.getFortressAlphaLeader())) {
+								Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
 							} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_ALPHA).isEmpty()) {
 								ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_ALPHA);
 							}
@@ -524,6 +533,8 @@ public class SubmissionGenericPlaces {
 							if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
 								if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_ALPHA, false).isEmpty()) {
 									ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
+								} else if(!ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_ALPHA, false).contains(Main.game.getFortressAlphaLeader())) {
+									Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
 								} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_ALPHA).isEmpty()) {
 									ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_ALPHA);
 								}
@@ -583,6 +594,8 @@ public class SubmissionGenericPlaces {
 						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
 							if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_FEMALES, false).isEmpty()) {
 								ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
+							} else if(!ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_FEMALES, false).contains(Main.game.getFortressFemalesLeader())) {
+								Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
 							} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_FEMALES).isEmpty()) {
 								ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_FEMALES);
 							}
@@ -603,6 +616,8 @@ public class SubmissionGenericPlaces {
 							if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
 								if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_FEMALES, false).isEmpty()) {
 									ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
+								} else if(!ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_FEMALES, false).contains(Main.game.getFortressFemalesLeader())) {
+									Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
 								} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_FEMALES).isEmpty()) {
 									ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_FEMALES);
 								}
@@ -662,6 +677,8 @@ public class SubmissionGenericPlaces {
 						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
 							if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_MALES, false).isEmpty()) {
 								ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
+							} else if(!ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_MALES, false).contains(Main.game.getFortressMalesLeader())) {
+								Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
 							} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_MALES).isEmpty()) {
 								ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_MALES);
 							}
@@ -682,6 +699,8 @@ public class SubmissionGenericPlaces {
 							if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
 								if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_MALES, false).isEmpty()) {
 									ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
+								} else if(!ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_MALES, false).contains(Main.game.getFortressMalesLeader())) {
+									Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
 								} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_MALES).isEmpty()) {
 									ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_MALES);
 								}

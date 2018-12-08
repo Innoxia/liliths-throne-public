@@ -503,10 +503,11 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 * @return true if one of the items in this inventory has the same type as the Item provided.
 	 */
 	public boolean hasItemType(AbstractItemType item) {
-		for(AbstractItem abstractItem : itemsInInventory)
-			if(abstractItem.getItemType().equals(item))
+		for(AbstractItem abstractItem : itemsInInventory) {
+			if(abstractItem.getItemType().equals(item)) {
 				return true;
-		
+			}
+		}
 		return false;
 	}
 	
@@ -790,6 +791,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 					itemConcealed.addAll(bp.concealedSlots);
 					for(InventorySlot invSlot : bp.concealedSlots) {
 						if(this.getClothingInSlot(invSlot)!=null
+								&& bp.displacementType!=DisplacementType.REMOVE_OR_EQUIP
 								&& this.getClothingInSlot(invSlot).getItemTags().contains(ItemTag.REVEALS_CONCEALABLE_SLOT)) {
 							itemRevealed.add(invSlot);
 						}

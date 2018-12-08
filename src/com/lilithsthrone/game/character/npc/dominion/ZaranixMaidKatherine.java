@@ -81,7 +81,7 @@ public class ZaranixMaidKatherine extends NPC {
 	}
 	
 	public ZaranixMaidKatherine(boolean isImported) {
-		super(isImported, new NameTriplet("Katherine"),
+		super(isImported, new NameTriplet("Katherine"), "Lasiellemartu",
 				"One of Zaranix's succubi maid twins, Katherine is assigned by her master to keep the ground floor clean.",
 				26, Month.SEPTEMBER, 20,
 				10, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_MAID, true);

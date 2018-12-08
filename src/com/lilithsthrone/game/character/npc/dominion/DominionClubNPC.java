@@ -39,11 +39,11 @@ public class DominionClubNPC extends NPC {
 	}
 	
 	public DominionClubNPC(Gender gender, Subspecies subspecies, boolean isImported) {
-		super(isImported, null, "",
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
-
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+		
 		if(!isImported) {
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(Main.game.getPlayer().getLocation());
@@ -52,7 +52,6 @@ public class DominionClubNPC extends NPC {
 			
 			// RACE & NAME:
 
-			
 			if(subspecies.getRace()==Race.HARPY) {
 				setBody(gender, subspecies, RaceStage.LESSER);
 				
@@ -104,6 +103,9 @@ public class DominionClubNPC extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(this.getHomeWorldLocation()==WorldType.DOMINION) {
+			this.setHomeLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		}
 	}
 
 	@Override

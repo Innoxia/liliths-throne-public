@@ -52,9 +52,9 @@ public class CitadelYoukoSA {
 						+ "<br/><br/>"
 					+ "Upon hearing this, [citadelArcanist.name] lets out an amused giggle, [citadelArcanist.speechNoEffects(You silly thing! Didn't I tell you that you're not allowed to orgasm?!)]"
 						+ "<br/><br/>"
-					+"Before [npc.name] can say anything, [citadelArcanist.name] uses her arcane power to telekinetically force [npc.her] to remain still."
+					+"Before [npc.name] can say anything, [citadelArcanist.name] uses her arcane power to telekinetically force [npc.herHim] to remain still."
 					+ " [npc.Name] [npc.verb(try)] to desperately rub [npc.her] crotch up against [citadelArcanist.namePos] leg, but the tricky youko simply steps back, and patiently waits until [npc.namePos] climax has ebbed away."
-					+ " Once it's clear that [npc.sheHasFull] calmed down, [citadelArcanist.name] releases [npc.herHim], and, pushing her pussy back up against [npc.her] face, she teases,"
+					+ " Once it's clear that [npc.sheHas] calmed down, [citadelArcanist.name] releases [npc.herHim], and, pushing her pussy back up against [npc.her] face, she teases,"
 					+ " [citadelArcanist.speechNoEffects(Silly! This is all about my pleasure, not yours!)]";
 		}
 

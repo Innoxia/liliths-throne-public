@@ -35,7 +35,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.2.4
+ * @version 0.2.12
  * @author Innoxia
  */
 public class ItemType {

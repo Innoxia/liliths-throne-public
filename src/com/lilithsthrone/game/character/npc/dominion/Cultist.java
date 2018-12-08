@@ -64,7 +64,7 @@ public class Cultist extends NPC {
 	}
 	
 	public Cultist(boolean isImported) {
-		super(isImported, null,
+		super(isImported, null, null,
 				"",
 				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				15,

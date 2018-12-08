@@ -1679,7 +1679,8 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType RACE_BIOJUICE = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(+50)] [style.boldCorruption(corruption)] to 'potion effects'",
+			"[style.boldGood(+25)] [style.boldCorruption(corruption)]",
+			"[style.boldGood(+25)] [style.boldCorruption(corruption)] to 'potion effects'",
 			"[style.boldSlime(Transforms body into slime!)]"),
 			Colour.RACE_SLIME) {
 
@@ -1698,7 +1699,9 @@ public class ItemEffectType {
 				}
 				
 			} else {
-				return target.incrementAttribute(Attribute.MAJOR_CORRUPTION, 50)
+				return target.incrementAttribute(Attribute.MAJOR_CORRUPTION, 25)
+						+ "<br/>"
+						+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 25)
 						+ "<br/>"
 						+ target.setBodyMaterial(BodyMaterial.SLIME);
 			}

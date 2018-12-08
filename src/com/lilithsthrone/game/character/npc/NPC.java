@@ -114,6 +114,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	protected NPC(boolean isImported,
 			NameTriplet nameTriplet,
+			String surname,
 			String description,
 			int age,
 			Month birthMonth,
@@ -126,7 +127,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			WorldType worldLocation,
 			PlaceType startingPlace,
 			boolean addedToContacts) {
-		super(nameTriplet, description, level,
+		super(nameTriplet, surname, description, level,
 				LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0),
 				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
 		

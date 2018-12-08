@@ -91,8 +91,9 @@ public class Kate extends NPC {
 	}
 	
 	public Kate(boolean isImported) {
-		super(isImported, new NameTriplet("Kate"), "Kate is a demon who owns the beauty salon 'Succubi's Secrets'."
-				+ " Despite being incredibly good at what she does, she's exceedingly lazy, and prefers to keep the exterior of her shop looking run-down so as to scare off potential customers.",
+		super(isImported, new NameTriplet("Kate"), "Lasiellemartu",
+				"Kate is a demon who owns the beauty salon 'Succubi's Secrets'."
+						+ " Despite being incredibly good at what she does, she's exceedingly lazy, and prefers to keep the exterior of her shop looking run-down so as to scare off potential customers.",
 				37, Month.SEPTEMBER, 9,
 				10, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);

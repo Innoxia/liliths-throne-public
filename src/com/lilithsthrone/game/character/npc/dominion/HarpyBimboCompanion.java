@@ -65,7 +65,7 @@ public class HarpyBimboCompanion extends NPC {
 	}
 	
 	public HarpyBimboCompanion(boolean isImported) {
-		super(isImported, new NameTriplet("Lauren"),
+		super(isImported, new NameTriplet("Lauren"), "Nystrom",
 				"Brittany's girlfriend, Lauren, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in Brittany's nest, she's a ditzy bimbo, and does absolutely anything her matriarch orders her to.",
 				22, Month.JULY, 6,

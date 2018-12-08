@@ -78,7 +78,8 @@ public class SlimeRoyalGuard extends NPC {
 	}
 	
 	public SlimeRoyalGuard(boolean isImported) {
-		super(isImported, new NameTriplet("Maximilian", "Max", "Maxine"), "An incredibly rare and powerful demonic slime, [npc.name] prides [npc.herself] on [npc.her] skill with the sword.",
+		super(isImported, new NameTriplet("Maximilian", "Max", "Maxine"), "Klinge",
+				"An incredibly rare and powerful demonic slime, [npc.name] prides [npc.herself] on [npc.her] skill with the sword.",
 				35, Month.APRIL, 14,
 				20, Gender.M_P_MALE, Subspecies.SLIME, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SLIME_QUEENS_LAIR_FIRST_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD, true);

@@ -954,11 +954,20 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		if(this.getItemTags().contains(ItemTag.PLUGS_ANUS)) {
 			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Plugs Anus</b>");
 		}
+		if(this.getItemTags().contains(ItemTag.SEALS_ANUS)) {
+			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Seals Anus</b>");
+		}
 		if(this.getItemTags().contains(ItemTag.PLUGS_VAGINA)) {
 			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Plugs Vagina</b>");
 		}
+		if(this.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
+			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Seals Vagina</b>");
+		}
 		if(this.getItemTags().contains(ItemTag.PLUGS_NIPPLES)) {
 			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Plugs Nipples</b>");
+		}
+		if(this.getItemTags().contains(ItemTag.SEALS_NIPPLES)) {
+			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Seals Nipples</b>");
 		}
 		
 		if (equippedToCharacter == null) { // The clothing is not currently
@@ -1078,8 +1087,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public boolean isSealed() {
 		for(ItemEffect effect : this.getEffects()) {
-			if(effect.getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
+			if(effect!=null && effect.getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
 				return true;
+			} else if(effect==null) {
+				System.err.println("AbstractClothing.isSealed() for "+this.getName()+" is encountering a null ItemEffect!");
 			}
 		}
 		return false;

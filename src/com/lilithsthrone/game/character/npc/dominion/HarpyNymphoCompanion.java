@@ -65,7 +65,7 @@ public class HarpyNymphoCompanion extends NPC {
 	}
 	
 	public HarpyNymphoCompanion(boolean isImported) {
-		super(isImported, new NameTriplet("Max"),
+		super(isImported, new NameTriplet("Max"), "Maly",
 				"Lexi's favourite partner, Max, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her nest, she does absolutely anything Lexi orders her to do, which usually involves trying to sate her matriarch's never-ending lust.",
 				26, Month.JANUARY, 22,

@@ -1390,6 +1390,9 @@ public enum RenderingEngine {
 	}
 
 	public String getFullMap(WorldType world, boolean withFastTravelAndIcons) {
+
+//		long t1 = System.nanoTime();
+		
 		mapSB.setLength(0);
 		
 		if(withFastTravelAndIcons) {
@@ -1483,6 +1486,9 @@ public enum RenderingEngine {
 		}
 		
 		mapSB.append("</div>");
+
+//		long t2 = System.nanoTime();
+//		System.out.println(Main.game.getAllNPCs().size()+" Full map: "+(t2-t1)/1000000000f);
 		
 		return mapSB.toString();
 	}
@@ -1504,7 +1510,9 @@ public enum RenderingEngine {
 	}
 	
 	public String renderedHTMLMap() {
-
+		
+//		long t1 = System.nanoTime();
+		
 		mapSB.setLength(0);
 
 		mapSB.append("<div class='map-container'>");
@@ -1718,6 +1726,10 @@ public enum RenderingEngine {
 		
 		mapSB.append("</div>");
 
+
+//		long t2 = System.nanoTime();
+//		System.out.println("HTML map: "+(t2-t1)/1000000000f);
+		
 		return mapSB.toString();
 	}
 	

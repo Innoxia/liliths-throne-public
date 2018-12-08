@@ -81,7 +81,7 @@ public class SubmissionCitadelArcanist extends NPC {
 	}
 	
 	public SubmissionCitadelArcanist(boolean isImported) {
-		super(isImported, new NameTriplet("Hitomi", "Hitomi", "Hitomi"),
+		super(isImported, new NameTriplet("Hitomi", "Hitomi", "Hitomi"), "Takahashi",
 				"",
 				23, Month.NOVEMBER, 27,
 				15, Gender.F_V_B_FEMALE, Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL,
@@ -89,7 +89,6 @@ public class SubmissionCitadelArcanist extends NPC {
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
-			this.setSurname("Takahashi");
 
 			//TODO illusion magic
 			this.addSpell(Spell.ICE_SHARD);

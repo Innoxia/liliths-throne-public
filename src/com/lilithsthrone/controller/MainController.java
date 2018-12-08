@@ -829,6 +829,32 @@ public class MainController implements Initializable {
 									}
 								}
 							}
+							if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveSurnameInput') === document.activeElement"))) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									boolean unsuitableName = false;
+								 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveSurnameInput')")!=null) {
+									 
+										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveSurnameInput').value;");
+										if(Main.mainController.getWebEngine().getDocument()!=null) {
+											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() >= 1
+															&& Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+										}
+										
+										if (!unsuitableName) {
+											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+												@Override
+												public void effects() {
+													Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+												}
+											});
+										} else {
+											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
+										}
+									}
+								}
+							}
 						}
 						
 						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
@@ -2068,10 +2094,12 @@ public class MainController implements Initializable {
 	 */
 	private void checkLastKeys() {
 		if (lastKeysEqual(KeyCode.B, KeyCode.U, KeyCode.G, KeyCode.G, KeyCode.Y)) {
-			if(Main.game.isInNewWorld() && Main.game.isPrologueFinished()) {
-				Main.game.setContent(new Response("", "", DebugDialogue.DEBUG_MENU));
-			} else {
-				Main.game.flashMessage(Colour.GENERIC_BAD, "Unavailable in prologue!");
+			if(Main.game!=null) {
+				if(Main.game.isStarted() && Main.game.isInNewWorld() && Main.game.isPrologueFinished()) {
+					Main.game.setContent(new Response("", "", DebugDialogue.DEBUG_MENU));
+				} else {
+					Main.game.flashMessage(Colour.GENERIC_BAD, "Unavailable in prologue!");
+				}
 			}
 		}
 		if (lastKeysEqual(KeyCode.N, KeyCode.O, KeyCode.X, KeyCode.X, KeyCode.X)) {

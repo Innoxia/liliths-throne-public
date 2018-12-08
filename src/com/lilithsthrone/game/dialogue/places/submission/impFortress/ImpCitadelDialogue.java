@@ -37,6 +37,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
@@ -77,9 +78,11 @@ public class ImpCitadelDialogue {
 	 * The demon leaders are placed in the siren's throne room.
 	 */
 	public static void applyEntry() {
-		Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
-		Main.game.getFortressMalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
-		Main.game.getFortressFemalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+		if(!isDefeated()) {
+			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+			Main.game.getFortressMalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+			Main.game.getFortressFemalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+		}
 	}
 	
 	/**
@@ -88,14 +91,26 @@ public class ImpCitadelDialogue {
 	public static void applyExit() {
 		Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
 		
-		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated) && !isDefeated()) {
-			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
+		if(Main.game.getFortressAlphaLeader().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+			if(isDefeated() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
+				Main.game.getFortressAlphaLeader().setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+			} else {
+				Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
+			}
 		}
-		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated) && !isDefeated()) {
-			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
+		if(Main.game.getFortressMalesLeader().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+			if(isDefeated() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
+				Main.game.getFortressMalesLeader().setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+			} else {
+				Main.game.getFortressMalesLeader().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
+			}
 		}
-		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated) && !isDefeated()) {
-			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
+		if(Main.game.getFortressFemalesLeader().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+			if(isDefeated() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
+				Main.game.getFortressFemalesLeader().setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+			} else {
+				Main.game.getFortressFemalesLeader().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
+			}
 		}
 	}
 	
@@ -134,7 +149,8 @@ public class ImpCitadelDialogue {
 		Cell[][] grid =  Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getGrid();
 		for(int i=0;i<grid.length;i++) {
 			for(int j=0;j<grid[0].length;j++) {
-				for(GameCharacter character : Main.game.getCharactersPresent(grid[i][j])) {
+				List<GameCharacter> characters = new ArrayList<>(Main.game.getCharactersPresent(grid[i][j]));
+				for(GameCharacter character : characters) {
 					if(character instanceof ImpAttacker && !character.isSlave()) {
 						Main.game.banishNPC((NPC) character);
 					}
@@ -621,8 +637,8 @@ public class ImpCitadelDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGroup(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
@@ -632,8 +648,8 @@ public class ImpCitadelDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGroup(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								IMP_AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
@@ -644,8 +660,8 @@ public class ImpCitadelDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGroup(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								IMP_AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
@@ -1250,7 +1266,6 @@ public class ImpCitadelDialogue {
 		public String getContent() {
 			//TODO check for mouth blocked
 			//TODO add conversation action?
-			// TODO Go over all of this and check for companion variations
 			UtilText.nodeContentSB.setLength(0);
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelArcanistEncountered)) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF)) {
@@ -1884,6 +1899,7 @@ public class ImpCitadelDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
 						clearFortress();
 					}
 				};
