@@ -262,9 +262,8 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterInventory inventory,
 			WorldType worldLocation,
 			AbstractPlaceType startingPlace) {
-		
-		id = "NOT_SET"; // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
-		
+
+		id = "NOT_SET";
 		genericName = "";
 		playerKnowsName = true;
 		playerOnFirstNameTerms = false;
@@ -15423,6 +15422,10 @@ public abstract class GameCharacter implements XMLSaving {
 		applyUnequipClothingEffects(clothing);
 		inventory.forceUnequipClothingIntoVoid(this, characterRemovingClothing, clothing);
 	}
+
+	public boolean isOnPlayerTile() {
+		return Main.game.getPlayerCell().getCharactersPresentIds().contains(getId());
+	}
 	
 	public String unequipClothingIntoVoid(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
 		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.PENIS);
@@ -15451,7 +15454,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return "";
 		}
 		
-		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner()!=null && this.getOwner().isPlayer()))) {
+		if(!this.isPlayer() && (this.isOnPlayerTile() || (this.isSlave() && this.getOwner()!=null && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(this.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
@@ -15589,7 +15592,7 @@ public abstract class GameCharacter implements XMLSaving {
 			updateInventoryListeners();
 		}
 		
-		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
+		if(!this.isPlayer() && (this.isOnPlayerTile() || (this.isSlave() && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(this.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
