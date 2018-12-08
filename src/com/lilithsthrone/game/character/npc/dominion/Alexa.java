@@ -65,7 +65,7 @@ public class Alexa extends NPC {
 	}
 	
 	public Alexa(boolean isImported) {
-		super(isImported, new NameTriplet("Alexa"),
+		super(isImported, new NameTriplet("Alexa"), "Earna",
 				"Alexa is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
 				26, Month.MAY, 3,

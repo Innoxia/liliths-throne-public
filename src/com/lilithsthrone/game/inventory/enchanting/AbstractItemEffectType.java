@@ -147,8 +147,8 @@ public abstract class AbstractItemEffectType {
 		if(Main.game.getPlayer().addRaceDiscoveredFromBook(subspecies)) {
 			return subspecies.getBasicDescription(null)
 					+subspecies.getAdvancedDescription(null)
-					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getDamageMultiplier(), 5f)
-					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getResistanceMultiplier(), 5f);
+					+Main.game.getPlayer().incrementAttribute(subspecies.getDamageMultiplier(), 5f)
+					+Main.game.getPlayer().incrementAttribute(subspecies.getResistanceMultiplier(), 5f);
 			
 		} else {
 			return subspecies.getBasicDescription(null)
@@ -911,7 +911,7 @@ public abstract class AbstractItemEffectType {
 					switch(secondaryModifier) {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(heightIncrement, target.getHeightValue()-Height.ZERO_TINY.getMinimumValue(), limit)) {
-								sb.append(target.incrementHeight(heightIncrement));
+								sb.append(target.incrementHeight(heightIncrement, false));
 							} else if(isSetToLimit(heightIncrement, target.getHeightValue()-Height.ZERO_TINY.getMinimumValue(), limit)) {
 								sb.append(target.setHeight(limit));
 							}
@@ -2373,17 +2373,17 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in height. (" + Units.size(mediumChangeMajorDrain) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorDrain); } };
+								return new RacialEffectUtil("Huge decrease in height. (" + Units.size(mediumChangeMajorDrain) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorDrain, false); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in height. (" + Units.size(mediumChangeDrain) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeDrain); } };
+								return new RacialEffectUtil("Decrease in height. (" + Units.size(mediumChangeDrain) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeDrain, false); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in height. (" + Units.size(mediumChangeMinorDrain) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorDrain); } };
+								return new RacialEffectUtil("Small decrease in height. (" + Units.size(mediumChangeMinorDrain) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorDrain, false); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in height. (+" + Units.size(mediumChangeMinorBoost) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorBoost); } };
+								return new RacialEffectUtil("Small increase in height. (+" + Units.size(mediumChangeMinorBoost) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorBoost, false); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in height. (+" + Units.size(mediumChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeBoost); } };
+								return new RacialEffectUtil("Increase in height. (+" + Units.size(mediumChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeBoost, false); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in height. (+" + Units.size(mediumChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorBoost); } };
+								return new RacialEffectUtil("Huge increase in height. (+" + Units.size(mediumChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorBoost, false); } };
 						}
 					case TF_MOD_SIZE_SECONDARY:
 						switch(potency) {

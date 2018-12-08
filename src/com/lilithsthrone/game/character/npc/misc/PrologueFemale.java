@@ -65,7 +65,7 @@ public class PrologueFemale extends NPC {
 	}
 	
 	public PrologueFemale(boolean isImported) {
-		super(isImported, new NameTriplet("Alexander", "Alex", "Alexandria"),
+		super(isImported, new NameTriplet("Alexander", "Alex", "Alexandria"), "Bonheur",
 				"One of the guests at the museum's opening exhibit. She's got a beautiful face and figure, and, even better, she seems to have taken an instant liking towards you...",
 				26, Month.APRIL, 12,
 				3,
@@ -214,6 +214,7 @@ public class PrologueFemale extends NPC {
 	
 	@Override
 	public void endSex() {
+		Main.game.getPlayer().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_CROWDS);
 	}
 
 	@Override

@@ -471,11 +471,17 @@ public enum PlaceUpgrade {
 			Colour.GENERIC_ARCANE,
 			"Artisan Milkers",
 			"You could replace the standard milking machines in this room with very expensive artisan ones."
-					+ " While being far more comfortable for the slaves that use them, these milking machines seem to be designed more for show than practicality, and deliver a slightly lower milk output than the regular machines.",
+					+ " While being far more comfortable for the slaves that use them, these milking machines seem to be designed more for show than practicality, and deliver a slightly lower milk output than the regular machines.<br/>"
+					+ "<i>Milk: 500ml to 250ml per hour<br/>"
+					+ "Cum: 50ml to 25ml per hour<br/>"
+					+ "Girlcum: 10ml to 5ml per hour</i>",
 			"You've installed artisan milking machines in this room."
-					+ " The slaves that have the good fortune to be locked into these machines are sure to appreciate you for it...",
+					+ " The slaves that have the good fortune to be locked into these machines are sure to appreciate you for it.<br/>"
+					+ "<i>Milk: 500ml to 250ml per hour<br/>"
+					+ "Cum: 50ml to 25ml per hour<br/>"
+					+ "Girlcum: 10ml to 5ml per hour</i>",
 			"The artisan, arcane-powered milking machines that have been placed in this room fill the air with a very soft, almost melodic, humming noise."
-					+ " Although they're far more comfortable than regular milking machines, they appear to be designed more for show than practicality, and while your slaves are sure to be happy, milk output is a lot lower than normal...",
+					+ " Although they're far more comfortable than regular milking machines, they appear to be designed more for show than practicality, and while your slaves are sure to be happy, milk output is a lot lower than normal.",
 			2500,
 			500,
 			250,
@@ -502,9 +508,15 @@ public enum PlaceUpgrade {
 			Colour.GENERIC_ARCANE,
 			"Industrial Milkers",
 			"You could replace the standard milking machines in this room with industrial-grade ones."
-					+ " While being far less comfortable for the slaves that use them, these milking machines maximise both milk output and profit.",
+					+ " While being far less comfortable for the slaves that use them, these milking machines maximise both milk output and profit.<br/>"
+					+ "<i>Milk: 500ml to 1000ml per hour<br/>"
+					+ "Cum: 50ml to 250ml per hour<br/>"
+					+ "Girlcum: 10ml to 50ml per hour</i>",
 			"You've installed industrial milking machines in this room."
-					+ " The slaves that have the misfortune to be locked into these machines are sure to hate you for it...",
+					+ " The slaves that have the misfortune to be locked into these machines are sure to hate you for it.<br/>"
+					+ "<i>Milk: 500ml to 1000ml per hour<br/>"
+					+ "Cum: 50ml to 250ml per hour<br/>"
+					+ "Girlcum: 10ml to 50ml per hour</i>",
 			"The industrial, arcane-powered milking machines that have been placed in this room fill the air with a steady background humming noise."
 					+ " Although they're sure to maximise milk output, and profits, these machines aren't exactly the most comfortable of devices to be strapped in to, and any slaves assigned to me milked in here are sure to hate you for it...",
 			1500,

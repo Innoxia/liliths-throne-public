@@ -66,7 +66,7 @@ public class Finch extends NPC {
 	}
 	
 	public Finch(boolean isImported) {
-		super(isImported, new NameTriplet("Finch"),
+		super(isImported, new NameTriplet("Finch"), "Moreno",
 				"Finch is the manager of Slaver Alley's 'Slave Administration' building."
 						+ " Although he acts friendly enough, you can't help but wonder if his disarming disposition is just for show."
 						+ " After all, would the manager of Dominion's 'Slave Administration' really have got to that position just by being nice?",

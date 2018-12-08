@@ -85,7 +85,7 @@
 		You allow [prologueMale.name] to pull you into his strong, masculine torso, desperately moaning into his mouth as he dominantly gropes and fondles your body. Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands. [prologueMale.speech(I'd rather not, but if you want me to, I can wear this.)]
 	</p>
 	<p>
-		#pc.hasPenis()
+		#IFpc.hasPenis()
 		#THEN
 			You look down to see that you're holding a couple of little square packets - a pair of condoms.
 		#ELSE
@@ -147,7 +147,7 @@
 
 	<htmlContent tag="AFTER_SEX"><![CDATA[
 	<p>
-		Leaving your partner behind, you step out of the office, before heading off towards the stage. You don't even manage to get close, however, as after you've taken no more than ten steps, you see your aunt Lily wandering about in front of you. From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something.
+		Leaving your partner behind, you step out of the office, before heading off towards the stage. As you approach the large crowd that's gathered before it, you see your aunt Lily off to one side, pacing impatiently back and forth. From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something.
 	</p>
 	<p>
 		[pc.speech(Hi, Lily!)] you call out, walking towards her.
@@ -192,7 +192,7 @@
 
 	<htmlContent tag="INTRO_SECOND_THOUGHTS"><![CDATA[
 	<p>
-		Leaving your partner behind, you step out of the office, before heading off towards the stage. You don't even manage to get close, however, as after you've taken no more than ten steps, you see your aunt Lily wandering about in front of you. From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something.
+		Leaving your partner behind, you step out of the office, before heading off towards the stage. As you approach the large crowd that's gathered before it, you see your aunt Lily off to one side, pacing impatiently back and forth. From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something.
 	</p>
 	<p>
 		[pc.speech(Hi, Lily!)] you call out, walking towards her.

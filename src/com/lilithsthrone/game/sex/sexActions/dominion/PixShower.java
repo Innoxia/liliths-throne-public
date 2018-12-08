@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.sexActions.universal;
+package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import java.util.List;
 
@@ -974,7 +974,11 @@ public class PixShower {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL_SELF);
+			} else {
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
+			}
 		}
 	};
 	

@@ -10,17 +10,16 @@ import java.util.Map.Entry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
@@ -33,6 +32,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelImpsDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
@@ -62,7 +62,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.11
- * @version 0.2.11
+ * @version 0.2.12
  * @author Innoxia
  */
 public class ImpAttacker extends NPC {
@@ -80,7 +80,7 @@ public class ImpAttacker extends NPC {
 	}
 	
 	public ImpAttacker(Subspecies subspecies, Gender gender, boolean isImported) {
-		super(isImported, null, "",
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, subspecies, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
@@ -128,7 +128,9 @@ public class ImpAttacker extends NPC {
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 		
-		this.setEnslavementDialogue(TunnelImpsDialogue.IMP_ENSLAVEMENT_DIALOGUE);
+		if(this.getWorldLocation()==WorldType.SUBMISSION) { //TODO handle enslavement in fortresses
+			this.setEnslavementDialogue(TunnelImpsDialogue.IMP_ENSLAVEMENT_DIALOGUE);
+		}
 	}
 	
 	@Override
@@ -236,6 +238,14 @@ public class ImpAttacker extends NPC {
 
 	// Combat:
 	
+	@Override
+	public int getEscapeChance() {
+		if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+			return 0;
+		}
+		return super.getEscapeChance();
+	}
+	
 	public Attack attackType() {
 		
 		// If can cast spells, then do that:
@@ -302,11 +312,48 @@ public class ImpAttacker extends NPC {
 				return new Response("", "", ImpFortressDialogue.GUARDS_AFTER_COMBAT_DEFEAT);
 			}
 			
-		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_DEMON_ENTRANCE) {
+		} else if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
 			if (victory) {
-				return new Response("", "", ImpCitadelDialogue.GUARDS_AFTER_COMBAT_VICTORY);
+				if(applyEffects) {
+					Main.game.getDialogueFlags().impCitadelImpWave++;
+				}
+				if(Main.game.getDialogueFlags().impCitadelImpWave>5) {
+					return new Response("", "", ImpCitadelDialogue.IMP_FIGHT_AFTER_COMBAT_VICTORY) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(
+									UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST", ImpCitadelDialogue.getAllCharacters()));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.DAMAGE_IMP, 100));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonImpsDefeated, true);
+							if(ImpCitadelDialogue.isCompanionDialogue()) {
+								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.DAMAGE_IMP, 100));
+								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
+							}
+						}
+					};
+				} else {
+					return new Response("", "", ImpCitadelDialogue.IMP_CHALLENGE_CONTINUE) {
+						@Override
+						public void effects() {
+							ImpCitadelDialogue.spawnImps();
+						}
+					};
+				}
+				
 			} else {
-				return new Response("", "", ImpCitadelDialogue.GUARDS_AFTER_COMBAT_DEFEAT);
+				return new Response("", "", ImpCitadelDialogue.IMP_FIGHT_AFTER_COMBAT_DEFEAT) {
+					@Override
+					public void effects() {
+						if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_LAB) {
+							if(Main.game.isNonConEnabled() && (Main.game.getPlayer().isFeminine() || (ImpCitadelDialogue.isCompanionDialogue() && ImpCitadelDialogue.getMainCompanion().isFeminine()))) {
+								ImpCitadelDialogue.getArcanist().displaceClothingForAccess(CoverableArea.VAGINA);
+								ImpCitadelDialogue.getArcanist().setLust(50);
+							}
+						}
+						ImpCitadelDialogue.getArcanist().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_LAB);
+					}
+				};
 			}
 			
 		} else {
@@ -389,11 +436,7 @@ public class ImpAttacker extends NPC {
 			case HUMAN:
 			case NONE:
 			case SLIME:
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
+			case ELEMENTAL:
 				break;
 		}
 		
@@ -477,43 +520,6 @@ public class ImpAttacker extends NPC {
 			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
 			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
 			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-			
-		} else if(target.getLocationPlace().getPlaceType()==PlaceType.FORTRESS_DEMON_ENTRANCE) {
-
-			// Shrink:
-			for(int i=target.getHeightValue(); i>Height.ZERO_TINY.getMinimumValue(); i-=15) { // Shrink:
-				effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1));
-			}
-			
-			// Add penis:
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1));
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1));
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-			// Make urethra fuckable:
-			if(Main.getProperties().hasValue(PropertyValue.urethralContent)) {
-				effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_BOOST, 1));
-			}
-			
-			// Add wet vagina:
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1));
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-			
-			// Increase anus wetness:
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-
-			if(Main.getProperties().hasValue(PropertyValue.nipplePenContent) && target.hasBreasts()) {
-				effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_BOOST, 1));
-				if(Main.getProperties().hasValue(PropertyValue.lactationContent)) {
-					effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_WETNESS, TFPotency.BOOST, 1));
-				}
-			}
-
-			// Increase saliva production:
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
 			
 		}
 		

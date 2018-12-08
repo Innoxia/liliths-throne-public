@@ -71,7 +71,7 @@ public class RentalMommy extends NPC {
 	}
 	
 	public RentalMommy(boolean isImported) {
-		super(isImported, new NameTriplet("Mommy"),
+		super(isImported, new NameTriplet("Mommy"), "Hathaway",
 				"'Mommy' earns a living by renting herself out to those in need of some motherly love.",
 				45, Month.JULY, 3,
 				10, Gender.F_V_B_FEMALE, Subspecies.COW_MORPH, RaceStage.PARTIAL,

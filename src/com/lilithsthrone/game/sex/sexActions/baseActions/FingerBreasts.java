@@ -252,7 +252,7 @@ public class FingerBreasts {
 								" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] in response to [npc.namePos] touch,"
 										+ " before gently encouraging [npc.herHim] to continue giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With a soft [npc2.moan], [npc2.name] slowly [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.name] to continue [npc2.she] [npc2.verb(carry)] on making lewd little noises.",
+								" With a soft [npc2.moan], [npc2.name] slowly [npc2.verb(push)] [npc2.her] chest out, imploring [npc.name] to continue [npc2.she] [npc2.verb(carry)] on making lewd little noises.",
 
 								" Softly [npc2.moaning] at [npc.namePos] touch, [npc2.name] gently [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -261,7 +261,7 @@ public class FingerBreasts {
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response to [npc.namePos] touch,"
 										+ " before eagerly encouraging [npc.herHim] to continue giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.herHim] to continue [npc2.she] [npc2.verb(carry)] on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out, imploring [npc.herHim] to continue [npc2.she] [npc2.verb(carry)] on making lewd noises.",
 
 								" [npc2.Moaning+] at [npc.namePos] touch, [npc2.name] eagerly [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -270,7 +270,7 @@ public class FingerBreasts {
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response to [npc.namePos] touch,"
 										+ " before roughly growling for [npc.herHim] to continue giving [npc2.namePos] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] [npc2.verb(push)] [npc2.namePos] chest out, and in a firm tone, [npc2.name] order [npc.herHim] to [npc.verb(continue)] before carrying on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] [npc2.verb(push)] [npc2.her] chest out, and in a firm tone, [npc2.name] order [npc.herHim] to [npc.verb(continue)] before carrying on making lewd noises.",
 
 								" Letting out [npc2.a_moan+] at [npc.namePos] touch, [npc2.name] [npc2.verb(demand)] that [npc.she] carries on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -279,7 +279,7 @@ public class FingerBreasts {
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response to [npc.namePos] touch,"
 										+ " before eagerly encouraging [npc.herHim] to continue giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.herHim] to continue [npc2.she] [npc2.verb(carry)] on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out, imploring [npc.herHim] to continue [npc2.she] [npc2.verb(carry)] on making lewd noises.",
 
 								" [npc2.Moaning+] at [npc.namePos] touch, [npc2.name] eagerly [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -288,7 +288,7 @@ public class FingerBreasts {
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response to [npc.namePos] touch,"
 										+ " before encouraging [npc.herHim] to continue giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.herHim] to continue [npc2.she] [npc2.verb(carry)] on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] [npc2.verb(push)] [npc2.her] chest out, imploring [npc.herHim] to continue [npc2.she] [npc2.verb(carry)] on making lewd noises.",
 
 								" [npc2.Moaning+] at [npc.namePos] touch, [npc2.name] [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;

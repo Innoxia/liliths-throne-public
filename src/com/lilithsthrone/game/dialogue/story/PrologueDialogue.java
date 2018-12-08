@@ -62,9 +62,26 @@ public class PrologueDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Agree", "Overwhelmed with arousal, you decide to agree to go and have some fun.", INTRO_EMPTY_ROOM);
+				return new Response("Agree", "Overwhelmed with arousal, you decide to agree to go and have some fun.", INTRO_EMPTY_ROOM) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_OFFICE);
+						if(femalePrologueNPC()) {
+							Main.game.getPrologueFemale().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_OFFICE);
+						} else {
+							Main.game.getPrologueMale().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_OFFICE);
+						}
+					}
+				};
+				
 			} else if (index == 2) {
-				return new Response("Say No", "You don't think it's a good idea to sneak off and have sex when you're supposed to be here to see your aunt Lily. Say no.", INTRO_NO);
+				return new Response("Say No", "You don't think it's a good idea to sneak off and have sex when you're supposed to be here to see your aunt Lily. Say no.", INTRO_NO) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_CROWDS);
+					}
+				};
+				
 			} else {
 				return null;
 			}
@@ -133,7 +150,12 @@ public class PrologueDialogue {
 				}
 				
 			} else if (index == 2) {
-				return new Response("Second Thoughts", "Decide that this is a bad idea after all, and put an end to this.", INTRO_SECOND_THOUGHTS);
+				return new Response("Second Thoughts", "Decide that this is a bad idea after all, and put an end to this.", INTRO_SECOND_THOUGHTS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_CROWDS);
+					}
+				};
 				
 			} else {
 				return null;
@@ -178,7 +200,7 @@ public class PrologueDialogue {
 				return new Response("Search", "Go and search the museum for Arthur.", INTRO_2) {
 					@Override
 					public void effects() {
-						CharacterCreation.moveNPCOutOfPlayerTile();
+						Main.game.getPlayer().setLocation(WorldType.MUSEUM_LOST, PlaceType.MUSEUM_MIRROR);
 					}
 				};
 			} else {
@@ -213,7 +235,7 @@ public class PrologueDialogue {
 				return new Response("Search", "Go and search the museum for Arthur.", INTRO_2) {
 					@Override
 					public void effects() {
-						CharacterCreation.moveNPCOutOfPlayerTile();
+						Main.game.getPlayer().setLocation(WorldType.MUSEUM_LOST, PlaceType.MUSEUM_MIRROR);
 					}
 				};
 			} else {
@@ -244,7 +266,12 @@ public class PrologueDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Search", "Go and search the museum for Arthur.", INTRO_2);
+				return new Response("Search", "Go and search the museum for Arthur.", INTRO_2){
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.MUSEUM_LOST, PlaceType.MUSEUM_MIRROR);
+					}
+				};
 			} else {
 				return null;
 			}

@@ -32,13 +32,14 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.91
- * @version 0.2.11
+ * @version 0.2.12
  * @author tukaima, Innoxia
  */
 public enum Subspecies {
@@ -149,6 +150,10 @@ public enum Subspecies {
 			"A typical imp.",
 			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
 		@Override
+		public Subspecies getOffspringSubspecies() {
+			return IMP;
+		}
+		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue() - Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue()));
 			body.getPenis().setPenisSize(null, 8+Util.random.nextInt(13)); // 3-8 inches
@@ -157,6 +162,14 @@ public enum Subspecies {
 		@Override
 		public boolean isShortStature() {
 			return true;
+		}
+		@Override
+		public Attribute getDamageMultiplier() {
+			return Attribute.DAMAGE_IMP;
+		}
+		@Override
+		public Attribute getResistanceMultiplier() {
+			return Attribute.RESISTANCE_IMP;
 		}
 	},
 	
@@ -197,6 +210,14 @@ public enum Subspecies {
 		@Override
 		public boolean isShortStature() {
 			return true;
+		}
+		@Override
+		public Attribute getDamageMultiplier() {
+			return Attribute.DAMAGE_IMP;
+		}
+		@Override
+		public Attribute getResistanceMultiplier() {
+			return Attribute.RESISTANCE_IMP;
 		}
 	},
 	
@@ -486,52 +507,18 @@ public enum Subspecies {
 
 		@Override
 		public String getSVGString(GameCharacter character) {
-			switch(character.getTailCount()) {
-				case 1:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail1();
-				case 2:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail2();
-				case 3:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail3();
-				case 4:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail4();
-				case 5:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail5();
-				case 6:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail6();
-				case 7:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail7();
-				case 8:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail8();
-				case 9:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail9();
+			if(character==null) {
+				return youkoIconMap.get(9);
 			}
-			return "";
+			return youkoIconMap.get(character.getTailCount());
 		}
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
-			switch(character.getTailCount()) {
-				case 1:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated1();
-				case 2:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated2();
-				case 3:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated3();
-				case 4:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated4();
-				case 5:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated5();
-				case 6:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated6();
-				case 7:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated7();
-				case 8:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated8();
-				case 9:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated9();
+			if(character==null) {
+				return youkoDesaturatedIconMap.get(9);
 			}
-			return "";
+			return youkoDesaturatedIconMap.get(character.getTailCount());
 		}
 	},
 	
@@ -598,52 +585,12 @@ public enum Subspecies {
 		
 		@Override
 		public String getSVGString(GameCharacter character) {
-			switch(character.getTailCount()) {
-				case 1:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail1();
-				case 2:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail2();
-				case 3:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail3();
-				case 4:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail4();
-				case 5:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail5();
-				case 6:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail6();
-				case 7:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail7();
-				case 8:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail8();
-				case 9:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail9();
-			}
-			return "";
+			return FOX_ASCENDANT.getSVGString(character);
 		}
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
-			switch(character.getTailCount()) {
-				case 1:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated1();
-				case 2:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated2();
-				case 3:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated3();
-				case 4:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated4();
-				case 5:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated5();
-				case 6:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated6();
-				case 7:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated7();
-				case 8:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated8();
-				case 9:
-					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated9();
-			}
-			return "";
+			return FOX_ASCENDANT.getSVGStringDesaturated(character);
 		}
 	},
 	
@@ -1271,11 +1218,17 @@ public enum Subspecies {
 
 		@Override
 		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getSlimeSVGString(null);
+			}
 			return Subspecies.getFleshSubspecies(character.getBody()).getSlimeSVGString(character);
 		}
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getSVGStringDesaturated(null);
+			}
 			return Subspecies.getFleshSubspecies(character.getBody()).getSVGStringDesaturated(character);
 		}
 	},
@@ -1505,7 +1458,7 @@ public enum Subspecies {
 			null,
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_ADVANCED"),
-			Race.ELEMENTAL_EARTH,
+			Race.ELEMENTAL,
 			Colour.SPELL_SCHOOL_EARTH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Earth.",
@@ -1531,7 +1484,7 @@ public enum Subspecies {
 			null,
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_ADVANCED"),
-			Race.ELEMENTAL_WATER,
+			Race.ELEMENTAL,
 			Colour.SPELL_SCHOOL_WATER,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Water.",
@@ -1557,7 +1510,7 @@ public enum Subspecies {
 			null,
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_ADVANCED"),
-			Race.ELEMENTAL_AIR,
+			Race.ELEMENTAL,
 			Colour.SPELL_SCHOOL_AIR,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Air.",
@@ -1583,7 +1536,7 @@ public enum Subspecies {
 			null,
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_ADVANCED"),
-			Race.ELEMENTAL_FIRE,
+			Race.ELEMENTAL,
 			Colour.SPELL_SCHOOL_FIRE,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Fire.",
@@ -1609,7 +1562,7 @@ public enum Subspecies {
 			null,
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_ADVANCED"),
-			Race.ELEMENTAL_ARCANE,
+			Race.ELEMENTAL,
 			Colour.SPELL_SCHOOL_ARCANE,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Arcane.",
@@ -1649,18 +1602,65 @@ public enum Subspecies {
 	protected String slimeSVGString;
 	private List<WorldType> worldLocations;
 
+	private static Map<Integer, String> youkoIconMap;
+	private static Map<Integer, String> youkoDesaturatedIconMap;
+	
 	private static Map<WorldType, List<Subspecies>> worldSpecies;
 	private static List<Subspecies> dominionStormImmuneSpecies;
+	private static Map<Race, List<Subspecies>> subspeciesFromRace;
 	
 	static {
+		youkoIconMap = new HashMap<>();
+		for(int i=1; i<=9; i++) {
+			try {
+				String SVGStringBackground = "";
+				InputStream is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/statusEffects/race/raceBackground.svg");
+				if(is==null) {
+					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'statusEffects/race/raceBackground')! (Code 1f)");
+				}
+				SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+
+				is.close();
+				
+				String baseSVGString = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTail(i)+"</div>";
+				youkoIconMap.put(i, baseSVGString);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		youkoDesaturatedIconMap = new HashMap<>();
+		for(int i=1; i<=9; i++) {
+			try {
+				String SVGStringBackground = "";
+				InputStream is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/statusEffects/race/raceBackground.svg");
+				if(is==null) {
+					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'statusEffects/race/raceBackground')! (Code 2f)");
+				}
+				SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+
+				is.close();
+				
+				String baseSVGString = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated(i)+"</div>";
+				youkoDesaturatedIconMap.put(i, baseSVGString);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 		worldSpecies = new HashMap<>();
 		dominionStormImmuneSpecies = new ArrayList<>();
+		subspeciesFromRace = new HashMap<>();
 		
 		for(Subspecies species : Subspecies.values()) {
+			subspeciesFromRace.putIfAbsent(species.getRace(), new ArrayList<>());
+			subspeciesFromRace.get(species.getRace()).add(species);
 			for(WorldType type : species.getWorldLocations()) {
 				worldSpecies.putIfAbsent(type, new ArrayList<>());
 				worldSpecies.get(type).add(species);
-
+				
 				try {
 					if(type == WorldType.DOMINION && RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(Attribute.MAJOR_ARCANE).getMinimum()>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
 						dominionStormImmuneSpecies.add(species);
@@ -1668,6 +1668,10 @@ public enum Subspecies {
 				} catch(Exception ex) {	
 				}
 			}
+		}
+		
+		for(List<Subspecies> e : subspeciesFromRace.values()) {
+			e.sort((s1, s2) -> s1.getName(null).compareTo(s2.getName(null)));
 		}
 	}
 
@@ -1789,20 +1793,20 @@ public enum Subspecies {
 				
 				String baseSVGString = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>";
 				
-				slimeSVGString = Util.colourReplacement(this.toString(),
+				slimeSVGString = SvgUtil.colourReplacement(this.toString(),
 						Colour.RACE_SLIME,
 						Colour.RACE_SLIME,
 						Colour.RACE_SLIME,
 						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
 						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>");
 				
-				SVGStringDesaturated = Util.colourReplacement(this.toString(),
+				SVGStringDesaturated = SvgUtil.colourReplacement(this.toString(),
 						Colour.BASE_GREY,
 						Colour.BASE_GREY,
 						Colour.BASE_GREY,
 						baseSVGString);
 				
-				SVGString = Util.colourReplacement(this.toString(),
+				SVGString = SvgUtil.colourReplacement(this.toString(),
 						colour,
 						colour,
 						colour,
@@ -1811,25 +1815,6 @@ public enum Subspecies {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-//			try {
-//				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + iconPathName + ".svg");
-//				if(is==null) {
-//					System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+iconPathName+"')! (Code 2)");
-//				}
-//				SVGStringDesaturated = Util.inputStreamToString(is);
-//	
-//				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-//				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
-//				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-//				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
-//				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
-//	
-//				is.close();
-//	
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
 			
 		} else {
 			SVGString = "";
@@ -1884,16 +1869,8 @@ public enum Subspecies {
 				return Subspecies.SQUIRREL_MORPH;
 			case WOLF_MORPH:
 				return Subspecies.WOLF_MORPH;
-			case ELEMENTAL_AIR:
-				return Subspecies.ELEMENTAL_AIR;
-			case ELEMENTAL_ARCANE:
+			case ELEMENTAL:
 				return Subspecies.ELEMENTAL_ARCANE;
-			case ELEMENTAL_EARTH:
-				return Subspecies.ELEMENTAL_EARTH;
-			case ELEMENTAL_FIRE:
-				return Subspecies.ELEMENTAL_FIRE;
-			case ELEMENTAL_WATER:
-				return Subspecies.ELEMENTAL_WATER;
 		}
 		return Subspecies.HUMAN;
 	}
@@ -1986,20 +1963,28 @@ public enum Subspecies {
 					subspecies = Subspecies.IMP_ALPHA;
 				}
 				break;
-			case ELEMENTAL_AIR:
-				subspecies = Subspecies.ELEMENTAL_AIR;
-				break;
-			case ELEMENTAL_ARCANE:
-				subspecies = Subspecies.ELEMENTAL_ARCANE;
-				break;
-			case ELEMENTAL_EARTH:
-				subspecies = Subspecies.ELEMENTAL_EARTH;
-				break;
-			case ELEMENTAL_FIRE:
-				subspecies = Subspecies.ELEMENTAL_FIRE;
-				break;
-			case ELEMENTAL_WATER:
-				subspecies = Subspecies.ELEMENTAL_WATER;
+			case ELEMENTAL:
+				switch(body.getBodyMaterial()) {
+					case AIR:
+						subspecies = Subspecies.ELEMENTAL_AIR;
+						break;
+					case ARCANE:
+						subspecies = Subspecies.ELEMENTAL_ARCANE;
+						break;
+					case FIRE:
+						subspecies = Subspecies.ELEMENTAL_FIRE;
+						break;
+					case FLESH:
+					case SLIME:
+					case RUBBER:
+					case STONE:
+						subspecies = Subspecies.ELEMENTAL_EARTH;
+						break;
+					case ICE:
+					case WATER:
+						subspecies = Subspecies.ELEMENTAL_WATER;
+						break;
+				}
 				break;
 			case DOG_MORPH:
 				subspecies = Subspecies.DOG_MORPH;
@@ -2249,6 +2234,14 @@ public enum Subspecies {
 	public Race getRace() {
 		return race;
 	}
+
+	public Attribute getDamageMultiplier() {
+		return getRace().getDefaultDamageMultiplier();
+	}
+
+	public Attribute getResistanceMultiplier() {
+		return getRace().getDefaultResistanceMultiplier();
+	}
 	
 	public Colour getColour(GameCharacter character) {
 		return colour;
@@ -2324,5 +2317,9 @@ public enum Subspecies {
 
 	public static List<Subspecies> getDominionStormImmuneSpecies() {
 		return dominionStormImmuneSpecies;
+	}
+
+	public static List<Subspecies> getSubspeciesOfRace(Race race) {
+		return subspeciesFromRace.get(race);
 	}
 }

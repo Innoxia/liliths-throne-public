@@ -74,7 +74,7 @@ public class HarpyBimbo extends NPC {
 	}
 	
 	public HarpyBimbo(boolean isImported) {
-		super(isImported, new NameTriplet("Brittany"),
+		super(isImported, new NameTriplet("Brittany"), "Blomgren",
 				"One of the more notable harpy matriarchs, Brittany is the leader of a flock of harpies."
 						+ " In order to get into her good graces, most of her flock try to mimic her behaviour and appearance."
 						+ " As a result, Brittany's flock is primarily made up of bleach-blonde bimbos.",

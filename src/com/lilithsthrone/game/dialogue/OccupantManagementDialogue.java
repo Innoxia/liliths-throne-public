@@ -1072,7 +1072,7 @@ public class OccupantManagementDialogue {
 								i++;
 							}
 						} catch (Exception e) {
-							System.err.println("Main.game.getNPCById("+id+") returning null in method: SLAVE_LIST.getResponse()");
+							Util.logGetNpcByIdError("SLAVE_LIST.getResponse()", id);
 						}
 					}
 				}
@@ -1546,7 +1546,7 @@ public class OccupantManagementDialogue {
 					// Core naming information:
 					+"<div class='container-full-width' style='margin-bottom:0;'>"
 						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0;'>"
-							+ "Slave's Name"
+							+ "Slave's Name and Surname"
 						+ "</div>"
 						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0;'>"
 							+ UtilText.parse(character, "What [npc.she] calls you")
@@ -1554,8 +1554,12 @@ public class OccupantManagementDialogue {
 					+ "</div>"
 					+"<div class='container-full-width inner' style='padding:8px;'>"
 						+ "<div style='width:49%; float:left; font-weight:bold; margin:0 1% 0 0; padding:0;'>"
-							+ "<form style='float:left; width:90%; margin:0; padding:0;'><input type='text' id='slaveNameInput' value='"+ UtilText.parseForHTMLDisplay(character.getName())+ "' style='width:100%; margin:0; padding:0;'></form>"
-							+ "<div class='SM-button' id='"+character.getId()+"_RENAME' style='float:left; width:9%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0;'>"
+							+ "<form style='float:left; width:39%; margin:0; padding:0;'><input type='text' id='slaveNameInput' value='"+ UtilText.parseForHTMLDisplay(character.getName())+ "' style='width:100%; margin:0; padding:0;'></form>"
+							+ "<div class='SM-button' id='"+character.getId()+"_RENAME' style='float:left; width:9%; height:28px; line-height:28px; margin:0 1% 0 1%; padding:0;'>"
+								+ "&#10003;"
+							+ "</div>"
+							+ "<form style='float:left; width:40%; margin:0; padding:0;'><input type='text' id='slaveSurnameInput' value='"+ UtilText.parseForHTMLDisplay(character.getSurname())+ "' style='width:100%; margin:0; padding:0;'></form>"
+							+ "<div class='SM-button' id='"+character.getId()+"_RENAME_SURNAME' style='float:left; width:9%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0;'>"
 								+ "&#10003;"
 							+ "</div>"
 						+ "</div>"

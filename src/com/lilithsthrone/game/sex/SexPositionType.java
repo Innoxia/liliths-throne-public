@@ -16,6 +16,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
 import com.lilithsthrone.game.sex.sexActions.dominion.GloryHole;
 import com.lilithsthrone.game.sex.sexActions.dominion.MasturbationPanties;
+import com.lilithsthrone.game.sex.sexActions.dominion.PetMounting;
+import com.lilithsthrone.game.sex.sexActions.dominion.PetOral;
+import com.lilithsthrone.game.sex.sexActions.dominion.PixShower;
+import com.lilithsthrone.game.sex.sexActions.dominion.RalphOral;
 import com.lilithsthrone.game.sex.sexActions.dominion.ToiletStall;
 import com.lilithsthrone.game.sex.sexActions.dominion.VickyDominating;
 import com.lilithsthrone.game.sex.sexActions.submission.BreedingStallBack;
@@ -31,10 +35,6 @@ import com.lilithsthrone.game.sex.sexActions.universal.KneelingOral;
 import com.lilithsthrone.game.sex.sexActions.universal.Masturbation;
 import com.lilithsthrone.game.sex.sexActions.universal.MilkingStall;
 import com.lilithsthrone.game.sex.sexActions.universal.Missionary;
-import com.lilithsthrone.game.sex.sexActions.universal.PetMounting;
-import com.lilithsthrone.game.sex.sexActions.universal.PetOral;
-import com.lilithsthrone.game.sex.sexActions.universal.PixShower;
-import com.lilithsthrone.game.sex.sexActions.universal.RalphOral;
 import com.lilithsthrone.game.sex.sexActions.universal.SixtyNine;
 import com.lilithsthrone.game.sex.sexActions.universal.Standing;
 import com.lilithsthrone.game.sex.sexActions.universal.StocksSex;
@@ -1763,26 +1763,28 @@ public enum SexPositionType {
 
 			} else {
 				if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND)!=null) {
-					positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK),
-							"[npc.NameIsFull] kneeling before [npc2.name]"));
+					if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)!=null) {
+						positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK),
+								"[npc.NameIsFull] kneeling before [npc2.name]"));
 					
-					if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD)!=null) {
-						if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_FOURTH)!=null) {
-							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD),
-									", [npc.name], [npc2.name]"));
-							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_FOURTH),
-									", and [npc2.NameIsFull], and [npc.is] ready to choose who to fuck first..."));
+						if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD)!=null) {
+							if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_FOURTH)!=null) {
+								positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD),
+										", [npc.name], [npc2.name]"));
+								positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_FOURTH),
+										", and [npc2.NameIsFull], and [npc.is] ready to choose who to fuck first..."));
+								
+							} else {
+								positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD),
+										", [npc.name], and [npc2.name]"));
+								positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
+										", and [npc.is] ready to choose who to fuck first..."));
+							}
 							
 						} else {
-							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD),
-									", [npc.name], and [npc2.name]"));
-							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-									", and [npc.is] ready to choose who to fuck first..."));
+							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND),
+									" and [npc.name], and [npc.is] ready to choose who to fuck first..."));
 						}
-						
-					} else {
-						positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND),
-								" and [npc.name], and [npc.is] ready to choose who to fuck first..."));
 					}
 					
 				} else {
@@ -3645,7 +3647,7 @@ public enum SexPositionType {
 				}
 			}
 			
-			// Block oral + groin actions if there is any groin action going on:
+			// Block oral + groin actions if there is any groin-groin action going on:
 			if(this!=SexPositionType.SIXTY_NINE
 				&& this!=SexPositionType.FACE_SITTING
 					&& ((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas)
@@ -3654,9 +3656,11 @@ public enum SexPositionType {
 							&& !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas)))) {
 				for(SexAreaInterface sArea : SexActionPresets.groinAreas) {
 					if((Sex.getOngoingActionsMap(target).containsKey(sArea)
-							&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer))
+							&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
+							&& !Collections.disjoint(Sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.groinAreas))
 						|| (Sex.getOngoingActionsMap(performer).containsKey(sArea)
-							&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target))) {
+							&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
+							&& !Collections.disjoint(Sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.groinAreas))) {
 						return true;
 					}
 				}

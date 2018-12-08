@@ -663,7 +663,6 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				
 				return new ResponseEffectsOnly("Continue", "Use this name and continue to the final character creation screen."){
 					@Override
 					public void effects() {
@@ -687,16 +686,17 @@ public class CharacterCreation {
 								unsuitableSurname = false;
 							}
 						}
-						
 						if (unsuitableName || unsuitableSurname)  {
 							Main.game.setContent(new Response("" ,"", CHOOSE_NAME));
 							
 						} else {
-						
 							Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 							Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
-							getDressed();
+
+							Main.game.getPlayerCell().resetInventory();
+							Main.game.getPlayer().moveToAdjacentMatchingCellType(false, PlaceType.MUSEUM_LOBBY);
 							Main.game.setContent(new Response("" ,"", CHOOSE_ADVANCED_APPEARANCE));
+							getDressed();
 						}
 					}
 				};
@@ -741,7 +741,7 @@ public class CharacterCreation {
 							Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 						}
 						
-						Main.game.getPlayer().setSurname(Name.getRandomSurname());
+						Main.game.getPlayer().setSurname(Name.getSurname(Main.game.getPlayer()));
 					}
 				};
 				
@@ -1379,7 +1379,7 @@ public class CharacterCreation {
 							+ " Before you know what you're doing, your eyes are travelling up and down every [unit.size] of his manly, muscular body, and you only just manage to stop yourself from letting out a desperate little whine."
 						+ "</p>"
 						+ "<p>"
-							+ "[pc.thought(Focus [pc.name], focus!)] you think, trying to act as casual as possible as you smile back at the stranger before you."
+							+ "[pc.thought(Focus, [pc.name], focus!)] you think, trying to act as casual as possible as you smile back at the stranger before you."
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.speech(Actually,)] you say, [pc.speech(I've only just arrived. I thought I was going to be late, but it looks like nothing's started yet.)]"

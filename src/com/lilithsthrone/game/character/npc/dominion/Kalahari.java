@@ -65,7 +65,7 @@ public class Kalahari extends NPC {
 	}
 	
 	public Kalahari(boolean isImported) {
-		super(isImported, new NameTriplet("Kalahari", "Kalahari", "Kalahari"),
+		super(isImported, new NameTriplet("Kalahari", "Kalahari", "Kalahari"), "Mwangi",
 				"Kalahari is a barmaid working at the nightclub, 'The Watering Hole'.",
 				24, Month.JUNE, 12,
 				20,
@@ -76,7 +76,6 @@ public class Kalahari extends NPC {
 				WorldType.NIGHTLIFE_CLUB,
 				PlaceType.WATERING_HOLE_BAR,
 				true);
-		
 	}
 	
 	@Override

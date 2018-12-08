@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -1334,11 +1335,8 @@ public enum TFModifier {
 			}
 			String s = Util.inputStreamToString(is);
 
-			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-			s = s.replaceAll("#ff5555", this.colour.getShades()[1]);
-			s = s.replaceAll("#ff8080", this.colour.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", this.colour.getShades()[3]);
-			s = s.replaceAll("#ffd5d5", this.colour.getShades()[4]);
+			s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			
 			this.SVGString = s;
 
 			is.close();
@@ -1368,11 +1366,8 @@ public enum TFModifier {
 			}
 			String s = Util.inputStreamToString(is);
 
-			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-			s = s.replaceAll("#ff5555", this.colour.getShades()[1]);
-			s = s.replaceAll("#ff8080", this.colour.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", this.colour.getShades()[3]);
-			s = s.replaceAll("#ffd5d5", this.colour.getShades()[4]);
+			s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			
 			this.SVGString = s;
 
 			is.close();

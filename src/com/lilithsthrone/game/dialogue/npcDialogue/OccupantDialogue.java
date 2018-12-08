@@ -31,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.10
- * @version 0.2.10
+ * @version 0.2.12
  * @author Innoxia
  */
 public class OccupantDialogue {
@@ -41,7 +41,7 @@ public class OccupantDialogue {
 	}
 	
 	private static boolean hasJob() {
-		return !occupant().getHistory().isLowlife();
+		return occupant().hasJob();
 	}
 	
 	private static String getFooterText() {
@@ -692,7 +692,7 @@ public class OccupantDialogue {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_SLAVES", occupant(), slave));
 
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: OCCUPANT_TALK_SLAVES.getContent()");
+				Util.logGetNpcByIdError("OCCUPANT_TALK_SLAVES.getContent()", id);
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_SLAVES_NULL_SLAVE", occupant()));
 			}
 			

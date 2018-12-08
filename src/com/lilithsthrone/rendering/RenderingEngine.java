@@ -65,10 +65,11 @@ import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.2.12
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -1185,7 +1186,7 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
-			if(charactersPresent.isEmpty()) {
+			if(charactersPresent.isEmpty() && place.getPopulation()==null) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");
 				
 			} else {
@@ -1221,6 +1222,26 @@ public enum RenderingEngine {
 //								+ "</div>");
 //					}//The commented section remove the ability to click the character to see the character present dialogue and the overlay that contain the stats. Clicking on the icon will still bring you to the character present dialogue
 					count++;
+				}
+				
+				Population pop = place.getPopulation();
+				if(pop!=null) {
+					uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
+									+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
+										+ "<div class='icon-content'>"
+											+ (pop.getSpecies().size()>1
+													?SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
+													:pop.getSpecies().get(0).getSVGString(null))
+										+ "</div>"
+									+ "</div>"
+									+" <div style='color:"+Colour.BASE_GREY.toWebHexString()+";'>"
+										+Util.capitaliseSentence(pop.getDensity().getName())+" "+pop.getType().getName()
+										+ "<div class='overlay-inventory' id='PLACE_POPULATION' style='width:100%;'></div>"
+									+"</div>"
+								+ "</div>");
+									
+//								"<p style='text-align:center;padding:0;margin:0;'>"+Util.capitaliseSentence(pop.getDensity().getName())+" "+pop.getType().getName()+"</p>");
 				}
 			}
 			uiAttributeSB.append("</div>");
@@ -1364,6 +1385,9 @@ public enum RenderingEngine {
 	}
 
 	public String getFullMap(WorldType world, boolean withFastTravelAndIcons) {
+
+//		long t1 = System.nanoTime();
+		
 		mapSB.setLength(0);
 		
 		if(withFastTravelAndIcons) {
@@ -1457,6 +1481,9 @@ public enum RenderingEngine {
 		}
 		
 		mapSB.append("</div>");
+
+//		long t2 = System.nanoTime();
+//		System.out.println(Main.game.getAllNPCs().size()+" Full map: "+(t2-t1)/1000000000f);
 		
 		return mapSB.toString();
 	}
@@ -1478,16 +1505,17 @@ public enum RenderingEngine {
 	}
 	
 	public String renderedHTMLMap() {
-
+		
+//		long t1 = System.nanoTime();
+		
 		mapSB.setLength(0);
 
 		mapSB.append("<div class='map-container'>");
 		
-		if(!Main.game.isInNewWorld()) {
-			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#19191a; border-radius:5px;'></div>");
-			renderedDisabledMap = true;
-			
-		}
+//		if(!Main.game.isInNewWorld()) {
+//			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#19191a; border-radius:5px;'></div>");
+//			renderedDisabledMap = true;
+//		}
 
 		int mapSize = zoomedIn ? 2 : 3;
 		float unit = zoomedIn ? 18f : 13.25f;
@@ -1682,21 +1710,21 @@ public enum RenderingEngine {
 			}
 
 		}
-		
-		if(Main.game.isInNewWorld()) {
-			if (Main.game.getCurrentDialogueNode().isTravelDisabled()) {
-				mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
-				renderedDisabledMap = true;
-			} else {
-				renderedDisabledMap = false;
-			}
+
+		if(!Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
+			renderedDisabledMap = true;
+		} else {
+			renderedDisabledMap = false;
 		}
+		
 		
 		mapSB.append("</div>");
 
-		
-		
 
+//		long t2 = System.nanoTime();
+//		System.out.println("HTML map: "+(t2-t1)/1000000000f);
+		
 		return mapSB.toString();
 	}
 	
@@ -1722,6 +1750,9 @@ public enum RenderingEngine {
 	}
 	
 	private void appendItemsInAreaIcon(int x, int y) {
+		if(!Main.game.isInNewWorld()) {
+			return;
+		}
 		if(Main.game.getActiveWorld().getCell(x, y).getInventory().getInventorySlotsTaken()>0
 				|| Main.game.getActiveWorld().getCell(x, y).getInventory().getUniqueQuestWeaponCount()>0
 				|| Main.game.getActiveWorld().getCell(x, y).getInventory().getUniqueQuestClothingCount()>0
@@ -2107,7 +2138,9 @@ public enum RenderingEngine {
 	}
 	
 	
-	
+	private static boolean isLimitedSpectatorPanel(GameCharacter character) {
+		return Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING && !character.isPlayer();
+	}
 	
 	private static String getCharacterPanelSexDiv(boolean compact, String idPrefix, GameCharacter character) {
 		StringBuilder panelSB = new StringBuilder();
@@ -2132,7 +2165,7 @@ public enum RenderingEngine {
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
 											: Util.capitaliseSentence(character.getName()))
 								+"</b>"
-									+ (Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING
+									+ (isLimitedSpectatorPanel(character)
 										?""
 										:" - <span style='color:"+Sex.getSexPace(character).getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(Sex.getSexPace(character).getName())+"</span>")
 							+"</div>"
@@ -2144,14 +2177,14 @@ public enum RenderingEngine {
 							+"</div>"
 							+"<div class='overlay' id='"+idPrefix+"ATTRIBUTES' style='cursor:pointer;'></div>"
 						+"</div>"
-						+(Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING
+						+(isLimitedSpectatorPanel(character)
 							?""
 							:"<div class='full-width-container' style='text-align:center;'>"
 								+ Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName(character))
 							+ "</div>")
 					+"</div>");
 		
-		if(Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING) {
+		if(isLimitedSpectatorPanel(character)) {
 			panelSB.append("<p style='padding:0;margin:auto 0;text-align:center;color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName(character))+"</p>");
 			panelSB.append("</div>");
 			

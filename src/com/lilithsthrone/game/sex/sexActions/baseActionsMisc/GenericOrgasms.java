@@ -15,6 +15,8 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.Sex;
@@ -498,7 +500,7 @@ public class GenericOrgasms {
 										+ " It's already started to swell up so much that you don't manage to get it inside on the first thrust,"
 											+ " but, after pulling back and slamming your [pc.hips] forwards, you manage to push the thick knot into [npc2.her] "+orificeNamePlusDescriptor+".");
 							} else {
-								genericOrgasmSB.append(" [npc1.Name] pushes forwards, and [npc2.name] [npc2.verb(feel)] the knot at the base of [npc1.her] [npc1.cock+] ramming against [npc2.her] "+orificeNamePlusDescriptor+"."
+								genericOrgasmSB.append(" [npc1.She] pushes forwards, and [npc2.name] [npc2.verb(feel)] the knot at the base of [npc1.her] [npc1.cock+] ramming against [npc2.her] "+orificeNamePlusDescriptor+"."
 										+ " It's already started to swell up so much that [npc.she] doesn't manage to get it inside on the first thrust,"
 											+ " but, after pulling back and slamming [npc1.her] [npc1.hips] forwards, [npc1.she] manages to push the thick knot into [npc2.namePos] "+orificeNamePlusDescriptor+".");
 							}
@@ -724,30 +726,14 @@ public class GenericOrgasms {
 						
 					case MOUTH:
 						if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
-							if(characterOrgasming.isPlayer()) {
-								genericOrgasmSB.append(" Pushing forwards, you ram the knot at the base of your [npc1.cock+] against [npc2.namePos] [npc2.face+]."
-										+ " It's already started to swell up so much that you don't manage to get it past [npc2.her] [npc2.lips+] on the first thrust,"
-											+ " but, after pulling back and slamming your [pc.hips] forwards, you manage to push the thick knot into [npc2.her] [npc2.mouth].");
-							} else {
-								if(characterTargeted.isPlayer()) {
-									genericOrgasmSB.append(" [npc1.Name] pushes forwards, ramming the knot at the base of [npc1.her] [npc1.cock+] into [npc2.namePos] [npc2.face+]."
-											+ " It's already started to swell up so much that [npc.she] doesn't manage to get it past your [npc2.lips+] on the first thrust,"
-												+ " but, after pulling back and slamming [npc1.her] [npc1.hips] forwards, [npc1.she] manages to push the thick knot into your [npc2.mouth].");
-								} else {
-									genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into [npc2.namePos] mouth, [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of [npc2.herHim].");
-								}
-							}
-							
-							if(characterOrgasming.isPlayer()) {
-								genericOrgasmSB.append(" Ramming the knot at the base of your [npc1.cock+] into [npc2.namePos] mouth, you let out [npc1.a_moan+] as you feel it start to swell up.");
-							} else {
-								if(characterTargeted.isPlayer()) {
-									genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into your mouth, [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of you.");
-								} else {
-									genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into [npc2.namePos] mouth, [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of [npc2.herHim].");
-								}
-							}
-							
+							genericOrgasmSB.append(
+									" [npc1.Name] [npc.verb(push)] forwards, ramming the knot at the base of [npc1.her] [npc1.cock+] against [npc2.namePos] [npc2.lips+]."
+									+ " It's already started to swell up so much that [npc.she] [npc.do]n't manage to get it into [npc2.namePos] [npc2.mouth] on the first thrust,"
+										+ " but, after pulling back and slamming [npc1.her] [npc1.hips] forwards, [npc1.she] succeeds in pushing the thick knot past [npc2.her] [npc2.lips]."
+									+ "<br/>"
+									+ "The moment [npc.she] [npc.verb(feel)] it pop inside, [npc1.name] [npc.verb(let)] out [npc1.a_moan+], and as [npc.she] presses [npc.her] groin firmly against [npc2.namePos] [npc2.face+],"
+										+ " [npc.her] knot fully expands and locks [npc.her] [npc.cock+] down [npc2.namePos] throat.");
+								
 						} else {
 							if(characterOrgasming.isPlayer()) {
 								genericOrgasmSB.append(" Ramming your [npc1.cock+] deep down [npc2.namePos] throat, you let out [npc1.a_moan+] as you feel your [npc1.cock+] start to twitch.");
@@ -1931,9 +1917,16 @@ public class GenericOrgasms {
 			}
 			
 		} else { // No penetration:
-			if(characterOrgasming.isPlayer()) {
-				genericOrgasmSB.append(" Your [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through your groin.");
-			} else {
+			boolean pluggedVagina = false;
+			for(AbstractClothing c : characterOrgasming.getClothingCurrentlyEquipped()) {
+				if(c.getItemTags().contains(ItemTag.PLUGS_VAGINA)) {
+					pluggedVagina = true;
+					genericOrgasmSB.append(" [npc.NamePos] [npc.pussy+] clenches down hard,"
+							+ " causing [npc.herHim] to let out a series of high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the "+c.getName()+" inserted into [npc.her] [npc.pussy].");
+					break;
+				}
+			}
+			if(!pluggedVagina) {
 				genericOrgasmSB.append(" [npc1.NamePos] [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
 			}
 		}
@@ -3438,11 +3431,11 @@ public class GenericOrgasms {
 				return isTakingCock(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
 						&& (Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
 							|| ((Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
-								?!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_CUM_ADDICT)
-								:true)
+									?!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_CUM_ADDICT)
+									:true)
 							&& (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-								?(!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PREGNANCY))
-								:true)));
+									?(!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PREGNANCY))
+									:true)));
 			}
 		}
 

@@ -112,47 +112,112 @@
 		
 	
 	Patch notes:
+	There might be some issues with running the .jar using java 10 and 11. If you're having issues, please try using the .exe.
+	
+	Gameplay:
+		Added NPC 'Elizabeth' - the guard at Lyssieth's palace. Also started to update her dialogue - this will be finished for an upcoming patch.
+		If your save is from a version prior to 0.2.12.6, the imp fortresses will all reset, as several things changed from then to now, so it all needs to be reset in order to work. The imp citadel should also reset if you cleared it using the quick 'Clear' button in versions prior to 0.2.12.6.
 	
 	Contributors:
-		Simplified getting data from XML. Refactored clothing mod loading from file. Fixed mod loading issue, so that when XML file is found invalid, the loading of it is halted, error logged and program continues trying loading other mods. (#657 by BlazingMagpie)
-		Tidied up pregnancy calculation code. (#736 by Pimgd)
-		Added sexual orientation preferences. (#766 by GalacticOtter)
-		Added condom durability code. (#903 by picobyte)
-		Fixed bug where occupants who have moved out get duplicated descriptions on Harpy Nest tiles. (#934 by KittenBarrage)
-		Improved mod error descriptions, and fixed support for core attributes. (#969 by Pimgd, #945 by CognitiveMist)
-		Corrected misspelled instances of 'coreAtributes' in clothing xml files. (#967 by Pimgd)
-		Deduplicated code in the Pregnancy Stats screen, and added a percentage of offspring encountered readout at the top. (#917 by uglybeard)
-		Added font support for non-windows systems. (#919 by DJ4ddi)
-		Typo fixes in weapon files. (#965 by Pimgd)
-		Made improvements to NPC loading method, so games now load faster. (#949 by AlacoGit)
+		Fixed classpath issue causing game to not compile correctly. (#981 by Alaco)
+		Fixed Rental Mommy & Rental Daddy t-shirt errors, which was causing the rental mommy encounter to throw errors. (#984 by CognitiveMist)
+	
+	Clothing:
+		Added colours 'midnight brown' and 'olive'.
+		Added 'Lyssieth's Guard' set, which contains:
+		Service dress tunic: Over-torso slot, feminine.
+		Service dress hat: Head slot, feminine.
+		Service dress skirt: Leg slot, feminine.
+		Service dress shoes: Foot slot, feminine.
+		Arcane revolver: Ranged, on-handed.
 	
 	Other:
-		For clothing: Added a 'midnight' colour variation for purple, blue, and red. Also added 'deep pink', 'hot pink' and 'mustard yellow'. 
+		Humans, demons, cat, dog, wolf, horse, and cow-morphs now have a 1% chance to have heterochromatic eyes. (Before it was just humans, who had a chance of 50%.)
+		Added more detailed messages to any negative affection changes at the end of sex.
+		Added several new item tags, allowing clothing mods to define fuckable nipple requirement, arm/leg hinderance, speech muffling, discarding on unequip, and equip during sex.
+		Also added 'SEALS_AREA' variations for the 'PLUGS_AREA' cltohing tags. Sealing counts as sealing the orifice without being inserted into it.
+		The strap-on, anal beads, clover clamps, realistic dildo, butt plugs, insertable dildo, and strapless dildo can now all be equipped on non-unique NPCs during sex.
+		Wearing clothing with a 'PLUGS_VAGINA' tag is now detected and influences the wearer's orgasm descriptions.
+		In order to fix a bug, all characters now have surnames, with generic characters having randomly-generated ones. Surnames can be seen in the character view screen.
+		Offspring now inherit their mother's surname. If your surname is blank, your offspring will be given a random surnames. If you change your surname at the town hall, all of your offspring will have their surnames updated.
+		You can now change your slave's surnames in their inspection screen.
+		Improved map rendering performance.
+		Non-spectating participants in non-masturbation sex scenes now gain experience for the 'Pure virgin' fetish if they have a vagina, end the scene while being a virgin, and at least one of their partners orgasmed.
+		Added arcane essence cost of using/firing weapons to their tooltips (if non-zero).
+		Breast feeding part of the 'giving birth' scene is now changed to bottle-feeding if your nipples are inaccessible, your nipples are not normally-shaped, or you have lactation content turned off.
 	
 	Bugs:
-		Fixed parsing error in Hyorlyss's fortress.
-		Fixed issue with button tooltips when managing NPCs clothing in the inventory screen.
-		Fixed issue where if you had the sadist fetish, dealing damage would softlock combat.
-		Fixed issue with 'kneeling oral' position having incorrect description at start of sex.
-		Fixed background errors when saving a game after removing modding clothing/weapons from your mod folders.
-		Fixed reindeer overseers' interaction menu being available on their 'home' tile, but not the tile they're actually in. (Fixed by moving their home tile to always be the tile they're in.)
-		Fixed katherine and Kelly getting stuck on the stairs in Zaranix's home. (They move around the area after you're cleared that part of the main quest.)
-		Fixed some minor inconsistent descriptions, typos, and parsing errors.
-		Fixed issue where spectators would join the sex scene when switching to the doggy style position.
-		Fixed issue where combat in the imp fortresses would never end if you were playing on higher difficulties. Also fixed bug where post-combat sex could sometimes result in a never-ending masturbation scene.
-		Fixed fluids not being described correctly when you gained an addiction for them.
-		Fixed incorrect equip/unequip descriptions for all of the Siren's clothing, distressed jeans, hakama, gothic boots, and striped gloves.
-		Added correct association with oral fetishes to the 'Thrust into mouth' and 'Take into mouth' actions during paizuri.
-		Fixed incorrect title for the stop paizuri action.
-		Fixed issue with oral actions not being available in face sitting position is the one doing the sitting was interacting with their partner's groin in any way.
-		Fixed arcane elemental being described as being bound to air.
-		Fixed 'initial penetration' text when starting a footjob not taking into account any shoes/socks being worn.
+		Fixed grammatical errors in several sex actions.
+		Fixed parsing issues in Submission imp attack dialogue.
+		Fixed parser errors in imp citadel content.
+		Fixed issue where NPCs would sometimes get stuck trying to remove clothing during sex.
+		Heterochromatic eyes will no longer be generated with the same colour. (Although you can still make them the same colour via Kate's shop or demon/slime transformations.)
+		Fixed formatting error in eye descriptions.
+		Fixed repetitive mouth-knotting orgasm description.
+		Fixed incorrect descriptions of tests being performed on slaves in Lilaya's lab.
+		Fixed error log being spammed by messages informing you that NPCs were returning null in some methods.
+		Fixed rarity of unidentified clothing being displayed in the dye preview window.
+		Friendly occupants will no longer get a job as 'an unemployed', and any occupants already affected by this in your save will start looking for a new job when you load in (unemployed occupants that have already moved out will get a new job).
+		Fixed damage tooltips showing different values before and after buying a weapon from a shop. (When weapon is not held by you, tooltip now displays both the holder's and your damage.)
+		Fixed issue where returning to a Hyorlyss's keep after gaining her key would throw a background error and softlock the game. 
+		Fixed issue where imps could be transformed to be taller to the point where they were classified as demons, and vice-versa.
+		Added some error handling to catch the unusual case of an NPC's name being loaded in as an empty String.
+		Fixed issue with rarity detection in clothing sometimes throwing a background error.
+		Fixed issue with Jhortrax (the male imp fortress leader) not inserting dildo after combat loss sex scene. (Thanks to 'asymptote' for details on how to fix this.)
+		Fixed issue where trying to open the debug menu in the main menu would throw background errors and break teh game until restarted.
+		Fixed requirement of 'Tameshigiri' action in Jhortrax's imp fortress to take your weapon's modified damage into account.
+		Fixed issue where saves wouldn't load into 0.2.12.6 correctly due to Youko surnames being blank.
+		Fixed incorrect descriptions in alleyway succubus quick transform breast size tooltips.
+		Fixed issue with some clothing items (such as the croptop) not concealing slots correctly.
+		Fixed incorrect effects description of Biojuice Canister.
+		Fixed slime encyclopedia entry not working.
+		Fixed victory in Wolfgang & Karl's fight not dropping any items.
+		Fixed bug where spectators in sex were using incorrect actions (which were being drawn from the available actions of non-spectators).
+		Defeating the imps in the citadel now correctly sets the 'imps defeated' flag, resolving issues related to the youko still being in her laboratory, imps guards still being in the citadel, and the 'challenge' action remaining available.
+		Added missing dialogue after citadel's imp defeat sex scene.
+		Fixed a couple of issues with imp fortress's demon leaders not returning to their keeps.
+		Fixed game freezing if you lost to imp fortress gate guards, or had sex with the gate guards, and were then thrown out.
+		Fixed getting stuck when asking Lyssieth's gate guards about their uniforms.
+		Fixed issue with clubbers spawning in the night club having their home tile being set as the very bottom-left of Dominion's street tiles. (This will also retroactively fix all clubbers with this issue.)
+		Fixed item entries in the encyclopedia being lost between saves.
+		Self-impregnations now count offspring as just mothered, not both mothered and fathered, in the pregnancy stats screen.
+		Self-milking should now correctly take into account milking room upgrades. Also added stats into the milking room upgrades info to let you know exactly what the base maximum output per hour is.
+		Fixed issue where assigning slaves to be publicly used could sometimes result in an NPC being placed out-of-bounds of the map, which would cause your save file to not load correctly.
+		As a temporary fix to enslavement dialogue bugs, the imps inside fortresses & the citadel can no longer be enslaved. I will add support for enslaving them later, but for now, you can get just imp slaves from the tunnels.
+		Duplicate arcane keys and key-chain necklaces will be removed when you load in to 0.3. Lyssieth's ring will also be removed, if it should have been.
+		Fixed modded clothing using the new shortened equip descriptions format using the 'rough' variant in non-rough scenes, and vice-versa.
+		Fixed issue where your companion would be counted as a submissive, instead of dominant, spectator when choosing 'Solo sex' after beating imp groups.
 	
 	
 	
+	condoms
+	Final citadel refinements
+	Lyssieth palace
+		Demon TF
+	Fields
 	
 	
+	Elizabeth
+	
+	Gates
+		Double-check rings
+		when completing the quest it does not act like you talked to the guards earlier even if you did.
+		Make sure you have the already-completed citadel quest done properly when approaching Lyssieth palace
+		Also the uniform dialogue, and adding Elizabeth as an NPC
+		i did the siren fortress and confirmed it at the gates of lissieth before even encountering zaranix or arthur, returned to home and built the room for arthur and went back to the gates to get the second ring.
+	 
+	Lyssieth
+		Demon TF
+			Remove Innoxia's gift and slime TF into demon
+		
+		
+	
+	----------
 	use picobyte's condom code and run through all condom todos:
+	
+	"Deep throat" orgasm doesn't react to condoms being used
+	
+	Need mineral oil TF effect
 	
 	track cum
 	inseminate action
@@ -169,6 +234,8 @@
 	
 	And there's the self impreg with used condoms thing that I hear people mention occasionally.
 	
+	Need to prevent prologue sex from denying positions
+	
 	Also there's a minor problem with removing the condom when you're having sex.
 	When you click on the condom and then choose "discard", it seemingly does nothing, but after closing the inventory the condom will be removed,
 	 but you won't have a "discard" message like you normally would but checking your clothing menu you will see it has been removed. (this was present in the previous version as well)
@@ -181,20 +248,40 @@
 	Need to refuse condoms if impregnation/pregnancy fetishes
 	Broken condom
 	
+	when using one with Lilaya and it breaks and theres a risk of pregnancy she doesnt get mad at you. She just hopes she doesnt get pregnant and she says something like. "Its not your fault at least you wore a condom. Too bad it broke".
+	----------
 	
+	Combat should only show health/mana bars and status effects
 	
+	prevent enslavement items from being put on people during sex
 	
+	Cum inflation is working on pregnant people
 	
-	picking up clothing from floor tooltip uses clothing type class name
+	Make it so if lose combat, stolen items are returned
 	
-	Make belt unisex
+	Need shrouded identity for the citadel bosses and for fortresses
 	
-	limit NPC-on-NPC affection displays
-
+	Essence extractor milking room upgrades - extremely expensive.
+	
+	>About to get raped with friend by imps
+	>They make her drink a potion
+	>She doesn't even try to resist
+	>After getting raped
+	>Make potion to remove the othe one's effects
+	>"Heh, nice try, but do you really expect me to drink a random potion?"
+	
+	Buttplugs shouldn't count as preserving your modesty in terms of exhibitionism
+	
+	Need to be able to appendage interact with kneeling oral beside you
+	
+	Anyway when is the potion discount going to be moved over to a perk
+		Make TF fetish remove corruption gains?
+	
 	Requesting oral causes them to make you kneel instead, despite them agreeing.
 		You mean "offer oral"
 		I meant "request oral"
 	
+	Change all "The Dark Siren"... And make it non-capitalised?
 	
 	Sometimes when I remove the fetish for being raped. They will continue to have the resist pace as if they still have the fetish. Alexia here is also at maxed affection
 	
@@ -202,13 +289,31 @@
 	
 	i tried to extract 5,599 arcane essences and my game almost crashed
 	
+	I impregnated Kate, the stats screen show "imp" as race, but when found the daughter is a tall succubus.
+	
+	Make parser not use same word twice in a row
+	
+	change it so that they'll TF you even if non-con is off
+	
+	Start/stop receiving footjob still an issue
+	
+	Make +1 potion effect text stack
+	
 	switch knuckle dusters & demonstones to unarmed
 	
 	Maybe if item rarity effected how many enchanting slots an item had, and not just what it was pre-enchanted with?
 	
+	Make names in speech use petNames
+	
 	When the witches won when I was male they only hotdogged me and then stopped hotdogging me, they never removed any of my clothes
 	
 	split hymen/virginity
+	
+	Youko to use surname unless full name known
+		Needs better handling
+	
+	Make nympho trait increase minimum lust?
+	Also denying slave masturbation should do this?
 	
 	expand the colour system to define button colour and text colour so that can have dark colours for coverings
 	 
@@ -219,55 +324,8 @@
 	I will be adding a way to assign slaves to sleep with you in your room very soon.
 		need date rape in club and sleep sex for these slaves
 	 
-	Add citadel text
-		Doorway has three intricate keyholes
-			Chuuni writing around it, revealing daughter of Lyssieth
-	
-	Add IMP_CITADEL_DEFEATED
-	
-	Chuuni + 3 leaders battle
-	
-	Remove guard fight - as you have keys, they let you in (revealed that they were told to do so)
-	
-	Make chuuni have heterochromatic eyes, with glow
-		Stage 2 of combat is she reveals it and uses telekenesis to grab her scythe - she twirls it around and slams it into the floor, applies ground shake
-	
-	DS - make just one treasury/lab, with money and some enchanted gear/TF potions
-		Make imps offer potion in there - they think you're a guest or something
-	
-	DS fight:
-		Imps first, or duel if Chuuni
-		After imps, or Chuuni duel request, can use ring option
-		(Fighting reward is stealing her stuff)
-	
-	Add citadel framework
-		Loss vs boss:
-			Masturbates while watching imps fuck you - foot/dom stuff
-			Keeps you in cells
-				Over time (each morning meal is laced with TFs):
-					TF preference:
-						Feminine: TF you into bimbo nympho breeder
-						Masculine: TF you into imp breeder
-						Neutral:
-							If feminine: TF into breeder
-							If masculine: TF into trap with tiny cock
-				Events:
-					Use as trophy foot-rest
-					If female breeder, get bred
-					Milked/cum milked
-					Watches imps fuck you as amusement
-					If male breeder, gets you to breed trespasser
-					
-		Win vs boss:
-			earth-rend
-			If enslave trick, she casts earthquake before disappearing
-			If win, the aftershocks from fight earthquake start causing citadel to fall down
-				If no quest, when you get out, Lyssieth guards are there
-	
-	
-	
-	
-	
+	Suggestion: split resisting pace and actions into "resisting / playful resisting"
+		So it's clear when someone is actually enjoying it or not.
 	
 	all options disappeared except repeats during sex - due to spectator orgasming?
 		Need more testing to make sure it's fixed
@@ -287,8 +345,6 @@
 			Fyrsia's precum and your saliva quickly lubricates Fyrsia's pussy.​
 			Fyrsia's girlcum quickly lubricates your mouth.
 	
-	Credits
-	
 	Need to check all overrides for endSex()
 	
 	make nipples get larger from preg
@@ -298,6 +354,14 @@
 	BDSM equips should append text saying you have something equipped now
 	
 	maps
+	
+	angel wings not able to be recoloured?
+	
+	>go to the breeding lottery in submission
+	>put condoms on everyone except my chosen winner
+
+	NPCs use hair pull too much
+		make it so if your character dislikes the masochist fetish, they won't use it (unless it's non-con and they are sadists)
 	
 	the dildo (discrete one it should) removes the 'exposed' flag for the vagina (Realistic one should be even more 'embarrasing' as it can be seen) and likewise anal plugs do as well.
 	

@@ -64,7 +64,7 @@ public class Axel extends NPC {
 	}
 	
 	public Axel(boolean isImported) {
-		super(isImported, new NameTriplet("Axel"),
+		super(isImported, new NameTriplet("Axel"), "Stack",
 				"The buff albino alligator-boy, Axel, is the owner and manager of Submission's Gambling Den."
 					+ " Despite his large and menacing figure, he's very kind and understanding, and always tries his best to satisfy his customers.",
 				36, Month.JANUARY, 10,

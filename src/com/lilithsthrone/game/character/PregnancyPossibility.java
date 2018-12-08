@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -73,7 +74,7 @@ public class PregnancyPossibility implements Serializable, XMLSaving {
 		try {
 			return Main.game.getNPCById(motherId);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+motherId+") returning null in method: PregnancyPossibility.getMother()");
+			Util.logGetNpcByIdError("PregnancyPossibility.getMother()", motherId);
 			return Main.game.getGenericFemaleNPC();
 		}
 	}
@@ -82,7 +83,7 @@ public class PregnancyPossibility implements Serializable, XMLSaving {
 		try {
 			return Main.game.getNPCById(fatherId);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+fatherId+") returning null in method: PregnancyPossibility.getFather()");
+			Util.logGetNpcByIdError("PregnancyPossibility.getFather()", fatherId);
 			return Main.game.getGenericMaleNPC();
 		}
 	}

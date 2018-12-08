@@ -38,6 +38,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.TreeNode;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -67,7 +68,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private List<String> charactersEncountered;
 	
 	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
-		super(nameTriplet, "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
+		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
@@ -596,7 +597,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				GameCharacter npc = Main.game.getNPCById(characterId);
 				npcsEncountered.add(npc);
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+characterId+") returning null in method: getCharactersEncounteredAsGameCharacters()");
+				Util.logGetNpcByIdError("getCharactersEncounteredAsGameCharacters()", characterId);
 			}
 		}
 		return npcsEncountered;
@@ -609,7 +610,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				GameCharacter npc = Main.game.getNPCById(characterId);
 				npcsEncountered.add(npc);
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+characterId+") returning null in method: sortCharactersEncountered()");
+				Util.logGetNpcByIdError("sortCharactersEncountered()", characterId);
 			}
 		}
 		npcsEncountered.sort((npc1, npc2) -> npc1 instanceof NPCOffspring

@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -207,8 +208,12 @@ public class ImpFortressDialogue {
 		banishImpGuards(fortress);
 		
 		clearBossGuards(fortress);
-		
-		getBoss(fortress).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
+			getBoss(fortress).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		} else {
+			getBoss(fortress).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+		}
 		
 		if(fortress==WorldType.IMP_FORTRESS_ALPHA) {
 			Main.game.getDialogueFlags().impFortressAlphaDefeatedTime = Main.game.getMinutesPassed();
@@ -1475,8 +1480,8 @@ public class ImpFortressDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGuards(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								GUARDS_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
@@ -1486,8 +1491,8 @@ public class ImpFortressDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGuards(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								GUARDS_AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
@@ -1498,8 +1503,8 @@ public class ImpFortressDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGuards(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								GUARDS_AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
@@ -1709,7 +1714,7 @@ public class ImpFortressDialogue {
 				
 			} else {
 				if (index == 1) {
-					return new Response("Thrown out", "The imps abandon you and return to their fortress...", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Thrown out", "The imps abandon you and return to their fortress...", getSubmissionFortress().getDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, getSubmissionFortress());
@@ -1784,7 +1789,7 @@ public class ImpFortressDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Continue", "Carry on your way.", getSubmissionFortress().getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, getSubmissionFortress());
@@ -2013,9 +2018,9 @@ public class ImpFortressDialogue {
 							new SMMissionary(
 								Util.newHashMapOfValues(
 										new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-										new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_FACE_SITTING),
-										new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-										new Value<>(getImpBossGroup(false).get(3), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+										new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
+										new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
+										new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
 							null,
@@ -2102,9 +2107,9 @@ public class ImpFortressDialogue {
 								new SMMissionary(
 										Util.newHashMapOfValues(
 												new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-												new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_FACE_SITTING),
-												new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-												new Value<>(getImpBossGroup(false).get(3), SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)),
+												new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
+												new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+												new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)),
 										Util.newHashMapOfValues(
 												new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK),
 												new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_ON_BACK_SECOND))),
@@ -2190,9 +2195,10 @@ public class ImpFortressDialogue {
 						}
 						
 					} else {
-						if((Main.game.getPlayer().getMainWeapon()!=null
+						if(Main.game.getPlayer().getMainWeapon()!=null
 								&& Main.game.getPlayer().getMainWeapon().getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
-								&& Main.game.getPlayer().getMainWeapon().getWeaponType().getDamage()>Main.game.getFortressMalesLeader().getMainWeapon().getWeaponType().getDamage())) {
+								&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, Main.game.getPlayer().getMainWeapon())
+									>Attack.getMaximumDamage(Main.game.getFortressMalesLeader(), null, Attack.MAIN, Main.game.getFortressMalesLeader().getMainWeapon())) {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to 'test cut' the largest bamboo trunk behind [npc.name], thereby demonstrating your superiority in front of [npc.her] imp followers."),
@@ -2211,9 +2217,10 @@ public class ImpFortressDialogue {
 								}
 							};
 							
-						} else if((Main.game.getPlayer().getOffhandWeapon()!=null
+						} else if(Main.game.getPlayer().getOffhandWeapon()!=null
 								&& Main.game.getPlayer().getOffhandWeapon().getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
-								&& Main.game.getPlayer().getOffhandWeapon().getWeaponType().getDamage()>Main.game.getFortressMalesLeader().getMainWeapon().getWeaponType().getDamage())) {
+								&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, Main.game.getPlayer().getOffhandWeapon())
+									>Attack.getMaximumDamage(Main.game.getFortressMalesLeader(), null, Attack.MAIN, Main.game.getFortressMalesLeader().getMainWeapon())) {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to 'test cut' the largest bamboo trunk behind [npc.name], thereby demonstrating your superiority in front of [npc.her] imp followers."),
@@ -2235,7 +2242,8 @@ public class ImpFortressDialogue {
 						} else {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(), "You don't think you can match [npc.namePos] demonstration with your weapons...</br>"
-											+ "(Requires you to have an equipped bladed weapon with a base damage greater than <b>"+WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_katana").getDamage()+"</b>.)"),
+											+ "(Requires you to have an equipped bladed weapon with a maximum damage greater than <b>"
+												+Attack.getMaximumDamage(Main.game.getFortressMalesLeader(), null, Attack.MAIN, Main.game.getFortressMalesLeader().getMainWeapon())+"</b>.)"),
 									null);
 						}
 					}
@@ -3310,8 +3318,8 @@ public class ImpFortressDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpBossGroup(true),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
@@ -3321,8 +3329,8 @@ public class ImpFortressDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpBossGroup(true),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								KEEP_AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
@@ -3333,8 +3341,8 @@ public class ImpFortressDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpBossGroup(true),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								KEEP_AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
@@ -3975,7 +3983,7 @@ public class ImpFortressDialogue {
 								Main.game.getPlayer().equipClothingFromNowhere(thong, true, boss);
 							}
 							if(boss.isAbleToEquipDildo(Main.game.getPlayer())) {
-								AbstractClothing dildo = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_BLACK,
+								AbstractClothing dildo = AbstractClothingType.generateClothing("innoxia_insertableVibrator_insertable_vibrator", Colour.CLOTHING_BLACK,
 										Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)));
 								Main.game.getPlayer().equipClothingFromNowhere(dildo, true, boss);
 							}
@@ -3987,7 +3995,7 @@ public class ImpFortressDialogue {
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(thong, true, boss);
 							}
 							if(ImpFortressDialogue.getMainCompanion()!=null && boss.isAbleToEquipDildo(ImpFortressDialogue.getMainCompanion())) {
-								AbstractClothing dildo = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_WHITE,
+								AbstractClothing dildo = AbstractClothingType.generateClothing("innoxia_insertableVibrator_insertable_vibrator", Colour.CLOTHING_WHITE,
 										Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)));
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(dildo, true, boss);
 							}

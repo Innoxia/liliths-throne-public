@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -55,18 +56,12 @@ public enum FetishDesire {
 			String base = Util.inputStreamToString(is);
 
 			SVGImage = base;
-			SVGImage = SVGImage.replaceAll("#ff2a2a", colour.getShades()[0]);
-			SVGImage = SVGImage.replaceAll("#ff5555", colour.getShades()[1]);
-			SVGImage = SVGImage.replaceAll("#ff8080", colour.getShades()[2]);
-			SVGImage = SVGImage.replaceAll("#ffaaaa", colour.getShades()[3]);
-			SVGImage = SVGImage.replaceAll("#ffd5d5", colour.getShades()[4]);
+			
+			SVGImage = SvgUtil.colourReplacement(this.toString(), colour, SVGImage);
 			
 			SVGImageDesaturated = base;
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
+			
+			SVGImageDesaturated = SvgUtil.colourReplacement(this.toString(), Colour.BASE_GREY, SVGImageDesaturated);
 
 			is.close();
 

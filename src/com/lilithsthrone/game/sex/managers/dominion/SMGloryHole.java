@@ -87,7 +87,7 @@ public class SMGloryHole extends SexManagerDefault {
 
 	@Override
 	public String getRandomPublicSexDescription() {
-		Subspecies subspecies = Util.randomItemFrom(Main.game.getPlayerCell().getPlace().getPlaceType().getSpeciesPopulatingArea());
+		Subspecies subspecies = Util.randomItemFrom(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies());
 		return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 				+UtilText.parse(Sex.getActivePartner(),
 						UtilText.returnStringAtRandom(

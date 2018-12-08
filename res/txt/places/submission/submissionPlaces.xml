@@ -429,9 +429,7 @@
 		 A huge wooden drawbridge links the stone path that you're walking on to the palace's front gate.
 	</p>
 	<p>
-		While you appear to be the only person making use of the path, you're not alone in this area.
-		 Up ahead, standing guard beside the drawbridge, are the figures of at least twenty demons.
-		 Each one appears to be wearing a bright red uniform and holding some sort of weapon, but from this distance, it's hard to see them clearly.
+		While you appear to be the only person making use of the path, you're not alone in this area. Up ahead, standing guard beside the drawbridge, are the figures of at least twenty demons. Each one appears to be wearing an olive uniform and has some kind of weapon holstered by their side, but from this distance, it's hard to see them clearly.
 	</p>
 	]]>
 	</htmlContent>
@@ -441,14 +439,14 @@
 		Having crossed the huge cavern, you find yourself approaching the massive Gothic palace that has been built into the dark stone wall. In front of you, separating the palace's front gates from the path that you're on, is a wide, seemingly bottomless ravine. A heavy wooden drawbridge crosses the pitch-black depths of the chasm, and is the only sign of entry to the palace.
 	</p>
 	<p>
-		Preventing you, or anyone else who may happen to travel down here, from proceeding across the drawbridge, is a group of twenty-or-so demons. The majority of them appear to be half-demons, and, much like Lilaya, they have human faces and bodies, with demonic wings, horns, tails, and ears. Apart from this, the most remarkable feature about them is their current state of dress. They're all wearing bright red uniforms, white pith helmets, and black trousers or skirts. Each one of them is brandishing what appears to be an arcane-powered musket, which, in combination with their uniforms, makes them look like Victorian-era soldiers.
+		Preventing you, or anyone else who may happen to travel down here, from proceeding across the drawbridge, is a group of twenty-or-so succubi. The majority of them appear to be half-demons, and, much like Lilaya, they have human faces and bodies, with demonic wings, horns, tails, and ears. Apart from this, the most remarkable feature about them is their current state of dress. They're all wearing drab olive uniforms, with matching hats, skirts, and shoes. At each guards' side, they appear to have a holstered revolver, although, with the nature of this world being as it is, you know that they're likely to fire condensed arcane essences rather that actual bullets. These weapons, in combination with their uniforms, makes them look like world-war-two-era British auxiliaries.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILIN_PALACE_GATE_ENTRY_GRANTED"><![CDATA[
 	<p>
-		As you approach, you see the familiar figure of Elizabeth standing at the head of her group of guards. Walking up to the drawbridge, you smile at her as she calls out, [genericFemale.speech(Well, hello again, [pc.name]. Go on through to the palace, if you wish. One of her Highness's maids will receive you inside.)]
+		As you approach, you see the familiar figure of Elizabeth standing at the head of her group of guards. Walking up to the drawbridge, you smile at her as she calls out, [elizabeth.speech(Well, hello again, [pc.name]. Go on through to the palace, if you wish. One of her Highness's maids will receive you inside.)]
 	</p>
 	<p>
 		The demons around you step aside, allowing you to continue onwards over the drawbridge to Lyssieth's palace.
@@ -458,17 +456,17 @@
 	
 	<htmlContent tag="LILIN_PALACE_GATE_ENTRY_BLOCKED_QUEST_GAINED"><![CDATA[
 	<p>
-		As you approach, you see the familiar figure of Elizabeth standing at the head of her group of guards. Catching sight of you, she grips her musket in both hands, before stating, [genericFemale.speech(We've had no news of the capture of her Highness's daughter. Until you're able to deal with her, you're not getting past us.)]
+		As you approach, you see the familiar figure of Elizabeth standing at the head of her group of guards. Catching sight of you, she hovers her hand near her holstered revolver, before stating, [elizabeth.speech(We've had no news of the capture of her Highness's daughter. Until you're able to deal with her, you're not getting past us.)]
 	</p>
 	<p>
-		You see the demons around you gripping their muskets, and, realising that you stand no chance at gaining entry through force, there's nothing more for you to do here but turn around and leave...
+		You see that the demons around you are alert and ready to fight, and, realising that you stand no chance at gaining entry through force, there's nothing more for you to do here but turn around and leave...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILIN_PALACE_GATE_ENTRY_BLOCKED_QUEST_COMPLETED"><![CDATA[
 	<p>
-		As you approach, you see the familiar figure of Elizabeth standing at the head of her group of guards. Walking up to the drawbridge, you smile at her as she calls out, [genericFemale.speech(Well, if it isn't the [pc.hero] of the hour [pc.herself]. Her Highness has already sent word that her daughter is safely locked in her room, awaiting her punishment. Now, as a formality, I'll need to take a statement of how you defeated her before I can allow you to enter the palace.)]
+		As you approach, you see the familiar figure of Elizabeth standing at the head of her group of guards. Walking up to the drawbridge, you smile at her as she calls out, [elizabeth.speech(Well, if it isn't the [pc.hero] of the hour [pc.herself]. Her Highness has already sent word that her daughter is safely locked in her room, awaiting her punishment. Now, as a formality, I'll need to take a statement of how you defeated her before I can allow you to enter the palace.)]
 	</p>
 	<p>
 		There doesn't seem to be any pressure to deliver the report right at this moment, so you could always choose to leave and come back at another time...
@@ -478,10 +476,10 @@
 	
 	<htmlContent tag="LILIN_PALACE_GATE_ENTRY_BLOCKED"><![CDATA[
 	<p>
-		As you approach, the leader of the group, a light-skinned half-demon succubus, with crimson-skinned demonic parts, steps forwards to bar your passage. [genericFemale.speech(Stop right there, [pc.race]. Her Highness isn't receiving visitors at the moment. You'd better turn around and leave. Now.)]
+		As you approach, the leader of the group, a light-skinned half-demon succubus, with crimson-skinned demonic parts, steps forwards to bar your passage. [elizabeth.speech(Stop right there, [pc.race]. Her Highness isn't receiving visitors at the moment. You'd better turn around and leave. Now.)]
 	</p>
 	<p>
-		You see the demons around you gripping their muskets, and, realising that you stand no chance at gaining entry through force, there's nothing more for you to do here but turn around and leave...
+		You see the demons around you are alert and ready to fight, and, realising that you stand no chance at gaining entry through force, there's nothing more for you to do here but turn around and leave...
 	</p>
 	]]>
 	</htmlContent>
@@ -491,49 +489,49 @@
 		[pc.speech(Is there any way I could get to see Lyssieth? It's quite urgent.)] You say to the guard, hoping that there might be some exceptions to the 'no visitors' rule that appears to be effect.
 	</p>
 	<p>
-		[genericFemale.speech(Unless you're here on official business from another Lilin, then no. And before you say something you'll regret, any official messenger would have supporting paperwork.)] The guard flatly states.
+		[elizabeth.speech(Unless you're here on official business from another Lilin, then no. And before you say something you'll regret, any official messenger would have supporting paperwork.)] The guard flatly states.
 	</p>
 	<p>
 		[pc.speech(Not even if it's Lilaya's [pc.niece], who has something very important to discuss?)] You say, invoking your aunt's name in an attempt to convince the stoic half-succubus.
 	</p>
 	<p>
-		Much to your delight, as you reveal that you're somewhat related to Lyssieth herself, the guard raises her eyebrows. [genericFemale.speech(Hmm, you <i>do</i> fit the description of the one who's living with her...)]
+		Much to your delight, as you reveal that you're somewhat related to Lyssieth herself, the guard raises her eyebrows. [elizabeth.speech(Hmm, you <i>do</i> fit the description of the one who's living with her...)]
 	</p>
 	<p>
 		[pc.speech(Does <i>everybody</i> know about my living arrangements?!)] You groan, thinking back to the way Zaranix also recognised you.
 	</p>
 	<p>
-		[genericFemale.speech(Well, I can't speak for anyone else, but we of the royal guard always keep ourselves well-informed of who Lyssieth's recognised children are mixing with. As a final confirmation, may I ask your name, and the name of the gentleman who also recently moved in with Lilaya?)]
+		[elizabeth.speech(Well, I can't speak for anyone else, but we of the royal guard always keep ourselves well-informed of who Lyssieth's recognised children are mixing with. As a final confirmation, may I ask your name, and the name of the gentleman who also recently moved in with Lilaya?)]
 	</p>
 	<p>
 		[pc.speech(I'm [pc.name], and the gentleman you're referring to is Arthur.)] You quickly reply, eager to get this over and done with so that you can finally meet Lyssieth.
 	</p>
 	<p>
-		[genericFemale.speech(Yes, that all checks out. As I know who you are, it would be rude of me not to introduce myself. While I do insist on most people addressing me formally, as it turns out that you're related to her Highness, you may call me Elizabeth.)] The half-demon smirks, allowing her stony expression to be broken. [genericFemale.speech(From what we understand, [pc.name], you're quite the expert at resolving difficult situations. Business with the Enforcers, regular trips to Demon Home, and, from what I hear, well-acquainted with both the Harpy Nests and Slaver Alley. You have been busy...)]
+		[elizabeth.speech(Yes, that all checks out. As I know who you are, it would be rude of me not to introduce myself. While I do insist on most people addressing me formally, as it turns out that you're related to her Highness, you may call me Elizabeth.)] The half-demon smirks, allowing her stony expression to be broken. [elizabeth.speech(From what we understand, [pc.name], you're quite the expert at resolving difficult situations. Business with the Enforcers, regular trips to Demon Home, and, from what I hear, well-acquainted with both the Harpy Nests and Slaver Alley. You have been busy...)]
 	</p>
 	<p>
 		You make a mental note to keep a closer look-out for anyone following you when you return to Dominion, before trying to encourage the guard to move on to the business at hand. [pc.speech(Well, now that you know who I am, can I please be allowed to see Lyssieth?)]
 	</p>
 	<p>
-		[genericFemale.speech(Ordinarily, no. When her Highness says no visitors, she means it. As it turns out, however, we're in need of someone with your particular skills. You help us out, and we'll allow you to enter the palace.)] Elizabeth says, before continuing, [genericFemale.speech(Another of her Highness's recognised daughters, one of the few who are a full demon, has been causing nothing but trouble for the local Enforcers ever since she was allowed to leave the palace. Perhaps you've seen the gangs of imps roaming parts of Submission? Those are all her doing.)]
+		[elizabeth.speech(Ordinarily, no. When her Highness says no visitors, she means it. As it turns out, however, we're in need of someone with your particular skills. You help us out, and we'll allow you to enter the palace.)] Elizabeth says, before continuing, [elizabeth.speech(Another of her Highness's recognised daughters, one of the few who are a full demon, has been causing nothing but trouble for the local Enforcers ever since she was allowed to leave the palace. Perhaps you've seen the gangs of imps roaming parts of Submission? Those are all her doing.)]
 	</p>
 	<p>
 		Realising where this is going, and used to having to sort out other people's problems by now, you sigh as you respond, [pc.speech(You want me to put an end to the trouble she's causing?)]
 	</p>
 	<p>
-		[genericFemale.speech(That's right. Even if her Highness did have the free- ~Ahem!~ That is, even if her Highness had time to leave her palace, it would be a city-wide scandal if she was heard to be having to discipline one of her recognised offspring. The amount of royal guards it would take to drag her kicking and screaming back to her Highness's side is also simply unacceptable, and would leave the palace too vulnerable. No, we need someone like you to sort out this situation for us.)]
+		[elizabeth.speech(That's right. Even if her Highness did have the free- ~Ahem!~ That is, even if her Highness had time to leave her palace, it would be a city-wide scandal if she was heard to be having to discipline one of her recognised offspring. The amount of royal guards it would take to drag her kicking and screaming back to her Highness's side is also simply unacceptable, and would leave the palace too vulnerable. No, we need someone like you to sort out this situation for us.)]
 	</p>
 	<p>
 		[pc.speech(Fine. If this is what it's going to take.)] You say, resigning yourself to your fate.
 	</p>
 	<p>
-		[genericFemale.speech(Excellent. The demon you're after is going by the title 'The Dark Siren', and can be found somewhere in the tunnels in the very centre of Submission.)] Elizabeth explains, before reaching into one of the pouches hanging at her waist and producing a rather curious-looking ring. Handing it over to you, she continues, [genericFemale.speech(This is one of her Highness's signet rings, which normally carry some impressive enchantments. We've had this particular one altered, however, to enslave the person who puts it on. We've also registered this 'Dark Siren' as a slave of special interest, so instead of being teleported to Slaver Alley, she'll be sent straight to her Highness's throne room. It's up to you whether to use this ring, or an enslavement item of your own; the result will be the same.)]
+		[elizabeth.speech(Excellent. The demon you're after is going by the title 'The Dark Siren', and can be found somewhere in the tunnels in the very centre of Submission.)] Elizabeth explains, before reaching into one of the pouches hanging at her waist and producing a rather curious-looking ring. Handing it over to you, she continues, [elizabeth.speech(This is one of her Highness's signet rings, which normally carry some impressive enchantments. We've had this particular one altered, however, to enslave the person who puts it on. We've also registered this 'Dark Siren' as a slave of special interest, so instead of being teleported to Slaver Alley, she'll be sent straight to her Highness's throne room. It's up to you whether to use this ring, or an enslavement item of your own; the result will be the same.)]
 	</p>
 	<p>
 		[pc.speech(Ok, I'll get this sorted out.)] You reply, placing the ring in your inventory.
 	</p>
 	<p>
-		[genericFemale.speech(Excellent. We hope to hear of your success soon.)] Elizabeth says in return, before taking a step back and waiting for you to take your leave...
+		[elizabeth.speech(Excellent. We hope to hear of your success soon.)] Elizabeth says in return, before taking a step back and waiting for you to take your leave...
 	</p>
 	]]>
 	</htmlContent>
@@ -543,43 +541,43 @@
 		[pc.speech(Is there any way I could get to see Lyssieth? It's quite urgent.)] You say to the guard, hoping that there might be some exceptions to the 'no visitors' rule that appears to be effect.
 	</p>
 	<p>
-		[genericFemale.speech(Unless you're here on official business from another Lilin, then no. And before you say something you'll regret, any official messenger would have supporting paperwork.)] The guard flatly states.
+		[elizabeth.speech(Unless you're here on official business from another Lilin, then no. And before you say something you'll regret, any official messenger would have supporting paperwork.)] The guard flatly states.
 	</p>
 	<p>
 		[pc.speech(Not even if it's Lilaya's [pc.niece], who has something very important to discuss?)] You say, invoking your aunt's name in an attempt to convince the stoic half-succubus.
 	</p>
 	<p>
-		Much to your delight, as you reveal that you're somewhat related to Lyssieth herself, the guard raises her eyebrows. [genericFemale.speech(Hmm, you <i>do</i> fit the description of the one who's living with her...)]
+		Much to your delight, as you reveal that you're somewhat related to Lyssieth herself, the guard raises her eyebrows. [elizabeth.speech(Hmm, you <i>do</i> fit the description of the one who's living with her...)]
 	</p>
 	<p>
 		[pc.speech(Does <i>everybody</i> know about my living arrangements?!)] You groan, thinking back to the way Zaranix also recognised you.
 	</p>
 	<p>
-		[genericFemale.speech(Well, I can't speak for anyone else, but we of the royal guard always keep ourselves well-informed of who Lyssieth's recognised children are mixing with. As a final confirmation, may I ask your name, and the name of the gentleman who also recently moved in with Lilaya?)]
+		[elizabeth.speech(Well, I can't speak for anyone else, but we of the royal guard always keep ourselves well-informed of who Lyssieth's recognised children are mixing with. As a final confirmation, may I ask your name, and the name of the gentleman who also recently moved in with Lilaya?)]
 	</p>
 	<p>
 		[pc.speech(I'm [pc.name], and the gentleman you're referring to is Arthur.)] You quickly reply, eager to get this over and done with so that you can finally meet Lyssieth.
 	</p>
 	<p>
-		[genericFemale.speech(Yes, that all checks out. As I know who you are, it would be rude of me not to introduce myself. While I do insist on most people addressing me formally, as it turns out that you're related to her Highness, you may call me Elizabeth.)] The half-demon smirks, allowing her stony expression to be broken. [genericFemale.speech(From what we understand, [pc.name], you're quite the expert at resolving difficult situations. Business with the Enforcers, regular trips to Demon Home, and, from what I hear, well-acquainted with both the Harpy Nests and Slaver Alley. You have been busy...)]
+		[elizabeth.speech(Yes, that all checks out. As I know who you are, it would be rude of me not to introduce myself. While I do insist on most people addressing me formally, as it turns out that you're related to her Highness, you may call me Elizabeth.)] The half-demon smirks, allowing her stony expression to be broken. [elizabeth.speech(From what we understand, [pc.name], you're quite the expert at resolving difficult situations. Business with the Enforcers, regular trips to Demon Home, and, from what I hear, well-acquainted with both the Harpy Nests and Slaver Alley. You have been busy...)]
 	</p>
 	<p>
 		[pc.speech(You missed out the part where I defeated 'The Dark Siren'. Pretty sure your spies should have picked up on that one.)] You say, a little frustrated at how these guards have been spying on you. [pc.speech(So anyway, now that you know who I am, can I please be allowed to see Lyssieth?)]
 	</p>
 	<p>
-		As you reveal the fact that it was you who defeated Lyssieth's daughter, Elizabeth raises her eyebrows and gazes at you in disbelief. [genericFemale.speech(Wait, that was <i>you</i> who beat her in a fight?! There's no way... T-Tell me how it happened! Her Highness has already informed us of her daughter's version of events, so we'll see if your stories match up!)]
+		As you reveal the fact that it was you who defeated Lyssieth's daughter, Elizabeth raises her eyebrows and gazes at you in disbelief. [elizabeth.speech(Wait, that was <i>you</i> who beat her in a fight?! There's no way... T-Tell me how it happened! Her Highness has already informed us of her daughter's version of events, so we'll see if your stories match up!)]
 	</p>
 	<p>
-		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you bested Lyssieth's daughter in combat. As you finish recounting the battle you had in the stone keep, Elizabeth stammers and trips over her words as she realises that you were actually telling the truth. [genericFemale.speech(W-Wow... But Lyssieth herself taught her how to use the arcane... I-I mean, everyone in the palace knows about how she over-estimates her abilities, b-but she... I mean... Who <i>are</i> you?!)]
+		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you bested Lyssieth's daughter in combat. As you finish recounting the battle you had in the stone keep, Elizabeth stammers and trips over her words as she realises that you were actually telling the truth. [elizabeth.speech(W-Wow... But Lyssieth herself taught her how to use the arcane... I-I mean, everyone in the palace knows about how she over-estimates her abilities, b-but she... I mean... Who <i>are</i> you?!)]
 	</p>
 	<p>
 		[pc.speech(As I told you at the start of all this, I'm Lilaya's [pc.niece]. Well, sort-of, anyway. That's why I need to speak with Lyssieth so badly; I have a lot of questions that I need answered.)]
 	</p>
 	<p>
-		[genericFemale.speech(Well, after dealing with Lyssieth's daughter for us, you've earned the right to do just that.)] Elizabeth replies, before producing a curious signet ring from one of the pouches hanging at her waist. She then holds out this ring to you, and as you take it, she explains, [genericFemale.speech(Her Highness instructed us to give this to whoever dealt with her daughter. Show it to any of the staff working here, and they'll be at your service.)]
+		[elizabeth.speech(Well, after dealing with Lyssieth's daughter for us, you've earned the right to do just that.)] Elizabeth replies, before producing a curious signet ring from one of the pouches hanging at her waist. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Her Highness instructed us to give this to whoever dealt with her daughter. Show it to any of the staff working here, and they'll be at your service.)]
 	</p>
 	<p>
-		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [genericFemale.speech(You're now free to come and go as you please. While her Highness will personally be thanking you soon enough, I offer you the gratitude of her household guard. Thank you, and be safe.)]
+		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [elizabeth.speech(You're now free to come and go as you please. While her Highness will personally be thanking you soon enough, I offer you the gratitude of her household guard. Thank you, and be safe.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -589,22 +587,22 @@
 		[pc.speech(I can deliver that report now, if you'd like.)] You say to Elizabeth, who nods and produces a small notepad and pen in response.
 	</p>
 	<p>
-		[genericFemale.speech(So, how did you do it?)]
+		[elizabeth.speech(So, how did you do it?)]
 	</p>
 	<p>
-		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you bested Lyssieth's daughter in combat. As you recount the battle you had in the stone keep, Elizabeth raises her eyebrows and gazes at you in disbelief. [genericFemale.speech(You actually beat her in a fight?! There's no way... But that would mean you still have the ring I gave you! Show it to me, and prove that you're not lying.)]
+		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you bested Lyssieth's daughter in combat. As you recount the battle you had in the stone keep, Elizabeth raises her eyebrows and gazes at you in disbelief. [elizabeth.speech(You actually beat her in a fight?! There's no way... But that would mean you still have the ring I gave you! Show it to me, and prove that you're not lying.)]
 	</p>
 	<p>
-		Producing Lyssieth's signet ring, you hand it over to Elizabeth, who stammers and trips over her words as she realises that you were actually telling the truth. [genericFemale.speech(W-Wow... But Lyssieth herself taught her how to use the arcane... I-I mean, everyone in the palace knows about how she over-estimates her abilities, b-but she... I mean... Who <i>are</i> you?!)]
+		Producing Lyssieth's signet ring, you hand it over to Elizabeth, who stammers and trips over her words as she realises that you were actually telling the truth. [elizabeth.speech(W-Wow... But Lyssieth herself taught her how to use the arcane... I-I mean, everyone in the palace knows about how she over-estimates her abilities, b-but she... I mean... Who <i>are</i> you?!)]
 	</p>
 	<p>
 		[pc.speech(As I told you before, I'm Lilaya's [pc.niece]. Well, sort-of, anyway. That's why I need to speak with Lyssieth so badly; I have a lot of questions that I need answered.)]
 	</p>
 	<p>
-		[genericFemale.speech(Well, as promised, you've earned the right to do just that.)] Elizabeth replies, before placing the ring you've just given her into her pocket, and then producing an identical one from one of the pouches hanging at her waist. She then holds out this ring to you, and as you take it, she explains, [genericFemale.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you if you managed to deal with her daughter. Show it to any of the staff working here, and they'll be at your service.)]
+		[elizabeth.speech(Well, as promised, you've earned the right to do just that.)] Elizabeth replies, before placing the ring you've just given her into her pocket, and then producing an identical one from one of the pouches hanging at her waist. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you if you managed to deal with her daughter. Show it to any of the staff working here, and they'll be at your service.)]
 	</p>
 	<p>
-		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [genericFemale.speech(You're now free to come and go as you please. While her Highness will personally be thanking you soon enough, I offer you the gratitude of her household guard. Thank you, and be safe.)]
+		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [elizabeth.speech(You're now free to come and go as you please. While her Highness will personally be thanking you soon enough, I offer you the gratitude of her household guard. Thank you, and be safe.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -614,29 +612,29 @@
 		[pc.speech(I can deliver that report now, if you'd like.)] You say to Elizabeth, who nods and produces a small notepad and pen in response.
 	</p>
 	<p>
-		[genericFemale.speech(So, how did you do it?)]
+		[elizabeth.speech(So, how did you do it?)]
 	</p>
 	<p>
-		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you tricked Lyssieth's daughter into wearing the ring you were given. As you recount the conversation the two of you had in the stone keep, Elizabeth rolls her eyes and starts impatiently tapping her foot on the ground. As your story comes to an end, she sighs, [genericFemale.speech(I can't imagine what it must be like to be in the presence of the two of you at once...)]
+		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you tricked Lyssieth's daughter into wearing the ring you were given. As you recount the conversation the two of you had in the stone keep, Elizabeth rolls her eyes and starts impatiently tapping her foot on the ground. As your story comes to an end, she sighs, [elizabeth.speech(I can't imagine what it must be like to be in the presence of the two of you at once...)]
 	</p>
 	<p>
 		Taking that as a compliment, you smirk as you reply, [pc.speech(It is rather hard to picture such a cataclysmic encounter between two of the greatest arcane-wielders to ever have lived! But anyway, enough of that! I have a lot of questions that I need Lyssieth to answer. Can I please enter the palace now?)]
 	</p>
 	<p>
-		[genericFemale.speech(Well, as promised, you've earned the right to do just that.)] Elizabeth replies, before producing a very familiar-looking signet ring from one of the pouches hanging at her waist. She then holds out this ring to you, and as you take it, she explains, [genericFemale.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you if you managed to deal with her daughter. Show it to any of the staff working here, and they'll be at your service.)]
+		[elizabeth.speech(Well, as promised, you've earned the right to do just that.)] Elizabeth replies, before producing a very familiar-looking signet ring from one of the pouches hanging at her waist. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you if you managed to deal with her daughter. Show it to any of the staff working here, and they'll be at your service.)]
 	</p>
 	<p>
-		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [genericFemale.speech(You're now free to come and go as you please. While her Highness will personally be thanking you soon enough, I offer you the gratitude of her household guard. Thank you, and be safe.)]
+		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [elizabeth.speech(You're now free to come and go as you please. While her Highness will personally be thanking you soon enough, I offer you the gratitude of her household guard. Thank you, and be safe.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILIN_PALACE_GATE_UNIFORMS"><![CDATA[
 	<p>
-		Curious about these demons' uniforms and weapons, you ask the succubus, [pc.speech(Why are you all wearing these uniforms? And where did you get those muskets from? I haven't seen anyone else with such firearms...)]
+		Curious about these demons' uniforms and weapons, you ask the succubus, [pc.speech(Why are you all wearing these uniforms? And where did you get those revolvers from? I haven't seen anyone else in Dominion carrying guns...)]
 	</p>
 	<p>
-		The succubus flinches a little as you ask your question, but manages to keep her cool as she answers, [genericFemale.speech(These are the uniforms and weapons that her Highness personally gave to each one of us. It is not for us, or <i>you</i> for that matter, to question her wishes. We obey her orders, and her current command is to let nobody pass this point. Don't make me tell you again. Leave. Now.)]
+		The succubus flinches a little as you ask your question, but manages to keep her cool as she answers, [elizabeth.speech(These are the uniforms and weapons that her Highness personally gave to each one of us. It is not for us, or <i>you</i> for that matter, to question her wishes. We obey her orders, and her current command is to let nobody pass this point. Don't make me tell you again. Leave. Now.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -729,14 +727,23 @@
 		A worn path leads up to the entrance, and, walking down it, you discover that the citadel's gates are carved from dark black stone. Three small keyholes have been drilled into the very middle of them, and, looking up, you see that there's an inscription on the stonework above, which reads:
 	</p>
 	<p style='text-align:center'><i>
-		In this mighty citadel, resides the Dark Siren; Empress of the arcane, Bearer of cataclysmic terror, She who rends worlds; Those who seek her favour must first prove themselves, and with three keys, then enter.
+		In this mighty citadel, resides the Dark Siren; Daughter of Lyssieth, Empress of the arcane, Bearer of cataclysmic terror, She who rends worlds; Those who seek her favour must first prove themselves, and with three keys, then enter.
 	</i></p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_CITADEL_DEFEATED"><![CDATA[
 	<p>
-		TODO
+		Once again, you find yourself stepping forwards into the huge underground cavern that houses the ruins of [siren.namePos] citadel. Despite the fact that the one-time residence of the 'Dark Siren' is now destroyed and abandoned, the numerous arcane-powered lanterns hanging from the cave's high ceiling are still active, and they cast a dim golden glow over the huge subterranean space before you.  
+	</p>
+	<p>
+		Walking over to where the citadel's ruins now lie, you take note of the fact that over half of the outer wall has crumbled into an impassable pile of loose rocks and shattered masonry. Thankfully, the citadel's main gates seem to have avoided taking significant damage, and have been left wide open. The surrounding structure hasn't been so lucky, however, and a significant amount of the inscribed stonework above the gates has been smashed to pieces, so that it now reads:
+	</p>
+	<p style='text-align:center'><i>
+		In ... citadel, ... Dark Siren; Daughter ... Lyssieth, Empress ... cataclysmic terror, She who ... favour ... first ... three keys, ... enter.
+	</i></p>
+	<p>
+		The ruins look dangerously unstable, which is obviously the reason why no imps have chosen to return to this place. If you were careful, however, you think that you could pass through the gates and explore the ruins without risking injury.
 	</p>
 	]]>
 	</htmlContent>
@@ -745,9 +752,6 @@
 	<p>
 		From a brief inspection of the citadel's walls, you can see no other way to gain entry. Without these 'three keys' that the inscription refers to, it doesn't look like you're going to be able to get inside...
 	</p>
-	<p>
-		[style.italicsBad(You cannot gain entry in this version, even with the three keys. The citadel content will be added in the next release!)]
-	</p>
 	]]>
 	</htmlContent>
 	
@@ -755,10 +759,71 @@
 	<p>
 		From a brief inspection of the citadel's walls, you can see no other way to gain entry. However, as you have the 'three keys' that the inscription refers to, it looks like opening the gates won't be a problem...
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_KEY_ENTRY"><![CDATA[
 	<p>
-		[style.italicsBad(You cannot gain entry in this version, even with the three keys. The citadel content will be added in the next release!)]
+		You decide that the time has come to use the three keys required to open the gates to the dark siren's citadel. As you insert the first of them into its corresponding hole, it suddenly disappears from sight in a bright purple flash. Around the keyhole, a glowing pentagram appears, and, encouraged that this is the right thing to do, you quickly insert the other two keys into their respective locks, each of which produces much the same effect.
+	</p>
+	<p>
+		As the third key vanishes, a vertical purple line splits the stone gates down the very middle, and, with a loud grinding noise, they slowly start to swing open before you. At that moment, yet another bright purple flash is emitted by each of the three keyholes, causing you to blink and turn your head to one side. As you rub your [pc.eyes] to clear the lingering afterimage, you see that the three keys have reappeared in the keyholes before you, and have been linked by a thin silver chain. Grabbing this key-chain necklace from out of the gates, you wait as they fully swing open before you.
+	</p>
+	<p>
+		Stepping forwards into the citadel, you find yourself looking out across the inner courtyard, and you see that the material used in the construction of the outer walls and gateway has been obtained by mining out a large portion of the far wall. Carved into this recess, there's a huge stone archway, which houses a pair of massive, iron-reinforced wooden doors. Off to your left, you see a well in one corner of the courtyard, and beside that, there sits a squat, stone tower. On the opposite side of the courtyard to this tower, the cave's wall curves inwards, and into this, a small doorway has been carved.
+	</p>
+	<p>
+		The most alarming thing about the scene before you is that there are at least twenty imps and alpha-imps scattered around the courtyard. A few of them are simply loitering about, but most are engaged in simple tasks such as cleaning and mending clothes, sparring with one another, or preparing and eating food. You also notice that there are a few who are openly having sex over in one corner.
+	</p>
+	<p>
+		None of these imps seem bothered about your sudden arrival, and you assume that it's because only expected guests would be in possession of the three keys required to gain entry. As you move forwards into the courtyard, the nearest of the imp guards calls out, [genericMale.speech(The siren's in 'er throne room, if yer were lookin' fer 'er!)]
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_KEY_ENTRY_REPEAT"><![CDATA[
+	<p>
+		Once again, you find yourself wanting to enter the dark siren's citadel. Unlike the first time, when you insert each of the three keys into their respective holes, they produce a glowing pentagram around their locks without first disappearing.
+	</p>
+	<p>
+		As the third key is inserted, a vertical purple line splits the stone gates down the very middle, and, with a loud grinding noise, they slowly start to swing open before you. Grabbing your key-chain necklace from out of the gates, you wait as they fully swing open before you.
+	</p>
+	<p>
+		Stepping forwards into the citadel, you find yourself looking out across the inner courtyard, and you see that the material used in the construction of the outer walls and gateway has been obtained by mining out a large portion of the far wall. Carved into this recess, there's a huge stone archway, which houses a pair of massive, iron-reinforced wooden doors. Off to your left, you see a well in one corner of the courtyard, and beside that, there sits a squat, stone tower. On the opposite side of the courtyard to this tower, the cave's wall curves inwards, and into this, a small doorway has been carved.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_KEY_ENTRY_REPEAT_IMPS"><![CDATA[
+	<p>
+		Just as before, there are at least twenty imps and alpha-imps scattered around the courtyard. A few of them are simply loitering about, but most are engaged in simple tasks such as cleaning and mending clothes, sparring with one another, or preparing and eating food. You also notice that there are a few who are openly having sex over in one corner.
+	</p>
+	<p>
+		None of these imps seem bothered about your sudden arrival, and you assume that it's because only expected guests would be in possession of the three keys required to gain entry. As you move forwards into the courtyard, the nearest of the imp guards calls out, [genericMale.speech(The siren's in 'er throne room, if yer were lookin' fer 'er!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_KEY_ENTRY_REPEAT_NO_IMPS"><![CDATA[
+	<p>
+		You're surprised to see that none of the imps have returned, and that the courtyard before you is completely deserted. Although there's no sign of anyone being inside the laboratory tower or cell block, you can see slivers of light shining out from the cracks around the keep's huge wooden doors, letting you know that the siren is still at home...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_RUINS_ENTRY"><![CDATA[
+	<p>
+		Although the dark siren's citadel now lies in ruin, you find yourself wanting to head back inside and explore. You don't need to use your key-chain necklace to gain entry, as the stone gates have been permanently jammed open. Taking care as you step around the piles of smashed rock piled up against the gates, you walk forwards through the entranceway.
+	</p>
+	<p>
+		Looking over the cracked, rubble-strewn courtyard, you find yourself gazing at the huge, ruined archway of the main keep. One of the huge wooden doors has completely splintered into pieces, while the other looks to be straining under the weight of the crumbling masonry above. Off to your left, the citadel's well looks to have been completely crushed beneath the collapsed left-side wall of the laboratory tower. On the opposite side of the courtyard, you see rubble and smashed rock blocking the small doorway of the cell block.
+	</p>
+	<p>
+		All in all, the citadel looks to be in a dangerously unstable condition, which would explain why there's absolutely no sign of life anywhere before you. Exploring these ruins will be slow going, as you need to carefully navigate around gaping fissures and piles of precariously stacked rocks.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	
 </dialogue>

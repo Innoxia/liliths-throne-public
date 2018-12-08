@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -38,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.11
- * @version 0.2.11
+ * @version 0.2.12
  * @author Innoxia
  */
 public class TunnelImpsDialogue {
@@ -78,7 +77,6 @@ public class TunnelImpsDialogue {
 			List<GameCharacter> allCharacters = new ArrayList<>();
 			allCharacters.add(getMainCompanion());
 			allCharacters.addAll(getImpGroup());
-			Collections.sort(allCharacters, (c1, c2) -> c1 instanceof Elemental?(c2 instanceof Elemental?0:1):(c2 instanceof Elemental?-1:0));
 			return allCharacters;
 			
 		} else {
@@ -189,7 +187,12 @@ public class TunnelImpsDialogue {
 								Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null,
 								null,
-								null);
+								null) {
+							@Override
+							public boolean isSexHighlight() {
+								return true;
+							}
+						};
 					}
 					
 				} else if (index == 5 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -209,6 +212,10 @@ public class TunnelImpsDialogue {
 								if(!companion.isAttractedTo(getImpLeader()) && Main.game.isNonConEnabled()) {
 									Main.game.getTextEndStringBuilder().append(companion.incrementAffection(Main.game.getPlayer(), -50));
 								}
+							}
+							@Override
+							public boolean isSexHighlight() {
+								return true;
 							}
 						};
 					}
@@ -897,8 +904,8 @@ public class TunnelImpsDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGroup(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
@@ -908,8 +915,8 @@ public class TunnelImpsDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGroup(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
@@ -920,8 +927,8 @@ public class TunnelImpsDialogue {
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGroup(),
-								null,
 								Util.newArrayListOfValues(getMainCompanion()),
+								null,
 								AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						

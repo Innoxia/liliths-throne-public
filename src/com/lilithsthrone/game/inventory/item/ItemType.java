@@ -36,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.2.4
+ * @version 0.2.12
  * @author Innoxia
  */
 public class ItemType {
@@ -3375,7 +3375,12 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE)), null) {
 
 		private static final long serialVersionUID = 1L;
-
+		
+		@Override
+		public boolean isFetishGiving() {
+			return true;
+		}
+		
 		@Override
 		public String getDeterminer() {
 			return UtilText.generateSingularDeterminer(this.getName(false));
@@ -4282,11 +4287,22 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			null,
+			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.EGGPLANT)), null) {
 
 		private static final long serialVersionUID = 1L;
+		
 
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.EGGPLANT_POTION;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return EGGPLANT_POTION;
+		}
+		
 		@Override
 		public String getUseName() {
 			return "eat";
@@ -4299,6 +4315,54 @@ public class ItemType {
 					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelms you both.",
 					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelms you both.",
 					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelms you both.");
+		}
+	};
+	
+	public static AbstractItemType EGGPLANT_POTION = new AbstractItemType(
+			250,
+			null,
+			false,
+			"Eggplant Potion",
+			"Eggplant Potions",
+			"A potion made from the bitter flesh of an eggplant. Just like the berry from which it was made, the bottle containing this potion sort of looks like a penis if you squint at it.",
+			"eggplant_potion",
+			Colour.GENERIC_ARCANE,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			null,
+			null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return true;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You drink the eggplant potion. The rich, complex flavour is surprisingly delicious.",
+					"You force [npc.name] to drink the eggplant potion. The rich, complex flavour is surprisingly delicious.",
+					"[npc.Name] produces an eggplant potion, and then proceeds to drink it. The rich, complex flavour is surprisingly delicious.",
+					"[npc.Name] produces an eggplant potion, and then proceeds to force you to drink it. The rich, complex flavour is surprisingly delicious.");
 		}
 	};
 
@@ -4855,33 +4919,24 @@ public class ItemType {
 			
 			List<String> effectsString = Util.newArrayListOfValues(
 					"[style.boldExcellent(Permanently)] gain the spell '<b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>'.");
+			
 
+			Subspecies subspecies = Subspecies.ELEMENTAL_ARCANE;
 			if(s == Spell.ELEMENTAL_EARTH) {
-				effectsString.add("Adds "+Race.ELEMENTAL_EARTH.getName()+" encyclopedia entry.");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_EARTH.getDamageMultiplier().getName()+"</b>");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_EARTH.getResistanceMultiplier().getName()+"</b>");
+				subspecies = Subspecies.ELEMENTAL_EARTH;
 				
 			} else if(s == Spell.ELEMENTAL_WATER) {
-				effectsString.add("Adds "+Race.ELEMENTAL_WATER.getName()+" encyclopedia entry.");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_WATER.getDamageMultiplier().getName()+"</b>");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_WATER.getResistanceMultiplier().getName()+"</b>");
+				subspecies = Subspecies.ELEMENTAL_WATER;
 				
 			} else if(s == Spell.ELEMENTAL_AIR) {
-				effectsString.add("Adds "+Race.ELEMENTAL_AIR.getName()+" encyclopedia entry.");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_AIR.getDamageMultiplier().getName()+"</b>");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_AIR.getResistanceMultiplier().getName()+"</b>");
+				subspecies = Subspecies.ELEMENTAL_AIR;
 				
 			} else if(s == Spell.ELEMENTAL_FIRE) {
-				effectsString.add("Adds "+Race.ELEMENTAL_FIRE.getName()+" encyclopedia entry.");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_FIRE.getDamageMultiplier().getName()+"</b>");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_FIRE.getResistanceMultiplier().getName()+"</b>");
-				
-			} else if(s == Spell.ELEMENTAL_ARCANE) {
-				effectsString.add("Adds "+Race.ELEMENTAL_ARCANE.getName()+" encyclopedia entry.");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_ARCANE.getDamageMultiplier().getName()+"</b>");
-				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_ARCANE.getResistanceMultiplier().getName()+"</b>");
-				
+				subspecies = Subspecies.ELEMENTAL_FIRE;
 			}
+			effectsString.add("Adds "+subspecies.getName(null)+" encyclopedia entry.");
+			effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+subspecies.getDamageMultiplier().getName()+"</b>");
+			effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+subspecies.getResistanceMultiplier().getName()+"</b>");
 			
 			
 			AbstractItemEffectType effectType = new AbstractItemEffectType(effectsString, s.getSpellSchool().getColour()) {
@@ -5022,7 +5077,7 @@ public class ItemType {
 					
 				case WITCH_CHARM:
 				case WITCH_SEAL:
-				case DARK_SIREN_BANEFUL_FISSURE:
+				case DARK_SIREN_SIRENS_CALL:
 					break;
 			}
 			

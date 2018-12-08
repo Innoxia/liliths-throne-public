@@ -28,7 +28,7 @@ public class GenericAndrogynousNPC extends NPC {
 	}
 	
 	public GenericAndrogynousNPC(boolean isImported) {
-		super(isImported, new NameTriplet("Someone"), "Generic androgynous.",
+		super(isImported, new NameTriplet("Someone"), null, "Generic androgynous.",
 				25, Month.JUNE, 15,
 				1, Gender.N_P_V_HERMAPHRODITE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);

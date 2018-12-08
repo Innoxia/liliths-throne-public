@@ -96,7 +96,7 @@ public class Roxy extends NPC {
 	}
 	
 	public Roxy(boolean isImported) {
-		super(isImported, new NameTriplet("Roxy"),
+		super(isImported, new NameTriplet("Roxy"), "Yap",
 				"Roxy is the rat-girl owner of the Gambling Den's shop, 'Roxy's Box'."
 					+ " With a patch over one eye, and visible scarring down one side of her face, Roxy is clearly no stranger to violence."
 					+ " She has some particularly vulgar mannerisms, and has little patience for any of her customers.",

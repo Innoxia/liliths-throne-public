@@ -41,7 +41,7 @@ public class NPCOffspring extends NPC {
 	}
 	
 	public NPCOffspring(boolean isImported) {
-		super(isImported, null, "",
+		super(isImported, null, null, "",
 				18, Month.JUNE, 15,
 				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
@@ -49,10 +49,14 @@ public class NPCOffspring extends NPC {
 	}
 	
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		super(false, null, "",
+		super(false, null, null, "",
 				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
 				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+
+		if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
+			this.setSurname(mother.getSurname());
+		}
 		
 		this.setMother(mother);
 		this.setFather(father);

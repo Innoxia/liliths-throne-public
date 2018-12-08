@@ -37,6 +37,8 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -56,7 +58,7 @@ public class SupplierPartner extends NPC {
 	}
 	
 	public SupplierPartner(boolean isImported) {
-		super(isImported, new NameTriplet("Karl", "Karl", "Karla"),
+		super(isImported, new NameTriplet("Karl", "Karl", "Karla"), "Hummel",
 				".",
 				28, Month.AUGUST, 8,
 				5,
@@ -227,7 +229,7 @@ public class SupplierPartner extends NPC {
 	}
 
 	public List<AbstractCoreItem> getLootItems() {
-		return null;
+		return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY));
 	}
 	
 }

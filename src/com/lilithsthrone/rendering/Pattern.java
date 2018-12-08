@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.SvgUtil;
 
 /**
  * @since 0.2.6
@@ -154,7 +154,7 @@ public class Pattern {
 	}
 	
 	private void generateSVGImage(Colour colour, Colour colourSecondary, Colour colourTertiary) {
-		addSVGStringMapping(colour, colourSecondary, colourTertiary, Util.colourReplacementPattern(this.getName(), colour, colourSecondary, colourTertiary, baseSVGString));
+		addSVGStringMapping(colour, colourSecondary, colourTertiary, SvgUtil.colourReplacementPattern(this.getName(), colour, colourSecondary, colourTertiary, baseSVGString));
 	}
 	
 	private void addSVGStringMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String s) {

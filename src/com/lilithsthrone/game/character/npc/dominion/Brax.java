@@ -107,7 +107,7 @@ public class Brax extends NPC {
 	}
 	
 	public Brax(boolean isImported) {
-		super(isImported, new NameTriplet("Brax", "Bree", "Brandi"),
+		super(isImported, new NameTriplet("Brax", "Bree", "Brandi"), "Volkov",
 				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.",
 				30, Month.NOVEMBER, 27,
 				3, Gender.M_P_MALE,

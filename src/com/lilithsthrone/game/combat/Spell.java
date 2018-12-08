@@ -21,6 +21,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -2353,14 +2354,14 @@ public enum Spell {
 	
 
 	
-	DARK_SIREN_BANEFUL_FISSURE(false,
+	DARK_SIREN_SIRENS_CALL(false,
 			SpellSchool.AIR,
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
-			"Baneful Fissure",
-			"dark_siren_baneful_fissure",
-			"Creates a long-lasting fissure in the ground, from which poisonous vapours rise to choke and stifle all nearby enemies.",
+			"Siren's Call",
+			"dark_siren_sirens_call",
+			"Unleashes a reverberating scream, the power of which causes the ground to split open. From this fissure, poisonous vapours rise to choke and stifle all nearby enemies.",
 			10,
 			DamageVariance.NONE,
 			200,
@@ -2535,12 +2536,8 @@ public enum Spell {
 				System.err.println("Error! Spell icon file does not exist (Trying to read from '"+pathName+"')!");
 			}
 			SVGString = Util.inputStreamToString(is);
-
-			SVGString = SVGString.replaceAll("#ff2a2a", damageType.getMultiplierAttribute().getColour().getShades()[0]);
-			SVGString = SVGString.replaceAll("#ff5555", damageType.getMultiplierAttribute().getColour().getShades()[1]);
-			SVGString = SVGString.replaceAll("#ff8080", damageType.getMultiplierAttribute().getColour().getShades()[2]);
-			SVGString = SVGString.replaceAll("#ffaaaa", damageType.getMultiplierAttribute().getColour().getShades()[3]);
-			SVGString = SVGString.replaceAll("#ffd5d5", damageType.getMultiplierAttribute().getColour().getShades()[4]);
+			
+			SVGString = SvgUtil.colourReplacement(this.toString(), damageType.getMultiplierAttribute().getColour(), SVGString);
 			
 			is.close();
 

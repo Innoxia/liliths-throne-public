@@ -216,7 +216,7 @@ public class LilayaHomeGeneric {
 						slavesAssignedToRoom.add(slaveNPC);
 					}
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+slave+") returning null in method: getRoomResponse()");
+					Util.logGetNpcByIdError("getRoomResponse()", slave);
 				}
 			}
 		}
@@ -267,6 +267,9 @@ public class LilayaHomeGeneric {
 						@Override
 						public void effects() {
 							int milked = MilkingRoom.getActualMilkPerHour(Main.game.getPlayer());
+							if(milked < Main.game.getPlayer().getBreastRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(Main.game.getPlayer())) {
+								milked = (int) Math.min(Main.game.getPlayer().getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(Main.game.getPlayer()));
+							}
 							room.incrementFluidStored(Main.game.getPlayer(), Main.game.getPlayer().getMilk(), milked);
 							Main.game.getPlayer().incrementBreastStoredMilk(-milked);
 							
@@ -609,7 +612,7 @@ public class LilayaHomeGeneric {
 								+ "</i></p>"));
 					}
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+occupantId+") returning null in method: getRoomModificationsDescription()");
+					Util.logGetNpcByIdError("getRoomModificationsDescription()", occupantId);
 				}
 			}
 		}

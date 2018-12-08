@@ -335,11 +335,7 @@ public class Body implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_RAT_FUR;
 			case RABBIT_MORPH:
 				return BodyCoveringType.BODY_HAIR_RABBIT_FUR;
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
+			case ELEMENTAL:
 				break; // Doesn't matter what is passed in here, as getCovering will catch whatever BodyCoveringType the body is made up of.
 			case FOX_MORPH:
 				return BodyCoveringType.BODY_HAIR_FOX_FUR;
@@ -384,8 +380,23 @@ public class Body implements Serializable, XMLSaving {
 				availablePatterns.remove(CoveringPattern.FRECKLED); // Do not start with freckles.
 			}
 			
+			CoveringPattern pattern = availablePatterns.get(Util.random.nextInt(availablePatterns.size()));
+			
+			if(pattern == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+				if(Math.random()>0.02f) { // As it's already selected heterochromatic eyes (0.5 chance), this 0.02 chance corresponds to an overall heterochromatic chance of 0.01, or 1%
+					pattern = CoveringPattern.EYE_IRISES;
+				} else {
+					if(primary==secondary) {
+						List<Colour> secondaryIrisColours = new ArrayList<>();
+						secondaryIrisColours.addAll(colourApplicationList);
+						secondaryIrisColours.remove(primary);
+						secondary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
+					}
+				}
+			}
+			
 			coverings.put(s, new Covering(s,
-					availablePatterns.get(Util.random.nextInt(availablePatterns.size())),
+					pattern,
 					primary, false,
 					secondary, false));
 		}
@@ -1484,11 +1495,7 @@ public class Body implements Serializable, XMLSaving {
 
 	private String getCoveredInDescriptor(GameCharacter owner) {
 		if(owner.getRace()==Race.SLIME
-				|| owner.getRace()==Race.ELEMENTAL_EARTH
-				|| owner.getRace()==Race.ELEMENTAL_WATER
-				|| owner.getRace()==Race.ELEMENTAL_AIR
-				|| owner.getRace()==Race.ELEMENTAL_FIRE
-				|| owner.getRace()==Race.ELEMENTAL_ARCANE) {
+				|| owner.getRace()==Race.ELEMENTAL) {
 			return UtilText.returnStringAtRandom(
 					"made from",
 					"composed entirely of",
@@ -1984,43 +1991,24 @@ public class Body implements Serializable, XMLSaving {
 				break;
 		}
 		
-		if (owner.isPlayer()) {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
-				sb.append(", with [pc.irisShape], heterochromatic [pc.irisPrimaryColour(true)]-and-[pc.irisSecondaryColour(true)] irises");
-			} else {
-				sb.append(", with [pc.irisShape], [pc.irisPrimaryColour(true)] irises");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append(", [pc.pupilShape], heterochromatic [pc.pupilPrimaryColour(true)]-and-[pc.pupilSecondaryColour(true)] pupils");
-			} else {
-				sb.append(", [pc.pupilShape], [pc.pupilPrimaryColour(true)] pupils");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
-				sb.append(", and heterochromatic [pc.scleraPrimaryColour(true)]-and-[pc.scleraSecondaryColour(true)] sclerae.");
-			} else {
-				sb.append(", and [pc.scleraPrimaryColour(true)] sclerae.");
-			}
+		if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+			sb.append(", with [npc.irisShape], heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] irises");
 		} else {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
-				sb.append(", with [npc.irisShape], heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] irises, ");
-			} else {
-				sb.append(", with [npc.irisShape], [npc.irisPrimaryColour(true)] irises ");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append(", [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils");
-			} else {
-				sb.append(", [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
-				sb.append(", and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.");
-			} else {
-				sb.append(", and [npc.scleraPrimaryColour(true)] sclerae.");
-			}
+			sb.append(", with [npc.irisShape], [npc.irisPrimaryColour(true)] irises");
 		}
+		
+		if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
+			sb.append(", [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils");
+		} else {
+			sb.append(", [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils");
+		}
+		
+		if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
+			sb.append(", and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.");
+		} else {
+			sb.append(", and [npc.scleraPrimaryColour(true)] sclerae.");
+		}
+		
 		
 		// Eye makeup:
 		if(owner.getEyeLiner().getPrimaryColour()!=Colour.COVERING_NONE) {
@@ -3652,15 +3640,15 @@ public class Body implements Serializable, XMLSaving {
 		Race race = Race.HUMAN;
 		switch(this.getBodyMaterial()) {
 			case AIR:
-				race = Race.ELEMENTAL_AIR;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case ARCANE:
-				race = Race.ELEMENTAL_ARCANE;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case FIRE:
-				race = Race.ELEMENTAL_FIRE;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case FLESH:
@@ -3678,12 +3666,12 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case ICE:
 			case WATER:
-				race = Race.ELEMENTAL_WATER;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case RUBBER:
 			case STONE:
-				race = Race.ELEMENTAL_EARTH;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case SLIME:
@@ -6367,15 +6355,7 @@ public class Body implements Serializable, XMLSaving {
 				case WOLF_MORPH:
 					coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
 					break;
-				case ELEMENTAL_AIR:
-					break;
-				case ELEMENTAL_ARCANE:
-					break;
-				case ELEMENTAL_EARTH:
-					break;
-				case ELEMENTAL_FIRE:
-					break;
-				case ELEMENTAL_WATER:
+				case ELEMENTAL:
 					break;
 			}
 		}
@@ -6466,15 +6446,7 @@ public class Body implements Serializable, XMLSaving {
 					case WOLF_MORPH:
 						coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
 						break;
-					case ELEMENTAL_AIR:
-						break;
-					case ELEMENTAL_ARCANE:
-						break;
-					case ELEMENTAL_EARTH:
-						break;
-					case ELEMENTAL_FIRE:
-						break;
-					case ELEMENTAL_WATER:
+					case ELEMENTAL:
 						break;
 				}
 			}
