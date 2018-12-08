@@ -67,7 +67,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.12.6";
+	public static final String VERSION_NUMBER = "0.2.12.9";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -89,7 +89,14 @@ public class Main extends Application {
 			
 		// If you're building this from github, please be aware that there will be a more detailed post on my blog soon
 		+ "<p>"
-			+ "Here's the slightly-delayed update to 0.2.12.5! I've added in dialogue for all of the citadel's scenes, as well as getting several bugs fixed. There's still some polishing work to do, but that will all be done for 0.3. ^^"
+			+ "There were a considerable amount more bugs in v0.2.12.6 than I expected, and it took quite a while to get them all fixed."
+			+ " As I then moved on to adding Lyssieth's content, I realised that I needed to add her succubus guard, Elizabeth, and in order to add her, I needed to get the elite guards' uniforms added."
+			+ " After doing all <i>that</i>, I found myself out of time in which to get the content added."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "As I really want v0.3 to signify that the new area is in, I've called this 0.2.12.9."
+			+ " I'm going to lose Saturday due to staying up so late trying to get this version finished in time, but I'll spend Sunday and Monday getting Lyssieth's content aded, and will release a hotfix/mini-update of v0.3 on Tuesday. ^^"
 		+ "</p>"
 			
 		+ "<p>"
@@ -100,6 +107,83 @@ public class Main extends Application {
 		+ "<br/>"
 
 		+ "<list>"
+			+ "<h6>v0.2.12.9</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added NPC 'Elizabeth' - the guard at Lyssieth's palace. Also started to update her dialogue - this will be finished for an upcoming patch.</ul>"
+			+"<ul>If your save is from a version prior to 0.2.12.6, the imp fortresses will all reset, as several things changed from then to now, so it all needs to be reset in order to work. The imp citadel should also reset if you cleared it using the quick 'Clear' button in versions prior to 0.2.12.6.</ul>"
+	
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed classpath issue causing game to not compile correctly. (#981 by Alaco)</ul>"
+			+"<ul>Fixed Rental Mommy & Rental Daddy t-shirt errors, which was causing the rental mommy encounter to throw errors. (#984 by CognitiveMist)</ul>"
+	
+			+"<li>Clothing:</li>"
+			+"<ul>Added colours 'midnight brown' and 'olive'.</ul>"
+			+"<ul>Added 'Lyssieth's Guard' set, which contains:</ul>"
+			+"<ul>Service dress tunic: Over-torso slot, feminine.</ul>"
+			+"<ul>Service dress hat: Head slot, feminine.</ul>"
+			+"<ul>Service dress skirt: Leg slot, feminine.</ul>"
+			+"<ul>Service dress shoes: Foot slot, feminine.</ul>"
+			+"<ul>Arcane revolver: Ranged, on-handed.</ul>"
+	
+			+"<li>Other:</li>"
+			+"<ul>Humans, demons, cat, dog, wolf, horse, and cow-morphs now have a 1% chance to have heterochromatic eyes. (Before it was just humans, who had a chance of 50%.)</ul>"
+			+"<ul>Added more detailed messages to any negative affection changes at the end of sex.</ul>"
+			+"<ul>Added several new item tags, allowing clothing mods to define fuckable nipple requirement, arm/leg hinderance, speech muffling, discarding on unequip, and equip during sex.</ul>"
+			+"<ul>Also added 'SEALS_AREA' variations for the 'PLUGS_AREA' cltohing tags. Sealing counts as sealing the orifice without being inserted into it.</ul>"
+			+"<ul>The strap-on, anal beads, clover clamps, realistic dildo, butt plugs, insertable dildo, and strapless dildo can now all be equipped on non-unique NPCs during sex.</ul>"
+			+"<ul>Wearing clothing with a 'PLUGS_VAGINA' tag is now detected and influences the wearer's orgasm descriptions.</ul>"
+			+"<ul>In order to fix a bug, all characters now have surnames, with generic characters having randomly-generated ones. Surnames can be seen in the character view screen.</ul>"
+			+"<ul>Offspring now inherit their mother's surname. If your surname is blank, your offspring will be given a random surnames. If you change your surname at the town hall, all of your offspring will have their surnames updated.</ul>"
+			+"<ul>You can now change your slave's surnames in their inspection screen.</ul>"
+			+"<ul>Improved map rendering performance.</ul>"
+			+"<ul>Non-spectating participants in non-masturbation sex scenes now gain experience for the 'Pure virgin' fetish if they have a vagina, end the scene while being a virgin, and at least one of their partners orgasmed.</ul>"
+			+"<ul>Added arcane essence cost of using/firing weapons to their tooltips (if non-zero).</ul>"
+			+"<ul>Breast feeding part of the 'giving birth' scene is now changed to bottle-feeding if your nipples are inaccessible, your nipples are not normally-shaped, or you have lactation content turned off.</ul>"
+	
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed grammatical errors in several sex actions.</ul>"
+			+"<ul>Fixed parsing issues in Submission imp attack dialogue.</ul>"
+			+"<ul>Fixed parser errors in imp citadel content.</ul>"
+			+"<ul>Fixed issue where NPCs would sometimes get stuck trying to remove clothing during sex.</ul>"
+			+"<ul>Heterochromatic eyes will no longer be generated with the same colour. (Although you can still make them the same colour via Kate's shop or demon/slime transformations.)</ul>"
+			+"<ul>Fixed formatting error in eye descriptions.</ul>"
+			+"<ul>Fixed repetitive mouth-knotting orgasm description.</ul>"
+			+"<ul>Fixed incorrect descriptions of tests being performed on slaves in Lilaya's lab.</ul>"
+			+"<ul>Fixed error log being spammed by messages informing you that NPCs were returning null in some methods.</ul>"
+			+"<ul>Fixed rarity of unidentified clothing being displayed in the dye preview window.</ul>"
+			+"<ul>Friendly occupants will no longer get a job as 'an unemployed', and any occupants already affected by this in your save will start looking for a new job when you load in (unemployed occupants that have already moved out will get a new job).</ul>"
+			+"<ul>Fixed damage tooltips showing different values before and after buying a weapon from a shop. (When weapon is not held by you, tooltip now displays both the holder's and your damage.)</ul>"
+			+"<ul>Fixed issue where returning to a Hyorlyss's keep after gaining her key would throw a background error and softlock the game. </ul>"
+			+"<ul>Fixed issue where imps could be transformed to be taller to the point where they were classified as demons, and vice-versa.</ul>"
+			+"<ul>Added some error handling to catch the unusual case of an NPC's name being loaded in as an empty String.</ul>"
+			+"<ul>Fixed issue with rarity detection in clothing sometimes throwing a background error.</ul>"
+			+"<ul>Fixed issue with Jhortrax (the male imp fortress leader) not inserting dildo after combat loss sex scene. (Thanks to 'asymptote' for details on how to fix this.)</ul>"
+			+"<ul>Fixed issue where trying to open the debug menu in the main menu would throw background errors and break teh game until restarted.</ul>"
+			+"<ul>Fixed requirement of 'Tameshigiri' action in Jhortrax's imp fortress to take your weapon's modified damage into account.</ul>"
+			+"<ul>Fixed issue where saves wouldn't load into 0.2.12.6 correctly due to Youko surnames being blank.</ul>"
+			+"<ul>Fixed incorrect descriptions in alleyway succubus quick transform breast size tooltips.</ul>"
+			+"<ul>Fixed issue with some clothing items (such as the croptop) not concealing slots correctly.</ul>"
+			+"<ul>Fixed incorrect effects description of Biojuice Canister.</ul>"
+			+"<ul>Fixed slime encyclopedia entry not working.</ul>"
+			+"<ul>Fixed victory in Wolfgang & Karl's fight not dropping any items.</ul>"
+			+"<ul>Fixed bug where spectators in sex were using incorrect actions (which were being drawn from the available actions of non-spectators).</ul>"
+			+"<ul>Defeating the imps in the citadel now correctly sets the 'imps defeated' flag, resolving issues related to the youko still being in her laboratory, imps guards still being in the citadel, and the 'challenge' action remaining available.</ul>"
+			+"<ul>Added missing dialogue after citadel's imp defeat sex scene.</ul>"
+			+"<ul>Fixed a couple of issues with imp fortress's demon leaders not returning to their keeps.</ul>"
+			+"<ul>Fixed game freezing if you lost to imp fortress gate guards, or had sex with the gate guards, and were then thrown out.</ul>"
+			+"<ul>Fixed getting stuck when asking Lyssieth's gate guards about their uniforms.</ul>"
+			+"<ul>Fixed issue with clubbers spawning in the night club having their home tile being set as the very bottom-left of Dominion's street tiles. (This will also retroactively fix all clubbers with this issue.)</ul>"
+			+"<ul>Fixed item entries in the encyclopedia being lost between saves.</ul>"
+			+"<ul>Self-impregnations now count offspring as just mothered, not both mothered and fathered, in the pregnancy stats screen.</ul>"
+			+"<ul>Self-milking should now correctly take into account milking room upgrades. Also added stats into the milking room upgrades info to let you know exactly what the base maximum output per hour is.</ul>"
+			+"<ul>Fixed issue where assigning slaves to be publicly used could sometimes result in an NPC being placed out-of-bounds of the map, which would cause your save file to not load correctly.</ul>"
+			+"<ul>As a temporary fix to enslavement dialogue bugs, the imps inside fortresses & the citadel can no longer be enslaved. I will add support for enslaving them later, but for now, you can get just imp slaves from the tunnels.</ul>"
+			+"<ul>Duplicate arcane keys and key-chain necklaces will be removed when you load in to 0.3. Lyssieth's ring will also be removed, if it should have been.</ul>"
+			+"<ul>Fixed modded clothing using the new shortened equip descriptions format using the 'rough' variant in non-rough scenes, and vice-versa.</ul>"
+			+"<ul>Fixed issue where your companion would be counted as a submissive, instead of dominant, spectator when choosing 'Solo sex' after beating imp groups.</ul>"
+		
+			+"<br/>"
+			
 			+ "<h6>v0.2.12.6</h6>"
 			+"<li>Gameplay:</li>"
 			+"<ul>Added all dialogue for solo and companion scenes in the imp citadel.</ul>"
