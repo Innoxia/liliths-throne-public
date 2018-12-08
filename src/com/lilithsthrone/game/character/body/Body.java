@@ -1343,7 +1343,7 @@ public class Body implements Serializable, XMLSaving {
 		}
 
 
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.5")) { // FIXME update version after merging
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) { // FIXME update version after merging
 			// Convert all sizes from inch to cm
 			importedHair.length *= 2.54;
 			importedHorn.length *= 2.54;
