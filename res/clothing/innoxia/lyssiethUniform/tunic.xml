@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>5000</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[service dress tunic]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[service dress tunics]]></namePlural> 
+		
+		<description><![CDATA[A four pocket officer's service dress tunic, complete with metal buttons, shoulder rank pips, and a cord lanyard. This style of uniform is worn only by Lyssieth's elite guards.]]></description> 
+		
+		<physicalResistance>1</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>TORSO_OVER</slot> 
+		
+		<rarity>EPIC</rarity> 
+		
+		<clothingSet>LYSSIETH_GUARD</clothingSet>
+		
+		<clothingSet/> 
+		
+		<imageName>tunic.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit>10</enchantmentLimit>
+		
+		<effects> 
+            <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_LUST" timer="0"/>
+            <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_LUST" timer="0"/>
+            <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_PHYSICAL" timer="0"/>
+            <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_PHYSICAL" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked/>
+				
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType> 
+				
+				<clothingAccessRequired/>
+				
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_OLIVE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_PURPLE_VERY_DARK</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags/>
+	</coreAttributes>
+
+	
+</clothing>

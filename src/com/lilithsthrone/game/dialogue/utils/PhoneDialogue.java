@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -620,17 +621,21 @@ public class PhoneDialogue {
 				+"<div class='container-full-width'>"
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Racial values</h6>");
 			
-			for(Race race : Race.values()) {
-				if(race!=Race.NONE) {
+			List<Attribute> encounteredAttributes = new ArrayList<>();
+			for(Subspecies subspecies : Subspecies.values()) {
+				Attribute damageModifier = subspecies.getDamageMultiplier();
+				if(!encounteredAttributes.contains(damageModifier)) {
+					Attribute resistanceModifier = subspecies.getResistanceMultiplier();
 					UtilText.nodeContentSB.append(
-							getAttributeBox(Main.game.getPlayer(), race.getDamageMultiplier(),
-									Util.capitaliseSentence(race.getName())+" Damage:<br/>"
-									+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getDamageMultiplier()), race.getDamageMultiplier().getUpperLimit()))+"%</b>",
+							getAttributeBox(Main.game.getPlayer(), damageModifier,
+									Util.capitaliseSentence(damageModifier.getName())+":<br/>"
+									+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(damageModifier), damageModifier.getUpperLimit()))+"%</b>",
 									true)
-							+ getAttributeBox(Main.game.getPlayer(), race.getResistanceMultiplier(),
-									Util.capitaliseSentence(race.getName())+" Resistance:<br/>"
-									+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getResistanceMultiplier()), race.getResistanceMultiplier().getUpperLimit())+"%</b>",
+							+ getAttributeBox(Main.game.getPlayer(), resistanceModifier,
+									Util.capitaliseSentence(resistanceModifier.getName())+":<br/>"
+									+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(resistanceModifier), resistanceModifier.getUpperLimit())+"%</b>",
 									true));
+					encounteredAttributes.add(damageModifier);
 				}
 			}
 			
@@ -1002,7 +1007,7 @@ public class PhoneDialogue {
 			output.append(word_one);
 			output.append("<br/>");
 			output.append("<b style='color:").append(color).append(";'>");
-			  output.append(word_two);
+			output.append(word_two);
 			output.append("</b>");
 			output.append("<br/>");
 			output.append(count);
@@ -1049,16 +1054,19 @@ public class PhoneDialogue {
 		@Override
 		public String getContent() {
 			
-			int sonsBirthed=0, daughtersBirthed=0,
-					sonsFathered=0, daughtersFathered=0;
+			int sonsBirthed=0;
+			int daughtersBirthed=0;
+			int sonsFathered=0;
+			int daughtersFathered=0;
 			int childrenMet = 0;
+			
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
 				daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 			}
 			for (Litter litter : Main.game.getPlayer().getLittersFathered()){
-				sonsFathered+=litter.getSonsFromMother()+litter.getSonsFromFather();
-				daughtersFathered+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
+				sonsFathered+=(litter.isSelfImpregnation()?0:litter.getSonsFromMother()+litter.getSonsFromFather());
+				daughtersFathered+=(litter.isSelfImpregnation()?0:litter.getDaughtersFromMother()+litter.getDaughtersFromFather());
 			}
 			
 			UtilText.nodeContentSB.setLength(0);
@@ -1540,7 +1548,7 @@ public class PhoneDialogue {
 						}
 					};
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+Main.game.getPlayer().getCharactersEncountered().get(index - 1)+") returning null in method: CONTACTS_CHARACTER.getResponse()");
+					Util.logGetNpcByIdError("CONTACTS_CHARACTER.getResponse()", Main.game.getPlayer().getCharactersEncountered().get(index - 1));
 					return null;
 				}
 			
@@ -1803,40 +1811,59 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	
-	private static List<Subspecies> racesDiscovered = new ArrayList<>();
-	private static String title, content;
+
+	private static List<Race> racesDiscovered = new ArrayList<>();
+	private static List<Subspecies> subspeciesDiscovered = new ArrayList<>();
+	private static Race raceSelected;
+	private static Subspecies subspeciesSelected;
+	private static StringBuilder subspeciesSB = new StringBuilder();
 	
 	public static void resetContentForRaces() {
-		title = "Races";
-		StringBuilder contentSB = new StringBuilder("<p style='text-align:center;'>You have encountered the following races in your travels:</p>");
 		
-		racesDiscovered.clear();
+		subspeciesDiscovered.clear();
 		
 		for (Subspecies subspecies : Subspecies.values()) {
 			if(Main.getProperties().isRaceDiscovered(subspecies)) {
-				racesDiscovered.add(subspecies);
-				contentSB.append("<p style='text-align:center;'><b style='color:"+subspecies.getColour(null).toWebHexString()+";'>" + Util.capitaliseSentence(subspecies.getName(null)) + "</b></p>");
+				Race race = subspecies.getRace();
+				if(!racesDiscovered.contains(race)) {
+					racesDiscovered.add(race);
+				}
+				subspeciesDiscovered.add(subspecies);
 			}
 		}
 		
-		racesDiscovered.sort((a, b) -> a.getRace().getName().compareTo(b.getRace().getName()));
+		racesDiscovered.sort((a, b) -> a.getName().compareTo(b.getName()));
+		subspeciesDiscovered.sort((a, b) -> a.getName(null).compareTo(b.getName(null)));
 		
-		content = contentSB.toString();
 	}
 
-	private static StringBuilder raceSB = new StringBuilder();
 	public static final DialogueNodeOld RACES = new DialogueNodeOld("Discovered races", "View discovered races", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public String getLabel() {
-			return title;
-		}
-
-		@Override
 		public String getContent() {
-			return content;
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p style='text-align:center;'>"
+						+ "You have encountered the following races in your travels:<br/>"
+						+ "(Discovered races are [style.boldGood(highlighted)], while undiscovered races are [style.colourDisabled(greyed out)].)"
+					+ "</p>");
+			List<Race> sortedRaces = new ArrayList<>();
+			Collections.addAll(sortedRaces, Race.values());
+			sortedRaces.remove(Race.NONE);
+			sortedRaces.sort((r1, r2) -> r1.getName().compareTo(r2.getName()));
+			for(Race race : sortedRaces) {
+				UtilText.nodeContentSB.append("<div style='box-sizing: border-box; text-align:center; width:50%; padding:8px; margin:0; float:left;'>");
+				if(racesDiscovered.contains(race)) {
+					UtilText.nodeContentSB.append("<b style='color:"+race.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(race.getName()) + "</b>");
+				} else {
+					UtilText.nodeContentSB.append("[style.colourDisabled(" + Util.capitaliseSentence(race.getName()) + ")]");
+				}
+				UtilText.nodeContentSB.append("</div>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
@@ -1845,81 +1872,141 @@ public class PhoneDialogue {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
 			} else if (index <= racesDiscovered.size()) {
-				return new Response(Util.capitaliseSentence(racesDiscovered.get(index - 1).getName(null)),
-						"Take a detailed look at what " + racesDiscovered.get(index - 1).getNamePlural(null) + " are like.",
-						RACES){
+				return new Response(Util.capitaliseSentence(racesDiscovered.get(index - 1).getName()),
+						"Take a look at all the subspecies of the race: '" + racesDiscovered.get(index - 1).getName() + "'",
+						SUBSPECIES){
 					@Override
 					public void effects() {
-						Subspecies subspecies = racesDiscovered.get(index - 1);
-						Race race = subspecies.getRace();
-						
-						Body femaleBody = CharacterUtils.generateBody(null, Gender.F_V_B_FEMALE, subspecies, RaceStage.GREATER);
-						Body maleBody = CharacterUtils.generateBody(null, Gender.M_P_MALE, subspecies, RaceStage.GREATER);
-						
-						title = Util.capitaliseSentence(subspecies.getName(null));
-						raceSB.setLength(0);
-						
-						raceSB.append(
-							"<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
-								+ "<p style='width:100%; text-align:center;'><b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(null))+"</b><br/>"
-										+ "Average stats</p>"
-								+ "<table align='center'>"
-									+ "<tr>"
-										+ "<td>Height (cm)</td>"
-										+ "<td>"+femaleBody.getHeightValue()+"</td>"
-										+ "<td>"+maleBody.getHeightValue()+"</td>"
-									+ "</tr>"
-									+ "<tr>"
-										+ "<td>Femininity</td>"
-										+ "<td>"+femaleBody.getFemininity()+"</td>"
-										+ "<td>"+maleBody.getFemininity()+"</td>"
-									+ "</tr>"
-									+ "<tr>"
-										+ "<td>Breast size</td>"
-										+ "<td>"+(femaleBody.getBreast().getRawSizeValue()==0
-													?"Flat"
-													:femaleBody.getBreast().getSize()+"-cup")+"</td>"
-										+ "<td>"+(maleBody.getBreast().getRawSizeValue()==0
-													?"Flat"
-													:maleBody.getBreast().getSize()+"-cup")+"</td>"
-									+ "</tr>"
-									+ "<tr>"
-										+ "<td>Penis size (inches)</td>"
-										+ "<td>-</td>"
-										+ "<td>"+maleBody.getPenis().getRawSizeValue()+"</td>"
-									+ "</tr>"
-									+ "<tr>"
-										+ "<td>Vagina capacity</td>"
-										+ "<td>"+Util.capitaliseSentence(femaleBody.getVagina().getOrificeVagina().getCapacity().getDescriptor())+"</td>"
-										+ "<td>-</td>"
-									+ "</tr>"
-								+ "</table>"
-							+ "</div>");
-						
-						raceSB.append(
-								"<p>"
-									+ "<b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(null))+"</b>"
-									+ (Subspecies.getMainSubspeciesOfRace(race)==subspecies
-											?""
-											:" (Subspecies of <span style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</span>)")
-									+ "<br/>"
-									+ "Masculine: <span style='color:"+Femininity.valueOf(maleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularMaleName(null))+"</span>"
-									+ "<br/>"
-									+ "Feminine: <span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularFemaleName(null))+"</span>"
-									+ "<br/><br/>"
-									+ "<i>"+subspecies.getDescription(null)+"</i>"
-								+ "</p>");
-						
-						
-						raceSB.append(
-								"<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
-									+subspecies.getBasicDescription(null)
-									+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)
-										?subspecies.getAdvancedDescription(null)
-										:"<p style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
-											+ "Further information can be discovered in books!"
-										+ "</p>"));
-						content = raceSB.toString();
+						raceSelected = racesDiscovered.get(index - 1);
+						subspeciesSelected = Subspecies.getMainSubspeciesOfRace(raceSelected);
+						if(!subspeciesDiscovered.contains(subspeciesSelected)) {
+							for(Subspecies sub : subspeciesDiscovered) {
+								if(sub.getRace()==raceSelected) {
+									subspeciesSelected = sub;
+									break;
+								}
+							}
+						}
+					}
+				};
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld SUBSPECIES = new DialogueNodeOld("Discovered races", "View discovered races", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return Util.capitaliseSentence(subspeciesSelected.getName(null));
+		}
+
+		@Override
+		public String getContent() {
+			subspeciesSB.setLength(0);
+			
+			Body femaleBody = CharacterUtils.generateBody(null, Gender.F_V_B_FEMALE, subspeciesSelected, RaceStage.GREATER);
+			Body maleBody = CharacterUtils.generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
+			
+			subspeciesSB.append(
+				"<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
+					+ "<p style='width:100%; text-align:center;'><b style='color:"+subspeciesSelected.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getName(null))+"</b><br/>"
+							+ "Average stats</p>"
+					+ "<table align='center'>"
+						+ "<tr>"
+							+ "<td>Height (cm)</td>"
+							+ "<td>"+femaleBody.getHeightValue()+"</td>"
+							+ "<td>"+maleBody.getHeightValue()+"</td>"
+						+ "</tr>"
+						+ "<tr>"
+							+ "<td>Femininity</td>"
+							+ "<td>"+femaleBody.getFemininity()+"</td>"
+							+ "<td>"+maleBody.getFemininity()+"</td>"
+						+ "</tr>"
+						+ "<tr>"
+							+ "<td>Breast size</td>"
+							+ "<td>"+(femaleBody.getBreast().getRawSizeValue()==0
+										?"Flat"
+										:femaleBody.getBreast().getSize().getCupSizeName()+"-cup")+"</td>"
+							+ "<td>"+(maleBody.getBreast().getRawSizeValue()==0
+										?"Flat"
+										:maleBody.getBreast().getSize().getCupSizeName()+"-cup")+"</td>"
+						+ "</tr>"
+						+ "<tr>"
+							+ "<td>Penis size (inches)</td>"
+							+ "<td>-</td>"
+							+ "<td>"+maleBody.getPenis().getRawSizeValue()+"</td>"
+						+ "</tr>"
+						+ "<tr>"
+							+ "<td>Vagina capacity</td>"
+							+ "<td>"+Util.capitaliseSentence(femaleBody.getVagina().getOrificeVagina().getCapacity().getDescriptor())+"</td>"
+							+ "<td>-</td>"
+						+ "</tr>"
+					+ "</table>"
+				+ "</div>"
+					
+				+"<p>"
+					+ "<b style='color:"+subspeciesSelected.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getName(null))+"</b>"
+					+ (Subspecies.getMainSubspeciesOfRace(raceSelected)==subspeciesSelected
+							?" ([style.colourGood(Core)] subspecies of <span style='color:"+raceSelected.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceSelected.getName())+"</span>)"
+							:" (Subspecies of <span style='color:"+raceSelected.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceSelected.getName())+"</span>)")
+					+ "<br/>"
+					+ "Masculine: <span style='color:"+Femininity.valueOf(maleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getSingularMaleName(null))+"</span>"
+					+ "<br/>"
+					+ "Feminine: <span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getSingularFemaleName(null))+"</span>"
+					+ "<br/><br/>"
+					+ "<i>"+subspeciesSelected.getDescription(null)+"</i>"
+				+ "</p>"
+					
+				+"<h6>"+Util.capitaliseSentence(raceSelected.getName())+" Lore</h6>"
+					+subspeciesSelected.getBasicDescription(null)
+					+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspeciesSelected)
+						?subspeciesSelected.getAdvancedDescription(null)
+						:"<p style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+							+ "Further information can be discovered in books!"
+						+ "</p>"));
+			
+			return subspeciesSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			List<Subspecies> raceSubspecies = Subspecies.getSubspeciesOfRace(raceSelected);
+			
+			if (index == 0) {
+				return new Response("Back", "Return to the race selection screen.", RACES);
+			
+			} else if (index <= raceSubspecies.size()) {
+				Subspecies indexSubspecies = raceSubspecies.get(index - 1);
+				if(!subspeciesDiscovered.contains(indexSubspecies)) {
+					return new Response(Util.capitaliseSentence(indexSubspecies.getName(null)),
+							"You haven't discovered this subspecies yet!",
+							null);
+				}
+				return new Response(Util.capitaliseSentence(indexSubspecies.getName(null)),
+						"Take a detailed look at what " + indexSubspecies.getNamePlural(null) + " are like."
+						+ (Subspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies
+							?"<br/>This is the [style.colourGood(core)] "+raceSelected.getName()+" subspecies."
+							:""),
+						SUBSPECIES){
+					@Override
+					public Colour getHighlightColour() {
+						if(Subspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies) {
+							return Colour.GENERIC_GOOD;
+						}
+						return super.getHighlightColour();
+					}
+					@Override
+					public void effects() {
+						subspeciesSelected = indexSubspecies;
 					}
 				};
 			

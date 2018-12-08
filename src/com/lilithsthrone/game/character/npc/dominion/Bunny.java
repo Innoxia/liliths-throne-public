@@ -64,7 +64,7 @@ public class Bunny extends NPC {
 	}
 	
 	public Bunny(boolean isImported) {
-		super(isImported, new NameTriplet("Bunny"),
+		super(isImported, new NameTriplet("Bunny"), "Hasenkamp",
 				"Bunny is one of the two prostitutes Angel has working for her."
 						+ " Just like her older sister, Loppy, Bunny is a rabbit-morph, and seems to genuinely love her line of work.",
 				19, Month.FEBRUARY, 13,

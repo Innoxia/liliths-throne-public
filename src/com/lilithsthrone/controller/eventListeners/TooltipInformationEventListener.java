@@ -53,15 +53,22 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.12
  * @author Innoxia
  */
 public class TooltipInformationEventListener implements EventListener {
-	private String title, description;
-	private boolean extraAttributes = false, weather = false, protection = false, tattoo = false, copyInformation=false;
+	private String title;
+	private String description;
+	
+	private boolean extraAttributes = false;
+	private boolean weather = false;
+	private boolean protection = false;
+	private boolean copyInformation = false;
+	
 	private GameCharacter owner;
 	private StatusEffect statusEffect;
-	private Perk perk, levelUpPerk;
+	private Perk perk;
+	private Perk levelUpPerk;
 	private int perkRow;
 	private Fetish fetish;
 	private boolean fetishExperience = false;
@@ -74,6 +81,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private LoadedEnchantment loadedEnchantment;
 	private static StringBuilder tooltipSB  = new StringBuilder();
 	
+	private int descriptionHeightOverride;
 	
 	private static final int LINE_HEIGHT= 16;
 
@@ -846,18 +854,6 @@ public class TooltipInformationEventListener implements EventListener {
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
-		} else if (tattoo) {
-
-			Main.mainController.setTooltipSize(360, 100);
-
-			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title'>Tattoos</div>"
-					+ "<div class='subTitle'>"
-					+ "TODO"
-					+"</div>");
-
-			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
-
 		} else if (copyInformation) {
 
 			Main.mainController.setTooltipSize(360, 170);
@@ -945,17 +941,17 @@ public class TooltipInformationEventListener implements EventListener {
 						"<div class='title'>"+title+"</div>"));
 				
 			} else if(title==null || title.isEmpty()) {
-				Main.mainController.setTooltipSize(360, 200);
+				Main.mainController.setTooltipSize(360, descriptionHeightOverride>0?descriptionHeightOverride+64+32:200);
 
 				Main.mainController.setTooltipContent(UtilText.parse(
-						"<div class='description' style='height:176px;'>"+description+"</div>"));
+						"<div class='description' style='height:"+(descriptionHeightOverride>0?(descriptionHeightOverride+26):"176")+"px;'>"+description+"</div>"));
 				
 			} else {
-				Main.mainController.setTooltipSize(360, 175);
+				Main.mainController.setTooltipSize(360, descriptionHeightOverride>0?descriptionHeightOverride+64+32:175);
 
 				Main.mainController.setTooltipContent(UtilText.parse(
 						"<div class='title'>"+title+"</div>"
-						+ "<div class='description'>" + description + "</div>"));
+						+ "<div class='description' "+(descriptionHeightOverride>0?"style='height:"+(descriptionHeightOverride+26)+"px;'":"")+">" + description + "</div>"));
 			}
 		}
 
@@ -1004,6 +1000,13 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.title = title;
 		this.description = description;
+
+		return this;
+	}
+
+	public TooltipInformationEventListener setInformation(String title, String description, int descriptionHeightOverride) {
+		setInformation(title, description);
+		this.descriptionHeightOverride = descriptionHeightOverride;
 
 		return this;
 	}
@@ -1113,14 +1116,6 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 	
-	public TooltipInformationEventListener setTattoo(GameCharacter owner) {
-		resetFields();
-		this.owner = owner;
-		tattoo=true;
-
-		return this;
-	}
-	
 	public TooltipInformationEventListener setCopyInformation() {
 		resetFields();
 		copyInformation = true;
@@ -1158,9 +1153,9 @@ public class TooltipInformationEventListener implements EventListener {
 		spellUpgrade = null;
 		attribute = null;
 		protection=false;
-		tattoo=false;
 		copyInformation=false;
 		concealedSlot=null;
 		loadedEnchantment=null;
+		descriptionHeightOverride = 0;
 	}
 }

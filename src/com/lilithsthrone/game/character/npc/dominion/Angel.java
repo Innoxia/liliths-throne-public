@@ -67,7 +67,7 @@ public class Angel extends NPC {
 	}
 	
 	public Angel(boolean isImported) {
-		super(isImported, new NameTriplet("Angel"),
+		super(isImported, new NameTriplet("Angel"), "Cox",
 				"Angel is the owner of the brothel 'Angel's Kiss', located in Dominion's Red-light district."
 						+ " A beautiful, blonde-haired human, Angel acts in a friendly and professional manner at all times.",
 				34, Month.JANUARY, 4,

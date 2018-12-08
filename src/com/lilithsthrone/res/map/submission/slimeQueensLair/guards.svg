@@ -1,132 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100%"
-   height="100%"
-   viewBox="0 0 64.000001 64.000001"
-   id="svg4311"
-   version="1.1"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="guards.svg">
-  <defs
-     id="defs4313">
-    <linearGradient
-       inkscape:collect="always"
-       id="guardsGradient">
-      <stop
-         style="stop-color:#ff5555;stop-opacity:1"
-         offset="0"
-         id="stop4184" />
-      <stop
-         style="stop-color:#ff8080;stop-opacity:1"
-         offset="1"
-         id="stop4186" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#guardsGradient"
-       id="linearGradient15"
-       x1="29.499998"
-       y1="1025.4872"
-       x2="44.125"
-       y2="1003.3622"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.2884366,0,0,1.290513,-9.2250812,-296.31254)" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="-232.28927"
-     inkscape:cy="194.25804"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata4316">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-988.36216)"
-     style="display:inline">
-    <ellipse
-       ry="30.381458"
-       rx="30.382944"
-       cy="1020.3683"
-       cx="32.000488"
-       id="ellipse4146"
-       style="display:inline;fill:url(#linearGradient15);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.4000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <g
-       id="g853">
-      <path
-         inkscape:connector-curvature="0"
-         id="path844"
-         d="m 14.374999,1027.1747 13.1875,8.5625"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-      <path
-         sodipodi:nodetypes="csscc"
-         inkscape:connector-curvature="0"
-         id="path846"
-         d="m 19.492416,1031.2599 -4.963388,5.1692 c -1.983548,2.0658 1.945699,3.9112 2.873699,1.9513 l 3.527189,-6.2455 z"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="cscc"
-         inkscape:connector-curvature="0"
-         id="path848"
-         d="m 22.562499,1032.1122 c 0,0 22.14322,-30.9526 20.499999,-32 -1.571482,-1.00171 -23.844669,29.846 -23.844669,29.846 z"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="guardsGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#guardsGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <g stroke="#fff">
+            <path fill="none" stroke-linecap="round" stroke-width="3" d="M14.375 1027.175l13.187 8.562"/>
+            <path fill="#fff" fill-rule="evenodd" d="M19.492 1031.26l-4.963 5.17c-1.984 2.065 1.946 3.91 2.874 1.95l3.527-6.245zM22.562 1032.112s22.144-30.952 20.5-32c-1.571-1.002-23.844 29.846-23.844 29.846z"/>
+        </g>
+        <g stroke="#fff">
+            <path fill="none" stroke-linecap="round" stroke-width="3" d="M50.56 1027.359l-13.188 8.562"/>
+            <path fill="#fff" fill-rule="evenodd" d="M45.442 1031.444l4.964 5.17c1.983 2.065-1.946 3.91-2.874 1.95l-3.527-6.245zM42.372 1032.296s-22.143-30.952-20.5-32c1.572-1.001 23.845 29.846 23.845 29.846z"/>
+        </g>
     </g>
-    <g
-       transform="matrix(-1,0,0,1,64.934694,0.18403653)"
-       style="display:inline"
-       id="g853-6">
-      <path
-         inkscape:connector-curvature="0"
-         id="path844-1"
-         d="m 14.374999,1027.1747 13.1875,8.5625"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="csscc"
-         inkscape:connector-curvature="0"
-         id="path846-7"
-         d="m 19.492416,1031.2599 -4.963388,5.1692 c -1.983548,2.0658 1.945699,3.9112 2.873699,1.9513 l 3.527189,-6.2455 z"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="cscc"
-         inkscape:connector-curvature="0"
-         id="path848-0"
-         d="m 22.562499,1032.1122 c 0,0 22.14322,-30.9526 20.499999,-32 -1.571482,-1.00171 -23.844669,29.846 -23.844669,29.846 z"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    </g>
-  </g>
 </svg>

@@ -9,7 +9,7 @@
     <description><![CDATA[A simple leather belt that gets better with age.]]></description>
     
     <physicalResistance>1</physicalResistance>
-    <femininity>MASCULINE</femininity>
+    <femininity>ANDROGYNOUS</femininity>
     <slot>HIPS</slot>
     <rarity>COMMON</rarity>
     

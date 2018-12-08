@@ -93,6 +93,40 @@ public enum WorldType {
 					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
 					new Value<>(new Color(0xffff00), PlaceType.GENERIC_HOLDING_CELL),
 					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))),
+
+	MUSEUM("Museum",
+			Colour.BASE_BROWN,
+			1,
+			"/com/lilithsthrone/res/map/prologue/museum.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xff0000), PlaceType.MUSEUM_ENTRANCE),
+					new Value<>(new Color(0x8000ff), PlaceType.MUSEUM_CROWDS),
+					new Value<>(new Color(0x0080ff), PlaceType.MUSEUM_OFFICE),
+					new Value<>(new Color(0xffff00), PlaceType.MUSEUM_STAGE),
+					new Value<>(new Color(0xff8000), PlaceType.MUSEUM_ROOM),
+					new Value<>(new Color(0x00ff00), PlaceType.MUSEUM_STAIRS),
+					new Value<>(new Color(0x808080), PlaceType.MUSEUM_LOBBY))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+
+	MUSEUM_LOST("Museum",
+			Colour.BASE_BROWN,
+			1,
+			"/com/lilithsthrone/res/map/prologue/museum_lost.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xff8000), PlaceType.MUSEUM_ROOM),
+					new Value<>(new Color(0x00ff00), PlaceType.MUSEUM_MIRROR),
+					new Value<>(new Color(0x808080), PlaceType.MUSEUM_CORRIDOR))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 	
 	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home",
 			Colour.BASE_BLUE_LIGHT,
@@ -341,6 +375,29 @@ public enum WorldType {
 					new Value<>(new Color(0x65b0c9), PlaceType.SUBMISSION_IMP_TUNNELS_MALES)
 					)),
 
+
+	LYSSIETH_PALACE("Lyssieth's Palace",
+			Colour.BASE_PURPLE,
+			1,
+			"/com/lilithsthrone/res/map/submission/lyssiethsPalace/groundFloor.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.LYSSIETH_PALACE_CORRIDOR),
+					new Value<>(new Color(0x404040), PlaceType.LYSSIETH_PALACE_WINDOWS),
+
+					new Value<>(new Color(0x00ff00), PlaceType.LYSSIETH_PALACE_ENTRANCE),
+					new Value<>(new Color(0xff80ff), PlaceType.LYSSIETH_PALACE_ROOM),
+					new Value<>(new Color(0xff8000), PlaceType.LYSSIETH_PALACE_HALL),
+					new Value<>(new Color(0x8000ff), PlaceType.LYSSIETH_PALACE_THRONE_ROOM),
+					
+					new Value<>(new Color(0xff0000), PlaceType.LYSSIETH_PALACE_STAIRS_1),
+					new Value<>(new Color(0xff0080), PlaceType.LYSSIETH_PALACE_STAIRS_2),
+
+					new Value<>(new Color(0x80ff00), PlaceType.LYSSIETH_PALACE_TREASURY_DOOR),
+					new Value<>(new Color(0xffff00), PlaceType.LYSSIETH_PALACE_TREASURY)
+					
+					)),
+	
 	IMP_FORTRESS_ALPHA("Imp Fortress",
 			Colour.BASE_CRIMSON,
 			1,
@@ -349,7 +406,12 @@ public enum WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_ALPHA_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_ALPHA_ENTRANCE),
-					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_ALPHA_KEEP))),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_ALPHA_KEEP))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 
 	IMP_FORTRESS_DEMON("Imp Citadel",
 			Colour.BASE_PURPLE_DARK,
@@ -361,14 +423,16 @@ public enum WorldType {
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_DEMON_ENTRANCE),
 					new Value<>(new Color(0x65b0c9), PlaceType.FORTRESS_DEMON_WELL),
 					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_DEMON_KEEP),
-					new Value<>(new Color(0x808000), PlaceType.FORTRESS_DEMON_KEEP_THRONE_ROOM),
 					new Value<>(new Color(0x8000ff), PlaceType.FORTRESS_DEMON_CELLS),
 					
 					new Value<>(new Color(0x80ff00), PlaceType.FORTRESS_LAB),
-					new Value<>(new Color(0xff80ff), PlaceType.FORTRESS_DEMON_TREASURY_DOOR),
 					
-					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_TREASURY),
-					new Value<>(new Color(0xffff00), PlaceType.FORTRESS_DEMON_TREASURY_CLOTHES))),
+					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_TREASURY))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 
 	IMP_FORTRESS_FEMALES("Imp Fortress",
 			Colour.BASE_PINK,
@@ -378,7 +442,12 @@ public enum WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_FEMALES_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_FEMALES_ENTRANCE),
-					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_FEMALES_KEEP))),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_FEMALES_KEEP))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 
 	IMP_FORTRESS_MALES("Imp Fortress",
 			Colour.BASE_BLUE,
@@ -388,7 +457,12 @@ public enum WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_MALES_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_MALES_ENTRANCE),
-					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_MALES_KEEP))),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_MALES_KEEP))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 
 	BAT_CAVERNS("Bat Caverns",
 			Colour.BASE_BLACK,

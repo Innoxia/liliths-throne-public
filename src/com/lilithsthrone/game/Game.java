@@ -33,6 +33,7 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelD
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.*;
 import com.lilithsthrone.game.dialogue.utils.*;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -563,7 +564,7 @@ public class Game implements Serializable, XMLSaving {
 									&& !worldType.equals("IMP_FORTRESS_MALES"))
 									|| !Main.isVersionOlderThan(loadingVersion, "0.2.11"))
 							&& (!worldType.equals("IMP_FORTRESS_DEMON")
-									|| !Main.isVersionOlderThan(loadingVersion, "0.2.12"))
+									|| !Main.isVersionOlderThan(loadingVersion, "0.2.12.5"))
 							&& (!worldType.equals("DOMINION") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("HARPY_NEST") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
@@ -592,7 +593,7 @@ public class Game implements Serializable, XMLSaving {
 						gen.worldGeneration(WorldType.IMP_FORTRESS_FEMALES);
 						gen.worldGeneration(WorldType.IMP_FORTRESS_MALES);
 					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.12")) {
+					if(Main.isVersionOlderThan(loadingVersion, "0.2.12.5")) {
 						gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON);
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.2")) {
@@ -796,11 +797,42 @@ public class Game implements Serializable, XMLSaving {
 					Main.game.getKruger().setAffection(Main.game.getKalahari(), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 				}
 
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressDemonLeader.class))) {
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressAlphaLeader.class))) {
 					Main.game.addNPC(new FortressAlphaLeader(), false);
+				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressDemonLeader.class))) {
 					Main.game.addNPC(new FortressDemonLeader(), false);
+				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressFemalesLeader.class))) {
 					Main.game.addNPC(new FortressFemalesLeader(), false);
+				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressMalesLeader.class))) {
 					Main.game.addNPC(new FortressMalesLeader(), false);
+				}
+
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SubmissionCitadelArcanist.class))) {
+					Main.game.addNPC(new SubmissionCitadelArcanist(), false);
+				}
+
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lyssieth.class))) {
+					Main.game.addNPC(new Lyssieth(), false);
+
+					Main.game.getLilaya().setAffection(Main.game.getLyssieth(), -60);
+					Main.game.getLilaya().setAffection(Main.game.getFortressDemonLeader(), 15);
+					Main.game.getLilaya().setMother(Main.game.getLyssieth());
+
+					Main.game.getFortressDemonLeader().setAffection(Main.game.getLyssieth(), -25);
+					Main.game.getFortressDemonLeader().setAffection(Main.game.getLilaya(), 35);
+					Main.game.getFortressDemonLeader().setMother(Main.game.getLyssieth());
+				}
+				
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Elizabeth.class))) {
+					Main.game.addNPC(new Elizabeth(), false);
+					Main.game.getElizabeth().setMother(Main.game.getLyssieth());
+
+					Main.game.getLyssieth().setAffection(Main.game.getLilaya(), 100);
+					Main.game.getLyssieth().setAffection(Main.game.getFortressDemonLeader(), 50);
+					Main.game.getLyssieth().setAffection(Main.game.getElizabeth(), 75);
 				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
@@ -870,7 +902,7 @@ public class Game implements Serializable, XMLSaving {
 					}
 				}
 				
-				if(Main.isVersionOlderThan(loadingVersion, "0.2.11.9")) { //Reset imp fortresses
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6")) { //Reset imp fortresses
 					ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
 					ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
 					ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
@@ -889,14 +921,53 @@ public class Game implements Serializable, XMLSaving {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_MALES);
 					}
 					
-					while(Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY)) {
-						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY));
-					}
+					Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY));
+					Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2));
+					Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
 				}
-				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.1")) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6") || (!Main.game.getFortressDemonLeader().isSlave() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated))) {
+					if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
+					}
 					ImpCitadelDialogue.resetFortress();
 				}
 				
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.9")) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId()) && npc.getHomeWorldLocation()==WorldType.DOMINION && !npc.hasJob()) {
+							npc.assignNewJob();
+						}
+						// Set surname to be the same as their mother's line:
+						if(npc.getSurname()==null || npc.getSurname().isEmpty()) {
+							GameCharacter mother = npc.getMother();
+							if(mother!=null) {
+								while(mother.getMother()!=null) {
+									mother = mother.getMother();
+								}
+								if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
+									npc.setSurname(mother.getSurname());
+								}
+							}
+						}
+					}
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
+					}
+					if(Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY));
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2));
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
+					}
+					while(Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY))>1) {
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY));
+					}
+					while(Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2))>1) {
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2));
+					}
+					while(Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3))>1) {
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
+					}
+				}
 				
 				Main.game.pendingSlaveInStocksReset = false;
 				
@@ -1149,7 +1220,26 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new FortressDemonLeader(), false);
 			addNPC(new FortressFemalesLeader(), false);
 			addNPC(new FortressMalesLeader(), false);
+
+			addNPC(new SubmissionCitadelArcanist(), false);
+
+			addNPC(new Lyssieth(), false);
+			addNPC(new Elizabeth(), false);
 			
+			getLilaya().setAffection(getLyssieth(), -60);
+			getLilaya().setAffection(getFortressDemonLeader(), 15);
+			getLilaya().setMother(getLyssieth());
+
+			getFortressDemonLeader().setAffection(getLyssieth(), -25);
+			getFortressDemonLeader().setAffection(getLilaya(), 35);
+			getFortressDemonLeader().setMother(getLyssieth());
+
+			getElizabeth().setMother(getLyssieth());
+			getElizabeth().setAffection(getLyssieth(), 100);
+
+			getLyssieth().setAffection(getLilaya(), 100);
+			getLyssieth().setAffection(getFortressDemonLeader(), 50);
+			getLyssieth().setAffection(getElizabeth(), 75);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1241,7 +1331,7 @@ public class Game implements Serializable, XMLSaving {
 					NPC occupant = (NPC) Main.game.getNPCById(id);
 					Main.game.getOccupancyUtil().dailyOccupantUpdate(occupant);
 				} catch(Exception e) {
-					System.err.println("Main.game.getNPCById("+id+") returning null in method: endTurn()");
+					Util.logGetNpcByIdError("endTurn()", id);
 				}
 			}
 			
@@ -2629,16 +2719,31 @@ public class Game implements Serializable, XMLSaving {
 	
 	public List<NPC> getCharactersTreatingCellAsHome(Cell cell) {
 		charactersHome.clear();
-		
-		for(NPC npc : NPCMap.values()) {
-			if(npc!=null
-					&& npc.getHomeWorldLocation()!=null
-					&& npc.getHomeWorldLocation()==cell.getType()
-					&& npc.getHomeLocation()!=null
-					&& npc.getHomeLocation().equals(cell.getLocation())) {
-				charactersHome.add(npc);
+
+		List<String> ids = cell.getCharactersHomeIds();
+		if(ids!=null) {
+			for(String id : ids) {
+				try {
+					GameCharacter character = getNPCById(id);
+					if(character instanceof NPC) {
+						charactersHome.add((NPC) character);
+					}
+				} catch (Exception e) {
+					System.err.println("Failed to load: "+id);
+//					e.printStackTrace();
+				}
 			}
 		}
+		
+//		for(NPC npc : NPCMap.values()) {
+//			if(npc!=null
+//					&& npc.getHomeWorldLocation()!=null
+//					&& npc.getHomeWorldLocation()==cell.getType()
+//					&& npc.getHomeLocation()!=null
+//					&& npc.getHomeLocation().equals(cell.getLocation())) {
+//				charactersHome.add(npc);
+//			}
+//		}
 
 		charactersHome.sort((c1, c2) ->
 				(c2.getLevel()-c1.getLevel())==0
@@ -2648,6 +2753,12 @@ public class Game implements Serializable, XMLSaving {
 		return charactersHome;
 	}
 	
+	public List<NPC> getCharactersPresent(WorldType worldType, PlaceType placeType) {
+		Cell cell = worlds.get(worldType).getCell(placeType);
+		
+		return getCharactersPresent(cell);
+	}
+	
 	public List<NPC> getCharactersPresent(Cell cell) {
 		return getCharactersPresent(cell.getType(), cell.getLocation());
 	}
@@ -2655,11 +2766,26 @@ public class Game implements Serializable, XMLSaving {
 	public List<NPC> getCharactersPresent(WorldType worldType, Vector2i location) {
 		charactersPresent.clear();
 		
-		for(NPC npc : NPCMap.values()) {
-			if(npc.getWorldLocation()==worldType && npc.getLocation().equals(location)) {
-				charactersPresent.add(npc);
+		List<String> ids = getWorlds().get(worldType).getCell(location).getCharactersPresentIds();
+		if(ids!=null) {
+			for(String id : ids) {
+				try {
+					GameCharacter character = getNPCById(id);
+					if(character instanceof NPC) {
+						charactersPresent.add((NPC) character);
+					}
+				} catch (Exception e) {
+					System.err.println("Failed to load: "+id);
+//					e.printStackTrace();
+				}
 			}
 		}
+		
+//		for(NPC npc : NPCMap.values()) {
+//			if(npc.getWorldLocation()==worldType && npc.getLocation().equals(location)) {
+//				charactersPresent.add(npc);
+//			}
+//		}
 		
 		charactersPresent.sort((c1, c2) ->
 				(c2.getLevel()-c1.getLevel())==0
@@ -2667,12 +2793,6 @@ public class Game implements Serializable, XMLSaving {
 					:(c2.getLevel()-c1.getLevel()));
 		
 		return charactersPresent;
-	}
-	
-	public List<NPC> getCharactersPresent(WorldType worldType, PlaceType placeType) {
-		Cell cell = worlds.get(worldType).getCell(placeType);
-		
-		return getCharactersPresent(cell);
 	}
 	
 	public String getWeatherImage() {
@@ -2791,6 +2911,25 @@ public class Game implements Serializable, XMLSaving {
 	
 	public int getHourOfDay() {
 		return (int) (getHour()%24);
+	}
+	
+	/**
+	 * @return The number of minutes that have passed in the current day.
+	 */
+	public int getDayMinutes() {
+		return (int) (getMinutesPassed()%(24*60));
+	}
+	
+	/**
+	 * @param desiredTime The targeted time, in minutes of the day. (i.e. a number from 0 to 1440)
+	 * @return The number of minutes it will take to reach this time, flowing over into the next day if necessary. Returned number will be at max 1439.
+	 */
+	public int getMinutesUntilTimeInMinutes(int desiredTime) {
+		int timeDifference = desiredTime - getDayMinutes();
+		if(timeDifference<0) {
+			timeDifference+=(24*60);
+		}
+		return timeDifference;
 	}
 	
 	public boolean isDayTime() {
@@ -3294,6 +3433,33 @@ public class Game implements Serializable, XMLSaving {
 			return null;
 		}
 	}
+
+	public NPC getSubmissionCitadelArcanist() {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(SubmissionCitadelArcanist.class));
+		} catch (Exception e) {
+			System.err.println("getSubmissionCitadelArcanist() returning null!");
+			return null;
+		}
+	}
+
+	public NPC getLyssieth() {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(Lyssieth.class));
+		} catch (Exception e) {
+			System.err.println("getLyssieth() returning null!");
+			return null;
+		}
+	}
+
+	public NPC getElizabeth() {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(Elizabeth.class));
+		} catch (Exception e) {
+			System.err.println("getElizabeth() returning null!");
+			return null;
+		}
+	}
 	
 	public NPC getGenericMaleNPC() {
 		try {
@@ -3450,6 +3616,10 @@ public class Game implements Serializable, XMLSaving {
 			NPCMap.put(npc.getId(), npc);
 		}
 		
+		// Set locations after the NPC has the correct id:
+		npc.setLocation(npc.getWorldLocation(), npc.getLocation(), false);
+		npc.setHomeLocation(npc.getHomeWorldLocation(), npc.getHomeLocation());
+		
 		return npc.getId();
 	}
 	
@@ -3485,7 +3655,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 			return banishNPC(npc);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+id+") returning null in method: banishNPC()");
+			Util.logGetNpcByIdError("banishNPC()", id);
 			return false;
 		}
 	}
@@ -3549,7 +3719,9 @@ public class Game implements Serializable, XMLSaving {
 		if(Main.game.getPlayer()==null) {
 			return true;
 		}
-		return Main.game.getPlayer().getWorldLocation()!=WorldType.EMPTY;
+		return Main.game.getPlayer().getWorldLocation()!=WorldType.EMPTY
+				&& Main.game.getPlayer().getWorldLocation()!=WorldType.MUSEUM
+					&& Main.game.getPlayer().getWorldLocation()!=WorldType.MUSEUM_LOST;
 	}
 
 	public boolean isPrologueFinished() {
@@ -3695,6 +3867,15 @@ public class Game implements Serializable, XMLSaving {
 	public boolean isAssHairEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.assHairContent);
 	}
+	
+	public boolean isVoluntaryNTREnabled() {
+		return Main.getProperties().hasValue(PropertyValue.voluntaryNTR);
+	}
+
+	public boolean isInvoluntaryNTREnabled() {
+		return Main.getProperties().hasValue(PropertyValue.involuntaryNTR);
+	}
+	
 	
 	public boolean isRenderMap() {
 		return renderMap;

@@ -61,7 +61,7 @@ public class CandiReceptionist extends NPC {
 	}
 	
 	public CandiReceptionist(boolean isImported) {
-		super(isImported, new NameTriplet("Candi"),
+		super(isImported, new NameTriplet("Candi"), "Lykke",
 				"Candi is the receptionist at the Enforcer HQ."
 				+ " A completely brain-dead bimbo, Candi seems to only ever be interested in three things; applying makeup, flirting, and fucking.",
 				24, Month.JUNE, 11,

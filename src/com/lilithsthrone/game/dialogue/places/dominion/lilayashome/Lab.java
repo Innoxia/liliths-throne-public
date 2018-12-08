@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -10,6 +11,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
@@ -2817,8 +2819,11 @@ public class Lab {
 					+ "<i>"
 					+ "You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying..."
 					+ "<br/><br/>");
-			
-			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0) {
+
+			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0
+					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)
+					&& Main.game.getPlayer().getNippleShape()==NippleShape.NORMAL
+					&& Main.getProperties().hasValue(PropertyValue.lactationContent)) {
 				UtilText.nodeContentSB.append("You feel a desperate suckling at your nipples, and you're vaguely aware of something greedily drinking down mouthfuls of your [pc.milk]...");
 			} else {
 				UtilText.nodeContentSB.append("You feel a weight on your chest, and you're vaguely aware of something greedily drinking a bottle of milk as you cradle it in your arms...");
@@ -3156,8 +3161,11 @@ public class Lab {
 						+ " A delighted smile breaks out across her face as she sees that your eggs are hatching, and just before you pass out, you see her bending down in order to start taking care of your children."
 					+ "</p>");
 			
-			
-				if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0) {
+
+				if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0
+						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)
+						&& Main.game.getPlayer().getNippleShape()==NippleShape.NORMAL
+						&& Main.getProperties().hasValue(PropertyValue.lactationContent)) {
 					UtilText.nodeContentSB.append("<p>"
 								+ "Some time later, you drift back into consciousness for a moment as you feel a desperate suckling at your nipples,"
 									+ " and you're vaguely aware that it's your children who are eagerly drinking down mouthfuls of your [pc.milk]."

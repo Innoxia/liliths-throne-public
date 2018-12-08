@@ -58,6 +58,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -1918,7 +1919,9 @@ public enum StatusEffect {
 			if(!isCumEffectPositive(target)) {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 					if (c.isDirty()
-							&& Collections.disjoint(c.getClothingType().getItemTags(), Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.PLUGS_NIPPLES))) {
+							&& Collections.disjoint(
+									c.getClothingType().getItemTags(),
+									Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.SEALS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.SEALS_VAGINA, ItemTag.PLUGS_NIPPLES, ItemTag.SEALS_NIPPLES))) {
 						return true;
 					}
 				}
@@ -1957,7 +1960,9 @@ public enum StatusEffect {
 			if(isCumEffectPositive(target)) {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 					if (c.isDirty()
-							&& Collections.disjoint(c.getClothingType().getItemTags(), Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.PLUGS_NIPPLES))) {
+							&& Collections.disjoint(
+									c.getClothingType().getItemTags(),
+									Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.SEALS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.SEALS_VAGINA, ItemTag.PLUGS_NIPPLES, ItemTag.SEALS_NIPPLES))) {
 						return true;
 					}
 				}
@@ -5467,11 +5472,35 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_LYSSIETH_GUARD(
+			70,
+			"Lyssieth's Guard",
+			"set_lyssieth_guard",
+			Colour.CLOTHING_OLIVE,
+			Colour.CLOTHING_BROWN_DARK,
+			Colour.CLOTHING_OLIVE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {//British Auxiliary Territorial Service
+			return "While wearing the uniform of Lyssieth's guard, [npc.name] [npc.verb(feel)] as though [npc.sheIs] more easily able to keep [npc.her] composure.";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.LYSSIETH_GUARD.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
 	SET_BDSM(
 			70,
 			"BDSM",
 			"set_bdsm",
-			Colour.CLOTHING_WHITE,
+			Colour.CLOTHING_BLACK,
 			false,
 			Util.newHashMapOfValues( new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -15f)),
 			null) {
@@ -6521,7 +6550,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return Spell.DARK_SIREN_BANEFUL_FISSURE.getSVGString();
+			return Spell.DARK_SIREN_SIRENS_CALL.getSVGString();
 		}
 		
 		@Override
@@ -10976,7 +11005,7 @@ public enum StatusEffect {
 				if(is==null) {
 					System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+pathName+"')!");
 				}
-				SVGString = Util.colourReplacement(this.toString(), colourShade, colourShadeSecondary, colourShadeTertiary, Util.inputStreamToString(is));
+				SVGString = SvgUtil.colourReplacement(this.toString(), colourShade, colourShadeSecondary, colourShadeTertiary, Util.inputStreamToString(is));
 				is.close();
 			} catch (IOException e) {
 				e.printStackTrace();

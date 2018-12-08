@@ -21,7 +21,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
@@ -45,7 +44,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
  * A class to handle all occupant-related turn mechanics. Deals with moving slaves to/from jobs and generating events for them. Also sends friendly occupants to/from jobs.
  * 
  * @since 0.1.87
- * @version 0.2.10
+ * @version 0.2.12
  * @author Innoxia
  */
 public class OccupancyUtil implements XMLSaving {
@@ -130,20 +129,10 @@ public class OccupancyUtil implements XMLSaving {
 		occupant.resetOccupantFlags();
 		
 		if(!Main.game.getCharactersPresent().contains(occupant)) { // Don't give them a new job if the player is present...
-			if(occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+			if(!occupant.hasJob()) {
 //				System.out.println(occupant.getName());
 				if(Math.random()<0.1) {
-					List<Occupation> occupations = new ArrayList<>();
-					for(Occupation occ : Occupation.values()) {
-						if(!occ.isAvailableToPlayer()
-								&& !occ.getOccupationTags().contains(OccupationTag.HAS_PREREQUISITES)
-								&& occ.isAvailable(occupant)
-								&& occ!=Occupation.NPC_UNEMPLOYED
-								&& !occ.isLowlife()) {
-							occupations.add(occ);
-						}
-					}
-					occupant.setHistory(Util.randomItemFrom(occupations));
+					occupant.assignNewJob();
 					occupant.setFlag(NPCFlagValue.occupantHasNewJob, true);
 //					System.out.println(occupant.getHistory().getName());
 				}
@@ -170,7 +159,7 @@ public class OccupancyUtil implements XMLSaving {
 					}
 				}
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getFriendlyOccupants() section.");
+				Util.logGetNpcByIdError("performHourlyUpdate(), getFriendlyOccupants() section.", id);
 			}
 		}
 		
@@ -207,7 +196,7 @@ public class OccupancyUtil implements XMLSaving {
 					}
 				}
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getSlavesOwned() section.");
+				Util.logGetNpcByIdError("performHourlyUpdate(), getSlavesOwned() section.", id);
 			}
 		}
 		
@@ -218,7 +207,7 @@ public class OccupancyUtil implements XMLSaving {
 			try {
 				slave = (NPC) Main.game.getNPCById(id);
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getSlavesOwned() section second instance.");
+				Util.logGetNpcByIdError("performHourlyUpdate(), getSlavesOwned() section second instance.", id);
 				continue;
 			}
 			
@@ -383,7 +372,7 @@ public class OccupancyUtil implements XMLSaving {
 						generatedIncome += PlaceUpgrade.LILAYA_GUEST_ROOM.getUpkeep();
 					}
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getFriendlyOccupants() section second instance.");
+					Util.logGetNpcByIdError("performHourlyUpdate(), getFriendlyOccupants() section second instance.", id);
 				}
 			}
 		}
@@ -563,8 +552,10 @@ public class OccupancyUtil implements XMLSaving {
 								}
 
 								String tf = "";
+								SlaveEventTag tag = SlaveEventTag.JOB_LILAYA_FEMININE_TF;
 								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)) {
 									tf = getTestSubjectFutanariTransformation(slave);
+									tag = SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING;
 								} else {
 									tf = getTestSubjectFeminineTransformation(slave);
 								}
@@ -573,8 +564,7 @@ public class OccupancyUtil implements XMLSaving {
 								}
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
-										Util.newArrayListOfValues(
-												SlaveEventTag.JOB_LILAYA_FEMININE_TF),
+										Util.newArrayListOfValues(tag),
 										list,
 										true));
 								return events;
@@ -594,8 +584,10 @@ public class OccupancyUtil implements XMLSaving {
 								}
 								
 								String tf2 = "";
+								SlaveEventTag mascTag = SlaveEventTag.JOB_LILAYA_MASCULINE_TF;
 								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE)) {
 									tf2 = getTestSubjectFutanariTransformation(slave);
+									mascTag = SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING;
 								} else {
 									tf2 = getTestSubjectMasculineTransformation(slave);
 								}
@@ -604,8 +596,7 @@ public class OccupancyUtil implements XMLSaving {
 								}
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
-										Util.newArrayListOfValues(
-												SlaveEventTag.JOB_LILAYA_MASCULINE_TF),
+										Util.newArrayListOfValues(mascTag),
 										list2,
 										true));
 								return events;
@@ -624,9 +615,9 @@ public class OccupancyUtil implements XMLSaving {
 					GenericSexualPartner stocksPartner;
 					
 					if(Math.random()<0.25f) {
-						stocksPartner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, WorldType.ANGELS_KISS_FIRST_FLOOR, slave.getLocation(), false);
+						stocksPartner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, slave.getWorldLocation(), slave.getLocation(), false);
 					} else {
-						stocksPartner = new GenericSexualPartner(Gender.M_P_MALE, WorldType.ANGELS_KISS_FIRST_FLOOR, slave.getLocation(), false);
+						stocksPartner = new GenericSexualPartner(Gender.M_P_MALE, slave.getWorldLocation(), slave.getLocation(), false);
 					}
 					
 					// If no settings are able to be used, or if a random roll is greater than 0.8, just add a groping event:
@@ -736,9 +727,9 @@ public class OccupancyUtil implements XMLSaving {
 					
 					
 					if(Math.random()<0.25f) {
-						partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, WorldType.ANGELS_KISS_FIRST_FLOOR, slave.getLocation(), false);
+						partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, slave.getWorldLocation(), slave.getLocation(), false);
 					} else {
-						partner = new GenericSexualPartner(Gender.M_P_MALE, WorldType.ANGELS_KISS_FIRST_FLOOR, slave.getLocation(), false);
+						partner = new GenericSexualPartner(Gender.M_P_MALE, slave.getWorldLocation(), slave.getLocation(), false);
 					}
 					try {
 						Main.game.addNPC(partner, false);

@@ -499,10 +499,10 @@ public enum Attack {
 		if (attacker != null && defender!=null) {
 			// Modifiers based on race resistance:
 			if(!defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
-				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(attacker.getRace().getResistanceMultiplier()), 100)/100f;
+				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(attacker.getSubspecies().getResistanceMultiplier()), 100)/100f;
 			}
 			// Modifiers based on race damage:
-			damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getRace().getDamageMultiplier()), 100)/100f;
+			damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getSubspecies().getDamageMultiplier()), 100)/100f;
 			
 			// Modifiers based on level:
 			float levelBoost = (attacker.getLevel() - defender.getLevel())*2;

@@ -151,7 +151,7 @@ public class Vicky extends NPC {
 					
 				case WITCH_CHARM:
 				case WITCH_SEAL:
-				case DARK_SIREN_BANEFUL_FISSURE:
+				case DARK_SIREN_SIRENS_CALL:
 					break;
 			}
 		}
@@ -162,7 +162,7 @@ public class Vicky extends NPC {
 	}
 	
 	public Vicky(boolean isImported) {
-		super(isImported, new NameTriplet("Vicky"),
+		super(isImported, new NameTriplet("Vicky"), "Haugen",
 				"Vicky is the owner of the shop 'Arcane Arts'. Her manner of staring at anyone who enters her shop is quite unsettling, and you feel as though she's ready to pounce on you at any moment...",
 				37, Month.MAY, 26,
 				10, Gender.F_P_V_B_FUTANARI,

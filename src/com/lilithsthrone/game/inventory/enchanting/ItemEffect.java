@@ -129,6 +129,9 @@ public class ItemEffect implements Serializable, XMLSaving {
 					(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
 					Integer.valueOf(parentElement.getAttribute("limit")));
 		} catch(Exception ex) {
+			System.err.println("Unable to import ItemEffect (" + parentElement.getAttribute("primaryModifier") +
+					", " + parentElement.getAttribute("secondaryModifier") + ") from" + doc.getDocumentURI());
+			System.err.println(ex);
 			return null;
 		}
 		
@@ -139,7 +142,8 @@ public class ItemEffect implements Serializable, XMLSaving {
 			} else {
 				ie.getTimer().setTimePassed(Integer.valueOf(parentElement.getAttribute("timer")));
 			}
-		} catch(Exception ex) {	
+		} catch(Exception ex) {
+			ex.printStackTrace();
 		}
 		
 		return ie;

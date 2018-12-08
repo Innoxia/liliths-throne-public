@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -36,6 +37,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	public long impFortressDemonDefeatedTime;
 	public long impFortressFemalesDefeatedTime;
 	public long impFortressMalesDefeatedTime;
+
+	public int impCitadelImpWave;
 	
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
@@ -66,6 +69,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		scarlettPrice = 15000;
 		
 		impFortressAlphaDefeatedTime = impFortressDemonDefeatedTime = impFortressFemalesDefeatedTime = impFortressMalesDefeatedTime = -50000;
+		
+		impCitadelImpWave = 0;
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -82,6 +87,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
 		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressFemalesDefeatedTime", String.valueOf(impFortressFemalesDefeatedTime));
 		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "impCitadelImpWave", String.valueOf(impCitadelImpWave));
 		
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
@@ -131,7 +138,6 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		} catch(Exception ex) {
 		}
 
-		
 		try {
 			if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
 				newFlags.impFortressAlphaDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressAlphaDefeatedTime").item(0)).getAttribute("value"));
@@ -141,6 +147,12 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			}
 		} catch(Exception ex) {
 		}
+		
+		try {
+			newFlags.impCitadelImpWave = Integer.valueOf(((Element)parentElement.getElementsByTagName("impCitadelImpWave").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
+		
 		
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
@@ -223,7 +235,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		try {
 			return (NPC) Main.game.getNPCById(slaveTrader);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+slaveTrader+") returning null in method: getSlaveTrader()");
+			Util.logGetNpcByIdError("getSlaveTrader()", slaveTrader);
 			return null;
 		}
 	}
@@ -252,7 +264,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		try {
 			return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+slaveryManagerSlaveSelected+") returning null in method: getSlaveryManagerSlaveSelected()");
+			Util.logGetNpcByIdError("getSlaveryManagerSlaveSelected()", slaveryManagerSlaveSelected);
 			return null;
 		}
 	}

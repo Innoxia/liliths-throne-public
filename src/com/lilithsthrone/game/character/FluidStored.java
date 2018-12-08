@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -153,7 +154,7 @@ public class FluidStored implements XMLSaving {
 		try {
 			return Main.game.getNPCById(charactersFluidID);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+charactersFluidID+") returning null in method: getFluidCharacter()");
+			Util.logGetNpcByIdError("getFluidCharacter()", charactersFluidID);
 			return null;
 		}
 	}

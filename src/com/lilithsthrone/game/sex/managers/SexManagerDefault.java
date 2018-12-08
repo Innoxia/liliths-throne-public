@@ -124,19 +124,21 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		possibleActions.clear();
 		bannedActions.clear();
+		
+		NPC partner = (NPC) Sex.getCharacterPerformingAction();
 
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
 		
 		// --- Priority 1 | If orgasming, bypass everything and use an orgasm option ---
 		
-		if (Sex.getActivePartner().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue() && SexFlags.playerPreparedForCharactersOrgasm.contains(Sex.getActivePartner())) {
+		if (partner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue() && SexFlags.playerPreparedForCharactersOrgasm.contains(partner)) {
 			List<SexActionInterface> priorityOrgasms = new ArrayList<>();
 			
 			for(SexActionInterface action : availableActions) {
 				for(GameCharacter character : Sex.getAllParticipants()) {
-					if(action.getAreasCummedIn(Sex.getActivePartner(), character) != null) {
-						if((action.getAreasCummedIn(Sex.getActivePartner(), character).contains(SexAreaOrifice.VAGINA)
-								&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_IMPREGNATION)))
+					if(action.getAreasCummedIn(partner, character) != null) {
+						if((action.getAreasCummedIn(partner, character).contains(SexAreaOrifice.VAGINA)
+								&& (partner.hasFetish(Fetish.FETISH_IMPREGNATION)))
 							|| SexFlags.playerRequestedCreampie) {
 							priorityOrgasms.add(action);
 							
@@ -144,9 +146,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							priorityOrgasms.add(action);
 						}
 					}
-					if(action.getAreasCummedIn(character, Sex.getActivePartner()) != null) {
-						if((action.getAreasCummedIn(character, Sex.getActivePartner()).contains(SexAreaOrifice.VAGINA)
-									&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY)))) {
+					if(action.getAreasCummedIn(character, partner) != null) {
+						if((action.getAreasCummedIn(character, partner).contains(SexAreaOrifice.VAGINA)
+									&& (partner.hasFetish(Fetish.FETISH_PREGNANCY)))) {
 							priorityOrgasms.add(action);
 							
 						}
@@ -159,7 +161,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				
 			} else {
 				if(availableActions.isEmpty()) {
-					System.err.println(Sex.getActivePartner().getName()+" has no orgasm actions!!!");
+					System.err.println(partner.getName()+" has no orgasm actions!!!");
 					return GenericOrgasms.PARTNER_GENERIC_ORGASM;
 				}
 				return availableActions.get(Util.random.nextInt(availableActions.size()));
@@ -170,7 +172,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// --- Priority 2 | Resisting ---
 		
 		// If the partner is resisting, they will not want to remove any clothing, and will instead simply use an available option. (Which will be a SUB_RESIST or neutral pace one.)
-		if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
+		if(Sex.getSexPace(partner)==SexPace.SUB_RESISTING) {
 			possibleActions.addAll(Sex.getAvailableSexActionsPartner());
 			
 			if (!possibleActions.isEmpty()) {
@@ -186,9 +188,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		boolean suitablePosition = false;
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
-			if(!character.equals(Sex.getActivePartner())
+			if(!character.equals(partner)
 					&& Sex.getSexPositionSlot(character)!=SexPositionSlot.MISC_WATCHING
-					&& Sex.getActivePartner().getSexPositionPreferences(character).contains(Sex.getSexPositionSlot(Sex.getActivePartner()))) {
+					&& partner.getSexPositionPreferences(character).contains(Sex.getSexPositionSlot(partner))) {
 				suitablePosition = true;
 				break;
 			}
@@ -216,7 +218,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// --- Priority 4 | Removing clothing ---
 		
-		GameCharacter targetedCharacter = Sex.getTargetedPartner(Sex.getActivePartner());
+		GameCharacter targetedCharacter = Sex.getTargetedPartner(partner);
 		
 		// Skip over remove clothing if action is of HIGH or MAX priority
 		if(Sex.getAvailableSexActionsPartner().get(0).getPriority()!=SexActionPriority.HIGH
@@ -225,19 +227,18 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			List<CoverableArea> targetAreasToBeExposed = new ArrayList<>();
 			List<CoverableArea> partnerAreasToBeExposed = new ArrayList<>();
 			
-			if(Sex.isInForeplay(Sex.getActivePartner())) {
-				if(Sex.getActivePartner().getForeplayPreference(targetedCharacter)!=null) {
-					SexParticipantType participantType = Sex.getActivePartner().getForeplayPreference(targetedCharacter).getAsParticipant();
+			if(Sex.isInForeplay(partner)) {
+				if(partner.getForeplayPreference(targetedCharacter)!=null) {
+					SexParticipantType participantType = partner.getForeplayPreference(targetedCharacter).getAsParticipant();
 
-					partnerAreasToBeExposed.add(Sex.getActivePartner().getForeplayPreference(targetedCharacter).getPerformingSexArea().getRelatedCoverableArea());
+					partnerAreasToBeExposed.add(partner.getForeplayPreference(targetedCharacter).getPerformingSexArea().getRelatedCoverableArea());
 					if(participantType==SexParticipantType.SELF) {
-						partnerAreasToBeExposed.add(Sex.getActivePartner().getForeplayPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea());
+						partnerAreasToBeExposed.add(partner.getForeplayPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea());
 					} else {
-						targetAreasToBeExposed.add(Sex.getActivePartner().getForeplayPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea());
+						targetAreasToBeExposed.add(partner.getForeplayPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea());
 					}
 					
 				} else {
-					
 					partnerAreasToBeExposed.add(CoverableArea.NIPPLES);
 					partnerAreasToBeExposed.add(CoverableArea.MOUTH);
 					
@@ -254,14 +255,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 				
 			} else {
-				if(Sex.getActivePartner().getMainSexPreference(targetedCharacter)!=null) {
-					SexParticipantType participantType = Sex.getActivePartner().getMainSexPreference(targetedCharacter).getAsParticipant();
+				if(partner.getMainSexPreference(targetedCharacter)!=null) {
+					SexParticipantType participantType = partner.getMainSexPreference(targetedCharacter).getAsParticipant();
 					
-					partnerAreasToBeExposed.add(Sex.getActivePartner().getMainSexPreference(targetedCharacter).getPerformingSexArea().getRelatedCoverableArea());
+					partnerAreasToBeExposed.add(partner.getMainSexPreference(targetedCharacter).getPerformingSexArea().getRelatedCoverableArea());
 					if(participantType==SexParticipantType.SELF) {
-						partnerAreasToBeExposed.add(Sex.getActivePartner().getMainSexPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea());
+						partnerAreasToBeExposed.add(partner.getMainSexPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea());
 					} else {
-						targetAreasToBeExposed.add(Sex.getActivePartner().getMainSexPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea());
+						targetAreasToBeExposed.add(partner.getMainSexPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea());
 					}
 					
 				} 
@@ -274,29 +275,29 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 			}
 			
-			partnerAreasToBeExposed.removeIf((area) -> (Sex.getActivePartner().isCoverableAreaExposed(area) || !Sex.getActivePartner().isAbleToAccessCoverableArea(area, true))
-					|| (area==CoverableArea.PENIS && !Sex.getActivePartner().hasPenis())
-					|| (area==CoverableArea.VAGINA && !Sex.getActivePartner().hasVagina()));
+			partnerAreasToBeExposed.removeIf((area) -> (partner.isCoverableAreaExposed(area) || !partner.isAbleToAccessCoverableArea(area, true))
+					|| (area==CoverableArea.PENIS && !partner.hasPenis())
+					|| (area==CoverableArea.VAGINA && !partner.hasVagina()));
 			
 
-			targetAreasToBeExposed.removeIf((area) -> (Sex.getTargetedPartner(Sex.getActivePartner()).isCoverableAreaExposed(area) || !Sex.getTargetedPartner(Sex.getActivePartner()).isAbleToAccessCoverableArea(area, true))
-					|| (area==CoverableArea.PENIS && !Sex.getTargetedPartner(Sex.getActivePartner()).hasPenis())
-					|| (area==CoverableArea.VAGINA && !Sex.getTargetedPartner(Sex.getActivePartner()).hasVagina()));
+			targetAreasToBeExposed.removeIf((area) -> (Sex.getTargetedPartner(partner).isCoverableAreaExposed(area) || !Sex.getTargetedPartner(partner).isAbleToAccessCoverableArea(area, true))
+					|| (area==CoverableArea.PENIS && !Sex.getTargetedPartner(partner).hasPenis())
+					|| (area==CoverableArea.VAGINA && !Sex.getTargetedPartner(partner).hasVagina()));
 			
-			if(!partnerAreasToBeExposed.isEmpty() && Sex.isCanRemoveSelfClothing(Sex.getActivePartner())) {
+			if(!partnerAreasToBeExposed.isEmpty() && Sex.isCanRemoveSelfClothing(partner)) {
 				Collections.shuffle(partnerAreasToBeExposed);
 				if(partnerAreasToBeExposed.get(0) == CoverableArea.MOUND) {
-					return Sex.manageClothingToAccessCoverableArea(Sex.getActivePartner(), Sex.getActivePartner(), CoverableArea.VAGINA);
+					return Sex.manageClothingToAccessCoverableArea(partner, partner, CoverableArea.VAGINA);
 				} else {
-					return Sex.manageClothingToAccessCoverableArea(Sex.getActivePartner(), Sex.getActivePartner(), partnerAreasToBeExposed.get(0));
+					return Sex.manageClothingToAccessCoverableArea(partner, partner, partnerAreasToBeExposed.get(0));
 				}
 			}
-			if(!targetAreasToBeExposed.isEmpty() && Sex.isCanRemoveOthersClothing(Sex.getActivePartner())) {
+			if(!targetAreasToBeExposed.isEmpty() && Sex.isCanRemoveOthersClothing(partner)) {
 				Collections.shuffle(targetAreasToBeExposed);
 				if(targetAreasToBeExposed.get(0) == CoverableArea.MOUND) {
-					return Sex.manageClothingToAccessCoverableArea(Sex.getActivePartner(), Sex.getTargetedPartner(Sex.getActivePartner()), CoverableArea.VAGINA);
+					return Sex.manageClothingToAccessCoverableArea(partner, Sex.getTargetedPartner(partner), CoverableArea.VAGINA);
 				} else {
-					return Sex.manageClothingToAccessCoverableArea(Sex.getActivePartner(), Sex.getTargetedPartner(Sex.getActivePartner()), targetAreasToBeExposed.get(0));
+					return Sex.manageClothingToAccessCoverableArea(partner, Sex.getTargetedPartner(partner), targetAreasToBeExposed.get(0));
 				}
 			}
 		}

@@ -74,7 +74,7 @@ public class SlimeQueen extends NPC {
 	}
 
 	public SlimeQueen(boolean isImported) {
-		super(isImported, new NameTriplet("Catherine"),
+		super(isImported, new NameTriplet("Catherine"), "Kron",
 				"The self-proclaimed Slime Queen, Catherine, is a gigantic female slime, who wants to turn as many people into her subjects as possible.",
 				38, Month.JANUARY, 29,
 				15, Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN,

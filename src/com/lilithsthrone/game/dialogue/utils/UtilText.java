@@ -17,11 +17,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.lilithsthrone.game.character.race.FurryPreference;
+import com.lilithsthrone.game.character.race.Race;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -5489,6 +5492,12 @@ public class UtilText {
 		}
 		engine.put("game", Main.game);
 		engine.put("properties", Main.getProperties());
+		for(Race race : Race.values()) {
+			engine.put("RACE_"+race.toString(), race);
+		}
+		for(Subspecies subspecies : Subspecies.values()) {
+			engine.put("SUBSPECIES_"+subspecies.toString(), subspecies);
+		}
 		for(Fetish f : Fetish.values()) {
 			engine.put(f.toString(), f);
 		}
@@ -5497,6 +5506,9 @@ public class UtilText {
 		}
 		for(StatusEffect sa : StatusEffect.values()) {
 			engine.put("SA_"+sa.toString(), sa);
+		}
+		for(Attribute att : Attribute.values()) {
+			engine.put("ATTRIBUTE_"+att.toString(), att);
 		}
 		for(CoverableArea ca : CoverableArea.values()) {
 			engine.put("CA_"+ca.toString(), ca);

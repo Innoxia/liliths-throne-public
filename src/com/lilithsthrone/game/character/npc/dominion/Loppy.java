@@ -68,7 +68,7 @@ public class Loppy extends NPC {
 	}
 	
 	public Loppy(boolean isImported) {
-		super(isImported, new NameTriplet("Loppy"),
+		super(isImported, new NameTriplet("Loppy"), "Hasenkamp",
 				"Loppy is one of the two prostitutes Angel has working for her."
 						+ " Just like her younger sister, Bunny, Loppy is a rabbit-morph, and seems to genuinely love her line of work.",
 				22, Month.JANUARY, 7,

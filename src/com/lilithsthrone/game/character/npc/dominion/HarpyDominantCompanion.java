@@ -66,7 +66,7 @@ public class HarpyDominantCompanion extends NPC {
 	}
 	
 	public HarpyDominantCompanion(boolean isImported) {
-		super(isImported, new NameTriplet("Harley"),
+		super(isImported, new NameTriplet("Harley"), "Orlov",
 				"Diana's favourite pet, Harley, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her mistress's nest, she does absolutely anything Diana orders her to do, which often involves administering humiliating punishments...",
 				19, Month.JUNE, 14,

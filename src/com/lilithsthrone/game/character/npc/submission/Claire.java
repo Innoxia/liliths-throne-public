@@ -63,7 +63,7 @@ public class Claire extends NPC {
 	}
 	
 	public Claire(boolean isImported) {
-		super(isImported, new NameTriplet("Claire"),
+		super(isImported, new NameTriplet("Claire"), "Kasun",
 				"Claire is the messenger who's responsible for keeping all of Submission's Enforcer posts up-to-date with one another."
 					+ " Thanks to her special 'level three clearance', she's allowed to use the teleportation stations that link all of these posts together."
 					+ " As a result of this, she seems to be in multiple places at once, and whenever you enter one of the enforcer posts, Claire is sure to already be there.",

@@ -12,7 +12,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
@@ -27,7 +26,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
- * @version 0.1.97
+ * @version 0.2.12
  * @author Innoxia
  */
 public class CultistDialogue {
@@ -403,10 +402,11 @@ public class CultistDialogue {
 							 colour = Colour.CLOTHING_WHITE;
 						}
 						
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", colour, Colour.CLOTHING_GOLD, colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", colour, Colour.CLOTHING_GOLD, colour, false));
 						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
 					}
 				};
@@ -735,10 +735,11 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public void effects(){
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", Colour.CLOTHING_BLACK, Colour.CLOTHING_GOLD, Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", Colour.CLOTHING_BLACK, Colour.CLOTHING_GOLD, Colour.CLOTHING_BLACK, false));
 						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
 					}
 				};
@@ -775,10 +776,11 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public void effects(){
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", Colour.CLOTHING_BLACK, Colour.CLOTHING_GOLD, Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", Colour.CLOTHING_BLACK, Colour.CLOTHING_GOLD, Colour.CLOTHING_BLACK, false));
 						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
 					}
 				};

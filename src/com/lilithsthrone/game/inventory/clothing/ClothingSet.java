@@ -163,7 +163,20 @@ public enum ClothingSet {
 					InventorySlot.NECK,
 					InventorySlot.EYES),
 			null,
-			null);
+			null),
+
+	LYSSIETH_GUARD("Lyssieth's Guard",
+			StatusEffect.SET_LYSSIETH_GUARD,
+			4,
+			Util.newArrayListOfValues(
+					InventorySlot.FOOT,
+					InventorySlot.TORSO_OVER,
+					InventorySlot.LEG,
+					InventorySlot.HEAD),
+			null,
+			null)
+	
+	;
 
 	private String name;
 	private int numberRequiredForCompleteSet;

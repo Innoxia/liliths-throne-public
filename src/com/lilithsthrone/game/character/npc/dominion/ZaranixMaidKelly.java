@@ -81,7 +81,7 @@ public class ZaranixMaidKelly extends NPC {
 	}
 	
 	public ZaranixMaidKelly(boolean isImported) {
-		super(isImported, new NameTriplet("Kelly"),
+		super(isImported, new NameTriplet("Kelly"), "Lasiellemartu",
 				"One of Zaranix's succubi maid twins, Kelly is assigned by her master to keep the first floor clean.",
 				26, Month.SEPTEMBER, 20,
 				10, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);

@@ -68,7 +68,7 @@ public class Epona extends NPC {
 	}
 	
 	public Epona(boolean isImported) {
-		super(isImported, new NameTriplet("Epona"),
+		super(isImported, new NameTriplet("Epona"), "Katsaros",
 				"Epona is the horse-girl in charge of organising the Gambling Den's 'Pregnancy Roulette'."
 						+ " Obsessed with breeding, she absolutely loves her job, and gets incredibly excited when a new round is about to start.",
 				28, Month.MAY, 28,

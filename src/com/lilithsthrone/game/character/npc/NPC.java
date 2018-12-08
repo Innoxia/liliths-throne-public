@@ -114,6 +114,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	protected NPC(boolean isImported,
 			NameTriplet nameTriplet,
+			String surname,
 			String description,
 			int age,
 			Month birthMonth,
@@ -126,7 +127,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			WorldType worldLocation,
 			PlaceType startingPlace,
 			boolean addedToContacts) {
-		super(nameTriplet, description, level,
+		super(nameTriplet, surname, description, level,
 				LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0),
 				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
 		
@@ -663,7 +664,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 					break;
 				// Spells that should not be used:
-				case DARK_SIREN_BANEFUL_FISSURE:
+				case DARK_SIREN_SIRENS_CALL:
 					break;
 			}
 		}
@@ -1058,6 +1059,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		this.lastTimeEncountered = minutesPassed;
 	}
 
+	public long getMinutesSinceLastTimeHadSex() {
+		return Main.game.getMinutesPassed()-getLastTimeHadSex();
+	}
+	
 	public long getLastTimeHadSex() {
 		return lastTimeHadSex;
 	}
@@ -3397,11 +3402,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 			// Player uses item on NPC:
 			} else {
+				boolean isItemOrdinary = !(item.getItemType().isTransformative() && item.getItemType().isFetishGiving());
+				
 				if((target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))
-						|| ((!item.getItemType().isTransformative() || !target.isUnique()) // Cannot TF non-player-slave uniques
+						|| ((isItemOrdinary || !target.isUnique()) // Cannot TF non-player-slave uniques
 							&& ((Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target))
-								|| (target.getPartyLeader()==null || (target.getPartyLeader().equals(user) && !item.getItemType().isTransformative()))
-								|| (!target.isUnique() && target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative())))) {
+								|| (target.getPartyLeader()==null || (target.getPartyLeader().equals(user) && isItemOrdinary))
+								|| (!target.isUnique()
+										&& ((target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative())
+												|| (target.hasFetish(Fetish.FETISH_KINK_RECEIVING) && item.getItemType().isFetishGiving())))))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					
 				} else if(target instanceof Elemental) {

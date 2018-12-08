@@ -37,6 +37,8 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -56,7 +58,7 @@ public class SupplierLeader extends NPC {
 	}
 	
 	public SupplierLeader(boolean isImported) {
-		super(isImported, new NameTriplet("Wolfgang", "Wolfgang", "Winifred"),
+		super(isImported, new NameTriplet("Wolfgang", "Wolfgang", "Winifred"), "Meyer",
 				".",
 				30, Month.DECEMBER, 4,
 				8,
@@ -228,7 +230,7 @@ public class SupplierLeader extends NPC {
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {
-		return null;
+		return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH));
 	}
 	
 }

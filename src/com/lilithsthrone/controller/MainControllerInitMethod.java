@@ -410,7 +410,7 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer());
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -473,7 +473,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer());
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
@@ -510,7 +510,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC());
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC(), false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -549,7 +549,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null, false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -591,7 +591,7 @@ public class MainControllerInitMethod {
 							((EventTarget) MainController.document.getElementById("WEAPON_" + i)).addEventListener("click",el, false);
 							MainController.addEventListener(MainController.document, "WEAPON_" + i, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, "WEAPON_" + i, "mouseleave", MainController.hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC());
+							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), false);
 							((EventTarget) MainController.document.getElementById("WEAPON_" + i)).addEventListener("mouseenter",el2, false);
 						}
 						
@@ -831,7 +831,7 @@ public class MainControllerInitMethod {
 					el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
 					
 				} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
-					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer());
+					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), false);
 					
 				}  else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
 					el2 = new InventoryTooltipEventListener().setTattoo(EnchantmentDialogue.getTattooSlot(), (Tattoo) EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getTattooBearer(), EnchantmentDialogue.getTattooBearer());
@@ -1187,6 +1187,39 @@ public class MainControllerInitMethod {
 							
 					}, false);
 				}
+
+				id = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getId()+"_RENAME_SURNAME";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+	
+						boolean unsuitableName = false;
+					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveSurnameInput')")!=null) {
+						 
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveSurnameInput').value;");
+							if(Main.mainController.getWebEngine().getDocument()!=null) {
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() >= 1
+										&& Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+									unsuitableName = true;
+								else {
+									unsuitableName = false;
+								}
+							}
+							
+							if (!unsuitableName) {
+								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										NPC slave = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
+										slave.setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+//										slave.loadImages();
+									}
+								});
+							}
+							
+						}
+							
+					}, false);
+				}
 				
 				id = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getId()+"_CALLS_PLAYER";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -1238,7 +1271,7 @@ public class MainControllerInitMethod {
 											try {
 												Main.game.getNPCById(id).setPetName(Main.game.getPlayer(), name);
 											} catch (Exception e) {
-												System.err.println("Main.game.getNPCById("+id+") returning null in method: initMainControllerListeners(), instance 1.");
+												Util.logGetNpcByIdError("initMainControllerListeners(), instance 1.", id);
 											}
 										}
 									}
@@ -1436,7 +1469,7 @@ public class MainControllerInitMethod {
 				try {
 					slave = (NPC) Main.game.getNPCById(slaveId);
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+slaveId+") returning null in method: initMainControllerListeners(), instance 2.");
+					Util.logGetNpcByIdError("initMainControllerListeners(), instance 2.", slaveId);
 					continue;
 				}
 				
@@ -1591,7 +1624,7 @@ public class MainControllerInitMethod {
 				try {
 					occupant = (NPC) Main.game.getNPCById(occupantId);
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+occupantId+") returning null in method: initMainControllerListeners(), instance 3.");
+					Util.logGetNpcByIdError("initMainControllerListeners(), instance 3.", occupantId);
 					continue;
 				}
 				
@@ -1707,7 +1740,7 @@ public class MainControllerInitMethod {
 					try {
 						slave = (NPC) Main.game.getNPCById(slaveId);
 					} catch (Exception e) {
-						System.err.println("Main.game.getNPCById("+slaveId+") returning null in method: initMainControllerListeners(), instance 4.");
+						Util.logGetNpcByIdError("initMainControllerListeners(), instance 4.", slaveId);
 						continue;
 					}
 					
@@ -2197,28 +2230,28 @@ public class MainControllerInitMethod {
 				id = "HEIGHT_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementHeight(1);
+						BodyChanging.getTarget().incrementHeight(1, BodyChanging.isDebugMenu());
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "HEIGHT_INCREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementHeight(5);
+						BodyChanging.getTarget().incrementHeight(5, BodyChanging.isDebugMenu());
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "HEIGHT_DECREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementHeight(-1);
+						BodyChanging.getTarget().incrementHeight(-1, BodyChanging.isDebugMenu());
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "HEIGHT_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementHeight(-5);
+						BodyChanging.getTarget().incrementHeight(-5, BodyChanging.isDebugMenu());
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}

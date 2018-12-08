@@ -690,7 +690,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	DARK_SIREN(Util.newArrayListOfValues("darkSiren"), "") {
+	DARK_SIREN(Util.newArrayListOfValues("darkSiren", "siren"), "") {
 		public String getDescription() {
 			return Main.game.getFortressDemonLeader().getDescription();
 		}
@@ -700,6 +700,40 @@ public enum ParserTarget {
 			return Main.game.getFortressDemonLeader();
 		}
 	},
+	
+	CITADEL_ARCANIST(Util.newArrayListOfValues("citadelArcanist"), "") {
+		public String getDescription() {
+			return Main.game.getSubmissionCitadelArcanist().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSubmissionCitadelArcanist();
+		}
+	},
+	
+	LYSSIETH(Util.newArrayListOfValues("lyssieth"), "") {
+		public String getDescription() {
+			return Main.game.getLyssieth().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getLyssieth();
+		}
+	},
+	
+	ELIZABETH(Util.newArrayListOfValues("elizabeth"), "") {
+		public String getDescription() {
+			return Main.game.getElizabeth().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getElizabeth();
+		}
+	},
+	
 	;
 	
 	

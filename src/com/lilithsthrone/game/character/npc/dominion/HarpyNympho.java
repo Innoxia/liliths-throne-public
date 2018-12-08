@@ -74,7 +74,7 @@ public class HarpyNympho extends NPC {
 	}
 	
 	public HarpyNympho(boolean isImported) {
-		super(isImported, new NameTriplet("Lexi"),
+		super(isImported, new NameTriplet("Lexi"), "Holub",
 				"One of the more notable harpy matriarchs, Lexi is the leader of a flock of harpies."
 						+ " Either due to her obsession with sex, or perhaps because she's not as cruel as a typical harpy, Lexi is far more accepting of males than a typical matriarch."
 						+ " As a result, her flock serves as her personal harem; it's members constantly trying to sate their matriarch's never-ending lust.",

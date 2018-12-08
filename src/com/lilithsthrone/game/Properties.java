@@ -441,6 +441,7 @@ public class Properties implements Serializable {
 						
 						Attr hash = doc.createAttribute("id");
 						hash.setValue(itemType.getId());
+						element.setAttributeNode(hash);
 					}
 				} catch(Exception ex) {
 					// Catch errors from modded items being removed

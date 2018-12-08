@@ -133,7 +133,7 @@ public class BodyCoveringTemplateFactory {
 				Colour.allSkinColours);
 	}
 	
-	private static BodyCoveringTemplate createEyeIrisesWithCustomColors(List<Colour> naturalIrisColors, List<Colour> dyeIrisColours, boolean heteroIsExtra) {
+	public static BodyCoveringTemplate createEyeIrisesWithCustomColors(List<Colour> naturalIrisColors, List<Colour> dyeIrisColours, boolean heteroIsExtra) {
 		List<CoveringPattern> natural = Util.newArrayListOfValues(CoveringPattern.EYE_IRISES, CoveringPattern.EYE_IRISES_HETEROCHROMATIC);
 		List<CoveringPattern> extra = null;
 		if (heteroIsExtra) {

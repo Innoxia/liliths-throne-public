@@ -52,6 +52,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
+import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
@@ -522,38 +523,72 @@ public class Sex {
 
 	private static void endSex() {
 		Main.game.setInSex(false);
-
-		for(GameCharacter participant : Sex.getAllParticipants()) {
-			if(participant instanceof NPC) {
-				((NPC) participant).setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfOrgasms(participant)>0);
-				((NPC)participant).endSex();
-			}
-		}
 		
 		// Restore clothes:
 		for(Entry<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> entry : clothingPreSexMap.entrySet()) {
-			for (AbstractClothing c : entry.getValue().keySet()) {
-				boolean equipped = false;
-				if(!c.getClothingType().isDiscardedOnUnequip()) {
-					if (!entry.getKey().getClothingCurrentlyEquipped().contains(c)) {
-						if(entry.getKey().getClothingInSlot(c.getClothingType().getSlot())==null) { // Only re-equip if that slot is empty, as some endSex methods force clothing on the player
-							entry.getKey().equipClothingOverride(c, true);
-							equipped = true;
-						}
-					} else {
-						equipped = true;
+			GameCharacter character = entry.getKey();
+			if(character.isUnique()) { // Backup for unique NPCs, as they shouldn't be able to have clothing put on them during sex:
+				List<AbstractClothing> equippedClothing = character.getClothingCurrentlyEquipped();
+				for(AbstractClothing c : equippedClothing) {
+					if(!entry.getValue().keySet().contains(c)) {
+						character.forceUnequipClothingIntoVoid(character, c);
+						character.getCell().getInventory().addClothing(c);
 					}
-					if(equipped && Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
+				}
+			}
+			
+			for (AbstractClothing c : entry.getValue().keySet()) {
+//				boolean equipped = false;
+				if(!c.getClothingType().isDiscardedOnUnequip()) {
+					if (!character.getClothingCurrentlyEquipped().contains(c)) {
+//						if(character.getClothingInSlot(c.getClothingType().getSlot())==null) { // Only re-equip if that slot is empty, as some endSex methods force clothing on the player
+							character.equipClothingOverride(c, false, true);
+//							equipped = true;
+//						}
+//					} else {
+//						equipped = true;
+					}
+					if(
+//							equipped && 
+							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
 						c.getDisplacedList().clear();
 						if(entry.getValue().get(c)!=null) {
 							for(DisplacementType displacement : entry.getValue().get(c)) {
-								entry.getKey().isAbleToBeDisplaced(c, displacement, true, true, entry.getKey());
+								character.isAbleToBeDisplaced(c, displacement, true, true, character);
 							}
 						}
-					} else if(entry.getKey().getCell().getInventory().hasClothing(c)){ // Try to pick up their clothing if it's on the floor:
-						entry.getKey().addClothing(c, true);
+					} else if(character.getCell().getInventory().hasClothing(c)){ // Try to pick up their clothing if it's on the floor:
+						character.addClothing(c, true);
 					}
 				}
+			}
+		}
+
+		for(GameCharacter participant : Sex.getAllParticipants()) {
+			if(!Sex.isSpectator(participant) && !Sex.isMasturbation() && participant.hasVagina() && participant.isVaginaVirgin()) {
+				boolean satisfiedPartners = false;
+				if(Sex.isDom(participant)) {
+					for(GameCharacter sub : Sex.getSubmissiveParticipants().keySet()) {
+						if(Sex.getNumberOfOrgasms(sub)>0) {
+							satisfiedPartners = true;
+							break;
+						}
+					}
+				} else {
+					for(GameCharacter dom : Sex.getDominantParticipants().keySet()) {
+						if(Sex.getNumberOfOrgasms(dom)>0) {
+							satisfiedPartners = true;
+							break;
+						}
+					}
+				}
+				if(satisfiedPartners) {
+					participant.incrementFetishExperience(Fetish.FETISH_PURE_VIRGIN, Fetish.FETISH_PURE_VIRGIN.getExperienceGainFromSexAction());
+				}
+			}
+			if(participant instanceof NPC) {
+				((NPC) participant).setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfOrgasms(participant)>0);
+				((NPC)participant).endSex();
 			}
 		}
 		
@@ -1020,7 +1055,7 @@ public class Sex {
 						if((Sex.getSexPace(participant)==SexPace.SUB_RESISTING && !participant.hasFetish(Fetish.FETISH_NON_CON_SUB))) {
 							for(GameCharacter domParticipant : Sex.getDominantParticipants().keySet()) {
 								if(Sex.getSexPositionSlot(domParticipant)!=SexPositionSlot.MISC_WATCHING) {
-									endSexSB.append(participant.incrementAffection(domParticipant, -50));
+									endSexSB.append(participant.incrementAffection(domParticipant, -200, "[npc.Name] now despises [npc2.name] for raping [npc.herHim]!"));
 								}
 							}
 							
@@ -1028,7 +1063,7 @@ public class Sex {
 							if(Sex.getNumberOfOrgasms(participant)==0 && !participant.hasFetish(Fetish.FETISH_DENIAL_SELF) && !Sex.isDom(participant)) {
 								for(GameCharacter domParticipant : Sex.getDominantParticipants().keySet()) {
 									if(Sex.getSexPositionSlot(domParticipant)!=SexPositionSlot.MISC_WATCHING) {
-										endSexSB.append(participant.incrementAffection(domParticipant, -2));
+										endSexSB.append(participant.incrementAffection(domParticipant, -2, "[npc.Name] is annoyed at [npc2.name] for finishing without bringing [npc.herHim] to orgasm."));
 									}
 								}
 							}
@@ -1439,11 +1474,24 @@ public class Sex {
 		if (isReadyToOrgasm(Main.game.getPlayer())) { // Add orgasm actions if player ready to orgasm:
 			characterOrgasming = Main.game.getPlayer();
 			
+			// If there are unique maximum priority actions, only add those.
+			List<SexActionInterface> uniqueActions = new ArrayList<>();
+			List<SexActionInterface> normalActions = new ArrayList<>();
 			for (SexActionInterface sexAction : Sex.getOrgasmActionsPlayer()) {
 				if (sexAction.isAddedToAvailableSexActions()) {
-					availableSexActionsPlayer.add(sexAction);
+					if(sexAction.getPriority()==SexActionPriority.UNIQUE_MAX) {
+						uniqueActions.add(sexAction);
+					} else {
+						normalActions.add(sexAction);
+					}
 				}
 			}
+			if(!uniqueActions.isEmpty()) {
+				availableSexActionsPlayer.addAll(uniqueActions);
+			} else {
+				availableSexActionsPlayer.addAll(normalActions);
+			}
+			
 
 		} else {
 			boolean partnerOrgasming = false;

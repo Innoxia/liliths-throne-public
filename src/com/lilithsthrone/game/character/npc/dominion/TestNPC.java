@@ -58,7 +58,7 @@ public class TestNPC extends NPC {
 	}
 	
 	public TestNPC(boolean isImported) {
-		super(isImported, new NameTriplet("TestNPC"),
+		super(isImported, new NameTriplet("TestNPC"), "Scriven",
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
 				28, Month.JUNE, 1,
 				1, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.PARTIAL_FULL,

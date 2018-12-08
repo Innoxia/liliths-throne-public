@@ -74,7 +74,7 @@ public class HarpyDominant extends NPC {
 	}
 	
 	public HarpyDominant(boolean isImported) {
-		super(isImported, new NameTriplet("Diana"),
+		super(isImported, new NameTriplet("Diana"), "Zima",
 				"One of the more notable harpy matriarchs, Diana is the leader of a flock of harpies."
 						+ " As cruel as harpies come, Diana rules her flock with an iron fist, harshly punishing any harpies that try to challenge her dominance.",
 				33, Month.OCTOBER, 2,
