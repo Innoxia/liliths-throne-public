@@ -720,6 +720,41 @@ public class Game implements XMLSaving {
 					System.out.println("NPCs finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
 
+				if(Main.isVersionOlderThan(loadingVersion, "0.3")) { // Update legacy IDs // FIXME update after merging
+					if (Main.game.getPlayer().getId().equals("PlayerCharacter")) {
+						Main.game.getPlayer().changeId(Main.game.getPlayer().generateId());
+					}
+
+					Set<NPC> updateSet = new HashSet<>();
+					Main.game.NPCMap.forEach((id, npc) -> {
+						// If NPC has an old ID, create a new one and queue it for update
+						if (id.contains(",") || id.contains("-")) {
+							String newId = npc.generateId();
+							updateSet.add(npc);
+
+							// Move artwork for known generic NPCs
+							if (!npc.isUnique() && npc.isPlayerKnowsName()) {
+								npc.changeId(newId);
+							} else {
+								npc.setId(newId);
+							}
+						}
+					});
+
+					// Apply update by adding new ids as alias
+					for (NPC c : updateSet) {
+						if (c.isUnique()) {
+							// Override duplicate of unique NPC with loaded variant
+							Main.game.NPCMap.remove(c.getId());
+						}
+						Main.game.addNPC(c);
+					}
+
+					if (!updateSet.isEmpty()) {
+						Main.game.setRequestAutosave(true);
+					}
+				}
+
 				
 				// Add in new NPCS:
 				Main.game.initUniqueNPCs();
@@ -2762,7 +2797,7 @@ public class Game implements XMLSaving {
 			for(String id : ids) {
 				try {
 					GameCharacter character = getNPCById(id);
-					if(character instanceof NPC) {
+					if(character instanceof NPC && !charactersHome.contains(character)) {
 						charactersHome.add((NPC) character);
 					}
 				} catch (Exception e) {
@@ -2774,16 +2809,6 @@ public class Game implements XMLSaving {
 				}
 			}
 		}
-		
-//		for(NPC npc : NPCMap.values()) {
-//			if(npc!=null
-//					&& npc.getHomeWorldLocation()!=null
-//					&& npc.getHomeWorldLocation()==cell.getType()
-//					&& npc.getHomeLocation()!=null
-//					&& npc.getHomeLocation().equals(cell.getLocation())) {
-//				charactersHome.add(npc);
-//			}
-//		}
 
 		charactersHome.sort((c1, c2) ->
 				(c2.getLevel()-c1.getLevel())==0
@@ -2811,7 +2836,7 @@ public class Game implements XMLSaving {
 			for(String id : ids) {
 				try {
 					GameCharacter character = getNPCById(id);
-					if(character instanceof NPC) {
+					if(character instanceof NPC && !charactersPresent.contains(character)) {
 						charactersPresent.add((NPC) character);
 					}
 				} catch (Exception e) {
