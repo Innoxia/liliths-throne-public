@@ -397,7 +397,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 			this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
 				.filter(filterEmptyElements)
-				.map(Element::getTextContent)
+				.map(e -> clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent())
+				.filter(s -> !s.equals(this.pathName)) // if imageEquippedName is the same as imageName, we don't need to load it twice
 				.orElse(null);
 
 			Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
