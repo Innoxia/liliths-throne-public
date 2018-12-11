@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.managers.dominion;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -26,7 +27,7 @@ public class SMMilkingStall extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 		return getDominants().containsKey(character);
 	}
 	

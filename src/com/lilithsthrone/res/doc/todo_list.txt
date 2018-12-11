@@ -113,32 +113,112 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Tidied up, expanded, and fixed bugs in Elizabeth's dialogue.
+	
+	Contributors:
+		Fixed incorrect labelling and descriptions in the demon alleyway attacker quick transformation scene. (#985 by ChillaChris)
+		Minor description fix. (#986 by ChillaChris)
+		Fixed modding clothing's 'equipped' image variant not working. (#988 by CognitiveMist)
+	
+	Other:
+		Submissive partners in sex can no longer remove sex toys from their partner. (Dildos, and anything that plugs or seals orifices are considered sex toys.)
+		Added 'drab green' colour for clothing.
+	
 	Bugs:
 		Fixed potential issue with radial gradients in images not being coloured correctly.
+		Fixed issue with null pointer exception being thrown in some sex scenes, which was causing sex to freeze.
+		Fixed issue with not being able to progress past one action with dominant partners in the Watering Hole (everything should be working correctly in there again now).
+		Fixed issue where equipping clothing during sex would sometimes result in an error being thrown when sex finished.
+		Fixed some days and months being displayed in the language of your computer's default language instead of English.
+		Fixed issue where all weapons would revert their primary colour to default when you enchanted them.
+		Fixed pregnancy probability descriptions during sex always acting as though the potential mother already had a chance of being pregnant.
+		Fixed incorrect name parsing during Siren's pre-fight scene.
+		Fixed issue where Imps would be incorrectly shown as being present in the very bottom-left tunnel tile of Submission.
+		Added error handling for some bugs in clothing management during sex.
+		Fixed elementals not getting perk points as their summoner level up.
+		Enchanting strength-related drinks will no longer duplicate physical damage & resistance as primary modifiers.
+		Fixed error log spamming 'Failed to load character' messages.
+		Fixed issue with NPCs in sex sometimes failing to remove clothing, which would throw an error and freeze the sex scene.
+		Fixed some clothing (such as the clover clamps) not registering that they were blocking parts correctly, resulting in some parsing errors in some sex actions.
+		Fixed some incorrect descriptions in sex scenes.
+		Fixed imps in the tunnels being treated as though their generic names ('fearless imp', 'nervous imp', etc.) were their real names.
+		Added error handling for when two pieces of clothing accidentally end up blocking one another.
+		Fixed incorrect parsing in imp fortresses, where imps would be described instead of the demon boss.
 	
 	
+	PRs
 	
+	I did the siren fortress and confirmed it at the gates of Lyssieth before even encountering zaranix or arthur, returned to home and built the room for arthur and went back to the gates to get the second ring.
 	
-	condoms
-	Final citadel refinements
-	Lyssieth palace
-		Demon TF
-	Fields
+	reset quest to 2 and put player in cavern if at palace or gates
 	
+	when leaving the palace, put player out in the cavern (otherwise dialogue will make no sense)
 	
-	Elizabeth
+	Get Elizabeth to follow player
+		When first enter, can only use action to move north, until at throne room
+		
 	
-	Gates
-		The guard has multiple repeated lines when you tell her you beat the siren.
-		Double-check rings
-		when completing the quest it does not act like you talked to the guards earlier even if you did.
-		Make sure you have the already-completed citadel quest done properly when approaching Lyssieth palace
-		Also the uniform dialogue, and adding Elizabeth as an NPC
-		i did the siren fortress and confirmed it at the gates of lissieth before even encountering zaranix or arthur, returned to home and built the room for arthur and went back to the gates to get the second ring.
-	 
 	Lyssieth
 		Demon TF
 			Remove Innoxia's gift and slime TF into demon
+			Lilaya reaction and TF
+			
+	
+	
+	condoms
+	
+	Fields
+		Central farmland and town
+		Outer farms
+		Grassland
+		Woodland/Shinrin highlands/mountains
+		
+			
+			
+			
+	
+	
+	Jam
+	
+	ever get the option to allow slaves to grow cocks when raping you with the "use you" option without you having to ask for it?
+		Will slimes ever be able to grow a cock
+		make sure they remove cock after sex
+
+	saving and reloading fills up your aura pool
+		specifically, from a clean start get enough to summon an elemental (I used fire), then immediately save and reload. it didn't work solo
+
+	When fighting multiple people you can target a fallen enemy and attack them anyways
+
+	Add 'Lilaya's Research Notes' in her lab
+	
+	Game still doesn't save skin covering type for me if I set it through buggy
+	
+	Need to update library & Rose lore
+	
+	So I'll change it so that it's both Lilin and people who are skilled at harnessing the arcane who can extract them
+	the lore should probably address the standard practices for wage mages to generate essence. Do they rely on frequent orgies or do they have any special rituals to simulate combat? Or do they just spend all day brawling in the streets? Cause sex essence has that cool down limit
+		maybe a combination of teh two. Very powerful mages figured out how to extract essences but they keep them for themselves.
+		Only Lilin sell them for $$$
+	
+	fetishes
+		in addition to the esscence lore you might want to take another look at how fetishes interact with corruption
+		Yeah initial kinks should be a part of character creation.
+		Than shift all the kinky benefits over to the perk tree
+		Yeah, I don't like fetishes having "abilities" either
+		Like transformer. That shits an inarguably excellent ability, but I don't like transformation for its own sake
+		plus the whole 'kink xp' system that seems to be totally vestigial at this point
+		I guess at best what it could make sense to do is to get more/less arcane based on how much the sex was enjoyable to the participants (AKA how much kinks were hit by how experienced and so on) so that if you do sex that hits your fetishes you get more arcane and if you have sex with an experienced NPC (or have experience yourself) your arcane gain is also higher
+		Which means that the system is focused on sexy times primarily and only without punishing player in other areas for liking sadism
+		seriously tho why sadism is such a bad fetish game pls
+		obviously have it be a one kink a thousand times thing where each kink you 'love' gets a diminishing return (so instead the 'optimal' strat becomes having one easily fulfilled kink...)
+		
+	Items set as RARE are spawning in as COMMON, nothing in error.log
+	Although in the debug spawn menu the text color suggests RARE
+		
+	please get a clothing tag marking something as visibly immodest / revealing
+	
+	
 		
 		
 	
@@ -197,8 +277,6 @@
 	Make it so if lose combat, stolen items are returned
 	
 	Need shrouded identity for the citadel bosses and for fortresses
-	
-	Locale is setting day names
 	
 	Essence extractor milking room upgrades - extremely expensive.
 	

@@ -240,7 +240,16 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_CAVERN");
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_CAVERN"));
+			
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethIntroduced)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_CAVERN_MET_ELIZABETH"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_CAVERN_NOT_MET_ELIZABETH"));
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 
@@ -260,11 +269,14 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public int getMinutesPassed(){
-			return 5;
+			return 1;
 		}
 		
 		@Override
 		public String getContent() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutUniforms, false);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutSurname, false);
+			
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE"));
@@ -272,12 +284,15 @@ public class SubmissionGenericPlaces {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_ENTRY_GRANTED"));
 				
-			} else if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_B_SIRENS_CALL) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_ENTRY_BLOCKED_QUEST_GAINED"));
-			
 			} else if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_C_SIRENS_FALL) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_ENTRY_BLOCKED_QUEST_COMPLETED"));
 				
+			} else if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_B_SIRENS_CALL) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_ENTRY_BLOCKED_QUEST_GAINED"));
+			
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethIntroduced)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_ENTRY_BLOCKED_INTRODUCED"));
+					
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_ENTRY_BLOCKED"));
 			}
@@ -288,73 +303,137 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
-				if (index == 1) {
-					return new Response("Uniforms", "Ask the succubus why she and her troops are wearing Victorian-era uniforms.", LILIN_PALACE_GATE_UNIFORMS);
-				}
-				
-			} else {
-				if (index == 1) {
-					return new ResponseEffectsOnly("Step back", "Do as the guard says and step back.") {
+			
+			// First time visiting this tile:
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethIntroduced)) {
+				if(index==1) {
+					return new Response("Introductions", "Tell the succubus and her troops who you are.", LILIN_PALACE_GATE_GENERIC_TALK) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1));
-							Main.game.setContent(new Response("", "", LILIN_PALACE_CAVERN));
+							Main.game.getElizabeth().setPlayerKnowsName(true);
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethIntroduced, true);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_INTRODUCTION"));
 						}
 					};
-	
+				}
+				return null;
+			}
+			
+			// Completed the Siren's quest:
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
+				if (index == 1) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutUniforms)) {
+						return new Response("Uniforms", "You've just asked ELizabeth about her uniforms...", null);
+					}
+					return new Response("Uniforms", "Ask Elizabeth why she and her troops are wearing historical uniforms.", LILIN_PALACE_GATE_GENERIC_TALK) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutUniforms, true);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_UNIFORMS"));
+						}
+					};
+					
 				} else if (index == 2) {
-					return new Response("Uniforms", "Ask the succubus why she and her troops are wearing Victorian-era uniforms.", LILIN_PALACE_GATE_UNIFORMS);
-	
-				} else if (index == 3) {
-					if(Main.game.getFortressDemonLeader().isSlave()) {
-						return new Response("Audience", "Ask the guard how you can earn an audience with Lyssieth.", LILIN_PALACE_GATE_AUDIENCE_SKIP) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutSurname)) {
+						return new Response("Surname", "You've just asked ELizabeth about her surname...", null);
+					}
+					return new Response("Surname", "Ask Elizabeth why she didn't want to be addressed by her surname.", LILIN_PALACE_GATE_GENERIC_TALK) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutSurname, true);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_SURNAME"));
+						}
+					};
+				}
+				return null;
+			}
+
+			// Handing in the Siren's quest:
+			if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_C_SIRENS_FALL) {
+				if (index == 1) {
+					return new Response("Report", "Tell Elizabeth how you handled the Siren.", LILIN_PALACE_GATE_GENERIC_TALK) {
+						@Override
+						public void effects() {
+							if(Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_COMPLETED_QUEST_WITH_COMBAT"));
+								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().removedItemFromInventoryText(ItemType.LYSSIETHS_RING));
+							} else {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_COMPLETED_QUEST_WITH_TRICKERY"));
+							}
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN));
+						}
+					};
+					
+				}
+				return null;
+			}
+			
+			// Normal dialogue, for before completing the Siren's quest:
+			if (index == 1) {
+				return new ResponseEffectsOnly("Step back", "Decide to step away from Elizabeth and the royal guard, and head back into Submission.") {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1));
+						Main.game.setContent(new Response("", "", LILIN_PALACE_CAVERN));
+					}
+				};
+
+			} else if (index == 2) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutUniforms)) {
+					return new Response("Uniforms", "You've just asked ELizabeth about her uniforms...", null);
+				}
+				return new Response("Uniforms", "Ask Elizabeth why she and her troops are wearing historical uniforms.", LILIN_PALACE_GATE_GENERIC_TALK) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutUniforms, true);
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_UNIFORMS"));
+					}
+				};
+
+			} else if (index == 3) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutSurname)) {
+					return new Response("Surname", "You've just asked ELizabeth about her surname...", null);
+				}
+				return new Response("Surname", "Ask Elizabeth why she didn't want to be addressed by her surname.", LILIN_PALACE_GATE_GENERIC_TALK) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutSurname, true);
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_SURNAME"));
+					}
+				};
+			} else if (index == 4) {
+				if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_A_INTO_THE_DEPTHS) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
+						return new Response("Audience", "Ask Elizabeth how you can earn an audience with Lyssieth.", LILIN_PALACE_GATE_GENERIC_TALK) {
 							@Override
-							public void effects() {//TODO
-								if(Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE_GRANTED_HAS_RING"));
-									Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().removedItemFromInventoryText(ItemType.LYSSIETHS_RING));
-									
-								} else {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE_GRANTED_HAS_NO_RING"));
-								}
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE_SKIP"));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN));
 							}
 						};
 						
 					} else {
-						if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_A_INTO_THE_DEPTHS) {
-							return new Response("Audience", "Ask the guard how you can earn an audience with Lyssieth.", LILIN_PALACE_GATE_AUDIENCE) {
-								@Override
-								public void effects() {
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING), false));
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL));
-								}
-							};
-							
-						} else if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_B_SIRENS_CALL) {
-							return new Response("Audience", "You have already asked the guard how to earn an audience with Lyssieth. You need to find, and then enslave, Lyssieth's daughter; 'The Dark Siren'.", null);
-							
-						} else if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_C_SIRENS_FALL) {
-							return new Response("Report back", "Report to the guard that you have done as she asked and enslaved 'The Dark Siren'.", LILIN_PALACE_GATE_AUDIENCE_GRANTED) {
-								@Override
-								public void effects() {
-									if(Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE_GRANTED_HAS_RING"));
-										Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
-										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().removedItemFromInventoryText(ItemType.LYSSIETHS_RING));
-										
-									} else {
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE_GRANTED_HAS_NO_RING"));
-									}
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false));
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN));
-								}
-							};					
-						}
+						return new Response("Audience", "Ask Elizabeth how you can earn an audience with Lyssieth.", LILIN_PALACE_GATE_GENERIC_TALK) {
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE"));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING), false));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL));
+							}
+						};
 					}
+					
+				} else if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_B_SIRENS_CALL) {
+					return new Response("Audience", "You have already asked Elizabeth how to earn an audience with Lyssieth. You need to find, and then enslave, Lyssieth's daughter; the 'dark siren'.", null);
+					
+				} else {
+					return new Response("Audience",
+							"Elizabeth said that Lyssieth isn't receiving visitors, and, for the moment at least, you don't have a particular reason for needing to see her."
+								+ " Perhaps you'll need to ask for an audience with Lyssieth at some point in the future...",
+							null);
 				}
 			}
 			
@@ -362,62 +441,14 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld LILIN_PALACE_GATE_UNIFORMS = new DialogueNodeOld("Lyssieth's Palace Gate", "", true) {
+	public static final DialogueNodeOld LILIN_PALACE_GATE_GENERIC_TALK = new DialogueNodeOld("Lyssieth's Palace Gate", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL);
+			return LILIN_PALACE_GATE.isTravelDisabled();
 		}
 		
-		@Override
-		public int getMinutesPassed(){
-			return 1;
-		}
-		
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_UNIFORMS");
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			int indexForUniforms = 2;
-			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
-				indexForUniforms = 1;
-			}
-			
-			if (index == indexForUniforms) {
-				return new Response("Uniforms", "You are already asking the guard about her uniform.", null);
-
-			} else {
-				return LILIN_PALACE_GATE.getResponse(responseTab, index);
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld LILIN_PALACE_GATE_AUDIENCE = new DialogueNodeOld("Lyssieth's Palace Gate", "", true, true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed(){
-			return 1;
-		}
-		
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE");
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return LILIN_PALACE_GATE.getResponse(responseTab, index);
-		}
-	};
-	
-	public static final DialogueNodeOld LILIN_PALACE_GATE_AUDIENCE_GRANTED = new DialogueNodeOld("Lyssieth's Palace Gate", "", false, true) {
-		private static final long serialVersionUID = 1L;
-
 		@Override
 		public int getMinutesPassed(){
 			return 1;
@@ -426,25 +457,6 @@ public class SubmissionGenericPlaces {
 		@Override
 		public String getContent() {
 			return "";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return LILIN_PALACE_GATE.getResponse(responseTab, index);
-		}
-	};
-	
-	public static final DialogueNodeOld LILIN_PALACE_GATE_AUDIENCE_SKIP = new DialogueNodeOld("Lyssieth's Palace Gate", "", false, true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed(){
-			return 1;
-		}
-		
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE_SKIP");
 		}
 
 		@Override

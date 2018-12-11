@@ -1054,7 +1054,9 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("fullName"),
+				Util.newArrayListOfValues(
+						"fullName",
+						"nameFull"),
 				true,
 				false,
 				"(prefix)",
@@ -1158,7 +1160,7 @@ public class UtilText {
 				"Returns the day of the week start for this character's job. Does not work for slave jobs."){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return character.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.getDefault());
+				return character.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 			}
 		});
 		
@@ -1174,7 +1176,7 @@ public class UtilText {
 				"Returns the day of the week end for this character's job. Does not work for slave jobs."){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return character.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.getDefault());
+				return character.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 			}
 		});
 		

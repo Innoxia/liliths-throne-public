@@ -63,7 +63,7 @@ public class Arthur extends NPC {
 	}
 	
 	public Arthur(boolean isImported) {
-		super(isImported, new NameTriplet("Arthur"), "Newlands",
+		super(isImported, new NameTriplet("Arthur"), "Fairbanks",
 				"With messy brown hair, pale skin, and a thin frame, the Arthur of this world looks exactly the same as the one you've always known."
 						+ " Just as he was in your world, this Arthur used to be a colleague of Lilaya's, before Lilaya kicked him out."
 						+ "<br/>"
@@ -96,6 +96,7 @@ public class Arthur extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
 			equipClothing(true, true, true, true);
 		}
+		this.setSurname("Fairbanks");
 	}
 	
 	@Override

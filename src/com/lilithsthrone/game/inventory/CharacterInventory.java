@@ -1332,6 +1332,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return isAbleToUnequip(clothing, unequipIfAble, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, false);
 	}
 
+	private AbstractClothing previousClothingCheck = null;
 	private boolean isAbleToUnequip(AbstractClothing clothing, boolean unequipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, boolean continuingIsAbleToEquip) {
 
 		if(!unequipIfAble) {
@@ -1360,7 +1361,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			clothingToRemove.put(clothing, DisplacementType.REMOVE_OR_EQUIP);
 		}
 		
-		// Check for access needed: TODO check this works
+		// Check for access needed: TODO check this works TODO it doesn't
 		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 
 			// Keep iterating through until until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
@@ -1395,6 +1396,11 @@ public class CharacterInventory implements Serializable, XMLSaving {
 												}
 
 										} else {
+											if(equippedClothing.equals(previousClothingCheck)) {
+												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
+												return false;
+											}
+											previousClothingCheck = clothing;
 											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can  be removed:
 												clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 												

@@ -375,6 +375,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Dace617", "", 0, 0, 0, 4));
 		credits.add(new CreditsSlot("Saladofstones", "", 0, 0, 7, 0));
 		credits.add(new CreditsSlot("Dan", "", 0, 1, 0, 11));
+		credits.add(new CreditsSlot("Hikaru Lightbringer", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Daniel D Magnan", "", 0, 0, 6, 0));
 		credits.add(new CreditsSlot("Darthsawyer", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Yllarius", "", 0, 0, 2, 0));
@@ -533,6 +534,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("iloveyouMiaoNiNi", "", 0, 0, 0, 14));
 		credits.add(new CreditsSlot("Weegschaal", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Whatever", "", 0, 0, 13, 0));
+		credits.add(new CreditsSlot("Will Landrum", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("William Brown", "", 0, 0, 5, 2));
 		credits.add(new CreditsSlot("Drahin", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("CMPirate9867", "", 0, 0, 8, 0));

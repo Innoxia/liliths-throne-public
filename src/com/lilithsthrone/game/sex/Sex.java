@@ -192,11 +192,12 @@ public class Sex {
 	
 	// Clothes:
 
+	private static Set<GameCharacter> charactersAbleToRemoveSelfClothing;
+	private static Set<GameCharacter> charactersAbleToRemoveOthersClothing;
+	
 	private static AbstractClothing clothingBeingRemoved;
 	
 	private static Map<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> clothingPreSexMap;
-	
-	private static Set<GameCharacter> charactersAbleToRemoveSelfClothing, charactersAbleToRemoveOthersClothing;
 	
 	private static boolean sexFinished;
 	private static boolean partnerAllowedToUseSelfActions;
@@ -288,17 +289,6 @@ public class Sex {
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			for(GameCharacter character2 : Sex.getAllParticipants()) {
 				character.addSexPartner(character2);
-			}
-		}
-		
-		charactersAbleToRemoveSelfClothing = new HashSet<>();
-		charactersAbleToRemoveOthersClothing = new HashSet<>();
-		for(GameCharacter character : Sex.getAllParticipants()) {
-			if(sexManager.isAbleToRemoveSelfClothing(character)) {
-				charactersAbleToRemoveSelfClothing.add(character);
-			}
-			if(sexManager.isAbleToRemoveOthersClothing(character)) {
-				charactersAbleToRemoveOthersClothing.add(character);
 			}
 		}
 		
@@ -464,6 +454,9 @@ public class Sex {
 		// This method appends wet descriptions to the sexSB StringBuilder:
 		calculateWetAreas(true);
 		
+		charactersAbleToRemoveSelfClothing = new HashSet<>();
+		charactersAbleToRemoveOthersClothing = new HashSet<>();
+		
 		// Store status of all clothes for both partners (so they can be restored afterwards):
 		clothingPreSexMap = new HashMap<>();
 		
@@ -528,7 +521,7 @@ public class Sex {
 		for(Entry<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> entry : clothingPreSexMap.entrySet()) {
 			GameCharacter character = entry.getKey();
 			if(character.isUnique()) { // Backup for unique NPCs, as they shouldn't be able to have clothing put on them during sex:
-				List<AbstractClothing> equippedClothing = character.getClothingCurrentlyEquipped();
+				List<AbstractClothing> equippedClothing = new ArrayList<>(character.getClothingCurrentlyEquipped());
 				for(AbstractClothing c : equippedClothing) {
 					if(!entry.getValue().keySet().contains(c)) {
 						character.forceUnequipClothingIntoVoid(character, c);
@@ -3032,9 +3025,9 @@ public class Sex {
 	public static SexActionInterface manageClothingToAccessCoverableArea(GameCharacter characterManagingClothing, GameCharacter targetForManagement, CoverableArea coverableArea) {
 		
 		SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = targetForManagement.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
-		if (clothingRemoval.getKey() == null) {
+		if (clothingRemoval == null || clothingRemoval.getKey() == null) {
 			unequipClothingText = UtilText.parse(characterManagingClothing, targetForManagement, "[npc.Name] can't find a piece of [npc2.namePos] clothing to remove! (Please tell Innoxia. :3)");
-			System.err.println("partnerManageClothingToAccessCoverableArea method can't get clothing! 1");
+			System.err.println("manageClothingToAccessCoverableArea() can't find clothing - CoverableArea."+coverableArea.toString());
 			return SexActionUtility.CLOTHING_REMOVAL;
 		}
 		
@@ -4108,7 +4101,10 @@ public class Sex {
 	}
 
 	public static boolean isCanRemoveSelfClothing(GameCharacter character) {
-		return charactersAbleToRemoveSelfClothing.contains(character);
+		if(charactersAbleToRemoveSelfClothing.contains(character)) {
+			return true;
+		}
+		return initialSexManager.isAbleToRemoveSelfClothing(character);
 	}
 
 	public static void setCanRemoveSelfClothing(GameCharacter character, boolean canRemoveSelfClothing) {
@@ -4119,8 +4115,11 @@ public class Sex {
 		}
 	}
 	
-	public static boolean isCanRemoveOthersClothing(GameCharacter character) {
-		return charactersAbleToRemoveOthersClothing.contains(character);
+	public static boolean isCanRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
+		if(charactersAbleToRemoveOthersClothing.contains(character)) {
+			return true;
+		}
+		return initialSexManager.isAbleToRemoveOthersClothing(character, clothing);
 	}
 
 	public static void setCanRemoveOthersClothing(GameCharacter character, boolean canRemoveOthersClothing) {

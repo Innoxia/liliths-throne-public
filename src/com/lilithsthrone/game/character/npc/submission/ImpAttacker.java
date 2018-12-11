@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -83,9 +84,9 @@ public class ImpAttacker extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, subspecies, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
-
+		
 		if(!isImported) {
-			this.setLocation(Main.game.getPlayer(), false);
+			this.setLocation(Main.game.getPlayer(), true);
 			
 			// Set random level from 5 to 8:
 			setLevel(5 + Util.random.nextInt(4));
@@ -134,6 +135,9 @@ public class ImpAttacker extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
+			this.setHomeLocation();
+		}
 	}
 
 	@Override

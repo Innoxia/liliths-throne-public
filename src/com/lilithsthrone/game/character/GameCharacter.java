@@ -1522,9 +1522,6 @@ public abstract class GameCharacter implements XMLSaving {
 		nodes = parentElement.getElementsByTagName("playerCore");
 		if(nodes.getLength()>0) { // Old version support:
 			
-			character.setPerkPoints((Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")))-1);
-			CharacterUtils.appendToImportLog(log, "<br/>Set perkPoints: (TEMP FIX) " + (Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"))-1));
-			
 			element = (Element) nodes.item(0);
 	
 			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")), false);
@@ -1535,8 +1532,10 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.appendToImportLog(log, "<br/>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			
 			try {
-				character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+				if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3")) {
+					character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
+					CharacterUtils.appendToImportLog(log, "<br/>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+				}
 			} catch(Exception ex) {
 			}
 		}
@@ -1765,10 +1764,7 @@ public abstract class GameCharacter implements XMLSaving {
 		element = (Element) nodes.item(0);
 		if(element!=null) {
 			if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.0.2")) {
-				int points = character.getPerkPointsAtLevel(character.getLevel());
-				character.setPerkPoints(points);
 				character.clearTraits();
-				CharacterUtils.appendToImportLog(log, "<br/>Added Perk Points: "+points);
 			} else {
 				NodeList perkElements = element.getElementsByTagName("perk");
 				for(int i=0; i<perkElements.getLength(); i++){
@@ -2466,7 +2462,6 @@ public abstract class GameCharacter implements XMLSaving {
 		// ************** Version Overrides **************//
 
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10") && !character.isPlayer()) {
-			character.setPerkPoints(character.getPerkPointsAtLevel(character.getTrueLevel()));
 			PerkManager.initialisePerks(character);
 
 			// All non-unique characters are muggers or prostitutes as of version 0.2.10:
@@ -2786,13 +2781,16 @@ public abstract class GameCharacter implements XMLSaving {
 		return UtilText.parseThought(text, this);
 	}
 	public String getName(String determiner) {
-		if (Character.isUpperCase(getName().charAt(0)) || determiner.isEmpty() || getName().equals(this.getGenericName())) {
+		if (Character.isUpperCase(getName().charAt(0)) || determiner.isEmpty()) { //|| getName().equals(this.getGenericName())
 			if(determiner!=null && !determiner.isEmpty() && Character.isUpperCase(determiner.charAt(0))) {
 				return Util.capitaliseSentence(getName());
 			}
 			return getName();
 			
 		} else {
+			if(this.isUnique()) {
+				determiner = "the";
+			}
 			return (determiner.equalsIgnoreCase("a") || determiner.equalsIgnoreCase("an")
 						?(Character.isUpperCase(determiner.charAt(0))
 								?Util.capitaliseSentence(UtilText.generateSingularDeterminer(getName()))
@@ -4406,7 +4404,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 			level++;
 
-			perkPoints++;
+			incrementPerkPoints(1);
 			if(level%5==0) {
 				perkPoints+=2;
 			}
@@ -4438,16 +4436,28 @@ public abstract class GameCharacter implements XMLSaving {
 		return level-1 + (level/5)*2;
 	}
 	
-	public int getPerkPoints() {
-		return perkPoints;
-	}
-
 	public void incrementPerkPoints(int increment) {
 		setPerkPoints(perkPoints+increment);
 	}
 	
 	public void setPerkPoints(int perkPoints) {
 		this.perkPoints = perkPoints;
+	}
+
+	public int getPerkPoints() {
+		return getPerkPointsAtLevel(this.getTrueLevel()) + getAdditionalPerkPoints() - this.getPerkPointsSpent();
+	}
+	
+	public int getAdditionalPerkPoints() {
+		return perkPoints;
+	}
+
+	public int getPerkPointsSpent() {
+		int count = 0;
+		for(Entry<Integer, Set<Perk>> entry : this.getPerksMap().entrySet()) {
+			count += entry.getValue().size();
+		}
+		return count;
 	}
 
 	// Attributes:
@@ -4711,8 +4721,6 @@ public abstract class GameCharacter implements XMLSaving {
 		updateAttributeListeners();
 		
 		PerkManager.initialisePerks(this);
-
-		this.setPerkPoints(this.getPerkPointsAtLevel(this.getLevel()));
 		
 	}
 	
@@ -11835,13 +11843,14 @@ public abstract class GameCharacter implements XMLSaving {
 		this.addPotentialPartnerAsMother(pregPoss);
 		partner.addPotentialPartnerAsFather(pregPoss);
 
+		String pregnancyDescription = PregnancyDescriptor.getPregnancyDescriptorBasedOnProbability(pregnancyChance).getDescriptor(this, partner);
+		
 		// Now roll for pregnancy:
 		if (!isPregnant()) {
 			if (!hasStatusEffect(StatusEffect.PREGNANT_0)) {
 				addStatusEffect(StatusEffect.PREGNANT_0, 60 * (4 + Util.random.nextInt(5)));
 			}
 			if (Math.random() <= pregnancyChance) {
-				
 				Race litterSizeBasedOn = null;
 				
 				if (this.getBodyMaterial() == BodyMaterial.SLIME) {
@@ -11882,8 +11891,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		return PregnancyDescriptor.getPregnancyDescriptorBasedOnProbability(pregnancyChance)
-				.getDescriptor(this, partner);
+		return pregnancyDescription;
 	}
 
 	public boolean isPregnant() {
@@ -12335,7 +12343,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return this.getLocation().equals(this.getHomeLocation()) && this.getWorldLocation().equals(this.getHomeWorldLocation());
 	}
 	
-	private int getTrueLevel() {
+	protected int getTrueLevel() {
 		return level;
 	}
 	
@@ -13800,21 +13808,6 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isCoverableAreaExposed(CoverableArea area) {
-		if(area == CoverableArea.VAGINA
-				|| area == CoverableArea.ANUS
-				|| area == CoverableArea.NIPPLES) {
-			for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
-				if(area == CoverableArea.VAGINA && (clothing.getItemTags().contains(ItemTag.PLUGS_VAGINA) || clothing.getItemTags().contains(ItemTag.SEALS_VAGINA))) {
-					return false;
-				}
-				if(area == CoverableArea.ANUS && (clothing.getItemTags().contains(ItemTag.PLUGS_ANUS) || clothing.getItemTags().contains(ItemTag.SEALS_ANUS))) {
-					return false;
-				}
-				if(area == CoverableArea.NIPPLES && (clothing.getItemTags().contains(ItemTag.PLUGS_NIPPLES) || clothing.getItemTags().contains(ItemTag.SEALS_NIPPLES))) {
-					return false;
-				}
-			}
-		}
 		return inventory.isCoverableAreaExposed(area);
 	}
 	

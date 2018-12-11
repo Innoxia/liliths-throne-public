@@ -4063,7 +4063,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			for (AbstractWeaponType weapon : WeaponType.allweapons) {
+			for (AbstractWeaponType weapon : WeaponType.getAllweapons()) {
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					if ((EventTarget) MainController.document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {
 						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mousemove", MainController.moveTooltipListener, false);
@@ -4171,7 +4171,6 @@ public class MainControllerInitMethod {
 										
 									} else if(character.getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(character, e)) {
 										if(character.addPerk(e.getRow(), e.getEntry())) {
-											character.incrementPerkPoints(-1);
 											if(e.getEntry().isEquippableTrait() && character.getTraits().size()<GameCharacter.MAX_TRAITS) {
 												character.addTrait(e.getEntry());
 											}

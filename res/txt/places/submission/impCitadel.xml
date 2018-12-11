@@ -893,7 +893,7 @@
 		Looking over at the siren's throne, you see [siren.name] stepping down from the raised dias as she laughs, [siren.speech(Fool! Now you shall witness my vast astronomical powers! The very fabric of space and time bends to my will!)]
 	</p>
 	<p>
-		Thrusting one foot forwards, [npc.name] strikes a heroic pose, and, lifting her huge scythe above her head with one arm, she effortlessly twirls it around in an impressive display of strength and finesse. Reaching up to grab the shaft with her other hand, she then swings it around into a low-ready position, before letting out another #IFpc.hasTraitActivated(PERK_CHUUNI)#THENspirited#ELSEridiculous#ENDIF laugh, [siren.speech(~Mwhaha!~ Prepare for your obliteration!)]
+		Thrusting one foot forwards, [siren.name] strikes a heroic pose, and, lifting her huge scythe above her head with one arm, she effortlessly twirls it around in an impressive display of strength and finesse. Reaching up to grab the shaft with her other hand, she then swings it around into a low-ready position, before letting out another #IFpc.hasTraitActivated(PERK_CHUUNI)#THENspirited#ELSEridiculous#ENDIF laugh, [siren.speech(~Mwhaha!~ Prepare for your obliteration!)]
 	</p>
 	<p>
 		You don't have any time in which to recover from your fight against the demons, as [siren.name] prepares to immediately fight you one-on-one!

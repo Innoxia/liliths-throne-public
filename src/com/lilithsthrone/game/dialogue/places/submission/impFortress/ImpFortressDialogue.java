@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.impFortress;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -290,7 +289,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -357,7 +356,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -425,7 +424,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -594,18 +593,8 @@ public class ImpFortressDialogue {
 		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_ALPHA_KEEP
 				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_FEMALES_KEEP
 				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_MALES_KEEP) {
-			allCharacters.addAll(getImpBossGroup(Main.game.getPlayer().getWorldLocation(), true));
-		}
-
-		if(Main.game.getPlayer().getCompanions().size()>1) {
-			Collections.sort(allCharacters, (c1, c2) ->
-				c1 instanceof Elemental
-					?(c2 instanceof Elemental
-							?c2.getLevel()-c1.getLevel()
-							:1)
-					:(c2 instanceof Elemental
-							?-1
-							:c2.getLevel()-c1.getLevel()));
+			allCharacters.add(getBoss());
+			allCharacters.addAll(getImpBossGroup(Main.game.getPlayer().getWorldLocation(), false));
 		}
 		
 		return allCharacters;
@@ -632,7 +621,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -659,7 +648,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -690,7 +679,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	

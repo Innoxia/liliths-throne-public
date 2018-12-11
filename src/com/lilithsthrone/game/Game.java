@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
@@ -2807,8 +2808,8 @@ public class Game implements Serializable, XMLSaving {
 	public List<NPC> getCharactersTreatingCellAsHome(Cell cell) {
 		charactersHome.clear();
 
-		Set<String> ids = cell.getCharactersHomeIds();
-		if(ids!=null) {
+		if(cell.getCharactersHomeIds()!=null) {
+			Set<String> ids = new HashSet<>(cell.getCharactersHomeIds());
 			for(String id : ids) {
 				try {
 					GameCharacter character = getNPCById(id);
@@ -2816,7 +2817,8 @@ public class Game implements Serializable, XMLSaving {
 						charactersHome.add((NPC) character);
 					}
 				} catch (Exception e) {
-					System.err.println("Failed to load: "+id);
+					System.err.println("Failed to load character present home: "+id);
+					cell.removeCharacterHomeId(id);
 //					e.printStackTrace();
 				}
 			}
@@ -2853,8 +2855,8 @@ public class Game implements Serializable, XMLSaving {
 	public List<NPC> getCharactersPresent(WorldType worldType, Vector2i location) {
 		charactersPresent.clear();
 		
-		Set<String> ids = getWorlds().get(worldType).getCell(location).getCharactersPresentIds();
-		if(ids!=null) {
+		if(getWorlds().get(worldType).getCell(location).getCharactersPresentIds()!=null) {
+			Set<String> ids = new HashSet<>(getWorlds().get(worldType).getCell(location).getCharactersPresentIds());
 			for(String id : ids) {
 				try {
 					GameCharacter character = getNPCById(id);
@@ -2862,7 +2864,8 @@ public class Game implements Serializable, XMLSaving {
 						charactersPresent.add((NPC) character);
 					}
 				} catch (Exception e) {
-					System.err.println("Failed to load: "+id);
+					System.err.println("Failed to load character present: "+id);
+					getWorlds().get(worldType).getCell(location).removeCharacterPresentId(id);
 //					e.printStackTrace();
 				}
 			}

@@ -228,7 +228,7 @@ public class DebugDialogue {
 					return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>+1</span> <span style='color:"+Colour.PERK.toWebHexString()+";'>Perk point</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().setPerkPoints(Main.game.getPlayer().getPerkPoints()+1);
+							Main.game.getPlayer().incrementPerkPoints(1);
 						}
 					};
 					
@@ -418,20 +418,18 @@ public class DebugDialogue {
 	public static InventorySlot activeSlot = null;
 	public static ItemTag itemTag = null;
 	public static int spawnCount = 1;
-	static {
-		clothingTotal.addAll(ClothingType.getAllClothing());
-	}
+	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
-		weaponsTotal.addAll(WeaponType.allweapons);
-	}
-	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
-	static {
-		for (AbstractItemType c : ItemType.getAllItems()) {
-			if(!c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
-				itemsTotal.add(c);
-			}
-		}
+		clothingTotal.addAll(ClothingType.getAllClothing());
+		clothingTotal.removeIf((c) -> c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
+		
+		weaponsTotal.addAll(WeaponType.getAllweapons());
+		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
+
+		itemsTotal.addAll(ItemType.getAllItems());
+		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
+		
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
 	public static final DialogueNodeOld SPAWN_MENU = new DialogueNodeOld("Spawn Menu", "Access the spawn menu.", false) {

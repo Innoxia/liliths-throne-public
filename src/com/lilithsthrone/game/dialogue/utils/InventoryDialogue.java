@@ -750,7 +750,7 @@ public class InventoryDialogue {
 						return new Response("Equip all", "You can't equip clothing in sex!", null);
 							
 					} else if (index == 6 && inventoryNPC != null) {
-						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
 							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "You can't displace [npc.namePos] clothing in this sex scene!"), null);
 							
 						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
@@ -783,7 +783,7 @@ public class InventoryDialogue {
 						return new Response("Replace all (them)", "You can't replace clothing in sex!", null);
 						
 					} else if (index == 8 && inventoryNPC != null) {
-						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "You can't unequip [npc.namePos] clothing in this sex scene!"), null);
 							
 						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
@@ -5515,7 +5515,7 @@ public class InventoryDialogue {
 								if(!clothing.getClothingType().isAbleToBeDropped()) {
 									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
 									
-								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
 									return new Response("Drop", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
@@ -5546,7 +5546,7 @@ public class InventoryDialogue {
 								if(!clothing.getClothingType().isAbleToBeDropped()) {
 									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
 									
-								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
 									return new Response("Store", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
@@ -5609,7 +5609,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if(index == 6 && !clothing.getClothingType().isDiscardedOnUnequip()) {
-							if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+							if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
 								return new Response("Unequip", "You can't unequip the " + clothing.getName() + " in this sex scene!", null);
 							}
 							
@@ -5634,15 +5634,13 @@ public class InventoryDialogue {
 						} else if (index > 10 && index - 11 < clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().size()){
 							
 							if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11))) {
-
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription()),
 										"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " the " + clothing.getName() + " during sex!", null);
 								
 							} else {
-
 								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11), false, false, Main.game.getPlayer())){
 									
-									if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+									if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
 										return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 												"You "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " the " + clothing.getName() + " in this sex scene!", null);
 									}

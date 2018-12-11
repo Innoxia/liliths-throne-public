@@ -43,6 +43,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
@@ -971,22 +972,26 @@ public class NightlifeDistrict {
 				return new Response("Back", "Decide to look for a different gender.", WATERING_HOLE_SEARCH_GENDER);
 			}
 			int count = 1;
-			for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation().getSpecies()) {
-				if(count==index) {
-					return new Response(Util.capitaliseSentence(subspecies.getName(null)),
-							"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
-							(isSearchingForASub
-									?WATERING_HOLE_SEARCH_GENERATE
-									:WATERING_HOLE_SEARCH_GENERATE_DOM)) {
-						@Override
-						public void effects() {
-							clubberSubspecies = subspecies;
 
-							spawnClubbers(isSearchingForASub);
-						}
-					};
+			Population pop = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation();
+			if(pop!=null && !pop.getSpecies().isEmpty()) {
+				for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation().getSpecies()) {
+					if(count==index) {
+						return new Response(Util.capitaliseSentence(subspecies.getName(null)),
+								"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
+								(isSearchingForASub
+										?WATERING_HOLE_SEARCH_GENERATE
+										:WATERING_HOLE_SEARCH_GENERATE_DOM)) {
+							@Override
+							public void effects() {
+								clubberSubspecies = subspecies;
+	
+								spawnClubbers(isSearchingForASub);
+							}
+						};
+					}
+					count++;
 				}
-				count++;
 			}
 			return null;
 		}

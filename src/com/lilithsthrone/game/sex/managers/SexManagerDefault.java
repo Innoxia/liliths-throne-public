@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.AbstractMap.SimpleEntry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
@@ -13,6 +14,8 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -292,12 +295,22 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					return Sex.manageClothingToAccessCoverableArea(partner, partner, partnerAreasToBeExposed.get(0));
 				}
 			}
-			if(!targetAreasToBeExposed.isEmpty() && Sex.isCanRemoveOthersClothing(partner)) {
+			if(!targetAreasToBeExposed.isEmpty() && Sex.isCanRemoveOthersClothing(partner, null)) {
 				Collections.shuffle(targetAreasToBeExposed);
-				if(targetAreasToBeExposed.get(0) == CoverableArea.MOUND) {
-					return Sex.manageClothingToAccessCoverableArea(partner, Sex.getTargetedPartner(partner), CoverableArea.VAGINA);
-				} else {
-					return Sex.manageClothingToAccessCoverableArea(partner, Sex.getTargetedPartner(partner), targetAreasToBeExposed.get(0));
+				List<CoverableArea> areas = new ArrayList<>(targetAreasToBeExposed);
+				for(CoverableArea area : areas) {
+					SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = Sex.getTargetedPartner(partner).getNextClothingToRemoveForCoverableAreaAccess(area);
+					if(clothingRemoval==null || !Sex.isCanRemoveOthersClothing(partner, clothingRemoval.getKey())) {
+						targetAreasToBeExposed.remove(area);
+					}
+				}
+
+				if(!targetAreasToBeExposed.isEmpty()) {
+					if(targetAreasToBeExposed.get(0) == CoverableArea.MOUND) {
+						return Sex.manageClothingToAccessCoverableArea(partner, Sex.getTargetedPartner(partner), CoverableArea.VAGINA);
+					} else {
+						return Sex.manageClothingToAccessCoverableArea(partner, Sex.getTargetedPartner(partner), targetAreasToBeExposed.get(0));
+					}
 				}
 			}
 		}

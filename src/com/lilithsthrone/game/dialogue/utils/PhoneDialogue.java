@@ -1635,7 +1635,7 @@ public class PhoneDialogue {
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
 		itemsDiscoveredList.sort(new ItemRarityComparator());
 		
-		weaponsDiscoveredList.addAll(WeaponType.allweapons);
+		weaponsDiscoveredList.addAll(WeaponType.getAllweapons());
 		weaponsDiscoveredList.sort(new WeaponRarityComparator());
 		
 		clothingDiscoveredList.addAll(ClothingType.getAllClothing());

@@ -399,7 +399,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			for(GameCharacter clubber : clubbers) {
 				clubber.setLocation(this, false);
 				// TODO Why is this needed? I can't figure out why IDs are not being removed without this line:
-				Main.game.getWorlds().get(worldLocationInitial).getCell(locationInitial).removeCharacterPresentId(clubber.getId());
+				if(worldLocation!=worldLocationInitial || !location.equals(locationInitial)) {
+					Main.game.getWorlds().get(worldLocationInitial).getCell(locationInitial).removeCharacterPresentId(clubber.getId());
+				}
 			}
 			
 		} else {

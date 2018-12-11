@@ -61,7 +61,7 @@ public class EnchantingUtils {
 		
 		craftedClothing = AbstractClothingType.generateClothing(
 				(AbstractClothingType) ingredient.getEnchantmentItemType(effects),
-				ingredient.getColour(),
+				((AbstractClothing)ingredient).getColour(),
 				((AbstractClothing)ingredient).getSecondaryColour(),
 				((AbstractClothing)ingredient).getTertiaryColour(),
 				effectsToBeAdded);
@@ -93,7 +93,7 @@ public class EnchantingUtils {
 		craftedWeapon = AbstractWeaponType.generateWeapon(
 				(AbstractWeaponType) ingredient.getEnchantmentItemType(effects),
 				((AbstractWeapon) ingredient).getDamageType(),
-				ingredient.getColour(),
+				((AbstractWeapon)ingredient).getPrimaryColour(),
 				((AbstractWeapon)ingredient).getSecondaryColour());
 		
 		craftedWeapon.setEffects(effectsToBeAdded);

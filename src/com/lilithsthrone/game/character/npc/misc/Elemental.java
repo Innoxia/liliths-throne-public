@@ -260,11 +260,16 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public int getLevel() {
+	protected int getTrueLevel() {
 		if(this.getSummoner()==null) {
 			return level;
 		}
 		return getSummoner().getLevel();
+	}
+	
+	@Override
+	public int getLevel() {
+		return getTrueLevel();
 	}
 	
 	@Override

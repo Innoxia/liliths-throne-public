@@ -49,7 +49,6 @@ public class FingerBreasts {
 		@Override
 		public String getDescription() {
 			if(!Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.NIPPLES)){
-
 				UtilText.nodeContentSB.setLength(0);
 				
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
@@ -59,7 +58,7 @@ public class FingerBreasts {
 										+ " softly pressing [npc2.her] [npc2.lowClothing(nipples)] down against [npc2.her] [npc2.nipples+] in the process.",
 
 								"[npc.Name] [npc.verb(find)] [npc.herself] unable to resist the temptation of [npc2.namePos] [npc2.breasts+], and [npc.she] [npc.verb(reach)] up to gently press [npc.her] [npc.hands+]"
-									+ " into the fabric of [npc2.her] [npc2.topClothing(nipples)], before starting to softly grope and squeeze [npc2.her] chest.",
+									+ " against [npc2.her] [npc2.topClothing(nipples)], before starting to softly grope and squeeze [npc2.her] chest.",
 
 								"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.topClothing(nipples)], [npc.name] [npc.verb(start)] to gently fondle and grope [npc2.her] [npc2.breasts+]."));
 						break;
@@ -69,7 +68,7 @@ public class FingerBreasts {
 										+ " pressing [npc2.her] [npc2.lowClothing(nipples)] down against [npc2.her] [npc2.nipples+] in the process.",
 
 								"[npc.Name] [npc.verb(find)] [npc.herself] unable to resist the temptation of [npc2.namePos] [npc2.breasts+], and [npc.she] [npc.verb(reach)] up to eagerly press [npc.her] [npc.hands+]"
-									+ " into the fabric of [npc2.her] [npc2.topClothing(nipples)], before starting to grope and squeeze [npc2.her] chest.",
+									+ " against [npc2.her] [npc2.topClothing(nipples)], before starting to grope and squeeze [npc2.her] chest.",
 
 								"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.topClothing(nipples)], [npc.name] [npc.verb(start)] to eagerly fondle and grope [npc2.her] [npc2.breasts+]."));
 						break;
@@ -79,7 +78,7 @@ public class FingerBreasts {
 										+ " forcefully grinding [npc2.her] [npc2.lowClothing(nipples)] down against [npc2.her] [npc2.nipples+] in the process.",
 
 								"[npc.Name] [npc.verb(find)] [npc.herself] unable to resist the temptation of [npc2.namePos] [npc2.breasts+], and [npc.she] [npc.verb(reach)] up to forcefully grind [npc.her] [npc.hands+]"
-									+ " into the fabric of [npc2.her] [npc2.topClothing(nipples)], before starting to roughly grope and squeeze [npc2.her] chest.",
+									+ " against [npc2.her] [npc2.topClothing(nipples)], before starting to roughly grope and squeeze [npc2.her] chest.",
 
 								"Sinking [npc.her] [npc.fingers] into [npc2.namePos] [npc2.topClothing(nipples)], [npc.name] [npc.verb(start)] to roughly fondle and grope [npc2.her] [npc2.breasts+]."));
 						break;
@@ -89,7 +88,7 @@ public class FingerBreasts {
 										+ " pressing [npc2.her] [npc2.lowClothing(nipples)] down against [npc2.her] [npc2.nipples+] in the process.",
 
 								"[npc.Name] [npc.verb(find)] [npc.herself] unable to resist the temptation of [npc2.namePos] [npc2.breasts+], and [npc.she] [npc.verb(reach)] up to eagerly press [npc.her] [npc.hands+]"
-									+ " into the fabric of [npc2.namePos] [npc2.topClothing(nipples)], before starting to grope and squeeze [npc2.her] chest.",
+									+ " against [npc2.namePos] [npc2.topClothing(nipples)], before starting to grope and squeeze [npc2.her] chest.",
 
 								"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.topClothing(nipples)], [npc.name] [npc.verb(start)] to eagerly fondle and grope [npc2.her] [npc2.breasts+]."));
 						break;
@@ -99,7 +98,7 @@ public class FingerBreasts {
 										+ " pressing [npc2.her] [npc2.lowClothing(nipples)] down against [npc2.her] [npc2.nipples+] in the process.",
 
 								"[npc.Name] [npc.verb(find)] [npc.herself] unable to resist the temptation of [npc2.namePos] [npc2.breasts+], and [npc.she] [npc.verb(reach)] up to press [npc.her] [npc.hands+]"
-									+ " into the fabric of [npc2.her] [npc2.topClothing(nipples)], before starting to grope and squeeze [npc2.her] chest.",
+									+ " against [npc2.her] [npc2.topClothing(nipples)], before starting to grope and squeeze [npc2.her] chest.",
 
 								"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.topClothing(nipples)], [npc.name] [npc.verb(start)] to fondle and grope [npc2.her] [npc2.breasts+]."));
 						break;

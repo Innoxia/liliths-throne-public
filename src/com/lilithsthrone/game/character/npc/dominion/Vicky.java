@@ -319,7 +319,7 @@ public class Vicky extends NPC {
 		
 		List<AbstractCoreType> types = new ArrayList<>();
 		
-		for(AbstractWeaponType wt : WeaponType.allweapons) {
+		for(AbstractWeaponType wt : WeaponType.getAllweapons()) {
 			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
 				types.add(wt);
 //				for(int i=0; i<1+Util.random.nextInt(3); i++){

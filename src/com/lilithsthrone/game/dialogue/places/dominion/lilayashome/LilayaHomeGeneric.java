@@ -605,7 +605,7 @@ public class LilayaHomeGeneric {
 								+ "<p style='text-align:center;'><i>"
 									+ "Hi, [pc.name]!<br/>"
 									+ "I'm out at work at the moment, my hours are from "+occupant.getHistory().getWorkHourStart()+":00 to "+occupant.getHistory().getWorkHourEnd()+":00, "
-										+occupant.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.getDefault())+"-"+occupant.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.getDefault())+"<br/>"
+										+occupant.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"-"+occupant.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"<br/>"
 									+ "Come and see me when I'm not at work!<br/>"
 									+ "- [npc.Name]"
 								+ "</i></p>"));
