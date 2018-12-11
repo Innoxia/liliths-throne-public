@@ -398,7 +398,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 			this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
 				.filter(filterEmptyElements)
-				.map(Element::getTextContent)
+				.map(e -> clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent())
+				.filter(s -> !s.equals(this.pathName)) // if imageEquippedName is the same as imageName, we don't need to load it twice
 				.orElse(null);
 			if(this.pathNameEquipped!=null) {
 				this.pathNameEquipped = clothingXMLFile.getParentFile().getAbsolutePath() + "/" + this.pathNameEquipped;
