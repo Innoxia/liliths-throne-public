@@ -733,7 +733,7 @@ public class Name {
 	public static NameTriplet getRandomTriplet(Race r) {
 		NameTriplet name = Util.randomItemFrom(human);
 		// occasionally throw some "prostitute" names in there - about 10% of the time
-		if(Util.random.nextInt(9)>8)
+		if(Math.random()<0.1)
 		{
 			name = Util.randomItemFrom(prostitute); 
 		}
@@ -797,9 +797,13 @@ public class Name {
 	
 	public static NameTriplet getRandomProstituteTriplet() {
 		// occasionally throw some "regular" names in there - 25% of the time
-		if(Util.random.nextInt(3)<3)
-			return Util.randomItemFrom(prostitute);
-		else
+		if(Math.random()<0.25)
+		{
 			return Util.randomItemFrom(human);
+		}
+		else
+		{
+			return Util.randomItemFrom(prostitute);
+		}
 	}
 }
