@@ -67,7 +67,7 @@ public class Eirwen extends NPC {
 	}
 	
 	public Eirwen(boolean isImported) {
-		super(isImported, new NameTriplet("Eirwen"),
+		super(isImported, new NameTriplet("Eirwen"), "Gleinn",
 				"Eirwen is the head slave for Wallace at the Servants' Hall."
 						+ "Always calm and composed, she maintains a haughty pose at all time.",
 				28, Month.MARCH, 4,
@@ -183,7 +183,7 @@ public class Eirwen extends NPC {
 	}
 	
 	@Override 
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		this.unequipAllClothingIntoVoid(true);
 
 		this.setMoney(10);
