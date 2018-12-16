@@ -2670,8 +2670,21 @@ public class Lab {
 							+ (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)
 								? "As she speaks, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she lets out a little humming noise, "
 								: "Your vagina is already exposed, and, after looking down at it for a moment, Lilaya lets out a little humming noise, "));
-				
-				switch(Main.game.getPlayer().getVaginaType()) {
+
+				if ((Main.game.getPlayer().getVaginaType().getRace().isEgglayer()
+				   ||Main.game.getPlayer().getRace().isEgglayer()))
+				{
+					UtilText.nodeContentSB.append("[lilaya.speech(Ooh, alright, you're going to be laying some eggs, how exciting!"
+							+ " I'm sure you're already feeling it, but some incredibly strong maternal instincts are going to be kicking in pretty soon, and you're only going to feel comfortable doing this in a very personal area."
+							+ " I think using your room would be the best bet, follow me!)]"
+							+ "</p>");
+				} else {
+					UtilText.nodeContentSB.append("[lilaya.speech(Alright, so you're going to be giving birth to live young."
+							+ " I've got a room set up for just that purpose, follow me!)]"
+							+ "</p>");
+				}
+
+				/*switch(Main.game.getPlayer().getVaginaType()) {
 					case HARPY:
 						UtilText.nodeContentSB.append("[lilaya.speech(Ooh, alright, you're going to be laying some eggs, how exciting!"
 								+ " I'm sure you're already feeling it, but some incredibly strong maternal instincts are going to be kicking in pretty soon, and you're only going to feel comfortable doing this in a very personal area."
@@ -2683,7 +2696,7 @@ public class Lab {
 								+ " I've got a room set up for just that purpose, follow me!)]"
 								+ "</p>");
 						break;
-				}
+				}*/
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -2692,7 +2705,25 @@ public class Lab {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				switch(Main.game.getPlayer().getVaginaType()) {
+				if ((Main.game.getPlayer().getVaginaType().getRace().isEgglayer()
+				||  Main.game.getPlayer().getRace().isEgglayer())) {
+					return new Response("Follow Lilaya", "Allow Lilaya to lead you up to your room.", LILAYA_ASSISTS_EGG_LAYING) {
+						@Override
+						public void effects() {
+							Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
+							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
+						}
+					};
+				} else {
+					return new Response("Follow Lilaya", "Allow Lilaya to lead you to the birthing room.", LILAYA_ASSISTS_BIRTHING) {
+						@Override
+						public void effects() {
+							Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_BIRTHING_ROOM, false);
+							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_BIRTHING_ROOM, false);
+						}
+					};
+				}
+				/*switch(Main.game.getPlayer().getVaginaType()) {
 					case HARPY:
 						return new Response("Follow Lilaya", "Allow Lilaya to lead you up to your room.", LILAYA_ASSISTS_EGG_LAYING) {
 							@Override
@@ -2709,7 +2740,7 @@ public class Lab {
 								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_BIRTHING_ROOM, false);
 							}
 						};
-				}
+				}*/
 				
 
 			} else {
@@ -2985,7 +3016,7 @@ public class Lab {
 								+ " So, after you've laid your eggs, you're going to incubate them for roughly twenty-four hours, during which time you'll find that you'll be unable to sleep or get any rest."
 								+ " Once the eggs start hatching, all that built-up tiredness will suddenly wash over you, and you might collapse from exhaustion."
 								+ " I'll be waiting to come in and help your children, so don't worry if you end up passing out!"
-								+ " Oh, and remember that they're going to grow pretty rapidly once they've hatched, so they might have already flown the nest by the time you wake up.)]"
+								+ " Oh, and remember that they're going to grow pretty rapidly once they've hatched, so they might have already left the nest by the time you wake up.)]"
 						+ "</p>"
 
 						+ "<p>"

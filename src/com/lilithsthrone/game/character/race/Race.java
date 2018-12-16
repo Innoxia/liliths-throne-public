@@ -30,6 +30,7 @@ public enum Race {
 			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
+			false,
 			false),
 	
 	// HUMAN:
@@ -52,6 +53,7 @@ public enum Race {
 			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
+			false,
 			false),
 
 	// ANGEL:
@@ -74,6 +76,7 @@ public enum Race {
 			Attribute.RESISTANCE_ANGEL,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
+			false,
 			false),
 
 	// DEMON:
@@ -97,6 +100,7 @@ public enum Race {
 			Attribute.RESISTANCE_DEMON,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
+			false,
 			false),
 
 	// BOVINES:
@@ -119,7 +123,8 @@ public enum Race {
 			Attribute.RESISTANCE_COW_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 
 	// CANINES:
 	DOG_MORPH("dog-morph",
@@ -139,7 +144,8 @@ public enum Race {
 			Attribute.RESISTANCE_DOG_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 
 	WOLF_MORPH("wolf-morph",
 			"wolf-morphs",
@@ -160,7 +166,8 @@ public enum Race {
 			Attribute.RESISTANCE_WOLF_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 	
 	FOX_MORPH("fox-morph",
 			"fox-morphs",
@@ -182,7 +189,8 @@ public enum Race {
 			Attribute.RESISTANCE_FOX_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 
 	// FELINES:
 	CAT_MORPH("cat-morph",
@@ -204,7 +212,8 @@ public enum Race {
 			Attribute.RESISTANCE_CAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 
 	// EQUINE:
 	HORSE_MORPH("horse-morph",
@@ -226,7 +235,8 @@ public enum Race {
 			Attribute.RESISTANCE_HORSE_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 
 	
 	 REINDEER_MORPH("reindeer-morph",
@@ -248,7 +258,8 @@ public enum Race {
 			Attribute.RESISTANCE_REINDEER_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 			
 
 	SQUIRREL_MORPH("squirrel-morph",
@@ -269,7 +280,8 @@ public enum Race {
 			Attribute.RESISTANCE_SQUIRREL_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 
 	RAT_MORPH("rat-morph",
 			"rat-morphs",
@@ -290,7 +302,8 @@ public enum Race {
 			Attribute.RESISTANCE_RAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 
 	RABBIT_MORPH("rabbit-morph",
 			"rabbit-morphs",
@@ -311,7 +324,8 @@ public enum Race {
 			Attribute.RESISTANCE_RABBIT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 	
 	BAT_MORPH("bat-morph",
 			"bat-morphs",
@@ -332,7 +346,8 @@ public enum Race {
 			Attribute.RESISTANCE_BAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true,
+			false),
 	
 	ALLIGATOR_MORPH("alligator-morph",
 			"alligator-morphs",
@@ -353,6 +368,7 @@ public enum Race {
 			Attribute.RESISTANCE_ALLIGATOR_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
+			true,
 			true),
 
 	// SLIME:
@@ -373,6 +389,7 @@ public enum Race {
 			Attribute.RESISTANCE_SLIME,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
+			false,
 			false),
 
 	// AVIAN:
@@ -395,7 +412,8 @@ public enum Race {
 			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			false),
+			false,
+			true),
 	
 
 	// ELEMENTALS:
@@ -525,6 +543,7 @@ public enum Race {
 			Attribute.RESISTANCE_ELEMENTAL,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
+			false,
 			false),
 	;
 
@@ -1272,6 +1291,7 @@ public enum Race {
 	private FurryPreference defaultFemininePreference;
 	private FurryPreference defaultMasculinePreference;
 	private boolean affectedByFurryPreference;
+	private boolean egglayer;
 	
 	private Race(String name,
 			String namePlural,
@@ -1292,8 +1312,9 @@ public enum Race {
 			
 			FurryPreference defaultFemininePreference,
 			FurryPreference defaultMasculinePreference,
-			
-			boolean affectedByFurryPreference) {
+
+			boolean affectedByFurryPreference,
+		    boolean egglayer) {
 		
 		this.name = name;
 
@@ -1314,6 +1335,8 @@ public enum Race {
 		this.defaultMasculinePreference = defaultMasculinePreference;
 		
 		this.affectedByFurryPreference = affectedByFurryPreference;
+
+		this.egglayer = egglayer;
 	}
 
 	public String getName() {
@@ -1369,5 +1392,7 @@ public enum Race {
 	public FurryPreference getDefaultMasculinePreference() {
 		return defaultMasculinePreference;
 	}
+
+	public boolean isEgglayer() { return egglayer; }
 
 }
