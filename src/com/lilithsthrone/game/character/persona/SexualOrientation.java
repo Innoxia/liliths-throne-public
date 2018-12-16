@@ -35,4 +35,15 @@ public enum SexualOrientation {
 	public SexualOrientationPreference getOrientationPreferenceDefault() {
 		return orientationPreferenceDefault;
 	}
+	
+	public static SexualOrientation getEnum(String value) {
+        if (value.equals("null")) {
+        	return null;
+        }
+        for(SexualOrientation orientation : values())
+            if(orientation.name().equalsIgnoreCase(value)) {
+            	return orientation;
+            }
+        throw new IllegalArgumentException();
+    }
 }
