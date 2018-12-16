@@ -57,7 +57,7 @@
 			With a theatral gesture, he turns away, and spreading his arm like an actor shouting to the skies, before declaiming his prose
 		</p>
 		<p>
-			- WELCOME! To the Servants' Hall. A wonderful place where anybody, independently of age, race, social belonging, can taste, for a small sum, the joys of owning living beings. If you cannot find the one you want here, we will do our best to satisfy your desires in the quickest way. The name is Wallace, master of this place, to serve you.
+			[wallace.speech(WELCOME! To the Servants' Hall. A wonderful place where anybody, independently of age, race, social belonging, can taste, for a small sum, the joys of owning living beings. If you cannot find the one you want here, we will do our best to satisfy your desires in the quickest way. The name is Wallace, master of this place, to serve you.)]
 		</p>
 		<p>
 			On these final words, he makes a giant bow, under the amused look of the alligator-morph.
@@ -263,4 +263,12 @@
 			[wallace.speech([pc.he] must have been really confused... Come on darling, take the product to Finch, [pc.he]'ll go fetch it there when he realizes. And you'll have a little treat when you come back...)]
 		</p>
 ]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_HUNT_CHOSEN"><![CDATA[
+		<p>
+			[pc.speech(I'll take that one.)]
+		</p>
+		<p>
+			[wallace.speech(Oh, a nice choice... Just wait a few moments for me to complete some formalities... And... Done! Good luck, and may the odds be in your favor.)]
+		</p>
+	]]></htmlContent>
 </dialogue>
