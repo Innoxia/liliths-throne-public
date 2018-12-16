@@ -368,6 +368,8 @@ public class ServantsHall {
 						Main.game.getPlayer().setActiveContract(null);
 					}
 				};
+			} else if (index == 0) {
+				return new Response("Leave", "Leave", SLAVE_RENTAL_ENTRY_REPEAT);
 			} else {
 				return null;
 			}
