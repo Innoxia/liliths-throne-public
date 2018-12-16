@@ -1295,11 +1295,6 @@ public class HuntingContract
 			return Colour.naturalSlimeColours.get((int)Math.floor(Math.random() * Colour.naturalSlimeColours.size()));
 		case HARPY:
 			return Colour.naturalFeatherColours.get((int)Math.floor(Math.random() * Colour.naturalFeatherColours.size()));
-		case ELEMENTAL_EARTH:
-		case ELEMENTAL_WATER:
-		case ELEMENTAL_AIR:
-		case ELEMENTAL_FIRE:
-		case ELEMENTAL_ARCANE:
 		default:
 			return null;
 		}
@@ -1324,12 +1319,6 @@ public class HuntingContract
 			return Colour.allCoveringColours.get((int)Math.floor(Math.random() * Colour.allCoveringColours.size()));
 		case SLIME:
 			return Colour.naturalSlimeColours.get((int)Math.floor(Math.random() * Colour.naturalSlimeColours.size()));
-		case ALLIGATOR_MORPH:
-		case ELEMENTAL_EARTH:
-		case ELEMENTAL_WATER:
-		case ELEMENTAL_AIR:
-		case ELEMENTAL_FIRE:
-		case ELEMENTAL_ARCANE:
 		default:
 			return null;
 		}
@@ -1356,11 +1345,6 @@ public class HuntingContract
 			return Colour.naturalSlimeColours.get((int)Math.floor(Math.random() * Colour.naturalSlimeColours.size()));
 		case DEMON:
 			return Colour.naturalDemonIrisColours.get((int)Math.floor(Math.random() * Colour.naturalDemonIrisColours.size()));
-		case ELEMENTAL_EARTH:
-		case ELEMENTAL_WATER:
-		case ELEMENTAL_AIR:
-		case ELEMENTAL_FIRE:
-		case ELEMENTAL_ARCANE:
 		default:
 			return null;
 		}
