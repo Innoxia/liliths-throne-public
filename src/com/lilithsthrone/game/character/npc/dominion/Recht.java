@@ -73,7 +73,7 @@ public class Recht extends NPC {
 	}
 	
 	public Recht(boolean isImported) {
-		super(isImported, new NameTriplet("Recht"),
+		super(isImported, new NameTriplet("Recht"), "Drüger", 
 				"Recht works as a slave Hunter for Wallace's shop, the Servants' Hall.", 
 				36, Month.JANUARY, 28,
 				15,
@@ -178,7 +178,7 @@ public class Recht extends NPC {
 	}
 	
 	@Override 
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		this.unequipAllClothingIntoVoid(true);
 
 		this.setMoney(10);
