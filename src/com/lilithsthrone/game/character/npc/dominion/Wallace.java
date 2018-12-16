@@ -65,7 +65,7 @@ public class Wallace extends NPC {
 	}
 	
 	public Wallace(boolean isImported) {
-		super(isImported, new NameTriplet("Wallace"),
+		super(isImported, new NameTriplet("Wallace"), "Dravec", 
 				"Wallace manages the Servant's Hall shop in the Shopping Arcade."
 						+ "He appears nice and friendly, yet, every occasion he has to, he reminds you he's dangerous.", 
 				24, Month.JULY, 12,
@@ -172,7 +172,7 @@ public class Wallace extends NPC {
 	}
 	
 	@Override 
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		this.unequipAllClothingIntoVoid(true);
 
 		this.setMoney(10);
