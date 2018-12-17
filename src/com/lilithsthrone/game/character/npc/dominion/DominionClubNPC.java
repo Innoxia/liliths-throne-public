@@ -124,10 +124,6 @@ public class DominionClubNPC extends NPC {
 	
 	@Override
 	public Vector2i getLocation() {
-		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB
-				&& Main.game.getPlayer().getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
-			return Main.game.getPlayer().getLocation();
-		}
 		return location;
 	}
 	

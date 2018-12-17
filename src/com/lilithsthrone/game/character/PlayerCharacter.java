@@ -390,16 +390,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
 			List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 			clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
-			
-			WorldType worldLocationInitial = this.getWorldLocation();
-			Vector2i locationInitial = this.getLocation();
+
 			
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 			
 			for(GameCharacter clubber : clubbers) {
 				clubber.setLocation(this, false);
-				// TODO Why is this needed? I can't figure out why IDs are not being removed without this line:
-				Main.game.getWorlds().get(worldLocationInitial).getCell(locationInitial).removeCharacterPresentId(clubber.getId());
 			}
 			
 		} else {
