@@ -62,7 +62,7 @@ public class NightlifeDistrict {
 //		for(GameCharacter clubber : clubbers) {
 //			System.out.println(clubber.getClass().getName());
 //		}
-		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
+//		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
 		return clubbers;
 	}
 	
