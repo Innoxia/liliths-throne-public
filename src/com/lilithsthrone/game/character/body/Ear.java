@@ -1,7 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -11,12 +9,11 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.3
  * @author Innoxia
  */
-public class Ear implements BodyPartInterface, Serializable {
+public class Ear implements BodyPartInterface {
 
-	protected static final long serialVersionUID = 1L;
 	protected EarType type;
 	protected boolean pierced;
 

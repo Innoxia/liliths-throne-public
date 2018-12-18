@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +7,10 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.1.69.1
- * @version 0.2.8
+ * @version 0.3
  * @author Innoxia
  */
-public class SexFlags implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class SexFlags {
 
 	public static boolean positioningBlockedPlayer;
 	public static boolean positioningBlockedPartner;

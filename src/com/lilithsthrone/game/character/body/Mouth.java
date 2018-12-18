@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +17,8 @@ import com.lilithsthrone.main.Main;
  * @version 0.1.83
  * @author Innoxia
  */
-public class Mouth implements BodyPartInterface, Serializable {
+public class Mouth implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 	
 	protected MouthType type;
 	protected OrificeMouth orificeMouth;

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,8 +18,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  * @version 0.2.1
  * @author Innoxia
  */
-public class OrificeNipples implements OrificeInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class OrificeNipples implements OrificeInterface {
 	
 	protected int elasticity;
 	protected int plasticity;

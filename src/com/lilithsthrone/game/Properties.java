@@ -1,7 +1,6 @@
 package com.lilithsthrone.game;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -51,11 +50,10 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia
  */
-public class Properties implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Properties {
 
 	public String lastSaveLocation = "";
 	public String lastQuickSaveName = "";

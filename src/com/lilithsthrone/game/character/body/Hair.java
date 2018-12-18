@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.HairType;
@@ -14,8 +13,7 @@ import com.lilithsthrone.main.Main;
  * @version 0.2.2
  * @author Innoxia
  */
-public class Hair implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Hair implements BodyPartInterface {
 	
 	protected HairType type;
 	protected int length;

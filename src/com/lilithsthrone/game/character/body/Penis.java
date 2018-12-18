@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,8 +27,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.2
  * @author Innoxia
  */
-public class Penis implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Penis implements BodyPartInterface {
 
 	public static final float TWO_PENIS_SIZE_MULTIPLIER = 1.6f;
 

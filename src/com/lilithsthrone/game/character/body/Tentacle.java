@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.TentacleType;
@@ -13,8 +12,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.8
  * @author Innoxia
  */
-public class Tentacle implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Tentacle implements BodyPartInterface {
 	
 	protected TentacleType type;
 	protected int tentacleCount;

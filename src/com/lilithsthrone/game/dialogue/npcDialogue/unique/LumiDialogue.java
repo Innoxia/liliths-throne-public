@@ -4,7 +4,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -26,8 +26,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class LumiDialogue {
 	
-	public static final DialogueNodeOld LUMI_APPEARS = new DialogueNodeOld("Alleyways", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_APPEARS = new DialogueNode("Alleyways", "", true) {
 		
 		@Override
 		public String getAuthor() {
@@ -65,8 +64,7 @@ public class LumiDialogue {
 	
 	private static int moneyStolen = 0;
 	
-	public static final DialogueNodeOld LUMI_APPEARS_FIRST_ENCOUNTER = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_APPEARS_FIRST_ENCOUNTER = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -101,8 +99,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld LUMI_APPEARS_FIRST_ENCOUNTER_WAITING = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_APPEARS_FIRST_ENCOUNTER_WAITING = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -134,8 +131,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld LUMI_CHASE = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_CHASE = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -163,8 +159,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld LUMI_CHASE_CONTINUE = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_CHASE_CONTINUE = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -205,8 +200,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld COMBAT_PLAYER_LOSS = new DialogueNodeOld("Alleyways", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COMBAT_PLAYER_LOSS = new DialogueNode("Alleyways", "", true) {
 
 		@Override
 		public String getAuthor() {
@@ -223,7 +217,7 @@ public class LumiDialogue {
 			if(index == 1) {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -238,8 +232,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld COMBAT_PLAYER_WIN = new DialogueNodeOld("Alleyways", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COMBAT_PLAYER_WIN = new DialogueNode("Alleyways", "", true) {
 
 		@Override
 		public String getAuthor() {
@@ -290,8 +283,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -308,7 +300,7 @@ public class LumiDialogue {
 			if(index == 1) {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -323,8 +315,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld COMBAT_PLAYER_WIN_RECOVER_MONEY = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COMBAT_PLAYER_WIN_RECOVER_MONEY = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -341,7 +332,7 @@ public class LumiDialogue {
 			if(index == 1) {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -356,8 +347,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld COMBAT_PLAYER_WIN_TAKE_ADVANTAGE = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COMBAT_PLAYER_WIN_TAKE_ADVANTAGE = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -374,7 +364,7 @@ public class LumiDialogue {
 			if(index == 1) {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -389,8 +379,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld LUMI_CAUGHT_TALK = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_CAUGHT_TALK = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -438,8 +427,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld LUMI_CAUGHT_TALK_GIVE_MONEY = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_CAUGHT_TALK_GIVE_MONEY = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -456,7 +444,7 @@ public class LumiDialogue {
 			if(index == 1) {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -467,8 +455,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld LUMI_CAUGHT_TALK_ASK_FOR_MONEY_BACK = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_CAUGHT_TALK_ASK_FOR_MONEY_BACK = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -485,7 +472,7 @@ public class LumiDialogue {
 			if(index == 1) {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -496,8 +483,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld LUMI_CAUGHT_TALK_THREATEN = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_CAUGHT_TALK_THREATEN = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -514,7 +500,7 @@ public class LumiDialogue {
 			if(index == 1) {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -531,8 +517,7 @@ public class LumiDialogue {
 	
 	
 	
-	public static final DialogueNodeOld LUMI_APPEARS_REPEAT_ENCOUNTER = new DialogueNodeOld("Alleyways", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LUMI_APPEARS_REPEAT_ENCOUNTER = new DialogueNode("Alleyways", "", true, true) {
 
 		@Override
 		public String getAuthor() {

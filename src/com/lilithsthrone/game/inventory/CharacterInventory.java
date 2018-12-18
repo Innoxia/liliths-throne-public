@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory;
 
-import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -58,9 +57,8 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.10
  * @author Innoxia
  */
-public class CharacterInventory implements Serializable, XMLSaving {
+public class CharacterInventory implements XMLSaving {
 
-	private static final long serialVersionUID = 1L;
 
 	private List<AbstractItem> itemsInInventory;
 	private List<AbstractWeapon> weaponsInInventory;

@@ -23,7 +23,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -713,7 +713,7 @@ public class Main extends Application {
 	/**
 	 * Starts a completely new game. Runs a new World Generation.
 	 */
-	public static void startNewGame(DialogueNodeOld startingDialogueNode) {
+	public static void startNewGame(DialogueNode startingDialogueNode) {
 		
 		Main.game = new Game();
 		

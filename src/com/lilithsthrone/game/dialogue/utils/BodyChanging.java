@@ -31,7 +31,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -265,8 +265,7 @@ public class BodyChanging {
 		return coveringsNamesMap;
 	}
 	
-	public static final DialogueNodeOld BODY_CHANGING_CORE = new DialogueNodeOld("Core", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_CHANGING_CORE = new DialogueNode("Core", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -532,8 +531,7 @@ public class BodyChanging {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_CHANGING_FACE = new DialogueNodeOld("Head", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_CHANGING_FACE = new DialogueNode("Head", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -817,8 +815,7 @@ public class BodyChanging {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_CHANGING_ASS = new DialogueNodeOld("Ass", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_CHANGING_ASS = new DialogueNode("Ass", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -952,8 +949,7 @@ public class BodyChanging {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_CHANGING_BREASTS = new DialogueNodeOld("Breasts", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_CHANGING_BREASTS = new DialogueNode("Breasts", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -1117,8 +1113,7 @@ public class BodyChanging {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_CHANGING_VAGINA = new DialogueNodeOld("Vagina", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_CHANGING_VAGINA = new DialogueNode("Vagina", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -1285,8 +1280,7 @@ public class BodyChanging {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_CHANGING_PENIS = new DialogueNodeOld("Penis", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_CHANGING_PENIS = new DialogueNode("Penis", "", true) {
 
 		@Override
 		public String getHeaderContent() {

@@ -1,6 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 
 /**
@@ -10,8 +10,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
  */
 public class LyssiethPalaceDialogue {
 	
-	public static final DialogueNodeOld ENTRANCE = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -30,8 +29,7 @@ public class LyssiethPalaceDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -49,8 +47,7 @@ public class LyssiethPalaceDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld WINDOWS = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WINDOWS = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -68,8 +65,7 @@ public class LyssiethPalaceDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld ROOM = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -87,8 +83,7 @@ public class LyssiethPalaceDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld ROOM_SIREN = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_SIREN = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -106,8 +101,7 @@ public class LyssiethPalaceDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld HALL = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HALL = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -125,8 +119,7 @@ public class LyssiethPalaceDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld THRONE_ROOM = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode THRONE_ROOM = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -144,8 +137,7 @@ public class LyssiethPalaceDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld STAIRCASE = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRCASE = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -163,8 +155,7 @@ public class LyssiethPalaceDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld TREASURY_DOOR = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TREASURY_DOOR = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -182,8 +173,7 @@ public class LyssiethPalaceDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld TREASURY = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TREASURY = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {

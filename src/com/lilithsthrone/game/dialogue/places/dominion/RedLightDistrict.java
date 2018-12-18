@@ -14,7 +14,7 @@ import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -52,8 +52,7 @@ public class RedLightDistrict {
 		return false;
 	}
 	
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Red-light District", "Red-light District", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Red-light District", "Red-light District", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -96,8 +95,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_ENTRANCE = new DialogueNodeOld("Entrance", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_ENTRANCE = new DialogueNode("Entrance", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -162,8 +160,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_CORRIDOR = new DialogueNodeOld("Corridor", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_CORRIDOR = new DialogueNode("Corridor", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -181,8 +178,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_STAIRS_UP = new DialogueNodeOld("Staircase Up", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_STAIRS_UP = new DialogueNode("Staircase Up", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -210,8 +206,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_STAIRS_DOWN = new DialogueNodeOld("Staircase Down", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_STAIRS_DOWN = new DialogueNode("Staircase Down", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -239,8 +234,7 @@ public class RedLightDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld ANGELS_KISS_BEDROOM = new DialogueNodeOld("Bedroom", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_BEDROOM = new DialogueNode("Bedroom", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -447,8 +441,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PROSTITUTE = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_PROSTITUTE = new DialogueNode("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -473,8 +466,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_SELL_SELF_SUB = new DialogueNode("Bedroom", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -522,8 +514,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_SELL_SELF_DOM = new DialogueNode("Bedroom", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -571,8 +562,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_SELL_SELF_DECLINE = new DialogueNodeOld("Bedroom", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_SELL_SELF_DECLINE = new DialogueNode("Bedroom", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -590,8 +580,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_SELL_SELF_DOM = new DialogueNode("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -619,8 +608,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_SELL_SELF_SUB = new DialogueNode("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -648,8 +636,7 @@ public class RedLightDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld ANGELS_KISS_BEDROOM_BUNNY = new DialogueNodeOld("Bunny's Bedroom", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_BEDROOM_BUNNY = new DialogueNode("Bunny's Bedroom", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -739,8 +726,7 @@ public class RedLightDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_SEX_BUNNY = new DialogueNodeOld("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_BUNNY = new DialogueNode("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -762,8 +748,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_BUNNY_THREESOME = new DialogueNodeOld("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_BUNNY_THREESOME = new DialogueNode("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -781,8 +766,7 @@ public class RedLightDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld ANGELS_KISS_BEDROOM_LOPPY = new DialogueNodeOld("Loppy's Bedroom", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_BEDROOM_LOPPY = new DialogueNode("Loppy's Bedroom", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -894,8 +878,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_LOPPY = new DialogueNodeOld("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_LOPPY = new DialogueNode("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -918,8 +901,7 @@ public class RedLightDistrict {
 	};
 
 	
-	public static final DialogueNodeOld AFTER_SEX_LOPPY_THREESOME = new DialogueNodeOld("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_LOPPY_THREESOME = new DialogueNode("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -937,8 +919,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE = new DialogueNodeOld("Angel's Office", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1006,8 +987,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE_CONTINUE = new DialogueNodeOld("Angel's Office", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE_CONTINUE = new DialogueNode("Angel's Office", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1025,8 +1005,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE_PROSTITUTION = new DialogueNodeOld("Angel's Office", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE_PROSTITUTION = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1049,8 +1028,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE_BACKGROUND = new DialogueNodeOld("Angel's Office", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE_BACKGROUND = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1073,8 +1051,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE_LICENSE_PURCHASE = new DialogueNodeOld("Angel's Office", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE_LICENSE_PURCHASE = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {

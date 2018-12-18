@@ -4,7 +4,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -90,8 +90,7 @@ public class PixsPlayground {
 			return null;
 	}
 	
-	public static final DialogueNodeOld GYM_EXTERIOR = new DialogueNodeOld("Pix's Playground (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_EXTERIOR = new DialogueNode("Pix's Playground (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -132,8 +131,7 @@ public class PixsPlayground {
 		}
 	};
 
-	public static final DialogueNodeOld GYM = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM = new DialogueNode("Pix's Playground", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -176,8 +174,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld GYM_FOLLOW = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_FOLLOW = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -238,8 +235,7 @@ public class PixsPlayground {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_RETURNING = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_RETURNING = new DialogueNode("Pix's Playground", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -265,8 +261,7 @@ public class PixsPlayground {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_SINGLE_PAYMENT = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_SINGLE_PAYMENT = new DialogueNode("Pix's Playground", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -283,8 +278,7 @@ public class PixsPlayground {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_LIFETIME_PAYMENT = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_LIFETIME_PAYMENT = new DialogueNode("Pix's Playground", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -301,8 +295,7 @@ public class PixsPlayground {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_MEMBER_ENTER = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_MEMBER_ENTER = new DialogueNode("Pix's Playground", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -319,8 +312,7 @@ public class PixsPlayground {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_CARDIO = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_CARDIO = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -356,8 +348,7 @@ public class PixsPlayground {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_WEIGHTS = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_WEIGHTS = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -393,8 +384,7 @@ public class PixsPlayground {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_PIX_TRAINING = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_PIX_TRAINING = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -462,8 +452,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld GYM_PIX_TRAINING_CARDIO = new DialogueNodeOld("Pix's Playground", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_PIX_TRAINING_CARDIO = new DialogueNode("Pix's Playground", "-", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -520,8 +509,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld GYM_PIX_TRAINING_FINISH = new DialogueNodeOld("Pix's Playground", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_PIX_TRAINING_FINISH = new DialogueNode("Pix's Playground", "-", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -561,8 +549,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld GYM_PIX_ASSAULT = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_PIX_ASSAULT = new DialogueNode("Pix's Playground", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -666,8 +653,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld PIX_BREAK_FREE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PIX_BREAK_FREE = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -684,8 +670,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld PIX_POST_SEX_TABLES_TURNED = new DialogueNodeOld("Changing Rooms", "Carry Pix out to the changing rooms.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PIX_POST_SEX_TABLES_TURNED = new DialogueNode("Changing Rooms", "Carry Pix out to the changing rooms.", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -707,8 +692,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld PIX_POST_SEX = new DialogueNodeOld("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PIX_POST_SEX = new DialogueNode("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -730,8 +714,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld GYM_PIX_ASSAULT_CONSENSUAL = new DialogueNodeOld("Pix's Playground", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_PIX_ASSAULT_CONSENSUAL = new DialogueNode("Pix's Playground", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -765,8 +748,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld GYM_PIX_ASSAULT_CONSENSUAL_DECLINED = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GYM_PIX_ASSAULT_CONSENSUAL_DECLINED = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -783,8 +765,7 @@ public class PixsPlayground {
 		}
 	};
 	
-	public static final DialogueNodeOld PIX_POST_SEX_CONSENSUAL = new DialogueNodeOld("Pix dresses you", "Pix helps you to get dressed.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PIX_POST_SEX_CONSENSUAL = new DialogueNode("Pix dresses you", "Pix helps you to get dressed.", true) {
 		
 		@Override
 		public int getMinutesPassed(){

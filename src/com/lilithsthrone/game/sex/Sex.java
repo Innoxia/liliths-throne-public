@@ -35,7 +35,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.ParserTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -166,7 +166,7 @@ public class Sex {
 	private static Map<GameCharacter, Map<GameCharacter, Set<SexActionInterface>>> actionsAvailable;
 	private static Map<GameCharacter, Map<GameCharacter, Set<SexActionInterface>>> orgasmActionsAvailable;
 	
-	private static DialogueNodeOld postSexDialogue;
+	private static DialogueNode postSexDialogue;
 
 	private static Map<GameCharacter, SexActionInterface> lastUsedSexAction;
 	
@@ -208,10 +208,10 @@ public class Sex {
 	public Sex() {
 	}
 
-	public DialogueNodeOld initialiseSex(boolean consensual,
+	public DialogueNode initialiseSex(boolean consensual,
 			boolean subHasEqualControl,
 			SexManagerInterface sexManager,
-			DialogueNodeOld postSexDialogue,
+			DialogueNode postSexDialogue,
 			String sexStartDescription) {
 		return initialiseSex(consensual,
 				subHasEqualControl,
@@ -222,13 +222,13 @@ public class Sex {
 				sexStartDescription);
 	}
 	
-	public DialogueNodeOld initialiseSex(
+	public DialogueNode initialiseSex(
 			boolean consensual,
 			boolean subHasEqualControl,
 			SexManagerInterface sexManager,
 			List<GameCharacter> dominantSpectators,
 			List<GameCharacter> submissiveSpectators,
-			DialogueNodeOld postSexDialogue,
+			DialogueNode postSexDialogue,
 			String sexStartDescription) {
 
 		turn = 1;
@@ -1101,8 +1101,7 @@ public class Sex {
 	}
 
 	
-	public static final DialogueNodeOld SEX_DIALOGUE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SEX_DIALOGUE = new DialogueNode("", "", true) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -1289,51 +1288,12 @@ public class Sex {
 		public boolean isContinuesDialogue(){
 			return sexStarted;
 		}
-
-		@Override
-		public boolean isDisplaysActionTitleOnContinuesDialogue() {
-			return true;
-		}
-
+		
 		@Override
 		public boolean isInventoryDisabled() {
 			return false;
 		}
 	};
-	
-//	public static final DialogueNodeOld SEX_DIALOGUE_RETURN = new DialogueNodeOld("", "", true) {
-//		private static final long serialVersionUID = 1L;
-//
-//		@Override
-//		public String getLabel() {
-//			return "Sex: "+getPosition().getName();
-//		}
-//
-//		@Override
-//		public String getContent() {
-//			return (!sexStarted?SEX_DIALOGUE.getContent():"");
-//		}
-//
-//		@Override
-//		public Response getResponse(int responseTab, int index) {
-//			return SEX_DIALOGUE.getResponse(0, index);
-//		}
-//
-//		@Override
-//		public boolean isContinuesDialogue(){
-//			return SEX_DIALOGUE.isContinuesDialogue();
-//		}
-//
-//		@Override
-//		public boolean isDisplaysActionTitleOnContinuesDialogue() {
-//			return false;
-//		}
-//
-//		@Override
-//		public boolean isInventoryDisabled() {
-//			return SEX_DIALOGUE.isInventoryDisabled();
-//		}
-//	};
 	
 	/**
 	 * Don't call this out of sex.
@@ -4154,11 +4114,11 @@ public class Sex {
 		return repeatActionsPlayer;
 	}
 
-	public static DialogueNodeOld getPostSexDialogue() {
+	public static DialogueNode getPostSexDialogue() {
 		return postSexDialogue;
 	}
 
-	public static DialogueNodeOld getSexDialogue() {
+	public static DialogueNode getSexDialogue() {
 		return SEX_DIALOGUE;
 	}
 

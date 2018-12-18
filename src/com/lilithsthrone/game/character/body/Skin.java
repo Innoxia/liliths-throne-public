@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.SkinType;
@@ -12,8 +11,7 @@ import com.lilithsthrone.main.Main;
  * @version 0.2.10
  * @author Innoxia
  */
-public class Skin implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Skin implements BodyPartInterface {
 	
 	protected SkinType type;
 

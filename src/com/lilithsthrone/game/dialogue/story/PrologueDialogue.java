@@ -16,7 +16,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -50,8 +50,7 @@ public class PrologueDialogue {
 		return CharacterCreation.femalePrologueNPC();
 	}
 	
-	public static final DialogueNodeOld INTRO = new DialogueNodeOld("In the Museum", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO = new DialogueNode("In the Museum", "", true) {
 
 		@Override
 		public String getContent() {
@@ -92,8 +91,7 @@ public class PrologueDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTRO_EMPTY_ROOM = new DialogueNodeOld("In the Museum", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_EMPTY_ROOM = new DialogueNode("In the Museum", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -168,8 +166,7 @@ public class PrologueDialogue {
 	};
 	
 
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("In the Museum", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX = new DialogueNode("In the Museum", "", true) {
 
 		@Override
 		public String getContent() {
@@ -214,8 +211,7 @@ public class PrologueDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld INTRO_SECOND_THOUGHTS = new DialogueNodeOld("In the Museum", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_SECOND_THOUGHTS = new DialogueNode("In the Museum", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -248,8 +244,7 @@ public class PrologueDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTRO_NO = new DialogueNodeOld("In the Museum", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NO = new DialogueNode("In the Museum", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -282,8 +277,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_2 = new DialogueNodeOld("In the Museum", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_2 = new DialogueNode("In the Museum", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -302,8 +296,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_3A = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_3A = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -320,8 +313,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_3B = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_3B = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -338,8 +330,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_4 = new DialogueNodeOld("The horror!", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_4 = new DialogueNode("The horror!", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -356,8 +347,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_5 = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_5 = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -386,8 +376,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_NEW_WORLD_1 = new DialogueNodeOld("A new world", "", true, false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_1 = new DialogueNode("A new world", "", true, false) {
 
 		@Override
 		public String getContent() {
@@ -436,8 +425,7 @@ public class PrologueDialogue {
 			}
 		}
 	};
-	public static final DialogueNodeOld INTRO_NEW_WORLD_1_STRUGGLE = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_1_STRUGGLE = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -463,8 +451,7 @@ public class PrologueDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -491,8 +478,7 @@ public class PrologueDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -519,8 +505,7 @@ public class PrologueDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTRO_NEW_WORLD_2 = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_2 = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -538,8 +523,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_NEW_WORLD_2_A = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_2_A = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -564,8 +548,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_NEW_WORLD_3 = new DialogueNodeOld("Lilaya's Home", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_3 = new DialogueNode("Lilaya's Home", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -590,8 +573,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_NEW_WORLD_4 = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_4 = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -620,8 +602,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_NEW_WORLD_5 = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_5 = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -657,8 +638,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_NEW_WORLD_6 = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_6 = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -684,8 +664,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_NEW_WORLD_7 = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_7 = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -709,8 +688,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_NEW_WORLD_8 = new DialogueNodeOld("Your room", "You follow Rose as she leads you up to your new room.", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_8 = new DialogueNode("Your room", "You follow Rose as she leads you up to your new room.", true, true) {
 
 		@Override
 		public String getContent() {
@@ -737,8 +715,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_NEW_WORLD_9 = new DialogueNodeOld("Knocking", "Rose said she'd be back in about half an hour, so that must be her knocking at your door.", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTRO_NEW_WORLD_9 = new DialogueNode("Knocking", "Rose said she'd be back in about half an hour, so that must be her knocking at your door.", true, true) {
 
 		@Override
 		public String getContent() {

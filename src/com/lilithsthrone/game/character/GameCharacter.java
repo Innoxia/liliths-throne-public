@@ -168,7 +168,7 @@ import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryAttributeChange;
@@ -333,7 +333,7 @@ public abstract class GameCharacter implements XMLSaving {
 	// Slavery:
 	protected List<String> slavesOwned;
 	protected String owner;
-	protected DialogueNodeOld enslavementDialogue;
+	protected DialogueNode enslavementDialogue;
 	protected AbstractClothing enslavementClothing;
 	
 	protected SlaveJob slaveJob;
@@ -3737,13 +3737,13 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Slavery:
 	
-	public DialogueNodeOld getEnslavementDialogue(AbstractClothing enslavementClothing) {
+	public DialogueNode getEnslavementDialogue(AbstractClothing enslavementClothing) {
 		SlaveDialogue.setEnslavementTarget(this);
 		this.enslavementClothing = enslavementClothing;
 		return enslavementDialogue;
 	}
 	
-	public void setEnslavementDialogue(DialogueNodeOld enslavementDialogue) {
+	public void setEnslavementDialogue(DialogueNode enslavementDialogue) {
 		this.enslavementDialogue = enslavementDialogue;
 	}
 	

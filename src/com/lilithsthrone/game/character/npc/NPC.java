@@ -54,7 +54,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -358,7 +358,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public abstract void changeFurryLevel();
 	
-	public abstract DialogueNodeOld getEncounterDialogue();
+	public abstract DialogueNode getEncounterDialogue();
 	
 	public boolean isClothingStealable() {
 		return false;

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +15,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.10
  * @author Innoxia
  */
-public class Leg implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Leg implements BodyPartInterface {
 	
 	protected LegType type;
 	protected FootStructure footStructure;

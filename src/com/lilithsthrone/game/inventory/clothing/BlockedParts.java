@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.clothing;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,8 +19,7 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.12
  * @author Innoxia, Pimgd
  */
-public class BlockedParts implements Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class BlockedParts implements XMLSaving {
 	
 	public DisplacementType displacementType;
 	public List<ClothingAccess> clothingAccessRequired;

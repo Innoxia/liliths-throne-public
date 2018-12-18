@@ -32,7 +32,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -67,8 +67,7 @@ public class PhoneDialogue {
 	private static List<GameCharacter> charactersEncountered;
 	
 	private static StringBuilder journalSB;
-	public static final DialogueNodeOld MENU = new DialogueNodeOld("Phone home screen", "Phone", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MENU = new DialogueNode("Phone home screen", "Phone", true) {
 
 		@Override
 		public String getContent() {
@@ -180,8 +179,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld PLANNER_MAIN = new DialogueNodeOld("Planner", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PLANNER_MAIN = new DialogueNode("Planner", "", true) {
 
 		@Override
 		public String getContent() {
@@ -244,8 +242,7 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld PLANNER_SIDE = new DialogueNodeOld("Planner", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PLANNER_SIDE = new DialogueNode("Planner", "", true) {
 
 		@Override
 		public String getContent() {
@@ -322,8 +319,7 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld PLANNER_RELATIONSHIP = new DialogueNodeOld("Planner", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PLANNER_RELATIONSHIP = new DialogueNode("Planner", "", true) {
 
 		@Override
 		public String getContent() {
@@ -459,8 +455,7 @@ public class PhoneDialogue {
 	}
 	
 
-	public static final DialogueNodeOld CHARACTER_APPEARANCE = new DialogueNodeOld("Selfie picture", "Take a selfie", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_APPEARANCE = new DialogueNode("Selfie picture", "Take a selfie", true) {
 
 		@Override
 		public String getContent() {
@@ -483,8 +478,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld CHARACTER_STATS = new DialogueNodeOld("Character Stats", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_STATS = new DialogueNode("Character Stats", "", true) {
 
 		@Override
 		public String getContent() {
@@ -835,8 +829,7 @@ public class PhoneDialogue {
 				+"</div>";
 	}
 	
-	public static final DialogueNodeOld CHARACTER_STATS_BODY = new DialogueNodeOld("Body Stats", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_STATS_BODY = new DialogueNode("Body Stats", "", true) {
 
 		@Override
 		public String getContent() {
@@ -897,8 +890,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_SEX = new DialogueNodeOld("Sex Stats", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_STATS_SEX = new DialogueNode("Sex Stats", "", true) {
 
 		@Override
 		public String getContent() {
@@ -999,8 +991,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_PREGNANCY = new DialogueNodeOld("Pregnancy Stats", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_STATS_PREGNANCY = new DialogueNode("Pregnancy Stats", "", true) {
 
 		private void OffspringHeaderDisplay(StringBuilder output, String word_one, String word_two, String color, int count) {
 			output.append("<div class='extraAttribute-quarter'>");
@@ -1469,8 +1460,7 @@ public class PhoneDialogue {
 				+", whose current location is: <i>"+contact.getWorldLocation().getName()+", "+contact.getLocationPlace().getPlaceType().getName()+"</i>.");
 	}
 	
-	public static final DialogueNodeOld CONTACTS = new DialogueNodeOld("Contacts", "Look at your contacts.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CONTACTS = new DialogueNode("Contacts", "Look at your contacts.", true) {
 
 		@Override
 		public String getContent() {
@@ -1518,8 +1508,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CONTACTS_CHARACTER = new DialogueNodeOld("Contacts", "Look at your contacts.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CONTACTS_CHARACTER = new DialogueNode("Contacts", "Look at your contacts.", true) {
 
 		@Override
 		public String getLabel() {
@@ -1565,8 +1554,7 @@ public class PhoneDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld ENCYCLOPEDIA = new DialogueNodeOld("Encyclopedia", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCYCLOPEDIA = new DialogueNode("Encyclopedia", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1642,8 +1630,7 @@ public class PhoneDialogue {
 		clothingDiscoveredList.addAll(ClothingType.getAllClothing());
 		clothingDiscoveredList.sort(new ClothingRarityComparator());
 	}
-	public static final DialogueNodeOld WEAPON_CATALOGUE = new DialogueNodeOld("Discovered Weapons", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WEAPON_CATALOGUE = new DialogueNode("Discovered Weapons", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1695,8 +1682,7 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld CLOTHING_CATALOGUE = new DialogueNodeOld("Discovered Clothing", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CLOTHING_CATALOGUE = new DialogueNode("Discovered Clothing", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1748,8 +1734,7 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld ITEM_CATALOGUE = new DialogueNodeOld("Discovered items", "View discovered items", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ITEM_CATALOGUE = new DialogueNode("Discovered items", "View discovered items", true) {
 
 		@Override
 		public String getContent() {
@@ -1838,8 +1823,7 @@ public class PhoneDialogue {
 		
 	}
 
-	public static final DialogueNodeOld RACES = new DialogueNodeOld("Discovered races", "View discovered races", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RACES = new DialogueNode("Discovered races", "View discovered races", true) {
 
 		@Override
 		public String getContent() {
@@ -1902,8 +1886,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SUBSPECIES = new DialogueNodeOld("Discovered races", "View discovered races", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUBSPECIES = new DialogueNode("Discovered races", "View discovered races", true) {
 
 		@Override
 		public String getLabel() {
@@ -2022,9 +2005,8 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld CHARACTER_LEVEL_UP = new DialogueNodeOld("Perks", "", true) {
+	public static final DialogueNode CHARACTER_LEVEL_UP = new DialogueNode("Perks", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2125,9 +2107,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_ARCANE = new DialogueNodeOld("Arcane Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_ARCANE = new DialogueNode("Arcane Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2187,7 +2168,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Arcane! This will cost <b>"+Spell.ELEMENTAL_ARCANE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_ARCANE) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2223,9 +2204,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_EARTH = new DialogueNodeOld("Earth Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_EARTH = new DialogueNode("Earth Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2289,7 +2269,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Earth! This will cost <b>"+Spell.ELEMENTAL_EARTH.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_EARTH) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2325,9 +2305,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_WATER = new DialogueNodeOld("Water Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_WATER = new DialogueNode("Water Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2391,7 +2370,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Water! This will cost <b>"+Spell.ELEMENTAL_WATER.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_WATER) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2427,9 +2406,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_AIR = new DialogueNodeOld("Air Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_AIR = new DialogueNode("Air Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2493,7 +2471,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Air! This will cost <b>"+Spell.ELEMENTAL_AIR.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_AIR) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2529,9 +2507,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_FIRE = new DialogueNodeOld("Fire Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_FIRE = new DialogueNode("Fire Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2595,7 +2572,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Fire! This will cost <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_FIRE) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2632,8 +2609,7 @@ public class PhoneDialogue {
 	};
 	
 //	private static boolean confirmReset = false;
-	public static final DialogueNodeOld CHARACTER_FETISHES = new DialogueNodeOld("Desires & Fetishes", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_FETISHES = new DialogueNode("Desires & Fetishes", "", true) {
 
 		@Override
 		public String getContent() {

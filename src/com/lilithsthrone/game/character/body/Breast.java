@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +21,8 @@ import com.lilithsthrone.utils.Util;
  * @version 0.3
  * @author Innoxia
  */
-public class Breast implements BodyPartInterface, Serializable {
+public class Breast implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 
 	public static final int MAXIMUM_BREAST_ROWS = 5;
 	public static final int MAXIMUM_NIPPLES_PER_BREAST = 4;

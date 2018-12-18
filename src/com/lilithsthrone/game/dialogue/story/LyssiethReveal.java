@@ -6,7 +6,7 @@ import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.FortressDemonLeader;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -26,8 +26,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class LyssiethReveal {
 
-	public static final DialogueNodeOld ENTRANCE_WITH_ELIZABETH = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_WITH_ELIZABETH = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -54,8 +53,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld FORWARDS_1 = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FORWARDS_1 = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -82,8 +80,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld FORWARDS_2 = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FORWARDS_2 = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -111,8 +108,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld FORWARDS_3 = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FORWARDS_3 = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -140,8 +136,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFICE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFICE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -162,8 +157,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFICE_REACTION = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFICE_REACTION = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -184,8 +178,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFICE_TELEPORT = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFICE_TELEPORT = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -214,8 +207,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFICE_TELEPORT_ARRIVE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFICE_TELEPORT_ARRIVE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -236,8 +228,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_ARTHUR_THEORY = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_ARTHUR_THEORY = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -258,8 +249,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_WORLD_REVEAL = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_WORLD_REVEAL = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -280,8 +270,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_LILAYA_ANGERY = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_LILAYA_ANGERY = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -302,8 +291,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_LILAYA_CALMED_DOWN = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_LILAYA_CALMED_DOWN = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -398,8 +386,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_QUESTION = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_QUESTION = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -417,8 +404,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_QUESTION_END = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_QUESTION_END = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -470,8 +456,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_ENDING = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_ENDING = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -499,8 +484,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_ENDING_RETURN = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_ENDING_RETURN = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -553,8 +537,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_ENDING_RETURN_MASTURBATE = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_ENDING_RETURN_MASTURBATE = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -580,8 +563,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX = new DialogueNode("", "", true) {
 
 		@Override
 		public String getContent() {
@@ -603,8 +585,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld POWER_EXPLANATION = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode POWER_EXPLANATION = new DialogueNode("", "", true) {
 
 		@Override
 		public String getContent() {
@@ -626,8 +607,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNodeOld END = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode END = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {

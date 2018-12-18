@@ -1,6 +1,5 @@
 package com.lilithsthrone.world.places;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,7 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
@@ -20,12 +19,10 @@ import com.lilithsthrone.world.EntranceType;
 
 /**
  * @since 0.1.?
- * @version 0.2.5
+ * @version 0.3
  * @author Innoxia
  */
-public class GenericPlace implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class GenericPlace implements XMLSaving {
 	
 	private String name;
 	private PlaceType placeType;
@@ -177,11 +174,11 @@ public class GenericPlace implements Serializable, XMLSaving {
 		return placeType.getColour();
 	}
 
-	public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
+	public DialogueNode getDialogue(boolean withRandomEncounter) {
 		return getDialogue(withRandomEncounter, false);
 	}
 	
-	public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+	public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 		return placeType.getDialogue(withRandomEncounter, forceEncounter);
 	}
 

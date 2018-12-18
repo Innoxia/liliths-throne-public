@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -29,8 +29,7 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class HarpyNestBimbo {
 
-	public static final DialogueNodeOld HARPY_NEST_BIMBO = new DialogueNodeOld("Harpy nest", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO = new DialogueNode("Harpy nest", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -125,8 +124,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_APPROACH = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_APPROACH = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -334,8 +332,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_TALK = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_TALK = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -411,8 +408,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_UGLY = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_UGLY = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -445,8 +441,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_QUEEN = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_QUEEN = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -546,8 +541,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_FIGHT = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -580,8 +574,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_FIGHT_LOSE = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_LOSE = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -657,8 +650,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_FIGHT_BEAT_GF = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_BEAT_GF = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -689,8 +681,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_FIGHT_LOSE_TO_MATRIARCH = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_LOSE_TO_MATRIARCH = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -770,8 +761,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_FIGHT_BEAT_BIMBO = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_BEAT_BIMBO = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -851,8 +841,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -909,8 +898,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
@@ -971,8 +959,7 @@ public class HarpyNestBimbo {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_BIMBO_AFTER_SEX = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_BIMBO_AFTER_SEX = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {

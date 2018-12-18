@@ -5,7 +5,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -27,8 +27,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class RalphsSnacks {
 	
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Ralph's Snacks (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Ralph's Snacks (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -67,8 +66,7 @@ public class RalphsSnacks {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR = new DialogueNodeOld("Ralph's Snacks", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR = new DialogueNode("Ralph's Snacks", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -155,8 +153,7 @@ public class RalphsSnacks {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_ASK_FOR_DISCOUNT = new DialogueNodeOld("Ralph's Snacks", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_ASK_FOR_DISCOUNT = new DialogueNode("Ralph's Snacks", "-", true, true) {
 
 
 		@Override
@@ -283,8 +280,7 @@ public class RalphsSnacks {
 			}
 		}
 	};
-	public static final DialogueNodeOld INTERIOR_REFUSE_DISCOUNT_CONDITIONS = new DialogueNodeOld("Ralph's Snacks", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_REFUSE_DISCOUNT_CONDITIONS = new DialogueNode("Ralph's Snacks", "-", true) {
 
 		@Override
 		public String getContent() {

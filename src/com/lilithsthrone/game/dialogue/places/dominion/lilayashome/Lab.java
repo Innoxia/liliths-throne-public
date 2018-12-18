@@ -21,7 +21,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -49,8 +49,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Lab {
 	
-	public static final DialogueNodeOld LAB = new DialogueNodeOld("Lilaya's Laboratory", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB = new DialogueNode("Lilaya's Laboratory", "", false) {
 
 		@Override
 		public String getContent() {
@@ -121,8 +120,7 @@ public class Lab {
 	
 	
 	
-	public static final DialogueNodeOld LAB_ENTRY = new DialogueNodeOld("Lilaya's Laboratory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LAB_ENTRY = new DialogueNode("Lilaya's Laboratory", "", true) {
 
 		@Override
 		public String getContent() {
@@ -671,9 +669,8 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_EXIT = new DialogueNodeOld("Lilaya's Laboratory", "", false) {
+	public static final DialogueNode LAB_EXIT = new DialogueNode("Lilaya's Laboratory", "", false) {
 		
-		private static final long serialVersionUID = 1L;
 
 		
 		@Override
@@ -695,9 +692,8 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_EXIT_THROWN_OUT = new DialogueNodeOld("Lilaya's Laboratory", "", false) {
+	public static final DialogueNode LAB_EXIT_THROWN_OUT = new DialogueNode("Lilaya's Laboratory", "", false) {
 		
-		private static final long serialVersionUID = 1L;
 
 		
 		@Override
@@ -715,9 +711,8 @@ public class Lab {
 	};
 	
 	
-	public static final DialogueNodeOld LILAYA_PRESENT = new DialogueNodeOld("Lilaya's Laboratory", "", false) {
+	public static final DialogueNode LILAYA_PRESENT = new DialogueNode("Lilaya's Laboratory", "", false) {
 		
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -829,9 +824,8 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_GEISHA = new DialogueNodeOld("Lilaya's Bedroom", "", true) {
+	public static final DialogueNode LILAYA_GEISHA = new DialogueNode("Lilaya's Bedroom", "", true) {
 		
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -966,9 +960,8 @@ public class Lab {
 	};
 	
 	
-	public static final DialogueNodeOld LILAYA_EXPLAINS_ESSENCES = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode LILAYA_EXPLAINS_ESSENCES = new DialogueNode("", "", true, true) {
 		
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getContent() {
@@ -1187,10 +1180,9 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_EXPLAINS_ESSENCES_2 = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode LILAYA_EXPLAINS_ESSENCES_2 = new DialogueNode("", "", true, true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		
 		@Override
@@ -1324,9 +1316,8 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_EXPLAINS_ESSENCES_3 = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode LILAYA_EXPLAINS_ESSENCES_3 = new DialogueNode("", "", true, true) {
 		
-		private static final long serialVersionUID = 1L;
 
 		
 		@Override
@@ -1411,10 +1402,6 @@ public class Lab {
 								+ "<p>"
 									+ "[lilaya.speech(You're welcome!)] she answers, before stepping away and giving you some time to think."
 								+ "</p>"
-								+ "<p>"
-									+ "<i>Innoxia's note: The enchanting mechanics are still a work in progress."
-									+ " I plan on making the elements collectible items, as well as providing the functionality to enchant clothing!</i>" //TODO
-								+ "</p>"
 								+ "<div class='container-full-width' style='text-align:center;'>"
 									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i><br/><br/>"
 									+ "<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>"
@@ -1430,8 +1417,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld ESSENCE_EXTRACTION = new DialogueNodeOld("Lilaya's Lab", "-", true, false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ESSENCE_EXTRACTION = new DialogueNode("Lilaya's Lab", "-", true, false) {
 		
 		@Override
 		public String getContent() {
@@ -1626,8 +1612,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld ESSENCE_EXTRACTION_BOTTLED = new DialogueNodeOld("Lilaya's Lab", "-", true, false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ESSENCE_EXTRACTION_BOTTLED = new DialogueNode("Lilaya's Lab", "-", true, false) {
 		
 		@Override
 		public String getContent() {
@@ -1645,8 +1630,7 @@ public class Lab {
 	};
 	
 	
-	public static final DialogueNodeOld LILAYA_CURRENT_DATE_TALK = new DialogueNodeOld("Lilaya's Lab", "-", true, false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_CURRENT_DATE_TALK = new DialogueNode("Lilaya's Lab", "-", true, false) {
 		
 		@Override
 		public String getContent() {
@@ -1698,10 +1682,9 @@ public class Lab {
 	
 	//----------------------------------
 
-	public static final DialogueNodeOld AUNT_HOME_LABORATORY_TESTING = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode AUNT_HOME_LABORATORY_TESTING = new DialogueNode("", "", true, true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getContent() {
@@ -1777,10 +1760,9 @@ public class Lab {
 			}
 		}
 	};
-	public static final DialogueNodeOld AUNT_HOME_LABORATORY_TESTING_REPEAT = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode AUNT_HOME_LABORATORY_TESTING_REPEAT = new DialogueNode("", "", true, true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -1838,10 +1820,9 @@ public class Lab {
 			}
 		}
 	};
-	public static final DialogueNodeOld AUNT_HOME_LABORATORY_TESTING_MORE_SEX = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode AUNT_HOME_LABORATORY_TESTING_MORE_SEX = new DialogueNode("", "", true, true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -1915,10 +1896,9 @@ public class Lab {
 		}
 	};
 
-	public static final DialogueNodeOld AUNT_HOME_LABORATORY_TESTING_ARTHUR = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode AUNT_HOME_LABORATORY_TESTING_ARTHUR = new DialogueNode("", "", true, true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -2006,10 +1986,9 @@ public class Lab {
 		}
 	};
 
-	public static final DialogueNodeOld AUNT_HOME_LABORATORY_TESTING_ROMANCE = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode AUNT_HOME_LABORATORY_TESTING_ROMANCE = new DialogueNode("", "", true, true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -2072,10 +2051,9 @@ public class Lab {
 		}
 	};
 
-	public static final DialogueNodeOld AUNT_HOME_LABORATORY_TESTING_ROMANCE_NEXT_STEP = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode AUNT_HOME_LABORATORY_TESTING_ROMANCE_NEXT_STEP = new DialogueNode("", "", true, true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -2168,76 +2146,9 @@ public class Lab {
 		}
 		return null;
 	}
-
-//	public static final DialogueNodeOld LILAYA_ASSISTS_JINXED = new DialogueNodeOld("", "", true, true) {
-//		/**
-//		 */
-//		private static final long serialVersionUID = 1L;
-//
-//		@Override
-//		public String getContent() {
-//				return "<p>"
-//							+ "[pc.speech(There seems to be something wrong with "+(getJinxedClothingExample().getClothingType().isPlural()?"these":"this")+" "+getJinxedClothingExample().getName()+" I'm wearing,)]"
-//							+ " you explain. "
-//							+ "[pc.speech(Every time I try to take "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" off, some kind of weird enchantment stops me. Can you help?)]"
-//						+ "</p>"
-//						+ "<p>"
-//							+ "Lilaya frowns at you for a moment, then, much to your surprise, she starts scolding you, "
-//							+ "[lilaya.speech(Well, what did you expect to happen if you're going to start trying on random pieces of clothing like that?!)]"
-//						+ "</p>"
-//						+ "<p>"
-//							+ "[pc.speech(Well, it's not really my fau-)] you start, but Lilaya quickly interrupts you."
-//						+ "</p>"
-//						+ "<p>"
-//							+ "[lilaya.speech(Well then, whose fault is it? Hmm? I can't be running around saving you every time you get in trouble, understood?!)]"
-//						+ "</p>"
-//						+ "<p>"
-//							+ "If it were anyone else, you might have argued back, but Lilaya's stern words sound exactly like the sort of lecture you used to receive from your aunt Lily."
-//							+ " That, combined with the fact that this is a rare display of frustration from Lilaya, leaves you muttering out an apology in the hope that you can calm her down."
-//							+ " Thankfully, she lets out one last exasperated sigh before taking in a deep breath and speaking in her normal tone."
-//						+ "</p>"
-//						+ "<p>"
-//							+ "[lilaya.speech(Sorry, I didn't mean to be so stern, it's just that I don't want you to get hurt out there..."
-//									+ " Anyway, the solution to your little clothing problem is actually quite simple."
-//									+ " First, you'll need some sort of enchanted weapon. Here, I've got another demonstone lying around, you can take this one,)]"
-//							+ " Lilaya steps over to one of the several cluttered tables in the lab, quickly retrieving a demonstone and thrusting it into your hands before continuing,"
-//							+ " [lilaya.speech(Now, much like absorbing it into your body, you'll need to concentrate on letting its energy flow into the jinxed clothing."
-//									+ " The stored energy in an enchanted weapon will remove the jinx, however, the weapon will be destroyed in the process!"
-//									+ " Feel free to destroy that demonstone I gave you, it's just a common variety anyway.)]"
-//						+ "</p>"
-//						+ "<p>"
-//							+ "[pc.speech(Thanks, Lilaya, I really appreciate the help!)] you say, smiling at her."
-//						+ "</p>"
-//						+ "<p>"
-//							+ "[lilaya.speech(You're welcome! And please, do try to be careful out there!)] Lilaya responds, before moving off a little to give you a chance to remove your jinxed clothing."
-//						+ "</p>"
-//						+ "<p>"
-//							+ "<i>You can now remove jinxes from clothing!"
-//							+ " To do so, open your inventory, click on a non-equipped weapon, and choose the 'Remove jinx' option."
-//							+ " <b>Remember</b>, removing a jinx will destroy the weapon used!</i>"
-//						+ "</p>";
-//		}
-//
-//		@Override
-//		public Response getResponse(int index) {
-//			if (index == 1) {
-//				return new Response("Continue", "Now to see about removing this jinxed clothing...", LAB_EXIT){
-//					@Override
-//					public void effects() {
-//						Main.game.getPlayer().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
-//					}
-//				};
-//
-//			} else {
-//				return null;
-//			}
-//		}
-//	};
 	
-	
-	public static final DialogueNodeOld LILAYA_FRIEND_ACCOMMODATION = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode LILAYA_FRIEND_ACCOMMODATION = new DialogueNode("", "", true, true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -2255,9 +2166,8 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_SLAVER_RECOMMENDATION = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNode LILAYA_SLAVER_RECOMMENDATION = new DialogueNode("", "", true, true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -2304,8 +2214,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_SLAVER_RECOMMENDATION_SLAVE_ACCOMMODATION = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_SLAVER_RECOMMENDATION_SLAVE_ACCOMMODATION = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -2363,8 +2272,7 @@ public class Lab {
 		}
 	};
 
-	public static final DialogueNodeOld LILAYA_ASSISTS_PREGNANCY = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_ASSISTS_PREGNANCY = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -2568,8 +2476,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_ASSISTS_PREGNANCY_REPEAT = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_ASSISTS_PREGNANCY_REPEAT = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -2624,8 +2531,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_DETECTS_BIRTHING_TYPE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_DETECTS_BIRTHING_TYPE = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -2721,8 +2627,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_ASSISTS_BIRTHING = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_ASSISTS_BIRTHING = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -2785,8 +2690,7 @@ public class Lab {
 		}
 	};
 
-	public static final DialogueNodeOld LILAYA_ASSISTS_BIRTHING_DELIVERS = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_ASSISTS_BIRTHING_DELIVERS = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -2877,8 +2781,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_ASSISTS_BIRTHING_KNOCK_OUT = new DialogueNodeOld("Your room", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_ASSISTS_BIRTHING_KNOCK_OUT = new DialogueNode("Your room", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -2933,8 +2836,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_ASSISTS_EGG_LAYING = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_ASSISTS_EGG_LAYING = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -3019,8 +2921,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_ASSISTS_EGG_LAYING_DELIVERS = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_ASSISTS_EGG_LAYING_DELIVERS = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -3085,8 +2986,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -3315,8 +3215,7 @@ public class Lab {
 	}
 	
 	private static StringBuilder litterSB;
-	public static final DialogueNodeOld LILAYA_ASSISTS_BIRTHING_FINISHED = new DialogueNodeOld("Your room", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILAYA_ASSISTS_BIRTHING_FINISHED = new DialogueNode("Your room", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -3392,9 +3291,8 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_ARTHURS_TALE = new DialogueNodeOld("Lilaya's Laboratory", "", true, true) {
+	public static final DialogueNode LAB_ARTHURS_TALE = new DialogueNode("Lilaya's Laboratory", "", true, true) {
 		
-		private static final long serialVersionUID = 1L;
 
 		
 		@Override
@@ -3467,9 +3365,8 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld LAB_LEAVE = new DialogueNodeOld("Lilaya's Laboratory", "", false, true) {
+	public static final DialogueNode LAB_LEAVE = new DialogueNode("Lilaya's Laboratory", "", false, true) {
 		
-		private static final long serialVersionUID = 1L;
 
 		
 		@Override

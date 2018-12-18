@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,8 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
-public class OrificePenisUrethra implements OrificeInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class OrificePenisUrethra implements OrificeInterface {
 	
 	protected int wetness;
 	protected int elasticity;

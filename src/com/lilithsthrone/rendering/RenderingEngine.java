@@ -32,7 +32,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
@@ -876,7 +876,7 @@ public enum RenderingEngine {
 	// DecimalFormat decimalFormatter = new DecimalFormat("#,###");
 	private StringBuilder uiAttributeSB = new StringBuilder();
 
-	private DialogueNodeOld renderedDialogueNode = null;
+	private DialogueNode renderedDialogueNode = null;
 	
 	public void renderAttributesPanelLeft() {
 		uiAttributeSB.setLength(0);
@@ -1013,7 +1013,7 @@ public enum RenderingEngine {
 
 		if (Main.mainController != null) {
 			if (Main.game.getCurrentDialogueNode() != null) {
-				if (!Main.game.getCurrentDialogueNode().isNoTextForContinuesDialogue() && renderedDialogueNode != Main.game.getCurrentDialogueNode()) {
+				if (renderedDialogueNode != Main.game.getCurrentDialogueNode()) {
 					renderedDialogueNode = Main.game.getCurrentDialogueNode();
 
 				}
@@ -1360,7 +1360,7 @@ public enum RenderingEngine {
 
 		if (Main.mainController != null) {
 			if (Main.game.getCurrentDialogueNode() != null) {
-				if (!Main.game.getCurrentDialogueNode().isNoTextForContinuesDialogue() && renderedDialogueNode != Main.game.getCurrentDialogueNode()) {
+				if (renderedDialogueNode != Main.game.getCurrentDialogueNode()) {
 					renderedDialogueNode = Main.game.getCurrentDialogueNode();
 				}
 			}
@@ -1775,8 +1775,8 @@ public enum RenderingEngine {
 	public void renderButtons() {
 		Main.mainController.setButtonsContent(
 				"<div class='quarterContainer'>"
-					+ "<div class='button" + (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : " disabled") + "' id='mainMenu'>"
-						+ SVGImages.SVG_IMAGE_PROVIDER.getMenuIcon() + (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : "<div class='disabledLayer'></div>")
+					+ "<div class='button' id='mainMenu'>"
+						+ SVGImages.SVG_IMAGE_PROVIDER.getMenuIcon()
 					+ "</div>"
 				+ "</div>"
 
@@ -1792,8 +1792,7 @@ public enum RenderingEngine {
 							|| Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
 								?" highlight"
 								:"")
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : "<div class='disabledLayer'></div>")
+						+ "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
 					+ "</div>"
 				+ "</div>"
 

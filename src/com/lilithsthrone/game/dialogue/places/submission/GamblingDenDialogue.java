@@ -23,7 +23,7 @@ import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.Dice;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DiceFace;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
@@ -58,8 +58,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class GamblingDenDialogue {
 
-	public static final DialogueNodeOld ENTRANCE = new DialogueNodeOld("Entrance", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE = new DialogueNode("Entrance", "", false) {
 		
 		@Override
 		public boolean isTravelDisabled() {
@@ -113,8 +112,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AXEL = new DialogueNodeOld("Talking to Axel", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AXEL = new DialogueNode("Talking to Axel", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -159,8 +157,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AXEL_BUSINESS = new DialogueNodeOld("Talking to Axel", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AXEL_BUSINESS = new DialogueNode("Talking to Axel", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -180,8 +177,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AXEL_ROXY = new DialogueNodeOld("Talking to Axel", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AXEL_ROXY = new DialogueNode("Talking to Axel", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -197,8 +193,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AXEL_VENGAR = new DialogueNodeOld("Talking to Axel", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AXEL_VENGAR = new DialogueNode("Talking to Axel", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -215,8 +210,7 @@ public class GamblingDenDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("Gambling Den", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR = new DialogueNode("Gambling Den", "", false) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -346,8 +340,7 @@ public class GamblingDenDialogue {
 	};
 	
 
-	public static final DialogueNodeOld SLOT_MACHINE = new DialogueNodeOld("Gambling Den", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLOT_MACHINE = new DialogueNode("Gambling Den", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -361,8 +354,7 @@ public class GamblingDenDialogue {
 		
 	};
 	
-	public static final DialogueNodeOld TRADER = new DialogueNodeOld("Roxy's Fun Box", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TRADER = new DialogueNode("Roxy's Fun Box", "", false) {
 		
 		@Override
 		public boolean isTravelDisabled() {
@@ -491,8 +483,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld TRADER_REPLY_NO = new DialogueNodeOld("Roxy's Fun Box", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TRADER_REPLY_NO = new DialogueNode("Roxy's Fun Box", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -505,8 +496,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_ROXY_SEX = new DialogueNodeOld("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_ROXY_SEX = new DialogueNode("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", true) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -577,8 +567,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_ROXY_SEX_ITEM_OBTAINED = new DialogueNodeOld("Roxy's Fun Box", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_ROXY_SEX_ITEM_OBTAINED = new DialogueNode("Roxy's Fun Box", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -596,8 +585,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_ROXY_SEX_ADDICT = new DialogueNodeOld("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_ROXY_SEX_ADDICT = new DialogueNode("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -615,8 +603,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GAMBLING = new DialogueNodeOld("Dice Poker Tables", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GAMBLING = new DialogueNode("Dice Poker Tables", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -672,8 +659,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GAMBLING_RULES = new DialogueNodeOld("Dice Poker Tables", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GAMBLING_RULES = new DialogueNode("Dice Poker Tables", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -690,8 +676,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MALE_STALLS = new DialogueNodeOld("Male Breeding Stalls", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_MALE_STALLS = new DialogueNode("Male Breeding Stalls", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -714,8 +699,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_FUTA_STALLS = new DialogueNodeOld("Futa Breeding Stalls", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_FUTA_STALLS = new DialogueNode("Futa Breeding Stalls", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -781,8 +765,7 @@ public class GamblingDenDialogue {
 		}
 	}
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE = new DialogueNodeOld("Pregnancy Roulette Counter", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE = new DialogueNode("Pregnancy Roulette Counter", "", false) {
 		
 		@Override
 		public boolean isTravelDisabled() {
@@ -1071,8 +1054,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld EPONA_POST_SEX = new DialogueNodeOld("Finished", "Epona takes a moment to catch her breath, before getting ready to return to work.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EPONA_POST_SEX = new DialogueNode("Finished", "Epona takes a moment to catch her breath, before getting ready to return to work.", false) {
 		
 		@Override
 		public String getContent() {
@@ -1090,8 +1072,7 @@ public class GamblingDenDialogue {
 		
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_GREETING_UTIL = new DialogueNodeOld("Pregnancy Roulette Counter", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_GREETING_UTIL = new DialogueNode("Pregnancy Roulette Counter", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -1105,8 +1086,7 @@ public class GamblingDenDialogue {
 		
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_RULES = new DialogueNodeOld("Pregnancy Roulette Counter", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_RULES = new DialogueNode("Pregnancy Roulette Counter", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -1130,8 +1110,7 @@ public class GamblingDenDialogue {
 		return UtilText.parse(breeder, sb.toString());
 	}
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1164,8 +1143,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_SELECTION = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_SELECTION = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -1208,8 +1186,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_START = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_START = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -1298,8 +1275,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_ROULETTE_SEX = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_ROULETTE_SEX = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -1408,8 +1384,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_FINISHED = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_FINISHED = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1468,8 +1443,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_WINNER = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_WINNER = new DialogueNode("", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -1482,8 +1456,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_LOSER = new DialogueNode("", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -1496,8 +1469,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER_NO_PREGNANCY = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_LOSER_NO_PREGNANCY = new DialogueNode("", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -1510,8 +1482,7 @@ public class GamblingDenDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_BREEDER = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1582,8 +1553,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_POST_SEX = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_BREEDER_POST_SEX = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1608,8 +1578,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1673,8 +1642,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_WINNER = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_BREEDER_WINNER = new DialogueNode("", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -1687,8 +1655,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_BREEDER_LOSER = new DialogueNode("", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -1701,8 +1668,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY = new DialogueNode("", "", false, true) {
 		
 		@Override
 		public String getContent() {

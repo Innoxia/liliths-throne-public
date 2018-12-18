@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -30,8 +30,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ZaranixHomeFirstFloor {
 	
-	public static final DialogueNodeOld STAIRS = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRS = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -64,8 +63,7 @@ public class ZaranixHomeFirstFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -102,8 +100,7 @@ public class ZaranixHomeFirstFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR_MAID = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR_MAID = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -186,8 +183,7 @@ public class ZaranixHomeFirstFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -210,8 +206,7 @@ public class ZaranixHomeFirstFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -238,8 +233,7 @@ public class ZaranixHomeFirstFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_ENTRY = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_ENTRY = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -289,8 +283,7 @@ public class ZaranixHomeFirstFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_NO_EXPLANATION = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_NO_EXPLANATION = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -312,8 +305,7 @@ public class ZaranixHomeFirstFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_EXPLANATION = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_EXPLANATION = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -351,8 +343,7 @@ public class ZaranixHomeFirstFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_EXPLANATION_THANK_ZARANIX = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_EXPLANATION_THANK_ZARANIX = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -381,8 +372,7 @@ public class ZaranixHomeFirstFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_THANKING_ZARANIX = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_THANKING_ZARANIX = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel() {

@@ -1,7 +1,5 @@
 package com.lilithsthrone.game.sex;
 
-import java.io.Serializable;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -10,12 +8,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.53
- * @version 0.2.8
+ * @version 0.3
  * @author Innoxia
  */
-public class SexType implements Serializable, XMLSaving {
-	
-	private static final long serialVersionUID = 1L;
+public class SexType implements XMLSaving {
 	
 	private SexParticipantType asParticipant;
 	private SexAreaInterface performingSexArea;

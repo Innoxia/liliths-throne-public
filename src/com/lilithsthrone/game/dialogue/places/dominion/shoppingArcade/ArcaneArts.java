@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.npc.dominion.Vicky;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
@@ -32,8 +32,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ArcaneArts {
 	
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Arcane Arts (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Arcane Arts (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -63,8 +62,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_WEAPONS = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_WEAPONS = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -223,8 +221,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld ARTHURS_PACKAGE = new DialogueNodeOld("Arcane Arts", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ARTHURS_PACKAGE = new DialogueNode("Arcane Arts", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -376,8 +373,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld ARTHURS_PACKAGE_BOUGHT = new DialogueNodeOld("Arcane Arts", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ARTHURS_PACKAGE_BOUGHT = new DialogueNode("Arcane Arts", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -402,8 +398,7 @@ public class ArcaneArts {
 	};
 	
 	
-	public static final DialogueNodeOld VICKY_POST_SEX_PACKAGE = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode VICKY_POST_SEX_PACKAGE = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -426,8 +421,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld VICKY_POST_SEX_RAPE_PACKAGE = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode VICKY_POST_SEX_RAPE_PACKAGE = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -451,8 +445,7 @@ public class ArcaneArts {
 	};
 	
 	
-	public static final DialogueNodeOld VICKY_POST_SEX = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode VICKY_POST_SEX = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -474,8 +467,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld VICKY_POST_SEX_RAPE = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode VICKY_POST_SEX_RAPE = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {

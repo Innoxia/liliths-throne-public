@@ -1,7 +1,5 @@
 package com.lilithsthrone.game.character;
 
-import java.io.Serializable;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -13,12 +11,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.66
- * @version 0.1.99
+ * @version 0.3
  * @author Innoxia
  */
-public class PregnancyPossibility implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class PregnancyPossibility implements XMLSaving {
 	
 	private String motherId, fatherId;
 	private float probability;

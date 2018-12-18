@@ -65,7 +65,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -379,7 +379,7 @@ public class Brax extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 
@@ -427,8 +427,7 @@ public class Brax extends NPC {
 		}
 	}
 
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -522,8 +521,7 @@ public class Brax extends NPC {
 		}
 
 	};
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY_NO_SEX = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY_NO_SEX = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -553,8 +551,7 @@ public class Brax extends NPC {
 			}
 		}
 	};
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY_DOMINANT_SEX = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY_DOMINANT_SEX = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -614,8 +611,7 @@ public class Brax extends NPC {
 			}
 		}
 	};
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY_SUBMISSIVE_SEX = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY_SUBMISSIVE_SEX = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -678,10 +674,9 @@ public class Brax extends NPC {
 
 	
 //	private static String fetishChanges = "";
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
+	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -894,8 +889,7 @@ public class Brax extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_DEFEAT_TRANSFORMATION_REFUSED = new DialogueNodeOld("Brax's Office", "In Brax's Office after being forced to drink the potion.", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_DEFEAT_TRANSFORMATION_REFUSED = new DialogueNode("Brax's Office", "In Brax's Office after being forced to drink the potion.", true, true) {
 
 		@Override
 		public String getContent() {
@@ -934,8 +928,7 @@ public class Brax extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_DEFEAT_TRANSFORMATION = new DialogueNodeOld("Brax's Office", "In Brax's Office after being forced to drink the potion.", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_DEFEAT_TRANSFORMATION = new DialogueNode("Brax's Office", "In Brax's Office after being forced to drink the potion.", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1048,8 +1041,7 @@ public class Brax extends NPC {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_SUBMISSIVE_SEX = new DialogueNodeOld("Brax is done", "Brax has finished having his fun with you.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SUBMISSIVE_SEX = new DialogueNode("Brax is done", "Brax has finished having his fun with you.", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1108,8 +1100,7 @@ public class Brax extends NPC {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_DOMINANT_SEX = new DialogueNodeOld("Brax collapses", "Brax collapses and you return to his office.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_DOMINANT_SEX = new DialogueNode("Brax collapses", "Brax collapses and you return to his office.", true) {
 
 		@Override
 		public String getContent() {

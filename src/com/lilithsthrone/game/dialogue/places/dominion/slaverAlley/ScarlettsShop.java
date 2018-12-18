@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -30,8 +30,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ScarlettsShop {
 	
-	public static final DialogueNodeOld SCARLETTS_SHOP_EXTERIOR = new DialogueNodeOld("Scarlett's shop", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SCARLETTS_SHOP_EXTERIOR = new DialogueNode("Scarlett's shop", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -54,8 +53,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld SCARLETTS_SHOP = new DialogueNodeOld("Scarlett's shop", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SCARLETTS_SHOP = new DialogueNode("Scarlett's shop", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -87,8 +85,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld SCARLETT_IS_A_BITCH = new DialogueNodeOld("Scarlett's shop", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SCARLETT_IS_A_BITCH = new DialogueNode("Scarlett's shop", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -111,8 +108,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld SCARLETT_IS_A_SUPER_BITCH = new DialogueNodeOld("Scarlett's shop", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SCARLETT_IS_A_SUPER_BITCH = new DialogueNode("Scarlett's shop", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -131,8 +127,7 @@ public class ScarlettsShop {
 	};
 	
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_EXTERIOR = new DialogueNodeOld("Alexa's Pet Shop", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_SHOP_EXTERIOR = new DialogueNode("Alexa's Pet Shop", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -182,8 +177,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP = new DialogueNodeOld("Alexa's Pet Shop", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_SHOP = new DialogueNode("Alexa's Pet Shop", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -247,7 +241,7 @@ public class ScarlettsShop {
 				} else {
 					return new Response("Slave Manager", "Enter the slave management screen.", ALEXAS_SHOP) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Alexa.class));
 						}
 					};
@@ -262,8 +256,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_SCARLETT_FOR_SALE = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_SHOP_SCARLETT_FOR_SALE = new DialogueNode("Alexa's Pet Shop", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -276,8 +269,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_BUYING_SCARLETT = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_SHOP_BUYING_SCARLETT = new DialogueNode("Alexa's Pet Shop", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -326,8 +318,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_GENTLE = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_SHOP_GENTLE = new DialogueNode("Alexa's Pet Shop", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -340,8 +331,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_SHOUT = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_SHOP_SHOUT = new DialogueNode("Alexa's Pet Shop", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -354,8 +344,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_SLAP = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_SHOP_SLAP = new DialogueNode("Alexa's Pet Shop", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -400,8 +389,7 @@ public class ScarlettsShop {
 		}
 	}
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_BUYING_SCARLETT_KEEP_HER = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_SHOP_BUYING_SCARLETT_KEEP_HER = new DialogueNode("Alexa's Pet Shop", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -414,8 +402,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_BUYING_SCARLETT_FREE_HER = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_SHOP_BUYING_SCARLETT_FREE_HER = new DialogueNode("Alexa's Pet Shop", ".", true, true) {
 
 		@Override
 		public String getContent() {

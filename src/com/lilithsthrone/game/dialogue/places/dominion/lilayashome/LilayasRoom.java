@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -39,8 +39,7 @@ public class LilayasRoom {
 	
 	public static AbstractClothing lilayasPanties;
 	
-	public static final DialogueNodeOld ROOM_LILAYA = new DialogueNodeOld("Lilaya's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_LILAYA = new DialogueNode("Lilaya's Room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -63,8 +62,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_LILAYA_INSIDE = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_LILAYA_INSIDE = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -103,8 +101,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld PANTIES = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PANTIES = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -140,8 +137,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld PANTIES_POST_MASTURBATION = new DialogueNodeOld("Lilaya's Room", "As you stop masturbating, you wonder what you should do with Lilaya's panties next...", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PANTIES_POST_MASTURBATION = new DialogueNode("Lilaya's Room", "As you stop masturbating, you wonder what you should do with Lilaya's panties next...", true) {
 
 		@Override
 		public String getContent() {
@@ -171,8 +167,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld HIDE = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HIDE = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -195,8 +190,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld FLEE = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FLEE = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -225,8 +219,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld CAUGHT = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CAUGHT = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -274,8 +267,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld APOLOGY = new DialogueNodeOld("Lilaya's Room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode APOLOGY = new DialogueNode("Lilaya's Room", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -315,8 +307,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld BEG = new DialogueNodeOld("Lilaya's Room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BEG = new DialogueNode("Lilaya's Room", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -372,8 +363,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_ROSE_AS_DOM = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_ROSE_AS_DOM = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -398,8 +388,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld THREATEN = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode THREATEN = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -460,8 +449,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_LILAYA_AND_ROSE_AS_DOMS = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_LILAYA_AND_ROSE_AS_DOMS = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -487,8 +475,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld EXPLAIN = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXPLAIN = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -536,8 +523,7 @@ public class LilayasRoom {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_ROSE_AND_LILAYA_AS_SUBS = new DialogueNodeOld("Lilaya's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_ROSE_AND_LILAYA_AS_SUBS = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {

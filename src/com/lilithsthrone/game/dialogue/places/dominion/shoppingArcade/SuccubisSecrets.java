@@ -22,7 +22,7 @@ import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -93,8 +93,7 @@ public class SuccubisSecrets {
 	
 	
 	
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Succubi's Secrets (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Succubi's Secrets (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -148,8 +147,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -192,8 +190,7 @@ public class SuccubisSecrets {
 			}
 		}
 	};
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_WAKE = new DialogueNodeOld("Succubi's Secrets", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_WAKE = new DialogueNode("Succubi's Secrets", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -254,8 +251,7 @@ public class SuccubisSecrets {
 			}
 		}
 	};
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_WATCH = new DialogueNodeOld("Succubi's Secrets", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_WATCH = new DialogueNode("Succubi's Secrets", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -329,8 +325,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_NO_THANKS = new DialogueNodeOld("Succubi's Secrets", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_NO_THANKS = new DialogueNode("Succubi's Secrets", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -409,8 +404,7 @@ public class SuccubisSecrets {
 			}
 		}
 	};
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_ENTER = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_ENTER = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -490,8 +484,7 @@ public class SuccubisSecrets {
 	
 	private static Map<BodyCoveringType, List<String>> CoveringsNamesMap;
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_MAIN = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_MAIN = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -705,8 +698,7 @@ public class SuccubisSecrets {
 		}
 	}
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_HAIR = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_HAIR = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -748,8 +740,7 @@ public class SuccubisSecrets {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_SKIN_COLOUR = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_SKIN_COLOUR = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -844,8 +835,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_EYES = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_EYES = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -884,8 +874,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_PIERCINGS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_PIERCINGS = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -930,8 +919,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_OTHER = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_OTHER = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -1004,8 +992,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_COSMETICS = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_COSMETICS = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -1058,8 +1045,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_TATTOOS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_TATTOOS = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -1113,8 +1099,7 @@ public class SuccubisSecrets {
 	
 	public static InventorySlot invSlotTattooToRemove = null;
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_TATTOOS_ADD = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_TATTOOS_ADD = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getLabel() {

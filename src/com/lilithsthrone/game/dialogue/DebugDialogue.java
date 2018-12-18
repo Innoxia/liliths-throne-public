@@ -48,8 +48,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class DebugDialogue {
 
-	public static final DialogueNodeOld DEBUG_MENU = new DialogueNodeOld("A powerful tool", "Open debug menu.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEBUG_MENU = new DialogueNode("A powerful tool", "Open debug menu.", false) {
 		
 		@Override
 		public String getContent() {
@@ -92,7 +91,7 @@ public class DebugDialogue {
 			if(index == 0) {
 				return new Response("Back", "", DEBUG_MENU){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -355,8 +354,7 @@ public class DebugDialogue {
 		}
 	};
 	private static StringBuilder coloursSB;
-	public static final DialogueNodeOld COLOURS = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COLOURS = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {
@@ -376,8 +374,7 @@ public class DebugDialogue {
 	
 	private static NPC activeOffspring = null;
 	
-	public static final DialogueNodeOld OFFSPRING = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {
@@ -442,8 +439,7 @@ public class DebugDialogue {
 		
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
-	public static final DialogueNodeOld SPAWN_MENU = new DialogueNodeOld("Spawn Menu", "Access the spawn menu.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SPAWN_MENU = new DialogueNode("Spawn Menu", "Access the spawn menu.", false) {
 
 		@Override
 		public String getHeaderContent() {
@@ -557,8 +553,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALL_ITEMS_VIEW = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALL_ITEMS_VIEW = new DialogueNode("", "", false) {
 
 		@Override
 		public String getHeaderContent() {
@@ -645,8 +640,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_PART_MATERIAL = new DialogueNodeOld("Set body material", "Set body material.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_PART_MATERIAL = new DialogueNode("Set body material", "Set body material.", false) {
 
 		@Override
 		public String getContent() {
@@ -672,8 +666,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_PART_RACE_RESET = new DialogueNodeOld("Reset body", "Set race.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_PART_RACE_RESET = new DialogueNode("Reset body", "Set race.", false) {
 
 		@Override
 		public String getContent() {
@@ -744,11 +737,10 @@ public class DebugDialogue {
 	
 	
 	
-	public static final DialogueNodeOld CLOTHING_COLLAGE = new DialogueNodeOld("Clothing collage", "Clothing collage.", false) {
+	public static final DialogueNode CLOTHING_COLLAGE = new DialogueNode("Clothing collage", "Clothing collage.", false) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -782,8 +774,7 @@ public class DebugDialogue {
 	}
 
 	private static String parsedText = "", rawText = "";
-	public static final DialogueNodeOld PARSER = new DialogueNodeOld("Parser", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER = new DialogueNode("Parser", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -866,8 +857,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PARSER_HELP = new DialogueNodeOld("Innoxia's super fun and interesting guide to parsing", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER_HELP = new DialogueNode("Innoxia's super fun and interesting guide to parsing", "", true) {
 
 		/*
 		 * I've seen String concatenation... String concatenation that you've seen.
@@ -1056,8 +1046,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PARSER_TARGETS = new DialogueNodeOld("Parser", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER_TARGETS = new DialogueNode("Parser", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -1121,8 +1110,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PARSER_COMMANDS = new DialogueNodeOld("Parser", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER_COMMANDS = new DialogueNode("Parser", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -1190,8 +1178,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PARSER_COMMANDS_NEAT = new DialogueNodeOld("Parser", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER_COMMANDS_NEAT = new DialogueNode("Parser", "", true) {
 
 		@Override
 		public String getHeaderContent() {

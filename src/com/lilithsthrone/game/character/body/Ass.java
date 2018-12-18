@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +16,8 @@ import com.lilithsthrone.utils.Util;
  * @version 0.3
  * @author Innoxia
  */
-public class Ass implements BodyPartInterface, Serializable {
+public class Ass implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 
 	protected AbstractAssType type;
 	protected int assSize;

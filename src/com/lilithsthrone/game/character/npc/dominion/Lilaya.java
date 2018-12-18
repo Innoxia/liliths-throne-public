@@ -53,7 +53,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -299,7 +299,7 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	
@@ -313,8 +313,7 @@ public class Lilaya extends NPC {
 		return true;
 	}
 	
-	public static final DialogueNodeOld AUNT_END_SEX = new DialogueNodeOld("Back to work", "Lilaya really needs to get back to work.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_END_SEX = new DialogueNode("Back to work", "Lilaya really needs to get back to work.", true) {
 		
 		@Override
 		public String getLabel() {
@@ -407,8 +406,7 @@ public class Lilaya extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_END_SEX_GEISHA = new DialogueNodeOld("Lilaya's Bedroom", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_END_SEX_GEISHA = new DialogueNode("Lilaya's Bedroom", ".", true) {
 		
 		@Override
 		public String getLabel() {

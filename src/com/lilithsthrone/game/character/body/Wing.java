@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -13,8 +12,7 @@ import com.lilithsthrone.main.Main;
  * @version 0.1.95
  * @author Innoxia
  */
-public class Wing implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Wing implements BodyPartInterface {
 	
 	protected WingType type;
 	protected int size;

@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -28,8 +28,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ClothingEmporium {
 
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Nyan's Clothing Emporium (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Nyan's Clothing Emporium (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -60,8 +59,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_CLOTHING = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_CLOTHING = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -82,8 +80,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_CLOTHING_STOCK_ROOM = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_CLOTHING_STOCK_ROOM = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -101,8 +98,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_CLOTHING_REPEAT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_CLOTHING_REPEAT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getAuthor() {
@@ -240,7 +236,7 @@ public class ClothingEmporium {
 						} else {
 							return new Response("Gift", "Give Nyan a gift (opens gift selection screen).", ROMANCE_GIFT) {
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return GiftDialogue.getGiftDialogue(Main.game.getNpc(Nyan.class), SHOP_CLOTHING_REPEAT, 1, ROMANCE_GIFT, 1);
 								}
 								@Override
@@ -508,8 +504,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_ENCHANTED_CLOTHING = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_ENCHANTED_CLOTHING = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -527,8 +522,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_OFFER_HELP = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_OFFER_HELP = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -546,8 +540,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_REPORT_BACK = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_REPORT_BACK = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -570,8 +563,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_TALK = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_TALK = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -600,8 +592,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_COMPLIMENT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_COMPLIMENT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -625,8 +616,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_FLIRT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_FLIRT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -650,8 +640,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_KISS = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_KISS = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -675,8 +664,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_MAKE_OUT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_MAKE_OUT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -700,8 +688,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld END_SEX = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode END_SEX = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -723,8 +710,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_GIFT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_GIFT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {

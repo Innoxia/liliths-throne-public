@@ -2,8 +2,14 @@ package com.lilithsthrone.utils;
 
 import java.util.Stack;
 
+/**
+ * @since 0.2.?
+ * @version 0.3
+ * @author Innoxia
+ */
 public class SizedStack<T> extends Stack<T> {
 	private static final long serialVersionUID = 1L;
+	
 	private int maxSize;
 
 	public SizedStack(int size) {

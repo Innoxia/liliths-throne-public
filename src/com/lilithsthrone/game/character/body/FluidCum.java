@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,7 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.7
  * @author Innoxia
  */
-public class FluidCum implements FluidInterface, Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class FluidCum implements FluidInterface, XMLSaving {
 	
 	protected FluidType type;
 	protected FluidFlavour flavour;

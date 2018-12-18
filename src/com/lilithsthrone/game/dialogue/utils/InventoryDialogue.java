@@ -17,7 +17,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -81,8 +81,7 @@ public class InventoryDialogue {
 	 * The main DialogueNode. From here, the player can gain access to all parts
 	 * of their inventory.
 	 */
-	public static final DialogueNodeOld INVENTORY_MENU = new DialogueNodeOld("Inventory", "Return to inventory menu.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INVENTORY_MENU = new DialogueNode("Inventory", "Return to inventory menu.", true) {
 
 		@Override
 		public String getLabel() {
@@ -827,8 +826,7 @@ public class InventoryDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld ITEM_INVENTORY = new DialogueNodeOld("Item", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ITEM_INVENTORY = new DialogueNode("Item", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -988,7 +986,7 @@ public class InventoryDialogue {
 						} else if(Main.game.isDebugMode()) {
 							return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return EnchantmentDialogue.getEnchantmentMenu(item);
 								}
 							};
@@ -997,7 +995,7 @@ public class InventoryDialogue {
 							if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 								return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 									@Override
-									public DialogueNodeOld getNextDialogue() {
+									public DialogueNode getNextDialogue() {
 										return EnchantmentDialogue.getEnchantmentMenu(item);
 									}
 								};
@@ -1224,7 +1222,7 @@ public class InventoryDialogue {
 								} else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public DialogueNodeOld getNextDialogue() {
+										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(item);
 										}
 									};
@@ -1233,7 +1231,7 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public DialogueNodeOld getNextDialogue() {
+											public DialogueNode getNextDialogue() {
 												return EnchantmentDialogue.getEnchantmentMenu(item);
 											}
 										};
@@ -1567,7 +1565,7 @@ public class InventoryDialogue {
 								} else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public DialogueNodeOld getNextDialogue() {
+										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(item);
 										}
 									};
@@ -1576,7 +1574,7 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public DialogueNodeOld getNextDialogue() {
+											public DialogueNode getNextDialogue() {
 												return EnchantmentDialogue.getEnchantmentMenu(item);
 											}
 										};
@@ -2175,9 +2173,8 @@ public class InventoryDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld WEAPON_INVENTORY = new DialogueNodeOld("Weapon", "", true) {
+	public static final DialogueNode WEAPON_INVENTORY = new DialogueNode("Weapon", "", true) {
 		
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getLabel() {
@@ -2366,7 +2363,7 @@ public class InventoryDialogue {
 						} else if(Main.game.isDebugMode()) {
 							return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return EnchantmentDialogue.getEnchantmentMenu(weapon);
 								}
 							};
@@ -2375,7 +2372,7 @@ public class InventoryDialogue {
 							if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 								return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 									@Override
-									public DialogueNodeOld getNextDialogue() {
+									public DialogueNode getNextDialogue() {
 										return EnchantmentDialogue.getEnchantmentMenu(weapon);
 									}
 								};
@@ -2563,7 +2560,7 @@ public class InventoryDialogue {
 								} else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public DialogueNodeOld getNextDialogue() {
+										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(weapon);
 										}
 									};
@@ -2572,7 +2569,7 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public DialogueNodeOld getNextDialogue() {
+											public DialogueNode getNextDialogue() {
 												return EnchantmentDialogue.getEnchantmentMenu(weapon);
 											}
 										};
@@ -2752,7 +2749,7 @@ public class InventoryDialogue {
 								} else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public DialogueNodeOld getNextDialogue() {
+										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(weapon);
 										}
 									};
@@ -2761,7 +2758,7 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public DialogueNodeOld getNextDialogue() {
+											public DialogueNode getNextDialogue() {
 												return EnchantmentDialogue.getEnchantmentMenu(weapon);
 											}
 										};
@@ -3198,8 +3195,7 @@ public class InventoryDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CLOTHING_INVENTORY = new DialogueNodeOld("Clothing", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CLOTHING_INVENTORY = new DialogueNode("Clothing", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -3395,7 +3391,7 @@ public class InventoryDialogue {
 						} else if(Main.game.isDebugMode()) {
 							return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return EnchantmentDialogue.getEnchantmentMenu(clothing);
 								}
 							};
@@ -3404,7 +3400,7 @@ public class InventoryDialogue {
 							if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 								return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 									@Override
-									public DialogueNodeOld getNextDialogue() {
+									public DialogueNode getNextDialogue() {
 										return EnchantmentDialogue.getEnchantmentMenu(clothing);
 									}
 								};
@@ -3564,7 +3560,7 @@ public class InventoryDialogue {
 								}  else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public DialogueNodeOld getNextDialogue() {
+										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
@@ -3573,7 +3569,7 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public DialogueNodeOld getNextDialogue() {
+											public DialogueNode getNextDialogue() {
 												return EnchantmentDialogue.getEnchantmentMenu(clothing);
 											}
 										};
@@ -3608,7 +3604,7 @@ public class InventoryDialogue {
 									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing()) {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 											@Override
-											public DialogueNodeOld getNextDialogue() {
+											public DialogueNode getNextDialogue() {
 												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 													return inventoryNPC.getEnslavementDialogue(clothing);
 													
@@ -3810,7 +3806,7 @@ public class InventoryDialogue {
 								}  else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public DialogueNodeOld getNextDialogue() {
+										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
@@ -3819,7 +3815,7 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public DialogueNodeOld getNextDialogue() {
+											public DialogueNode getNextDialogue() {
 												return EnchantmentDialogue.getEnchantmentMenu(clothing);
 											}
 										};
@@ -4137,7 +4133,7 @@ public class InventoryDialogue {
 									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing()) {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 											@Override
-											public DialogueNodeOld getNextDialogue() {
+											public DialogueNode getNextDialogue() {
 												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 													return inventoryNPC.getEnslavementDialogue(clothing);
 													
@@ -4343,9 +4339,8 @@ public class InventoryDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld WEAPON_EQUIPPED = new DialogueNodeOld("Weapon equipped", "", true) {
+	public static final DialogueNode WEAPON_EQUIPPED = new DialogueNode("Weapon equipped", "", true) {
 		
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getLabel() {
@@ -4793,8 +4788,7 @@ public class InventoryDialogue {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
-	public static final DialogueNodeOld CLOTHING_EQUIPPED = new DialogueNodeOld("Clothing equipped", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CLOTHING_EQUIPPED = new DialogueNode("Clothing equipped", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -5932,8 +5926,7 @@ public class InventoryDialogue {
 		return inventorySB.toString();
 	}
 	
-	public static final DialogueNodeOld DYE_CLOTHING = new DialogueNodeOld("Dye clothing", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DYE_CLOTHING = new DialogueNode("Dye clothing", "", true) {
 
 		@Override
 		public String getContent() {
@@ -6024,8 +6017,7 @@ public class InventoryDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld DYE_EQUIPPED_CLOTHING = new DialogueNodeOld("Dye clothing", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DYE_EQUIPPED_CLOTHING = new DialogueNode("Dye clothing", "", true) {
 
 		@Override
 		public String getContent() {
@@ -6102,8 +6094,7 @@ public class InventoryDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld DYE_CLOTHING_CHARACTER_CREATION = new DialogueNodeOld("Choose Colour", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DYE_CLOTHING_CHARACTER_CREATION = new DialogueNode("Choose Colour", "", true) {
 
 		@Override
 		public String getContent() {
@@ -6149,8 +6140,7 @@ public class InventoryDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION = new DialogueNodeOld("Choose Colour", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION = new DialogueNode("Choose Colour", "", true) {
 
 		@Override
 		public String getContent() {
@@ -6194,8 +6184,7 @@ public class InventoryDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld DYE_WEAPON = new DialogueNodeOld("Dye Weapon", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DYE_WEAPON = new DialogueNode("Dye Weapon", "", true) {
 
 		@Override
 		public String getContent() {
@@ -6270,8 +6259,7 @@ public class InventoryDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld DYE_EQUIPPED_WEAPON = new DialogueNodeOld("Dye Weapon", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DYE_EQUIPPED_WEAPON = new DialogueNode("Dye Weapon", "", true) {
 
 		@Override
 		public String getContent() {

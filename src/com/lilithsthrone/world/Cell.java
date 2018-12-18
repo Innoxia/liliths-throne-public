@@ -1,6 +1,5 @@
 package com.lilithsthrone.world;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,11 +24,10 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
-public class Cell implements Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class Cell implements XMLSaving {
 
 	public static final int CELL_MAXIMUM_INVENTORY_SPACE = 48;
 	

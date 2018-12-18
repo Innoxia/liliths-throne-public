@@ -23,7 +23,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -175,7 +175,7 @@ public class TestNPC extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 
@@ -207,8 +207,7 @@ public class TestNPC extends NPC {
 		}
 	}
 	
-	public static final DialogueNodeOld TEST_DIALOGUE = new DialogueNodeOld("Shopping arcade", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TEST_DIALOGUE = new DialogueNode("Shopping arcade", ".", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -240,7 +239,7 @@ public class TestNPC extends NPC {
 			} else if(index==0) {
 				return new Response("Leave", "The door is marked 'private' after all...", TEST_DIALOGUE) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
 					}
 				};
@@ -251,8 +250,7 @@ public class TestNPC extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld TEST_DIALOGUE_ENTER = new DialogueNodeOld("A cozy room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TEST_DIALOGUE_ENTER = new DialogueNode("A cozy room", ".", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -373,7 +371,7 @@ public class TestNPC extends NPC {
 			} else if(index==0) {
 				return new Response("Leave", "Step back without alerting the [test.race] to your presence.", TEST_DIALOGUE) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
 					}
 				};
@@ -384,8 +382,7 @@ public class TestNPC extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld TEST_DIALOGUE_GREET = new DialogueNodeOld("A cozy room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TEST_DIALOGUE_GREET = new DialogueNode("A cozy room", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -490,7 +487,7 @@ public class TestNPC extends NPC {
 			} else if(index==0) {
 				return new Response("Leave", "Leave the room.", TEST_DIALOGUE) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
 					}
 				};
@@ -501,8 +498,7 @@ public class TestNPC extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld TEST_DIALOGUE_AFTER_RAPE = new DialogueNodeOld("Step back", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TEST_DIALOGUE_AFTER_RAPE = new DialogueNode("Step back", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -531,7 +527,7 @@ public class TestNPC extends NPC {
 			if(index==0) {
 				return new Response("Leave", "Exit the room.", TEST_DIALOGUE) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
 					}
 				};
@@ -542,8 +538,7 @@ public class TestNPC extends NPC {
 		}
 	};
 
-	public static final DialogueNodeOld TEST_DIALOGUE_AFTER_SEX = new DialogueNodeOld("Step back", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TEST_DIALOGUE_AFTER_SEX = new DialogueNode("Step back", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -569,7 +564,7 @@ public class TestNPC extends NPC {
 			if(index==0) {
 				return new Response("Leave", "Exit the room.", TEST_DIALOGUE) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
 					}
 				};

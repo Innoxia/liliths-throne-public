@@ -23,7 +23,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.SMJulesCockSucking;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -365,8 +365,7 @@ public class NightlifeDistrict {
 	
 	private static final float KALAHARI_SELL_MODIFIER = 1.2f;
 
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Nightlife", "Nightlife", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Nightlife", "Nightlife", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -411,8 +410,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_ENTRANCE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_ENTRANCE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -540,8 +538,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_ENTRANCE_WAITING = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_ENTRANCE_WAITING = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -559,8 +556,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_JULES_BLOWJOB = new DialogueNodeOld("Finished", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_JULES_BLOWJOB = new DialogueNode("Finished", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -573,8 +569,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_MAIN = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -775,8 +770,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_TALK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_TALK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -800,8 +794,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_FLIRT = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_FLIRT = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -825,8 +818,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_KISS = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_KISS = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -849,8 +841,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_GROPE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_GROPE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -873,8 +864,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_LOSE_COMPANY = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_LOSE_COMPANY = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -897,8 +887,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEARCH_GENDER = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEARCH_GENDER = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -956,8 +945,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEARCH_RACE = new DialogueNodeOld("The Watering Hole", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEARCH_RACE = new DialogueNode("The Watering Hole", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1000,8 +988,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEARCH_GENERATE = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEARCH_GENERATE = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1036,8 +1023,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_CONTACTS = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_CONTACTS = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1073,8 +1059,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_FIND_CONTACT = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_FIND_CONTACT = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1093,8 +1078,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_LOITER_GENERATE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_LOITER_GENERATE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1180,8 +1164,7 @@ public class NightlifeDistrict {
 //		}
 	}
 
-	public static final DialogueNodeOld WATERING_HOLE_SEATING = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1332,8 +1315,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_TALK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_TALK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1357,8 +1339,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_FLIRT = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_FLIRT = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1382,8 +1363,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_FOOTSIE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_FOOTSIE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1406,8 +1386,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1430,8 +1409,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1454,8 +1432,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_AFTER_SEX = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_AFTER_SEX = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1506,8 +1483,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_AFTER_SEX_SEE_AGAIN = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_AFTER_SEX_SEE_AGAIN = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1530,8 +1506,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_AFTER_SEX_DO_NOT_SEE_AGAIN = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_AFTER_SEX_DO_NOT_SEE_AGAIN = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1554,8 +1529,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_LOSE_COMPANY = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_LOSE_COMPANY = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1578,8 +1552,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_BAR = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1647,8 +1620,7 @@ public class NightlifeDistrict {
 		return sb.toString();
 	}
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_INTRO = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_INTRO = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2227,8 +2199,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_TALK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_TALK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2257,8 +2228,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_FLIRT = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_FLIRT = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2287,8 +2257,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KISS = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KISS = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2316,8 +2285,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_GROPE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_GROPE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2345,8 +2313,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_LOSE_COMPANY = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_LOSE_COMPANY = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2374,8 +2341,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_DRINK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_DRINK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2403,8 +2369,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2433,8 +2398,7 @@ public class NightlifeDistrict {
 	};
 
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_TALK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_TALK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2462,8 +2426,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_FLIRT = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_FLIRT = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2495,8 +2458,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_BREAK_KRUGER_INTRO = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_BREAK_KRUGER_INTRO = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2655,8 +2617,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_BREAK = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_BREAK = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2676,8 +2637,7 @@ public class NightlifeDistrict {
 	};
 	
 
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_TALK = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_TALK = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2695,8 +2655,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_FLIRT = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_FLIRT = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2714,8 +2673,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_KISS = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_KISS = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2733,8 +2691,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_GROPE = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_GROPE = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2759,8 +2716,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -2777,8 +2733,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_END = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_END = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2801,8 +2756,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_OUT_OF_TIME = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_OUT_OF_TIME = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2826,8 +2780,7 @@ public class NightlifeDistrict {
 	};
 	
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2884,8 +2837,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2984,8 +2936,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_TALK = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_TALK = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3003,8 +2954,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_FLIRT = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_FLIRT = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3022,8 +2972,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_KISSED = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_KISSED = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3041,8 +2990,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_FELT_UP = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_FELT_UP = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3060,10 +3008,9 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_AFTER_SEX = new DialogueNodeOld("The Watering Hole",
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_AFTER_SEX = new DialogueNode("The Watering Hole",
 			"Kruger is finished with you, and, being exhausted from the sex, you readily allow him to push you off of him.",
 			false) {
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getContent() {
@@ -3076,8 +3023,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_LEAVE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_LEAVE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3095,8 +3041,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3208,8 +3153,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR_DANCE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR_DANCE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3236,8 +3180,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR_KISS = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR_KISS = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3260,8 +3203,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR_GROPE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR_GROPE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3284,8 +3226,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR_LOSE_COMPANY = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR_LOSE_COMPANY = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3308,8 +3249,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS = new DialogueNodeOld("Toilets", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS = new DialogueNode("Toilets", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3420,8 +3360,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3460,8 +3399,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3489,8 +3427,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_GET_READY = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_GET_READY = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3549,8 +3486,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3652,8 +3588,7 @@ public class NightlifeDistrict {
 		}
 	}
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_AFTER_SEX = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_AFTER_SEX = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -3707,8 +3642,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_AFTER_SEX_SEE_AGAIN = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_AFTER_SEX_SEE_AGAIN = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3731,8 +3665,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_SEX_REJECTED = new DialogueNodeOld("Toilets", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_SEX_REJECTED = new DialogueNode("Toilets", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3756,8 +3689,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_USE = new DialogueNodeOld("Toilets", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_USE = new DialogueNode("Toilets", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3783,8 +3715,7 @@ public class NightlifeDistrict {
 	
 	// Dom partner:
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEARCH_GENERATE_DOM = new DialogueNodeOld("The Watering Hole", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEARCH_GENERATE_DOM = new DialogueNode("The Watering Hole", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3803,8 +3734,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_CONTACTS_DOM = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_CONTACTS_DOM = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3841,8 +3771,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_FIND_CONTACT_DOM = new DialogueNodeOld("The Watering Hole", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_FIND_CONTACT_DOM = new DialogueNode("The Watering Hole", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -4130,8 +4059,7 @@ public class NightlifeDistrict {
 		Main.game.getPlayer().setLocation(WorldType.NIGHTLIFE_CLUB, currentBehaviour.getPlaceType());
 	}
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -4767,8 +4695,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_REACT = new DialogueNodeOld("The Watering Hole", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_REACT = new DialogueNode("The Watering Hole", "", true, true) {
 		
 		@Override
 		public String getLabel() {
@@ -4805,8 +4732,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_TAKEN_HOME = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -4868,8 +4794,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX = new DialogueNode("", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -4935,8 +4860,7 @@ public class NightlifeDistrict {
 
 
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public String getLabel() {

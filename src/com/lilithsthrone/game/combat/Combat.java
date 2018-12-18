@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -424,7 +424,7 @@ public enum Combat {
 	}
 
 	// DIALOGUES:
-	public DialogueNodeOld startCombat() {
+	public DialogueNode startCombat() {
 		return ENEMY_ATTACK;
 	}
 	
@@ -458,8 +458,7 @@ public enum Combat {
 		return true;
 	}
 
-	public static final DialogueNodeOld ITEM_USED = new DialogueNodeOld("Combat", "Use the item.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ITEM_USED = new DialogueNode("Combat", "Use the item.", true) {
 
 		@Override
 		public String getLabel() {
@@ -507,8 +506,7 @@ public enum Combat {
 		}
 	};
 
-	public static final DialogueNodeOld SUBMIT = new DialogueNodeOld("Combat", "Submit", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUBMIT = new DialogueNode("Combat", "Submit", true) {
 
 		@Override
 		public String getLabel() {
@@ -554,8 +552,7 @@ public enum Combat {
 			return DialogueNodeType.NORMAL;
 		}
 	};
-	public static final DialogueNodeOld SUBMIT_CONFIRM = new DialogueNodeOld("Combat", "Submit", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUBMIT_CONFIRM = new DialogueNode("Combat", "Submit", true) {
 
 		@Override
 		public String getLabel() {
@@ -594,8 +591,7 @@ public enum Combat {
 		}
 	};
 
-	public static final DialogueNodeOld ENEMY_ATTACK = new DialogueNodeOld("Combat", "The enemy strikes back at you.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENEMY_ATTACK = new DialogueNode("Combat", "The enemy strikes back at you.", true) {
 
 		@Override
 		public String getLabel() {

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.enchanting;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -19,8 +18,7 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.11
  * @author Innoxia
  */
-public class ItemEffect implements Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class ItemEffect implements XMLSaving {
 
 	public static final int SEALED_COST_MINOR_BOOST = 5;
 	public static final int SEALED_COST_MINOR_DRAIN = 25;

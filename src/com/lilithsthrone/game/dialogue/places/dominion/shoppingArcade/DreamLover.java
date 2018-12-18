@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
 import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
@@ -18,8 +18,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class DreamLover {
 
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Dream Lover (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Dream Lover (Exterior)", "-", false) {
 
 		@Override
 		public String getAuthor() {
@@ -50,8 +49,7 @@ public class DreamLover {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRY = new DialogueNodeOld("Dream Lover", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRY = new DialogueNode("Dream Lover", "-", true) {
 
 		@Override
 		public String getAuthor() {
@@ -122,8 +120,7 @@ public class DreamLover {
 		}
 	};
 	
-	public static final DialogueNodeOld EXPLORE_SHELVES = new DialogueNodeOld("Dream Lover", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXPLORE_SHELVES = new DialogueNode("Dream Lover", "-", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -162,8 +159,7 @@ public class DreamLover {
 		}
 	};
 	
-	public static final DialogueNodeOld CONFRONT_ASHLEY = new DialogueNodeOld("Dream Lover", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CONFRONT_ASHLEY = new DialogueNode("Dream Lover", "-", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -181,8 +177,7 @@ public class DreamLover {
 		}
 	};
 	
-	public static final DialogueNodeOld IGNORE_ASHLEY = new DialogueNodeOld("Dream Lover", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IGNORE_ASHLEY = new DialogueNode("Dream Lover", "-", true, true) {
 
 		@Override
 		public String getAuthor() {

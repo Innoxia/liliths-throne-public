@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -14,8 +13,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.11
  * @author Innoxia
  */
-public class Tail implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Tail implements BodyPartInterface {
 	
 	public static final int MAXIMUM_COUNT = 9;
 	

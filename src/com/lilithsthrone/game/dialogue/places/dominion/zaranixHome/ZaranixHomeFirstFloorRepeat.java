@@ -5,7 +5,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -27,8 +27,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ZaranixHomeFirstFloorRepeat {
 
-	public static final DialogueNodeOld STAIRS = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRS = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -152,8 +151,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -250,8 +248,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld KELLY_DECLINE = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KELLY_DECLINE = new DialogueNode("", "", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -279,8 +276,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_KELLY_SEX = new DialogueNodeOld("", "Kelly lets out a deep sigh as she steps back.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_KELLY_SEX = new DialogueNode("", "Kelly lets out a deep sigh as she steps back.", false) {
 
 		@Override
 		public String getLabel() {
@@ -316,8 +312,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -340,8 +335,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -363,8 +357,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_EXIT = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_EXIT = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -386,8 +379,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_ENTER = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_ENTER = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -460,8 +452,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_MAIDS = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_MAIDS = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -483,8 +474,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_EXPERIMENTS = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_EXPERIMENTS = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -506,8 +496,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_INCUBUS_FORM = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_INCUBUS_FORM = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -529,8 +518,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_SEX_ZARANIX_BLOWJOB = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_ZARANIX_BLOWJOB = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {

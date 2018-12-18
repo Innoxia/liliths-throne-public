@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
@@ -41,8 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class SubmissionGenericPlaces {
 
-	public static final DialogueNodeOld WALKWAYS = new DialogueNodeOld("Walkways", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WALKWAYS = new DialogueNode("Walkways", "", false) {
 		
 		@Override
 		public String getAuthor() {
@@ -68,8 +67,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld TUNNEL = new DialogueNodeOld("Tunnels", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TUNNEL = new DialogueNode("Tunnels", "", false) {
 
 		@Override
 		public String getAuthor() {
@@ -127,7 +125,7 @@ public class SubmissionGenericPlaces {
 						"Explore the tunnels. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -137,8 +135,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 
-	public static final DialogueNodeOld BAT_CAVERNS = new DialogueNodeOld("Bat Caverns", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BAT_CAVERNS = new DialogueNode("Bat Caverns", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -167,8 +164,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld RAT_WARREN = new DialogueNodeOld("The Rat Warren", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RAT_WARREN = new DialogueNode("The Rat Warren", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -191,8 +187,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 
-	public static final DialogueNodeOld GAMBLING_DEN = new DialogueNodeOld("Gambling Den", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GAMBLING_DEN = new DialogueNode("Gambling Den", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -238,8 +233,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 
-	public static final DialogueNodeOld LILIN_PALACE_CAVERN = new DialogueNodeOld("Cavern", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILIN_PALACE_CAVERN = new DialogueNode("Cavern", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -267,8 +261,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld LILIN_PALACE_GATE = new DialogueNodeOld("Lyssieth's Palace Gate", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILIN_PALACE_GATE = new DialogueNode("Lyssieth's Palace Gate", "", true) {
 
 		@Override
 		public boolean isTravelDisabled() {
@@ -451,8 +444,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld LILIN_PALACE_GATE_GENERIC_TALK = new DialogueNodeOld("Lyssieth's Palace Gate", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILIN_PALACE_GATE_GENERIC_TALK = new DialogueNode("Lyssieth's Palace Gate", "", true, true) {
 
 		@Override
 		public boolean isTravelDisabled() {
@@ -475,8 +467,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld LILIN_PALACE = new DialogueNodeOld("Lyssieth's Palace", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILIN_PALACE = new DialogueNode("Lyssieth's Palace", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -549,8 +540,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_ALPHA = new DialogueNodeOld("Crude Fortress", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_FORTRESS_ALPHA = new DialogueNode("Crude Fortress", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -631,8 +621,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_FEMALES = new DialogueNodeOld("Crude Fortress", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_FORTRESS_FEMALES = new DialogueNode("Crude Fortress", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -714,8 +703,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_MALES = new DialogueNodeOld("Crude Fortress", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_FORTRESS_MALES = new DialogueNode("Crude Fortress", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -797,8 +785,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_DEMON = new DialogueNodeOld("Stone Citadel", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_FORTRESS_DEMON = new DialogueNode("Stone Citadel", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -879,8 +866,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld FORTRESS_DEMON_ENTRANCE_KEY_ENTRY = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FORTRESS_DEMON_ENTRANCE_KEY_ENTRY = new DialogueNode("", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -895,8 +881,7 @@ public class SubmissionGenericPlaces {
 
 	// Entrance and exits:
 
-	public static final DialogueNodeOld SEWER_ENTRANCE = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SEWER_ENTRANCE = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -958,8 +943,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CLAIRE_INFO_REPORT_BACK = new DialogueNodeOld("Enforcer Checkpoint", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CLAIRE_INFO_REPORT_BACK = new DialogueNode("Enforcer Checkpoint", "", true, true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -982,8 +966,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 
-	public static final DialogueNodeOld CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK = new DialogueNodeOld("Enforcer Checkpoint", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK = new DialogueNode("Enforcer Checkpoint", "", true, true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -1010,8 +993,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CLAIRE_INFO_SUBMISSION_SOCIETY = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CLAIRE_INFO_SUBMISSION_SOCIETY = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -1032,8 +1014,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CLAIRE_INFO_LYSSIETH = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CLAIRE_INFO_LYSSIETH = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -1054,8 +1035,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CLAIRE_INFO_TELEPORTATION = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CLAIRE_INFO_TELEPORTATION = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
 		public int getMinutesPassed(){

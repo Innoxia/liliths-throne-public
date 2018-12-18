@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +28,8 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.11
  * @author Innoxia
  */
-public class Vagina implements BodyPartInterface, Serializable {
+public class Vagina implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 	
 	protected VaginaType type;
 	protected Clitoris clitoris;

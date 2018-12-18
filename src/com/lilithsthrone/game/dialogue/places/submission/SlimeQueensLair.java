@@ -13,7 +13,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -47,8 +47,7 @@ public class SlimeQueensLair {
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeRoyalGuardDefeated, false);
 	}
 	
-	public static final DialogueNodeOld ENTRANCE = new DialogueNodeOld("Entrance Hall", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE = new DialogueNode("Entrance Hall", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -89,8 +88,7 @@ public class SlimeQueensLair {
 		}
 	};
 
-	public static final DialogueNodeOld GUARD_POST = new DialogueNodeOld("Guard Post", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARD_POST = new DialogueNode("Guard Post", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -292,8 +290,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARD_POST_SLIME_BLUFF = new DialogueNodeOld("Guard Post", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARD_POST_SLIME_BLUFF = new DialogueNode("Guard Post", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -307,8 +304,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARD_POST_BUTLER_BLUFF = new DialogueNodeOld("Guard Post", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARD_POST_BUTLER_BLUFF = new DialogueNode("Guard Post", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -322,8 +318,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARD_POST_MAID_BLUFF = new DialogueNodeOld("Guard Post", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARD_POST_MAID_BLUFF = new DialogueNode("Guard Post", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -337,8 +332,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARD_POST_TALK = new DialogueNodeOld("Guard Post", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARD_POST_TALK = new DialogueNode("Guard Post", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -351,8 +345,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SLIME_GUARD_SEX_AS_DOM = new DialogueNodeOld("Finished", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_GUARD_SEX_AS_DOM = new DialogueNode("Finished", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -365,8 +358,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SLIME_GUARD_SEX_AS_SUB = new DialogueNodeOld("Finished", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_GUARD_SEX_AS_SUB = new DialogueNode("Finished", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -379,8 +371,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_GUARDS_COMBAT_PLAYER_VICTORY = new DialogueNodeOld("Victory", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_GUARDS_COMBAT_PLAYER_VICTORY = new DialogueNode("Victory", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -393,8 +384,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_GUARDS_COMBAT_PLAYER_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_GUARDS_COMBAT_PLAYER_DEFEAT = new DialogueNode("Defeat", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -426,8 +416,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SLIME_GUARD_SEX_DEFEATED = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_GUARD_SEX_DEFEATED = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -455,8 +444,7 @@ public class SlimeQueensLair {
 	
 	
 	
-	public static final DialogueNodeOld STAIRCASE_UP = new DialogueNodeOld("Spiral Staircase", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRCASE_UP = new DialogueNode("Spiral Staircase", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -485,8 +473,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld STAIRCASE_DOWN = new DialogueNodeOld("Spiral Staircase", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRCASE_DOWN = new DialogueNode("Spiral Staircase", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -515,8 +502,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("Corridor", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR = new DialogueNode("Corridor", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -534,8 +520,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM = new DialogueNodeOld("Bedroom", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM = new DialogueNode("Bedroom", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -553,8 +538,7 @@ public class SlimeQueensLair {
 		}
 	};
 
-	public static final DialogueNodeOld STORAGE_VATS = new DialogueNodeOld("Distillery", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STORAGE_VATS = new DialogueNode("Distillery", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -572,8 +556,7 @@ public class SlimeQueensLair {
 		}
 	};
 
-	public static final DialogueNodeOld ROYAL_GUARD_POST = new DialogueNodeOld("Royal Guard Post", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROYAL_GUARD_POST = new DialogueNode("Royal Guard Post", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -676,8 +659,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld ROYAL_GUARD_POST_TALK = new DialogueNodeOld("Royal Guard Post", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROYAL_GUARD_POST_TALK = new DialogueNode("Royal Guard Post", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -695,8 +677,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld ROYAL_GUARD_POST_ADMIRE = new DialogueNodeOld("Royal Guard Post", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROYAL_GUARD_POST_ADMIRE = new DialogueNode("Royal Guard Post", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -750,8 +731,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld ROYAL_GUARD_POST_ADMIRE_INSTRUCT = new DialogueNodeOld("Royal Guard Post", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROYAL_GUARD_POST_ADMIRE_INSTRUCT = new DialogueNode("Royal Guard Post", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -792,8 +772,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld ROYAL_GUARD_POST_ADMIRE_INSTRUCT_OVERPOWER = new DialogueNodeOld("Royal Guard Post", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROYAL_GUARD_POST_ADMIRE_INSTRUCT_OVERPOWER = new DialogueNode("Royal Guard Post", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -812,8 +791,7 @@ public class SlimeQueensLair {
 	};
 	
 
-	public static final DialogueNodeOld ROYAL_GUARD_POST_ADMIRE_SEDUCE = new DialogueNodeOld("Royal Guard Post", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROYAL_GUARD_POST_ADMIRE_SEDUCE = new DialogueNode("Royal Guard Post", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -864,8 +842,7 @@ public class SlimeQueensLair {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM = new DialogueNodeOld("Finished", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM = new DialogueNode("Finished", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -878,8 +855,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB = new DialogueNodeOld("Finished", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB = new DialogueNode("Finished", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -892,8 +868,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SLIME_ROYAL_GUARD_SEX_SEDUCTION = new DialogueNodeOld("Finished", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_ROYAL_GUARD_SEX_SEDUCTION = new DialogueNode("Finished", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -906,8 +881,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_ROYAL_GUARD_COMBAT_PLAYER_VICTORY = new DialogueNodeOld("Victory", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_ROYAL_GUARD_COMBAT_PLAYER_VICTORY = new DialogueNode("Victory", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -920,8 +894,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT = new DialogueNode("Defeat", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -948,8 +921,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_ROYAL_GUARD_SPARRING_PLAYER_VICTORY = new DialogueNodeOld("Victory", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_ROYAL_GUARD_SPARRING_PLAYER_VICTORY = new DialogueNode("Victory", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -987,8 +959,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_ROYAL_GUARD_SPARRING_PLAYER_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_ROYAL_GUARD_SPARRING_PLAYER_DEFEAT = new DialogueNode("Defeat", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1015,8 +986,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1040,8 +1010,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED = new DialogueNodeOld("Finished", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED = new DialogueNode("Finished", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -1054,8 +1023,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld BED_CHAMBER = new DialogueNodeOld("Bed Chamber", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BED_CHAMBER = new DialogueNode("Bed Chamber", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1143,8 +1111,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_QUEEN_CONVINCE = new DialogueNodeOld("Bed Chamber", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_QUEEN_CONVINCE = new DialogueNode("Bed Chamber", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -1193,8 +1160,7 @@ public class SlimeQueensLair {
 		}
 	};
 
-	public static final DialogueNodeOld SLIME_QUEEN_FORCE = new DialogueNodeOld("Bed Chamber", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_QUEEN_FORCE = new DialogueNode("Bed Chamber", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -1207,8 +1173,7 @@ public class SlimeQueensLair {
 		}
 	};
 
-	public static final DialogueNodeOld SLIME_QUEEN_SUBMIT = new DialogueNodeOld("Bed Chamber", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_QUEEN_SUBMIT = new DialogueNode("Bed Chamber", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -1221,8 +1186,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_QUEEN_BATH = new DialogueNodeOld("Bed Chamber", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_QUEEN_BATH = new DialogueNode("Bed Chamber", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -1252,8 +1216,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_QUEEN_BATH_TRANSFORM = new DialogueNodeOld("Bed Chamber", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_QUEEN_BATH_TRANSFORM = new DialogueNode("Bed Chamber", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -1266,8 +1229,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_QUEEN_LEAVE = new DialogueNodeOld("Bed Chamber", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_QUEEN_LEAVE = new DialogueNode("Bed Chamber", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -1280,8 +1242,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_QUEEN_TALK = new DialogueNodeOld("Bed Chamber", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_QUEEN_TALK = new DialogueNode("Bed Chamber", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -1294,8 +1255,7 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SLIME_QUEEN_SEX = new DialogueNodeOld("Bed Chamber", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_QUEEN_SEX = new DialogueNode("Bed Chamber", "", true) {
 		
 		@Override
 		public String getContent() {

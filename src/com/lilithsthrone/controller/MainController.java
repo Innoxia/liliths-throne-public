@@ -53,7 +53,7 @@ import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
@@ -220,7 +220,7 @@ public class MainController implements Initializable {
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OPTIONS) {
 			Main.game.restoreSavedContent(false);
 			
-		} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
+		} else {
 			DialogueNodeType currentDialogueNodeType = Main.game.getCurrentDialogueNode().getDialogueNodeType();
 			if (currentDialogueNodeType == DialogueNodeType.NORMAL
 					|| currentDialogueNodeType == DialogueNodeType.OCCUPANT_MANAGEMENT
@@ -240,7 +240,7 @@ public class MainController implements Initializable {
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE) {
 			Main.game.restoreSavedContent(false);
 			
-		} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
+		} else {
 			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
 				Main.game.saveDialogueNode();
 			}
@@ -1245,7 +1245,7 @@ public class MainController implements Initializable {
 					Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
 				}
 				Main.game.getPlayer().setLocation(new Vector2i(j, i));
-				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.getTextStartStringBuilder().append(
 						"<p>" //TODO improve
 							+ "Having knowledge of one of the most powerful arcane spells to exist, you're able to instantaneously teleport to any location you've previously visited."
@@ -1548,7 +1548,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_APPEARANCE));
 										}
 										
-									} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
+									} else {
 										if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
 											Main.game.saveDialogueNode();
 										}
@@ -1589,7 +1589,7 @@ public class MainController implements Initializable {
 									Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP));
 								}
 								
-							} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
+							} else {
 								if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
 									Main.game.saveDialogueNode();
 								}
@@ -2175,7 +2175,7 @@ public class MainController implements Initializable {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1));
-				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.setContent(new Response("", "", dn));
 			}
 		}
@@ -2191,7 +2191,7 @@ public class MainController implements Initializable {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1));
-				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.setContent(new Response("", "", dn));
 			}
 		}
@@ -2207,7 +2207,7 @@ public class MainController implements Initializable {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()));
-				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.setContent(new Response("", "", dn));
 			}
 		}
@@ -2223,7 +2223,7 @@ public class MainController implements Initializable {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()));
-				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.setContent(new Response("", "", dn));
 			}
 		}

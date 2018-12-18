@@ -50,12 +50,10 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord), Pimgd
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
-
-	protected static final long serialVersionUID = 1L;
 	
 	private String determiner;
 	private String name;
@@ -700,9 +698,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c1, c2, c3, allowRandomEnchantment) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractClothing(clothingType, c1, c2, c3, allowRandomEnchantment) {};
 	}
 
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colourShade, boolean allowRandomEnchantment) {
@@ -760,9 +756,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c1, c2, c3, effects) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractClothing(clothingType, c1, c2, c3, effects) {};
 	}
 	
 	/**

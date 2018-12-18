@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -39,8 +39,7 @@ public class SupplierDepot {
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.supplierDepotDoorUnlocked, false);
 	}
 	
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Supplier Depot (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Supplier Depot (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -79,8 +78,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_RECEPTION = new DialogueNodeOld("Reception Area", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_RECEPTION = new DialogueNode("Reception Area", "-", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -159,8 +157,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_RECEPTION_UNLOCKING = new DialogueNodeOld("Reception Area", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_RECEPTION_UNLOCKING = new DialogueNode("Reception Area", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -173,8 +170,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_POPULATED_UNLOCKING = new DialogueNodeOld("Reception Area", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_POPULATED_UNLOCKING = new DialogueNode("Reception Area", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -188,8 +184,7 @@ public class SupplierDepot {
 	};
 	
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_CORRIDOR = new DialogueNodeOld("Corridor", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_CORRIDOR = new DialogueNode("Corridor", "-", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -207,8 +202,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_STORAGE_ROOM = new DialogueNodeOld("Storage Room", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_STORAGE_ROOM = new DialogueNode("Storage Room", "-", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -258,8 +252,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_STORAGE_ROOM_SEARCH = new DialogueNodeOld("Storage Room", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_STORAGE_ROOM_SEARCH = new DialogueNode("Storage Room", "-", false) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -282,8 +275,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_OFFICE = new DialogueNodeOld("Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_OFFICE = new DialogueNode("Office", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -345,8 +337,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_OFFICE_REPEAT = new DialogueNodeOld("Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_OFFICE_REPEAT = new DialogueNode("Office", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -412,8 +403,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_OFFICE_CONVINCE = new DialogueNodeOld("Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_OFFICE_CONVINCE = new DialogueNode("Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -491,8 +481,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_OFFICE_PAID_OFF = new DialogueNodeOld("Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_OFFICE_PAID_OFF = new DialogueNode("Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -520,8 +509,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_OFFICE_ENFORCER_BLUFF = new DialogueNodeOld("Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_OFFICE_ENFORCER_BLUFF = new DialogueNode("Office", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -567,8 +555,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_VICTORY = new DialogueNodeOld("Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_VICTORY = new DialogueNode("Office", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -619,8 +606,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_LOSS = new DialogueNodeOld("Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_LOSS = new DialogueNode("Office", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -653,8 +639,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_WILLING_DOMMED_THEM = new DialogueNodeOld("Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_WILLING_DOMMED_THEM = new DialogueNode("Office", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -681,8 +666,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_WILLING = new DialogueNodeOld("Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_WILLING = new DialogueNode("Office", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -709,8 +693,7 @@ public class SupplierDepot {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_FUCKED = new DialogueNodeOld("Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_FUCKED = new DialogueNode("Office", "-", true) {
 
 		@Override
 		public String getContent() {

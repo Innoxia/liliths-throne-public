@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
@@ -87,10 +86,8 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.3
  * @author Innoxia
  */
-public class Body implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
-
+public class Body implements XMLSaving {
+	
 	// Required:
 	private Arm arm;
 	private Ass ass;

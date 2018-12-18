@@ -1,7 +1,6 @@
 package com.lilithsthrone.game;
 
 import java.io.File;
-import java.io.Serializable;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -115,7 +114,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
@@ -163,11 +162,10 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia, AlacoGit
  */
-public class Game implements Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class Game implements XMLSaving {
 
 	public static final int FONT_SIZE_MINIMUM = 12;
 	public static final int FONT_SIZE_NORMAL = 18;
@@ -214,8 +212,8 @@ public class Game implements Serializable, XMLSaving {
 	private int responsePointer = 0;
 	
 	// Dialogues:
-	private DialogueNodeOld currentDialogueNode;
-	private DialogueNodeOld savedDialogueNode = null;
+	private DialogueNode currentDialogueNode;
+	private DialogueNode savedDialogueNode = null;
 	private String currentDialogue, savedDialogue, previousPastDialogueSBContents = "";
 	private int initialPositionAnchor = 0, responsePage = 0, responseTab = 0;
 	private StringBuilder pastDialogueSB = new StringBuilder(), choicesDialogueSB = new StringBuilder();
@@ -1094,7 +1092,7 @@ public class Game implements Serializable, XMLSaving {
 		
 		Main.game.setRequestAutosave(false);
 		
-		DialogueNodeOld startingDialogueNode = Main.game.getPlayerCell().getPlace().getDialogue(false);
+		DialogueNode startingDialogueNode = Main.game.getPlayerCell().getPlace().getDialogue(false);
 		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+name+".xml"), false);
 		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
@@ -1162,7 +1160,7 @@ public class Game implements Serializable, XMLSaving {
 		return loadedGame;
 	}
 	
-	public void initNewGame(DialogueNodeOld startingDialogueNode) {
+	public void initNewGame(DialogueNode startingDialogueNode) {
 		// Set up NPCs:
 		try {
 			NPCMap.clear();
@@ -1809,7 +1807,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			String chosenResponse = response.getTitle();
-			DialogueNodeOld node = response.getNextDialogue();
+			DialogueNode node = response.getNextDialogue();
 			response.applyEffects();
 			
 			if(response instanceof ResponseCombat) {
@@ -1863,30 +1861,29 @@ public class Game implements Serializable, XMLSaving {
 
 				if (currentDialogueNode != null) {
 					if (node.isContinuesDialogue()) {
-						if (!node.isNoTextForContinuesDialogue()) {
-							if(Main.game.isInSex()) {
-								dialogueTitle = UtilText.parse(node.getLabel());
-							}
-
-							if(node.isDisplaysActionTitleOnContinuesDialogue()) {
-								if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
-									positionAnchor++;
-								}
-							
-								pastDialogueSB.append("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + chosenResponse + "</p>");
-							}
-							
-							if (getMapDisplay() == DialogueNodeType.NORMAL)
-								initialPositionAnchor = positionAnchor;
-
-							pastDialogueSB.append(
-									UtilText.parse(
-										corruptionGains 
-										+ textStartStringBuilder.toString()
-										+ content
-										+ textEndStringBuilder.toString()
-									));
+						if(Main.game.isInSex()) {
+							dialogueTitle = UtilText.parse(node.getLabel());
 						}
+
+						if(node.isDisplaysActionTitleOnContinuesDialogue()) {
+							if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
+								positionAnchor++;
+							}
+						
+							pastDialogueSB.append("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + chosenResponse + "</p>");
+						}
+						
+						if (getMapDisplay() == DialogueNodeType.NORMAL)
+							initialPositionAnchor = positionAnchor;
+
+						pastDialogueSB.append(
+								UtilText.parse(
+									corruptionGains 
+									+ textStartStringBuilder.toString()
+									+ content
+									+ textEndStringBuilder.toString()
+								));
+						
 					} else {
 						dialogueTitle = UtilText.parse(node.getLabel());
 						
@@ -2011,7 +2008,7 @@ public class Game implements Serializable, XMLSaving {
 
 	public void setContent(Response response, boolean allowTimeProgress, Colour flashMessageColour, String flashMessageText){
 		
-		DialogueNodeOld node = response.getNextDialogue();
+		DialogueNode node = response.getNextDialogue();
 		response.applyEffects();
 		
 		if (node == null){
@@ -2059,22 +2056,20 @@ public class Game implements Serializable, XMLSaving {
 		
 		if (currentDialogueNode != null) {
 			if (node.isContinuesDialogue()) {
-				if (!node.isNoTextForContinuesDialogue()) {
-					if(Main.game.isInSex()) {
-						dialogueTitle = UtilText.parse(node.getLabel());
-					}
-					
-
-					if(node.isDisplaysActionTitleOnContinuesDialogue()) {
-						if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
-							positionAnchor++;
-						}
-						
-						pastDialogueSB.append(UtilText.parse("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + currentDialogueNode.getLabel() + "</p>"));
-					}
-					
-					pastDialogueSB.append(content);
+				if(Main.game.isInSex()) {
+					dialogueTitle = UtilText.parse(node.getLabel());
 				}
+				
+				if(node.isDisplaysActionTitleOnContinuesDialogue()) {
+					if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
+						positionAnchor++;
+					}
+					
+					pastDialogueSB.append(UtilText.parse("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + currentDialogueNode.getLabel() + "</p>"));
+				}
+				
+				pastDialogueSB.append(content);
+					
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
 				if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
@@ -2206,7 +2201,7 @@ public class Game implements Serializable, XMLSaving {
 		
 	}
 	
-	private boolean requiresYScroll(DialogueNodeOld node) {
+	private boolean requiresYScroll(DialogueNode node) {
 		return currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY
 				&& (!node.equals(InventoryDialogue.DYE_CLOTHING)
 						&& !node.equals(InventoryDialogue.DYE_CLOTHING_CHARACTER_CREATION)
@@ -2216,7 +2211,7 @@ public class Game implements Serializable, XMLSaving {
 						&& !node.equals(InventoryDialogue.DYE_WEAPON));
 	}
 	
-	private static boolean isContentScroll(DialogueNodeOld node) {
+	private static boolean isContentScroll(DialogueNode node) {
 		return (node.getDialogueNodeType()!=DialogueNodeType.CHARACTERS_PRESENT
 				&& !node.equals(PhoneDialogue.CHARACTER_APPEARANCE)
 				&& !node.equals(PhoneDialogue.CONTACTS_CHARACTER))
@@ -2253,12 +2248,6 @@ public class Game implements Serializable, XMLSaving {
 	
 	private String getMapDiv() {
 		return "";
-//		return (Main.game.getActiveWorld() != null && isStarted() && isRenderMap()
-//					&& !Main.game.getCurrentDialogueNode().isMapDisabled() && Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL && !Main.game.isInSex() && !Main.game.isInCombat()
-//				? "<div style='float:left; width:250px; height:250px; padding:8px; margin:8px; border-radius:5px; background:#333;'>"
-//					+ (Main.game.isStarted()?RenderingEngine.ENGINE.renderedHTMLMap():"")
-//				+ "</div>"
-//				:"");
 	}
 	
 	/**
@@ -2345,11 +2334,11 @@ public class Game implements Serializable, XMLSaving {
 	/**
 	 * Create the response box html.
 	 */
-	private String getResponsesDiv(DialogueNodeOld node) {
+	private String getResponsesDiv(DialogueNode node) {
 		return getResponsesDiv(node, true);
 	}
 
-	private String getResponsesDiv(DialogueNodeOld node, boolean withPointerReset) {
+	private String getResponsesDiv(DialogueNode node, boolean withPointerReset) {
 		if(withPointerReset) {
 			resetResponsePointer();
 		}
@@ -2465,7 +2454,7 @@ public class Game implements Serializable, XMLSaving {
 		return choicesDialogueSB.toString();
 	}
 	
-	private boolean isResponseTabEmpty(DialogueNodeOld node, int responseTab) {
+	private boolean isResponseTabEmpty(DialogueNode node, int responseTab) {
 		for (int i = 1; i < MainController.RESPONSE_COUNT; i++) {
 			if(node.getResponse(responseTab, i)!=null) {
 				return false;
@@ -2959,7 +2948,7 @@ public class Game implements Serializable, XMLSaving {
 		player.setLocation(world.getWorldType(), location, false);
 		
 		if(setDefaultDialogue) {
-			DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+			DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 			Main.game.setContent(new Response("", "", dn));
 		}
 	}
@@ -3344,7 +3333,7 @@ public class Game implements Serializable, XMLSaving {
 		textEndStringBuilder.setLength(0);
 	}
 
-	public DialogueNodeOld getCurrentDialogueNode() {
+	public DialogueNode getCurrentDialogueNode() {
 		return currentDialogueNode;
 	}
 
@@ -3384,7 +3373,7 @@ public class Game implements Serializable, XMLSaving {
 		checkForResponsePage();
 	}
 
-	public DialogueNodeOld getSavedDialogueNode() {
+	public DialogueNode getSavedDialogueNode() {
 		return savedDialogueNode;
 	}
 
@@ -3519,11 +3508,11 @@ public class Game implements Serializable, XMLSaving {
 		return occupancyUtil;
 	}
 	
-	public DialogueNodeOld getDefaultDialogue() {
+	public DialogueNode getDefaultDialogue() {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 	}
 
-	public DialogueNodeOld getDefaultDialogueNoEncounter() {
+	public DialogueNode getDefaultDialogueNoEncounter() {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
 	}
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.GamblingDenDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -44,7 +44,7 @@ public class DicePoker {
 		}
 	}
 	
-	public static DialogueNodeOld initDicePoker(NPC gambler) {
+	public static DialogueNode initDicePoker(NPC gambler) {
 		if(gambler instanceof GamblingDenPatron) {
 			DicePoker.table = ((GamblingDenPatron)gambler).getTable();
 		} else {
@@ -206,8 +206,7 @@ public class DicePoker {
 		diceToReroll.addAll(rerollDice);
 	}
 	
-	private static final DialogueNodeOld START = new DialogueNodeOld("Dice Poker", "", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode START = new DialogueNode("Dice Poker", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -246,8 +245,7 @@ public class DicePoker {
 		}
 	};
 	
-	private static final DialogueNodeOld ROLL = new DialogueNodeOld("Dice Poker", "", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode ROLL = new DialogueNode("Dice Poker", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -367,8 +365,7 @@ public class DicePoker {
 		}
 	};
 	
-	private static final DialogueNodeOld BET_NEED_REACT = new DialogueNodeOld("Dice Poker", "", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode BET_NEED_REACT = new DialogueNode("Dice Poker", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -431,8 +428,7 @@ public class DicePoker {
 		}
 	};
 	
-	private static final DialogueNodeOld REROLL = new DialogueNodeOld("Dice Poker", "", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode REROLL = new DialogueNode("Dice Poker", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -515,8 +511,7 @@ public class DicePoker {
 		}
 	};
 	
-	private static final DialogueNodeOld END_WIN = new DialogueNodeOld("Dice Poker", "", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode END_WIN = new DialogueNode("Dice Poker", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -532,8 +527,7 @@ public class DicePoker {
 		}
 	};
 	
-	private static final DialogueNodeOld END_DRAW = new DialogueNodeOld("Dice Poker", "", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode END_DRAW = new DialogueNode("Dice Poker", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -549,8 +543,7 @@ public class DicePoker {
 		}
 	};
 	
-	private static final DialogueNodeOld END_LOSS = new DialogueNodeOld("Dice Poker", "", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode END_LOSS = new DialogueNode("Dice Poker", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -571,8 +564,7 @@ public class DicePoker {
 		}
 	};
 	
-	private static final DialogueNodeOld END_LOSS_OFFER_BODY = new DialogueNodeOld("Dice Poker", "", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode END_LOSS_OFFER_BODY = new DialogueNode("Dice Poker", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -630,8 +622,7 @@ public class DicePoker {
 		}
 	};
 
-	private static final DialogueNodeOld END_LOSS_SEX = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode END_LOSS_SEX = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getContent() {

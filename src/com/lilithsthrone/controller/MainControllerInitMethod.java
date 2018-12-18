@@ -112,7 +112,7 @@ import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
@@ -1024,7 +1024,7 @@ public class MainControllerInitMethod {
 									OccupantManagementDialogue.cellToInspect = c;
 								}
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return OccupantManagementDialogue.ROOM_UPGRADES_MANAGEMENT;
 								}
 							});
@@ -1054,7 +1054,7 @@ public class MainControllerInitMethod {
 									OccupantManagementDialogue.cellToInspect = c;
 								}
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return OccupantManagementDialogue.ROOM_UPGRADES_MANAGEMENT;
 								}
 							});
@@ -3758,7 +3758,7 @@ public class MainControllerInitMethod {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU){
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return EnchantmentDialogue.getEnchantmentMenu(BodyChanging.getTarget().getTattooInSlot(invSlot), BodyChanging.getTarget(), invSlot);
 								}
 							});

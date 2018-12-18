@@ -21,7 +21,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -200,8 +200,7 @@ public class SlaverAlleyDialogue {
 	
 	
 	
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Slaver Alley", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Slaver Alley", "-", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -245,8 +244,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GATEWAY = new DialogueNodeOld("Gateway", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GATEWAY = new DialogueNode("Gateway", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -283,8 +281,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEYWAY = new DialogueNodeOld("Alleyway", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEYWAY = new DialogueNode("Alleyway", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -337,8 +334,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_FEMALE = new DialogueNodeOld("A Woman's Touch", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_FEMALE = new DialogueNode("A Woman's Touch", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -358,7 +354,7 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -367,8 +363,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_MALE = new DialogueNodeOld("Iron & Steel", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_MALE = new DialogueNode("Iron & Steel", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -388,7 +383,7 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -397,8 +392,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_ANAL = new DialogueNodeOld("The Rear Entrance", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_ANAL = new DialogueNode("The Rear Entrance", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -418,7 +412,7 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -427,8 +421,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_VAGINAL = new DialogueNodeOld("White Lilies", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_VAGINAL = new DialogueNode("White Lilies", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -448,7 +441,7 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -457,8 +450,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_ORAL = new DialogueNodeOld("Viva Voce", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_ORAL = new DialogueNode("Viva Voce", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -478,7 +470,7 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -487,8 +479,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_STATUE = new DialogueNodeOld("Statue of the Fallen Angel", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_STATUE = new DialogueNode("Statue of the Fallen Angel", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -506,8 +497,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_EXCLUSIVE = new DialogueNodeOld("Zaibatsu Exchange", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_EXCLUSIVE = new DialogueNode("Zaibatsu Exchange", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -525,8 +515,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_BULK = new DialogueNodeOld("Royal Dominion Company", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_BULK = new DialogueNode("Royal Dominion Company", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -544,8 +533,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_CAFE = new DialogueNodeOld("", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_CAFE = new DialogueNode("", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -563,8 +551,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL = new DialogueNodeOld("", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL = new DialogueNode("", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -594,8 +581,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AUCTION_BLOCK = new DialogueNodeOld("Auctioning block", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUCTION_BLOCK = new DialogueNode("Auctioning block", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -630,8 +616,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AUCTION_BLOCK_LIST = new DialogueNodeOld("Auctioning block", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUCTION_BLOCK_LIST = new DialogueNode("Auctioning block", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -742,8 +727,7 @@ public class SlaverAlleyDialogue {
 		currentRivalBidder = SlaveAuctionBidder.generateNewSlaveAuctionBidder(biddingNPC);
 	}
 	
-	public static final DialogueNodeOld AUCTION_IMPORT = new DialogueNodeOld("Auctioning block", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUCTION_IMPORT = new DialogueNode("Auctioning block", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -794,8 +778,7 @@ public class SlaverAlleyDialogue {
 	private static boolean playerBidLeader = false;
 	private static SlaveAuctionBidder currentRivalBidder = null;
 	
-	public static final DialogueNodeOld AUCTION_BIDDING = new DialogueNodeOld("Auctioning block", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUCTION_BIDDING = new DialogueNode("Auctioning block", ".", true) {
 		
 		@Override
 		public boolean isContinuesDialogue() {
@@ -941,8 +924,7 @@ public class SlaverAlleyDialogue {
 				+ "</tr>";
 	}
 	
-	public static final DialogueNodeOld PUBLIC_STOCKS = new DialogueNodeOld("Public Stocks", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PUBLIC_STOCKS = new DialogueNode("Public Stocks", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1032,8 +1014,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_STOCKS_SEX = new DialogueNodeOld("Public Stocks", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_STOCKS_SEX = new DialogueNode("Public Stocks", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -1053,8 +1034,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_EXTERIOR = new DialogueNodeOld("Slavery Administration", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVERY_ADMINISTRATION_EXTERIOR = new DialogueNode("Slavery Administration", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1094,8 +1074,7 @@ public class SlaverAlleyDialogue {
 	
 	private static int slaverLicenseCost = 5000;
 	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION = new DialogueNodeOld("Slavery Administration", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVERY_ADMINISTRATION = new DialogueNode("Slavery Administration", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -1256,8 +1235,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_ASK_ABOUT_SLAVER_LICENSE = new DialogueNodeOld("Slavery Administration", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVERY_ADMINISTRATION_ASK_ABOUT_SLAVER_LICENSE = new DialogueNode("Slavery Administration", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -1292,8 +1270,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED = new DialogueNodeOld("Slavery Administration", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED = new DialogueNode("Slavery Administration", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -1355,8 +1332,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED_RULES = new DialogueNodeOld("Slavery Administration", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED_RULES = new DialogueNode("Slavery Administration", ".", true, true) {
 
 		@Override
 		public String getContent() {

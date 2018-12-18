@@ -326,7 +326,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -374,7 +373,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -422,7 +420,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -470,7 +467,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -520,7 +516,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -570,7 +565,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -618,7 +612,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -668,7 +661,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -718,7 +710,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -768,7 +759,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -818,7 +808,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -867,7 +856,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -916,7 +904,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -965,7 +952,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1013,7 +999,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1061,7 +1046,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1112,7 +1096,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1161,7 +1144,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1210,7 +1192,6 @@ public class ItemType {
 					ItemTag.MISC_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1253,7 +1234,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isFetishGiving() {
@@ -1307,7 +1287,6 @@ public class ItemType {
 					ItemTag.MISC_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsedInSex() {
@@ -1352,7 +1331,6 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsedInSex() {
@@ -1381,55 +1359,6 @@ public class ItemType {
 	
 	// Racial ingredients:
 	
-//	public static AbstractItemType RACE_INGREDIENT_DEMON = new AbstractItemType(2500,
-//			"a bottle of",
-//			false,
-//			"Innoxia's Gift",
-//			"Innoxia's Gifts",
-//			"A glass bottle, filled with bubbling golden liquid."
-//					+ " Someone's stuck a crude little sticker to one side of the bottle, and as you look closer, you see that it reads: 'Temporary item! Demon TFs don't work like this!'",
-//			"raceDemonInnoxiasGift",
-//			Colour.ATTRIBUTE_CORRUPTION,
-//			null,
-//			null,
-//			Rarity.LEGENDARY,
-//			TFEssence.ARCANE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_INNOXIAS_GIFT)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//		private static final long serialVersionUID = 1L;
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_DEMON;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "drink";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"The moment you pull the stopper out from the top of the bottle of 'Innoxia's Gift', you're filled with a desperate need to drink the bubbling pink liquid contained within."
-//							+ " Instantly, you bring the bottle to your lips and gulp it all down, suppressing your gag reflex as your senses are overwhelmed by how sickeningly sweet it is.",
-//					"You pull the stopper out from the top of the bottle of 'Innoxia's Gift', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
-//					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
-//					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
-//						+ " You suppress your gag reflex as your senses are suddenly overwhelmed by the sickeningly-sweet liquid.");
-//		}
-//	};
-	
 	public static AbstractItemType RACE_INGREDIENT_HUMAN = new AbstractItemType(1000,
 			"a vial of",
 			false,
@@ -1450,7 +1379,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1498,7 +1426,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1548,7 +1475,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1600,7 +1526,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1650,7 +1575,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1698,7 +1622,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1748,7 +1671,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1796,7 +1718,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1844,7 +1765,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1892,7 +1812,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1939,7 +1858,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1989,7 +1907,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -2038,7 +1955,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -2087,7 +2003,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isTransformative() {
@@ -2141,7 +2056,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.NOT_FOR_SALE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isTransformative() {
@@ -2342,7 +2256,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2380,7 +2293,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2419,7 +2331,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2457,7 +2368,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DEMON)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2495,7 +2405,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_IMP)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2533,7 +2442,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2564,7 +2472,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2602,7 +2509,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2640,7 +2546,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RABBIT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2678,7 +2583,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_BAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2716,7 +2620,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2754,7 +2657,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2792,7 +2694,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2830,7 +2731,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_REINDEER_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2868,7 +2768,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2906,7 +2805,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2944,7 +2842,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_FOX_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2982,7 +2879,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SLIME)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3025,7 +2921,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.NOT_FOR_SALE)) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isTransformative() {
@@ -3072,7 +2967,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.NOT_FOR_SALE)) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isTransformative() {
@@ -3118,7 +3012,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.NOT_FOR_SALE)) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isTransformative() {
@@ -3168,7 +3061,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isTransformative() {
@@ -3217,7 +3109,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isTransformative() {
@@ -3272,7 +3163,6 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3321,7 +3211,6 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
 		
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3373,7 +3262,6 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE)), null) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isFetishGiving() {
@@ -3443,7 +3331,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3483,7 +3370,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3519,7 +3405,6 @@ public class ItemType {
 					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getUseName() {
@@ -3580,7 +3465,6 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
 		
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3616,7 +3500,6 @@ public class ItemType {
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3653,7 +3536,6 @@ public class ItemType {
 					ItemTag.MISC_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3698,8 +3580,6 @@ public class ItemType {
 				relatedEssence,
 				effects,
 				itemTags) {
-
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public boolean isConsumedOnUse() {
@@ -3829,7 +3709,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_FOX_MORPH)),
 			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isConsumedOnUse() {
@@ -4015,7 +3894,6 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PRESENT)), null) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -4060,7 +3938,6 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4106,7 +3983,6 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4154,7 +4030,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_CHOCOLATES)),
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4197,7 +4072,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_PERFUME)),
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4241,7 +4115,6 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4289,7 +4162,6 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.EGGPLANT)), null) {
 
-		private static final long serialVersionUID = 1L;
 		
 
 		@Override
@@ -4333,7 +4205,6 @@ public class ItemType {
 			null,
 			null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isTransformative() {
@@ -4380,7 +4251,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -4417,7 +4287,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -4448,7 +4317,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -4479,7 +4347,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -4512,7 +4379,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -5095,8 +4961,6 @@ public class ItemType {
 					Util.newArrayListOfValues(new ItemEffect(effectType)),
 					Util.newArrayListOfValues(ItemTag.SPELL_BOOK)) {
 		
-				private static final long serialVersionUID = 1L;
-				
 				@Override
 				public String getSVGString() {
 					return super.getSVGString()
@@ -5194,8 +5058,6 @@ public class ItemType {
 					null,
 					Util.newArrayListOfValues(new ItemEffect(effectType)),
 					Util.newArrayListOfValues(ItemTag.SPELL_SCROLL)) {
-		
-				private static final long serialVersionUID = 1L;
 				
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {

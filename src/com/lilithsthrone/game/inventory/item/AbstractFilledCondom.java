@@ -2,7 +2,6 @@ package com.lilithsthrone.game.inventory.item;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,9 +26,8 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.1.88
  * @author Innoxia
  */
-public class AbstractFilledCondom extends AbstractItem implements Serializable, XMLSaving {
+public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 	
-	private static final long serialVersionUID = 1L;
 	
 	private String cumProvidor;
 	private FluidCum cum;
@@ -178,10 +176,6 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 
 	public void setMillilitresStored(int millilitresStored) {
 		this.millilitresStored = millilitresStored;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 	
 }

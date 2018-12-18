@@ -562,8 +562,6 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		
 		return new AbstractWeapon(wt, dt, c1, c2) {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public String onEquip(GameCharacter character) {
 				if (character.isPlayer()) {

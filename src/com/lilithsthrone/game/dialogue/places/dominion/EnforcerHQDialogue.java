@@ -22,7 +22,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -52,8 +52,7 @@ public class EnforcerHQDialogue {
 		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN);
 	}
 
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Enforcer HQ", "Enforcer HQ", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Enforcer HQ", "Enforcer HQ", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -85,8 +84,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("Corridor", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR = new DialogueNode("Corridor", "-", false) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -107,8 +105,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRANCE = new DialogueNodeOld("Entrance hall", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE = new DialogueNode("Entrance hall", "-", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -140,8 +137,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld WAITING_AREA = new DialogueNodeOld("Waiting area", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WAITING_AREA = new DialogueNode("Waiting area", "-", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -188,8 +184,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARDED_DOOR = new DialogueNodeOld("Guarded door", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDED_DOOR = new DialogueNode("Guarded door", "-", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -258,8 +253,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld RECEPTION_DESK = new DialogueNodeOld("Reception desk", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RECEPTION_DESK = new DialogueNode("Reception desk", "-", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -640,8 +634,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY = new DialogueNodeOld("Enforcer HQ", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY = new DialogueNode("Enforcer HQ", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -692,8 +685,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX = new DialogueNodeOld("Enforcer HQ", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX = new DialogueNode("Enforcer HQ", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -739,8 +731,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BIMBO = new DialogueNodeOld("Enforcer HQ", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY_BIMBO = new DialogueNode("Enforcer HQ", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -791,8 +782,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBO = new DialogueNodeOld("Enforcer HQ", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBO = new DialogueNode("Enforcer HQ", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -842,8 +832,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_FEMINISE = new DialogueNodeOld("Enforcer HQ", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_FEMINISE = new DialogueNode("Enforcer HQ", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -958,8 +947,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED = new DialogueNodeOld("Enforcer HQ", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED = new DialogueNode("Enforcer HQ", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -1048,8 +1036,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_FEMINISE_CHANGE_MIND = new DialogueNodeOld("Enforcer HQ", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_FEMINISE_CHANGE_MIND = new DialogueNode("Enforcer HQ", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -1075,8 +1062,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBOFY = new DialogueNodeOld("Enforcer HQ", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY = new DialogueNode("Enforcer HQ", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -1145,8 +1131,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED = new DialogueNodeOld("Enforcer HQ", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED = new DialogueNode("Enforcer HQ", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -1246,8 +1231,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND = new DialogueNodeOld("Enforcer HQ", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND = new DialogueNode("Enforcer HQ", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -1273,8 +1257,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Enforcer HQ", "Return to the Reception desk.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Enforcer HQ", "Return to the Reception desk.", false) {
 
 		@Override
 		public String getContent() {
@@ -1294,8 +1277,7 @@ public class EnforcerHQDialogue {
 	//---------- [brax.namePos] office:
 	
 	
-	public static final DialogueNodeOld INTERIOR_BRAX = new DialogueNodeOld("[brax.namePos] Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX = new DialogueNode("[brax.namePos] Office", "-", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1372,8 +1354,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_BRAX_REPEAT = new DialogueNodeOld("[brax.namePos] Office", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_REPEAT = new DialogueNode("[brax.namePos] Office", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -1401,8 +1382,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTERIOR_BRAX_TRUTH = new DialogueNodeOld("[brax.namePos] Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_TRUTH = new DialogueNode("[brax.namePos] Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1432,8 +1412,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTERIOR_BRAX_LIE = new DialogueNodeOld("[brax.namePos] Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_LIE = new DialogueNode("[brax.namePos] Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1466,8 +1445,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_BRAX_LIE_IDIOT_BRAX = new DialogueNodeOld("[brax.namePos] Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_LIE_IDIOT_BRAX = new DialogueNode("[brax.namePos] Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1511,8 +1489,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_BRAX_LIE_BLUFFING = new DialogueNodeOld("[brax.namePos] Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_LIE_BLUFFING = new DialogueNode("[brax.namePos] Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1580,8 +1557,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_BRAX_LIE_BLUFFING_SUCCESS = new DialogueNodeOld("[brax.namePos] Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_LIE_BLUFFING_SUCCESS = new DialogueNode("[brax.namePos] Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1627,8 +1603,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_BRAX_LIE_BLUFFING_IDIOT_BRAX = new DialogueNodeOld("[brax.namePos] Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_LIE_BLUFFING_IDIOT_BRAX = new DialogueNode("[brax.namePos] Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1674,8 +1649,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_BRAX_GETTING_TEASED = new DialogueNodeOld("[brax.namePos] Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_GETTING_TEASED = new DialogueNode("[brax.namePos] Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1723,8 +1697,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_BRAX_GETTING_TEASED_UH_OH = new DialogueNodeOld("[brax.namePos] Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_GETTING_TEASED_UH_OH = new DialogueNode("[brax.namePos] Office", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1836,8 +1809,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_BRAX_GETTING_TEASED_ESCAPE = new DialogueNodeOld("[brax.namePos] Office", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode INTERIOR_BRAX_GETTING_TEASED_ESCAPE = new DialogueNode("[brax.namePos] Office", "-", true, true) {
 
 		@Override
 		public String getContent() {

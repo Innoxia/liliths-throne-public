@@ -29,7 +29,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -362,8 +362,7 @@ public class ImpCitadelDialogue {
 		};
 	}
 	
-	public static final DialogueNodeOld ENTRANCE = new DialogueNodeOld("Gateway", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE = new DialogueNode("Gateway", "", false) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -407,8 +406,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld LEAVE_FORTRESS = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LEAVE_FORTRESS = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -426,8 +424,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_CHALLENGE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_CHALLENGE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -451,8 +448,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_CHALLENGE_CONTINUE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_CHALLENGE_CONTINUE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -497,8 +493,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FIGHT_AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_FIGHT_AFTER_COMBAT_VICTORY = new DialogueNode("Victory", ".", true) {
 
 		@Override
 		public String getDescription() {
@@ -812,8 +807,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld IMP_FIGHT_AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_FIGHT_AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", ".", true) {
 		
 		@Override
 		public String getDescription() {
@@ -998,8 +992,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1039,8 +1032,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1092,8 +1084,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld COURTYARD = new DialogueNodeOld("Courtyard", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COURTYARD = new DialogueNode("Courtyard", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1129,8 +1120,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld WELL = new DialogueNodeOld("Well", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WELL = new DialogueNode("Well", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1167,8 +1157,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY = new DialogueNodeOld("Laboratory", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY = new DialogueNode("Laboratory", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1241,8 +1230,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_SEARCH = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_SEARCH = new DialogueNode("", "", false, true) {
 	
 		@Override
 		public int getMinutesPassed() {
@@ -1260,8 +1248,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST = new DialogueNodeOld("", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST = new DialogueNode("", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1517,8 +1504,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_EXIT = new DialogueNodeOld("", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_EXIT = new DialogueNode("", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1531,8 +1517,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_SOLO_TF = new DialogueNodeOld("", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_SOLO_TF = new DialogueNode("", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1575,8 +1560,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_COMPANION_TF = new DialogueNodeOld("", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_COMPANION_TF = new DialogueNode("", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1626,8 +1610,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_BOTH_TF = new DialogueNodeOld("", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_BOTH_TF = new DialogueNode("", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1679,8 +1662,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_POST_SEX = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_POST_SEX = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1709,8 +1691,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld TREASURY = new DialogueNodeOld("Treasury", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TREASURY = new DialogueNode("Treasury", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1765,8 +1746,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld TREASURY_SEARCH = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TREASURY_SEARCH = new DialogueNode("", "", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1784,8 +1764,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP = new DialogueNode("Keep", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1835,8 +1814,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_ENTRY = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_ENTRY = new DialogueNode("Keep", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1879,8 +1857,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_DEMONS_DEFEATED = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_DEMONS_DEFEATED = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -1915,8 +1892,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_CHALLENGE = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_CHALLENGE = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -1936,8 +1912,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_CHALLENGE_RING_TRICK = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_CHALLENGE_RING_TRICK = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1973,8 +1948,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_COLLAPSE_ESCAPE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_COLLAPSE_ESCAPE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2020,8 +1994,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_COLLAPSE_ESCAPE_END = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_COLLAPSE_ESCAPE_END = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2039,8 +2012,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 		
 		@Override
 		public String getDescription() {
@@ -2094,8 +2066,7 @@ public class ImpCitadelDialogue {
 	};
 
 	
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_DEFEAT = new DialogueNode("Keep", ".", true) {
 		
 		@Override
 		public String getDescription() {
@@ -2287,8 +2258,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld THROWN_OUT = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode THROWN_OUT = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2311,8 +2281,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_DEFEAT_POST_SEX = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_DEFEAT_POST_SEX = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {
@@ -2382,8 +2351,7 @@ public class ImpCitadelDialogue {
 	
 	// TODO parsing allCharacters() needs owner as second npc
 	
-	public static final DialogueNodeOld PRISONER_INITIAL_SCENE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_INITIAL_SCENE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2436,8 +2404,7 @@ public class ImpCitadelDialogue {
 	};
 
 
-	public static final DialogueNodeOld PRISONER_INITIAL_SCENE_COMPANION_STRIP = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_INITIAL_SCENE_COMPANION_STRIP = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2482,8 +2449,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PRISONER_STRIPPED = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_STRIPPED = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2572,8 +2538,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PRISONER_STRIPPED_AFTER_SEX = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_STRIPPED_AFTER_SEX = new DialogueNode("", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2602,8 +2567,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CELLS = new DialogueNodeOld("Cells", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CELLS = new DialogueNode("Cells", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2684,8 +2648,7 @@ public class ImpCitadelDialogue {
 	};
 	
 
-	public static final DialogueNodeOld PRISONER_BREAKFAST = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_BREAKFAST = new DialogueNode("", "", true) {
 
 		@Override
 		public String getContent() {

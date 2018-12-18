@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -24,12 +23,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.62
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
-public class Litter implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class Litter implements XMLSaving {
 
 	private LocalDateTime conceptionDate;
 	private LocalDateTime birthDate;

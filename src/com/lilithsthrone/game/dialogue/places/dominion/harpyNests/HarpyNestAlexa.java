@@ -7,7 +7,7 @@ import com.lilithsthrone.game.character.npc.dominion.Alexa;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
@@ -22,8 +22,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class HarpyNestAlexa {
 	
-	public static final DialogueNodeOld ALEXAS_NEST_EXTERIOR = new DialogueNodeOld("Alexa's nest", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_NEST_EXTERIOR = new DialogueNode("Alexa's nest", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -123,8 +122,7 @@ public class HarpyNestAlexa {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_NEST = new DialogueNodeOld("Alexa's nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_NEST = new DialogueNode("Alexa's nest", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -207,8 +205,7 @@ public class HarpyNestAlexa {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_NEST_SCARLETT = new DialogueNodeOld("Alexa's nest", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_NEST_SCARLETT = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -271,8 +268,7 @@ public class HarpyNestAlexa {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_NEST_NO_PUNISHMENT = new DialogueNodeOld("Alexa's nest", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_NEST_NO_PUNISHMENT = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -324,8 +320,7 @@ public class HarpyNestAlexa {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_NEST_TAKE_PUNISHMENT = new DialogueNodeOld("Alexa's nest", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_NEST_TAKE_PUNISHMENT = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -421,8 +416,7 @@ public class HarpyNestAlexa {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_NEST_TAKE_PUNISHMENT_ENDURE = new DialogueNodeOld("Alexa's nest", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_NEST_TAKE_PUNISHMENT_ENDURE = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -484,8 +478,7 @@ public class HarpyNestAlexa {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_NEST_TAKE_PUNISHMENT_STRUGGLE = new DialogueNodeOld("Alexa's nest", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_NEST_TAKE_PUNISHMENT_STRUGGLE = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -548,8 +541,7 @@ public class HarpyNestAlexa {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_NEST_TAKE_PUNISHMENT_ENJOY = new DialogueNodeOld("Alexa's nest", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_NEST_TAKE_PUNISHMENT_ENJOY = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -622,8 +614,7 @@ public class HarpyNestAlexa {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_NEST_TAKE_FLIGHT = new DialogueNodeOld("Alexa's nest", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALEXAS_NEST_TAKE_FLIGHT = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
 		public String getContent() {

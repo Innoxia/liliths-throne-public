@@ -26,7 +26,7 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -1001,8 +1001,7 @@ public class ImpFortressDialogue {
 	
 	// Dialogues:
 	
-	public static final DialogueNodeOld ENTRANCE = new DialogueNodeOld("Gateway", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE = new DialogueNode("Gateway", "", false) {
 
 		@Override
 		public boolean isTravelDisabled() {
@@ -1243,8 +1242,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARDS_AFTER_ORAL_FOR_ENTRY = new DialogueNodeOld("Finished", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_ORAL_FOR_ENTRY = new DialogueNode("Finished", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1262,8 +1260,7 @@ public class ImpFortressDialogue {
 	};
 
 	
-	public static final DialogueNodeOld GUARDS_AFTER_ORAL_FOR_ENTRY_WITH_COMPANION = new DialogueNodeOld("Finished", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_ORAL_FOR_ENTRY_WITH_COMPANION = new DialogueNode("Finished", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1280,8 +1277,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRANCE_DEMONIC_COMMAND = new DialogueNodeOld("", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_DEMONIC_COMMAND = new DialogueNode("", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1304,8 +1300,7 @@ public class ImpFortressDialogue {
 	};
 
 	
-	public static final DialogueNodeOld ENTRANCE_ELEMENTAL = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_ELEMENTAL = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1324,8 +1319,7 @@ public class ImpFortressDialogue {
 	};
 
 	
-	public static final DialogueNodeOld GUARDS_AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_COMBAT_VICTORY = new DialogueNode("Victory", ".", true) {
 
 		@Override
 		public String getDescription() {
@@ -1640,8 +1634,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld GUARDS_AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1716,8 +1709,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARDS_AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1757,8 +1749,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARDS_AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1791,8 +1782,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld COURTYARD = new DialogueNodeOld("Courtyard", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COURTYARD = new DialogueNode("Courtyard", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1835,8 +1825,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP = new DialogueNodeOld("Keep", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP = new DialogueNode("Keep", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1876,8 +1865,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_ENTRY = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_ENTRY = new DialogueNode("Keep", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2377,8 +2365,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_ALPHA_BRAWLER = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_ALPHA_BRAWLER = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2536,8 +2523,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_ALPHA_BRAWLER_SCARED_OFF = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_ALPHA_BRAWLER_SCARED_OFF = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2555,8 +2541,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_ALPHA_FORCED = new DialogueNodeOld("Finished", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_ALPHA_FORCED = new DialogueNode("Finished", "", true, true) {
 
 		@Override
 		public String getDescription() {
@@ -2587,8 +2572,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_AFTER_SEX_ALPHA_FORCED_SCARED_OFF = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_ALPHA_FORCED_SCARED_OFF = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2606,8 +2590,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_FEMALES_NYMPHO = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_FEMALES_NYMPHO = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2685,8 +2668,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_FEMALES_NYMPHO_SCARED_OFF = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_FEMALES_NYMPHO_SCARED_OFF = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2704,8 +2686,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_FEMALES_NYMPHO = new DialogueNodeOld("Finished", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_FEMALES_NYMPHO = new DialogueNode("Finished", "", true, true) {
 
 		@Override
 		public String getDescription() {
@@ -2736,8 +2717,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_AFTER_SEX_FEMALES_NYMPHO_SCARED_OFF = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_FEMALES_NYMPHO_SCARED_OFF = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2755,8 +2735,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_MALES_TAMESHIGIRI_MAIN = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_MALES_TAMESHIGIRI_MAIN = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2790,8 +2769,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_MALES_TAMESHIGIRI_OFFHAND = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_MALES_TAMESHIGIRI_OFFHAND = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2825,8 +2803,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2844,8 +2821,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AUDIENCE = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AUDIENCE = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -3059,8 +3035,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_AUDIENCE = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_AUDIENCE = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -3096,8 +3071,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_AUDIENCE_KEY = new DialogueNodeOld("Step back", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_AUDIENCE_KEY = new DialogueNode("Step back", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -3110,8 +3084,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_VICTORY = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_VICTORY = new DialogueNode("Keep", ".", true) {
 
 		@Override
 		public String getDescription() {
@@ -3627,8 +3600,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_DEFEAT = new DialogueNode("Keep", ".", true) {
 		
 		@Override
 		public String getDescription() {
@@ -3802,8 +3774,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_PACIFIED = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_PACIFIED = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -3828,8 +3799,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -3870,8 +3840,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_VICTORY_SCARE_OFF = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_VICTORY_SCARE_OFF = new DialogueNode("", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -3884,8 +3853,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){

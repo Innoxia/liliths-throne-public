@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
@@ -53,8 +53,7 @@ public class LilayaHomeGeneric {
 		return charactersPresent;
 	}
 	
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -107,8 +106,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("Corridor", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR = new DialogueNode("Corridor", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -241,7 +239,7 @@ public class LilayaHomeGeneric {
 			if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
 				return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", CORRIDOR) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return OccupantManagementDialogue.getSlaveryRoomListDialogue(null);
 					}
 				};
@@ -628,8 +626,7 @@ public class LilayaHomeGeneric {
 			+ "</p>";
 	}
 	
-	public static final DialogueNodeOld MILKED = new DialogueNodeOld("Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MILKED = new DialogueNode("Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -656,7 +653,7 @@ public class LilayaHomeGeneric {
 			if(index==1) {
 				return new Response("Continue", "Unstrap yourself from the milking machine and continue on your way.", MILKED) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -666,8 +663,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_WINDOW = new DialogueNodeOld("Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_WINDOW = new DialogueNode("Room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -694,8 +690,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_GARDEN_GROUND_FLOOR = new DialogueNodeOld("Garden-view room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_GARDEN_GROUND_FLOOR = new DialogueNode("Garden-view room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -721,8 +716,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_GARDEN = new DialogueNodeOld("Garden-view room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_GARDEN = new DialogueNode("Garden-view room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -749,8 +743,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_INSTALLATION = new DialogueNodeOld("Arthur's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_INSTALLATION = new DialogueNode("Arthur's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -838,8 +831,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_INSTALLATION_AGREE_TO_CONVINCE_LYSSIETH = new DialogueNodeOld("Arthur's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_INSTALLATION_AGREE_TO_CONVINCE_LYSSIETH = new DialogueNode("Arthur's Room", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -915,8 +907,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR = new DialogueNodeOld("Arthur's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR = new DialogueNode("Arthur's Room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -975,8 +966,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_LYSSIETH = new DialogueNodeOld("Arthur's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_LYSSIETH = new DialogueNode("Arthur's Room", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1025,8 +1015,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_LILAYA = new DialogueNodeOld("Arthur's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_LILAYA = new DialogueNode("Arthur's Room", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1066,8 +1055,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_START = new DialogueNodeOld("Arthur's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_START = new DialogueNode("Arthur's Room", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1118,8 +1106,7 @@ public class LilayaHomeGeneric {
 	
 	private static GameCharacter testingSlave;
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_DELIVERY = new DialogueNodeOld("Arthur's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_DELIVERY = new DialogueNode("Arthur's Room", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -1261,8 +1248,7 @@ public class LilayaHomeGeneric {
 		}
 	}
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF = new DialogueNodeOld("Arthur's Room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF = new DialogueNode("Arthur's Room", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1377,8 +1363,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF_WAKE_UP = new DialogueNodeOld("Arthur's Room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF_WAKE_UP = new DialogueNode("Arthur's Room", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1452,8 +1437,7 @@ public class LilayaHomeGeneric {
 	
 	
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_OFFER_SLAVE = new DialogueNodeOld("Arthur's Room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_OFFER_SLAVE = new DialogueNode("Arthur's Room", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1480,8 +1464,7 @@ public class LilayaHomeGeneric {
 	};
 	
 	
-	public static final DialogueNodeOld BIRTHING_ROOM = new DialogueNodeOld("Birthing room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BIRTHING_ROOM = new DialogueNode("Birthing room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1510,8 +1493,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld KITCHEN = new DialogueNodeOld("Kitchen", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KITCHEN = new DialogueNode("Kitchen", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1609,8 +1591,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ROSE = new DialogueNodeOld("Rose's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ROSE = new DialogueNode("Rose's Room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1663,8 +1644,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld GARDEN = new DialogueNodeOld("Garden courtyard", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GARDEN = new DialogueNode("Garden courtyard", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1685,8 +1665,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld FOUNTAIN = new DialogueNodeOld("Water fountain", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FOUNTAIN = new DialogueNode("Water fountain", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1707,8 +1686,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRANCE_HALL = new DialogueNodeOld("Entrance hall", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_HALL = new DialogueNode("Entrance hall", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1762,8 +1740,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld STAIRCASE_UP = new DialogueNodeOld("Staircase up", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRCASE_UP = new DialogueNode("Staircase up", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1804,8 +1781,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld STAIRCASE_DOWN = new DialogueNodeOld("Staircase down", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRCASE_DOWN = new DialogueNode("Staircase down", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1843,10 +1819,9 @@ public class LilayaHomeGeneric {
 	
 	private static String roseContent = "";
 	private static boolean askedAboutDuties = false;
-	public static final DialogueNodeOld AUNT_HOME_ROSE = new DialogueNodeOld("", "", true) {
+	public static final DialogueNode AUNT_HOME_ROSE = new DialogueNode("", "", true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getLabel() {
@@ -2012,7 +1987,7 @@ public class LilayaHomeGeneric {
 					}
 					
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 					}
 				};
@@ -2023,8 +1998,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 
-	public static final DialogueNodeOld ROSE_HANDS = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROSE_HANDS = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel() {

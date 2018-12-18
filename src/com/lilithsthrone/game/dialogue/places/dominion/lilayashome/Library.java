@@ -7,7 +7,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -28,8 +28,7 @@ import com.lilithsthrone.world.WorldType;
  */
 public class Library {
 	
-	public static final DialogueNodeOld LIBRARY = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LIBRARY = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -251,8 +250,7 @@ public class Library {
 		};
 	}
 
-	public static final DialogueNodeOld SPELL_BOOK = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SPELL_BOOK = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -275,8 +273,7 @@ public class Library {
 		}
 	};
 	
-	public static final DialogueNodeOld ARCANE_AROUSAL = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ARCANE_AROUSAL = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -316,8 +313,7 @@ public class Library {
 		}
 	};
 	
-	public static final DialogueNodeOld LILITHS_DYNASTY = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LILITHS_DYNASTY = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -415,8 +411,7 @@ public class Library {
 		}
 	};
 	
-	public static final DialogueNodeOld DOMINION_HISTORY = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DOMINION_HISTORY = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -458,8 +453,7 @@ public class Library {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_INFO = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PREGNANCY_INFO = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -496,8 +490,7 @@ public class Library {
 		}
 	};
 	
-	public static final DialogueNodeOld DOMINION_MAP = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DOMINION_MAP = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -531,8 +524,7 @@ public class Library {
 		
 	};
 	
-	public static final DialogueNodeOld DOMINION_RACES = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DOMINION_RACES = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -614,8 +606,7 @@ public class Library {
 	
 	};
 	
-	public static final DialogueNodeOld FIELDS_BOOKS = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FIELDS_BOOKS = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {

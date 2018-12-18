@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -21,8 +20,7 @@ import com.lilithsthrone.main.Main;
  * @version 0.2.2
  * @author Innoxia
  */
-public class Face implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Face implements BodyPartInterface {
 	
 	protected FaceType type;
 	protected boolean piercedNose;
