@@ -17,7 +17,9 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.npc.submission.Epona;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
+import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -34,8 +36,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallBack;
 import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallFront;
@@ -372,7 +374,7 @@ public class GamblingDenDialogue {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roxyIntroduced)) {
 				Addiction ratGCumAdd = Main.game.getPlayer().getAddiction(FluidType.GIRL_CUM_RAT_MORPH);
 				
-				if(ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getRoxy().getId())) {
+				if(ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getNpc(Roxy.class).getId())) {
 					return UtilText.parseFromXMLFile("places/submission/gamblingDen", "TRADER_REPEAT_ADDICT");
 					
 				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roxyAddicted)) {
@@ -404,13 +406,13 @@ public class GamblingDenDialogue {
 								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMRoxyPussyLicker(
-										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexPositionSlot.FACE_SITTING_ON_FACE)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
 								null,
 								null, AFTER_ROXY_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "TRADER_REPLY_YES")){
 							@Override
 							public void effects() {
-								Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
+								Main.game.getNpc(Roxy.class).displaceClothingForAccess(CoverableArea.VAGINA);
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.roxyIntroduced);
 							}
 						};
@@ -425,7 +427,7 @@ public class GamblingDenDialogue {
 				
 			} else {
 				if (index == 1) {
-					return new ResponseTrade("Trade", "Trade with Roxy.", Main.game.getRoxy()){
+					return new ResponseTrade("Trade", "Trade with Roxy.", Main.game.getNpc(Roxy.class)){
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.roxyIntroduced);
@@ -435,7 +437,7 @@ public class GamblingDenDialogue {
 				} else if (index == 2) {
 					Addiction ratGCumAdd = Main.game.getPlayer().getAddiction(FluidType.GIRL_CUM_RAT_MORPH);
 					
-					if(ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getRoxy().getId())) {
+					if(ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getNpc(Roxy.class).getId())) {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							return new Response("Get fix ("+UtilText.formatAsMoneyUncoloured(1000, "span")+")", "You can only service Roxy if you're able to gain access to your mouth!", null);
 							
@@ -447,13 +449,13 @@ public class GamblingDenDialogue {
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexPositionSlot.FACE_SITTING_ON_FACE)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
 									null,
 									null, AFTER_ROXY_SEX_ADDICT, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START_ADDICT")){
 								@Override
 								public void effects() {
-									Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
+									Main.game.getNpc(Roxy.class).displaceClothingForAccess(CoverableArea.VAGINA);
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-1000));
 								}
 							};
@@ -465,13 +467,13 @@ public class GamblingDenDialogue {
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexPositionSlot.FACE_SITTING_ON_FACE)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
 									null,
 									null, AFTER_ROXY_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START")){
 								@Override
 								public void effects() {
-									Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
+									Main.game.getNpc(Roxy.class).displaceClothingForAccess(CoverableArea.VAGINA);
 									Main.game.getDialogueFlags().values.add(DialogueFlagValue.roxyIntroduced);
 								}
 							};
@@ -785,7 +787,7 @@ public class GamblingDenDialogue {
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaIntroduced)
-					|| (Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isCharacterReactedToPregnancy(Main.game.getPlayer()));
+					|| (Main.game.getNpc(Epona.class).isVisiblyPregnant() && !Main.game.getNpc(Epona.class).isCharacterReactedToPregnancy(Main.game.getPlayer()));
 		}
 		
 		@Override
@@ -813,7 +815,7 @@ public class GamblingDenDialogue {
 				
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_END"));
 				
-			} else if(Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
+			} else if(Main.game.getNpc(Epona.class).isVisiblyPregnant() && !Main.game.getNpc(Epona.class).isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_EPONA_IMPREGNATED"));
 				
 			} else {
@@ -856,12 +858,12 @@ public class GamblingDenDialogue {
 					return null;
 				}
 				
-			} else if(Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
+			} else if(Main.game.getNpc(Epona.class).isVisiblyPregnant() && !Main.game.getNpc(Epona.class).isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 				if(index==1) {
 					return new Response("Continue", "You're happy to see how delighted Epona is to be the mother of your children.", PREGNANCY_ROULETTE_GREETING_UTIL) {
 						@Override
 						public void effects() {
-							Main.game.getEpona().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							Main.game.getNpc(Epona.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 							Main.game.getTextStartStringBuilder().append(UtilText.nodeContentSB.toString());
 						}
 					};
@@ -901,7 +903,7 @@ public class GamblingDenDialogue {
 								Main.game.getDialogueFlags().eponaStamps+=1;
 								
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
-								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
+								Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
 								
 								breeders.clear();
 								breederIndex=0;
@@ -944,7 +946,7 @@ public class GamblingDenDialogue {
 								Main.game.getDialogueFlags().eponaStamps+=1;
 								
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
-								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
+								Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
 								
 								breeders.clear();
 								breederIndex=0;
@@ -997,7 +999,7 @@ public class GamblingDenDialogue {
 								
 								if(Main.game.getPlayer().isFeminine()) {
 									Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
-									Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
+									Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
 									for(int i=0; i<5; i++) {
 										GenericSexualPartner partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 										initBreeder(partner);
@@ -1006,7 +1008,7 @@ public class GamblingDenDialogue {
 									
 								} else {
 									Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
-									Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
+									Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
 									for(int i=0; i<5; i++) {
 										GenericSexualPartner partner = new GenericSexualPartner(Gender.M_P_MALE, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 										initBreeder(partner);
@@ -1032,7 +1034,7 @@ public class GamblingDenDialogue {
 								true, true,
 								new SMStanding(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getEpona(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Epona.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
 								null, EPONA_POST_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_SUB")) {
 							@Override
@@ -1051,7 +1053,7 @@ public class GamblingDenDialogue {
 								null, null, null, null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getEpona(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Epona.class), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
 								null, EPONA_POST_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_DOM")) {
@@ -1074,7 +1076,7 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getEpona())>0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Epona.class))>0) {
 				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_POST_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_POST_SEX_NO_ORGASM");
@@ -1152,7 +1154,7 @@ public class GamblingDenDialogue {
 				return new Response("Wait", "Wait for Epona to lead the breeders into the room.", PREGNANCY_ROULETTE_MOTHER_SELECTION) {
 					@Override
 					public void effects() {
-						Main.game.getEpona().useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+						Main.game.getNpc(Epona.class).useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
 					}
 				};
 				
@@ -1396,7 +1398,7 @@ public class GamblingDenDialogue {
 					return new Response("Finished", "All six of the breeders have deposited their cum in your [pc.pussy+].", PREGNANCY_ROULETTE_MOTHER_FINISHED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getEpona().useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Epona.class).useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
 						}
 					};
 				} else {
@@ -1428,7 +1430,7 @@ public class GamblingDenDialogue {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
-								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+								Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(50000));
 								for(NPC npc : breeders) {
 									Main.game.banishNPC(npc);
@@ -1441,7 +1443,7 @@ public class GamblingDenDialogue {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
-								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+								Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 								for(NPC npc : breeders) {
 									Main.game.banishNPC(npc);
 								}
@@ -1454,7 +1456,7 @@ public class GamblingDenDialogue {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
-							Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+							Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 							for(NPC npc : breeders) {
 								Main.game.banishNPC(npc);
 							}
@@ -1629,7 +1631,7 @@ public class GamblingDenDialogue {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
-								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+								Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(20000));
 								for(NPC npc : breeders) {
 									Main.game.banishNPC(npc);
@@ -1644,7 +1646,7 @@ public class GamblingDenDialogue {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
-								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+								Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 								for(NPC npc : breeders) {
 									Main.game.banishNPC(npc);
 								}
@@ -1658,7 +1660,7 @@ public class GamblingDenDialogue {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
-							Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+							Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 							for(NPC npc : breeders) {
 								Main.game.banishNPC(npc);
 							}

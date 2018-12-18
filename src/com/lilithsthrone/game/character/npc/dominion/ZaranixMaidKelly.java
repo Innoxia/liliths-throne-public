@@ -354,7 +354,7 @@ public class ZaranixMaidKelly extends NPC {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKelly.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SEX_VICTORY, "<p>"
 							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Kelly."
@@ -372,7 +372,7 @@ public class ZaranixMaidKelly extends NPC {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						false, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKelly.class), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SEX_VICTORY, "<p>"
@@ -395,7 +395,7 @@ public class ZaranixMaidKelly extends NPC {
 					@Override
 					public void effects() {
 						Main.game.saveDialogueNode();
-						BodyChanging.setTarget(Main.game.getKelly());
+						BodyChanging.setTarget(Main.game.getNpc(ZaranixMaidKelly.class));
 					}
 				};
 				
@@ -478,7 +478,7 @@ public class ZaranixMaidKelly extends NPC {
 				return new ResponseSex("Used", "Kelly uses you.",
 						false, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKelly.class), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null, null, AFTER_SEX_DEFEAT);
 			} else {

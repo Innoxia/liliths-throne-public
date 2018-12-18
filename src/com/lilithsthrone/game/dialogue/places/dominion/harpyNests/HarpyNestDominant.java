@@ -3,6 +3,8 @@ package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
+import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -281,7 +283,7 @@ public class HarpyNestDominant {
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyDominant.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
 							null, HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyDominant.name] in her place in front of her flock, you reach down and grab her wings."
@@ -480,7 +482,7 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getHarpyDominantCompanion());
+				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyDominantCompanion.class));
 					
 			} else {
 				return null;
@@ -562,7 +564,7 @@ public class HarpyNestDominant {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyDominant.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
@@ -620,7 +622,7 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getHarpyDominantCompanion());
+				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyDominantCompanion.class));
 					
 			} else {
 				return null;
@@ -694,7 +696,7 @@ public class HarpyNestDominant {
 								+ "You try to make a response, but as you open your mouth, the choking perfume enters your airways, leaving you coughing and spluttering on the floor."
 								+ " Before you know what you're doing, you're breathing in deeply, letting out little whining noises as you find yourself desperate to inhale as much of the sweet-smelling perfume as you possibly can..."
 							+ "</p>"
-							+ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getHarpyDominant(), Main.game.getPlayer(), null));
+							+ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyDominant.class), Main.game.getPlayer(), null));
 					}
 				};
 					
@@ -728,7 +730,7 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[harpyDominant.Name] looks furious as she launches her attack on you!", Main.game.getHarpyDominant());
+				return new ResponseCombat("Fight", "[harpyDominant.Name] looks furious as she launches her attack on you!", Main.game.getNpc(HarpyDominant.class));
 					
 			} else {
 				return null;
@@ -802,7 +804,7 @@ public class HarpyNestDominant {
 								+ "You try to make a response, but as you open your mouth, the choking perfume enters your airways, leaving you coughing and spluttering on the floor."
 								+ " Before you know what you're doing, you're breathing in deeply, letting out little whining noises as you find yourself desperate to inhale as much of the sweet-smelling perfume as you possibly can..."
 							+ "</p>"
-							+ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getHarpyDominant(), Main.game.getPlayer(), null));
+							+ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyDominant.class), Main.game.getPlayer(), null));
 					}
 				};
 					
@@ -869,7 +871,7 @@ public class HarpyNestDominant {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyDominant.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."

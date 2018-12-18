@@ -1023,8 +1023,9 @@ public class PhoneDialogue {
 			String color = female ? Colour.FEMININE.toWebHexString() : Colour.MASCULINE.toWebHexString();
 			String child_name = ChildMet(npc) ? npc.getName() : "Unknown";
 			String race_color = npc.getRace().getColour().toWebHexString();
-			String species_name = female ? npc.getSubspecies().getOffspringSubspecies().getSingularFemaleName(npc) :
-						       npc.getSubspecies().getOffspringSubspecies().getSingularMaleName(npc);
+			String species_name = female
+								? npc.getSubspecies().getSingularFemaleName(npc)
+								: npc.getSubspecies().getSingularMaleName(npc);
 			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "You" : npc.getMother().getName());
 			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer()?"You":npc.getFather().getName());
 			output.append("<tr>");
@@ -1237,7 +1238,7 @@ public class PhoneDialogue {
 								+ "<br/>"
 								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
-								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
+								+ "You gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>"));
 				} else {
 					contentSB.append(
@@ -1246,7 +1247,7 @@ public class PhoneDialogue {
 								+ "<br/>"
 								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
-								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
+								+ "You gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>");
 				}
 			}
@@ -1323,7 +1324,7 @@ public class PhoneDialogue {
 								+ "<br/>"
 								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
-								+ "[npc.She] gave birth to "+ litter.getBirthedDescriptionList()+ "."
+								+ "[npc.She] gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>"));
 					
 				} else {
@@ -1333,7 +1334,7 @@ public class PhoneDialogue {
 								+ "<br/>"
 								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
-								+ "They gave birth to "+ litter.getBirthedDescriptionList()+ "."
+								+ "They gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>");
 				}
 			}
@@ -2030,12 +2031,16 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-					"<div class='container-full-width' style='padding:8px;'>"
-						+ "<span style='color:"+Colour.PERK.toWebHexString()+";'>Perks</span> (circular icons) apply permanent boosts to your attributes.<br/>"
-						+ "<span style='color:"+Colour.TRAIT.toWebHexString()+";'>Traits</span> (square icons) provide unique effects for your character."
-							+ " Unlike perks, <b>traits will have no effect on your character until they're slotted into your 'Active Traits' bar</b>.<br/>"
-						+ "Perks require perk points to unlock. You earn one perk point each time you level up, and earn an extra two perk points every five levels."
-					+ "</div>"
+					"<details>"
+							+ "<summary>[style.boldPerk(Perk & Trait Information)]</summary>"
+							+ "[style.colourPerk(Perks)] (circular icons) apply permanent boosts to your attributes.<br/>"
+							+ "[style.colourPerk(Traits)] (square icons) provide unique effects for your character."
+								+ " Unlike perks, <b>traits will have no effect on your character until they're slotted into your 'Active Traits' bar</b>.<br/>"
+							+ "Perks require perk points to unlock. You earn one perk point each time you level up, and earn an extra two perk points every five levels.<br/><br/>"
+							+ "In addition to the perks that can be purchased via perk points, there are also several special, hidden perks that are unlocked via special events."
+							+ " There are currently [style.boldPerk("+Perk.getHiddenPerks().size()+")] special perks in the game."
+					+ "</details>"
+						
 					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
 					+ "<h6 style='text-align:center;'>Active Traits</h6>");
 
@@ -2059,12 +2064,28 @@ public class PhoneDialogue {
 					
 				}
 			}
-			UtilText.nodeContentSB.append("</div>"
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-						+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
-					+ "</div>");
+			
+			UtilText.nodeContentSB.append("<h6 style='text-align:center;'>Special Perks</h6>");
+			
+			for(Perk hiddenPerk : Perk.getHiddenPerks()) {
+				if(Main.game.getPlayer().getSpecialPerks().contains(hiddenPerk)) {
+					UtilText.nodeContentSB.append("<div id='HIDDEN_PERK_" + hiddenPerk + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border:1% solid " + Colour.TRAIT.toWebHexString() + ";'>"
+							+ "<div class='square-button-content'>"+hiddenPerk.getSVGString()+"</div>"
+							+ "</div>");
+					
+				} else {
+					UtilText.nodeContentSB.append("<div id='HIDDEN_PERK_" + hiddenPerk + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border:1% solid " + Colour.BASE_GREY.toWebHexString() + ";'>"
+							+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown()+"</div>"
+							+ "</div>");
+				}
+			}
 			
 			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(Main.game.getPlayer()));
+			
+			UtilText.nodeContentSB.append("</div>"
+					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
+						+ "[style.italicsBad(Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!)]"
+					+ "</div>");
 			
 			return UtilText.nodeContentSB.toString();
 		}

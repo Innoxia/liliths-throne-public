@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -55,8 +56,11 @@ public class Ear implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, EarType type) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
 			return "";
 		}
 		

@@ -21,7 +21,6 @@ import com.lilithsthrone.game.sex.sexActions.dominion.PetOral;
 import com.lilithsthrone.game.sex.sexActions.dominion.PixShower;
 import com.lilithsthrone.game.sex.sexActions.dominion.RalphOral;
 import com.lilithsthrone.game.sex.sexActions.dominion.ToiletStall;
-import com.lilithsthrone.game.sex.sexActions.dominion.VickyDominating;
 import com.lilithsthrone.game.sex.sexActions.submission.BreedingStallBack;
 import com.lilithsthrone.game.sex.sexActions.submission.BreedingStallFront;
 import com.lilithsthrone.game.sex.sexActions.universal.BackToWall;
@@ -35,12 +34,14 @@ import com.lilithsthrone.game.sex.sexActions.universal.KneelingOral;
 import com.lilithsthrone.game.sex.sexActions.universal.Masturbation;
 import com.lilithsthrone.game.sex.sexActions.universal.MilkingStall;
 import com.lilithsthrone.game.sex.sexActions.universal.Missionary;
+import com.lilithsthrone.game.sex.sexActions.universal.MissionaryDesk;
 import com.lilithsthrone.game.sex.sexActions.universal.SixtyNine;
 import com.lilithsthrone.game.sex.sexActions.universal.Standing;
 import com.lilithsthrone.game.sex.sexActions.universal.StocksSex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * Enum values that determine what actions are available for each slot.<br/><br/>
@@ -55,7 +56,7 @@ import com.lilithsthrone.utils.Util.Value;
  *   are available for the character on all fours, in relation to a character kneeling behind them.
  * 
  * @since 0.1.97
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public enum SexPositionType {
@@ -2216,6 +2217,57 @@ public enum SexPositionType {
 		}
 	},
 
+	MISSIONARY_DESK("Desk-top missionary",
+			true,
+			false,
+			Util.newArrayListOfValues(MissionaryDesk.class),
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.MISSIONARY_DESK_DOM,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MISSIONARY_DESK_SUB,
+									new SexActionInteractions(
+											Util.mergeMaps(
+													SexActionPresets.appendagesToAllAreas,
+													SexActionPresets.groinToGroin,
+													SexActionPresets.groinToAss,
+													SexActionPresets.kissing,
+													SexActionPresets.mouthToBreasts,
+													SexActionPresets.breastsToMouth),
+											Util.newArrayListOfValues(
+													OrgasmCumTarget.HAIR,
+													OrgasmCumTarget.FACE,
+													OrgasmCumTarget.BREASTS,
+													OrgasmCumTarget.STOMACH,
+													OrgasmCumTarget.GROIN,
+													OrgasmCumTarget.LEGS,
+													OrgasmCumTarget.FEET,
+													OrgasmCumTarget.FLOOR))))),
+					new Value<>(
+							SexPositionSlot.MISSIONARY_DESK_SUB,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MISSIONARY_DESK_DOM,
+									new SexActionInteractions(
+											SexActionPresets.appendagesToAllAreas,
+											Util.newArrayListOfValues(
+														OrgasmCumTarget.SELF_STOMACH,
+														OrgasmCumTarget.SELF_BREASTS,
+														OrgasmCumTarget.SELF_FACE,
+														OrgasmCumTarget.GROIN,
+														OrgasmCumTarget.LEGS,
+														OrgasmCumTarget.FLOOR))))))) {
+		@Override
+		public String getDescription() {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_VICKYS_SHOP) {
+				return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
+						+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
+			}
+			return "[npc.NameIs] lying back on top of the desk, with [npc2.name] standing between [npc.her] [npc.legs], ready to fuck [npc.herHim].";
+		}
+	},
+	
 	CHAIR_SEX("Chair sex",
 			true,
 			false,
@@ -2680,7 +2732,8 @@ public enum SexPositionType {
 	UNDER_DESK_RALPH("Under desk",
 			false,
 			false,
-			Util.newArrayListOfValues(RalphOral.class), Util.newHashMapOfValues(
+			Util.newArrayListOfValues(RalphOral.class),
+			Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.KNEELING_RECEIVING_ORAL_RALPH,
 							Util.newHashMapOfValues(
@@ -2714,7 +2767,8 @@ public enum SexPositionType {
 	SHOWER_TIME_PIX("Shower sex",
 			false,
 			false,
-			Util.newArrayListOfValues(PixShower.class), Util.newHashMapOfValues(
+			Util.newArrayListOfValues(PixShower.class),
+			Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX,
 							Util.newHashMapOfValues(
@@ -2745,7 +2799,8 @@ public enum SexPositionType {
 	HANDS_ROSE("Hand-holding",
 			false,
 			false,
-			Util.newArrayListOfValues(HandHolding.class, GenericOrgasms.class), Util.newHashMapOfValues(
+			Util.newArrayListOfValues(HandHolding.class, GenericOrgasms.class),
+			Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.HAND_SEX_DOM_ROSE,
 							Util.newHashMapOfValues(
@@ -2768,53 +2823,6 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return "You and the cat-girl maid, Rose, are standing facing one another, ready to perform lewd acts with one another's hands.";
-		}
-	},
-	
-	MISSIONARY_DESK_VICKY("Missionary on counter",
-			true,
-			false,
-			Util.newArrayListOfValues(VickyDominating.class), Util.newHashMapOfValues(
-					new Value<>(
-							SexPositionSlot.MISSIONARY_DESK_DOM_VICKY,
-							Util.newHashMapOfValues(
-							new Value<>(
-									SexPositionSlot.MISSIONARY_DESK_SUB_VICKY,
-									new SexActionInteractions(
-											Util.mergeMaps(
-													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToGroin,
-													SexActionPresets.groinToAss,
-													SexActionPresets.kissing,
-													SexActionPresets.mouthToBreasts,
-													SexActionPresets.breastsToMouth),
-											Util.newArrayListOfValues(
-													OrgasmCumTarget.HAIR,
-													OrgasmCumTarget.FACE,
-													OrgasmCumTarget.BREASTS,
-													OrgasmCumTarget.STOMACH,
-													OrgasmCumTarget.GROIN,
-													OrgasmCumTarget.LEGS,
-													OrgasmCumTarget.FEET,
-													OrgasmCumTarget.FLOOR))))),
-					new Value<>(
-							SexPositionSlot.MISSIONARY_DESK_SUB_VICKY,
-							Util.newHashMapOfValues(
-							new Value<>(
-									SexPositionSlot.MISSIONARY_DESK_DOM_VICKY,
-									new SexActionInteractions(
-											SexActionPresets.appendagesToAllAreas,
-											Util.newArrayListOfValues(
-														OrgasmCumTarget.SELF_STOMACH,
-														OrgasmCumTarget.SELF_BREASTS,
-														OrgasmCumTarget.SELF_FACE,
-														OrgasmCumTarget.GROIN,
-														OrgasmCumTarget.LEGS,
-														OrgasmCumTarget.FLOOR))))))) {
-		@Override
-		public String getDescription() {
-			return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
-					+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
 		}
 	},
 	
@@ -2936,7 +2944,7 @@ public enum SexPositionType {
 											SexActionPresets.fingerToLowerHalf,
 											DOGGY_STYLE.getSexInteractions(SexPositionSlot.DOGGY_BEHIND_ORAL, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription() {//TODO
 			return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
 					+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
 		}

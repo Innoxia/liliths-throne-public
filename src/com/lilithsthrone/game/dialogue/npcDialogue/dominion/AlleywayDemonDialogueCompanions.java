@@ -1594,7 +1594,7 @@ public class AlleywayDemonDialogueCompanions {
 						AFTER_COMBAT_TRANSFORMATIONS_FINISHED){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_TRANSFORMATIONS_BREASTS_E", getDemon()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_TRANSFORMATIONS_BREASTS_H", getDemon()));
 						Main.game.getActiveNPC().setBreastSize(CupSize.H.getMeasurement());
 					}
 				};

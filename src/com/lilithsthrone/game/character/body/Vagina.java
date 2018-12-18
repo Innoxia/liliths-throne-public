@@ -19,8 +19,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -135,6 +135,16 @@ public class Vagina implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, VaginaType type, boolean overridePregnancyPrevention) {
+		if(!Main.game.isStarted() || owner==null) {// This always overrides pregnancy prevention, as the only times where this is true are for utility methods:
+			this.type = type;
+			this.girlcum.setType(type.getFluidType());
+			if(owner!=null) {
+				owner.resetAreaKnownByCharacters(CoverableArea.VAGINA);
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
+		
 		if (type == owner.getVaginaType()) {
 			if(owner.isPlayer()) {
 				if(type == VaginaType.NONE) {
@@ -288,6 +298,8 @@ public class Vagina implements BodyPartInterface, Serializable {
 		
 		this.type = type;
 		this.girlcum.setType(type.getFluidType());
+		owner.resetAreaKnownByCharacters(CoverableArea.VAGINA);
+		
 		switch (type) {
 			case NONE:
 				if(owner.isPlayer()) {

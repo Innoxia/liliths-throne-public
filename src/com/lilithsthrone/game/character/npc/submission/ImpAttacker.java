@@ -403,9 +403,6 @@ public class ImpAttacker extends NPC {
 			case COW_MORPH:
 				itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
 				break;
-			case DEMON: //TODO Will need changing later on:
-				itemType = ItemType.RACE_INGREDIENT_DEMON;
-				break;
 			case DOG_MORPH:
 				itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
 				break;
@@ -435,6 +432,7 @@ public class ImpAttacker extends NPC {
 				break;
 
 			case ANGEL:
+			case DEMON:
 			case HUMAN:
 			case NONE:
 			case SLIME:

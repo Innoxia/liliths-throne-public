@@ -279,6 +279,10 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		
 		orificeModifiers.add(modifier);
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
 				if(owner.isPlayer()) {
@@ -349,6 +353,10 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		}
 		
 		orificeModifiers.remove(modifier);
+		
+		if(owner==null) {
+			return "";
+		}
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:

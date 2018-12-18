@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
@@ -22,7 +23,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public enum Perk {
@@ -1165,6 +1166,192 @@ public enum Perk {
 					+ " While chuunis may once have been purely delusional, the arcane now lends some truth to their beliefs...");
 		}
 	},
+	
+	// HIDDEN PERKS:
+
+
+	POWER_OF_LIRECEA_1(20,
+			true,
+			"Lirecea's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin1",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldLightBlue(aquatic transformations)] if a [style.boldDemon(demon)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lirecea's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of any aquatic species!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of any aquatic species!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+
+	POWER_OF_LOVIENNE_2(21,
+			true,
+			"Lovienne's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin2",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+
+	POWER_OF_LASIELLE_3(22,
+			true,
+			"Lasielle's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin3",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+	
+	POWER_OF_LYSSIETH_4(23,
+			true,
+			"Lyssieth's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin4",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+	
+	POWER_OF_LUNETTE_5(24,
+			true,
+			"Lunette's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin5",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+	
+	POWER_OF_LYXIAS_6(25,
+			true,
+			"Lyxias's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin6",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+	
+	POWER_OF_LISOPHIA_7(26,
+			true,
+			"Lisophia's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin7",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+
 	
 
 	// SPECIFIC TO ELEMENTAL PERK TREE:
@@ -3720,7 +3907,19 @@ public enum Perk {
 	private List<String> extraEffects;
 
 	private List<String> modifiersList;
-
+	
+	public static List<Perk> hiddenPerks;
+	
+	static{
+		hiddenPerks = new ArrayList<>();
+		for(Perk p : Perk.values()) {
+			if(p.isHiddenPerk()) {
+				hiddenPerks.add(p);
+			}
+		}
+		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
+	}
+	
 
 	private Perk(int renderingPriority,
 			boolean major,
@@ -3801,8 +4000,17 @@ public enum Perk {
 		this.spellUpgrade = spellUpgrade;
 		this.school = school;
 	}
-
+	
+	public static List<Perk> getHiddenPerks() {
+		return hiddenPerks;
+	}
+	
 	public boolean isAlwaysAvailable() {
+		return false;
+	}
+
+	// Override this and return true if the perk is one that is unlock via special in-game events.
+	public boolean isHiddenPerk() {
 		return false;
 	}
 	

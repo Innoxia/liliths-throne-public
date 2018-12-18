@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -73,8 +74,12 @@ public class Leg implements BodyPartInterface, Serializable {
 	}
 
 	public String setType(GameCharacter owner, LegType type) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
+			this.footStructure = type.getDefaultFootStructure();
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
 			return "";
 		}
 		

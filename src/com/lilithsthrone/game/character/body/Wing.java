@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -54,6 +55,14 @@ public class Wing implements BodyPartInterface, Serializable {
 	}
 
 	public String setType(GameCharacter owner, WingType type) {
+		if(!Main.game.isStarted() || owner==null) {
+			this.type = type;
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
+		
 		if (type == getType()) {
 			if(type == WingType.NONE) {
 				if(owner.isPlayer()) {

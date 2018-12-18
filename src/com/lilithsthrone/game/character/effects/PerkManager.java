@@ -445,7 +445,17 @@ public enum PerkManager {
 		}
 	}
 	
-	public static void initialisePerks(GameCharacter character) {
+	public static int getInitialPerkCount(GameCharacter character) { //TODO Calculate this from the initialisePerks() method - this current methodology is terrible.
+		if(character.isPlayer()) {
+			return 2;
+		} else  if(character instanceof Elemental) {
+			return 7;
+		} else {
+			return 2;
+		}
+	}
+	
+	public static void initialisePerks(GameCharacter character) { //TODO Until getInitialPerkCount() is fixed, remember to reset the int values.
 		if(character.isPlayer()) {
 			character.addPerk(Perk.PHYSICAL_BASE);
 			character.addPerk(Perk.ARCANE_BASE);	

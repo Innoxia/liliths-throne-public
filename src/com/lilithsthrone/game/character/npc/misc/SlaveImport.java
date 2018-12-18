@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -63,7 +64,7 @@ public class SlaveImport extends NPC {
 	public void applyNewlyImportedSlaveVariables() {
 		// If the slave has only just been imported:
 //		if(this.getOwnerId().isEmpty()) {
-			Main.game.getFinch().addSlave(this);
+			Main.game.getNpc(Finch.class).addSlave(this);
 			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
 			
 			this.endPregnancy(false);

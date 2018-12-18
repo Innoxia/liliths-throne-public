@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.AttributeRange;
@@ -15,9 +16,9 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
@@ -28,6 +29,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -39,7 +41,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.91
- * @version 0.2.12
+ * @version 0.3
  * @author tukaima, Innoxia
  */
 public enum Subspecies {
@@ -88,6 +90,61 @@ public enum Subspecies {
 			Colour.RACE_ANGEL, SubspeciesPreference.FOUR_ABUNDANT, "A typical angel.", Util.newArrayListOfValues()),
 
 	// DEMON:
+	ELDER_LILIN("statusEffects/race/raceElderLilin",
+			"statusEffects/race/raceBackground",
+			"elder lilin",
+			"elder lilin",
+			"elder lilin",
+			"elder lilin",
+			"elder lilin",
+			"elder lilin",
+			"[npc.Name] is one of the seven elder lilin, and is one of the most powerful beings in existence. [npc.She] can transform [npc.her] body into any form [npc.she] desires, and has absolute mastery over the arcane.",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1000f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 1000f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 1000f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 1000f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 1000f)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlimited)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
+					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELDER_LILIN_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELDER_LILIN_ADVANCED"),
+			Race.DEMON,
+			Colour.RACE_LILIN,
+			SubspeciesPreference.ONE_LOW,
+			"One of the seven elder lilin.",
+			Util.newArrayListOfValues()) {
+	},
+	
+	LILIN("statusEffects/race/raceLilin",
+			"statusEffects/race/raceBackground",
+			"lilin",
+			"lilin",
+			"lilin",
+			"lilin",
+			"lilin",
+			"lilin",
+			"[npc.Name] is a lilin, and as such is far more powerful than a regular demon. [npc.She] can transform [npc.her] body into any form [npc.she] desires, and has a vast amount of arcane power.",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 500f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 500f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 500f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 500f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 500f)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlimited)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
+					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "LILIN_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "LILIN_ADVANCED"),
+			Race.DEMON,
+			Colour.RACE_LILIN,
+			SubspeciesPreference.ONE_LOW,
+			"A lilin.",
+			Util.newArrayListOfValues()) {
+		
+	},
+	
 	DEMON("statusEffects/race/raceDemon",
 			"statusEffects/race/raceBackground",
 			"demon",
@@ -102,11 +159,16 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 75f)),
-			Util.newArrayListOfValues("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"),
+			Util.newArrayListOfValues(
+					"[style.boldDemon(Demonic)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
+					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "DEMON_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "DEMON_ADVANCED"),
 			Race.DEMON,
-			Colour.RACE_DEMON, SubspeciesPreference.FOUR_ABUNDANT, "A typical demon.", Util.newArrayListOfValues(
+			Colour.RACE_DEMON,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical demon.",
+			Util.newArrayListOfValues(
 					WorldType.DOMINION,
 					WorldType.NIGHTLIFE_CLUB)) {
 		
@@ -119,9 +181,245 @@ public enum Subspecies {
 			}
 		}
 		
+		
+		
+	},
+	
+	HALF_DEMON("statusEffects/race/raceDemon",
+			"statusEffects/race/raceBackground",
+			"half-demon",
+			"half-demons",
+			"half-incubus",
+			"half-succubus",
+			"half-incubi",
+			"half-succubi",
+			"Half-demons are almost as capable as regular demons at harnessing arcane power, and as a result, [npc.namePos] spell-casting abilities are exceptionally powerful!",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 20f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 20f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 60f)),
+			Util.newArrayListOfValues(
+					"<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Limited self-transformations</b>",
+					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "HALF_DEMON_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "HALF_DEMON_ADVANCED"),
+			Race.DEMON,
+			Colour.RACE_DEMON,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"The result of copulation between a lilin and a non-demonic partner.",
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
+		
 		@Override
-		public Subspecies getOffspringSubspecies() {
-			return IMP;
+		public void applySpeciesChanges(Body body) {
+		}
+		
+		private String[] getHalfDemonName(GameCharacter character, Subspecies subspecies) {
+			String[] names = null;
+			
+			// Mermaids should be "sirens"
+			switch(subspecies) {
+				case IMP:
+				case IMP_ALPHA:
+				case HUMAN:
+				case HALF_DEMON:
+				case DEMON:
+				case LILIN:
+				case ELDER_LILIN:
+				case ELEMENTAL_AIR:
+				case ELEMENTAL_ARCANE:
+				case ELEMENTAL_EARTH:
+				case ELEMENTAL_FIRE:
+				case ELEMENTAL_WATER:
+					names = new String[] {
+						"half-demon",
+						"half-demons",
+						"half-incubus",
+						"half-succubus",
+						"half-incubi",
+						"half-succubi"};
+					break;
+				case ALLIGATOR_MORPH:
+					break;
+				case ANGEL:
+					names = new String[] {
+						"fallen angel",
+						"fallen angels",
+						"fallen angel",
+						"fallen angel",
+						"fallen angels",
+						"fallen angels"};
+					break;
+				case BAT_MORPH:
+					break;
+				case CAT_MORPH:
+					break;
+				case CAT_MORPH_CARACAL:
+					break;
+				case CAT_MORPH_CHEETAH:
+					break;
+				case CAT_MORPH_LEOPARD:
+					break;
+				case CAT_MORPH_LEOPARD_SNOW:
+					break;
+				case CAT_MORPH_LION:
+					break;
+				case CAT_MORPH_LYNX:
+					break;
+				case CAT_MORPH_TIGER:
+					break;
+				case COW_MORPH:
+					names = new String[] {
+						"minotaur",
+						"minotaurs",
+						"minotaur",
+						"minotaur",
+						"minotaurs",
+						"minotaurs"};
+					break;
+				case FOX_ASCENDANT:
+					break;
+				case FOX_ASCENDANT_FENNEC:
+					break;
+				case FOX_MORPH:
+					break;
+				case FOX_MORPH_FENNEC:
+					break;
+				case HARPY:
+					break;
+				case HARPY_BALD_EAGLE:
+					break;
+				case HARPY_RAVEN:
+					break;
+				case HORSE_MORPH:
+				case HORSE_MORPH_ZEBRA:
+					names = new String[] {
+						"nightmare",
+						"nightmares",
+						"nightmare",
+						"nightmare",
+						"nightmares",
+						"nightmares"};
+					break;
+				case RABBIT_MORPH:
+					break;
+				case RABBIT_MORPH_LOP:
+					break;
+				case RAT_MORPH:
+					break;
+				case REINDEER_MORPH:
+					break;
+				case SLIME:
+					break;
+				case SQUIRREL_MORPH:
+					break;
+				case DOG_MORPH:
+				case DOG_MORPH_BORDER_COLLIE:
+				case DOG_MORPH_DOBERMANN:
+				case WOLF_MORPH:
+					names = new String[] {
+						"hellhound",
+						"hellhounds",
+						"hellhound",
+						"hellhound",
+						"hellhounds",
+						"hellhounds"};
+					break;
+//					names = new String[] {
+//						"werewolf",
+//						"werewolves",
+//						"werewolf",
+//						"werewolf",
+//						"werewolves",
+//						"werewolves"};
+//					break;
+			}
+			
+			if(names==null) {
+				names = new String[] {
+					"demonic-"+subspecies.getName(character),
+					"demonic-"+subspecies.getNamePlural(character),
+					"demonic-"+subspecies.getSingularMaleName(character),
+					"demonic-"+subspecies.getSingularFemaleName(character),
+					"demonic-"+subspecies.getPluralMaleName(character),
+					"demonic-"+subspecies.getPluralFemaleName(character)};
+			}
+			
+			return names;
+		}
+		
+		@Override
+		public String getName(GameCharacter character) {
+			if(character==null) {
+				return super.getName(character);
+			}
+			return getHalfDemonName(character, character.getHalfDemonSubspecies())[0];
+		}
+		
+		@Override
+		public String getNamePlural(GameCharacter character) {
+			if(character==null) {
+				return super.getNamePlural(character);
+			}
+			return getHalfDemonName(character, character.getHalfDemonSubspecies())[1];
+		}
+
+		@Override
+		public String getSingularMaleName(GameCharacter character) {
+			if(character==null) {
+				return super.getSingularMaleName(character);
+			}
+			return getHalfDemonName(character, character.getHalfDemonSubspecies())[2];
+		}
+
+		@Override
+		public String getSingularFemaleName(GameCharacter character) {
+			if(character==null) {
+				return super.getSingularFemaleName(character);
+			}
+			return getHalfDemonName(character, character.getHalfDemonSubspecies())[3];
+		}
+
+		@Override
+		public String getPluralMaleName(GameCharacter character) {
+			if(character==null) {
+				return super.getPluralMaleName(character);
+			}
+			return getHalfDemonName(character, character.getHalfDemonSubspecies())[4];
+		}
+
+		@Override
+		public String getPluralFemaleName(GameCharacter character) {
+			if(character==null) {
+				return super.getPluralFemaleName(character);
+			}
+			return getHalfDemonName(character, character.getHalfDemonSubspecies())[5];
+		}
+
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.DEMON.getSVGString(character);
+			}
+			Subspecies coreSubspecies = character.getHalfDemonSubspecies();
+			if(coreSubspecies==Subspecies.HALF_DEMON) {
+				coreSubspecies = Subspecies.HUMAN;
+			}
+			return coreSubspecies.getHalfDemonSVGString(character);
+		}
+
+		@Override
+		public String getSVGStringDesaturated(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.DEMON.getSVGStringDesaturated(null);
+			}
+			Subspecies coreSubspecies = character.getHalfDemonSubspecies();
+			if(coreSubspecies==Subspecies.HALF_DEMON) {
+				coreSubspecies = Subspecies.HUMAN;
+			}
+			return coreSubspecies.getSVGStringDesaturated(character);
 		}
 	},
 	
@@ -137,7 +435,9 @@ public enum Subspecies {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
-			Util.newArrayListOfValues("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Limited body-morphing abilities</b>"),
+			Util.newArrayListOfValues(
+					"[style.boldDemon(Demonic)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
+					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_ADVANCED"),
 			Race.DEMON,
@@ -149,10 +449,6 @@ public enum Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical imp.",
 			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public Subspecies getOffspringSubspecies() {
-			return IMP;
-		}
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue() - Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue()));
@@ -185,7 +481,9 @@ public enum Subspecies {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 75f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f)),
-			Util.newArrayListOfValues("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Limited body-morphing abilities</b>"),
+			Util.newArrayListOfValues(
+					"[style.boldDemon(Demonic)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
+					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_ADVANCED"),
 			Race.DEMON,
@@ -197,10 +495,6 @@ public enum Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"A more powerful form of imp, standing at over 3'6\" tall.",
 			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public Subspecies getOffspringSubspecies() {
-			return IMP;
-		}
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setHeight(Height.NEGATIVE_ONE_TINY.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_ONE_TINY.getMaximumValue() - Height.NEGATIVE_ONE_TINY.getMinimumValue()));
@@ -1149,7 +1443,7 @@ public enum Subspecies {
 			if(character==null) {
 				return super.getName(character);
 			}
-			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character);
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getName(character);
 			}
@@ -1161,7 +1455,7 @@ public enum Subspecies {
 			if(character==null) {
 				return super.getNamePlural(character);
 			}
-			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character);
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getNamePlural(character);
 			}
@@ -1173,7 +1467,7 @@ public enum Subspecies {
 			if(character==null) {
 				return super.getSingularMaleName(character);
 			}
-			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character);
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getSingularMaleName(character);
 			}
@@ -1185,7 +1479,7 @@ public enum Subspecies {
 			if(character==null) {
 				return super.getSingularFemaleName(character);
 			}
-			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character);
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getSingularFemaleName(character);
 			}
@@ -1197,7 +1491,7 @@ public enum Subspecies {
 			if(character==null) {
 				return super.getPluralMaleName(character);
 			}
-			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character);
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getPluralMaleName(character);
 			}
@@ -1209,7 +1503,7 @@ public enum Subspecies {
 			if(character==null) {
 				return super.getPluralFemaleName(character);
 			}
-			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character);
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getPluralFemaleName(character);
 			}
@@ -1221,7 +1515,7 @@ public enum Subspecies {
 			if(character==null) {
 				return Subspecies.HUMAN.getSlimeSVGString(null);
 			}
-			return Subspecies.getFleshSubspecies(character.getBody()).getSlimeSVGString(character);
+			return Subspecies.getFleshSubspecies(character).getSlimeSVGString(character);
 		}
 
 		@Override
@@ -1229,7 +1523,7 @@ public enum Subspecies {
 			if(character==null) {
 				return Subspecies.HUMAN.getSVGStringDesaturated(null);
 			}
-			return Subspecies.getFleshSubspecies(character.getBody()).getSVGStringDesaturated(character);
+			return Subspecies.getFleshSubspecies(character).getSVGStringDesaturated(character);
 		}
 	},
 	
@@ -1600,6 +1894,7 @@ public enum Subspecies {
 	protected String SVGString;
 	protected String SVGStringDesaturated;
 	protected String slimeSVGString;
+	protected String halfDemonSVGString;
 	private List<WorldType> worldLocations;
 
 	private static Map<Integer, String> youkoIconMap;
@@ -1806,6 +2101,13 @@ public enum Subspecies {
 						Colour.RACE_SLIME,
 						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
 						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>");
+
+				halfDemonSVGString = SvgUtil.colourReplacement(this.toString(),
+						Colour.RACE_DEMON,
+						Colour.RACE_DEMON,
+						Colour.RACE_DEMON,
+						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
+						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>");
 				
 				SVGStringDesaturated = SvgUtil.colourReplacement(this.toString(),
 						Colour.BASE_GREY,
@@ -1885,11 +2187,16 @@ public enum Subspecies {
 	/**
 	 * @return The race of this body if it were made from flesh. (i.e. The body's race ignoring slime/elemental modifiers.)
 	 */
-	public static Subspecies getFleshSubspecies(Body body) {
-		return getSubspeciesFromBody(body, body.getRaceFromPartWeighting());
+	public static Subspecies getFleshSubspecies(GameCharacter character) {
+		return getSubspeciesFromBody(character, character.getBody(), character.getBody().getRaceFromPartWeighting());
+	}
+
+	public static Subspecies getSubspeciesFromBody(GameCharacter character, Body body, Race race) {
+		return getSubspeciesFromBody(character, body, race, false);
 	}
 	
-	public static Subspecies getSubspeciesFromBody(Body body, Race race) {
+	public static Subspecies getSubspeciesFromBody(GameCharacter character, Body body, Race race, boolean ignoreOverride) {
+		
 		switch(body.getBodyMaterial()) {
 			case FIRE:
 				return Subspecies.ELEMENTAL_FIRE;
@@ -1904,8 +2211,34 @@ public enum Subspecies {
 			case ARCANE:
 				return Subspecies.ELEMENTAL_ARCANE;
 			case SLIME:
+				if(race==Race.SLIME) {
+					return Subspecies.SLIME;
+				}
+				break;
 			case FLESH:
 				break;
+		}
+		
+		if(!ignoreOverride && body.getSubspeciesOverride()!=null) {
+			if(body.getSubspeciesOverride()==Subspecies.DEMON
+					|| body.getSubspeciesOverride()==Subspecies.HALF_DEMON
+					|| body.getSubspeciesOverride()==Subspecies.IMP
+					|| body.getSubspeciesOverride()==Subspecies.IMP_ALPHA) {
+				if(character!=null && character.isPlayer()) { // The player is a special case, as they are the only 'demon' that 
+					return Subspecies.DEMON;
+				}
+				if(body.getRaceStage()!=RaceStage.GREATER || body.getRaceFromPartWeighting(true)!=Race.DEMON) {
+					return Subspecies.HALF_DEMON;
+				} else if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
+					return Subspecies.IMP;
+				} else if(body.getHeight()==Height.NEGATIVE_ONE_TINY) {
+					return Subspecies.IMP_ALPHA;
+				} else {
+					return Subspecies.DEMON;
+				}
+			}
+			
+			return body.getSubspeciesOverride();
 		}
 		
 		Subspecies subspecies = null;
@@ -1964,7 +2297,9 @@ public enum Subspecies {
 				break;
 			case DEMON:
 				subspecies = Subspecies.DEMON;
-				if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
+				if(body.getRaceStage()!=RaceStage.GREATER) {
+					subspecies = Subspecies.HALF_DEMON;
+				} else if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
 					subspecies = Subspecies.IMP;
 				} else if(body.getHeight()==Height.NEGATIVE_ONE_TINY) {
 					subspecies = Subspecies.IMP_ALPHA;
@@ -2144,12 +2479,97 @@ public enum Subspecies {
 		body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, pat, c1, false, c2, false));
 	}
 	
-	public Subspecies getOffspringSubspecies() {
-		return this;
+	/**
+	 * Only used for subspecies that have special offspring generation - i.e. demons.<br/><br/>
+	 * 
+	 * <b>Demon breeding</b><br/>
+	 * Lilin<br/>
+	 * + demon or lilin = demon<br/>
+	 * + non-demon or half-demon = half demon<br/>
+	 * + imps = alpha-imps<br/>
+	 * Demon<br/>
+	 * + demon or lilin = demon<br/>
+	 * + non-demon or half-demon = half demon<br/>
+	 * + imps = imps or alpha-imps<br/>
+	 * Half-demon<br/>
+	 * + demon or lilin = half demon<br/>
+	 * + non-demon or half-demon = imps<br/>
+	 * + imps = imps or alpha-imps<br/>
+	 * Imps and alpha-imps<br/>
+	 * + anything = imps<br/>
+	 * @return The pre-generated body to use as an offspring's core body.
+	 */
+	public static Body getPreGeneratedBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) { //TODO
+		Subspecies motherSubspecies = mother.getSubspecies(); //Subspecies.getFleshSubspecies(mother);
+		Subspecies fatherSubspecies = father.getSubspecies(); //Subspecies.getFleshSubspecies(father);
+		if(startingGender==null) {
+			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
+		}
+		
+		switch(motherSubspecies) {
+			case ELDER_LILIN:
+			case LILIN:
+			case DEMON:
+				switch(fatherSubspecies) {
+					case ELDER_LILIN:
+					case LILIN:
+					case DEMON:
+						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
+					case HALF_DEMON:
+						return CharacterUtils.generateHalfDemonBody(linkedCharacter, getSubspeciesFromBody(father, father.getBody(), father.getBody().getRaceFromPartWeighting(true), true));
+					case IMP:
+					case IMP_ALPHA:
+						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
+					default:
+						return CharacterUtils.generateHalfDemonBody(linkedCharacter, fatherSubspecies);
+				}
+			case HALF_DEMON:
+				switch(fatherSubspecies) {
+					case ELDER_LILIN:
+					case LILIN:
+					case DEMON:
+						return CharacterUtils.generateHalfDemonBody(linkedCharacter, getSubspeciesFromBody(mother, mother.getBody(), mother.getBody().getRaceFromPartWeighting(true), true));
+					default:
+						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
+				}
+			case IMP:
+				switch(fatherSubspecies) {
+					case IMP:
+						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
+					default:
+						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
+				}
+			default:
+				switch(fatherSubspecies) {
+					case ELDER_LILIN:
+					case LILIN:
+					case DEMON:
+						return CharacterUtils.generateHalfDemonBody(linkedCharacter, getSubspeciesFromBody(mother, mother.getBody(), mother.getBody().getRaceFromPartWeighting(true), true));
+					case IMP:
+					case IMP_ALPHA:
+					case HALF_DEMON:
+						System.out.println("hmmm");
+						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
+					default:
+						return null;
+				}
+		}
 	}
 	
-	public boolean isOffspringAlwaysMothersRace() {
-		return false;
+	public static Subspecies getOffspringFromMotherSubspecies(GameCharacter mother, GameCharacter father) {
+		Body body = getPreGeneratedBody(null, null, mother, father);
+		if(body==null) {
+			return mother.getSubspecies();
+		}
+		return body.getSubspecies();
+	}
+	
+	public static Subspecies getOffspringFromFatherSubspecies(GameCharacter mother, GameCharacter father) {
+		Body body = getPreGeneratedBody(null, null, mother, father);
+		if(body==null) {
+			return father.getSubspecies();
+		}
+		return body.getSubspecies();
 	}
 	
 	public boolean isShortStature() {
@@ -2263,55 +2683,19 @@ public enum Subspecies {
 	}
 	
 	public String getSVGString(GameCharacter character) {
-		// I tested using skin colour as backgrounds, but it looked bad... I'll leave this here in case I want to have another go some day.
-//		Covering covering =  character.getCovering(RacialBody.valueOfRace(character.getRace()).getSkinType().getBodyCoveringType(character));
-//		Colour primary = covering.getPrimaryColour();
-//		Colour secondary = covering.getSecondaryColour();
-//		if(character.getRaceStage()!=RaceStage.GREATER && character.getRaceStage()!=RaceStage.HUMAN) {
-//			secondary = primary;
-//			primary = character.getCovering(BodyCoveringType.HUMAN).getPrimaryColour();
-//		}
-//		
-//		String backgroundSVGString =
-//				"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"
-//						+(character.getSubspecies()==Subspecies.SLIME
-//							?SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()
-//							:(SVGStringBackgroundPath.equalsIgnoreCase("statusEffects/race/raceBackground")
-//								&& primary != secondary
-//									?SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundHalf()
-//									:SVGStringBackground))
-//				+"</div>"
-//				+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>";
-//				
-//		backgroundSVGString = Util.colourReplacement(this.toString(),
-//				this.getColour(character),
-//				primary,
-//				secondary,
-//				backgroundSVGString);
-//		
-//		return backgroundSVGString;
-		
 		return SVGString;
 	}
 	
 	public String getSVGStringDesaturated(GameCharacter character) {
-//		String backgroundSVGString =
-//				"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringBackground+"</div>"
-//				+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringDesaturated+"</div>";
-//				
-//		backgroundSVGString = Util.colourReplacement(this.toString(),
-//				Colour.BASE_GREY_DARK,
-//				Colour.BASE_WHITE,
-//				Colour.BASE_GREY,
-//				backgroundSVGString);
-//		
-//		return backgroundSVGString;
-
 		return SVGStringDesaturated;
 	}
 
 	public String getSlimeSVGString(GameCharacter character) {
 		return slimeSVGString;
+	}
+
+	public String getHalfDemonSVGString(GameCharacter character) {
+		return halfDemonSVGString;
 	}
 
 	public List<WorldType> getWorldLocations() {

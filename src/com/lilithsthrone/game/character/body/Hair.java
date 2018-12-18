@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -57,8 +58,11 @@ public class Hair implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, HairType type) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
 			return "";
 		}
 		

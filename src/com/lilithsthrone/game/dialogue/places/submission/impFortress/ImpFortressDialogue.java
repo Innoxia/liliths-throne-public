@@ -298,8 +298,8 @@ public class ImpFortressDialogue {
 			}
 			
 			// Move boss back to fortress:
-			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP);
-			Main.game.getFortressAlphaLeader().equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressAlphaLeader.class).setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP);
+			Main.game.getNpc(FortressAlphaLeader.class).equipClothing(true, true, false, true);
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -365,8 +365,8 @@ public class ImpFortressDialogue {
 			}
 			
 			// Move boss back to fortress:
-			Main.game.getFortressFemalesLeader().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP);
-			Main.game.getFortressFemalesLeader().equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressFemalesLeader.class).setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP);
+			Main.game.getNpc(FortressFemalesLeader.class).equipClothing(true, true, false, true);
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -433,8 +433,8 @@ public class ImpFortressDialogue {
 			}
 			
 			// Move boss back to fortress:
-			Main.game.getFortressMalesLeader().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP);
-			Main.game.getFortressMalesLeader().equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressMalesLeader.class).setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP);
+			Main.game.getNpc(FortressMalesLeader.class).equipClothing(true, true, false, true);
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -529,13 +529,13 @@ public class ImpFortressDialogue {
 	public static GameCharacter getBoss(WorldType fortress) {
 
 		if(fortress==WorldType.IMP_FORTRESS_ALPHA) {
-			return Main.game.getFortressAlphaLeader();
+			return Main.game.getNpc(FortressAlphaLeader.class);
 
 		} else if(fortress==WorldType.IMP_FORTRESS_FEMALES) {
-			return Main.game.getFortressFemalesLeader();
+			return Main.game.getNpc(FortressFemalesLeader.class);
 
 		} else if(fortress==WorldType.IMP_FORTRESS_MALES) {
-			return Main.game.getFortressMalesLeader();
+			return Main.game.getNpc(FortressMalesLeader.class);
 		}
 		
 		return null;
@@ -831,7 +831,7 @@ public class ImpFortressDialogue {
 				public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 					if(getDominants().containsKey(getBoss())) {
 						Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-						map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS));
+						map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS));
 						return map;
 					}
 					return super.exposeAtStartOfSexMap();
@@ -872,7 +872,7 @@ public class ImpFortressDialogue {
 				public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 					if(getDominants().containsKey(getBoss())) {
 						Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-						map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS));
+						map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS));
 						return map;
 					}
 					return super.exposeAtStartOfSexMap();
@@ -2018,7 +2018,7 @@ public class ImpFortressDialogue {
 							UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_PACIFIED_REPEAT_SEX", getAllCharacters())){
 						@Override
 						public void effects() {
-							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+							((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 						}
 					};
 					
@@ -2108,7 +2108,7 @@ public class ImpFortressDialogue {
 								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_PACIFIED_REPEAT_SEX_WITH_COMPANION", getAllCharacters())){
 							@Override
 							public void effects() {
-								((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+								((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 							}
 						};
 					}
@@ -2187,7 +2187,7 @@ public class ImpFortressDialogue {
 						if(Main.game.getPlayer().getMainWeapon()!=null
 								&& Main.game.getPlayer().getMainWeapon().getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
 								&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, Main.game.getPlayer().getMainWeapon())
-									>Attack.getMaximumDamage(Main.game.getFortressMalesLeader(), null, Attack.MAIN, Main.game.getFortressMalesLeader().getMainWeapon())) {
+									>Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon())) {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to 'test cut' the largest bamboo trunk behind [npc.name], thereby demonstrating your superiority in front of [npc.her] imp followers."),
@@ -2209,7 +2209,7 @@ public class ImpFortressDialogue {
 						} else if(Main.game.getPlayer().getOffhandWeapon()!=null
 								&& Main.game.getPlayer().getOffhandWeapon().getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
 								&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, Main.game.getPlayer().getOffhandWeapon())
-									>Attack.getMaximumDamage(Main.game.getFortressMalesLeader(), null, Attack.MAIN, Main.game.getFortressMalesLeader().getMainWeapon())) {
+									>Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon())) {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to 'test cut' the largest bamboo trunk behind [npc.name], thereby demonstrating your superiority in front of [npc.her] imp followers."),
@@ -2232,7 +2232,7 @@ public class ImpFortressDialogue {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(), "You don't think you can match [npc.namePos] demonstration with your weapons...</br>"
 											+ "(Requires you to have an equipped bladed weapon with a maximum damage greater than <b>"
-												+Attack.getMaximumDamage(Main.game.getFortressMalesLeader(), null, Attack.MAIN, Main.game.getFortressMalesLeader().getMainWeapon())+"</b>.)"),
+												+Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon())+"</b>.)"),
 									null);
 						}
 					}
@@ -2364,7 +2364,7 @@ public class ImpFortressDialogue {
 								:UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_ENTRY_OFFER_SEX", getAllCharacters())) {
 						@Override
 						public void effects() {
-							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+							((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 								
 							setBossEncountered();
 						}
@@ -2417,7 +2417,7 @@ public class ImpFortressDialogue {
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								if(getSubmissives().containsKey(getBoss())) {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-									map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
+									map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
 									return map;
 								}
 								return super.exposeAtStartOfSexMap();
@@ -2460,7 +2460,7 @@ public class ImpFortressDialogue {
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								if(getSubmissives().containsKey(getBoss())) {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-									map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
+									map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
 									return map;
 								}
 								return super.exposeAtStartOfSexMap();
@@ -2505,7 +2505,7 @@ public class ImpFortressDialogue {
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								if(getSubmissives().containsKey(getBoss())) {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-									map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
+									map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
 									return map;
 								}
 								return super.exposeAtStartOfSexMap();
@@ -2974,7 +2974,7 @@ public class ImpFortressDialogue {
 						@Override
 						public void effects() {
 							setPacified();
-							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+							((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 						}
 					};
 					
@@ -3049,7 +3049,7 @@ public class ImpFortressDialogue {
 					@Override
 					public void effects() {
 						setPacified();
-						((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+						((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 					}
 				};
 				
@@ -3250,7 +3250,7 @@ public class ImpFortressDialogue {
 								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters())){
 							@Override
 							public void effects() {
-								((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+								((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 							}
 						};
 					}
@@ -3401,7 +3401,7 @@ public class ImpFortressDialogue {
 								KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters())){
 							@Override
 							public void effects() {
-								((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+								((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 							}
 						};
 						
@@ -3495,7 +3495,7 @@ public class ImpFortressDialogue {
 									UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters())){
 								@Override
 								public void effects() {
-									((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+									((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 								}
 							};
 						}
@@ -3578,7 +3578,7 @@ public class ImpFortressDialogue {
 									KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
 								@Override
 								public void effects() {
-									((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+									((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 										
 									if(!companion.isAttractedTo(getBoss()) && Main.game.isNonConEnabled()) {
 										Main.game.getTextEndStringBuilder().append(companion.incrementAffection(Main.game.getPlayer(), -50));
@@ -3792,7 +3792,7 @@ public class ImpFortressDialogue {
 						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX"+appendPace, getAllCharacters())){
 					@Override
 					public void effects() {
-						((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+						((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 					}
 				};
 				
@@ -3916,7 +3916,7 @@ public class ImpFortressDialogue {
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.BOOST, 0),
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_DOMINANT, TFPotency.DRAIN, 0));
 							
-							FortressAlphaLeader boss = (FortressAlphaLeader) Main.game.getFortressAlphaLeader();
+							FortressAlphaLeader boss = (FortressAlphaLeader) Main.game.getNpc(FortressAlphaLeader.class);
 							
 							if((boss).isAbleToEquipGag(Main.game.getPlayer())) {
 								AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_GOLD, Colour.CLOTHING_WHITE, Colour.CLOTHING_GOLD, effects);
@@ -3939,7 +3939,7 @@ public class ImpFortressDialogue {
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_EXHIBITIONIST, TFPotency.MAJOR_BOOST, 0),
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_ASS, TFPotency.BOOST, 0));
 
-							FortressFemalesLeader boss = (FortressFemalesLeader) Main.game.getFortressFemalesLeader();
+							FortressFemalesLeader boss = (FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class);
 							
 							if(boss.isAbleToEquipButtPlug(Main.game.getPlayer())) {
 								AbstractClothing buttPlug = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"),
@@ -3964,7 +3964,7 @@ public class ImpFortressDialogue {
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
 
-							FortressMalesLeader boss = (FortressMalesLeader) Main.game.getFortressMalesLeader();
+							FortressMalesLeader boss = (FortressMalesLeader) Main.game.getNpc(FortressMalesLeader.class);
 							
 							if(boss.isAbleToEquipThong(Main.game.getPlayer())) {
 								AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED_DARK, effects);

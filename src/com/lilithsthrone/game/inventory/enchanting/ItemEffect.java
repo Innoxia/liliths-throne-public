@@ -9,6 +9,8 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -99,6 +101,11 @@ public class ItemEffect implements Serializable, XMLSaving {
 	
 	public static ItemEffect loadFromXML(Element parentElement, Document doc) {
 		String itemEffectType = parentElement.getAttribute("itemEffectType");
+		
+		if(itemEffectType.equals("RACE_DEMON")) {
+			throw new NullPointerException();
+		}
+		
 		switch(itemEffectType) {
 			case "ATTRIBUTE_STRENGTH":
 			case "ATTRIBUTE_FITNESS":
@@ -161,6 +168,18 @@ public class ItemEffect implements Serializable, XMLSaving {
 	
 	public String applyEffect(GameCharacter user, GameCharacter target, long timePassed) {
 		this.timer.incrementTimePassed((int)timePassed);
+		if(target.getRace()==Race.DEMON
+				&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
+						|| getSecondaryModifier()==TFModifier.TF_TYPE_2
+						|| getSecondaryModifier()==TFModifier.TF_TYPE_3
+						|| getSecondaryModifier()==TFModifier.TF_TYPE_4
+						|| getSecondaryModifier()==TFModifier.TF_TYPE_5
+						|| getSecondaryModifier()==TFModifier.REMOVAL)) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+						+ "As [npc.nameIsFull] [style.boldDemon([npc.a_race])], the transformation has [style.boldBad(no effect)]!"
+					+ "</p>");
+		}
 		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target, this.timer);
 	}
 	

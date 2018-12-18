@@ -103,13 +103,17 @@ public class Testicle implements BodyPartInterface, Serializable {
 	}
 
 	public String setTesticleSize(GameCharacter owner, int testicleSize) {
-		if(!owner.hasPenisIgnoreDildo()) {
+		if(owner!=null && !owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
 		int oldSize = this.testicleSize;
 		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
 		int sizeChange = this.testicleSize - oldSize;
+
+		if(owner==null) {
+			return "";
+		}
 		
 		if (sizeChange == 0) {
 			if(owner.isPlayer()) {

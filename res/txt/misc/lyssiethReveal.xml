@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="ENTRANCE_WITH_ELIZABETH"><![CDATA[
+	<p>
+		You enter with Elizabeth.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORWARDS_1"><![CDATA[
+	<p>
+		Describe wide corridor, with ones branching off to your right and left. She warns you that Lyssieth likes to roleplay as a human 'executive'.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORWARDS_2"><![CDATA[
+	<p>
+		Describe display cabinets lining corridor. You see items and artefacts from the museum - you are certain that you recognise some of them from the room in which Lilith's mirror was in.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORWARDS_3"><![CDATA[
+	<p>
+		You approach the door at the end of the corridor - [siren.name] (but she's wearing office clothes) is there and does her thing. Elizabeth explains that you are a guest.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		[siren.Name] knocks on the door, before entering and announcing you. You and [siren.name] enter.
+	</p>
+	<p>
+		Describe office.
+	</p>
+	<p>
+		Sitting behind the rich mahogany desk is a human. You know that she must be Lyssieth, so she clearly isn't a real human. [lyssieth.speech(If I've told you once, I've told you a thousand times, [siren.name], take that ridiculous eyepatch off!)]
+	</p>
+	<p>
+		[lyssieth.speech(Sorry about my troublesome daughter, and thank you for bringing her back-)]
+	</p>
+	<p>
+		As her gaze rests on your face, her eyes suddenly open wide, and she jumps to her feet, before shouting, [lyssieth.speech(It's <i>you</i>?!)]
+	</p>
+	<p>
+		Before you can react, the lilin waves her hand to one side, and the heavy door slams shut and locks behind you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_REACTION"><![CDATA[
+	<p>
+		As you prepare to defend yourself, Lyssieth's eyes turn red, and she laughs, [lyssieth.speech(Do you really think you stand a chance against me?! I could crush you in an instant! Then all I'd have to do is teleport the two of us to mother's throne room, present you to her as a gift, and I'd be free!)]
+	</p>
+	<p>
+		#IF siren.getAffection(pc)>30
+		#THEN [siren.speech(M-Mom, what's going on? [pc.Name] saved me, remember?)] [siren.name] says, coming to your defence. [siren.speech(Y-You're not really going to fight, are you?)]
+		#ELSE Despite Lyssieth's threats, you realise that if she was serious about attacking you, she wouldn't have announced her animosity in such an obvious manner. Relaxing a little, you ask, [pc.speech(But you're not going to fight me, are you?)]
+		#ENDIF
+	</p>
+	<p>
+		Lyssieth's eyes fade back to [lyssieth.eyeColour], and she lets out a deep breath, [lyssieth.speech(No. As much as I desire my freedom, if Lilith were to get her hands on you, her true power would be restored, and humanity would surely be doomed. I will not be the one responsible for that.)]
+	</p>
+	<p>
+		[siren.speech(What's going on?)] [siren.name] asks. [siren.speech(You already know [pc.name]? And what do you mean about humanity being doomed if Lilith gets a hold of[pc.herHim]?)]
+	</p>
+	<p>
+		[lyssieth.speech(Yes, I know [pc.name]. You would know nothing of this, [siren.name], but [pc.sheIs] the one responsible for freeing Lilith, my sisters, and I. We all thought [pc.she]'d vanished forever, well, that is until [pc.she] just came strolling into my office,)] Lyssieth laughs, [lyssieth.speech(Of course I'd heard about you living with my dear Lilaya, but to think that it would be <i>you</i>! The one from the museum!)]
+	</p>
+	<p>
+		[pc.speech(Hold on,)] you say, a little confused. [pc.speech(I <i>freed</i> you and your sisters, as well as Lilith? I think there's some misunderstanding. That mirror I fell into pulled me into this world of yours. In fact, that's why I'm here; Arthur needed to talk to you about how all this happened.)]
+	</p>
+	<p>
+		[lyssieth.speech(Hmm, I bet he's already figured it all out. That <i>would</i> be troublesome, especially if he started going around telling everyone,)] Lyssieth reflects, before letting out an exasperated sigh and stepping towards you. [lyssieth.speech(I can disable mother's detection spells for a short while, which will allow us to teleport to Lilaya's laboratory. Oh, and you already know too much, [siren.name], so you're coming as well.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_TELEPORT"><![CDATA[
+	<p>
+		[pc.speech(Ok, let's go,)] you say, eager to finally get to the bottom of all this.
+	</p>
+	<p>
+		[lyssieth.speech(Oh, before we go, my daughter has something to say to you,)] Lyssieth says, [lyssieth.speech(Don't you, [siren.name]?)]
+	</p>
+	<p>
+		#IF siren.getAffection(pc)>30
+		#THEN [siren.speech(Yes...)] [siren.name] says, blushing and looking at the floor. [siren.speech(Sorry for all the trouble I caused. And thank you... F-For saving me, that is...)]
+		#ELSE [siren.speech(Eugh, even though [pc.she] was going to leave me to be crushed?!)] [siren.name] protests, but her mother just raises and eyebrow and starts tapping her foot on the floor. [siren.speech(Fine... Sorry, [pc.name], for all the trouble I caused...)]
+		#ENDIF
+	</p>
+	<p>
+		[lyssieth.speech(Good girl. Now we've got all of that out of the way, let's visit my other daughter,)] Lyssieth says, before temporarily disabling Lilith's detection magic with a quick swipe of her hand. [lyssieth.speech(Stand close, you two.)]
+	</p>
+	<p>
+		Doing as you're asked, you and [siren.name] step forwards to either side of Lyssieth, who quickly reaches out and pulls each of you into a one-armed hug. As you and her daughter are pressed in against her huge breasts, the Lilin giggles, [lyssieth.speech(Ok, let's go!)]
+	</p>
+	<p>
+		With a sudden, blinding flash of purple light, the three of you vanish from out of Lyssieth's office...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_TELEPORT_ARRIVE"><![CDATA[
+	<p>
+		Appear behind Lilaya as she's shouting at Arthur. Rose brings attention to your arrival.
+		Lyssieth scolds her, and Lilaya shouts at Lyssieth (asking why she hasn't been back to apologise, instead of locking herself away in Submission). She reveals that she didn't come back to apologise as Lilith has been keeping her prisoner - after she heard about Lyssieth having sex with yet another human (Arthur), she was furious, and suspects Lyssieth of plotting to rebel against her with the help of humans. Lilith only recently relaxed her surveillance, but she didn't know when the timing would be right to come and apologise. (she then apologises)
+		Lilaya says "Well... I'll think about forgiving you. But anyway, what do you mean, betraying her to side with humans? And also, can you please tell us how player came into our dimension, and how to return them?"
+		You notice Arthur give Lyssieth a knowing look, and she smiles as she says "Well, Arthur here looks to have already discovered the answer."
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ARTHUR_THEORY"><![CDATA[
+	<p>
+		Arthur stumbles over his words as he says that he has a theory, but he needed Lyssieth here to confirm or deny it. While examining properties of arcane aura (with Lilaya), he discovered that he could see imprints of memories (this was just before Lilaya kicked him out, so he didn't have an opportunity to share it with her), although they're far too weak to actually decipher. While working for Zaranix, he found some time to investigate this further, and realised that from about three years ago, the memories have a shadow - completely indecipherable, but noticable.
+		He stumbles over his words, but, realising that in "your" time it was three years ago, he comes to the conclusion that both he and Lilaya (whose auras he examined) are originally from your world as well.
+		"Not just you and Lilaya, but everyone born over three years ago," Lyssieth replies, "Do you understand? This <i>is</i> player's world."
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_WORLD_REVEAL"><![CDATA[
+	<p>
+		You and Lilaya exclaim. Lilaya "How is that possible? I remember being by your side for years!" she shouts at Lyssieth, "And I'm [lilaya.age] years old now - I have memories of living in Dominion all my life!"
+		Lyssieth explains from the beginning - Lilith and the seven elder Lilin were trapping in that mirror for 4,000 years, all that time Lilith was making a spell to transform all of reality into one that would be under her absolute dominion.
+		Says how pc disappeared the moment they escaped - Lilith used pc's soul to break the mirror's seal. 
+		(Says she doesn't know how you've returned - they all thought you'd been removed from existence)
+		As pc disappeared, Lilith lost a tiny fraction of her power, which caused her spell to break - the excess energy that was intended to warp the whole world is now being periodically discharged as arcane storms.
+		Lilith power - expand on player's power potential being equivalent to that of a lilin
+		As a result, only the country in which Lily had her museum was altered, becoming a reality of Lilith's creation, in which she and her seven daughters have ruled for thousands of years. As part of the spell, the eight of them gained the memories of their alternate reality versions of themselves.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_LILAYA_ANGERY"><![CDATA[
+	<p>
+		"W-Wait, so I'm not really Lilaya?" Lilaya says, the colour draining from her cheeks as she faces an existential crisis.
+		"Yes, you are. It was in another reality now that you were Lily."
+		Arthur acts as though he already knew this - annoying Lilaya even more. "This sort of situation did cross my mind..."
+		"W-What if I was happy as player's aunt?! I didn't ask for this! And why didn't you tell me sooner, Arthur?! Fuck! So your fucking bitch mother made me into a half-demon?!"
+		"Well, yes, b-but, well, you see," Lyssieth stutters, clearly upset by Lilaya's reaction.
+		"But what?!"
+		"Well, I-I asked her if she could. But I didn't want that as a punishment! You - well, Lily - seemed so scared, I just wanted to protect you!"
+		"I hate being a half-demon! And no matter how many times I asked you, you'd never turn me into a full demon! Was that just to satisfy your sick fetish for humans?! Come on, back me up, sis!" Lilaya shouts.
+		DS says that she likes having this power - she's certain whoever she used to be wouldn't have been able to cast magic. Arthur starts to say that there's nothing they can do to change it now anyway, but Lilaya rudely cuts him off.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_LILAYA_CALMED_DOWN"><![CDATA[
+	<p>
+		Tell Lilaya that she is the same as she's always been - you can see she's still the same person. Calms her down a little, but she says that as you are her real relative, she is no longer interested in any special tests. (detect if player has had sex wtih her before for variations)
+		Lyssieth says she has decided to help player, as she is angry about the way Lilith is intent on destroying humanity, and trusts Lilaya, Arthur, and DS with this knowledge - the more people who can help, the better.
+		Tells you that you can ask questions - she does have enough time for that.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_QUESTION_WORLD"><![CDATA[
+	<p>
+		Ask why the rest of the world hasn't intervened.
+		Explains how the Lilin have infiltrated and suppressed every major power in the world. Any information that leaks is considered a conspiracy theory.
+		People wandering out
+		Explain how that's all part of Lilith's plan - she is using the after-effects of the broken reality-warp spell to accelerate the growth of children, so that they'll go out and disrupt neighbouring countries.
+		Explains how this is not simply a rapid ageing of the body - for the time it takes for them to reach adulthood, their physical form is shifted between two dimensions.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_QUESTION_LILIN"><![CDATA[
+	<p>
+		Ask where the rest of the lilin are, and why she has chosen to betray Lilith.
+		long with Lilith, all seven of the elder lilin were sealed away inside the mirror dimension for thousands of years, where they helped their mother to weave her reality-changing spell. After being released, Lovienne and Lasielle took the posts of Lilith's personal guard, while Lirecea, Lunette, Lyxias, and Lisophia were placed in charge of the four regions surrounding Dominion. Due to her reluctance to punish the archangel given to her, Lyssieth was suspected of harbouring treasonous thoughts, and was placed under house arrest in her subterranean palace.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_QUESTION_PEOPLE"><![CDATA[
+	<p>
+		Ask about how the people inhabiting this world are just transformed people from the old reality.
+		Lyssieth explains that the only part of them that is the same is their very core being (maybe what you'd call a soul). Other than that, the versions of people in this reality as a real and rooted in history as you are.
+		Other than occasional deja vu, there is no way that any memories can ever be restored.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_QUESTION_SPELL"><![CDATA[
+	<p>
+		Ask more about Lilith's spell, and the reality it created.
+		Lyssieth says that all spells are, in a way, reality-warping. To create and cast one that affects the entire world takes more arcane power than you could possibly imagine, but it no different in theory than the most basic of arcane spells.
+		You say how it's strange that it didn't completely warp reality - after all, everyone speaks English, and the names of some people, and days and months especially, have names rooted in history.
+		Most of world events occurred as normal, with Lilith and her daughters ruling from the shadows.
+		Lilith slowly started introducing different anthro-morphs and mythological creatures into the world, eventually sowing enough discord amongst the races that she could appear to unite them all under her rule.
+		This is why culture, language, etymology (month/day/people names), customs, etc. are all extremely similar or the same as in the old reality.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_QUESTION_REVERSAL"><![CDATA[
+	<p>
+		Ask if any way to finish or reverse the spell.
+		Lyssieth says that would take at least another 4,000 years, and even if you could somehow prevent everyone from dying of old age in that time, can you really remember every facet of everyone's lives in your old world? There is no way to reverse it. Even if Lilith were to extract her power from you, she would be unable to finish it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_QUESTION_END"><![CDATA[
+	<p>
+		In summary, Lilith wants to conquer the rest of the world and destroy humanity.
+		For now, she wants to find out what player's plans are - after all, you are the key to Lilith regaining her full power and conquering the world.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENDING_LIBERATE"><![CDATA[
+	<p>
+		Says that she'd committed to this plan the moment she realised who you were. With your power, it will be possible to stop Lilith's tyranny.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENDING_USURP"><![CDATA[
+	<p>
+		Lyssieth says she expected as much, from someone who now has a fragment of Lilith's power. She says that she hopes she can trust you to do the right thing, when the times comes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENDING_JOIN"><![CDATA[
+	<p>
+		You like the sound of all humans being turned into demons or anthro-morphs.
+		Lyssieth says that if you want to spend the next few days having Lilith extract your aura's power, before being turned into her slave, then go ahead.
+		She hopes that was just a joke, after all she's revealed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENDING_NOTHING"><![CDATA[
+	<p>
+		If NEET background, say you want to continue being a NEET, and leave the world-saving to others.
+		Otherwise, say you don't really care if Lilith transforms all humans and conquers the world.
+		Lilaya and Lyssieth threaten to kick you out and confiscate all your slaves/belongings
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENDING"><![CDATA[
+	<p> TODO split this up into two
+		Lyssieth says that the only way to best Lilith is for the seven elder Lilin to all unite their powers, which would never happen - you will need to make them.
+		Briefly explains how Lilith's power within you can be harnessed to give you the power needed to defeat Lilith. You will need to be granted power from each of the seven elder lilin to fully harness your power.
+		You should start by travelling west, and seeking out the Lilin Lunette - she will be hard to subdue, as she travels with a huge herd of demonic centaurs.
+		DS says that you should get the help of the Youko - should meet up with the arcanist you defeated in the citadel (DS has heard that she's returned to the town of Elis - you should look for her there)
+		Lyssieth says before that, she needs to give you her "blessing" - Lilaya gets angry at the prospect of her mother having sex with you. Grabs Myralyss and pulls her out of the lab. Rose and Arthur follow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENDING_RETURN"><![CDATA[
+	<p>
+		Lilaya was right, it requires her to orgasm... lab doors lock.
+		She says that this won't turn you into a demon - it will just boost the power of your aura.
+		She asks you how you want it - her cock or pussy
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENDING_RETURN_MASTURBATE"><![CDATA[
+	<p>
+		Tell Lyssieth that you don't want sex.
+		variation for virgin & fetish
+		If obeys Lilin, she makes you help masturbate
+		If not, you have to wait while she masturbates
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENDING_RETURN_MASTURBATE"><![CDATA[
+	<p>
+		Tell Lyssieth that you don't want sex.
+		variation for virgin & fetish
+		If obeys Lilin, she makes you help masturbate
+		If not, you have to wait while she masturbates
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>

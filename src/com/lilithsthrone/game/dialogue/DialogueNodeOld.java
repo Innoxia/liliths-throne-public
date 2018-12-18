@@ -80,8 +80,8 @@ public abstract class DialogueNodeOld implements Serializable {
 		return false;
 	}
 	
-	/**
-	 * Starts at 0.
+	/** Index starts at 0.
+	 * @return The title to be displayed on the response tab. Only indices that are defined as returning a title are displayed, so just return null as the fallback option.
 	 */
 	public String getResponseTabTitle(int index) {
 		return null;

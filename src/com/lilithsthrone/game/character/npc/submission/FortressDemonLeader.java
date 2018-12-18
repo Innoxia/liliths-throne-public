@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -275,6 +276,16 @@ public class FortressDemonLeader extends NPC {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
 		}
 	}
+	
+	@Override
+	public String getSpeechColour() {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
+			return "#7E0094";
+		}
+		return "#F4B8FF";
+	}
+	
+	
 	
 	@Override
 	public boolean isUnique() {

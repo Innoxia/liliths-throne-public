@@ -12,8 +12,8 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -153,6 +153,16 @@ public class Penis implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, PenisType type) {
+		if(!Main.game.isStarted() || owner==null) {
+			this.type = type;
+			testicle.setType(owner, type.getTesticleType());
+			if(owner!=null) {
+				owner.resetAreaKnownByCharacters(CoverableArea.PENIS);
+				owner.resetAreaKnownByCharacters(CoverableArea.TESTICLES);
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
 		
 		if (type == getType()) {
 			if(owner.isPlayer()) {
@@ -1032,5 +1042,9 @@ public class Penis implements BodyPartInterface, Serializable {
 		
 		// Catch:
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+	}
+	
+	public void clearPenisModifiers() {
+		penisModifiers.clear();
 	}
 }

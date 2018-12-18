@@ -198,10 +198,10 @@ public class GenericOrgasms {
 			case MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS: case MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS:
 				orgasmText = "[npc1.Name] [npc1.verb(look)] down into [npc2.namePos] [npc2.eyes] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
-			case MISSIONARY_DESK_DOM_VICKY:
+			case MISSIONARY_DESK_DOM: case MISSIONARY_DESK_DOM_SECOND:
 				orgasmText = "[npc1.Name] [npc1.verb(look)] down into [npc2.namePos] [npc2.eyes] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
-			case MISSIONARY_DESK_SUB_VICKY:
+			case MISSIONARY_DESK_SUB: case MISSIONARY_DESK_SUB_SECOND:
 				orgasmText = "[npc1.Name] [npc1.verb(look)] up into [npc2.namePos] [npc2.eyes] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case SIXTY_NINE_BOTTOM:
@@ -1972,7 +1972,7 @@ public class GenericOrgasms {
 		}
 		
 	}
-
+	
 	public static String getGenericOrgasmDescription(GameCharacter characterOrgasming, OrgasmCumTarget target) {
 		StringBuilder descriptionSB = new StringBuilder();
 
@@ -2030,7 +2030,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), Sex.getAvailableCumTargets(Main.game.getPlayer()).get(0));
+			return Main.game.getPlayer().getOrgasmDescription(Sex.getAvailableCumTargets(Main.game.getPlayer()).get(0));
 		}
 		
 		@Override
@@ -2226,7 +2226,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.INSIDE);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.INSIDE);
 		}
 		
 		@Override
@@ -2335,7 +2335,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.FLOOR);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.FLOOR);
 		}
 		
 		@Override
@@ -2379,7 +2379,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.WALL);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.WALL);
 		}
 		
 		@Override
@@ -2421,7 +2421,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.ASS);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.ASS);
 		}
 		
 		@Override
@@ -2474,7 +2474,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.GROIN);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.GROIN);
 		}
 		
 		@Override
@@ -2523,7 +2523,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.SELF_GROIN);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_GROIN);
 		}
 
 		@Override
@@ -2576,7 +2576,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.BREASTS);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.BREASTS);
 		}
 		
 		@Override
@@ -2624,7 +2624,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.SELF_BREASTS);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_BREASTS);
 		}
 
 		@Override
@@ -2676,7 +2676,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.FACE);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.FACE);
 		}
 		
 		@Override
@@ -2724,7 +2724,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.SELF_FACE);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_FACE);
 		}
 
 		@Override
@@ -2776,7 +2776,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.HAIR);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.HAIR);
 		}
 		
 		@Override
@@ -2828,7 +2828,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.STOMACH);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.STOMACH);
 		}
 
 		@Override
@@ -2876,7 +2876,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.SELF_STOMACH);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_STOMACH);
 		}
 
 		@Override
@@ -2928,7 +2928,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.LEGS);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.LEGS);
 		}
 
 		@Override
@@ -2976,7 +2976,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.SELF_LEGS);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_LEGS);
 		}
 
 		@Override
@@ -3029,7 +3029,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.FEET);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.FEET);
 		}
 
 		@Override
@@ -3077,7 +3077,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.SELF_FEET);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_FEET);
 		}
 
 		@Override
@@ -3129,7 +3129,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.BACK);
+			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.BACK);
 		}
 
 		@Override
@@ -3752,7 +3752,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), Sex.getAvailableCumTargets(Sex.getCharacterPerformingAction()).get(0));
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(Sex.getAvailableCumTargets(Sex.getCharacterPerformingAction()).get(0));
 		}
 		
 		@Override
@@ -3884,21 +3884,21 @@ public class GenericOrgasms {
 				}
 			} else {
 				switch((SexAreaPenetration)areaContacted) {
-				case CLIT:
-					break;
-				case FINGER:
-					return true;
-				case FOOT:
-					return true;
-				case PENIS:
-					break;
-				case TAIL:
-					break;
-				case TENTACLE:
-					break;
-				case TONGUE:
-					break;
-			}
+					case CLIT:
+						break;
+					case FINGER:
+						return true;
+					case FOOT:
+						return true;
+					case PENIS:
+						break;
+					case TAIL:
+						break;
+					case TENTACLE:
+						break;
+					case TONGUE:
+						break;
+				}
 			}
 			
 			if(!isPenetratingSuitableOrifice) {
@@ -3915,7 +3915,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.INSIDE);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.INSIDE);
 		}
 		
 		@Override
@@ -3957,33 +3957,33 @@ public class GenericOrgasms {
 					}
 				} else {
 					switch((SexAreaOrifice)areaContacted) {
-					case ANUS:
-						break;
-					case ASS:
-						return Util.newArrayListOfValues(
-								CoverableArea.ASS,
-								CoverableArea.ANUS);
-					case BREAST:
-						return Util.newArrayListOfValues(
-								CoverableArea.BREASTS,
-								CoverableArea.MOUTH);
-					case MOUTH:
-						break;
-					case NIPPLE:
-						break;
-					case THIGHS:
-						return Util.newArrayListOfValues(
-								CoverableArea.LEGS);
-					case URETHRA_PENIS:
-						break;
-					case URETHRA_VAGINA:
-						break;
-					case VAGINA:
-						break;
-					default:
-						break;
+						case ANUS:
+							break;
+						case ASS:
+							return Util.newArrayListOfValues(
+									CoverableArea.ASS,
+									CoverableArea.ANUS);
+						case BREAST:
+							return Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.MOUTH);
+						case MOUTH:
+							break;
+						case NIPPLE:
+							break;
+						case THIGHS:
+							return Util.newArrayListOfValues(
+									CoverableArea.LEGS);
+						case URETHRA_PENIS:
+							break;
+						case URETHRA_VAGINA:
+							break;
+						case VAGINA:
+							break;
+						default:
+							break;
+					}
 				}
-			}
 			}
 			return null; 
 		}
@@ -4019,7 +4019,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.FLOOR);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.FLOOR);
 		}
 		
 		@Override
@@ -4059,7 +4059,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.WALL);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.WALL);
 		}
 		
 		@Override
@@ -4092,7 +4092,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.ASS);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.ASS);
 		}
 		
 		@Override
@@ -4136,7 +4136,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.GROIN);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.GROIN);
 		}
 		
 		@Override
@@ -4180,7 +4180,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.SELF_GROIN);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_GROIN);
 		}
 
 		@Override
@@ -4225,7 +4225,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.BREASTS);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.BREASTS);
 		}
 		
 		@Override
@@ -4268,7 +4268,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.SELF_BREASTS);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_BREASTS);
 		}
 
 		@Override
@@ -4312,7 +4312,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.FACE);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.FACE);
 		}
 		
 		@Override
@@ -4355,7 +4355,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.SELF_FACE);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_FACE);
 		}
 
 		@Override
@@ -4399,7 +4399,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.HAIR);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.HAIR);
 		}
 		
 		@Override
@@ -4442,7 +4442,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.STOMACH);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.STOMACH);
 		}
 
 		@Override
@@ -4485,7 +4485,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.SELF_STOMACH);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_STOMACH);
 		}
 
 		@Override
@@ -4529,7 +4529,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.LEGS);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.LEGS);
 		}
 
 		@Override
@@ -4572,7 +4572,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.SELF_LEGS);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_LEGS);
 		}
 
 		@Override
@@ -4617,7 +4617,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.FEET);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.FEET);
 		}
 
 		@Override
@@ -4660,7 +4660,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.SELF_FEET);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_FEET);
 		}
 
 		@Override
@@ -4704,7 +4704,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return getGenericOrgasmDescription(Sex.getCharacterPerformingAction(), OrgasmCumTarget.BACK);
+			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.BACK);
 		}
 
 		@Override

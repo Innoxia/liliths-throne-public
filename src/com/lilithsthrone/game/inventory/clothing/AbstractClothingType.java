@@ -16,11 +16,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import com.lilithsthrone.controller.xmlParsing.*;
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
+import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -44,7 +47,6 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
-import java.util.function.Consumer;
 
 /**
  * @since 0.1.84
@@ -401,9 +403,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				.map(e -> clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent())
 				.filter(s -> !s.equals(this.pathName)) // if imageEquippedName is the same as imageName, we don't need to load it twice
 				.orElse(null);
-			if(this.pathNameEquipped!=null) {
-				this.pathNameEquipped = clothingXMLFile.getParentFile().getAbsolutePath() + "/" + this.pathNameEquipped;
-			}
 			
 
 			Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors

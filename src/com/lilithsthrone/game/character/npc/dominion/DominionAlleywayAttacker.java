@@ -83,6 +83,8 @@ public class DominionAlleywayAttacker extends NPC {
 					case ANGEL:
 					case BAT_MORPH:
 					case DEMON:
+					case LILIN:
+					case ELDER_LILIN:
 					case HARPY:
 					case HARPY_RAVEN:
 					case HARPY_BALD_EAGLE:
@@ -96,6 +98,9 @@ public class DominionAlleywayAttacker extends NPC {
 					case ELEMENTAL_EARTH:
 					case ELEMENTAL_FIRE:
 					case ELEMENTAL_WATER:
+						break;
+					case HALF_DEMON:
+//						addToSubspeciesMap(1000, gender, s, availableRaces); // Testing
 						break;
 						
 					// Canals spawn only:

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -51,6 +52,14 @@ public class Skin implements BodyPartInterface, Serializable {
 	}
 
 	public String setType(GameCharacter owner, SkinType type) {
+		if(!Main.game.isStarted() || owner==null) {
+			this.type = type;
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
+		
 		if (type == getType()) {
 			if (owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.skin] of [pc.a_skinRace], so nothing happens...)]</p>";

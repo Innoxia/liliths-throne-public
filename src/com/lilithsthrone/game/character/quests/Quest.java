@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.quests;
 
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -26,7 +27,7 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "Your evening at the museum turned out to be far more eventful than you'd have liked." + " A mysterious demon named Lilith tricked you into being pulled through a magical portal and into a parallel universe."
-					+ " After waking up in the middle of an unfamiliar street, you were saved from a dire situation by the half-demon '" + Main.game.getLilaya().getName() + "'."
+					+ " After waking up in the middle of an unfamiliar street, you were saved from a dire situation by the half-demon '" + Main.game.getNpc(Lilaya.class).getName() + "'."
 					+ " She seems to be this universe's version of your aunt Lily, and, in return for agreeing to help her with her experiments, she's allowed you to stay at her home.";
 		}
 	},
@@ -44,7 +45,7 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return Main.game.getLilaya().getName() + " ran some more tests on you, but she's unable to progress with her research without the help of her old colleague, Arthur.";
+			return Main.game.getNpc(Lilaya.class).getName() + " ran some more tests on you, but she's unable to progress with her research without the help of her old colleague, Arthur.";
 		}
 	},
 

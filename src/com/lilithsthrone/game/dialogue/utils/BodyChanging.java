@@ -23,9 +23,13 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -130,7 +134,6 @@ public class BodyChanging {
 		}
 	}
 
-	private static List<Race> demonRace = Util.newArrayListOfValues(Race.DEMON);
 	private static List<Race> slimeRaces = new ArrayList<>();
 	static {
 		for(Race r : Race.values()) {
@@ -138,9 +141,89 @@ public class BodyChanging {
 		}
 	}
 	
+	private static List<Race> getFaceSkinDemonRaces() {
+		List<Race> faceSkinOptions = Util.newArrayListOfValues();
+		GameCharacter target = BodyChanging.getTarget();
+		if(isHalfDemon()) {
+			faceSkinOptions.add(target.getHalfDemonSubspecies().getRace());
+			faceSkinOptions.add(Race.HUMAN);
+			
+		} else {
+			faceSkinOptions.add(Race.DEMON);
+			if(target.isPlayer()) {
+				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+					faceSkinOptions.add(Race.HUMAN);
+				}
+			}
+		}
+		return faceSkinOptions;
+	}
+	
+	private static List<Race> getArmLegDemonRaces() {
+		List<Race> armLegOptions = Util.newArrayListOfValues();
+		GameCharacter target = BodyChanging.getTarget();
+		if(isHalfDemon()) {
+			armLegOptions.add(target.getHalfDemonSubspecies().getRace());
+			
+		} else {
+			armLegOptions.add(Race.DEMON);
+			if(target.isPlayer()) {
+				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+					armLegOptions.add(Race.HUMAN);
+				}
+			}
+		}
+		return armLegOptions;
+	}
+	
+	/**
+	 * @param isHalfSpeciesReplacement True if this is a part that should always be of the core race type (if not human). This is so that things like hellhounds will still have dog tails and ears.
+	 * @return List of races available to the target.
+	 */
+	private static List<Race> getMinorPartsDemonRaces(boolean isHalfSpeciesReplacement) {
+		List<Race> minorPartsOptions = Util.newArrayListOfValues();
+		GameCharacter target = BodyChanging.getTarget();
+		if(isHalfDemon()) {
+			if(isHalfSpeciesReplacement && target.getHalfDemonSubspecies().getRace()!=Race.HUMAN) {
+				minorPartsOptions.add(target.getHalfDemonSubspecies().getRace());
+			} else {
+				minorPartsOptions.add(Race.DEMON);
+			}
+			
+		} else {
+			minorPartsOptions.add(Race.DEMON);
+			if(target.isPlayer()) {
+				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+					minorPartsOptions.add(Race.HUMAN);
+				}
+			}
+		}
+		
+		return minorPartsOptions;
+	}
+	
+	private static boolean removeNoneFromTailChoices() {
+		if(isHalfDemon()) {
+			return !RacialBody.valueOfRace(target.getHalfDemonSubspecies().getRace()).getTailType().contains(TailType.NONE);
+		}
+		return false;
+	}
+	
+	private static boolean removeNoneFromWingChoices() {
+		if(isHalfDemon()) {
+			return !RacialBody.valueOfRace(target.getHalfDemonSubspecies().getRace()).getWingTypes().contains(WingType.NONE);
+		}
+		return false;
+	}
+	
 	private static boolean isDemonTFMenu() {
 		return BodyChanging.getTarget().getRace()==Race.DEMON
+				|| BodyChanging.getTarget().getSubspecies()==Subspecies.DEMON
 				|| BodyChanging.getTarget() instanceof Elemental;
+	}
+	
+	private static boolean isHalfDemon() {
+		return BodyChanging.getTarget().getSubspecies()==Subspecies.HALF_DEMON;
 	}
 	
 	private static Map<BodyCoveringType, List<String>> getMainCoveringsMap() {
@@ -200,26 +283,27 @@ public class BodyChanging {
 					+ CharacterModificationUtils.getFullFemininityChoiceDiv()
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces, debugMenu)
+						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces)
 						+ CharacterModificationUtils.getSelfTransformBodyChoiceDiv(slimeRaces)
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces, debugMenu)
+						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces)
 						+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces, debugMenu)
+						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformFootStructureChoiceDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(slimeRaces, false)
 						+ CharacterModificationUtils.getSelfTransformTailCountDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(slimeRaces, false)
 						+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
 					+"</div>"
 							
@@ -257,6 +341,7 @@ public class BodyChanging {
 
 				
 			} else if(isDemonTFMenu()) {
+				
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 							+ (BodyChanging.getTarget().isPlayer()
 									?"<i>Focus your demonic transformative powers on changing core aspects of your body.</i>"
@@ -266,21 +351,35 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getFullFemininityChoiceDiv()
 
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(demonRace, debugMenu)
+							+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(getFaceSkinDemonRaces())
+							+ CharacterModificationUtils.getSelfTransformBodyChoiceDiv(getFaceSkinDemonRaces())
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(getArmLegDemonRaces())
 							+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(demonRace, debugMenu)
+							+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(getArmLegDemonRaces())
+							+ CharacterModificationUtils.getSelfTransformFootStructureChoiceDiv()
 						+"</div>"
 
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(demonRace)
+							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(
+									!removeNoneFromTailChoices()
+										?Util.newArrayListOfValues(Race.DEMON)
+										:getMinorPartsDemonRaces(true),
+									removeNoneFromTailChoices())
 							+ CharacterModificationUtils.getSelfTransformTailCountDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(demonRace)
+							+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(
+									!removeNoneFromWingChoices()
+										?Util.newArrayListOfValues(Race.DEMON)
+										:getMinorPartsDemonRaces(true),
+									removeNoneFromWingChoices())
 							+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
 						+"</div>"
 						
@@ -327,26 +426,27 @@ public class BodyChanging {
 					+ CharacterModificationUtils.getFullFemininityChoiceDiv()
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces, debugMenu)
+						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces)
 						+ CharacterModificationUtils.getSelfTransformBodyChoiceDiv(slimeRaces)
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces, debugMenu)
+						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces)
 						+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces, debugMenu)
+						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformFootStructureChoiceDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(slimeRaces, false)
 						+ CharacterModificationUtils.getSelfTransformTailCountDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(slimeRaces, false)
 						+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
 					+"</div>"
 							
@@ -517,24 +617,21 @@ public class BodyChanging {
 								?"<i>Focus your demonic transformative powers on changing aspects of your face and hair.</i>"
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] demonic transformative powers on changing aspects of [npc.her] face and hair.</i>"))
 						+ "</div>"
-	
-	//					+ CharacterModificationUtils.getSelfTransformEarChoiceDiv()
-	//					+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv()
 						
-	//					+ CharacterModificationUtils.getSelfTransformEyeChoiceDiv()
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformEyeChoiceDiv(getMinorPartsDemonRaces(false))
+							+ CharacterModificationUtils.getSelfTransformEyeCountDiv()
+						+"</div>"
+						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformIrisChoiceDiv()
 							+ CharacterModificationUtils.getSelfTransformPupilChoiceDiv()
 						+"</div>"
 						
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformEyeCountDiv()
-						+"</div>"
-						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getEyeType().getBodyCoveringType(BodyChanging.getTarget())).getType(), "Eye colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getEyeType().getBodyCoveringType(BodyChanging.getTarget())).getType(), "Iris colour",
 								(BodyChanging.getTarget().isPlayer()
-										?"The colour and pattern of your eyes."
-										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] eyes.")),
+										?"The colour and pattern of your irises."
+										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] irises.")),
 								true, true)
 
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.EYE_PUPILS).getType(), "Pupil colour",
@@ -550,11 +647,17 @@ public class BodyChanging {
 								true, true)
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(demonRace)
-							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(getMinorPartsDemonRaces(true))
+							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(getMinorPartsDemonRaces(true))
+						+"</div>"
+
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformEarChoiceDiv(getMinorPartsDemonRaces(true))
+							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(Util.mergeLists(getMinorPartsDemonRaces(true), Util.newArrayListOfValues(Race.DEMON)))
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
 							+ CharacterModificationUtils.getSelfTransformHornCountDiv()
 						+"</div>"
 
@@ -657,10 +760,10 @@ public class BodyChanging {
 										?"You can freely change the colour of your slimy hair."
 										:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can freely change the colour of [npc.her] slimy hair.")), true, true)
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_EYE, "Eye colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_EYE, "Iris colour",
 								(BodyChanging.getTarget().isPlayer()
-										?"The colour and pattern of your eyes."
-										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] eyes.")),
+										?"The colour and pattern of your irises."
+										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] irises.")),
 								true, true)
 
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_PUPILS, "Pupil colour",
@@ -758,6 +861,8 @@ public class BodyChanging {
 								?"<i>Focus your demonic transformative powers on changing aspects of your ass and hips.</i>"
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] demonic transformative powers on changing aspects of [npc.her] ass and hips.</i>"))
 						+ "</div>"
+	
+						+ CharacterModificationUtils.getSelfTransformAssChoiceDiv(getMinorPartsDemonRaces(false))
 								
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformAssSizeDiv()
@@ -907,6 +1012,7 @@ public class BodyChanging {
 							
 	//					Breasts:
 	//						 * 	TODO milk-related changes
+						+ CharacterModificationUtils.getSelfTransformBreastChoiceDiv(getMinorPartsDemonRaces(false))
 						
 						+ CharacterModificationUtils.getSelfTransformBreastSizeDiv()
 						
@@ -1068,7 +1174,7 @@ public class BodyChanging {
 						+ "</div>"
 	
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformVaginaChoiceDiv(demonRace)
+							+ CharacterModificationUtils.getSelfTransformVaginaChoiceDiv(getMinorPartsDemonRaces(false))
 							+ CharacterModificationUtils.getSelfTransformVaginaModifiersDiv()
 						+"</div>"
 						
@@ -1236,7 +1342,7 @@ public class BodyChanging {
 						+ "</div>"
 	
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(demonRace, true)
+							+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(getMinorPartsDemonRaces(false), true)
 							+ CharacterModificationUtils.getSelfTransformPenisGirthDiv()
 						+"</div>"
 

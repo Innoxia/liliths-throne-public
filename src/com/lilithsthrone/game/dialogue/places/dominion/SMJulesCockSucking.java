@@ -5,10 +5,11 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -44,7 +45,7 @@ public class SMJulesCockSucking extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Sex.getNumberOfOrgasms(Main.game.getJules())>0;
+		return Sex.getNumberOfOrgasms(Main.game.getNpc(Jules.class))>0;
 	}
 
 	@Override
@@ -57,6 +58,6 @@ public class SMJulesCockSucking extends SexManagerDefault {
 	
 	@Override
 	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-		return Util.newHashMapOfValues(new Value<>(Main.game.getJules(), Util.newArrayListOfValues(CoverableArea.PENIS)));
+		return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), Util.newArrayListOfValues(CoverableArea.PENIS)));
 	}
 }

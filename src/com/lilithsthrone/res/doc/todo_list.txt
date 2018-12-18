@@ -114,16 +114,39 @@
 	Patch notes:
 	
 	Gameplay:
+		<b>Your character's demonic parts will be reset to human</b> when you load into this version. Demonic transformations are now only attainable through lore-correct methods (i.e. being corrupted into a demon by a lilin).
+		Removed item 'Innoxia's gift' and any crafted elixirs that were made using this item. (Again, to align demon transformations to the game's lore.)
+		If a character is not a demon, then demonic transformations applied while being a slime are reset to human upon returning to flesh. Non-demonic transformations are reset to demonic ones in a similar fashion if the character is a demon.
+		Demons and all subspecies are now correctly immune to all transformation potions.
 		Tidied up, expanded, and fixed bugs in Elizabeth's dialogue.
+		If you have completed the Siren's quest up to returning to Elizabeth in a previous version, your quest progress will be reverted one step (so you just need to return to her again), and you will be moved back out from the gates or the palace tile into one of the palace cavern tiles. (So that you can see the new handing-in quest dialogue, as well as to fix issues with being too far ahead.)
+		Added Lyssieth.
+		Added final part of Dominion/Submission quest, where you meet Lyssieth.
 	
 	Contributors:
 		Fixed incorrect labelling and descriptions in the demon alleyway attacker quick transformation scene. (#985 by ChillaChris)
 		Minor description fix. (#986 by ChillaChris)
 		Fixed modding clothing's 'equipped' image variant not working. (#988 by CognitiveMist)
 	
+	Clothing:
+		Added: 'drab green' colour for clothing.
+		Added: 'plunge blouse' (Feminine, torso slot.)
+		Added: 'asymmetrical skirt' (Feminine, leg slot.)
+		Added: 'strappy stiletto sandals' (Feminine, foot slot.)
+		Added: 'lacy thong' (Feminine, groin slot.)
+		The butler outfit is now classed as being androgynous.
+	
 	Other:
+		Expanded lore in the 'Lilith's Dynasty' book in the library, and organised library actions.
 		Submissive partners in sex can no longer remove sex toys from their partner. (Dildos, and anything that plugs or seals orifices are considered sex toys.)
-		Added 'drab green' colour for clothing.
+		Added subspecies and proper detection for half-demons, lilin, and elder lilin.
+		Slightly improved background code for offspring and litters - I did test this a lot, but if you run into any issues with pregnancies, please let me know!
+		Changed Lilaya's post-sex dialogue to remove references to arcane-related lore that ended up not being used.
+		Added foot structure options to demon/slime transform menu, along with numerous other minor changes and improvements.
+		Added covering patterns 'marked', 'mottled', 'spotted', and 'striped' for penis.
+		Changed transformation references of 'breasts' and 'ass' to 'nipples' and 'anus', as that's all the transformation is affecting. (Breast and ass coverings are based on your torso's covering.)
+		Added some more descriptors for breasts and ass to draw from for when being described.
+		Tidied up code in a lot of places.
 	
 	Bugs:
 		Fixed potential issue with radial gradients in images not being coloured correctly.
@@ -145,61 +168,129 @@
 		Fixed imps in the tunnels being treated as though their generic names ('fearless imp', 'nervous imp', etc.) were their real names.
 		Added error handling for when two pieces of clothing accidentally end up blocking one another.
 		Fixed incorrect parsing in imp fortresses, where imps would be described instead of the demon boss.
+		Fixed issue where a scene from Arthur's dialogue was missing (at the point where you agree to find Lyssieth).
+		Fixed issue where covering colour options would not show up in transform or Kate's menus.
+		Fixed siren's call being available as a spell book, and removed it from known spells, if you'd already learned it.
+		Fixed bug where setting all age categories to disabled would sometimes throw an error and break the game in strange ways.
+		Fixed Maximilian (the slime queen's royal gaurd) not being a demon slime.
 	
 	
-	PRs
 	
-	I did the siren fortress and confirmed it at the gates of Lyssieth before even encountering zaranix or arthur, returned to home and built the room for arthur and went back to the gates to get the second ring.
-	
-	reset quest to 2 and put player in cavern if at palace or gates
-	
-	when leaving the palace, put player out in the cavern (otherwise dialogue will make no sense)
-	
-	Get Elizabeth to follow player
-		When first enter, can only use action to move north, until at throne room
+	TODO
+		need Lilith's dynasty book alt for when know about world
+	Need to update library & Rose lore
+		Arcane arousal - essence explanation
+		Rose - just world lore, she tells you to go to the library
+		Dominion - explain culture
 		
 	
-	Lyssieth
-		Demon TF
-			Remove Innoxia's gift and slime TF into demon
-			Lilaya reaction and TF
-			
+	So I'll change it so that it's both Lilin and people who are skilled at harnessing the arcane who can extract them
+	the lore should probably address the standard practices for wage mages to generate essence. Do they rely on frequent orgies or do they have any special rituals to simulate combat?
+	 Or do they just spend all day brawling in the streets? Cause sex essence has that cool down limit
+		maybe a combination of teh two. Very powerful mages figured out how to extract essences but they keep them for themselves.
+		Only Lilin sell them for $$$
+		
+	lore for demon births - fix raceInfo.xml and add lilin entry
+		finish Subspecies.getPreGeneratedBody
+		need half demon subspecieses
+			Make the lore such that non-human half-demons are very wild, and 
 	
+	lore for slavery - demons immune
+	
+	Lore:
+	MAKE SURE THIS WORKS:
+								Lilin 		| Demon 	| Non-human Half-demon | Half-demon | Non-demon | Imps
+		Lilin					Demon		Demon		Half-demon				Half-demon	Half-demon	Imp
+		Demon					Demon		Demon		Half-demon				Half-demon	Half-demon	Imp
+		Non-human Half-demon	Half-demon	Half-demon	Half-demon				Half-demon	Half-demon	Imp
+		Half-demon				Half-demon	Half-demon	Half-demon				Imp			Imp			Imp
+		Non-demon				Half-demon	Half-demon	Half-demon				Imp			Imp			Imp
+		Imps					Imp			Imp			Imp						Imp			Imp			Imp
+		
+		
+		
+		
+		
+	Lilaya give warning about pull out before sex
+	
+	karl and wolfgang act like they've defeated me in a fight after I offer my body to them to convince them
+	
+	total offspring isn't adding up correctly.
+	
+	check claire lore about Lyssieth
+	
+	She also needed special orgasm actions, repeat visit scenes, and then pregnancy reaction variations for those scenes.
+	  
+	 The lore-friendly demon TF also needs to be integrated into her content
+	   the demon TF scene itself
+	      She turns into her true form
+	      Wraps you in her wings like a cocoon and kisses
+	      If player is feminine & no cock, Lyssieth fucks her
+	      If player is masculine or fem + cock, Lyssieth gets fucked
+	      When one orgasms, the other does too
+	      Fem: With each pump of her cum, more of you transforms
+	      Mas: You keep on orgasming, with each pump of your cum, more of you transforms
+	      	TF starts with genitals
+	      She makes you call her mother - if incest fetish, lots more
+	      Gives you new surname - she recognises you
+	      
+	      
+	   support for Lilaya reactions - she is now your sister
+	    Lilaya & Mhyralyss content related to this,
+	    another sex scene.
+	
+	Make moment of orgasm give you vision of Lyssieth's power
+	
+	fix arcane stat descriptions and attribute maximums (no maximum, remove permanent gains from potions)
+	
+	
+	unlock advanced race knowledge at end of sequence
+	
+	Please keep DS chuuni
+	
+	Lyssieth
+		DS as companion
+		Sex
+			DS leaves
+		race detection
+		Demon TF - requires max corruption
+			DS leaves
+			Lilaya reaction and TF
+				Lilaya and Myhralyss gain incest fetishes
+				Post-lilaya demon sex dialogue
+			
+	Player demon TF
+		Grants ability to corrupt others into demons via willing orgasm - costs 1000 essences, 500 aura
+		
+	
+	slime handjob climax describes cum inside her
 	
 	condoms
+	
+	Exit dominion
+		World map, with locations (as tiles) either hidden or explored.
+		Click to go to that area map
 	
 	Fields
 		Central farmland and town
 		Outer farms
 		Grassland
 		Woodland/Shinrin highlands/mountains
-		
-			
-			
-			
 	
-	
-	Jam
 	
 	ever get the option to allow slaves to grow cocks when raping you with the "use you" option without you having to ask for it?
 		Will slimes ever be able to grow a cock
 		make sure they remove cock after sex
+		Also apply this to alleyway demons
 
 	saving and reloading fills up your aura pool
 		specifically, from a clean start get enough to summon an elemental (I used fire), then immediately save and reload. it didn't work solo
 
-	When fighting multiple people you can target a fallen enemy and attack them anyways
+	Prevent setting blank surnames
 
 	Add 'Lilaya's Research Notes' in her lab
 	
 	Game still doesn't save skin covering type for me if I set it through buggy
-	
-	Need to update library & Rose lore
-	
-	So I'll change it so that it's both Lilin and people who are skilled at harnessing the arcane who can extract them
-	the lore should probably address the standard practices for wage mages to generate essence. Do they rely on frequent orgies or do they have any special rituals to simulate combat? Or do they just spend all day brawling in the streets? Cause sex essence has that cool down limit
-		maybe a combination of teh two. Very powerful mages figured out how to extract essences but they keep them for themselves.
-		Only Lilin sell them for $$$
 	
 	fetishes
 		in addition to the esscence lore you might want to take another look at how fetishes interact with corruption
@@ -262,11 +353,45 @@
 	when using one with Lilaya and it breaks and theres a risk of pregnancy she doesnt get mad at you. She just hopes she doesnt get pregnant and she says something like. "Its not your fault at least you wore a condom. Too bad it broke".
 	----------
 	
+	System that tracks the (for the lack of a better word) compatibleness of orifices and penetrative equipment.
+	For example: Too smol 'gina + too big cock = penetration impossible. Too small cock + too big vagina = next to no arousal gain from penetrative action for both partners. Gotta have the right tool for the job.
+	(same system could be used for anal and nipple penetrations. I think oral should always be viable.)
+	
+	It's just that all the different options like elasticity, size, wetness etc are at the moment all kinda useless.
+	While my suspension of disbelief is enough to accept magic, furries, dimension portals and demons there is just something entirely unbelievable about a 40 inch cock ramming into an extremely tight virgin puss without ANY consequences.
+	
+	 A rating system for how good an orifice / surface feels to fuck / touch. Higher ratings can spike arousal during sex with said orifice / surface and make your partner cum faster if you are rough / eager
+	
+	Need udders/crotch boobs TF & genital configuration support
+	
+	Suggestion: Second generation elementals / children of elementals as a race that exists independently out in the wild.
+		They could fill the role of stuff like Yuki Ona and other "wild" elemental spirits
+	
+	perks
+		Cutoffs based on physique, arcane, and corruption
+		physical
+			Core combat misc
+		arcane
+			Core spells misc
+		corruption
+			Core seduction demonic-abilities
+	--------
+	
+	make the game equip a generic actually not op weapon in the event that it cant find the proper item to give them
+	
 	since slims can be impregnated  through any orifices, why cant they do the female breed  at Eponas
 	
 	Youko tail description "halo of arcane fire" and status effect
 	
+	Add brothel shower
+	
+	Ok not sure if anyone else reported this or not, but for some reason as a Sadist the lust I'm suppose to gain from damaging others is being given to the target instead of my character
+	
+	Female characters are given male names, and male characters are given female ones(?)
+	
 	Combat should only show health/mana bars and status effects
+	
+	Need cum/milk/girlcum self TFs
 	
 	prevent enslavement items from being put on people during sex
 	

@@ -1629,6 +1629,9 @@ public class OptionsDialogue {
 				switch(subspecies) {
 					case ANGEL:
 					case DEMON:
+					case HALF_DEMON:
+					case LILIN:
+					case ELDER_LILIN:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
 					case ELEMENTAL_EARTH:

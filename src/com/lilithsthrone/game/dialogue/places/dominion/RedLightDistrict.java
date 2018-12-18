@@ -8,6 +8,9 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Angel;
+import com.lilithsthrone.game.character.npc.dominion.Bunny;
+import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -81,7 +84,7 @@ public class RedLightDistrict {
 					@Override
 					public void effects() {
 						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.angelIntroduced)) {
-							Main.game.getAngel().setLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_ENTRANCE, false);
+							Main.game.getNpc(Angel.class).setLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_ENTRANCE, false);
 						}
 						Main.mainController.moveGameWorld(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_ENTRANCE, true);
 					}
@@ -136,7 +139,7 @@ public class RedLightDistrict {
 					return new Response("Continue", "Angel leaves you alone to explore Angel's Kiss by yourself...", ANGELS_KISS_ENTRANCE){
 						@Override
 						public void effects() {
-							Main.game.getAngel().setLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_OFFICE, false);
+							Main.game.getNpc(Angel.class).setLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_OFFICE, false);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.angelIntroduced, true);
 						}
 					};
@@ -682,7 +685,7 @@ public class RedLightDistrict {
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getBunny(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Bunny.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
 							null, AFTER_SEX_BUNNY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_SEX")) {
 						@Override
@@ -704,8 +707,8 @@ public class RedLightDistrict {
 							new SMDoggy(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getBunny(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getLoppy(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+											new Value<>(Main.game.getNpc(Bunny.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
+											new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
 							null,
 							null, AFTER_SEX_BUNNY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.loppyIntroduced)
@@ -715,7 +718,7 @@ public class RedLightDistrict {
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.bunnyIntroduced, true);
 //							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
-							Main.game.getLoppy().setLocation(WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_BUNNY, false);
+							Main.game.getNpc(Loppy.class).setLocation(WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_BUNNY, false);
 							Main.game.getPlayer().incrementMoney(-threesomeCost);
 						}
 					};
@@ -746,7 +749,7 @@ public class RedLightDistrict {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getBunny()) == 0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Bunny.class)) == 0) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_AFTER_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_AFTER_SEX");
@@ -816,7 +819,7 @@ public class RedLightDistrict {
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
 							null, AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX")) {
 						@Override
@@ -836,7 +839,7 @@ public class RedLightDistrict {
 							"Pay "+dominantCost+" flames to let Loppy take charge and fuck you.",
 							true, true,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
 							null, AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX_SUBMISSIVE")) {
@@ -859,8 +862,8 @@ public class RedLightDistrict {
 							new SMDoggy(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getLoppy(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getBunny(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+											new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
+											new Value<>(Main.game.getNpc(Bunny.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
 							null,
 							null, AFTER_SEX_LOPPY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bunnyIntroduced)
@@ -870,7 +873,7 @@ public class RedLightDistrict {
 						public void effects() {
 //							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.bunnyIntroduced, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
-							Main.game.getBunny().setLocation(WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_LOPPY, false);
+							Main.game.getNpc(Bunny.class).setLocation(WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_LOPPY, false);
 							Main.game.getPlayer().incrementMoney(-threesomeCost);
 						}
 					};
@@ -901,7 +904,7 @@ public class RedLightDistrict {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getLoppy()) == 0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Loppy.class)) == 0) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_AFTER_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_AFTER_SEX");

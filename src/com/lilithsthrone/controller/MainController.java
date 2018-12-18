@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import com.lilithsthrone.rendering.ImageCache;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
@@ -85,6 +84,7 @@ import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -92,6 +92,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.event.EventHandler;
@@ -429,6 +430,8 @@ public class MainController implements Initializable {
 //						 }
 						
 						 if(event.getCode()==KeyCode.END){
+							 
+							 Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
 							 
 //							 Main.game.getPlayer().setScar(InventorySlot.EYES, new Scar(ScarType.CLAW_MARKS, true));
 //							 
@@ -2103,12 +2106,12 @@ public class MainController implements Initializable {
 			}
 		}
 		if (lastKeysEqual(KeyCode.N, KeyCode.O, KeyCode.X, KeyCode.X, KeyCode.X)) {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_GENERIC_SHOP && !Main.game.getTestNPC().isSlave()) {
-				Main.game.setActiveNPC(Main.game.getTestNPC());
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_GENERIC_SHOP && !Main.game.getNpc(TestNPC.class).isSlave()) {
+				Main.game.setActiveNPC(Main.game.getNpc(TestNPC.class));
 				Main.game.setContent(new Response("", "", TestNPC.TEST_DIALOGUE) {
 					@Override
 					public void effects() {
-						Main.game.getTestNPC().setLocation(WorldType.SHOPPING_ARCADE, Main.game.getPlayer().getLocation(), true);
+						Main.game.getNpc(TestNPC.class).setLocation(WorldType.SHOPPING_ARCADE, Main.game.getPlayer().getLocation(), true);
 					}
 				});
 			}

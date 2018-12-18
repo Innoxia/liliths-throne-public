@@ -48,7 +48,7 @@ public class RalphsSnacks {
 						// if 3 days have passed, reset discount:
 						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
 							Main.game.getDialogueFlags().ralphDiscount=0;
-							Main.game.getRalph().setSellModifier(1.5f);
+							Main.game.getNpc(Ralph.class).setSellModifier(1.5f);
 						}
 					}
 				};
@@ -106,7 +106,7 @@ public class RalphsSnacks {
 							+ " The prices aren't listed, and instead, a little label reads 'Please ask Ralph for assistance with these items'."
 						+ "</p>");
 					
-				if(((Ralph)Main.game.getRalph()).isDiscountActive()){
+				if(((Ralph)Main.game.getNpc(Ralph.class)).isDiscountActive()){
 					UtilText.nodeContentSB.append("<p>"
 									+ "<b>Ralph is giving you a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+Main.game.getDialogueFlags().ralphDiscount+"%</b> <b>discount!</b>"
 								+ "</p>");
@@ -120,7 +120,7 @@ public class RalphsSnacks {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special consumables on display.", Main.game.getRalph()){
+				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special consumables on display.", Main.game.getNpc(Ralph.class)){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
@@ -231,7 +231,7 @@ public class RalphsSnacks {
 						null, CorruptionLevel.TWO_HORNY, null, null, null,
 						true, true,
 						new SexManagerRalphDiscount(
-								Util.newHashMapOfValues(new Value<>(Main.game.getRalph(), SexPositionSlot.KNEELING_RECEIVING_ORAL_RALPH)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexPositionSlot.KNEELING_RECEIVING_ORAL_RALPH)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_RALPH))),
 						null,
 						null, Ralph.AFTER_SEX, "<p>"
@@ -240,9 +240,9 @@ public class RalphsSnacks {
 							+ " As he walks, he starts instructing you on what's about to happen."
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.parseSpeech("You're going to kneel under my desk over here, and I don't expect to have to do any of the work, understood?", Main.game.getRalph())
+							+ UtilText.parseSpeech("You're going to kneel under my desk over here, and I don't expect to have to do any of the work, understood?", Main.game.getNpc(Ralph.class))
 							+ " he asks, and as you answer in the affirmative, he continues, "
-							+ UtilText.parseSpeech("This is a respectable shop, so if anyone comes in, you're to keep quiet! For each customer that hears you, I'm going to knock five percent off our deal.", Main.game.getRalph())
+							+ UtilText.parseSpeech("This is a respectable shop, so if anyone comes in, you're to keep quiet! For each customer that hears you, I'm going to knock five percent off our deal.", Main.game.getNpc(Ralph.class))
 						+ "</p>"
 						+ "<p>"
 							+ "By this time, Ralph's led you behind the shop's front desk, and you see that there's a hollow space beneath the counter-top, large enough for you to kneel inside quite comfortably."
@@ -251,7 +251,7 @@ public class RalphsSnacks {
 							+ " Shuffling back, you occupy the space under his desk, and Ralph steps forwards, bringing the massive bulge in his trousers right up to your face."
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.parseSpeech("Make sure you give my balls some attention as well,", Main.game.getRalph()) + " you hear him command."
+							+ UtilText.parseSpeech("Make sure you give my balls some attention as well,", Main.game.getNpc(Ralph.class)) + " you hear him command."
 						+ "</p>"
 						+ "<p>"
 							+ "Just as you're about to answer him, you hear the little bell over the shop's front door ring out, announcing the arrival of a customer."
@@ -270,8 +270,8 @@ public class RalphsSnacks {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getRalph().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
-						Main.game.getRalph().displaceClothingForAccess(CoverableArea.PENIS);
+						Main.game.getNpc(Ralph.class).setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
+						Main.game.getNpc(Ralph.class).displaceClothingForAccess(CoverableArea.PENIS);
 					}
 				};
 				
@@ -317,14 +317,14 @@ public class RalphsSnacks {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special transformative consumables on display.", Main.game.getRalph()){
+				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special transformative consumables on display.", Main.game.getNpc(Ralph.class)){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 						// if 3 days have passed, reset discount:
 						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
 							Main.game.getDialogueFlags().ralphDiscount=0;
-							Main.game.getRalph().setSellModifier(1.5f);
+							Main.game.getNpc(Ralph.class).setSellModifier(1.5f);
 						}
 					}
 				};
@@ -337,7 +337,7 @@ public class RalphsSnacks {
 						// if 3 days have passed, reset discount:
 						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
 							Main.game.getDialogueFlags().ralphDiscount=0;
-							Main.game.getRalph().setSellModifier(1.5f);
+							Main.game.getNpc(Ralph.class).setSellModifier(1.5f);
 						}
 					}
 				};
@@ -350,7 +350,7 @@ public class RalphsSnacks {
 						// if 3 days have passed, reset discount:
 						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
 							Main.game.getDialogueFlags().ralphDiscount=0;
-							Main.game.getRalph().setSellModifier(1.5f);
+							Main.game.getNpc(Ralph.class).setSellModifier(1.5f);
 						}
 					}
 				};

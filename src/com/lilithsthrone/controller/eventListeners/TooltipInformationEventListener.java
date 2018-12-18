@@ -5,13 +5,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.rendering.CachedImage;
-import com.lilithsthrone.rendering.ImageCache;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
 import com.lilithsthrone.controller.TooltipUpdateThread;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -47,6 +45,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.CachedImage;
+import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -725,8 +725,8 @@ public class TooltipInformationEventListener implements EventListener {
 							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
 						}
 					}
-					tooltipSB.append(getBodyPartDiv("Ass", owner.getAssRace(), owner.getAssType().getBodyCoveringType(owner)));
-					tooltipSB.append(getBodyPartDiv(owner.hasBreasts()?"Breasts":"Chest", owner.getBreastRace(), owner.getBreastType().getBodyCoveringType(owner)));
+					tooltipSB.append(getBodyPartDiv("Anus", owner.getAssRace(), owner.getAssType().getAnusType().getBodyCoveringType(owner)));
+					tooltipSB.append(getBodyPartDiv("Nipples", owner.getBreastRace(), owner.getBreastType().getNippleType().getBodyCoveringType(owner)));
 
 					if (displayImage) {
 						boolean revealed = owner.isImageRevealed();

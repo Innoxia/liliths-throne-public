@@ -54,6 +54,10 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		this.wetness = Math.max(0, Math.min(wetness, Wetness.SEVEN_DROOLING.getValue()));
 		int wetnessChange = this.wetness - oldWetness;
 		
+		if(owner==null) {
+			return null;
+		}
+		
 		if (!owner.hasVagina()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You lack a vagina, so nothing happens...)]</p>";
@@ -313,6 +317,10 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		
 		orificeModifiers.add(modifier);
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
 				if(owner.isPlayer()) {
@@ -384,6 +392,10 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		
 		orificeModifiers.remove(modifier);
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
 				if(owner.isPlayer()) {
@@ -450,7 +462,9 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		return orificeModifiers;
 	}
 	
-
+	public void clearOrificeModifiers() {
+		orificeModifiers.clear();
+	}
 
 	public boolean isSquirter() {
 		return squirter;

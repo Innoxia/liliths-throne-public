@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -66,6 +67,16 @@ public class Eye implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, EyeType type) {
+		if(!Main.game.isStarted() || owner==null) {
+			this.type = type;
+			irisShape = type.getIrisShape();
+			pupilShape = type.getPupilShape();
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
+		
 		if (type == getType()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.eyes] of [pc.a_eyeRace], so nothing happens...)]</p>";

@@ -2,6 +2,8 @@ package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.dominion.Arthur;
+import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -118,7 +120,7 @@ public class ZaranixHomeFirstFloor {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKellySubdued)) {
 				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SUBDUED");
 			
-			} else if(Main.game.getKelly().getFoughtPlayerCount()==0) {
+			} else if(Main.game.getNpc(ZaranixMaidKelly.class).getFoughtPlayerCount()==0) {
 				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_ENCOUNTER");
 			
 			} else {
@@ -134,7 +136,7 @@ public class ZaranixHomeFirstFloor {
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKelly.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
 							null, ZaranixMaidKelly.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX"));
 					
@@ -144,7 +146,7 @@ public class ZaranixHomeFirstFloor {
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKelly.class), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
 							null, ZaranixMaidKelly.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX_SUBMIT"));
@@ -156,7 +158,7 @@ public class ZaranixHomeFirstFloor {
 						@Override
 						public void effects() {
 							Main.game.saveDialogueNode();
-							BodyChanging.setTarget(Main.game.getKelly());
+							BodyChanging.setTarget(Main.game.getNpc(ZaranixMaidKelly.class));
 						}
 					};
 					
@@ -165,10 +167,10 @@ public class ZaranixHomeFirstFloor {
 				}
 			} else {
 				if(index==1) {
-					return new ResponseCombat("Fight", "Defend yourself against the furious maid!", Main.game.getKelly()) {
+					return new ResponseCombat("Fight", "Defend yourself against the furious maid!", Main.game.getNpc(ZaranixMaidKelly.class)) {
 						@Override
 						public void effects() {
-							Main.game.getKelly().setPlayerKnowsName(true);
+							Main.game.getNpc(ZaranixMaidKelly.class).setPlayerKnowsName(true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixMaidsHostile, true);
 						}
 					};
@@ -246,7 +248,7 @@ public class ZaranixHomeFirstFloor {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getZaranix().getFoughtPlayerCount()==0) {
+			if(Main.game.getNpc(Zaranix.class).getFoughtPlayerCount()==0) {
 				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "ZARANIX_ROOM_ENTRY");
 				
 			} else {
@@ -256,7 +258,7 @@ public class ZaranixHomeFirstFloor {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getZaranix().getFoughtPlayerCount()==0) {
+			if(Main.game.getNpc(Zaranix.class).getFoughtPlayerCount()==0) {
 				if(index==1) {
 					return new Response("Demand Arthur", "Refuse to tell Zaranix why you're here, and instead simply demand that he hand over Arthur to you.", ZARANIX_ROOM_NO_EXPLANATION) {
 						@Override
@@ -270,7 +272,7 @@ public class ZaranixHomeFirstFloor {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE));
-							Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+							Main.game.getNpc(Arthur.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
 					
@@ -279,7 +281,7 @@ public class ZaranixHomeFirstFloor {
 				}
 			} else {
 				if(index==1) {
-					return new ResponseCombat("Fight", "Defend yourself against Zaranix's attack!", Main.game.getZaranix());
+					return new ResponseCombat("Fight", "Defend yourself against Zaranix's attack!", Main.game.getNpc(Zaranix.class));
 				} else {
 					return null;
 				}
@@ -303,7 +305,7 @@ public class ZaranixHomeFirstFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseCombat("Fight", "Defend yourself against Zaranix's attack!", Main.game.getZaranix());
+				return new ResponseCombat("Fight", "Defend yourself against Zaranix's attack!", Main.game.getNpc(Zaranix.class));
 			} else {
 				return null;
 			}
@@ -368,7 +370,7 @@ public class ZaranixHomeFirstFloor {
 				return new ResponseSex("Suck cock", "Show Zaranix how good you are at sucking cock.",
 						true, true,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Zaranix.class), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						null,
 						null, AFTER_SEX_THANKING_ZARANIX, "<p>"

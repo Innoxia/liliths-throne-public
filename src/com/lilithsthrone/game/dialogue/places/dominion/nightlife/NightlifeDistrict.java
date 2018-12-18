@@ -14,6 +14,9 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionClubNPC;
+import com.lilithsthrone.game.character.npc.dominion.Jules;
+import com.lilithsthrone.game.character.npc.dominion.Kalahari;
+import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
@@ -468,7 +471,7 @@ public class NightlifeDistrict {
 						return new ResponseSex("Suck cock", "Suck Jules's cock in front of everyone in order to skip to the front of the queue.",
 								true, false,
 								new SMJulesCockSucking(
-										Util.newHashMapOfValues(new Value<>(Main.game.getJules(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 								null,
 								null, AFTER_JULES_BLOWJOB, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_START_BLOWJOB")) {
@@ -1623,7 +1626,7 @@ public class NightlifeDistrict {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI", getClubbersPresent()));
-							Main.game.getKalahari().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							Main.game.getNpc(Kalahari.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 						}
 					};
 				} else {
@@ -1866,7 +1869,7 @@ public class NightlifeDistrict {
 						return new Response("Talk", "Lean forwards and talk to Kalahari for a little while.", WATERING_HOLE_BAR_KALAHARI_TALK) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 5));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 5));
 								Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_BAR_KALAHARI_TALK.getMinutesPassed()));
 							}
 						};
@@ -1879,9 +1882,9 @@ public class NightlifeDistrict {
 						return new Response("Flirt", "Start flirting with Kalahari.", WATERING_HOLE_BAR_KALAHARI_FLIRT) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 10));
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
 								Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_BAR_KALAHARI_FLIRT.getMinutesPassed()));
 							}
 						};
@@ -1896,7 +1899,7 @@ public class NightlifeDistrict {
 					} else if(Main.game.getMinutesPassed() - Main.game.getDialogueFlags().kalahariBreakStartTime < 60 * 12) {
 							return new Response("Break", "Kalahari has already used up her break tonight!", null);
 							
-					} else if(!likesKiss(Main.game.getKalahari())) {
+					} else if(!likesKiss(Main.game.getNpc(Kalahari.class))) {
 						return new Response("Break", "You don't know Kalahari well enough to ask her to spend her break with you. Try talking and flirting with her a little first...", null);
 						
 					} else {
@@ -1904,11 +1907,11 @@ public class NightlifeDistrict {
 							return new Response("Break", "Ask Kalahari if she's got a break coming up, and if she'd like to spend it with you.", WATERING_HOLE_BAR_KALAHARI_BREAK_KRUGER_INTRO) {
 								@Override
 								public void effects() {
-									Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
+									Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 									Main.game.getPlayer().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.krugerIntroduced, true);
 									Main.game.getDialogueFlags().kalahariBreakStartTime = Main.game.getMinutesPassed();
-									Main.game.getKruger().setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue()-7);
+									Main.game.getNpc(Kruger.class).setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue()-7);
 								}
 							};
 							
@@ -1916,7 +1919,7 @@ public class NightlifeDistrict {
 							return new Response("Break", "Ask Kalahari if she's got a break coming up, and if she'd like to relax in the VIP area with you again.", WATERING_HOLE_BAR_KALAHARI_BREAK) {
 								@Override
 								public void effects() {
-									Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
+									Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 									Main.game.getPlayer().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 									Main.game.getDialogueFlags().kalahariBreakStartTime = Main.game.getMinutesPassed();
 								}
@@ -2476,7 +2479,7 @@ public class NightlifeDistrict {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_FLIRT")
 					+ "<p>"
-						+ Main.game.getKalahari().getBreastDescription()
+						+ Main.game.getNpc(Kalahari.class).getBreastDescription()
 					+ "</p>"
 					+ UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_FLIRT_END");
 		}
@@ -2517,7 +2520,7 @@ public class NightlifeDistrict {
 					return new Response("Break over", "Kalahari has run out of break time. Let her get back to work.", WATERING_HOLE_KALAHARI_BREAK_OUT_OF_TIME) {
 						@Override
 						public void effects() {
-							Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
+							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
 						}
 					};
@@ -2532,7 +2535,7 @@ public class NightlifeDistrict {
 						return new Response("Talk", "Talk to Kalahari in order to get to know her better.", WATERING_HOLE_KALAHARI_BREAK_TALK) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 5));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 5));
 								Main.game.getTextEndStringBuilder().append(getKalahariStatus(false, WATERING_HOLE_KALAHARI_BREAK_TALK.getMinutesPassed()));
 							}
 						};
@@ -2546,7 +2549,7 @@ public class NightlifeDistrict {
 						return new Response("Flirt", "Start flirting with Kalahari.", WATERING_HOLE_KALAHARI_BREAK_FLIRT) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 10));
 								Main.game.getTextEndStringBuilder().append(getKalahariStatus(false, WATERING_HOLE_KALAHARI_BREAK_FLIRT.getMinutesPassed()));
 							}
 						};
@@ -2556,14 +2559,14 @@ public class NightlifeDistrict {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kalahariWantsSex)) {
 						return new Response("Kiss", "Kalahari is only interested in having sex right now!", null);
 						
-					} else if(!likesKiss(Main.game.getKalahari())) {
+					} else if(!likesKiss(Main.game.getNpc(Kalahari.class))) {
 						return new Response("Kiss", "You can tell that Kalahari doesn't want a kiss at the moment. It would be best to get to know her a little better first.", null);
 						
 					} else {
 						return new Response("Kiss", "Lean forwards and kiss Kalahari.", WATERING_HOLE_KALAHARI_BREAK_KISS) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 15));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 15));
 								Main.game.getTextEndStringBuilder().append(getKalahariStatus(false, WATERING_HOLE_KALAHARI_BREAK_KISS.getMinutesPassed()));
 							}
 						};
@@ -2573,21 +2576,21 @@ public class NightlifeDistrict {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kalahariWantsSex)) {
 						return new Response("Feel up", "Kalahari is only interested in having sex right now!", null);
 						
-					} else if(!likesGroping(Main.game.getKalahari())) {
+					} else if(!likesGroping(Main.game.getNpc(Kalahari.class))) {
 						return new Response("Feel up", "You can tell that Kalahari would react badly to any dominant move to feel her up. It would be best to spend some time flirting with her first.", null);
 						
 					} else {
 						return new Response("Feel up", "Press yourself against Kalahari and start feeling her up.", WATERING_HOLE_KALAHARI_BREAK_GROPE) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 20));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 20));
 								Main.game.getTextEndStringBuilder().append(getKalahariStatus(false, WATERING_HOLE_KALAHARI_BREAK_GROPE.getMinutesPassed()));
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer(), true);
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer(), true);
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, true);
-								Main.game.getKalahari().displaceClothingForAccess(CoverableArea.BREASTS);
-								Main.game.getKalahari().displaceClothingForAccess(CoverableArea.VAGINA);
+								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.BREASTS);
+								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.VAGINA);
 							}
 						};
 					}
@@ -2600,7 +2603,7 @@ public class NightlifeDistrict {
 								true, true,
 								new SMChair(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getKalahari(), SexPositionSlot.CHAIR_TOP))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexPositionSlot.CHAIR_TOP))),
 								null,
 								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"));
 					}
@@ -2612,7 +2615,7 @@ public class NightlifeDistrict {
 						return new ResponseSex("Sex (sub)", "Slide into Kalahari's lap and start having submissive sex with her.",
 								true, true,
 								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getKalahari(), SexPositionSlot.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))),
 								null,
 								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
@@ -2628,10 +2631,10 @@ public class NightlifeDistrict {
 //						return new ResponseSex("Kruger threesome", "Have a threesome with Kruger as the dom, and you and Kalahari as the subs.",
 //								true, true,
 //								new SMKrugerThreesome(
-//										Util.newHashMapOfValues(new Value<>(Main.game.getKruger(), SexPositionSlot.DOGGY_BEHIND)),
+//										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexPositionSlot.DOGGY_BEHIND)),
 //										Util.newHashMapOfValues(
 //												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-//												new Value<>(Main.game.getKalahari(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+//												new Value<>(Main.game.getNpc(Kalahari.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
 //								WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX,
 //								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
 //					}
@@ -2641,7 +2644,7 @@ public class NightlifeDistrict {
 					return new Response("Finish", "Let Kalahari get back to work.", WATERING_HOLE_KALAHARI_BREAK_END) {
 						@Override
 						public void effects() {
-							Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
+							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
 						}
 					};
@@ -2742,10 +2745,10 @@ public class NightlifeDistrict {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_KALAHARI_BREAK_GROPE")
 					+ "<p>"
-						+ Main.game.getKalahari().getBreastDescription()
+						+ Main.game.getNpc(Kalahari.class).getBreastDescription()
 					+ "</p>"
 					+ UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_KALAHARI_BREAK_GROPE_AFTER_BREAST_REVEAL")
-						+ Main.game.getKalahari().getVaginaDescription()
+						+ Main.game.getNpc(Kalahari.class).getVaginaDescription()
 					+ "</p>"
 					+ UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_KALAHARI_BREAK_GROPE_AFTER_PUSSY_REVEAL");
 		}
@@ -2761,7 +2764,7 @@ public class NightlifeDistrict {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getKalahari())>0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Kalahari.class))>0) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX_NO_ORGASM");
@@ -2858,7 +2861,7 @@ public class NightlifeDistrict {
 					if(hasPartner()) {
 						return new Response("Kruger", UtilText.parse(getClubbersPresent(), "You can't talk to Kruger while [npc.name] is with you."), null);
 						
-					} else if(Main.game.getKruger().getLastTimeHadSex() >= Main.game.getMinutesPassed()-(60*12)) {
+					} else if(Main.game.getNpc(Kruger.class).getLastTimeHadSex() >= Main.game.getMinutesPassed()-(60*12)) {
 						return new Response("Kruger", "You've already had sex with Kruger tonight."
 								+ " Although you wouldn't mind having some more fun with him, you can tell that his patience would soon wear thin if you keep going back to him."
 								+ " You can always come back and ride his cock tomorrow night.", null);
@@ -2869,7 +2872,7 @@ public class NightlifeDistrict {
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_VIP_KRUGER"));
 								Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER.getMinutesPassed()));
-								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getKruger(), true);
+								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Kruger.class), true);
 							}
 						};
 					}
@@ -2904,7 +2907,7 @@ public class NightlifeDistrict {
 				return new Response("Talk", "Talk to Kruger for a little while.", WATERING_HOLE_VIP_KRUGER_TALK) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getKruger().incrementAffection(Main.game.getPlayer(), 5));
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kruger.class).incrementAffection(Main.game.getPlayer(), 5));
 						Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER_TALK.getMinutesPassed()));
 					}
 				};
@@ -2914,7 +2917,7 @@ public class NightlifeDistrict {
 					return new Response("Flirt", "Flirt with Kruger.", WATERING_HOLE_VIP_KRUGER_FLIRT) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getKruger().incrementAffection(Main.game.getPlayer(), 10));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kruger.class).incrementAffection(Main.game.getPlayer(), 10));
 							Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER_FLIRT.getMinutesPassed()));
 						}
 					};
@@ -2926,14 +2929,14 @@ public class NightlifeDistrict {
 				if(!Main.game.getPlayer().isFeminine()) {
 					return new Response("Kissed", "Kruger is gynephilic, so isn't interested in doing anything sexual with you.", null);
 					
-				} else if(!likesKiss(Main.game.getKruger())) {
+				} else if(!likesKiss(Main.game.getNpc(Kruger.class))) {
 					return new Response("Kissed", "Kruger doesn't seem to be interested in kissing you.", null);
 					
 				} else {
 					return new Response("Kissed", "You can tell that Kruger wants to kiss you. Lean forwards and let him.", WATERING_HOLE_VIP_KRUGER_KISSED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getKruger().incrementAffection(Main.game.getPlayer(), 15));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kruger.class).incrementAffection(Main.game.getPlayer(), 15));
 							Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER_KISSED.getMinutesPassed()));
 						}
 					};
@@ -2943,14 +2946,14 @@ public class NightlifeDistrict {
 				if(!Main.game.getPlayer().isFeminine()) {
 					return new Response("Felt up", "Kruger is gynephilic, so isn't interested in doing anything sexual with you.", null);
 					
-				} else if(!likesGroping(Main.game.getKruger())) {
+				} else if(!likesGroping(Main.game.getNpc(Kruger.class))) {
 					return new Response("Felt up", "Kruger doesn't seem to be interested in feeling you up at the moment.", null);
 					
 				} else {
 					return new Response("Felt up", "You can tell that Kruger wants to have some physical contact with you. Shuffle up beside him and let him feel you up.", WATERING_HOLE_VIP_KRUGER_FELT_UP) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getKruger().incrementAffection(Main.game.getPlayer(), 20));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kruger.class).incrementAffection(Main.game.getPlayer(), 20));
 							Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER_FELT_UP.getMinutesPassed()));
 						}
 					};
@@ -2961,14 +2964,14 @@ public class NightlifeDistrict {
 				if(!Main.game.getPlayer().isFeminine()) {
 					return new Response("Sex (sub)", "Kruger is gynephilic, so isn't interested in doing anything sexual with you.", null);
 					
-				} else if(!likesSex(Main.game.getKruger())) {
+				} else if(!likesSex(Main.game.getNpc(Kruger.class))) {
 					return new Response("Sex (sub)", "Kruger doesn't seem to be interested in having sex with you at the moment.", null);
 					
 				} else {
 					return new ResponseSex("Sex (sub)", "Slide into Kruger's lap and start having submissive sex with [npc.herHim].",
 							true, true,
 							new SMKrugerChair(
-									Util.newHashMapOfValues(new Value<>(Main.game.getKruger(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexPositionSlot.CHAIR_ORAL_SITTING)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 							null,
 							null, WATERING_HOLE_VIP_KRUGER_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_VIP_KRUGER_SEX_AS_SUB"));

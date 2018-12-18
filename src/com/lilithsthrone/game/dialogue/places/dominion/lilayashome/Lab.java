@@ -14,9 +14,12 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -51,7 +54,7 @@ public class Lab {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getLilaya().hasStatusEffect(StatusEffect.PREGNANT_0)) {
+			if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
 				return "<p>"
 							+ "As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut."
 							+ " A little piece of paper has been stuck on it, and you see that Lilaya has left you a handwritten note:"
@@ -78,7 +81,7 @@ public class Lab {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getLilaya().hasStatusEffect(StatusEffect.PREGNANT_0)) {
+				if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
 					return new Response("Enter", "The door to Lilaya's laboratory is firmly shut. You'd better come back later.", null);
 				} else {
 					return new Response("Enter", "Step through the door and enter Lilaya's laboratory", LAB_ENTRY) {
@@ -87,8 +90,8 @@ public class Lab {
 							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)
 									&& Main.game.getPlayer().getQuest(QuestLine.MAIN) != Quest.MAIN_1_I_ARTHURS_TALE
 									&& !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)
-									&& Main.game.getLilaya().getAffection(Main.game.getPlayer())>0) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getLilaya().incrementAffection(Main.game.getPlayer(), -10));
+									&& Main.game.getNpc(Lilaya.class).getAffection(Main.game.getPlayer())>0) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), -10));
 							}
 						}
 					};
@@ -127,7 +130,7 @@ public class Lab {
 			
 			if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) { //TODO check
-					if(Main.game.getLilaya().isVisiblyPregnant()) {
+					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 						UtilText.nodeContentSB.append(// pregnant
 								"<p>"
 									+ "As you approach the door to Lilaya's lab, you hear Lilaya's high-pitched shouting getting louder and louder,"
@@ -222,7 +225,7 @@ public class Lab {
 			} else {
 			
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
-					if(Main.game.getLilaya().isVisiblyPregnant()) {
+					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life."
@@ -378,7 +381,7 @@ public class Lab {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getLilaya().hasStatusEffect(StatusEffect.PREGNANT_0)) {
+			if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
 				return null;
 				
 			} else if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
@@ -397,14 +400,14 @@ public class Lab {
 				
 			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
 				if (index == 1) {
-					if(Main.game.getLilaya().isVisiblyPregnant()) {
+					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 						return new ResponseSex("\"Tests\"",
 								"Let Lilaya run her \"tests\" on you.",
 								Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
 								new SMChair(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
 								null,
 								null, Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
@@ -419,7 +422,7 @@ public class Lab {
 							public void effects() {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
 								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
-								Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
+								Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
 							}
 						};
 						
@@ -432,7 +435,7 @@ public class Lab {
 								true, true,
 								new SMChair(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
 								null,
 								null, Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
@@ -446,7 +449,7 @@ public class Lab {
 							public void effects() {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
 								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
-								Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
+								Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
 							}
 						};
 					}
@@ -593,15 +596,15 @@ public class Lab {
 						public void effects() {
 							Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
-							Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
-							Main.game.getLilaya().resetInventory(false);
+							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
+							Main.game.getNpc(Lilaya.class).resetInventory(false);
 							
-							Main.game.getLilaya().equipClothingFromNowhere(
-									AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_PINK, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, false), true, Main.game.getLilaya());
-							Main.game.getLilaya().equipClothingFromNowhere(
-									AbstractClothingType.generateClothing(ClothingType.KIMONO_DRESS, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, Colour.CLOTHING_PINK, false), true, Main.game.getLilaya());
-							Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_GETA, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK, null, false), true, Main.game.getLilaya());
-							Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getLilaya());
+							Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(
+									AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_PINK, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, false), true, Main.game.getNpc(Lilaya.class));
+							Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(
+									AbstractClothingType.generateClothing(ClothingType.KIMONO_DRESS, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, Colour.CLOTHING_PINK, false), true, Main.game.getNpc(Lilaya.class));
+							Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_GETA, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK, null, false), true, Main.game.getNpc(Lilaya.class));
+							Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Lilaya.class));
 						}
 					});
 				}
@@ -629,7 +632,7 @@ public class Lab {
 						};
 						
 					} else {
-						if(Main.game.getArthur().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LAB) {
+						if(Main.game.getNpc(Arthur.class).getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LAB) {
 							return new Response("\"Tests\"", "Lilaya can't run any \"tests\" on you while Arthur is still present in her lab. Find him a suitable room first.", null);
 							
 						} else if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hadSexWithLilaya)) {
@@ -889,7 +892,7 @@ public class Lab {
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, Lilaya.AUNT_END_SEX_GEISHA, "<p>"
 							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace."
@@ -910,7 +913,7 @@ public class Lab {
 						Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 								null, Lilaya.AUNT_END_SEX_GEISHA, "<p>"
@@ -933,12 +936,12 @@ public class Lab {
 						RoomPlayer.ROOM){
 					@Override public void effects() {
 
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
-						Main.game.getLilaya().resetInventory(false);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+						Main.game.getNpc(Lilaya.class).resetInventory(false);
 						
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
 						
-						Main.game.getLilaya().equipClothing(true, true, true, true);
+						Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
 						
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
@@ -1870,7 +1873,7 @@ public class Lab {
 						true, true,
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
 						null,
 						null, Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
@@ -1887,7 +1890,7 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
 					}
 				};
 
@@ -1925,9 +1928,9 @@ public class Lab {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("Sorry, but no. That's what I needed to talk to you about,", Main.game.getLilaya())
+					+ UtilText.parseSpeech("Sorry, but no. That's what I needed to talk to you about,", Main.game.getNpc(Lilaya.class))
 					+ " Lilaya answers. "
-					+ UtilText.parseSpeech("The truth is, even though I'm considered one of the top experts in all things related to the arcane, I have no idea how you've ended up here.", Main.game.getLilaya())
+					+ UtilText.parseSpeech("The truth is, even though I'm considered one of the top experts in all things related to the arcane, I have no idea how you've ended up here.", Main.game.getNpc(Lilaya.class))
 					+ "</p>"
 
 					+ "<p>"
@@ -1939,17 +1942,17 @@ public class Lab {
 					+ "<p>"
 					+ "Seeing your reaction, Lilaya sighs before offering you a sliver of hope, "
 					+ UtilText.parseSpeech("Well... I suppose there is <i>one</i> way we could find out more... but it means I'd have to talk to <i>him</i> again."
-							+ " There's no way I'm going over there to ask for his help though!", Main.game.getLilaya())
+							+ " There's no way I'm going over there to ask for his help though!", Main.game.getNpc(Lilaya.class))
 					+ "</p>"
 
 					+ "<p>"
 					+ "You look up to see Lilaya's face turned up into a scowl as she continues, "
-					+ UtilText.parseSpeech("If you ever want to find a way to go back home, you're going to have to get the help of Arthur... <i>that bastard!</i>", Main.game.getLilaya())
+					+ UtilText.parseSpeech("If you ever want to find a way to go back home, you're going to have to get the help of Arthur... <i>that bastard!</i>", Main.game.getNpc(Lilaya.class))
 					+ " she spits, before realising how angry she's become. Lilaya closes her eyes for a moment and takes a deep breath, calming herself down before continuing, "
 					+ UtilText.parseSpeech("He and I used to work together, and with the exception of Lilith herself, he probably understands more about the arcane than anyone currently living."
 							+ " His apartment's over in Demon Home, but despite the name, people of all races live there. He's actually just a human, which makes his knowledge of the arcane all the more impressive."
 							+ " Here's his address... So if you want his help, you're going to have to convince him to stop being such a <i>selfish bastard!</i> He'll need access to my research,"
-							+ " and the only way he's going to get it is if he comes crawling to my front door, begging for my forgiveness.", Main.game.getLilaya())
+							+ " and the only way he's going to get it is if he comes crawling to my front door, begging for my forgiveness.", Main.game.getNpc(Lilaya.class))
 					+ "</p>"
 
 					+ "<p>"
@@ -1960,10 +1963,10 @@ public class Lab {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("Good, good... Well, anyway, umm, I guess we're done here,", Main.game.getLilaya())
+					+ UtilText.parseSpeech("Good, good... Well, anyway, umm, I guess we're done here,", Main.game.getNpc(Lilaya.class))
 					+ " Lilaya says, but as you start to stand up, she nervously picks up the little wand-like"
 					+ " instrument she used to test you earlier, and continues, "
-					+ UtilText.parseSpeech("W-Wait, erm, I mean, t-there's some more tests I could... try on you...", Main.game.getLilaya())
+					+ UtilText.parseSpeech("W-Wait, erm, I mean, t-there's some more tests I could... try on you...", Main.game.getNpc(Lilaya.class))
 					+ "</p>"
 
 					+ "<p>"
@@ -2016,7 +2019,7 @@ public class Lab {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("Excellent! Now, let me just start up here...", Main.game.getLilaya())
+					+ UtilText.parseSpeech("Excellent! Now, let me just start up here...", Main.game.getNpc(Lilaya.class))
 					+ " she exclaims, bouncing over to you, wand in hand."
 					+ "</p>"
 
@@ -2027,7 +2030,7 @@ public class Lab {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("I hope you aren't doing anything naughty...", Main.game.getLilaya())
+					+ UtilText.parseSpeech("I hope you aren't doing anything naughty...", Main.game.getNpc(Lilaya.class))
 					+ " Lilaya whispers in your ear, before standing back up and moving round behind you."
 					+ "</p>"
 
@@ -2084,9 +2087,9 @@ public class Lab {
 					+ "</p>"
 
 					+ "<p>"
-					+ (Main.game.getPlayer().isFeminine() ? UtilText.parseSpeech("Good girl...", Main.game.getLilaya()) : UtilText.parseSpeech("Good boy...", Main.game.getLilaya()))
+					+ (Main.game.getPlayer().isFeminine() ? UtilText.parseSpeech("Good girl...", Main.game.getNpc(Lilaya.class)) : UtilText.parseSpeech("Good boy...", Main.game.getNpc(Lilaya.class)))
 					+ " she whispers in your ear. "
-					+ UtilText.parseSpeech("And just to think, I was worried that you wouldn't like this...", Main.game.getLilaya())
+					+ UtilText.parseSpeech("And just to think, I was worried that you wouldn't like this...", Main.game.getNpc(Lilaya.class))
 					+ "</p>"
 
 					+ "<p>"
@@ -2102,7 +2105,7 @@ public class Lab {
 
 					+ "<p>"
 					+ "At that moment, Lilaya leans in to whisper one last thing in your ear, "
-					+ UtilText.parseSpeech("I don't suppose you've ever seen a demon's pussy before, have you?", Main.game.getLilaya())
+					+ UtilText.parseSpeech("I don't suppose you've ever seen a demon's pussy before, have you?", Main.game.getNpc(Lilaya.class))
 					+ "</p>";
 		}
 
@@ -2115,7 +2118,7 @@ public class Lab {
 						true, true,
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
 						null,
 						null, Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
@@ -2132,7 +2135,7 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
 					}
 				};
 
@@ -2366,7 +2369,7 @@ public class Lab {
 		@Override
 		public String getContent() {
 			PlayerCharacter player = Main.game.getPlayer();
-			GameCharacter aunt = Main.game.getLilaya();
+			GameCharacter aunt = Main.game.getNpc(Lilaya.class);
 			
 			UtilText.nodeContentSB.setLength(0);
 			
@@ -2697,7 +2700,7 @@ public class Lab {
 						return new Response("Follow Lilaya", "Allow Lilaya to lead you up to your room.", LILAYA_ASSISTS_EGG_LAYING) {
 							@Override
 							public void effects() {
-								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
+								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 							}
 						};
@@ -2705,7 +2708,7 @@ public class Lab {
 						return new Response("Follow Lilaya", "Allow Lilaya to lead you to the birthing room.", LILAYA_ASSISTS_BIRTHING) {
 							@Override
 							public void effects() {
-								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_BIRTHING_ROOM, false);
+								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_BIRTHING_ROOM, false);
 								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_BIRTHING_ROOM, false);
 							}
 						};
@@ -2794,7 +2797,7 @@ public class Lab {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("Right, here we go!", Main.game.getLilaya())
+					+ UtilText.parseSpeech("Right, here we go!", Main.game.getNpc(Lilaya.class))
 					+ " she says, and you see sparks of purple energy start to run down her arms."
 					+ "</p>");
 
@@ -2829,30 +2832,20 @@ public class Lab {
 				UtilText.nodeContentSB.append("You feel a weight on your chest, and you're vaguely aware of something greedily drinking a bottle of milk as you cradle it in your arms...");
 			}
 			
-			
-			if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-							+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
-							+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-				
-			} else {
-				if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-						+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
-							+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-				}
-			}
-			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-						+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
-						+" bending down over you, who gives you a loving hug and a kiss on your cheek before departing...");
-				
-			} else {
-				if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
+			String offspringId = Util.randomItemFrom(Main.game.getPlayer().getLastLitterBirthed().getOffspring());
+			try {
+				GameCharacter offspring = Main.game.getNPCById(offspringId);
+				if(offspring.isFeminine()) {
 					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
-							+" bending down over you, who gives you a loving hug and a kiss on your cheek before departing...");
+								+offspring.getSubspecies().getSingularFemaleName(offspring)
+								+" bending down over you, who gives you a loving hug and a kiss on your cheek before departing...");
+				} else {
+					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
+								+offspring.getSubspecies().getSingularMaleName(offspring)
+								+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				}
+				
+			} catch(Exception ex) {
 			}
 			
 			UtilText.nodeContentSB.append("</i>"
@@ -2873,7 +2866,7 @@ public class Lab {
 						
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 					}
 				};
@@ -2929,7 +2922,7 @@ public class Lab {
 						
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 					}
 				};
@@ -3082,7 +3075,7 @@ public class Lab {
 				return new Response("Protect the eggs!", "Why is Lilaya sitting so close behind you?! Maybe she wants to take your eggs for herself!", LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS) {
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					}
 				};
 
@@ -3123,36 +3116,27 @@ public class Lab {
 					+ "</p>"
 					+ "<p>"
 						+ "You watch, fascinated, as the first egg starts to crack.");
-			
-			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother()>0) {
-				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
-								+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
-							+" crawling out."
-						+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
+
+			String offspringId = Util.randomItemFrom(Main.game.getPlayer().getLastLitterBirthed().getOffspring());
+			try {
+				GameCharacter offspring = Main.game.getNPCById(offspringId);
+				if(offspring.isFeminine()) {
+					UtilText.nodeContentSB.append(
+							" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
+									+offspring.getSubspecies().getSingularFemaleName(offspring)
+								+" crawling out."
+							+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
+				} else {
+					UtilText.nodeContentSB.append(
+							" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
+									+offspring.getSubspecies().getSingularFemaleName(offspring)
+								+" crawling out."
+							+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
+				}
 				
-			} else if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother()>0) {
-				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
-								+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
-							+" crawling out."
-						+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
-				
-			} else if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather()>0) {
-				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
-								+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
-							+" crawling out."
-						+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
-				
-			} else {
-				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
-								+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
-							+" crawling out."
-						+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
-				
+			} catch(Exception ex) {
 			}
+			
 						
 			UtilText.nodeContentSB.append(" As all the other eggs start cracking in turn, you feel a wave of exhaustion washing over you, and with what little strength you have left, you feebly call out for Lilaya."
 					+ "</p>"
@@ -3203,6 +3187,133 @@ public class Lab {
 	};
 	
 	
+	private static String getOffspringDescriptor(Subspecies subspecies, boolean feminine) {
+		
+		if(!feminine) {
+			switch (subspecies) {
+				case ANGEL:
+					return (" radiant");
+				case CAT_MORPH:
+				case CAT_MORPH_LYNX:
+				case CAT_MORPH_CARACAL:
+				case CAT_MORPH_CHEETAH:
+				case DEMON:
+				case HALF_DEMON:
+				case LILIN:
+				case ELDER_LILIN:
+					return (" good-looking");
+				case CAT_MORPH_LEOPARD_SNOW:
+				case CAT_MORPH_LEOPARD:
+				case CAT_MORPH_TIGER:
+				case CAT_MORPH_LION:
+					return (" strong");
+				case COW_MORPH:
+					return (" strong");
+				case ELEMENTAL_AIR:
+				case ELEMENTAL_ARCANE:
+				case ELEMENTAL_EARTH:
+				case ELEMENTAL_FIRE:
+				case ELEMENTAL_WATER:
+				case IMP:
+				case IMP_ALPHA:
+				case FOX_MORPH:
+				case FOX_MORPH_FENNEC:
+				case FOX_ASCENDANT:
+				case FOX_ASCENDANT_FENNEC:
+					return (" mischievous");
+				case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
+					return (" smiling");
+				case ALLIGATOR_MORPH:
+					return (" tough");
+				case HARPY:
+				case HARPY_RAVEN:
+				case HARPY_BALD_EAGLE:
+					return (" feminine");
+				case HORSE_MORPH:
+				case HORSE_MORPH_ZEBRA:
+					return (" strong");
+				case REINDEER_MORPH:
+					return (" strong");
+				case HUMAN:
+					return (" smiling");
+				case SLIME:
+					return (" bubbly");
+				case SQUIRREL_MORPH:
+					return (" playful");
+				case RABBIT_MORPH:
+				case RABBIT_MORPH_LOP:
+					return (" playful");
+				case WOLF_MORPH:
+					return (" powerful");
+				case BAT_MORPH:
+					return (" smiling");
+				case RAT_MORPH:
+					return (" grinning");
+			}
+		}
+		switch(subspecies) {
+			case ANGEL:
+				return (" radiant");
+			case CAT_MORPH:
+			case CAT_MORPH_LYNX:
+			case CAT_MORPH_CARACAL:
+			case CAT_MORPH_CHEETAH:
+			case DEMON:
+			case HALF_DEMON:
+			case LILIN:
+			case ELDER_LILIN:
+				return (" pretty");
+			case CAT_MORPH_LEOPARD_SNOW:
+			case CAT_MORPH_LEOPARD:
+			case CAT_MORPH_TIGER:
+			case CAT_MORPH_LION:
+				return (" strong");
+			case COW_MORPH:
+				return (" docile");
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
+			case IMP:
+			case IMP_ALPHA:
+			case FOX_MORPH:
+			case FOX_MORPH_FENNEC:
+			case FOX_ASCENDANT:
+			case FOX_ASCENDANT_FENNEC:
+				return (" cheeky");
+			case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
+				return (" playful");
+			case ALLIGATOR_MORPH:
+				return (" tough");
+			case HARPY:
+			case HARPY_RAVEN:
+			case HARPY_BALD_EAGLE:
+				return (" feminine");
+			case HORSE_MORPH:
+			case HORSE_MORPH_ZEBRA:
+				return (" confident");
+			case REINDEER_MORPH:
+				return (" strong");
+			case HUMAN:
+				return (" smiling");
+			case SLIME:
+				return (" bubbly");
+			case SQUIRREL_MORPH:
+				return (" wily");
+			case RABBIT_MORPH:
+			case RABBIT_MORPH_LOP:
+				return (" happy");
+			case WOLF_MORPH:
+				return (" grinning");
+			case BAT_MORPH:
+				return (" smiling");
+			case RAT_MORPH:
+				return (" grinning");
+		}
+		return "";
+	}
+	
 	private static StringBuilder litterSB;
 	public static final DialogueNodeOld LILAYA_ASSISTS_BIRTHING_FINISHED = new DialogueNodeOld("Your room", "", true, true) {
 		private static final long serialVersionUID = 1L;
@@ -3250,351 +3361,18 @@ public class Lab {
 					+ "</p>"
 					+ "<p>"
 					+ "In the picture you see:");
-
-			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				litterSB.append("<br/><b>"
-						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather()))
-						+ "</b>");
-
-				switch (Main.game.getPlayer().getLastLitterBirthed().getFatherRace()) {
-					case ANGEL:
-						litterSB.append(" radiant");
-						break;
-					case CAT_MORPH:
-					case CAT_MORPH_LYNX:
-					case CAT_MORPH_CARACAL:
-					case CAT_MORPH_CHEETAH:
-						litterSB.append(" good-looking");
-						break;
-					case CAT_MORPH_LEOPARD_SNOW:
-					case CAT_MORPH_LEOPARD:
-					case CAT_MORPH_TIGER:
-					case CAT_MORPH_LION:
-						litterSB.append(" strong");
-						break;
-					case COW_MORPH:
-						litterSB.append(" strong");
-						break;
-					case DEMON:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_MORPH:
-					case FOX_MORPH_FENNEC:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-						litterSB.append(" mischievous");
-						break;
-					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
-						litterSB.append(" smiling");
-						break;
-					case ALLIGATOR_MORPH:
-						litterSB.append(" tough");
-						break;
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-						litterSB.append(" feminine");
-						break;
-					case HORSE_MORPH:
-					case HORSE_MORPH_ZEBRA:
-						litterSB.append(" strong");
-						break;
-					case REINDEER_MORPH:
-						litterSB.append(" strong");
-						break;
-					case HUMAN:
-						litterSB.append(" smiling");
-						break;
-					case SLIME:
-						litterSB.append(" bubbly");
-						break;
-					case SQUIRREL_MORPH:
-						litterSB.append(" playful");
-						break;
-					case RABBIT_MORPH:
-					case RABBIT_MORPH_LOP:
-						litterSB.append(" playful");
-						break;
-					case WOLF_MORPH:
-						litterSB.append(" powerful");
-						break;
-					case BAT_MORPH:
-						litterSB.append(" smiling");
-						break;
-					case RAT_MORPH:
-						litterSB.append(" grinning");
-						break;
+			
+			for(String id : Main.game.getPlayer().getLastLitterBirthed().getOffspring()) {
+				try {
+					GameCharacter offspring = Main.game.getNPCById(id);
+					String descriptor = getOffspringDescriptor(offspring.getSubspecies(), offspring.isFeminine());
+					litterSB.append("<br/><b>"
+							+ UtilText.parse(offspring, "A "+(descriptor.isEmpty()?"":descriptor+" ")+"[npc.race]")
+							+ "</b>");
+				} catch(Exception ex) {
 				}
-				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 1
-								? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getPluralMaleName(Main.game.getPlayer())
-									+ "</b>, who have their father's features."
-								: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
-									+ "</b>, who has his father's features."));
 			}
 			
-			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				litterSB.append("<br/><b>"
-						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother()))
-						+ "</b>");
-
-				switch (Main.game.getPlayer().getLastLitterBirthed().getMotherRace()) {
-					case ANGEL:
-						litterSB.append(" radiant");
-						break;
-					case CAT_MORPH:
-					case CAT_MORPH_LYNX:
-					case CAT_MORPH_CARACAL:
-					case CAT_MORPH_CHEETAH:
-						litterSB.append(" good-looking");
-						break;
-					case CAT_MORPH_LEOPARD_SNOW:
-					case CAT_MORPH_LEOPARD:
-					case CAT_MORPH_TIGER:
-					case CAT_MORPH_LION:
-						litterSB.append(" strong");
-						break;
-					case COW_MORPH:
-						litterSB.append(" strong");
-						break;
-					case DEMON:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_MORPH:
-					case FOX_MORPH_FENNEC:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-						litterSB.append(" mischievous");
-						break;
-					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
-						litterSB.append(" smiling");
-						break;
-					case ALLIGATOR_MORPH:
-						litterSB.append(" tough");
-						break;
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-						litterSB.append(" feminine");
-						break;
-					case HORSE_MORPH:
-					case HORSE_MORPH_ZEBRA:
-						litterSB.append(" strong");
-						break;
-					case REINDEER_MORPH:
-						litterSB.append(" strong");
-						break;
-					case HUMAN:
-						litterSB.append(" smiling");
-						break;
-					case SLIME:
-						litterSB.append(" bubbly");
-						break;
-					case SQUIRREL_MORPH:
-						litterSB.append(" playful");
-						break;
-					case RABBIT_MORPH:
-					case RABBIT_MORPH_LOP:
-						litterSB.append(" playful");
-						break;
-					case WOLF_MORPH:
-						litterSB.append(" powerful");
-						break;
-					case BAT_MORPH:
-						litterSB.append(" smiling");
-						break;
-					case RAT_MORPH:
-						litterSB.append(" grinning");
-						break;
-				}
-				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 1
-						? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getPluralMaleName(Main.game.getPlayer())
-								+ "</b>, who have your features."
-							: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
-								+ "</b>, who has your features."));
-			}
-			
-			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				litterSB.append("<br/><b>"
-						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather()))
-						+ "</b>");
-
-				switch (Main.game.getPlayer().getLastLitterBirthed().getFatherRace()) {
-					case ANGEL:
-						litterSB.append(" radiant");
-						break;
-					case CAT_MORPH:
-					case CAT_MORPH_LYNX:
-					case CAT_MORPH_CARACAL:
-					case CAT_MORPH_CHEETAH:
-						litterSB.append(" pretty");
-						break;
-					case CAT_MORPH_LEOPARD_SNOW:
-					case CAT_MORPH_LEOPARD:
-					case CAT_MORPH_TIGER:
-					case CAT_MORPH_LION:
-						litterSB.append(" strong");
-						break;
-					case COW_MORPH:
-						litterSB.append(" docile");
-						break;
-					case DEMON:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_MORPH:
-					case FOX_MORPH_FENNEC:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-						litterSB.append(" cheeky");
-						break;
-					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
-						litterSB.append(" playful");
-						break;
-					case ALLIGATOR_MORPH:
-						litterSB.append(" tough");
-						break;
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-						litterSB.append(" feminine");
-						break;
-					case HORSE_MORPH:
-					case HORSE_MORPH_ZEBRA:
-						litterSB.append(" confident");
-						break;
-					case REINDEER_MORPH:
-						litterSB.append(" strong");
-						break;
-					case HUMAN:
-						litterSB.append(" smiling");
-						break;
-					case SLIME:
-						litterSB.append(" bubbly");
-						break;
-					case SQUIRREL_MORPH:
-						litterSB.append(" wily");
-						break;
-					case RABBIT_MORPH:
-					case RABBIT_MORPH_LOP:
-						litterSB.append(" happy");
-						break;
-					case WOLF_MORPH:
-						litterSB.append(" grinning");
-						break;
-					case BAT_MORPH:
-						litterSB.append(" smiling");
-						break;
-					case RAT_MORPH:
-						litterSB.append(" grinning");
-						break;
-				}
-				litterSB.append(" <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 1
-						? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getPluralFemaleName(Main.game.getPlayer())
-								+ "</b>, who have their father's features."
-							: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
-								+ "</b>, who has her father's features."));
-			}
-			
-			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-				litterSB.append("<br/><b>"
-						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother()))
-						+ "</b>");
-
-				switch (Main.game.getPlayer().getLastLitterBirthed().getMotherRace()) {
-					case ANGEL:
-						litterSB.append(" radiant");
-						break;
-					case CAT_MORPH:
-					case CAT_MORPH_LYNX:
-					case CAT_MORPH_CARACAL:
-					case CAT_MORPH_CHEETAH:
-						litterSB.append(" pretty");
-						break;
-					case CAT_MORPH_LEOPARD_SNOW:
-					case CAT_MORPH_LEOPARD:
-					case CAT_MORPH_TIGER:
-					case CAT_MORPH_LION:
-						litterSB.append(" strong");
-						break;
-					case COW_MORPH:
-						litterSB.append(" docile");
-						break;
-					case DEMON:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_MORPH:
-					case FOX_MORPH_FENNEC:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-						litterSB.append(" cheeky");
-						break;
-					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
-						litterSB.append(" playful");
-						break;
-					case ALLIGATOR_MORPH:
-						litterSB.append(" tough");
-						break;
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-						litterSB.append(" feminine");
-						break;
-					case HORSE_MORPH:
-					case HORSE_MORPH_ZEBRA:
-						litterSB.append(" confident");
-						break;
-					case REINDEER_MORPH:
-						litterSB.append(" strong");
-						break;
-					case HUMAN:
-						litterSB.append(" smiling");
-						break;
-					case SLIME:
-						litterSB.append(" bubbly");
-						break;
-					case SQUIRREL_MORPH:
-						litterSB.append(" wily");
-						break;
-					case RABBIT_MORPH:
-					case RABBIT_MORPH_LOP:
-						litterSB.append(" happy");
-						break;
-					case WOLF_MORPH:
-						litterSB.append(" grinning");
-						break;
-					case BAT_MORPH:
-						litterSB.append(" smiling");
-						break;
-					case RAT_MORPH:
-						litterSB.append(" grinning");
-						break;
-				}
-				litterSB.append(" <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 1
-						? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getPluralFemaleName(Main.game.getPlayer())
-								+ "</b>, who have your features."
-							: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
-								+ "</b>, who has your features."));
-			}
-
 			litterSB.append("</p>"
 					+ "<p>"
 					+ "After taking a minute to get your emotions under control, you put the picture away for safe-keeping, and think about what to do next."

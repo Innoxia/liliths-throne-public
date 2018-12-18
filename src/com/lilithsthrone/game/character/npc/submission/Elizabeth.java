@@ -74,7 +74,7 @@ public class Elizabeth extends NPC {
 	public Elizabeth(boolean isImported) {
 		super(isImported,
 				new NameTriplet("Elizabeth"), "Lyssiethmartu",
-				"An unrecognised daughter of Lyssieth, Elizabeth is captain of her mother's elite guard and protects the entrance to her palace in Submission.",
+				"An unrecognised daughter of Lyssieth, Elizabeth is captain of her mother's royal guard. She is tasked with protecting the entrance to Lyssieth's palace.",
 				23, Month.JUNE, 22,
 				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE, true);
 
@@ -90,6 +90,7 @@ public class Elizabeth extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
 			this.equipClothing(true, true, true, true);
 		}
+		this.setDescription("An unrecognised daughter of Lyssieth, Elizabeth is captain of her mother's royal guard. She is tasked with protecting the entrance to Lyssieth's palace.");
 	}
 	
 	@Override

@@ -188,6 +188,13 @@ public enum DialogueFlagValue {
 	impFortressDemonImpsDefeated,
 	
 	elizabethAskedAboutUniforms,
-	elizabethAskedAboutSurname
+	elizabethAskedAboutSurname,
+	
+	lyssiethQuestionAsked1,
+	lyssiethQuestionAsked2,
+	lyssiethQuestionAsked3,
+	lyssiethQuestionAsked4,
+	lyssiethQuestionAsked5,
+	
 	;
 }

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -92,7 +93,7 @@ public class DreamLover {
 			} else {
 				
 				if (index == 1) {
-					return new ResponseTrade("Trade", "Wander around the shop and see what items there are for sale...", Main.game.getAshley());
+					return new ResponseTrade("Trade", "Wander around the shop and see what items there are for sale...", Main.game.getNpc(Ashley.class));
 					
 				} else if(index==2 && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.ashleyAttitude)) {
 					return new Response("Confront Ashley", "What's with this person's attitude? Walk up to the counter and confront them about it.", CONFRONT_ASHLEY) {

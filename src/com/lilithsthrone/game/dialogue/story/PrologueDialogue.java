@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Weather;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
+import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.FurryPreference;
@@ -67,9 +71,9 @@ public class PrologueDialogue {
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_OFFICE);
 						if(femalePrologueNPC()) {
-							Main.game.getPrologueFemale().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_OFFICE);
+							Main.game.getNpc(PrologueFemale.class).setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_OFFICE);
 						} else {
-							Main.game.getPrologueMale().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_OFFICE);
+							Main.game.getNpc(PrologueMale.class).setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_OFFICE);
 						}
 					}
 				};
@@ -111,7 +115,7 @@ public class PrologueDialogue {
 							true, true,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPrologueFemale(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(PrologueFemale.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX,
@@ -133,7 +137,7 @@ public class PrologueDialogue {
 							null, null, null,
 							true, true,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPrologueMale(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(PrologueMale.class), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
 							null,
@@ -172,7 +176,7 @@ public class PrologueDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(femalePrologueNPC()) {
-				if(Sex.getNumberOfOrgasms(Main.game.getPrologueFemale())>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueFemale.class))>0) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_FEMALE_SATISFIED"));
 					
 				} else {
@@ -180,7 +184,7 @@ public class PrologueDialogue {
 				}
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getPrologueMale())>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueMale.class))>0) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_MALE_SATISFIED"));
 					
 				} else {
@@ -449,7 +453,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
 					}
 				};
 				
@@ -477,7 +481,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
 					}
 				};
 				
@@ -505,7 +509,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
 					}
 				};
 				
@@ -548,8 +552,8 @@ public class PrologueDialogue {
 				return new Response("Follow", "Follow Lily as she leads you back to her house.", INTRO_NEW_WORLD_3){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 					}
 				};
@@ -574,8 +578,8 @@ public class PrologueDialogue {
 				return new Response("To the lab", "Follow Lilaya to her lab.", INTRO_NEW_WORLD_4){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
 					}
 				};
@@ -694,7 +698,7 @@ public class PrologueDialogue {
 				return new Response("Your room", "You follow Rose as she leads you up to your new room.", INTRO_NEW_WORLD_8){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER);
 					}
 				};
@@ -748,7 +752,7 @@ public class PrologueDialogue {
 					@Override
 					public void effects() {
 						Main.game.setPrologueFinished(true);
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
 					}
 				};

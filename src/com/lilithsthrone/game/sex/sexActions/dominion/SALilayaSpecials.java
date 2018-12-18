@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.dominion;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -47,7 +48,7 @@ public class SALilayaSpecials {
 			return (Main.game.getPlayer().getArousal() >= ArousalLevel.THREE_HEATED.getMinimumValue()
 					|| Sex.getActivePartner().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue())
 					&& !SexFlags.partnerRequestedPullOut
-					&& !Main.game.getLilaya().isVisiblyPregnant()
+					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -140,7 +141,7 @@ public class SALilayaSpecials {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Main.game.getLilaya().isVisiblyPregnant()
+					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -183,7 +184,7 @@ public class SALilayaSpecials {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getActivePartner().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
-					&& !Main.game.getLilaya().isVisiblyPregnant()
+					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 

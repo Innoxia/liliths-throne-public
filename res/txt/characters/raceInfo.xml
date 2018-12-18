@@ -53,6 +53,56 @@
 	]]>
 	</htmlContent>
 
+	<!-- ELDER LILIN -->
+
+	<htmlContent tag="ELDER_LILIN_BASIC"><![CDATA[
+	<p>
+		The seven elder lilin are the natural-born children of Lilith herself. While there are many lilin in the world, only these seven are the product of Lilith's copulation with an unknown father, while all the others were corrupted into lilin.
+	</p>
+	<p>
+		In order of seniority, the seven elder lilin are: Lirecea, Lovienne, Lasielle, Lyssieth, Lunette, Lyxias, and Lisophia.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ELDER_LILIN_ADVANCED"><![CDATA[
+	<p>
+		The elder lilin are almost as powerful as Lilith herself, and each one has complete mastery of the arcane. Just like all lilin, they can transform their bodies to take on the appearance of any race imaginable.
+	</p>
+	<p>
+		Along with Lilith, all seven of the elder lilin were sealed away inside the mirror dimension for thousands of years, where they helped their mother to weave her reality-changing spell. After being released, Lovienne and Lasielle took the posts of Lilith's personal guard, while Lirecea, Lunette, Lyxias, and Lisophia were placed in charge of the four regions surrounding Dominion. Due to her reluctance to punish the archangel given to her, Lyssieth was suspected of harbouring treasonous thoughts, and was placed under house arrest in her subterranean palace.
+	</p>
+	<p>
+		A lilin's offspring depends on who the father is.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- LILIN -->
+
+	<htmlContent tag="LILIN_BASIC"><![CDATA[
+	<p>
+		The seven elder lilin are the natural-born children of Lilith herself. While there are many lilin in the world, only these seven are the product of Lilith's copulation with an unknown father, while all the others were corrupted into lilin.
+	</p>
+	<p>
+		In order of seniority, the seven elder lilin are: Lirecea, Lovienne, Lasielle, Lyssieth, Lunette, Lyxias, and Lisophia.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="LILIN_ADVANCED"><![CDATA[
+	<p>
+		The lilin are almost as powerful as Lilith herself, and each one has complete mastery of the arcane. Just like all lilin, they can transform their bodies to take on the appearance of any race imaginable.
+	</p>
+	<p>
+		
+	</p>
+	<p>
+		A lilin's offspring depends on who the father is.
+	</p>
+	]]>
+	</htmlContent>
+
 	<!-- DEMONS -->
 
 	<htmlContent tag="DEMON_BASIC"><![CDATA[
@@ -65,6 +115,34 @@
 	</htmlContent>
 
 	<htmlContent tag="DEMON_ADVANCED"><![CDATA[
+	<p>
+		Demons are created in one of two ways.
+		 They are either born from a Lilin being impregnated by a demon, or they are created when a Lilin corrupts another race into becoming a demon.
+		 If a Lilin is impregnated by a non-demon, which is an extremely rare occurrence, their offspring will be half-demons, who are the lowest on the demonic social ladder.
+	</p>
+	<p>
+		Despite their alarming appearance, demons do not seem to be predisposed towards evil.
+		 In fact, the only personality trait that sets them apart from a regular human is that they're obsessed with sex.
+		 This is a result of their incredibly potent arcane aura, which, while being able to shield them from an arcane storm's effects, as well as granting them access to powerful arcane spells, causes them to crave sexual pleasure.
+	</p>
+	<p>
+		A demon's offspring will be a mixture of imps and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- HALF-DEMONS -->
+
+	<htmlContent tag="HALF_DEMON_BASIC"><![CDATA[
+	<p>
+		Not only are demons real, but they also conform to their stereotypical image.
+		 A pair of horns, bat-like wings, and a spaded tail, amongst other features, all mark a person as a demon.
+		 Demons are able to shift their bodies into any form they like, although the vast majority of them prefer to remain as females.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HALF_DEMON_ADVANCED"><![CDATA[
 	<p>
 		Demons are created in one of two ways.
 		 They are either born from a Lilin being impregnated by a demon, or they are created when a Lilin corrupts another race into becoming a demon.

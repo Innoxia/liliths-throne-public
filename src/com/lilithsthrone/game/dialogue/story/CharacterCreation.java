@@ -18,9 +18,13 @@ import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
+import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -165,7 +169,7 @@ public class CharacterCreation {
 	
 	public static void resetBodyAppearance() {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
+		Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BROWN), true);
 		Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN), true);
 		Main.game.getPlayer().setBreastShape(BreastShape.ROUND);
@@ -1337,16 +1341,16 @@ public class CharacterCreation {
 	
 	public static void moveNPCIntoPlayerTile() {
 		if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC || (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && Main.game.getPlayer().hasVagina())) {
-			Main.game.getPrologueMale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+			Main.game.getNpc(PrologueMale.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 			
 		} else {
-			Main.game.getPrologueFemale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+			Main.game.getNpc(PrologueFemale.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		}
 	}
 	
 	public static void moveNPCOutOfPlayerTile() {
-		Main.game.getPrologueMale().setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
-		Main.game.getPrologueFemale().setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
+		Main.game.getNpc(PrologueMale.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
+		Main.game.getNpc(PrologueFemale.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 	}
 	
 	public static boolean femalePrologueNPC() {
@@ -1729,9 +1733,9 @@ public class CharacterCreation {
 	private static void applyGameStart() {
 		Main.getProperties().addRaceDiscovered(Subspecies.HUMAN);
 		
-		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
+		Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
-		Main.game.getLilaya().setBirthday(LocalDateTime.of(Main.game.getPlayer().getBirthday().getYear()-22, Main.game.getLilaya().getBirthMonth(), Main.game.getLilaya().getDayOfBirth(), 12, 0));
+		Main.game.getNpc(Lilaya.class).setBirthday(LocalDateTime.of(Main.game.getPlayer().getBirthday().getYear()-22, Main.game.getNpc(Lilaya.class).getBirthMonth(), Main.game.getNpc(Lilaya.class).getDayOfBirth(), 12, 0));
 		
 		Main.game.clearTextStartStringBuilder();
 		Main.game.clearTextEndStringBuilder();
@@ -1742,11 +1746,11 @@ public class CharacterCreation {
 	}
 
 	private static void applySkipPrologueStart() {
-		Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
-		Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
+		Main.game.getPlayer().addCharacterEncountered(Main.game.getNpc(Lilaya.class));
+		Main.game.getPlayer().addCharacterEncountered(Main.game.getNpc(Rose.class));
 		
-		Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getSubspecies());
-		Main.getProperties().addRaceDiscovered(Main.game.getRose().getSubspecies());
+		Main.getProperties().addRaceDiscovered(Main.game.getNpc(Lilaya.class).getSubspecies());
+		Main.getProperties().addRaceDiscovered(Main.game.getNpc(Rose.class).getSubspecies());
 
 		moveNPCOutOfPlayerTile();
 		Main.game.setPrologueFinished(true);

@@ -100,8 +100,13 @@ public class Face implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, FaceType type) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
+			mouth.setType(type.getMouthType());
+			tongue.setType(type.getTongueType());
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
 			return "";
 		}
 		

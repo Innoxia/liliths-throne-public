@@ -33,6 +33,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 

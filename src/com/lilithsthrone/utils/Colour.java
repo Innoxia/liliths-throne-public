@@ -90,8 +90,8 @@ public enum Colour {
 	SCAR(false, BaseColour.TAN, "tan"),
 	TATTOO(false, BaseColour.GREY, "grey"),
 	
-	PERK(false, BaseColour.AQUA, "aqua"),
-	TRAIT(false, BaseColour.GREEN_LIGHT, "green"),
+	PERK(false, BaseColour.AQUA, "aqua", Util.newArrayListOfValues("perk")),
+	TRAIT(false, BaseColour.GREEN_LIGHT, "green", Util.newArrayListOfValues("trait")),
 	FETISH(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("fetish")),
 	STATUS_EFFECT(false, BaseColour.YELLOW, "yellow"),
 	SPECIAL_ATTACK(false, BaseColour.CRIMSON, "crimson"),
@@ -103,6 +103,7 @@ public enum Colour {
 	RACE_UNKNOWN(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("unknown")),
 	RACE_HUMAN(false, BaseColour.BLUE_STEEL, "pale blue", Util.newArrayListOfValues("human")),
 	RACE_DEMON(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("demon")),
+	RACE_LILIN(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("lilin")),
 	RACE_IMP(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("imp")),
 	RACE_ANGEL(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("angel")),
 	RACE_DOG_MORPH(false, BaseColour.BROWN, "brown", Util.newArrayListOfValues("dogMorph", "dog")),

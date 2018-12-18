@@ -559,7 +559,7 @@
 		[pc.speech(Fine. If that's what it's going to take,)] you say, resigning yourself to your fate.
 	</p>
 	<p>
-		[elizabeth.speech(Excellent. The demon you're after is going by the title 'the dark siren', and can be found somewhere in the tunnels in the very centre of Submission,)] Elizabeth explains, before reaching into one of her pockets and producing a rather curious-looking ring. Handing it over to you, she continues, [elizabeth.speech(This is one of her Highness's signet rings, which normally carry some impressive enchantments. We've had this particular one altered, however, to enslave the person who puts it on. We've also registered Her Highness's daughter as a slave of special interest, so instead of being teleported to Slaver Alley, she'll be sent straight to her Highness's throne room. I'm sure you can find some way to trick her into putting it on.)]
+		[elizabeth.speech(Excellent. The demon you're after is going by the title 'the dark siren', and can be found somewhere in the tunnels in the very centre of Submission,)] Elizabeth explains, before reaching into one of her pockets and producing a rather curious-looking ring. Handing it over to you, she continues, [elizabeth.speech(This is one of her Highness's signet rings, which normally carry some impressive enchantments. We've had this particular one altered, however, to enslave the person who puts it on. We've also registered Her Highness's daughter as a slave of special interest, so instead of being teleported to Slaver Alley, she'll be sent straight to Her Highness's room. I'm sure you can find some way to trick her into putting it on.)]
 	</p>
 	<p>
 		[pc.speech(Ok, I'll get this sorted out,)] you reply, placing the ring in your inventory.
@@ -596,7 +596,7 @@
 		[elizabeth.speech(Yes, that checks out,)] the half-succubus smirks, allowing her stony expression to be broken. [elizabeth.speech(From what we understand, [pc.name], you're quite the expert at resolving difficult situations. Business with the Enforcers, regular trips to Demon Home, and, from what I hear, well-acquainted with both the Harpy Nests and Slaver Alley. You have been busy...)]
 	</p>
 	<p>
-		[pc.speech(You missed out the part where I defeated 'The Dark Siren'. Pretty sure your spies should have picked up on that one,)] you say, a little frustrated at how these guards have been spying on you. [pc.speech(So anyway, now that you know who I am, can I please be allowed to see Lyssieth?)]
+		[pc.speech(You missed out the part where I defeated the 'dark siren'. Pretty sure your spies should have picked up on that one,)] you say, a little frustrated at how these guards have been spying on you. [pc.speech(So anyway, now that you know who I am, can I please be allowed to see Lyssieth?)]
 	</p>
 	<p>
 		As you reveal the fact that it was you who defeated Lyssieth's daughter, Elizabeth raises her eyebrows and gazes at you in disbelief. [elizabeth.speech(Wait, that was <i>you</i> who beat her in a fight?! There's no way... T-Tell me how it happened! Her Highness has already informed us of her daughter's version of events, so we'll see if your stories match up!)]
@@ -709,7 +709,37 @@
 		A pair of masterfully-carved stone gargoyles, each one standing at well over eight feet tall, snarl down at anyone crossing the drawbridge. Every time you glance up at one of them, they seem to be wearing a slightly different expression, but whether this is some arcane-enchantment, or just your imagination, you can't tell. As you've come to expect from this world, the two sculptures are completely naked, and while each of the masculine figures are sporting balls large enough to put a horse to shame, it's what their cocks are buried in that catches your attention the most. Appearing to be carved out of the same jet-black obsidian, a rat-girl and succubus are being restrained in full-nelson holds; their legs lifted from the floor as the gargoyles' cocks slam deep into their exposed pussies.
 	</p>
 	<p>
-		Casting your gaze back down from the lewd expressions on each of the girls' faces, you turn your attention to the huge wooden gates before you. Set into the wall of the palace by about two or three feet, the only observable entrance boasts an extra line of defence, in the form of a thick metal portcullis. Thankfully, this has been raised, allowing you to freely knock on the doors before you...
+		Casting your gaze back down from the lewd expressions on each of the girls' faces, you turn your attention to the huge wooden gates before you. Set into the wall of the palace by about two or three feet, the only observable entrance boasts an extra line of defence, in the form of a thick metal portcullis. Thankfully, this has been raised, allowing Elizabeth to freely approach the doors before you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE_ELIZABETH_LEADS"><![CDATA[
+	<p>
+		[elizabeth.speech(So, shall we enter?)] the half-succubus asks. [elizabeth.speech(Once inside, I'll escort you directly to see Her Highness.)]
+	</p>
+	<p>
+		You could take Elizabeth up on her offer, or turn around and head back out into Submission...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE_ELIZABETH_LEADS_COMPANIONS"><![CDATA[
+	<p>
+		[elizabeth.speech(So, shall we enter?)] the half-succubus asks, before glancing over at [npc.name]. [elizabeth.speech(I'm afraid that for security reasons, we can't allow your companion here to come with you...)]
+	</p>
+	<p>
+		You could enter Lyssieth's palace now, or turn around and head back out into Submission. If you choose to enter, [npc.name] will be sent home...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE_ELIZABETH_ESCORT"><![CDATA[
+	<p>
+		[elizabeth.speech(As Her Highness has given you permission to come and go as you please, I will unlock the doors for you, should you wish to enter,)] Elizabeth states.
+	</p>
+	<p>
+		You could take Elizabeth up on her offer, or turn around and head back out into Submission...
 	</p>
 	]]>
 	</htmlContent>

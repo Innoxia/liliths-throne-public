@@ -387,6 +387,7 @@ public enum WorldType {
 
 					new Value<>(new Color(0x00ff00), PlaceType.LYSSIETH_PALACE_ENTRANCE),
 					new Value<>(new Color(0xff80ff), PlaceType.LYSSIETH_PALACE_ROOM),
+					new Value<>(new Color(0xff00ff), PlaceType.LYSSIETH_PALACE_ROOM_SIREN),
 					new Value<>(new Color(0xff8000), PlaceType.LYSSIETH_PALACE_HALL),
 					new Value<>(new Color(0x8000ff), PlaceType.LYSSIETH_PALACE_THRONE_ROOM),
 					
@@ -414,7 +415,7 @@ public enum WorldType {
 	},
 
 	IMP_FORTRESS_DEMON("Imp Citadel",
-			Colour.BASE_PURPLE_DARK,
+			Colour.BASE_PURPLE,
 			1,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png",
 			Util.newHashMapOfValues(

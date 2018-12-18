@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <radialGradient id="radialGradient861" cx="32.583" cy="33.594" r="27.339" gradientTransform="matrix(1 0 0 .941 0 1.7951)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#22002b" offset="0"/>
+   <stop stop-color="#cd87de" offset="1"/>
+  </radialGradient>
+ </defs>
+ <path d="m32.224 6.0028 18.777 48.882-44.935-28.943 51.715-0.63196-42.719 29.678z" fill="url(#radialGradient861)" fill-rule="evenodd" stroke="#000" stroke-width=".9"/>
+ <ellipse cx="32.313" cy="33.251" rx="10.417" ry="10.564" fill="#ff8080" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".85689"/>
+ <g fill-rule="evenodd">
+  <path d="m36.81 42.798c-11.525 3.0962-15.706-5.2299-14.611-12.311 3.2065 5.9481 6.2154 11.878 14.612 12.311z" fill="#4d4d4d" fill-opacity=".449" stroke-width="1.1848"/>
+  <path d="m32.305 23.665 6.2744 17.136-15.535-10.077 18.309-0.22373-15.124 10.507z" fill="#ff2a2a" stroke="#000" stroke-width=".42142"/>
+  <path d="m32.954 24.092c3.824 0.4999 7.4272 1.6739 9.1533 8.4874-5.2851-7.4696-5.9662-6.1502-9.1533-8.4874z" fill="#f9f9f9" stroke-width="1.1818"/>
+ </g>
+</svg>

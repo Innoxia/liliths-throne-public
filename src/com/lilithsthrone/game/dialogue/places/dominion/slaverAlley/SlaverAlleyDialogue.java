@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -49,20 +50,20 @@ public class SlaverAlleyDialogue {
 
 	public static void dailyReset() {
 		
-//		List<String> ids = Main.game.getFinch().getSlavesOwned();
+//		List<String> ids = Main.game.getNpc(Finch.class).getSlavesOwned();
 //		for(String id : ids) {
 //			NPC slaveToRemove = (NPC) Main.game.getNPCById(id);
 //			if(slaveToRemove.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK) {
-//				Main.game.getFinch().removeSlave(slaveToRemove);
+//				Main.game.getNpc(Finch.class).removeSlave(slaveToRemove);
 //				Main.game.banishNPC(slaveToRemove);
 //			}
 //		}
-		for(String id : Main.game.getFinch().getSlavesOwned()) {
+		for(String id : Main.game.getNpc(Finch.class).getSlavesOwned()) {
 			if(Main.game.isCharacterExisting(id)) {
 				Main.game.banishNPC(id);
 			}
 		}
-		Main.game.getFinch().removeAllSlaves();
+		Main.game.getNpc(Finch.class).removeAllSlaves();
 		
 		// Female stall:
 		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
@@ -76,8 +77,8 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_FEMALES, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_GOLD, false), true, Main.game.getFinch());
-			Main.game.getFinch().addSlave(slave);
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_GOLD, false), true, Main.game.getNpc(Finch.class));
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
 			slave.addFetish(Fetish.FETISH_SUBMISSIVE);
@@ -99,8 +100,8 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_MALES, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
-			Main.game.getFinch().addSlave(slave);
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
 			slave.addFetish(Fetish.FETISH_DOMINANT);
@@ -120,15 +121,15 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ANAL, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			if(i==0) {
-				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug"), false), true, Main.game.getFinch());
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug"), false), true, Main.game.getNpc(Finch.class));
 			} else if(i==1) {
-				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_jewel"), false), true, Main.game.getFinch());
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_jewel"), false), true, Main.game.getNpc(Finch.class));
 			} else {
-				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"), false), true, Main.game.getFinch());
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"), false), true, Main.game.getNpc(Finch.class));
 			}
-			Main.game.getFinch().addSlave(slave);
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
 			slave.setAssWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
@@ -153,8 +154,8 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_VAGINAL, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
-			Main.game.getFinch().addSlave(slave);
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
 			slave.setVaginaWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
@@ -177,11 +178,11 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ORAL, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			if(Math.random()<0.5f) {
-				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, false), true, Main.game.getFinch());
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, false), true, Main.game.getNpc(Finch.class));
 			}
-			Main.game.getFinch().addSlave(slave);
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 
 			slave.setFaceWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
@@ -358,7 +359,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -388,7 +389,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -418,7 +419,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -448,7 +449,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -478,7 +479,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -872,7 +873,7 @@ public class SlaverAlleyDialogue {
 						return new Response(UtilText.parse(biddingNPC, "[npc.Name] sold"), "You didn't win the auction, but there's always next time, right?", AUCTION_BLOCK) {
 							@Override
 							public void effects() {
-								Main.game.getFinch().removeSlave(biddingNPC);
+								Main.game.getNpc(Finch.class).removeSlave(biddingNPC);
 								Main.game.banishNPC(biddingNPC);
 							}
 						};
@@ -1200,7 +1201,7 @@ public class SlaverAlleyDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
 				if (index == 1) {
-					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
+					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getNpc(Finch.class));
 
 				} else if (index == 5) {
 					return new Response("Slave Manager", "Open the slave management screen.", OccupantManagementDialogue.getSlaveryOverviewDialogue());

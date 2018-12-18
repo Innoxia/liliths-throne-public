@@ -308,10 +308,10 @@ public class FortressMalesLeader extends NPC {
 	
 	@Override
 	public GameCharacter getPreferredSexTarget() {
-		if(Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader())!=null
+		if(Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class))!=null
 				&& !FortressMalesLeaderSA.isBothTargetsUsed()
-				&& (Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.ORGASM
-				|| Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)) {
+				&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.ORGASM
+				|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)) {
 			return FortressMalesLeaderSA.getBreedingTarget();
 		}
 		return null;

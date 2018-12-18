@@ -740,11 +740,18 @@ public enum SexPositionSlot {
 			true),
 	
 	
-	MISSIONARY_DESK_SUB_VICKY("Lying on counter",
+	MISSIONARY_DESK_SUB("Lying on counter",
 			false),
 	
-	MISSIONARY_DESK_DOM_VICKY("Standing between legs",
+	MISSIONARY_DESK_SUB_SECOND("Lying on counter",
+			false),
+	
+	MISSIONARY_DESK_DOM("Standing between legs",
 			true),
+	
+	MISSIONARY_DESK_DOM_SECOND("Standing between legs",
+			true),
+	
 	
 
 	KNEELING_RECEIVING_ORAL_CULTIST("Standing",

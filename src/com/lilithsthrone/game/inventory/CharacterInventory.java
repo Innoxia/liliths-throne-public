@@ -2,7 +2,15 @@ package com.lilithsthrone.game.inventory;
 
 import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -41,15 +49,6 @@ import com.lilithsthrone.utils.ReverseClothingZLayerComparator;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
-
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.<br/>

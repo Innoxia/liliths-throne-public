@@ -355,7 +355,7 @@ public class ZaranixMaidKatherine extends NPC {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKatherine.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null,
 						AFTER_SEX_VICTORY, "<p>"
@@ -374,7 +374,7 @@ public class ZaranixMaidKatherine extends NPC {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						false, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKatherine.class), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null,
@@ -398,7 +398,7 @@ public class ZaranixMaidKatherine extends NPC {
 					@Override
 					public void effects() {
 						Main.game.saveDialogueNode();
-						BodyChanging.setTarget(Main.game.getKatherine());
+						BodyChanging.setTarget(Main.game.getNpc(ZaranixMaidKatherine.class));
 					}
 				};
 				
@@ -481,7 +481,7 @@ public class ZaranixMaidKatherine extends NPC {
 				return new ResponseSex("Used", "Katherine uses you.",
 						false, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKatherine.class), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null, null, AFTER_SEX_DEFEAT);
 			} else {

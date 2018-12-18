@@ -75,6 +75,8 @@ public class GamblingDenPatron extends NPC {
 					case ANGEL:
 					case IMP_ALPHA:
 					case IMP:
+					case LILIN:
+					case ELDER_LILIN:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
 					case ELEMENTAL_EARTH:
@@ -88,6 +90,7 @@ public class GamblingDenPatron extends NPC {
 					case CAT_MORPH:
 					case COW_MORPH:
 					case DEMON:
+					case HALF_DEMON:
 					case DOG_MORPH:
 					case DOG_MORPH_DOBERMANN:
 					case DOG_MORPH_BORDER_COLLIE:

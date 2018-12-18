@@ -43,8 +43,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -88,7 +88,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public abstract class NPC extends GameCharacter implements XMLSaving {
@@ -832,9 +832,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 					
 				case DEMON:
+				case HALF_DEMON:
+				case LILIN:
+				case ELDER_LILIN:
 					book = ItemType.BOOK_DEMON;
 					raceIngredient = ItemType.COR_INGREDIENT_LILITHS_GIFT;
-					raceTFIngredient = ItemType.RACE_INGREDIENT_DEMON;
+					raceTFIngredient = null;
 					break;
 					
 				case IMP:
@@ -925,7 +928,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					
 			}
 			
-			if(rnd<0.6) {
+			if(rnd<0.6 && raceTFIngredient!=null) {
 				return Util.newArrayListOfValues(AbstractItemType.generateItem(raceTFIngredient));
 			
 			} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getSubspecies())) {
@@ -1269,7 +1272,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					itemType = ItemType.RACE_INGREDIENT_RABBIT_MORPH;
 					break;
 				case ANGEL:
+				case HALF_DEMON:
 				case DEMON:
+				case LILIN:
+				case ELDER_LILIN:
 				case IMP:
 				case IMP_ALPHA:
 				case HUMAN:
@@ -1528,7 +1534,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(Main.game.getPlayer().getVaginaType() != VaginaType.NONE && getPreferredBody().getVagina().getType() != VaginaType.NONE) {
 			// Vagina wetness:
-			if(Main.game.getPlayer().getVaginaWetness().getValue() < getPreferredBody().getVagina().getOrificeVagina().getWetness(Main.game.getGenericAndrogynousNPC()).getValue()) {
+			if(Main.game.getPlayer().getVaginaWetness().getValue() < getPreferredBody().getVagina().getOrificeVagina().getWetness(null).getValue()) {
 				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1), "Your pussy isn't wet enough!");
 			}
 		}
@@ -1777,23 +1783,21 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 		// Apply fetish modifiers:
 		
-		GameCharacter genericOwner = Main.game.getGenericAndrogynousNPC();
-		
-		Body body = CharacterUtils.generateBody(genericOwner, preferredGender, species, stage);
+		Body body = CharacterUtils.generateBody(null, preferredGender, species, stage);
 		
 		//Ass:
 		if(hasFetish(Fetish.FETISH_ANAL_GIVING)) {
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.RIBBED);
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.MUSCLE_CONTROL);
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.PUFFY);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.RIBBED);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.PUFFY);
 			}
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.TENTACLED);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.TENTACLED);
 			}
 			
-			body.getAss().setAssSize(genericOwner, AssSize.FIVE_HUGE.getValue());
-			body.getAss().setAssSize(genericOwner, HipSize.FIVE_VERY_WIDE.getValue());
+			body.getAss().setAssSize(null, AssSize.FIVE_HUGE.getValue());
+			body.getAss().setAssSize(null, HipSize.FIVE_VERY_WIDE.getValue());
 		}
 		
 		// Body:
@@ -1808,62 +1812,62 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		//Breasts:
 		if(Main.getProperties().multiBreasts==0) {
-			body.getBreast().setRows(genericOwner, 1);
+			body.getBreast().setRows(null, 1);
 			
 		} else if(Main.getProperties().multiBreasts==1) {
 			if(stage != RaceStage.GREATER) {
-				body.getBreast().setRows(genericOwner, 1);
+				body.getBreast().setRows(null, 1);
 			}
 		}
 
 		if(hasFetish(Fetish.FETISH_BREASTS_OTHERS) && preferredGender.isFeminine()) {
-			body.getBreast().setSize(genericOwner, CupSize.DD.getMeasurement() + (Util.random.nextInt(5)));
+			body.getBreast().setSize(null, CupSize.DD.getMeasurement() + (Util.random.nextInt(5)));
 		}
 		
 		// Face:
 		if(hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
-			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.PUFFY);
-			body.getFace().getMouth().setLipSize(genericOwner, LipSize.FOUR_HUGE.getValue());
+			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.PUFFY);
+			body.getFace().getMouth().setLipSize(null, LipSize.FOUR_HUGE.getValue());
 			
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
-				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.RIBBED);
-				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.MUSCLE_CONTROL);
+				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.RIBBED);
+				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
 			}
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
-				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.TENTACLED);
+				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.TENTACLED);
 			}
 		}
 		
 		// Hair:
 		if(preferredGender.isFeminine()) {
-			body.getHair().setLength(genericOwner, HairLength.THREE_SHOULDER_LENGTH.getMedianValue() + Util.random.nextInt(HairLength.SEVEN_TO_FLOOR.getMinimumValue() - HairLength.THREE_SHOULDER_LENGTH.getMedianValue()));
+			body.getHair().setLength(null, HairLength.THREE_SHOULDER_LENGTH.getMedianValue() + Util.random.nextInt(HairLength.SEVEN_TO_FLOOR.getMinimumValue() - HairLength.THREE_SHOULDER_LENGTH.getMedianValue()));
 			
 		} else {
-			body.getHair().setLength(genericOwner, HairLength.ONE_VERY_SHORT.getMedianValue() + Util.random.nextInt(HairLength.THREE_SHOULDER_LENGTH.getMinimumValue() - HairLength.ONE_VERY_SHORT.getMedianValue()));
+			body.getHair().setLength(null, HairLength.ONE_VERY_SHORT.getMedianValue() + Util.random.nextInt(HairLength.THREE_SHOULDER_LENGTH.getMinimumValue() - HairLength.ONE_VERY_SHORT.getMedianValue()));
 		}
 		
 		// Penis:
 		if(body.getPenis().getType()!=PenisType.NONE) {
 			if(preferredGender==Gender.F_P_TRAP && Math.random()>=0.1f) { // Most traps have a small cock:
-				body.getPenis().setPenisSize(genericOwner, PenisSize.ONE_TINY.getMedianValue() + Util.random.nextInt(4));
-				body.getPenis().getTesticle().setTesticleSize(genericOwner, TesticleSize.ONE_TINY.getValue());
-				body.getPenis().getTesticle().setCumStorage(genericOwner, CumProduction.ONE_TRICKLE.getMedianValue());
+				body.getPenis().setPenisSize(null, PenisSize.ONE_TINY.getMedianValue() + Util.random.nextInt(4));
+				body.getPenis().getTesticle().setTesticleSize(null, TesticleSize.ONE_TINY.getValue());
+				body.getPenis().getTesticle().setCumStorage(null, CumProduction.ONE_TRICKLE.getMedianValue());
 			} else {
-				body.getPenis().setPenisSize(genericOwner,body.getPenis().getSize().getMinimumValue() + Util.random.nextInt(body.getPenis().getSize().getMaximumValue() - body.getPenis().getSize().getMinimumValue()) +1);
+				body.getPenis().setPenisSize(null, body.getPenis().getSize().getMinimumValue() + Util.random.nextInt(body.getPenis().getSize().getMaximumValue() - body.getPenis().getSize().getMinimumValue()) +1);
 			}
 		}
 		
 		// Vagina:
 		if(body.getVagina().getType()!=VaginaType.NONE) {
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
-				body.getVagina().getOrificeVagina().addOrificeModifier(genericOwner, OrificeModifier.RIBBED);
-				body.getVagina().getOrificeVagina().addOrificeModifier(genericOwner, OrificeModifier.MUSCLE_CONTROL);
+				body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.RIBBED);
+				body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
 			}
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
-				body.getVagina().getOrificeVagina().addOrificeModifier(genericOwner, OrificeModifier.TENTACLED);
+				body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.TENTACLED);
 			}
 			
-			body.getVagina().getOrificeVagina().setWetness(genericOwner, Wetness.THREE_WET.getValue() + Util.random.nextInt(4));
+			body.getVagina().getOrificeVagina().setWetness(null, Wetness.THREE_WET.getValue() + Util.random.nextInt(4));
 		}
 		
 		return body;

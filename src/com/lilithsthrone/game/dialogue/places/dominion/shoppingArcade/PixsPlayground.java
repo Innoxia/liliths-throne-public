@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -572,7 +573,7 @@ public class PixsPlayground {
 			if(Main.game.getPlayer().getHealthPercentage() < 0.4f) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_EXHAUSTED"));
 			} else {
-				if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)<Main.game.getPix().getAttributeValue(Attribute.MAJOR_PHYSIQUE)) {
+				if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)<Main.game.getNpc(Pix.class).getAttributeValue(Attribute.MAJOR_PHYSIQUE)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_WEAKER"));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_STRONGER"));
@@ -589,7 +590,7 @@ public class PixsPlayground {
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_TOO_TIRED"));
@@ -599,7 +600,7 @@ public class PixsPlayground {
 						"Tell Pix that you can make it up to her right now...",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_OFFER_SEX"));
@@ -609,7 +610,7 @@ public class PixsPlayground {
 						"Apologise to Pix and accept her punishment.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_ACCEPT_PUNISHMENT"));
@@ -627,9 +628,9 @@ public class PixsPlayground {
 				}
 				
 			} else if(index==5) {
-				if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)<Main.game.getPix().getAttributeValue(Attribute.MAJOR_PHYSIQUE)) {
+				if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)<Main.game.getNpc(Pix.class).getAttributeValue(Attribute.MAJOR_PHYSIQUE)) {
 					return new Response("Turn Tables",
-							"Pix is both stronger and fitter than you (her physique of "+Main.game.getPix().getAttributeValue(Attribute.MAJOR_PHYSIQUE)+" is greater than your physique of "
+							"Pix is both stronger and fitter than you (her physique of "+Main.game.getNpc(Pix.class).getAttributeValue(Attribute.MAJOR_PHYSIQUE)+" is greater than your physique of "
 									+Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)+"), so you don't stand a chance of turning the tables on her in this situation.",
 							null);
 					
@@ -644,7 +645,7 @@ public class PixsPlayground {
 							false, false,
 							new SMFaceToWall(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))) {
 								@Override
 								public boolean isPlayerStartNaked() {
 									return true;
@@ -748,7 +749,7 @@ public class PixsPlayground {
 						"Let Pix have her fun with you.",
 						true, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX_CONSENSUAL, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_CONSENSUAL_START"));

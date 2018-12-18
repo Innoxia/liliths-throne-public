@@ -97,8 +97,7 @@ public class Vicky extends NPC {
 			ItemType.RACE_INGREDIENT_COW_MORPH,
 			ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH,
 			ItemType.RACE_INGREDIENT_REINDEER_MORPH,
-			ItemType.RACE_INGREDIENT_HUMAN,
-			ItemType.RACE_INGREDIENT_DEMON};
+			ItemType.RACE_INGREDIENT_HUMAN};
 	
 	private static List<AbstractItemType> availableSpellBooks = new ArrayList<>();
 	
@@ -459,7 +458,7 @@ public class Vicky extends NPC {
 	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
 		sexPositionPreferences.clear();
 		
-		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM_VICKY);
+		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM);
 		
 		return sexPositionPreferences;
 	}

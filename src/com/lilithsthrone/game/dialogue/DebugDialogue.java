@@ -12,6 +12,8 @@ import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Brax;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
@@ -334,7 +336,15 @@ public class DebugDialogue {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().ingestFluid(Main.game.getBrax(), Main.game.getBrax().getCum(), SexAreaOrifice.VAGINA, 1000);
+							Main.game.getPlayer().ingestFluid(Main.game.getNpc(Brax.class), Main.game.getNpc(Brax.class).getCum(), SexAreaOrifice.VAGINA, 1000);
+						}
+					};
+					
+				} else if (index == 7) {
+					return new Response("Lilaya's hypocrisy", "Lilaya cums in your vagina!", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().ingestFluid(Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getCum(), SexAreaOrifice.VAGINA, 1000);
 						}
 					};
 					
@@ -375,9 +385,9 @@ public class DebugDialogue {
 			
 			for(NPC npc : Main.game.getOffspring()) {
 				if(npc.isFeminine()) {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getMother().getName()+"'s daughter ("+npc.getRace().getName()+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
+					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getMother().getName()+"'s daughter ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
 				} else {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getFather().getName()+"'s son ("+npc.getRace().getName()+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
+					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getFather().getName()+"'s son ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
 				}
 			}
 			if(activeOffspring!=null) {
@@ -1005,7 +1015,7 @@ public class DebugDialogue {
 										+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!)</i>]<br/>"
 					+ "outputs:<br/>"
 					+ "'Lilaya storms up to Innoxia, shouting angrily in response to finding out that her sex scenes haven't been fixed yet, "
-						+UtilText.parseSpeech("What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!", Main.game.getLilaya())+"'"
+						+UtilText.parseSpeech("What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!", Main.game.getNpc(Lilaya.class))+"'"
 					
 					+ "</p>";
 		}

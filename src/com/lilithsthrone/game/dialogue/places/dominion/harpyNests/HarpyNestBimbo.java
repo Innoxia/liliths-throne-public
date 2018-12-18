@@ -3,6 +3,8 @@ package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
+import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -236,7 +238,7 @@ public class HarpyNestBimbo {
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyBimbo.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
 							null, HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
@@ -435,7 +437,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getHarpyBimboCompanion());
+				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyBimboCompanion.class));
 					
 			} else {
 				return null;
@@ -512,7 +514,7 @@ public class HarpyNestBimbo {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyBimbo.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
@@ -570,7 +572,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getHarpyBimboCompanion());
+				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyBimboCompanion.class));
 					
 			} else {
 				return null;
@@ -645,7 +647,7 @@ public class HarpyNestBimbo {
 								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
 								+ " Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
 							+ "</p>"
-							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer(), null));
+							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyBimbo.class), Main.game.getPlayer(), null));
 					}
 				};
 					
@@ -679,7 +681,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[bimboHarpy.Name] looks furious as she launches her attack on you!", Main.game.getHarpyBimbo());
+				return new ResponseCombat("Fight", "[bimboHarpy.Name] looks furious as she launches her attack on you!", Main.game.getNpc(HarpyBimbo.class));
 					
 			} else {
 				return null;
@@ -758,7 +760,7 @@ public class HarpyNestBimbo {
 								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
 								+ " Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
 							+ "</p>"
-							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer(), null));
+							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyBimbo.class), Main.game.getPlayer(), null));
 					}
 				};
 					
@@ -817,7 +819,7 @@ public class HarpyNestBimbo {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyBimbo.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."

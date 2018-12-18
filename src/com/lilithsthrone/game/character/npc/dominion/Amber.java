@@ -391,7 +391,7 @@ public class Amber extends NPC {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SEX_VICTORY, "<p>"
 							+ "It doesn't look like any of the other maids of the household are coming to help her, so you decide to take this opportunity to have a little fun with Amber."
@@ -409,7 +409,7 @@ public class Amber extends NPC {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						false, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SEX_VICTORY, "<p>"
@@ -433,7 +433,7 @@ public class Amber extends NPC {
 					@Override
 					public void effects() {
 						Main.game.saveDialogueNode();
-						BodyChanging.setTarget(Main.game.getAmber());
+						BodyChanging.setTarget(Main.game.getNpc(Amber.class));
 					}
 				};
 				
@@ -518,7 +518,7 @@ public class Amber extends NPC {
 				return new ResponseSex("Used", "Amber starts fucking you.",
 						false, false,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						null,
 						null, AFTER_SEX_DEFEAT, "<p>"

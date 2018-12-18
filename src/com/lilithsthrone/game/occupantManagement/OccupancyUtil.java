@@ -20,6 +20,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -33,8 +35,8 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -508,7 +510,7 @@ public class OccupancyUtil implements XMLSaving {
 					if(slave.getSlaveJobSettings().isEmpty()) {
 						if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 							slave.incrementAffection(Main.game.getPlayer(), 1);
-							slave.incrementAffection(Main.game.getLilaya(), 5);
+							slave.incrementAffection(Main.game.getNpc(Lilaya.class), 5);
 							events.add(new SlaveryEventLogEntry(hour, slave,
 									SlaveEvent.JOB_TEST_SUBJECT,
 									Util.newArrayListOfValues(
@@ -522,7 +524,7 @@ public class OccupancyUtil implements XMLSaving {
 							
 						} else {
 							slave.incrementAffection(Main.game.getPlayer(), -1);
-							slave.incrementAffection(Main.game.getLilaya(), -5);
+							slave.incrementAffection(Main.game.getNpc(Lilaya.class), -5);
 							events.add(new SlaveryEventLogEntry(hour, slave,
 									SlaveEvent.JOB_TEST_SUBJECT,
 									Util.newArrayListOfValues(
@@ -541,12 +543,12 @@ public class OccupancyUtil implements XMLSaving {
 								List<String> list = new ArrayList<>();
 								if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 									slave.incrementAffection(Main.game.getPlayer(), 1);
-									slave.incrementAffection(Main.game.getLilaya(), 5);
+									slave.incrementAffection(Main.game.getNpc(Lilaya.class), 5);
 									list.add("[style.boldGood(+1)] [style.boldAffection(Affection)]");
 									list.add("[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]");
 								} else {
 									slave.incrementAffection(Main.game.getPlayer(), -1);
-									slave.incrementAffection(Main.game.getLilaya(), -5);
+									slave.incrementAffection(Main.game.getNpc(Lilaya.class), -5);
 									list.add("[style.boldBad(-1)] [style.boldAffection(Affection)]");
 									list.add("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]");
 								}
@@ -573,12 +575,12 @@ public class OccupancyUtil implements XMLSaving {
 								List<String> list2 = new ArrayList<>();
 								if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 									slave.incrementAffection(Main.game.getPlayer(), 1);
-									slave.incrementAffection(Main.game.getLilaya(), 5);
+									slave.incrementAffection(Main.game.getNpc(Lilaya.class), 5);
 									list2.add("[style.boldGood(+1)] [style.boldAffection(Affection)]");
 									list2.add("[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]");
 								} else {
 									slave.incrementAffection(Main.game.getPlayer(), -1);
-									slave.incrementAffection(Main.game.getLilaya(), -5);
+									slave.incrementAffection(Main.game.getNpc(Lilaya.class), -5);
 									list2.add("[style.boldBad(-1)] [style.boldAffection(Affection)]");
 									list2.add("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]");
 								}
@@ -639,8 +641,8 @@ public class OccupancyUtil implements XMLSaving {
 								effectDescriptions.append(UtilText.parse(stocksPartner,
 										UtilText.returnStringAtRandom(
 												"[npc.A_race] came deep inside "+UtilText.parse(slave, "[npc.namePos] [npc.asshole+]!"),
-												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.namePos] [npc.asshole+], before filling [npc.herHim] with"+UtilText.parse(Main.game.getGenericFemaleNPC()," [npc.cum+]!")),
-												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.namePos] [npc.asshole+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
+												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.namePos] [npc.asshole+], before filling [npc.herHim] with"+UtilText.parse(Main.game.getNpc(GenericFemaleNPC.class)," [npc.cum+]!")),
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.namePos] [npc.asshole+]")+UtilText.parse(Main.game.getNpc(GenericFemaleNPC.class)," with [npc.her] [npc.cum+], "))));
 	
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Anal Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
@@ -652,8 +654,8 @@ public class OccupancyUtil implements XMLSaving {
 								effectDescriptions.append(UtilText.parse(stocksPartner,
 										UtilText.returnStringAtRandom(
 												"[npc.A_race] came deep down "+UtilText.parse(slave, "[npc.namePos] throat!"),
-												"[npc.A_race] roughly face-fucked "+UtilText.parse(slave, "[npc.name], before filling [npc.her] stomach with"+UtilText.parse(Main.game.getGenericFemaleNPC()," [npc.cum+]!")),
-												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.namePos] stomach")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+]!"))));
+												"[npc.A_race] roughly face-fucked "+UtilText.parse(slave, "[npc.name], before filling [npc.her] stomach with"+UtilText.parse(Main.game.getNpc(GenericFemaleNPC.class)," [npc.cum+]!")),
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.namePos] stomach")+UtilText.parse(Main.game.getNpc(GenericFemaleNPC.class)," with [npc.her] [npc.cum+]!"))));
 	
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Swallowed Cum:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
@@ -665,8 +667,8 @@ public class OccupancyUtil implements XMLSaving {
 								effectDescriptions.append(UtilText.parse(stocksPartner,
 										UtilText.returnStringAtRandom(
 												"[npc.A_race] came deep inside "+UtilText.parse(slave, "[npc.namePos] [npc.nipples+]!"),
-												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.namePos] [npc.nipples+], before filling [npc.her] [npc.breasts+] with"+UtilText.parse(Main.game.getGenericFemaleNPC()," [npc.cum+]!")),
-												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.namePos] [npc.nipples+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
+												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.namePos] [npc.nipples+], before filling [npc.her] [npc.breasts+] with"+UtilText.parse(Main.game.getNpc(GenericFemaleNPC.class)," [npc.cum+]!")),
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.namePos] [npc.nipples+]")+UtilText.parse(Main.game.getNpc(GenericFemaleNPC.class)," with [npc.her] [npc.cum+], "))));
 	
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Nipple Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
@@ -679,7 +681,7 @@ public class OccupancyUtil implements XMLSaving {
 										UtilText.returnStringAtRandom(
 												"[npc.A_race] came deep inside "+UtilText.parse(slave, "[npc.namePos] [npc.pussy+], "),
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.namePos] [npc.pussy+], "),
-												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.namePos] [npc.pussy+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.namePos] [npc.pussy+]")+UtilText.parse(Main.game.getNpc(GenericFemaleNPC.class)," with [npc.her] [npc.cum+], "))));
 
 								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
 	

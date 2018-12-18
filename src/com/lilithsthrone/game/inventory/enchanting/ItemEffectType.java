@@ -2733,34 +2733,34 @@ public class ItemEffectType {
 	
 	// RACIAL:
 	
-	public static AbstractItemEffectType RACE_DEMON = new AbstractItemEffectType(null,
-			Colour.RACE_DEMON) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.DEMON, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.DEMON, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
+//	public static AbstractItemEffectType RACE_DEMON = new AbstractItemEffectType(null,
+//			Colour.RACE_DEMON) {
+//
+//		@Override
+//		public List<TFModifier> getPrimaryModifiers() {
+//			return TFModifier.getTFRacialBodyPartsList();
+//		}
+//
+//		@Override
+//		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+//			return getRacialSecondaryModifiers(Race.DEMON, primaryModifier);
+//		}
+//		
+//		@Override
+//		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+//			return getRacialPotencyModifiers(Race.DEMON, primaryModifier, secondaryModifier);
+//		}
+//		
+//		@Override
+//		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+//			return Util.newArrayListOfValues(getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+//		}
+//	};
 	
 	public static AbstractItemEffectType RACE_HUMAN = new AbstractItemEffectType(null,
 			Colour.RACE_HUMAN) {

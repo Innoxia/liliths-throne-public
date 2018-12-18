@@ -16,11 +16,27 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionClubNPC;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
@@ -28,6 +44,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
@@ -292,31 +309,53 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		} catch(Exception ex) {	
 		}
 		
-//		// Slaves:
-//		
-//		Element slavesOwned = (Element) parentElement.getElementsByTagName("slavesExported").item(0);
-//		if(slavesOwned!=null) {
-//			for(int i=0; i< slavesOwned.getElementsByTagName("character").getLength(); i++){
-//				Element e = ((Element)slavesOwned.getElementsByTagName("character").item(i));
-//				
-//				SlaveImport slave = SlaveImport.loadFromXML2(log, e, doc);
-//				
-//				//TODO move into slave's import:
-//				slave.setMana(slave.getAttributeValue(Attribute.MANA_MAXIMUM));
-//				slave.setHealth(slave.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-//				slave.setStamina(slave.getAttributeValue(Attribute.STAMINA_MAXIMUM));
-//				
-//				try {
-//					Main.game.getSlaveImports().add(slave);
-////					character.addSlave(slave);
-//					slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-//					
-//				} catch (Exception e1) {
-//					e1.printStackTrace();
-//				}
-//			}
-//		}
-		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
+			// Reset player's demon parts to human if prior to 0.3:
+			if(character.getArmType().getRace()==Race.DEMON) {
+				character.setArmType(ArmType.HUMAN);
+			}
+			if(character.getAssType().getRace()==Race.DEMON) {
+				character.setAssType(AssType.HUMAN);
+			}
+			if(character.getBreastType().getRace()==Race.DEMON) {
+				character.setBreastType(BreastType.HUMAN);
+			}
+			if(character.getEarType().getRace()==Race.DEMON) {
+				character.setEarType(EarType.HUMAN);
+			}
+			if(character.getEyeType().getRace()==Race.DEMON) {
+				character.setEyeType(EyeType.HUMAN);
+			}
+			if(character.getFaceType().getRace()==Race.DEMON) {
+				character.setFaceType(FaceType.HUMAN);
+			}
+			if(character.getHairType().getRace()==Race.DEMON) {
+				character.setHairType(HairType.HUMAN);
+			}
+			if(character.getHornType().getRace()==Race.DEMON) {
+				character.setHornType(HornType.NONE);
+			}
+			if(character.getLegType().getRace()==Race.DEMON) {
+				character.setLegType(LegType.HUMAN);
+			}
+			if(character.getPenisType().getRace()==Race.DEMON) {
+				character.setPenisType(PenisType.HUMAN);
+			}
+			if(character.getSkinType().getRace()==Race.DEMON) {
+				character.setSkinType(SkinType.HUMAN);
+			}
+			if(character.getTailType().getRace()==Race.DEMON) {
+				character.setTailType(TailType.NONE);
+			}
+			if(character.getVaginaType().getRace()==Race.DEMON) {
+				character.setVaginaType(VaginaType.HUMAN);
+			}
+			if(character.getWingType().getRace()==Race.DEMON) {
+				character.setWingType(WingType.NONE);
+			}
+			character.setSubspeciesOverride(null);
+			character.getBody().calculateRace(character);
+		}
 		
 		return character;
 	}
@@ -404,6 +443,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 			}
 			
+		} else if(this.getWorldLocation()==WorldType.SUBMISSION) {
+			super.setLocation(worldLocation, location, setAsHomeLocation);
+			
+			PlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
+			if(place==PlaceType.SUBMISSION_LILIN_PALACE_GATE || place==PlaceType.SUBMISSION_LILIN_PALACE) {
+				Main.game.getNpc(Elizabeth.class).setLocation(this, false);
+			}
+			
 		} else {
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 		}
@@ -443,7 +490,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public boolean isRelatedTo(GameCharacter character) {
-		if(character.equals(Main.game.getLilaya())) {
+		if(character.equals(Main.game.getNpc(Lilaya.class))) {
 			return true;
 		}
 		return super.isRelatedTo(character);

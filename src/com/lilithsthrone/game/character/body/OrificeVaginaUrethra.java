@@ -297,6 +297,10 @@ public class OrificeVaginaUrethra implements OrificeInterface, Serializable {
 		
 		orificeModifiers.add(modifier);
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
 				if(owner.isPlayer()) {
@@ -366,6 +370,10 @@ public class OrificeVaginaUrethra implements OrificeInterface, Serializable {
 		}
 		
 		orificeModifiers.remove(modifier);
+		
+		if(owner==null) {
+			return "";
+		}
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:

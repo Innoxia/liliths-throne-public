@@ -8,6 +8,7 @@ import java.util.Locale;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -824,7 +825,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				return new Response("Find Lyssieth", "If you ever want to find out what's going on, it looks like you'll have to agree to help.", ROOM_ARTHUR){
+				return new Response("Find Lyssieth", "If you ever want to find out what's going on, it looks like you'll have to agree to help.", ROOM_ARTHUR_INSTALLATION_AGREE_TO_CONVINCE_LYSSIETH){
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_A_INTO_THE_DEPTHS));
@@ -859,7 +860,7 @@ public class LilayaHomeGeneric {
 							+ " After a time, we started dating, but it didn't last long...)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Arthur seems quite reluctant to continue, but after a minute of silence, he continues,"
+						+ "Arthur seems quite reluctant to continue, but after a moment of silence, he continues,"
 						+ " [arthur.speech(At the time, Lyssieth used to visit very regularly, and would always make a fuss over Lilaya."
 							+ " Well, the last time Lyssieth visited, Lilaya was out on a rare errand, and, left alone with her in the lab... well... i-it's hard saying no to a Lilin... and after she told me she had a thing for humans...)]"
 					+ "</p>"
@@ -868,7 +869,7 @@ public class LilayaHomeGeneric {
 						+ " you sigh, seeing where this is going."
 					+ "</p>"
 					+ "<p>"
-						+ "[arthur.speech(Yeah... Needless to say, Lilaya returned and caught us in the act,)]"
+						+ "[arthur.speech(Mmm... Needless to say, Lilaya returned and caught us in the act,)]"
 						+ " Arthur continues, casting his eyes to the floor,"
 						+ " [arthur.speech(and you can imagine the rest... She still hasn't forgiven either of us for that."
 							+ " I mean, polyamory isn't exactly uncommon - hell, Lilaya herself was still sleeping with Rose at the time - but seeing as it was with her mother, as well as the fact that we'd done it behind her back...)]"
@@ -962,7 +963,7 @@ public class LilayaHomeGeneric {
 								public void effects() {
 									Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE));
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HYPNO_WATCH, Quest.SIDE_HYPNO_WATCH_TEST_SUBJECT));
-									Main.game.getLilaya().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+									Main.game.getNpc(Lilaya.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 								}
 							};
 						}
@@ -1232,7 +1233,7 @@ public class LilayaHomeGeneric {
 //									testingSlave = Main.game.getNPCById(Main.game.getPlayer().getSlavesOwned().get(index-1));
 //									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ORIENTATION_HYPNO_WATCH), false));
 //									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_HYPNO_WATCH));
-//									Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+//									Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 //								}
 //							};
 //						}
@@ -1367,7 +1368,7 @@ public class LilayaHomeGeneric {
 
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HYPNO_WATCH, Quest.SIDE_UTIL_COMPLETE));
 						
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 					}
 				};
 			} else {
@@ -1652,7 +1653,7 @@ public class LilayaHomeGeneric {
 								+ "</p>";
 						
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.auntHomeJustEntered);
-						Main.game.getRose().setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation(), false);
+						Main.game.getNpc(Rose.class).setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation(), false);
 					}
 				};
 				
@@ -1849,7 +1850,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getLabel() {
-			return Main.game.getLilaya().getName()
+			return Main.game.getNpc(Lilaya.class).getName()
 					+ "'s Home";
 		}
 
@@ -1870,11 +1871,11 @@ public class LilayaHomeGeneric {
 								+ " you ask."
 								+ "</p>"
 								+ "<p>"
-								+ UtilText.parseSpeech("Yes, I suppose she does give that impression,", Main.game.getRose())
+								+ UtilText.parseSpeech("Yes, I suppose she does give that impression,", Main.game.getNpc(Rose.class))
 								+ " Rose replies, "
 								+ UtilText.parseSpeech("but I'm afraid that I can't tell you much about her."
 										+ " It's not my place to talk about my Mistress behind her back, as I'm sure you can understand."
-										+ " If you want to know more about her, you'll have to get to know her better.", Main.game.getRose())
+										+ " If you want to know more about her, you'll have to get to know her better.", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 								+ "Rose blushes and fidgets nervously on the spot, obviously feeling very awkward about telling you that she can't help you out."
@@ -1895,7 +1896,7 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p>"
 									+ "Rose smiles to put you at ease, obviously sensing that you're a bit hesitant to broach the subject. "
-									+ UtilText.parseSpeech("Well, like most other slaves, I sold myself into slavery.", Main.game.getRose())
+									+ UtilText.parseSpeech("Well, like most other slaves, I sold myself into slavery.", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 									+ "You can't help but feel shocked as you hear that Rose willingly became a slave, but before you can ask why, she seems to sense your incoming question and continues, "
@@ -1934,13 +1935,13 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p>"
 								+ UtilText.parseSpeech("Well, I don't really know what's different here compared to where you come from, so without spending all day telling you every detail about this place,"
-										+ " I'll just give you some general information, ", Main.game.getRose())
+										+ " I'll just give you some general information, ", Main.game.getNpc(Rose.class))
 								+ " Rose replies helpfully. "
 								+ UtilText.parseSpeech("Basically, this world is ruled by queen Lilith, who's the most powerful demon to ever have lived."
 										+ " She lives here in Dominion, in that huge tower that can be seen from miles around."
 										+ " Although she personally rules over Dominion, she allows her daughters, the Lilin, to control other parts of her domain."
 										+ " Surrounding Dominion, there are four different areas of control, each ruled by a different Lilin;"
-										+ " the jungle, ruled by Lyxias; the Foloi Fields, ruled by Lunette; the desert, ruled by Lisophia; and the Endless Sea, ruled by Lirecea.", Main.game.getRose())
+										+ " the jungle, ruled by Lyxias; the Foloi Fields, ruled by Lunette; the desert, ruled by Lisophia; and the Endless Sea, ruled by Lirecea.", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 								+ "It seems as though every Lilin's name beings with an 'L', and you wonder how Rose is able to remember all these unusual names."
@@ -1953,7 +1954,7 @@ public class LilayaHomeGeneric {
 										+ " Although there are several other races that inhabit this world, a lot of the more exotic ones tend to stay in the outer regions."
 										+ " There aren't many humans in our world, as most of them transform themselves in order to fit in with Dominion society a bit easier."
 										+ " Oh, speaking of which, watch out what you eat and drink, as there are many transformative consumables that will alter your body."
-										+ " So, unless you want to end up looking more like me, you shouldn't taste everything you find.", Main.game.getRose())
+										+ " So, unless you want to end up looking more like me, you shouldn't taste everything you find.", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 								+ "With that last warning, Rose looks like she's finished, and you wonder if you should ask her anything else, or leave her to carry on with her dusting."
@@ -1972,9 +1973,9 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p>"
 								+ "Rose's cheeks suddenly flush red, and although you asked your question in innocence, you realise that Rose's thoughts have instantly turned to some of her more intimate duties. "
-								+ UtilText.parseSpeech("E-Erm, well, ah, y-you know, demons get pretty horny, and Lilaya's no different,", Main.game.getRose())
+								+ UtilText.parseSpeech("E-Erm, well, ah, y-you know, demons get pretty horny, and Lilaya's no different,", Main.game.getNpc(Rose.class))
 								+ " she stammers, before regaining her composure. "
-								+ UtilText.parseSpeech("But other than that, I spend most of my time cleaning and cooking. You've got no idea how much dusting this place requires!", Main.game.getRose())
+								+ UtilText.parseSpeech("But other than that, I spend most of my time cleaning and cooking. You've got no idea how much dusting this place requires!", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 								+ "As she says this, you suddenly become aware that she's holding a little feather duster, of the same 'French-maid' style as the rest of her uniform."
@@ -1983,7 +1984,7 @@ public class LilayaHomeGeneric {
 								+ "<p>"
 								+ "Sensing what you're looking at, Rose suddenly blushes, and blurts out, "
 								+ UtilText.parseSpeech("I use a duster like this so I don't have to get my hands dirty!"
-										+ " You know, I take really good care of them, but Lilaya never seems to notice...", Main.game.getRose())
+										+ " You know, I take really good care of them, but Lilaya never seems to notice...", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 								+ "You don't quite know what's come over you, but you're finding it hard to think of anything other than Rose's perfect, feminine hands."
@@ -2007,7 +2008,7 @@ public class LilayaHomeGeneric {
 					@Override
 					public void effects() {
 						askedAboutDuties = false;
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					}
 					
 					@Override
@@ -2055,7 +2056,7 @@ public class LilayaHomeGeneric {
 						true, false,
 						new SMRoseHands(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.HAND_SEX_DOM_ROSE)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getRose(), SexPositionSlot.HAND_SEX_SUB_ROSE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Rose.class), SexPositionSlot.HAND_SEX_SUB_ROSE))),
 						null, null, Rose.END_HAND_SEX);
 
 			} else {

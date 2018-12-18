@@ -450,31 +450,31 @@ public class Nyan extends NPC {
 			if(type.equals(ItemType.GIFT_CHOCOLATES)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_CHOCOLATES")
 						+(applyEffects
-								?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5)
+								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
 								:"");
 				
 			} else if(type.equals(ItemType.GIFT_PERFUME)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_PERFUME")
 					+(applyEffects
-							?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5)
+							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
 							:"");
 				
 			} else if(type.equals(ItemType.GIFT_ROSE)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_SINGLE_ROSE")
 						+(applyEffects
-								?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5)
+								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
 								:"");
 					
 				} else if(type.equals(ItemType.GIFT_ROSE_BOUQUET)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_ROSES")
 					+(applyEffects
-							?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 10)
+							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 10)
 							:"");
 				
 			} else if(type.equals(ItemType.GIFT_TEDDY_BEAR)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_TEDDY_BEAR")
 					+(applyEffects
-							?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 15)
+							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 15)
 							:"");
 				
 			}

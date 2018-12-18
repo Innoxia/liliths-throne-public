@@ -111,6 +111,12 @@ public class Mouth implements BodyPartInterface, Serializable {
 
 	public String setLipSize(GameCharacter owner, int lipSize) {
 		int effectiveLipSize = Math.max(0, Math.min(lipSize, LipSize.getLargest()));
+		
+		if(owner==null) {
+			this.lipSize = effectiveLipSize;
+			return "";
+		}
+		
 		if(owner.getLipSizeValue() == effectiveLipSize) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.lips] doesn't change...)]</p>";

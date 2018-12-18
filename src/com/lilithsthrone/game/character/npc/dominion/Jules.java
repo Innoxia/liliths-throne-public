@@ -240,7 +240,7 @@ public class Jules extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getJules())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
@@ -249,7 +249,7 @@ public class Jules extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getJules())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 

@@ -389,7 +389,7 @@ public class Kate extends NPC {
 					+ " She seems to have got her lust fully under control by now, and as she speaks, she sounds almost embarrassed of what just happened, "
 					+ UtilText.parseSpeech("Ehhh, thanks for helping me out there... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
 							+ " Weren't you deterred by the boarded-up windows and stuff?",
-						Main.game.getKate())
+						Main.game.getNpc(Kate.class))
 					+ "</p>"
 					+ "<p>"
 					+ UtilText.parsePlayerSpeech("So you're aware of how it appears to customers?")
@@ -399,7 +399,7 @@ public class Kate extends NPC {
 					+ UtilText.parseSpeech("Well, yeah I'm aware! You know, the owners of this whole Arcade keep threatening me with legal action, saying I have a 'responsibility' to keep the area looking nice."
 							+ " As if! As long as I display an 'open for business' sign, I'm following all the terms of my contract! You know what happened when I opened this place?! Thirty. Six. Customers. All in one day. Eugh!"
 							+ " As the last one of those demanding know-it-alls left, I followed them outside, boarded up the windows, and threw paint stripper all over the sign. One day's hard work is enough for anyone...",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 					+ "</p>"
 					+ "<p>"
 					+ "As she's been speaking, she's started gathering items from the shelves on the other side of the room, stacking them up on a little metal trolley that's been sitting nearby."
@@ -407,10 +407,10 @@ public class Kate extends NPC {
 					+ "</p>"
 					+ "<p>"
 					+ UtilText.parseSpeech("Well, I suppose I don't mind one customer every now and then. I could use the cash after all,",
-						Main.game.getKate())
+						Main.game.getNpc(Kate.class))
 					+" she says, motioning for you to come and sit down, "
 					+ UtilText.parseSpeech("This is the most comfortable seat, by the way, and hey, I've even warmed it up for you!",
-						Main.game.getKate())
+						Main.game.getNpc(Kate.class))
 					+ "</p>"
 					+ "<p>"
 					+ "Kate wipes down the seat, and, seeing that it looks clean enough, you do as she instructs and sink down into the chair."
@@ -444,7 +444,7 @@ public class Kate extends NPC {
 					+ " Standing up, she wipes herself clean with a tissue she's produced from somewhere, before flattening down her mini skirt and turning to smile at you."
 					+ " She seems to have got her lust fully under control by now, and as she speaks, she sounds almost embarrassed of what just happened, "
 					+ UtilText.parseSpeech("Ehhh, thanks for helping me out there... You know, it's pretty hard for us demons sometimes... Anyway! You need any more of my services?",
-						Main.game.getKate())
+						Main.game.getNpc(Kate.class))
 					+ "</p>"
 					+ "<p>"
 					+ "Kate wipes down the seat she's just vacated, and, seeing that it looks clean enough, you take her offer of a seat and sink down into the chair."
@@ -510,11 +510,11 @@ public class Kate extends NPC {
 				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
 				return "<p>"
 							+ "As you pull out a condom, a worried frown flashes across Kate's face, "
-							+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getKate())
+							+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getNpc(Kate.class))
 							+"<br/>"
 							+ "Before you can react, Kate snatches the condom out of your hands, and with a devious smile, uses her sharp little canines to bite a big hole straight through the centre."
 							+ " She laughs at your shocked reaction, "
-							+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getKate())
+							+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getNpc(Kate.class))
 						+ "</p>";
 			}
 		}

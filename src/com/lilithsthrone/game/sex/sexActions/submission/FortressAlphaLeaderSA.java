@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.submission;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
@@ -35,9 +36,9 @@ public class FortressAlphaLeaderSA {
 	}
 	
 	public static GameCharacter getBlowjobTarget() {
-		return Sex.getCharactersHavingOngoingActionWith(Main.game.getFortressAlphaLeader(), SexAreaPenetration.PENIS).isEmpty()
+		return Sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressAlphaLeader.class), SexAreaPenetration.PENIS).isEmpty()
 				?null
-				:Sex.getCharactersHavingOngoingActionWith(Main.game.getFortressAlphaLeader(), SexAreaPenetration.PENIS).get(0);
+				:Sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressAlphaLeader.class), SexAreaPenetration.PENIS).get(0);
 	}
 	
 	private static GameCharacter getOtherTarget() {
@@ -78,11 +79,11 @@ public class FortressAlphaLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()==null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-						|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+						|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressAlphaLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressAlphaLeader.class));
 		}
 
 		@Override
@@ -119,11 +120,11 @@ public class FortressAlphaLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()!=null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-						|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+						|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressAlphaLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressAlphaLeader.class));
 		}
 
 		@Override
@@ -190,11 +191,11 @@ public class FortressAlphaLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()==null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-						|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+						|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressAlphaLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressAlphaLeader.class));
 		}
 
 		@Override
@@ -232,11 +233,11 @@ public class FortressAlphaLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()!=null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-							|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+							|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressAlphaLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressAlphaLeader.class));
 		}
 
 		@Override

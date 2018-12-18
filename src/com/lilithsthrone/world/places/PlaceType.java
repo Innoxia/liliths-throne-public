@@ -1129,7 +1129,7 @@ public enum PlaceType {
 
 	
 	
-	SUBMISSION_IMP_FORTRESS_DEMON("Imp Citadel", "submission/impFortress2", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_DEMON, null, true, true, true, "in Submission") {
+	SUBMISSION_IMP_FORTRESS_DEMON("Imp Citadel", "submission/impFortress2", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_DEMON, null, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
@@ -1169,7 +1169,7 @@ public enum PlaceType {
 			return FORTRESS_DEMON_ENTRANCE.getPopulation();
 		}
 	},
-	FORTRESS_DEMON_KEEP("Keep", "submission/impFortress/keep", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP, null, true, true, false, "in the Dark Siren's citadel") {
+	FORTRESS_DEMON_KEEP("Keep", "submission/impFortress/keep", BaseColour.PURPLE, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP, null, true, true, false, "in the Dark Siren's citadel") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL);
@@ -1265,8 +1265,9 @@ public enum PlaceType {
 	LYSSIETH_PALACE_WINDOWS("Windows", null, BaseColour.GREY_DARK, Colour.MAP_BACKGROUND_DARK, LyssiethPalaceDialogue.WINDOWS, null, false, true, false, "in Lyssieth's Palace"),
 	LYSSIETH_PALACE_ENTRANCE("Entrance", "submission/lyssiethsPalace/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ENTRANCE, null, false, true, false, "in Lyssieth's Palace"),
 	LYSSIETH_PALACE_ROOM("Room", "submission/lyssiethsPalace/room", BaseColour.PINK, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ROOM, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_ROOM_SIREN("Mhyralyss's Room", "submission/lyssiethsPalace/sirenRoom", BaseColour.PURPLE, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ROOM_SIREN, null, false, true, false, "in Lyssieth's Palace"),
 	LYSSIETH_PALACE_HALL("Hall", "submission/lyssiethsPalace/hall", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.HALL, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_THRONE_ROOM("Throne Room", "submission/lyssiethsPalace/throneRoom", BaseColour.PURPLE, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.THRONE_ROOM, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_THRONE_ROOM("Office", "submission/lyssiethsPalace/office", BaseColour.GOLD, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.THRONE_ROOM, null, false, true, false, "in Lyssieth's Palace"),
 	LYSSIETH_PALACE_STAIRS_1("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace"),
 	LYSSIETH_PALACE_STAIRS_2("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace"),
 	LYSSIETH_PALACE_TREASURY_DOOR("Iron Door", "submission/lyssiethsPalace/treasuryDoor", BaseColour.RED_DARK, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.TREASURY_DOOR, null, false, true, false, "in Lyssieth's Palace"),

@@ -384,10 +384,10 @@ public class FortressAlphaLeader extends NPC {
 
 	@Override
 	public GameCharacter getPreferredSexTarget() {
-		if(Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader())!=null
+		if(Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class))!=null
 				&& !FortressAlphaLeaderSA.isBothTargetsUsed()
-				&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-				|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)) {
+				&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+				|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)) {
 			return FortressAlphaLeaderSA.getBlowjobTarget();
 		}
 		return null;

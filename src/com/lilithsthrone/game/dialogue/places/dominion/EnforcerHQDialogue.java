@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
+import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -149,7 +150,7 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getCharactersEncountered().contains(Main.game.getCandi().getId())) {
+			if(Main.game.getPlayer().getCharactersEncountered().contains(Main.game.getNpc(CandiReceptionist.class).getId())) {
 				return "<p>"
 						+ "A couple of rough-looking dog-boys are lounging about on one of the many low sofas littered around this waiting area."
 						+ " A reception desk sits off to one side of the room, and you see Candi, the lesser cat-girl bimbo, sitting behind it."
@@ -451,7 +452,7 @@ public class EnforcerHQDialogue {
 								false, false,
 								new SMKneeling(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 								null,
 								null, AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
@@ -486,7 +487,7 @@ public class EnforcerHQDialogue {
 								false, false,
 								new SMKneeling(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 								null,
 								null, AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
@@ -521,7 +522,7 @@ public class EnforcerHQDialogue {
 								false, false,
 								new SMKneeling(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 								null,
 								null, AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
@@ -555,7 +556,7 @@ public class EnforcerHQDialogue {
 								null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, false,
 								new SMBraxDoggy(
-										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexPositionSlot.DOGGY_BEHIND)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 								null,
 								null, AFTER_SEX, "<p>"
@@ -919,32 +920,32 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.feminisedBrax);
-						Main.game.getBrax().setName(new NameTriplet("Bree", "Bree", "Bree"));
+						Main.game.getNpc(Brax.class).setName(new NameTriplet("Bree", "Bree", "Bree"));
 						
-						Main.game.getBrax().removeFetish(Fetish.FETISH_DOMINANT);
-						Main.game.getBrax().addFetish(Fetish.FETISH_SUBMISSIVE);
+						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_DOMINANT);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_SUBMISSIVE);
 						
-						Main.game.getBrax().setFemininity(75);
-						Main.game.getBrax().setBreastSize(CupSize.C.getMeasurement());
+						Main.game.getNpc(Brax.class).setFemininity(75);
+						Main.game.getNpc(Brax.class).setBreastSize(CupSize.C.getMeasurement());
 						
 						if(Main.getProperties().multiBreasts!=0) {
-							Main.game.getBrax().setBreastRows(3);
+							Main.game.getNpc(Brax.class).setBreastRows(3);
 						}
 						
-						Main.game.getBrax().setHipSize(HipSize.THREE_GIRLY.getValue());
-						Main.game.getBrax().setAssSize(AssSize.FOUR_LARGE.getValue());
-						Main.game.getBrax().setPenisType(PenisType.NONE);
-						Main.game.getBrax().setVaginaType(VaginaType.WOLF_MORPH);
-						Main.game.getBrax().setVaginaWetness(Wetness.ONE_SLIGHTLY_MOIST.getValue());
-						Main.game.getBrax().setVaginaElasticity(OrificeElasticity.ONE_RIGID.getValue());
+						Main.game.getNpc(Brax.class).setHipSize(HipSize.THREE_GIRLY.getValue());
+						Main.game.getNpc(Brax.class).setAssSize(AssSize.FOUR_LARGE.getValue());
+						Main.game.getNpc(Brax.class).setPenisType(PenisType.NONE);
+						Main.game.getNpc(Brax.class).setVaginaType(VaginaType.WOLF_MORPH);
+						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.ONE_SLIGHTLY_MOIST.getValue());
+						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.ONE_RIGID.getValue());
 
-						Main.game.getBrax().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+						Main.game.getNpc(Brax.class).setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 						
-						Main.game.getBrax().setHeight(175);
+						Main.game.getNpc(Brax.class).setHeight(175);
 						
-						Main.game.getBrax().setVaginaVirgin(true);
+						Main.game.getNpc(Brax.class).setVaginaVirgin(true);
 
-						Main.game.getBrax().equipClothing(true, false, false, true);
+						Main.game.getNpc(Brax.class).equipClothing(true, false, false, true);
 					}
 				};
 				
@@ -1016,7 +1017,7 @@ public class EnforcerHQDialogue {
 						false, false,
 						new SMKneeling(
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 						null,
 						null, AFTER_SEX, "<p>"
 							+ "[pc.speech(Good idea, Candi, I can show Bree her true place!)] you say, grinning down at Bree's meek form."
@@ -1112,26 +1113,26 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimbofiedBrax);
-						Main.game.getBrax().setName(new NameTriplet("Brandi", "Brandi", "Brandi"));
+						Main.game.getNpc(Brax.class).setName(new NameTriplet("Brandi", "Brandi", "Brandi"));
 						
-						Main.game.getBrax().addFetish(Fetish.FETISH_BIMBO);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_BIMBO);
 						
-						Main.game.getBrax().setFemininity(100);
-						Main.game.getBrax().setBreastSize(CupSize.KK.getMeasurement());
-						Main.game.getBrax().setHipSize(HipSize.SEVEN_ABSURDLY_WIDE.getValue());
-						Main.game.getBrax().setAssWetness(Wetness.SIX_SOPPING_WET.getValue());
-						Main.game.getBrax().setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
-						Main.game.getBrax().setAssSize(AssSize.SEVEN_GIGANTIC.getValue());
+						Main.game.getNpc(Brax.class).setFemininity(100);
+						Main.game.getNpc(Brax.class).setBreastSize(CupSize.KK.getMeasurement());
+						Main.game.getNpc(Brax.class).setHipSize(HipSize.SEVEN_ABSURDLY_WIDE.getValue());
+						Main.game.getNpc(Brax.class).setAssWetness(Wetness.SIX_SOPPING_WET.getValue());
+						Main.game.getNpc(Brax.class).setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+						Main.game.getNpc(Brax.class).setAssSize(AssSize.SEVEN_GIGANTIC.getValue());
 						
-						Main.game.getBrax().setVaginaWetness(Wetness.SIX_SOPPING_WET.getValue());
-						Main.game.getBrax().setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.SIX_SOPPING_WET.getValue());
+						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 
-						Main.game.getBrax().setHeight(162);
+						Main.game.getNpc(Brax.class).setHeight(162);
 
-						Main.game.getBrax().setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
-						Main.game.getBrax().setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false), true);
+						Main.game.getNpc(Brax.class).setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
+						Main.game.getNpc(Brax.class).setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false), true);
 						
-						Main.game.getBrax().equipClothing(true, false, false, true);
+						Main.game.getNpc(Brax.class).equipClothing(true, false, false, true);
 					}
 				};
 				
@@ -1206,7 +1207,7 @@ public class EnforcerHQDialogue {
 						true, false,
 						new SMKneeling(
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 						null,
 						null, AFTER_SEX, "<p>"
 							+ "After waiting for five minutes, you follow Candi into her office."
@@ -1392,7 +1393,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[brax.name] looks like he's ready to give you another beating!", Main.game.getBrax());
+				return new ResponseCombat("Fight", "[brax.name] looks like he's ready to give you another beating!", Main.game.getNpc(Brax.class));
 					
 			} else {
 				return null;
@@ -1423,7 +1424,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "If you want to find out what happened to Arthur, you're going to have to fight [brax.name]!", Main.game.getBrax());
+				return new ResponseCombat("Fight", "If you want to find out what happened to Arthur, you're going to have to fight [brax.name]!", Main.game.getNpc(Brax.class));
 					
 			} else {
 				return null;
@@ -1476,7 +1477,7 @@ public class EnforcerHQDialogue {
 					+ "</p>"
 					+ "<p>"
 					+ "As you reveal that he's been fooled, [brax.name] blushes and stammers out, "
-					+ UtilText.parseSpeech("W-What do you mean? I-I knew you were lying all along! I don't even like wolf-girls! You'd better tell me what you're here for, <i>right now</i>!", Main.game.getBrax())
+					+ UtilText.parseSpeech("W-What do you mean? I-I knew you were lying all along! I don't even like wolf-girls! You'd better tell me what you're here for, <i>right now</i>!", Main.game.getNpc(Brax.class))
 					+ "</p>"
 					+ "<p>"
 					+ "You can't help but laugh at [brax.namePos] stuttering denial of his all-too-apparent weakness, but as he finishes talking, you realise that he means business. "
@@ -1485,7 +1486,7 @@ public class EnforcerHQDialogue {
 					+ "<p>"
 					+ "[brax.namePos] face turns back up into the same snarl that you saw when you first entered his office. "
 					+ UtilText.parseSpeech("As if I'd tell you that! You come barging into my office, try to make a fool of me, then expect me to hand out classified information?! I think I know exactly what punishment you deserve!",
-							Main.game.getBrax())
+							Main.game.getNpc(Brax.class))
 					+ "</p>"
 					+ "<p>"
 					+ "As [brax.name] finishes speaking, you see the familiar sight of arcane fire being summoned around his arm."
@@ -1497,10 +1498,10 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself at least a small advantage by tricking him like this!", Main.game.getBrax()){
+				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself at least a small advantage by tricking him like this!", Main.game.getNpc(Brax.class)){
 					@Override
 					public void effects(){
-						Main.game.getBrax().setLust(30);
+						Main.game.getNpc(Brax.class).setLust(30);
 					}
 				};
 					
@@ -1522,7 +1523,7 @@ public class EnforcerHQDialogue {
 					+ "</p>"
 					+ "<p>"
 					+ "You struggle not to laugh as you see [brax.namePos] eyes glazing over with lust. "
-					+ UtilText.parseSpeech("So... erm... what do these wolf-girls do?", Main.game.getBrax())
+					+ UtilText.parseSpeech("So... erm... what do these wolf-girls do?", Main.game.getNpc(Brax.class))
 					+ "</p>"
 					+ "<p>"
 					+ UtilText.parsePlayerSpeech("<i>Anything</i> you want,")
@@ -1530,7 +1531,7 @@ public class EnforcerHQDialogue {
 							+ UtilText.parsePlayerSpeech("I'll tell you what, I think the 'Chief of Dominion Operations' deserves to be on the VIP list. However, I have a slight problem that needs solving before that...")
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("Anything!", Main.game.getBrax())
+					+ UtilText.parseSpeech("Anything!", Main.game.getNpc(Brax.class))
 					+" [brax.name] blurts out."
 					+ "</p>"
 					+ "<p>"
@@ -1539,14 +1540,14 @@ public class EnforcerHQDialogue {
 					+ "</p>"
 					+ "<p>"
 					+ "[brax.name] fidgets uncomfortably as you say Arthur's name. "
-					+ UtilText.parseSpeech("Ah... Erm, well, you see, I really shouldn't-", Main.game.getBrax())
+					+ UtilText.parseSpeech("Ah... Erm, well, you see, I really shouldn't-", Main.game.getNpc(Brax.class))
 					+ "</p>"
 					+ "<p>"
 					+ UtilText.parsePlayerSpeech("You know, many of our patrons like to take two or three girls at once...")
 					+ "</p>"
 					+ "<p>"
 					+ "You don't think you've ever seen anyone move so fast in your life, and before you've even finished your sentence, [brax.name] is thrusting a piece of paper into your hands. "
-					+ UtilText.parseSpeech("Don't tell anyone I gave you this! Now, where's this establishment of yours?!", Main.game.getBrax())
+					+ UtilText.parseSpeech("Don't tell anyone I gave you this! Now, where's this establishment of yours?!", Main.game.getNpc(Brax.class))
 					+ "</p>"
 					+ "<p>"
 					+ "Wanting to trick him one last time, you give a series of instructions to [brax.name] that will end up with him returning right back here at the Enforcer's HQ."
@@ -1617,7 +1618,7 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
-						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
+						((Brax) Main.game.getNpc(Brax.class)).setBraxsPostQuestStatus();
 					}
 				};
 			} else {
@@ -1637,7 +1638,7 @@ public class EnforcerHQDialogue {
 					+ "</p>"
 					+ "<p>"
 					+ "With his hand on the door-handle, [brax.name] stops, and with an unsure stammer, turns back to you, "
-					+ UtilText.parseSpeech("W-What do you mean? I-I knew you were lying all along! I don't even like wolf-girls!", Main.game.getBrax())
+					+ UtilText.parseSpeech("W-What do you mean? I-I knew you were lying all along! I don't even like wolf-girls!", Main.game.getNpc(Brax.class))
 					+ "</p>"
 					+ "<p>"
 					+ "You can't help but laugh at [brax.namePos] stuttering denial of his all-too-apparent weakness. "
@@ -1648,7 +1649,7 @@ public class EnforcerHQDialogue {
 					+ "<p>"
 					+ "[brax.namePos] face turns back up into the same snarl that you saw when you first entered his office. "
 					+ UtilText.parseSpeech("S-Shut up! You want to see how much I like wolf-girls?! Fine! I know exactly what punishment you deserve!",
-							Main.game.getBrax())
+							Main.game.getNpc(Brax.class))
 					+ "</p>"
 					+ "<p>"
 					+ "With lightning speed, [brax.name] snatches the piece of paper out from your hands, and as he leaps back, you see the familiar sight of arcane fire being summoned around his arm."
@@ -1660,10 +1661,10 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself a big advantage by tricking him like this!", Main.game.getBrax()){
+				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself a big advantage by tricking him like this!", Main.game.getNpc(Brax.class)){
 					@Override
 					public void effects(){
-						Main.game.getBrax().setLust(50);
+						Main.game.getNpc(Brax.class).setLust(50);
 					}
 				};
 					
@@ -1697,7 +1698,7 @@ public class EnforcerHQDialogue {
 					+"</p>"
 					+ "<p>"
 					+ "In a hypnotised trance, [brax.name] leans down and produces a piece of paper, before pushing it into your hands. "
-					+ UtilText.parseSpeech("Just for you, but don't tell anyone I gave you this!", Main.game.getBrax())
+					+ UtilText.parseSpeech("Just for you, but don't tell anyone I gave you this!", Main.game.getNpc(Brax.class))
 					+ "</p>";
 		}
 		
@@ -1746,12 +1747,12 @@ public class EnforcerHQDialogue {
 					+ "<p>"
 					+ "To [brax.namePos] lust-filled mind, your groan sounds just like a lewd moan, and before you can react, he grabs your head and pulls you into a sudden, rough kiss."
 					+ " After a moment of frantically forcing his tongue down your throat, he releases you, and you fall back, panting, as he stand up and grins down at you. "
-					+ UtilText.parseSpeech("Don't come in here acting the tease and expect to get away with it!", Main.game.getBrax())
+					+ UtilText.parseSpeech("Don't come in here acting the tease and expect to get away with it!", Main.game.getNpc(Brax.class))
 					+ "</p>"
 					+ "<p>"
 					+ "Before you can make a move, he steps forwards, grabbing you around the waist before pulling you into him."
 					+ " You feel his massive erection pressing against your leg, and you gulp as he growls down at you, "
-					+ UtilText.parseSpeech("I haven't fucked a wolf-girl as pretty as you in a good long while! I hope you like it rough!", Main.game.getBrax())
+					+ UtilText.parseSpeech("I haven't fucked a wolf-girl as pretty as you in a good long while! I hope you like it rough!", Main.game.getNpc(Brax.class))
 					+ "</p>";
 		}
 		
@@ -1764,7 +1765,7 @@ public class EnforcerHQDialogue {
 				return new ResponseSex("Get fucked", "Let [brax.name] take control and fuck you.",
 						true, false, 
 						new SMBraxDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						null,
 						null, Brax.AFTER_SUBMISSIVE_SEX, "<p>"
@@ -1779,7 +1780,7 @@ public class EnforcerHQDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "[brax.name] is the first to make the next move, and he suddenly pulls his head back to break off the kiss before leaning down to growl into your ear, "
-							+ UtilText.parseSpeech("Good bitch, now get down on all fours and present yourself!", Main.game.getBrax())
+							+ UtilText.parseSpeech("Good bitch, now get down on all fours and present yourself!", Main.game.getNpc(Brax.class))
 						+ "</p>"
 						+ "<p>"
 							+ "You obediently do as you are told, dropping down onto your hands and knees as you present yourself to Brax..."
@@ -1791,7 +1792,7 @@ public class EnforcerHQDialogue {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, Brax.AFTER_DOMINANT_SEX, "<p>"
 							+ "You feel a devious smile spread across your face as [brax.name] mentions it might get rough, and, leaning into him, you growl up into his ear, "
@@ -1806,14 +1807,14 @@ public class EnforcerHQDialogue {
 							+ UtilText.parsePlayerSpeech("So, the real question is, do <i>you</i> like it rough?")
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.parseSpeech("W-Wait I-", Main.game.getBrax())
+							+ UtilText.parseSpeech("W-Wait I-", Main.game.getNpc(Brax.class))
 						+ "</p>"
 						+ "<p>"
 							+ UtilText.parsePlayerSpeech("Wrong answer!")
 							+" you cry, giving [brax.namePos] throbbing cock a hard squeeze as you interrupt his response."
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.parseSpeech("Aah! Yes! Yes, I like it rough!", Main.game.getBrax())
+							+ UtilText.parseSpeech("Aah! Yes! Yes, I like it rough!", Main.game.getNpc(Brax.class))
 						+ "</p>"
 						+ "<p>"
 							+ UtilText.parsePlayerSpeech("Mmm, that's right, ")
@@ -1821,7 +1822,7 @@ public class EnforcerHQDialogue {
 							+ UtilText.parsePlayerSpeech("and who's going to be a good little bitch for their alpha she-wolf?")
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.parseSpeech("I-I am...", Main.game.getBrax())
+							+ UtilText.parseSpeech("I-I am...", Main.game.getNpc(Brax.class))
 							+" [brax.name] groans, admitting defeat."
 						+ "</p>"
 						+ "<p>"
@@ -1847,7 +1848,7 @@ public class EnforcerHQDialogue {
 					+"</p>"
 					+ "<p>"
 						+ "Letting out a disappointed grunt, [brax.name] reluctantly steps back, seemingly placated for now by your promise of a future rendezvous. "
-						+ UtilText.parseSpeech("You'd better be back soon!", Main.game.getBrax())
+						+ UtilText.parseSpeech("You'd better be back soon!", Main.game.getNpc(Brax.class))
 					+ "</p>"
 					+ "<p>"
 						+ "Making more vague promises, you step back out of the door, pulling it firmly shut behind you and breathing a sigh of relief before heading back down to the front entrance."
@@ -1865,7 +1866,7 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
-						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
+						((Brax) Main.game.getNpc(Brax.class)).setBraxsPostQuestStatus();
 					}
 				};
 			} else {

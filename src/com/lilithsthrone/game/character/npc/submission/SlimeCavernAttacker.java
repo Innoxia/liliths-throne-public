@@ -81,7 +81,10 @@ public class SlimeCavernAttacker extends NPC {
 					case CAT_MORPH_CHEETAH:
 					case CAT_MORPH_CARACAL:
 					case COW_MORPH:
+					case HALF_DEMON:
 					case DEMON:
+					case LILIN:
+					case ELDER_LILIN:
 					case DOG_MORPH:
 					case DOG_MORPH_DOBERMANN:
 					case DOG_MORPH_BORDER_COLLIE:
