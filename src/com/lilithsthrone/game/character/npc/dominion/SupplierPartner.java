@@ -48,7 +48,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.99
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public class SupplierPartner extends NPC {
@@ -59,7 +59,7 @@ public class SupplierPartner extends NPC {
 	
 	public SupplierPartner(boolean isImported) {
 		super(isImported, new NameTriplet("Karl", "Karl", "Karla"), "Hummel",
-				".",
+				"Karl is the one of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.",
 				28, Month.AUGUST, 8,
 				5,
 				Gender.M_P_MALE,
@@ -79,6 +79,7 @@ public class SupplierPartner extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+		this.setDescription("Karl is the one of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.");
 	}
 
 	@Override

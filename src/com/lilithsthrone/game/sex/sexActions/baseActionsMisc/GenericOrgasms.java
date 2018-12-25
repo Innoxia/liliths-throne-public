@@ -1620,6 +1620,24 @@ public class GenericOrgasms {
 						}
 						break;
 				}
+
+				switch(target.getBodyMaterial()) {
+					case AIR:
+					case ARCANE:
+					case WATER:
+					case SLIME:
+						cumTargetSB.append("<br/>"
+								+ "As [npc2.namePos] body is made completely out of translucent "+target.getBodyMaterial().getName()+","
+										+ " you're able to see the cloud of [npc.namePos] [npc1.cum+] shooting up and dispersing inside of [npc2.herHim].");
+						break;
+					case FIRE:
+					case FLESH:
+					case ICE:
+					case RUBBER:
+					case STONE:
+						break;
+				}
+				
 			} else {
 				switch((SexAreaPenetration)areaContacted) {
 					case CLIT:
@@ -1669,22 +1687,6 @@ public class GenericOrgasms {
 		}
 		
 		if(target!=null) {
-			switch(target.getBodyMaterial()) {
-				case AIR:
-				case ARCANE:
-				case WATER:
-				case SLIME:
-					cumTargetSB.append("<br/>"
-							+ "As [npc2.namePos] body is made completely out of translucent "+target.getBodyMaterial().getName()+","
-									+ " you're able to see the cloud of [npc.namePos] [npc1.cum+] shooting up and dispersing inside of [npc2.herHim].");
-					break;
-				case FIRE:
-				case FLESH:
-				case ICE:
-				case RUBBER:
-				case STONE:
-					break;
-			}
 			return UtilText.parse(characterOrgasming, target, cumTargetSB.toString());
 			
 		} else {
@@ -2030,16 +2032,22 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(Sex.getAvailableCumTargets(Main.game.getPlayer()).get(0));
+			return Main.game.getPlayer().getSexActionOrgasmOverride(Sex.getAvailableCumTargets(Main.game.getPlayer()).get(0), false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(Sex.getAvailableCumTargets(Main.game.getPlayer()).get(0), true).applyEffects();
 			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
 					&& !Main.game.getPlayer().isWearingCondom()
 					&& Main.game.getPlayer().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
 				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
 			}
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(Sex.getAvailableCumTargets(Main.game.getPlayer()).get(0), false).isEndsSex();
 		}
 	};
 	
@@ -2226,7 +2234,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.INSIDE);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.INSIDE, false).getDescription();
+		}
+		
+		@Override
+		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.INSIDE, true).applyEffects();
 		}
 		
 		@Override
@@ -2298,6 +2311,11 @@ public class GenericOrgasms {
 			}
 			return null; 
 		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.INSIDE, true).isEndsSex();
+		}
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_FLOOR = new SexAction(
@@ -2335,11 +2353,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.FLOOR);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FLOOR, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FLOOR, true).applyEffects();
 			GameCharacter characterPenetrated = null;
 			SexAreaInterface areaContacted = null;
 			if(!Sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
@@ -2347,6 +2366,11 @@ public class GenericOrgasms {
 				areaContacted = Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaPenetration.PENIS).get(0);
 				Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, characterPenetrated, areaContacted);
 			}
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FLOOR, true).isEndsSex();
 		}
 	};
 	
@@ -2379,12 +2403,18 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.WALL);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.WALL, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.WALL, true).applyEffects();
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.WALL, true).isEndsSex();
 		}
 	};
 	
@@ -2421,11 +2451,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.ASS);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.ASS, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.ASS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2438,6 +2469,11 @@ public class GenericOrgasms {
 						CoverableArea.ANUS);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.ASS, true).isEndsSex();
 		}
 	};
 	
@@ -2474,11 +2510,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.GROIN);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2491,6 +2528,11 @@ public class GenericOrgasms {
 						CoverableArea.VAGINA);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, true).isEndsSex();
 		}
 	};
 
@@ -2523,12 +2565,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_GROIN);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_GROIN, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
-			// Pull out:
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_GROIN, true).applyEffects();
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
@@ -2540,6 +2582,11 @@ public class GenericOrgasms {
 						CoverableArea.VAGINA);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_GROIN, true).isEndsSex();
 		}
 	};
 	
@@ -2576,11 +2623,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.BREASTS);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BREASTS, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BREASTS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2592,6 +2640,11 @@ public class GenericOrgasms {
 						CoverableArea.BREASTS);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BREASTS, true).isEndsSex();
 		}
 	};
 
@@ -2624,11 +2677,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_BREASTS);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_BREASTS, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_BREASTS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2640,6 +2694,11 @@ public class GenericOrgasms {
 						CoverableArea.BREASTS);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_BREASTS, true).isEndsSex();
 		}
 	};
 	
@@ -2676,11 +2735,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.FACE);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FACE, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FACE, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2692,6 +2752,11 @@ public class GenericOrgasms {
 						CoverableArea.MOUTH);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FACE, true).isEndsSex();
 		}
 	};
 
@@ -2724,11 +2789,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_FACE);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FACE, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FACE, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2740,6 +2806,11 @@ public class GenericOrgasms {
 						CoverableArea.MOUTH);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FACE, true).isEndsSex();
 		}
 	};
 	
@@ -2776,11 +2847,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.HAIR);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.HAIR, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.HAIR, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2792,6 +2864,11 @@ public class GenericOrgasms {
 						CoverableArea.HAIR);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.HAIR, true).isEndsSex();
 		}
 	};
 	
@@ -2828,11 +2905,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.STOMACH);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.STOMACH, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.STOMACH, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2844,6 +2922,11 @@ public class GenericOrgasms {
 						CoverableArea.STOMACH);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.STOMACH, true).isEndsSex();
 		}
 	};
 	
@@ -2876,11 +2959,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_STOMACH);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_STOMACH, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_STOMACH, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2892,6 +2976,11 @@ public class GenericOrgasms {
 						CoverableArea.STOMACH);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_STOMACH, true).isEndsSex();
 		}
 	};
 	
@@ -2928,11 +3017,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.LEGS);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.LEGS, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.LEGS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2944,6 +3034,11 @@ public class GenericOrgasms {
 						CoverableArea.LEGS);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.LEGS, true).isEndsSex();
 		}
 	};
 
@@ -2976,11 +3071,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_LEGS);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_LEGS, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_LEGS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -2993,6 +3089,11 @@ public class GenericOrgasms {
 						CoverableArea.THIGHS);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_LEGS, true).isEndsSex();
 		}
 	};
 	
@@ -3029,11 +3130,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.FEET);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FEET, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FEET, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -3045,6 +3147,11 @@ public class GenericOrgasms {
 						CoverableArea.FEET);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FEET, true).isEndsSex();
 		}
 	};
 
@@ -3077,11 +3184,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.SELF_FEET);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FEET, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FEET, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -3093,6 +3201,11 @@ public class GenericOrgasms {
 						CoverableArea.FEET);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FEET, true).isEndsSex();
 		}
 	};
 	
@@ -3129,11 +3242,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Main.game.getPlayer().getOrgasmDescription(OrgasmCumTarget.BACK);
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BACK, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BACK, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -3145,6 +3259,11 @@ public class GenericOrgasms {
 						CoverableArea.BACK);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BACK, true).isEndsSex();
 		}
 	};
 	
@@ -3266,7 +3385,7 @@ public class GenericOrgasms {
 		public SexActionPriority getPriority() {
 			if(Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
 					&& Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Sex.getCharacterTargetedForSexAction(this))
-					&& Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PREGNANCY)) {
+					&& Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()) {
 				return SexActionPriority.NORMAL;
 			} else {
 				return SexActionPriority.LOW;
@@ -3431,10 +3550,10 @@ public class GenericOrgasms {
 				return isTakingCock(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
 						&& (Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
 							|| ((Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
-									?!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_CUM_ADDICT)
+									?!Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive()
 									:true)
 							&& (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-									?(!Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PREGNANCY))
+									?!Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()
 									:true)));
 			}
 		}
@@ -3752,16 +3871,22 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(Sex.getAvailableCumTargets(Sex.getCharacterPerformingAction()).get(0));
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(Sex.getAvailableCumTargets(Sex.getCharacterPerformingAction()).get(0), false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(Sex.getAvailableCumTargets(Sex.getCharacterPerformingAction()).get(0), true).applyEffects();
 			if (!Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)
 					&& !Sex.getCharacterPerformingAction().isWearingCondom()
 					&& Sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
 				Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
 			}
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(Sex.getAvailableCumTargets(Sex.getCharacterPerformingAction()).get(0), false).isEndsSex();
 		}
 	};
 	
@@ -3784,12 +3909,6 @@ public class GenericOrgasms {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
-		}
-		
-		@Override
-		public boolean endsSex() {
-			return Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
-					|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_PREGNANCY;
 		}
 		
 		@Override
@@ -3915,7 +4034,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.INSIDE);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.INSIDE, false).getDescription();
+		}
+		
+		@Override
+		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.INSIDE, true).applyEffects();
 		}
 		
 		@Override
@@ -3987,6 +4111,13 @@ public class GenericOrgasms {
 			}
 			return null; 
 		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.INSIDE, true).isEndsSex()
+					|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
+					|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_PREGNANCY;
+		}
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_FLOOR = new SexAction(
@@ -4019,11 +4150,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.FLOOR);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.FLOOR, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.FLOOR, true).applyEffects();
 			GameCharacter characterPenetrated = null;
 			SexAreaInterface areaContacted = null;
 			if(!Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
@@ -4031,6 +4163,11 @@ public class GenericOrgasms {
 				areaContacted = Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 				Sex.stopOngoingAction(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, characterPenetrated, areaContacted);
 			}
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.FLOOR, true).isEndsSex();
 		}
 	};
 	
@@ -4059,12 +4196,18 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.WALL);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.WALL, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.WALL, true).applyEffects();
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.WALL, true).isEndsSex();
 		}
 	};
 	
@@ -4092,11 +4235,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.ASS);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.ASS, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.ASS, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4109,6 +4253,11 @@ public class GenericOrgasms {
 						CoverableArea.ANUS);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.ASS, true).isEndsSex();
 		}
 	};
 	
@@ -4136,11 +4285,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.GROIN);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4153,6 +4303,11 @@ public class GenericOrgasms {
 						CoverableArea.VAGINA);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, true).isEndsSex();
 		}
 	};
 
@@ -4180,11 +4335,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_GROIN);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_GROIN, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_GROIN, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4198,6 +4354,11 @@ public class GenericOrgasms {
 						CoverableArea.PENIS);
 			}
 			return null;
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_GROIN, true).isEndsSex();
 		}
 	};
 	
@@ -4225,11 +4386,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.BREASTS);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.BREASTS, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.BREASTS, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4241,6 +4403,11 @@ public class GenericOrgasms {
 						CoverableArea.BREASTS);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.BREASTS, true).isEndsSex();
 		}
 	};
 
@@ -4268,11 +4435,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_BREASTS);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_BREASTS, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_BREASTS, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4285,6 +4453,11 @@ public class GenericOrgasms {
 						CoverableArea.BREASTS);
 			}
 			return null;
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_BREASTS, true).isEndsSex();
 		}
 	};
 	
@@ -4312,11 +4485,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.FACE);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.FACE, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.FACE, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4328,6 +4502,11 @@ public class GenericOrgasms {
 						CoverableArea.MOUTH);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.FACE, true).isEndsSex();
 		}
 	};
 
@@ -4355,11 +4534,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_FACE);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FACE, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FACE, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4372,6 +4552,11 @@ public class GenericOrgasms {
 						CoverableArea.MOUTH);
 			}
 			return null;
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FACE, true).isEndsSex();
 		}
 	};
 	
@@ -4399,11 +4584,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.HAIR);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.HAIR, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.HAIR, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4415,6 +4601,11 @@ public class GenericOrgasms {
 						CoverableArea.HAIR);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.HAIR, true).isEndsSex();
 		}
 	};
 	
@@ -4442,11 +4633,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.STOMACH);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.STOMACH, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.STOMACH, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4458,6 +4650,11 @@ public class GenericOrgasms {
 						CoverableArea.STOMACH);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.STOMACH, true).isEndsSex();
 		}
 	};
 	
@@ -4485,11 +4682,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_STOMACH);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_STOMACH, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_STOMACH, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4502,6 +4700,11 @@ public class GenericOrgasms {
 						CoverableArea.STOMACH);
 			}
 			return null;
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_STOMACH, true).isEndsSex();
 		}
 	};
 	
@@ -4529,11 +4732,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.LEGS);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.LEGS, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.LEGS, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4545,6 +4749,11 @@ public class GenericOrgasms {
 						CoverableArea.LEGS);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.LEGS, true).isEndsSex();
 		}
 	};
 	
@@ -4572,11 +4781,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_LEGS);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_LEGS, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_LEGS, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4590,6 +4800,11 @@ public class GenericOrgasms {
 						CoverableArea.THIGHS);
 			}
 			return null;
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_LEGS, true).isEndsSex();
 		}
 	};
 	
@@ -4617,11 +4832,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.FEET);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.FEET, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.FEET, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4633,6 +4849,11 @@ public class GenericOrgasms {
 						CoverableArea.FEET);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.FEET, true).isEndsSex();
 		}
 	};
 	
@@ -4660,11 +4881,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.SELF_FEET);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FEET, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FEET, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4677,6 +4899,11 @@ public class GenericOrgasms {
 						CoverableArea.FEET);
 			}
 			return null;
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FEET, true).isEndsSex();
 		}
 	};
 	
@@ -4704,11 +4931,12 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return Sex.getCharacterPerformingAction().getOrgasmDescription(OrgasmCumTarget.BACK);
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.BACK, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.BACK, true).applyEffects();
 			// Pull out:
 			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
@@ -4720,6 +4948,11 @@ public class GenericOrgasms {
 						CoverableArea.BACK);
 			}
 			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(OrgasmCumTarget.BACK, true).isEndsSex();
 		}
 	};
 	

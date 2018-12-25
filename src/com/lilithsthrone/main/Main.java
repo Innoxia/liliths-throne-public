@@ -53,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia
  */
 public class Main extends Application {
@@ -68,7 +68,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.12.96";
+	public static final String VERSION_NUMBER = "0.3";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -88,7 +88,6 @@ public class Main extends Application {
 			+ "Hello again!"
 		+ "</p>"
 			
-		// If you're building this from github, please be aware that there will be a more detailed post on my blog soon
 		+ "<p>"
 			+ "There were a considerable amount more bugs in v0.2.12.6 than I expected, and it took quite a while to get them all fixed."
 			+ " As I then moved on to adding Lyssieth's content, I realised that I needed to add her succubus guard, Elizabeth, and in order to add her, I needed to get the elite guards' uniforms added."
@@ -749,7 +748,7 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 				
-				Main.game.setPlayer(new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, null, WorldType.MUSEUM, PlaceType.MUSEUM_ENTRANCE));
+				Main.game.setPlayer(new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.MUSEUM, PlaceType.MUSEUM_ENTRANCE));
 
 				Main.game.initNewGame(startingDialogueNode);
 

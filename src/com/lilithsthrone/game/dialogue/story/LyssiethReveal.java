@@ -1,15 +1,23 @@
 package com.lilithsthrone.game.dialogue.story;
 
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
-import com.lilithsthrone.game.character.npc.submission.FortressDemonLeader;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethSex;
 import com.lilithsthrone.main.Main;
@@ -53,7 +61,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNode FORWARDS_1 = new DialogueNode("", "", true) {
+	public static final DialogueNode FORWARDS_1 = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -80,7 +88,7 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNode FORWARDS_2 = new DialogueNode("", "", true) {
+	public static final DialogueNode FORWARDS_2 = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -95,12 +103,12 @@ public class LyssiethReveal {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Almost there", "It looks like there's an intersection in the corridor up ahead, with a large wooden door directly in front of you. Surely this is the entrance to Lyssieth's throne room?",
+				return new Response("Enter", "You ready yourself for meeting Lyssieth, and follow Elizabeth through the open doors.",
 						FORWARDS_3) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()+1));
-						Main.game.getNpc(Elizabeth.class).setLocation(Main.game.getPlayer(), false);
+						Main.game.getNpc(Elizabeth.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE);
 					}
 				};
 			}
@@ -123,12 +131,11 @@ public class LyssiethReveal {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Enter", "Allow [siren.name] to announce your presence, before finally coming face-to-face with Lilaya's mother.", OFFICE) {
+				return new Response("Lyssieth's office", "Allow [siren.name] to introduce you to Lyssieth.", OFFICE) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()+1));
-						Main.game.getNpc(Elizabeth.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE);
-						Main.game.getNpc(FortressDemonLeader.class).setLocation(Main.game.getPlayer(), false);
+						Main.game.getNpc(DarkSiren.class).setLocation(Main.game.getPlayer(), false);
 					}
 				};
 			}
@@ -172,7 +179,62 @@ public class LyssiethReveal {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Teleport", "Allow Lyssieth to teleport you and [siren.name] to Lilaya's laboratory.", OFFICE_TELEPORT);
+				return new Response("Resist", "Don't give in! Resist Lyssieth's spell and try to remain on your [pc.feet].", OFFICE_REACTION_BETRAYAL) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_REACTION_RESIST"));
+					}
+				};
+				
+			} else if(index==2) {
+				return new Response("Submit", "Yes... Kneel... Just give in...", OFFICE_REACTION_BETRAYAL) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_REACTION_SUBMIT"));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode OFFICE_REACTION_BETRAYAL = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_REACTION_BETRAYAL");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Stand", "Do as Lyssieth says and push yourself to your feet.", OFFICE_REACTION_END);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode OFFICE_REACTION_END = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_REACTION_END");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Forwards", "Move up beside Lyssieth so that she's able to teleport you and [siren.name] to Lilaya's home.", OFFICE_TELEPORT);
 			}
 			return null;
 		}
@@ -197,9 +259,10 @@ public class LyssiethReveal {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
-						Main.game.getNpc(FortressDemonLeader.class).setLocation(Main.game.getPlayer(), false);
+						Main.game.getNpc(DarkSiren.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Lyssieth.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Arthur.class).setLocation(Main.game.getPlayer(), false);
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE);
 					}
 				};
 			}
@@ -264,7 +327,7 @@ public class LyssiethReveal {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Lilaya", "Lilaya has something to say.", LAB_LILAYA_ANGERY);
+				return new Response("Lilaya", "While [siren.name] and Arthur seem to be taking this news well, Lilaya looks incredibly distressed, and it appears as though she has something to say.", LAB_LILAYA_ANGERY);
 			}
 			return null;
 		}
@@ -314,18 +377,19 @@ public class LyssiethReveal {
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_WORLD"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lyssiethQuestionAsked1, true);
+							Main.game.getTextEndStringBuilder().append(AbstractItemEffectType.getBookEffect(Subspecies.LILIN, false));
 						}
 					};
 				}
 				
 			} if(index==2) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lyssiethQuestionAsked2)) {
-					return new Response("Lilin", "You've already asked Lyssieth about the other lilin.", null);
+					return new Response("Betrayal", "You've already asked Lyssieth about why she chose to betray Lilith.", null);
 				} else {
-					return new Response("Lilin", "Ask Lyssieth where the rest of the lilin are, and why she has chosen to betray Lilith.", LAB_QUESTION) {
+					return new Response("Betrayal", "Ask Lyssieth why she has chosen to betray Lilith.", LAB_QUESTION) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_LILIN"));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_BETRAYAL"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lyssiethQuestionAsked2, true);
 						}
 					};
@@ -378,7 +442,7 @@ public class LyssiethReveal {
 						|| !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lyssiethQuestionAsked5)) {
 					return new Response("Continue", "You need to ask Lyssieth about the spell before continuing.", null);
 				} else {
-					return new Response("Continue", "Ask Lyssieth what should be done about all this.", LAB_QUESTION_END);
+					return new Response("Continue", "Lyssieth has no more time for questions.", LAB_QUESTION_END);
 				}
 			}
 			
@@ -423,6 +487,10 @@ public class LyssiethReveal {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_LIBERATE"));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), 25));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 10));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), 10));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Arthur.class).incrementAffection(Main.game.getPlayer(), 10));
 					}
 				};
 				
@@ -431,6 +499,9 @@ public class LyssiethReveal {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_USURP"));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), 10));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 10));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), 10));
 					}
 				};
 				
@@ -439,16 +510,24 @@ public class LyssiethReveal {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_JOIN"));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), -20));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), -5));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), -5));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Arthur.class).incrementAffection(Main.game.getPlayer(), -5));
 					}
 				};
 				
 			} else if(index==4) {
 				return new Response("Nothing",
-						"You really don't care about saving the world or any of that nonsense. It's much safer if you just decide to do nothing and leave the fate of the world to people with more enthusiasm.",
+						"You really don't care about saving the world or any of that nonsense. It's far less effort to just decide to do nothing and leave the fate of the world to people with more enthusiasm.",
 						LAB_ENDING) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_NOTHING"));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), -5));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), -5));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), -5));
+						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Arthur.class).incrementAffection(Main.game.getPlayer(), -5));
 					}
 				};
 			}
@@ -471,12 +550,33 @@ public class LyssiethReveal {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Return", "Return with Lyssieth to her office.", LAB_ENDING_RETURN) {
+				return new Response("Impossible", "Ask Lyssieth how you're meant to fight an elder lilin and her army of demonic centaurs.", LAB_ENDING_SIREN_HELP);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode LAB_ENDING_SIREN_HELP = new DialogueNode("", "", true, true) {
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_SIREN_HELP");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Return", "Return with Lyssieth to her office, leaving Lilaya and [siren.name] behind.", LAB_ENDING_RETURN) {
 					@Override
-					public void effects() {//TODO change
-						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_THRONE_ROOM);
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
 						Main.game.getNpc(Lyssieth.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Arthur.class).returnToHome();
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
 					}
 				};
 			}
@@ -497,26 +597,44 @@ public class LyssiethReveal {
 		}
 
 		@Override
-		public Response getResponse(int responseTab, int index) {//TODO need Lyssieth special orgasm actions - Need leg lock
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Refuse", "Tell Lyssieth that you don't want to have sex, and that if this is necessary, she'll just have to masturbate.", LAB_ENDING_RETURN_MASTURBATE);
+				if(Main.game.getPlayer().getRace()==Race.HUMAN) {
+					return new Response("Refuse sex",
+							"Tell Lyssieth that you don't want to have sex, and if it's necessary for her to orgasm, she'll just have to masturbate.",
+							LAB_ENDING_RETURN_DECLINE_SEX) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX_HUMAN"));
+						}
+					};
+				} else {
+					return new Response("Refuse sex",
+							"Tell Lyssieth that you're not interested in having sex with her, and allow her to infuse her power into your aura.",
+							LAB_ENDING_RETURN_DECLINE_SEX) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX"));
+						}
+					};
+				}
 				
 			} else if(index==2) {
 				return new ResponseSex("Pussy",
-						"Tell Lyssieth that you want to use her pussy.",
+						"Tell Lyssieth that you want to have sex with her, and that you want to dominantly use her pussy.",
 						true,
 						true,
 						new SMLyssiethSex(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexPositionSlot.MISSIONARY_DESK_SUB)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_DOM))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_DOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexPositionSlot.MISSIONARY_DESK_SUB))),
 						null,
 						null,
-						AFTER_SEX,
+						POWER_VISION,
 						UtilText.parseFromXMLFile("misc/lyssiethReveal", "SEX_PUSSY"));
 				
 			} else if(index==3) {
 				return new ResponseSex("Cock",
-						"Tell Lyssieth that you want her to grow a cock and fuck you.",
+						"Tell Lyssieth that you want to have sex with her, and that she should grow a cock and dominantly fuck you.",
 						true,
 						true,
 						new SMLyssiethSex(
@@ -524,7 +642,7 @@ public class LyssiethReveal {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))),
 						null,
 						null,
-						AFTER_SEX,
+						POWER_VISION,
 						UtilText.parseFromXMLFile("misc/lyssiethReveal", "SEX_COCK")) {
 					@Override
 					public void effects() {
@@ -532,12 +650,31 @@ public class LyssiethReveal {
 					}
 				};
 			}
-			//TODO demon TF
 			return null;
 		}
 	};
 	
-	public static final DialogueNode LAB_ENDING_RETURN_MASTURBATE = new DialogueNode("", "", true, true) {
+//	private static void setPlayerAsLyssieth() {
+//		PlayerCharacter player = new PlayerCharacter(
+//				new NameTriplet("Lyssieth"),
+//				1000,
+//				null,
+//				Gender.F_V_B_FEMALE,
+//				Subspecies.DEMON,
+//				RaceStage.GREATER,
+//				WorldType.LYSSIETH_PALACE,
+//				PlaceType.LYSSIETH_PALACE_OFFICE);
+//		player.setSurname("Lilithmartuilani");
+//		player.setDescription("One of the seven elder Lilin, you are one of the most powerful beings in existence.");
+//		player.setSubspeciesOverride(Subspecies.ELDER_LILIN);
+//		player.getBody().calculateRace(player);
+//		player.setAttribute(Attribute.MAJOR_PHYSIQUE, 100);
+//		player.setAttribute(Attribute.MAJOR_ARCANE, 100);
+//		player.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
+//		Main.game.setPlayer(player);
+//	}
+	
+	public static final DialogueNode LAB_ENDING_RETURN_DECLINE_SEX = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -546,16 +683,16 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_MASTURBATE");
+			return "";
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Power", "At the moment of Lyssieth's orgasm, you feel a surge of power rushing into your aura.", LAB_ENDING_RETURN) {
+				return new Response("Vision", "You have a strange vision, in which you are Lyssieth...", POWER_VISION) {
 					@Override
 					public void effects() {
-						//TODO effects & quest
+//						setPlayerAsLyssieth();
 					}
 				};
 			}
@@ -563,21 +700,20 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNode AFTER_SEX = new DialogueNode("", "", true) {
+	public static final DialogueNode POWER_VISION = new DialogueNode("Vision", "You have a strange vision, in which you are Lyssieth...", true) {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_MASTURBATE");
+			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "POWER_VISION");
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				//TODO make this special orgasm - it makes you orgasm at the same time
-				return new Response("Power", "At the moment of Lyssieth's orgasm, you feel a surge of power rushing into your aura.", LAB_ENDING_RETURN) {
+				return new Response("Wake up", "You regain consciousness in Lyssieth's office.", POWER_EXPLANATION) {
 					@Override
 					public void effects() {
-						//TODO effects & quest
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4));
 					}
 				};
 			}
@@ -588,6 +724,11 @@ public class LyssiethReveal {
 	public static final DialogueNode POWER_EXPLANATION = new DialogueNode("", "", true) {
 
 		@Override
+		public int getMinutesPassed() {
+			return 15;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "POWER_EXPLANATION");
 		}
@@ -595,11 +736,18 @@ public class LyssiethReveal {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Step outside Lyssieth's office so that she can fetch [siren.name].", END) {
+				return new Response("Lap pillow", "Take up Lyssieth's offer, and continue resting your head on her lap as you tell her about the vision you saw.", POWER_EXPLANATION_CONTINUE) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.LYSSIETH_PALACE_CORRIDOR, false);
-						Main.game.getNpc(FortressDemonLeader.class).setLocation(Main.game.getNpc(Lyssieth.class), false);
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "POWER_EXPLANATION_LAP"));
+					}
+				};
+				
+			} else if(index==2) {
+				return new Response("Stand up", "You don't feel comfortable like this. Stand up and tell her about the vision you saw.", POWER_EXPLANATION_CONTINUE) { // But why
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "POWER_EXPLANATION_STAND_UP"));
 					}
 				};
 			}
@@ -607,11 +755,73 @@ public class LyssiethReveal {
 		}
 	};
 	
-	public static final DialogueNode END = new DialogueNode("", "", false) {
+	public static final DialogueNode POWER_EXPLANATION_CONTINUE = new DialogueNode("", "", true) {
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Step out", "Step outside Lyssieth's office so that she can fetch [siren.name].", END_SIREN) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
+						Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
+						if(Main.game.getNpc(DarkSiren.class).getAffection(Main.game.getPlayer())<0) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getPlayer(),  0));
+						}
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode END_SIREN = new DialogueNode("", "", true) {
+
+		@Override
+		public int getMinutesPassed() {
+			return 15;
+		}
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "END_SIREN");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Map", "Take the world map that is being given to you.", END_FINAL) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setNearestLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_CORRIDOR, false);
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_3_A_FINDING_THE_YOUKO));
+						Main.game.getTextEndStringBuilder().append(
+								"<div class='container-full-width' style='text-align:center;'>"
+										+ "[style.colourExcellent(You have unlocked the world map!)]<br/>"
+										+ "<i>It can be viewed either through your phone's map menu, or by travelling to one of Dominion's exit tiles and accessing the 'World travel' menu.</i>"
+								+ "</div>");
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode END_FINAL = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "END");
+			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "END_FINAL");
 		}
 
 		@Override
@@ -619,5 +829,4 @@ public class LyssiethReveal {
 			return PlaceType.LYSSIETH_PALACE_CORRIDOR.getDialogue(false).getResponse(responseTab, index);
 		}
 	};
-	
 }

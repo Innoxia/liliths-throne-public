@@ -23,7 +23,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.78
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia, Rfpnj
  */
 public class Library {
@@ -146,7 +146,6 @@ public class Library {
 						@Override
 						public void effects() {
 							if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook2)) {
-								Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 0.5f);
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook2);
 							}
 						}
@@ -299,6 +298,17 @@ public class Library {
 						+ " It appears as though the arcane is some kind of primal force that feeds on a person's sexual energy."
 						+ " Although a person may normally be able to easily resist their aura's influence, when they get fatigued, their own aura will amplify their sexual desires, causing them to become obsessed with sex."
 						+ " This is the power that's behind the arcane storms that often erupt over Dominion, and you once again reflect on how lucky you are to have an aura powerful enough to cancel out the storm's potent effects."
+					+ "</p>"
+					+ "<p>"
+						+ "Finally, you skim over the book's last few chapters, which define 'arcane essences'."
+						+ " These essences are described as being physical, gaseous manifestations of arcane power, and are able to be infused into clothing and items of food in order to create enchanted items and potions."
+						+ " People who have a very high level of arcane power are able to absorb arcane essences from out of the aura of people orgasming or being defeated in combat near them,"
+							+ " with lilin even being able to passively absorb essences in a radius of several thousand metres."
+						+ " This does <i>not</i> diminish the aura of the orgasming person, but it does cause their aura to strengthen, preventing additional essence absorption for a few hours."
+					+ "</p>"
+					+ "<p>"
+						+ "The book finishes by noting that, due to the sexual pleasure derived from beating others, powerful arcane users who are sadists are able to absorb essences from those they abuse or beat in fights."
+						+ " Conversely, powerful arcane users who are masochists absorb essences from being beaten."
 					+ "</p>";
 		}
 
@@ -346,7 +356,7 @@ public class Library {
 					+ "<p>"
 						+ "The final part of the introduction describes how, in a way similar to their mother's, lilin usually corrupt their partners into demons before sex, so that the resulting offspring will be pure demons."
 						+ " Half-demons are considered to be lower in social standing than pure demons, with half-demons being born of a lilin and human being regarded as particularly shameful."
-						+ "</p>"
+					+ "</p>"
 					+ "<p>"
 						+ "Apparently, although many Lilin end up giving birth to hundreds, if not thousands, of demons, it's incredibly rare for a lilin to publicly acknowledge any of her demonic children as her own."
 						+ " Recognised half-demons seem to be almost unheard of, with just a handful of mentions throughout the entire book."
@@ -358,22 +368,22 @@ public class Library {
 							+ "<td>[style.boldFeminine(Mother)]/[style.boldMasculine(Father)]</td><td>Lilin</td><td>Demon</td><td>Half-demon</td><td>Human half-demon</td><td>Non-demon</td><td>Human</td><td>Imp</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Lilin</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Lilin</td><td>[style.boldtfGreater(Ln)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Demon</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Demon</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Half-demon</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Half-demon</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Human half-demon</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Human half-demon</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
 							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Non-demon</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Human</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldHuman(Hn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Human</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldHuman(Hn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
 							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Imp</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
@@ -390,12 +400,15 @@ public class Library {
 					+ "</p>"
 					+ "<p>"
 						+ "After this, the book goes on to describe human half-demons as being particularly despised in the demon's social hierarchy."
-						+ " It explains that this is due to the fact that they are the only demon-kind to produce imp offspring, and imps are considered to be the lowest of all, even below humans."
+						+ " It explains that this is due to the fact that they are the only demon-kind to produce imp offspring, and imps are considered to be the lowest of all (even below humans)."
 						+ " While still of a higher social standing than any non-demon, human half-demons are typically treated very poorly by their 'purer' relatives,"
 							+ " who will often insult them with terms such as 'imp-breeder', 'imp-factory', 'imp-fucker', or other such profanities."
 					+ "</p>"
 					+ "<p>"
-						+ "Your eyes widen as you read Lilaya's name as the only recorded human half-demon in history to be publicly recognised by their lilin mother (who, in Lilaya's case, is the elder lilin, Lyssieth)."
+						+ "Your eyes widen as you read that Lilaya is one of only two recorded human half-demons in history to be publicly recognised by their lilin mother (who, in Lilaya's case, is the elder lilin, Lyssieth)."
+						+ (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonBossEncountered)
+								?" The other half-demon mentioned is Lilaya's sister, [siren.name]."
+								:" The other half-demon to be mentioned is someone by the name of [siren.name], who is another of Lyssieth's daughters.")
 						+ " After reading about this, you can understand why Lilaya is extremely sensitive about her human half-demon form."
 					+ "</p>";
 		}
@@ -428,18 +441,15 @@ public class Library {
 					+ "<p>"
 						+ "There isn't really much useful information inside, and you quickly finish the book from cover to cover."
 						+ " There's an interesting passage about the construction of Dominion by Lilith and the demons many centuries ago, but it doesn't really go into any detail."
+					+ "</p>"
+					+ "<p>"
 						+ " Apart from that, the only other part of the book that piques your interest is a small section justifying the practice of slavery as a necessary evil."
-						+ " The passage explains how demons are the only race not commonly subjected to enslavement."
-						+ " Apparently, a demonic slave being owned by a non-demon is considered completely unacceptable in Dominion's society..."
+						+ " The passage explains how demons and half-demons are the only races who are almost never subjected to enslavement."
+						+ " Apparently, this is due to a non-demon owning a demonic slave being considered completely unacceptable in Dominion's society."
 					+ "</p>"
 					+ "<p>"
 						+ "Other than that snippet of trivia, the book doesn't contain anything useful."
-					+ "</p>"
-					+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook3)
-							? ""
-							: "<p>"
-								+ "<b>The book is too simple to gain anything from reading it...</b>"
-							+ "</p>");
+					+ "</p>";
 		}
 
 		@Override
@@ -557,40 +567,40 @@ public class Library {
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==2) {
 				if (index == 1) {
-					return bookResponse(ItemType.BOOK_HARPY, Subspecies.HARPY);
+					return bookResponse(Subspecies.HARPY);
 	
 				} else if (index == 2) {
-					return bookResponse(ItemType.BOOK_DEMON, Subspecies.DEMON);
+					return bookResponse(Subspecies.DEMON);
 	
 				} else if (index == 3) {
-					return bookResponse(ItemType.BOOK_DOG_MORPH, Subspecies.DOG_MORPH);
+					return bookResponse(Subspecies.DOG_MORPH);
 	
 				} else if (index == 4) {
-					return bookResponse(ItemType.BOOK_CAT_MORPH, Subspecies.CAT_MORPH);
+					return bookResponse(Subspecies.CAT_MORPH);
 	
 				} else if (index == 5) {
-					return bookResponse(ItemType.BOOK_HORSE_MORPH, Subspecies.HORSE_MORPH);
+					return bookResponse(Subspecies.HORSE_MORPH);
 	
 				} else if (index == 6) {
-					return bookResponse(ItemType.BOOK_WOLF_MORPH, Subspecies.WOLF_MORPH);
+					return bookResponse(Subspecies.WOLF_MORPH);
 	
 				} else if (index == 7) {
-					return bookResponse(ItemType.BOOK_HUMAN, Subspecies.HUMAN);
+					return bookResponse(Subspecies.HUMAN);
 	
 				} else if (index == 8) {
-					return bookResponse(ItemType.BOOK_ALLIGATOR_MORPH, Subspecies.ALLIGATOR_MORPH);
+					return bookResponse(Subspecies.ALLIGATOR_MORPH);
 	
 				} else if (index == 9) {
-					return bookResponse(ItemType.BOOK_BAT_MORPH, Subspecies.BAT_MORPH);
+					return bookResponse(Subspecies.BAT_MORPH);
 	
 				} else if (index == 10) {
-					return bookResponse(ItemType.BOOK_IMP, Subspecies.IMP);
+					return bookResponse(Subspecies.IMP);
 	
 				} else if (index == 11) {
-					return bookResponse(ItemType.BOOK_SLIME, Subspecies.SLIME);
+					return bookResponse(Subspecies.SLIME);
 	
 				} else if (index == 12) {
-					return bookResponse(ItemType.BOOK_RAT_MORPH, Subspecies.RAT_MORPH);
+					return bookResponse(Subspecies.RAT_MORPH);
 	
 				} else if (index == 0) {
 					return new Response("Back", "Return to the race index.", LIBRARY);
@@ -635,19 +645,19 @@ public class Library {
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==2) {
 				if (index == 1) {
-					return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Subspecies.SQUIRREL_MORPH);
+					return bookResponse(Subspecies.SQUIRREL_MORPH);
 	
 				} else if (index == 2) {
-					return bookResponse(ItemType.BOOK_COW_MORPH, Subspecies.COW_MORPH);
+					return bookResponse(Subspecies.COW_MORPH);
 	
 				} else if (index == 3) {
-					return bookResponse(ItemType.BOOK_RABBIT_MORPH, Subspecies.RABBIT_MORPH);
+					return bookResponse(Subspecies.RABBIT_MORPH);
 	
 				} else if (index == 4) {
-					return bookResponse(ItemType.BOOK_FOX_MORPH, Subspecies.FOX_MORPH);
+					return bookResponse(Subspecies.FOX_MORPH);
 	
 				} else if (index == 5) {
-					return bookResponse(ItemType.BOOK_REINDEER_MORPH, Subspecies.REINDEER_MORPH);
+					return bookResponse(Subspecies.REINDEER_MORPH);
 	
 				} else if (index == 0) {
 					return new Response("Back", "Return to the race index.", LIBRARY);
@@ -663,7 +673,9 @@ public class Library {
 	
 	};
 	
-	private static Response bookResponse(AbstractItemType book, Subspecies subspecies) {
+	private static Response bookResponse(Subspecies subspecies) {
+		AbstractItemType book = ItemType.getLoreBook(subspecies);
+		
 		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)) {
 			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
 				@Override

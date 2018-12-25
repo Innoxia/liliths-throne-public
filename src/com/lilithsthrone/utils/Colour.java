@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public enum Colour {
@@ -55,6 +55,7 @@ public enum Colour {
 	BASE_AQUA(false, BaseColour.AQUA, "aqua", Util.newArrayListOfValues("aqua")),
 	BASE_TEAL(false, BaseColour.TEAL, "teal", Util.newArrayListOfValues("teal")),
 	BASE_PERIWINKLE(false, BaseColour.PERIWINKLE, "periwinkle", Util.newArrayListOfValues("periwinkle")),
+	BASE_BLUE_DARK(false, BaseColour.BLUE_DARK, "dark blue", Util.newArrayListOfValues("darkBlue")),
 	BASE_BLUE_LIGHT(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("lightBlue")),
 	BASE_BLUE(false, BaseColour.BLUE, "blue", Util.newArrayListOfValues("blue")),
 	BASE_BLUE_STEEL(false, BaseColour.BLUE_STEEL, "steely blue", Util.newArrayListOfValues("steelyBlue")),

@@ -217,7 +217,7 @@ public class CharacterUtils {
 	}
 	
 	public static PlayerCharacter startLoadingCharacterFromXML(){
-		return new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, null, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		return new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 	}
 	
 	public static PlayerCharacter loadCharacterFromXML(File xmlFile, PlayerCharacter importedCharacter, CharacterImportSetting... settings){
@@ -292,7 +292,9 @@ public class CharacterUtils {
 				startingBodyType = fatherBody;
 				stage = father.getRaceStage();
 				raceTakesAfter = father.getSubspecies();
+				takesAfterMother = false;
 				raceFromMother = false;
+				
 			}
 			
 			switch(startingGender.isFeminine()
@@ -324,7 +326,7 @@ public class CharacterUtils {
 			body = generateBody(linkedCharacter, startingGender, startingBodyType, stage);
 //			System.out.println(":3");
 		}
-		System.out.println(body.getSubspecies().getName(linkedCharacter));
+//		System.out.println(body.getSubspecies().getName(linkedCharacter));
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
 		// Genetics! (Sort of...)
@@ -835,6 +837,8 @@ public class CharacterUtils {
 		
 		raceTakesAfter.applySpeciesChanges(body);
 		
+		body.setTakesAfterMother(takesAfterMother);
+		
 		return body;
 	}
 	
@@ -1338,6 +1342,10 @@ public class CharacterUtils {
 			species.applySpeciesChanges(body);
 		}
 		body.calculateRace(linkedCharacter);
+		
+		if(linkedCharacter!=null) {
+			linkedCharacter.postTransformationCalculation();
+		}
 		
 		return body;
 	}

@@ -635,7 +635,7 @@
 		[pc.speech(Wow, so what is it you do here? You -well, my other aunt, I mean- used to be a researcher at the city museum, but it doesn't look like you share her profession.)]
 	</p>
 	<p>
-		Lilaya drags a chair into the middle of the chalked-out pentagram and starts fiddling with a series of strange-looking spotlights at each of the five corners. As she adjusts her instruments, she motions for you to sit and answers your question, [lilaya.speech(So, the other 'me' is a researcher too? I spend most of my time in here, finding new ways to harness the arcane and infuse it into every-day objects. My mother provides-)] Lilaya cuts her sentence short, obviously saying more than she meant to, before quickly trying to change the topic, [lilaya.speech(L-Look, just sit down there and keep still while I calibrate these!)]
+		Lilaya drags a chair into the middle of the chalked-out pentagram and starts fiddling with a series of strange-looking spotlights at each of the five corners. As she adjusts her instruments, she motions for you to sit and answers your question, [lilaya.speech(So, the other 'me' is a researcher too? I spend most of my time in here, finding new ways to harness the arcane and infuse it into every-day objects. Mommy provides-)] Lilaya cuts her sentence short, obviously saying more than she meant to, before quickly trying to change the topic, [lilaya.speech(L-Look, just sit down there and keep still while I calibrate these!)]
 	</p>
 
 	<p>

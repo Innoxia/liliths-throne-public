@@ -422,196 +422,9 @@ public class MainController implements Initializable {
 						lastKeys[0] = event.getCode();
 						checkLastKeys();
 
-//						 System.out.println(event.getCode());
-						
-
-//						 if(event.getCode()==KeyCode.HOME){
-//							 Game.importGame();
-//						 }
-						
-						 if(event.getCode()==KeyCode.END){
-							 
-							 Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
-							 
-//							 Main.game.getPlayer().setScar(InventorySlot.EYES, new Scar(ScarType.CLAW_MARKS, true));
-//							 
-//							 Tattoo tat = new Tattoo(TattooType.FLOWERS, Colour.CLOTHING_PINK, false, Colour.CLOTHING_GREEN, false, Colour.CLOTHING_YELLOW, false,
-//									 new TattooWriting("Times I've been a Mommy", Colour.CLOTHING_WHITE, true, TattooWritingStyle.CURSIVE),
-//									 new TattooCounter(TattooCounterType.PREGNANCY, TattooCountType.WRITTEN, Colour.CLOTHING_PURPLE, false));
-//							 
-//							 tat.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
-//							 
-//							 Main.game.getPlayer().addTattoo(InventorySlot.WRIST, tat);
-//							 
-//							 
-//							 Main.game.getPlayer().addTattoo(InventorySlot.TORSO_OVER, new Tattoo(TattooType.TRIBAL, Colour.CLOTHING_BLACK, false, null, false, null, false,
-//									 null,
-//									 null));
-							 
-//							 System.out.println("Numeral:"+Util.intToNumerals(3788));
-//							 System.out.println(Util.intToTally(56));
-							 
-//							 File image = new File("res/images/characters/jam/brandiNaked1.png");
-////								+"file:/"+image.toURI().getPath()
-////							+"<img src=\"file:/"+image.toURI().getPath()+"\" width='250' height='600'/>"
-//							 
-//							 webEngine.load(image.toURI().toString());
-//							 webEngine.loadContent("", "");
-//							 Cell[][] grid = new Cell[5][5];
-//							 for(int i=0; i<grid.length;i++) {
-//								 for(int j=0; j<grid[0].length;j++) {
-//									 grid[i][j] = new Cell(WorldType.SEWERS, new Vector2i(i, j));
-//									 grid[i][j].setPlace(new GenericPlace(PlaceType.SUBMISSION_IMP_PALACE));
-//								 }
-//							 }
-//							 
-//							 Generation.printMaze(WorldType.SEWERS, Generation.generateTestMap(WorldType.SEWERS, 0, 0, grid, 2));
-							 
-//							 Main.game.getPlayer().incrementCummedInArea(OrificeType.VAGINA, 10000);
-							 
-//							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.CUM_HUMAN);
-//							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.MILK_HUMAN);
-//							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.GIRL_CUM_HUMAN);
-//							 Main.game.getPlayer().addStatusEffect(StatusEffect.PSYCHOACTIVE, 60*6);
-							 
-//							 Main.game.getPlayer().addAddiction(new Addiction(FluidType.MILK_HUMAN, Main.game.getMinutesPassed()));
-							 
-//							 Main.game.getPlayer().incrementAlcoholLevel(0.2f);
-							 
-//							 for(Fetish f : Fetish.values()) {
-//								 Main.game.getPlayer().incrementFetishExperience(f, (int) (Math.random()*20));
-//							 }
-							 
-//							 Main.game.getPlayer().incrementCummedInArea(OrificeType.MOUTH, 2500);
-							 
-//							 for(NPC npc : Main.game.getNPCMap().values()) {
-//								 System.out.println(npc.getId());
-//							 }
-//							 for(int i=0; i<=1000; i++) {
-//								 System.out.println(Util.intToString(i));
-//							 }
-							 
-//							 Main.game.getPlayer().addDirtySlot(InventorySlot.GROIN);
-//							 Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
-//							 Main.game.getPlayer().addDirtySlot(InventorySlot.LEG);
-							 
-							 
-//							 for(int i=0;i<10;i++) {
-//								 System.out.println(Name.getRandomTriplet(Race.DEMON));
-//							 }
-							 
-//							 Game.exportGame();
-							 
-//							 System.out.println(Main.game.getNumberOfWitches());
-							 
-//							 SlaveryUtil.calculateEvent(Main.game.getMinutesPassed(), Main.game.getPlayer().getSlavesOwned().get(0));
-//							 for(String npc : Main.game.getNPCMap().keySet()) {
-//								 System.out.println(npc);
-//							 }
-//							 
-//							 System.out.println(ItemType.BOOK_CAT_MORPH.getId());
-							 
-//							 System.out.println(Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.VAGINA).getKey().getName());
-							 
-//							 webViewMain = new WebView();
-//							 webViewAttributes = new WebView(); 
-//							 webViewInventory = new WebView();
-//							 webViewMap = new WebView();
-//							 webViewMapTitle = new WebView();
-//							 webViewButtons = new WebView();
-//							 webViewResponse = new WebView();
-//							 
-//							 setUpWebViews();
-							 
-//							File dir = new File("data/clothing");
-//							dir.mkdir();
-//							for (ClothingType ct : ClothingType.values()) {
-//								
-//								dir = new File("data/clothing/"+ct);
-//								dir.mkdir();
-//								
-//								for(Colour c : ct.getAvailableColours()) {
-//									try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/clothing/"+ct+"/"+ct.getName().replaceAll(" ", "_")+"_"+c+".svg"), "utf-8"))) {
-//										writer.write(ct.getSVGImage(c));
-//									} catch (IOException e) {
-//										e.printStackTrace();
-//									}
-//								}
-//							}
-//							 dir = new File("data/items");
-//								dir.mkdir();
-//							for (ItemType ct : ItemType.values()) {
-//								
-//								
-//								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/items/"+ct.getName(false).replaceAll(" ", "_")+".svg"), "utf-8"))) {
-//									writer.write(ct.getSVGString());
-//								} catch (IOException e) {
-//									e.printStackTrace();
-//								}
-//							}
-//							 dir = new File("data/weapons");
-//								dir.mkdir();
-//							for (WeaponType ct : WeaponType.values()) {
-//								
-//								for(DamageType dt : ct.getAvailableDamageTypes())
-//								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/weapons/"+ct.getName().replaceAll(" ", "_")+"("+dt+").svg"), "utf-8"))) {
-//									writer.write(ct.getSVGStringMap().get(dt));
-//								} catch (IOException e) {
-//									e.printStackTrace();
-//								}
-//							}
-//							 dir = new File("data/statusEffects");
-//								dir.mkdir();
-//							for (StatusEffect se : StatusEffect.values()) {
-//								if(!se.isSexEffect()) {
-//									try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/statusEffects/"+se+"("+se.getName(Main.game.getPlayer()).replaceAll(" ", "_")+").svg"), "utf-8"))) {
-//										writer.write(se.getSVGString(Main.game.getPlayer()));
-//									} catch (IOException e) {
-//										e.printStackTrace();
-//									}
-//								}
-//							}
-//							 dir = new File("data/fetishes");
-//								dir.mkdir();
-//							for (Fetish se : Fetish.values()) {
-//								
-//								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/fetishes/"+se+"("+se.getName(Main.game.getPlayer()).replaceAll(" ", "_")+").svg"), "utf-8"))) {
-//									writer.write(se.getSVGString());
-//								} catch (IOException e) {
-//									e.printStackTrace();
-//								}
-//							}
-							 
-//							 Main.getProperties().savePropertiesAsXML();
-//							 System.out.println("Free memory (bytes) -gc: " + Runtime.getRuntime().freeMemory());
-//							 System.gc();
-//							 System.out.println("Free memory (bytes) +gc: " + Runtime.getRuntime().freeMemory());
-//							 System.out.println("Body sizes:");
-//							 for(BodySize bs : BodySize.values()) {
-//								 System.out.println(bs.getName(false));
-//							 }
-//							 System.out.println("");
-//							 System.out.println("Muscle:");
-//							 for(Muscle m : Muscle.values()) {
-//								 System.out.println(m.getName(false));
-//							 }
-//							 System.out.println("");
-//							 System.out.println("");
-//							 System.out.println("Body shapes:");
-//							 for(BodyShape bs : BodyShape.values()) {
-//								 System.out.println(bs.getRelatedBodySize().getName(false)+" + "+bs.getRelatedMuscle().getName(false)+" = "+bs.getName());
-//							 }
-							 
-							 
+						 if(event.getCode()==KeyCode.END && Main.DEBUG){
+//							 Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
 						 }
-						 
-//						 if(event.getCode()==KeyCode.DELETE){
-//							 for(Fetish fetish : Fetish.values()) {
-//								 Main.game.getPlayer().addFetish(fetish);
-//								 Sex.getPartner().addFetish(fetish);
-//							 }
-//						 }
-//						 System.out.println(event.getCode());
 						 
 
 						// Escape Menu:
@@ -841,8 +654,8 @@ public class MainController implements Initializable {
 									 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveSurnameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() >= 1
-															&& Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() == 0
+															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 										}
 										
 										if (!unsuitableName) {
@@ -1207,6 +1020,21 @@ public class MainController implements Initializable {
 			addEventListener(document, "switch_left", "click", previousResponsePageListener, false);
 		}
 	}
+
+	static void setWorldMapLocationListeners(Cell c, int i, int j) {
+		String id = "WORLD_MAP_NODE_" + i + "_" + j;
+		
+		addEventListener(document, id, "mousemove", moveTooltipListener, false);
+		addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+		
+		TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+				Util.capitaliseSentence(c.getPlaceName()),
+				c.getPlace().getPlaceType().getWorldPlaceDescription()
+				+(c.getPlace().getPlaceType().isDangerous()
+					?"<br/>This is a [style.italicsBad(dangerous)] area!"
+					:"<br/>This is a [style.italicsGood(safe)] area."));
+		addEventListener(document, id, "mouseenter", el2, false);
+	}
 	
 	static void setMapLocationListeners(Cell c, int i, int j) { //TODO
 		String id = "MAP_NODE_" + i + "_" + j;
@@ -1239,17 +1067,25 @@ public class MainController implements Initializable {
 						&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
 						&& c.isTravelledTo())
 					|| Main.game.isDebugMode())
-				&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))) {
+				&& (Main.game.getSavedDialogueNode()!=null && !Main.game.getSavedDialogueNode().isTravelDisabled())) {
+				
+				boolean teleportFromMapMenu = Main.game.getCurrentDialogueNode()==PhoneDialogue.MAP;
+				
 				Main.mainController.openPhone();
 				if(!Main.game.isDebugMode()) {
 					Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
 				}
-				Main.game.getPlayer().setLocation(new Vector2i(j, i));
+				if(teleportFromMapMenu) {
+					Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
+				} else {
+					Main.game.getPlayer().setLocation(new Vector2i(j, i));
+				}
 				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.getTextStartStringBuilder().append(
-						"<p>" //TODO improve
-							+ "Having knowledge of one of the most powerful arcane spells to exist, you're able to instantaneously teleport to any location you've previously visited."
-							+ " Wanting to make use of this arcane power, you recall what your destination looked like the last time you were there, and then, with a quick upwards movement of your [pc.hand], you instantly appear there!"
+						"<p style='text-align:center'>"
+							+ "<i>"
+								+ "Recalling what your destination looked like the last time you were there, you cast the teleportation spell, and in an instant, you appear there!"
+							+ "</i>"
 						+ "</p>");
 				Main.game.setContent(new Response("", "", dn));
 			}
@@ -1263,11 +1099,6 @@ public class MainController implements Initializable {
 				Main.game.setResponseTab(responsePageCounter);
 				Main.game.updateResponses();
 			}, false);
-		
-//		addEventListener(document, id, "mousemove", responseTooltipListener, false);
-//		addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-//		TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(Main.game.getCurrentDialogueNode().getResponseTabTitle(responsePageCounter), "");
-//		addEventListener(document, id, "mouseenter", el2, false);
 	}
 	
 	static void allocateWorkTime(int i) {

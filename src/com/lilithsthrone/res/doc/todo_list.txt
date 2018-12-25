@@ -75,11 +75,12 @@
 		
 	
 	- Claire's quest (will include a way to have sex with her).
+		Need map tab, and able to TP between maps.
 		Can ask her about teleportation.
 		She is clearly already in deep trouble for having bragged about it, and begs you not to tell anyone in exchange for her demonstrating it to you.
 		Teleport platform is only meant to teleport one person, and the two of you end up being teleported into Enforcer HQ contraband storage (to an old multi-person platform that's in storage)
 		Both are stripped naked (like Lilaya did in intro).
-			Pick up teleport book from shelf
+			Instead of teleport (gained from Lyssieth), gain steal spell.
 			Claire says she will arrest you, then realises the situation you're both in
 		Need to sneak out.
 			Areas in warehouse:
@@ -120,8 +121,13 @@
 		Demons and all subspecies are now correctly immune to all transformation potions.
 		Tidied up, expanded, and fixed bugs in Elizabeth's dialogue.
 		If you have completed the Siren's quest up to returning to Elizabeth in a previous version, your quest progress will be reverted one step (so you just need to return to her again), and you will be moved back out from the gates or the palace tile into one of the palace cavern tiles. (So that you can see the new handing-in quest dialogue, as well as to fix issues with being too far ahead.)
-		Added Lyssieth.
+		Added Lyssieth as an in-game NPC, along with a map of her palace.
 		Added final part of Dominion/Submission quest, where you meet Lyssieth.
+		If you have the masochist fetish, you now gain 1 essence every time you are critically hit in combat. If you have the sadist fetish, you now gain 1 essence every time you critically hit an opponent.
+		Changed the game's opening to explicitly state that the museum is in London.
+		Added 'maps' menu to phone, so you can view every area you've been to at any time. (You will need to re-visit areas to unlock them if you're carrying on from a previous save.)
+		Added a world map, which is unlocked after Lyssieth's content. Travel to other areas isn't in just yet, but it will be in the next version.
+		Added lore-friendly demon TF for the player, via Lyssieth content. Lilaya & Meraxis reactions, along with more demon TF content, will come in the next version as well.
 	
 	Contributors:
 		Fixed incorrect labelling and descriptions in the demon alleyway attacker quick transformation scene. (#985 by ChillaChris)
@@ -129,15 +135,19 @@
 		Fixed modding clothing's 'equipped' image variant not working. (#988 by CognitiveMist)
 	
 	Clothing:
-		Added: 'drab green' colour for clothing.
+		Added a 'drab green' colour for clothing.
 		Added: 'plunge blouse' (Feminine, torso slot.)
 		Added: 'asymmetrical skirt' (Feminine, leg slot.)
 		Added: 'strappy stiletto sandals' (Feminine, foot slot.)
 		Added: 'lacy thong' (Feminine, groin slot.)
+		Added: 'feminine blazer' (Feminine, over-torso slot.)
+		Added: 'half-rim glasses' (Androgynous, eye slot.)
 		The butler outfit is now classed as being androgynous.
 	
 	Other:
-		Expanded lore in the 'Lilith's Dynasty' book in the library, and organised library actions.
+		Expanded lore in the 'Lilith's Dynasty' and 'arcane arousal' books in the library, and organised library actions.
+		Tidied up Rose's dialogue about the world.
+		Updated demon lore in the encyclopedia, adn slightly expanded slime lore to make mention of their body's hydrophobic membrane.
 		Submissive partners in sex can no longer remove sex toys from their partner. (Dildos, and anything that plugs or seals orifices are considered sex toys.)
 		Added subspecies and proper detection for half-demons, lilin, and elder lilin.
 		Slightly improved background code for offspring and litters - I did test this a lot, but if you run into any issues with pregnancies, please let me know!
@@ -147,6 +157,12 @@
 		Changed transformation references of 'breasts' and 'ass' to 'nipples' and 'anus', as that's all the transformation is affecting. (Breast and ass coverings are based on your torso's covering.)
 		Added some more descriptors for breasts and ass to draw from for when being described.
 		Tidied up code in a lot of places.
+		Changed the siren's name from Mhyralyss to Meraxis. (I was finding the spelling of 'Mhyralyss' to be a little too cumbersome.)
+		Dark alleyway demons now obey the same rules as all other NPCs when it comes to using items on them.
+		Subspecies lore books have had their icons changed.
+		Added half-demon lore book to Lilaya's library.
+		Lilaya now tells you to remember to pull out at the start of sex.
+		Changed 'Obeys lilin' effect at maximum corruption to 'Demonic mindset'. (A requirement to be turned into a demon.)
 	
 	Bugs:
 		Fixed potential issue with radial gradients in images not being coloured correctly.
@@ -172,100 +188,50 @@
 		Fixed issue where covering colour options would not show up in transform or Kate's menus.
 		Fixed siren's call being available as a spell book, and removed it from known spells, if you'd already learned it.
 		Fixed bug where setting all age categories to disabled would sometimes throw an error and break the game in strange ways.
-		Fixed Maximilian (the slime queen's royal gaurd) not being a demon slime.
-	
-	
-	
-	TODO
-		need Lilith's dynasty book alt for when know about world
-	Need to update library & Rose lore
-		Arcane arousal - essence explanation
-		Rose - just world lore, she tells you to go to the library
-		Dominion - explain culture
-		
-	
-	So I'll change it so that it's both Lilin and people who are skilled at harnessing the arcane who can extract them
-	the lore should probably address the standard practices for wage mages to generate essence. Do they rely on frequent orgies or do they have any special rituals to simulate combat?
-	 Or do they just spend all day brawling in the streets? Cause sex essence has that cool down limit
-		maybe a combination of teh two. Very powerful mages figured out how to extract essences but they keep them for themselves.
-		Only Lilin sell them for $$$
-		
-	lore for demon births - fix raceInfo.xml and add lilin entry
-		finish Subspecies.getPreGeneratedBody
-		need half demon subspecieses
-			Make the lore such that non-human half-demons are very wild, and 
-	
-	lore for slavery - demons immune
-	
-	Lore:
-	MAKE SURE THIS WORKS:
-								Lilin 		| Demon 	| Non-human Half-demon | Half-demon | Non-demon | Imps
-		Lilin					Demon		Demon		Half-demon				Half-demon	Half-demon	Imp
-		Demon					Demon		Demon		Half-demon				Half-demon	Half-demon	Imp
-		Non-human Half-demon	Half-demon	Half-demon	Half-demon				Half-demon	Half-demon	Imp
-		Half-demon				Half-demon	Half-demon	Half-demon				Imp			Imp			Imp
-		Non-demon				Half-demon	Half-demon	Half-demon				Imp			Imp			Imp
-		Imps					Imp			Imp			Imp						Imp			Imp			Imp
+		Fixed Maximilian (the slime queen's royal guard) not being a demon slime.
+		Fixed Wolfgang and Karl having empty descriptions, and fixed their post-sex 'offer body' scene acting as though you fought them.
+		Performing a handjob climax on a slime no longer incorrectly describes cum shooting inside of them.
+		Fixed issue where all characters would sometimes gain health and mana when you loaded a game.
+		Fixed body covering colours not saving if set via the debug menu, causing them to be reset every time you loaded the game.
+		Fixed some subspecies advanced lore entries being hidden, even if they shared the same unlocked lore entry as their race's core subspecies.
+		You can no longer change surnames to be blank after character creation, as it was causing some bugs.
+		Fixed incorrect grammatical parsing in some sex actions.
+		Fixed issue where unique NPCs would accept fetish TF potions.
+		Fixed characters who like the pregnancy or cum addict fetishes asking their partners to pull out.
+		Fixed issue where when loading a game, all characters on your tile would have their concealed parts revealed.
+		Some fixes to sex action grammar.
+		Fixed the 'Foxy Fuck' potion (from the youko in the citadel) not transforming your ass into a fox's.
 		
 		
 		
 		
-		
-	Lilaya give warning about pull out before sex
+	Finish lore-friendly demon TF content placeholders
+		check to see if player can TF away cock during sex
 	
-	karl and wolfgang act like they've defeated me in a fight after I offer my body to them to convince them
+	Palace scenes
+		pregnancy reaction variations
+		Need to add dialogue and duel actions to siren's office
 	
-	total offspring isn't adding up correctly.
+	Stop Lilaya special tests if not demon and revealed as aunt
 	
-	check claire lore about Lyssieth
-	
-	She also needed special orgasm actions, repeat visit scenes, and then pregnancy reaction variations for those scenes.
-	  
-	 The lore-friendly demon TF also needs to be integrated into her content
-	   the demon TF scene itself
-	      She turns into her true form
-	      Wraps you in her wings like a cocoon and kisses
-	      If player is feminine & no cock, Lyssieth fucks her
-	      If player is masculine or fem + cock, Lyssieth gets fucked
-	      When one orgasms, the other does too
-	      Fem: With each pump of her cum, more of you transforms
-	      Mas: You keep on orgasming, with each pump of your cum, more of you transforms
-	      	TF starts with genitals
-	      She makes you call her mother - if incest fetish, lots more
-	      Gives you new surname - she recognises you
-	      
-	      
-	   support for Lilaya reactions - she is now your sister
+	support for Lilaya reactions - she is now your sister
+		She is absolutely furious
+		She refuses to have sex with you
+		She demands
 	    Lilaya & Mhyralyss content related to this,
-	    another sex scene.
+	    another sex scene - need positions for desktop
+		Lilaya and Myhralyss gain incest fetishes
+		Post-lilaya demon sex dialogue
 	
-	Make moment of orgasm give you vision of Lyssieth's power
+	
+	siren as companion?
 	
 	fix arcane stat descriptions and attribute maximums (no maximum, remove permanent gains from potions)
 	
 	
-	unlock advanced race knowledge at end of sequence
-	
-	Please keep DS chuuni
-	
-	Lyssieth
-		DS as companion
-		Sex
-			DS leaves
-		race detection
-		Demon TF - requires max corruption
-			DS leaves
-			Lilaya reaction and TF
-				Lilaya and Myhralyss gain incest fetishes
-				Post-lilaya demon sex dialogue
-			
-	Player demon TF
-		Grants ability to corrupt others into demons via willing orgasm - costs 1000 essences, 500 aura
-		
-	
-	slime handjob climax describes cum inside her
-	
 	condoms
+	
+	check slave shops overstocking
 	
 	Exit dominion
 		World map, with locations (as tiles) either hidden or explored.
@@ -283,25 +249,16 @@
 		make sure they remove cock after sex
 		Also apply this to alleyway demons
 
-	saving and reloading fills up your aura pool
-		specifically, from a clean start get enough to summon an elemental (I used fire), then immediately save and reload. it didn't work solo
-
-	Prevent setting blank surnames
-
-	Add 'Lilaya's Research Notes' in her lab
-	
-	Game still doesn't save skin covering type for me if I set it through buggy
-	
 	fetishes
-		in addition to the esscence lore you might want to take another look at how fetishes interact with corruption
+		take another look at how fetishes interact with corruption
 		Yeah initial kinks should be a part of character creation.
 		Than shift all the kinky benefits over to the perk tree
 		Yeah, I don't like fetishes having "abilities" either
 		Like transformer. That shits an inarguably excellent ability, but I don't like transformation for its own sake
 		plus the whole 'kink xp' system that seems to be totally vestigial at this point
-		I guess at best what it could make sense to do is to get more/less arcane based on how much the sex was enjoyable to the participants (AKA how much kinks were hit by how experienced and so on) so that if you do sex that hits your fetishes you get more arcane and if you have sex with an experienced NPC (or have experience yourself) your arcane gain is also higher
+		I guess at best what it could make sense to do is to get more/less arcane based on how much the sex was enjoyable to the participants
+			 (AKA how much kinks were hit by how experienced and so on) so that if you do sex that hits your fetishes you get more arcane and if you have sex with an experienced NPC (or have experience yourself) your arcane gain is also higher
 		Which means that the system is focused on sexy times primarily and only without punishing player in other areas for liking sadism
-		seriously tho why sadism is such a bad fetish game pls
 		obviously have it be a one kink a thousand times thing where each kink you 'love' gets a diminishing return (so instead the 'optimal' strat becomes having one easily fulfilled kink...)
 		
 	Items set as RARE are spawning in as COMMON, nothing in error.log
@@ -309,13 +266,19 @@
 		
 	please get a clothing tag marking something as visibly immodest / revealing
 	
+	Make alleyway succubi immune to enslavement with explanation
 	
-		
-		
+	need foot structure potions	
+	
+		World Map Travel
+			Click to add waypoints
+			Edge detection for encounters
 	
 	----------
 	
 	use picobyte's condom code and run through all condom todos:
+	
+	"it is broken" being shown numerous times after lilaya panty scene
 	
 	"Deep throat" orgasm doesn't react to condoms being used
 	
@@ -367,6 +330,8 @@
 	Suggestion: Second generation elementals / children of elementals as a race that exists independently out in the wild.
 		They could fill the role of stuff like Yuki Ona and other "wild" elemental spirits
 	
+	tight choker: breaks if blowjob cock is big enough
+	
 	perks
 		Cutoffs based on physique, arcane, and corruption
 		physical
@@ -378,6 +343,8 @@
 	--------
 	
 	make the game equip a generic actually not op weapon in the event that it cant find the proper item to give them
+	
+	Can use Hotdogging tease while fucking in missionary...
 	
 	since slims can be impregnated  through any orifices, why cant they do the female breed  at Eponas
 	

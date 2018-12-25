@@ -1171,13 +1171,12 @@ public enum Perk {
 
 
 	POWER_OF_LIRECEA_1(20,
-			true,
+			false,
 			"Lirecea's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin1",
 			Colour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
 					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldLightBlue(aquatic transformations)] if a [style.boldDemon(demon)]")) {
 
@@ -1197,13 +1196,12 @@ public enum Perk {
 	},
 
 	POWER_OF_LOVIENNE_2(21,
-			true,
+			false,
 			"Lovienne's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin2",
 			Colour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
 					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
@@ -1223,13 +1221,12 @@ public enum Perk {
 	},
 
 	POWER_OF_LASIELLE_3(22,
-			true,
+			false,
 			"Lasielle's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin3",
 			Colour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
 					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
@@ -1249,15 +1246,16 @@ public enum Perk {
 	},
 	
 	POWER_OF_LYSSIETH_4(23,
-			true,
+			false,
 			"Lyssieth's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin4",
 			Colour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
 					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) {
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]",
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1275,13 +1273,12 @@ public enum Perk {
 	},
 	
 	POWER_OF_LUNETTE_5(24,
-			true,
+			false,
 			"Lunette's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin5",
 			Colour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
 					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
@@ -1301,13 +1298,12 @@ public enum Perk {
 	},
 	
 	POWER_OF_LYXIAS_6(25,
-			true,
+			false,
 			"Lyxias's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin6",
 			Colour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
 					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
@@ -1327,13 +1323,12 @@ public enum Perk {
 	},
 	
 	POWER_OF_LISOPHIA_7(26,
-			true,
+			false,
 			"Lisophia's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin7",
 			Colour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
 					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 

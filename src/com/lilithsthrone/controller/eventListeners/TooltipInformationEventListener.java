@@ -273,7 +273,7 @@ public class TooltipInformationEventListener implements EventListener {
 				}
 				
 			} else {
-				if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
+				if(!owner.hasPerkInTree(perkRow, levelUpPerk) && !levelUpPerk.isHiddenPerk()) {
 					if(!PerkManager.MANAGER.isPerkAvailable(owner, perkRow, levelUpPerk)) {
 						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
 					} else {

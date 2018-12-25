@@ -44,7 +44,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.10
+ * @version 0.3
  * @author Innoxia
  */
 public class Lab {
@@ -54,26 +54,9 @@ public class Lab {
 		@Override
 		public String getContent() {
 			if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
-				return "<p>"
-							+ "As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut."
-							+ " A little piece of paper has been stuck on it, and you see that Lilaya has left you a handwritten note:"
-						+ "</p>"
-						+"<p style='text-align:center;'>"
-							+ "<i>"
-								+ "Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean.<br/><br/>"
-								+ "I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not."
-							+ "</i>"
-						+ "</p>"
-						+ "<p>"
-							+ "Letting out a little sigh, you decide against risking angering her any further, and decide not to knock on the door."
-							+ " It looks like you'll just have to wait until she's calmed down."
-						+ "</p>";
-				
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_PREGNANCY_RISK");
 			} else {
-				return "<p>"
-							+ "You find yourself walking towards the door to Lilaya's laboratory, and as you get closer, you see that it's been left wide open."
-							+ " You could walk over to the doorway and enter her lab right now, or continue on your way and choose to come back at another time."
-						+ "</p>";
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB");
 			}
 		}
 
@@ -221,7 +204,6 @@ public class Lab {
 						+ "</p>");
 				
 			} else {
-			
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
 					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 						UtilText.nodeContentSB.append(
@@ -407,9 +389,11 @@ public class Lab {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
 								null,
-								null, Lilaya.AUNT_END_SEX, "<p>"
+								null, Lilaya.AUNT_END_SEX,
+								"<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
-									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
+									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth,"
+									+ " [lilaya.speech(Mmm, yes!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Wrapping her arms around your back, Lilaya clumsily pulls you over towards one of the lab's many chairs."
@@ -435,9 +419,13 @@ public class Lab {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
 								null,
-								null, Lilaya.AUNT_END_SEX, "<p>"
+								null, Lilaya.AUNT_END_SEX,
+								"<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
-									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
+									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth,"
+									+ (Main.game.getPlayer().hasPenis() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+											?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)]"
+											:" [lilaya.speech(Mmm, yes!)]")
 								+ "</p>"
 								+ "<p>"
 									+ "Wrapping her arms around your back, Lilaya pulls you over towards one of the lab's many chairs."
@@ -694,8 +682,6 @@ public class Lab {
 	
 	public static final DialogueNode LAB_EXIT_THROWN_OUT = new DialogueNode("Lilaya's Laboratory", "", false) {
 		
-
-		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -713,7 +699,6 @@ public class Lab {
 	
 	public static final DialogueNode LILAYA_PRESENT = new DialogueNode("Lilaya's Laboratory", "", false) {
 		
-
 		@Override
 		public String getContent() {
 
@@ -888,9 +873,15 @@ public class Lab {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						null, Lilaya.AUNT_END_SEX_GEISHA, "<p>"
+						null, Lilaya.AUNT_END_SEX_GEISHA,
+						"<p>"
 							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace."
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
+						+ "</p>"
+						+ "<p>"
+							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
+									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
 						+ "<p>"
 							+ "As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth."
@@ -910,9 +901,15 @@ public class Lab {
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-								null, Lilaya.AUNT_END_SEX_GEISHA, "<p>"
+								null, Lilaya.AUNT_END_SEX_GEISHA,
+								"<p>"
 									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace."
 									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
+								+ "</p>"
+								+ "<p>"
+									+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+											?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
+											:" [lilaya.speech(Mmm, yes!)] she giggles.")
 								+ "</p>"
 								+ "<p>"
 									+ "As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth."
@@ -1181,10 +1178,6 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LILAYA_EXPLAINS_ESSENCES_2 = new DialogueNode("", "", true, true) {
-		/**
-		 */
-
-		
 		@Override
 		public String getContent() {
 //			return UtilText.parse("/res/txt/dialogue/places/dominion/aunts_home/explaining_essences_2.txt", AuntsHome.getContext());
@@ -1856,15 +1849,20 @@ public class Lab {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
 						null,
-						null, Lilaya.AUNT_END_SEX, "<p>"
+						null, Lilaya.AUNT_END_SEX,
+						"<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
 							+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
 						+ "</p>"
 						+ "<p>"
-							+ "You look up at her [lilaya.eyes+], and she gives you a seductive smile before taking your head"
-							+ " in both hands and pressing her lips against yours."
+							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
+									:" [lilaya.speech(Mmm, yes!)] she giggles.")
+						+ "</p>"
+						+ "<p>"
+							+ "You look up at her [lilaya.eyes+], and she gives you a seductive smile before taking your head in both hands and pressing her lips against yours."
 							+ " Her tongue slips out of her mouth, and, parting your lips, you allow it to slide into yours."
 							+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
 						+ "</p>"){
@@ -2098,11 +2096,17 @@ public class Lab {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
 						null,
-						null, Lilaya.AUNT_END_SEX, "<p>"
+						null, Lilaya.AUNT_END_SEX,
+						"<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
 							+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
+						+ "</p>"
+						+ "<p>"
+							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
+									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
 						+ "<p>"
 							+ "You look up at her [lilaya.eyes], and she gives you a seductive smile before taking your head"
@@ -2148,8 +2152,6 @@ public class Lab {
 	}
 	
 	public static final DialogueNode LILAYA_FRIEND_ACCOMMODATION = new DialogueNode("", "", true, true) {
-
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_FRIEND_ACCOMMODATION");

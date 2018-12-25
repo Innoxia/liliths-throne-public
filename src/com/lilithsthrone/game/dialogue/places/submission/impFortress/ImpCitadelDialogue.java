@@ -16,7 +16,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
-import com.lilithsthrone.game.character.npc.submission.FortressDemonLeader;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
@@ -127,7 +127,7 @@ public class ImpCitadelDialogue {
 		Main.game.getNpc(SubmissionCitadelArcanist.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		
 		// Sort out boss:
-		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_THRONE_ROOM);
+		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
 		Main.game.getNpc(Lyssieth.class).addSlave((NPC) getBoss());
 		((NPC) getBoss()).equipClothing(true, true, true, true); // In case the player used steal on her.
 		
@@ -138,11 +138,11 @@ public class ImpCitadelDialogue {
 		
 		Main.game.getDialogueFlags().impFortressDemonDefeatedTime = Main.game.getMinutesPassed();
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonDefeated, true);
-
+		
 		Main.game.getDialogueFlags().impFortressAlphaDefeatedTime = Main.game.getMinutesPassed();
 		Main.game.getDialogueFlags().impFortressFemalesDefeatedTime = Main.game.getMinutesPassed();
 		Main.game.getDialogueFlags().impFortressMalesDefeatedTime = Main.game.getMinutesPassed();
-
+		
 		// Move NPCs out of hiding:
 		for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
 			if(character.getHomeLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON) {
@@ -246,7 +246,7 @@ public class ImpCitadelDialogue {
 		banishImps();
 		
 		// Move boss back to fortress:
-		Main.game.getNpc(FortressDemonLeader.class).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+		Main.game.getNpc(DarkSiren.class).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
 
 		// Move defeated leaders into fortress:
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
@@ -294,7 +294,7 @@ public class ImpCitadelDialogue {
 	}
 
 	public static GameCharacter getBoss() {
-		return Main.game.getNpc(FortressDemonLeader.class);
+		return Main.game.getNpc(DarkSiren.class);
 	}
 	
 	public static GameCharacter getArcanist() {

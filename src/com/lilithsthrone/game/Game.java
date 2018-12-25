@@ -97,7 +97,7 @@ import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Epona;
 import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
-import com.lilithsthrone.game.character.npc.submission.FortressDemonLeader;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
@@ -111,6 +111,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
@@ -471,7 +472,7 @@ public class Game implements XMLSaving {
 				Element mapNode = doc.createElement("maps");
 				game.appendChild(mapNode);
 				for(World world : Main.game.getWorlds().values()) {
-					if(world!=null) {
+					if(world!=null && world.getWorldType()!=WorldType.WORLD_MAP) { // Do not save world map, as it is for all intents and purposes immutable.
 						world.saveAsXML(mapNode, doc);
 					}
 				}
@@ -648,7 +649,9 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("HARPY_NEST") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
 							&& (!worldType.equals("BAT_CAVERNS") || !Main.isVersionOlderThan(loadingVersion, "0.2.3.5"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.10"))
-							&& (!worldType.equals("LYSSIETH_PALACE") || !Main.isVersionOlderThan(loadingVersion, "0.3"))) {
+							&& (!worldType.equals("LYSSIETH_PALACE") || !Main.isVersionOlderThan(loadingVersion, "0.3"))
+							&& !worldType.equals("WORLD_MAP") // Extra check to make sure world map is not loaded, as it is treated as being immutable
+							) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);
 					}
@@ -731,11 +734,14 @@ public class Game implements XMLSaving {
 										className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
 									}
 								}
-
+								if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
+									className = className.replace("FortressDemonLeader", "DarkSiren");
+								}
+								
 								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
 								if(npc!=null)  {
 									if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
-											|| (npc.getClass()!=FortressDemonLeader.class
+											|| (npc.getClass()!=DarkSiren.class
 											&& npc.getClass()!=FortressAlphaLeader.class
 											&& npc.getClass()!=FortressMalesLeader.class
 											&& npc.getClass()!=FortressFemalesLeader.class)) {
@@ -882,8 +888,8 @@ public class Game implements XMLSaving {
 				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressAlphaLeader.class))) {
 					Main.game.addNPC(new FortressAlphaLeader(), false);
 				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressDemonLeader.class))) {
-					Main.game.addNPC(new FortressDemonLeader(), false);
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(DarkSiren.class))) {
+					Main.game.addNPC(new DarkSiren(), false);
 				}
 				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressFemalesLeader.class))) {
 					Main.game.addNPC(new FortressFemalesLeader(), false);
@@ -900,12 +906,12 @@ public class Game implements XMLSaving {
 					Main.game.addNPC(new Lyssieth(), false);
 
 					Main.game.getNpc(Lilaya.class).setAffection(Main.game.getNpc(Lyssieth.class), -60);
-					Main.game.getNpc(Lilaya.class).setAffection(Main.game.getNpc(FortressDemonLeader.class), 15);
+					Main.game.getNpc(Lilaya.class).setAffection(Main.game.getNpc(DarkSiren.class), 15);
 					Main.game.getNpc(Lilaya.class).setMother(Main.game.getNpc(Lyssieth.class));
 
-					Main.game.getNpc(FortressDemonLeader.class).setAffection(Main.game.getNpc(Lyssieth.class), -25);
-					Main.game.getNpc(FortressDemonLeader.class).setAffection(Main.game.getNpc(Lilaya.class), 35);
-					Main.game.getNpc(FortressDemonLeader.class).setMother(Main.game.getNpc(Lyssieth.class));
+					Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lyssieth.class), -25);
+					Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lilaya.class), 35);
+					Main.game.getNpc(DarkSiren.class).setMother(Main.game.getNpc(Lyssieth.class));
 				}
 				
 				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Elizabeth.class))) {
@@ -913,7 +919,7 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Elizabeth.class).setMother(Main.game.getNpc(Lyssieth.class));
 
 					Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getNpc(Lilaya.class), 100);
-					Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getNpc(FortressDemonLeader.class), 50);
+					Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getNpc(DarkSiren.class), 50);
 					Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getNpc(Elizabeth.class), 75);
 				}
 				
@@ -1007,7 +1013,7 @@ public class Game implements XMLSaving {
 					Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2));
 					Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
 				}
-				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6") || (!Main.game.getNpc(FortressDemonLeader.class).isSlave() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated))) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6") || (!Main.game.getNpc(DarkSiren.class).isSlave() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated))) {
 					if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
 					}
@@ -1061,6 +1067,7 @@ public class Game implements XMLSaving {
 							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_CAVERN);
 						}
 					}
+					Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_LIBRARY).getInventory().addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HALF_DEMON)));
 				}
 				
 				Main.game.pendingSlaveInStocksReset = false;
@@ -1088,7 +1095,7 @@ public class Game implements XMLSaving {
 		Main.game.setRenderMap(true);
 		Main.game.setRenderAttributesSection(true);
 		
-		Main.game.started = true;
+//		Main.game.started = true;
 		
 		Main.game.setRequestAutosave(false);
 		
@@ -1099,6 +1106,8 @@ public class Game implements XMLSaving {
 //		System.out.println(Main.isVersionOlderThan(loadingVersion, "0.2.12.95"));
 		
 		Main.game.endTurn(0);
+		
+		Main.game.started = true;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1313,7 +1322,7 @@ public class Game implements XMLSaving {
 			Main.game.getNpc(Kruger.class).setAffection(Main.game.getNpc(Kalahari.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 
 			addNPC(new FortressAlphaLeader(), false);
-			addNPC(new FortressDemonLeader(), false);
+			addNPC(new DarkSiren(), false);
 			addNPC(new FortressFemalesLeader(), false);
 			addNPC(new FortressMalesLeader(), false);
 
@@ -1323,18 +1332,18 @@ public class Game implements XMLSaving {
 			addNPC(new Elizabeth(), false);
 			
 			getNpc(Lilaya.class).setAffection(getNpc(Lyssieth.class), -60);
-			getNpc(Lilaya.class).setAffection(getNpc(FortressDemonLeader.class), 15);
+			getNpc(Lilaya.class).setAffection(getNpc(DarkSiren.class), 15);
 			getNpc(Lilaya.class).setMother(getNpc(Lyssieth.class));
 
-			getNpc(FortressDemonLeader.class).setAffection(getNpc(Lyssieth.class), -25);
-			getNpc(FortressDemonLeader.class).setAffection(getNpc(Lilaya.class), 35);
-			getNpc(FortressDemonLeader.class).setMother(getNpc(Lyssieth.class));
+			getNpc(DarkSiren.class).setAffection(getNpc(Lyssieth.class), -25);
+			getNpc(DarkSiren.class).setAffection(getNpc(Lilaya.class), 35);
+			getNpc(DarkSiren.class).setMother(getNpc(Lyssieth.class));
 
 			getNpc(Elizabeth.class).setMother(getNpc(Lyssieth.class));
 			getNpc(Elizabeth.class).setAffection(getNpc(Lyssieth.class), 100);
 
 			getNpc(Lyssieth.class).setAffection(getNpc(Lilaya.class), 100);
-			getNpc(Lyssieth.class).setAffection(getNpc(FortressDemonLeader.class), 50);
+			getNpc(Lyssieth.class).setAffection(getNpc(DarkSiren.class), 50);
 			getNpc(Lyssieth.class).setAffection(getNpc(Elizabeth.class), 75);
 			
 		} catch (Exception e) {
@@ -3152,7 +3161,10 @@ public class Game implements XMLSaving {
 	}
 	
 	public String getUniqueNPCId(Class<? extends NPC> c) {
-		return "-1"+","+c.getSimpleName();
+		if(c.equals(DarkSiren.class)) {
+			return "-1,FortressDemonLeader";
+		}
+		return "-1,"+c.getSimpleName();
 	}
 
 	public String getNPCId(Class<? extends NPC> c) {

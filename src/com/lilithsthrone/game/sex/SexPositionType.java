@@ -2264,7 +2264,8 @@ public enum SexPositionType {
 				return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
 						+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
 			}
-			return "[npc.NameIs] lying back on top of the desk, with [npc2.name] standing between [npc.her] [npc.legs], ready to fuck [npc.herHim].";
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_DESK_SUB), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_DESK_DOM),
+					"[npc.NameIsFull] lying back on top of the desk, with [npc2.name] standing between [npc.her] [npc.legs], ready to fuck [npc.herHim].");
 		}
 	},
 	

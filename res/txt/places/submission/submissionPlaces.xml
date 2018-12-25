@@ -78,36 +78,25 @@
 	
 	<htmlContent tag="CLAIRE_INFO_LYSSIETH"><![CDATA[
 	<p>
-		As you start to walk over towards the small cat-girl messenger, she sees you approaching and puts her paperwork to one side.
-		 [claire.speech(Hello, [pc.name]! Is there something I can do for you?)]
+		As you start to walk over towards the small cat-girl messenger, she sees you approaching and puts her paperwork to one side. [claire.speech(Hello, [pc.name]! Is there something I can do for you?)]
 	</p>
 	<p>
-		[pc.speech(I just wanted to ask you what you know about Lyssieth,)]
-		 you reply, noting how Claire's cheerful expression shifts into one of concern as she hears that name.
+		[pc.speech(I just wanted to ask you what you know about Lyssieth,)] you reply, noting how Claire's cheerful expression shifts into one of concern as she hears that name.
 	</p>
 	<p>
-		[claire.speech(Well, as you might already know, Lyssieth is the Lilin who's in charge of all of Submission. We enforcers work to uphold the general laws of Lilith's domain, but it's Lyssieth who's in charge of giving us any special rules to enforce.)]
-		 Claire shifts about a little as she finishes talking, which causes her huge breasts to start swaying from side to side in a pendulous manner.
-		 [claire.speech(You should keep away from her palace. Her guards operate outside of our authority, and won't hesitate to attack if they suspect you of anything.)]
+		[claire.speech(Well, as you might already know, Lyssieth is the Lilin who's in charge of all of Submission. We enforcers work to uphold the general laws of Lilith's domain, but it's Lyssieth who's in charge of giving us any special rules to enforce,)] Claire explains, shifting about a little as she finishes talking. Her small movements cause her huge breasts to start swaying from side to side in a pendulous manner, and you can;t help but glance at them as she continues, [claire.speech(You should keep away from her palace. Her guards operate outside of our authority, and won't hesitate to attack if they suspect you of anything.)]
 	</p>
 	<p>
-		[pc.speech(Ok, I'll be careful of them,)]
-		 you reply, before continuing,
-		 [pc.speech(but you mentioned Lyssieth setting special rules. What kind of rules are they?)]
+		[pc.speech(Ok, I'll be careful of them,)] you reply, before continuing, [pc.speech(but you mentioned Lyssieth setting special rules. What kind of rules are they?)]
 	</p>
 	<p>
-		Claire starts fidgeting even more as you ask that question, but, despite her discomfort, she answers you.
-		 [claire.speech(Well, don't go around telling anyone about this, but we've been told to ignore the anti-human laws that have been set in Dominion. You know, things like stopping and searching humans at random, and detaining them without reason for as long as we like.)]
+		Claire starts fidgeting even more as you ask that question, but, despite her discomfort, she answers you, [claire.speech(Well, don't go around telling anyone about this, but we've been told to ignore the anti-human laws that have been set in Dominion. You know, things like stopping and searching humans at random, and detaining them without reason for as long as we like.)]
 	</p>
 	<p>
-		[pc.speech(I see,)]
-		 you respond.
-		 [pc.speech(So Lyssieth's only special rule is not to discriminate against humans?)]
+		[pc.speech(I see,)] you respond. [pc.speech(So Lyssieth's only special rule is not to discriminate against humans?)]
 	</p>
 	<p>
-		[claire.speech(Yes, but there aren't many humans living down here, so not many people know about this. Oh, and please don't go spreading this information. Everybody knows how much Lilith hates humans, and if she were to hear about this, I'm sure it'd be us, not Lyssieth, who gets punished.)]
-		 Claire mutters, before turning to carry on with her work.
-		 [claire.speech(If there's anything else, just come and find me again!)]
+		[claire.speech(Yes, but there aren't many humans living down here, so not many people know about this. Oh, and please don't go spreading this information. Everybody knows how much Lilith hates humans, and if she were to hear about this, I'm sure it'd be us, not Lyssieth, who gets punished,)] Claire mutters, before turning to carry on with her work. [claire.speech(If there's anything else, just come and find me again!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -547,19 +536,19 @@
 		You make a mental note to keep a closer look-out for anyone following you when you return to Dominion, before trying to encourage Elizabeth to move on to the business at hand, [pc.speech(Well, now that you know who exactly I am, can I please be allowed to see Lyssieth?)]
 	</p>
 	<p>
-		[elizabeth.speech(Ordinarily, no. When her Highness says no visitors, she means it. As it turns out, however, we're in need of someone with your particular skills. You help us out, and we'll allow you to enter the palace,)] Elizabeth says, before continuing, [elizabeth.speech(Another of her Highness's recognised daughters has been causing nothing but trouble for the local Enforcers ever since she was allowed to leave the palace. Perhaps you've seen the gangs of imps roaming parts of Submission? Those are all her doing.)]
+		[elizabeth.speech(Ordinarily, no. When Her Highness says no visitors, she means it. As it turns out, however, we're in need of someone with your particular skills. You help us out, and we'll allow you to enter the palace,)] Elizabeth says, before continuing, [elizabeth.speech(Another of Her Highness's recognised daughters has been causing nothing but trouble for the local Enforcers ever since she was allowed to leave the palace. Perhaps you've seen the gangs of imps roaming parts of Submission? Those are all her doing.)]
 	</p>
 	<p>
 		Realising where this is going, and used to having to sort out other people's problems by now, you sigh as you respond, [pc.speech(You want me to put an end to the trouble she's causing?)]
 	</p>
 	<p>
-		[elizabeth.speech(That's right. Even if her Highness did have the freedo- ~Ahem!~ That is, even if her Highness did have the time to leave her palace, it would be a major scandal if she was heard to be having to discipline one of her recognised daughters. The amount of royal guards it would take to drag her kicking and screaming back to her Highness's side is also simply unacceptable, and would leave the palace too vulnerable. No, we need someone like you to sort out this situation for us.)]
+		[elizabeth.speech(That's right. Even if Her Highness did have the freedo- ~Ahem!~ That is, even if Her Highness did have the time to leave her palace, it would be a major scandal if she was heard to be having to discipline one of her recognised daughters. The amount of royal guards it would take to drag her kicking and screaming back to Her Highness's side is also simply unacceptable, and would leave the palace too vulnerable. No, we need someone like you to sort out this situation for us.)]
 	</p>
 	<p>
 		[pc.speech(Fine. If that's what it's going to take,)] you say, resigning yourself to your fate.
 	</p>
 	<p>
-		[elizabeth.speech(Excellent. The demon you're after is going by the title 'the dark siren', and can be found somewhere in the tunnels in the very centre of Submission,)] Elizabeth explains, before reaching into one of her pockets and producing a rather curious-looking ring. Handing it over to you, she continues, [elizabeth.speech(This is one of her Highness's signet rings, which normally carry some impressive enchantments. We've had this particular one altered, however, to enslave the person who puts it on. We've also registered Her Highness's daughter as a slave of special interest, so instead of being teleported to Slaver Alley, she'll be sent straight to Her Highness's room. I'm sure you can find some way to trick her into putting it on.)]
+		[elizabeth.speech(Excellent. The demon you're after is going by the title 'the dark siren', and can be found somewhere in the tunnels in the very centre of Submission,)] Elizabeth explains, before reaching into one of her pockets and producing a rather curious-looking ring. Handing it over to you, she continues, [elizabeth.speech(This is one of Her Highness's signet rings, which normally carry some impressive enchantments. We've had this particular one altered, however, to enslave the person who puts it on. We've also registered Her Highness's daughter as a slave of special interest, so instead of being teleported to Slaver Alley, she'll be sent straight to Her Highness's room. I'm sure you can find some way to trick her into putting it on.)]
 	</p>
 	<p>
 		[pc.speech(Ok, I'll get this sorted out,)] you reply, placing the ring in your inventory.
@@ -611,7 +600,7 @@
 		[elizabeth.speech(Well, after dealing with Lyssieth's daughter for us, you've earned the right to do just that,)] Elizabeth replies, before producing a curious signet ring from one of the pouches hanging at her waist. She then holds this ring out to you, and as you take it, she explains, [elizabeth.speech(Her Highness instructed us to give this as a reward to whoever dealt with her daughter.)]
 	</p>
 	<p>
-		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [elizabeth.speech(You're now free to come and go as you please. That being said, I will have to escort you through the palace. We can't just let people wander around in there unsupervised, I'm sure you understand.)]
+		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [elizabeth.speech(You're now free to come and go as you please. That being said, I will have to escort you through the palace. We can't just let people wander around in there unsupervised. I'm sure you understand.)]
 	</p>
 	]]>
 	</htmlContent>

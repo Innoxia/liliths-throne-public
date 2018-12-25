@@ -1106,6 +1106,19 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"age"),
+				true,
+				false,
+				"",
+				"Returns the age of this character."){
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(character.getAgeValue());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"job",
 						"jobName"),
 				true,
@@ -5552,7 +5565,7 @@ public class UtilText {
 			engine.put("PERK_"+p.toString(), p);
 		}
 		for(StatusEffect sa : StatusEffect.values()) {
-			engine.put("SA_"+sa.toString(), sa);
+			engine.put("SE_"+sa.toString(), sa);
 		}
 		for(Attribute att : Attribute.values()) {
 			engine.put("ATTRIBUTE_"+att.toString(), att);

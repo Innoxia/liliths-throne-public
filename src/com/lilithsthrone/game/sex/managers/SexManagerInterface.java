@@ -73,6 +73,10 @@ public interface SexManagerInterface {
 	public default boolean isPlayerAbleToSwapPositions() {
 		return true;
 	}
+
+	public default boolean isSubsRestricted() {
+		return false;
+	}
 	
 	public default String applyEndSexEffects() {
 		return "";

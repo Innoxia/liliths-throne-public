@@ -126,6 +126,8 @@ public class Elizabeth extends NPC {
 		
 		
 		// Body:
+		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
+		this.setHalfDemonSubspecies(Subspecies.HUMAN);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setHornType(HornType.STRAIGHT);

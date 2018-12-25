@@ -468,7 +468,7 @@ public class SupplierDepot {
 										new Value<>(Main.game.getNpc(SupplierPartner.class), SexPositionSlot.DOGGY_INFRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						null,
-						null, AFTER_SEX_FUCKED, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_OFFER_BODY"));
+						null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_OFFER_BODY"));
 				
 			} else {
 				return null;

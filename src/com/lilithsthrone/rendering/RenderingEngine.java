@@ -1389,6 +1389,46 @@ public enum RenderingEngine {
 		}
 	}
 
+	public String getFullWorldMap() {
+		mapSB.setLength(0);
+		
+		if(Main.game.getPlayer().hasSpell(Spell.TELEPORT) || Main.game.isDebugMode()) {
+			mapSB.append("<div class='container-full-width'>"
+						+ "[style.italicsMinorBad(Travel across the world map hasn't been implemented yet, but the Foloi fields, forests, grassland, river, and Elis will be added soon!)]" //TODO
+					+ "</div>");
+		}
+
+		Cell[][] grid = Main.game.getWorlds().get(WorldType.WORLD_MAP).getGrid();
+		int divWidth = (Math.min(75, grid.length*10));
+		mapSB.append("<div class='container-full-width' style='width:"+divWidth+"%; margin:2% "+((100-divWidth)/2)+"%; float:left;'>");
+		
+		float width = 100f/grid.length;
+		for(int i=grid[0].length-1; i>=0; i--) {
+			for(int j=0; j<grid.length; j++) {
+				Cell c = grid[j][i];
+				
+				String background = "background-color:"+c.getPlace().getPlaceType().getColourString()+";";
+				
+				boolean playerOnTile = Main.game.getPlayer().getGlobalLocation().getX()==j && Main.game.getPlayer().getGlobalLocation().getY()==i;
+				// width:calc("+(width)+"% - 2px); margin:1px; border-radius:2px;
+				// 
+				mapSB.append("<div class='map-icon' style='width:"+(width)+"% ; margin:0; border-radius:0; border-width:1px 1px 0 0; border-style:solid; border-color:#222; "+background
+								+" cursor:pointer; opacity:"+(c.isTravelledTo() || c.getPlace().getPlaceType()==PlaceType.WORLD_MAP_DOMINION?1:0.5)+";'" //TODO 
+								+ " id='WORLD_MAP_NODE_" + i + "_" + j + "'>"
+								+(playerOnTile && (c.getPlace() == null || c.getPlace().getSVGString()==null)
+									?getPlayerIcon(false)
+									:"")
+							+(playerOnTile?"<div class='overlay map-player'></div>":""));
+				
+				mapSB.append("</div>");
+			}
+		}
+		
+		mapSB.append("</div>");
+
+		return mapSB.toString();
+	}
+	
 	public String getFullMap(WorldType world, boolean withFastTravelAndIcons) {
 
 //		long t1 = System.nanoTime();
@@ -1397,7 +1437,7 @@ public enum RenderingEngine {
 		
 		if(withFastTravelAndIcons) {
 			boolean isAbleToTeleport = (Main.game.getPlayer().isAbleToTeleport() || Main.game.isDebugMode())
-						&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
+						&& !Main.game.getSavedDialogueNode().isTravelDisabled()
 						&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
 					;
 			
@@ -1412,7 +1452,7 @@ public enum RenderingEngine {
 									+(!Main.game.getPlayer().getCompanions().isEmpty() && !Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPORT_2)
 										?"<br/><b>-</b> Either learn the upgrade '"+SpellUpgrade.TELEPORT_2.getName()+"', or dismiss your party members."
 										:"")
-									+(!Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
+									+(Main.game.getSavedDialogueNode().isTravelDisabled()
 										?"<br/><b>-</b> Not be in the middle of a special scene."
 										:"")
 									+(Main.game.getPlayer().getMana()<Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
@@ -1448,14 +1488,14 @@ public enum RenderingEngine {
 				} else {
 					String border = c.getPlace() != null && c.getPlace().getPlaceType().getColour()!=null
 									?"border:1px solid; border-color:"+c.getPlace().getPlaceType().getColour().toWebHexString()+";"
-									:"";
+									:"border:1px solid; border-color:#ffffff;";
 					
 					boolean playerOnTile = Main.game.getPlayer().getWorldLocation()==world && Main.game.getPlayer().getLocation().getX()==j && Main.game.getPlayer().getLocation().getY()==i;
 					boolean dangerousTile = c.getPlace().getPlaceType().isDangerous();
 					
 					mapSB.append(
 							"<div class='map-icon"+(dangerousTile?" dangerous":"")+"'"
-									+ " style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+" "
+									+ " style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+" opacity:"+(c.isTravelledTo()?1:0.5)+"; "
 										+(c.getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE
 												&& ((Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
 														&& c.isTravelledTo()
@@ -1478,7 +1518,7 @@ public enum RenderingEngine {
 					if(withFastTravelAndIcons) {
 						appendNPCIcon(Main.game.getWorlds().get(world), j, i);
 					}
-					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
+//					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
 					
 					mapSB.append("</div>");
 				}

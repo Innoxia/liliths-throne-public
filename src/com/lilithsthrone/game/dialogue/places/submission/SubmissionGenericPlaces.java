@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
-import com.lilithsthrone.game.character.npc.submission.FortressDemonLeader;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
@@ -497,7 +497,8 @@ public class SubmissionGenericPlaces {
 			if(index==1) {
 				if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_2_D_MEETING_A_LILIN) {
 					return new Response("Enter",
-							"Enter the palace with Elizabeth, who will then proceed to lead you to the throne room.<br/>[style.italicsMinorBad(This will dismiss all of your companions, who will be returned home.)]",
+							"Enter the palace with Elizabeth, who will then proceed to lead you to the throne room."
+									+ (Main.game.getPlayer().hasCompanions()?"<br/>[style.italicsMinorBad(This will dismiss all of your companions, who will be returned home.)]":""),
 							LyssiethReveal.ENTRANCE_WITH_ELIZABETH) {
 						@Override
 						public void effects() {
@@ -505,11 +506,9 @@ public class SubmissionGenericPlaces {
 							Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_ENTRANCE);
 							Main.game.getNpc(Elizabeth.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_ENTRANCE);
 							// Make sure siren is placed properly:
-							GameCharacter siren = Main.game.getNpc(FortressDemonLeader.class);
+							GameCharacter siren = Main.game.getNpc(DarkSiren.class);
 							siren.setObedience(ObedienceLevel.NEGATIVE_ONE_DISOBEDIENT.getMedianValue());
-							siren.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_THRONE_ROOM);
-							siren.setNearestLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_CORRIDOR, false);
-							siren.setHomeLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_ROOM_SIREN);
+							siren.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, true);
 							siren.unequipAllClothingIntoVoid(true);
 							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_PURPLE_VERY_DARK, false), true, siren);
 							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_PURPLE_VERY_DARK, false), true, siren);
@@ -517,6 +516,7 @@ public class SubmissionGenericPlaces {
 							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, siren);
 							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, siren);
 							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_feminine_short_sleeve_shirt", Colour.CLOTHING_PINK_LIGHT, false), true, siren);
+							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torsoOver_feminine_blazer", Colour.CLOTHING_BLACK, false), true, siren);
 							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_PINK_LIGHT, false), true, siren);
 							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_BLACK_STEEL, false), true, siren);
 							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_seal", false), true, siren);

@@ -64,7 +64,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -85,8 +85,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private SizedStack<ShopTransaction> buybackStack;
 
 	private List<String> charactersEncountered;
+
+	private List<WorldType> worldsVisited;
 	
-	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
+	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, WorldType startingWorld, PlaceType startingPlace) {
 		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -114,6 +116,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		charactersEncountered = new ArrayList<>();
 
 		friendlyOccupants = new ArrayList<>();
+		
+		worldsVisited = new ArrayList<>();
 		
 		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f, false);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f, false);
@@ -173,6 +177,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "id", occupant);
 		}
 		
+		Element worldsVisitedElement = doc.createElement("worldsVisited");
+		playerSpecific.appendChild(worldsVisitedElement);
+		for(WorldType world : this.getWorldsVisited()) {
+			Element element = doc.createElement("world");
+			worldsVisitedElement.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "id", world.toString());
+		}
+		
+		
+		
 //		private SizedStack<ShopTransaction> buybackStack; TODO
 		
 //		Element slavesOwned = doc.createElement("slavesExported");
@@ -185,7 +200,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
-		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
 
@@ -309,6 +324,16 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		} catch(Exception ex) {	
 		}
 		
+		try {
+			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("worldsVisited").item(0)).getElementsByTagName("world").getLength(); i++){
+				Element e = ((Element)playerSpecificElement.getElementsByTagName("world").item(i));
+				
+				character.getWorldsVisited().add(WorldType.valueOf(e.getAttribute("id")));
+				CharacterUtils.appendToImportLog(log, "<br/>Added world visited: "+e.getAttribute("id"));
+			}
+		} catch(Exception ex) {	
+		}
+		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
 			// Reset player's demon parts to human if prior to 0.3:
 			if(character.getArmType().getRace()==Race.DEMON) {
@@ -426,6 +451,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public void setLocation(WorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {
+		if(this.getWorldsVisited()!=null && !this.getWorldsVisited().contains(worldLocation)) {
+			this.getWorldsVisited().add(worldLocation);
+		}
+		
 		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
 			List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 			clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
@@ -825,5 +854,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public boolean removeFriendlyOccupant(GameCharacter occupant) {
 		return friendlyOccupants.remove(occupant.getId());
+	}
+
+	public List<WorldType> getWorldsVisited() {
+		return worldsVisited;
+	}
+	
+	public boolean isDiscoveredWorldMap() {
+		return this.isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
 	}
 }

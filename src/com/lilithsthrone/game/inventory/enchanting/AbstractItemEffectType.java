@@ -61,7 +61,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -69,7 +69,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.4
- * @version 0.2.4
+ * @version 0.3
  * @author Innoxia
  */
 public abstract class AbstractItemEffectType {
@@ -112,15 +112,17 @@ public abstract class AbstractItemEffectType {
 	
 	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
 	
-	protected static String getBookEffect(Subspecies subspecies, AbstractItemType book) {
+	public static String getBookEffect(Subspecies subspecies, boolean withDescription) {
 		Main.getProperties().addRaceDiscovered(subspecies);
-		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && book!=null) {
-			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(book), true);
+		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
+			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
 		}
 		
 		if(Main.game.getPlayer().addRaceDiscoveredFromBook(subspecies)) {
-			return subspecies.getBasicDescription(null)
-					+subspecies.getAdvancedDescription(null)
+			return (withDescription
+						?subspecies.getBasicDescription(null)
+								+subspecies.getAdvancedDescription(null)
+						:"")
 					+Main.game.getPlayer().incrementAttribute(subspecies.getDamageMultiplier(), 5f)
 					+Main.game.getPlayer().incrementAttribute(subspecies.getResistanceMultiplier(), 5f);
 			

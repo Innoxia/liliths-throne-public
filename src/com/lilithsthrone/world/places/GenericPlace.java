@@ -10,8 +10,10 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
@@ -96,7 +98,13 @@ public class GenericPlace implements XMLSaving {
 		}
 		
 		GenericPlace place = new GenericPlace(PlaceType.valueOf(placeType));
-		place.setName(parentElement.getAttribute("name"));
+		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3")
+				|| (place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_DESERT
+					&& place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_FIELDS
+					&& place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_JUNGLE
+					&& place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_SEA)) {
+			place.setName(parentElement.getAttribute("name"));
+		}
 		
 		try {
 			if(parentElement.getElementsByTagName("placeUpgrades").getLength()>0 && ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength()>0) {

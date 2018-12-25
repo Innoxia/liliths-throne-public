@@ -208,7 +208,8 @@ public class Sex {
 	public Sex() {
 	}
 
-	public DialogueNode initialiseSex(boolean consensual,
+	public DialogueNode initialiseSex(
+			boolean consensual,
 			boolean subHasEqualControl,
 			SexManagerInterface sexManager,
 			DialogueNode postSexDialogue,

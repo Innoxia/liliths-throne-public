@@ -769,6 +769,11 @@ public class Penis implements BodyPartInterface {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
+		if(owner==null) {
+			penisModifiers.add(modifier);
+			return "";
+		}
+		
 		if(!owner.hasPenisIgnoreDildo()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You don't have a penis, so nothing happens...)]</p>";

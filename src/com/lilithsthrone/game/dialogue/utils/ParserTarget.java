@@ -49,7 +49,7 @@ import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Epona;
 import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
-import com.lilithsthrone.game.character.npc.submission.FortressDemonLeader;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
@@ -747,16 +747,16 @@ public enum ParserTarget {
 	
 	DARK_SIREN(Util.newArrayListOfValues("darkSiren", "siren"), "") {
 		public String getDescription() {
-			return Main.game.getNpc(FortressDemonLeader.class).getDescription();
+			return Main.game.getNpc(DarkSiren.class).getDescription();
 		}
 
 		@Override
 		public GameCharacter getCharacter(String tag) {
-			return Main.game.getNpc(FortressDemonLeader.class);
+			return Main.game.getNpc(DarkSiren.class);
 		}
 	},
 	
-	CITADEL_ARCANIST(Util.newArrayListOfValues("citadelArcanist"), "") {
+	CITADEL_ARCANIST(Util.newArrayListOfValues("citadelArcanist", "youkoGuide", "hitomi", "takahashi"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(SubmissionCitadelArcanist.class).getDescription();
 		}

@@ -56,10 +56,11 @@ import com.lilithsthrone.utils.ItemRarityComparator;
 import com.lilithsthrone.utils.TreeNode;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.WeaponRarityComparator;
+import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
@@ -159,6 +160,14 @@ public class PhoneDialogue {
 				} else {
 					return new Response("Transform", "Only demons and slimes can transform themselves!", null);
 				}
+				
+			} else if (index == 10) {
+				return new Response("Maps", "Take a look at maps of all the places you've visited.", MAP) {
+					@Override
+					public void effects() {
+						worldTypeMap = Main.game.getPlayer().getWorldLocation();
+					}
+				};
 				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
@@ -2050,16 +2059,19 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.append("<h6 style='text-align:center;'>Special Perks</h6>");
 			
 			for(Perk hiddenPerk : Perk.getHiddenPerks()) {
-				if(Main.game.getPlayer().getSpecialPerks().contains(hiddenPerk)) {
+//				if(Main.game.getPlayer().getSpecialPerks().contains(hiddenPerk)) {
 					UtilText.nodeContentSB.append("<div id='HIDDEN_PERK_" + hiddenPerk + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border:1% solid " + Colour.TRAIT.toWebHexString() + ";'>"
 							+ "<div class='square-button-content'>"+hiddenPerk.getSVGString()+"</div>"
+							+ (Main.game.getPlayer().getSpecialPerks().contains(hiddenPerk)
+									?""
+									:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.95; border-radius:50%;'></div>")
 							+ "</div>");
 					
-				} else {
-					UtilText.nodeContentSB.append("<div id='HIDDEN_PERK_" + hiddenPerk + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border:1% solid " + Colour.BASE_GREY.toWebHexString() + ";'>"
-							+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown()+"</div>"
-							+ "</div>");
-				}
+//				} else {
+//					UtilText.nodeContentSB.append("<div id='HIDDEN_PERK_" + hiddenPerk + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border:1% solid " + Colour.BASE_GREY.toWebHexString() + ";'>"
+//							+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown()+"</div>"
+//							+ "</div>");
+//				}
 			}
 			
 			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(Main.game.getPlayer()));
@@ -2768,4 +2780,72 @@ public class PhoneDialogue {
 						:"")
 			+ "</div>";
 	}
+	
+	public static WorldType worldTypeMap = WorldType.DOMINION;
+	public static final DialogueNode MAP = new DialogueNode("Maps", "", true) {
+
+		@Override
+		public String getContent() {
+			if(worldTypeMap==WorldType.WORLD_MAP) {
+				return RenderingEngine.ENGINE.getFullWorldMap();
+			} else {
+				return RenderingEngine.ENGINE.getFullMap(worldTypeMap, true);
+			}
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			int i=2;
+			for(WorldType world : WorldType.values()) {
+				if(world != WorldType.WORLD_MAP
+						&& world != WorldType.EMPTY
+						&& world != WorldType.MUSEUM
+						&& world != WorldType.MUSEUM_LOST) {
+					if(index==i) {
+						if(worldTypeMap==world) {
+							return new Response(Util.capitaliseSentence(world.getName()), "You are already viewing the map of "+world.getName()+".", null);
+							
+						} else if(Main.game.getPlayer().getWorldsVisited().contains(world)) { 
+							return new Response(Util.capitaliseSentence(world.getName()), "View the map of "+world.getName()+".", MAP) {
+								@Override
+								public void effects() {
+									worldTypeMap = world;
+								}
+							};
+							
+						} else {
+							return new Response("???", "You haven't discovered this area yet.", null);
+						}
+					}
+					i++;
+				}
+			}
+			if (index == 1) {
+				if(worldTypeMap==WorldType.WORLD_MAP) {
+					return new Response("World map", "You are already viewing the world map.", null);
+					
+				} else if(Main.game.getPlayer().isDiscoveredWorldMap()) {
+					return new Response("World map", "Take a look at the world map.", MAP) {
+						@Override
+						public void effects() {
+							worldTypeMap = WorldType.WORLD_MAP;
+						}
+					};
+				} else {
+					return new Response("World map", "You haven't discovered the world map yet!", null);
+				}
+			
+			} else if (index == 0) {
+				return new Response("Back", "Return to the phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
+		}
+	};
 }

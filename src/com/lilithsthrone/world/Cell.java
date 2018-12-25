@@ -47,6 +47,7 @@ public class Cell implements XMLSaving {
 	private CharacterInventory inventory;
 	private Set<String> charactersPresentIds;
 	private Set<String> charactersHomeIds;
+	private Set<String> charactersGlobalIds;
 
 	public Cell(WorldType type, Vector2i location) {
 		this.type = type;
@@ -359,6 +360,31 @@ public class Cell implements XMLSaving {
 			charactersHomeIds.remove(id);
 		}
 	}
-	
+
+
+	public Set<String> getCharactersGlobalIds() {
+		return charactersGlobalIds;
+	}
+
+	public void addCharacterGlobalId(String id) {
+		if(id.equals("NOT_SET")) {
+			return;
+		}
+		if(charactersGlobalIds==null) {
+			charactersGlobalIds = Collections.synchronizedSet(new HashSet<>());
+		}
+		synchronized (charactersGlobalIds) {
+			charactersGlobalIds.add(id);
+		}
+	}
+
+	public void removeCharacterGlobalId(String id) {
+		if(charactersGlobalIds==null) {
+			return;
+		}
+		synchronized (charactersGlobalIds) {
+			charactersGlobalIds.remove(id);
+		}
+	}
 	
 }

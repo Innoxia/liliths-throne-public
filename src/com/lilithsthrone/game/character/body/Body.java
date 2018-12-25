@@ -129,8 +129,10 @@ public class Body implements XMLSaving {
 
 	private List<BodyPartInterface> allBodyParts;
 
+	private boolean takesAfterMother = true;
+	
+	
 	public static class BodyBuilder implements Builder<Body> {
-
 		// Required parameters:
 		private final Arm arm;
 		private final Ass ass;
@@ -434,6 +436,7 @@ public class Body implements XMLSaving {
 		if(this.getHalfDemonSubspecies()!=null) {
 			CharacterUtils.addAttribute(doc, bodyCore, "halfDemonSubspecies", String.valueOf(this.getHalfDemonSubspecies()));
 		}
+		CharacterUtils.addAttribute(doc, bodyCore, "takesAfterMother", String.valueOf(this.isTakesAfterMother()));
 		
 		for(BodyCoveringType bct : BodyCoveringType.values()) {
 			if(this.getBodyCoveringTypesDiscovered().contains(bct)
@@ -1403,6 +1406,13 @@ public class Body implements XMLSaving {
 		
 		body.setPiercedStomach(Boolean.valueOf(element.getAttribute("piercedStomach")));
 		CharacterUtils.appendToImportLog(log, "<br/>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
+		
+		try {
+			if(element.getAttribute("takesAfterMother") != null && !element.getAttribute("takesAfterMother").isEmpty()) {
+				body.setTakesAfterMother(Boolean.valueOf(element.getAttribute("takesAfterMother")));
+			}
+		} catch(Exception ex) {	
+		}
 		
 		if(element.getAttribute("pubicHair")!=null && !element.getAttribute("pubicHair").isEmpty()) {
 			try {
@@ -6387,6 +6397,14 @@ public class Body implements XMLSaving {
 			return false;
 		}
 		return (wing.getType().allowsFlight() && wing.getSize().isSizeAllowsFlight());
+	}
+
+	public boolean isTakesAfterMother() {
+		return takesAfterMother;
+	}
+
+	public void setTakesAfterMother(boolean takesAfterMother) {
+		this.takesAfterMother = takesAfterMother;
 	}
 
 }

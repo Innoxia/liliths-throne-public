@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -36,7 +37,7 @@ import com.lilithsthrone.utils.Util.Value;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.3
  * @author Innoxia
  */
 public enum Combat {
@@ -53,6 +54,7 @@ public enum Combat {
 	private static List<NPC> allCombatants;
 	private static Map<GameCharacter, Map<SpecialAttack, Integer>> cooldowns;
 	private static float escapeChance = 0;
+	private static Map<GameCharacter, Float> totalDamageTaken;
 	private static int turn = 0;
 	private static boolean escaped = false;
 	private static StringBuilder combatStringBuilder = new StringBuilder();
@@ -105,6 +107,7 @@ public enum Combat {
 
 		escaped = false;
 		
+		totalDamageTaken = new HashMap<>();
 		combatContent = "";
 		turn = 0;
 		combatStringBuilder.setLength(0);
@@ -1003,7 +1006,7 @@ public enum Combat {
 			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 
-		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.MAIN, isHit));
+		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.MAIN, isHit, critical));
 
 		if(!isHit) {
 			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
@@ -1045,15 +1048,15 @@ public enum Combat {
 							:"")
 					+ " hit for " + damage + " <b style='color: "
 					+ damageAttribute.getColour().toWebHexString() + ";'>" + damageAttribute.getName() + "</b>!</b></p>");
-	
+			
 			attackStringBuilder.append(target.incrementHealth(attacker, -damage));
 		}
 		
 		if(attacker.getOffhandWeapon() != null) {
 			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEffects(attacker, target, isHit));
 		}
-
-		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.OFFHAND, isHit));
+		
+		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.OFFHAND, isHit, critical));
 
 		if(!isHit) {
 			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
@@ -1075,13 +1078,12 @@ public enum Combat {
 		float damageMain = 0;
 		float damageOffhand = 0;
 		boolean isHit = Attack.rollForHit(attacker, target);
+		boolean critical = Attack.rollForCritical(attacker, target);
 
 		attackStringBuilder = new StringBuilder("");
 		
 		if (isHit && Math.random()<0.5) {
 			attackStringBuilder.append(getDualDescription(attacker, target, true));
-			
-			boolean critical = Attack.rollForCritical(attacker, target);
 
 			damageMain = Attack.calculateDamage(attacker, target, Attack.MAIN, critical);
 			damageOffhand = Attack.calculateDamage(attacker, target, Attack.OFFHAND, critical);
@@ -1109,7 +1111,7 @@ public enum Combat {
 			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 		
-		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.DUAL, isHit));
+		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.DUAL, isHit, critical));
 		
 		if(!isHit) {
 			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
@@ -1135,7 +1137,7 @@ public enum Combat {
 				+"</p>";
 	}
 	
-	private static String applyExtraAttackEffects(GameCharacter attacker, GameCharacter target, Attack attackType, boolean isHit) {
+	private static String applyExtraAttackEffects(GameCharacter attacker, GameCharacter target, Attack attackType, boolean isHit, boolean isCritical) {
 		StringBuilder extraAttackEffectsSB = new StringBuilder();
 		
 		if(attacker.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
@@ -1203,6 +1205,22 @@ public enum Combat {
 					extraAttackEffectsSB.append(UtilText.parse(attacker, target, "<p>[npc2.Name] takes an extra <b>"+fireDamage+"</b> [style.boldFire(Fire Damage)] from [npc1.namePos] [style.boldFire(Flaming Strikes)]!</p>"));
 				}
 			}
+		}
+		
+		if(attacker.isPlayer() && attacker.hasFetish(Fetish.FETISH_SADIST) && isCritical) {
+			extraAttackEffectsSB.append(
+					"<div class='container-full-width' style='text-align:center;'>"
+							+ "Thanks to your [style.boldFetish(sadist fetish)], the arousal you feel from critically hitting someone manifests as an arcane essence!<br/>"
+							+Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1, false)
+					+"</div>");
+		}
+		
+		if(target.isPlayer() && target.hasFetish(Fetish.FETISH_MASOCHIST) && isCritical) {
+			extraAttackEffectsSB.append(
+					"<div class='container-full-width' style='text-align:center;'>"
+							+ "Thanks to your [style.boldFetish(masochist fetish)], the arousal you feel from getting critically hit manifests as an arcane essence!<br/>"
+							+Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1, false)
+					+"</div>");
 		}
 		
 		return extraAttackEffectsSB.toString();
@@ -1946,5 +1964,18 @@ public enum Combat {
 
 	public static int getTurn() {
 		return turn;
+	}
+
+	public static float getTotalDamageTaken(GameCharacter character) {
+		totalDamageTaken.putIfAbsent(character, 0f);
+		return totalDamageTaken.get(character);
+	}
+
+	public static void setTotalDamageTaken(GameCharacter character, float damage) {
+		totalDamageTaken.put(character, damage);
+	}
+
+	public static void incrementTotalDamageTaken(GameCharacter character, float increment) {
+		setTotalDamageTaken(character, getTotalDamageTaken(character) + increment);
 	}
 }

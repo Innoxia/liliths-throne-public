@@ -54,26 +54,23 @@ public class Litter implements XMLSaving {
 		fatherId = father.getId();
 		motherRace = mother.getSubspecies();
 		fatherRace = father.getSubspecies();
-		
-		this.offspring = new ArrayList<>();
-		for(NPC npc : offspring) {
-			this.offspring.add(npc.getId());
-		}
-		
+
 		sonsMother = 0;
 		daughtersMother = 0;
 		sonsFather = 0;
 		daughtersFather = 0;
-		for(GameCharacter gc : offspring) {
-			if(gc.isFeminine()) {
-				if(gc.getRace()==mother.getRace()) {
+		this.offspring = new ArrayList<>();
+		
+		for(NPC npc : offspring) {
+			this.offspring.add(npc.getId());
+			if(npc.isFeminine()) {
+				if(npc.isTakesAfterMother()) {
 					daughtersMother++;
 				} else {
 					daughtersFather++;
 				}
-				
 			} else {
-				if(gc.getRace()==mother.getRace()) {
+				if(npc.isTakesAfterMother()) {
 					sonsMother++;
 				} else {
 					sonsFather++;

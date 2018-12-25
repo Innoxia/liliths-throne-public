@@ -29,6 +29,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -36,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.3
  * @author Innoxia
  */
 public class CityPlaces {
@@ -990,7 +991,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNode CITY_EXIT_JUNGLE = new DialogueNode("Jungle Entrance", "Travel to the jungle.", false) {
+	public static final DialogueNode CITY_EXIT = new DialogueNode("Dominion Exit", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -999,109 +1000,52 @@ public class CityPlaces {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the demonic jungles."
-					+ " A pair of enforcers are preventing anyone from travelling to the jungle right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.4.0.</b>"
+			if(Main.game.getPlayer().isDiscoveredWorldMap()) {
+				return "<p>"
+						+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
+						+ " Now that you have a map, as well as business out there in the world beyond Dominion, there's nothing stopping you from leaving right now."
 					+ "</p>";
+				
+			} else {
+				return "<p>"
+							+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
+							+ " Although there's nothing stopping you from heading out into the world beyond, you have no reason to leave Dominion at the moment, and, without a map, you imagine that it would be quite easy to get lost."
+						+ "</p>"
+						+ "<p>"
+							+ "Your quest to find out how to return to your old world will no doubt eventually lead you to places other than Dominion, but for now, your business is within the city itself."
+						+ "</p>";
+			}
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Jungle", "Travel to the demonic jungle. (This will be added later!)", null){
-//					@Override
-//					public void specialEffects() {
-//						Main.mainController.moveGameWorld(true);
-//					}
-				};
+				if(Main.game.getPlayer().isDiscoveredWorldMap()) {
+					return new Response("World travel", "Take a look at your world map and decide where you want to travel to.", WORLD_MAP);
+					
+				} else {
+					return new Response("World travel", "You don't know what the rest of the world looks like, and, for now, your business is within the city.", null);
+				}
 
 			} else {
 				return null;
 			}
 		}
 	};
-	public static final DialogueNode CITY_EXIT_FIELDS = new DialogueNode("Fields Entrance", "Travel to the fields.", false) {
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
+	
+	public static final DialogueNode WORLD_MAP = new DialogueNode("World Map", "", true) {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the outskirts of the city."
-					+ " A pair of enforcers are preventing anyone from travelling to the fields right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.3.0.</b>"
-					+ "</p>";
+			return RenderingEngine.ENGINE.getFullWorldMap();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Fields", "Travel to the fields. (This will be added later!)", null);
-
-			} else {
-				return null;
-			}
-		}
-	};
-	public static final DialogueNode CITY_EXIT_SEA = new DialogueNode("Endless Sea Entrance", "Travel to the Endless Sea.", false) {
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the endless sea."
-					+ " A pair of enforcers are preventing anyone from travelling to the endless sea right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.6.0.</b>"
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Endless Sea", "Travel to the Endless Sea. (This will be added later!)", null);
-
-			} else {
-				return null;
-			}
-		}
-	};
-	public static final DialogueNode CITY_EXIT_DESERT = new DialogueNode("Desert Entrance", "Travel to the desert.", false) {
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the desert."
-					+ " A pair of enforcers are preventing anyone from travelling to the desert right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.5.0.</b>"
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Desert", "Travel to the desert. (This will be added later!)", null);
-
+			// Rock island line
+			if (index == 0) {
+				return new Response("Back", "Decide against travelling anywhere right now, and head back into Dominion..", CITY_EXIT);
+			
 			} else {
 				return null;
 			}

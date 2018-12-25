@@ -135,6 +135,8 @@ public class Lilaya extends NPC {
 		// Body:
 
 		// Core:
+		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
+		this.setHalfDemonSubspecies(Subspecies.HUMAN);
 		this.setAgeAppearanceDifferenceToAppearAsAge(32);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.TWO_AVERAGE.getValue());

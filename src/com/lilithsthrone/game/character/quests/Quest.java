@@ -5,7 +5,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.3
  * @author Innoxia
  */
 public enum Quest {
@@ -284,7 +284,44 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "Lyssieth revealed SOME SPOILERS. (These quests will be finished for 0.3)";
+			return "Lyssieth revealed that this world is in fact your own, and that Lilith transformed it into a different reality when she was released from the mirror.";
+		}
+	},
+	
+	MAIN_3_A_FINDING_THE_YOUKO(QuestType.MAIN, 20, 250) {
+		@Override
+		public String getName() {
+			return "Finding the youko";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[siren.Name] told you that you're going to need the help of the youko if you're to defeat the elder lilin pegataur, Lunette."
+					+ " She said that you should find and enlist the help of her old friend, [youkoGuide.name], who worked in her lab back when she was living in her citadel."
+					+ " [youkoGuide.Name] will have returned to the town of Elis, which is the settlement nearest to the Shinrin Forest, the youko's homeland.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You travelled to Elis, where you found the youko, [youkoGuide.name], in an inn called 'The Ninth Tail'."
+					+ " It turned out that she was having to work off a significant debt, and wouldn't be able to help you until it's paid off in full.";
+		}
+	},
+	
+	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {
+		@Override
+		public String getName() {
+			return "Debts paid";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You need to help [youkoGuide.name] clear her debt, and in exchange she's promised to show you where the leader of all the youko lives.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You helped [youkoGuide.name] clear her debt, and, as agreed, she is ready and willing to take you to the youko leader's hideout.";
 		}
 	},
 

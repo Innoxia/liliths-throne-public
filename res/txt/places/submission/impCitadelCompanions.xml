@@ -1290,7 +1290,7 @@
 	<htmlContent tag="KEEP_ENTRY"><![CDATA[
 	<p>
 		You decide that the time has come to face this 'dark siren', and so, steeling yourself for the worst, you step forwards and push on the heavy wooden gates.
-		#IF pc.hasStatusEffect(SA_PHYSIQUE_PERK_0)
+		#IF pc.hasStatusEffect(SE_PHYSIQUE_PERK_0)
 		#THEN As you're so weak, you have to enlist the help of [npc.name] in order to get them to swing open before you, allowing you and your companion to step forwards into the keep.
 		#ELSE Thankfully, they're both unlocked and quite well balanced, and they readily swing open before you and [npc.name], allowing the two of you to step forwards into the keep.
 		#ENDIF
@@ -1337,7 +1337,7 @@
 	<htmlContent tag="KEEP_ENTRY_RETURN"><![CDATA[
 	<p>
 		Once again, you decide to try and confront and defeat [siren.name], and so, steeling yourself for the fight to come, you step forwards and push on the heavy wooden gates.
-		#IF pc.hasStatusEffect(SA_PHYSIQUE_PERK_0)
+		#IF pc.hasStatusEffect(SE_PHYSIQUE_PERK_0)
 		#THEN As you're so weak, you have to enlist the help of [npc.name] in order to get them to swing open before you, allowing you and your companion to step forwards into the keep.
 		#ELSE Thankfully, they're both unlocked and quite well balanced, and they readily swing open before you and [npc.name], allowing the two of you to step forwards into the keep.
 		#ENDIF

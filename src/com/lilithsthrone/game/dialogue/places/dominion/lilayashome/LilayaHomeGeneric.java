@@ -1904,35 +1904,35 @@ public class LilayaHomeGeneric {
 					@Override
 					public void effects() {
 						askedAboutDuties = false;
-						roseContent = "<p>"
-								+ "You wonder if Rose can tell you anything interesting about this world. "
-								+ UtilText.parsePlayerSpeech("What can you tell me about this world?")
+						roseContent = 
+								"<p>"
+									+ "Wondering if Rose is able to give you any interesting facts, you ask, [pc.speech(What can you tell me about this world?)]"
 								+ "</p>"
 								+ "<p>"
-								+ UtilText.parseSpeech("Well, I don't really know what's different here compared to where you come from, so without spending all day telling you every detail about this place,"
-										+ " I'll just give you some general information, ", Main.game.getNpc(Rose.class))
-								+ " Rose replies helpfully. "
-								+ UtilText.parseSpeech("Basically, this world is ruled by queen Lilith, who's the most powerful demon to ever have lived."
-										+ " She lives here in Dominion, in that huge tower that can be seen from miles around."
-										+ " Although she personally rules over Dominion, she allows her daughters, the Lilin, to control other parts of her domain."
-										+ " Surrounding Dominion, there are four different areas of control, each ruled by a different Lilin;"
-										+ " the jungle, ruled by Lyxias; the Foloi Fields, ruled by Lunette; the desert, ruled by Lisophia; and the Endless Sea, ruled by Lirecea.", Main.game.getNpc(Rose.class))
+									+ "[rose.speech(Really, [pc.sir], I'm happy to help in any way I can, but you'd be better off consulting the books in Mistress's library if you're looking for that sort of information,)]"
+									+ " Rose replies. "
+									+ "[rose.speech(But if you want some basic knowledge, then I can tell you that this world is ruled by Lilith, who's the most powerful demon to ever have existed."
+											+ " She lives here in Dominion, in that huge tower that can be seen from miles around."
+											+ " Although she personally rules over Dominion, she allows her daughters, the elder lilin, to control other parts of her domain."
+											+ " Surrounding Dominion, there's plenty of farmland and woodland, which collectively is called the 'Foloi Fields', and is ruled by Lunette."
+											+ " Other than that, I know that there's a jungle to the north, ruled by Lyxias; a desert to the south, ruled by Lisophia; and the Endless Sea to the East, ruled by Lirecea.)]"
 								+ "</p>"
 								+ "<p>"
-								+ "It seems as though every Lilin's name beings with an 'L', and you wonder how Rose is able to remember all these unusual names."
-								+ " Even though Rose's information was quite limited, you're still grateful that she's told you a little more about how this world works."
+									+ "It seems as though every elder lilin's name beings with an 'L', and you wonder how Rose is able to remember all these unusual names."
+									+ " Even though Rose's information was quite limited, you're still grateful that she's told you a little more about how this world works."
 								+ "</p>"
 								+ "<p>"
-								+ "From the way she finished her last sentence, you thought Rose had finished, but instead, she continues, "
-								+ UtilText.parseSpeech("If you're looking for more information about the culture and ways of Dominion, then I suppose I can give you a few pointers as well."
-										+ " The four most common races are cat, dog, horse, and wolf-morphs."
-										+ " Although there are several other races that inhabit this world, a lot of the more exotic ones tend to stay in the outer regions."
-										+ " There aren't many humans in our world, as most of them transform themselves in order to fit in with Dominion society a bit easier."
-										+ " Oh, speaking of which, watch out what you eat and drink, as there are many transformative consumables that will alter your body."
-										+ " So, unless you want to end up looking more like me, you shouldn't taste everything you find.", Main.game.getNpc(Rose.class))
+									+ "[rose.speech(If you're looking for more information about the culture and ways of Dominion, then I suppose I can give you a few pointers as well."
+											+ " The most common races that you'll see walking the streets are demons, cat, dog, and horse-morphs."
+											+ " Although there are countless other races that inhabit this world, they mostly tend to stay in their home regions,"
+												+ " so you'll see plenty of cow-morphs and rabbit-morphs out in the fields, but almost none in the jungle or desert.)]"
+											+ "From the way she finished her last sentence, you thought Rose had finished, but instead, she continues, "
+											+ "[rose.speech(Also, there aren't many humans in our world, as most of them transform themselves in order to fit in with Dominion society a bit easier."
+												+ " Oh, speaking of which, don't drink any unmarked bottles of liquid, as, while a little expensive,"
+													+ " transformative potions are readily available for anyone to purchase, and they'll alter your body in a flash.)]"
 								+ "</p>"
 								+ "<p>"
-								+ "With that last warning, Rose looks like she's finished, and you wonder if you should ask her anything else, or leave her to carry on with her dusting."
+									+ "With that last warning, Rose looks like she's finished, and you wonder if you should ask her anything else, or leave her to carry on with her dusting."
 								+ "</p>";
 					}
 				};

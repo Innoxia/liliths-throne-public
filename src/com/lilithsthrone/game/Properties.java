@@ -974,7 +974,16 @@ public class Properties {
 	}
 	
 	public boolean isAdvancedRaceKnowledgeDiscovered(Subspecies subspecies) {
-		return subspeciesAdvancedKnowledge.contains(subspecies);
+		if(subspeciesAdvancedKnowledge.contains(subspecies)) {
+			return true;
+		}
+		// If this subspecies shares a lore book with the parent subspecies, and that parent subspecies is unlocked, then return true:
+		Subspecies coreSubspecies = Subspecies.getMainSubspeciesOfRace(subspecies.getRace());
+		if(ItemType.getLoreBook(subspecies).equals(ItemType.getLoreBook(coreSubspecies))) {
+			return subspeciesAdvancedKnowledge.contains(coreSubspecies);
+		}
+		
+		return false;
 	}
 	
 	public void setFeminineFurryPreference(Subspecies subspecies, FurryPreference furryPreference) {

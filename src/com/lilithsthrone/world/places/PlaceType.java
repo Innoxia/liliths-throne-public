@@ -69,7 +69,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia
  */
 public enum PlaceType {
@@ -78,11 +78,51 @@ public enum PlaceType {
 	
 	GENERIC_IMPASSABLE("Impassable Tile", null, BaseColour.GREY, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
 	
-	GENERIC_EMPTY_TILE("Empty", "dominion/slaverAlleyIcon",  BaseColour.CRIMSON, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
+	GENERIC_EMPTY_TILE("Empty", "dominion/slaverAlleyIcon", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
 
-	GENERIC_HOLDING_CELL("Unknown", "dominion/slaverAlleyIcon",  BaseColour.GREY, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
+	GENERIC_HOLDING_CELL("Unknown", "dominion/slaverAlleyIcon", BaseColour.GREY, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
 	
-	GENERIC_MUSEUM("Museum", "dominion/slaverAlleyIcon",  BaseColour.TAN, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum"),
+	GENERIC_MUSEUM("Museum", "dominion/slaverAlleyIcon", BaseColour.TAN, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum"),
+	
+	
+	// World map:
+
+	WORLD_MAP_THICK_JUNGLE("thick jungle", "The further into the jungle one travels, the thicker the vegetation becomes, which allows particularly wild and dangerous predators to conceal themselves...", "#6b8f7e", null, true, true, true, ""),
+	WORLD_MAP_JUNGLE("jungle", "Sparse, tropical foliage is home to many different jungle animal-morphs, not all of which are friendly.", "#8fbfa8", null, true, true, true, ""),
+	WORLD_MAP_JUNGLE_CITY("Itza'aak", "A sprawling, Mayan-like city on the edge of the jungle, Itza'aak is the last bastion of civilisation in the north of Dominion.", "#b377b0", null, true, true, true, ""),
+
+	WORLD_MAP_FOOTHILLS("foothills", "A steady increase in elevation leads to the rolling hills at the base of the mountains of the moon.", Colour.BASE_GREY_DARK.getShades()[0], null, true, true, true, ""),
+	WORLD_MAP_MOUNTAINS("mountains", "The mountain range west of Dominion is known as the 'mountains of the moon', and is home to many alpine animal-morphs.", Colour.BASE_GREY_DARK.getShades()[2], null, true, true, true, ""),
+	WORLD_MAP_SNOWY_MOUNTAINS("mountain peaks", "The highest peaks of the mountains of the moon are capped in snow, and are home to several wild and aggressive races...", Colour.BASE_GREY_DARK.getShades()[3], null, true, true, true, ""),
+
+	WORLD_MAP_SNOWY_VALLEY("snowstorm valley", "This sheltered valley sees regular, heavy snowfall, and is home to numerous arctic races.", /*R*/"#eeeeee", null, true, true, true, ""),
+	WORLD_MAP_GLACIAL_LAKE("selkie lake", "On the western side of snowstorm valley, there can be found a huge, partially-frozen lake.", "#bbf0f1", null, true, true, true, ""),
+
+	WORLD_MAP_DOMINION("Dominion", "The capital city of the land bearing the same name, Dominion is Lilith's seat of power.", Colour.BASE_PURPLE.getShades()[2], null, false, false, true, ""),
+
+	WORLD_MAP_GRASSLANDS("grassland", "The grassland wilderness is home to many different races, the vast majority of which are just as wild and untamed as the land they inhabit.", "#beeac9", null, true, true, true, ""),
+	WORLD_MAP_FIELDS("Foloi fields", "The farmland surrounding Dominion is known as the 'Foloi fields', and is primarily inhabited by farmyard animal-morphs.", "#e5f8de", null, false, true, true, ""),
+	WORLD_MAP_FOREST("forest", "The thick forests scattered throughout the land are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.", "#8dbb7d", null, true, true, true, ""),
+	WORLD_MAP_FIELDS_CITY("Elis", "The largest and most prosperous of all settlements in the Foloi fields, Elis acts as a trading hub for both the youko and the races inhabiting the mountains.", "#d544ae", null, false, true, true, ""),
+
+	WORLD_MAP_YOUKO_FOREST("shinrin highlands", "The Shinrin highlands are a range of low, forest-covered hills, which steadily increase in elevation the further west you go. The elusive youko live here.", "#6ccc74", null, true, true, true, ""),
+
+	WORLD_MAP_WILD_RIVER("river Hubur (wild)", "Far from Dominion, the river Hubur is a dangerous place in which to swim, as it is home to many wild freshwater races.", "#c1f1ee", null, true, true, true, ""),
+	WORLD_MAP_RIVER("river Hubur", "The river Huber runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi fields are considered safe.", "#ccfffc", null, false, true, true, ""),
+
+	WORLD_MAP_SEA("endless sea", "The aquatic races inhabiting Dominion do not like to stray too far from shore, and so to them, the sea is considered to be endless.", Colour.BASE_BLUE_DARK.getShades()[2], null, true, true, true, ""),
+	WORLD_MAP_SEA_CITY("Atlantis", "The underwater city of Atlantis is situated off the eastern coast of Dominion, and, unsurprisingly, is particularly difficult for non-aquatic races to visit.", "#8264b0", null, true, true, true, ""),
+
+	WORLD_MAP_ARID_GRASSLAND("arid grassland", "To the south, the wild grassland starts to dry out, and is the preferred home for morphs such as lions, leopard, and zebras.", Colour.BASE_YELLOW_LIGHT.getShades()[2], null, true, true, true, ""),
+	WORLD_MAP_ARID_SAVANNAH("savannah", "Sparse, open-canopy woodlands are scattered across the arid grasslands, and are inhabited by the same races.", Colour.BASE_TAN.getShades()[2], null, true, true, true, ""),
+
+	WORLD_MAP_DESERT("desert", "To the south of the arid grassland, all vegetation dies out, creating a hot, barren wasteland.", "#ffe7a7", null, true, true, true, ""),
+	WORLD_MAP_SAND_DUNES("sand dunes", "At the southern edge of the desert, there lies a huge range of sand dunes, which are home to many dangerous races.", "#ffdb7a", null, true, true, true, ""),
+	WORLD_MAP_DESERT_CITY("Thinis", "A city resembling those of ancient Egypt, Thinis is the southern-most of Dominion's settlements, and is well known for its prestigious arcane university.", "#d5445e", null, true, true, true, ""),
+
+	WORLD_MAP_VOLCANO("dragon's breath volcano", "A huge volcano, perpetually oozing red-hot lava. Despite its name, dragons are no more common here than they are elsewhere in Dominion.", Colour.BASE_ORANGE.getShades()[1], null, true, true, true, ""),
+	WORLD_MAP_LAVA_FLOWS("lava flows", "The lava which pours forth from the volcano slowly runs off in a southern direction.", Colour.BASE_GREY_DARK.getShades()[0], null, true, true, true, ""),
+	
 	
 	// Museum:
 	
@@ -322,7 +362,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_JUNGLE("Jungle Entrance", "dominion/JungleExit",  BaseColour.GREEN_LIME, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_JUNGLE, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_JUNGLE("Dominion Exit", "dominion/JungleExit",  BaseColour.RED, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT, null, false, false, true, "in the streets of Dominion") {
 		@Override
 		public Population getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -333,7 +373,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_FIELDS("Fields Entrance", "dominion/fieldsExit",  BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_FIELDS, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_FIELDS("Dominion Exit", "dominion/fieldsExit",  BaseColour.RED, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT, null, false, false, true, "in the streets of Dominion") {
 		@Override
 		public Population getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -344,7 +384,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_SEA("Endless Sea Entrance", "dominion/endlessSeaExit",  BaseColour.TEAL, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_SEA, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_SEA("Dominion Exit", "dominion/endlessSeaExit",  BaseColour.RED, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT, null, false, false, true, "in the streets of Dominion") {
 		@Override
 		public Population getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -355,7 +395,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_DESERT("Desert Entrance", "dominion/desertExit", BaseColour.YELLOW, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_DESERT, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_DESERT("Dominion Exit", "dominion/desertExit", BaseColour.RED, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT, null, false, false, true, "in the streets of Dominion") {
 		@Override
 		public Population getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -594,7 +634,12 @@ public enum PlaceType {
 	
 	LILAYA_HOME_KITCHEN("Kitchen", "dominion/lilayasHome/kitchen", BaseColour.TAN, Colour.MAP_BACKGROUND, LilayaHomeGeneric.KITCHEN, null, false, true, false, "in Lilaya's kitchen"),
 	
-	LILAYA_HOME_LIBRARY("Library", "dominion/lilayasHome/library", BaseColour.TEAL, Colour.MAP_BACKGROUND, Library.LIBRARY, null, false, true, false, "in Lilaya's library"),
+	LILAYA_HOME_LIBRARY("Library", "dominion/lilayasHome/library", BaseColour.TEAL, Colour.MAP_BACKGROUND, Library.LIBRARY, null, false, true, false, "in Lilaya's library") {
+		@Override
+		public void applyInventoryInit(CharacterInventory inventory) {
+			inventory.addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HALF_DEMON)));
+		}
+	},
 	
 	LILAYA_HOME_STAIR_UP("Staircase", "dominion/lilayasHome/stairsUp", BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND, LilayaHomeGeneric.STAIRCASE_UP, null, false, true, false, "in Lilaya's Home"),
 	
@@ -1261,18 +1306,41 @@ public enum PlaceType {
 	
 	// Lyssieth palace:
 	
-	LYSSIETH_PALACE_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.CORRIDOR, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_WINDOWS("Windows", null, BaseColour.GREY_DARK, Colour.MAP_BACKGROUND_DARK, LyssiethPalaceDialogue.WINDOWS, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_ENTRANCE("Entrance", "submission/lyssiethsPalace/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ENTRANCE, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_ROOM("Room", "submission/lyssiethsPalace/room", BaseColour.PINK, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ROOM, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_ROOM_SIREN("Mhyralyss's Room", "submission/lyssiethsPalace/sirenRoom", BaseColour.PURPLE, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ROOM_SIREN, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_HALL("Hall", "submission/lyssiethsPalace/hall", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.HALL, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_THRONE_ROOM("Office", "submission/lyssiethsPalace/office", BaseColour.GOLD, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.THRONE_ROOM, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_STAIRS_1("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_STAIRS_2("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_TREASURY_DOOR("Iron Door", "submission/lyssiethsPalace/treasuryDoor", BaseColour.RED_DARK, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.TREASURY_DOOR, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_TREASURY("Treasury", "submission/lyssiethsPalace/treasury", BaseColour.GOLD, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.TREASURY, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.CORRIDOR, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return new Population(PopulationType.MAIDS, PopulationDensity.COUPLE, Util.newArrayListOfValues(Subspecies.HUMAN, Subspecies.HALF_DEMON));
+		}
+	},
+	LYSSIETH_PALACE_WINDOWS("Windows", null, BaseColour.GREY_DARK, Colour.MAP_BACKGROUND_DARK, LyssiethPalaceDialogue.WINDOWS, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	},
+	LYSSIETH_PALACE_ENTRANCE("Entrance", "submission/lyssiethsPalace/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ENTRANCE, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	},
+	LYSSIETH_PALACE_ROOM("Room", "submission/lyssiethsPalace/lounge", BaseColour.PINK, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ROOM, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_HALL("Hall", "submission/lyssiethsPalace/throneRoom", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.HALL, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_OFFICE("Lyssieth's Office", "submission/lyssiethsPalace/office", BaseColour.GOLD, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.LYSSIETH_OFFICE_ENTER, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_SIREN_OFFICE("Meraxis's Office", "submission/lyssiethsPalace/officeSiren", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.SIREN_OFFICE, null, false, true, false, "in Lyssieth's Palace"),
 	
+	LYSSIETH_PALACE_STAIRS_1("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	},
+	LYSSIETH_PALACE_STAIRS_2("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	},
 	
 	
 	// Bat caverns:
@@ -1344,7 +1412,9 @@ public enum PlaceType {
 
 	
 	private String name;
+	private String worldPlaceDescription;
 	protected String SVGString;
+	private String colourString;
 	private BaseColour colour;
 	private Colour backgroundColour;
 	protected DialogueNode dialogue;
@@ -1353,6 +1423,29 @@ public enum PlaceType {
 	private String virginityLossDescription;
 
 	private static Map<String, String> SVGOverrides = new HashMap<>(); 
+	
+	/**
+	 * Only to be used for world map places.
+	 */
+	private PlaceType(String name,
+			String worldPlaceDescription,
+			String colour,
+			Encounter encounterType,
+			boolean dangerous,
+			boolean stormImmune,
+			boolean itemsDisappear,
+			String virginityLossDescription) {
+		
+		this.name = name;
+		this.colourString = colour;
+		this.worldPlaceDescription = worldPlaceDescription;
+		this.encounterType = encounterType;
+		this.dangerous = dangerous;
+		this.stormImmune = stormImmune;
+		this.itemsDisappear = itemsDisappear;
+		this.virginityLossDescription = virginityLossDescription;
+		SVGString = null;
+	}
 	
 	private PlaceType(String name,
 			String SVGPath,
@@ -1401,8 +1494,16 @@ public enum PlaceType {
 		return name;
 	}
 
+	public String getWorldPlaceDescription() {
+		return worldPlaceDescription;
+	}
+
 	public BaseColour getColour() {
 		return colour;
+	}
+
+	public String getColourString() {
+		return colourString;
 	}
 
 	public Colour getBackgroundColour() {
