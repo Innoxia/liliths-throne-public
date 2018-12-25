@@ -1178,12 +1178,12 @@ public class AlleywayDemonDialogue {
 				};
 				
 			} else if (index == 5) {
-				return new Response("E-cup",
-						"Tell [npc.name] to make [npc.her] breasts E-cups.",
+				return new Response("H-cup",
+						"Tell [npc.name] to make [npc.her] breasts H-cups.",
 						AFTER_COMBAT_TRANSFORMATIONS_FINISHED){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_TRANSFORMATIONS_BREASTS_E", getDemon()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_TRANSFORMATIONS_BREASTS_H", getDemon()));
 						Main.game.getActiveNPC().setBreastSize(CupSize.H.getMeasurement());
 					}
 				};
