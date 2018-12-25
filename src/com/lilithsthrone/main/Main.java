@@ -90,13 +90,13 @@ public class Main extends Application {
 			
 		+ "<p>"
 			+ "Once again I'm sorry for the delay on this; there was a significant amount of lore that I had to go over and check before adding Lyssieth's content, which I hadn't properly looked at since around v0.1."
-			+ " That took quite a lot of time, as did actually writing the Lyssieth quest resolution dialogue (sorry that it's a big info dump - I already cut it back once, and strugled to edit it any smaller)."
+			+ " That took quite a lot of time, as did actually writing the Lyssieth quest resolution dialogue (sorry that it's a big info dump - I already cut it back once, and struggled to edit it any smaller)."
 			+ " I also had to make quite a few changes to the code in order to get the demon subspecies working, so, in all, there was far more work to do than I originally planned for."
 		+ "</p>"
 			
 		+ "<p>"
 			+ "While there is a world map in this (which you see after completing Lyssieth's section of the main quest), you cna't travel to the fields just yet, as I simply ran out of time in which to add content for it."
-			+ " There are also some palceholders in Lyssieth's palace, and Lilaya's reactions to your demon transformation are missing."
+			+ " There are also some placeholders in Lyssieth's palace, and Lilaya's reactions to your demon transformation are missing."
 			+ " All of that will make it into v0.3.1, along with bug fixes and other things."
 		+ "</p>"
 			
