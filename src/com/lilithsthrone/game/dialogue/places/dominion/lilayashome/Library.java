@@ -472,6 +472,8 @@ public class Library {
 
 		@Override
 		public String getContent() {
+			String pregnancyStageTime = Main.getProperties().pregnancyTimeHours < 200 ? "days" :
+								(Main.getProperties().pregnancyTimeHours > 1400 ? "months" : "weeks");
 			return "<p>"
 						+ "You slide the small paperback book out from the shelf, and, turning it over in your [pc.hands], you take a look at the front cover."
 						+ " On it, the title 'Knocked Up' is displayed in bold pink lettering, and beneath that, there's a picture of a heavily-pregnant rabbit-girl cradling her swollen belly."
@@ -479,7 +481,7 @@ public class Library {
 					+ "</p>"
 					+ "<p>"
 						+ "Opening its pages, you find that the information contained within the book is laid out in a very neat and easy-to-read format, and it only takes you a few minutes to read through the entire thing."
-						+ " One of the most striking facts is that in this world, the full cycle of pregnancy only lasts for a few weeks."
+						+ " One of the most interesting facts is that in this world, the full cycle of pregnancy lasts for a few " + pregnancyStageTime + "."
 						+ " What's more, once the mother is ready to give birth, she's able to stay in that state indefinitely, until such time as she feels comfortable giving birth."
 					+ "<p>"
 					+ "<p>"

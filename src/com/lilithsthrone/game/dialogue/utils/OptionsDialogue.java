@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -2063,6 +2064,16 @@ public class OptionsDialogue {
 							0,
 							Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
 			
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDivExpanded(
+					"PREGNANCY_TIME",
+					Colour.BASE_PINK,
+					"Pregnancy Time",
+					"Set the pregnancy duration. Default value is the canon value.",
+					Main.getProperties().pregnancyTimeHours+" hours",
+					Main.getProperties().pregnancyTimeHours,
+					PregnancyPossibility.PREGNANCY_TIME_HOURS_MIN,
+					PregnancyPossibility.PREGNANCY_TIME_HOURS_MAX));
+			
 			return UtilText.nodeContentSB.toString();
 		}
 		
@@ -2160,6 +2171,40 @@ public class OptionsDialogue {
 				+ "</div>"
 				+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
 					+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
+				+ "</div>");
+		
+		contentSB.append("</div>"
+				+"</div>");
+		
+		return contentSB.toString();
+	}
+	
+	private static String getContentPreferenceVariableDivExpanded(String id, Colour colour, String title, String description, String valueDisplay, int value, int minimum, int maximum) {
+		StringBuilder contentSB = new StringBuilder();
+
+		contentSB.append(
+				"<div class='container-full-width' style='padding:0;'>"
+					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ description
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
+		
+		contentSB.append(
+				"<div id='"+id+"_ON_HUNDRED' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+						+ (value==maximum?"[style.boldDisabled(+100)]":"[style.boldGood(+100)]")
+				+ "</div>"
+				+ "<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+						+ (value==maximum?"[style.boldDisabled(+10)]":"[style.boldGood(+10)]")
+				+ "</div>"
+				+ "<div class='container-full-width' style='text-align:center; width:calc(20%); float:right; margin:0;'>"
+					+ "<b>"+valueDisplay+"</b>"
+				+ "</div>"
+				+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+					+ (value==minimum?"[style.boldDisabled(-10)]":"[style.boldBad(-10)]")
+				+ "</div>"
+				+ "<div id='"+id+"_OFF_HUNDRED' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+				+ (value==minimum?"[style.boldDisabled(-100)]":"[style.boldBad(-100)]")
 				+ "</div>");
 		
 		contentSB.append("</div>"
