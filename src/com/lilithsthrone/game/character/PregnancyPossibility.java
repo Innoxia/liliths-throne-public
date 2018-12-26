@@ -16,6 +16,10 @@ import com.lilithsthrone.utils.XMLSaving;
  */
 public class PregnancyPossibility implements XMLSaving {
 	
+	public static int PREGNANCY_TIME_HOURS_MIN = 20;
+	public static int PREGNANCY_TIME_HOURS_MAX = Integer.MAX_VALUE;
+	public static int PREGNANCY_TIME_HOURS_DEFAULT = 160;
+	
 	private String motherId, fatherId;
 	private float probability;
 	

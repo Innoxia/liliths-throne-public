@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
@@ -79,6 +80,7 @@ public class Properties {
 	public int pregnancyLactationIncreaseVariance = 100;
 	public int pregnancyLactationIncrease = 250;
 	public int pregnancyLactationLimit = 1000;
+	public int pregnancyTimeHours = PregnancyPossibility.PREGNANCY_TIME_HOURS_DEFAULT;
 	
 	public Set<PropertyValue> values;
 	
@@ -242,6 +244,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "pregnancyLactationIncreaseVariance", String.valueOf(pregnancyLactationIncreaseVariance));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationIncrease", String.valueOf(pregnancyLactationIncrease));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationLimit", String.valueOf(pregnancyLactationLimit));
+			createXMLElementWithValue(doc, settings, "pregnancyTimeHours", String.valueOf(pregnancyTimeHours));
 			
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
 
@@ -676,6 +679,8 @@ public class Properties {
 					pregnancyLactationIncreaseVariance = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncreaseVariance").item(0)).getAttribute("value"));
 					pregnancyLactationIncrease = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncrease").item(0)).getAttribute("value"));
 					pregnancyLactationLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationLimit").item(0)).getAttribute("value"));
+					pregnancyTimeHours = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyTimeHours").item(0)).getAttribute("value"));
+					
 				}catch(Exception ex) {
 				}
 				

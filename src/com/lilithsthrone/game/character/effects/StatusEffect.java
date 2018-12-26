@@ -3003,11 +3003,11 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "After recently having unprotected sex, there's a risk that you'll get pregnant!"
-					+ " Due to the fact that the arcane accelerates people's pregnancies, you'll know if you're pregnant within a matter of hours.";
+					+ " Due to the fact that the arcane affects people's pregnancies, you'll know if you're pregnant within a matter of hours.";
 			} else {
 				return UtilText.parse(target,
 						"After recently having unprotected sex, there's a risk that "+target.getName("the")+" will get pregnant!"
-							+ " Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll know if [npc.sheIs] pregnant within a matter of hours.");
+							+ " Due to the fact that the arcane affects people's pregnancies, [npc.she]'ll know if [npc.sheIs] pregnant within a matter of hours.");
 			}
 		}
 
@@ -3035,7 +3035,10 @@ public enum StatusEffect {
 					}
 				}
 				
-				target.addStatusEffect(PREGNANT_1, 60 * (72 + Util.random.nextInt(13)));
+				int pregnancyStageTimeHours = (int) Math.ceil(((double) Main.getProperties().pregnancyTimeHours) / 2);
+				int pregnancyTime = (int) Math.ceil(((double) pregnancyStageTimeHours) * 0.9);
+				int pregnancyAddedTime = (int) Math.ceil(((double) pregnancyStageTimeHours) * 0.15);
+				target.addStatusEffect(PREGNANT_1, 60 * (pregnancyTime + Util.random.nextInt(pregnancyAddedTime)));
 				
 				if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
@@ -3195,12 +3198,16 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			String pregnancySpeed = Main.getProperties().pregnancyTimeHours < 6400 ? "acelerates" :
+									(Main.getProperties().pregnancyTimeHours > 6600 ? "slows" : "doesn't affect the speed of");
+			String pregnancyStageTime = Main.getProperties().pregnancyTimeHours < 200 ? "days" :
+										(Main.getProperties().pregnancyTimeHours > 1400 ? "months" : "weeks");
 			if(target.isPlayer()) {
 				return "From one of your recent sexual encounters, you've been impregnated!"
 						+ (target.getBodyMaterial()==BodyMaterial.SLIME
 							?" Through the [pc.skinColour] [pc.skin] that makes up your body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 								+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you..."
-							:" Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the next stage in a matter of days.");
+							:" Due to the fact that the arcane " + pregnancySpeed + " people's pregnancies, you'll move onto the next stage in a matter of " + pregnancyStageTime + ".");
 			} else {
 				return UtilText.parse(target,
 							"From one of [npc.namePos] recent sexual encounters, [npc.sheIs] been impregnated!"
@@ -3214,7 +3221,10 @@ public enum StatusEffect {
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 
-			target.addStatusEffect(PREGNANT_2, 60 * (72 + Util.random.nextInt(13)));
+			int pregnancyStageTimeHours = (int) Math.ceil(((double) Main.getProperties().pregnancyTimeHours) / 2);
+			int pregnancyTime = (int) Math.ceil(((double) pregnancyStageTimeHours) * 0.9);
+			int pregnancyAddedTime = (int) Math.ceil(((double) pregnancyStageTimeHours) * 0.15);
+			target.addStatusEffect(PREGNANT_2, 60 * (pregnancyTime + Util.random.nextInt(pregnancyAddedTime)));
 			
 			boolean breastGrowth = false;
 			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
@@ -3292,12 +3302,16 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			String pregnancySpeed = Main.getProperties().pregnancyTimeHours < 6400 ? "acelerates" :
+									(Main.getProperties().pregnancyTimeHours > 6600 ? "slows" : "doesn't affect the speed of");
+			String pregnancyStageTime = Main.getProperties().pregnancyTimeHours < 200 ? "days" :
+										(Main.getProperties().pregnancyTimeHours > 1400 ? "months" : "weeks");
 			if(target.isPlayer()) {
 				return "Your stomach has swollen considerably, making it clearly obvious to anyone who glances your way that you're expecting to give birth soon."
 						+ (target.getBodyMaterial()==BodyMaterial.SLIME
 							?" Through the [pc.skinColour] [pc.skin] that makes up your body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 								+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you..."
-							:" Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the final stage in a matter of days.");
+							:" Due to the fact that the arcane " + pregnancySpeed + " people's pregnancies, you'll move onto the final stage in a matter of " + pregnancyStageTime + ".");
 			} else {
 				return UtilText.parse(target,
 							"[npc.NamePos] stomach has swollen considerably, making it clearly obvious to anyone who glances [npc.her] way that [npc.sheIs] expecting to give birth soon."

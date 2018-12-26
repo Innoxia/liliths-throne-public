@@ -206,6 +206,8 @@ public class Lab {
 			} else {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
 					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+						String pregnancyStageTime = Main.getProperties().pregnancyTimeHours < 200 ? "days" :
+													(Main.getProperties().pregnancyTimeHours > 1400 ? "months" : "weeks");
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life."
@@ -221,7 +223,7 @@ public class Lab {
 								+ "<p>"
 									+ "You gulp nervously as you expect her to fly off in another angry fit, but, sensing your unease, Lilaya lets out a resigned sigh before lowering her voice,"
 									+ " [lilaya.speech(Don't worry, there's nothing that can be done about it now anyway. Being pregnant sucks, but I might have been a little too harsh on you."
-									+ " After all, it's only for a week or so that I've got to carry your kids around.)]"
+									+ " After all, it's only for a few " + pregnancyStageTime + " or so that I've got to carry your kids around.)]"
 								+ "</p>"
 								+ "<p>"
 									+ "As she's been speaking, Lilaya has been gently rubbing her pregnant bump, and as she looks up at you, she notices that you're staring at her belly."
@@ -2358,7 +2360,8 @@ public class Lab {
 				}
 				
 			}
-
+			
+			String arcanePregnancyInfluence = (Main.getProperties().pregnancyTimeHours < 6400 || Main.getProperties().pregnancyTimeHours > 6600) ? "has a big" : "doesn't have a big";
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "She suddenly breaks off from fondling your abdomen, and, grabbing your wrist, starts pulling you into her lab."
@@ -2377,9 +2380,9 @@ public class Lab {
 							+ " starts walking back over towards you."
 					+ "</p>"
 					+ "<p>"
-						+ "[lilaya.speech(So, I'm guessing you've already realised that the arcane has a big influence on pregnancy speed around here,)]"
+						+ "[lilaya.speech(So, I'm guessing you've already realised that the arcane " + arcanePregnancyInfluence + " influence on pregnancy speed around here,)]"
 						+ " she laughs, stroking your belly once more before stepping back and tinkering with some small dials on the instrument she's just retrieved. "
-						+ UtilText.parseSpeech("I've actually done a fair bit of research on the arcane's influence on pregnancies, so I know that without its presence, pregnancies should really be taking about nine months...", aunt)
+						+ UtilText.parseSpeech("I've actually done a fair bit of research on the arcane's influence on pregnancies, so I know that without its presence, pregnancies should be taking about nine months...", aunt)
 					+ "</p>"
 					+ "<p>"
 						+ "As you try to assimilate the information Lilaya's giving you, the instrument in her hand starts giving off a faint pink glow, and, letting out a satisfied hum, she brings it down to your pregnant bump."
