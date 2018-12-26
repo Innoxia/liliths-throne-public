@@ -3036,8 +3036,9 @@ public enum StatusEffect {
 				}
 				
 				int pregnancyStageTimeHours = (int) Math.ceil(((double) Main.getProperties().pregnancyTimeHours) / 2);
+				int pregnancyTime = (int) Math.ceil(((double) pregnancyStageTimeHours) * 0.9);
 				int pregnancyAddedTime = (int) Math.ceil(((double) pregnancyStageTimeHours) * 0.15);
-				target.addStatusEffect(PREGNANT_1, 60 * (pregnancyStageTimeHours + Util.random.nextInt(pregnancyAddedTime)));
+				target.addStatusEffect(PREGNANT_1, 60 * (pregnancyTime + Util.random.nextInt(pregnancyAddedTime)));
 				
 				if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
@@ -3221,8 +3222,9 @@ public enum StatusEffect {
 		public String extraRemovalEffects(GameCharacter target) {
 
 			int pregnancyStageTimeHours = (int) Math.ceil(((double) Main.getProperties().pregnancyTimeHours) / 2);
+			int pregnancyTime = (int) Math.ceil(((double) pregnancyStageTimeHours) * 0.9);
 			int pregnancyAddedTime = (int) Math.ceil(((double) pregnancyStageTimeHours) * 0.15);
-			target.addStatusEffect(PREGNANT_2, 60 * (pregnancyStageTimeHours + Util.random.nextInt(pregnancyAddedTime)));
+			target.addStatusEffect(PREGNANT_2, 60 * (pregnancyTime + Util.random.nextInt(pregnancyAddedTime)));
 			
 			boolean breastGrowth = false;
 			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
