@@ -685,7 +685,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getPerkPoints()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(perkPoints));
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "health", String.valueOf(this.getHealth()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "mana", String.valueOf(this.getMana()));
@@ -4473,36 +4473,33 @@ public abstract class GameCharacter implements XMLSaving {
 		// For handling health, mana and stamina changes as a result of an attribute being changed:
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
-		
+
 		while (experience >= getExperienceNeededForNextLevel() && getLevel() < LEVEL_CAP) {
 			experience -= getExperienceNeededForNextLevel();
-
 			level++;
-
-			incrementPerkPoints(1);
-			if(level%5==0) {
-				perkPoints+=2;
-			}
+			perkPoints++;
 		}
+
 		if (getLevel() == LEVEL_CAP) {
 			experience = 0;
 		}
-		
+
 		// Increment health, mana and stamina based on the change:
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercentage);
-		
+
 		if(isPlayer()) {
 			Main.getProperties().setValue(PropertyValue.levelUpHightlight, true);
 		} else {
 			//TODO NPC level up
 		}
-		
+
 		// Elementals don't gain experience, but instead automatically level up alongside their summoner.
 		if(this.hasDiscoveredElemental()) {
 			try {
 				this.getElemental().levelUp();
-			} catch(Exception ex) {
+			} catch(NullPointerException ex) {
+				//Ignore
 			}
 		}
 	}
@@ -4718,10 +4715,6 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// Perks:
 	
-	public int getPerkPointsAtLevel(int level) {
-		return level-1 + (level/5)*2;
-	}
-	
 	public void incrementPerkPoints(int increment) {
 		setPerkPoints(perkPoints+increment);
 	}
@@ -4731,7 +4724,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public int getPerkPoints() {
-		return getPerkPointsAtLevel(this.getTrueLevel()) + getAdditionalPerkPoints() - this.getPerkPointsSpent();
+
+		return perkPoints - this.getPerkPointsSpent();
+
 	}
 	
 	public int getAdditionalPerkPoints() {
@@ -11645,61 +11640,49 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String incrementHealth(GameCharacter attacker, float increment) {
-		// Fetishes:
 		if(Main.game.isInCombat()) {
-			// Masochist:
-			if (isMasochist() && increment < 0) {
-				
-				this.setHealth(getHealth() + (increment*0.75f));
-				
-				if(increment<0) {
-					Combat.incrementTotalDamageTaken(this, -increment*0.75f);
+			if (increment < 0) {
+				//Target of Attack is Masochistic
+				if (isMasochist()) {
+					increment *= 0.75f;
+					this.incrementFetishExperience(Fetish.FETISH_MASOCHIST, 2);	
+				}
+				//Attacker is Sadistic
+				if (attacker.hasFetish(Fetish.FETISH_SADIST) && attacker != null) {
+					increment *= 1.05f;
+					attacker.incrementFetishExperience(Fetish.FETISH_SADIST, 2);
 				}
 				
-				this.incrementFetishExperience(Fetish.FETISH_MASOCHIST, 2);
-
-				float manaLoss = (Math.round((-increment*0.25f)*10))/10f;
-				manaLoss = Attack.getModifiedDamage(null, this, Attack.SEDUCTION, DamageType.LUST, manaLoss);
-				
-				return (UtilText.parse(this,
-						"<p>"
-							+ "Due to [npc.namePos] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 25%, but in turn, [npc.she] [npc.verb(take)]"
-							+ " <b>"+(manaLoss)+"</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(struggle)] to control [npc.her] arousal!"
-						+ "</p>"))
-						+incrementLust(manaLoss, false);
-				
-			// Sadist:
-			} else if (attacker!=null && attacker.hasFetish(Fetish.FETISH_SADIST) && increment < 0) {
-				float manaLoss = (Math.round((-increment*0.1f)*10))/10f;
-				manaLoss = Attack.getModifiedDamage(null, attacker, Attack.SEDUCTION, DamageType.LUST, manaLoss);
-				
-				attacker.incrementFetishExperience(Fetish.FETISH_SADIST, 2);
-
-				this.setHealth(getHealth() + (increment*1.05f));
-
-				if(increment<0) {
-					Combat.incrementTotalDamageTaken(this, -increment*1.05f);
-				}
-				
-				return (UtilText.parse(attacker,
-						"<p>"
-							+ "Due to [npc.her] [style.boldFetish(sadist fetish)], [npc.name] [npc.verb(take)]"
-							+ " <b>"+(manaLoss)+"</b>"+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(get)] aroused by inflicting damage!"
-						+ "</p>"))
-						+incrementLust(manaLoss, false);
-				
-			} else {
 				setHealth(getHealth() + increment);
-				if(increment<0) {
-					Combat.incrementTotalDamageTaken(this, -increment);
-				}
-				return "";
+				Combat.incrementTotalDamageTaken(this, increment);
+				String r = "";
+				
+				//Text appendage for Masochism-Effect
+				r = r + ((isMasochist()) ? UtilText.parse(this, "<p>"
+					+ "Due to [npc.namePos] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() 
+					+ ";'>masochist fetish</b>, incoming damage is reduced by 25%, but in turn, [npc.she] [npc.verb(take)]"
+					+ " <b>" +(Attack.getModifiedDamage(null, this, Attack.SEDUCTION, DamageType.LUST, 
+					Math.round(-increment*0.25f*10)/10f))+"</b> <b style='color:" 
+					+ Attribute.DAMAGE_LUST.getColour().toWebHexString() 
+					+ ";'>lust damage</b> as [npc.she] [npc.verb(struggle)] to control [npc.her] arousal!" + "</p>")
+					+incrementLust(Attack.getModifiedDamage(null, this, Attack.SEDUCTION, DamageType.LUST,
+					Math.round(-increment*0.25f*10)/10f), false) : "");
+				
+				//Text-Appendage for Sadism-Effect
+				r = r + ((attacker!=null && attacker.hasFetish(Fetish.FETISH_SADIST)) ?
+					(UtilText.parse(attacker, "<p>"
+					+ "Due to [npc.her] [style.boldFetish(sadist fetish)], [npc.name] [npc.verb(take)]"
+					+ " <b>"+Attack.getModifiedDamage(null, attacker, Attack.SEDUCTION, DamageType.LUST, 
+					(Math.round((-increment*0.1f)*10))/10f)+"</b>"+ " <b style='color:" 
+					+ Attribute.DAMAGE_LUST.getColour().toWebHexString() 
+					+ ";'>lust damage</b> as [npc.she] [npc.verb(get)] aroused by inflicting damage!"+ "</p>"))
+					+attacker.incrementLust(Attack.getModifiedDamage(null, attacker, Attack.SEDUCTION, 
+					DamageType.LUST, (Math.round((-increment*0.1f)*10))/10f), false) : "");
+				return r;
 			}
-			
-		} else {
-			setHealth(getHealth() + increment);
-			return "";
 		}
+		setHealth(getHealth() + increment);
+		return "";
 	}
 
 
