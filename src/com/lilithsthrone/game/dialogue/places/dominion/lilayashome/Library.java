@@ -573,33 +573,36 @@ public class Library {
 					return bookResponse(Subspecies.DEMON);
 	
 				} else if (index == 3) {
-					return bookResponse(Subspecies.DOG_MORPH);
+					return bookResponse(Subspecies.HALF_DEMON);
 	
 				} else if (index == 4) {
-					return bookResponse(Subspecies.CAT_MORPH);
+					return bookResponse(Subspecies.DOG_MORPH);
 	
 				} else if (index == 5) {
-					return bookResponse(Subspecies.HORSE_MORPH);
+					return bookResponse(Subspecies.CAT_MORPH);
 	
 				} else if (index == 6) {
-					return bookResponse(Subspecies.WOLF_MORPH);
+					return bookResponse(Subspecies.HORSE_MORPH);
 	
 				} else if (index == 7) {
-					return bookResponse(Subspecies.HUMAN);
+					return bookResponse(Subspecies.WOLF_MORPH);
 	
 				} else if (index == 8) {
-					return bookResponse(Subspecies.ALLIGATOR_MORPH);
+					return bookResponse(Subspecies.HUMAN);
 	
 				} else if (index == 9) {
-					return bookResponse(Subspecies.BAT_MORPH);
+					return bookResponse(Subspecies.ALLIGATOR_MORPH);
 	
 				} else if (index == 10) {
-					return bookResponse(Subspecies.IMP);
+					return bookResponse(Subspecies.BAT_MORPH);
 	
 				} else if (index == 11) {
-					return bookResponse(Subspecies.SLIME);
+					return bookResponse(Subspecies.IMP);
 	
 				} else if (index == 12) {
+					return bookResponse(Subspecies.SLIME);
+	
+				} else if (index == 13) {
 					return bookResponse(Subspecies.RAT_MORPH);
 	
 				} else if (index == 0) {

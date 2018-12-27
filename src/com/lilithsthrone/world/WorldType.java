@@ -155,7 +155,7 @@ public enum WorldType {
 		}
 	},
 	
-	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home",
+	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home GF",
 			Colour.BASE_BLUE_LIGHT,
 			1,
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_ground_floor.png",
@@ -179,7 +179,7 @@ public enum WorldType {
 		}
 	},
 	
-	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's Home",
+	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's Home 1F",
 			Colour.BASE_BLUE_LIGHT,
 			1,
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
@@ -199,7 +199,7 @@ public enum WorldType {
 		}
 	},
 	
-	ZARANIX_HOUSE_FIRST_FLOOR("Zaranix's Home",
+	ZARANIX_HOUSE_FIRST_FLOOR("Zaranix's Home 1F",
 			Colour.BASE_CRIMSON,
 			1,
 			"/com/lilithsthrone/res/map/dominion/zaranixHome/first_floor.png",
@@ -212,7 +212,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.ZARANIX_FF_ROOM),
 					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_FF_MAID))),
 	
-	ZARANIX_HOUSE_GROUND_FLOOR("Zaranix's Home",
+	ZARANIX_HOUSE_GROUND_FLOOR("Zaranix's Home GF",
 			Colour.BASE_CRIMSON,
 			1,
 			"/com/lilithsthrone/res/map/dominion/zaranixHome/ground_floor.png",
@@ -324,7 +324,7 @@ public enum WorldType {
 					new Value<>(new Color(0x0080ff), PlaceType.ENFORCER_HQ_RECEPTION_DESK),
 					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_HQ_BRAXS_OFFICE))),
 
-	ANGELS_KISS_GROUND_FLOOR("Angel's Kiss",
+	ANGELS_KISS_GROUND_FLOOR("Angel's Kiss GF",
 			Colour.BASE_MAGENTA,
 			1,
 			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissGroundFloor.png",
@@ -337,7 +337,7 @@ public enum WorldType {
 					new Value<>(new Color(0x00ffff), PlaceType.ANGELS_KISS_OFFICE),
 					new Value<>(new Color(0xff00ff), PlaceType.ANGELS_KISS_BEDROOM))),
 	
-	ANGELS_KISS_FIRST_FLOOR("Angel's Kiss",
+	ANGELS_KISS_FIRST_FLOOR("Angel's Kiss 1F",
 			Colour.BASE_MAGENTA,
 			1,
 			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissFirstFloor.png",
@@ -433,7 +433,7 @@ public enum WorldType {
 					
 					)),
 	
-	IMP_FORTRESS_ALPHA("Imp Fortress",
+	IMP_FORTRESS_ALPHA("Imp Fortress A",
 			Colour.BASE_CRIMSON,
 			1,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png",
@@ -471,7 +471,7 @@ public enum WorldType {
 		}
 	},
 
-	IMP_FORTRESS_FEMALES("Imp Fortress",
+	IMP_FORTRESS_FEMALES("Imp Fortress F",
 			Colour.BASE_PINK,
 			1,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png",
@@ -487,7 +487,7 @@ public enum WorldType {
 		}
 	},
 
-	IMP_FORTRESS_MALES("Imp Fortress",
+	IMP_FORTRESS_MALES("Imp Fortress M",
 			Colour.BASE_BLUE,
 			1,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png",
@@ -522,7 +522,7 @@ public enum WorldType {
 					
 					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))),
 
-	SLIME_QUEENS_LAIR_GROUND_FLOOR("Slime Queen's Tower",
+	SLIME_QUEENS_LAIR_GROUND_FLOOR("Slime Queen's Tower GF",
 			Colour.BASE_PINK,
 			1,
 			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairGroundFloor.png",
@@ -542,7 +542,7 @@ public enum WorldType {
 					
 					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
 
-	SLIME_QUEENS_LAIR_FIRST_FLOOR("Slime Queen's Tower",
+	SLIME_QUEENS_LAIR_FIRST_FLOOR("Slime Queen's Tower 1F",
 			Colour.BASE_PINK,
 			1,
 			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairFirstFloor.png",
