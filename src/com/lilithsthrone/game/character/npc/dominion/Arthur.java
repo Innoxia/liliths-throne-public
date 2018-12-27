@@ -40,7 +40,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -63,7 +63,7 @@ public class Arthur extends NPC {
 	}
 	
 	public Arthur(boolean isImported) {
-		super(isImported, new NameTriplet("Arthur"),
+		super(isImported, new NameTriplet("Arthur"), "Fairbanks",
 				"With messy brown hair, pale skin, and a thin frame, the Arthur of this world looks exactly the same as the one you've always known."
 						+ " Just as he was in your world, this Arthur used to be a colleague of Lilaya's, before Lilaya kicked him out."
 						+ "<br/>"
@@ -96,6 +96,7 @@ public class Arthur extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
 			equipClothing(true, true, true, true);
 		}
+		this.setSurname("Fairbanks");
 	}
 	
 	@Override
@@ -219,7 +220,7 @@ public class Arthur extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

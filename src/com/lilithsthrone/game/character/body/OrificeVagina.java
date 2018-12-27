@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,8 +18,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  * @version 0.2.4
  * @author Innoxia
  */
-public class OrificeVagina implements OrificeInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class OrificeVagina implements OrificeInterface {
 	
 	protected int wetness;
 	protected int elasticity;
@@ -53,6 +51,10 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		int oldWetness = this.wetness;
 		this.wetness = Math.max(0, Math.min(wetness, Wetness.SEVEN_DROOLING.getValue()));
 		int wetnessChange = this.wetness - oldWetness;
+		
+		if(owner==null) {
+			return null;
+		}
 		
 		if (!owner.hasVagina()) {
 			if(owner.isPlayer()) {
@@ -313,6 +315,10 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		
 		orificeModifiers.add(modifier);
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
 				if(owner.isPlayer()) {
@@ -384,6 +390,10 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		
 		orificeModifiers.remove(modifier);
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
 				if(owner.isPlayer()) {
@@ -450,7 +460,9 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		return orificeModifiers;
 	}
 	
-
+	public void clearOrificeModifiers() {
+		orificeModifiers.clear();
+	}
 
 	public boolean isSquirter() {
 		return squirter;

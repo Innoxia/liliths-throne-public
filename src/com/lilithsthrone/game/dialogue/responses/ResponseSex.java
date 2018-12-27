@@ -13,7 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -40,7 +40,7 @@ public class ResponseSex extends Response {
 	private SexManagerInterface sexManager;
 	private List<GameCharacter> dominantSpectators;
 	private List<GameCharacter> submissiveSpectators;
-	private DialogueNodeOld postSexDialogue;
+	private DialogueNode postSexDialogue;
 	private String sexStartDescription;
 	
 	public ResponseSex(String title,
@@ -51,7 +51,7 @@ public class ResponseSex extends Response {
 			List<GameCharacter> submissives,
 			List<GameCharacter> dominantSpectators,
 			List<GameCharacter> submissiveSpectators,
-			DialogueNodeOld postSexDialogue,
+			DialogueNode postSexDialogue,
 			String sexStartDescription,
 			ResponseTag... tags) {
 		this(title,
@@ -106,7 +106,7 @@ public class ResponseSex extends Response {
 			List<GameCharacter> submissives,
 			List<GameCharacter> dominantSpectators,
 			List<GameCharacter> submissiveSpectators,
-			DialogueNodeOld postSexDialogue,
+			DialogueNode postSexDialogue,
 			String sexStartDescription, ResponseTag... tags) {
 		this(title, tooltipText, fetishesForUnlock, fetishesBlocking, corruptionBypass, perksRequired, femininityRequired, raceRequired,
 				consensual, subHasEqualControl, null, dominantSpectators, submissiveSpectators, postSexDialogue, sexStartDescription);
@@ -288,7 +288,7 @@ public class ResponseSex extends Response {
 			SexManagerInterface sexManager,
 			List<GameCharacter> dominantSpectators,
 			List<GameCharacter> submissiveSpectators,
-			DialogueNodeOld postSexDialogue) {
+			DialogueNode postSexDialogue) {
 		this(title, tooltipText, consensual, subHasEqualControl, sexManager, dominantSpectators, submissiveSpectators, postSexDialogue, "");
 	}
 
@@ -299,7 +299,7 @@ public class ResponseSex extends Response {
 			SexManagerInterface sexManager,
 			List<GameCharacter> dominantSpectators,
 			List<GameCharacter> submissiveSpectators,
-			DialogueNodeOld postSexDialogue,
+			DialogueNode postSexDialogue,
 			String sexStartDescription) {
 		this(title, tooltipText,
 				null, null, null, null,
@@ -320,7 +320,7 @@ public class ResponseSex extends Response {
 			SexManagerInterface sexManager,
 			List<GameCharacter> dominantSpectators,
 			List<GameCharacter> submissiveSpectators,
-			DialogueNodeOld postSexDialogue,
+			DialogueNode postSexDialogue,
 			String sexStartDescription) {
 		super(title, tooltipText, null,
 				fetishesForUnlock, corruptionBypass,
@@ -335,12 +335,18 @@ public class ResponseSex extends Response {
 			this.dominantSpectators = new ArrayList<>();
 		} else {
 			this.dominantSpectators = dominantSpectators;
+			while(this.dominantSpectators.contains(null)) {
+				this.dominantSpectators.remove(null);
+			}
 		}
 		
 		if(submissiveSpectators==null) {
 			this.submissiveSpectators = new ArrayList<>();
 		} else {
 			this.submissiveSpectators = submissiveSpectators;
+			while(this.submissiveSpectators.contains(null)) {
+				this.submissiveSpectators.remove(null);
+			}
 		}
 		
 		this.postSexDialogue = postSexDialogue;
@@ -364,7 +370,7 @@ public class ResponseSex extends Response {
 		return null;
 	}
 	
-	public DialogueNodeOld initSex() {
+	public DialogueNode initSex() {
 		return Main.sexEngine.initialiseSex(consensual, subHasEqualControl, sexManager, dominantSpectators, submissiveSpectators, postSexDialogue, sexStartDescription);
 	}
 

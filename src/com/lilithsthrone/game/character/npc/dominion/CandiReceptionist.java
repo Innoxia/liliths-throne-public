@@ -38,7 +38,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -61,7 +61,7 @@ public class CandiReceptionist extends NPC {
 	}
 	
 	public CandiReceptionist(boolean isImported) {
-		super(isImported, new NameTriplet("Candi"),
+		super(isImported, new NameTriplet("Candi"), "Lykke",
 				"Candi is the receptionist at the Enforcer HQ."
 				+ " A completely brain-dead bimbo, Candi seems to only ever be interested in three things; applying makeup, flirting, and fucking.",
 				24, Month.JUNE, 11,
@@ -214,7 +214,7 @@ public class CandiReceptionist extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

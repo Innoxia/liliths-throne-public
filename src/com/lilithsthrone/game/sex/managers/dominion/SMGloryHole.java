@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexPositionType;
@@ -16,6 +17,7 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.2.9
@@ -41,7 +43,7 @@ public class SMGloryHole extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 		return false;
 	}
 
@@ -87,9 +89,12 @@ public class SMGloryHole extends SexManagerDefault {
 
 	@Override
 	public String getRandomPublicSexDescription() {
-		Subspecies subspecies = Util.randomItemFrom(Main.game.getPlayerCell().getPlace().getPlaceType().getSpeciesPopulatingArea());
-		return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
-				+UtilText.parse(Sex.getActivePartner(),
+		Population pop = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation();
+		if(pop!=null && !pop.getSpecies().isEmpty()) {
+			Subspecies subspecies = Util.randomItemFrom(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies());
+			
+			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+					+UtilText.parse(Sex.getActivePartner(),
 						UtilText.returnStringAtRandom(
 						"The people who've gathered to watch your lewd display laugh and cheer as they look on.",
 						"You hear someone in the crowd wolf-whistling as they watch you servicing the glory holes.",
@@ -104,6 +109,9 @@ public class SMGloryHole extends SexManagerDefault {
 								+ " stroking her exposed cock as she suddenly cums all over the floor in front of you.",
 						Util.capitaliseSentence(UtilText.generateSingularDeterminer(subspecies.getSingularMaleName(null)))+" "+subspecies.getSingularMaleName(null)+" steps forwards,"
 								+ " stroking his exposed cock as he suddenly cums all over the floor in front of you."))
-			+"</p>";
+					+"</p>";
+		}
+		
+		return "";
 	}
 }

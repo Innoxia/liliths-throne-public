@@ -16,8 +16,11 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
 import com.lilithsthrone.game.sex.sexActions.dominion.GloryHole;
 import com.lilithsthrone.game.sex.sexActions.dominion.MasturbationPanties;
+import com.lilithsthrone.game.sex.sexActions.dominion.PetMounting;
+import com.lilithsthrone.game.sex.sexActions.dominion.PetOral;
+import com.lilithsthrone.game.sex.sexActions.dominion.PixShower;
+import com.lilithsthrone.game.sex.sexActions.dominion.RalphOral;
 import com.lilithsthrone.game.sex.sexActions.dominion.ToiletStall;
-import com.lilithsthrone.game.sex.sexActions.dominion.VickyDominating;
 import com.lilithsthrone.game.sex.sexActions.submission.BreedingStallBack;
 import com.lilithsthrone.game.sex.sexActions.submission.BreedingStallFront;
 import com.lilithsthrone.game.sex.sexActions.universal.BackToWall;
@@ -31,16 +34,14 @@ import com.lilithsthrone.game.sex.sexActions.universal.KneelingOral;
 import com.lilithsthrone.game.sex.sexActions.universal.Masturbation;
 import com.lilithsthrone.game.sex.sexActions.universal.MilkingStall;
 import com.lilithsthrone.game.sex.sexActions.universal.Missionary;
-import com.lilithsthrone.game.sex.sexActions.universal.PetMounting;
-import com.lilithsthrone.game.sex.sexActions.universal.PetOral;
-import com.lilithsthrone.game.sex.sexActions.universal.PixShower;
-import com.lilithsthrone.game.sex.sexActions.universal.RalphOral;
+import com.lilithsthrone.game.sex.sexActions.universal.MissionaryDesk;
 import com.lilithsthrone.game.sex.sexActions.universal.SixtyNine;
 import com.lilithsthrone.game.sex.sexActions.universal.Standing;
 import com.lilithsthrone.game.sex.sexActions.universal.StocksSex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * Enum values that determine what actions are available for each slot.<br/><br/>
@@ -55,7 +56,7 @@ import com.lilithsthrone.utils.Util.Value;
  *   are available for the character on all fours, in relation to a character kneeling behind them.
  * 
  * @since 0.1.97
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public enum SexPositionType {
@@ -271,7 +272,8 @@ public enum SexPositionType {
 	FACE_SITTING("Face-sitting",
 			true,
 			true,
-			Util.newArrayListOfValues(FaceSitting.class), Util.newHashMapOfValues(
+			Util.newArrayListOfValues(FaceSitting.class),
+			Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.FACE_SITTING_ON_FACE,
 							Util.newHashMapOfValues(
@@ -285,7 +287,8 @@ public enum SexPositionType {
 													SexActionPresets.tentacleToUpperTorso,
 													SexActionPresets.vaginaToMouth,
 													SexActionPresets.penisToMouth,
-													SexActionPresets.assToMouth), Util.newArrayListOfValues(
+													SexActionPresets.assToMouth),
+											Util.newArrayListOfValues(
 															OrgasmCumTarget.STOMACH,
 															OrgasmCumTarget.BREASTS,
 															OrgasmCumTarget.FACE,
@@ -1303,9 +1306,18 @@ public enum SexPositionType {
 				} else {
 					descriptionSB.append(" are");
 				}
-				descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL),
-						" kneeling on the floor in front of [npc.name]; "+(playerSub?"your":"their")+" faces just inches away from [npc.her] groin..."));
-				
+				try {
+					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL),
+							" kneeling on the floor in front of [npc.name]; "
+									+(playerSub
+											?"your"
+											:(performers.size()>1
+												?"their faces"
+												:UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL), "[npc.her] [npc.face]")))
+									+" just inches away from [npc.her] groin..."));
+				} catch(Exception ex) {
+					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), "kneeling on the floor in front of [npc.name]."));
+				}
 			} else if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO)==null && Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND)==null) { // Up to 6 doms on 1 sub
 				
 				List<String> receivers = new ArrayList<>();
@@ -1752,26 +1764,28 @@ public enum SexPositionType {
 
 			} else {
 				if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND)!=null) {
-					positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK),
-							"[npc.NameIsFull] kneeling before [npc2.name]"));
+					if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)!=null) {
+						positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK),
+								"[npc.NameIsFull] kneeling before [npc2.name]"));
 					
-					if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD)!=null) {
-						if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_FOURTH)!=null) {
-							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD),
-									", [npc.name], [npc2.name]"));
-							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_FOURTH),
-									", and [npc2.NameIsFull], and [npc.is] ready to choose who to fuck first..."));
+						if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD)!=null) {
+							if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_FOURTH)!=null) {
+								positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD),
+										", [npc.name], [npc2.name]"));
+								positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_FOURTH),
+										", and [npc2.NameIsFull], and [npc.is] ready to choose who to fuck first..."));
+								
+							} else {
+								positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD),
+										", [npc.name], and [npc2.name]"));
+								positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
+										", and [npc.is] ready to choose who to fuck first..."));
+							}
 							
 						} else {
-							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD),
-									", [npc.name], and [npc2.name]"));
-							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-									", and [npc.is] ready to choose who to fuck first..."));
+							positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND),
+									" and [npc.name], and [npc.is] ready to choose who to fuck first..."));
 						}
-						
-					} else {
-						positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND),
-								" and [npc.name], and [npc.is] ready to choose who to fuck first..."));
 					}
 					
 				} else {
@@ -2203,6 +2217,58 @@ public enum SexPositionType {
 		}
 	},
 
+	MISSIONARY_DESK("Desk-top missionary",
+			true,
+			false,
+			Util.newArrayListOfValues(MissionaryDesk.class),
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.MISSIONARY_DESK_DOM,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MISSIONARY_DESK_SUB,
+									new SexActionInteractions(
+											Util.mergeMaps(
+													SexActionPresets.appendagesToAllAreas,
+													SexActionPresets.groinToGroin,
+													SexActionPresets.groinToAss,
+													SexActionPresets.kissing,
+													SexActionPresets.mouthToBreasts,
+													SexActionPresets.breastsToMouth),
+											Util.newArrayListOfValues(
+													OrgasmCumTarget.HAIR,
+													OrgasmCumTarget.FACE,
+													OrgasmCumTarget.BREASTS,
+													OrgasmCumTarget.STOMACH,
+													OrgasmCumTarget.GROIN,
+													OrgasmCumTarget.LEGS,
+													OrgasmCumTarget.FEET,
+													OrgasmCumTarget.FLOOR))))),
+					new Value<>(
+							SexPositionSlot.MISSIONARY_DESK_SUB,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MISSIONARY_DESK_DOM,
+									new SexActionInteractions(
+											SexActionPresets.appendagesToAllAreas,
+											Util.newArrayListOfValues(
+														OrgasmCumTarget.SELF_STOMACH,
+														OrgasmCumTarget.SELF_BREASTS,
+														OrgasmCumTarget.SELF_FACE,
+														OrgasmCumTarget.GROIN,
+														OrgasmCumTarget.LEGS,
+														OrgasmCumTarget.FLOOR))))))) {
+		@Override
+		public String getDescription() {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_VICKYS_SHOP) {
+				return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
+						+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
+			}
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_DESK_SUB), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_DESK_DOM),
+					"[npc.NameIsFull] lying back on top of the desk, with [npc2.name] standing between [npc.her] [npc.legs], ready to fuck [npc.herHim].");
+		}
+	},
+	
 	CHAIR_SEX("Chair sex",
 			true,
 			false,
@@ -2667,7 +2733,8 @@ public enum SexPositionType {
 	UNDER_DESK_RALPH("Under desk",
 			false,
 			false,
-			Util.newArrayListOfValues(RalphOral.class), Util.newHashMapOfValues(
+			Util.newArrayListOfValues(RalphOral.class),
+			Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.KNEELING_RECEIVING_ORAL_RALPH,
 							Util.newHashMapOfValues(
@@ -2701,7 +2768,8 @@ public enum SexPositionType {
 	SHOWER_TIME_PIX("Shower sex",
 			false,
 			false,
-			Util.newArrayListOfValues(PixShower.class), Util.newHashMapOfValues(
+			Util.newArrayListOfValues(PixShower.class),
+			Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX,
 							Util.newHashMapOfValues(
@@ -2732,7 +2800,8 @@ public enum SexPositionType {
 	HANDS_ROSE("Hand-holding",
 			false,
 			false,
-			Util.newArrayListOfValues(HandHolding.class, GenericOrgasms.class), Util.newHashMapOfValues(
+			Util.newArrayListOfValues(HandHolding.class, GenericOrgasms.class),
+			Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.HAND_SEX_DOM_ROSE,
 							Util.newHashMapOfValues(
@@ -2755,53 +2824,6 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return "You and the cat-girl maid, Rose, are standing facing one another, ready to perform lewd acts with one another's hands.";
-		}
-	},
-	
-	MISSIONARY_DESK_VICKY("Missionary on counter",
-			true,
-			false,
-			Util.newArrayListOfValues(VickyDominating.class), Util.newHashMapOfValues(
-					new Value<>(
-							SexPositionSlot.MISSIONARY_DESK_DOM_VICKY,
-							Util.newHashMapOfValues(
-							new Value<>(
-									SexPositionSlot.MISSIONARY_DESK_SUB_VICKY,
-									new SexActionInteractions(
-											Util.mergeMaps(
-													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToGroin,
-													SexActionPresets.groinToAss,
-													SexActionPresets.kissing,
-													SexActionPresets.mouthToBreasts,
-													SexActionPresets.breastsToMouth),
-											Util.newArrayListOfValues(
-													OrgasmCumTarget.HAIR,
-													OrgasmCumTarget.FACE,
-													OrgasmCumTarget.BREASTS,
-													OrgasmCumTarget.STOMACH,
-													OrgasmCumTarget.GROIN,
-													OrgasmCumTarget.LEGS,
-													OrgasmCumTarget.FEET,
-													OrgasmCumTarget.FLOOR))))),
-					new Value<>(
-							SexPositionSlot.MISSIONARY_DESK_SUB_VICKY,
-							Util.newHashMapOfValues(
-							new Value<>(
-									SexPositionSlot.MISSIONARY_DESK_DOM_VICKY,
-									new SexActionInteractions(
-											SexActionPresets.appendagesToAllAreas,
-											Util.newArrayListOfValues(
-														OrgasmCumTarget.SELF_STOMACH,
-														OrgasmCumTarget.SELF_BREASTS,
-														OrgasmCumTarget.SELF_FACE,
-														OrgasmCumTarget.GROIN,
-														OrgasmCumTarget.LEGS,
-														OrgasmCumTarget.FLOOR))))))) {
-		@Override
-		public String getDescription() {
-			return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
-					+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
 		}
 	},
 	
@@ -2923,7 +2945,7 @@ public enum SexPositionType {
 											SexActionPresets.fingerToLowerHalf,
 											DOGGY_STYLE.getSexInteractions(SexPositionSlot.DOGGY_BEHIND_ORAL, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription() {//TODO
 			return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
 					+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
 		}
@@ -3616,7 +3638,8 @@ public enum SexPositionType {
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 		if(action.getActionType()==SexActionType.START_ONGOING) {
 			// Block penis+non-appendage actions if target's penis is already in use:
-			if(this!=SexPositionType.SIXTY_NINE) {
+			if(this!=SexPositionType.SIXTY_NINE
+					&& this!=SexPositionType.FACE_SITTING) {
 				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
 						&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)
 						&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
@@ -3633,17 +3656,20 @@ public enum SexPositionType {
 				}
 			}
 			
-			// Block oral + groin actions if there is any groin action going on:
+			// Block oral + groin actions if there is any groin-groin action going on:
 			if(this!=SexPositionType.SIXTY_NINE
+				&& this!=SexPositionType.FACE_SITTING
 					&& ((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas)
 							&& !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
 						|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas)
 							&& !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas)))) {
 				for(SexAreaInterface sArea : SexActionPresets.groinAreas) {
 					if((Sex.getOngoingActionsMap(target).containsKey(sArea)
-							&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer))
+							&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
+							&& !Collections.disjoint(Sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.groinAreas))
 						|| (Sex.getOngoingActionsMap(performer).containsKey(sArea)
-							&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target))) {
+							&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
+							&& !Collections.disjoint(Sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.groinAreas))) {
 						return true;
 					}
 				}

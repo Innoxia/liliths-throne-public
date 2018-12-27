@@ -42,7 +42,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -65,7 +65,7 @@ public class Alexa extends NPC {
 	}
 	
 	public Alexa(boolean isImported) {
-		super(isImported, new NameTriplet("Alexa"),
+		super(isImported, new NameTriplet("Alexa"), "Earna",
 				"Alexa is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
 				26, Month.MAY, 3,
@@ -235,7 +235,7 @@ public class Alexa extends NPC {
 				newSlave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 				addSlave(newSlave);
 				newSlave.resetInventory(true);
-				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
+				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Alexa.class));
 				newSlave.setPlayerKnowsName(true);
 			}
 		}
@@ -246,7 +246,7 @@ public class Alexa extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

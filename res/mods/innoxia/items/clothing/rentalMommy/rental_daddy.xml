@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- For a version with comments, see "rental_mommy.xml". -->
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>150</value>
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[Rental-Daddy T-shirt]]></name>
@@ -20,7 +20,7 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="VIRILITY" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="VIRILITY" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_SEEDER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_IMPREGNATION" timer="0"/>
 		</effects>
 		<blockedPartsList>
 			<blockedParts>
@@ -65,7 +65,7 @@
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
 	<displacementText type="REMOVE_OR_EQUIP">
 		<playerSelf><![CDATA[

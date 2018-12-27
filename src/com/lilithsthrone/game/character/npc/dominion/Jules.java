@@ -42,7 +42,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -71,7 +71,7 @@ public class Jules extends NPC {
 	}
 	
 	public Jules(boolean isImported) {
-		super(isImported, new NameTriplet("Jules", "Jules", "Julia"),
+		super(isImported, new NameTriplet("Jules", "Jules", "Julia"), "Kamau",
 				"Jules is the zebra-boy bouncer for the nightclub 'The Watering Hole'.",
 				33, Month.FEBRUARY, 21,
 				10,
@@ -232,7 +232,7 @@ public class Jules extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 
@@ -240,7 +240,7 @@ public class Jules extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getJules())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
@@ -249,7 +249,7 @@ public class Jules extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getJules())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 

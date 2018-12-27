@@ -44,7 +44,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -74,7 +74,7 @@ public class HarpyBimbo extends NPC {
 	}
 	
 	public HarpyBimbo(boolean isImported) {
-		super(isImported, new NameTriplet("Brittany"),
+		super(isImported, new NameTriplet("Brittany"), "Blomgren",
 				"One of the more notable harpy matriarchs, Brittany is the leader of a flock of harpies."
 						+ " In order to get into her good graces, most of her flock try to mimic her behaviour and appearance."
 						+ " As a result, Brittany's flock is primarily made up of bleach-blonde bimbos.",
@@ -237,7 +237,7 @@ public class HarpyBimbo extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	

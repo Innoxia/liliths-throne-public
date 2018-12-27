@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.character.persona.Relationship;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -11,13 +13,12 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.12
  * @author Innoxia
  */
 public class CityHall {
 
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("City Hall", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("City Hall", "-", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -42,8 +43,7 @@ public class CityHall {
 			}
 		}
 	};
-	public static final DialogueNodeOld CITY_HALL_ENTER = new DialogueNodeOld("City Hall ", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_HALL_ENTER = new DialogueNode("City Hall ", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -68,8 +68,7 @@ public class CityHall {
 		}
 	};
 	
-	public static final DialogueNodeOld CITY_HALL_PUBLIC_ENQUIRIES = new DialogueNodeOld("Bureau of Demographics", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_HALL_PUBLIC_ENQUIRIES = new DialogueNode("Bureau of Demographics", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -94,26 +93,27 @@ public class CityHall {
 			}
 		}
 	};
-	
-	public static final DialogueNodeOld CITY_HALL_NAME_CHANGE_FORM = new DialogueNodeOld("Bureau of Demographics", "-", true) {
-		private static final long serialVersionUID = 1L;
 
-		boolean unsuitableName = false, unsuitableSurname = false;
+	private static boolean unsuitableName = false;
+	private static boolean unsuitableSurname = false;
+	
+	public static final DialogueNode CITY_HALL_NAME_CHANGE_FORM = new DialogueNode("Bureau of Demographics", "-", true) {
 
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "As you walk up to the desk, the cat-girl looks up. "
-					+ UtilText.parseNPCSpeech("What can I help you with?", Femininity.FEMININE)
+						+ "The cat-girl looks up as you approach her desk, and lets out a tired sigh, before asking, "
+						+ "[genericFemale.speech(What can I help you with?)]"
 					+ "</p>"
-					+ "<p>You ask about changing your name, and with a sigh, she leans down and starts rummaging around under her desk."
-					+ " After a moment she seems to find what she's looking for and sits back upright, handing you a pink form before looking back down at the papers on her desk."
+					+ "<p>"
+						+ "You ask about changing your name, and with a sigh, she leans down and starts rummaging around under her desk."
+						+ " After a moment she seems to find what she's looking for and sits back upright, handing you a pink form before looking back down at the papers on her desk."
 					+ "</p>"
+					+ "<p>"
+						+"[genericFemale.speech(Fill in what you'd like to change your name to, then you have to pay the admin fee of one hundred flames,)]"
+						+ " she drones, not bothering to look up from the papers in front of her."
+						+" [genericFemale.speech(If you want all of your offspring to have their surnames changed to your new one, then that'll be five thousand flames. It's not easy tracking them all down in our records, you know.)]"
 					+ "</p>"
-					+ UtilText.parseNPCSpeech("Fill in what you'd like to change your name to, then you have to pay the admin fee of 100 flames,", Femininity.FEMININE)
-					+ " she drones, not bothering to look up from the papers in front of her."
-					+ "</p>"
-					
 					+"<br/>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<div style='position:relative; display:inline-block; padding-bottom:0; margin 0 auto; vertical-align:middle; width:100%; text-align:center;'>"
@@ -131,54 +131,41 @@ public class CityHall {
 					
 					+ "<p id='hiddenFieldName' style='display:none;'></p>"
 					+ "<p id='hiddenFieldSurname' style='display:none;'></p>";
+			
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getMoney() < 100) {
-					return new Response("Confirm ("+UtilText.formatAsMoneyUncoloured(100, "span")+")", "Change name for 100 flames. (You can't afford this!)", null);
-				} else {
+					return new Response("Confirm ("+UtilText.formatAsMoneyUncoloured(100, "span")+")",
+							"Have your name changed.<br/>[style.italicsBad(You cannot afford this!)]",
+							null);
 					
-					return new ResponseEffectsOnly("Confirm ("+UtilText.formatAsMoney(100, "span")+")", "Change name for 100 flames."){
+				} else {
+					return new ResponseEffectsOnly("Confirm ("+UtilText.formatAsMoney(100, "span")+")", "Have your name changed.<br/>This will cost "+UtilText.formatAsMoney(100)+"."){
 						@Override
 						public void effects() {
-							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
-							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
-										|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
-							}
-							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
-							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
-										&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
-												|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
-									unsuitableSurname = true;
-								else {
-									unsuitableSurname = false;
-								}
-							}
-							
-							if (unsuitableName || unsuitableSurname)  {
-								Main.game.setContent(new Response("" ,"", CITY_HALL_NAME_CHANGE_FORM));
-								
-							} else {
-							
-								Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
-								Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
-								Main.game.getPlayer().incrementMoney(-100);
-								Main.game.getTextEndStringBuilder().append(
-										"<p style='text-align:center;'>"
-											+ "You fill out the forms and pay the [style.boldBad(100 flame fee)], officially changing your name to:<br/>"
-											+ "<b>[pc.Name]"+(!Main.game.getPlayer().getSurname().isEmpty()?" [pc.Surname]":"")+"</b>"
-										+ "</p>");
-								Main.game.setContent(new Response("" ,"", CITY_HALL_NAME_CHANGE_FORM));
-							}
+							applyNameChange(false);
+						}
+					};
+				}
+				
+			} else if(index==2) {
+				if(Main.game.getPlayer().getAllCharactersOfRelationType(Relationship.PARENT).isEmpty()) {
+					return new Response("Offspring ("+UtilText.formatAsMoneyUncoloured(5000, "span")+")",
+							"Change your name, and also have all lines of your offspring update their surnames to your surname.<br/>[style.italicsBad(You do not have any children, so you can't do this!)]", null);
+					
+				} else if (Main.game.getPlayer().getMoney() < 5000) {
+					return new Response("Offspring ("+UtilText.formatAsMoneyUncoloured(5000, "span")+")",
+							"Change your name, and also have all lines of your offspring update their surnames to your surname.<br/>[style.italicsBad(You cannot afford this!)]", null);
+					
+				} else {
+					return new ResponseEffectsOnly("Offspring ("+UtilText.formatAsMoney(5000, "span")+")",
+							"Change your name, and also have all lines of your offspring update their surnames to your surname.<br/>This will cost "+UtilText.formatAsMoney(5000)+"."){
+						@Override
+						public void effects() {
+							applyNameChange(true);
 						}
 					};
 				}
@@ -192,5 +179,71 @@ public class CityHall {
 		}
 	};
 	
+	private static void applyNameChange(boolean applyOffspringSurnames) {
+		Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
+		if(Main.mainController.getWebEngine().getDocument()!=null) {
+			if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
+					|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32
+					|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
+				unsuitableName = true;
+			else {
+				unsuitableName = false;
+			}
+		}
+		Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
+		if(Main.mainController.getWebEngine().getDocument()!=null) {
+			if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()==0
+					&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 32
+							|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
+				unsuitableSurname = true;
+			else {
+				unsuitableSurname = false;
+			}
+		}
+		
+		if(applyOffspringSurnames && Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()==0) {
+			unsuitableSurname = true;
+		}
+		
+		if (unsuitableName || unsuitableSurname)  {
+			Main.game.setContent(new Response("" ,"", CITY_HALL_NAME_CHANGE_FORM));
+			
+		} else {
+			Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+			Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
+			
+			if(applyOffspringSurnames && Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1) {
+				for(NPC npc : Main.game.getAllNPCs()) {
+					GameCharacter mother = npc.getMother();
+					if(mother!=null) {
+						while(mother.getMother()!=null) {
+							mother = mother.getMother();
+						}
+						if(mother.isPlayer()) {
+							npc.setSurname(Main.game.getPlayer().getSurname());
+						}
+					}
+				}
+			}
+			if(applyOffspringSurnames) {
+				Main.game.getTextEndStringBuilder().append(
+						"<p style='text-align:center;'>"
+							+ "You fill out the forms and hand over the required fee, officially changing your name to:<br/>"
+							+ "<b>[pc.Name]"+(!Main.game.getPlayer().getSurname().isEmpty()?" [pc.Surname]":"")+"</b><br/>"
+							+ "All of your offspring, all the way down your family tree, have had their surnames legally changed to:<br/>"
+							+ "<b>[pc.Surname]</b><br/>"
+						+ "</p>"
+						+Main.game.getPlayer().incrementMoney(-5000));
+			} else {
+				Main.game.getTextEndStringBuilder().append(
+						"<p style='text-align:center;'>"
+							+ "You fill out the forms and hand over the required fee, officially changing your name to:<br/>"
+							+ "<b>[pc.Name]"+(!Main.game.getPlayer().getSurname().isEmpty()?" [pc.Surname]":"")+"</b>"
+						+ "</p>"
+						+Main.game.getPlayer().incrementMoney(-100));
+			}
+			Main.game.setContent(new Response("" ,"", CITY_HALL_NAME_CHANGE_FORM));
+		}
+	}
 	
 }

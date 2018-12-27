@@ -10,10 +10,18 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.Testicle;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -434,7 +442,8 @@ public interface SexActionInterface {
 						
 						if(!canStartPenetration
 								&& Sex.getSexPace(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))!=SexPace.DOM_ROUGH
-								&& Sex.getCharacterPerformingAction().isPlayer()) {
+								&& Sex.getCharacterPerformingAction().isPlayer()
+								&& !Sex.getSexManager().isSubsRestricted()) {
 							if(this.getTargetedCharacterOrifices().isEmpty()) {
 								canStartPenetration = true; // Can start submissive penetrations (getting penetrated, not doing the penetrating) when player is a sub with restricted control.
 							} else {
@@ -1013,7 +1022,55 @@ public interface SexActionInterface {
 
 	public default List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
 	
-	public default boolean ignoreCondom(GameCharacter condomWearer) {
+	public default boolean testCondomRipped(GameCharacter condomWearer, GameCharacter cumTarget) {
+		AbstractClothing condom = condomWearer.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot());
+		int max = 100;
+		for (ItemEffect eff: condom.getEffects()) {
+			AbstractItemEffectType effType = eff.getItemEffectType();
+			if (effType.equals(ItemEffectType.GENERIC_BROKEN)) {
+				return true;
+			} else if (effType.equals(ItemEffectType.GENERIC_DURABILITY)) {
+				switch(eff.getPotency()) {
+				case BOOST:
+					max *= 2;
+					break;
+				case DRAIN:
+					max *= 0.5;
+					break;
+				case MAJOR_BOOST:
+					max *= 4;
+					break;
+				case MAJOR_DRAIN:
+					max *= 0.25;
+					break;
+				case MINOR_BOOST:
+					max *= 1.25;
+					break;
+				case MINOR_DRAIN:
+					max *= 0.8;
+					break;
+				}
+			}
+		}
+		for (FluidModifier base: cumTarget.getBody().getVagina().getGirlcum().getFluidModifiers()) {
+			if (base == FluidModifier.MINERAL_OIL) {
+				max *= 0.25;
+			} else if (base == FluidModifier.SLIMY) {
+				max *= 2;
+			}
+		}
+
+		// if not yet broken, test whether it currently breaks
+		AbstractClothingType condomType = condom.getClothingType();
+		Testicle testis = condomWearer.getBody().getPenis().getTesticle();
+
+		// if the amount of cum is a lot, increase chance of breaking.
+		int chance = max - 1 - testis.getRawCumStorageValue() * testis.getRawCumExpulsionValue() / (max * 10);
+
+		if (condomType.equals(ClothingType.PENIS_CONDOM) && Util.random.nextInt(max + 1) > chance) {
+			condom.addEffect(new ItemEffect(ItemEffectType.GENERIC_BROKEN));
+			return true;
+		}
 		return false;
 	}
 	

@@ -1,5 +1,15 @@
 package com.lilithsthrone.controller;
 
+import java.io.File;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.events.EventTarget;
+
 import com.lilithsthrone.controller.eventListeners.EnchantmentEventListener;
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
 import com.lilithsthrone.controller.eventListeners.InventoryTooltipEventListener;
@@ -8,9 +18,68 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.*;
-import com.lilithsthrone.game.character.body.types.*;
-import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.body.Arm;
+import com.lilithsthrone.game.character.body.Breast;
+import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.Eye;
+import com.lilithsthrone.game.character.body.Horn;
+import com.lilithsthrone.game.character.body.Tail;
+import com.lilithsthrone.game.character.body.Testicle;
+import com.lilithsthrone.game.character.body.types.AbstractArmType;
+import com.lilithsthrone.game.character.body.types.AbstractAssType;
+import com.lilithsthrone.game.character.body.types.AbstractBreastType;
+import com.lilithsthrone.game.character.body.types.AntennaType;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.FootStructure;
+import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.Lactation;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -19,16 +88,34 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
-import com.lilithsthrone.game.character.markings.*;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCountType;
+import com.lilithsthrone.game.character.markings.TattooCounter;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
+import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.*;
+import com.lilithsthrone.game.character.npc.dominion.Arthur;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.*;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
@@ -37,13 +124,26 @@ import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
-import com.lilithsthrone.game.dialogue.utils.*;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
+import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
+import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
+import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
+import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
+import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
+import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.*;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -77,16 +177,8 @@ import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
-import javafx.stage.FileChooser;
-import org.w3c.dom.Document;
-import org.w3c.dom.events.EventTarget;
 
-import java.io.File;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import javafx.stage.FileChooser;
 
 /**
  * This method was causing MainController to lag out Eclipse, so I moved it to a separate file.
@@ -386,7 +478,7 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer());
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -449,7 +541,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer());
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
@@ -486,7 +578,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC());
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC(), false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -525,7 +617,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null, false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -567,7 +659,7 @@ public class MainControllerInitMethod {
 							((EventTarget) MainController.document.getElementById("WEAPON_" + i)).addEventListener("click",el, false);
 							MainController.addEventListener(MainController.document, "WEAPON_" + i, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, "WEAPON_" + i, "mouseleave", MainController.hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC());
+							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), false);
 							((EventTarget) MainController.document.getElementById("WEAPON_" + i)).addEventListener("mouseenter",el2, false);
 						}
 						
@@ -807,7 +899,7 @@ public class MainControllerInitMethod {
 					el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
 					
 				} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
-					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer());
+					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), false);
 					
 				}  else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
 					el2 = new InventoryTooltipEventListener().setTattoo(EnchantmentDialogue.getTattooSlot(), (Tattoo) EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getTattooBearer(), EnchantmentDialogue.getTattooBearer());
@@ -933,7 +1025,7 @@ public class MainControllerInitMethod {
 									OccupantManagementDialogue.cellToInspect = c;
 								}
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return OccupantManagementDialogue.ROOM_UPGRADES_MANAGEMENT;
 								}
 							});
@@ -963,7 +1055,7 @@ public class MainControllerInitMethod {
 									OccupantManagementDialogue.cellToInspect = c;
 								}
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return OccupantManagementDialogue.ROOM_UPGRADES_MANAGEMENT;
 								}
 							});
@@ -1016,7 +1108,7 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("", "", LilayaHomeGeneric.ROOM_ARTHUR_INSTALLATION){
 									@Override
 									public void effects() {
-										Main.game.getArthur().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
+										Main.game.getNpc(Arthur.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
 										OccupantManagementDialogue.cellToInspect.addPlaceUpgrade(placeUpgrade);
 										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursRoomInstalled, true);
 									}
@@ -1167,6 +1259,39 @@ public class MainControllerInitMethod {
 							
 					}, false);
 				}
+
+				id = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getId()+"_RENAME_SURNAME";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+	
+						boolean unsuitableName = false;
+					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveSurnameInput')")!=null) {
+						 
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveSurnameInput').value;");
+							if(Main.mainController.getWebEngine().getDocument()!=null) {
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() == 0
+										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+									unsuitableName = true;
+								else {
+									unsuitableName = false;
+								}
+							}
+							
+							if (!unsuitableName) {
+								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										NPC slave = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
+										slave.setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+//										slave.loadImages();
+									}
+								});
+							}
+							
+						}
+							
+					}, false);
+				}
 				
 				id = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getId()+"_CALLS_PLAYER";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -1216,7 +1341,7 @@ public class MainControllerInitMethod {
 											try {
 												Main.game.getNPCById(id).setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 											} catch (Exception e) {
-												System.err.println("Main.game.getNPCById("+id+") returning null in method: initMainControllerListeners(), instance 1.");
+												Util.logGetNpcByIdError("initMainControllerListeners(), instance 1.", id);
 											}
 										}
 									}
@@ -1414,7 +1539,7 @@ public class MainControllerInitMethod {
 				try {
 					slave = (NPC) Main.game.getNPCById(slaveId);
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+slaveId+") returning null in method: initMainControllerListeners(), instance 2.");
+					Util.logGetNpcByIdError("initMainControllerListeners(), instance 2.", slaveId);
 					continue;
 				}
 				
@@ -1569,7 +1694,7 @@ public class MainControllerInitMethod {
 				try {
 					occupant = (NPC) Main.game.getNPCById(occupantId);
 				} catch (Exception e) {
-					System.err.println("Main.game.getNPCById("+occupantId+") returning null in method: initMainControllerListeners(), instance 3.");
+					Util.logGetNpcByIdError("initMainControllerListeners(), instance 3.", occupantId);
 					continue;
 				}
 				
@@ -1685,7 +1810,7 @@ public class MainControllerInitMethod {
 					try {
 						slave = (NPC) Main.game.getNPCById(slaveId);
 					} catch (Exception e) {
-						System.err.println("Main.game.getNPCById("+slaveId+") returning null in method: initMainControllerListeners(), instance 4.");
+						Util.logGetNpcByIdError("initMainControllerListeners(), instance 4.", slaveId);
 						continue;
 					}
 					
@@ -2178,28 +2303,28 @@ public class MainControllerInitMethod {
 				id = "HEIGHT_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementHeight(1);
+						BodyChanging.getTarget().incrementHeight(1, BodyChanging.isDebugMenu());
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "HEIGHT_INCREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementHeight(5);
+						BodyChanging.getTarget().incrementHeight(5, BodyChanging.isDebugMenu());
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "HEIGHT_DECREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementHeight(-1);
+						BodyChanging.getTarget().incrementHeight(-1, BodyChanging.isDebugMenu());
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "HEIGHT_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementHeight(-5);
+						BodyChanging.getTarget().incrementHeight(-5, BodyChanging.isDebugMenu());
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2512,8 +2637,8 @@ public class MainControllerInitMethod {
 
 				// ------------ Demonic/Slime transformations -------------- //
 				
-				for(ArmType armType: ArmType.values()) {
-					id = "CHANGE_ARM_"+armType;
+				for(AbstractArmType armType: ArmType.getAllArmTypes()) {
+					id = "CHANGE_ARM_"+ArmType.getIdFromArmType(armType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setArmType(armType);
@@ -2623,8 +2748,8 @@ public class MainControllerInitMethod {
 					}
 				}
 
-				for(AssType assType: AssType.values()) {
-					id = "CHANGE_ASS_"+assType;
+				for(AbstractAssType assType: AssType.getAllAssTypes()) {
+					id = "CHANGE_ASS_"+AssType.getIdFromAssType(assType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setAssType(assType);
@@ -2633,8 +2758,8 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for(BreastType breastType: BreastType.values()) {
-					id = "CHANGE_BREAST_"+breastType;
+				for(AbstractBreastType breastType: BreastType.getAllBreastTypes()) {
+					id = "CHANGE_BREAST_"+BreastType.getIdFromBreastType(breastType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setBreastType(breastType);
@@ -2704,6 +2829,18 @@ public class MainControllerInitMethod {
 
 				for(int i=1; i <= Arm.MAXIMUM_ROWS; i++) {
 					MainController.setArmCountListener(i);
+				}
+				
+				// Legs:
+
+				for(FootStructure footStructure : FootStructure.values()) {
+					id = "CHANGE_FOOT_STRUCTURE_"+footStructure;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setFootStructure(footStructure);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
 				}
 				
 				// Eyes:
@@ -3622,7 +3759,7 @@ public class MainControllerInitMethod {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU){
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return EnchantmentDialogue.getEnchantmentMenu(BodyChanging.getTarget().getTattooInSlot(invSlot), BodyChanging.getTarget(), invSlot);
 								}
 							});
@@ -4025,7 +4162,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			for (AbstractWeaponType weapon : WeaponType.allweapons) {
+			for (AbstractWeaponType weapon : WeaponType.getAllweapons()) {
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					if ((EventTarget) MainController.document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {
 						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mousemove", MainController.moveTooltipListener, false);
@@ -4072,7 +4209,6 @@ public class MainControllerInitMethod {
 
 			
 			for(Perk perk : Perk.values()) {
-
 				GameCharacter character = Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP
 						?Main.game.getPlayer()
 						:(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
@@ -4098,6 +4234,20 @@ public class MainControllerInitMethod {
 							character.removeTrait(perk);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
+					}
+				}
+				if(perk.isHiddenPerk()) {
+					id = "HIDDEN_PERK_"+perk;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						if(character.hasPerkAnywhereInTree(perk)) {
+							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character), false);
+						} else {
+							MainController.addEventListener(MainController.document, id, "mouseenter",
+									new TooltipInformationEventListener().setInformation("Unknown!",
+											"This is an undiscovered hidden perk, and as such, you have no idea what it could be!<br/><i>Hidden perks are discovered through the main quest.</i>"), false);
+						}
 					}
 				}
 			}
@@ -4133,7 +4283,6 @@ public class MainControllerInitMethod {
 										
 									} else if(character.getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(character, e)) {
 										if(character.addPerk(e.getRow(), e.getEntry())) {
-											character.incrementPerkPoints(-1);
 											if(e.getEntry().isEquippableTrait() && character.getTraits().size()<GameCharacter.MAX_TRAITS) {
 												character.addTrait(e.getEntry());
 											}
@@ -4190,9 +4339,8 @@ public class MainControllerInitMethod {
 					}
 				}
 			}
-			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.MENU
-					|| Main.game.getCurrentDialogueNode() == Library.DOMINION_MAP) {
-				
+			
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.MENU || Main.game.getCurrentDialogueNode() == Library.DOMINION_MAP) {
 				Cell[][] grid;
 				if(Main.game.getCurrentDialogueNode() == PhoneDialogue.MENU) {
 					grid = Main.game.getWorlds().get(Main.game.getPlayer().getWorldLocation()).getGrid();
@@ -4214,6 +4362,33 @@ public class MainControllerInitMethod {
 					}
 				}
 			}
+			
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.MAP || Main.game.getCurrentDialogueNode() == CityPlaces.WORLD_MAP) {
+				WorldType worldType = PhoneDialogue.worldTypeMap;
+				if(Main.game.getCurrentDialogueNode() == CityPlaces.WORLD_MAP) {
+					worldType = WorldType.WORLD_MAP;
+				}
+				Cell[][] grid = Main.game.getWorlds().get(worldType).getGrid();
+
+				for(int i=grid[0].length-1; i>=0; i--) {
+					for(int j=0; j<grid.length; j++) {
+						Cell c = grid[j][i];
+						if(PhoneDialogue.worldTypeMap == WorldType.WORLD_MAP || Main.game.getCurrentDialogueNode() == CityPlaces.WORLD_MAP) {
+							MainController.setWorldMapLocationListeners(c, i, j);
+						} else {
+							boolean discovered = c.isDiscovered() || Main.game.isMapReveal();
+							if(!discovered) {
+								continue;
+							}
+							if(c.getPlace().getPlaceType() == PlaceType.GENERIC_IMPASSABLE) {
+								continue;
+							}
+							MainController.setMapLocationListeners(c, i, j);
+						}
+					}
+				}
+			}
+			
 		}
 
 		// Hotkey bindings:
@@ -4255,6 +4430,21 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(preference+"_"+g)) != null) {
 						((EventTarget) MainController.document.getElementById(preference+"_"+g)).addEventListener("click", e -> {
 							Main.getProperties().genderPreferencesMap.put(g, preference.getValue());
+							Main.saveProperties();
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+			}
+		}
+
+		// Sexual orientation preferences:
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.ORIENTATION_PREFERENCE) {
+			for (SexualOrientation o : SexualOrientation.values()) {
+				for(SexualOrientationPreference preference : SexualOrientationPreference.values()) {
+					if (((EventTarget) MainController.document.getElementById(preference+"_"+o)) != null) {
+						((EventTarget) MainController.document.getElementById(preference+"_"+o)).addEventListener("click", e -> {
+							Main.getProperties().orientationPreferencesMap.put(o, preference.getValue());
 							Main.saveProperties();
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);

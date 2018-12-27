@@ -1,123 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100%"
-   height="100%"
-   viewBox="0 0 64.000001 64.000001"
-   id="svg4311"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="kitchen.svg">
-  <defs
-     id="defs4313">
-    <linearGradient
-       inkscape:collect="always"
-       id="kitchenGradient">
-      <stop
-         style="stop-color:#ff5555;stop-opacity:1"
-         offset="0"
-         id="stop4184" />
-      <stop
-         style="stop-color:#ff8080;stop-opacity:1"
-         offset="1"
-         id="stop4186" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#kitchenGradient"
-       id="linearGradient15"
-       x1="29.499998"
-       y1="1025.4872"
-       x2="44.125"
-       y2="1003.3622"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.2884366,0,0,1.290513,-9.2250812,-296.31254)" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="11.313709"
-     inkscape:cx="38.611715"
-     inkscape:cy="40.227178"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata4316">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-988.36216)"
-     style="display:inline">
-    <ellipse
-       ry="30.381458"
-       rx="30.382944"
-       cy="1020.3683"
-       cx="32.000488"
-       id="ellipse4146"
-       style="display:inline;fill:url(#linearGradient15);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.4000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <g
-       id="g4232"
-       transform="matrix(0.95,0,0,0.95,1.3557395,51.435987)">
-      <path
-         sodipodi:nodetypes="cc"
-         inkscape:connector-curvature="0"
-         id="path4143"
-         d="m 14.113333,1018.6751 -0.02412,16.3582"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:13.69979477;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="cc"
-         inkscape:connector-curvature="0"
-         id="path4148"
-         d="m 22.159837,1019.7669 c 1.1,0 20.487499,0 20.487499,0"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.20000005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path4154"
-         d="m 19.144739,1006.6508 26.229844,0 -7.700863,-4.8708 -0.07818,-3.57354 -10.632662,-0.0523 0.07818,3.54704 z"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.0293808;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         id="path4172"
-         d="m 22.206491,1021.9962 0,12.9887 20.453125,0 0,-12.9381 -20.453125,-0.05 z m 4.773829,3.2693 10.871093,0.028 0,6.8764 -10.871093,0 0,-6.9049 z"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         inkscape:connector-curvature="0" />
-      <path
-         sodipodi:nodetypes="cc"
-         inkscape:connector-curvature="0"
-         id="path4143-8"
-         d="m 50.746969,1018.683 -0.02412,16.3582"
-         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:13.69979477;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="kitchenGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#kitchenGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <path fill="none" stroke="#fff" stroke-width="13.014999999999999" d="M14.763 1019.177l-.023 15.54"/>
+        <path fill="none" stroke="#fff" stroke-width="2.09" d="M22.408 1020.215H41.87"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linejoin="round" stroke-width=".9775499999999999" d="M19.543 1007.754h24.919l-7.316-4.627-.074-3.395-10.102-.05.075 3.37z"/>
+        <path fill="#fff" fill-rule="evenodd" d="M22.452 1022.332v12.34h19.43v-12.292l-19.43-.047zm4.535 3.106l10.328.027v6.532H26.987v-6.56z"/>
+        <path fill="none" stroke="#fff" stroke-width="13.014999999999999" d="M49.565 1019.185l-.023 15.54"/>
     </g>
-  </g>
 </svg>

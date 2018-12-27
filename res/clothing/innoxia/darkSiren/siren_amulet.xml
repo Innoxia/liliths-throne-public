@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>10000</value>
 		<determiner><![CDATA[the]]></determiner>
 		<name><![CDATA[Dark Siren's Amulet]]></name>
@@ -51,7 +51,7 @@
 		<incompatibleSlots/>
 		
 		<primaryColours>
-			<colour>CLOTHING_PURPLE_DARK</colour>
+			<colour>CLOTHING_PURPLE_VERY_DARK</colour>
 		</primaryColours>
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours>
@@ -64,10 +64,10 @@
 		<tertiaryColoursDye values="ALL"/>
 	
 		<itemTags/>
-	</coreAtributes>
+	</coreAttributes>
 
 	
-  <displacementText type="REMOVE_OR_EQUIP">
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(drape)] the amulet's chain around [npc.her] neck, before letting out an evil laugh as [npc.she] [npc.verb(feel)] the immense, corruptive power seeping into [npc.her] mind.]]>
     </self>
@@ -77,9 +77,9 @@
     <otherRough>
       <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos], before [npc.verb(drape)] the amulet's chain around [npc2.her] neck. Almost immediately, [npc2.name] [npc2.verb(let)] out out an evil laugh as [npc2.she] [npc2.verb(feel)] the immense, corruptive power seeping into [npc2.her] mind.]]>
     </otherRough>
-  </displacementText>
+  </replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] amulet's chain, before lifting it up and over [npc.her] head.]]>
     </self>
@@ -89,6 +89,6 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(grab)] the amulet's chain, before yanking it up and over [npc2.namePos] head.]]>
     </otherRough>
-  </replacementText>
+  </displacementText>
 	
 </clothing>

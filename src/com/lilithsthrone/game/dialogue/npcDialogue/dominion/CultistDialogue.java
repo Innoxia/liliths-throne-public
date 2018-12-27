@@ -3,7 +3,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -12,7 +12,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
@@ -27,13 +26,12 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
- * @version 0.1.97
+ * @version 0.2.12
  * @author Innoxia
  */
 public class CultistDialogue {
 	
-	public static final DialogueNodeOld ENCOUNTER_START = new DialogueNodeOld("A Witch Appears!", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_START = new DialogueNode("A Witch Appears!", "", true) {
 
 		@Override
 		public String getContent() {
@@ -82,7 +80,7 @@ public class CultistDialogue {
 								+ "</p>"));
 					}
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -102,8 +100,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL = new DialogueNodeOld("The Witch's Chapel", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL = new DialogueNode("The Witch's Chapel", "", true) {
 
 		@Override
 		public String getContent() {
@@ -281,8 +278,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_REPEAT = new DialogueNodeOld("The Witch's Chapel", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_REPEAT = new DialogueNode("The Witch's Chapel", "", true) {
 
 		@Override
 		public String getContent() {
@@ -319,8 +315,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_LEAVING = new DialogueNodeOld("The Witch's Chapel", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_LEAVING = new DialogueNode("The Witch's Chapel", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -339,7 +334,7 @@ public class CultistDialogue {
 			if(index==1) {
 				return new Response("Continue", "Leave the chapel and head back out into the streets of Dominion.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -350,7 +345,7 @@ public class CultistDialogue {
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 						ENCOUNTER_CHAPEL_LEAVING){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -370,8 +365,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_COMBAT_VICTORY = new DialogueNodeOld("The Witch's Chapel", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_COMBAT_VICTORY = new DialogueNode("The Witch's Chapel", "", true) {
 
 		@Override
 		public String getContent() {
@@ -403,10 +397,11 @@ public class CultistDialogue {
 							 colour = Colour.CLOTHING_WHITE;
 						}
 						
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", colour, Colour.CLOTHING_GOLD, colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", colour, Colour.CLOTHING_GOLD, colour, false));
 						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
 					}
 				};
@@ -476,8 +471,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_COMBAT_LOSS = new DialogueNodeOld("The Witch's Chapel", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_COMBAT_LOSS = new DialogueNode("The Witch's Chapel", "", true) {
 
 		@Override
 		public String getContent() {
@@ -555,8 +549,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_POST_ORAL_SEX = new DialogueNodeOld("Post-sex", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_POST_ORAL_SEX = new DialogueNode("Post-sex", "", true) {
 
 		@Override
 		public String getContent() {
@@ -579,7 +572,7 @@ public class CultistDialogue {
 			if(index==1) {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_POST_ORAL_SEX){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -590,8 +583,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_POST_VAGINAL_SEX = new DialogueNodeOld("Post-sex", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_POST_VAGINAL_SEX = new DialogueNode("Post-sex", "", true) {
 
 		@Override
 		public String getContent() {
@@ -614,7 +606,7 @@ public class CultistDialogue {
 			if(index==1) {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_POST_VAGINAL_SEX){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -625,8 +617,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_POST_ANAL_SEX = new DialogueNodeOld("Post-sex", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_POST_ANAL_SEX = new DialogueNode("Post-sex", "", true) {
 
 		@Override
 		public String getContent() {
@@ -649,7 +640,7 @@ public class CultistDialogue {
 			if(index==1) {
 				return new Response("Continue", "Continue on your way.", ENCOUNTER_CHAPEL_POST_VAGINAL_SEX){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -660,8 +651,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_POST_SUB_SEALED_SEX = new DialogueNodeOld("Post-sex", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_POST_SUB_SEALED_SEX = new DialogueNode("Post-sex", "", true) {
 
 		@Override
 		public String getContent() {
@@ -698,7 +688,7 @@ public class CultistDialogue {
 			if(index==1) {
 				return new Response("Continue", "Continue on your way.", ENCOUNTER_CHAPEL_POST_ORAL_SEX){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -709,8 +699,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_POST_DOM_SEX = new DialogueNodeOld("Post-sex", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_POST_DOM_SEX = new DialogueNode("Post-sex", "", true) {
 
 		@Override
 		public String getContent() {
@@ -735,10 +724,11 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public void effects(){
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", Colour.CLOTHING_BLACK, Colour.CLOTHING_GOLD, Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", Colour.CLOTHING_BLACK, Colour.CLOTHING_GOLD, Colour.CLOTHING_BLACK, false));
 						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
 					}
 				};
@@ -749,8 +739,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX = new DialogueNodeOld("Post-sex", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX = new DialogueNode("Post-sex", "", true) {
 
 		@Override
 		public String getContent() {
@@ -775,10 +764,11 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public void effects(){
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", Colour.CLOTHING_BLACK, Colour.CLOTHING_GOLD, Colour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", Colour.CLOTHING_BLACK, Colour.CLOTHING_GOLD, Colour.CLOTHING_BLACK, false));
 						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
 					}
 				};

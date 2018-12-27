@@ -44,7 +44,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -74,7 +74,7 @@ public class HarpyDominant extends NPC {
 	}
 	
 	public HarpyDominant(boolean isImported) {
-		super(isImported, new NameTriplet("Diana"),
+		super(isImported, new NameTriplet("Diana"), "Zima",
 				"One of the more notable harpy matriarchs, Diana is the leader of a flock of harpies."
 						+ " As cruel as harpies come, Diana rules her flock with an iron fist, harshly punishing any harpies that try to challenge her dominance.",
 				33, Month.OCTOBER, 2,
@@ -233,7 +233,7 @@ public class HarpyDominant extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	

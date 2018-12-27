@@ -22,7 +22,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDialogueCompanions;
@@ -32,7 +32,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -56,16 +55,13 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	public DominionAlleywayAttacker(Gender gender, boolean isImported) {
-		super(isImported, null, "",
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
-	
-			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-			this.setHomeLocation();
+			this.setLocation(Main.game.getPlayer(), true);
 			
 			boolean canalSpecies = false;
 			PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
@@ -87,6 +83,8 @@ public class DominionAlleywayAttacker extends NPC {
 					case ANGEL:
 					case BAT_MORPH:
 					case DEMON:
+					case LILIN:
+					case ELDER_LILIN:
 					case HARPY:
 					case HARPY_RAVEN:
 					case HARPY_BALD_EAGLE:
@@ -100,6 +98,9 @@ public class DominionAlleywayAttacker extends NPC {
 					case ELEMENTAL_EARTH:
 					case ELEMENTAL_FIRE:
 					case ELEMENTAL_WATER:
+						break;
+					case HALF_DEMON:
+//						addToSubspeciesMap(1000, gender, s, availableRaces); // Testing
 						break;
 						
 					// Canals spawn only:
@@ -321,7 +322,7 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
 		
 		if(pt == PlaceType.DOMINION_BACK_ALLEYS

@@ -37,7 +37,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -74,7 +74,7 @@ public class Zaranix extends NPC {
 	}
 	
 	public Zaranix(boolean isImported) {
-		super(isImported, new NameTriplet("Zaranix", "Zaranix", "Zoelix"),
+		super(isImported, new NameTriplet("Zaranix", "Zaranix", "Zoelix"), "Lyniximartu",
 				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
 				47, Month.JULY, 3,
@@ -218,7 +218,7 @@ public class Zaranix extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	
@@ -259,7 +259,7 @@ public class Zaranix extends NPC {
 			return new Response("Victory", "You have defeated Zaranix!", AFTER_COMBAT_VICTORY) {
 				@Override
 				public void effects() {
-					Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+					Main.game.getNpc(Arthur.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					
 					if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_H_THE_GREAT_ESCAPE) {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE));
@@ -271,8 +271,7 @@ public class Zaranix extends NPC {
 		}
 	}
 	
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getContent() {// need to mention Lilaya
@@ -338,7 +337,7 @@ public class Zaranix extends NPC {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Zaranix.class), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SEX_VICTORY, "<p>"
 							+ "[pc.speech(You made me go through a lot of trouble to find Arthur,)]"
@@ -360,7 +359,7 @@ public class Zaranix extends NPC {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						false, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Zaranix.class), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SEX_VICTORY, "<p>"
@@ -383,7 +382,7 @@ public class Zaranix extends NPC {
 					@Override
 					public void effects() {
 						Main.game.saveDialogueNode();
-						BodyChanging.setTarget(Main.game.getZaranix());
+						BodyChanging.setTarget(Main.game.getNpc(Zaranix.class));
 					}
 				};
 				
@@ -393,8 +392,7 @@ public class Zaranix extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Continue", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_VICTORY = new DialogueNode("Continue", "", true) {
 
 		@Override
 		public String getContent() {
@@ -421,7 +419,7 @@ public class Zaranix extends NPC {
 						+ " Now that Arthur's been rescued, you realise that you should probably head over to Lilaya's house to find out what your next step will be."
 					+ "</p>");
 			
-			return UtilText.parse(Main.game.getZaranix(), UtilText.nodeContentSB.toString());
+			return UtilText.parse(Main.game.getNpc(Zaranix.class), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -440,8 +438,7 @@ public class Zaranix extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeated", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeated", "", true) {
 
 		@Override
 		public String getContent() {
@@ -503,8 +500,7 @@ public class Zaranix extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT_SPIT = new DialogueNodeOld("Defeated", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_DEFEAT_SPIT = new DialogueNode("Defeated", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -524,7 +520,7 @@ public class Zaranix extends NPC {
 				return new ResponseSex("Used", "Zaranix forces you to orally service him.",
 						false, false,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Zaranix.class), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						null,
 						null, AFTER_SEX_DEFEAT, "<p>"
@@ -542,8 +538,7 @@ public class Zaranix extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT_SWALLOW = new DialogueNodeOld("Defeated", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_DEFEAT_SWALLOW = new DialogueNode("Defeated", "", true, true) {
 
 		@Override
 		public String getContent() {
@@ -576,7 +571,7 @@ public class Zaranix extends NPC {
 				return new ResponseSex("Need... Cock...", "Zaranix's potion has had quite a strong effect... You really need to suck his cock, then maybe you'll be able to think clearly again?",
 						true, false,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Zaranix.class), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						null,
 						null, AFTER_SEX_DEFEAT, "<p>"
@@ -600,8 +595,7 @@ public class Zaranix extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_DEFEAT = new DialogueNodeOld("Used", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Used", "", true) {
 
 		@Override
 		public String getContent() {
@@ -639,7 +633,7 @@ public class Zaranix extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Zaranix.class))==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
@@ -648,7 +642,7 @@ public class Zaranix extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Zaranix.class))==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 

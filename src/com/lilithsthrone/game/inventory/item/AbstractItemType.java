@@ -2,7 +2,6 @@ package com.lilithsthrone.game.inventory.item;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,16 +20,15 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.1
+ * @version 0.3
  * @author Innoxia
  */
-public abstract class AbstractItemType extends AbstractCoreType implements Serializable {
-
-	protected static final long serialVersionUID = 1L;
+public abstract class AbstractItemType extends AbstractCoreType {
 	
 	private String determiner, name, namePlural, description, pathName;
 	private boolean plural;
@@ -117,7 +115,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 	
 	private String colourReplacement(Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
-		return Util.colourReplacement(Integer.toString(this.hashCode()), colour, colourSecondary, colourTertiary, inputString);
+		return SvgUtil.colourReplacement(Integer.toString(this.hashCode()), colour, colourSecondary, colourTertiary, inputString);
 	}
 	
 	@Override
@@ -150,21 +148,15 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 
 	public static AbstractItem generateItem(AbstractItemType itemType) {
-		return new AbstractItem(itemType) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractItem(itemType) {};
 	}
 	
 	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum, int millilitres) {
-		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {};
 	}
 
 	public static AbstractItem generateFilledBreastPump(Colour colour, GameCharacter character, FluidMilk milk, int quantity) {
-		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {};
 	}
 	
 	public String getId() {

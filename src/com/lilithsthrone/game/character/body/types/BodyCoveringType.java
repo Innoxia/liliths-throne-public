@@ -158,7 +158,7 @@ public enum BodyCoveringType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null),
 	
-	PENIS(BodyCoveringTemplateFactory.createOrificeSkin(null)),
+	PENIS(BodyCoveringTemplateFactory.createPenisSkin()),
 
 	ANUS(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_ANUS)),
 	
@@ -444,12 +444,12 @@ public enum BodyCoveringType {
 	EYE_ANGEL(BodyCoveringTemplateFactory.createEyeIrises()),
 
 	EYE_DEMON_COMMON(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
-			Colour.naturalDemonIrisColours, Colour.dyeDemonIrisColours)),
+			Colour.naturalDemonIrisColours, Colour.dyeDemonIrisColours, true)),
 
-	EYE_DOG_MORPH(BodyCoveringTemplateFactory.createEyeIrises()),
+	EYE_DOG_MORPH(BodyCoveringTemplateFactory.createEyeIrisesHeterochromiaNaturallyOccurring()),
 
 	EYE_LYCAN(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
-			Colour.naturalPredatorIrisColours, Colour.dyePredatorIrisColours)),
+			Colour.naturalPredatorIrisColours, Colour.dyePredatorIrisColours, true)),
 
 	
 	EYE_FOX_MORPH("a pair of",
@@ -469,7 +469,7 @@ public enum BodyCoveringType {
 			Colour.dyePredatorIrisColours),
 
 	EYE_FELINE(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
-			Colour.naturalPredatorIrisColours, Colour.dyePredatorIrisColours)),
+			Colour.naturalPredatorIrisColours, Colour.dyePredatorIrisColours, true)),
 
 	EYE_SQUIRREL(BodyCoveringTemplateFactory.createEyeIrises()),
 
@@ -481,11 +481,11 @@ public enum BodyCoveringType {
 	
 	EYE_ALLIGATOR_MORPH(BodyCoveringTemplateFactory.createEyeIrises()),
 
-	EYE_HORSE_MORPH(BodyCoveringTemplateFactory.createEyeIrises()),
+	EYE_HORSE_MORPH(BodyCoveringTemplateFactory.createEyeIrisesHeterochromiaNaturallyOccurring()),
 
 	EYE_REINDEER_MORPH(BodyCoveringTemplateFactory.createEyeIrises()),
 
-	EYE_COW_MORPH(BodyCoveringTemplateFactory.createEyeIrises()),
+	EYE_COW_MORPH(BodyCoveringTemplateFactory.createEyeIrisesHeterochromiaNaturallyOccurring()),
 
 	EYE_HARPY(BodyCoveringTemplateFactory.createEyeIrises()),
 

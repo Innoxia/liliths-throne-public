@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.weapon;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +37,8 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.11
  * @author Innoxia
  */
-public abstract class AbstractWeapon extends AbstractCoreItem implements Serializable, XMLSaving {
+public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSaving {
 
-	private static final long serialVersionUID = 1L;
 
 	private AbstractWeaponType weaponType;
 	protected List<ItemEffect> effects;
@@ -211,7 +209,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		
 		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
 			try {
-				weapon.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+				weapon.coreEnchantment = Attribute.getAttributeFromId(parentElement.getAttribute("coreEnchantment"));
 			} catch(Exception ex) {
 			}
 		}
@@ -246,7 +244,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		for(int i=0; i<spellElements.getLength(); i++){
 			Element e = ((Element)spellElements.item(i));
 			try {
-				weapon.spells.add(Spell.valueOf(e.getAttribute("value")));
+				String weaponId = e.getAttribute("value");
+				if(weaponId.equals("DARK_SIREN_BANEFUL_FISSURE")) {
+					weaponId = "DARK_SIREN_SIRENS_CALL";
+				}
+				weapon.spells.add(Spell.valueOf(weaponId));
 			} catch(Exception ex) {
 			}
 		}

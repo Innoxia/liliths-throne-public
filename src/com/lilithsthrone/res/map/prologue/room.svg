@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <linearGradient id="museumRoomGradient" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <ellipse cx="32" cy="32.006" rx="30.383" ry="30.381" fill="url(#museumRoomGradient)" fill-rule="evenodd"/>
+ <path d="m20.203 51.254 0.0678-15.729" fill="none" stroke="#fff" stroke-width="3"/>
+ <ellipse cx="20.305" cy="33.966" rx="2.6102" ry="2.5085" fill="#fff" style="paint-order:stroke fill markers"/>
+ <path d="m45.627 51.759 0.0678-15.729" fill="none" stroke="#fff" stroke-width="3"/>
+ <ellipse cx="45.763" cy="34.305" rx="2.6102" ry="2.5085" fill="#fff" style="paint-order:stroke fill markers"/>
+ <g fill="none" stroke="#fff">
+  <g stroke-width="1px">
+   <path d="m20.271 35.525c7.1202 7.4036 19.603 5.3464 25.424 0.50524"/>
+   <path d="m9.6363 39.742c4.1565-0.46823 8.0518-2.0684 10.635-4.2169"/>
+   <path d="m45.695 36.031c2.4934 2.5927 5.6445 4.0251 8.9369 4.5841"/>
+   <path d="m21.085 13.356-1e-6 15.525h23.864l0.13559-15.458z"/>
+  </g>
+  <path d="m22.664 15.107-1e-6 12.328h20.749l0.11789-12.274z" stroke-width=".83089px"/>
+ </g>
+</svg>

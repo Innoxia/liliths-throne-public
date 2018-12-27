@@ -1,8 +1,15 @@
 package com.lilithsthrone.game.inventory;
 
-import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -42,15 +49,6 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.<br/>
  * Only the very bravest dare venture past line 695.
@@ -59,9 +57,8 @@ import java.util.Set;
  * @version 0.2.10
  * @author Innoxia
  */
-public class CharacterInventory implements Serializable, XMLSaving {
+public class CharacterInventory implements XMLSaving {
 
-	private static final long serialVersionUID = 1L;
 
 	private List<AbstractItem> itemsInInventory;
 	private List<AbstractWeapon> weaponsInInventory;
@@ -377,6 +374,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				+ getUniqueItemCount() - getUniqueQuestItemCount();
 	}
 	
+	public boolean isAnyQuestItemPresent() {
+		return getUniqueQuestWeaponCount()>0 || getUniqueQuestClothingCount()>0 || getUniqueQuestItemCount()>0;
+	}
+	
 	
 	// -------------------- Items -------------------- //
 	
@@ -499,10 +500,11 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 * @return true if one of the items in this inventory has the same type as the Item provided.
 	 */
 	public boolean hasItemType(AbstractItemType item) {
-		for(AbstractItem abstractItem : itemsInInventory)
-			if(abstractItem.getItemType().equals(item))
+		for(AbstractItem abstractItem : itemsInInventory) {
+			if(abstractItem.getItemType().equals(item)) {
 				return true;
-		
+			}
+		}
 		return false;
 	}
 	
@@ -786,6 +788,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 					itemConcealed.addAll(bp.concealedSlots);
 					for(InventorySlot invSlot : bp.concealedSlots) {
 						if(this.getClothingInSlot(invSlot)!=null
+								&& bp.displacementType!=DisplacementType.REMOVE_OR_EQUIP
 								&& this.getClothingInSlot(invSlot).getItemTags().contains(ItemTag.REVEALS_CONCEALABLE_SLOT)) {
 							itemRevealed.add(invSlot);
 						}
@@ -1326,6 +1329,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return isAbleToUnequip(clothing, unequipIfAble, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, false);
 	}
 
+	private AbstractClothing previousClothingCheck = null;
 	private boolean isAbleToUnequip(AbstractClothing clothing, boolean unequipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, boolean continuingIsAbleToEquip) {
 
 		if(!unequipIfAble) {
@@ -1354,7 +1358,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			clothingToRemove.put(clothing, DisplacementType.REMOVE_OR_EQUIP);
 		}
 		
-		// Check for access needed: TODO check this works
+		// Check for access needed: TODO check this works TODO it doesn't
 		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 
 			// Keep iterating through until until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
@@ -1389,6 +1393,11 @@ public class CharacterInventory implements Serializable, XMLSaving {
 												}
 
 										} else {
+											if(equippedClothing.equals(previousClothingCheck)) {
+												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
+												return false;
+											}
+											previousClothingCheck = clothing;
 											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can  be removed:
 												clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 												
@@ -1828,23 +1837,23 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	
 	public SimpleEntry<AbstractClothing, DisplacementType> getNextClothingToRemoveForCoverableAreaAccess(CoverableArea coverableArea) { 
 		List<AbstractClothing> zLayerSortedList = new ArrayList<>(clothingCurrentlyEquipped);
-		zLayerSortedList.sort(new ClothingZLayerComparator().reversed());
+		zLayerSortedList.sort(new ClothingZLayerComparator());
 
 		for (AbstractClothing clothing : zLayerSortedList) {
-			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
+			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 				if (bp.blockedBodyParts.contains(coverableArea) 
 						&& !clothing.getDisplacedList().contains(bp.displacementType)
 						&& !isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
 					// this clothing is blocking the part we want access to, so make that our starting point:
 					return findNextClothingDisplacement(coverableArea, clothing, bp.displacementType, zLayerSortedList);
 				}
+			}
 		}
 		//System.err.print("There is no clothing covering this part!");
 		return null;
 	}
 
-	private SimpleEntry<AbstractClothing, DisplacementType> findNextClothingDisplacement(CoverableArea coverableArea, AbstractClothing clothingToRemove, 
-			DisplacementType displacement, List<AbstractClothing> zLayerSortedList) {
+	private SimpleEntry<AbstractClothing, DisplacementType> findNextClothingDisplacement(CoverableArea coverableArea, AbstractClothing clothingToRemove, DisplacementType displacement, List<AbstractClothing> zLayerSortedList) {
 		for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList()) {
 			if (bp.displacementType == displacement) {
 				for (ClothingAccess ca : bp.clothingAccessRequired) {
@@ -1853,7 +1862,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 							for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsList()) {
 								if (bpIterated.clothingAccessBlocked.contains(ca) 
 										&& !clothing.getDisplacedList().contains(bpIterated.displacementType)
-										&& !isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
+//										&& !isCoverableAreaExposedFromElsewhere(clothing, coverableArea)
+										) {
 									// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to displace this new clothing:
 									return findNextClothingDisplacement(coverableArea, clothing, bpIterated.displacementType, zLayerSortedList);
 								}

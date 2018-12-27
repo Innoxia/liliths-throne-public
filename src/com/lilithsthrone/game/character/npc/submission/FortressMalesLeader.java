@@ -43,7 +43,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -84,7 +85,7 @@ public class FortressMalesLeader extends NPC {
 	
 	public FortressMalesLeader(boolean isImported) {
 		super(isImported,
-				new NameTriplet("Jhortrax", "Jhortriss", "Jhortriss"),
+				new NameTriplet("Jhortrax", "Jhortriss", "Jhortriss"), "Liannamartu",
 				"The leader of one of Submission's imp fortresses, [npc.name] and [npc.her] all-male gang of imps take great pleasure in breeding anyone foolish enough to oppose their ruler, 'The Dark Siren'...",
 				65, Month.SEPTEMBER, 19,
 				20, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
@@ -262,7 +263,7 @@ public class FortressMalesLeader extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 
@@ -307,10 +308,10 @@ public class FortressMalesLeader extends NPC {
 	
 	@Override
 	public GameCharacter getPreferredSexTarget() {
-		if(Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader())!=null
+		if(Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class))!=null
 				&& !FortressMalesLeaderSA.isBothTargetsUsed()
-				&& (Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.ORGASM
-				|| Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)) {
+				&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.ORGASM
+				|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)) {
 			return FortressMalesLeaderSA.getBreedingTarget();
 		}
 		return null;
@@ -340,6 +341,11 @@ public class FortressMalesLeader extends NPC {
 	}
 	
 	// Combat:
+	
+	@Override
+	public int getEscapeChance() {
+		return 0;
+	}
 
 	public Attack attackType() {
 		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
@@ -366,6 +372,24 @@ public class FortressMalesLeader extends NPC {
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
+		
+		//This is the fight at the citadel:
+		if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+			if (victory) {
+				return new Response("", "", ImpCitadelDialogue.KEEP_DEMONS_DEFEATED);
+				
+			} else {
+				return new Response("", "", ImpCitadelDialogue.KEEP_AFTER_COMBAT_DEFEAT) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "KEEP_CHALLENGE_LEADER_DEFEAT", ImpCitadelDialogue.getAllCharacters()));
+					}
+				};
+			}
+		}
+		
+		// This is the fight in his fortress:
 		if (victory) {
 			return new Response("", "", ImpFortressDialogue.KEEP_AFTER_COMBAT_VICTORY) {
 				@Override

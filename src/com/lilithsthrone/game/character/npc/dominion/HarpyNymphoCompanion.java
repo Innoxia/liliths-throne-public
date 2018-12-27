@@ -40,7 +40,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -65,7 +65,7 @@ public class HarpyNymphoCompanion extends NPC {
 	}
 	
 	public HarpyNymphoCompanion(boolean isImported) {
-		super(isImported, new NameTriplet("Max"),
+		super(isImported, new NameTriplet("Max"), "Maly",
 				"Lexi's favourite partner, Max, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her nest, she does absolutely anything Lexi orders her to do, which usually involves trying to sate her matriarch's never-ending lust.",
 				26, Month.JANUARY, 22,
@@ -216,7 +216,7 @@ public class HarpyNymphoCompanion extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

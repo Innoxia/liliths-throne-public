@@ -9,8 +9,8 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 

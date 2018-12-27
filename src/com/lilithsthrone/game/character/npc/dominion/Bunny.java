@@ -39,7 +39,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -64,7 +64,7 @@ public class Bunny extends NPC {
 	}
 	
 	public Bunny(boolean isImported) {
-		super(isImported, new NameTriplet("Bunny"),
+		super(isImported, new NameTriplet("Bunny"), "Hasenkamp",
 				"Bunny is one of the two prostitutes Angel has working for her."
 						+ " Just like her older sister, Loppy, Bunny is a rabbit-morph, and seems to genuinely love her line of work.",
 				19, Month.FEBRUARY, 13,
@@ -221,7 +221,7 @@ public class Bunny extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

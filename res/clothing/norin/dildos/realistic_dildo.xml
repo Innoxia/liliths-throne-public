@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAtributes>
+  <coreAttributes>
     <value>250</value> <!--10 flames = £1 ~ $1.5-->
     <determiner><![CDATA[a]]></determiner>
     <name><![CDATA[realistic dildo]]></name>
@@ -56,9 +56,10 @@
       <tag>SOLD_BY_FINCH</tag>
       <tag>REQUIRES_VAGINA</tag>
       <tag>PLUGS_VAGINA</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
     </itemTags>
     
-  </coreAtributes>
+  </coreAttributes>
 
   <displacementText type="REMOVE_OR_EQUIP">
     <playerSelf>

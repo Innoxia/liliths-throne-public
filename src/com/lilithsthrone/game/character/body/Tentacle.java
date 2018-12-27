@@ -1,10 +1,10 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -12,8 +12,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.8
  * @author Innoxia
  */
-public class Tentacle implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Tentacle implements BodyPartInterface {
 	
 	protected TentacleType type;
 	protected int tentacleCount;
@@ -54,8 +53,11 @@ public class Tentacle implements BodyPartInterface, Serializable {
 	}
 
 	public String setType(GameCharacter owner, TentacleType type) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
 			return "";
 		}
 		

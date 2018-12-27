@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
@@ -8,8 +7,8 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -58,8 +57,8 @@ import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
@@ -84,13 +83,11 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.3
  * @author Innoxia
  */
-public class Body implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
-
+public class Body implements XMLSaving {
+	
 	// Required:
 	private Arm arm;
 	private Ass ass;
@@ -119,7 +116,12 @@ public class Body implements Serializable, XMLSaving {
 	private Subspecies subspecies;
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
-	private int height, femininity, bodySize, muscle;
+	private Subspecies subspeciesOverride = null;
+	private Subspecies halfDemonSubspecies = null;
+	private int height;
+	private int femininity;
+	private int bodySize;
+	private int muscle;
 	private BodyHair pubicHair;
 	
 	private Map<BodyCoveringType, Covering> coverings;
@@ -127,8 +129,10 @@ public class Body implements Serializable, XMLSaving {
 
 	private List<BodyPartInterface> allBodyParts;
 
+	private boolean takesAfterMother = true;
+	
+	
 	public static class BodyBuilder implements Builder<Body> {
-
 		// Required parameters:
 		private final Arm arm;
 		private final Ass ass;
@@ -246,7 +250,28 @@ public class Body implements Serializable, XMLSaving {
 		muscle= builder.muscle;
 		
 		this.pubicHair = BodyHair.ZERO_NONE;
+		
+		handleAllBodyPartsList();
+		
+		coverings = new EnumMap<>(BodyCoveringType.class);
 
+		applyStartingCoveringValues();
+		
+		coveringsDiscovered = EnumSet.noneOf(BodyCoveringType.class);
+		for(BodyPartInterface bp : allBodyParts) {
+			if(bp.getType().getBodyCoveringType(this)!=null) {
+				coveringsDiscovered.add(bp.getType().getBodyCoveringType(this));
+			}
+		}
+		
+		addDiscoveredBodyCoveringsFromMaterial(bodyMaterial);
+		
+		calculateRace(null);
+		
+		coveringsDiscovered.add(getBodyHairCoveringType(this.getRace()));
+	}
+	
+	public void handleAllBodyPartsList() {
 		allBodyParts = new ArrayList<>();
 		allBodyParts.add(antenna);
 		allBodyParts.add(arm);
@@ -265,23 +290,6 @@ public class Body implements Serializable, XMLSaving {
 		allBodyParts.add(tentacle);
 		allBodyParts.add(vagina);
 		allBodyParts.add(wing);
-		
-		coverings = new EnumMap<>(BodyCoveringType.class);
-
-		applyStartingCoveringValues();
-		
-		coveringsDiscovered = EnumSet.noneOf(BodyCoveringType.class);
-		for(BodyPartInterface bp : allBodyParts) {
-			if(bp.getType().getBodyCoveringType(this)!=null) {
-				coveringsDiscovered.add(bp.getType().getBodyCoveringType(this));
-			}
-		}
-		
-		addDiscoveredBodyCoveringsFromMaterial(bodyMaterial);
-		
-		calculateRace(null);
-		
-		coveringsDiscovered.add(getBodyHairCoveringType(this.getRace()));
 	}
 	
 	public void addDiscoveredBodyCoveringsFromMaterial(BodyMaterial bodyMaterial) {
@@ -337,11 +345,7 @@ public class Body implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_RAT_FUR;
 			case RABBIT_MORPH:
 				return BodyCoveringType.BODY_HAIR_RABBIT_FUR;
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
+			case ELEMENTAL:
 				break; // Doesn't matter what is passed in here, as getCovering will catch whatever BodyCoveringType the body is made up of.
 			case FOX_MORPH:
 				return BodyCoveringType.BODY_HAIR_FOX_FUR;
@@ -386,8 +390,23 @@ public class Body implements Serializable, XMLSaving {
 				availablePatterns.remove(CoveringPattern.FRECKLED); // Do not start with freckles.
 			}
 			
+			CoveringPattern pattern = availablePatterns.get(Util.random.nextInt(availablePatterns.size()));
+			
+			if(pattern == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+				if(Math.random()>0.02f) { // As it's already selected heterochromatic eyes (0.5 chance), this 0.02 chance corresponds to an overall heterochromatic chance of 0.01, or 1%
+					pattern = CoveringPattern.EYE_IRISES;
+				} else {
+					if(primary==secondary) {
+						List<Colour> secondaryIrisColours = new ArrayList<>();
+						secondaryIrisColours.addAll(colourApplicationList);
+						secondaryIrisColours.remove(primary);
+						secondary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
+					}
+				}
+			}
+			
 			coverings.put(s, new Covering(s,
-					availablePatterns.get(Util.random.nextInt(availablePatterns.size())),
+					pattern,
 					primary, false,
 					secondary, false));
 		}
@@ -411,7 +430,13 @@ public class Body implements Serializable, XMLSaving {
 		CharacterUtils.addAttribute(doc, bodyCore, "pubicHair", String.valueOf(this.getPubicHair()));
 		CharacterUtils.addAttribute(doc, bodyCore, "bodyMaterial", String.valueOf(this.getBodyMaterial()));
 		CharacterUtils.addAttribute(doc, bodyCore, "genitalArrangement", String.valueOf(this.getGenitalArrangement()));
-		
+		if(this.getSubspeciesOverride()!=null) {
+			CharacterUtils.addAttribute(doc, bodyCore, "subspeciesOverride", String.valueOf(this.getSubspeciesOverride()));
+		}
+		if(this.getHalfDemonSubspecies()!=null) {
+			CharacterUtils.addAttribute(doc, bodyCore, "halfDemonSubspecies", String.valueOf(this.getHalfDemonSubspecies()));
+		}
+		CharacterUtils.addAttribute(doc, bodyCore, "takesAfterMother", String.valueOf(this.isTakesAfterMother()));
 		
 		for(BodyCoveringType bct : BodyCoveringType.values()) {
 			if(this.getBodyCoveringTypesDiscovered().contains(bct)
@@ -454,14 +479,14 @@ public class Body implements Serializable, XMLSaving {
 		// Arm:
 		Element bodyArm = doc.createElement("arm");
 		parentElement.appendChild(bodyArm);
-			CharacterUtils.addAttribute(doc, bodyArm, "type", this.arm.getType().toString());
+			CharacterUtils.addAttribute(doc, bodyArm, "type", ArmType.getIdFromArmType(this.arm.getType()));
 			CharacterUtils.addAttribute(doc, bodyArm, "rows", String.valueOf(this.arm.getArmRows()));
 			CharacterUtils.addAttribute(doc, bodyArm, "underarmHair", this.arm.getUnderarmHair().toString());
 		
 		// Ass:
 		Element bodyAss = doc.createElement("ass");
 		parentElement.appendChild(bodyAss);
-			CharacterUtils.addAttribute(doc, bodyAss, "type", this.ass.getType().toString());
+			CharacterUtils.addAttribute(doc, bodyAss, "type", AssType.getIdFromAssType(this.ass.getType()));
 			CharacterUtils.addAttribute(doc, bodyAss, "assSize", String.valueOf(this.ass.getAssSize().getValue()));
 			CharacterUtils.addAttribute(doc, bodyAss, "hipSize", String.valueOf(this.ass.getHipSize().getValue()));
 
@@ -484,7 +509,7 @@ public class Body implements Serializable, XMLSaving {
 		// Breasts:
 		Element bodyBreast = doc.createElement("breasts");
 		parentElement.appendChild(bodyBreast);
-			CharacterUtils.addAttribute(doc, bodyBreast, "type", this.breast.type.toString());
+			CharacterUtils.addAttribute(doc, bodyBreast, "type", BreastType.getIdFromBreastType(this.breast.getType()));
 			CharacterUtils.addAttribute(doc, bodyBreast, "shape", this.breast.shape.toString());
 			CharacterUtils.addAttribute(doc, bodyBreast, "size", String.valueOf(this.breast.size));
 			CharacterUtils.addAttribute(doc, bodyBreast, "rows", String.valueOf(this.breast.rows));
@@ -721,6 +746,24 @@ public class Body implements Serializable, XMLSaving {
 		if(element.getAttribute("bodyMaterial") != null && !element.getAttribute("bodyMaterial").isEmpty()) {
 			importedBodyMaterial = BodyMaterial.valueOf(element.getAttribute("bodyMaterial"));
 		}
+
+		Subspecies importedSubspeciesOverride = null;
+		try {
+			if(element.getAttribute("subspeciesOverride") != null && !element.getAttribute("subspeciesOverride").isEmpty()) {
+				importedSubspeciesOverride = Subspecies.valueOf(element.getAttribute("subspeciesOverride"));
+			}
+		} catch(Exception ex) {	
+		}
+
+		Subspecies importedHalfDemonSubspecies = null;
+		try {
+			if(element.getAttribute("halfDemonSubspecies") != null && !element.getAttribute("halfDemonSubspecies").isEmpty()) {
+				importedHalfDemonSubspecies = Subspecies.valueOf(element.getAttribute("halfDemonSubspecies"));
+			}
+		} catch(Exception ex) {	
+		}
+		
+		
 		
 		
 		// **************** Antenna **************** //
@@ -738,7 +781,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		Element arm = (Element)parentElement.getElementsByTagName("arm").item(0);
 		
-		Arm importedArm = new Arm(ArmType.getTypeFromString(arm.getAttribute("type")), Integer.valueOf(arm.getAttribute("rows")));
+		Arm importedArm = new Arm(ArmType.getArmTypeFromId(arm.getAttribute("type")), Integer.valueOf(arm.getAttribute("rows")));
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Arm:"+ "<br/>type: "+importedArm.getType());
 
@@ -757,7 +800,7 @@ public class Body implements Serializable, XMLSaving {
 		Element ass = (Element)parentElement.getElementsByTagName("ass").item(0);
 		Element anus = (Element)parentElement.getElementsByTagName("anus").item(0);
 		
-		Ass importedAss = new Ass(AssType.getTypeFromString(ass.getAttribute("type")),
+		Ass importedAss = new Ass(AssType.getAssTypeFromId(ass.getAttribute("type")),
 				Integer.valueOf(ass.getAttribute("assSize")),
 				Integer.valueOf(anus.getAttribute("wetness")),
 				Float.valueOf(anus.getAttribute("capacity")),
@@ -820,7 +863,7 @@ public class Body implements Serializable, XMLSaving {
 		} catch(Exception ex) {
 		}
 		
-		Breast importedBreast = new Breast(BreastType.getTypeFromString(breasts.getAttribute("type")),
+		Breast importedBreast = new Breast(BreastType.getBreastTypeFromId(breasts.getAttribute("type")),
 				breastShape,
 				Integer.valueOf(breasts.getAttribute("size")),
 				milkStorage,
@@ -1358,8 +1401,18 @@ public class Body implements Serializable, XMLSaving {
 						.wing(importedWing)
 						.build();
 		
+		body.setSubspeciesOverride(importedSubspeciesOverride);
+		body.setHalfDemonSubspecies(importedHalfDemonSubspecies);
+		
 		body.setPiercedStomach(Boolean.valueOf(element.getAttribute("piercedStomach")));
 		CharacterUtils.appendToImportLog(log, "<br/>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
+		
+		try {
+			if(element.getAttribute("takesAfterMother") != null && !element.getAttribute("takesAfterMother").isEmpty()) {
+				body.setTakesAfterMother(Boolean.valueOf(element.getAttribute("takesAfterMother")));
+			}
+		} catch(Exception ex) {	
+		}
 		
 		if(element.getAttribute("pubicHair")!=null && !element.getAttribute("pubicHair").isEmpty()) {
 			try {
@@ -1458,23 +1511,6 @@ public class Body implements Serializable, XMLSaving {
 	
 	public List<BodyPartInterface> getAllBodyParts() {
 		return allBodyParts;
-	}
-
-	private String getCoveredInDescriptor(GameCharacter owner) {
-		if(owner.getRace()==Race.SLIME
-				|| owner.getRace()==Race.ELEMENTAL_EARTH
-				|| owner.getRace()==Race.ELEMENTAL_WATER
-				|| owner.getRace()==Race.ELEMENTAL_AIR
-				|| owner.getRace()==Race.ELEMENTAL_FIRE
-				|| owner.getRace()==Race.ELEMENTAL_ARCANE) {
-			return UtilText.returnStringAtRandom(
-					"made from",
-					"composed entirely of",
-					"formed out of",
-					"made entirely from");
-		} else {
-			return "covered in";
-		}
 	}
 	
 	/**
@@ -1962,43 +1998,24 @@ public class Body implements Serializable, XMLSaving {
 				break;
 		}
 		
-		if (owner.isPlayer()) {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
-				sb.append(", with [pc.irisShape], heterochromatic [pc.irisPrimaryColour(true)]-and-[pc.irisSecondaryColour(true)] irises");
-			} else {
-				sb.append(", with [pc.irisShape], [pc.irisPrimaryColour(true)] irises");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append(", [pc.pupilShape], heterochromatic [pc.pupilPrimaryColour(true)]-and-[pc.pupilSecondaryColour(true)] pupils");
-			} else {
-				sb.append(", [pc.pupilShape], [pc.pupilPrimaryColour(true)] pupils");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
-				sb.append(", and heterochromatic [pc.scleraPrimaryColour(true)]-and-[pc.scleraSecondaryColour(true)] sclerae.");
-			} else {
-				sb.append(", and [pc.scleraPrimaryColour(true)] sclerae.");
-			}
+		if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+			sb.append(", with [npc.irisShape], heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] irises");
 		} else {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
-				sb.append(", with [npc.irisShape], heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] irises, ");
-			} else {
-				sb.append(", with [npc.irisShape], [npc.irisPrimaryColour(true)] irises ");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append(", [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils");
-			} else {
-				sb.append(", [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils");
-			}
-			
-			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
-				sb.append(", and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.");
-			} else {
-				sb.append(", and [npc.scleraPrimaryColour(true)] sclerae.");
-			}
+			sb.append(", with [npc.irisShape], [npc.irisPrimaryColour(true)] irises");
 		}
+		
+		if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
+			sb.append(", [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils");
+		} else {
+			sb.append(", [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils");
+		}
+		
+		if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
+			sb.append(", and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.");
+		} else {
+			sb.append(", and [npc.scleraPrimaryColour(true)] sclerae.");
+		}
+		
 		
 		// Eye makeup:
 		if(owner.getEyeLiner().getPrimaryColour()!=Colour.COVERING_NONE) {
@@ -2019,52 +2036,52 @@ public class Body implements Serializable, XMLSaving {
 		// Ear:
 		switch (ear.getType()) {
 			case ANGEL:
-				sb.append(" [npc.She] [npc.has] a pair of perfectly-formed angelic ears, which are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
+				sb.append(" [npc.She] [npc.has] a pair of perfectly-formed angelic ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case HUMAN:
-				sb.append(" [npc.She] [npc.has] a pair of normal, human ears, which are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
+				sb.append(" [npc.She] [npc.has] a pair of normal, human ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case DEMON_COMMON:
 				if(!owner.isShortStature()) {
-					sb.append(" [npc.She] [npc.has] a pair of pointed, demonic ears, which are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
+					sb.append(" [npc.She] [npc.has] a pair of pointed, demonic ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				} else {
-					sb.append(" [npc.She] [npc.has] a pair of pointed, impish ears, which are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
+					sb.append(" [npc.She] [npc.has] a pair of pointed, impish ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				}
 				break;
 			case DOG_MORPH:
 				sb.append(" [npc.She] [npc.has] a pair of floppy, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case DOG_MORPH_POINTED:
 				sb.append(" [npc.She] [npc.has] a pair of pointed, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case DOG_MORPH_FOLDED:
 				sb.append(" [npc.She] [npc.has] a pair of folded, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case FOX_MORPH:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, fox-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case FOX_MORPH_BIG:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, fox-like ears,"
-						+ " which are nearly as large as the rest of [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are nearly as large as the rest of [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;	
 			case LYCAN:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case CAT_MORPH:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case CAT_MORPH_TUFTED:
 				sb.append(" [npc.She] [npc.has] a pair of tufted "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case COW_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of oval-shaped, cow-like ears, which are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
+				sb.append(" [npc.She] [npc.has] a pair of oval-shaped, cow-like ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case ALLIGATOR_MORPH:
 				sb.append(" [npc.Her] ears are an internal part of [npc.her] head, and are covered by a fan of <span style='color:[npc.earColourHex];'>[npc.earColour] scales</span>."
@@ -2072,30 +2089,30 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case SQUIRREL_MORPH:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case RAT_MORPH:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, rat-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case RABBIT_MORPH:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, rabbit-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case RABBIT_MORPH_FLOPPY:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"floppy, rabbit-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case BAT_MORPH:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"triangular, bat-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case HORSE_MORPH:
 				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears,"
-						+ " which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
 				break;
 			case REINDEER_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of oval-shaped, reindeer-like ears, which are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
+				sb.append(" [npc.She] [npc.has] a pair of oval-shaped, reindeer-like ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case HARPY:
 				sb.append(" [npc.Her] ears are an internal part of [npc.her] head, and are covered by a fan of [npc.earFullDescription(true)]."
@@ -2235,7 +2252,7 @@ public class Body implements Serializable, XMLSaving {
 		if (owner.isPlayer()) {
 			sb.append(" You have [pc.lipSize], [pc.mouthColourPrimary(true)] [pc.lips]");
 			if(owner.getLipstick().getPrimaryColour()!=Colour.COVERING_NONE) {
-				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently "+getCoveredInDescriptor(owner)+" "+owner.getLipstick().getFullDescription(owner, true)+".");
+				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently [npc.materialCompositionDescriptor] "+owner.getLipstick().getFullDescription(owner, true)+".");
 			} else {
 				sb.append((owner.isPiercedLip()?", which have been pierced.":"."));
 			}
@@ -2243,7 +2260,7 @@ public class Body implements Serializable, XMLSaving {
 		} else {
 			sb.append(" [npc.She] has [npc.lipSize], [npc.mouthColourPrimary(true)] [pc.lips]");
 			if(owner.getLipstick().getPrimaryColour()!=Colour.COVERING_NONE) {
-				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently "+getCoveredInDescriptor(owner)+" "+owner.getLipstick().getFullDescription(owner, true)+".");
+				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently [npc.materialCompositionDescriptor] "+owner.getLipstick().getFullDescription(owner, true)+".");
 			} else {
 				sb.append((owner.isPiercedLip()?", which have been pierced.":"."));
 			}
@@ -2614,9 +2631,9 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		if (owner.isPlayer()) {
-			sb.append(", and is "+getCoveredInDescriptor(owner)+" [pc.skinFullDescription(true)].");
+			sb.append(", and is [npc.materialCompositionDescriptor] [pc.skinFullDescription(true)].");
 		} else {
-			sb.append(", and is "+getCoveredInDescriptor(owner)+" [npc.skinFullDescription(true)].");
+			sb.append(", and is [npc.materialCompositionDescriptor] [npc.skinFullDescription(true)].");
 		}
 		
 		if (owner.isPlayer()) {
@@ -2756,140 +2773,7 @@ public class Body implements Serializable, XMLSaving {
 
 		sb.append("<p>");
 		// Arms:
-		String armDeterminer = "a pair of";
-		if(arm.getArmRows()==3) {
-			armDeterminer = "three pairs of";
-		} else if(arm.getArmRows()==2) {
-			armDeterminer = "two pairs of";
-		}
-		switch (arm.getType()) {
-			case HUMAN:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" normal human arms and hands, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)].");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" normal human arms and hands, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)].");
-				break;
-			case ANGEL:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" human-like arms and hands, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)].");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" human-like arms and hands, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)].");
-				break;
-			case DEMON_COMMON:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" slender, human-looking arms and hands, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)].");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" slender human-looking arms and hands, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)].");
-				break;
-			case DOG_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-								+ " Your hands are formed into anthropomorphic, dog-like hands, complete with little blunt claws and leathery pads.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-								+ " [npc.Her] hands are formed into anthropomorphic, dog-like hands, complete with little blunt claws and leathery pads.");
-				break;
-			case FOX_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-								+ " Your hands are formed into anthropomorphic, fox-like hands, complete with sharp claws and tough leathery pads.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands are formed into anthropomorphic, fox-like hands, complete with sharp claws and tough leathery pads.");
-				break;
-			case ALLIGATOR_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-								+ " Your hands are formed into anthropomorphic, alligator-like hands, complete with little claws.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-								+ " [npc.Her] hands are formed into anthropomorphic, alligator-like hands, complete with little claws.");
-				break;
-			case LYCAN:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-								+ " Your hands are formed into anthropomorphic, wolf-like hands, complete with sharp claws and tough leathery pads.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands are formed into anthropomorphic, wolf-like hands, complete with sharp claws and tough leathery pads.");
-				break;
-			case CAT_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-							+ " Your hands are formed into anthropomorphic, cat-like hands, complete with retractable claws and pink pads.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands are formed into anthropomorphic, cat-like hands, complete with retractable claws and pink pads.");
-				break;
-			case COW_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-								+ " Your hands, while human in shape, have tough little hoof-like nails.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands, while human in shape, have tough little hoof-like nails.");
-				break;
-			case SQUIRREL_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-							+ " Your hands are formed into anthropomorphic, squirrel-like hands, complete with claws.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands are formed into anthropomorphic, squirrel-like hands, complete with claws.");
-				break;
-			case HORSE_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-								+ " Your hands, while human in shape, have tough little hoof-like nails.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands, while human in shape, have tough little hoof-like nails.");
-				break;
-			case REINDEER_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-								+ " Your hands, while human in shape, have tough little hoof-like nails.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands, while human in shape, have tough little hoof-like nails.");
-				break;
-			case HARPY:
-				if (owner.isPlayer())
-					sb.append("Your arms have transformed into "+armDeterminer+" huge wings, and are "+getCoveredInDescriptor(owner)+" beautiful [pc.armFullDescription(true)]."
-							+ " Where your hands should be, you have two feathered forefingers and a thumb, each of which ends in a little blunt claw."
-							+ " Although slightly less dexterous than a human hand, you're still able to use your remaining digits to form a hand-like grip.");
-				else
-					sb.append("In place of arms and hands, [npc.she] has "+armDeterminer+" huge wings, which are "+getCoveredInDescriptor(owner)+" beautiful [npc.armFullDescription(true)]."
-							+ " Where [npc.her] hands should be, [npc.she] has two feathered forefingers and a thumb, each of which ends in a little blunt claw."
-							+ " Although slightly less dexterous than a human hand, [npc.sheIs] still able to use [npc.her] digits to form a hand-like grip.");
-				break;
-			case BAT_MORPH:
-				if (owner.isPlayer())
-					sb.append("Your arms have transformed into "+armDeterminer+" huge bat-like wings, "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-							+ " Where your hands should be, you have two forefingers and a thumb, each of which ends in a little blunt claw."
-							+ " Although slightly less dexterous than a human hand, you're still able to use your remaining digits to form a hand-like grip.");
-				else
-					sb.append("In place of arms and hands, [npc.she] has "+armDeterminer+" huge bat-like wings, "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " Where [npc.her] hands should be, [npc.she] has two forefingers and a thumb, each of which ends in a little blunt claw."
-							+ " Although slightly less dexterous than a human hand, [npc.sheIs] still able to use [npc.her] digits to form a hand-like grip.");
-				break;
-			case RABBIT_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-							+ " Your hands are formed into anthropomorphic, rabbit-like hands, complete with blunt little claws.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands are formed into anthropomorphic, rabbit-like hands, complete with blunt little claws.");
-				break;
-			case RAT_MORPH:
-				if (owner.isPlayer())
-					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-							+ " Your hands are formed into anthropomorphic, rat-like hands, complete with claws.");
-				else
-					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands are formed into anthropomorphic, rat-like hands, complete with claws.");
-				break;
-		}
+		sb.append(arm.getType().getBodyDescription(owner));
 		
 		if(owner.isPlayer()) {
 			if(owner.getHandNailPolish().getPrimaryColour() != Colour.COVERING_NONE) {
@@ -3032,125 +2916,125 @@ public class Body implements Serializable, XMLSaving {
 		switch (leg.getType()) {
 			case HUMAN:
 				if (owner.isPlayer())
-					sb.append("You have a pair of human legs and feet, which are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)].");
+					sb.append("You have a pair of human legs and feet, which are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)].");
 				else
-					sb.append("[npc.Her] legs and feet are human, and are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)].");
+					sb.append("[npc.Her] legs and feet are human, and are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
 				break;
 			case ANGEL:
 				if (owner.isPlayer())
-					sb.append("Your legs and feet are human in shape, but are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)].");
+					sb.append("Your legs and feet are human in shape, but are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)].");
 				else
-					sb.append("[npc.Her] legs and feet are human in shape, but are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)].");
+					sb.append("[npc.Her] legs and feet are human in shape, but are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
 				break;
 			case DEMON_COMMON:
 				if (owner.isPlayer())
-					sb.append("Your legs and feet are human in shape, but are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)].");
+					sb.append("Your legs and feet are human in shape, but are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)].");
 				else
-					sb.append("[npc.Her] legs and feet are human in shape, but are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)].");
+					sb.append("[npc.Her] legs and feet are human in shape, but are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
 				break;
 			case DEMON_HOOFED:
 				if (owner.isPlayer())
-					sb.append("Your demonic legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)], and your feet are formed into hard hoofs.");
+					sb.append("Your demonic legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)], and your feet are formed into hard hoofs.");
 				else
-					sb.append("[npc.Her] demonic legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hoofs.");
+					sb.append("[npc.Her] demonic legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hoofs.");
 				break;
 			case DOG_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic dog-like paws, complete with little blunt claws and leathery pads.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic dog-like paws, complete with little blunt claws and leathery pads.");
 				break;
 			case FOX_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic fox-like paws, complete with sharp claws and tough leathery pads.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic fox-like paws, complete with sharp claws and tough leathery pads.");
 				break;
 			case LYCAN:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic wolf-like paws, complete with sharp claws and tough leathery pads.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic wolf-like paws, complete with sharp claws and tough leathery pads.");
 				break;
 			case ALLIGATOR_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic alligator-like feet, complete with sharp claws.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic alligator-like feet, complete with sharp claws.");
 				break;
 			case CAT_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic cat-like paws, complete with retractable claws and pink pads.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic cat-like paws, complete with retractable claws and pink pads.");
 				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic squirrel-like paws, complete with claws and pink pads.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic squirrel-like paws, complete with claws and pink pads.");
 				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic horse-like hoofs.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic horse-like hoofs.");
 				break;
 			case REINDEER_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+					sb.append("Your legs are [npc.materialCompositionDescriptor] <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
 							+ " and your feet are formed into anthropomorphic reindeer-like hoofs.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
 							+ " and [npc.her] feet are formed into anthropomorphic reindeer-like hoofs.");
 				break;
 			case COW_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic cow-like hoofs.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic cow-like hoofs.");
 				break;
 			case HARPY:
 				if (owner.isPlayer())
-					sb.append("Your upper thighs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)], which transition into leathery bird-like skin just above your knee."
+					sb.append("Your upper thighs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)], which transition into leathery bird-like skin just above your knee."
 							+ " While your legs still retain a human-like shape, your feet have transformed into bird-like talons.");
 				else
-					sb.append("[npc.Her] upper thighs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)], which transition into leathery bird-like skin just above [npc.her] knee."
+					sb.append("[npc.Her] upper thighs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], which transition into leathery bird-like skin just above [npc.her] knee."
 							+ " While [npc.her] legs still retain a human-like shape, [npc.her] feet have transformed into bird-like talons.");
 				break;
 			case BAT_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)], and your feet are formed into anthropomorphic bat-like paws, complete with claws and leathery pads.");
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)], and your feet are formed into anthropomorphic bat-like paws, complete with claws and leathery pads.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic bat-like paws, complete with claws and leathery pads.");
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic bat-like paws, complete with claws and leathery pads.");
 				break;
 			case RABBIT_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)], and your feet are formed into long, anthropomorphic, rabbit-like paws, complete with blunt claws and soft pads.");
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)], and your feet are formed into long, anthropomorphic, rabbit-like paws, complete with blunt claws and soft pads.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)], and [npc.her] feet are formed into long, anthropomorphic, rabbit-like paws, complete with blunt claws and soft pads.");
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into long, anthropomorphic, rabbit-like paws, complete with blunt claws and soft pads.");
 				break;
 			case RAT_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)], and your feet are formed into anthropomorphic rat-like paws, complete with claws and leathery pads.");
+					sb.append("Your legs are [npc.materialCompositionDescriptor] [pc.legFullDescription(true)], and your feet are formed into anthropomorphic rat-like paws, complete with claws and leathery pads.");
 				else
-					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic rat-like paws, complete with claws and leathery pads.");
+					sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic rat-like paws, complete with claws and leathery pads.");
 				break;
 		}
 		
@@ -3560,9 +3444,9 @@ public class Body implements Serializable, XMLSaving {
 		sb.append("<p>");
 		// Ass & hips:
 		if (owner.isPlayer()) {
-			sb.append("Your [pc.hips+] and [pc.assSize] [pc.ass] are "+getCoveredInDescriptor(owner)+" [pc.assFullDescription(true)].");
+			sb.append("Your [pc.hips+] and [pc.assSize] [pc.ass] are [npc.materialCompositionDescriptor] [pc.assFullDescription(true)].");
 		} else {
-			sb.append("[npc.Her] [npc.hips+] and [npc.assSize] [npc.ass] are "+getCoveredInDescriptor(owner)+" [npc.assFullDescription(true)].");
+			sb.append("[npc.Her] [npc.hips+] and [npc.assSize] [npc.ass] are [npc.materialCompositionDescriptor] [npc.assFullDescription(true)].");
 		}
 		
 		if(owner.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer())) {
@@ -3623,6 +3507,9 @@ public class Body implements Serializable, XMLSaving {
 	/** To be called after every transformation. Returns the body's race. */
 	public void calculateRace(GameCharacter target) {
 		
+		// Every time race is calculates, it's because parts have changed, so reset the body parts list:
+		handleAllBodyPartsList();
+		
 		if(target!=null) {
 			target.removeStatusEffect(StatusEffect.SUBSPECIES_BONUS);
 		}
@@ -3630,15 +3517,15 @@ public class Body implements Serializable, XMLSaving {
 		Race race = Race.HUMAN;
 		switch(this.getBodyMaterial()) {
 			case AIR:
-				race = Race.ELEMENTAL_AIR;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case ARCANE:
-				race = Race.ELEMENTAL_ARCANE;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case FIRE:
-				race = Race.ELEMENTAL_FIRE;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case FLESH:
@@ -3656,12 +3543,12 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case ICE:
 			case WATER:
-				race = Race.ELEMENTAL_WATER;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case RUBBER:
 			case STONE:
-				race = Race.ELEMENTAL_EARTH;
+				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case SLIME:
@@ -3670,37 +3557,65 @@ public class Body implements Serializable, XMLSaving {
 				break;
 		}
 		
-		subspecies = Subspecies.getSubspeciesFromBody(this, race);
+		subspecies = Subspecies.getSubspeciesFromBody(target, this, race);
+		
+		switch(subspecies) {
+			case HALF_DEMON:
+				if(this.getHalfDemonSubspecies()==null) {
+					this.setHalfDemonSubspecies(Subspecies.getSubspeciesFromBody(target, this, arm.getType().getRace(), true));
+				}
+				this.setSubspeciesOverride(subspecies);
+				break;
+			case IMP:
+			case IMP_ALPHA:
+			case DEMON:
+			case ELDER_LILIN:
+			case LILIN:
+				this.setSubspeciesOverride(subspecies);
+				break;
+			default:
+				break;
+		}
+	}
+
+	public Race getRaceFromPartWeighting() {
+		return getRaceFromPartWeighting(false);
 	}
 	
-	public Race getRaceFromPartWeighting() {
+	public Race getRaceFromPartWeighting(boolean ignoreOverride) {
 		Race race = Race.HUMAN;
 		
 		raceWeightMap.clear();
 		
-		addRaceWeight(raceWeightMap, skin.getType().getRace(), 3);
-		addRaceWeight(raceWeightMap, face.getType().getRace(), 3);
+		addRaceWeight(raceWeightMap, skin.getType().getRace(), 4);
+		addRaceWeight(raceWeightMap, face.getType().getRace(), 4);
 		
-		addRaceWeight(raceWeightMap, arm.getType().getRace(), 2);
-		addRaceWeight(raceWeightMap, leg.getType().getRace(), 2);
+		addRaceWeight(raceWeightMap, arm.getType().getRace(), 3);
+		addRaceWeight(raceWeightMap, leg.getType().getRace(), 3);
 
 		addRaceWeight(raceWeightMap, antenna.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, eye.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, ear.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, hair.getType().getRace(), 1);
-//		addRaceWeight(raceWeightMap, horn.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, tail.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, wing.getType().getRace(), 1);
 		
 		// Not using breast, ass, penis, or vagina
 		
 		int max = 0;
+		boolean demonPartFound = false;
 		
 		for(Entry<Race, Integer> e : raceWeightMap.entrySet()) {
 			if(e.getKey()!=null && e.getKey()!=Race.HUMAN && e.getValue()>max) {
 				race = e.getKey();
 				max = e.getValue();
 			}
+			if(e.getKey()!=null && e.getKey()==Race.DEMON) {
+				demonPartFound = true;
+			}
+		}
+		if(!ignoreOverride && (demonPartFound)) { // Just one demon part is enough to make any character a demon:
+			return Race.DEMON;
 		}
 		
 		return race;
@@ -3724,7 +3639,23 @@ public class Body implements Serializable, XMLSaving {
 	public RaceStage getRaceStage() {
 		return raceStage;
 	}
-	
+
+	public Subspecies getSubspeciesOverride() {
+		return subspeciesOverride;
+	}
+
+	public void setSubspeciesOverride(Subspecies subspeciesOverride) {
+		this.subspeciesOverride = subspeciesOverride;
+	}
+
+	public Subspecies getHalfDemonSubspecies() {
+		return halfDemonSubspecies;
+	}
+
+	public void setHalfDemonSubspecies(Subspecies halfDemonSubspecies) {
+		this.halfDemonSubspecies = halfDemonSubspecies;
+	}
+
 	public Antenna getAntenna() {
 		return antenna;
 	}
@@ -3869,135 +3800,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		boolean isPlayer = owner.isPlayer();
 		
-		switch (ass.getType()) {
-			case HUMAN:
-				if (isPlayer) {
-					descriptionSB.append("You have a human, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a human, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case ANGEL:
-				if (isPlayer) {
-					descriptionSB.append("You have an angelic, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has an angelic, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case DEMON_COMMON:
-				if (isPlayer) {
-					descriptionSB.append("You have a demonic, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a demonic, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case DOG_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a canine, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a canine, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case FOX_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a vulpine, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a vulpine, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case WOLF_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a lupine, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a lupine, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case CAT_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a feline, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a feline, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case SQUIRREL_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a squirrel-like, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a squirrel-like, [npc.anusFullDescription(true)]");
-				}
-				break;
-
-			case RAT_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a rat-like, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a rat-like, [npc.anusFullDescription(true)]");
-				}
-				break;
-
-			case RABBIT_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a rabbit-like, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a rabbit-like, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case BAT_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a bat-like, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a bat-like, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case ALLIGATOR_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a reptilian, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a reptilian, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case HORSE_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have an equine, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has an equine, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case REINDEER_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a rangiferine, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a rangiferine, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case COW_MORPH:
-				if (isPlayer) {
-					descriptionSB.append("You have a bovine, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a bovine, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case HARPY:
-				if (isPlayer) {
-					descriptionSB.append("You have an avian, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has an avian, [npc.anusFullDescription(true)]");
-				}
-				break;
-		}
+		descriptionSB.append(ass.getType().getBodyDescription(owner));
 		
 		// Colour:
 		if(ass.getAnus().isBleached()) {
@@ -4439,6 +4242,9 @@ public class Body implements Serializable, XMLSaving {
 							case ALCOHOLIC:
 								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
 								break;
+							case MINERAL_OIL:
+								descriptionSB.append(" It contains mineral oils that deteriorate latex.");
+								break;
 						}
 					}
 				}
@@ -4643,6 +4449,8 @@ public class Body implements Serializable, XMLSaving {
 								case ALCOHOLIC:
 									descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
 									break;
+								case MINERAL_OIL:
+									descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
 							}
 						}
 					}
@@ -4763,9 +4571,9 @@ public class Body implements Serializable, XMLSaving {
 			
 		} else {
 			if (isPlayer) {
-				descriptionSB.append(", which is "+getCoveredInDescriptor(owner)+" [pc.cockFullDescription(true)].");
+				descriptionSB.append(", which is [npc.materialCompositionDescriptor] [pc.cockFullDescription(true)].");
 			} else {
-				descriptionSB.append(", which is "+getCoveredInDescriptor(owner)+" [npc.cockFullDescription(true)].");
+				descriptionSB.append(", which is [npc.materialCompositionDescriptor] [npc.cockFullDescription(true)].");
 			}
 		}
 		
@@ -5093,52 +4901,52 @@ public class Body implements Serializable, XMLSaving {
 				switch (viewedPenis.getTesticle().getTesticleSize()) {
 					case ZERO_VESTIGIAL:
 						if (isPlayer) {
-							descriptionSB.append(" Your [pc.ballsCount] [pc.balls] are "+getCoveredInDescriptor(owner)+" [pc.ballFullDescription(true)], and are so small that they're only just visible as tiny little mounds nestling beneath your [pc.cock].");
+							descriptionSB.append(" Your [pc.ballsCount] [pc.balls] are [npc.materialCompositionDescriptor] [pc.ballFullDescription(true)], and are so small that they're only just visible as tiny little mounds nestling beneath your [pc.cock].");
 						} else {
-							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls] are "+getCoveredInDescriptor(owner)+" [npc.ballFullDescription(true)], and are so small that they're only just visible as tiny little mounds nestling beneath [npc.her] [npc.cock].");
+							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls] are [npc.materialCompositionDescriptor] [npc.ballFullDescription(true)], and are so small that they're only just visible as tiny little mounds nestling beneath [npc.her] [npc.cock].");
 						}
 						break;
 					case ONE_TINY:
 						if (isPlayer)
-							descriptionSB.append(" Your [pc.ballsCount] [pc.balls] are "+getCoveredInDescriptor(owner)+" [pc.ballFullDescription(true)], and are small enough to comfortably nestle underneath your [pc.cock].");
+							descriptionSB.append(" Your [pc.ballsCount] [pc.balls] are [npc.materialCompositionDescriptor] [pc.ballFullDescription(true)], and are small enough to comfortably nestle underneath your [pc.cock].");
 						else
-							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls] are "+getCoveredInDescriptor(owner)+" [npc.ballFullDescription(true)], and are small enough to comfortably nestle underneath [npc.her] [npc.cock].");
+							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls] are [npc.materialCompositionDescriptor] [npc.ballFullDescription(true)], and are small enough to comfortably nestle underneath [npc.her] [npc.cock].");
 						break;
 					case TWO_AVERAGE:
 						if (isPlayer)
-							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are "+getCoveredInDescriptor(owner)+" [pc.ballFullDescription(true)], and dangle down beneath your [pc.cock].");
+							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are [npc.materialCompositionDescriptor] [pc.ballFullDescription(true)], and dangle down beneath your [pc.cock].");
 						else
-							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are "+getCoveredInDescriptor(owner)+" [npc.ballFullDescription(true)], and dangle down beneath [npc.her] [npc.cock].");
+							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are [npc.materialCompositionDescriptor] [npc.ballFullDescription(true)], and dangle down beneath [npc.her] [npc.cock].");
 						break;
 					case THREE_LARGE:
 						if (isPlayer)
-							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are "+getCoveredInDescriptor(owner)+" [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
+							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are [npc.materialCompositionDescriptor] [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 						else
-							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are "+getCoveredInDescriptor(owner)+" [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are [npc.materialCompositionDescriptor] [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 						break;
 					case FOUR_HUGE:
 						if (isPlayer)
-							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are "+getCoveredInDescriptor(owner)+" [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
+							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are [npc.materialCompositionDescriptor] [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 						else
-							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are "+getCoveredInDescriptor(owner)+" [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are [npc.materialCompositionDescriptor] [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 						break;
 					case FIVE_MASSIVE:
 						if (isPlayer)
-							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are "+getCoveredInDescriptor(owner)+" [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
+							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are [npc.materialCompositionDescriptor] [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 						else
-							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are "+getCoveredInDescriptor(owner)+" [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are [npc.materialCompositionDescriptor] [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 						break;
 					case SIX_GIGANTIC:
 						if (isPlayer)
-							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are "+getCoveredInDescriptor(owner)+" [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
+							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are [npc.materialCompositionDescriptor] [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 						else
-							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are "+getCoveredInDescriptor(owner)+" [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are [npc.materialCompositionDescriptor] [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 						break;
 					case SEVEN_ABSURD:
 						if (isPlayer)
-							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are "+getCoveredInDescriptor(owner)+" [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
+							descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are [npc.materialCompositionDescriptor] [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 						else
-							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are "+getCoveredInDescriptor(owner)+" [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+							descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are [npc.materialCompositionDescriptor] [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 						break;
 				}
 			}
@@ -5282,6 +5090,9 @@ public class Body implements Serializable, XMLSaving {
 							break;
 						case ALCOHOLIC:
 							descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
+							break;
+						case MINERAL_OIL:
+							descriptionSB.append(" It contains mineral oils that deteriorate latex.");
 							break;
 					}
 				}
@@ -5934,7 +5745,7 @@ public class Body implements Serializable, XMLSaving {
 							+" impregnated [npc.herHim], and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
 				}
 				
-				descriptionSB.append(litter.getBirthedDescriptionList());
+				descriptionSB.append(litter.getBirthedDescription());
 				
 				descriptionSB.append(".");
 			}
@@ -5972,7 +5783,7 @@ public class Body implements Serializable, XMLSaving {
 				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
 					if(litter.getFather()!=null && litter.getFather().equals(owner)){
 						descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
-								+", [npc.she] impregnated you, and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", you gave birth to "+litter.getBirthedDescriptionList()+".");
+								+", [npc.she] impregnated you, and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", you gave birth to "+litter.getBirthedDescription()+".");
 					}
 				}
 				
@@ -6342,15 +6153,7 @@ public class Body implements Serializable, XMLSaving {
 				case WOLF_MORPH:
 					coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
 					break;
-				case ELEMENTAL_AIR:
-					break;
-				case ELEMENTAL_ARCANE:
-					break;
-				case ELEMENTAL_EARTH:
-					break;
-				case ELEMENTAL_FIRE:
-					break;
-				case ELEMENTAL_WATER:
+				case ELEMENTAL:
 					break;
 			}
 		}
@@ -6441,15 +6244,7 @@ public class Body implements Serializable, XMLSaving {
 					case WOLF_MORPH:
 						coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
 						break;
-					case ELEMENTAL_AIR:
-						break;
-					case ELEMENTAL_ARCANE:
-						break;
-					case ELEMENTAL_EARTH:
-						break;
-					case ELEMENTAL_FIRE:
-						break;
-					case ELEMENTAL_WATER:
+					case ELEMENTAL:
 						break;
 				}
 			}
@@ -6602,6 +6397,14 @@ public class Body implements Serializable, XMLSaving {
 			return false;
 		}
 		return (wing.getType().allowsFlight() && wing.getSize().isSizeAllowsFlight());
+	}
+
+	public boolean isTakesAfterMother() {
+		return takesAfterMother;
+	}
+
+	public void setTakesAfterMother(boolean takesAfterMother) {
+		this.takesAfterMother = takesAfterMother;
 	}
 
 }

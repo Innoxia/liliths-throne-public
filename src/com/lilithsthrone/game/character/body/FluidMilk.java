@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,8 +22,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.7
  * @author Innoxia
  */
-public class FluidMilk implements FluidInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class FluidMilk implements FluidInterface {
 	
 	protected FluidType type;
 	protected FluidFlavour flavour;
@@ -307,6 +305,19 @@ public class FluidMilk implements FluidInterface, Serializable {
 								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(viscous)]!"
 							+ "</p>");
 				}
+			case MINERAL_OIL:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a prolongued heat flow up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
+								+ "Your [pc.milk] is now [style.boldGrow(mineral oil)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A prolongued heat flows up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(mineral oil)]!"
+							+ "</p>");
+				}
 		}
 		
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -426,6 +437,19 @@ public class FluidMilk implements FluidInterface, Serializable {
 							"<p>"
 								+ "A soft coolness rises up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer viscous)]!"
+							+ "</p>");
+				}
+			case MINERAL_OIL:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a short relief flow up into your [pc.breasts], causing you to let out a gentle sigh.<br/>"
+								+ "Your [pc.milk] is [style.boldShrink(no longer mineral oil)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A short relief flows up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer mineral oil)]!"
 							+ "</p>");
 				}
 		}

@@ -1,6 +1,10 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
 
+import java.util.List;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
@@ -138,6 +142,17 @@ public class PenisBreasts {
 			Sex.transferLubrication(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH);
 		}
 		
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_ORAL_RECEIVING);
+			}
+			if(character.equals(Sex.getCharacterTargetedForSexAction(this))) {
+				return Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING);
+			}
+			return null;
+		}
+		
 	};
 	
 	public static final SexAction TAKE_COCK_INTO_MOUTH = new SexAction(
@@ -264,6 +279,17 @@ public class PenisBreasts {
 		@Override
 		public void applyEffects() {
 			Sex.transferLubrication(Sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH);
+		}
+		
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING);
+			}
+			if(character.equals(Sex.getCharacterTargetedForSexAction(this))) {
+				return Util.newArrayListOfValues(Fetish.FETISH_ORAL_RECEIVING);
+			}
+			return null;
 		}
 		
 	};
@@ -1219,9 +1245,9 @@ public class PenisBreasts {
 		@Override
 		public String getActionTitle() {
 			if(Sex.getCharacterTargetedForSexAction(this).isBreastFuckablePaizuri()) {
-				return "Stop giving paizuri";
+				return "Stop receiving paizuri";
 			} else {
-				return "Stop giving naizuri";
+				return "Stop receiving naizuri";
 			}
 		}
 
@@ -1350,27 +1376,27 @@ public class PenisBreasts {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Gently taking hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(guide)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a titfuck."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly taking hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(guide)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] an enthusiastic titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] an enthusiastic titfuck."));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly grabbing hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(pull)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a forceful titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a forceful titfuck."));
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(guide)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a titfuck."));
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly taking hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(guide)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] an enthusiastic titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] an enthusiastic titfuck."));
 						break;
 					default:
 						break;

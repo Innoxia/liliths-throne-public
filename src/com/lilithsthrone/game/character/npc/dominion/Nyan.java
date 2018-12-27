@@ -49,7 +49,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -91,8 +91,9 @@ public class Nyan extends NPC {
 	}
 	
 	public Nyan(boolean isImported) {
-		super(isImported, new NameTriplet("Nyan"), "Nyan is the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
-				+ " She's extremely shy, and gets very nervous when having to talk to people.",
+		super(isImported, new NameTriplet("Nyan"), "Rey",
+				"Nyan is the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
+						+ " She's extremely shy, and gets very nervous when having to talk to people.",
 				21, Month.APRIL, 12,
 				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_NYANS_SHOP, true);
@@ -424,7 +425,7 @@ public class Nyan extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 
@@ -449,31 +450,31 @@ public class Nyan extends NPC {
 			if(type.equals(ItemType.GIFT_CHOCOLATES)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_CHOCOLATES")
 						+(applyEffects
-								?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5)
+								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
 								:"");
 				
 			} else if(type.equals(ItemType.GIFT_PERFUME)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_PERFUME")
 					+(applyEffects
-							?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5)
+							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
 							:"");
 				
 			} else if(type.equals(ItemType.GIFT_ROSE)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_SINGLE_ROSE")
 						+(applyEffects
-								?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5)
+								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
 								:"");
 					
 				} else if(type.equals(ItemType.GIFT_ROSE_BOUQUET)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_ROSES")
 					+(applyEffects
-							?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 10)
+							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 10)
 							:"");
 				
 			} else if(type.equals(ItemType.GIFT_TEDDY_BEAR)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_TEDDY_BEAR")
 					+(applyEffects
-							?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 15)
+							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 15)
 							:"");
 				
 			}

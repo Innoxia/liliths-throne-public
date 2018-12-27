@@ -41,7 +41,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -65,7 +65,7 @@ public class Scarlett extends NPC {
 	}
 	
 	public Scarlett(boolean isImported) {
-		super(isImported, new NameTriplet("Scarlett"),
+		super(isImported, new NameTriplet("Scarlett"), "Kardos",
 				"Scarlett is the owner of the rather unoriginally named establishment 'Scarlett's shop'."
 						+ " Rude, loud, and quick to anger, Scarlett isn't a very pleasant person to have to deal with.",
 				23, Month.NOVEMBER, 14,
@@ -236,7 +236,7 @@ public class Scarlett extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

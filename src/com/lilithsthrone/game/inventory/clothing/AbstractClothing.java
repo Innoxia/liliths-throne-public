@@ -1,16 +1,17 @@
 package com.lilithsthrone.game.inventory.clothing;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -35,16 +36,13 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
-import java.util.Set;
-
 /**
  * @since 0.1.0
  * @version 0.2.5
  * @author Innoxia
  */
-public abstract class AbstractClothing extends AbstractCoreItem implements Serializable, XMLSaving {
+public abstract class AbstractClothing extends AbstractCoreItem implements XMLSaving {
 
-	private static final long serialVersionUID = 1L;
 
 	private AbstractClothingType clothingType;
 	protected List<ItemEffect> effects;
@@ -246,11 +244,16 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		
 		// Try to load colour:
 		try {
-			clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
-			if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
-				Colour secColour = Colour.valueOf(parentElement.getAttribute("colourSecondary"));
-				if(clothing.clothingType.getAllAvailableSecondaryColours().contains(secColour)) {
-					clothing.setSecondaryColour(secColour);
+			if(clothing.getClothingType().getId()=="BDSM_CHOKER" && Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6")) {
+				clothing.setColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+				clothing.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colour")));
+			} else {
+				clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
+				if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
+					Colour secColour = Colour.valueOf(parentElement.getAttribute("colourSecondary"));
+					if(clothing.clothingType.getAllAvailableSecondaryColours().contains(secColour)) {
+						clothing.setSecondaryColour(secColour);
+					}
 				}
 			}
 			if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
@@ -301,7 +304,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				for(int i = 0; i < modifierElements.getLength(); i++){
 					Element e = ((Element)modifierElements.item(i));
 					try {
-						Attribute att = Attribute.valueOf(e.getAttribute("attribute"));
+						Attribute att = Attribute.getAttributeFromId(e.getAttribute("attribute"));
 						int value = Integer.valueOf(e.getAttribute("value"));
 						
 						TFPotency pot = TFPotency.BOOST;
@@ -948,11 +951,20 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		if(this.getItemTags().contains(ItemTag.PLUGS_ANUS)) {
 			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Plugs Anus</b>");
 		}
+		if(this.getItemTags().contains(ItemTag.SEALS_ANUS)) {
+			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Seals Anus</b>");
+		}
 		if(this.getItemTags().contains(ItemTag.PLUGS_VAGINA)) {
 			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Plugs Vagina</b>");
 		}
+		if(this.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
+			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Seals Vagina</b>");
+		}
 		if(this.getItemTags().contains(ItemTag.PLUGS_NIPPLES)) {
 			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Plugs Nipples</b>");
+		}
+		if(this.getItemTags().contains(ItemTag.SEALS_NIPPLES)) {
+			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Seals Nipples</b>");
 		}
 		
 		if (equippedToCharacter == null) { // The clothing is not currently
@@ -1072,8 +1084,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public boolean isSealed() {
 		for(ItemEffect effect : this.getEffects()) {
-			if(effect.getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
+			if(effect!=null && effect.getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
 				return true;
+			} else if(effect==null) {
+				System.err.println("AbstractClothing.isSealed() for "+this.getName()+" is encountering a null ItemEffect!");
 			}
 		}
 		return false;

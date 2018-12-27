@@ -16,10 +16,27 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.DominionClubNPC;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
@@ -27,6 +44,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
@@ -38,13 +56,15 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.TreeNode;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -65,9 +85,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private SizedStack<ShopTransaction> buybackStack;
 
 	private List<String> charactersEncountered;
+
+	private List<WorldType> worldsVisited;
 	
-	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
-		super(nameTriplet, "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
+	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, WorldType startingWorld, PlaceType startingPlace) {
+		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
@@ -94,6 +116,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		charactersEncountered = new ArrayList<>();
 
 		friendlyOccupants = new ArrayList<>();
+		
+		worldsVisited = new ArrayList<>();
 		
 		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f, false);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f, false);
@@ -153,6 +177,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "id", occupant);
 		}
 		
+		Element worldsVisitedElement = doc.createElement("worldsVisited");
+		playerSpecific.appendChild(worldsVisitedElement);
+		for(WorldType world : this.getWorldsVisited()) {
+			Element element = doc.createElement("world");
+			worldsVisitedElement.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "id", world.toString());
+		}
+		
+		
+		
 //		private SizedStack<ShopTransaction> buybackStack; TODO
 		
 //		Element slavesOwned = doc.createElement("slavesExported");
@@ -165,7 +200,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
-		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
 
@@ -289,31 +324,63 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		} catch(Exception ex) {	
 		}
 		
-//		// Slaves:
-//		
-//		Element slavesOwned = (Element) parentElement.getElementsByTagName("slavesExported").item(0);
-//		if(slavesOwned!=null) {
-//			for(int i=0; i< slavesOwned.getElementsByTagName("character").getLength(); i++){
-//				Element e = ((Element)slavesOwned.getElementsByTagName("character").item(i));
-//				
-//				SlaveImport slave = SlaveImport.loadFromXML2(log, e, doc);
-//				
-//				//TODO move into slave's import:
-//				slave.setMana(slave.getAttributeValue(Attribute.MANA_MAXIMUM));
-//				slave.setHealth(slave.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-//				slave.setStamina(slave.getAttributeValue(Attribute.STAMINA_MAXIMUM));
-//				
-//				try {
-//					Main.game.getSlaveImports().add(slave);
-////					character.addSlave(slave);
-//					slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-//					
-//				} catch (Exception e1) {
-//					e1.printStackTrace();
-//				}
-//			}
-//		}
+		try {
+			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("worldsVisited").item(0)).getElementsByTagName("world").getLength(); i++){
+				Element e = ((Element)playerSpecificElement.getElementsByTagName("world").item(i));
+				
+				character.getWorldsVisited().add(WorldType.valueOf(e.getAttribute("id")));
+				CharacterUtils.appendToImportLog(log, "<br/>Added world visited: "+e.getAttribute("id"));
+			}
+		} catch(Exception ex) {	
+		}
 		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
+			// Reset player's demon parts to human if prior to 0.3:
+			if(character.getArmType().getRace()==Race.DEMON) {
+				character.setArmType(ArmType.HUMAN);
+			}
+			if(character.getAssType().getRace()==Race.DEMON) {
+				character.setAssType(AssType.HUMAN);
+			}
+			if(character.getBreastType().getRace()==Race.DEMON) {
+				character.setBreastType(BreastType.HUMAN);
+			}
+			if(character.getEarType().getRace()==Race.DEMON) {
+				character.setEarType(EarType.HUMAN);
+			}
+			if(character.getEyeType().getRace()==Race.DEMON) {
+				character.setEyeType(EyeType.HUMAN);
+			}
+			if(character.getFaceType().getRace()==Race.DEMON) {
+				character.setFaceType(FaceType.HUMAN);
+			}
+			if(character.getHairType().getRace()==Race.DEMON) {
+				character.setHairType(HairType.HUMAN);
+			}
+			if(character.getHornType().getRace()==Race.DEMON) {
+				character.setHornType(HornType.NONE);
+			}
+			if(character.getLegType().getRace()==Race.DEMON) {
+				character.setLegType(LegType.HUMAN);
+			}
+			if(character.getPenisType().getRace()==Race.DEMON) {
+				character.setPenisType(PenisType.HUMAN);
+			}
+			if(character.getSkinType().getRace()==Race.DEMON) {
+				character.setSkinType(SkinType.HUMAN);
+			}
+			if(character.getTailType().getRace()==Race.DEMON) {
+				character.setTailType(TailType.NONE);
+			}
+			if(character.getVaginaType().getRace()==Race.DEMON) {
+				character.setVaginaType(VaginaType.HUMAN);
+			}
+			if(character.getWingType().getRace()==Race.DEMON) {
+				character.setWingType(WingType.NONE);
+			}
+			character.setSubspeciesOverride(null);
+			character.getBody().calculateRace(character);
+		}
 		
 		return character;
 	}
@@ -382,6 +449,42 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 	}
 	
+	@Override
+	public void setLocation(WorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {
+		if(this.getWorldsVisited()!=null && !this.getWorldsVisited().contains(worldLocation)) {
+			this.getWorldsVisited().add(worldLocation);
+		}
+		
+		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
+			List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+			clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
+			
+			WorldType worldLocationInitial = this.getWorldLocation();
+			Vector2i locationInitial = this.getLocation();
+			
+			super.setLocation(worldLocation, location, setAsHomeLocation);
+			
+			for(GameCharacter clubber : clubbers) {
+				clubber.setLocation(this, false);
+				// TODO Why is this needed? I can't figure out why IDs are not being removed without this line:
+				if(worldLocation!=worldLocationInitial || !location.equals(locationInitial)) {
+					Main.game.getWorlds().get(worldLocationInitial).getCell(locationInitial).removeCharacterPresentId(clubber.getId());
+				}
+			}
+			
+		} else if(this.getWorldLocation()==WorldType.SUBMISSION) {
+			super.setLocation(worldLocation, location, setAsHomeLocation);
+			
+			PlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
+			if(place==PlaceType.SUBMISSION_LILIN_PALACE_GATE || place==PlaceType.SUBMISSION_LILIN_PALACE) {
+				Main.game.getNpc(Elizabeth.class).setLocation(this, false);
+			}
+			
+		} else {
+			super.setLocation(worldLocation, location, setAsHomeLocation);
+		}
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -416,7 +519,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public boolean isRelatedTo(GameCharacter character) {
-		if(character.equals(Main.game.getLilaya())) {
+		if(character.equals(Main.game.getNpc(Lilaya.class))) {
 			return true;
 		}
 		return super.isRelatedTo(character);
@@ -596,7 +699,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				GameCharacter npc = Main.game.getNPCById(characterId);
 				npcsEncountered.add(npc);
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+characterId+") returning null in method: getCharactersEncounteredAsGameCharacters()");
+				Util.logGetNpcByIdError("getCharactersEncounteredAsGameCharacters()", characterId);
 			}
 		}
 		return npcsEncountered;
@@ -609,7 +712,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				GameCharacter npc = Main.game.getNPCById(characterId);
 				npcsEncountered.add(npc);
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+characterId+") returning null in method: sortCharactersEncountered()");
+				Util.logGetNpcByIdError("sortCharactersEncountered()", characterId);
 			}
 		}
 		npcsEncountered.sort((npc1, npc2) -> npc1 instanceof NPCOffspring
@@ -751,5 +854,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public boolean removeFriendlyOccupant(GameCharacter occupant) {
 		return friendlyOccupants.remove(occupant.getId());
+	}
+
+	public List<WorldType> getWorldsVisited() {
+		return worldsVisited;
+	}
+	
+	public boolean isDiscoveredWorldMap() {
+		return this.isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
 	}
 }

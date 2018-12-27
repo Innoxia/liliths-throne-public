@@ -25,7 +25,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -45,7 +45,6 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -64,7 +63,7 @@ public class Cultist extends NPC {
 	}
 	
 	public Cultist(boolean isImported) {
-		super(isImported, null,
+		super(isImported, null, null,
 				"",
 				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				15,
@@ -79,9 +78,7 @@ public class Cultist extends NPC {
 		if(!isImported) {
 			setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 	
-			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-			this.setHomeLocation();
+			this.setLocation(Main.game.getPlayer(), true);
 			
 			// BODY RANDOMISATION:
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
@@ -176,13 +173,16 @@ public class Cultist extends NPC {
 		clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
 
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, witchColour, false), true, this);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, witchColour, false), true, this);
-		
-		if(Math.random()>0.5f) {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, witchColour, false), true, this);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", witchColour, false), true, this);
+		if(Math.random()<0.5) {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", witchColour, Colour.CLOTHING_GOLD, witchColour, false), true, this);
 		} else {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, witchColour, false), true, this);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", witchColour, Colour.CLOTHING_GOLD, witchColour, false), true, this);
+		}
+		if(Math.random()>0.5f) {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", witchColour, false), true, this);
+		} else {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", witchColour, false), true, this);
 		}
 		
 		if(addWeapons) {
@@ -244,7 +244,7 @@ public class Cultist extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return CultistDialogue.ENCOUNTER_START;
 	}
 

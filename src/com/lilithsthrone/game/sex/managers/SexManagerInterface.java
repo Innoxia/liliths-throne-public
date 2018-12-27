@@ -15,16 +15,18 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
@@ -70,6 +72,10 @@ public interface SexManagerInterface {
 
 	public default boolean isPlayerAbleToSwapPositions() {
 		return true;
+	}
+
+	public default boolean isSubsRestricted() {
+		return false;
 	}
 	
 	public default String applyEndSexEffects() {
@@ -159,7 +165,13 @@ public interface SexManagerInterface {
 		return true;
 	}
 	
-	public default boolean isAbleToRemoveOthersClothing(GameCharacter character){
+	public default boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+		
+		// clothing can be null
+		if(clothing!=null && !Sex.getDominantParticipants().containsKey(character) && clothing.getClothingType().isSexToy()) {
+			return false;
+		}
+		
 		if(character.isPlayer()) {
 			return true;
 		}
@@ -195,7 +207,11 @@ public interface SexManagerInterface {
 	}
 
 	public default String getPublicSexStartingDescription() {
-		List<Subspecies> speciesPresent = Main.game.getPlayer().getLocationPlace().getPlaceType().getSpeciesPopulatingArea();
+		List<Subspecies> speciesPresent = null;
+		Population pop = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation();
+		if(pop!=null) {
+			speciesPresent = pop.getSpecies();
+		}
 		if(speciesPresent!=null && !speciesPresent.isEmpty()) {
 			
 			List<Race> racesPresent = new ArrayList<>();

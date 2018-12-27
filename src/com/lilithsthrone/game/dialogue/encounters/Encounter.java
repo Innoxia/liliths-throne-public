@@ -34,7 +34,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelImpsDialogue;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -52,7 +52,6 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -66,7 +65,7 @@ public enum Encounter {
 	LILAYAS_HOME_CORRIDOR(Util.newHashMapOfValues(
 			new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f))) {
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
 				
 				List<NPC> slaves = new ArrayList<>();
@@ -134,7 +133,7 @@ public enum Encounter {
 		}
 		
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
 				Main.game.setActiveNPC(new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false)));
 	
@@ -199,7 +198,7 @@ public enum Encounter {
 		}
 		
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STREET_RENTAL_MOMMY) {
 				LocalDateTime time = Main.game.getDateNow();
 				
@@ -255,7 +254,7 @@ public enum Encounter {
 		}
 		
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.DOMINION_ALLEY_ATTACK) {
 				
 				// Prioritise re-encountering the NPC on this tile:
@@ -339,7 +338,7 @@ public enum Encounter {
 			new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 15f))) {
 
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 				
 			for (NPC npc : Main.game.getNonCompanionCharactersPresent()) {
 				Main.game.setActiveNPC(npc);
@@ -373,7 +372,7 @@ public enum Encounter {
 		}
 		
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node==EncounterType.DOMINION_ALLEY_ATTACK) {
 				// Prioritise re-encountering the NPC on this tile:
 				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
@@ -428,7 +427,7 @@ public enum Encounter {
 		}
 		
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.HARPY_NEST_ATTACK && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 				
 				for (NPC npc : Main.game.getNonCompanionCharactersPresent()) {
@@ -513,7 +512,7 @@ public enum Encounter {
 		}
 
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.HARPY_NEST_ATTACK) {
 
 				for (NPC npc : Main.game.getNonCompanionCharactersPresent()) {
@@ -586,7 +585,7 @@ public enum Encounter {
 			new Value<EncounterType, Float>(EncounterType.SUBMISSION_FIND_ITEM, 10f))) {
 		
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 			
 			if (node == EncounterType.SUBMISSION_TUNNEL_ATTACK) {
 
@@ -831,7 +830,7 @@ public enum Encounter {
 			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 6f))) {
 
 		@Override
-		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.BAT_CAVERN_BAT_ATTACK) {
 				
 				// Prioritise re-encountering the NPC on this tile:
@@ -889,12 +888,11 @@ public enum Encounter {
 		return offspringAvailable;
 	}
 
-	private static DialogueNodeOld SpawnAndStartChildHere(List<NPC> offspringAvailable) {
+	private static DialogueNode SpawnAndStartChildHere(List<NPC> offspringAvailable) {
 		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
 		Main.game.getOffspringSpawned().add(offspring);
 
-		offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-		offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+		offspring.setLocation(Main.game.getPlayer(), true);
 
 		Main.game.setActiveNPC(offspring);
 
@@ -957,7 +955,7 @@ public enum Encounter {
 		this.dialogues = dialogues;
 	}
 
-	protected abstract DialogueNodeOld initialiseEncounter(EncounterType node);
+	protected abstract DialogueNode initialiseEncounter(EncounterType node);
 
 	/**
 	 * Returns a random encounter from the list, or null if no encounter was selected.
@@ -965,7 +963,7 @@ public enum Encounter {
 	 * @param forceEncounter Forces an encounter to be selected. (Will still return null if the encounter list is empty.)
 	 * @return null if no encounter.
 	 */
-	public DialogueNodeOld getRandomEncounter(boolean forceEncounter) {
+	public DialogueNode getRandomEncounter(boolean forceEncounter) {
 		return getBaseRandomEncounter(forceEncounter);
 	}
 	
@@ -973,7 +971,7 @@ public enum Encounter {
 		return dialogues;
 	}
 
-	protected DialogueNodeOld getBaseRandomEncounter(boolean forceEncounter) {
+	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
 		float r = (float) (Math.random() * 100);
 		float total = 0;
 		

@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -23,8 +23,7 @@ import com.lilithsthrone.utils.Colour;
  */
 public class DemonHome {
 	
-	public static final DialogueNodeOld DEMON_HOME_GATE = new DialogueNodeOld("Demon Home (Gates)", "Demon Home", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_GATE = new DialogueNode("Demon Home (Gates)", "Demon Home", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -81,8 +80,7 @@ public class DemonHome {
 		}
 	};
 	
-	public static final DialogueNodeOld DEMON_HOME_STREET = new DialogueNodeOld("Demon Home", "Demon Home", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_STREET = new DialogueNode("Demon Home", "Demon Home", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -141,8 +139,7 @@ public class DemonHome {
 		}
 	};
 	
-	public static final DialogueNodeOld DEMON_HOME_STREET_ARTHUR = new DialogueNodeOld("Demon Home", "Demon Home", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_STREET_ARTHUR = new DialogueNode("Demon Home", "Demon Home", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -182,8 +179,7 @@ public class DemonHome {
 		}
 	};
 
-	public static final DialogueNodeOld DEMON_HOME_ARTHURS_APARTMENT = new DialogueNodeOld("", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT = new DialogueNode("", "-", true) {
 
 		@Override
 		public String getLabel() {
@@ -242,10 +238,9 @@ public class DemonHome {
 		}
 	};
 
-	public static final DialogueNodeOld DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM = new DialogueNodeOld("", "-", true) {
+	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM = new DialogueNode("", "-", true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getLabel() {
@@ -325,8 +320,7 @@ public class DemonHome {
 
 	};
 
-	public static final DialogueNodeOld DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel() {

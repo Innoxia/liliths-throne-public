@@ -86,10 +86,11 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
-import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
@@ -216,7 +217,7 @@ public class CharacterUtils {
 	}
 	
 	public static PlayerCharacter startLoadingCharacterFromXML(){
-		return new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, null, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		return new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 	}
 	
 	public static PlayerCharacter loadCharacterFromXML(File xmlFile, PlayerCharacter importedCharacter, CharacterImportSetting... settings){
@@ -267,56 +268,65 @@ public class CharacterUtils {
 	}
 	
 	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
-		RacialBody startingBodyType = RacialBody.HUMAN;
-		RacialBody motherBody = RacialBody.valueOfRace(mother.getSubspecies().getOffspringSubspecies().getRace());
-		RacialBody fatherBody = RacialBody.valueOfRace(father.getSubspecies().getOffspringSubspecies().getRace());
-		Subspecies raceTakesAfter = mother.getSubspecies();
-		RaceStage stage = RaceStage.HUMAN;
-		boolean takesAfterMother = true;
-		boolean raceFromMother = true;
-		boolean feminineGender = startingGender.isFeminine();
-		NPC blankNPC = Main.game.getGenericAndrogynousNPC();
-		GameCharacter parentTakesAfter = mother;
 		
-		// Core body type is random:
-		if(Math.random()<=0.5 || mother.getSubspecies().isOffspringAlwaysMothersRace()) {
-			startingBodyType = motherBody;
-			stage = mother.getRaceStage();
-		} else {
-			startingBodyType = fatherBody;
-			stage = father.getRaceStage();
-			raceTakesAfter = father.getSubspecies();
-			raceFromMother = false;
-		}
-		
-		switch(startingGender.isFeminine()
-				?Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(raceTakesAfter)
-				:Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(raceTakesAfter)) {
-			case HUMAN:
-				stage = RaceStage.HUMAN;
-				break;
-			case MINIMUM:
-				if(stage!=RaceStage.HUMAN
-				|| stage!=RaceStage.PARTIAL) {
-					stage = RaceStage.PARTIAL;
-				}
-				break;
-			case REDUCED:
-				if(stage!=RaceStage.HUMAN
-					|| stage!=RaceStage.PARTIAL
-					|| stage!=RaceStage.LESSER) {
-					stage = RaceStage.LESSER;
-				}
-				break;
-			case NORMAL:
-				break;
-			case MAXIMUM:
-				stage = RaceStage.GREATER;
-				break;
-		}
-		
-		Body body = generateBody(linkedCharacter, startingGender, startingBodyType, stage);
+		Body body = Subspecies.getPreGeneratedBody(linkedCharacter, startingGender, mother, father);
 
+		boolean takesAfterMother = true;
+		GameCharacter parentTakesAfter = mother;
+		boolean raceFromMother = true;
+		RacialBody motherBody = RacialBody.valueOfRace(Subspecies.getOffspringFromMotherSubspecies(mother, father).getRace());
+		RacialBody fatherBody = RacialBody.valueOfRace(Subspecies.getOffspringFromFatherSubspecies(mother, father).getRace());
+		Subspecies raceTakesAfter = mother.getSubspecies();
+		boolean feminineGender = startingGender.isFeminine();
+		NPC blankNPC = Main.game.getNpc(GenericAndrogynousNPC.class);
+		
+		if(body==null) {
+			RacialBody startingBodyType = RacialBody.HUMAN;
+			RaceStage stage = RaceStage.HUMAN;
+			
+			// Core body type is random:
+			if(Math.random()<=0.5) {
+				startingBodyType = motherBody;
+				stage = mother.getRaceStage();
+			} else {
+				startingBodyType = fatherBody;
+				stage = father.getRaceStage();
+				raceTakesAfter = father.getSubspecies();
+				takesAfterMother = false;
+				raceFromMother = false;
+				
+			}
+			
+			switch(startingGender.isFeminine()
+					?Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(raceTakesAfter)
+					:Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(raceTakesAfter)) {
+				case HUMAN:
+					stage = RaceStage.HUMAN;
+					break;
+				case MINIMUM:
+					if(stage!=RaceStage.HUMAN
+					|| stage!=RaceStage.PARTIAL) {
+						stage = RaceStage.PARTIAL;
+					}
+					break;
+				case REDUCED:
+					if(stage!=RaceStage.HUMAN
+						|| stage!=RaceStage.PARTIAL
+						|| stage!=RaceStage.LESSER) {
+						stage = RaceStage.LESSER;
+					}
+					break;
+				case NORMAL:
+					break;
+				case MAXIMUM:
+					stage = RaceStage.GREATER;
+					break;
+			}
+			
+			body = generateBody(linkedCharacter, startingGender, startingBodyType, stage);
+//			System.out.println(":3");
+		}
+//		System.out.println(body.getSubspecies().getName(linkedCharacter));
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
 		// Genetics! (Sort of...)
@@ -398,8 +408,9 @@ public class CharacterUtils {
 		
 		// Body core:
 		// Height:
-		if(!parentTakesAfter.getSubspecies().getOffspringSubspecies().isShortStature()) {
-			body.setHeight(getSizeFromGenetics( //TODO
+		if(body.getHeightValue()>=Height.ZERO_TINY.getMinimumValue()) {
+//			System.out.println("height adjusted");
+			body.setHeight(getSizeFromGenetics( //TODO check this
 					body.getHeightValue(),
 					(body.isFeminine()?mother.isFeminine():!mother.isFeminine()), mother.getHeightValue(),
 					(body.isFeminine()?father.isFeminine():!father.isFeminine()), father.getHeightValue()));
@@ -826,6 +837,8 @@ public class CharacterUtils {
 		
 		raceTakesAfter.applySpeciesChanges(body);
 		
+		body.setTakesAfterMother(takesAfterMother);
+		
 		return body;
 	}
 	
@@ -889,6 +902,130 @@ public class CharacterUtils {
 //		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
 	}
 
+	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Subspecies halfSubspecies) {
+		Gender startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
+		RacialBody demonBody = RacialBody.DEMON;
+		RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
+		switch(stage) {
+			case GREATER:
+				break;
+			case LESSER:
+				break;
+			// Anything less than lesser is covered by demon parts, so make it up to lesser:
+			case PARTIAL_FULL:
+			case PARTIAL:
+			case HUMAN:
+				stage = RaceStage.LESSER;
+				break;
+		}
+		Body body = CharacterUtils.generateBody(linkedCharacter, startingGender, halfSubspecies, stage);
+		body.setSubspeciesOverride(Subspecies.HALF_DEMON);
+		body.setHalfDemonSubspecies(halfSubspecies);
+		
+		body.setAss(new Ass(AssType.DEMON_COMMON,
+				(startingGender.isFeminine() ? demonBody.getFemaleAssSize() : demonBody.getMaleAssSize()),
+				demonBody.getAnusWetness(),
+				demonBody.getAnusCapacity(),
+				demonBody.getAnusElasticity(),
+				demonBody.getAnusPlasticity(),
+				true));
+		
+		body.setBreast(new Breast(BreastType.DEMON_COMMON,
+				BreastShape.getRandomBreastShape(),
+				(startingGender.getGenderName().isHasBreasts()? demonBody.getBreastSize() : demonBody.getNoBreastSize()),
+				(startingGender.isFeminine() ? demonBody.getFemaleLactationRate() : demonBody.getMaleLactationRate()),
+				(Main.getProperties().multiBreasts==2
+						?(startingGender.isFeminine() ? demonBody.getBreastCountFemale() : demonBody.getBreastCountMale())
+						:1),
+				(startingGender.isFeminine() ? demonBody.getFemaleNippleSize() : demonBody.getMaleNippleSize()),
+				(startingGender.isFeminine() ? demonBody.getFemaleNippleShape() : demonBody.getMaleNippleShape()),
+				(startingGender.isFeminine() ? demonBody.getFemaleAreolaeSize() : demonBody.getMaleAreolaeSize()),
+				(startingGender.isFeminine() ? demonBody.getFemaleNippleCountPerBreast() : demonBody.getMaleNippleCountPerBreast()),
+				(startingGender.isFeminine() ? demonBody.getFemaleBreastCapacity() : demonBody.getMaleBreastCapacity()),
+				(startingGender.isFeminine() ? demonBody.getFemaleBreastElasticity() : demonBody.getMaleBreastElasticity()),
+				(startingGender.isFeminine() ? demonBody.getFemaleBreastPlasticity() : demonBody.getMaleBreastPlasticity()), 
+				true));
+
+		if(halfSubspecies==Subspecies.HUMAN) {
+			body.setEar(new Ear(EarType.DEMON_COMMON));
+		}
+		
+		body.setEye(new Eye(EyeType.DEMON_COMMON));
+		
+		if(halfSubspecies==Subspecies.HUMAN) {
+			body.setHair(new Hair(HairType.DEMON_COMMON,
+					(startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength()),
+					HairStyle.getRandomHairStyle((startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength()))));
+		}
+		
+		body.setHorn(new Horn(demonBody.getRandomHornType(false),
+				(startingGender.isFeminine() ? demonBody.getFemaleHornLength() : demonBody.getMaleHornLength())));
+		
+		body.setPenis(startingGender.getGenderName().isHasPenis()
+				? new Penis(demonBody.getPenisType(),
+					demonBody.getPenisSize(),
+					demonBody.getPenisGirth(),
+					demonBody.getTesticleSize(),
+					demonBody.getCumProduction(),
+					demonBody.getTesticleQuantity())
+				: new Penis(PenisType.NONE, 0, 0, 0, 0, 2));
+		// If non-human, set modifiers to be the same as the default race modifiers:
+		if(halfSubspecies!=Subspecies.HUMAN) {
+			body.getPenis().clearPenisModifiers();
+			for(PenetrationModifier mod : RacialBody.valueOfRace(halfSubspecies.getRace()).getPenisType().getDefaultPenisModifiers()) {
+				body.getPenis().addPenisModifier(linkedCharacter, mod);
+			}
+		}
+		
+		
+		List<TailType> tailTypes = RacialBody.valueOfRace(halfSubspecies.getRace()).getTailType();
+		if(tailTypes.size()==1 && tailTypes.get(0)==TailType.NONE) {
+			body.setTail(new Tail(demonBody.getRandomTailType(false)));
+		}
+		
+		body.setVagina(startingGender.getGenderName().isHasVagina()
+				? new Vagina(demonBody.getVaginaType(),
+						LabiaSize.getRandomLabiaSize().getValue(),
+						demonBody.getClitSize(),
+						demonBody.getVaginaWetness(),
+						demonBody.getVaginaCapacity(),
+						demonBody.getVaginaElasticity(),
+						demonBody.getVaginaPlasticity(),
+						true)
+				: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true));
+		// If non-human, set modifiers to be the same as the default race modifiers:
+		if(halfSubspecies!=Subspecies.HUMAN) {
+			body.getVagina().getOrificeVagina().clearOrificeModifiers();
+			for(OrificeModifier mod : RacialBody.valueOfRace(halfSubspecies.getRace()).getVaginaType().getDefaultRacialOrificeModifiers()) {
+				body.getVagina().getOrificeVagina().addOrificeModifier(linkedCharacter, mod);
+			}
+		}
+		
+		body.setWing(new Wing(demonBody.getRandomWingType(false),
+				(startingGender.isFeminine() ? demonBody.getFemaleWingSize() : demonBody.getMaleWingSize())));
+		
+//		startingBodyType.getBodyMaterial(),
+//		startingBodyType.getGenitalArrangement(),
+		body.setHeight((startingGender.isFeminine() ? demonBody.getFemaleHeight() : demonBody.getMaleHeight()));
+		
+		body.setFemininity(startingGender.getType()==PronounType.NEUTRAL?50:(startingGender.isFeminine() ? demonBody.getFemaleFemininity() : demonBody.getMaleFemininity()));
+		
+		body.setBodySize((startingGender.isFeminine() ? demonBody.getFemaleBodySize() : demonBody.getMaleBodySize()));
+		
+		body.setMuscle((startingGender.isFeminine() ? demonBody.getFemaleMuscle() : demonBody.getMaleMuscle()));
+
+		body.updateCoverings(true, true, true, true);
+		
+
+		BodyHair hair = BodyHair.getRandomBodyHair();
+		body.setPubicHair(hair);
+		body.getFace().setFacialHair(null, hair);
+		body.getArm().setUnderarmHair(null, hair);
+		body.getAss().getAnus().setAssHair(null, hair);
+		
+		return body;
+	}
+	
 	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, Subspecies species, RaceStage stage) {
 		return generateBody(linkedCharacter, startingGender, RacialBody.valueOfRace(species.getRace()), species, stage);
 	}
@@ -903,16 +1040,20 @@ public class CharacterUtils {
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
 		boolean isSlime = false;
+		boolean isHalfDemon = false;
 		
-		if(species == Subspecies.SLIME) {
-			isSlime = true;
-			if(!linkedCharacter.isUnique()) {
+		if(species == Subspecies.SLIME || species == Subspecies.HALF_DEMON) {
+			if(species == Subspecies.SLIME) {
+				isSlime = true;
+			} else {
+				isHalfDemon = true;
+			}
+			if(linkedCharacter==null || !linkedCharacter.isUnique()) {
 				List<Subspecies> slimeSubspecies = new ArrayList<>();
 				// I do it like this so that when I add a new Subspecies, the IDE tells me there's one to account for here.
 				for(Subspecies subspecies : Subspecies.values()) {
 					switch(subspecies) {
 						case ALLIGATOR_MORPH:
-						case ANGEL:
 						case BAT_MORPH:
 						case CAT_MORPH:
 						case CAT_MORPH_CARACAL:
@@ -923,14 +1064,11 @@ public class CharacterUtils {
 						case CAT_MORPH_LYNX:
 						case CAT_MORPH_TIGER:
 						case COW_MORPH:
-						case DEMON:
 						case DOG_MORPH:
 						case DOG_MORPH_BORDER_COLLIE:
 						case DOG_MORPH_DOBERMANN:
 						case FOX_MORPH:
 						case FOX_MORPH_FENNEC:
-						case IMP:
-						case IMP_ALPHA:
 						case HARPY:
 						case HARPY_BALD_EAGLE:
 						case HARPY_RAVEN:
@@ -957,7 +1095,7 @@ public class CharacterUtils {
 								}
 							}
 							break;
-						// Special races that slimes do not spawn as:
+						// Special races that slimes/half-demons do not spawn as:
 						case ELEMENTAL_AIR:
 						case ELEMENTAL_ARCANE:
 						case ELEMENTAL_EARTH:
@@ -966,11 +1104,25 @@ public class CharacterUtils {
 						case FOX_ASCENDANT:
 						case FOX_ASCENDANT_FENNEC:
 						case SLIME:
+						case ANGEL:
+						case DEMON:
+						case HALF_DEMON:
+						case IMP:
+						case IMP_ALPHA:
+						case ELDER_LILIN:
+						case LILIN:
 							break;
 					}
 				}
 				
+				if(slimeSubspecies.isEmpty()) {
+					slimeSubspecies.add(Subspecies.HUMAN);
+				}
 				species = Util.randomItemFrom(slimeSubspecies);
+				
+				if(isHalfDemon) {
+					return generateHalfDemonBody(linkedCharacter, species);
+				}
 				
 				if(startingGender.isFeminine()) {
 					stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), startingGender, species);
@@ -1064,16 +1216,14 @@ public class CharacterUtils {
 		body.getFace().setFacialHair(null, hair);
 		body.getArm().setUnderarmHair(null, hair);
 		body.getAss().getAnus().setAssHair(null, hair);
-		
+
 		if(species!=null) {
-			body.calculateRace(linkedCharacter);
 			species.applySpeciesChanges(body);
 			if(isSlime) {
 				Subspecies.SLIME.applySpeciesChanges(body);
 			}
-			body.calculateRace(linkedCharacter);
 		}
-		
+		body.calculateRace(linkedCharacter);
 		return body;
 	}
 	
@@ -1189,9 +1339,12 @@ public class CharacterUtils {
 		body.getAss().getAnus().setAssHair(null, hair);
 		
 		if(species!=null) {
-			body.calculateRace(linkedCharacter);
 			species.applySpeciesChanges(body);
-			body.calculateRace(linkedCharacter);
+		}
+		body.calculateRace(linkedCharacter);
+		
+		if(linkedCharacter!=null) {
+			linkedCharacter.postTransformationCalculation();
 		}
 		
 		return body;

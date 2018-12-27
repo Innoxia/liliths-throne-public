@@ -50,7 +50,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -64,7 +64,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public class SlimeQueen extends NPC {
@@ -74,7 +74,7 @@ public class SlimeQueen extends NPC {
 	}
 
 	public SlimeQueen(boolean isImported) {
-		super(isImported, new NameTriplet("Catherine"),
+		super(isImported, new NameTriplet("Catherine"), "Mercier",
 				"The self-proclaimed Slime Queen, Catherine, is a gigantic female slime, who wants to turn as many people into her subjects as possible.",
 				38, Month.JANUARY, 29,
 				15, Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN,
@@ -90,9 +90,10 @@ public class SlimeQueen extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this.getBody())!=Subspecies.HUMAN) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this)!=Subspecies.HUMAN) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN);
 		}
+		this.setSurname("Mercier");
 	}
 	
 	@Override
@@ -268,7 +269,7 @@ public class SlimeQueen extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

@@ -44,7 +44,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -74,7 +74,7 @@ public class HarpyNympho extends NPC {
 	}
 	
 	public HarpyNympho(boolean isImported) {
-		super(isImported, new NameTriplet("Lexi"),
+		super(isImported, new NameTriplet("Lexi"), "Holub",
 				"One of the more notable harpy matriarchs, Lexi is the leader of a flock of harpies."
 						+ " Either due to her obsession with sex, or perhaps because she's not as cruel as a typical harpy, Lexi is far more accepting of males than a typical matriarch."
 						+ " As a result, her flock serves as her personal harem; it's members constantly trying to sate their matriarch's never-ending lust.",
@@ -243,7 +243,7 @@ public class HarpyNympho extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	

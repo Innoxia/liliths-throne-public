@@ -1,110 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100%"
-   height="100%"
-   viewBox="0 0 64.000001 64.000001"
-   id="svg4311"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="weatherNightStorm.svg">
-  <defs
-     id="defs4313">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient4138">
-      <stop
-         style="stop-color:#999999;stop-opacity:1;"
-         offset="0"
-         id="stop4140" />
-      <stop
-         style="stop-color:#ff33cc;stop-opacity:1"
-         offset="1"
-         id="stop4142" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4138"
-       id="linearGradient4144"
-       x1="33.764351"
-       y1="19.098719"
-       x2="33.057243"
-       y2="60.287689"
-       gradientUnits="userSpaceOnUse" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="11.313708"
-     inkscape:cx="42.228652"
-     inkscape:cy="27.042289"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer3"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata4316">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="Stage3"
-     style="display:inline">
-    <path
-       style="display:inline;fill:#ff33cc;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 22.263542,28.959747 -11.58103,9.676776 2.083947,6.534773 L 5.2664582,55.27301 18.458401,45.157971 16.311192,39.320344 Z"
-       id="path4285-3"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccc" />
-    <path
-       style="display:inline;fill:#ff33cc;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 46.588106,30.136524 2.119164,7.643844 2.083947,6.534773 -7.500001,10.101714 13.191943,-10.115039 -2.147209,-5.837627 z"
-       id="path4285-8"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccc" />
-    <path
-       style="display:inline;fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:4.43236685;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
-       d="M 41.368216,5.0070244 A 15.83236,15.555338 0 0 0 29.049357,20.153827 15.83236,15.555338 0 0 0 44.880059,35.710394 15.83236,15.555338 0 0 0 59.233306,26.684064 15.83236,15.555338 0 0 1 55.721463,27.090942 15.83236,15.555338 0 0 1 39.887875,11.53726 15.83236,15.555338 0 0 1 41.368216,5.0070244 Z"
-       id="path4161"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:url(#linearGradient4144);fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
-       d="m 22.632622,45.892956 c -17.7737515,7.47924 -21.75110052,-24.41875 -2.386485,-19.79899 3.545251,-6.34065 19.42242,-12.25675 26.428117,-0.70711 19.457734,-1.06129 16.420131,24.99514 -1.06066,20.5061 -7.14843,5.07035 -16.038986,6.95986 -22.980972,0 z"
-       id="path4220"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       style="display:inline;fill:#ff33cc;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 41.132713,34.727068 -11.58103,9.676776 2.083947,6.534773 -7.500001,10.101714 13.191943,-10.115039 -2.147209,-5.837627 z"
-       id="path4285"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccc" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="linearGradient4138">
+            <stop offset="0" stop-color="#999"/>
+            <stop offset="1" stop-color="#f3c"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4144" x1="33.764" x2="33.057" y1="19.099" y2="60.288" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4138"/>
+    </defs>
+    <g stroke="#000">
+        <path fill="#f3c" fill-rule="evenodd" stroke-linejoin="round" stroke-width="2" d="M22.264 28.96l-11.581 9.677 2.083 6.534-7.5 10.102 13.192-10.115-2.147-5.838zM46.588 30.137l2.12 7.643 2.083 6.535-7.5 10.102 13.192-10.115-2.147-5.838z"/>
+        <path fill="#ccc" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.432" d="M41.368 5.007A15.832 15.555 0 0 0 29.05 20.154 15.832 15.555 0 0 0 44.88 35.71a15.832 15.555 0 0 0 14.353-9.026 15.832 15.555 0 0 1-3.512.407 15.832 15.555 0 0 1-15.833-15.554 15.832 15.555 0 0 1 1.48-6.53z"/>
+        <path fill="url(#linearGradient4144)" fill-rule="evenodd" stroke-width="3" d="M22.633 45.893C4.859 53.373.882 21.474 20.246 26.094c3.545-6.34 19.423-12.257 26.428-.707 19.458-1.061 16.42 24.995-1.06 20.506-7.149 5.07-16.04 6.96-22.981 0z"/>
+        <path fill="#f3c" fill-rule="evenodd" stroke-linejoin="round" stroke-width="2" d="M41.133 34.727l-11.581 9.677 2.084 6.535-7.5 10.101 13.192-10.115-2.148-5.837z"/>
+    </g>
 </svg>

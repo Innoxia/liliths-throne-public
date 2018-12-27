@@ -42,7 +42,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -65,7 +65,8 @@ public class Pix extends NPC {
 	}
 	
 	public Pix(boolean isImported) {
-		super(isImported, new NameTriplet("Pix"), "An extremely energetic border-collie-girl, who is the owner and manager of the Shopping Arcade's gym; 'Pix's Playground'.",
+		super(isImported, new NameTriplet("Pix"), "Fear",
+				"An extremely energetic border-collie-girl, who is the owner and manager of the Shopping Arcade's gym; 'Pix's Playground'.",
 				29, Month.FEBRUARY, 21, 
 				10, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_PIXS_GYM, true);
@@ -216,7 +217,7 @@ public class Pix extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

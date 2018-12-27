@@ -661,21 +661,21 @@ public class PenisMouth {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], eagerly sliding [npc2.her] head forwards as [npc2.she] [npc2.verb(start)] happily sucking [npc.namePos] [npc.cock+].",
 
-							" With an eager, and very muffled, [npc2.moan], [npc2.name] [npc2.verb(start)] happily sliding [npc2.her] head forwards,"
+							" With an eager, and very muffled [npc2.moan], [npc2.name] [npc2.verb(start)] happily sliding [npc2.her] head forwards,"
 									+ " wrapping [npc2.her] [npc2.lips+] around [npc.namePos] [npc.cock+] as [npc2.she] [npc2.verb(start)] giving [npc.herHim] a blowjob."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], roughly slamming [npc2.namePos] head forwards as [npc2.she] [npc2.verb(start)] forcing [npc.namePos] [npc.cock+] deep down [npc2.her] throat.",
 
-							" With an eager, and very muffled, [npc2.moan], [npc2.name] forcefully [npc2.verb(push)] [npc2.her] head forwards,"
+							" With an eager, and very muffled [npc2.moan], [npc2.name] forcefully [npc2.verb(push)] [npc2.her] head forwards,"
 									+ " wrapping [npc2.her] [npc2.lips+] around [npc.namePos] [npc.cock+] as [npc2.she] [npc2.verb(start)] giving [npc.herHim] a rough blowjob."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], sliding [npc2.her] head forwards as [npc2.she] [npc2.verb(start)] sucking [npc.namePos] [npc.cock+].",
 
-							" With a muffled, [npc2.moan], [npc2.name] [npc2.verb(start)] sliding [npc2.her] head forwards,"
+							" With a muffled [npc2.moan], [npc2.name] [npc2.verb(start)] sliding [npc2.her] head forwards,"
 									+ " wrapping [npc2.her] [npc2.lips+] around [npc.namePos] [npc.cock+] as [npc2.she] [npc2.verb(start)] giving [npc.herHim] a blowjob."));
 					break;
 				case SUB_RESISTING:

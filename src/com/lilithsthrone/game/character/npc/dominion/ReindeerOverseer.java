@@ -5,6 +5,8 @@ import java.time.Month;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Season;
+import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -15,7 +17,8 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -50,7 +53,7 @@ public class ReindeerOverseer extends NPC {
 	}
 	
 	public ReindeerOverseer(Gender gender, boolean isImported) {
-		super(isImported, null, "",
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				10, gender, Subspecies.REINDEER_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
@@ -132,28 +135,43 @@ public class ReindeerOverseer extends NPC {
 	
 	@Override
 	public void dailyReset() {
-		clearNonEquippedInventory();
 		
-		for (int i = 0; i < 10 + (Util.random.nextInt(6)); i++) {
-			this.addItem(AbstractItemType.generateItem(ItemType.PRESENT), false);
-		}
-		
-		for (AbstractItemType item : ItemType.getAllItems()) {
-			if(item!=null && item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
-				for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
-					this.addItem(AbstractItemType.generateItem(item), false);
+		if(!this.isSlave()) {
+			if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
+				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.hasSnowedThisWinter);
+				if(this.getLocation()!=Main.game.getPlayer().getLocation()) {
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				}
+			}
+			
+			clearNonEquippedInventory();
+			
+			if(this.getLocationPlace().getPlaceType()==PlaceType.DOMINION_STREET && !this.getLocation().equals(Main.game.getPlayer().getLocation())) {
+				this.moveToAdjacentMatchingCellType(true);
+				Main.game.getDialogueFlags().dailyReindeerReset(this.getId());
+			}
+			
+			for (int i = 0; i < 10 + (Util.random.nextInt(6)); i++) {
+				this.addItem(AbstractItemType.generateItem(ItemType.PRESENT), false);
+			}
+			
+			for (AbstractItemType item : ItemType.getAllItems()) {
+				if(item!=null && item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
+					for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
+						this.addItem(AbstractItemType.generateItem(item), false);
+					}
+				}
+			}
+			
+			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+				if(clothing!=null && clothing.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
+					for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
+						this.addClothing(AbstractClothingType.generateClothing(clothing), false);
+					}
 				}
 			}
 		}
-		
-		for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing!=null && clothing.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
-				for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
-					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
-				}
-			}
-		}
-		
+
 	}
 	
 	// Trading:
@@ -196,7 +214,7 @@ public class ReindeerOverseer extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return ReindeerOverseerDialogue.ENCOUNTER_START;
 	}
 

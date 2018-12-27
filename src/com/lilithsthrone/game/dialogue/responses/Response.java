@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexPace;
@@ -28,8 +28,9 @@ import com.lilithsthrone.utils.Util;
  */
 public class Response {
 	
-	protected String title, tooltipText;
-	protected DialogueNodeOld nextDialogue;
+	protected String title;
+	protected String tooltipText;
+	protected DialogueNode nextDialogue;
 	
 	protected List<Fetish> fetishesRequired;
 	protected CorruptionLevel corruptionBypass;
@@ -45,7 +46,7 @@ public class Response {
 	
 	public Response(String title,
 			String tooltipText,
-			DialogueNodeOld nextDialogue) {
+			DialogueNode nextDialogue) {
 		
 		this(title, tooltipText, nextDialogue,
 				null, null,
@@ -54,7 +55,7 @@ public class Response {
 	
 	public Response(String title,
 			String tooltipText,
-			DialogueNodeOld nextDialogue,
+			DialogueNode nextDialogue,
 			List<Fetish> fetishesForUnlock,
 			CorruptionLevel corruptionBypass,
 			List<Perk> perksRequired,
@@ -69,7 +70,7 @@ public class Response {
 	
 	public Response(String title,
 			String tooltipText,
-			DialogueNodeOld nextDialogue, 
+			DialogueNode nextDialogue, 
 			List<Fetish> fetishesForUnlock,
 			CorruptionLevel corruptionBypass,
 			List<Perk> perksRequired,
@@ -112,7 +113,7 @@ public class Response {
 		return tooltipText;
 	}
 
-	public DialogueNodeOld getNextDialogue() {
+	public DialogueNode getNextDialogue() {
 		if(isAvailable() || isAbleToBypass()) {
 			return nextDialogue;
 		} else {

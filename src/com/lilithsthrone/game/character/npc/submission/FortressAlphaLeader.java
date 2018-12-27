@@ -57,7 +57,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -100,7 +100,7 @@ public class FortressAlphaLeader extends NPC {
 	
 	public FortressAlphaLeader(boolean isImported) {
 		super(isImported,
-				new NameTriplet("Fyrsia", "Fyrsia", "Fyrsia"),
+				new NameTriplet("Fyrsia", "Fyrsia", "Fyrsia"), "Lilyshamartu",
 				"The leader of one of Submission's imp fortresses, [npc.name] rules over [npc.her] followers with an iron fist, and shows very little respect towards anyone but [npc.her] boss, 'The Dark Siren'...",
 				27, Month.JANUARY, 28,
 				20, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
@@ -339,7 +339,7 @@ public class FortressAlphaLeader extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	
@@ -384,10 +384,10 @@ public class FortressAlphaLeader extends NPC {
 
 	@Override
 	public GameCharacter getPreferredSexTarget() {
-		if(Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader())!=null
+		if(Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class))!=null
 				&& !FortressAlphaLeaderSA.isBothTargetsUsed()
-				&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-				|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)) {
+				&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+				|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)) {
 			return FortressAlphaLeaderSA.getBlowjobTarget();
 		}
 		return null;
@@ -417,6 +417,11 @@ public class FortressAlphaLeader extends NPC {
 	}
 	
 	// Combat:
+	
+	@Override
+	public int getEscapeChance() {
+		return 0;
+	}
 
 	public Attack attackType() {
 		Map<Attack, Integer> attackWeightingMap = new HashMap<>();

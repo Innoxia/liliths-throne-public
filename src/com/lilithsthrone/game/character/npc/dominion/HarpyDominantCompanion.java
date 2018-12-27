@@ -41,7 +41,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -66,7 +66,7 @@ public class HarpyDominantCompanion extends NPC {
 	}
 	
 	public HarpyDominantCompanion(boolean isImported) {
-		super(isImported, new NameTriplet("Harley"),
+		super(isImported, new NameTriplet("Harley"), "Orlov",
 				"Diana's favourite pet, Harley, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her mistress's nest, she does absolutely anything Diana orders her to do, which often involves administering humiliating punishments...",
 				19, Month.JUNE, 14,
@@ -221,7 +221,7 @@ public class HarpyDominantCompanion extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

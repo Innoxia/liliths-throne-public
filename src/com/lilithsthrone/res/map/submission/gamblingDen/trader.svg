@@ -1,102 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100%"
-   height="100%"
-   viewBox="0 0 64.000001 64.000001"
-   id="svg4311"
-   version="1.1"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="trader.svg">
-  <defs
-     id="defs4313">
-    <linearGradient
-       inkscape:collect="always"
-       id="traderGradient">
-      <stop
-         style="stop-color:#ff5555;stop-opacity:1"
-         offset="0"
-         id="stop4184" />
-      <stop
-         style="stop-color:#ff8080;stop-opacity:1"
-         offset="1"
-         id="stop4186" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#traderGradient"
-       id="linearGradient15"
-       x1="29.499998"
-       y1="1025.4872"
-       x2="44.125"
-       y2="1003.3622"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.2884366,0,0,1.290513,-9.2250812,-296.31254)" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="8.0000004"
-     inkscape:cx="69.002866"
-     inkscape:cy="33.143273"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata4316">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-988.36216)"
-     style="display:inline">
-    <ellipse
-       ry="30.381458"
-       rx="30.382944"
-       cy="1020.3683"
-       cx="32.000488"
-       id="ellipse4146"
-       style="display:inline;fill:url(#linearGradient15);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.4000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 18.497762,1043.0664 15.121251,2e-4 0.125004,-25.5539 c 0.01586,-3.2412 -4.904277,-5.2749 -5.061312,-8.5123 l -0.517756,-10.67396 -4.150451,-0.0431 -0.1875,10.50586 c -0.05762,3.2285 -5.309057,5.3457 -5.311309,8.5747 z"
-       id="path4164"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccssccssc" />
-    <path
-       style="display:inline;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 36.692724,1042.8106 11.023392,0 0.09113,-18.6288 c 0.01156,-2.3628 -3.575217,-3.8454 -3.689696,-6.2054 l -0.377444,-7.7813 -3.025679,-0.032 -0.136687,7.6588 c -0.042,2.3535 -3.870303,3.897 -3.871944,6.2509 z"
-       id="path4164-3"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccssccssc" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="traderGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#traderGradient"/>
+    </defs>
+    <g fill-rule="evenodd" transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" rx="30.383" ry="30.381"/>
+        <path fill="#fff" d="M18.498 1043.066h15.121l.125-25.553c.016-3.242-4.904-5.275-5.061-8.513l-.518-10.674-4.15-.043-.188 10.506c-.058 3.229-5.31 5.346-5.311 8.575zM36.693 1042.81h11.023l.091-18.628c.012-2.363-3.575-3.846-3.69-6.206l-.377-7.78-3.026-.033-.136 7.659c-.042 2.353-3.87 3.897-3.872 6.25z"/>
+    </g>
 </svg>

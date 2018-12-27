@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -12,8 +11,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.1.83
  * @author Innoxia
  */
-public class Antenna implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Antenna implements BodyPartInterface {
 	
 	protected AntennaType type;
 	protected int rows;

@@ -1,21 +1,20 @@
 package com.lilithsthrone.game.character;
 
-import java.io.Serializable;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.66
- * @version 0.1.99
+ * @version 0.3
  * @author Innoxia
  */
-public class PregnancyPossibility implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class PregnancyPossibility implements XMLSaving {
 	
 	private String motherId, fatherId;
 	private float probability;
@@ -73,8 +72,8 @@ public class PregnancyPossibility implements Serializable, XMLSaving {
 		try {
 			return Main.game.getNPCById(motherId);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+motherId+") returning null in method: PregnancyPossibility.getMother()");
-			return Main.game.getGenericFemaleNPC();
+			Util.logGetNpcByIdError("PregnancyPossibility.getMother()", motherId);
+			return Main.game.getNpc(GenericFemaleNPC.class);
 		}
 	}
 
@@ -82,8 +81,8 @@ public class PregnancyPossibility implements Serializable, XMLSaving {
 		try {
 			return Main.game.getNPCById(fatherId);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+fatherId+") returning null in method: PregnancyPossibility.getFather()");
-			return Main.game.getGenericMaleNPC();
+			Util.logGetNpcByIdError("PregnancyPossibility.getFather()", fatherId);
+			return Main.game.getNpc(GenericMaleNPC.class);
 		}
 	}
 

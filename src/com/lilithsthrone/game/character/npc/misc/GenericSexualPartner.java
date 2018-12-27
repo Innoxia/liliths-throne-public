@@ -23,7 +23,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.sex.Sex;
@@ -55,14 +55,13 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	public GenericSexualPartner(Gender gender, WorldType worldLocation, Vector2i location, boolean isImported) {
-		super(isImported, null, "",
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
-			this.setWorldLocation(worldLocation);
-			this.setLocation(location);
+			this.setLocation(worldLocation, location, false);
 			
 			setLevel(Util.random.nextInt(5) + 5);
 			
@@ -74,6 +73,9 @@ public class GenericSexualPartner extends NPC {
 					// No spawn chance:
 					case ANGEL:
 					case DEMON:
+					case HALF_DEMON:
+					case LILIN:
+					case ELDER_LILIN:
 					case IMP:
 					case IMP_ALPHA:
 					case FOX_ASCENDANT:
@@ -252,7 +254,7 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	

@@ -1,0 +1,1368 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- GENERIC -->
+	
+	<htmlContent tag="GENERIC_IMPS_DEFEATED"><![CDATA[
+	<p>
+		As you've defeated all of the imps that were in the citadel, the entire place is now completely deserted.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GENERIC_IMP_GUARDS"><![CDATA[
+	<p>
+		There are at least twenty imps and alpha-imps scattered around the courtyard. A few of them are simply loitering about, but most are engaged in simple tasks such as cleaning and mending clothes, sparring with one another, or preparing and eating food. You also notice that there are a few who are openly having sex over in one corner.
+	</p>
+	<p>
+		None of these imps seem bothered about your sudden arrival, and you assume that it's because only expected guests would be in possession of the three keys required to gain entry.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- ENTRANCE -->
+	
+	<htmlContent tag="ENTRANCE_RUINS"><![CDATA[
+	<p>
+		Although the entranceway is one of the few parts of the citadel that managed to avoid taking significant damage, there's a considerable amount of rubble and smashed rock piled up against the gates. As you weave your way past these obstacles, you're very careful not to touch any of it out of fear that you might trigger another collapse.
+	</p>
+	<p>
+		Looking over the cracked, rubble-strewn courtyard, you find yourself gazing at the huge, ruined archway of the main keep. One of the huge wooden doors has completely splintered into pieces, while the other looks to be straining under the weight of the crumbling masonry above. Off to your left, the citadel's well looks to have been completely crushed beneath the collapsed left-side wall of the laboratory tower. On the opposite side of the courtyard, you see rubble and smashed rock blocking the small doorway of the cell block.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		Standing in the entranceway, you're close enough to take a good look at the huge blocks from which the gates and walls have been constructed. You see that they've been carved from the same dark black stone as the cavern's floor and walls, and, looking out across the inner courtyard, you see that the material has indeed been obtained locally, as a large portion of the far wall has been mined out.
+	</p>
+	<p>
+		Carved into that gaping recess, there's a huge stone archway, which houses a pair of massive, iron-reinforced wooden doors. Off to the left of the courtyard, you see a well in one corner, and beside that, there sits a squat, stone tower. On the opposite side of the courtyard to this tower, the cave's wall curves inwards, and into this, a small doorway has been carved.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE_FORTRESS"><![CDATA[
+	<p>
+		Wanting to leave this place and return another time, you walk up to the dark stone gateway. In its surface, you see three holes, which appear to be identical to the ones on the gates' exterior.
+	</p>
+	<p>
+		Repeating the same unlocking process that you went through when entering, the gates are soon opened, and you find yourself stepping back out into the huge, dimly-lit cavern which houses the siren's citadel. As the heavy stone gates swing shut behind you, you wonder where to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- CHALLENGE -->
+	
+	<htmlContent tag="IMP_CHALLENGE"><![CDATA[
+	<p>
+		#IF pc.hasFetish(FETISH_SADIST)
+		#THEN
+			The sight of these imps, who have inevitably all partaken in muggings and worse, makes your blood boil. Walking up to the nearest one, you kick him in his side with full force, causing him to stagger back and collapse against a nearby wall. [pc.speech(I'm here to clean you all out! Get ready for a beating, you scum!)]
+		#ELSE
+			The sight of these imps, who have inevitably all partaken in muggings and worse, fills you with anger. Turning to face the courtyard, you shout, [pc.speech(I'm here to clean you all out! Get ready for some justice!)]
+		#ENDIF
+	</p>
+	<p>
+		A group of six imps quickly forms before you, and, as you ready yourself for the fight ahead, they rush to attack you!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE"><![CDATA[
+	<p>
+		The six imps are no match for you, and you let out a triumphant laugh as the last of them falls to the floor, defeated.
+	</p>
+	<p>
+		Before you're able to take a breather, however, another group of imps arrive from elsewhere in the citadel, and jump forwards to avenge their fallen comrades!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_2"><![CDATA[
+	<p>
+		[style.italicsBad(This battle is far from over!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_3"><![CDATA[
+	<p>
+		[style.italicsMinorBad(There are still a lot of imps remaining in the citadel!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_4"><![CDATA[
+	<p>
+		[style.italicsMinorGood(It looks like you've beaten about half of the citadel's garrison!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_5"><![CDATA[
+	<p>
+		[style.italicsGood(There are almost no imp reinforcements left!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_6"><![CDATA[
+	<p>
+		[style.italicsExcellent(These are the very last defenders of the citadel!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		As the very last imp collapses to the floor, you can't help but let out a jubilant yell, [pc.speech(Hah! I am victorious!)]
+	</p>
+	<p>
+		Scanning your surroundings to double-check that there aren't any more threats, you notice that all of the other defeated imps have already made good their escape, and have crawled or staggered off out of the citadel's main gates. You let out a disapproving tut at how quick the other imps were to abandon their comrades and use them as a distraction to escape.
+	</p>
+	<p>
+		Focusing your attention back down towards the four defeated imps at your [pc.feet], you wonder what you should do with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST"><![CDATA[
+	<p style='text-align:center;'>
+		[style.italicsExcellent(You have defeated the citadel's entire imp garrison! You truly are a master at fighting imps, and know exactly how to beat them!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SCARE_OFF"><![CDATA[
+	<p>
+		You aren't interested in doing anything more to the imps, and, standing to one side, you command, [pc.speech(Go on, get out of here, all of you! And don't come back!)]
+	</p>
+	<p>
+		Groaning as they push themselves to their feet, the imps do as you say, and stagger off out of the citadel and into Submission. Turning back towards the imposing gates of the main keep, you wonder if you should go and challenge the siren straight away, or take a break first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		Deciding to have some fun with these imps, you step forwards, and, bending down to push them into position, you get ready to fuck them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
+	<p>
+		Deciding to have some fun with these imps, you step forwards, and, bending down to gently push them into position, you get ready to fuck them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
+	<p>
+		Deciding to take advantage of these imps, you step forwards, and, bending down to roughly force them into position, you get ready to give them a good, hard fuck...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		As you look down at the defeated imps, you can't help but feel sorry for them. After all, they were just abandoned by their comrades, and even if they weren't on friendly terms with one another, that betrayal is sure to have upset them.
+	</p>
+	<p>
+		Kneeling down beside [npc.name], you offer your apologies, [pc.speech(I'm sorry, I think I went a little too far. Are you ok?)]
+	</p>
+	<p>
+		[npc.speech(Yer a real [pc.insult], ain't yer?! Course we ain't ok!)] [npc.she] snaps, pushing [npc.herself] to [npc.her] feet and scowling angrily at you. [npc.speech(How yer gonna apologise, huh, [pc.insult]?!)]
+	</p>
+	<p>
+		The commanding tone in [npc.namePos] voice makes you let out an excited little whimper. [pc.speech(Well, how about you and your friends use me however you want!)]
+	</p>
+	<p>
+		[npc.speech(They ain't my friends, [pc.insult], and nor are you!)] [npc.name] spits, pushing you down into position. [npc.speech(I don't mind sharin' yer with them, though. Plenty o' holes to go around!)]
+	</p>
+	<p>
+		Cackling laughter erupts from the rest of the imps, and they rush forwards to join in on the fun...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--Defeat elsewhere:-->
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT"><![CDATA[
+	<p>
+		The imps prove to be too much for you to handle, and with an exhausted sigh, you collapse to the ground, defeated.
+	</p>
+	<p>
+		[npc.speech(Hah! What was all that about?!)] [npc.name] sneers, stepping forwards to grin hungrily down at you. [npc.speech(I bet yer was just hopin' we'd win, so that we'd give yer a good fucking!)]
+	</p>
+	<p>
+		The other imps all agree with their leader, and quickly conclude that you only started this fight in the hopes that they'd beat and fuck you. Before you can say anything to the contrary, they've convinced themselves that this must be your fetish, and agree amongst one another that they'd be more than happy to help indulge you in it. Before you know what's happing, the imps are swarming all over you, and as they push you into position, [npc.name] calls out, [npc.speech(Let's give [pc.herHim] what [pc.she] wants; a good, hard, fuckin'!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT_NO_NON_CON"><![CDATA[
+	<p>
+		The imps prove to be too much for you to handle, and with an exhausted sigh, you collapse to the ground, defeated.
+	</p>
+	<p>
+		[npc.speech(Hah! What was all that about?!)] [npc.name] laughs, stepping forwards to sneer down at you. [npc.speech(I bet yer was just testin' us, weren't yer?!)]
+	</p>
+	<p>
+		You let out a low groan, which the imps take as an affirmation of their assumption. Still regarding you as one of their leader's guests, it seems as though they're reluctant to do anything more to you, and as the rest of the imps wander off, [npc.name] reprimands you, [npc.speech(Don't yer go tryin' taht again, yer hear?! We ain't got time fer yer games!)]
+	</p>
+	<p>
+		Turning [npc.her] back on you, [npc.name] joins [npc.her] comrades in leaving you to recover. Pushing yourself back up onto your [pc.feet], you wonder what you should do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
+	<p>
+		Thinking that it isn't too bad a thing to just let the imps have their fun, you allow them to move you into position, and, letting out a sigh, you address [npc.name], [pc.speech(Come on then, let's get this over with...)]
+	</p>
+	<p>
+		The imps let out a chorus of mocking laughter as you say this, and, eager to do as you suggest, they prepare to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
+	<p>
+		Eagerly anticipating the fun that's to be had with these imps, you obediently move into the position that they demand, and, letting out an excited laugh, you address [npc.name], [pc.speech(Come on! Fuck me already!)]
+	</p>
+	<p>
+		The imps let out a chorus of mocking laughter as you say this, and, more than happy to do as you suggest, they prepare to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
+	<p>
+		Wanting to let these imps know that they've made a big mistake, you address [npc.name], [pc.speech(Wait! No! I didn't want sex with you at all! Let me go!)]
+	</p>
+	<p>
+		The imps let out a chorus of mocking laughter as you say this, and, ignoring your struggles, [npc.name] sneers, [npc.speech(Yer just playin' hard ta get! I bet this is another o' yer fetishes, ain't I right?!)]
+	</p>
+	<p>
+		You immediately answer in the negative, and continue to struggle and kick against the imps, but despite all this, they refuse to let you go, and you realise that they're not going stop until they've had their fun...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_IMP_DEFEAT_SEX"><![CDATA[
+	<p>
+		Having had their fun, the imps all step back, leaving you to collapse down onto the floor in exhaustion. [npc.Name] steps around in front of you as you pant for breath, and sneers, [npc.speech(Yer ain't gonna be tryin' this again, yer hear? As fun as it is ta fuck yer, we got stuff ta do, so just stay outta our way!)]
+	</p>
+	<p>
+		Turning [npc.her] back on you, [npc.name] joins [npc.her] comrades in leaving you to recover. Pushing yourself back up onto your [pc.feet], you wonder what you should do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_SEX_VICTORY"><![CDATA[
+	<p>
+		Having had your fun, you step back from the imps, and, wanting them to leave as soon as possible, you command [pc.speech(Go on, get out of here! And don't come back!)]
+	</p>
+	<p>
+		Groaning as they push themselves to their feet, the imps do as you say, and stagger off out of the citadel and into Submission. Turning back towards the imposing gates of the main keep, you wonder if you should go and challenge the siren straight away, or take a break first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT_RECOVER"><![CDATA[
+	<p>
+		You take a few minutes to catch your breath and reflect on what you could have done differently in the fight, before continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_SEX_DEFEAT_RECOVER"><![CDATA[
+	<p>
+		You take a few minutes to catch your breath and get your things in order, before continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--Defeat in lab:-->
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT_IN_LAB"><![CDATA[
+	<p>
+		You stagger back against one of the lab's tables, and, with a weak sigh, collapse to the ground, defeated. 
+	</p>
+	<p>
+		Although they were the ones to beat you, the imps immediately back off, allowing the slender figure of [npc.name] to step forwards and taunt you, [npc.speech(Hehehe! You really thought you could win, didn't you?)]
+	</p>
+	<p>
+		You start to reply, but the mischievous youko turns slightly to one side, before twirling her three tails to tickle and brush over your face. [npc.speech(Hush now! It was a rhetorical question, you silly thing!)]
+	</p>
+	#IF pc.isFeminine()
+	#THEN 
+		<p>
+			As she withdraws her three black-furred tails, you look up to see [npc.name] smirking down at you with an evil glint in her bright [npc.eyeColour] eyes. [npc.speech(Watching you being beaten like that has really got me quite excited. You need to take responsibility for that, I think...)]
+		</p>
+		<p>
+			As you continue to look up, [npc.name] unbuttons her lab coat, and, pulling up the bottom of her virgin-killer sweater, she reveals the fact that she's not wearing any underwear. Just as she said, she appears to be quite aroused, for as she uses her slender fingers to spread her [npc.vaginaCapacity] pussy, you see that she's already wet. [npc.speech(So, what are you waiting for? Come and put that tongue of yours to use!)]
+		</p>
+	#ELSE
+		<p>
+			As she withdraws her three black-furred tails, you look up to see [npc.name] smirking down at you with an evil glint in her bright [npc.eyeColour] eyes. [npc.speech(You're not quite the sort of person that I'd be willing to take advantage of, but I'm afraid that the same can't be said of these imps...)]
+		</p>
+		<p>
+			As [npc.name] steps back, the imps that defeated you rush forwards, and, to the sound of the youko's cruel laughter, they start to push you down into position, ready to have sex with you...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT_IN_LAB_NO_NON_CON"><![CDATA[
+	<p>
+		You stagger back against one of the lab's tables, and, with a weak sigh, collapse to the ground, defeated. 
+	</p>
+	<p>
+		Although they were the ones to beat you, the imps immediately back off, allowing the slender figure of [npc.name] to step forwards and taunt you, [npc.speech(Hehehe! You really thought you could win, didn't you?)]
+	</p>
+	<p>
+		You start to reply, but the mischievous youko turns slightly to one side, before twirling her three tails to tickle and brush over your face. [npc.speech(Hush now! It was a rhetorical question, you silly thing!)]
+	</p>
+	<p>
+		As she withdraws her three black-furred tails, you look up to see [npc.name] smirking down at you with an evil glint in her [npc.eyeColour] eyes. [npc.speech(As you're carrying those three keys, I can tell that you're one of the siren's guests. As that's the case, I suppose I have no choice but to let you go. What a shame...)]
+	</p>
+	<p>
+		Turning her back on you, [npc.name] returns to her work, leaving you to recover. Pushing yourself back up onto your [pc.feet], you wonder what you should do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST"><![CDATA[
+	<p>
+		You obediently move to do as [npc.name] says, and, shuffling forwards, you bring your lips up to her hot, wet pussy. Before you're able to get started, however, the youko reaches down to take hold of your head, stopping you from getting any further.
+	</p>
+	<p>
+		[npc.speech(Don't forget who's the one in charge here, my little pet,)] she teases. [npc.speech(Oh, and I really hope you aren't expecting me to allow you to orgasm. This is about <i>my</i> pleasure, and <i>your</i> punishment. Remember that.)]
+	</p>
+	<p>
+		With that, she releases your head, and prepares to make you eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST_EAGER"><![CDATA[
+	<p>
+		You eagerly move to do as [npc.name] says, and, shuffling forwards, you bring your lips up to her hot, wet pussy. Before you're able to get started, however, the youko reaches down to take hold of your head, stopping you from getting any further.
+	</p>
+	<p>
+		[npc.speech(Don't forget who's the one in charge here, my little pet,)] she teases. [npc.speech(Oh, and I really hope you aren't expecting me to allow you to orgasm. This is about <i>my</i> pleasure, and <i>your</i> punishment. Remember that.)]
+	</p>
+	<p>
+		With that, she releases your head, and prepares to make you eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST_RESIST"><![CDATA[
+	<p>
+		Not liking the sound of what [npc.name] is saying, you desperately try to shuffle away from her. A mocking laugh swiftly follows you, and before you're able to get anywhere, the youko reaches down to take hold of your head, before forcing you to bring your lips up to her hot, wet pussy.
+	</p>
+	<p>
+		[npc.speech(Don't think you have any say in this, my little pet,)] she teases. [npc.speech(Oh, and I really hope you aren't expecting me to allow you to orgasm. This is about <i>my</i> pleasure, and <i>your</i> punishment. Remember that.)]
+	</p>
+	<p>
+		Ignoring your struggles and protests, the cruel youko prepares to force you eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_IMP_DEFEAT_ARCANIST_SEX"><![CDATA[
+	<p>
+		Having had [npc.her] fun, [npc.name] steps back, leaving you to sink down to the floor with a frustrated whine. Smirking down at you, the youko teases, [npc.speech(Silly thing! Run off now, and go find some dirty imps to fuck you to orgasm. Oh, and don't cause any more trouble in here, understand?)]
+	</p>
+	<p>
+		As you let out another desperate whine, [npc.name] dismisses you with one hand and turns to continue with [npc.her] work. Pushing yourself to your feet, you wonder what you should do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- COURTYARD -->
+	
+	<htmlContent tag="COURTYARD_RUINS"><![CDATA[
+	<p>
+		You find yourself standing in the rubble-strewn courtyard of [siren.namePos] ruined citadel. Large, dark cracks split the stone floor and ceiling, and you have to weave around fallen boulders and smashed craters in order to continue forwards.
+	</p>
+	<p>
+		Every now and then, you hear the distinctive sound of a small rock or pebble tumbling down from one of the unstable piles of rubble, reminding you to be extra careful with your movements so as not to trigger another collapse.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COURTYARD"><![CDATA[
+	<p>
+		The citadel's large stone courtyard has been levelled and carved to resemble smooth flagstones, and it makes a nice change to be walking over such an even surface compared to the uneven floor of the cavern.
+	</p>
+	<p>
+		The huge, stone archway of the main keep overlooks this area, and you wonder if you should approach its massive wooden doors now, or come back another time.
+	</p>
+	]]>
+	</htmlContent>
+	
+
+	
+	<!-- WELL -->
+	
+	<htmlContent tag="WELL_RUINS"><![CDATA[
+	<p>
+		The entire left-hand side of the squat tower's wall has completely collapsed, burying the citadel's well under a pile of heavy stones and smashed masonry. If you hadn't already known that there was once a well here, you'd have no idea that there was anything of note beneath this ruined wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WELL"><![CDATA[
+	<p>
+		In one corner of the courtyard, a small, stone well has been constructed, complete with wooden bucket and turn handle. It looks to be completely functional, and from the splashes of water on the floor at its base, you can tell that it sees regular use.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- CELLS -->
+	
+	<htmlContent tag="CELLS_RUINS"><![CDATA[
+	<p>
+		The wooden door that once was fitted to the carved-out entranceway before you now lies splintered and broken at your feet. Peering inside the cell block, you see that past the first few metres of the entranceway, the entire structure has completely caved-in. You think how it was lucky there was nobody in there at the time of collapse.
+	</p>
+	<p>
+		With nothing more to be done here, you turn around and prepare to head back out into the courtyard.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CELLS"><![CDATA[
+	<p>
+		A sturdy wooden door has been fitted to the carved-out entranceway before you. As it's been left open, you're able to peer inside without entering, allowing you to see that, within, a block of four cells have been carved out of the cave's black rock. The front and sides of each of these cells are covered by heavy iron bars, and, within each one, a straw bed and wooden bucket have been placed against the far wall.
+	</p>
+	<p>
+		There are no prisoners or guards in here, and you wonder if this cell block has ever seen much use, or if it's mainly for show...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- LABORATORY -->
+	
+	<htmlContent tag="LABORATORY_RUINS"><![CDATA[
+	<p>
+		The squat tower which housed the citadel's laboratory is now in a very sorry state, with the entire of the left-hand wall having completely collapsed. Despite this, however, the entrance seems to be relatively undamaged, and you're able to venture a fair way inside before being halted by piles of rubble and debris.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_SEARCH"><![CDATA[
+	<p>
+		You decide to spend some time searching through the ruins of the laboratory, and, being careful not to disturb any of the piles of unstable rubble, you manage to find some things of value...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY"><![CDATA[
+	<p>
+		A squat, one-story tower has been built over on one side of the courtyard. As you approach, you find yourself thinking that it probably once served as the original keep, before the current one was carved into the cave's wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_IMPS_DEFEATED"><![CDATA[
+	<p>
+		The door to the tower has been left wide open, and, stepping inside, you find yourself once more in the large, round room which resembles Lilaya's laboratory. Long wooden tables have been placed around the area, and upon them, glass beakers and tubes are filled with dull-coloured, spoiled liquids. It's quite clear that this laboratory was the origin of the transformative potions being carried by Submission's imp gangs, although you wonder just how many of those potions were produced before you shut this place down.
+	</p>
+	<p>
+		There's absolutely no sign of [citadelArcanist.name], nor of any imps. Although she's been driven off, you can't help but shake the feeling that you haven't seen the last of [citadelArcanist.name]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_IMPS"><![CDATA[
+	<p>
+		The door to the tower has been left wide open, and, stepping inside, you find yourself in a large, round room. The interior reminds you of Lilaya's laboratory, and, while containing less equipment, this one looks to be far more productive. Long wooden tables have been placed around the area, and upon them, glass beakers and tubes are filled with bubbling, colourful liquids. It's quite clear that this laboratory is the origin of the transformative potions which are carried by Submission's imp gangs.
+	</p>
+	<p>
+		There are several imps scattered around the place, busily watching the equipment and making sure that nothing's going wrong. Overseeing them, over on the far side of the room, you see what appears at first to be a lesser-fox-girl. She appears to be busily working on enchanting various items of food and drink into transformative potions, and, although you think she must have noticed your entry, she doesn't seem to be at all bothered by your presence.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_IMPS_ARCANIST_MET"><![CDATA[
+	<p>
+		The door to the tower has been left wide open, and, stepping inside, you find yourself in a large, round room. The interior reminds you of Lilaya's laboratory, and, while containing less equipment, this one looks to be far more productive. Long wooden tables have been placed around the area, and upon them, glass beakers and tubes are filled with bubbling, colourful liquids. It's quite clear that this laboratory is the origin of the transformative potions which are carried by Submission's imp gangs.
+	</p>
+	<p>
+		There are several imps scattered around the place, busily watching the equipment and making sure that nothing's going wrong. Overseeing them, over on the far side of the room, you once again see [citadelArcanist.name], the lesser-youko-girl. She appears to be busily working on enchanting various items of food and drink into transformative potions, and, although you think she must have noticed your entry, she doesn't seem to be at all bothered by your presence.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- LABORATORY_ARCANIST -->
+	
+	<htmlContent tag="LABORATORY_ARCANIST"><![CDATA[
+	<p>
+		Wanting to talk to the fox-girl overseer, you head over towards the other side of the lab. From afar, you could see that she was wearing a lab coat and goggles, but as you get closer, you're able to take a better look at her, and note how her fox-like ears and tail are black, just like her long, straight hair. Her skin is very pale, and she has a slender body, with modestly-sized C-cup breasts. As she notices your approach, she turns towards you, and you see that her eyes are a beautiful shade of lilac.
+	</p>
+	<p>
+		[citadelArcanist.speech(Well, I don't think I've seen <i>you</i> before,)] she says, with a hint of amusement in her voice. [citadelArcanist.speech(You may address me as [citadelArcanist.name]. Who are you?)] 
+	</p>
+	#IF pc.hasTraitActivated(PERK_OBSERVANT)
+	#THEN
+		<p>
+			[pc.speech(I'm [pc.name],)] you respond. As you take another glance at [citadelArcanist.namePos] tail, you notice that she's actually got three, and is merely pretending to have only one by pushing them all together. [pc.speech(I didn't expect to see a three-tailed fox-girl in here.)]
+		</p>
+		<p>
+			[citadelArcanist.speech(Hehehe!)] [citadelArcanist.name] giggles, raising one of her slender hands to cover her mouth as she laughs at your assumption. [citadelArcanist.speech(A fox-girl?! Silly thing!)]
+		</p>
+		<p>
+			Before you're able to respond, [citadelArcanist.name] stops trying to pretend that she only has one tail, and, wrapping all three of them around her lower body, she coyly asks, [citadelArcanist.speech(What's the matter? You've never met a youko before? Well, I shouldn't be too surprised, you <i>do</i> look rather ignorant and dim-witted.)]
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(I'm [pc.name],)] you respond. [pc.speech(I didn't expect to see a fox-girl in here.)]
+		</p>
+		<p>
+			[citadelArcanist.speech(Hehehe!)] [citadelArcanist.name] giggles, raising one of her slender hands to cover her mouth as she laughs at your assumption. [citadelArcanist.speech(A fox-girl?! Silly thing!)]
+		</p>
+		<p>
+			Before you're able to respond, you see [citadelArcanist.namePos] tail suddenly split into three, and she wraps them around her lower body as she coyly asks, [citadelArcanist.speech(What's the matter? You've never met a youko before? Well, I shouldn't be too surprised, you <i>do</i> look rather ignorant and dim-witted.)]
+		</p>
+	#ENDIF
+	<p>
+		[pc.speech(Excuse me?)] you say, annoyed by this youko's rude behaviour.
+	</p>
+	<p>
+		[citadelArcanist.speech(Oh, do settle down,)] [citadelArcanist.name] dismissively states with a wave of her hand.
+		#IF pc.getRace()==RACE_FOX_MORPH
+		#THEN
+				 [citadelArcanist.speech(You know, it's a real shame that you're already a fox. I've crafted a potion that would have turned you into a cute fox-girl, but I don't want to waste it on someone who's already a fox...)]
+			<p>
+				#IF pc.isFeminine()
+				#THEN Before you can reply, she continues, [citadelArcanist.speech(Anyway, I must confess, I do find feminine foxes, such as yourself, quite irresistible... Why don't you come over here and get down on your knees, and I'll graciously let you lick my pussy...)]
+				#ELSE Before you can reply, she continues, [citadelArcanist.speech(Anyway, I must confess, I'm not too fond of masculinity... If you were to come back and visit after feminising yourself, I'll graciously let you lick my pussy...)]
+				#ENDIF
+			</p>
+		#ELSE
+			 [citadelArcanist.speech(You know, you look like the sort of submissive little toy that would be delighted to help me test my creations. You see, I've crafted a potion that should turn the drinker into a cute fox-girl. You want to help me test it, don't you?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_REPEAT"><![CDATA[
+	<p>
+		Wanting to talk to [citadelArcanist.name] again, you head over towards the other side of the lab. As the pale-skinned lesser-youko notices your approach, she turns towards you, locking her beautiful lilac eyes onto yours. [citadelArcanist.speech(Oh, it's <i>you</i> again; the annoying little [pc.race] who won't leave me alone.)]
+	</p>
+	<p>
+		[pc.speech(There's no need for that,)] you say, annoyed by this youko's rude greeting.
+	</p>
+	<p>
+		[citadelArcanist.speech(Oh, do be quiet, you silly little thing,)] [citadelArcanist.name] dismissively states with a wave of her hand.
+		#IF pc.getRace()==RACE_FOX_MORPH
+		#THEN
+				 [citadelArcanist.speech(Hmm, I still don't want to waste my potion on someone who's already a fox...)]
+			<p>
+				#IF pc.isFeminine()
+				#THEN Before you can reply, she continues, [citadelArcanist.speech(Anyway, I must confess, I do find feminine foxes, such as yourself, quite irresistible... Why don't you come over here and get down on your knees, and I'll graciously let you lick my pussy...)]
+				#ELSE Before you can reply, she continues, [citadelArcanist.speech(Anyway, I must confess, I'm not too fond of masculinity... If you were to come back and visit after feminising yourself, I'll graciously let you lick my pussy...)]
+				#ENDIF
+			</p>
+		#ELSE
+			 [citadelArcanist.speech(Have you come to accept that you're just a subby little toy, who should help me test my creations? This potion should turn you into a cute fox-girl. You'd like that, wouldn't you?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_REPEAT_NO_TF"><![CDATA[
+	<p>
+		Wanting to talk to [citadelArcanist.name] again, you head over towards the other side of the lab. As the pale-skinned lesser-youko notices your approach, she turns towards you, locking her beautiful lilac eyes onto yours. [citadelArcanist.speech(Oh, it's <i>you</i> again; the annoying little [pc.race] who won't leave me alone.)]
+	</p>
+	<p>
+		[pc.speech(There's no need for that,)] you say, annoyed by this youko's rude greeting.
+	</p>
+	<p>
+		[citadelArcanist.speech(Oh, do be quiet, you silly little thing,)] [citadelArcanist.name] dismissively states with a wave of her hand.
+		#IF pc.isFeminine()
+			#THEN Before you can reply, she continues, [citadelArcanist.speech(Anyway, I must confess, I do find feminine foxes, such as yourself, quite irresistible... Why don't you come over here and get down on your knees, and I'll graciously let you lick my pussy...)]
+			#ELSE Before you can reply, she continues, [citadelArcanist.speech(Anyway, I must confess, I'm not too fond of masculinity... If you were to come back and visit after feminising yourself, I'll graciously let you lick my pussy...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Responses: -->
+	
+	<htmlContent tag="LABORATORY_ARCANIST_DECLINE"><![CDATA[
+	<p>
+		[pc.speech(I don't like the sound of that,)] you say. [pc.speech(No thanks.)]
+	</p>
+	<p>
+		[citadelArcanist.speech(Suit yourself,)] [citadelArcanist.name] replies. [citadelArcanist.speech(Now shoo. I've got work to do.)]
+	</p>
+	<p>
+		Rolling your [pc.eyes] at this youko's rude, dismissive behaviour, you step away from her, and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ARCANIST_SOLO_START_SEX"><![CDATA[
+	<p>
+		[pc.speech(Oh, yes, of course!)] you eagerly reply, dropping down onto your knees in front of [citadelArcanist.name].
+	</p>
+	<p>
+		[citadelArcanist.speech(Good little toy,)] she says, smirking down at you. [citadelArcanist.speech(Now, remember, this is about <i>my</i> pleasure, not yours. I'm the only one who's going to get to orgasm here, understand?)]
+	</p>
+	<p>
+		[pc.speech(Wait, wha-)] you start, but [citadelArcanist.name] curls her tails around to smother your face and cut you off.
+	</p>
+	<p>
+		[citadelArcanist.speech(Hush now,)] she giggles. [citadelArcanist.speech(Just do as you're told!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ARCANIST_FIGHT_START"><![CDATA[
+	<p>
+		You don't like the way [citadelArcanist.name] is talking to you, and you certainly don't like the idea of letting her continue to manufacture these transformative potions. Stepping forwards in an aggressive manner, you state, [pc.speech(I think you need to be taught a lesson!)]
+	</p>
+	<p>
+		[citadelArcanist.speech(Hehehe!)] she giggles. [citadelArcanist.speech(What a silly little thing you are!)]
+	</p>
+	<p>
+		Before you can react, a huge cloud of smoke and sparks bursts forth around the youko, and, although it quickly clears, you see that [citadelArcanist.name] has completely vanished! The commotion alerts the imps in the laboratory, and, as they rush forwards to fight you, they call for reinforcement from elsewhere in the citadel...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- LABORATORY_ARCANIST_SOLO_TF -->
+	
+	<htmlContent tag="LABORATORY_ARCANIST_SOLO_TF"><![CDATA[
+	<p>
+		[pc.speech(Ok, I'll drink it,)] you say. [pc.speech(Being a fox-girl sounds kind of hot...)]
+	</p>
+	<p>
+		[citadelArcanist.speech(I knew you'd do it,)] [citadelArcanist.name] giggles. [citadelArcanist.speech(Now, open wide!)]
+	</p>
+	<p>
+		As the youko produces a bottle of glowing pink liquid, you do as she says, and open your mouth. Taking out the stopper, she brings the potion up to your waiting lips, and, tilting your head back a little, you obediently gulp down the cool, sweet concoction.
+	</p>
+	<p>
+		Immediately, a warm, tingling feeling starts to spread throughout your body, and you gasp as you feel yourself starting to transform...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_SOLO_TF_OFFER_SEX"><![CDATA[
+	<p>
+		[citadelArcanist.speech(Ooh, it all worked perfectly!)] [citadelArcanist.name] exclaims in delight. [citadelArcanist.speech(What a sexy little fox you've turned into!)]
+	</p>
+	<p>
+		Panting and gasping, you try to catch your breath and recover from the alarming process that your body has just been through. [pc.speech(I... Feel so... Different...)]
+	</p>
+	<p>
+		[citadelArcanist.speech(Silly thing, of course you do!)] [citadelArcanist.name] giggles. [citadelArcanist.speech(Mmm, you're a lot hotter than I thought you'd be... Hey, you're keen to have some fun with that new body of yours, right? Get down on your knees, and I'll let you lick my pussy!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_SOLO_TF_SEX_DECLINED"><![CDATA[
+	<p>
+		[pc.speech(Oh... Well, I don't know...)] you pant. [pc.speech(I don't want to do that.)]
+	</p>
+	<p>
+		[citadelArcanist.speech(Eugh, fine, whatever,)] [citadelArcanist.name] replies. [citadelArcanist.speech(Now shoo. I've got more work to do.)]
+	</p>
+	<p>
+		Rolling your [pc.eyes] at this youko's rude, dismissive behaviour, you step away from her, and wonder what to do with your new body...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_SOLO_TF_SEX_ACCEPTED"><![CDATA[
+	<p>
+		Already feeling turned on by your new, foxy body, you eagerly agree to [citadelArcanist.namePos] suggestion, and drop to your knees in front of her.
+	</p>
+	<p>
+		[citadelArcanist.speech(Good little toy,)] she says, smirking down at you. [citadelArcanist.speech(Now, remember, this is about <i>my</i> pleasure, not yours. I'm the only one who's going to get to orgasm here, understand?)]
+	</p>
+	<p>
+		[pc.speech(Wait, wha-)] you start, but [citadelArcanist.name] curls her tails around to smother your face and cut you off.
+	</p>
+	<p>
+		[citadelArcanist.speech(Hush now,)] she giggles. [citadelArcanist.speech(Just do as you're told!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- LABORATORY_ARCANIST_POST_SEX -->
+	
+	<htmlContent tag="LABORATORY_ARCANIST_POST_SEX_SOLO"><![CDATA[
+	<p>
+		Having had her fun, [citadelArcanist.name] steps back and pushes you away from her, before taunting, [citadelArcanist.speech(Hehe! That sure was fun... For <i>me</i>, that is. You'll just have to go and find some dirty imp to finish you off!)]
+	</p>
+	<p>
+		You let out a frustrated whine as you realise that the cruel youko isn't at all interested in bringing you to orgasm. Letting out another giggle, she continues, [citadelArcanist.speech(Now, go on, shoo! I've got more work to do.)]
+	</p>
+	<p>
+		Letting out a sigh in response to [citadelArcanist.namePos] rude, dismissive behaviour, you step away from her, and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- TREASURY -->
+	
+	<htmlContent tag="TREASURY_NOT_SEARCHED"><![CDATA[
+	<p>
+		Behind the siren's smashed throne, there's a small doorway, which has miraculously managed to avoid taking any damage from the citadel's collapse. Heading through this doorway, you find yourself entering a large room, which, just like the rest of the keep, has been carved out from the cavern's rock wall.
+	</p>
+	<p>
+		Unlike the doorway, this room has suffered significant damage. Huge piles of rubble make navigation an arduous task, and the vaulted ceiling is visibly buckling in several places.
+	</p>
+	<p>
+		It looks like this room was used for storage, and, despite the dangerous conditions, it would still be worth carefully searching amongst the rubble to see if you could find anything of value...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TREASURY_SEARCHED"><![CDATA[
+	<p>
+		You've already found everything of value that was hidden amongst the rubble, and, with the room having completely collapsed, there's nothing more that can be done in this area...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TREASURY_SEARCH"><![CDATA[
+	<p>
+		You spend a short while carefully searching through the rubble, making sure not to disturb any of the debris that looks to be particularly unstable. It doesn't take you long before you find a small chest, containing a considerable amount of flames.
+	<p>
+		Encouraged by this early success, the two of you continue searching, but, after ten more minutes, you've explored the entire room and haven't found anything else of value. Just as you're about to give up, you notice a door-shaped indentation in one of the few sections of wall left undamaged by the collapse. Pressing your [pc.hand] against it, you inadvertently trigger an internal mechanism of some kind, and the stone wall sinks into the floor to reveal a huge, undamaged wardrobe.
+	</p>
+	<p>
+		Unfortunately, this movement seems to set off a minor tremor in the unstable structure, and you quickly grab everything out of the wardrobe, before rushing off back to the entrance. Running as fast as you can, you dash out of the door and back into the throne room just as the entire ceiling collapses behind you!
+	</p>
+	<p>
+		Letting out a relieved sigh, you grin as you look down at what you managed to retrieve...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- KEEP -->
+	
+	<htmlContent tag="KEEP_DEFEATED"><![CDATA[
+	<p>
+		The siren's throne room is almost completely caved-in, and you find yourself thinking that it was a miracle how everyone was able to escape unharmed. The dias upon which her throne once stood is now buried under a mound of rubble and rock, but despite the ruinous state of this room, it looks like you'll be able to make your way around the piles of debris to reach the far side.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP"><![CDATA[
+	<p>
+		You find yourself standing before a huge, mined-out recess in the cavern's wall, which you assume to have been the source of all the stone blocks that were used in the construction of the citadel's walls, gateway, and inner tower. The floor has been smoothed right up to the far side of this cavity, where a gigantic stone archway, no less than twenty feet in height, houses a pair of massive, iron-reinforced wooden gates.
+	</p>
+	<p>
+		Knowing that this is where the dark siren resides, you wonder if you should push open the gates and make your entry now, or come back at another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_BACK_OFF"><![CDATA[
+	<p>
+		Thinking that you're not quite ready to confront [siren.name], you take a step back, and return to wandering around the citadel's stone courtyard...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	<!-- KEEP_ENTRY -->
+	
+	<htmlContent tag="KEEP_ENTRY"><![CDATA[
+	<p>
+		You decide that the time has come to face this 'dark siren', and so, steeling yourself for the worst, you step forwards and push on the heavy wooden gates.
+		#IF pc.hasStatusEffect(SE_PHYSIQUE_PERK_0)
+		#THEN As you're so weak, you struggle for quite some time to get them to move, but, eventually, you manage to get them to swing open before you, allowing you to step forwards into the keep.
+		#ELSE Thankfully, they're both unlocked and quite well balanced, and they readily swing open before you, allowing you to step forwards into the keep.
+		#ENDIF
+	</p>
+	<p>
+		You find yourself entering a great stone hall, which is bathed in the light of what must be close to a hundred arcane lanterns hanging from the high, vaulted ceiling. Around the edge of this hall, huge stone pillars have been carved from the dark black rock, and underfoot, the same obsidian stone has been cleverly worked into large slabs, the edges of which have been decorated with angular patterns.
+	</p>
+	<p>
+		The impressive architecture doesn't hold your attention for too long, however, as waiting right there in front of you are the three demons from the imp fortresses. [impMalesLeader.Name] appears to be the most senior of them, as he's standing at the head, with [impAlphaLeader.name] to his right, and [impFemalesLeader.name] to his left. As the huge wooden gates swing shut behind you, he smirks and asks, [impMalesLeader.speech(What? You didn't expect us to let you walk right up to the dark siren, did you?)]
+	</p>
+	<p>
+		Looking past these demons, you see a raised dias, and upon the top, there sits a dark stone throne. Sitting upon this seat of power is the citadel's leader, the dark siren herself. Although the rest of this huge hall is well lit by the arcane lanterns, the figure sitting upon the throne itself is curiously shrouded in shadow.
+		#IF pc.hasTraitActivated(PERK_CHUUNI)
+		#THEN Wanting this reclusive leader of the imp gangs to reveal herself, you call out your challenge, [pc.speech(So you're the one who presumes to call herself the 'dark siren', are you?! It's time for you to meet your end!)]
+		#ELSE Wanting this reclusive leader of the imp gangs to reveal herself, you call out, [pc.speech(So you're the one who's responsible for the imp gangs terrorising the tunnels of Submission! I've come to put a stop to all that, siren!)]
+		#ENDIF
+	</p>
+	<p>
+		[siren.speech(Siren?)] a surprisingly small and high-pitched voice calls out from the shadows. [siren.speech(Do you not know whom you address? I, the unraveller of fates, destroyer of worlds, recognised daughter of Lyssieth herself! My name strikes fear into the hearts of demon and human alike! Cower in terror, you mere mortal, as I prepare to reveal my true identity!)]
+	</p>
+	<p>
+		#IF pc.hasTraitActivated(PERK_CHUUNI)
+		#THEN You can't help but notice [impAlphaLeader.name] flinching at the siren's impressive introduction, but, as intimidating as she may be, you know that she's no match for your ultimate power!
+		#ELSE You can't help but notice [impAlphaLeader.name] flinching at the siren's cringe-worthy introduction, and, as she describes herself as the 'destroyer of worlds', you find yourself letting out a low groan as you share in the second-hand embarrassment.
+		#ENDIF
+		 Looking up at the raised dias, you see the leader of these demons standing up, and as she steps forwards into the light, you find yourself looking upon a rather surprising figure.
+	</p>
+	<p>
+		Not only is the siren a half-demon, just like Lilaya, she's also surprisingly small and fresh-faced. From her appearance, she definitely looks to be no older than eighteen or nineteen, and stands at a rather diminutive five feet tall. Unlike all the other succubi you've seen, she's completely lacking any curvaceous, womanly parts, as not only is she almost completely flat-chested, but she also has a small ass and only slightly girly hips.
+	</p>
+	<p>
+		As well as her diminutive physical qualities, the siren's choice of outfit is also not quite what you'd expected. She's wearing a Witch's dress, boots, and wide-brimmed hat, with a black, purple-trimmed cape to finish it off. An impressive pentagram-themed amulet is hanging around her neck, and, most curiously of all, she's got a square, white eyepatch over her right eye.
+	</p>
+	<p>
+		Far more alarming than anything else, however, is the huge, arcane-bladed scythe that she's holding in her right hand. Although it's taller than the siren by a good foot or so, and, besides the green, ethereal blade, appears to be made out of heavy metal, the small succubus shows no sign of struggling to wield it. Smirking down at you as she sees what it is you're looking at, the siren calls out, [siren.speech(Foolish mortal! Know now who it is who will deliver unto you the humiliation of crushing defeat! I, the dark siren, shatterer of dimensions, am none other than [siren.name], Lyssieth's favoured child! If you foolishly wish to face me in battle, then first you must vanquish my demon lieutenants! ~Mwhaha!~)]
+	</p>
+	<p>
+		As she says this, the three demons start to move forwards, and you realise that you only have a moment in which to react before they attack you!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY_RETURN"><![CDATA[
+	<p>
+		Once again, you decide to try and confront and defeat [siren.name], and so, steeling yourself for the fight to come, you step forwards and push on the heavy wooden gates.
+		#IF pc.hasStatusEffect(SE_PHYSIQUE_PERK_0)
+		#THEN As you're so weak, you struggle for quite some time to get them to move, but, eventually, you manage to get them to swing open before you, allowing you to step forwards into the keep.
+		#ELSE Thankfully, they're both unlocked and quite well balanced, and they readily swing open before you, allowing you to step forwards into the keep.
+		#ENDIF
+	</p>
+	<p>
+		The great stone hall looks exactly as it did the last time you were here, and is still illuminated by what must be close to a hundred arcane lanterns hanging from the high, vaulted ceiling. Around the edge of the hall, huge stone pillars have been carved from the dark black rock, and underfoot, the same obsidian stone has been cleverly worked into large slabs, the edges of which have been decorated with angular patterns.
+	</p>
+	<p>
+		Just as before, the three demon lieutenants are waiting right there in front of you. [impMalesLeader.Name] appears to be the most senior of them, as he's standing at the head, with [impAlphaLeader.name] to his right, and [impFemalesLeader.name] to his left. As the huge wooden gates swing shut behind you, he smirks and asks, [impMalesLeader.speech(Back again, [pc.race]? Didn't you learn your lesson the last time?)]
+	</p>
+	<p>
+		#IF pc.hasTraitActivated(PERK_CHUUNI)
+		#THEN Before you can answer, [siren.name] herself stands up from her throne, and delivers yet another impressive speech,
+		#ELSE Before you can answer, [siren.name] herself stands up from her throne, and delivers yet another cringe-worthy speech,
+		#ENDIF
+		 [siren.speech(You would dare to return to the hall of the most feared arcane user the world has ever witnessed? You foolish mortal! Prepare to be vanquished!)]
+	</p>
+	<p>
+		As the small half-succubus says this, the three demons start to move forwards, and you realise that you only have a moment in which to react before they attack you!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY_RING"><![CDATA[
+	<p>
+		<i>Telling the Siren about Lyssieth's ring would undoubtedly raise her suspicions. You could probably find an opportunity to trick her into wearing it after you've dealt with these demons.</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_DEMONS_DEFEATED -->
+	
+	<htmlContent tag="KEEP_DEMONS_DEFEATED"><![CDATA[
+	<p>
+		[impMalesLeader.speech(Mistress, w-we've failed you!)] [impMalesLeader.name] cries out, before collapsing to the floor beside [impAlphaLeader.name] and [impFemalesLeader.name].
+	</p>
+	<p>
+		Looking over at the siren's throne, you see [siren.name] stepping down from the raised dias as she laughs, [siren.speech(Fool! Now you shall witness my vast astronomical powers! The very fabric of space and time bends to my will!)]
+	</p>
+	<p>
+		Thrusting one foot forwards, [siren.name] strikes a heroic pose, and, lifting her huge scythe above her head with one arm, she effortlessly twirls it around in an impressive display of strength and finesse. Reaching up to grab the shaft with her other hand, she then swings it around into a low-ready position, before letting out another #IFpc.hasTraitActivated(PERK_CHUUNI)#THENspirited#ELSEridiculous#ENDIF laugh, [siren.speech(~Mwhaha!~ Prepare for your obliteration!)]
+	</p>
+	<p>
+		You don't have any time in which to recover from your fight against the demons, as [siren.name] prepares to immediately fight you one-on-one!
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_CHALLENGE -->
+	
+	<htmlContent tag="KEEP_CHALLENGE"><![CDATA[
+	<p>
+		As impressive as [siren.namePos] speech was, you know that she's no match for your indomitable might. Knowing that it's a waste of your precious time to be swatting these pathetic demons out of your way, you smirk at the half-succubus and call out, [pc.speech(Big words, from someone too terrified to fight me one-on-one! I honestly expected more from someone calling herself the 'dark siren', but I see that you're just another poser, hiding behind her minions!)]
+	</p>
+	<p>
+		[siren.speech(You dare speak to me in such a manner?! Have you no understanding of the arcane powers that I wield? You are nothing to me!)] [siren.name] replies, stepping down from her dias. While this forwards movement was undoubtedly intended to intimidate you, the loss of the extra height afforded to her by her raised platform causes her to end up being hidden behind her demon lieutenants. In a flustered attempt to resolve this issue, she calls out, [siren.speech(S-Stand aside, minions!)]
+	</p>
+	<p>
+		As the demons do as they're commanded, you respond to the siren's last threat, [pc.speech(You think that I, [pc.master] of the arcane, vanquisher of demons, and future ruler of all Dominion, would consider one as weak as you to be a threat?! Foolish succubus! I'll give you one chance to surrender, as a symbol of my supreme mercy!)]
+	</p>
+	<p>
+		[siren.Name] uses her telekinetic arcane power to swish her cape out behind her as she replies, [siren.speech(What an ignorant fool! The very heavens themselves shall bear witness as I unleash my cataclysmic powers upon you!)]
+	</p>
+	<p>
+		[pc.speech(I laugh at your idle threats! The cosmic forces of the universe itself obey my every command, and I need but a fraction of my immense power to defeat one such as you!)]
+	</p>
+	<p>
+		The three demon lieutenants flinch and groan as you and [siren.name] continue to hurl increasingly-outrageous challenges at one another. Knowing that there's surely no possibility of their reactions being from embarrassment, you realise that just the mere threat of unleashing your true power is terrifying them. Not wanting them to suffer too much, you smirk at [siren.name] as you deliver your ultimatum, [pc.speech(So, siren, dare you face me one-on-one and put your words to the test? Or are you just another poser, like the countless thousands that I've already vanquished?)]
+	</p>
+	<p>
+		[siren.speech(You'll pay dearly for your insults! Of course I'll face you one-on-one!)] [siren.name] shouts. [siren.speech(Stand back, you three, and don't you dare interfere in our duel!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE_RING"><![CDATA[
+	<p>
+		<i>Now would be the perfect time to try and trick [siren.name] into wearing Lyssieth's ring!</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_CHALLENGE_RING_TRICK -->
+	
+	<htmlContent tag="KEEP_CHALLENGE_RING_TRICK"><![CDATA[
+	<p>
+		[pc.speech(I knew you wouldn't back down from the challenge,)] you say, [pc.speech(but it really is pointless for you to try and best me. After all, I have the blessing of Lyssieth herself! That's right, your mother has lent me her power in order to defeat you!)]
+	</p>
+	<p>
+		Producing the signet ring that Elizabeth, the captain of Lyssieth's guard, gave to you, you hold it up to the light to show to [siren.name]. As she sees what it is you're holding, her defiant expression suddenly breaks, and it almost looks and sounds as though she's about to burst into tears as she screams, [siren.speech(Give that back! M-Mother would never give that to someone like you! Y-You've stolen it! <i>Give it back!</i>)]
+	</p>
+	<p>
+		You shake your head in refusal, and, putting on your most antagonising smirk, you continue to hold the ring up in such a way that it would be easy to have it knocked from your [pc.hand]. Your provocative display causes [siren.namePos] emotions to get the better of her, and, not thinking clearly, she falls for your trick. Screaming once more to hand over her mother's ring, [npc.name] suddenly casts a weak version of the spell, 'slam', which you allow to hit your outstretched [pc.arm] and, causing you to drop the ring to the floor.
+	</p>
+	<p>
+		Immediately, [siren.name] uses her telekinetic arcane power to pull the ring into her outstretched palm, and, letting out a triumphant laugh, she instantly puts it on. [siren.speech(~Mwhaha!~ Oh, you'll pay <i>dearly</i> for stealing mother's ring! Why, I'll... W-Wait... What is this?!)]
+	</p>
+	<p>
+		The arcane enchantment woven into the ring suddenly takes effect, cutting [siren.namePos] gloating short as bright red letters appear in the air before her;
+	</p>
+	<p style='text-align:center;'>
+		<i>Slave identification: [style.boldArcane([siren.name])]</i><br/>
+		<i>Lilin owner detected; [style.boldArcane(Lyssieth)]</i><br/>
+		<i>Bypass slave administration - Slave teleportation diverted to Lyssieth's Palace</i>
+	</p>
+	<p>
+		[siren.speech(No!)] [siren.name] screeches, and, just before she disappears from sight, she swings her scythe around over her head, before slamming the base of the shaft onto the stone floor. Lifting up her eyepatch, she reveals that her irises are heterochromatic, and, while her left eye is green, the one that she's just revealed is glowing purple. With a maniacal laugh, she calls out, [siren.speech(Siren's call, obliterate [pc.herHim]! I'll get my reven-)]
+	</p>
+	<p>
+		As [siren.name] suddenly vanishes mid-sentence, the arcane spell which she just unleashed takes effect, and a loud, piercing screech echoes out around the huge throne room. You and the three demon lieutenants all cover your ears, flinching as the reverberating wail causes the ground to rumble and shake. Thankfully, this loud noise quickly fades away, but as it does, the huge stone slabs beneath your feet start to crack and break apart. From these fissures in the floor, arcane poison starts to spew forth, and, as you start to step back towards the exit, the resonating vibrations from this powerful spell cause a huge chunk of rock to suddenly split from the ceiling, which then falls to crash directly onto the siren's vacated throne.
+	</p>
+	<p>
+		[impMalesLeader.speech(Get out of here!)] [impMalesLeader.name] shouts, grabbing [impAlphaLeader.name] and [impFemalesLeader.name] by the arms and running towards the exit.
+	</p>
+	<p>
+		The siren's spell appears to have inadvertently caused the entire underground citadel to start to collapse, and, as you hurry to follow the three demons, yet more chunks of the ceiling start to break apart and fall to the floor with resounding crashes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE_RING_TRICK_ESCAPE"><![CDATA[
+	<p>
+		You rush out of the throne room's huge stone archway to discover that the siren's spell is causing the entire citadel to collapse. Huge sections of the cavern's ceiling are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
+	</p>
+	<p>
+		Thankfully, it looks as though the rest of the citadel's residents immediately started evacuating at the first sign of danger, and, over on the far side of the courtyard, the last group of imps are rushing out of the main gateway. With your heart pounding in your chest,
+		#IF pc.isAbleToFly()
+		#THEN you make good use of your ability to fly, and swiftly dart through the air, dodging falling boulders and collapsing masonry before following the three demons out through the main gates into Submission's cavern.
+		#ELSE
+			#IF pc.getRace()==RACE_SQUIRREL_MORPH || pc.getRace()==RACE_CAT_MORPH
+			#THEN you make good use of your body's agility to dodge falling boulders and collapsing masonry as you rush across the courtyard and follow the three demons out into Submission's cavern.
+			#ELSE you somehow manage to dodge all of the falling boulders and collapsing masonry as you rush across the courtyard and follow the three demons out into Submission's cavern.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Miraculously, you see that everyone within the citadel managed to make it out without serious injury, but, while that's a relief for everybody involved, your troubles aren't over yet. Surrounding the main gates, and with arcane muskets at the ready, there are at least thirty of Lyssieth's elite guard, who are busy taking all of the escaping imps into custody. Several of them are also talking to [siren.namePos] lieutenants, but, due to their demon status, it looks like they're going to be released without anything happening to them.
+	</p>
+	<p>
+		There's no hope of any escape from this situation, and as you wonder what to do next, the half-succubus officer in charge points at you and orders, [genericFemale.speech(Stop! You there, [pc.race], explain to me what's going on, right this instant!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE_RING_TRICK_ESCAPE_NO_IMPS"><![CDATA[
+	<p>
+		You rush out of the throne room's huge stone archway to discover that the siren's spell is causing the entire citadel to collapse. Huge sections of the cavern's ceiling are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
+	</p>
+	<p>
+		Thankfully, you've already defeated and driven out all of the residents of the citadel, so, other than you and the demon lieutenants, nobody is in any danger. With your heart pounding in your chest,
+		#IF pc.isAbleToFly()
+		#THEN you make good use of your ability to fly, and swiftly dart through the air, dodging falling boulders and collapsing masonry before following the three demons out through the main gates into Submission's cavern.
+		#ELSE
+			#IF pc.getRace()==RACE_SQUIRREL_MORPH || pc.getRace()==RACE_CAT_MORPH
+			#THEN you make good use of your body's agility to dodge falling boulders and collapsing masonry as you rush across the courtyard and follow the three demons out into Submission's cavern.
+			#ELSE you somehow manage to dodge all of the falling boulders and collapsing masonry as you rush across the courtyard and follow the three demons out into Submission's cavern.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Miraculously, you see that the four of you managed to make it out without injury, but, while that's a relief for everybody involved, your troubles aren't over yet. Surrounding the main gates, and with arcane muskets at the ready, there are at least thirty of Lyssieth's elite guard. Several of them are talking to [siren.namePos] lieutenants, but, due to their demon status, it looks like they're going to be released without anything happening to them.
+	</p>
+	<p>
+		There's no hope of any escape from this situation, and as you wonder what to do next, the half-succubus officer in charge points at you and orders, [genericFemale.speech(Stop! You there, [pc.race], explain to me what's going on, right this instant!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- KEEP_COLLAPSE_ESCAPE -->
+	
+	<!--Escape after enslaving dark siren with ring:-->
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN"><![CDATA[
+	<p>
+		With little choice but to do as you're told, you explain to the officer that you were instructed by Elizabeth to apprehend [siren.name]. Recounting how you were able to trick her into wearing the enslavement ring, you describe how she was able to cast one final spell before vanishing, which caused the citadel to collapse.
+	</p>
+	<p>
+		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, have you heard anything from the palace?)]
+	</p>
+	<p>
+		The half-succubus which she addresses appears to be carrying a strange purple stone, and, after staring intensely at it for a moment, she looks up and replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The Captain did ask [pc.herHim] to help with subduing [siren.name], who is now safely with Lyssieth.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_IMPS"><![CDATA[
+	<p>
+		[genericFemale.speech(Well, in that case, you have our sincere thanks,)] the officer says to you. [genericFemale.speech(I've lost count of how many days we've been camped out, watching the gates of that citadel. Lyssieth has been wanting to have her daughter reigned in for quite some time, but [siren.name] obviously knew this, and didn't dare leave her fortress. Anyway, thanks to you, this whole ordeal is now over. These imps are responsible for countless muggings and assaults, so we'll get them handed over to the enforcers, who I'm sure will take great pleasure in having them all enslaved.)]
+	</p>
+	<p>
+		With that, the officer turns around and orders her subordinates to round up the imps. As they're about to march off to the nearest Enforcer post, she turns around and calls out, [genericFemale.speech(Thank you again for your assistance!)]
+	</p>
+	<p>
+		As Lyssieth's guards head off into Submission's tunnels, you turn back towards the citadel. It looks like the collapse has come to a complete halt, and you wonder if you should head back through the gates and explore the ruins...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_NO_IMPS"><![CDATA[
+	<p>
+		[genericFemale.speech(Well, in that case, you have our sincere thanks,)] the officer says to you. [genericFemale.speech(I've lost count of how many days we've been camped out, watching the gates of that citadel. Lyssieth has been wanting to have her daughter reigned in for quite some time, but [siren.name] obviously knew this, and didn't dare leave her fortress. Anyway, thanks to you, this whole ordeal is now over. We'll be on our way.)]
+	</p>
+	<p>
+		With that, the officer turns around and orders her subordinates to form up. As they're about to march off back to Lyssieth's palace, she turns around and calls out, [genericFemale.speech(Thank you again for your assistance!)]
+	</p>
+	<p>
+		As the demon guards head off into Submission's tunnels, you turn back towards the citadel. It looks like the collapse has come to a complete halt, and you wonder if you should head back through the gates and explore the ruins...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--Escape with dark siren:-->
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE"><![CDATA[
+	<p>
+		With little choice but to do as you're told, you explain to the officer that you were instructed by Elizabeth to apprehend [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
+	</p>
+	<p>
+		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, have you heard anything from the palace?)]
+	</p>
+	<p>
+		The half-succubus which she addresses appears to be carrying a strange purple stone, and, after staring intensely at it for a moment, she looks up and replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The Captain did ask [pc.herHim] to help with subduing [siren.name].)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE_PRE_QUEST"><![CDATA[
+	<p>
+		With little choice but to do as you're told, you explain to the officer that you were trying to put an end to the imp gangs by confronting [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
+	</p>
+	<p>
+		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, have you informed the palace of these developments?)]
+	</p>
+	<p>
+		The half-succubus which she addresses appears to be carrying a strange purple stone, and, after staring intensely at it for a moment, she looks up and replies, [style.speechFeminineStrong(Yes, Ma'am. The Captain has asked that this [pc.race]  be offered our gratitude for [pc.her] help in subduing [siren.name].)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_AFTER_COMBAT_VICTORY -->
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		[siren.speech(I-Impossible!)] [siren.name] weakly cries out, stumbling backwards and panting for breath. Summoning the last of her strength, she lifts her scythe up above her head, before slamming the base of the shaft down onto the stone floor. Lifting up her eyepatch, she reveals that her irises are heterochromatic, and, while her left eye is green, the one that she's just revealed is glowing purple. With a maniacal laugh, she calls out, [siren.speech(Siren's call, obliterate [pc.herHim]! I'll get my revenge...)]
+	</p>
+	<p>
+		With the very last of her aura's power drained by the spell she's just unleashed, the siren weakly collapses down onto the floor in front of you. Before you're able to take any further action, a loud, piercing screech suddenly echoes out around the huge throne room. You and the three demon lieutenants all cover your ears, flinching as the reverberating wail causes the ground to rumble and shake. Thankfully, this loud noise quickly fades away, but as it does, the huge stone slabs beneath your feet start to crack and break apart. From these fissures in the floor, arcane poison starts to spew forth, and, as you leap out of the way of this, the resonating vibrations from [siren.namePos] powerful spell cause a huge chunk of rock to suddenly split from the ceiling, which then falls to crash directly onto the siren's vacated throne.
+	</p>
+	<p>
+		[impMalesLeader.speech(We have to get out of here!)] [impMalesLeader.name] shouts, grabbing [impAlphaLeader.name] and [impFemalesLeader.name] by the arms and pushing them towards the exit. [impMalesLeader.speech(Run!)]
+	</p>
+	<p>
+		The siren's spell appears to have inadvertently caused the entire underground citadel to start to collapse, and, as the three demons move to make their escape, yet more chunks of the ceiling start to break apart and fall to the floor with resounding crashes.
+	</p>
+	<p>
+		[npc.speech(H-Help!)] [siren.name] weakly cries out, clearly too exhausted to escape this terrible danger without your assistance...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT_HERO"><![CDATA[
+	#IF pc.getHeightValue()>siren.getHeightValue()
+	#THEN
+		<p>
+			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Dodging a falling chunk of the ceiling, you rush over to where she's lying on the floor, and, scooping her up in your [pc.arms], you turn and rush out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's roof are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
+		</p>
+		<p>
+			Thankfully, it looks as though the rest of the citadel's residents immediately started evacuating at the first sign of danger, and, over on the far side of the courtyard, the last group of imps are rushing out of the main gateway. With your heart pounding in your chest, and the small siren cowering in your [pc.arms], you somehow manage to dodge all of the falling boulders and collapsing masonry as you rush across the courtyard and follow the three demons out into Submission's cavern.
+		</p>
+		<p>
+			Miraculously, you see that everyone within the citadel managed to make it out without serious injury, but, while that's a relief for everybody involved, your troubles aren't over yet. Surrounding the main gates, and with arcane muskets at the ready, there are at least thirty of Lyssieth's elite guard, who are busy taking all of the escaping imps into custody. Several of them are also talking to [siren.namePos] lieutenants, but, due to their demon status, it looks like they're going to be released without anything happening to them.
+			
+		</p>
+		<p>
+			There's no hope of any escape from this situation, and as you wonder what to do next, the half-succubus officer in charge points at you and orders, [genericFemale.speech(Stop! You there, [pc.race], release [siren.name], right this instant!)]
+		</p>
+		<p>
+			Realising what you've just done, and that she's about to be taken away, [siren.name] blushes as she looks up into your eyes. [siren.speech(Y-You saved me... If it wasn't for you, w-well... Thank you!)]
+		</p>
+	#ELSE
+		<p>
+			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Dodging a falling chunk of the ceiling, you rush over to where she's lying on the floor, and, helping her up onto her feet, you loop one of her arms around your shoulders. Half-carrying, half-supporting the exhausted siren, you hurry as fast as you can out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's roof are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
+		</p>
+		<p>
+			Thankfully, it looks as though the rest of the citadel's residents immediately started evacuating at the first sign of danger, and, over on the far side of the courtyard, the last group of imps are rushing out of the main gateway. With your heart pounding in your chest, and the small siren cowering against your chest, you somehow manage to dodge all of the falling boulders and collapsing masonry as you rush across the courtyard and follow the three demons out into Submission's cavern.
+		</p>
+		<p>
+			Miraculously, you see that everyone within the citadel managed to make it out without serious injury, but, while that's a relief for everybody involved, your troubles aren't over yet. Surrounding the main gates, and with arcane muskets at the ready, there are at least thirty of Lyssieth's elite guard, who are busy taking all of the escaping imps into custody. Several of them are talking to [siren.namePos] lieutenants, but, due to their demon status, it looks like they're going to be released without anything happening to them.
+		</p>
+		<p>
+			There's no hope of any escape from this situation, and as you wonder what to do next, the half-succubus officer in charge points at you and orders, [genericFemale.speech(Stop! You there, [pc.race], release [siren.name], right this instant!)]
+		</p>
+		<p>
+			Realising what you've just done, and that she's about to be taken away, [siren.name] blushes as she looks up into your eyes. [siren.speech(Y-You saved me... If it wasn't for you, w-well... Thank you!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT_HERO_NO_IMPS"><![CDATA[
+	#IF pc.getHeightValue()>siren.getHeightValue()
+	#THEN
+		<p>
+			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Dodging a falling chunk of the ceiling, you rush over to where she's lying on the floor, and, scooping her up in your [pc.arms], you turn and rush out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's roof are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
+		</p>
+		<p>
+			You've already defeated and driven out all of the residents of the citadel, so, other than you, [siren.name], and the demon lieutenants, nobody is in any danger. With your heart pounding in your chest, and the small siren cowering in your [pc.arms], you somehow manage to dodge all of the falling boulders and collapsing masonry as you rush across the courtyard and follow the three demons out into Submission's cavern.
+		</p>
+			Miraculously, all five of you manage to make it out without injury, but, while that's a relief for everybody involved, your troubles aren't over yet. Surrounding the main gates, and with arcane muskets at the ready, there are at least thirty of Lyssieth's elite guard. Several of them are talking to [siren.namePos] lieutenants, but, due to their demon status, it looks like they're going to be released without anything happening to them.
+		</p>
+		<p>
+			There's no hope of any escape from this situation, and as you wonder what to do next, the half-succubus officer in charge points at you and orders, [genericFemale.speech(Stop! You there, [pc.race], release [siren.name], right this instant!)]
+		</p>
+		<p>
+			Realising what you've just done, and that she's about to be taken away, [siren.name] blushes as she looks up into your eyes. [siren.speech(Y-You saved me... If it wasn't for you, w-well... Thank you!)]
+		</p>
+	#ELSE
+		<p>
+			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Dodging a falling chunk of the ceiling, you rush over to where she's lying on the floor, and, helping her up onto her feet, you loop one of her arms around your shoulders. Half-carrying, half-supporting the exhausted siren, you hurry as fast as you can out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's roof are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
+		</p>
+		<p>
+			You've already defeated and driven out all of the residents of the citadel, so, other than you, [siren.name], and the demon lieutenants, nobody is in any danger. With your heart pounding in your chest, and the small siren cowering against your chest, you somehow manage to dodge all of the falling boulders and collapsing masonry as you rush across the courtyard and follow the three demons out into Submission's cavern.
+		</p>
+		<p>
+			Miraculously, all five of you manage to make it out without injury, but, while that's a relief for everybody involved, your troubles aren't over yet. Surrounding the main gates, and with arcane muskets at the ready, there are at least thirty of Lyssieth's elite guard. Several of them are talking to [siren.namePos] lieutenants, but, due to their demon status, it looks like they're going to be released without anything happening to them.
+		</p>
+		<p>
+			There's no hope of any escape from this situation, and as you wonder what to do next, the half-succubus officer in charge points at you and orders, [genericFemale.speech(Stop! You there, [pc.race], release [siren.name], right this instant!)]
+		</p>
+		<p>
+			Realising what you've just done, and that she's about to be taken away, [siren.name] blushes as she looks up into your eyes. [siren.speech(Y-You saved me... If it wasn't for you, w-well... Thank you!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT_HERO_END"><![CDATA[
+	<p>
+		Realising that you have no choice but to do as the officer says, you carefully let [npc.name] down to stand on her own two feet. Immediately, four of Lyssieth's guards step forwards, and, looping their arms under [siren.namePos], they march off in the direction of her mother's palace.
+	</p>
+	<p>
+		[genericFemale.speech(Now, you can explain to us exactly what's going on!)] the officer says, impatiently tapping her foot as she waits for your response.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT"><![CDATA[
+	<p>
+		There's no way that you're going to risk your life to save [siren.name]! Turning your back on her, you rush out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's ceiling are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
+	</p>
+	<p>
+		Seeing that you've exited the throne room without [siren.name], [impMaleLeader.name] runs back towards you, before rushing past and heroically charging into the collapsing keep.
+	</p>
+	<p>
+		Thankfully, it looks as though the rest of the citadel's residents immediately started evacuating at the first sign of danger, and, over on the far side of the courtyard, the last group of imps are rushing out of the main gateway. With your heart pounding in your chest,
+		#IF pc.isAbleToFly()
+		#THEN you make good use of your ability to fly, and swiftly dart through the air, dodging falling boulders and collapsing masonry before following the two demons out through the main gates into Submission's cavern.
+		#ELSE
+			#IF pc.getRace()==RACE_SQUIRREL_MORPH || pc.getRace()==RACE_CAT_MORPH
+			#THEN you make good use of your body's agility to dodge falling boulders and collapsing masonry as you rush across the courtyard and follow the two demons out into Submission's cavern.
+			#ELSE you somehow manage to dodge all of the falling boulders and collapsing masonry as you rush across the courtyard and follow the two demons out into Submission's cavern.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Miraculously, you see that everyone within the citadel managed to make it out without serious injury, but, while that's a relief for everybody involved, your troubles aren't over yet. Surrounding the main gates, and with arcane muskets at the ready, there are at least thirty of Lyssieth's elite guard, who are busy taking all of the escaping imps into custody. Several of them are talking to [siren.namePos] lieutenants, but, due to their demon status, it looks like they're going to be released without anything happening to them.
+	</p>
+	<p>
+		There's no hope of any escape from this situation, and as you wonder what to do next, the half-succubus officer in charge points at you and orders, [genericFemale.speech(Stop! You there, [pc.race], explain to me what's going on, right this instant!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT_NO_IMPS"><![CDATA[
+	<p>
+		There's no way that you're going to risk your life to save [siren.name]! Turning your back on her, you rush out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's ceiling are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
+	</p>
+	<p>
+		Seeing that you've exited the throne room without [siren.name], [impMaleLeader.name] runs back towards you, before rushing past and heroically charging into the collapsing keep.
+	</p>
+	<p>
+		Thankfully, you've already defeated and driven out all of the residents of the citadel, so, other than you, [siren.name], and the demon lieutenants, nobody is in any danger. With your heart pounding in your chest,
+		#IF pc.isAbleToFly()
+		#THEN you make good use of your ability to fly, and swiftly dart through the air, dodging falling boulders and collapsing masonry before following the two demons out through the main gates into Submission's cavern.
+		#ELSE
+			#IF pc.getRace()==RACE_SQUIRREL_MORPH || pc.getRace()==RACE_CAT_MORPH
+			#THEN you make good use of your body's agility to dodge falling boulders and collapsing masonry as you rush across the courtyard and follow the two demons out into Submission's cavern.
+			#ELSE you somehow manage to dodge all of the falling boulders and collapsing masonry as you rush across the courtyard and follow the two demons out into Submission's cavern.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Miraculously, the three of you manage to make it out without injury, and, just a few seconds afterwards, [impMaleLeader.name] staggers out with [siren.name] in his arms. While everybody's safe escape is a relief for all involved, your troubles aren't over yet. Surrounding the main gates, and with arcane muskets at the ready, there are at least thirty of Lyssieth's elite guard. Several of them pull [siren.namePos] lieutenants to one side, but, due to their demon status, it looks like they're going to be released without anything happening to them.
+	</p>
+	<p>
+		[siren.speech(I can't believe you were going to leave me to die in there!)] [siren.name] shouts at you as four of the guards start dragging her away in the direction of her mother's palace. [siren.speech(I hate you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT_END"><![CDATA[
+	<p>
+		[genericFemale.speech(Now, you can explain to us exactly what's going on!)] the half-succubus officer in charge says, impatiently tapping her foot as she waits for your response.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_AFTER_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="KEEP_CHALLENGE_LEADER_DEFEAT"><![CDATA[
+	<p>
+		You're unable to continue fighting the three demons, and, staggering back, you collapse to the floor, defeated.
+	</p>
+	<p>
+		[siren.speech(~Mwhaha!~)] [siren.name] laughs. [siren.speech(You weren't even a match for my lieutenants! Count yourself lucky that I wasn't forced to unleash my vast arcane power upon you! Now... I think you need to be punished!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE_BOSS_DEFEAT"><![CDATA[
+	<p>
+		You're unable to continue fighting, and, staggering back, you collapse to the floor, defeated.
+	</p>
+	<p>
+		[siren.speech(~Mwhaha!~)] [siren.name] laughs. [siren.speech(You were no match for my colossal power, just as I expected! Count yourself lucky that I chose to hold back; if I'd have unleashed my full power, who knows what'd have happened to you! Now... I think you need to be punished!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SIREN_VOYEUR"><![CDATA[
+	<p>
+		You look up to see a delighted grin on the siren's face, and as you let out a heavy sigh, she commands her lieutenants, [siren.speech(You three! Restrain [pc.herHim]! I want to watch you fuck [pc.herHim]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_NO_NON_CON"><![CDATA[
+	<p>
+		You look up to see a delighted grin on the siren's face, and as you let out a heavy sigh, she commands her lieutenants, [siren.speech(You three! Throw [pc.herHim] out of my citadel!)]
+	</p>
+	<p>
+		As the demons grab you under your [pc.arms] and lift you up, [siren.name] shouts, [siren.speech(If you dare to return, I'll be more than happy to destroy you all over again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
+	<p>
+		You don't mind the sound of that, and, as [siren.name] sits back on her throne to watch, you allow the three demons to move you into position, ready to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
+	<p>
+		You like the sound of that, and, as [siren.name] sits back on her throne to watch, you eagerly allow the three demons to move you into position, ready to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
+	<p>
+		You don't like the sound of that, and, as [siren.name] sits back on her throne to watch, you desperately struggle against the thee demons as they force you into position, ready to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!--KEEP_AFTER_COMBAT_DEFEAT_POST_SEX-->
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_POST_SEX"><![CDATA[
+	<p>
+		The three demons step back, grinning down at you as you collapse to the floor of the siren's throne room. As you let out an exhausted sigh, [siren.name] shouts out, [siren.speech(That was fun to watch! Now, throw [pc.herHim] out of my citadel!)]
+	</p>
+	<p>
+		As the demons grab you under your [pc.arms] and lift you up, [siren.name] shouts, [siren.speech(If you dare to return, I'll be more than happy to destroy you all over again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!--KEEP_AFTER_COMBAT_DEFEAT_NO_NON_CON_THROWN_OUT-->
+	
+	<htmlContent tag="THROWN_OUT"><![CDATA[
+	<p>
+		The three demons drag you out of the throne room's archway and out into the courtyard. As they take you over to the entranceway, all of the imps throughout the citadel start pointing and laughing at you. With your cheeks burning from shame, the demons unceremoniously hurl you out of the front gates, and [impMaleLeader.name] shouts after you, [impMaleLeader.speech(And stay out!)]
+	</p>
+	<p>
+		Letting out a deep sigh, you push yourself up onto your [pc.feet], and after brushing yourself off, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="THROWN_OUT_NO_IMPS"><![CDATA[
+	<p>
+		The three demons drag you out of the throne room's archway and out into the courtyard. As they take you over to the entranceway, [impAlphaLeader.name] takes the opportunity to insult you and tell you how pathetic you are. With your cheeks burning from shame, the demons unceremoniously hurl you out of the front gates, and [impMaleLeader.name] shouts after you, [impMaleLeader.speech(And stay out!)]
+	</p>
+	<p>
+		Letting out a deep sigh, you push yourself up onto your [pc.feet], and after brushing yourself off, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

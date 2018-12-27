@@ -8,10 +8,11 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -33,7 +34,7 @@ public class SlaveImport extends NPC {
 	}
 	
 	public SlaveImport(boolean isImported) {
-		super(isImported, new NameTriplet("Slave"), "Generic slave.",
+		super(isImported, new NameTriplet("Slave"), null, "Generic slave.",
 				18, Month.JUNE, 10,
 				1, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
@@ -63,7 +64,7 @@ public class SlaveImport extends NPC {
 	public void applyNewlyImportedSlaveVariables() {
 		// If the slave has only just been imported:
 //		if(this.getOwnerId().isEmpty()) {
-			Main.game.getFinch().addSlave(this);
+			Main.game.getNpc(Finch.class).addSlave(this);
 			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
 			
 			this.endPregnancy(false);
@@ -106,7 +107,7 @@ public class SlaveImport extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

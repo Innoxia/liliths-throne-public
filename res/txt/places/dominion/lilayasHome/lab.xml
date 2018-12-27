@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
+
+	<htmlContent tag="LAB"><![CDATA[
+	<p>
+		You find yourself walking towards the door to Lilaya's laboratory, and as you get closer, you see that it's been left wide open. You could walk over to the doorway and enter her lab right now, or continue on your way and choose to come back at another time.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="LAB_PREGNANCY_RISK"><![CDATA[
+	<p>
+		As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut. A little piece of paper has been stuck on it, and you see that Lilaya has left you a handwritten note:
+	</p>
+	<p style='text-align:center;'>
+		<i>Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean. I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not.</i>
+	</p>
+	<p>
+		Letting out a defeated sigh, you decide against risking angering her any further, and step back from the door. It looks like you'll just have to wait until she's calmed down.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
 	<htmlContent tag="DETECT_PREGNANCY_TYPE_SLIME"><![CDATA[
 	<p>
 		[lilaya.speech(Don't worry, I'm here for you,)]

@@ -39,7 +39,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -66,7 +66,7 @@ public class Finch extends NPC {
 	}
 	
 	public Finch(boolean isImported) {
-		super(isImported, new NameTriplet("Finch"),
+		super(isImported, new NameTriplet("Finch"), "Moreno",
 				"Finch is the manager of Slaver Alley's 'Slave Administration' building."
 						+ " Although he acts friendly enough, you can't help but wonder if his disarming disposition is just for show."
 						+ " After all, would the manager of Dominion's 'Slave Administration' really have got to that position just by being nice?",
@@ -247,7 +247,7 @@ public class Finch extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

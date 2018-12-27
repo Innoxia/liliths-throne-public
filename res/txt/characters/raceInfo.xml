@@ -5,18 +5,14 @@
 
 	<htmlContent tag="HUMAN_BASIC"><![CDATA[
 	<p>
-		Humans are the least numerous of all the races.
-		 Although some people appear to be human on first glance, a fluffy pair of ears, a swishing tail, or a concealed bestial cock will often end up betraying their status as a morph of one race or another.
-		 Humans have wildly varying personalities, body types, and sexual preferences.
+		Humans are the least numerous of all the races. Although some people appear to be human on first glance, a fluffy pair of ears, a swishing tail, or a concealed bestial cock will often end up betraying their status as a morph of one race or another. Humans have wildly varying personalities, body types, and sexual preferences.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="HUMAN_ADVANCED"><![CDATA[
 	<p>
-		Demons, following the orders of the Lilin, often encourage other races to treat humans as inferior beings.
-		 Rumours of Lilith's intense dislike of humans are commonplace, which would explain the fact that humans are banned from serving in any position of power within Dominion.
-		 This is partially the reason why humans are so rare; those that are born human often transform themselves to avoid persecution.
+		Demons, following the orders of the Lilin, often encourage other races to treat humans as inferior beings. Rumours of Lilith's intense dislike of humans are commonplace, which would explain the fact that humans are banned from serving in any position of power within Dominion. This is partially the reason why humans are so rare; those that are born human often transform themselves to avoid persecution.
 	</p>
 	<p>
 		A defining feature of humans is that they are typically unable to harness the arcane, which often leads to further ridicule from the other races.
@@ -31,24 +27,61 @@
 
 	<htmlContent tag="ANGEL_BASIC"><![CDATA[
 	<p>
-		Angels look pretty much exactly how most people imagine them.
-		 Their bodies closely resemble that of a human's, with the exception of having a gigantic pair of white-feathered wings growing from their backs.
-		 Their skin, while similar to that of a human's, gives off a pale golden radiance at all times.
+		Just like demons, angels conform to their traditional appearance. Their bodies closely resemble that of a human's, while a gigantic pair of white-feathered wings grow from their backs. Their skin, while similar to that of a human's, gives off a pale golden radiance at all times.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="ANGEL_ADVANCED"><![CDATA[
 	<p>
-		Although they fit the stereotypical appearance of an angel, these ones certainly don't act like their traditional counterparts.
-		 Boastful, loud, and incredibly vulgar, angels often make up stories about how powerful they are, despite the fact that they're actually only quite averagely-skilled when it comes to harnessing the arcane.
+		TODO.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- ELDER LILIN -->
+
+	<htmlContent tag="ELDER_LILIN_BASIC"><![CDATA[
+	<p>
+		The seven elder lilin are, as their name would suggest, the oldest of all Lilith's offspring. While there are many lilin in the world, only these seven are Lilith's natural-born daughters. All of the other lilin were corrupted by Lilith into their new forms.
 	</p>
 	<p>
-		To an even greater extent than demons, angels are completely obsessed with sex.
-		 Their nymphomania is so severe that it's almost impossible for an angel to be able to go more than an hour without masturbating or seeking out sex.
+		In order of seniority, the seven elder lilin are: Lirecea, Lovienne, Lasielle, Lyssieth, Lunette, Lyxias, and Lisophia.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ELDER_LILIN_ADVANCED"><![CDATA[
+	<p>
+		The elder lilin are almost as powerful as Lilith herself, and each one has complete mastery of the arcane. Just like all of the other lilin, they can transform their bodies to take on the appearance of any race imaginable.
 	</p>
 	<p>
-		An angel's offspring will be a mixture of more angels and offspring of their partner's race.
+		Along with Lilith, all seven of the elder lilin were sealed away inside the mirror dimension for thousands of years, where they helped their mother to weave her reality-changing spell. After being released, Lovienne and Lasielle took the posts of Lilith's personal guard, while Lirecea, Lunette, Lyxias, and Lisophia were placed in charge of the four regions surrounding Dominion. Due to her reluctance to punish the archangel given to her, Lyssieth was suspected of harbouring treasonous thoughts, and was placed under house arrest in her subterranean palace.
+	</p>
+	<p>
+		A lilin's offspring depends on what race their partner is. Copulation with other lilin results in the birth of more lilin, while mating with a demon produces demon offspring. If crossed with a half-demon or non-demon, the resulting offspring will be half-demons of their partners race. Finally, a lilin being bred with imps will produce more imps, although such a thing would be absolutely unthinkable in demon society.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- LILIN -->
+
+	<htmlContent tag="LILIN_BASIC"><![CDATA[
+	<p>
+		All lilin were once common races who were corrupted by Lilith into extremely powerful demonic entities. Either by being particularly exceptional in their abilities, or by merit of their position in society, the lilin were chosen by Lilith to be her adopted offspring, and now serve their mother without question.
+	</p>
+	<p>
+		Along with Lilith herself, only the elder lilin are more powerful than the lilin, with even the strongest of demons proving to be no match for their mastery of the arcane. Around half of the lilin population choose to remain in their demonic form, with the other half making good use of their ability to transform any way they like in order to take on the form of anthro-morphs or mythological creatures.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="LILIN_ADVANCED"><![CDATA[
+	<p>
+		The number of lilin in the world is estimated to be less than a thousand, with the vast majority of them being the daughters of Lilith who were created before she was banished to the mirror dimension. Disguised as humans, they coordinate with their demonic daughters to subvert and infiltrate world governments and the media, thereby keeping the planet's population ignorant to the fact that Lilith is working towards world domination.
+	</p>
+	<p>
+		A lilin's offspring depends on what race their partner is. Copulation with other lilin results in the birth of more lilin, while mating with a demon produces demon offspring. If crossed with a half-demon or non-demon, the resulting offspring will be half-demons of their partners race. Finally, a lilin being bred with imps will produce more imps, although such a thing would be absolutely unthinkable in demon society.
 	</p>
 	]]>
 	</htmlContent>
@@ -57,26 +90,48 @@
 
 	<htmlContent tag="DEMON_BASIC"><![CDATA[
 	<p>
-		Not only are demons real, but they also conform to their stereotypical image.
-		 A pair of horns, bat-like wings, and a spaded tail, amongst other features, all mark a person as a demon.
-		 Demons are able to shift their bodies into any form they like, although the vast majority of them prefer to remain as females.
+		Not only are demons real, but the vast majority of them also conform to their stereotypical image, sporting a pair of horns, bat-like wings, and a spaded tail. They can also transform their bodies into any other demonic form they like, allowing them to both remove their external demonic parts, as well as to recolour their skin, allowing them to appear to be human. Very few of them would ever choose to do this, however, as while demons are at the top of the social hierarchy, humans are at the very bottom.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="DEMON_ADVANCED"><![CDATA[
 	<p>
-		Demons are created in one of two ways.
-		 They are either born from a Lilin being impregnated by a demon, or they are created when a Lilin corrupts another race into becoming a demon.
-		 If a Lilin is impregnated by a non-demon, which is an extremely rare occurrence, their offspring will be half-demons, who are the lowest on the demonic social ladder.
+		Demons are created in one of two ways. They are either born from a lilin or demon copulating with another demon, or they are created when a lilin corrupts someone into becoming a demon.
 	</p>
 	<p>
-		Despite their alarming appearance, demons do not seem to be predisposed towards evil.
-		 In fact, the only personality trait that sets them apart from a regular human is that they're obsessed with sex.
-		 This is a result of their incredibly potent arcane aura, which, while being able to shield them from an arcane storm's effects, as well as granting them access to powerful arcane spells, causes them to crave sexual pleasure.
+		Despite their stereotypical appearance, demons do not have the traditional predisposition towards being evil. In fact, the only trait that sets them apart from any other race is that they're far more inclined to be willing to have sex with pretty much anyone or anything.
 	</p>
 	<p>
-		A demon's offspring will be a mixture of imps and offspring of their partner's race.
+		All demons have incredibly strong arcane auras, which are not only able to shield them from an arcane storm's effects, but also allow them to readily harness powerful arcane spells. Thanks to this, demons find it very easy to gain employment and make money, as, thanks to telekinesis, fluid manipulation, energy generation, or many other arcane abilities, they can complete almost any manual-labour job in a fraction of the time it would take a regular worker to perform.
+	</p>
+	<p>
+		A demon's offspring depends on what race their partner is. Copulation with a lilin or another demon produces demon offspring. If crossed with a half-demon or non-demon, the resulting offspring will be half-demons of their partners race. Finally, a demon being bred with imps will produce more imps, although such a thing would be considered taboo in demon society.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- HALF-DEMONS -->
+
+	<htmlContent tag="HALF_DEMON_BASIC"><![CDATA[
+	<p>
+		Half-demons come in two main varieties; human half-demons, and non-human half-demons. Both types of half-demon are looked down upon in demon society, but are still considered to be of more importance than any non-demonic race.
+	</p>
+	<p>
+		Non-human half-demons can transform their face and torso from human to animal-morph and back, but all other non-demonic parts of their bodies are immutable as animal-morph parts. Demonic eyes, horns, and sometimes wings are clear indications that a particularly savage-looking morph is a half-demon. Human half-demons have slightly more limited transformation abilities, and, while still being able to transform the size of all body parts, their only racial transformation ability consists of removing or altering their horns, wings, and tail.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HALF_DEMON_ADVANCED"><![CDATA[
+	<p>
+		Non-human half-demons are particularly wild and animalistic at times, and, depending on their race, can exhibit extremely unpredictable behaviour, ranging from extreme aggression to intense sexual desire. Due to this, they struggle to fit in to Dominion society, and can instead be found out in the wilder regions of the world.
+	</p>
+	<p>
+		Unlike their wild counterparts, human half-demons are very calm and civil, but it's not their behaviour that's the cause of demonic resentment, but their bodies. Lilith's hatred of humans is well known, and so for a demon or lilin to have copulated with one is somewhat of a minor taboo. More serious than this, however, is that human half-demons are the origin of the despised race of crude, uncivilised, sex-obsessed imps. Human half-demons who breed with either a non-demon or another human half-demon will produce a brood of imps, and as such, many human half-demons are extremely reluctant to get pregnant. 
+	</p>
+	<p>
+		A half-demon's offspring depends on what race their partner is. A non-human half-demon will always produce more of their half-demon race, with the only exceptions of always producing human half-demons if partnered with a human half-demon, and producing imps if bred with an imp. A human half-demon, on the other hand, will produce more human half-demons when coupled with a lilin, demon, or half-demon, and imps with any other race.
 	</p>
 	]]>
 	</htmlContent>
@@ -468,32 +523,23 @@
 
 	<htmlContent tag="SLIME_BASIC"><![CDATA[
 	<p>
-		Slimes are one of the rarer races of this world.
-		 The vast majority of their population resides in the watery undercity of Submission, but they can also be found in small numbers all over the world.
-		 Slimes are very easy to identify, as their entire body is made out of gooey slime, with a glowing core in the place where their heart should be.
+		Slimes are one of the rarer races of this world. The vast majority of their population resides in the watery undercity of Submission, but they can also be found in small numbers all over the world. Slimes are very easy to identify, as their entire body is made out of gooey slime, with a glowing core in the place where their heart should be. In place of skin, they have a soft, hydrophobic membrane, allowing them to safely enter water or other bodies of liquid without dissolving. It also prevents any unwanted sperm from entering their bodes and impregnating them.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="SLIME_ADVANCED"><![CDATA[
 	<p>
-		Just like most races, the personality of slimes differs greatly from individual to individual, with the vast majority being pleasant, law-abiding citizens.
-		 There are a minority, however, who believe that their diet should consist solely of sexual fluids, and these troublemakers have show no hesitation in attacking innocent travellers to milk for their next meal...
+		Just like most races, the personality of slimes differs greatly from individual to individual, with the vast majority being pleasant, law-abiding citizens. There are a minority, however, who believe that their diet should consist solely of sexual fluids, and these troublemakers have show no hesitation in attacking innocent travellers to milk for their next meal...
 	</p>
 	<p>
-		Slimes survive entirely on a liquid diet, transforming any fluid that they ingest (or extract out of absorbed solids) into more slime.
-		 Just like any other liquid, their slimy bodies evaporate over time, requiring them to maintain a regular fluid intake.
+		Slimes survive entirely on a liquid diet, transforming any fluid that they ingest (or extract out of absorbed solids) into more slime. Just like any other liquid, their slimy bodies evaporate over time, requiring them to maintain a regular fluid intake.
 	</p>
 	<p>
-		Slimes, like all non-demonic races, get heavily affected by arcane storms.
-		 Being exposed to arcane thunder will make slimes desperately seek out someone to milk for fluids.
-		 Upon finding and subduing a suitable target, slimes will continuously milk their victim until their hunger is well satisfied.
+		Slimes, like all non-demonic races, get heavily affected by arcane storms. Being exposed to arcane thunder will make slimes desperately seek out someone to milk for fluids. Upon finding and subduing a suitable target, slimes will continuously milk their victim until their hunger is well satisfied.
 	</p>
 	<p>
-		Slime pregnancies work in a very different manner to all others.
-		 Regardless of whether a slime looks feminine or masculine, or whether they have transformed to give themselves a vagina or not, all slimes can be impregnated.
-		 If any cum reaches their core, new cores may later split off, before growing inside them for the same length of time as a regular pregnancy.
-		 When fully grown, the parent slime will split into multiple new slimes, with each of the new cores moving into a new slime body.
+		Slime pregnancies work in a very different manner to all others. Regardless of whether a slime looks feminine or masculine, or whether they have transformed to give themselves a vagina or not, all slimes can be impregnated. If any cum reaches their core, new cores may later split off, before growing inside them for the same length of time as a regular pregnancy. When fully grown, the parent slime will split into multiple new slimes, with each of the new cores moving into a new slime body.
 	</p>
 	]]>
 	</htmlContent>

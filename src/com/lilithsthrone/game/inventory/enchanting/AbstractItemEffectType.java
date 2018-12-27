@@ -61,7 +61,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -69,7 +69,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.4
- * @version 0.2.4
+ * @version 0.3
  * @author Innoxia
  */
 public abstract class AbstractItemEffectType {
@@ -112,17 +112,19 @@ public abstract class AbstractItemEffectType {
 	
 	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
 	
-	protected static String getBookEffect(Subspecies subspecies, AbstractItemType book) {
+	public static String getBookEffect(Subspecies subspecies, boolean withDescription) {
 		Main.getProperties().addRaceDiscovered(subspecies);
-		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && book!=null) {
-			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(book), true);
+		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
+			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
 		}
 		
 		if(Main.game.getPlayer().addRaceDiscoveredFromBook(subspecies)) {
-			return subspecies.getBasicDescription(null)
-					+subspecies.getAdvancedDescription(null)
-					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getDamageMultiplier(), 5f)
-					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getResistanceMultiplier(), 5f);
+			return (withDescription
+						?subspecies.getBasicDescription(null)
+								+subspecies.getAdvancedDescription(null)
+						:"")
+					+Main.game.getPlayer().incrementAttribute(subspecies.getDamageMultiplier(), 5f)
+					+Main.game.getPlayer().incrementAttribute(subspecies.getResistanceMultiplier(), 5f);
 			
 		} else {
 			return subspecies.getBasicDescription(null)
@@ -885,7 +887,7 @@ public abstract class AbstractItemEffectType {
 					switch(secondaryModifier) {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(heightIncrement, target.getHeightValue()-Height.ZERO_TINY.getMinimumValue(), limit)) {
-								sb.append(target.incrementHeight(heightIncrement));
+								sb.append(target.incrementHeight(heightIncrement, false));
 							} else if(isSetToLimit(heightIncrement, target.getHeightValue()-Height.ZERO_TINY.getMinimumValue(), limit)) {
 								sb.append(target.setHeight(limit));
 							}
@@ -2373,17 +2375,17 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in height.", mediumChangeMajorDrain, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorDrain); } };
+								return new RacialEffectUtil("Huge decrease in height.", mediumChangeMajorDrain, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorDrain, false); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in height.", mediumChangeDrain, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeDrain); } };
+								return new RacialEffectUtil("Decrease in height.", mediumChangeDrain, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeDrain, false); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in height.", mediumChangeMinorDrain, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorDrain); } };
+								return new RacialEffectUtil("Small decrease in height.", mediumChangeMinorDrain, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorDrain, false); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in height.", mediumChangeMinorBoost, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorBoost); } };
+								return new RacialEffectUtil("Small increase in height.", mediumChangeMinorBoost, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorBoost, false); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in height.", mediumChangeBoost, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeBoost); } };
+								return new RacialEffectUtil("Increase in height.", mediumChangeBoost, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeBoost, false); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in height.", mediumChangeMajorBoost, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorBoost); } };
+								return new RacialEffectUtil("Huge increase in height.", mediumChangeMajorBoost, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorBoost, false); } };
 						}
 					case TF_MOD_SIZE_SECONDARY:
 						switch(potency) {

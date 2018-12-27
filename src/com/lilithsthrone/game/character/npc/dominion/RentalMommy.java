@@ -46,7 +46,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.RentalMommyDialogue;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -71,7 +71,7 @@ public class RentalMommy extends NPC {
 	}
 	
 	public RentalMommy(boolean isImported) {
-		super(isImported, new NameTriplet("Mommy"),
+		super(isImported, new NameTriplet("Mommy"), "Hathaway",
 				"'Mommy' earns a living by renting herself out to those in need of some motherly love.",
 				45, Month.JULY, 3,
 				10, Gender.F_V_B_FEMALE, Subspecies.COW_MORPH, RaceStage.PARTIAL,
@@ -273,7 +273,7 @@ public class RentalMommy extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return RentalMommyDialogue.ENCOUNTER;
 	}
 

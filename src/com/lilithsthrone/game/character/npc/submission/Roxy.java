@@ -45,7 +45,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -96,7 +96,7 @@ public class Roxy extends NPC {
 	}
 	
 	public Roxy(boolean isImported) {
-		super(isImported, new NameTriplet("Roxy"),
+		super(isImported, new NameTriplet("Roxy"), "Yap",
 				"Roxy is the rat-girl owner of the Gambling Den's shop, 'Roxy's Box'."
 					+ " With a patch over one eye, and visible scarring down one side of her face, Roxy is clearly no stranger to violence."
 					+ " She has some particularly vulgar mannerisms, and has little patience for any of her customers.",
@@ -268,7 +268,7 @@ public class Roxy extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

@@ -40,7 +40,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -65,7 +65,7 @@ public class HarpyBimboCompanion extends NPC {
 	}
 	
 	public HarpyBimboCompanion(boolean isImported) {
-		super(isImported, new NameTriplet("Lauren"),
+		super(isImported, new NameTriplet("Lauren"), "Nystrom",
 				"Brittany's girlfriend, Lauren, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in Brittany's nest, she's a ditzy bimbo, and does absolutely anything her matriarch orders her to.",
 				22, Month.JULY, 6,
@@ -220,7 +220,7 @@ public class HarpyBimboCompanion extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	

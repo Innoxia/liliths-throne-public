@@ -8,6 +8,9 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.AttributeRange;
+import com.lilithsthrone.game.character.body.types.AbstractArmType;
+import com.lilithsthrone.game.character.body.types.AbstractAssType;
+import com.lilithsthrone.game.character.body.types.AbstractBreastType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -51,6 +54,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -72,7 +76,7 @@ public enum RacialBody {
 			AssType.HUMAN, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HUMAN,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			180, 25, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
 			170, 75, BodySize.TWO_AVERAGE.getMinimumValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMinimumValue(),
 			EarType.HUMAN,
@@ -101,7 +105,7 @@ public enum RacialBody {
 			AssType.ANGEL, AssSize.TWO_SMALL, AssSize.TWO_SMALL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.ANGEL,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.A, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.A, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			170, 25, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
 			170, 95, BodySize.ONE_SLENDER.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
 			EarType.ANGEL,
@@ -132,7 +136,7 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientation.AMBIPHILIC;
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(0, 1, 0);
 		}
 	},
 
@@ -146,7 +150,7 @@ public enum RacialBody {
 			AssType.DEMON_COMMON, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.FOUR_SLIMY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
 			BreastType.DEMON_COMMON,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.F, 1, Lactation.ZERO_NONE, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.F, 1, Lactation.ZERO_NONE, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			190, 10, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			180, 90, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			EarType.DEMON_COMMON,
@@ -178,55 +182,10 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientation.AMBIPHILIC;
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(0, 1, 0);
 		}
 	},
 	
-//	IMP(Util.newHashMapOfValues(
-//				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(1, 10)),
-//				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(5, 10)),
-//				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(90, 100))),
-//			AntennaType.NONE,
-//			ArmType.IMP, 1,
-//			AssType.IMP, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.FOUR_SLIMY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-//			BreastType.IMP,
-//			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-//			CupSize.F, 1, Lactation.ZERO_NONE, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.VAGINA, AreolaeSize.TWO_BIG, 1,
-//			Height.NEGATIVE_TWO_MIMIMUM.getMedianValue(), 10, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-//			Height.NEGATIVE_TWO_MIMIMUM.getMedianValue(), 90, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-//			EarType.IMP,
-//			EyeType.IMP,
-//			FaceType.IMP, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
-//			HairType.IMP, HairLength.TWO_SHORT, HairLength.FIVE_ABOVE_ASS,
-//			LegType.IMP,
-//			SkinType.IMP, BodyMaterial.FLESH,
-//			HornLength.ONE_SMALL, HornLength.TWO_LONG,
-//				Util.newArrayListOfValues(HornType.CURLED, HornType.SPIRAL, HornType.SWEPT_BACK, HornType.CURVED, HornType.STRAIGHT),
-//			PenisType.IMP, PenisSize.FOUR_HUGE, PenisGirth.THREE_THICK,
-//			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
-//			TesticleSize.THREE_LARGE, 4, CumProduction.SIX_EXTREME,
-//			TailType.IMP,
-//			TentacleType.NONE,
-//			VaginaType.IMP, Wetness.SEVEN_DROOLING, Capacity.FOUR_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FIVE_STRETCHY, OrificePlasticity.FIVE_YIELDING,
-//			WingType.IMP, WingSize.TWO_AVERAGE, WingSize.TWO_AVERAGE,
-//			GenitalArrangement.NORMAL) {
-//		
-//		@Override
-//		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-//			return Util.newHashMapOfValues(
-//					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
-//					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
-//					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-//					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-//					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
-//		}
-//		
-//		@Override
-//		public SexualOrientation getSexualOrientation(Gender gender) {
-//			return SexualOrientation.AMBIPHILIC;
-//		}
-//	},
-
 	// BOVINES:
 	COW_MORPH(
 			Util.newHashMapOfValues(
@@ -235,10 +194,10 @@ public enum RacialBody {
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
 			ArmType.COW_MORPH, 1,
-			AssType.COW_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT,
+			AssType.COW_MORPH, AssSize.TWO_SMALL, AssSize.FIVE_HUGE, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT,
 			BreastType.COW_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.H, 3, Lactation.THREE_DECENT_AMOUNT, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.THREE_LARGE, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 4,
+			CupSize.H, 3, Lactation.THREE_DECENT_AMOUNT, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.THREE_LARGE, NippleShape.NORMAL, AreolaeSize.THREE_LARGE, 4,
 			195, 30, BodySize.FOUR_HUGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			185, 70, BodySize.THREE_LARGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.COW_MORPH, 
@@ -269,7 +228,7 @@ public enum RacialBody {
 			AssType.DOG_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.DOG_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			185, 30, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			175, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.DOG_MORPH,
@@ -309,7 +268,7 @@ public enum RacialBody {
 			AssType.FOX_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.FOX_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.C, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			170, 15, BodySize.ONE_SLENDER.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
 			160, 75, BodySize.ONE_SLENDER.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMinimumValue(),
 			EarType.FOX_MORPH,
@@ -336,11 +295,11 @@ public enum RacialBody {
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(30f, 50f))),
 			AntennaType.NONE,
-			ArmType.LYCAN, 1,
+			ArmType.WOLF_MORPH, 1,
 			AssType.WOLF_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.WOLF_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.C, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			185, 15, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
 			175, 75, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			EarType.LYCAN,
@@ -372,7 +331,7 @@ public enum RacialBody {
 			AssType.CAT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.CAT_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			175, 35, BodySize.ONE_SLENDER.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			165, 85, BodySize.ONE_SLENDER.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.CAT_MORPH,
@@ -401,10 +360,10 @@ public enum RacialBody {
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
 			ArmType.HORSE_MORPH, 1,
-			AssType.HORSE_MORPH, AssSize.TWO_SMALL, AssSize.FIVE_HUGE, Wetness.ZERO_DRY, Capacity.THREE_SLIGHTLY_LOOSE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			AssType.HORSE_MORPH, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.ZERO_DRY, Capacity.THREE_SLIGHTLY_LOOSE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HORSE_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.DD, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.DD, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			195, 10, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
 			180, 70, BodySize.THREE_LARGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			EarType.HORSE_MORPH,
@@ -431,10 +390,10 @@ public enum RacialBody {
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
 			ArmType.REINDEER_MORPH, 1,
-			AssType.REINDEER_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			AssType.REINDEER_MORPH, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.REINDEER_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.D, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ONE_SMALL, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.D, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			190, 10, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
 			180, 70, BodySize.THREE_LARGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			EarType.REINDEER_MORPH,
@@ -465,7 +424,7 @@ public enum RacialBody {
 		    AssType.ALLIGATOR_MORPH, AssSize.TWO_SMALL, AssSize.TWO_SMALL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 		    BreastType.ALLIGATOR_MORPH,
 		    CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-		    CupSize.AA, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+		    CupSize.AA, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 		    185, 25, BodySize.THREE_LARGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 		    178, 95, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 		    EarType.ALLIGATOR_MORPH,
@@ -500,7 +459,7 @@ public enum RacialBody {
 			AssType.SQUIRREL_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.SQUIRREL_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			170, 35, BodySize.ONE_SLENDER.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			160, 85, BodySize.ONE_SLENDER.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.SQUIRREL_MORPH,
@@ -530,7 +489,7 @@ public enum RacialBody {
 			AssType.RAT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.RAT_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			170, 35, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			160, 85, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.RAT_MORPH,
@@ -569,7 +528,7 @@ public enum RacialBody {
 			AssType.RABBIT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.RABBIT_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.E, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.E, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			170, 35, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			160, 85, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.RABBIT_MORPH,
@@ -599,7 +558,7 @@ public enum RacialBody {
 			AssType.BAT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.BAT_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			170, 35, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			160, 85, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.BAT_MORPH,
@@ -639,7 +598,7 @@ public enum RacialBody {
 			AssType.HARPY, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HARPY,
 			CupSize.TRAINING_A, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.B, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.B, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.TWO_BIG, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			150, 75, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			150, 95, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
 			EarType.HARPY,
@@ -670,13 +629,7 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			double chance = Math.random();
-			
-			if(chance<0.95f) {
-				return SexualOrientation.GYNEPHILIC;
-			} else {
-				return SexualOrientation.AMBIPHILIC;
-			}
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(95, 5, 0);
 		}
 	};
 
@@ -684,9 +637,9 @@ public enum RacialBody {
 	private HashMap<Attribute, AttributeRange> attributeModifiers;
 
 	private AntennaType antennaType;
-	private ArmType armType;
-	private AssType assType;
-	private BreastType breastType;
+	private AbstractArmType armType;
+	private AbstractAssType assType;
+	private AbstractBreastType breastType;
 	private FaceType faceType;
 	private EyeType eyeType;
 	private EarType earType;
@@ -723,9 +676,9 @@ public enum RacialBody {
 
 	private RacialBody(HashMap<Attribute, AttributeRange> attributeModifiers,
 			AntennaType antennaType,
-			ArmType armType, int armRows,
-			AssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
-			BreastType breastType,
+			AbstractArmType armType, int armRows,
+			AbstractAssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
+			AbstractBreastType breastType,
 			CupSize maleBreastSize, int breastCountMale, Lactation maleLactationRate, Capacity maleBreastCapacity, OrificeElasticity maleBreastElasticity, OrificePlasticity maleBreastPlasticity,
 				NippleSize maleNippleSize, NippleShape maleNippleShape, AreolaeSize maleAreolaeSize, int maleNippleCountPerBreast,
 			CupSize femaleBreastSize, int breastCountFemale, Lactation femaleLactationRate, Capacity femaleBreastCapacity, OrificeElasticity femaleBreastElasticity, OrificePlasticity femaleBreastPlasticity,
@@ -854,11 +807,7 @@ public enum RacialBody {
 			case COW_MORPH:
 				return RacialBody.COW_MORPH;
 			case DEMON:
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
+			case ELEMENTAL:
 				return RacialBody.DEMON;
 			case DOG_MORPH:
 				return RacialBody.DOG_MORPH;
@@ -940,25 +889,10 @@ public enum RacialBody {
 	}
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {
-		double chance = Math.random();
-		
 		if(gender.isFeminine()) {
-			if(chance<0.15f) {
-				return SexualOrientation.GYNEPHILIC;
-			} else if (chance<0.5f) {
-				return SexualOrientation.ANDROPHILIC;
-			} else {
-				return SexualOrientation.AMBIPHILIC;
-			}
-			
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(15, 50, 35);
 		} else {
-			if(chance<0.10f) {
-				return SexualOrientation.ANDROPHILIC;
-			} else if (chance<0.5f) {
-				return SexualOrientation.GYNEPHILIC;
-			} else {
-				return SexualOrientation.AMBIPHILIC;
-			}
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(40, 50, 10);
 		}
 	}
 	
@@ -970,15 +904,15 @@ public enum RacialBody {
 		return antennaType;
 	}
 
-	public ArmType getArmType() {
+	public AbstractArmType getArmType() {
 		return armType;
 	}
 
-	public AssType getAssType() {
+	public AbstractAssType getAssType() {
 		return assType;
 	}
 
-	public BreastType getBreastType() {
+	public AbstractBreastType getBreastType() {
 		return breastType;
 	}
 

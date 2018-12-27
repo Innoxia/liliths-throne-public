@@ -11,7 +11,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -28,7 +28,7 @@ public class GenericMaleNPC extends NPC {
 	}
 	
 	public GenericMaleNPC(boolean isImported) {
-		super(isImported, new NameTriplet("unknown male"), "Unknown.",
+		super(isImported, new NameTriplet("unknown male"), null, "Unknown.",
 				25, Month.JUNE, 15,
 				1, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
@@ -61,7 +61,7 @@ public class GenericMaleNPC extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	

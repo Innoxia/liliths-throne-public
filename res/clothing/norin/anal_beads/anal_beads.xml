@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAtributes>
+  <coreAttributes>
     <value>300</value> <!--10 flames = £1 ~ $1.5-->
     <determiner><![CDATA[a string of]]></determiner>
     <name><![CDATA[anal beads]]></name>
@@ -52,9 +52,10 @@
     <itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
       <tag>SOLD_BY_FINCH</tag>
       <tag>PLUGS_ANUS</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
     </itemTags>
     
-  </coreAtributes>
+  </coreAttributes>
 
   <displacementText type="REMOVE_OR_EQUIP">
     <playerSelf>

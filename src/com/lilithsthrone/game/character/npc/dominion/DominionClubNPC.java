@@ -14,7 +14,7 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.main.Main;
@@ -39,20 +39,18 @@ public class DominionClubNPC extends NPC {
 	}
 	
 	public DominionClubNPC(Gender gender, Subspecies subspecies, boolean isImported) {
-		super(isImported, null, "",
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
-
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+		
 		if(!isImported) {
-			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-			this.setLocation(Main.game.getPlayer().getLocation());
+			this.setLocation(Main.game.getPlayer(), false);
 			
 			setLevel(Util.random.nextInt(5) + 5);
 			
 			// RACE & NAME:
 
-			
 			if(subspecies.getRace()==Race.HARPY) {
 				setBody(gender, subspecies, RaceStage.LESSER);
 				
@@ -104,6 +102,9 @@ public class DominionClubNPC extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(this.getHomeWorldLocation()==WorldType.DOMINION) {
+			this.setHomeLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		}
 	}
 
 	@Override
@@ -140,7 +141,7 @@ public class DominionClubNPC extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	

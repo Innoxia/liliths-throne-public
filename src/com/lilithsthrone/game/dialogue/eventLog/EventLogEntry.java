@@ -1,7 +1,5 @@
 package com.lilithsthrone.game.dialogue.eventLog;
 
-import java.io.Serializable;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -10,12 +8,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.85
- * @version 0.1.89
+ * @version 0.3
  * @author Innoxia
  */
-public class EventLogEntry implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class EventLogEntry implements XMLSaving {
 	
 	protected long time;
 	protected String name, description;

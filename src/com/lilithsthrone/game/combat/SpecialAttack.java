@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -1908,7 +1909,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.getArmType() == ArmType.LYCAN && owner.getFaceType() == FaceType.LYCAN;
+			return owner.getArmType() == ArmType.WOLF_MORPH && owner.getFaceType() == FaceType.LYCAN;
 		}
 	},
 
@@ -2153,12 +2154,8 @@ public enum SpecialAttack {
 				System.err.println("Error! SpecialAttack icon file does not exist (Trying to read from '"+pathName+"')!");
 			}
 			SVGString = Util.inputStreamToString(is);
-
-			SVGString = SVGString.replaceAll("#ff2a2a", colourShade.getShades()[0]);
-			SVGString = SVGString.replaceAll("#ff5555", colourShade.getShades()[1]);
-			SVGString = SVGString.replaceAll("#ff8080", colourShade.getShades()[2]);
-			SVGString = SVGString.replaceAll("#ffaaaa", colourShade.getShades()[3]);
-			SVGString = SVGString.replaceAll("#ffd5d5", colourShade.getShades()[4]);
+			
+			SVGString = SvgUtil.colourReplacement(this.toString(), colourShade, SVGString);
 
 			is.close();
 
@@ -2176,14 +2173,14 @@ public enum SpecialAttack {
 			descriptionSB.append("<p>"
 					+ (isHit 
 							? "<b>[npc.Name] <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> [npc.verb(hit)] for " + damage
-								+ " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + "!</b>"
+								+ " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + " damage</b>" + "!</b>"
 							: "<b>[npc.Name] missed!</b>")
 					+ "</p>");
 		} else {
 			descriptionSB.append(
 					"<p>"
 						+ (isHit
-								? "<b>[npc.Name] [npc.verb(hit)] for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + "!</b>"
+								? "<b>[npc.Name] [npc.verb(hit)] for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + " damage</b>" + "!</b>"
 								: "<b>[npc.Name] missed!</b>")
 					+ "</p>");
 		}

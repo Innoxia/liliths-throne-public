@@ -43,7 +43,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -67,7 +67,7 @@ public class Angel extends NPC {
 	}
 	
 	public Angel(boolean isImported) {
-		super(isImported, new NameTriplet("Angel"),
+		super(isImported, new NameTriplet("Angel"), "Cox",
 				"Angel is the owner of the brothel 'Angel's Kiss', located in Dominion's Red-light district."
 						+ " A beautiful, blonde-haired human, Angel acts in a friendly and professional manner at all times.",
 				34, Month.JANUARY, 4,
@@ -232,7 +232,7 @@ public class Angel extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

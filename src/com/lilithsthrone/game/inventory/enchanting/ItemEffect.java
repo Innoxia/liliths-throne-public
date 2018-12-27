@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.enchanting;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -9,6 +8,8 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -17,8 +18,7 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.11
  * @author Innoxia
  */
-public class ItemEffect implements Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class ItemEffect implements XMLSaving {
 
 	public static final int SEALED_COST_MINOR_BOOST = 5;
 	public static final int SEALED_COST_MINOR_DRAIN = 25;
@@ -99,6 +99,11 @@ public class ItemEffect implements Serializable, XMLSaving {
 	
 	public static ItemEffect loadFromXML(Element parentElement, Document doc) {
 		String itemEffectType = parentElement.getAttribute("itemEffectType");
+		
+		if(itemEffectType.equals("RACE_DEMON")) {
+			throw new NullPointerException();
+		}
+		
 		switch(itemEffectType) {
 			case "ATTRIBUTE_STRENGTH":
 			case "ATTRIBUTE_FITNESS":
@@ -113,11 +118,21 @@ public class ItemEffect implements Serializable, XMLSaving {
 			case "RESISTANCE_ATTACK":
 				return null;
 		}
+		String secondaryMod = parentElement.getAttribute("secondaryModifier");
+		switch(parentElement.getAttribute("secondaryModifier")) {
+			case "TF_MOD_FETISH_SEEDER":
+				secondaryMod = "TF_MOD_FETISH_IMPREGNATION";
+				break;
+			case "TF_MOD_FETISH_BROODMOTHER":
+				secondaryMod = "TF_MOD_FETISH_PREGNANCY";
+				break;
+		}
 		
 		ItemEffect ie;
 		try { // Wrap this in a try, as the TFModifier.valueof might fail, due to removing Broodmother/Seeder fetish modifiers in 0.2.7.5.
 			TFModifier primary = (parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier")));
-			TFModifier secondary = (parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier")));
+			TFModifier secondary = (secondaryMod.equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier")));
+			
 			if(secondary!=null && TFModifier.getWeaponMajorAttributeList().contains(secondary)) {
 				primary = TFModifier.CLOTHING_MAJOR_ATTRIBUTE;
 			}
@@ -129,6 +144,9 @@ public class ItemEffect implements Serializable, XMLSaving {
 					(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
 					Integer.valueOf(parentElement.getAttribute("limit")));
 		} catch(Exception ex) {
+			System.err.println("Unable to import ItemEffect (" + parentElement.getAttribute("primaryModifier") +
+					", " + parentElement.getAttribute("secondaryModifier") + ") from" + doc.getDocumentURI());
+			System.err.println(ex);
 			return null;
 		}
 		
@@ -139,7 +157,8 @@ public class ItemEffect implements Serializable, XMLSaving {
 			} else {
 				ie.getTimer().setTimePassed(Integer.valueOf(parentElement.getAttribute("timer")));
 			}
-		} catch(Exception ex) {	
+		} catch(Exception ex) {
+			ex.printStackTrace();
 		}
 		
 		return ie;
@@ -147,6 +166,18 @@ public class ItemEffect implements Serializable, XMLSaving {
 	
 	public String applyEffect(GameCharacter user, GameCharacter target, long timePassed) {
 		this.timer.incrementTimePassed((int)timePassed);
+		if(target.getRace()==Race.DEMON
+				&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
+						|| getSecondaryModifier()==TFModifier.TF_TYPE_2
+						|| getSecondaryModifier()==TFModifier.TF_TYPE_3
+						|| getSecondaryModifier()==TFModifier.TF_TYPE_4
+						|| getSecondaryModifier()==TFModifier.TF_TYPE_5
+						|| getSecondaryModifier()==TFModifier.REMOVAL)) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+						+ "As [npc.nameIsFull] [style.boldDemon([npc.a_race])], the transformation has [style.boldBad(no effect)]!"
+					+ "</p>");
+		}
 		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target, this.timer);
 	}
 	

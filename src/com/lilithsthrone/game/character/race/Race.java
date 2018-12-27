@@ -399,112 +399,133 @@ public enum Race {
 	
 
 	// ELEMENTALS:
-	ELEMENTAL_EARTH("earth elemental",
-			"earth elementals",
-			"earth elemental",
-			"earth elemental",
-			"earth elementals",
-			"earth elementals",
+//	ELEMENTAL_EARTH("earth elemental",
+//			"earth elementals",
+//			"earth elemental",
+//			"earth elemental",
+//			"earth elementals",
+//			"earth elementals",
+//
+//			Colour.SPELL_SCHOOL_EARTH,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_EARTH,
+//			Attribute.RESISTANCE_ELEMENTAL_EARTH,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
+//	
+//	ELEMENTAL_WATER("water elemental",
+//			"water elementals",
+//			"water elemental",
+//			"water elemental",
+//			"water elementals",
+//			"water elementals",
+//
+//			Colour.SPELL_SCHOOL_WATER,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_WATER,
+//			Attribute.RESISTANCE_ELEMENTAL_WATER,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
+//	
+//	ELEMENTAL_AIR("air elemental",
+//			"air elementals",
+//			"air elemental",
+//			"air elemental",
+//			"air elementals",
+//			"air elementals",
+//
+//			Colour.SPELL_SCHOOL_AIR,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_AIR,
+//			Attribute.RESISTANCE_ELEMENTAL_AIR,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
+//	
+//	ELEMENTAL_FIRE("fire elemental",
+//			"fire elementals",
+//			"fire elemental",
+//			"fire elemental",
+//			"fire elementals",
+//			"fire elementals",
+//
+//			Colour.SPELL_SCHOOL_FIRE,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SEDUCTION,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_FIRE,
+//			Attribute.RESISTANCE_ELEMENTAL_FIRE,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
+//	
+//	ELEMENTAL_ARCANE("arcane elemental",
+//			"arcane elementals",
+//			"arcane elemental",
+//			"arcane elemental",
+//			"arcane elementals",
+//			"arcane elementals",
+//
+//			Colour.SPELL_SCHOOL_ARCANE,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.SEDUCTION,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_ARCANE,
+//			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
 
-			Colour.SPELL_SCHOOL_EARTH,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPELL),
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_ELEMENTAL_EARTH,
-			Attribute.RESISTANCE_ELEMENTAL_EARTH,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false),
-	
-	ELEMENTAL_WATER("water elemental",
-			"water elementals",
-			"water elemental",
-			"water elemental",
-			"water elementals",
-			"water elementals",
-
-			Colour.SPELL_SCHOOL_WATER,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPELL),
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_ELEMENTAL_WATER,
-			Attribute.RESISTANCE_ELEMENTAL_WATER,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false),
-	
-	ELEMENTAL_AIR("air elemental",
-			"air elementals",
-			"air elemental",
-			"air elemental",
-			"air elementals",
-			"air elementals",
-
-			Colour.SPELL_SCHOOL_AIR,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPELL),
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_ELEMENTAL_AIR,
-			Attribute.RESISTANCE_ELEMENTAL_AIR,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false),
-	
-	ELEMENTAL_FIRE("fire elemental",
-			"fire elementals",
-			"fire elemental",
-			"fire elemental",
-			"fire elementals",
-			"fire elementals",
-
-			Colour.SPELL_SCHOOL_FIRE,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SEDUCTION,
-					Attack.SPELL),
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_ELEMENTAL_FIRE,
-			Attribute.RESISTANCE_ELEMENTAL_FIRE,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false),
-	
-	ELEMENTAL_ARCANE("arcane elemental",
-			"arcane elementals",
-			"arcane elemental",
-			"arcane elemental",
-			"arcane elementals",
-			"arcane elementals",
+	ELEMENTAL("elemental",
+			"elementals",
+			"elemental",
+			"elemental",
+			"elementals",
+			"elementals",
 
 			Colour.SPELL_SCHOOL_ARCANE,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
+					Attack.MAIN,
 					Attack.SEDUCTION,
 					Attack.SPELL),
 			0.5f,
 			1,
 			1,
-			Attribute.DAMAGE_ELEMENTAL_ARCANE,
-			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
+			Attribute.DAMAGE_ELEMENTAL,
+			Attribute.RESISTANCE_ELEMENTAL,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false),
-	
 	;
 
 	/*
@@ -1262,10 +1283,11 @@ public enum Race {
 			Colour colour,
 			Disposition disposition,
 			List<Attack> preferredAttacks,
+			
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow,
-			
 			int numberOfOffspringHigh,
+			
 			Attribute damageMultiplier,
 			Attribute resistanceMultiplier,
 			
@@ -1327,11 +1349,17 @@ public enum Race {
 		return chanceForMaleOffspring;
 	}
 
-	public Attribute getDamageMultiplier() {
+	/**
+	 * <b>Should only be used in Subspecies' getDamageMultipler() method!</b>
+	 */
+	public Attribute getDefaultDamageMultiplier() {
 		return damageMultiplier;
 	}
 
-	public Attribute getResistanceMultiplier() {
+	/**
+	 * <b>Should only be used in Subspecies' getResistanceMultiplier() method!</b>
+	 */
+	public Attribute getDefaultResistanceMultiplier() {
 		return resistanceMultiplier;
 	}
 

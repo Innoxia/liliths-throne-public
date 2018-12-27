@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,8 +22,7 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.7
  * @author Innoxia
  */
-public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class FluidGirlCum implements FluidInterface, XMLSaving {
 	
 	protected FluidType type;
 	protected FluidFlavour flavour;
@@ -307,6 +305,19 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(viscous)]!"
 							+ "</p>");
 				}
+			case MINERAL_OIL:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a prolongued heat flow up into your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
+								+ "Your [pc.girlcum] is now [style.boldGrow(mineral oil)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A prolongued heat flows up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(mineral oil)]!"
+							+ "</p>");
+				}
 		}
 		
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -422,6 +433,19 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 							"<p>"
 								+ "A soft coolness rises up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer viscous)]!"
+							+ "</p>");
+				}
+			case MINERAL_OIL:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a short relief flow up into your [pc.pussy], causing you to let out a gentle sigh.<br/>"
+								+ "Your [pc.girlcum] is [style.boldShrink(no longer mineral oil)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A short relief flows up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer mineral oil)]!"
 							+ "</p>");
 				}
 		}

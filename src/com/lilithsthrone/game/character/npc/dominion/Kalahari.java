@@ -42,7 +42,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -65,7 +65,7 @@ public class Kalahari extends NPC {
 	}
 	
 	public Kalahari(boolean isImported) {
-		super(isImported, new NameTriplet("Kalahari", "Kalahari", "Kalahari"),
+		super(isImported, new NameTriplet("Kalahari", "Kalahari", "Kalahari"), "Mwangi",
 				"Kalahari is a barmaid working at the nightclub, 'The Watering Hole'.",
 				24, Month.JUNE, 12,
 				20,
@@ -76,7 +76,6 @@ public class Kalahari extends NPC {
 				WorldType.NIGHTLIFE_CLUB,
 				PlaceType.WATERING_HOLE_BAR,
 				true);
-		
 	}
 	
 	@Override
@@ -218,7 +217,7 @@ public class Kalahari extends NPC {
 	@Override
 	public void endSex() {
 		this.replaceAllClothing();
-		Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
+		Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 	}
 	
 	@Override
@@ -231,7 +230,7 @@ public class Kalahari extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

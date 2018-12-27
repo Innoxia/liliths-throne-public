@@ -49,15 +49,16 @@ import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.sex.LubricationType;
+import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -65,7 +66,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -759,7 +760,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
 					new Value<Attribute, Float>(Attribute.FERTILITY, 75f),
 					new Value<Attribute, Float>(Attribute.VIRILITY, 75f)),
-			Util.newArrayListOfValues("<b style='color: "+ Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Obeys Lilin</b>")) {
+			Util.newArrayListOfValues("<b style='color: "+ Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Demonic mindset</b>")) {
 
 		@Override
 		public String getName(GameCharacter target) {
@@ -768,13 +769,12 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You are completely and utterly corrupted. The lewd thoughts and fantasies that continuously run through your mind have unlocked the full power of the arcane, making your body hyper-fertile and virile.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] is completely and utterly corrupted."
-						+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
-			}
-
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] completely and utterly corrupted"
+						+ (owner.getSubspeciesOverride()!=null && owner.getSubspeciesOverride().getRace()==Race.DEMON
+						?", as is fitting for [npc.a_race]."
+						:", and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
+					+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
 		}
 
 		@Override
@@ -1918,7 +1918,9 @@ public enum StatusEffect {
 			if(!isCumEffectPositive(target)) {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 					if (c.isDirty()
-							&& Collections.disjoint(c.getClothingType().getItemTags(), Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.PLUGS_NIPPLES))) {
+							&& Collections.disjoint(
+									c.getClothingType().getItemTags(),
+									Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.SEALS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.SEALS_VAGINA, ItemTag.PLUGS_NIPPLES, ItemTag.SEALS_NIPPLES))) {
 						return true;
 					}
 				}
@@ -1957,7 +1959,9 @@ public enum StatusEffect {
 			if(isCumEffectPositive(target)) {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 					if (c.isDirty()
-							&& Collections.disjoint(c.getClothingType().getItemTags(), Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.PLUGS_NIPPLES))) {
+							&& Collections.disjoint(
+									c.getClothingType().getItemTags(),
+									Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.SEALS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.SEALS_VAGINA, ItemTag.PLUGS_NIPPLES, ItemTag.SEALS_NIPPLES))) {
 						return true;
 					}
 				}
@@ -5467,11 +5471,35 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_LYSSIETH_GUARD(
+			70,
+			"Lyssieth's Guard",
+			"set_lyssieth_guard",
+			Colour.CLOTHING_OLIVE,
+			Colour.CLOTHING_BROWN_DARK,
+			Colour.CLOTHING_OLIVE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {//British Auxiliary Territorial Service
+			return "While wearing the uniform of Lyssieth's guard, [npc.name] [npc.verb(feel)] as though [npc.sheIs] more easily able to keep [npc.her] composure.";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.LYSSIETH_GUARD.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
 	SET_BDSM(
 			70,
 			"BDSM",
 			"set_bdsm",
-			Colour.CLOTHING_WHITE,
+			Colour.CLOTHING_BLACK,
 			false,
 			Util.newHashMapOfValues( new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -15f)),
 			null) {
@@ -5530,7 +5558,7 @@ public enum StatusEffect {
 	
 	SET_SNOWFLAKE(
 			70,
-			"Snowflake",
+			"Glacial",
 			"set_snowflake",
 			Colour.BASE_BLUE_LIGHT,
 			true,
@@ -5541,17 +5569,10 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target!=null) {
-				if(target.isPlayer()) {
-					return "By donning snowflake jewels, you're confident that no ice will harm you!";
-					
-				} else {
-					return UtilText.parse(target, "By wearing snowflake jewels, [npc.name] is well-protected against any ice attacks.");
-					
-				}
-			} else {
+			if(target==null) {
 				return "";
 			}
+			return UtilText.parse(target, "By donning the complete set of specially enchanted snowflake jewellery, [npc.nameIs] more easily able to withstand ice attacks!");
 		}
 
 		@Override
@@ -5562,7 +5583,7 @@ public enum StatusEffect {
 		
 	SET_SUN(
 			70,
-			"Sun",
+			"Radiant",
 			"set_sun",
 			Colour.BASE_ORANGE,
 			true,
@@ -5573,17 +5594,10 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target!=null) {
-				if(target.isPlayer()) {
-					return "By donning jewels that sparkle like the sun, you're confident that no fire will harm you!";
-					
-				} else {
-					return UtilText.parse(target, "By wearing the sun, [npc.name] is well-protected against any fire attacks.");
-					
-				}
-			} else {
+			if(target==null) {
 				return "";
 			}
+			return UtilText.parse(target, "By donning jewels that sparkle like the sun, [npc.nameIsFull] confident that no fire will harm [npc.herHim]!");
 		}
 
 		@Override
@@ -6521,7 +6535,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return Spell.DARK_SIREN_BANEFUL_FISSURE.getSVGString();
+			return Spell.DARK_SIREN_SIRENS_CALL.getSVGString();
 		}
 		
 		@Override
@@ -10976,7 +10990,7 @@ public enum StatusEffect {
 				if(is==null) {
 					System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+pathName+"')!");
 				}
-				SVGString = Util.colourReplacement(this.toString(), colourShade, colourShadeSecondary, colourShadeTertiary, Util.inputStreamToString(is));
+				SVGString = SvgUtil.colourReplacement(this.toString(), colourShade, colourShadeSecondary, colourShadeTertiary, Util.inputStreamToString(is));
 				is.close();
 			} catch (IOException e) {
 				e.printStackTrace();

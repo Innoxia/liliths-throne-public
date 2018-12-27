@@ -6,21 +6,26 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.StringJoiner;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
+import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -40,16 +45,15 @@ import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.11
- * @author Innoxia
+ * @version 0.3
+ * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord), Pimgd
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
-
-	protected static final long serialVersionUID = 1L;
 	
 	private String determiner;
 	private String name;
@@ -240,379 +244,219 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				availableSecondaryDyeColours,
 				availableTertiaryColours,
 				availableTertiaryDyeColours);
-		
-		if(itemTags==null) {
-			this.itemTags = new ArrayList<>();
-		} else {
+
+		this.itemTags = new ArrayList<>();
+		if(itemTags!=null) {
 			this.itemTags = itemTags;
 		}
 
-		
 		finalSetUp();
 	}
 	
-	public AbstractClothingType(File clothingXMLFile) {
-		this.itemTags = new ArrayList<>();
 
-		if (clothingXMLFile.exists()) {
+	@SuppressWarnings("deprecation")
+	public AbstractClothingType(File clothingXMLFile) throws XMLLoadException { // Be sure to catch this exception correctly - if it's thrown mod is invalid and should not be continued to load
+		boolean debug = false;//clothingXMLFile.getName().contains("distressed");
+		
+		try{
+			Element clothingElement = Element.getDocumentRootElement(clothingXMLFile); // Loads the document and returns the root element - in clothing mods it's <clothing>
+			Element coreAttributes = null;
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(clothingXMLFile);
-				
-				// Cast magic:
-				doc.getDocumentElement().normalize();
-				
-				Element clothingElement = (Element) doc.getElementsByTagName("clothing").item(0);
-				
-				Element coreAttributes;
-				if(clothingElement.getElementsByTagName("coreAtributes").getLength()>0) {
-					coreAttributes = (Element) clothingElement.getElementsByTagName("coreAtributes").item(0); // Support for old versions
-				} else {
-					coreAttributes = (Element) clothingElement.getElementsByTagName("coreAttributes").item(0); // Fix typo
-				}
-				
-				List<ItemEffect> defaultEffects = new ArrayList<>();
-				try {
-					Element effectsElement = (Element)coreAttributes.getElementsByTagName("effects").item(0);
-					for(int i=0; i<effectsElement.getElementsByTagName("effect").getLength(); i++){
-						Element e = ((Element)effectsElement.getElementsByTagName("effect").item(i));
-						try {
-							ItemEffect ie = ItemEffect.loadFromXML(e, doc);
-							if(ie!=null) {
-								defaultEffects.add(ie);
-							}
-						}catch(Exception ex) {
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'effects' element unable to be parsed.");
-				}
-				
-				List<BlockedParts> defaultBlockedParts = new ArrayList<>();
-				try {
-					Element blockedPartsElement = (Element)coreAttributes.getElementsByTagName("blockedPartsList").item(0);
-					for(int i=0; i<blockedPartsElement.getElementsByTagName("blockedParts").getLength(); i++){
-						Element e = ((Element)blockedPartsElement.getElementsByTagName("blockedParts").item(i));
-						defaultBlockedParts.add(BlockedParts.loadFromXML(e, doc));
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'blockedPartsList' element unable to be parsed.");
-				}
-				
-				List<InventorySlot> defaultIncompatibleSlots = new ArrayList<>();
-				Element incompatibleSlotsElement = (Element)coreAttributes.getElementsByTagName("incompatibleSlots").item(0);
-				try {
-					for(int i=0; i<incompatibleSlotsElement.getElementsByTagName("slot").getLength(); i++){
-						Element e = ((Element)incompatibleSlotsElement.getElementsByTagName("slot").item(i));
-						defaultIncompatibleSlots.add(InventorySlot.valueOf(e.getTextContent()));
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'incompatibleSlots' element unable to be parsed.");
-				}
-				
-				List<ItemTag> defaultItemTags = new ArrayList<>();
-				Element itemTagsElement = (Element)coreAttributes.getElementsByTagName("itemTags").item(0);
-				try {
-					for(int i=0; i<itemTagsElement.getElementsByTagName("tag").getLength(); i++){
-						Element e = ((Element)itemTagsElement.getElementsByTagName("tag").item(i));
-						defaultItemTags.add(ItemTag.valueOf(e.getTextContent()));
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'itemTags' element unable to be parsed.");
-				}
-				
-				//TODO
-				displacementDescriptionsPlayer = new HashMap<>();
-				displacementDescriptionsNPC = new HashMap<>();
-				
-				displacementDescriptions = new HashMap<>();
-				
-				if(clothingElement.getElementsByTagName("replacementText").getLength() > 0) {
-					for(int i=0; i<clothingElement.getElementsByTagName("replacementText").getLength(); i++){
-						try {
-							Element equipTextElement = (Element)clothingElement.getElementsByTagName("replacementText").item(i);
-							DisplacementType type = DisplacementType.valueOf(equipTextElement.getAttribute("type"));
-						
-							displacementDescriptionsPlayer.putIfAbsent(type, new HashMap<>());
-							displacementDescriptionsNPC.putIfAbsent(type, new HashMap<>());
-							try {
-								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.REPLACEMENT, equipTextElement.getElementsByTagName("playerNPC").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.REPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("playerNPCRough").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.REPLACEMENT_SELF, equipTextElement.getElementsByTagName("playerSelf").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.REPLACEMENT, equipTextElement.getElementsByTagName("NPCPlayer").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.REPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("NPCPlayerRough").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.REPLACEMENT_SELF, equipTextElement.getElementsByTagName("NPCSelf").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT, equipTextElement.getElementsByTagName("NPCOtherNPC").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("NPCOtherNPCRough").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							displacementDescriptions.putIfAbsent(type, new HashMap<>());
-							try {
-								displacementDescriptions.get(type).put(DisplacementDescriptionType.REPLACEMENT_SELF, equipTextElement.getElementsByTagName("self").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptions.get(type).put(DisplacementDescriptionType.REPLACEMENT, equipTextElement.getElementsByTagName("other").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptions.get(type).put(DisplacementDescriptionType.REPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("otherRough").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							if(displacementDescriptions.get(type).isEmpty()) {
-								displacementDescriptions.remove(type);
-							}
-							
-						} catch(Exception ex) {
-							System.err.println("AbstractClothingType loading failed. Cause: 'replacementText' element unable to be parsed.");
-						}
-					}
-				}
-				
-				if(clothingElement.getElementsByTagName("displacementText").getLength() > 0) {
-					for(int i=0; i<clothingElement.getElementsByTagName("displacementText").getLength(); i++){
-						try {
-							Element equipTextElement = (Element)clothingElement.getElementsByTagName("displacementText").item(i);
-							DisplacementType type = DisplacementType.valueOf(equipTextElement.getAttribute("type"));
-						
-							displacementDescriptionsPlayer.putIfAbsent(type, new HashMap<>());
-							displacementDescriptionsNPC.putIfAbsent(type, new HashMap<>());
-							try {
-								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.DISPLACEMENT, equipTextElement.getElementsByTagName("playerNPC").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.DISPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("playerNPCRough").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.DISPLACEMENT_SELF, equipTextElement.getElementsByTagName("playerSelf").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.DISPLACEMENT, equipTextElement.getElementsByTagName("NPCPlayer").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.DISPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("NPCPlayerRough").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.DISPLACEMENT_SELF, equipTextElement.getElementsByTagName("NPCSelf").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT, equipTextElement.getElementsByTagName("NPCOtherNPC").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("NPCOtherNPCRough").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							displacementDescriptions.putIfAbsent(type, new HashMap<>());
-							try {
-								displacementDescriptions.get(type).put(DisplacementDescriptionType.DISPLACEMENT_SELF, equipTextElement.getElementsByTagName("self").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptions.get(type).put(DisplacementDescriptionType.DISPLACEMENT, equipTextElement.getElementsByTagName("other").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							try {
-								displacementDescriptions.get(type).put(DisplacementDescriptionType.DISPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("otherRough").item(0).getTextContent());
-							} catch(Exception ex) {
-							}
-							if(displacementDescriptions.get(type).isEmpty()) {
-								displacementDescriptions.remove(type);
-							}
-							
-						} catch(Exception ex) {
-							System.err.println("AbstractClothingType loading failed. Cause: 'displacementText' element unable to be parsed.");
-						}
-					}
-				}
-				
-				
-				this.isMod = true;
-				
-				this.baseValue = Integer.valueOf(coreAttributes.getElementsByTagName("value").item(0).getTextContent());
-				this.determiner = coreAttributes.getElementsByTagName("determiner").item(0).getTextContent();
-				this.plural = Boolean.valueOf(((Element)coreAttributes.getElementsByTagName("namePlural").item(0)).getAttribute("pluralByDefault"));
-				this.name = coreAttributes.getElementsByTagName("name").item(0).getTextContent();
-				this.namePlural = coreAttributes.getElementsByTagName("namePlural").item(0).getTextContent();
-				this.description = coreAttributes.getElementsByTagName("description").item(0).getTextContent();
-				this.physicalResistance = Integer.valueOf(coreAttributes.getElementsByTagName("physicalResistance").item(0).getTextContent());
-				this.femininityRestriction = Femininity.valueOf(coreAttributes.getElementsByTagName("femininity").item(0).getTextContent());
-				setUpFemininity(this.femininityRestriction);
-				this.slot = InventorySlot.valueOf(coreAttributes.getElementsByTagName("slot").item(0).getTextContent());
-				this.rarity = Rarity.valueOf(coreAttributes.getElementsByTagName("rarity").item(0).getTextContent());
-				
-				this.isPatternAvailable = false;
-				
-				enchantmentLimit = -1;
-				try {
-					enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
-				} catch(Exception ex) {
-				}
-				
-				this.clothingSet = !coreAttributes.getElementsByTagName("clothingSet").item(0).hasChildNodes()
-									? null
-									: ClothingSet.valueOf(coreAttributes.getElementsByTagName("clothingSet").item(0).getTextContent());
-				
-				this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
-				
-				this.pathNameEquipped = !coreAttributes.getElementsByTagName("imageEquippedName").item(0).hasChildNodes()
-									? null
-									: clothingXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageEquippedName").item(0).getTextContent();
-				
-				this.effects = defaultEffects;
-
-				this.blockedPartsList = defaultBlockedParts;
-				
-				this.incompatibleSlots = defaultIncompatibleSlots;
-				
-				List<Colour> importedPrimaryColours = new ArrayList<>();
-				try {
-					if(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values").isEmpty()) {
-						Element primaryColoursElement = ((Element)coreAttributes.getElementsByTagName("primaryColours").item(0));
-						if(primaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-							for(int i=0; i<primaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedPrimaryColours.add(Colour.valueOf(((Element)primaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-							}
-						}
-					} else {
-						importedPrimaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values")).getPresetColourList();
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'primaryColours' element unable to be parsed.");
-				}
-
-				List<Colour> importedPrimaryColoursDye = new ArrayList<>();
-				try {
-					if(((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
-						Element primaryColoursElement = ((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0));
-						if(primaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-							for(int i=0; i<primaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedPrimaryColoursDye.add(Colour.valueOf(((Element)primaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-							}
-						}
-					} else {
-						importedPrimaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'primaryColoursDye' element unable to be parsed.");
-				}
-
-				List<Colour> importedSecondaryColours = new ArrayList<>();
-				try {
-					if((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)!=null) {
-						if(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values").isEmpty()) {
-							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0));
-							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedSecondaryColours.add(Colour.valueOf(((Element)secondaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-								}
-							}
-						} else {
-							importedSecondaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values")).getPresetColourList();
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'secondaryColours' element unable to be parsed.");
-				}
-
-				List<Colour> importedSecondaryColoursDye = new ArrayList<>();
-				try {
-					if((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)!=null) {
-						if(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
-							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0));
-							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedSecondaryColoursDye.add(Colour.valueOf(((Element)secondaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-								}
-							}
-						} else {
-							importedSecondaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'secondaryColoursDye' element unable to be parsed.");
-				}
-
-				List<Colour> importedTertiaryColours = new ArrayList<>();
-				try {
-					if((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)!=null) {
-						if(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values").isEmpty()) {
-							Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0));
-							if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-								for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedTertiaryColours.add(Colour.valueOf(((Element)tertiaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-								}
-							}
-						} else {
-							importedTertiaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values")).getPresetColourList();
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'tertiaryColours' element unable to be parsed.");
-				}
-
-				List<Colour> importedTertiaryColoursDye = new ArrayList<>();
-				try {
-					if((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)!=null) {
-						if(((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
-							Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0));
-							if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-								for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedTertiaryColoursDye.add(Colour.valueOf(((Element)tertiaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-								}
-							}
-						} else {
-							importedTertiaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'tertiaryColoursDye' element unable to be parsed.");
-				}
-				
-				setUpColours(
-						importedPrimaryColours,
-						importedPrimaryColoursDye,
-						importedSecondaryColours,
-						importedSecondaryColoursDye,
-						importedTertiaryColours,
-						importedTertiaryColoursDye);
-				
-				this.itemTags = defaultItemTags;
-				
-				finalSetUp();
-
-			} catch(Exception ex) {
-//				ex.printStackTrace();
-				System.err.println("ClothingType was unable to be loaded from file! Exception message: "+ex.getMessage());
+				coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes"); // Assuming this element appears just once, get an element by tag. If there's no such element, throw exception and halt loading this mod - it is invalid and continuing may/will cause severe bugs
+			} catch (XMLMissingTagException ex) {
+				coreAttributes = clothingElement.getMandatoryFirstOf("coreAttributes");
 			}
+
+			this.effects = coreAttributes
+				.getMandatoryFirstOf("effects") 
+				.getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
+				.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
+				.map( e -> ItemEffect.loadFromXML(e.getInnerElement(), e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
+				.filter(Objects::nonNull) // Ensure that we only add non-null effects
+				.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need! 
+			
+			if(debug) {
+				System.out.println("1");
+			}
+			
+			this.blockedPartsList = coreAttributes
+				.getMandatoryFirstOf("blockedPartsList")
+				.getAllOf("blockedParts").stream()
+				.map( e -> BlockedParts.loadFromXML(e.getInnerElement(), e.getDocument(), clothingXMLFile.getAbsolutePath()))
+				.collect(Collectors.toList());
+
+			this.incompatibleSlots = coreAttributes
+				.getMandatoryFirstOf("incompatibleSlots")
+				.getAllOf("slot").stream()
+				.map(Element::getTextContent).map(InventorySlot::valueOf)
+				.collect(Collectors.toList());
+
+			this.itemTags = coreAttributes
+				.getMandatoryFirstOf("itemTags")
+				.getAllOf("tag").stream()
+				.map(Element::getTextContent).map(ItemTag::valueOf)
+				.collect(Collectors.toList());
+
+			if(debug) {
+				System.out.println("2");
+			}
+			
+			this.displacementDescriptionsPlayer = new HashMap<>();
+			this.displacementDescriptionsNPC = new HashMap<>();
+			this.displacementDescriptions = new HashMap<>();
+
+			Consumer<String> loadItemMoveDescriptions = repositionDescListTag -> {
+				clothingElement.getAllOf(repositionDescListTag).stream() // <clothing>, not <coreAttributes>!
+				.forEach( descriptionList ->{
+					DisplacementType type = DisplacementType.valueOf(descriptionList.getAttribute("type"));
+					
+					displacementDescriptionsPlayer.putIfAbsent(type, new HashMap<>());
+					displacementDescriptionsNPC.putIfAbsent(type, new HashMap<>());
+					displacementDescriptions.putIfAbsent(type, new HashMap<>());
+					
+					Map<DisplacementDescriptionType, String> playerMap = displacementDescriptionsPlayer.get(type);
+					Map<DisplacementDescriptionType, String> npcMap = displacementDescriptionsNPC.get(type);
+					Map<DisplacementDescriptionType, String> universalMap = displacementDescriptions.get(type);
+
+					Function<Map<DisplacementDescriptionType, String>, Consumer<String>> putTagContentTo = mapToPutIn -> tagName ->{ // try to get element by tag, if it exists, put in specified map
+					descriptionList.getOptionalFirstOf(tagName)
+						.ifPresent(desc -> 
+						mapToPutIn.put(DisplacementDescriptionType.byTagsPath(repositionDescListTag+" "+desc.getTagName()), desc.getTextContent()));
+					};
+					Consumer<String> toPlayerMap = putTagContentTo.apply(playerMap);
+					Consumer<String> toNPCMap = putTagContentTo.apply(npcMap);
+					Consumer<String> toUniversalMap = putTagContentTo.apply(universalMap);
+
+					toPlayerMap.accept("playerNPC");
+					toPlayerMap.accept("playerNPCRough");
+					toPlayerMap.accept("playerSelf");
+
+					toNPCMap.accept("NPCPlayer");
+					toNPCMap.accept("NPCPlayerRough");
+					toNPCMap.accept("NPCSelf");
+
+					toNPCMap.accept("NPCOtherNPC");
+					toNPCMap.accept("NPCOtherNPCRough");
+					
+					toUniversalMap.accept("self");
+					toUniversalMap.accept("other");
+					toUniversalMap.accept("otherRough");
+					
+					if(displacementDescriptions.get(type).isEmpty()) {
+						displacementDescriptions.remove(type);
+					}
+				});
+				
+			};
+
+			loadItemMoveDescriptions.accept("replacementText");
+			loadItemMoveDescriptions.accept("displacementText");
+
+
+			if(debug) {
+				System.out.println("3");
+			}
+			
+			this.isMod = true;
+
+			this.name =        coreAttributes.getMandatoryFirstOf("name").getTextContent();
+			this.namePlural =  coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
+			this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
+			this.determiner =  coreAttributes.getMandatoryFirstOf("determiner").getTextContent();
+
+			if(debug) {
+				System.out.println("4");
+			}
+			
+			this.plural =             Boolean.valueOf(coreAttributes.getMandatoryFirstOf("namePlural").getAttribute("pluralByDefault"));
+			this.baseValue =          Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
+			this.physicalResistance = Integer.valueOf(coreAttributes.getMandatoryFirstOf("physicalResistance").getTextContent());	
+			this.slot =         InventorySlot.valueOf(coreAttributes.getMandatoryFirstOf("slot").getTextContent());
+			this.rarity =              Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
+
+			this.femininityRestriction = Femininity.valueOf(coreAttributes.getMandatoryFirstOf("femininity").getTextContent());
+			setUpFemininity(this.femininityRestriction);
+
+			if(debug) {
+				System.out.println("5");
+			}
+			
+			Predicate<Element> filterEmptyElements = element -> !element.getTextContent().isEmpty(); //helper function to filter out empty elements.
+
+			this.enchantmentLimit = coreAttributes.getOptionalFirstOf("enchantmentLimit") // three possible cases
+				.filter(filterEmptyElements) // <enchantmentLimit> or <enchantmentLimit></enchantmentLimit> - text content is "" - trying to convert to Integer throws  - filter it out so default value gets assigned
+				.map(Element::getTextContent).map(Integer::valueOf) //<enchantmentLimit>x</enchantmentLimit>, x being Integer		
+				.orElse(-1);// empty element or no value in element, assign default value;
+
+			this.clothingSet = coreAttributes.getOptionalFirstOf("clothingSet")
+				.filter(filterEmptyElements)
+				.map(Element::getTextContent).map(ClothingSet::valueOf)
+				.orElse(null);
+
+			this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/"
+				+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
+
+			this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
+				.filter(filterEmptyElements)
+				.map(e -> clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent())
+				.filter(s -> !s.equals(this.pathName)) // if imageEquippedName is the same as imageName, we don't need to load it twice
+				.orElse(null);
+			
+
+			Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
+				String values = colorsElement.getAttribute("values");
+				try {
+					if (values.isEmpty()){
+						return colorsElement.getAllOf("colour").stream()
+								.map(Element::getTextContent).map(Colour::valueOf)
+								.collect(Collectors.toList());
+					}
+					else{
+						return ColourListPresets.valueOf(values)
+								.getPresetColourList();
+					}
+				} catch (Exception e) {
+					printHelpfulErrorForEnumValueMismatches(e);
+					throw new IllegalStateException("Colour tag reading failure: "+colorsElement.getTagName()+" " + e.getMessage(), e);
+				}
+			};
+
+			List<Colour> importedPrimaryColours = getColoursFromElement
+				.apply(coreAttributes.getMandatoryFirstOf("primaryColours"));	
+			List<Colour> importedPrimaryColoursDye = getColoursFromElement
+				.apply(coreAttributes.getMandatoryFirstOf("primaryColoursDye"));		
+
+			List<Colour> importedSecondaryColours = coreAttributes.getOptionalFirstOf("secondaryColours")
+				.map(getColoursFromElement::apply)
+				.orElseGet(ArrayList::new);
+			List<Colour> importedSecondaryColoursDye = coreAttributes.getOptionalFirstOf("secondaryColoursDye")
+				.map(getColoursFromElement::apply)
+				.orElseGet(ArrayList::new);
+
+			List<Colour> importedTertiaryColours = coreAttributes.getOptionalFirstOf("tertiaryColours")
+				.map(getColoursFromElement::apply)
+				.orElseGet(ArrayList::new);
+			List<Colour> importedTertiaryColoursDye = coreAttributes.getOptionalFirstOf("tertiaryColoursDye")
+				.map(getColoursFromElement::apply)
+				.orElseGet(ArrayList::new);
+
+			setUpColours(
+				importedPrimaryColours,
+				importedPrimaryColoursDye,
+				importedSecondaryColours,
+				importedSecondaryColoursDye,
+				importedTertiaryColours,
+				importedTertiaryColoursDye
+			);
+
+			finalSetUp();
+		}
+		catch(XMLMissingTagException ex){
+			throw new XMLLoadException(ex, clothingXMLFile);
+		}
+		catch(Exception e){
+			System.out.println(e);
+			throw new XMLLoadException(e, clothingXMLFile);
 		}
 	}
 	
@@ -703,6 +547,22 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.allAvailableTertiaryColours.addAll(colourSet);
 		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
 	}
+
+	@SuppressWarnings("rawtypes")
+	private static void printHelpfulErrorForEnumValueMismatches(Exception ex) {
+		Map<Class, Object[]> possibleEnumValues = new HashMap<>();
+		possibleEnumValues.put(ColourListPresets.class, ColourListPresets.values());
+		String exMessage = ex.getMessage();
+		if (exMessage.startsWith("No enum constant")){
+			for (Map.Entry<Class, Object[]> possibleMatch : possibleEnumValues.entrySet()) {
+				if (exMessage.contains(possibleMatch.getKey().getCanonicalName())) {
+					StringJoiner valueLister = new StringJoiner(",");
+					Arrays.asList(possibleMatch.getValue()).forEach(enumValue -> valueLister.add(enumValue.toString()));
+					System.err.println("Possible values for "+possibleMatch.getKey().getSimpleName()+" are " + valueLister.toString());
+				}
+			}
+		}
+	}
 	
 	private void finalSetUp() {
 		displacementTypesAvailableWithoutNONE = new ArrayList<>();
@@ -716,8 +576,40 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		SVGStringMap = new HashMap<>();
 		SVGStringEquippedMap = new HashMap<>();
 		
+		// Add blocked parts due to sealing or plugging:
+		for(ItemTag tag : this.itemTags) {
+			switch(tag) {
+				case PLUGS_ANUS:
+				case SEALS_ANUS:
+					for(BlockedParts bp : this.blockedPartsList) {
+						if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP && !bp.blockedBodyParts.contains(CoverableArea.ANUS)) {
+							bp.blockedBodyParts.add(CoverableArea.ANUS);
+						}
+					}
+					break;
+				case PLUGS_NIPPLES:
+				case SEALS_NIPPLES:
+					for(BlockedParts bp : this.blockedPartsList) {
+						if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES)) {
+							bp.blockedBodyParts.add(CoverableArea.NIPPLES);
+						}
+					}
+					break;
+				case PLUGS_VAGINA:
+				case SEALS_VAGINA:
+					for(BlockedParts bp : this.blockedPartsList) {
+						if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP && !bp.blockedBodyParts.contains(CoverableArea.VAGINA)) {
+							bp.blockedBodyParts.add(CoverableArea.VAGINA);
+						}
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		
 		// Causes crash if done from here for some reason.
-		//this.isPatternAvailable = this.getSVGImage().contains("label=\"patternLayer\"");
+		//this.isPatternAvailable = this.getSVGImage().contains("id=\"patternLayer\"");
 	}
 	
 	@Override
@@ -761,6 +653,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return result;
 	}
 	
+
+	public static AbstractClothing generateClothing(String clothingTypeId, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
+		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), primaryColour, secondaryColour, tertiaryColour, allowRandomEnchantment);
+	}
+	
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		Colour c1 = primaryColour;
 		Colour c2 = secondaryColour;
@@ -801,27 +698,31 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c1, c2, c3, allowRandomEnchantment) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractClothing(clothingType, c1, c2, c3, allowRandomEnchantment) {};
 	}
 
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colourShade, boolean allowRandomEnchantment) {
 		return AbstractClothingType.generateClothing(clothingType, colourShade, null, null, allowRandomEnchantment);
 	}
 
-	/**
-	 * Allows random enchantment. Uses random colour.
-	 */
+	public static AbstractClothing generateClothing(String clothingTypeId, Colour colourShade, boolean allowRandomEnchantment) {
+		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), colourShade, null, null, allowRandomEnchantment);
+	}
+
+	/** Allows random enchantment. Uses random colour.*/
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType) {
 		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), true);
 	}
 
-	/**
-	 * Uses random colour.
-	 */
+	/** Uses random colour.*/
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, boolean allowRandomEnchantment) {
 		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), allowRandomEnchantment);
+	}
+
+	/** Uses random colour.*/
+	public static AbstractClothing generateClothing(String clothingTypeId, boolean allowRandomEnchantment) {
+		AbstractClothingType type = ClothingType.getClothingTypeFromId(clothingTypeId);
+		return AbstractClothingType.generateClothing(type, type.getAvailablePrimaryColours().get(Util.random.nextInt(type.getAvailablePrimaryColours().size())), allowRandomEnchantment);
 	}
 	
 	
@@ -855,9 +756,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c1, c2, c3, effects) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractClothing(clothingType, c1, c2, c3, effects) {};
 	}
 	
 	/**
@@ -865,6 +764,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	 */
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colour, List<ItemEffect> effects) {
 		return generateClothing(clothingType, colour, null, null, effects);
+	}
+	
+	public static AbstractClothing generateClothing(String clothingTypeId, Colour colour, List<ItemEffect> effects) {
+		return generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), colour, null, null, effects);
 	}
 	
 	/**
@@ -1005,15 +908,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			} else {
 				if(rough) {
 					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
-							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
-						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
+							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 					}
 					return UtilText.parse(clothingEquipper, clothingOwner, "[npc.name] [npc.verb(get)] [npc2.name] to equip the "+clothing.getName());
 					
 				} else {
 					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
-							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
-						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
 					}
 					return UtilText.parse(clothingEquipper, clothingOwner, "[npc.name] roughly [npc.verb(force)] [npc2.name] to equip the "+clothing.getName());
 				}
@@ -1315,15 +1218,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			} else {
 				if(rough) {
 					if(displacementDescriptions.containsKey(dt)
-							&& displacementDescriptions.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
-						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(dt).get(DisplacementDescriptionType.REPLACEMENT));
+							&& displacementDescriptions.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 					}
 					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] "+(clothingRemover.isPlayer()?dt.getOppositeDescription():dt.getOppositeDescriptionThirdPerson())+" [npc2.namePos] "+this.getName());
 					
 				} else {
 					if(displacementDescriptions.containsKey(dt)
-							&& displacementDescriptions.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
-						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+							&& displacementDescriptions.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(dt).get(DisplacementDescriptionType.REPLACEMENT));
 					}
 					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] roughly "+(clothingRemover.isPlayer()?dt.getOppositeDescription():dt.getOppositeDescriptionThirdPerson())+" [npc2.namePos] "+this.getName());
 				}
@@ -1420,6 +1323,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(!clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_VAGINA)) {
 			return false;
 		}
+		if(!clothingOwner.isBreastFuckableNipplePenetration() && this.getItemTags().contains(ItemTag.REQUIRES_FUCKABLE_NIPPLES)) {
+			return false;
+		}
 		return true;
 	}	
 
@@ -1459,6 +1365,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						"[npc.Name] doesn't have a vagina, so [npc.she] can't wear the "+this.getName()+"!");
 			}
 		}
+
+		if(!clothingOwner.isBreastFuckableNipplePenetration() && this.getItemTags().contains(ItemTag.REQUIRES_FUCKABLE_NIPPLES)) {
+			return UtilText.parse(clothingOwner,
+					"[npc.NamePos] nipples are not fuckable, so [npc.she] can't wear the "+this.getName()+"!");
+		}
 		
 		if(clothingOwner.isPlayer()) {
 			return "You cannot wear the "+this.getName()+"!";
@@ -1469,25 +1380,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public boolean isMufflesSpeech() {
-		return false;
+		return getItemTags().contains(ItemTag.MUFFLES_SPEECH);
 	}
 	
 	public boolean isHindersLegMovement() {
-		return false;
+		return getItemTags().contains(ItemTag.HINDERS_LEG_MOVEMENT);
 	}
 	
 	public boolean isHindersArmMovement() {
-		return false;
+		return getItemTags().contains(ItemTag.HINDERS_ARM_MOVEMENT);
 	}
 	
 	// Getters & setters:
 	
 	public boolean isDiscardedOnUnequip() {
-		return false;
+		return getItemTags().contains(ItemTag.DISCARDED_WHEN_UNEQUIPPED);
 	}
 	
 	public boolean isAbleToBeEquippedDuringSex() {
-		return false;
+		return getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP);
 	}
 	
 	public String getDeterminer() {
@@ -1697,13 +1608,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					String s = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>"+Util.inputStreamToString(is)+"</div>";
 					is.close();
 					s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-					s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+					s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 
 					if(!equippedVariant) {
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 						s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+						s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
 						addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, pattern, patternColour, patternSecondaryColour, patternTertiaryColour, s);
@@ -1721,7 +1632,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 									is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
 									s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 									s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-									s = Util.colourReplacement(this.getId(), item.getColour(), null, null, s);
+									s = SvgUtil.colourReplacement(this.getId(), item.getColour(), null, null, s);
 									is.close();
 								}
 							}
@@ -1731,7 +1642,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 						s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+						s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
 						int i = 1;
@@ -1739,7 +1650,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+i+"_front.svg");
 							s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-							s = Util.colourReplacement(this.getId(), c, null, null, s);
+							s = SvgUtil.colourReplacement(this.getId(), c, null, null, s);
 							is.close();
 							i++;
 						}
@@ -1779,7 +1690,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							
 							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 							
-							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+							s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
@@ -1830,7 +1741,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							
 							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 							
-							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+							s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
@@ -1860,7 +1771,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	private String getSVGWithHandledPattern(String s, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
-		if(!s.contains("label=\"patternLayer\"")) { // Making sure that the pattern layer exists.
+		if(!s.contains("patternLayer")) { // Making sure that the pattern layer exists.
 			return s;
 		}
 		
@@ -1875,7 +1786,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		String returnable;
 		
 		// Locating the "patternLayer".
-		int patternLayerStartIndex = s.indexOf("label=\"patternLayer\"");
+		int patternLayerStartIndex = s.indexOf("patternLayer");
 		int patternLayerEndIndex = s.indexOf("</g>", patternLayerStartIndex);
 		
 		// Setting up clip mask
@@ -1888,7 +1799,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		while(continueSetUp){
 			int currentShapeStartIndex = s.indexOf("<path", lastShapeEndIndex);
-			int currentShapeEndIndex = s.indexOf(" />", currentShapeStartIndex);
+			int currentShapeEndIndex = s.indexOf("/>", currentShapeStartIndex);
 			
 			if(currentShapeEndIndex > patternLayerEndIndex || currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
 				continueSetUp = false;
@@ -1903,13 +1814,26 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		//System.out.print(newClipMask);
 		
 		// Adding clip mask to the returned string.
-		returnable = s.substring(0, s.indexOf("<defs")) 
-				+ "<defs>" 
-				+ newClipMask;
+		int defIndex = s.indexOf("<defs");
+		int defEndIndex;
+		if (defIndex > 0) {
+			// Replace defs
+			returnable = s.substring(0, defIndex) + "<defs>" + newClipMask;
+			defEndIndex = s.indexOf("</defs>");
+		} else {
+			// Insert defs
+			returnable = s.substring(0, s.indexOf('>')) + "><defs>" + newClipMask + "</defs>";
+			defEndIndex = s.indexOf('>') + 1;
+		}
 		
 		// Loading pattern
-		String loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
-		
+			String loadedPattern;
+		try {
+			loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
+		} catch(Exception ex) {
+			System.err.println("Error in pattern loading method getSVGWithHandledPattern(). Clothing causing error: "+this.getName());
+			return s;
+		}
 		// Getting shapes from the pattern
 		String newPattern = "";
 		
@@ -1930,7 +1854,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			{
 				currentShapeStartIndex = currentRectStartIndex;
 			}
-			int currentShapeEndIndex = loadedPattern.indexOf(" />", currentShapeStartIndex);
+			int currentShapeEndIndex = loadedPattern.indexOf("/>", currentShapeStartIndex);
 			
 			if(currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
 				continuePatternSetUp = false;
@@ -1943,7 +1867,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 
-		returnable = returnable + s.substring(s.indexOf("</defs>"), firstShapeStartIndex) 
+		returnable = returnable + s.substring(defEndIndex, firstShapeStartIndex)
 				+ newPattern
 				+ s.substring(patternLayerEndIndex);
 		
@@ -2006,5 +1930,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	public List<ItemTag> getItemTags() {
 		return itemTags;
+	}
+	
+	public boolean isSexToy() {
+		for(ItemTag tag : this.getItemTags()) {
+			if(tag.isSexToy()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
