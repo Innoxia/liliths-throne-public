@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="royalGuardsGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#royalGuardsGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <g stroke="#fff">
+            <path fill="none" stroke-linecap="round" stroke-width="3" d="M14.375 1027.175l13.187 8.562"/>
+            <path fill="#fff" fill-rule="evenodd" d="M19.492 1031.26l-4.963 5.17c-1.984 2.065 1.946 3.91 2.874 1.95l3.527-6.245zM22.562 1032.112s22.144-30.952 20.5-32c-1.571-1.002-23.844 29.846-23.844 29.846z"/>
+        </g>
+        <g stroke="#fff">
+            <path fill="none" stroke-linecap="round" stroke-width="3" d="M50.56 1027.359l-13.188 8.562"/>
+            <path fill="#fff" fill-rule="evenodd" d="M45.442 1031.444l4.964 5.17c1.983 2.065-1.946 3.91-2.874 1.95l-3.527-6.245zM42.372 1032.296s-22.143-30.952-20.5-32c1.572-1.001 23.845 29.846 23.845 29.846z"/>
+        </g>
+    </g>
+</svg>

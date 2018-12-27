@@ -23,7 +23,7 @@
 		Stepping into the building marked as the 'Submission Enforcer Post', you start to make your way towards the staircase.
 		 Seeing you approach, the Enforcer on duty calls out,
 		 [npcMale.speech(If you have any questions about Submission, you can bother the guys on duty down below.
-		 Or if you see a waddling little cat-girl, with tits bigger than anyone else, it'd be better to ask her.
+		 Or if you see a little cat-girl with fat tits waddling around, it'd be better to ask her.
 		 I'm far too busy to be acting as an information kiosk right now.)]
 	</p>
 	<p>
@@ -64,25 +64,36 @@
 	<p>
 		[claire.speech(It means that I have level three clearance! That's right, I, Claire, the humble messenger, am entrusted to use teleportation stations! Nobody who enters Submission escapes my notice!)]
 		 She declares, puffing out her chest even more as she places her hands on her absurdly-wide hips.
-		 [claire.speech(So, as you're new, I need to let you know a few things! One, please don't go swimming in the waterways. The alligator-morphs can get a little snappy if they think you're barging in on their territory. Two, stay out of the tunnels. We don't have the manpower to patrol them, so if you go and get yourself mugged or something, don't come crying to us saying we didn't warn you! And three, stay away from Lyssieth's palace. She doesn't receive visitors, and if you go poking about near there, her guards will end up beating you up or something.)]
 	</p>
 	<p>
-		[pc.speech(I see. Well, nice to meet you Claire, I'm [pc.name].)]
+		[pc.speech(Well, nice to meet you Claire, I'm [pc.name].)]
 		 You reply.
 	</p>
-	<p>
-		[claire.speech(Pleased to meet you, [pc.name]. Oh, and one last thing! We've recently been having some trouble with some slimes attacking innocent travellers and then transforming them into even more slimes.)]
-		 Claire says, taking on a stern expression as she looks you right in the eyes.
-		 [claire.speech(Now, I know I just told you to stay out of the tunnels, but I get the feeling you're not going to listen to my advice. If you do end up going in there, just be extra careful of any slimes you bump into. And if, by some miracle, you're able to get any information on why these slimes are doing this, there's a five-thousand flame reward being offered.)]
+		 [claire.speech(Pleased to meet you, [pc.name]. So, as you're new, I need to let you know a few things! One, please don't go swimming in the waterways. The alligator-morphs can get a little snappy if they think you're barging in on their territory. Two, stay away from Lyssieth's palace. She doesn't receive visitors, and if you go poking about near there, her guards will end up beating you up or something.)] The cat-girl enforcer pauses to take a little breath, before stepping forwards and wagging a finger under your nose. [claire.speech(Now this third one's the most important of all, so listen up! Whatever you do, stay out of the tunnels!)]
 	</p>
 	<p>
-		[pc.speech(Thanks for the warning.)]
-		 You say.
+		[pc.speech(Yeah, someone said the same thing to me about the alleyways in Dominion. I'll be careful.)] You reply, thinking back to the warning Rose gave you shortly after arriving in Dominion.
 	</p>
 	<p>
-		[claire.speech(You're welcome! Watch yourself out there [pc.name]!)]
-		 Claire cheerfully replies.
-		 [claire.speech(If you need anything else, I'm always around, so don't hesitate to come and ask!)]
+		[claire.speech(No, no no!)] Claire replies, her still-wagging finger coming dangerously close to booping you on the nose. [claire.speech(Dominion's nothing compared to what we have to deal with! Now, we're not meant to go around telling people this, but I can see you need some extra convincing! You see, us enforcers are extremely under-staffed down here, and we count ourselves lucky if we can send even one patrol through those tunnels per week. As a result, they're absolutely infested with roving gangs of nasty little imps, who love nothing more than to attack anyone who enters 'their territory'.)]
+	</p>
+	<p>
+		[pc.speech(Well, if they've formed gangs, then surely they have some kind of leadership? Can't you just raid that or something?)] You ask.
+	</p>
+	<p>
+		[claire.speech(If only! Yes, they have leadership. The problem is, they've gone and built fortresses in those tunnels, and, crude as they are, we're not exactly equipped to go and lay siege! Just accept that those tunnels are off-limits, ok? There are so many imps down there, even if you beat one of the gangs, another'll be lying in wait around the next corner.)]
+	</p>
+	<p>
+		[pc.speech(Well, I'll keep all of that in mind. Thanks for the warning.)] You reply as you wonder to yourself if you'd ever have a chance at clearing some of those fortresses Claire just mentioned.
+	</p>
+	<p>
+		[claire.speech(Oh, and one last thing! We've recently been having some trouble with some slimes attacking innocent travellers and then transforming them into even more slimes.)] The cat-girl says, taking on a stern expression as she looks you right in the eyes. [claire.speech(Now, I know I just told you to stay out of the tunnels, but I get the feeling you're not going to listen to my advice. If you do end up venturing into some of the ones not claimed by imps, just be extra careful of any slimes you bump into. And if, by some miracle, you're able to get any information on why these slimes are doing this, there's a one-thousand flame reward being offered if you report it to me.)]
+	</p>
+	<p>
+		[pc.speech(That sounds tempting.)] You reply.
+	</p>
+	<p>
+		[claire.speech(Well, it's not meant to encourage you to go and seek out danger! Just watch yourself out there, [pc.name].)] Claire sighs, before taking on a more cheerful tone. [claire.speech(If you need anything else, I'm always around, so don't hesitate to come and ask!)]
 	</p>
 	]]>
 	</htmlContent>

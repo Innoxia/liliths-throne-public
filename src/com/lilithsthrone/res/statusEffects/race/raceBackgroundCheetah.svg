@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <ellipse cx="31.978" cy="31.896" fill="#f1e6cf" fill-rule="evenodd" color="#000" overflow="visible" rx="29.831" ry="29.831" style="isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1"/>
+    <ellipse cx="22.765" cy="34.572" fill="#666" paint-order="stroke fill markers" rx="5.262" ry="3.535" transform="matrix(1 -.0025 .01041 .99995 0 0)"/>
+    <ellipse cx="7.213" cy="-31.162" fill="#666" paint-order="stroke fill markers" rx="3.068" ry="5.152" transform="matrix(-.04619 .99893 -.99954 .03036 0 0)"/>
+    <ellipse cx="15.501" cy="-12.045" fill="#666" paint-order="stroke fill markers" rx="2.748" ry="5.365" transform="rotate(74.074) skewX(-.067)"/>
+    <ellipse cx="20.616" cy="-28.749" fill="#666" paint-order="stroke fill markers" rx="3.619" ry="5.32" transform="matrix(-.0839 .99647 -.99953 -.03054 0 0)"/>
+    <ellipse cx="5.116" cy="-27.537" fill="#666" paint-order="stroke fill markers" rx="3.949" ry="4.342" transform="matrix(-.93707 .34915 -.5378 -.84307 0 0)"/>
+    <ellipse cx="-60.066" cy="16.46" fill="#666" paint-order="stroke fill markers" rx="2.866" ry="5.271" transform="matrix(-.15886 -.9873 .99157 -.12957 0 0)"/>
+    <ellipse cx="-40.718" cy="44.461" fill="#666" paint-order="stroke fill markers" rx="3.485" ry="5.263" transform="matrix(.20838 -.97805 .98536 .1705 0 0)"/>
+    <ellipse cx="-44.663" cy="37.228" fill="#666" paint-order="stroke fill markers" rx="3.464" ry="4.721" transform="matrix(-.12472 -.9922 .96945 -.2453 0 0)"/>
+    <ellipse cx="-41.001" cy="50.657" fill="#666" paint-order="stroke fill markers" rx="3.292" ry="4.946" transform="matrix(-.19565 -.98067 .9612 -.27586 0 0)"/>
+    <ellipse cx="-17.605" cy="42.399" fill="#666" paint-order="stroke fill markers" rx="3.165" ry="4.594" transform="matrix(.03174 -.9995 .9978 .06637 0 0)"/>
+    <ellipse cx="2.855" cy="50.647" fill="#666" paint-order="stroke fill markers" rx="2.783" ry="4.672" transform="matrix(.12794 -.99178 .96151 .27476 0 0)"/>
+    <ellipse cx="49.23" cy="-53.931" fill="#666" paint-order="stroke fill markers" rx="3.261" ry="4.3" transform="matrix(-.09518 .99546 -.99878 -.04932 0 0)"/>
+    <ellipse cx="17.381" cy="-66.814" fill="#666" paint-order="stroke fill markers" rx="3.254" ry="4.521" transform="matrix(-.36824 .92973 -.93417 -.35682 0 0)"/>
+    <ellipse cx="-20.591" cy="36.916" fill="#666" paint-order="stroke fill markers" rx="3.464" ry="4.721" transform="matrix(.83038 -.5572 .6547 .75589 0 0)"/>
+    <ellipse cx="-46.507" cy="18.5" fill="#666" paint-order="stroke fill markers" rx="3.165" ry="4.594" transform="matrix(.03174 -.9995 .9978 .06637 0 0)"/>
+    <ellipse style="isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1" cx="31.978" cy="31.896" fill="none" stroke="#000" stroke-width="2" color="#000" overflow="visible" rx="29.831" ry="29.831"/>
+</svg>

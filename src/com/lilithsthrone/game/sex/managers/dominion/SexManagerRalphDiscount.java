@@ -3,12 +3,13 @@ package com.lilithsthrone.game.sex.managers.dominion;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
-import com.lilithsthrone.game.sex.sexActions.dominion.ralph.SexActionRalphDiscount;
+import com.lilithsthrone.game.sex.sexActions.dominion.RalphOral;
 
 /**
  * @since 0.1.6?
@@ -25,10 +26,10 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	
 	@Override
 	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
-		if(Sex.getAvailableSexActionsPartner().contains(SexActionRalphDiscount.PARTNER_PENETRATES)) {
-			return SexActionRalphDiscount.PARTNER_PENETRATES;
-		} else if(Sex.getAvailableSexActionsPartner().contains(SexActionRalphDiscount.PARTNER_PENETRATES_ANUS)) {
-			return SexActionRalphDiscount.PARTNER_PENETRATES_ANUS;
+		if(Sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES)) {
+			return RalphOral.PARTNER_PENETRATES;
+		} else if(Sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES_ANUS)) {
+			return RalphOral.PARTNER_PENETRATES_ANUS;
 		}
 		
 		return super.getPartnerSexAction(sexActionPlayer);
@@ -40,7 +41,7 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 		return false;
 	}
 	

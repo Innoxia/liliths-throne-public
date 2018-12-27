@@ -12,7 +12,6 @@ import com.lilithsthrone.utils.Util;
  */
 public class EventLogEntryBookAddedToLibrary extends EventLogEntry {
 
-	private static final long serialVersionUID = 1L;
 	
 	public EventLogEntryBookAddedToLibrary(AbstractItemType book) {
 		super(Main.game.getMinutesPassed(), "Added to Library", "<span style='color:"+book.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(book.getName(false))+"</span>");
@@ -27,7 +26,7 @@ public class EventLogEntryBookAddedToLibrary extends EventLogEntry {
 	public String getMainDialogueDescription() {
 		return "<p style='text-align:center;'>"
 				+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library</b>"
-				+ "</br>"
+				+ "<br/>"
 				+ description
 			+ "</p>";
 	}

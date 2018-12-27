@@ -2,7 +2,6 @@ package com.lilithsthrone.game.inventory.item;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,9 +12,10 @@ import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -24,9 +24,8 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.1
  * @author Innoxia
  */
-public class AbstractFilledBreastPump extends AbstractItem implements Serializable, XMLSaving {
+public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving {
 	
-	private static final long serialVersionUID = 1L;
 	
 	private String milkProvidor;
 	private FluidMilk milk;
@@ -104,7 +103,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 
 	public static AbstractFilledBreastPump loadFromXML(Element parentElement, Document doc) {
 		return new AbstractFilledBreastPump(
-				ItemType.idToItemMap.get(parentElement.getAttribute("id")),
+				ItemType.getIdToItemMap().get(parentElement.getAttribute("id")),
 				Colour.valueOf(parentElement.getAttribute("colour")),
 				parentElement.getAttribute("milkProvidor"),
 				((Element) parentElement.getElementsByTagName("milk").item(0)==null
@@ -119,14 +118,8 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
 			String s = Util.inputStreamToString(is);
-
-			for (int i = 0; i <= 14; i++)
-				s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
-			s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-			s = s.replaceAll("#ff5555", colour.getShades()[1]);
-			s = s.replaceAll("#ff8080", colour.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-			s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+			
+			s = SvgUtil.colourReplacement(String.valueOf(this.hashCode()), colour, s);
 			
 			is.close();
 			
@@ -141,7 +134,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 	
 	@Override
 	public String applyEffect(GameCharacter user, GameCharacter target) {
-		return target.ingestFluid(getMilkProvidor(), milk.getType(), OrificeType.MOUTH, millilitresStored, milk.getFluidModifiers())
+		return target.ingestFluid(getMilkProvidor(), milk, SexAreaOrifice.MOUTH, millilitresStored)
 				+ target.addItem(AbstractItemType.generateItem(ItemType.MOO_MILKER_EMPTY), false);
 	}
 	
@@ -150,7 +143,12 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 	}
 	
 	public GameCharacter getMilkProvidor() {
-		return Main.game.getNPCById(milkProvidor);
+		try {
+			return Main.game.getNPCById(milkProvidor);
+		} catch (Exception e) {
+			Util.logGetNpcByIdError("getMilkProvidor()", milkProvidor);
+			return null;
+		}
 	}
 
 	public FluidMilk getMilk() {
@@ -163,10 +161,6 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 
 	public void setMillilitresStored(int millilitresStored) {
 		this.millilitresStored = millilitresStored;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 	
 }

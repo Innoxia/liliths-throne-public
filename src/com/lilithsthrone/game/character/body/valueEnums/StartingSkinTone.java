@@ -5,6 +5,11 @@ import java.util.List;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
+/**
+ * @since 0.2.?
+ * @version 0.2.9
+ * @author Pimgd
+ */
 public enum StartingSkinTone {
 	
 	VERY_LIGHT(Util.newArrayListOfValues(
@@ -16,11 +21,11 @@ public enum StartingSkinTone {
 			Colour.SLIME_BLUE,
 			Colour.SLIME_PINK,
 			
-			Colour.FEATHERS_BLEACH_BLONDE,
-			Colour.FEATHERS_GINGER,
-			Colour.FEATHERS_LILAC,
-			Colour.FEATHERS_PINK,
-			Colour.FEATHERS_WHITE,
+			Colour.COVERING_BLEACH_BLONDE,
+			Colour.COVERING_GINGER,
+			Colour.COVERING_LILAC,
+			Colour.COVERING_PINK,
+			Colour.COVERING_WHITE,
 			
 			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,
@@ -47,6 +52,7 @@ public enum StartingSkinTone {
 			
 	LIGHT(Util.newArrayListOfValues(
 			Colour.SKIN_LIGHT,
+			Colour.SKIN_ROSY,
 			Colour.SKIN_PINK,
 			Colour.SKIN_BLUE,
 			Colour.SKIN_IVORY,
@@ -57,16 +63,16 @@ public enum StartingSkinTone {
 			Colour.SLIME_GREEN,
 			Colour.SLIME_RED,
 			
-			Colour.FEATHERS_WHITE,
-			Colour.FEATHERS_BLUE,
-			Colour.FEATHERS_LILAC,
-			Colour.FEATHERS_PINK,
-			Colour.FEATHERS_RED,
-			Colour.FEATHERS_GREEN,
-			Colour.FEATHERS_YELLOW,
-			Colour.FEATHERS_ORANGE,
-			Colour.FEATHERS_GINGER,
-			Colour.FEATHERS_BLEACH_BLONDE,
+			Colour.COVERING_WHITE,
+			Colour.COVERING_BLUE,
+			Colour.COVERING_LILAC,
+			Colour.COVERING_PINK,
+			Colour.COVERING_RED,
+			Colour.COVERING_GREEN,
+			Colour.COVERING_YELLOW,
+			Colour.COVERING_ORANGE,
+			Colour.COVERING_GINGER,
+			Colour.COVERING_BLEACH_BLONDE,
 			
 			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,
@@ -97,6 +103,7 @@ public enum StartingSkinTone {
 			
 	OLIVE(Util.newArrayListOfValues(
 			Colour.SKIN_OLIVE,
+			Colour.SKIN_TANNED,
 			Colour.SKIN_RED,
 			Colour.SKIN_BROWN,
 			Colour.SKIN_PINK,
@@ -111,17 +118,17 @@ public enum StartingSkinTone {
 			Colour.SLIME_RED,
 			Colour.SLIME_BLACK,
 
-			Colour.FEATHERS_BLACK,
-			Colour.FEATHERS_WHITE,
-			Colour.FEATHERS_BLUE,
-			Colour.FEATHERS_LILAC,
-			Colour.FEATHERS_PINK,
-			Colour.FEATHERS_RED,
-			Colour.FEATHERS_GREEN,
-			Colour.FEATHERS_YELLOW,
-			Colour.FEATHERS_ORANGE,
-			Colour.FEATHERS_GINGER,
-			Colour.FEATHERS_BLEACH_BLONDE,
+			Colour.COVERING_BLACK,
+			Colour.COVERING_WHITE,
+			Colour.COVERING_BLUE,
+			Colour.COVERING_LILAC,
+			Colour.COVERING_PINK,
+			Colour.COVERING_RED,
+			Colour.COVERING_GREEN,
+			Colour.COVERING_YELLOW,
+			Colour.COVERING_ORANGE,
+			Colour.COVERING_GINGER,
+			Colour.COVERING_BLEACH_BLONDE,
 			
 			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,
@@ -163,15 +170,15 @@ public enum StartingSkinTone {
 			Colour.SLIME_RED,
 			Colour.SLIME_BLACK,
 
-			Colour.FEATHERS_BLACK,
-			Colour.FEATHERS_WHITE,
-			Colour.FEATHERS_BLUE,
-			Colour.FEATHERS_LILAC,
-			Colour.FEATHERS_PINK,
-			Colour.FEATHERS_RED,
-			Colour.FEATHERS_GREEN,
-			Colour.FEATHERS_YELLOW,
-			Colour.FEATHERS_ORANGE,
+			Colour.COVERING_BLACK,
+			Colour.COVERING_WHITE,
+			Colour.COVERING_BLUE,
+			Colour.COVERING_LILAC,
+			Colour.COVERING_PINK,
+			Colour.COVERING_RED,
+			Colour.COVERING_GREEN,
+			Colour.COVERING_YELLOW,
+			Colour.COVERING_ORANGE,
 			
 			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,
@@ -199,6 +206,7 @@ public enum StartingSkinTone {
 			
 	VERY_DARK(Util.newArrayListOfValues(
 			Colour.SKIN_EBONY,
+			Colour.SKIN_CHOCOLATE,
 			Colour.SKIN_RED,
 			Colour.SKIN_BROWN,
 			Colour.SKIN_PURPLE,
@@ -208,13 +216,13 @@ public enum StartingSkinTone {
 			Colour.SLIME_RED,
 			Colour.SLIME_BLACK,
 
-			Colour.FEATHERS_BLACK,
-			Colour.FEATHERS_WHITE,
-			Colour.FEATHERS_BLUE,
-			Colour.FEATHERS_RED,
-			Colour.FEATHERS_GREEN,
-			Colour.FEATHERS_YELLOW,
-			Colour.FEATHERS_ORANGE,
+			Colour.COVERING_BLACK,
+			Colour.COVERING_WHITE,
+			Colour.COVERING_BLUE,
+			Colour.COVERING_RED,
+			Colour.COVERING_GREEN,
+			Colour.COVERING_YELLOW,
+			Colour.COVERING_ORANGE,
 			
 			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,

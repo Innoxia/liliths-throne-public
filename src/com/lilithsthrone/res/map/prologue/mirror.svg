@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <linearGradient id="museumRoomGradient" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g fill-rule="evenodd">
+  <ellipse cx="32" cy="32.006" rx="30.383" ry="30.381" fill="url(#museumRoomGradient)"/>
+  <path d="m32.881 6.084c-4.9659 0.068586-9.9382 1.9947-9.9434 5.668l-0.054688 39.75-1.1504 3.0684 2.6836 0.19336 1.3418-3.0684 14.191 0.095704 0.76562 2.5879 3.209-0.039062-1.291-2.9336 0.16016-39.846c0.014973-3.7559-4.9462-5.5451-9.9121-5.4766zm0.10547 2.6387c3.9501-0.011136 7.8984 1.026 7.8945 3.1426l-0.066406 37.219h-15.73v-37.219c0-2.072 3.9522-3.1314 7.9023-3.1426z" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="1px"/>
+  <path d="m32.91 10.668c-3.0439-0.01389-6.088 0.68872-6.0859 2.1523l0.04687 34.57h12.121l0.0059-34.57c1.76e-4 -1.4081-3.044-2.1385-6.0879-2.1523zm2.2773 1.3184c3.8742-0.18885 3.4535 2.7809 3.5 4.7461l-0.76758 0.95898c-0.33084-1.8358-0.36978-4.1276-3.5-4.8906zm-1.2949 0.71875c2.7463 0.7629 4.1888 2.5925 4.123 5.6562l-0.86328 0.81445c-0.45061-2.5194-1.6013-4.5858-4.2188-5.7031z" fill="#fff" stroke="#fff" stroke-width=".83421px"/>
+ </g>
+</svg>

@@ -1,93 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="0 0 256 256"
-   id="svg4166"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="groin_panties.svg">
-  <style
-     id="style3">
-    svg { cursor: default; }
-  </style>
-  <defs
-     id="defs4168">
-    <inkscape:path-effect
-       effect="powerstroke"
-       id="path-effect4202"
-       is_visible="true"
-       offset_points="0,0.5"
-       sort_points="true"
-       interpolator_type="Linear"
-       interpolator_beta="0.2"
-       start_linecap_type="zerowidth"
-       linejoin_type="round"
-       miter_limit="4"
-       end_linecap_type="zerowidth"
-       cusp_linecap_type="round" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="58.951028"
-     inkscape:cy="159.47636"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata4171">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-796.36216)"
-     style="display:inline">
-    <path
-       style="fill:#ff8080;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 21.339285,881.38002 c 46.5291,8.31229 92.284975,49.19325 223.839285,-3.125 l 0.89286,14.28571 c -66.31602,40.37808 -140.05481,41.33865 -220.178573,8.39286 z"
-       id="path4159"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       style="fill:#ffd5d5;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 244.91021,879.87046 c 1.77785,7.13538 4.36139,16.708 8.833,28.30091 -14.46471,23.82811 -38.06218,37.41185 -50.03848,45.52663 -33.00541,22.36345 -37.59962,28.67966 -44.53186,36.20366 -2.93802,3.20135 -6.26655,9.25799 -9.01093,10.14964 -9.10136,2.9572 -18.46396,3.3333 -29.0161,-0.82009 -2.61814,-1.03052 -3.04332,-4.87282 -5.32744,-7.26131 C 106.95927,981.73257 96.779699,974.03568 74.127305,959.4318 51.480394,944.83145 17.78862,923.68131 16.350339,913.13799 c 4.343704,-16.5792 4.825041,-19.81364 4.933287,-31.4793 26.619482,14.31408 63.074058,24.77085 93.931564,27.37562 28.05945,2.36857 50.6252,-2.281 73.61289,-6.3158 28.07826,-4.9283 49.68076,-13.35034 56.08213,-22.84805 z"
-       id="path4196"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccscsscsccssc" />
-    <path
-       style="fill:#ffaaaa;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 21.019126,881.53058 c 0.02886,2.87339 0.160585,5.54105 -0.126269,9.04587 58.623527,41.44689 190.514773,31.77688 226.533173,-1.12373 -0.91622,-3.97006 -1.41854,-7.06558 -2.16359,-10.50508 -49.02093,34.30367 -154.304603,41.93 -224.243314,2.58294 z"
-       id="path4157"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" cursor="default" viewBox="0 0 256 256">
+    <g id="patternLayer" display="inline">
+        <path fill="#ffd5d5" fill-rule="evenodd" stroke="#000" d="M244.969 83.617c1.778 7.136 4.361 16.708 8.833 28.301-14.465 23.828-38.062 37.412-50.039 45.527-33.005 22.363-37.6 28.68-44.531 36.204-2.939 3.201-6.267 9.258-9.011 10.15-9.102 2.956-18.464 3.333-29.017-.82-2.618-1.031-3.043-4.874-5.327-7.262-8.86-10.237-19.039-17.934-41.691-32.538-22.647-14.6-56.339-35.75-57.777-46.294 4.344-16.58 4.825-19.814 4.933-31.48 26.62 14.315 63.074 24.772 93.932 27.376 28.06 2.369 50.625-2.28 73.613-6.316 28.078-4.928 49.68-13.35 56.082-22.848z"/>
+    </g>
+    <g stroke="#000">
+        <path fill="#ff8080" fill-rule="evenodd" d="M21.34 85.018c46.528 8.312 92.284 49.193 223.839-3.125l.892 8.571c-66.316 40.378-143.626 35.982-223.75 3.036z"/>
+        <path fill="none" d="M244.91 83.508c1.778 7.136 4.362 16.708 8.833 28.301-14.464 23.828-38.062 37.412-50.038 45.527-33.006 22.363-37.6 28.68-44.532 36.203-2.938 3.202-6.267 9.258-9.011 10.15-9.101 2.957-18.464 3.333-29.016-.82-2.618-1.03-3.043-4.873-5.328-7.261-8.859-10.238-19.038-17.934-41.69-32.538-22.648-14.6-56.34-35.75-57.778-46.294 4.344-16.58 4.825-19.814 4.934-31.48 26.62 14.315 63.074 24.771 93.931 27.376 28.06 2.369 50.625-2.28 73.613-6.316 28.078-4.928 49.68-13.35 56.082-22.848z"/>
+        <path fill="#faa" fill-rule="evenodd" d="M21.02 85.168c.028 2.874.16 5.541-.127 9.046 58.623 41.447 190.515 31.777 226.533-1.123-.916-3.97-1.419-7.066-2.164-10.506-49.02 34.304-154.304 41.93-224.243 2.583z"/>
+    </g>
 </svg>

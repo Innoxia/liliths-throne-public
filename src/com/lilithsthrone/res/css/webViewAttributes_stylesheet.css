@@ -1,6 +1,6 @@
 html {
 	background: #1e1e20;
-	font-family:Calibri,Carlito;
+	font-family: Calibri, Carlito, sans-serif;
 	font-size:11pt;
 	font-size:7vw; /*font-size:2vw;*/
 	color: #ffffff;
@@ -245,7 +245,7 @@ h6{
 	box-sizing:border-box;
 	border-radius: 5px;
 	background: #1B1B1D;
-	font-family:Calibri,Carlito;
+	font-family: Calibri, Carlito, sans-serif;
 	font-size:11pt;
 	width:100%;
 	overflow-y: scroll;
@@ -303,6 +303,7 @@ h6{
 	border-radius:5px;
 	background-color:#808080;
 	-webkit-user-select: none;
+	box-sizing: border-box;
 }
 .map-tile:after {
   content: "";
@@ -442,6 +443,9 @@ h6{
 	-webkit-user-select: none;
 }
 
+.inventory-item-slot.secondary{
+	width:14.67%;
+}
 .inventory-item-slot.piercing{
 	width:40%;
 	margin:5%;
@@ -491,6 +495,9 @@ h6{
 	border-radius:5px;
 	cursor:pointer;
 }
+.overlay-inventory.no-pointer{
+	cursor:default;
+}
 
 .femininityIcon{
 	position:absolute;
@@ -526,11 +533,11 @@ h6{
 	pointer-events: none;
 	-webkit-user-select: none;
 }
-.jinxedIcon{
+.scarIcon{
 	position:absolute;
 	width:40%;
 	height:40%;
-	left:0;
+	right:0;
 	pointer-events: none;
 	-webkit-user-select: none;
 }
@@ -589,6 +596,12 @@ h6{
 }
 .legendary:hover{
 	background-color:#6a6a48;
+}
+.quest {
+	background-color:#344C4B;
+}
+.quest:hover{
+	background-color:#486A69;
 }
 .jinxed {
 	background-color:#694b4e;

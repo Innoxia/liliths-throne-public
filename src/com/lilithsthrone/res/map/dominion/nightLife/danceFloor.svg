@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="danceFloorGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#danceFloorGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <ellipse cx="32.538" cy="1017.736" fill="none" stroke="#fff" stroke-width="2.565" rx="12.319" ry="12.013"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.372" d="M32.646 1005.017l.052-5.87"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.36" d="M28.842 998.474c.236 0 7.987-.07 7.987-.07"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.186" d="M11.81 1034.27l-1.6-2.558-2.67-1.407 2.558-1.601 1.407-2.67 1.6 2.559 2.67 1.407-2.558 1.6z" paint-order="stroke fill markers"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.227" d="M17.816 1009.209l-1.35-2.157-2.25-1.186 2.156-1.35 1.187-2.25 1.35 2.156 2.25 1.187-2.156 1.35z" paint-order="stroke fill markers" transform="matrix(.97164 0 0 .96096 -3.73 45.874)"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.18592" d="M54.246 1019.47l-1.426-2.66-2.569-1.582 2.66-1.426 1.582-2.569 1.426 2.66 2.569 1.582-2.66 1.426z" paint-order="stroke fill markers"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.227" d="M17.816 1009.209l-1.35-2.157-2.25-1.186 2.156-1.35 1.187-2.25 1.35 2.156 2.25 1.187-2.156 1.35z" paint-order="stroke fill markers" transform="matrix(.96537 .11015 -.10894 .95477 140.484 69.984)"/>
+        <path fill="none" stroke="#fff" stroke-width="1.186" d="M32.594 1005.803c-4.66 4.91-3.486 18.348.157 23.9M32.594 1005.803c-8.864 1.135-11.972 20.515.157 23.9M33.05 1005.855c4.66 4.911 3.485 18.348-.157 23.9M33.05 1005.855c8.864 1.135 11.971 20.516-.157 23.9M20.783 1017.719c4.911 4.66 18.348 3.485 23.9-.157M20.783 1017.719c1.135 8.864 20.515 11.971 23.9-.157M20.836 1017.263c4.91-4.66 18.347-3.486 23.9.157M20.836 1017.263c1.135-8.865 20.515-11.972 23.9.157"/>
+    </g>
+</svg>

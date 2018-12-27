@@ -1,0 +1,1118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	
+	<!-- COURTYARD -->
+	
+	<htmlContent tag="COURTYARD"><![CDATA[
+	<p>
+		Separating the gateway from the fortress's wooden keep, there's nothing but a deserted, squalid courtyard. Discarded bottles, assorted junk, and piles of miscellaneous refuse are scattered haphazardly across the area, giving this place a very run-down and ruinous look.
+	</p>
+	<p>
+		Over in one corner, there sits the main keep. While of better construction than the perimeter wall, it's nevertheless a very shabby structure. Made primarily out of crudely-formed wooden stakes, and covered with odd pieces of sheet metal and plywood boards, this solitary building is the only point of interest inside the fortress's walls. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_FLY_EXIT"><![CDATA[
+	<p>
+		While the perimeter wall's hazardous construction prohibits anyone from climbing over it, there's nothing stopping you from utilising your ability to fly in order to get to the other side. Breaking out into a short sprint, you quickly launch yourself into the air, before flying over the defensive barrier and swooping back down to land on the floor of the cavern beyond. Looking back, you see [npc.name] following suit, and you smile at [npc.herHim] as [npc.she] lands just behind you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP -->
+	
+	<htmlContent tag="KEEP"><![CDATA[
+	<p>
+		Despite the builders' liberal application of metal sheeting and wooden offcuts, there still exist many small gaps in the keep's walls. From these, slivers of light shine out to cast a pale golden glow on the floor and walls of the fortress's courtyard.
+	</p>
+	<p>
+		Illumination isn't the only thing that's escaping through the cracks in the walls, for as you approach the poorly-constructed wooden doors before you, sultry giggles and snippets of lewd conversation can be heard coming from within the keep. Although three of these voices are higher-pitched and clearly belonging to imps, a fourth, [npc2.feminine] voice sounds a little deeper, and a lot more ominous.
+	</p>
+	<p>
+		If you were to enter this keep, the occupants would undoubtedly notice you almost immediately. You should be prepared for the worst, and expect to not only have to fight three imps, but also the leader of the gangs which roam the surrounding tunnels...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_DEFEATED"><![CDATA[
+	<p>
+		Having defeated [impFemalesLeader.name], the [impFemalesLeader.race] who led the imp gangs roaming the surrounding tunnels, [impFemalesLeader.her] keep is now completely deserted. The front doors have been left wide-open, and, taking a cursory glance inside, you see that there's absolutely nothing within that would be of interest to you. There's nothing more to do here except turn around and go back the way you came...
+	</p>
+	<p>
+		#IF pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_2_B_SIRENS_CALL)
+		#THEN
+			[style.italicsMinorBad(You get the feeling that [impFemalesLeader.name] will return to reclaim [impFemalesLeader.her] fortress sooner or later!)]
+		#ELSE
+			[style.italicsBad(You get the feeling that [impFemalesLeader.name] will not be back until you've dealt with the Dark Siren!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_PACIFIED"><![CDATA[
+	<p>
+		Despite the builders' liberal application of metal sheeting and wooden offcuts, there still exist many small gaps in the keep's walls. From these, slivers of light shine out to cast a pale golden glow on the floor and walls of the fortress's courtyard.
+	</p>
+	<p>
+		Illumination isn't the only thing that's escaping through the cracks in the walls, for as you approach the poorly-constructed wooden doors before you, sultry giggles and snippets of lewd conversation can be heard coming from within the keep. You can hear the distinctive, ominous voice of [impFemalesLeader.name] as [impFemalesLeader.she] joins [impFemalesLeader.her] three alpha-imp guards in conversation.
+	</p>
+	<p>
+		As [impFemalesLeader.name] no longer considers you a threat, you could enter the keep without risking a fight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_ENTRY -->
+	
+	<htmlContent tag="KEEP_ENTRY"><![CDATA[
+	<p>
+		Pushing on the keep's crude wooden doors, you're pleased to discover that they're not locked, and, with a creak loud enough to make you flinch, they swing open before you. Stepping forwards into the building, you discover that the interior of the structure is just one big open hall. Numerous arcane-powered lanterns are fixed to the walls, and while most of them give off a pale golden hue, there are several which have been coloured to illuminate their surroundings in shades of red, pink, and purple. Colourful sheets of canvas have been hung to conceal the interior walls' shoddy workmanship, while underfoot, rugs, cushions, and blankets completely cover the floor.
+	</p>
+	<p>
+		Near the opposite end from where you entered, you spot the occupants of this fortress lounging about within a semi-circular pile of plush cushions. While the three feminine alpha-imps are much the same as the guards at the gate, their leader is a light-purple-skinned succubus, who's dressed in some very slutty clothing.
+	</p>
+	<p>
+		Her long, wavy hair is a beautiful shade of blonde, and as she turns to look at you, you see that she has a gorgeous face, and her eyes are a particularly striking shade of blue. The moment your eyes meet, she instantly puts on a seductive, innocent look, and playfully bites the lower of her plump pink lips, before giggling in a high-pitched, ditzy voice, [npc2.speechNoEffects(Ooh, like, who's this #IFpc.isFeminine()#THENpretty little thing?#ELSEbig handsome hunk?#ENDIF And, like they've brought a friend! I bet you two've come lookin' to be my playthings and stuff! And, like, even if you haven't, that's what you're gonna be gettin'! Nobody gets to leave [npc2.namePos] joint without, like, bein' used by me first!)]
+	</p>
+	<p>
+		[npc2.Name] playfully splays her feet as she stands up, shamelessly flashing you the black lacy panties she's wearing beneath her pink, pleated microskirt. Her hands and legs are covered in slutty white fishnet garments, and around her chest, a tight-fitting white tubetop is barely managing to keep her huge H-cup breasts under control. Golden hoops dangle from her earlobes, and, made from the same precious material, she's wearing accessories around her wrist, ankle, and finger, with a further golden ring fixed into her nose piercing. Stepping forwards on her bright pink stilettos, the bimbo succubus slowly snakes her tail around one of her slender hands, while the other reaches up to tuck a loose strand of hair back behind her swept-back horns. [npc2.speechNoEffects(So, like, what're ya hopin' I'll do first? Perhaps ya thinkin' that I'll #IFpc.hasPenis()#THENride your cock#ELSElick your little pussy#ENDIF and stuff, or maybe yer wishin' I'll push ya down and sit on your face! How about you, like, just submit to me, and maybe you'll get what ya want!)]
+	</p>
+	<p>
+		The three alpha-imps giggle as they move forwards to back their leader up, and you realise that you only have a moment in which to either diffuse the situation, or ready yourself for a fight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY_RETURN"><![CDATA[
+	<p>
+		Once again pushing on the keep's crude wooden doors, you discover that they're still not locked, and, with yet another loud creak, they swing open before you. Stepping forwards into the building, you see once again that the interior of the structure is just one big open hall. Numerous arcane-powered lanterns are fixed to the walls, and while most of them give off a pale golden hue, there are several which have been coloured to illuminate their surroundings in shades of red, pink, and purple. Colourful sheets of canvas have been hung to conceal the interior walls' shoddy workmanship, while underfoot, rugs, cushions, and blankets completely cover the floor.
+	</p>
+	<p>
+		Near the opposite end from where you entered, you spot the familiar occupants of this fortress lounging about within their usual semi-circular pile of plush cushions. [npc2.Name] is the first to notice your arrival, and, swaying her [npc2.hips+] as she stands up, she calls out, [npc2.speechNoEffects(Oh, like, you two're back to be, like, my playthings again!)]
+	</p>
+	<p>
+		Strutting towards you, the slutty succubus moans, [npc2.speechNoEffects(Go on, like, just get down and submit!)]
+	</p>
+	<p>
+		The three alpha-imps giggle as they move forwards to back their leader up, and you realise that you only have a moment in which to either diffuse the situation, or ready yourself for a fight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY_PACIFIED"><![CDATA[
+	<p>
+		Once again pushing on the keep's crude wooden doors, you discover that they're still not locked, and, with yet another loud creak, they swing open before you. The hall beyond appears much as it did the last time you were here, with the many wall-mounted arcane lanterns casting a soft golden glow over the colourful rugs, cushions, and blankets which cover the floor.
+	</p>
+	<p>
+		Near the opposite end from where you entered, you spot the familiar occupants of this fortress lounging about within their usual semi-circular pile of plush cushions. [npc.Name] is the first to notice your arrival, and, swaying her [npc.hips+] as she stands up, she calls out, [npc.speechNoEffects(Oh, like, you two're back to be my playthings again! Come on, let's have some fun!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_PACIFIED_LEAVE"><![CDATA[
+	<p>
+		Not wanting to have sex with [npc2.name] right now, you quickly blurt out, [pc.speech(Ah, sorry, [npc2.name], we were just checking everything was ok. We've got to go now!)]
+	</p>
+	<p>
+		Ignoring the protestations that are shouted after you in response, you quickly turn your back on [npc2.name] and [npc2.her] gang, and make haste as you exit the keep...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_PACIFIED_REPEAT_SEX"><![CDATA[
+	<p>
+		Obediently doing as you're told, you tell [npc.name] to stand back and watch, before hurrying over to where [npc2.name] is standing and dropping down onto your knees before [npc2.herHim]. Smirking down at you, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Come over here toy, I've got, like, some super fun plans for you!)]
+	</p>
+	<p>
+		Wanting to please [npc2.name], you once more do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your back and stuff.)]
+	</p>
+	<p>
+		Doing as you're told, you lie back on the cushioned floor, and no sooner than your head hits the pillows beneath you, the three alpha-imps are crowding around your face. One of them kneels down to your left, and another to your right, with the final one standing a little way behind, ready to subdue you if you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toy escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toy gets fucked by another toy! So, go on, like, say you want to be my little toy, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their plaything...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_PACIFIED_REPEAT_SEX_WITH_COMPANION"><![CDATA[
+	<p>
+		Obediently doing as you're told, you tell [npc.name] to join you, before hurrying over to where [npc2.name] is standing and dropping down onto your knees before [npc2.herHim]. Smirking down at you and [npc.name], who's dutifully mimicked your movements, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Come over here toys, I've got, like, some super fun plans for the two of you!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes! Of course!)] [npc.name] happily replies.
+		#ELSE
+			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+		#ENDIF
+	</p>
+	<p>
+		Wanting to please [npc2.name], you once more do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your backs and stuff.)]
+	</p>
+	<p>
+		Doing as you're told, both you and [npc.name] lie back on the cushioned floor, and no sooner than your heads hit the pillows beneath you, the three alpha-imps are crowding around your faces. One of them kneels down to your left, and another to [npc.namePos] right, with the final one standing a little way behind, ready to spring into action if either of you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toys escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toys gets fucked by another toy! So, go on, like, say you want to be my little toys, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes, I want to be your toy too!)] [npc.name] agrees.
+		#ELSE
+			[npc.speech(Eugh... Sure, I'll be a 'toy'...)] [npc.name] reluctantly mutters.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="KEEP_ENTRY_OFFER_SEX"><![CDATA[
+	<p>
+		Not wanting to fight this sexy succubus, you tell [npc.name] to stand back and watch, before hurrying over to where [npc2.she] is standing and dropping down onto your knees before [npc2.herHim]. Smirking down at you, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Good toy! I knew you'd do as you were told! Come over here, toy, I've got, like, some super fun plans for you!)]
+	</p>
+	<p>
+		Wanting to please [npc2.name], you once more do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your back and stuff.)]
+	</p>
+	<p>
+		Doing as you're told, you lie back on the cushioned floor, and no sooner than your head hits the pillows beneath you, the three alpha-imps are crowding around your face. One of them kneels down to your left, and another to your right, with the final one standing a little way behind, ready to subdue you if you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toy escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toy gets fucked by another toy! So, go on, like, say you want to be my little toy, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their plaything...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY_OFFER_SEX_WITH_COMPANION"><![CDATA[
+	<p>
+		Obediently doing as you're told, you tell [npc.name] to join you, before hurrying over to where [npc2.name] is standing and dropping down onto your knees before [npc2.herHim]. Smirking down at you and [npc.name], who's dutifully mimicked your movements, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Good toys! I knew you'd do as you were told! Now, come over here, toys, I've got, like, some super fun plans for the two of you!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes! Of course!)] [npc.name] happily replies.
+		#ELSE
+			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+		#ENDIF
+	</p>
+	<p>
+		Wanting to please [npc2.name], you once more do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your backs and stuff.)]
+	</p>
+	<p>
+		Doing as you're told, both you and [npc.name] lie back on the cushioned floor, and no sooner than your heads hit the pillows beneath you, the three alpha-imps are crowding around your faces. One of them kneels down to your left, and another to [npc.namePos] right, with the final one standing a little way behind, ready to spring into action if either of you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toys escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toys gets fucked by another toy! So, go on, like, say you want to be my little toys, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes, I want to be your toy too!)] [npc.name] agrees.
+		#ELSE
+			[npc.speech(Eugh... Sure, I'll be a 'toy'...)] [npc.name] reluctantly mutters.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	
+	<!-- KEEP_FEMALES_NYMPHO -->
+	
+	<htmlContent tag="KEEP_FEMALES_NYMPHO"><![CDATA[
+	<p>
+		You can instantly tell that this succubus's imp followers are only hanging around due to being offered a share in whatever sex [npc2.name] is able to get down here. Realising that they'll be likely to leave if you were to enlighten them as to the fun that can be had in Submission's tunnels, you look away from their leader and address them directly, [pc.speech(Hey girls, what're you three doing locked up in a place like this? What with all the sex you can have out in Submission, I'm surprised to see you living in this place.)]
+	</p>
+	<p>
+		[npc3.speech('Ey? There's lots of sex out there?)] [npc3.name] asks. [npc3.speech(I 'aven't ever explored Submission much...)]
+	</p>
+	<p>
+		[pc.speech(What, really?! Then you don't know what you're missing! Why, on my way here, I had to stop every hundred metres or so to get fucked by one imp gang or another. Ooh, you should have seen how big their cocks were!)] you say, telling the imps exactly what they want to hear.
+	</p>
+	<p>
+		[npc2.speechNoEffects(Erm, like, I don't mean to be rude and stuff, but, like, what the fuck are you doing?)] [npc2.name] pouts, clenching her fists as she realises that you're trying to undermine her authority. Despite her strong words, however, you can tell that she's getting turned on by what you're saying, even if to a lesser degree than her imp guards. 
+	</p>
+	<p>
+		[pc.speech(I just wanted to let you all know what you're missing out on. I mean, I don't care if you all choose to stay locked up in here. That just means more big, throbbing imp cock for me!)] you laugh, encouraged to embellish your tales as you notice the lustful look in the imps eyes. [pc.speech(There were even some just down the hill from your keep a moment ago. Their leader had such a huge cock, and his balls were so big and full of yummy cum! He only came down my throat twice, so he's probably got lots of spunk left over...)]
+	</p>
+	<p>
+		Your story proves to be too much for the imps, and as one, they suddenly rush past you and run out into Submission. Turning to face the now-solitary succubus, you see that the light purple shade of her skin is now noticeably darker around her cheeks, and her demonic tail is curling up under her skirt to rub back and forth over her dripping pussy. [npc2.speech(Oh... Fuck... What am I doing in here...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_FEMALES_NYMPHO_KEY"><![CDATA[
+	<p>
+		Pushing her a little further, you ask, [pc.speech(Yeah, why <i>are</i> you in here? Getting all those imps to attack people in Submission, when you could be out there having non-stop sex?)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(She told us to...)] [npc2.name] pants as her arousal starts to get wildly out of control. [npc2.speechNoEffects(Our leader, the Dark Siren... She said we need to assert dominance... You've probably already seen it, seeing as you're here... That citadel in the middle of Submission's tunnels. That's where she is...)]
+	</p>
+	<p>
+		[pc.speech(I see. So you're just following orders, huh?)] you ask, the tone of your voice making it clear that you don't approve of such an excuse.
+	</p>
+	<p>
+		[npc2.speechNoEffects(Yes... Just... Oh fuck... Please, fuck me! I-I can give you one of the keys needed to get inside that place in exchange,)] [npc2.name] offers, before quickly retrieving a stubby golden key from beneath a nearby cushion. Giving it to you, [npc2.she] continues, still panting, [npc2.speechNoEffects(You'll need keys from the other two gang leaders if you want to confront her... Now just... Please! Fuck me! Fuck me now!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_FEMALES_NYMPHO_DEFEATED"><![CDATA[
+	<p>
+		Pushing her a little further, you ask, [pc.speech(Why did you come back? I told you to stay away from here!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(The Dark Siren... )] [npc2.name] pants. [npc2.speechNoEffects(She said I had to...)]
+	</p>
+	<p>
+		[pc.speech(Still blindly following her orders, huh?)] you ask, the tone of your voice making it clear that you don't approve of such an excuse.
+	</p>
+	<p>
+		[npc2.speechNoEffects(Yes... Just... Please... Fuck me! Fuck me now!)] [npc2.name] begs. [npc2.speechNoEffects(I won't cause any more trouble!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_FEMALES_NYMPHO_DEFEATED_DS_DEALT_WITH"><![CDATA[
+	<p>
+		Pushing her a little further, you ask, [pc.speech(Why did you come back? I've already dealt with your leader, and I told you to stay away from here!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(The Dark Siren will return... )] [npc2.name] pants. [npc2.speechNoEffects(So I need to carry out her last orders...)]
+	</p>
+	<p>
+		[pc.speech(You do realise that she's under lock and key in Lyssieth's palace, right?)] you ask.
+	</p>
+	<p>
+		[npc2.speechNoEffects(That doesn't matter... She'll find a way to escape... Now please... Fuck me! Fuck me now!)] [npc2.name] begs. [npc2.speechNoEffects(I won't cause any more trouble!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="KEEP_FEMALES_NYMPHO_SCARED_OFF"><![CDATA[
+	<p>
+		Not wanting to have sex with [npc2.name], you stand before [npc2.herHim] and declare, [pc.speech(I don't think so. There are plenty of imps out in Submission for you to have sex with, so just get out of here! And don't come back!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(I won't!)] [npc2.name] cries out as [npc2.she] rushes past you. Not even giving you another backwards glance, [npc2.she] dashes out through the open doors and disappears off into Submission.
+	</p>
+	<p>
+		Letting out a sigh, you see that this keep has absolutely nothing of value in it, so, with nothing more to do, you prepare to move off and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_FEMALES_NYMPHO_SEX"><![CDATA[
+	<p>
+		Deciding to give [npc2.name] what [npc2.sheIs] asking for, you tell [npc.name] to step back and watch as you step up to her and [pc.moan], [pc.speech(Well, if that's what you really want, I think I can oblige.)]
+	</p>
+	<p>
+		The erotic moan that drifts out from [npc2.namePos] mouth confirms that sex is indeed what she wants, and, happy to give it to her, you prepare to make your next move...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_FEMALES_NYMPHO_SEX_WITH_COMPANION"><![CDATA[
+	<p>
+		Deciding that you'd like to watch [npc.name] give [npc2.name] what [npc2.sheIs] asking for, you tell your companion to step up and have sex with her.
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			Turned on by [npc2.namePos] lewd moans, [npc.name] happily does as you command, and, swapping places with you, [npc.she] eagerly reaches around to grope [npc2.namePos] [npc2.ass+]. [npc.speech(We're going to have so much fun together!)]
+		#ELSE
+			Ignoring [npc2.namePos] lewd moans, [npc.name] reluctantly does as you command, and, swapping places with you, [npc.she] tentatively places [npc.her] [npc.hands] on [npc2.namePos] [npc2.hips+]. [npc.speech(Eugh... I guess this will all be over soon enough...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_FEMALES_NYMPHO_SEX_WITH_BOTH"><![CDATA[
+	<p>
+		Deciding to give [npc2.name] what [npc2.sheIs] asking for, you tell [npc.name] to join you as you step up to her and [pc.moan], [pc.speech(Well, if that's what you really want, I think I can oblige.)]
+	</p>
+	<p>
+		The erotic moan that drifts out from [npc2.namePos] mouth confirms that sex is indeed what she wants, and, happy to give it to her, you prepare to make your next move...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_SEX_FEMALES_NYMPHO"><![CDATA[
+	<p>
+		[npc2.Name] collapses to the floor, utterly exhausted. Standing up beside [npc2.herHim], you grin down at the well-used [npc2.race]. [pc.speech(Now you know what you're missing out there!)]
+	</p>
+	<p>
+		With a desperate groan, [npc2.name] pushes [npc2.herself] up onto to [npc2.her] knees. As you get your things in order, [npc2.she] catches [npc2.her] breath, before standing up and letting out a hungry moan.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_SEX_FEMALES_NYMPHO_SCARED_OFF"><![CDATA[
+	<p>
+		Having dealt with [npc2.name], you command [npc2.herHim], [pc.speech(Go on then, get out of here! And don't come back!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(I won't!)] [npc2.name] cries out as [npc2.she] rushes past you. Not even giving you another backwards glance, [npc2.she] dashes out through the open doors and disappears off into Submission.
+	</p>
+	<p>
+		Letting out a sigh, you see that this keep has absolutely nothing of value in it, so, with nothing more to do, you prepare to move off and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- KEEP_TALK -->
+	
+	<htmlContent tag="KEEP_AUDIENCE"><![CDATA[
+	<p>
+		[pc.speech(Hold on a moment,)] you say, holding up your [pc.hands]. [pc.speech(I just wanted to ask some questions about the demon calling herself 'The Dark Siren'.)]
+	</p>
+	<p>
+		That name causes [npc2.name] to frown, and [npc2.she] narrows [npc2.her] [npc2.eyes] as [npc2.she] asks, [npc2.speechNoEffects(Oh yeah, like, what do you want to know about our leader and stuff?)]
+	</p>
+	<p>
+		[pc.speech(Well, I was hoping to get an opportunity to meet with her,)] you explain, [pc.speech(and was wondering if you could help me with that.)]
+	</p>
+	<p>
+		A lustful grin crosses [npc2.namePos] face as [npc2.she] hears what it is you're after. With a playful tone in [npc2.her] voice, [npc2.she] offers [npc2.her] terms, [npc2.speechNoEffects(Well, like, I suppose I <i>do</i> know some things about that and stuff. Hmm, hows about the two of you, like, get down and be our toys for a little while, and then I'll help you with meetin' our boss.)]
+	</p>
+	<p>
+		Placing [npc2.her] hands on her [npc2.hips+], [npc2.she] continues, [npc2.speechNoEffects(I mean, like, you can try to say no, but we all know you're gonna be down and beggin' for it soon enough. So, either way, you're gonna be our playthings, so you might as well get somethin' out of it, y'know?)]
+	</p>
+	<p>
+		The three alpha-imps giggle as their leader says this, and you wonder whether to do this the easy way, or the hard way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AUDIENCE_SEX"><![CDATA[
+	<p>
+		Deciding to do as [npc2.name] asks, you sigh, [pc.speech(Ok, I'll do it. But just me, not my companion.)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(Yeah, sure! Now we're talkin'! So go on, get down!)] [npc2.Name] giggles, watching in delight as you obediently drop down onto your knees before [npc2.herHim]. Smirking down at you, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Good toy! I knew you'd do as you were told! Come over here, toy, I've got, like, some super fun plans for you!)]
+	</p>
+	<p>
+		Wanting to please [npc2.name], you once more do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your back and stuff.)]
+	</p>
+	<p>
+		Doing as you're told, you lie back on the cushioned floor, and no sooner than your head hits the pillows beneath you, the three alpha-imps are crowding around your face. One of them kneels down to your left, and another to your right, with the final one standing a little way behind, ready to subdue you if you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toy escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toy gets fucked by another toy! So, go on, like, say you want to be my little toy, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their plaything...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AUDIENCE_SEX_WITH_COMPANION"><![CDATA[
+	<p>
+		Deciding to do as [npc2.name] asks, you sigh, [pc.speech(Ok, we'll do it.)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
+		#ELSE
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speechNoEffects(Oh yeah! Now we're talkin'! So go on, get down!)] [npc2.Name] giggles, watching in delight as you and [npc.name] obediently drop down onto your knees before [npc2.herHim]. Smirking down at the two of you, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Good toys! I knew you'd do as you were told! Come over here, toys, I've got, like, some super fun plans for the two of you!)]
+	</p>
+	<p>
+		Wanting to please [npc2.name], you once more do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your backs and stuff.)]
+	</p>
+	<p>
+		Doing as you're told, both you and [npc.name] lie back on the cushioned floor, and no sooner than your heads hit the pillows beneath you, the three alpha-imps are crowding around your faces. One of them kneels down to your left, and another to [npc.namePos] right, with the final one standing a little way behind, ready to spring into action if either of you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toys escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toys gets fucked by another toy! So, go on, like, say you want to be my little toys, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes, I want to be your toy too!)] [npc.name] agrees.
+		#ELSE
+			[npc.speech(Eugh... Sure, I'll be a 'toy'...)] [npc.name] reluctantly mutters.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	
+	
+	<!-- KEEP_AFTER_SEX_AUDIENCE -->
+	
+	<htmlContent tag="KEEP_AFTER_SEX_AUDIENCE"><![CDATA[
+	<p>
+		[npc2.speechNoEffects(That was, like, super fun and stuff!)] [npc2.name] giggles, smirking down at you as you collapse to the floor. [npc2.speechNoEffects(Like, a deal's a deal, and I'm, like, super certain the boss won't mind meeting some subby toy like you!)]
+	</p>
+	<p>
+		Pushing yourself back up onto your [pc.feet], you start to get your things in order as [npc2.name] continues, [npc2.speechNoEffects(There's, like, three keys ya need to get into that silly big stone place in the middle of Submission. That's where our boss is, if, like, you're super dumb and haven't even, like, figured that out. The other keys are in our other bases and stuff, so go bother the others for them. Oh, and like, be super nice when meetin' the Siren. She's, like, a recognised daughter of Lyssieth herself and stuff, and if you're rude, she'll, like, make you into her imps' permanent fuck-toy, y'know?)]
+	</p>
+	<p>
+		Having finally got your belongings sorted out, you look up to see [npc2.name] holding out a stubby golden key, which has to be no more than two inches in length.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_SEX_AUDIENCE_WITH_COMPANION"><![CDATA[
+	<p>
+		[npc2.speechNoEffects(That was, like, super fun and stuff!)] [npc2.name] giggles, smirking down at you and [npc.name] as the two of you collapse to the floor. [npc2.speechNoEffects(Like, a deal's a deal, and I'm, like, super certain the boss won't mind meeting some subby toys like you!)]
+	</p>
+	<p>
+		Pushing yourself back up onto your [pc.feet], you start to get your things in order as [npc2.name] continues, [npc2.speechNoEffects(There's, like, three keys ya need to get into that silly big stone place in the middle of Submission. That's where our boss is, if, like, you're super dumb and haven't even, like, figured that out. The other keys are in our other bases and stuff, so go bother the others for them. Oh, and like, be super nice when meetin' the Siren. She's, like, a recognised daughter of Lyssieth herself and stuff, and if you're rude, she'll, like, make you into her imps' permanent fuck-toy, y'know?)]
+	</p>
+	<p>
+		Having finally got your belongings sorted out, you look up to see [npc2.name] holding out a stubby golden key, which has to be no more than two inches in length.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- KEEP_AFTER_JOINING_GAIN_KEY -->
+	
+	<htmlContent tag="KEEP_AFTER_SEX_AUDIENCE_KEY"><![CDATA[
+	<p>
+		Taking the key, you thank [npc2.name] and turn to leave. As you and [npc.name] head towards the doors, the [npc2.race] calls after you, [npc2.speechNoEffects(Like, come back any time, toys! My girls and I can always do with some playtime!)]
+	</p>
+	<p>
+		To the sounds of giggling and lewd comments, you step out of the keep and into the courtyard beyond. Clutching the small key in your hand, you wonder where you should head to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	
+	
+	<!-- KEEP_AFTER_COMBAT_VICTORY -->
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY_KEY"><![CDATA[
+	<p>
+		You let out a relived sigh as [npc2.name] and [npc2.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc2.race] and ask, [pc.speech(Why do you do this? Getting all those imps to attack people in Submission, I mean.)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(She told us to...)] [npc2.name] pants while gazing up lustfully at your body. [npc2.speechNoEffects(Our leader, the Dark Siren... She said we need to assert dominance... You've probably already seen it, seeing as you're here... That citadel in the middle of Submission's tunnels. That's where she is...)]
+	</p>
+	<p>
+		[pc.speech(I see. So you're just following orders, huh?)] you ask, the tone of your voice making it clear that you don't approve of such an excuse.
+	</p>
+	<p>
+		[npc2.speechNoEffects(Yes... Just... Oh fuck... Please, fuck me! I-I can give you one of the keys needed to get inside that place in exchange,)] [npc2.name] offers, before quickly retrieving a stubby golden key from beneath a nearby cushion. Giving it to you, [npc2.she] continues, still panting, [npc2.speechNoEffects(You'll need keys from the other two gang leaders if you want to confront her... Now just... Please! Fuck me! Fuck me now!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		You let out a relived sigh as [npc2.name] and [npc2.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc2.race] and ask, [pc.speech(Why did you come back? I told you to stay away from here!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(The Dark Siren... )] [npc2.name] pants. [npc2.speechNoEffects(She said I had to...)]
+	</p>
+	<p>
+		[pc.speech(Still blindly following her orders, huh?)] you ask, the tone of your voice making it clear that you don't approve of such an excuse.
+	</p>
+	<p>
+		[npc2.speechNoEffects(Yes... Just... Please, fuck me!)] [npc2.name] begs. [npc2.speechNoEffects(I won't cause any more trouble!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY_DS_DEFEATED"><![CDATA[
+	<p>
+		You let out a relived sigh as [npc2.name] and [npc2.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc2.race] and ask, [pc.speech(Why did you come back? I told you to stay away from here!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(The Dark Siren will return... )] [npc2.name] pants. [npc2.speechNoEffects(So I need to carry out her last orders...)]
+	</p>
+	<p>
+		[pc.speech(You do realise that she's under lock and key in Lyssieth's palace, right?)] you ask.
+	</p>
+	<p>
+		[npc2.speechNoEffects(That doesn't matter... She'll find a way to escape... Now please, just fuck me!)] [npc2.name] begs. [npc2.speechNoEffects(I won't cause any more trouble!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY_SCARE_OFF"><![CDATA[
+	<p>
+		Having dealt with [npc2.name], and not wanting to go any further, you stand before [npc2.herHim] and [npc2.her] imps and declare, [pc.speech(Go on then, get out of here, all of you! And don't come back!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(W-We won't!)] [npc2.name] stutters as [npc2.she] stands up. Not even giving you another backwards glance, [npc2.she] runs off down the length of the hallway, with [npc2.her] imp guards close behind. Dashing out through the open doors, the gang disappear off into Submission, leaving you alone in the now-empty keep.
+	</p>
+	<p>
+		Looking around, you see that there's absolutely nothing of value in here, so, with nothing more to do, you prepare to move off and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		Wanting to have a little fun with [npc2.name] and [npc2.her] imps before you let them go, you tell [npc.name] to stand back and watch before reaching down to start moving them into position. As you do this, the [npc2.race] lets out an erotic moan, before thrusting [npc2.her] [npc2.hips] towards you. [npc2.speechNoEffects(Oh yeah, come on then, fuck me!)]
+	</p>
+	<p>
+		[pc.speech(I'll do whatever I feel like,)] you respond, giving [npc2.her] [npc2.ass] a quick smack to remind [npc2.herHim] who's in charge.
+	</p>
+	<p>
+		Your disciplinary action causes [npc2.name] to let out another delighted moan, and you grin as you realise that she's getting turned on by being used like this...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
+	<p>
+		Wanting to have a little fun with [npc2.name] and [npc2.her] imps before you let them go, you tell [npc.name] to stand back and watch before reaching down to start gently moving them into position. As you do this, the [npc2.race] lets out a surprisingly erotic moan, before thrusting [npc2.her] [npc2.hips] towards you. [npc2.speechNoEffects(Oh yeah, come on then, fuck me!)]
+	</p>
+	<p>
+		[pc.speech(I'll do as I please,)] you respond, giving [npc2.her] [npc2.ass] a soft smack to remind [npc2.herHim] who's in charge.
+	</p>
+	<p>
+		Your disciplinary action causes [npc2.name] to let out another delighted moan, and you grin as you realise that she's getting turned on by being used like this...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
+	<p>
+		Wanting to have a little fun with [npc2.name] and [npc2.her] imps before you let them go, you tell [npc.name] to stand back and watch before reaching down to start roughly forcing them into position. As you do this, the [npc2.race] lets out a surprisingly erotic moan, before thrusting [npc2.her] [npc2.hips] towards you. [npc2.speechNoEffects(Oh yeah, come on then, fuck me!)]
+	</p>
+	<p>
+		[pc.speech(Don't you <i>dare</i> try and tell me what to do!)] you angrily respond, giving [npc2.her] [npc2.ass] a sharp slap to remind [npc2.herHim] who's in charge.
+	</p>
+	<p>
+		Your disciplinary action causes [npc2.name] to let out another delighted moan, and you grin as you realise that she's getting turned on by being used like this...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		Feeling sorry for [npc2.name] and [npc2.her] imps, you tell [npc.name] to stand back before bending down next to the [npc2.race] and asking, [pc.speech(Are you ok? Sorry, I think I went a little too far...)]
+	</p>
+	<p>
+		A devious, lustful grin breaks out across [npc2.namePos] face as [npc2.she] realises that you're going to be easy to take advantage of. Grabbing hold of your wrists, [npc2.she] commands, [npc2.speechNoEffects(No, like, I'm not ok! You need to help me up, like, right now!)]
+	</p>
+	<p>
+		Submissively doing as you're told, you assist [npc2.name] as [npc2.she] pushes [npc2.herself] to [npc2.her] feet. Refusing to let go of your wrists, [npc2.she] suddenly pulls you forwards, pressing you tightly against [npc2.herHim] as [npc2.she] moans, [npc2.speechNoEffects(So, how were ya thinkin' of sayin' sorry, huh?! Ya gonna, like, agree to let me use ya as my toy?!)]
+	</p>
+	<p>
+		Deciding to do as [npc2.name] asks, you sigh, [pc.speech(Ok, sure...)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(Oh yeah! Now we're talkin'! So go on, get down!)] [npc2.Name] giggles, watching in delight as you obediently drop down onto your knees before [npc2.herHim]. Smirking down at you, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Good toy! I knew you'd do as you were told! Come over here, toy, I've got, like, some super fun plans for you!)]
+	</p>
+	<p>
+		Wanting to please [npc2.name], you once more do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your back and stuff.)]
+	</p>
+	<p>
+		Doing as you're told, you lie back on the cushioned floor, and no sooner than your head hits the pillows beneath you, the three alpha-imps are crowding around your face. One of them kneels down to your left, and another to your right, with the final one standing a little way behind, ready to subdue you if you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toy escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toy gets fucked by another toy! So, go on, like, say you want to be my little toy, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their plaything...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION"><![CDATA[
+	
+	<p>
+		Feeling sorry for [npc2.name] and [npc2.her] imps, you bend down next to [npc2.herHim] and ask, [pc.speech(Are you ok? Sorry, I think my friend and I went a little too far, didn't we, [npc.name]?)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yeah, [pc.namePos] right, I'm sorry,)] [npc.name] says, joining you in apologising to [npc2.name].
+		#ELSE
+			[npc.speech(Eugh... I can't believe this... Sure, I'm sorry,)] [npc.name] sighs, realising what's about to happen and resigning [npc.herself] to [npc.her] fate.
+		#ENDIF
+	</p>
+	<p>
+		A devious, lustful grin breaks out across [npc2.namePos] face as [npc2.she] realises that you're going to be easy to take advantage of. Grabbing hold of your wrists, [npc2.she] commands, [npc2.speechNoEffects(No, like, I'm not ok! You need to help me up, like, right now!)]
+	</p>
+	<p>
+		Submissively doing as you're told, you assist [npc2.name] as [npc2.she] pushes [npc2.herself] to [npc2.her] feet. Refusing to let go of your wrists, [npc2.she] suddenly pulls you forwards, pressing you tightly against [npc2.herHim] as [npc2.she] moans, [npc2.speechNoEffects(So, how were ya thinkin' of sayin' sorry, huh?! Ya gonna, like, both agree to let me use ya as my toys?!)]
+	</p>
+	<p>
+		Deciding to do as [npc2.name] asks, you sigh, [pc.speech(Ok, sure...)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(Oh yeah! Now we're talkin'! So go on, get down!)] [npc2.Name] giggles, watching in delight as you and [npc.name] obediently drop down onto your knees before [npc2.herHim]. Smirking down at the two of you, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Good toys! I knew you'd do as you were told! Come over here, toys, I've got, like, some super fun plans for you both!)]
+	</p>
+	<p>
+		Wanting to please [npc2.name], you once more do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your backs and stuff.)]
+	</p>
+	<p>
+		Doing as you're told, both you and [npc.name] lie back on the cushioned floor, and no sooner than your heads hit the pillows beneath you, the three alpha-imps are crowding around your faces. One of them kneels down to your left, and another to [npc.namePos] right, with the final one standing a little way behind, ready to spring into action if either of you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toys escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toys gets fucked by another toy! So, go on, like, say you want to be my little toys, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes, I want to be your toy too!)] [npc.name] agrees.
+		#ELSE
+			[npc.speech(Eugh... Sure, I'll be a 'toy'...)] [npc.name] reluctantly mutters.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_GROUP_SEX"><![CDATA[
+	<p>
+		Wanting to have a little fun with [npc2.name] and [npc2.her] imps before you let them go, you tell [npc.name] to join you as you reach down and start to move them into position. As you do this, the [npc2.race] lets out a wildly erotic moan, before thrusting [npc2.her] [npc2.hips] towards you. [npc2.speech(Come on then, fuck me!)]
+	</p>
+	<p>
+		[pc.speech(I'll do whatever I feel like,)] you respond, giving [npc2.her] [npc2.ass] a quick smack to remind [npc2.herHim] who's in charge.
+	</p>
+	<p>
+		Your disciplinary action causes [npc2.name] to let out another delighted moan, and you grin as you realise that she's getting turned on by being used like this...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_GIVE_TO_COMPANION"><![CDATA[
+	<p>
+		Wanting [npc.name] to have some fun with [npc2.name] and [npc2.her] imps before you let them go, you tell [npc.herHim] to fuck them in front of you. [npc2.Name] lets out a wildly erotic moan as [npc2.she] hears this, before thrusting [npc2.her] [npc2.hips] towards your companion. [npc2.speech(Come on then, fuck me!)]
+	</p>
+	<p>
+		[npc.speech(I'll do whatever I feel like,)] [npc.name] responds, giving [npc2.her] [npc2.ass] a quick smack to remind [npc2.herHim] who's in charge.
+	</p>
+	<p>
+		[npc.Her] disciplinary action causes [npc2.name] to let out another delighted moan, and you grin as you realise that she's getting turned on by being used like this...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_OFFER_COMPANION"><![CDATA[
+	<p>
+		Wanting to watch [npc2.name] have [npc2.her] way with your companion, you turn to [npc.name] and say, [pc.speech(You should give [npc2.name] a <i>special</i> apology for going too far.)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Oh yeah,)] [npc.name] responds, happily stepping forwards. [npc.speech(You just stand back and watch this, [pc.name]!)]
+		#ELSE
+			[npc.speech(I-I don't really want to do this,)] [npc.name] mutters, before reluctantly doing as [npc.sheIs] told and stepping forwards.
+		#ENDIF
+	</p>
+	<p>
+		A devious, lustful grin breaks out across [npc2.namePos] face as [npc2.she] realises that [npc.name] is going to be easy to take advantage of. Grabbing hold of [npc.her] wrists, [npc2.she] commands, [npc2.speechNoEffects(You need to help me up, like, right now!)]
+	</p>
+	<p>
+		Submissively doing as [npc.sheIs] told, your companion assists [npc2.name] as [npc2.she] pushes [npc2.herself] to [npc2.her] feet. Refusing to let go of [npc.her] wrists, [npc2.name] suddenly pulls [npc.name] forwards, pressing [npc.herHim] tightly against [npc2.herHim] as [npc2.she] moans, [npc2.speechNoEffects(So, how were ya thinkin' of sayin' sorry, huh?! Ya gonna, like, agree to let me use ya as my toy?!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes, of course!)] [npc.name] eagerly responds.
+		#ELSE
+			[npc.speech(Eugh... Looks like I have to...)] [npc.name] sighs.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speechNoEffects(Oh yeah! Now we're talkin'! So go on, get down!)] [npc2.Name] giggles, watching in delight as [npc.name] obediently drops down onto [npc.her] knees before [npc2.herHim]. Smirking down at your companion, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Good toy! I knew you'd do as you were told! Come over here, toy, I've got, like, some super fun plans for you!)]
+	</p>
+	<p>
+		Once more doing as [npc.sheIs] commanded, [npc.name] crawls after her, and is soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside [npc.herHim]. [npc2.speechNoEffects(Like, get down on your back and stuff.)]
+	</p>
+	<p>
+		Doing as [npc.sheIs] told, [npc.name] lies back on the cushioned floor, and no sooner than [npc.her] head hits the pillows beneath [npc.herHim], the three alpha-imps are crowding around [npc.her] face. One of them kneels down to [npc.her] left, and another to [npc.her] right, with the final one standing a little way behind, ready to spring into action if [npc.she] should try to sit up. From off to [npc.her] side, the succubus calls out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toy escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards [npc.name] and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toy gets fucked by another toy! So, go on, like, say you want to be my little toy, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes, I want to be your toy! Use me as your plaything!)] [npc.name] enthusiastically cries out.
+		#ELSE
+			[npc.speech(Eugh... Sure, I'll be a 'toy'...)] [npc.name] reluctantly mutters.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your companion's [npc.legs]. Looking over at the imps standing to [npc.namePos] sides, she sighs, [npc2.speech(Ok, you can get on [npc.her] face now.)]
+	</p>
+	<p>
+		Before [npc.name] can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your companion's face. With [npc2.name] and her imps firmly in control of the situation, you watch as [npc.name] is made into their plaything...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	
+	
+	<!-- KEEP_AFTER_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT"><![CDATA[
+	<p>
+		A lustful grin crosses [npc2.namePos] face as [npc2.she] watches you and [npc.name] fall to the floor, defeated. In a sultry tone, [npc2.she] steps forwards and moans, [npc2.speechNoEffects(You're gonna, like, love bein' my little play things!)]
+	</p>
+	<p>
+		Smirking down at you as you let out an ambiguous groan, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the chorus of giggles and gasps coming from [npc2.her] imp guards, and commands, [npc2.speechNoEffects(Follow me, toys! I've got, like, some super fun plans for the two of you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
+	<p>
+		Wanting to please [npc2.name], you and [npc.name] do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your backs and stuff.)]
+	</p>
+	<p>
+		Doing as you're told, both you and [npc.name] lie back on the cushioned floor, and no sooner than your heads hit the pillows beneath you, the three alpha-imps are crowding around your faces. One of them kneels down to your left, and another to [npc.namePos] right, with the final one standing a little way behind, ready to spring into action if either of you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toys escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toys gets fucked by another toy! So, go on, like, say you want to be my little toys, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes, I want to be your toy too!)] [npc.name] agrees.
+		#ELSE
+			[npc.speech(Eugh... Sure, I'll be a 'toy'...)] [npc.name] reluctantly mutters.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
+	<p>
+		Desperate to please [npc2.name], you and [npc.name] do as you're commanded, and, crawling after her, you're soon led over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your backs and stuff.)]
+	</p>
+	<p>
+		Happily doing as you're told, both you and [npc.name] lie back on the cushioned floor, and no sooner than your heads hit the pillows beneath you, the three alpha-imps are crowding around your faces. One of them kneels down to your left, and another to [npc.namePos] right, with the final one standing a little way behind, ready to spring into action if either of you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toys escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toys gets fucked by another toy! So, go on, like, say you want to be my little toys, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes, I want to be your toy too!)] [npc.name] agrees.
+		#ELSE
+			[npc.speech(Eugh... Sure, I'll be a 'toy'...)] [npc.name] reluctantly mutters.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
+	<p>
+		Unwilling to do as [npc2.name] says, you try crawling away from her. Almost immediately, however, you're apprehended by her imps, who, ignoring your struggles and protestations, drag both you and [npc.name] over to the middle of the cushioned area. Turning around, [npc2.name] snaps her fingers and points to the floor beside you. [npc2.speechNoEffects(Like, get down on your back and stuff.)]
+	</p>
+	<p>
+		Refusing to do as you're told, the imps have to force you and your companion to lie back on the cushioned floor, and no sooner than your head is pushed down onto the pillows beneath you, the three alpha-imps are crowding around your faces. One of them kneels down to your left, and another to [npc.namePos] right, with the final one standing a little way behind, ready to spring into action if either of you should try to sit up. From somewhere off to your side, you hear the succubus calling out, [npc2.speechNoEffects(Good job, girls! We wouldn't want our little toys escapin' and stuff!)]
+	</p>
+	<p>
+		Looking over towards the source of the voice, you see [npc2.name] stepping out of her lacy panties, before reaching over and grabbing a huge strap-on dildo. As she fastens it into place around her groin, she turns towards you and laughs, [npc2.speechNoEffects(Haha! Like, yeah, I know what you're thinkin'! 'Why don't she, like, grow a real one?' Well, I kinda think it's fun and stuff if my little toys gets fucked by another toy! So, go on, like, say you want to be my little toys, and maybe, just <i>maybe</i>, I'll let ya use my pussy as well!)]
+	</p>
+	<p>
+		Absolutely refusing to do anything this crazy succubus asks of you, you cry out, [pc.speech(Never! Let me go already!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN
+			[npc.speech(Yes, I want to be your toy too!)] [npc.name] cries out, clearly not feeling the same way about this as you do.
+		#ELSE
+			[npc.speech(Eugh... Sure, I'll be a 'toy'...)] [npc.name] reluctantly mutters.
+		#ENDIF
+	</p>
+	<p>
+		[npc.speechNoEffects(Like, what a bad toy!)] [npc.name] says, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+	</p>
+	<p>
+		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	
+	<!-- KEEP_AFTER_SEX_PACIFIED -->
+	
+	<htmlContent tag="KEEP_AFTER_SEX_PACIFIED"><![CDATA[
+	<p>
+		You collapse to the floor, and with a satisfied [pc.moan], you look up to see [npc2.name] grinning down at you.
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, wasn't that so super fun and stuff?)] [npc2.she] asks. [npc2.speechNoEffects(You can, like, come back any time, toy! Uh, except right now, that is. I've got, like stuff to do, so go find someone else to fuck you!)]
+	</p>
+	<p>
+		To the sound of [npc2.namePos] impatient foot tapping on the uneven wooden floor, you set about getting your things in order. Once done, you let out one last submissive whine, before heading over to the keep's doors and preparing to take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_SEX_PACIFIED_WITH_COMPANION"><![CDATA[
+	<p>
+		You and [npc.name] collapse to the floor, and with a satisfied [pc.moan], you look up to see [npc2.name] grinning down at the two of you.
+	</p>
+	<p>
+		[npc2.speechNoEffects(Like, wasn't that so super fun and stuff?)] [npc2.she] asks. [npc2.speechNoEffects(You can, like, come back any time, toys! Uh, except right now, that is. I've got, like stuff to do, so go find someone else to fuck you!)]
+	</p>
+	<p>
+		To the sound of [npc2.namePos] impatient foot tapping on the uneven wooden floor, you set about getting your things in order. Once done, you let out one last submissive whine, before heading over to the keep's doors and preparing to take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	
+	<!-- KEEP_AFTER_SEX_VICTORY -->
+	
+	<htmlContent tag="KEEP_AFTER_SEX_VICTORY"><![CDATA[
+	<p>
+		[npc2.Name] and [npc2.her] imps collapse to the floor, utterly exhausted. Quickly getting your things in order, you can't help but smile as you hear the [npc2.race] panting, [npc2.speechNoEffects(Oh... Fuck...)]
+	</p>	
+	<p>
+		Grinning down at the worn out gang, you wonder if you should tell them to get out of here right away, or perhaps you could first take this opportunity to confiscate their belongs...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_SEX_VICTORY_SCARE_OFF"><![CDATA[
+	<p>
+		[pc.speech(Get out of here, all of you! And don't come back!)] you order, smirking down at the gang.
+	</p>
+	<p>
+		[npc2.speechNoEffects(W-We won't!)] [npc2.name] stutters as [npc2.she] stands up. Not even giving you another backwards glance, [npc2.she] runs off down the length of the hallway, with [npc2.her] imp guards close behind. Dashing out through the open doors, the gang disappear off into Submission, leaving you alone in the now-empty keep.
+	</p>
+	<p>
+		Looking around, you see that there's absolutely nothing of value in here, so, with nothing more to do, you prepare to move off and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_AFTER_SEX_DEFEAT -->
+	
+	<htmlContent tag="KEEP_AFTER_SEX_DEFEAT"><![CDATA[
+	#IF impFemalesLeader.isAbleToEquipButtPlug(pc)
+	#THEN
+	<p>
+		You collapse to the floor, and with an exhausted [pc.moan], you look up to see [npc2.name] grinning down at you. [npc2.speechNoEffects(Like, what a super fun toy you are!)] [npc2.she] giggles, [npc2.speechNoEffects(but, like, don't think I've forgotten about you bargin' in here and stuff. You, like, need somethin' to help ya remember you're just a toy for, like, anyone to use however they want!)]
+	</p>
+	<p>
+		Looking up at the [npc2.race], you see [npc2.herHim] holding a silver butt plug, with a light pink jewel in the shape of a heart fixed to the flat end. [npc2.speechNoEffects(Present your ass, toy! This is goin' up your butt!)]
+	</p>
+	<p>
+		With little option but to do as you're told, you obey [npc2.namePos] command, who proceeds to immediately start pushing the butt plug into your asshole. With a determined shove, she manages to force it in, before stepping back to admire [npc2.her] handiwork. [npc2.speechNoEffects(So, like, ya feelin' any different? That thing's meant to, like, be enchanted to make?)]
+	</p>
+	<p>
+		As [npc2.name] says this, you suddenly find yourself immensely turned on by the fact that you're exposing your plugged butt to [npc2.name] and her imps. Getting the irresistible urge to show off, you slide your [pc.fingers] over your groin, before reaching down to press the butt plug further into your ass. [pc.speech(Oh... Fuck! Yes... I'm just a toy...)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(Hey! It's, like, actually workin'! You're, like, turnin' into some kinda exhibitionist plaything!)] [npc2.name] laughs, before dismissively shooing you away with one hand. [npc2.speechNoEffects(Well, like, that's super cool and all, but I've got things to do. Your little plug'll keep ya as a subby fuck-toy, so, like, just come back whn ya want more playtime!)]
+	</p>
+	#ELSE
+	<p>
+		You collapse to the floor, and with an exhausted [pc.moan], you look up to see [npc2.name] grinning down at you. [npc2.speechNoEffects(That was, like, super fun and stuff!)] [npc2.she] laughs. [npc2.speechNoEffects(But I've got, like, super important stuff to do, so go on, get out of here!)]
+	</p>
+	#ENDIF
+	<p>
+		To the sound of their high-pitched laughter, the imps then unceremoniously drag you out of the keep and through the fortress's front gate. Before you know it, you've been dragged far away from [npc2.namePos] lair, and are being carelessly hurled to the floor. Threatening you never to return, the imps head back to their keep, leaving you alone to catch your breath...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_SEX_DEFEAT_WITH_COMPANION"><![CDATA[
+	#IF impFemalesLeader.isAbleToEquipButtPlug(pc)
+	#THEN
+		#IF impFemalesLeader.isAbleToEquipButtPlug(npc)
+		#THEN
+			<p>
+				You and [npc.name] collapse to the floor, and with an exhausted [pc.moan], you look up to see [npc2.name] grinning down at the two of you. [npc2.speechNoEffects(Like, what super fun toys you two are!)] [npc2.she] giggles. [npc2.speechNoEffects(But, like, don't think I've forgotten about you bargin' in here and stuff. You, like, need somethin' to help ya remember you're just toys for, like, anyone to use however they want!)]
+			</p>
+			<p>
+				Looking up at the [npc2.race], you see [npc2.herHim] holding two butt plugs, each with a jewel in the shape of a heart fixed to the flat end. [npc2.speechNoEffects(Present your asses, toys! These are goin' up your butts!)]
+			</p>
+			<p>
+				With little option but to do as you're told, you and your companion obey [npc2.namePos] command, who proceeds to immediately start pushing the butt plugs into your assholes. With a determined shove, she manages to force them in, before stepping back to admire [npc2.her] handiwork. [npc2.speechNoEffects(So, like, ya feelin' any different? Those things are meant to, like, be enchanted to make ya want to masturbate out in public, like good little toys!)]
+			</p>
+			<p>
+				As [npc2.name] says this, you suddenly find yourself immensely turned on by the fact that you're exposing your plugged butt to [npc2.name] and her imps. Getting the irresistible urge to show off, you slide your [pc.fingers] over your groin, before reaching down to press the butt plug further into your ass. [pc.speech(Oh... Fuck! Yes... I'm just a toy...)]
+			</p>
+			<p>
+				Joining in, [npc.name] cries out, [npc.speech(Yes! I love being a plaything!)]
+			</p>
+			<p>
+				[npc2.speechNoEffects(Hey! It's, like, actually workin'! You're, like, turnin' into some kinda exhibitionist sluts!)] [npc2.name] laughs, before dismissively shooing you away with one hand. [npc2.speechNoEffects(Well, like, that's super cool and all, but I've got things to do. Your little plugs will keep ya as a subby fuck-toys, so, like, just come back when ya want more playtime!)]
+			</p>
+		#ELSE
+			<p>
+				You collapse to the floor, and with an exhausted [pc.moan], you look up to see [npc2.name] grinning down at you. [npc2.speechNoEffects(Like, what a super fun toy you are!)] [npc2.she] giggles, [npc2.speechNoEffects(but, like, don't think I've forgotten about you bargin' in here and stuff. You, like, need somethin' to help ya remember you're just a toy for, like, anyone to use however they want!)]
+			</p>
+			<p>
+				Looking up at the [npc2.race], you see [npc2.herHim] holding a silver butt plug, with a light pink jewel in the shape of a heart fixed to the flat end. [npc2.speechNoEffects(Present your ass, toy! This is goin' up your butt!)]
+			</p>
+			<p>
+				With little option but to do as you're told, you obey [npc2.namePos] command, who proceeds to immediately start pushing the butt plug into your asshole. With a determined shove, she manages to force it in, before stepping back to admire [npc2.her] handiwork. [npc2.speechNoEffects(So, like, ya feelin' any different? That thing's meant to, like, be enchanted to make?)]
+			</p>
+			<p>
+				As [npc2.name] says this, you suddenly find yourself immensely turned on by the fact that you're exposing your plugged butt to [npc2.name] and her imps. Getting the irresistible urge to show off, you slide your [pc.fingers] over your groin, before reaching down to press the butt plug further into your ass. [pc.speech(Oh... Fuck! Yes... I'm just a toy...)]
+			</p>
+			<p>
+				[npc2.speechNoEffects(Hey! It's, like, actually workin'! You're, like, turnin' into some kinda exhibitionist plaything!)] [npc2.name] laughs, before dismissively shooing you away with one hand. [npc2.speechNoEffects(Well, like, that's super cool and all, but I've got things to do. Your little plug'll keep ya as a subby fuck-toy, so, like, just come back when ya want more playtime!)]
+			</p>
+		#ENDIF
+	#ELSE
+		#IF impFemalesLeader.isAbleToEquipButtPlug(npc)
+		#THEN
+			<p>
+				You collapse to the floor, and with an exhausted [pc.moan], you look up to see [npc2.name] grinning down at [npc.name]. [npc2.speechNoEffects(Like, what a super fun toy you are!)] [npc2.she] giggles, [npc2.speechNoEffects(but, like, don't think I've forgotten about you bargin' in here and stuff. You, like, need somethin' to help ya remember you're just a toy for, like, anyone to use however they want!)]
+			</p>
+			<p>
+				Looking up at the [npc2.race], you see [npc2.herHim] holding a silver butt plug, with a periwinkle jewel in the shape of a heart fixed to the flat end. [npc2.speechNoEffects(Present your ass, toy! This is goin' up your butt!)]
+			</p>
+			<p>
+				With little option but to do as [npc.sheIs] told, [npc.name] obeys [npc2.namePos] command, who proceeds to immediately start pushing the butt plug into [npc.her] asshole. With a determined shove, she manages to force it in, before stepping back to admire [npc2.her] handiwork. [npc2.speechNoEffects(So, like, ya feelin' any different? That thing's meant to, like, be enchanted to make?)]
+			</p>
+			<p>
+				As [npc2.name] says this, your companion suddenly finds [npc.herself] immensely turned on by the fact that [npc.sheIs] exposing [npc.her] plugged butt to [npc2.name] and her imps. Getting the irresistible urge to show off, [npc.she] slides [npc.her] [npc.fingers] over [npc.her] groin, before reaching down to press the butt plug further into [npc.her] ass. [npc.speech(Oh... Fuck! Yes... I'm just a toy...)]
+			</p>
+			<p>
+				[npc2.speechNoEffects(Hey! It's, like, actually workin'! You're, like, turnin' into some kinda exhibitionist plaything!)] [npc2.name] laughs, before dismissively shooing the two of you away with one hand. [npc2.speechNoEffects(Well, like, that's super cool and all, but I've got things to do. That little plug'll keep ya as a subby fuck-toy, so, like, just come back when ya want more playtime!)]
+			</p>
+		#ELSE
+			<p>
+				You and [npc.name] collapse to the floor, and with an exhausted [pc.moan], you look up to see [npc2.name] grinning down at the two of you. [npc2.speechNoEffects(That was, like, super fun and stuff!)] [npc2.she] laughs. [npc2.speechNoEffects(But I've got, like, super important stuff to do, so go on, get out of here!)]
+			</p>
+		#ENDIF
+	#ENDIF
+	<p>
+		To the sound of their high-pitched laughter, the imps then unceremoniously drag you out of the keep and through the fortress's front gate. Before you know it, you've been dragged far away from [npc2.namePos] lair, and are being carelessly hurled to the floor. Threatening you never to return, the imps head back to their keep, leaving you alone to catch your breath...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" cursor="default" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="innoGrad3">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset=".287" stop-color="#ff8080"/>
+            <stop offset=".687" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#f55"/>
+        </linearGradient>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#ff7f2a"/>
+            <stop offset="1" stop-color="#f95"/>
+        </linearGradient>
+        <linearGradient id="innoGrad1">
+            <stop offset="0" stop-color="#faa"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <radialGradient id="radialGradient866" cx="378.011" cy="987.604" r="66.871" fx="378.011" fy="987.604" gradientTransform="matrix(1.01674 -.2181 .36117 1.68372 -671.862 -588.714)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient876" x1="120.334" x2="120.334" y1="856.645" y2="846.417" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient884" x1="110.536" x2="252.321" y1="1019.862" y2="898.255" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad3"/>
+    </defs>
+    <g stroke="#000">
+        <path fill="url(#linearGradient884)" fill-rule="evenodd" d="M121.884 1010.528c29.547-28.296 102-80.089 122.986-113.138-5.93 20.705-18.03 30.236-33.909 46.657-16.487 17.052-35.055 34.766-53.241 50.862-20.838 18.442-32.94 29.147-39.877 29.255z" transform="translate(0 -796.362)"/>
+        <path fill="#faa" fill-rule="evenodd" d="M243.214 105.196c7.694-11.107 5.735-18.828 5.849-27.455-.41-1.783-16.017 5.715-15.045 7.545 4.887 6.327 10.357 12.899 9.196 19.91z"/>
+        <path fill="#f55" fill-rule="evenodd" d="M10.514 85.37c-3.21 17.042 18.713 41.121 30.557 62.378l4.293-22.476c-20.64-22.854-23.842-36.004-24.243-41.164z"/>
+        <path fill="url(#linearGradient876)" fill-rule="evenodd" d="M11.903 846.125c-5.696 42.056 241.483 30.62 231.956-1.136-.72-2.399-64.373-1.328-124.628-1.182-54.409.133-106.593-3.106-107.328 2.318z" transform="translate(0 -796.362)"/>
+        <path fill="url(#radialGradient866)" fill-rule="evenodd" d="M23.498 884c9.278 24.303 14.028 39.054 15.553 64.656.425 7.127 6.62 17.414 11.706 28.767 11.651 26.009 24.62 55.922 45.62 55.833 6.093-.026 10.891-3.58 14.71-4.938 4.148-1.475 8.231-3.824 8.911-5.674 15.696-42.665 17.927-93.359 21.962-103.788 5.2-13.435 8.124-17.51 13.764-29.294z" transform="translate(0 -796.362)"/>
+        <path fill="none" stroke-dasharray="1.5,.5" stroke-width=".5" d="M116.607 228.857c22.537-83.65 14.43-85.174 21.607-107.678 3.341-10.475 15.179-30.358 15.179-30.358"/>
+        <path fill="#ffb380" fill-rule="evenodd" d="M9.63 86.255c.263-18.408 1.516-36.618 2.273-36.492-2.556 7.345 54.435 7.199 112.741 7.343 59.245.147 119.836.454 119.215-8.48 5.137 13.128 5.587 26.82 5.178 40.407-.237 7.846-239.54 6.61-239.407-2.778z"/>
+        <path fill="none" stroke-dasharray="1.5,.5" stroke-width=".5" d="M27.321 90.464c7.22 19.45 10.654 36.545 11.608 60.804M22.384 89.159l-.38-3.157c46.026 4.524 91.267 5.401 136.624 3.915l-1.137 4.166"/>
+    </g>
+</svg>

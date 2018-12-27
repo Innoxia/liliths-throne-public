@@ -50,7 +50,7 @@ public interface BodyPartTypeInterface {
 	/** A 1-word descriptor that best describes this body part. */
 	public String getDescriptor(GameCharacter gc);
 
-	/** @param gc TODO
+	/** @param body The body that this covering type is a part of.
 	 * @return The type of skin that is covering this body part. */
 	public BodyCoveringType getBodyCoveringType(Body body);
 	
@@ -58,5 +58,63 @@ public interface BodyPartTypeInterface {
 		return getBodyCoveringType(gc.getBody());
 	}
 
+	/** @return The race of this body part. */
 	public Race getRace();
+	
+	//TODO
+//	/** @return The description of this body part as seen in the character view screen. */
+//	public String getBodyDescription(GameCharacter owner);
+	
+	//TODO
+//	/** @return The description of this body part being changed. */
+//	public String getTransformationDescription(GameCharacter owner);
+
+	/** @return The name that should be used when describing this body part in the context of transformations. */
+	public default String getTransformName() {
+		if(getRace()==null) {
+			return "";
+		}
+		
+		switch(getRace()){
+			case ANGEL:
+				return "angelic";
+			case CAT_MORPH:
+				return "feline";
+			case DEMON:
+				return "demonic";
+			case DOG_MORPH:
+				return "canine";
+			case COW_MORPH:
+				return "bovine";
+			case SQUIRREL_MORPH:
+				return "squirrel";
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case HARPY:
+				return "harpy";
+			case HORSE_MORPH:
+				return "equine";
+			case REINDEER_MORPH:
+				return "reindeer";
+			case HUMAN:
+				return "human";
+			case WOLF_MORPH:
+				return "wolf";
+			case FOX_MORPH:
+				return "fox";
+			case BAT_MORPH:
+				return "bat";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
+			case ELEMENTAL:
+				return "elemental";
+			case NONE:
+				break;
+			case SLIME:
+				return "slime";
+		}
+		return "";
+	}
 }

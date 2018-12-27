@@ -7,7 +7,7 @@
 	This results in this particular item's id being: "innoxia_rentalMommy_rental_mommy".
 	IMPORTANT: If you ever change the name of this .xml, or containing folder, any items of this clothing that exist in the game will be removed!-->
 	
-	<coreAtributes>
+	<coreAttributes>
 		<!-- The base value of this clothing. I roughly base things on 1 flame = 10p, so 10 flames = £1. -->
 		<value>150</value> 
 		
@@ -56,7 +56,7 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="FERTILITY" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="FERTILITY" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_BROODMOTHER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_PREGNANCY" timer="0"/>
 		</effects>
 		
 		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->
@@ -76,13 +76,14 @@
 				</clothingAccessRequired>
 				
 				<!-- The body parts that are blocked by this 'displacementType'. bodyPart values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
-				<blockedBodyParts/>
+				<blockedBodyParts/> <!-- Use the tag 'bodyPart' for values inserted here. -->
 				
 				<!-- The access that this 'displacementType' blocks. Again, clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
-				<clothingAccessBlocked/>
+				<clothingAccessBlocked/> <!-- Use the tag 'clothingAccess' for values inserted here. -->
 				
 				<!-- The slots that this 'displacementType' conceals. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-				<concealedSlots/>
+				<!-- You can also use a preset list by adding an attribute named "values" to this element (an example - "CS Example" - is in the blockedParts section below this one). The preset lists that you can use are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/PresetConcealmentLists.java -->
+				<concealedSlots/> <!-- Use the tag 'slot' for values inserted here. -->
 			</blockedParts>
 			
 			<!-- The second 'blockedParts' for this item of clothing. As well as being equipped/removed, this T-shirt can also be pulled up.-->
@@ -99,6 +100,8 @@
 					<clothingAccess>CHEST</clothingAccess>
 					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessBlocked>
+				<!-- You can substitute the <concealedSlots> list for the value below: -->
+				<!-- CS Example: <concealedSlots values="CONCEALED_PARTIAL_TORSO"/> -->
 				<concealedSlots>
 					<slot>CHEST</slot>
 					<slot>NIPPLE</slot>
@@ -174,7 +177,7 @@
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	

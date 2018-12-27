@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum MouthType implements BodyPartTypeInterface {
@@ -23,11 +23,11 @@ public enum MouthType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.MOUTH, Race.DEMON),
 
-	IMP(BodyCoveringType.MOUTH, Race.IMP),
-
 	DOG_MORPH(BodyCoveringType.MOUTH, Race.DOG_MORPH),
 	
 	WOLF_MORPH(BodyCoveringType.MOUTH, Race.WOLF_MORPH),
+	
+	FOX_MORPH(BodyCoveringType.MOUTH, Race.FOX_MORPH),
 	
 	CAT_MORPH(BodyCoveringType.MOUTH, Race.CAT_MORPH),
 	
@@ -59,6 +59,16 @@ public enum MouthType implements BodyPartTypeInterface {
 		this.race = race;
 		this.defaultRacialOrificeModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultRacialOrificeModifiers, defaultRacialOrificeModifiers);
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static MouthType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override

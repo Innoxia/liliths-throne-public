@@ -23,7 +23,7 @@ public class Covering  {
 	protected boolean primaryGlowing, secondaryGlowing;
 
 	/**
-	 * Constructor.</br>
+	 * Constructor.<br/>
 	 * Initialises CoveringPattern pattern to a random value, and boolean glowing to false.
 	 * @param type The BodyCoveringType to set this skin to.
 	 */
@@ -36,7 +36,7 @@ public class Covering  {
 	}
 	
 	/**
-	 * Constructor.</br>
+	 * Constructor.<br/>
 	 * Initialises CoveringPattern pattern to the first value, boolean glowing to false, and secondaryColour to same as primaryColour (where available).
 	 * @param type
 	 * @param primaryColour
@@ -111,6 +111,7 @@ public class Covering  {
 //				return gc.getCovering(BodyCoveringType.SLIME).getColourDescriptor(gc, coloured, capitalised);
 //			}
 //		}
+		// Hopefully nobody ever discovers this appalling mess... BlobSweats
 		if(coloured) {
 			switch(pattern) {
 				case HIGHLIGHTS:
@@ -234,6 +235,7 @@ public class Covering  {
 		//text-shadow: 0px 0px 4px #FF0000;
 		String descriptor = modifier.getName();
 		String name = type.getName(gc);
+		
 //		if(gc.getRace()==Race.SLIME) {
 //			if(this.getType()!=BodyCoveringType.SLIME) {
 //				return gc.getCovering(BodyCoveringType.SLIME).getFullDescription(gc, coloured);
@@ -247,7 +249,7 @@ public class Covering  {
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" highlights</span>";
 				case OMBRE:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
-							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", which gradually fades into "
+							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", which gradually "+(type.isDefaultPlural()?"fade":"fades")+" into "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+"</span>";
 				case MOTTLED:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
@@ -312,7 +314,7 @@ public class Covering  {
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" highlights";
 				case OMBRE:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()
-							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", which gradually fades into "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName();
+							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", which gradually "+(type.isDefaultPlural()?"fade":"fades")+" into "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName();
 				case MOTTLED:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" mottling";

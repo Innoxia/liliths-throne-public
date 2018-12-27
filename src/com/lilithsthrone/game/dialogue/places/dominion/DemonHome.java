@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -23,8 +23,7 @@ import com.lilithsthrone.utils.Colour;
  */
 public class DemonHome {
 	
-	public static final DialogueNodeOld DEMON_HOME_GATE = new DialogueNodeOld("Demon Home (Gates)", "Demon Home", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_GATE = new DialogueNode("Demon Home (Gates)", "Demon Home", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -48,7 +47,7 @@ public class DemonHome {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
+							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area known as Demon Home."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -58,7 +57,7 @@ public class DemonHome {
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b></br>"
+						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
 						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
 						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
 					+ "</p>");
@@ -66,7 +65,7 @@ public class DemonHome {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b></br>"
+						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
 						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
@@ -81,8 +80,7 @@ public class DemonHome {
 		}
 	};
 	
-	public static final DialogueNodeOld DEMON_HOME_STREET = new DialogueNodeOld("Demon Home", "Demon Home", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_STREET = new DialogueNode("Demon Home", "Demon Home", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -108,7 +106,7 @@ public class DemonHome {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
+							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area known as Demon Home."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -118,7 +116,7 @@ public class DemonHome {
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b></br>"
+						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
 						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
 						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
 					+ "</p>");
@@ -126,7 +124,7 @@ public class DemonHome {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b></br>"
+						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
 						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
@@ -141,8 +139,7 @@ public class DemonHome {
 		}
 	};
 	
-	public static final DialogueNodeOld DEMON_HOME_STREET_ARTHUR = new DialogueNodeOld("Demon Home", "Demon Home", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_STREET_ARTHUR = new DialogueNode("Demon Home", "Demon Home", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -182,8 +179,7 @@ public class DemonHome {
 		}
 	};
 
-	public static final DialogueNodeOld DEMON_HOME_ARTHURS_APARTMENT = new DialogueNodeOld("", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT = new DialogueNode("", "-", true) {
 
 		@Override
 		public String getLabel() {
@@ -242,10 +238,9 @@ public class DemonHome {
 		}
 	};
 
-	public static final DialogueNodeOld DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM = new DialogueNodeOld("", "-", true) {
+	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM = new DialogueNode("", "-", true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getLabel() {
@@ -264,13 +259,13 @@ public class DemonHome {
 					+ "</p>"
 					+ "<h6 style='text-align:center;'>Dominion Enforcer Department</h6>"
 					+ "<h5 style='text-align:center;'>NOTICE OF ARREST</h5>"
-					+ "<p style='text-align:center;'>The occupant of this residence, namely the person of <i>Arthur Fairbanks</i>, has been issued with an arrest warrant.</br>"
+					+ "<p style='text-align:center;'>The occupant of this residence, namely the person of <i>Arthur Fairbanks</i>, has been issued with an arrest warrant.<br/>"
 					+ "These premises are therefore under investigation by Dominion's Enforcer Department, and any unauthorised entry beyond this point is in violation of the law."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Officer in charge of issuing the warrant: <i>Brax</i>"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Any complaints or inquiries should be made in person at Dominion's Enforcer HQ. Thank you for your understanding.</p>"
-					+ "</br>"
+					+ "<br/>"
 					+ "</p>"
 					+ "<p>"
 					+ UtilText.parsePlayerThought("Great... So he's been arrested...")
@@ -325,8 +320,7 @@ public class DemonHome {
 
 	};
 
-	public static final DialogueNodeOld DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -343,7 +337,7 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.</br>" + "<b>There is no further content for Felicity in this version.</b>", DEMON_HOME_STREET_ARTHUR);
+				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.<br/>" + "<b>There is no further content for Felicity in this version.</b>", DEMON_HOME_STREET_ARTHUR);
 				
 			} else {
 				return null;

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="toiletsGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#toiletsGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7" d="M20.052 1038.68h25.72l.113-35.68-25.833-.11z"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.7" d="M42.43 1021.127l-3.937-.056M45.758 1038.017l.021 4.001M20.04 1037.898l.016 4.003M45.874 1004.794c.028-2.648.011-4.215.011-4.215.016-4.235-25.788-4.642-25.803.184l-.012 3.988"/>
+    </g>
+</svg>

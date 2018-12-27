@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		The entrance hall to Lyssieth's palace is staggeringly opulent, and is in complete contrast to the dark, drab exterior. The floor beneath your feet is a perfectly polished expanse of clean white marble, and is adorned with a luxuriant red runner carpet which stretches off down the three corridors that are linked to each side of the hall. The walls are covered in white, wooden panelling; their decorative, intricately-carved features are painted in bright gold. Gigantic portraits of regal-looking demons and humans hang on the walls, and up above, the high ceiling is lavishly decorated in the same white-and-gold style as the rest of your surroundings.
+	</p>
+	<p>
+		Taking a closer look at your surroundings, you take note of the fact that there are a couple of half-demon and human maids standing to attention on opposite sides of the hall. Obviously having been trained exceptionally well, they remain completely motionless as they wait for you to leave this area.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_LEAVING"><![CDATA[
+	<p>
+		Deciding to leave Lyssieth's palace, you exit through the same wicket gate by which you enetered, and head out over the drawbridge back into Submission. Once at the far side, Elizabeth turns to face you, and asks, [elizabeth.speech(Ah, [pc.name], did your business with Lyssieth go well?)]
+	</p>
+	<p>
+		[pc.speech(Yes, thank you,)] you respond, before quickly saying that you need to be on your way.
+	</p>
+	<p>
+		[elizabeth.speech(Very well,)] Elizabeth responds, [elizabeth.speech(If you ever need to visit Lyssieth again, you have full permission to come and go from her palace as you please.)]
+	</p>
+	<p>
+		Thanking the half-succubus for the information, you continue on your way into Submission, and start heading back across the huge cavern's floor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Each corridor of Lyssieth's palace is just as ostentatiously luxurious as the next. Just like the entrance hall, the floor is of polished white marble, with a red runner carpet laid down the very centre. The walls are panelled in white and gold, and upon them hang huge portraits of demons and humans. Up above, the high ceiling is trimmed with decorative mouldings, and in even intervals, huge crystal chandeliers hang down to illuminate your surroundings.
+	</p>
+	<p>
+		Lining the walls, there are countless marble statues, ornate seats, and glass-fronted display cabinets. While most of these are filled with expected array of china and other miscellaneous decorative articles, there are several which house relics from Lily's museum, as well as one or two which contain extremely mundane objects from the outside world.
+	</p>
+	<p>
+		Just as in the rest of the palace, there's an occasional half-demon or human maid standing up against a wall, waiting for you to pass before continuing with her duties.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WINDOWS"><![CDATA[
+	<p>
+		The corridors which branch off to the left and right of the main entrance hall are slightly narrower than the one which leads directly to Lyssieth's office. There are also far fewer ornamental objects lining the walls, and, most notably of all, there are a series of narrow, arrow-slit-like windows set into one side. Looking out of one of these, you see Elizabeth and her troops standing guard on the other side of the drawbridge. Other than those royal guard, however, there's nothing really much to see from here, and so you continue on your way forwards.
+	</p>
+	<p>
+		Just as in the rest of the palace, there's an occasional half-demon or human maid standing up against a wall, waiting for you to pass before continuing with her duties.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM"><![CDATA[
+	<p>
+		The rooms on this floor of Lyssieth's palace all have their doors wide open, and, peering inside, you see that each one appears to be a well-furnished drawing room. Plush sofas, extravagantly-carved coffee tables, and even the odd piano can be found in these places. In a similar fashion to the palace's corridors, portraits of demons and humans line the walls, while underfoot, luxuriant carpeting provides a comfortable surface upon which to stand.
+	</p>
+	<p>
+		Within each of these room, one or two maids are standing to attention, dutifully waiting to serve any of Lyssieth's guests.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HALL"><![CDATA[
+	<p>
+		In each wing of the palace, there is a long, extravagantly-furnished dining hall, in which you assume Lyssieth must entertain her guests. The rich mahogany table that runs down the middle of the room must be at least twenty metres in length, and to either side sit a huge number of regal-looking chairs.
+	</p>
+	<p>
+		With the exception of two half-demon maids standing to attention on either side of the room, the hall is completely unoccupied.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRCASE"><![CDATA[
+	<p>
+		A huge, red-carpeted staircase, which reminds you very much of the one in Lilaya's home, leads to the upper floors of the palace. As you approach it, a half-demon maid steps forwards to block your passage. With a respectful curtsy, she says, [genericFemale.speech(A thousand apologies, [pc.sir], but I regret to inform you that we've been instructed not to allow any guests into the upper floors.)]
+	</p>
+	<p>
+		With no business being up there anyway, you step back and wonder where to head to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIREN_OFFICE"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		[siren.Name] is her typical chuuni self, and declares that one day she will rule the entire universe. You can either go through into Lyssieth's office or turn around and leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIREN_OFFICE_COMPANION"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		[siren.Name] is her typical chuuni self, and declares that one day she will rule the entire universe. You can either go through into Lyssieth's office or turn around and leave. Your companion will have to wait in here with her, as Lyssieth will only see you alone.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_ENTER"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		[siren.Name] sends you through to see Lyssieth.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_ENTER_COMPANION"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		[siren.Name] sends you through to see Lyssieth. [npc.Name] stays behind and waits on one of the sofas.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIREN_OFFICE_LEAVE"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Telling Lyssieth that you'll see her another time, you head back out into [siren.namePos] office. She says that she's a little busy, so could you come back later. You reply in the affirmative and head out into the corridor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIREN_OFFICE_LEAVE_COMPANION"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Telling Lyssieth that you'll see her another time, you head back out into [siren.namePos] office. She says that she's a little busy, so could you come back later. You take [npc.name] with you and head out into the corridor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_LUNETTE"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		You ask Lyssieth about Lunette. She says how she's very wrathful, and explains how she and her demonic centaurs terrorise the Foloi fields to keep all the villages and farmsteads under her control.
+	</p>
+	<p>
+		She recounts the story of how Lunette came to prefer her pegataur form.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_FAMILY"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Lyssieth tells you about her daughters, Lilaya and Meraxis, and how they are the only two she has ever recognised. She then gives you a run-down on where all the elder lilin are. Finally, she says that Lilith has always been a little stand-offish with her, as Lyssieth displayed affection towards humans from an early age.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_ANGELS"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Lyssieth tells you about the seven archangels and their fates. Finishes by telling you that Samael is still out there somewhere in the world.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_HUMANS"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Lyssieth says she likes humans for their compassion and motivations to improve society beyond sex. She reveals once again that she feels incredible envy towards humans, and wishes that she was one.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_RECAP"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Lyssieth briefly goes over how she and her sisters were imprisoned in the mirror. After you freed them, Lilith changed an insolated area of your old reality into this one (due to her spell abckfiring, as you absorbed some of her power).
+	</p>
+	<p>
+		Now, in order to defeat Lilith (for what ends, Lyssieth doesn't care, so long as humans are treated well), you need to defeat her sisters and gain their essences. She warns you that they don't share her fondness of humans, and so it will most likely have to be resolved through fighting or trickery.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_PUSSY"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		You tell Lyssieth you want to fuck her pussy. She lies back on her desk and tells you to come and take her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_COCK"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		You tell Lyssieth you want her to grow a cock and fuck you. She pushes you back onto her desk and tells you that she'll enjoy fucking you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Lyssieth says she needs to catch up on work and clean herself up. You head back out into Meraxis's office.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		You tell Lyssieth you want to be a demon. She outright refuses, saying that demon transformations are <b>permanent</b>,
+		#IF pc.getRace()==RACE_HUMAN
+		#THEN and that she won't take your humanity from you.
+		#ELSE and that she won't take the ability to regain your humanity from you
+		#ENDIF
+	</p>
+	<p>
+		You manage to convince her, reminding her that she said at the moment of gaining her power that you should be able to take a human form, and also that defeating Lunette will be impossible without demonic power and prestige.
+	</p>
+	<p>
+		She hesitates, and says she really doesn't want to, as she needs to take on her true, lilin form to do it. She really doesn't like taking that form, as she loses herself to her demonic instincts.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_CONTINUE"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Your corrupted thoughts urge you to seize upon Lyssieth's momentary hesitation, and you convince her that this is the right thing to do. She has some last reluctant thoughts when she considers how angry Lilaya will be at her, but you tell her she will understand that it's for the good of your quest. (Lilaya reaction to your demon TF isn't added yet, it will be in teh next update.)
+	</p>
+	<p>
+		Lyssieth explains that there is no going back from being a demon, as it permanently corrupts and transforms your aura. She also says that the demonic process will turn you into a succubus,
+		#IF pc.isFeminine()
+		#THEN and make you grow a cock, although you can always just use your demonic powers to remove it afterwards.
+		#ELSE although you can always use your demonic powers to transform back into a masculine form afterwards.
+		#ENDIF
+		 She'll also need to fuck you as part of the process, as she imbues her corruptive arcane power into her cum in order to transform people into demons. She says she'll strip you and get you to swallow her cum, before fucking your new demonic pussy.
+	</p>
+	<p>
+		She asks if you're willing to do all that.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_RELENT"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		You don't want to force Lyssieth to do anything she doesn't want to do, and so you relent, and say that she doesn't need to go through with this.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_START"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Lyssieth uses an arcane spell to strip you in an instant, much like the first time you were in Lilaya's lab. She then sheds her own clothes. Before your eyes, she transforms into a tall, red-skinned futa succubus, with glowing yellow eyes and a pair of huge demonic wings. She steps up to you and kisses you, and you feel a warm, corruptive glow start to seep into your body.
+	</p>
+	<p>
+		Lyssieth reminds you that when in this form, she starts to get overtaken by demonic lust. Almost as if to prove this, she guides your hand down to stroke her cock to full hardness, before getting you to lick the precum from both your and her fingers.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_CONTINUE_CHANGE_MIND"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		You don't want to force Lyssieth to do anything she doesn't want to do, and so you relent, and say that she doesn't need to go through with this.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_START_SEX"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Lyssieth forces you to your knees before her, and tells you that you're going to swallow all of her cum like a good demon slut.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN She also says that by being corrupted into a demon by her, you will be regarded as her daughter, and so you should accept her as your new mother. She makes you call her mommy.
+		#ELSE She also says that by being corrupted into a demon by her, you will be afterwards be regarded as her daughter, but until the process is complete, there is no relation.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SEX"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Lyssieth sits up on her desk, (variation: your cum oozes out of her pussy to drip down from the edge OR she glances down at her cum dripping out of your pussy.) She asks you if you want to take her name, which is customary for all demons. She cannot recognise you, as that would alert Lilith to your existence, but you could still be known as one of her many non-recognised daughters.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SEX_TAKE_SURNAME"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		You take the customary surname for daughters of Lyssieth, and are now known as [pc.name] [pc.surname].
+	</p>
+	<p>
+		Lyssieth reverts to her human form and asks for some time to get cleaned up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SEX_DO_NOT_TAKE_SURNAME"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		You tell Lyssieth that taking her surname might attract Lilith's attention in some way or another, so you decide against it.
+	</p>
+	<p>
+		Lyssieth reverts to her human form and asks for some time to get cleaned up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SIREN_OFFICE_LEAVE"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Telling Lyssieth that you'll see her another time, you head back out into [siren.namePos] office. She is incredibly shocked to see that Lyssieth has turned you into a full demon. Remarks on how Lilaya will react. You head out into the corridor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SIREN_OFFICE_LEAVE_COMPANION"><![CDATA[
+	<p><i>TODO: This is a placeholder, and will be finished for the next update.</i></p>
+	<p>
+		Telling Lyssieth that you'll see her another time, you head back out into [siren.namePos] office. She is incredibly shocked to see that Lyssieth has turned you into a full demon. Remarks on how Lilaya will react. You take [npc.name] with you and head out into the corridor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

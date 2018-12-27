@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.1
- * @version 0.2.5
+ * @version 0.2.10
  * @author Innoxia
  */
 public enum QuestLine {
@@ -37,12 +37,16 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.slaveryTree),
 
+	SIDE_ACCOMMODATION("Bed & Board", "Lilaya happily gave you her permission to use the spare rooms to accommodate your friends and family, provided that you pay for the expenses that they incur...",
+			QuestType.SIDE,
+			QuestTree.accommodationTree),
+
 	SIDE_HYPNO_WATCH("Arthur's Experiment", "You helped Arthur to complete his research into an orientation-changing Hypno-Watch, which is now in your possession!",
 			QuestType.SIDE,
 			QuestTree.hypnoWatchTree),
 	
-	SIDE_NYAN_HELP("Supplier Issues", "You helped Nyan solve the problem she was having with her suppliers.",
-			QuestType.SIDE,
+	RELATIONSHIP_NYAN_HELP("Supplier Issues", "You helped Nyan solve the problem she was having with her suppliers.",
+			QuestType.RELATIONSHIP,
 			QuestTree.nyanTree),
 
 	SIDE_HARPY_PACIFICATION("Angry Harpies", "You managed to calm down all three of the harpy matriarchs, resulting in the Harpy Nests being safe to travel through!",

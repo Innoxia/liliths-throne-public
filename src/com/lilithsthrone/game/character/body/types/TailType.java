@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum TailType implements BodyPartTypeInterface {
@@ -25,17 +25,23 @@ public enum TailType implements BodyPartTypeInterface {
 	
 	DEMON_HAIR_TIP(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, false),
 
-	IMP(BodyCoveringType.IMP, Race.IMP, true, true),
-
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
 	
 	DOG_MORPH_STUBBY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false, false),
+	
+	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, false, false),
+	
+	FOX_MORPH_MAGIC(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, false, false),
 
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, false, false),
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
+	
+	CAT_MORPH_SHORT(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, false, false),
+	
+	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
 	
@@ -46,6 +52,8 @@ public enum TailType implements BodyPartTypeInterface {
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, false, false),
 	
 	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false),
+	
+	HORSE_MORPH_ZEBRA(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false),
 
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, false, false),
 	
@@ -60,6 +68,16 @@ public enum TailType implements BodyPartTypeInterface {
 		this.race = race;
 		this.prehensile = prehensile;
 		this.suitableForPenetration = suitableForPenetration;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static TailType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 	
 	@Override
@@ -112,14 +130,16 @@ public enum TailType implements BodyPartTypeInterface {
 		switch(this){
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("cat-like");
+			case CAT_MORPH_SHORT:
+				return UtilText.returnStringAtRandom("cat-like", "short");
+			case CAT_MORPH_TUFTED:
+				return UtilText.returnStringAtRandom("cat-like", "tufted");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("cow-like", "tufted");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("spaded", "demonic");
 			case DEMON_HAIR_TIP:
 				return UtilText.returnStringAtRandom("hair-tipped", "demonic");
-			case IMP:
-				return UtilText.returnStringAtRandom("spaded", "impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
 			case DOG_MORPH_STUBBY:
@@ -130,10 +150,16 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("colourful", "bird-like");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("horse-like");
+			case HORSE_MORPH_ZEBRA:
+				return UtilText.returnStringAtRandom("zebra-like");
 			case REINDEER_MORPH:
 				return UtilText.returnStringAtRandom("reindeer-like");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
+			case FOX_MORPH:
+				return UtilText.returnStringAtRandom("fox-like", "fluffy");
+			case FOX_MORPH_MAGIC:
+				return UtilText.returnStringAtRandom("magical", "fox-like", "fluffy");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("squirrel-like", "fluffy");
 			case NONE:
@@ -146,33 +172,42 @@ public enum TailType implements BodyPartTypeInterface {
 		
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case CAT_MORPH:
 				return "feline";
+			case CAT_MORPH_SHORT:
+				return "short feline";
+			case CAT_MORPH_TUFTED:
+				return "tufted feline";
 			case COW_MORPH:
 				return "bovine";
 			case DEMON_COMMON:
-				return "spaded";
+				return "demonic spaded";
 			case DEMON_HAIR_TIP:
-				return "hair-tipped";
-			case IMP:
-				return "spaded";
+				return "demonic hair-tipped";
 			case DOG_MORPH:
 				return "canine";
 			case DOG_MORPH_STUBBY:
 				return "stubby canine";
 			case HARPY:
-				return "plume";
+				return "harpy plume";
 			case HORSE_MORPH:
 				return "equine";
+			case HORSE_MORPH_ZEBRA:
+				return "zebra";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case LYCAN:
-				return "lupine";
+				return "wolf";
+			case FOX_MORPH:
+				return "fox";
 			case SQUIRREL_MORPH:
-				return "fluffy";
+				return "squirrel";
+			case FOX_MORPH_MAGIC:
+				return "arcane fox";
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case NONE:
@@ -195,7 +230,6 @@ public enum TailType implements BodyPartTypeInterface {
 	public String getTailTipDescriptor(GameCharacter gc) {
 		switch(this){
 			case DEMON_COMMON:
-			case IMP:
 				return UtilText.returnStringAtRandom("spaded");
 			default:
 				return UtilText.returnStringAtRandom("");
@@ -238,5 +272,16 @@ public enum TailType implements BodyPartTypeInterface {
 		}
 		typesMap.put(r, types);
 		return types;
+	}
+	
+
+	public static List<TailType> getTailTypesSuitableForTransformation(List<TailType> options) {
+		if (!options.contains(TailType.NONE)) {
+			return options;
+		}
+		
+		List<TailType> duplicatedOptions = new ArrayList<>(options);
+		duplicatedOptions.remove(TailType.NONE);
+		return duplicatedOptions;
 	}
 }

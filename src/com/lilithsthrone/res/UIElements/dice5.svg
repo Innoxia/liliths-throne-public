@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <g stroke="#000">
+        <path fill="#f55" fill-rule="evenodd" d="M36.593 61.879c1.968.352 18.236-20.436 18.826-23.246.432-2.05 1.469-20.533-.452-20.476L35.532 42.522c-2.317 6.452-.898 12.904 1.06 19.357z"/>
+        <path fill="#ff8080" fill-rule="evenodd" d="M36.593 61.879c-2.81.72-28.175-14.675-28.992-15.91-.659-.997-1.591-18.101-1.038-18.584l29.455 15.137z"/>
+        <path fill="#faa" fill-rule="evenodd" stroke-linejoin="round" stroke-width="1.016" d="M36.134 44.634c-1.782.08-29.213-15.026-29.669-16.836-.58-2.304 18.295-23.593 20.923-23.804 2.658-.214 27.414 12.553 28 14.578.622 2.152-17.5 25.982-19.254 26.062z"/>
+        <ellipse cx="17.527" cy="25.6" fill="#333" stroke-linecap="round" stroke-linejoin="round" paint-order="stroke fill markers" rx="4.195" ry="3.662" transform="rotate(1.494)"/>
+        <ellipse cx="32.152" cy="22.506" fill="#333" stroke-linecap="round" stroke-linejoin="round" paint-order="stroke fill markers" rx="4.148" ry="3.459" transform="rotate(1.494)"/>
+        <ellipse cx="28.871" cy="10.6" fill="#333" stroke-linecap="round" stroke-linejoin="round" paint-order="stroke fill markers" rx="4.009" ry="3.32" transform="rotate(1.494)"/>
+        <ellipse cx="46.496" cy="19.85" fill="#333" stroke-linecap="round" stroke-linejoin="round" paint-order="stroke fill markers" rx="3.949" ry="3.323" transform="rotate(1.494)"/>
+        <ellipse cx="35.277" cy="34.85" fill="#333" stroke-linecap="round" stroke-linejoin="round" paint-order="stroke fill markers" rx="4.195" ry="3.662" transform="rotate(1.494)"/>
+        <ellipse cx="53.503" cy="4.1" fill="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.102" paint-order="stroke fill markers" rx="3.451" ry="2.876" transform="matrix(.46864 .8834 -.99325 -.11597 0 0)"/>
+        <ellipse cx="73.591" cy="69.184" fill="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.144" paint-order="stroke fill markers" rx="3.33" ry="1.908" transform="matrix(-.31974 .9475 .93002 -.3675 0 0)"/>
+        <ellipse cx="74.344" cy="75.444" fill="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.144" paint-order="stroke fill markers" rx="2.818" ry="1.617" transform="matrix(-.32036 .9473 .93033 -.36672 0 0)"/>
+        <ellipse cx="74.638" cy="81.125" fill="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.145" paint-order="stroke fill markers" rx="2.642" ry="1.502" transform="matrix(-.31699 .94843 .92864 -.37098 0 0)"/>
+    </g>
+</svg>

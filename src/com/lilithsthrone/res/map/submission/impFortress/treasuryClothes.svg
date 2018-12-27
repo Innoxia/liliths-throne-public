@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="treasuryClothesGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#treasuryClothesGradient"/>
+    </defs>
+    <g fill-rule="evenodd" transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" rx="30.383" ry="30.381"/>
+        <path fill="#fff" stroke="#fff" stroke-width=".975" d="M53.114 1034.589s-.306-10.342-.303-15.683l-13.203.01.047 5.474-14.58-.035.004-5.56-14.07.012c.15 5.049.137 15.781.137 15.781zM11.182 1011.234l-.02 4.69 13.993.024.098-4.062 14.664-.098.008 4.111 12.995-.015.091-4.964c.141-7.664-41.887-7.893-41.83.313z"/>
+        <path fill="#fff" stroke="#fff" stroke-width=".755" d="M27.98 1014.307v7.745l8.767.046v-7.79zm4.615.53c2.15 0 2.608 2.42.988 3.112l1.369 3.358h-5.005l1.42-3.389c-1.422-.797-.731-3.082 1.228-3.082z"/>
+    </g>
+</svg>

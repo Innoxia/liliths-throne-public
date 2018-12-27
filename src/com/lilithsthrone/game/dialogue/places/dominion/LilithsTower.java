@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -13,8 +13,7 @@ import com.lilithsthrone.utils.Colour;
  * @author Innoxia
  */
 public class LilithsTower {
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Lilith's Tower", "Lilith's tower.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Lilith's Tower", "Lilith's tower.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -35,7 +34,7 @@ public class LilithsTower {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
+							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -55,11 +54,10 @@ public class LilithsTower {
 			}
 		}
 	};
-	public static final DialogueNodeOld LILITHS_DISTRICT_APPROACH = new DialogueNodeOld("Lilith's Tower Entrance", "Archway", false, true) {
+	public static final DialogueNode LILITHS_DISTRICT_APPROACH = new DialogueNode("Lilith's Tower Entrance", "Archway", false, true) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {

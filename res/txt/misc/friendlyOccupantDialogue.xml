@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="OCCUPANT_START"><![CDATA[
+	<p>
+		Wanting to pay [npc.name] a visit to find out how [npc.sheIs] getting on, you knock on [npc.her] door, waiting to enter until you hear [npc.herHim] call out, [npc.speech(Come on in!)]
+	</p>
+	<p>
+		Doing as [npc.she] says, you push open the door and step inside [npc.her] room, greeting [npc.herHim] as you enter, [pc.speech(Hi, [npc.name].)]
+	</p>
+	#IF npc.getAffection(pc) < -30
+	#THEN
+		<p>
+			[npc.speech(Oh. It's you,)] [npc.name] replies, doing [npc.her] best to hide [npc.her] animosity towards you as [npc.she] steps forwards and crosses [npc.her] [npc.arms]. [npc.speech(Look, I'm really grateful for the room and everything, but can you make this quick? I'm busy.)]
+		</p>
+	#ELSE
+		#IF npc.getAffection(pc) < 30
+		#THEN
+		<p>
+			[npc.speech(Oh! Hi, [npc.pcName]!)] [npc.name] happily replies, bounding forwards with a huge grin on [npc.her] face. [npc.speech(Thank you so much for everything again! What can I do for you?)]
+		</p>
+		#ELSE
+		<p>
+			[npc.speech([npc.PcName]!)] [npc.name] happily shouts, bounding forwards with a huge grin on [npc.her] face as [npc.she] sees that you've come to talk to [npc.herHim]. [npc.speech(Thank you so much for everything again! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
+		</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_START_PREGNANCY_REVEAL"><![CDATA[
+	<p>
+		Before you can move on to the reason for your visit, you suddenly notice that something's a little off about [npc.namePos] gait. Looking down as [npc.she] moves to cradle [npc.her] stomach in both [npc.hands], you gasp as you see that [npc.sheIs] sporting a very obviously [style.colourSex(pregnant belly)].
+	</p>
+	<p>
+		#IF npc.getPregnantLitter().isFatherId(pc.getId())
+		#THEN
+			#IF npc.hasFetish(FETISH_PREGNANCY)
+			#THEN [npc.speech(That's right, you got me pregnant!)] [npc.name] excitedly cries out, stepping forwards and taking hold of your [pc.hand] in [npc.hers], before rubbing it over [npc.her] swollen belly. [npc.speech(I love being pregnant so much! Thank you so much, [npc.pcName]!)]
+			#ELSE [npc.speech(That's right, you got me pregnant...)] [npc.name] mumbles, stepping forwards shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+			#ENDIF
+		#ELSE
+			#IF npc.hasFetish(FETISH_PREGNANCY)
+			#THEN [npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
+			#ELSE [npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(I'm out of the house a lot,)] you say, [pc.speech(so when you're ready to give birth, make sure to call for Rose, and she'll get Lilaya to help you out.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_START_STILL_PREGNANT"><![CDATA[
+	<p>
+		As the door swings shut behind you, you notice that [npc.name] is still cradling [npc.her] [style.colourSex(pregnant belly)] in both [npc.hands]. Reminding [npc.herHim] to go and see Lilaya when [npc.sheIs] ready to give birth, you smile at [npc.herHim] as [npc.she] promises to do just that.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_START_PLAYER_PREGNANCY"><![CDATA[
+	<p>
+		#IF pc.getPregnantLitter().isFatherId(npc.getId())
+		#THEN
+			#IF npc.hasFetish(FETISH_IMPREGNATION)
+			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before stepping forwards and rubbing [npc.her] [npc.hands] all over it. [npc.speech(I made you a mommy, huh, [npc.pcName]?! Isn't this exciting? And pretty hot as well... It's like I've claimed your womb...)]
+			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, stepping forwards and nervously placing [npc.her] [npc.hand] on your rounded belly. [npc.speech(I got you pregnant... I can't believe it! I-I'm going to be a father...)]
+			#ENDIF
+		#ELSE
+			#IF npc.hasFetish(FETISH_IMPREGNATION)
+			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [npc.pcName]! You're going to be a mommy, huh? That lucky stud who knocked you up... Fuck, I wish it'd have been me...)]
+			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [npc.pcName]! You'll make a fantastic mother!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(Mmm, yeah,)] you reply, happily stroking your belly as you smile back at [npc.name]. [pc.speech(I'll make sure to take it easy until I'm ready to give birth.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_START_CONTINUED_PLAYER_PREGNANCY"><![CDATA[
+	<p>
+		As you step forwards into [npc.her] room, [npc.name] notices that you're still cradling your pregnant belly in both [pc.hands]. Smiling warmly at you, [npc.she] reminds you to take good care of yourself.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_START_FINISH_WITH_NEW_JOB"><![CDATA[
+	#IF npc.getAffection(pc) < -30
+	#THEN
+		<p>
+			[npc.speech(Oh, I suppose I should tell you, by the way,)] [npc.name] says, [npc.speech(I got a job. I'm working as [npc.a_job], from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]. One of my new colleagues said there's a cheap apartment available near to where they live, so if you want me to move out at any time, just let me know. Oh, and I've also talked to Lilaya already about all this, and I told her that I wanted to start paying rent, so from now on I can cover the cost of my upkeep.)]
+		</p>
+	#ELSE
+		<p>
+			[npc.speech(Oh, I have some really exciting news, by the way!)] [npc.name] happily exclaims, beaming at you in delight as [npc.she] delivers the good news. [npc.speech(I got a job working as [npc.a_job]! From now on, I'm going to be out at work from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]. Isn't that exciting?!)]
+		</p>
+		<p>
+			[pc.speech(Congratulations!)] you reply, stepping forwards and pulling [npc.name] into a big hug. [pc.speech(I knew you could do it!)]
+		</p>
+		<p>
+			[npc.Name] enthusiastically returns your embrace, laughing happily as [npc.she] presses [npc.herself] against you. The two of you spend a moment hugging one another like his, before [npc.name] breaks it off and steps back. [npc.speech(Oh, and one of my new colleagues said that there's a cheap apartment available near to where they live, so if you ever need this room back, I can move out at any time. I've also talked to Lilaya already about all this, and I told her that I wanted to start paying rent, so from now on I can cover the cost of my upkeep!)]
+		</p>
+	#ENDIF
+	<p>
+		[pc.speech(That's really fantastic news,)] you say, smiling happily at [npc.name] as you wonder if you should take up [npc.her] offer of moving out. On one hand, it would free up this room for other uses, but on the other, it'd be a little more out of your way if you ever wanted to visit [npc.name]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_START_FINISH"><![CDATA[
+	<p>
+		#IF npc.getAffection(pc) < -30
+		#THEN
+			[npc.speech(So, what is it then?)] [npc.name] asks again, placing [npc.her] [npc.hands] on [npc.her] [npc.hips] as [npc.she] awaits your response...
+		#ELSE
+			[npc.speech(So, what can I do for you then, [npc.pcName]?)] [npc.name] happily asks again, placing [npc.her] [npc.hands] on [npc.her] [npc.hips] and throwing you a happy grin as [npc.she] awaits your response...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SEX_START"><![CDATA[
+	<p>
+		[pc.speech(Don't think I don't see that look in your [npc.eye],)] you tease, stepping forwards and reaching out to take hold of [npc.namePos] [npc.hips+].
+	</p>
+	<p>
+		[npc.speech(Am I really that easy to read?)] [npc.name] replies, biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you as [npc.she] steps forwards and slips into your embrace. [npc.speech(I just can't stop thinking about you...)]
+	</p>
+	<p>
+		As [npc.namePos] warm body presses against yours, you lean forwards and kiss [npc.herHim] fully on the [npc.lips]. Opening [npc.her] mouth to allow your [pc.tongue] to slide in over [npc.hers], [npc.name] lets out a happy, muffled [npc.moan] as the two of you start making out with one another.
+	</p>
+	<p>
+		After just a moment, you find yourself wanting more than just a kiss, and, pulling back from [npc.name], you [pc.moan], [pc.speech(I've got an hour or two to spare, let's make the most of it...)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SEX_AS_SUB_START"><![CDATA[
+	<p>
+		[pc.speech(You know, [npc.name], I just can't stop thinking about you,)] you tease, stepping forwards and reaching out to place your [pc.hands] on [npc.her] [npc.hips+].
+	</p>
+	<p>
+		[npc.speech(Is that so?)] [npc.name] replies, staring lustfully into your [pc.eyes] as you bite your [pc.lip] and bat your eyelids at [npc.herHim]. Stepping forwards, [npc.she] reaches around to pull you into [npc.her] embrace, [npc.moaning] in delight, [npc.speech(I can't stop thinking about you, either...)]
+	</p>
+	<p>
+		As you press your warm body against [npc.namePos], [npc.she] leans forwards and kisses you fully on the [pc.lips]. Opening your mouth to allow [npc.her] [npc.tongue] to slide in over yours, you let out a happy, muffled [pc.moan] as the two of you start making out with one another.
+	</p>
+	<p>
+		After just a moment, [npc.name] finds [npc.herself] wanting more than just a kiss, and, pulling back from you, [npc.she] [npc.moans], [npc.speech(Let's make the most of this time together...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_SPITROASTED_START"><![CDATA[
+	<p>
+		[pc.speech(You, know, I was thinking that the three of us could have some fun together...)] you tease, turning to face both [npc.name] and [npc2.name], before biting your [pc.lip] and putting on your most submissive, seductive look.
+	</p>
+	<p>
+		[npc.speech(Oh, what did you have in mind?)] [npc.name] replies, smiling deviously as [npc.she] steps forwards and places one [npc.hand] on your [pc.ass].
+	</p>
+	<p>
+		[npc2.speech(I think I know what [pc.she] wants,)] [npc2.name] states, grinning at you as [npc.she] moves forwards and follows [npc.namePos] lead in grasping your [pc.ass+].
+	</p>
+	<p>
+		[npc.speech(I'll take [pc.her] mouth,)] [npc.name] says to [npc2.name].
+	</p>
+	<p>
+		[npc2.speech(I'm on the fun end, then,)] [npc2.name] replies, taking hold of your [pc.hips] and pushing down, forcing you to your knees.
+	</p>
+	<p>
+		Dropping down into a kneeling position before you, [npc.name] reaches up to grab your shoulders, before pulling down and forcing you onto all fours. [npc2.Name] then drops down behind you, and the two of them prepare to spitroast you on the floor of [npc.namePos] room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_SIDE_BY_SIDE_START"><![CDATA[
+	<p>
+		[pc.speech(You, know, I was thinking that I could have some fun with the two of you at once...)] you tease, turning to face both [npc.name] and [npc2.name], before glaring dominantly at the two of them.
+	</p>
+	<p>
+		Sensing what it is that you want, both [npc.name] and [npc2.name] step towards each other, casting submissive glances at you before turning and dropping down onto all fours. Letting out a delighted [pc.moan], you step towards towards the two of them as they present their rear ends for your use.
+	</p>
+	<p>
+		[npc.speech(Come and take us!)] [npc.name] [npc.moans], looking back over [npc.her] shoulder and seductively biting [npc.her] [npc.lip]. 
+	</p>
+	<p>
+		[npc2.speech(Mmm, yes, put us in our place!)] [npc2.name] joins in, copying [npc.name] as [npc2.she] glances back over [npc2.her] shoulder and bats [npc.her] eyelids at you. 
+	</p>
+	<p>
+		Dropping down onto your knees behind them, you prepare to do exactly as they say, and, reaching forwards to grab their asses in each [pc.hand], you [pc.moan], [pc.speech(I wonder which of you I'll fuck first...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVING"><![CDATA[
+	<p>
+		With other things to be getting on with, you tell [npc.name] that you'll come back another time, and the two of you say goodbye to one another before you take your leave and step back out into the corridor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_TALK_LIFE"><![CDATA[
+	<p>
+		Wanting to talk with [npc.name] about [npc.her] past life, you ask [npc.herHim] a series of questions about [npc.her] time living on the streets of Dominion. While a little hesitant to talk about some of [npc.her] painful memories at first, [npc.name] soon starts to open up to you, and spends a good while talking about some of the things that have happened to [npc.herHim].
+	</p>
+	<p>
+		Not wanting this to be a totally one-sided affair, you tell [npc.name] about some of your recent experiences, which [npc.she] listens to with rapt attention.
+	</p>
+	<p>
+		Soon enough, however, you both feel as though you've talked about these things enough for one day, and, smiling at [npc.name], you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_TALK_JOB"><![CDATA[
+	<p>
+		Wanting to know how [npc.namePos] job as [npc.a_job] is going, you ask [npc.herHim] how [npc.sheIs] finding it. All too eager to try and impress you with [npc.her] tales of finally being a productive member of society, [npc.name] starts recounting some of [npc.her] recent experiences at work, pausing every now and then to allow you to compliment [npc.herHim] or make a comment on [npc.her] story-telling.
+	</p>
+	<p>
+		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]</b>.
+	</p>
+	<p>
+		Having exhausted this line of conversation for the time being, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_TALK_JOB_HUNTING"><![CDATA[
+	<p>
+		Wanting to know if [npc.name] is still searching for a job, you ask [npc.herHim] if [npc.sheHas] applied for anything recently. Smiling happily back at you, [npc.she] tells you that [npc.sheHas] not stopped looking for a job ever since you started befriending [npc.herHim]. Listing off the numerous places that [npc.sheHas] applied for a job at, [npc.name] promises you that [npc.she] will find something soon, at which point, [npc.she] says, [npc.she]'ll start paying rent.
+	</p>
+	<p>
+		Reassuring [npc.herHim] that there's no rush, you tell [npc.name] to keep on trying [npc.her] best, and that [npc.her] diligence and enthusiasm are sure to be rewarded soon.
+	</p>
+	<p>
+		As [npc.name] thanks you once again for your support and interest in helping [npc.herHim] get back on [npc.her] feet, you wonder what you should talk about next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_TALK_LILAYA"><![CDATA[
+	<p>
+		You decide to ask [npc.name] if [npc.sheHas] talked to Lilaya or Rose recently. Answering in the affirmative, [npc.name] tells you how kind and helpful Rose has been, and that she always gets [npc.her] clothing and bedsheets cleaned before [npc.she] can even offer to help.
+	</p>
+	<p>
+		Although Lilaya is always locked away in her lab performing experiments, [npc.name] says that [npc.sheHas] paid [npc.her] a visit a few times. Although [npc.she] says that Lilaya is kind, [npc.her] comments about your aunt are nowhere near as warm or friendly as those that [npc.she] offered about Rose. Knowing how Lilaya can be quite impatient with anyone not involved in helping with her research, you find it a relief to hear that she's at least acting in a civil manner towards [npc.name].
+	</p>
+	<p>
+		With [npc.her] opinions on your aunt and her cat-girl maid now given, [npc.name] smiles happily at you as [npc.she] awaits to hear what you want to talk about next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_TALK_SLAVES"><![CDATA[
+	<p>
+		#IF npc2.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_SILENCE)
+		#THEN
+			You ask [npc.name] if [npc.sheHas] talked to or interacted with any of your slaves recently. Answering in the affirmative, [npc.she] says that [npc.she] recently spent some time trying to talk with [npc2.name], but as [npc2.she] had been ordered to remain silent, the conversation was completely one-sided.
+		#ELSE
+			You ask [npc.name] if [npc.sheHas] talked to or interacted with any of your slaves recently. Answering in the affirmative, [npc.she] says that [npc.she] recently spent some time talking with [npc2.name].
+		#ENDIF
+	</p>
+	<p>
+		Moving on to talk about [npc.namePos] opinion of slavery in general, [npc.she] tells you that
+		#IF npc.isTrusting()
+		#THEN [npc.she] feels sorry for those bound into a life of servitude, and that [npc.she] hopes one day slavery will be abolished.
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.she] thinks some people are worthless as anything but slaves, and that their owners should be free to do anything they want with them.
+			#ELSE [npc.she] thinks slavery is a necessary evil, and is a good way to make criminals pay back their debt to society.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		After a short while, this line of conversation draws to an end, and you wonder what you should talk about next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_TALK_SLAVES_NULL_SLAVE"><![CDATA[
+	<p>
+		You ask [npc.name] if [npc.sheHas] talked to or interacted with any of your slaves recently. Answering in the affirmative, [npc.she] says that [npc.she] recently tried to talk with one of them, but your slave was very busy, and [npc.she] didn't want to distract them from their work too much.
+	</p>
+	<p>
+		Moving on to talk about [npc.namePos] opinion of slavery in general, [npc.she] tells you that
+		#IF npc.isTrusting()
+		#THEN [npc.she] feels sorry for those bound into a life of servitude, and that [npc.she] hopes one day slavery will be abolished.
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.she] thinks some people are worthless as anything but slaves, and that their owners should be free to do anything they want with them.
+			#ELSE [npc.she] thinks slavery is a necessary evil, and is a good way to make criminals pay back their debt to society.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		After a short while, this line of conversation draws to an end, and you wonder what you should talk about next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_THREESOME"><![CDATA[
+	<p>
+		You, [npc.name], and [npc2.name] all collapse down onto the bed together, panting and sighing as you all press closely against one another. After spending some time getting your breath back, the three of you start to get your things together, before eventually standing up and smiling at one another.
+	</p>
+	<p>
+		[npc.speech(Mmm, that was fun. The two of you should come and pay me a visit more often,)] [npc.name] says with a little laugh.
+	</p>
+	<p>
+		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [npc.pcName]?)]
+	</p>
+	<p>
+		[pc.speech(We'll see,)] you tease, smiling and letting out a small laugh as [npc.name] and [npc2.name] whine in unison.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX"><![CDATA[
+	<p>
+		You and [npc.name] collapse down onto [npc.her] bed together, before rolling over and gazing lovingly into one another's eyes. Lying like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
+	</p>
+	<p>
+		[npc.speech(That was fantastic, I really needed that,)] [npc.name] sighs, grinning at you as [npc.she] sits back down heavily on [npc.her] bed.
+	</p>
+	<p>
+		[pc.speech(Yeah, that was fun,)] you reply, returning [npc.her] smile as you recall how [npc.she] moaned and called out your name during [npc.her] orgasm.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		You and [npc.name] collapse down onto [npc.her] bed together, before rolling over and gazing lovingly into one another's eyes. Lying like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
+	</p>
+	<p>
+		[npc.speech(That was fun, but I really could have done with an orgasm,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] bed.
+	</p>
+	<p>
+		[pc.speech(Yeah, maybe next time,)] you reply, returning [npc.her] smile as you wonder if you'll let [npc.herHim] climax the next time the two of you have sex.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE_AFTER_SEX"><![CDATA[
+	<p>
+		As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to the door, you call out, [pc.speech(I'll be back later, [npc.name]. Maybe we can have some more fun when I return...)]
+	</p>
+	<p>
+		[npc.speech(Mmm, yeah, I'd like that!)] [npc.name] replies, smiling happily at you as you open [npc.her] bedroom's door and step out into the corridor beyond...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_KICK_OUT"><![CDATA[
+	<p>
+		You feel as though the time has come to kick [npc.name] out. Stepping towards [npc.herHim], you put on your most authoritative tone as you state, [pc.speech(You're going to have to leave, [npc.name]. I can't support you here any longer.)]
+	</p>
+	<p>
+		[npc.speech(I understand,)] [npc.name] replies, casting [npc.her] gaze down at the floor as [npc.she] quickly gathers what few possessions [npc.she] has. Having got all of [npc.her] things together in less than a minute, [npc.she] turns to face you with a big smile on [npc.her] face. [npc.speech(Thank you for everything, [npc.pcName]! I've been thinking ever since I got here about what I'll do next, and I've decided to leave Dominion for good. I'm not sure where I'll go, but anywhere's better than city.)]
+	</p>
+	<p>
+		You escort [npc.name] down to the front entrance, where [npc.she] turns to say one final farewell, [npc.speech(Really, thank you, [npc.pcName]. You've helped me to start a new chapter in my life, and I'll always remember you.)]
+	</p>
+	<p>
+		[pc.speech(Goodbye, [npc.name]. I'm sure you'll be able to make something of yourself,)] you reply, waving at [npc.herHim] as [npc.she] heads out into the streets of Dominion, and out of your life forever...
+	</p>
+	<p>
+		Letting out a sigh, you close the front door, before returning to the guest room in which [npc.name] was staying. Looking around, you wonder if you should get Rose to strip the bed down and return the room to its unoccupied state, or simply leave it as it is...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_MOVE_OUT"><![CDATA[
+	<p>
+		Now that [npc.name] has a job and is able to support [npc.herself] financially, you feel as though it's time for [npc.herHim] to move on, and, looking into [npc.her] [npc.eyes], you tell [npc.herHim] as such, [pc.speech([npc.Name], I wanted to talk to you about your offer of moving out. Is that apartment your friend mentioned still available?)]
+	</p>
+	<p>
+		[npc.speech(Yeah, and it's well within my budget. My friend said I could move in literally any time I wanted.)] [npc.name] replies. [npc.speech(You feel as though it's time for me move on as well?)]
+	</p>
+	<p>
+		[pc.speech(I thought it would be best if you got your own place, yeah,)] you answer. [pc.speech(It's not that I want you gone, it's just that I want to do what's best for you.)]
+	</p>
+	<p>
+		[npc.speech(I understand completely. I've actually been thinking recently that it would do me good to get some real independence. I've got all my stuff ready to go, just give me a moment, and I can be on my way!)]
+	</p>
+	<p>
+		You spend the next fifteen minutes or so helping [npc.name] to pack [npc.her] things. Eventually, with two suitcases filled with [npc.her] possessions, [npc.name] steps over to the door of [npc.her] room, before turning to smile at you. [npc.speech(So, do you want to come with me to see where I'll be living?)]
+	</p>
+	<p>
+		You wonder if you should accept that offer. If you do, you'd be able to visit [npc.name] at [npc.her] new apartment any time you wanted, but if you were to say no, then you know that you'll never see [npc.name] again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_MOVE_OUT_REMOVE_CHARACTER"><![CDATA[
+	<p>
+		You let out a sigh as you step forwards and smile wistfully at the [npc.race], [pc.speech(I really think that you need to move on with your life, [npc.name]. I'm so happy that I was able to offer you a place to stay while you got yourself back on your feet, but continuing to see one another is only going to hold you back.)]
+	</p>
+	<p>
+		Dropping [npc.her] suitcases, [npc.name] rushes forwards and gives you a big hug. As [npc.she] presses [npc.herself] close to your body, you hear [npc.her] voice start to break as [npc.she] cries, [npc.speech(I-I'll never forget you, [npc.pcName]! I'll a-always be eternally grateful f-for everything that you've done for me! I-I love you!)]
+	</p>
+	<p>
+		Feeling yourself starting to get a little emotional, but knowing that this is for the best, you return [npc.namePos] loving hug for a moment, before breaking it off and stepping back. [pc.speech(You take care of yourself now, [npc.name], and lead a good life!)]
+	</p>
+	<p>
+		With tears flowing freely down [npc.namePos] face, you help [npc.herHim] carry [npc.her] luggage to the front door, where the two of you share one last loving embrace. Setting off into the streets of Dominion, [npc.name] then leaves your life forever, and although you're comforted by the knowledge that this is for the best for [npc.herHim] in the long run, you can't help but feel like you've lost something special today.
+	</p>
+	<p>
+		Letting out a sigh as you watch [npc.name] disappear around a corner further up the street, you close the front door, before returning to the guest room in which [npc.name] was staying. Looking around, you wonder if you should get Rose to strip the bed down and return the room to its unoccupied state, or simply leave it as it is...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_MOVE_OUT_APARTMENT"><![CDATA[
+	<p>
+		[pc.speech(Of course I'll come with you!)] you reply, smiling happily as you see [npc.namePos] [npc.eyes] light up. Helping [npc.herHim] to take one of [npc.her] suitcases down to the front door, you turn and ask, [pc.speech(So, which direction is it?)]
+	</p>
+	<p>
+		[npc.speech(It's this way, it won't take too long to get there,)] [npc.name] replies, pulling [npc.her] suitcase along behind [npc.herHim] as [npc.she] sets off down the street. Suddenly remembering [npc.her] other belongings, [npc.she] looks back and apologises, [npc.speech(Oh, sorry, [npc.pcName]! I've left you with my other bag!)]
+	</p>
+	<p>
+		[pc.speech(Don't worry, I've got this one,)] you reply, stepping forwards and walking alongside [npc.name] as you help [npc.herHim] to move [npc.her] belongings to [npc.her] new apartment.
+	</p>
+	<p>
+		Just as [npc.she] said, [npc.namePos] new home isn't too far away, and before long, you're both standing outside a well-kept apartment building in a decent part of Dominion. Stepping inside the foyer, [npc.name] heads off to find the landlord, leaving you guarding [npc.her] baggage.
+	</p>
+	<p>
+		After a short while, [npc.name] returns, key in [npc.hand], and excitedly bounds over towards you. [npc.speech(I've got the apartment! Come on, let's head up and check it out!)]
+	</p>
+	<p>
+		Helping [npc.name] carry [npc.her] suitcases up to the second floor, the two of you soon find yourselves stepping into a simply furnished, one-bedroom apartment. While smaller than the room [npc.she] was renting from you, [npc.name] is nevertheless overcome with happiness at finally having [npc.her] own place in which to live. As soon as you place the suitcase you were carrying down on the floor, the [npc.race] throws [npc.herself] at you, wrapping [npc.her] [npc.arms] around your back and pulling you into a loving hug as [npc.she] starts crying, [npc.speech(T-Thank you f-for everything, [npc.pcName]! Y-You're t-the best thing t-that's ever h-happened to me!)]
+	</p>
+	<p>
+		Pulling [npc.name] into your embrace, the two of you stand there for a while, hugging one another, before [npc.she] slowly pulls back, sniffling as [npc.she] wipes away [npc.her] tears of joy, [npc.speech(R-Really, thank you so, so much, [npc.pcName]. I can't believe all this is really happening...)]
+	</p>
+	<p>
+		[pc.speech(You're very welcome, [npc.name], but remember, you got here through your own hard work and effort. I'm so proud of you,)] you reply, smiling at the [npc.race] you saved from a life of crime.
+	</p>
+	<p>
+		After that, you spend some time helping [npc.name] to unpack, before making sure that the water's running and that all the arcane-powered appliances are functioning correctly. Once you're happy that everything's in order, you and [npc.name] sigh in unison, before collapsing down onto [npc.her] sofa.
+	</p>
+	#IF npc.isAttractedTo(pc)
+	#THEN
+		<p>
+			[npc.speech(Hey, [npc.pcName]...)] [npc.name] says in a mischievous tone. [npc.speech(All the excitement of moving in has got me worked up... You want to help me release some stress?)]
+		</p>
+		<p>
+			You look across at [npc.name] to see that [npc.sheHas] a lustful glint in [npc.her] [npc.eye], and you wonder if you should give [npc.herHim] what [npc.she] wants, or just take it easy for the time being...
+		</p>
+	#ELSE
+		<p>
+			[npc.speech(Thanks, [npc.pcName],)] [npc.name] says, leaning back on the sofa. [npc.speech(I really am so grateful for everything you've done for me.)]
+		</p>
+		<p>
+			You look across at [npc.name] and tell [npc.herHim] that [npc.sheIs] very welcome, before wondering what to do now...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_START"><![CDATA[
+	<p>
+		Finding yourself near to where [npc.name] lives, you decide to pay [npc.herHim] a visit. Cutting across the street towards [npc.her] apartment building, you push open the front door and step into the building's foyer, before heading over to the staircase and making your way up to the second floor.
+	</p>
+	<p>
+		Walking up to the door of [npc.namePos] flat, you give it a firm knock, smiling to yourself as you hear a muffled response from somewhere within, [npc.speech(Hold on! I'm coming!)]
+	</p>
+	<p>
+		After just a moment, the door swings inwards, and you find yourself looking upon the delighted face of [npc.name], who instantly calls out, [npc.speech([npc.PcName]! Oh, I'm so happy to see you again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_START_PREGNANCY_REVEAL"><![CDATA[
+	<p>
+		Before you can move on to the reason for your visit, you suddenly notice that something's a little off about [npc.namePos] gait. Looking down as [npc.she] moves to cradle [npc.her] stomach in both [npc.hands], you gasp as you see that [npc.sheIs] sporting a very obviously [style.colourSex(pregnant belly)].
+	</p>
+	<p>
+		#IF npc.getPregnantLitter().isFatherId(pc.getId())
+		#THEN
+			#IF npc.hasFetish(FETISH_PREGNANCY)
+			#THEN [npc.speech(That's right, you got me pregnant!)] [npc.name] excitedly cries out, stepping forwards and taking hold of your [pc.hand] in [npc.hers], before rubbing it over [npc.her] swollen belly. [npc.speech(I love being pregnant so much! Thank you so much, [npc.pcName]!)]
+			#ELSE [npc.speech(That's right, you got me pregnant...)] [npc.name] mumbles, stepping forwards shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+			#ENDIF
+		#ELSE
+			#IF npc.hasFetish(FETISH_PREGNANCY)
+			#THEN [npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
+			#ELSE [npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(If you need someone to help you with your delivery, please don't hesitate to come and visit,)] you say. [pc.speech(Lilaya will be able to help you with everything.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_START_STILL_PREGNANT"><![CDATA[
+	<p>
+		As [npc.name] stands in the doorway before you, you notice that [npc.sheIs] still cradling [npc.her] [style.colourSex(pregnant belly)] in both [npc.hands]. Reminding [npc.herHim] that [npc.sheIs] more than welcome to get help from Lilaya when [npc.sheIs] ready to give birth, you smile at [npc.herHim] as [npc.she] promises to do just that.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_START_PLAYER_PREGNANCY"><![CDATA[
+	<p>
+		#IF pc.getPregnantLitter().isFatherId(npc.getId())
+		#THEN
+			#IF npc.hasFetish(FETISH_IMPREGNATION)
+			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before stepping forwards and rubbing [npc.her] [npc.hands] all over it. [npc.speech(I made you a mommy, huh, [npc.pcName]?! Isn't this exciting? And pretty hot as well... It's like I've claimed your womb...)]
+			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, stepping forwards and nervously placing [npc.her] [npc.hand] on your rounded belly. [npc.speech(I got you pregnant... I can't believe it! I-I'm going to be a father...)]
+			#ENDIF
+		#ELSE
+			#IF npc.hasFetish(FETISH_IMPREGNATION)
+			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [npc.pcName]! You're going to be a mommy, huh? That lucky stud who knocked you up... Fuck, I wish it'd have been me...)]
+			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [npc.pcName]! You'll make a fantastic mother!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(Mmm, yeah,)] you reply, happily stroking your belly as you smile back at [npc.name]. [pc.speech(I'll make sure to take it easy until I'm ready to give birth.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_START_CONTINUED_PLAYER_PREGNANCY"><![CDATA[
+	<p>
+		As you stand there before [npc.name], [npc.she] notices that you're still cradling your pregnant belly in both [pc.hands]. Smiling warmly at you, [npc.she] reminds you to take good care of yourself.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_START_FINISH"><![CDATA[
+	<p>
+		[npc.speech(Anyway, don't just stand there, come on in!)] [npc.name] says, moving back as you accept [npc.her] invitation and step forwards into [npc.her] small, cozy apartment.
+	</p>
+	<p>
+		Closing the door behind you, [npc.name] then leads you forwards into [npc.her] apartment, before telling you to sit down on [npc.her] sofa and make yourself comfortable. Doing just that, you watch [npc.name] as [npc.she] gets a couple of drinks from [npc.her] fridge, before happily rushing over and sitting down beside you.
+	</p>
+	<p>
+		Turning towards the [npc.race] that you saved from a life of crime, you wonder what to say first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_NOT_AT_HOME"><![CDATA[
+	<p>
+		Finding yourself near to where [npc.name] lives, you decide to pay [npc.herHim] a visit. Cutting across the street towards [npc.her] apartment building, you push open the front door and step into the building's foyer, before heading over to the staircase and making your way up to the second floor.
+	</p>
+	<p>
+		Walking up to the door of [npc.namePos] flat, you give it a firm knock, but even after waiting a minute and knocking again, there's no sign of anyone being inside. Realising that [npc.name] must be out at work, there's nothing more for you to do except turn and head back out into Dominion.
+	</p>
+	<p>
+		Letting out a sigh, you remember what [npc.name] told you once before... [npc.speech(<i>My work hours are from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]!</i>)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_REMOVE"><![CDATA[
+	<p>
+		You let out a sigh as you smile wistfully at [npc.name], [pc.speech(I really think that you need to move on with your life, [npc.name]. I'm so happy that I was able to offer you a place to stay while you got yourself back on your feet, but continuing to see one another is only going to hold you back.)]
+	</p>
+	<p>
+		Tears start to well up [npc.her] [npc.eyes], and before you can react, [npc.name] leans forwards and gives you a big hug. As [npc.she] presses [npc.herself] close to your body, you hear [npc.her] voice start to break as [npc.she] cries, [npc.speech(I-I'll never forget you, [npc.pcName]! I'll a-always be eternally grateful f-for everything that you've done for me! I-I love you!)]
+	</p>
+	<p>
+		Feeling yourself starting to get a little emotional, but knowing that this is for the best, you return [npc.namePos] loving hug for a moment, before breaking it off and standing up. [pc.speech(You take care of yourself now, [npc.name], and lead a good life!)]
+	</p>
+	<p>
+		With tears flowing freely down [npc.her] face, [npc.name] follows you to the front door, where the two of you share one last loving embrace. Setting off back down the stairs, you leave [npc.namePos] life forever, and although you're comforted by the knowledge that this is for the best for [npc.herHim] in the long run, you can't help but feel like you've lost something special today.
+	</p>
+	<p>
+		Letting out a sigh as you step out onto the streets of Dominion, you console yourself with the fact that, thanks to you, [npc.name] is now able to lead a decent life. With one final look back at [npc.her] apartment, you set off on your journey...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SEX_APARTMENT_START"><![CDATA[
+	<p>
+		[pc.speech(Don't think I don't see that look in your [npc.eye],)] you tease, stepping forwards and reaching out to take hold of [npc.namePos] [npc.hips+].
+	</p>
+	<p>
+		[npc.speech(Am I really that easy to read?)] [npc.name] replies, biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you as [npc.she] steps forwards and slips into your embrace. [npc.speech(I just can't stop thinking about you...)]
+	</p>
+	<p>
+		As [npc.namePos] warm body presses against yours, you lean forwards and kiss [npc.herHim] fully on the [npc.lips]. Opening [npc.her] mouth to allow your [pc.tongue] to slide in over [npc.hers], [npc.name] lets out a happy, muffled [npc.moan] as the two of you start making out with one another.
+	</p>
+	<p>
+		After just a moment, you find yourself wanting more than just a kiss, and, pulling back from [npc.name], you [pc.moan], [pc.speech(I've got an hour or two to spare, let's make the most of it...)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SEX_APARTMENT_AS_SUB_START"><![CDATA[
+	<p>
+		[pc.speech(You know, [npc.name], I just can't stop thinking about you,)] you tease, stepping forwards and reaching out to place your [pc.hands] on [npc.her] [npc.hips+].
+	</p>
+	<p>
+		[npc.speech(Is that so?)] [npc.name] replies, staring lustfully into your [pc.eyes] as you bite your [pc.lip] and bat your eyelids at [npc.herHim]. Stepping forwards, [npc.she] reaches around to pull you into [npc.her] embrace, [npc.moaning] in delight, [npc.speech(I can't stop thinking about you, either...)]
+	</p>
+	<p>
+		As you press your warm body against [npc.namePos], [npc.she] leans forwards and kisses you fully on the [pc.lips]. Opening your mouth to allow [npc.her] [npc.tongue] to slide in over yours, you let out a happy, muffled [pc.moan] as the two of you start making out with one another.
+	</p>
+	<p>
+		After just a moment, [npc.name] finds [npc.herself] wanting more than just a kiss, and, pulling back from you, [npc.she] [npc.moans], [npc.speech(Let's make the most of this time together...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_APARTMENT_SPITROASTED_START"><![CDATA[
+	<p>
+		[pc.speech(You, know, I was thinking that the three of us could have some fun together...)] you tease, turning to face both [npc.name] and [npc2.name], before biting your [pc.lip] and putting on your most submissive, seductive look.
+	</p>
+	<p>
+		[npc.speech(Oh, what did you have in mind?)] [npc.name] replies, smiling deviously as [npc.she] steps forwards and places one [npc.hand] on your [pc.ass].
+	</p>
+	<p>
+		[npc2.speech(I think I know what [pc.she] wants,)] [npc2.name] states, grinning at you as [npc.she] moves forwards and follows [npc.namePos] lead in grasping your [pc.ass+].
+	</p>
+	<p>
+		[npc.speech(I'll take [pc.her] mouth,)] [npc.name] says to [npc2.name].
+	</p>
+	<p>
+		[npc2.speech(I'm on the fun end, then,)] [npc2.name] replies, taking hold of your [pc.hips] and pushing down, forcing you to your knees.
+	</p>
+	<p>
+		Dropping down into a kneeling position before you, [npc.name] reaches up to grab your shoulders, before pulling down and forcing you onto all fours. [npc2.Name] then drops down behind you, and the two of them prepare to spitroast you on the floor of [npc.namePos] room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_APARTMENT_SIDE_BY_SIDE_START"><![CDATA[
+	<p>
+		[pc.speech(You, know, I was thinking that I could have some fun with the two of you at once...)] you tease, turning to face both [npc.name] and [npc2.name], before glaring dominantly at the two of them.
+	</p>
+	<p>
+		Sensing what it is that you want, both [npc.name] and [npc2.name] step towards each other, casting submissive glances at you before turning and dropping down onto all fours. Letting out a delighted [pc.moan], you step towards towards the two of them as they present their rear ends for your use.
+	</p>
+	<p>
+		[npc.speech(Come and take us!)] [npc.name] [npc.moans], looking back over [npc.her] shoulder and seductively biting [npc.her] [npc.lip]. 
+	</p>
+	<p>
+		[npc2.speech(Mmm, yes, put us in our place!)] [npc2.name] joins in, copying [npc.name] as [npc2.she] glances back over [npc2.her] shoulder and bats [npc.her] eyelids at you. 
+	</p>
+	<p>
+		Dropping down onto your knees behind them, you prepare to do exactly as they say, and, reaching forwards to grab their asses in each [pc.hand], you [pc.moan], [pc.speech(I wonder which of you I'll fuck first...)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="APARTMENT_LEAVING"><![CDATA[
+	<p>
+		With other things to be getting on with, you tell [npc.name] that you'll come back another time, and the two of you say goodbye to one another before you take your leave, heading back down the stairs before stepping out into the streets of Dominion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_TALK_LIFE"><![CDATA[
+	<p>
+		Wanting to talk with [npc.name] about [npc.her] past life, you ask [npc.herHim] a series of questions about [npc.her] time living on the streets of Dominion. While a little hesitant to talk about some of [npc.her] painful memories at first, [npc.name] soon starts to open up to you, and spends a good while talking about some of the things that have happened to [npc.herHim].
+	</p>
+	<p>
+		Not wanting this to be a totally one-sided affair, you tell [npc.name] about some of your recent experiences, which [npc.she] listens to with rapt attention.
+	</p>
+	<p>
+		Soon enough, however, you both feel as though you've talked about these things enough for one day, and, smiling at [npc.name], you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_TALK_JOB"><![CDATA[
+	<p>
+		Wanting to know how [npc.namePos] job as [npc.a_job] is going, you ask [npc.herHim] how [npc.sheIs] finding it. All too eager to try and impress you with [npc.her] tales of finally being a productive member of society, [npc.name] starts recounting some of [npc.her] recent experiences at work, pausing every now and then to allow you to compliment [npc.herHim] or make a comment on [npc.her] story-telling.
+	</p>
+	<p>
+		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]</b>.
+	</p>
+	<p>
+		Having exhausted this line of conversation for the time being, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_SLEEP_OVER"><![CDATA[
+	<p>
+		[pc.speech(Hey, [npc.name], is it ok if I crash on your sofa for while?)] you ask. [pc.speech(I'm absolutely shattered, and really need some sleep.)]
+	</p>
+	<p>
+		[npc.speech(Of course!)] [npc.name] replies. [npc.speech(After all you've done for me, you're welcome to sleep over any time you want!)]
+	</p>
+	<p>
+		Thanking [npc.herHim], you collapse down onto [npc.namePos] sofa, before closing your [pc.eyes] and drifting off to sleep...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP_ALONE"><![CDATA[
+	<p>
+		Some time later, you wake up, and, rubbing the sleep out of your [pc.eyes], sit up on the sofa. Looking around, you don't see any sign of [npc.name], but there looks to be a note left on the coffee table in front of you. Leaning forwards, you pick it up and read:
+	</p>
+	<p style='text-align:center;'><i>
+		Hi, [npc.pcName]!<br/>
+		I hope you slept well! You looked so happy fast asleep that I couldn't wake you to tell you that I needed to go to work, but that's where I am!<br/>
+		I'll be back at [npc.jobEndHour]:00, so if you wanted to drop by again after that time, I'll be here!<br/>
+		See you soon,<br/>
+		[npc.name] x
+	</i></p>
+	<p>
+		You can't help but smile as you read [npc.her] note, and, standing up and stretching, you head over to the front door, before exiting [npc.namePos] apartment. Making sure that the door is locked behind you, you head back down the stairs before stepping out into the streets of Dominion and preparing to continue on your journey...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP"><![CDATA[
+	<p>
+		Some time later, you wake up, and, rubbing the sleep out of your [pc.eyes], sit up on the sofa. Looking around, you immediately spot [npc.name] pouring [npc.herself] a drink behind the kitchen counter. Stretching your [pc.arms] and [pc.legs], you call out, [pc.speech(Hi, [npc.name]!)]
+	</p>
+	<p>
+		[npc.speech(Hello, sleepy-head!)] [npc.name] replies. [npc.speech(Would you like a drink? I was just getting myself one.)]
+	</p>
+	<p>
+		Answering in the affirmative, you thank [npc.name] as [npc.she] walks over and hands you a glass of juice. Sitting down beside you on the sofa, [npc.she] smiles and asks, [npc.speech(So, what's next on your busy schedule?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APARTMENT_AFTER_SEX_THREESOME"><![CDATA[
+	<p>
+		You, [npc.name], and [npc2.name] all collapse down onto the sofa together, panting and sighing as you all press closely against one another. After spending some time getting your breath back, the three of you start to get your things together, before eventually standing up and smiling at one another.
+	</p>
+	<p>
+		[npc.speech(Mmm, that was fun. The two of you should come and pay me a visit more often,)] [npc.name] says with a little laugh.
+	</p>
+	<p>
+		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [npc.pcName]?)]
+	</p>
+	<p>
+		[pc.speech(We'll see,)] you tease, smiling and letting out a small laugh as [npc.name] and [npc2.name] whine in unison.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APARTMENT_AFTER_SEX"><![CDATA[
+	<p>
+		You and [npc.name] collapse down onto [npc.her] sofa together, before rolling over and gazing lovingly one another's eyes. Slumping down like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
+	</p>
+	<p>
+		[npc.speech(That was fantastic, I really needed that,)] [npc.name] sighs, grinning at you as [npc.she] sits back down heavily on [npc.her] sofa.
+	</p>
+	<p>
+		[pc.speech(Yeah, that was fun,)] you reply, returning [npc.her] smile as you recall how [npc.she] moaned and called out your name during [npc.her] orgasm.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APARTMENT_AFTER_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		You and [npc.name] collapse down onto [npc.her] sofa together, before rolling over and gazing lovingly into one another's eyes. Slumping down like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
+	</p>
+	<p>
+		[npc.speech(That was fun, but I really could have done with an orgasm,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] sofa.
+	</p>
+	<p>
+		[pc.speech(Yeah, maybe next time,)] you reply, returning [npc.her] smile as you wonder if you'll let [npc.herHim] climax the next time the two of you have sex.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APARTMENT_LEAVE_AFTER_SEX"><![CDATA[
+	<p>
+		As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to [npc.her] front door, you call out, [pc.speech(I'll be back another time, [npc.name]. Maybe we can have some more fun then...)]
+	</p>
+	<p>
+		[npc.speech(Mmm, yeah, I'd like that!)] [npc.name] replies, smiling happily at you as you open the door and take your leave. Smiling to yourself, you head back down the stairs before stepping out into the streets of Dominion one again, before preparing to continue on your journey...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

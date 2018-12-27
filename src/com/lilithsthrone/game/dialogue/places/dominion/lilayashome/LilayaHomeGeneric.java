@@ -1,19 +1,23 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
+import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -21,11 +25,11 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.occupantManagement.MilkingRoom;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
-import com.lilithsthrone.game.slavery.MilkingRoom;
-import com.lilithsthrone.game.slavery.SlaveJob;
-import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
@@ -38,13 +42,18 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.2.4
+ * @version 0.2.11
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
 	
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	private static List<NPC> getSlavesAndOccupantsPresent() {
+		List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
+		charactersPresent.removeIf((character) -> character instanceof Elemental);
+		return charactersPresent;
+	}
+	
+	public static final DialogueNode OUTSIDE = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -59,11 +68,12 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "You find yourself standing before Lilaya's home, the size of which is more akin to that of a palace than a normal town-house."
+						+ "Positioned near the very centre of Dominion, Lilaya's home would be more aptly described as a palace, rather than a town-house."
+						+ " While the surrounding buildings are of an impressive size, you reckon that you could  fit at least two or three of them into the plot which your aunt's dwelling occupies."
 					+ "</p>"
-
 					+ "<p>"
-						+ " You can come and go from here as you please, knowing that Rose will quickly be there to let you in should you knock on the front door."
+						+ "With your demonic aunt happily treating you as one of her blood-relatives, you've been given full permission to come and go from here as you please."
+						+ " If you wanted to enter the house right now, all you'd need to do is knock on the front door, and you can be sure that Lilaya's cat-girl maid, Rose, will respond in mere moments."
 					+ "</p>";
 		}
 
@@ -79,11 +89,11 @@ public class LilayaHomeGeneric {
 									+ "You knock on the front door, and after only a brief moment, it swings open."
 								+ "</p>"
 								+ "<p>"
-									+ UtilText.parseNPCSpeech("Welcome back,", Femininity.FEMININE)
-									+ " Rose says, curtsying to you as you step into Lilaya's house."
+									+ "[rose.speech(Welcome back, [pc.name].)] Rose says, curtsying to you as she steps back in order to grant you access to Lilaya's house."
 								+ "</p>"
 								+ "<p>"
-									+ "You greet Rose as she closes the door behind you, and, excusing herself, she quickly hurries off to another part of the house, leaving you standing in the entrance hall."
+									+ "Moving forwards into the impressive entrance hall, you greet the cat-girl maid as she closes the door behind you."
+									+ " Turning to smile at you one last time, Rose then excuses herself, before quickly hurrying off in the direction of your aunt's laboratory..."
 								+ "</p>");
 						
 						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
@@ -96,8 +106,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("Corridor", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR = new DialogueNode("Corridor", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -107,8 +116,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			UtilText.nodeContentSB.append("<p>"
 						+ "The many corridors running through Lilaya's house are, while extremely impressive, all much of the same."
@@ -132,16 +140,16 @@ public class LilayaHomeGeneric {
 					
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, "));
+								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, "));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" [npc.She]'s currently "));
+								" [npc.sheIs] currently "));
 					}
 					
 					switch(slave.getObedience()) {
 						case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
 							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										"not even bothering to pretend that [npc.she]'s cleaning."
+										"not even bothering to pretend that [npc.sheIs] cleaning."
 									+ "</p>"));
 							break;
 						case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
@@ -174,8 +182,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			if(index==0) {
 				return null;
@@ -195,15 +202,19 @@ public class LilayaHomeGeneric {
 	};
 	
 	private static Response getRoomResponse(int index, boolean milkingRoom) {
-		List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
+		List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 		List<NPC> slavesAssignedToRoom = new ArrayList<>();
 		if(milkingRoom) {
 			slavesAssignedToRoom.addAll(charactersPresent);
 		} else {
-			for(String slave : Main.game.getPlayer().getSlavesOwned()) {
-				NPC slaveNPC = (NPC)Main.game.getNPCById(slave);
-				if(slaveNPC != null && (slaveNPC.getHomeWorldLocation()==Main.game.getPlayer().getWorldLocation() && slaveNPC.getHomeLocation().equals(Main.game.getPlayer().getLocation()))) {
-					slavesAssignedToRoom.add(slaveNPC);
+			for(String slave : Util.mergeLists(Main.game.getPlayer().getFriendlyOccupants(), Main.game.getPlayer().getSlavesOwned())) {
+				try {
+					NPC slaveNPC = (NPC)Main.game.getNPCById(slave);
+					if(slaveNPC != null && (slaveNPC.getHomeWorldLocation()==Main.game.getPlayer().getWorldLocation() && slaveNPC.getHomeLocation().equals(Main.game.getPlayer().getLocation()))) {
+						slavesAssignedToRoom.add(slaveNPC);
+					}
+				} catch (Exception e) {
+					Util.logGetNpcByIdError("getRoomResponse()", slave);
 				}
 			}
 		}
@@ -213,31 +224,31 @@ public class LilayaHomeGeneric {
 			return null;
 			
 		} else if (index == 1) {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Manage Room", "Enter the management screen for this particular room.", SlaveryManagementDialogue.ROOM_UPGRADES) {
+			if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
+				return new Response("Manage room", "Enter the management screen for this particular room.", OccupantManagementDialogue.ROOM_UPGRADES) {
 					@Override
 					public void effects() {
-						SlaveryManagementDialogue.cellToInspect = Main.game.getPlayerCell();
+						OccupantManagementDialogue.cellToInspect = Main.game.getPlayerCell();
 					}
 				};
 			} else {
-				return new Response("Manage Room", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Manage room", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
 			}
 			
 		}  else if (index == 2) {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Slave List", "Enter the slave management screen.", CORRIDOR) {
+			if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
+				return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", CORRIDOR) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return SlaveryManagementDialogue.getSlaveryRoomListDialogue(null);
+					public DialogueNode getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryRoomListDialogue(null);
 					}
 				};
 			} else {
-				return new Response("Slave List", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
 			}
 			
 		} else if(milkingRoom) {
-			MilkingRoom room = Main.game.getSlaveryUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
+			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
 			
 			if(index==3) {
 				if(Main.game.getPlayer().getBreastRawStoredMilkValue()==0) {
@@ -249,17 +260,16 @@ public class LilayaHomeGeneric {
 				} else if(charactersPresent.size()==8) {
 					return new Response("Milk Self", "There are no free milking machines for you to use!",  null);
 					
-				} else if(Main.game.getPlayer().getHealth()<=25) {
-					return new Response("Milk Self", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
-					
 				} else {
 					return new Response("Milk Self", "Use this room's spare milking equipment to milk yourself.", MILKED) {
 						@Override
 						public void effects() {
 							int milked = MilkingRoom.getActualMilkPerHour(Main.game.getPlayer());
-							room.incrementMilkStorage(Main.game.getPlayer().getMilk(), milked);
-							Main.game.getPlayer().setBreastStoredMilk(0);
-							Main.game.getPlayer().incrementHealth(-25);
+							if(milked < Main.game.getPlayer().getBreastRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(Main.game.getPlayer())) {
+								milked = (int) Math.min(Main.game.getPlayer().getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(Main.game.getPlayer()));
+							}
+							room.incrementFluidStored(Main.game.getPlayer(), Main.game.getPlayer().getMilk(), milked);
+							Main.game.getPlayer().incrementBreastStoredMilk(-milked);
 							
 							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
 								Main.game.getTextEndStringBuilder().append(
@@ -312,9 +322,6 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
 										+ milked+"ml of [pc.milk] added to this room's storage!"
-								+ "</p>"
-								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
-									+ "Being milked is tiring, and you lose 25 energy!"
 								+ "</p>");
 						}
 					};
@@ -324,8 +331,8 @@ public class LilayaHomeGeneric {
 				if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 					return new Response("Milk Self Cum", "You don't have a penis, so you can't produce any cum...",  null);
 					
-				} else if(Main.game.getPlayer().getPenisRawCumProductionValue()==0) {
-					return new Response("Milk Self Cum", "You aren't producing any cum, so you can't milk your cock...",  null);
+				} else if(Main.game.getPlayer().getPenisRawStoredCumValue()==0) {
+					return new Response("Milk Self Cum", "There isn't any cum stored in your balls, so you can't milk your cock...",  null);
 					
 				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 					return new Response("Milk Self Cum", "You are unable to get access to your cock, so you can't milk yourself at the moment!",  null);
@@ -333,16 +340,12 @@ public class LilayaHomeGeneric {
 				} else if(charactersPresent.size()==8) {
 					return new Response("Milk Self Cum", "There are no free milking machines for you to use!",  null);
 					
-				} else if(Main.game.getPlayer().getHealth()<=25) {
-					return new Response("Milk Self Cum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
-					
 				} else {
 					return new Response("Milk Self Cum", "Use this room's spare milking equipment to milk your cock.", MILKED) {
 						@Override
 						public void effects() {
 							int milked = MilkingRoom.getActualCumPerHour(Main.game.getPlayer());
-							room.incrementCumStorage(Main.game.getPlayer().getCum(), milked);
-							Main.game.getPlayer().incrementHealth(-25);
+							room.incrementFluidStored(Main.game.getPlayer(), Main.game.getPlayer().getCum(), milked);
 							
 							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
 								Main.game.getTextEndStringBuilder().append(
@@ -400,9 +403,6 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.CUM.toWebHexString()+";'>"
 										+ milked+"ml of [pc.cum] added to this room's storage!"
-								+ "</p>"
-								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
-									+ "Being milked is tiring, and you lose 25 energy!"
 								+ "</p>");
 						}
 					};
@@ -421,16 +421,12 @@ public class LilayaHomeGeneric {
 				} else if(charactersPresent.size()==8) {
 					return new Response("Milk Self Girlcum", "There are no free milking machines for you to use!",  null);
 					
-				} else if(Main.game.getPlayer().getHealth()<=25) {
-					return new Response("Milk Self Cum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
-					
 				} else {
 					return new Response("Milk Self Girlcum", "Use this room's spare milking equipment to milk your pussy.", MILKED) {
 						@Override
 						public void effects() {
 							int milked = MilkingRoom.getActualGirlcumPerHour(Main.game.getPlayer());
-							room.incrementGirlcumStorage(Main.game.getPlayer().getGirlcum(), milked);
-							Main.game.getPlayer().incrementHealth(-25);
+							room.incrementFluidStored(Main.game.getPlayer(), Main.game.getPlayer().getGirlcum(), milked);
 							
 							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
 								Main.game.getTextEndStringBuilder().append(
@@ -488,9 +484,6 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.GIRLCUM.toWebHexString()+";'>"
 									+ milked+"ml of [pc.girlcum] added to this room's storage!"
-								+ "</p>"
-								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
-									+ "Being milked is tiring, and you lose 25 energy!"
 								+ "</p>");
 						}
 					};
@@ -568,16 +561,17 @@ public class LilayaHomeGeneric {
 			}
 			
 		} else if(index-3<slavesAssignedToRoom.size()) {
-			if(charactersPresent.contains(slavesAssignedToRoom.get(index-3))) {
-				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+			NPC character = slavesAssignedToRoom.get(index-3);
+			if(charactersPresent.contains(character)) {
+				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), character.isSlave()?SlaveDialogue.SLAVE_START:OccupantDialogue.OCCUPANT_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(slavesAssignedToRoom.get(index-3));
+						Main.game.setActiveNPC(character);
 					}
 				};
 				
 			} else {
-				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Although this is [npc.name]'s room, [npc.she]'s not here at the moment."), null);
+				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Although this is [npc.namePos] room, [npc.sheIs] out at work at the moment."), null);
 			}
 			
 		}
@@ -596,19 +590,43 @@ public class LilayaHomeGeneric {
 			}
 		}
 		
+		if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
+			List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell());
+			for(String occupantId : Main.game.getPlayer().getFriendlyOccupants()) {
+				try {
+					NPC occupant = (NPC) Main.game.getNPCById(occupantId);
+					if(occupant!=null && charactersHome.contains(occupant) && !Main.game.getCharactersPresent().contains(occupant)) {
+						roomSB.append(UtilText.parse(occupant,
+								"<p>"
+									+ "[npc.Name] doesn't appear to be here at the moment, and as you briefly scan the room for any sign of [npc.herHim], you see a little note has been left on [npc.her] bedside cabinet."
+											+ " Walking over and picking it up, you read:"
+								+ "</p>"
+								+ "<p style='text-align:center;'><i>"
+									+ "Hi, [pc.name]!<br/>"
+									+ "I'm out at work at the moment, my hours are from "+occupant.getHistory().getWorkHourStart()+":00 to "+occupant.getHistory().getWorkHourEnd()+":00, "
+										+occupant.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"-"+occupant.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"<br/>"
+									+ "Come and see me when I'm not at work!<br/>"
+									+ "- [npc.Name]"
+								+ "</i></p>"));
+					}
+				} catch (Exception e) {
+					Util.logGetNpcByIdError("getRoomModificationsDescription()", occupantId);
+				}
+			}
+		}
+		
 		return roomSB.toString();
 	}
 	
 
 	private static String formatRoomUpgrade(PlaceUpgrade upgrade) {
 		return "<p>"
-				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b></br>"
+				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b><br/>"
 				+ upgrade.getRoomDescription(Main.game.getPlayerCell())
 			+ "</p>";
 	}
 	
-	public static final DialogueNodeOld MILKED = new DialogueNodeOld("Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MILKED = new DialogueNode("Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -635,7 +653,7 @@ public class LilayaHomeGeneric {
 			if(index==1) {
 				return new Response("Continue", "Unstrap yourself from the milking machine and continue on your way.", MILKED) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -645,8 +663,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_WINDOW = new DialogueNodeOld("Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_WINDOW = new DialogueNode("Room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -673,8 +690,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_GARDEN_GROUND_FLOOR = new DialogueNodeOld("Garden-view room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_GARDEN_GROUND_FLOOR = new DialogueNode("Garden-view room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -700,8 +716,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_GARDEN = new DialogueNodeOld("Garden-view room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_GARDEN = new DialogueNode("Garden-view room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -728,8 +743,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_INSTALLATION = new DialogueNodeOld("Arthur's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_INSTALLATION = new DialogueNode("Arthur's Room", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -804,7 +818,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				return new Response("Find Lyssieth", "If you ever want to find out what's going on, it looks like you'll have to agree to help.", ROOM_ARTHUR){
+				return new Response("Find Lyssieth", "If you ever want to find out what's going on, it looks like you'll have to agree to help.", ROOM_ARTHUR_INSTALLATION_AGREE_TO_CONVINCE_LYSSIETH){
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_A_INTO_THE_DEPTHS));
@@ -817,8 +831,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_INSTALLATION_AGREE_TO_CONVINCE_LYSSIETH = new DialogueNodeOld("Arthur's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_INSTALLATION_AGREE_TO_CONVINCE_LYSSIETH = new DialogueNode("Arthur's Room", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -839,7 +852,7 @@ public class LilayaHomeGeneric {
 							+ " After a time, we started dating, but it didn't last long...)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Arthur seems quite reluctant to continue, but after a minute of silence, he continues,"
+						+ "Arthur seems quite reluctant to continue, but after a moment of silence, he continues,"
 						+ " [arthur.speech(At the time, Lyssieth used to visit very regularly, and would always make a fuss over Lilaya."
 							+ " Well, the last time Lyssieth visited, Lilaya was out on a rare errand, and, left alone with her in the lab... well... i-it's hard saying no to a Lilin... and after she told me she had a thing for humans...)]"
 					+ "</p>"
@@ -848,7 +861,7 @@ public class LilayaHomeGeneric {
 						+ " you sigh, seeing where this is going."
 					+ "</p>"
 					+ "<p>"
-						+ "[arthur.speech(Yeah... Needless to say, Lilaya returned and caught us in the act,)]"
+						+ "[arthur.speech(Mmm... Needless to say, Lilaya returned and caught us in the act,)]"
 						+ " Arthur continues, casting his eyes to the floor,"
 						+ " [arthur.speech(and you can imagine the rest... She still hasn't forgiven either of us for that."
 							+ " I mean, polyamory isn't exactly uncommon - hell, Lilaya herself was still sleeping with Rose at the time - but seeing as it was with her mother, as well as the fact that we'd done it behind her back...)]"
@@ -894,8 +907,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR = new DialogueNodeOld("Arthur's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR = new DialogueNode("Arthur's Room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -942,7 +954,7 @@ public class LilayaHomeGeneric {
 								public void effects() {
 									Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE));
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HYPNO_WATCH, Quest.SIDE_HYPNO_WATCH_TEST_SUBJECT));
-									Main.game.getLilaya().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+									Main.game.getNpc(Lilaya.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 								}
 							};
 						}
@@ -954,8 +966,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_LYSSIETH = new DialogueNodeOld("Arthur's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_LYSSIETH = new DialogueNode("Arthur's Room", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1004,8 +1015,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_LILAYA = new DialogueNodeOld("Arthur's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_LILAYA = new DialogueNode("Arthur's Room", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1045,8 +1055,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_START = new DialogueNodeOld("Arthur's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_START = new DialogueNode("Arthur's Room", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1097,8 +1106,7 @@ public class LilayaHomeGeneric {
 	
 	private static GameCharacter testingSlave;
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_DELIVERY = new DialogueNodeOld("Arthur's Room", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_DELIVERY = new DialogueNode("Arthur's Room", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -1130,7 +1138,7 @@ public class LilayaHomeGeneric {
 					+ "</p>"
 					+ "<p>"
 						+ "Arthur hurriedly grabs several pages of notes, before placing them beside the watch on the table in front of you."
-						+ " Before he has any time to explain what his plan is, the door suddenly burts open, and a very angry-looking Lilaya strides into the room."
+						+ " Before he has any time to explain what his plan is, the door suddenly bursts open, and a very angry-looking Lilaya strides into the room."
 						+ " [lilaya.speech(What is it now Arthur?! Oh, [pc.name], you're here too!)]"
 					+ "</p>"
 					+ "<p>"
@@ -1212,7 +1220,7 @@ public class LilayaHomeGeneric {
 //									testingSlave = Main.game.getNPCById(Main.game.getPlayer().getSlavesOwned().get(index-1));
 //									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ORIENTATION_HYPNO_WATCH), false));
 //									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_HYPNO_WATCH));
-//									Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+//									Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 //								}
 //							};
 //						}
@@ -1240,8 +1248,7 @@ public class LilayaHomeGeneric {
 		}
 	}
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF = new DialogueNodeOld("Arthur's Room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF = new DialogueNode("Arthur's Room", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1347,7 +1354,7 @@ public class LilayaHomeGeneric {
 
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HYPNO_WATCH, Quest.SIDE_UTIL_COMPLETE));
 						
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 					}
 				};
 			} else {
@@ -1356,8 +1363,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF_WAKE_UP = new DialogueNodeOld("Arthur's Room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF_WAKE_UP = new DialogueNode("Arthur's Room", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1431,8 +1437,7 @@ public class LilayaHomeGeneric {
 	
 	
 	
-	public static final DialogueNodeOld ROOM_ARTHUR_HYPNO_WATCH_OFFER_SLAVE = new DialogueNodeOld("Arthur's Room", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_OFFER_SLAVE = new DialogueNode("Arthur's Room", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1459,8 +1464,7 @@ public class LilayaHomeGeneric {
 	};
 	
 	
-	public static final DialogueNodeOld BIRTHING_ROOM = new DialogueNodeOld("Birthing room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BIRTHING_ROOM = new DialogueNode("Birthing room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1489,8 +1493,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld KITCHEN = new DialogueNodeOld("Kitchen", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KITCHEN = new DialogueNode("Kitchen", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1500,8 +1503,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			UtilText.nodeContentSB.append("<p>"
 						+ "Just like every other room in Lilaya's house, the kitchen is far larger than any you've ever set foot in before."
@@ -1525,7 +1527,7 @@ public class LilayaHomeGeneric {
 					
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, and "));
+								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, and "));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 								" [npc.She] "));
@@ -1551,13 +1553,13 @@ public class LilayaHomeGeneric {
 					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 									"is currently preparing some food."
-									+ " You can see that [npc.she]'s putting a lot of effort into making sure that [npc.she]'s doing a good job."
+									+ " You can see that [npc.sheIs] putting a lot of effort into making sure that [npc.sheIs] doing a good job."
 								+ "</p>"));
 						break;
 					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 									" is dutifully making Lilaya a meal."
-									+ " You notice that [npc.she]'s taking care to prepare it just the way your demonic aunt likes."
+									+ " You notice that [npc.sheIs] taking care to prepare it just the way your demonic aunt likes."
 								+ "</p>"));
 						break;
 					}
@@ -1570,8 +1572,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			if(index==0) {
 				return null;
@@ -1590,8 +1591,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ROSE = new DialogueNodeOld("Rose's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_ROSE = new DialogueNode("Rose's Room", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1634,7 +1634,7 @@ public class LilayaHomeGeneric {
 								+ "</p>";
 						
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.auntHomeJustEntered);
-						Main.game.getRose().setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation(), false);
+						Main.game.getNpc(Rose.class).setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation(), false);
 					}
 				};
 				
@@ -1644,8 +1644,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld GARDEN = new DialogueNodeOld("Garden courtyard", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GARDEN = new DialogueNode("Garden courtyard", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1666,8 +1665,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld FOUNTAIN = new DialogueNodeOld("Water fountain", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FOUNTAIN = new DialogueNode("Water fountain", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1688,8 +1686,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRANCE_HALL = new DialogueNodeOld("Entrance hall", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_HALL = new DialogueNode("Entrance hall", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1743,8 +1740,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld STAIRCASE_UP = new DialogueNodeOld("Staircase up", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRCASE_UP = new DialogueNode("Staircase up", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1754,8 +1750,18 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "The grand, red-carpeted staircase is one of the first things you see when entering Lilaya's house."
-						+ " You wonder if you should use it to go upstairs."
+						+ "The grand, red-carpeted staircase is one of the first things you see when entering Lilaya's home."
+						+ " Half-way up the shallow steps, there's a secondary landing area, which is home to a couple of antique-looking cabinets and well looked after house plants."
+						+ " Branching off from the sides of this landing, two slightly-narrower staircases wrap around and lead up to the floor above."
+					+ "</p>"
+					+ "<p>"
+						+ "A huge portrait of two women hangs on the wall of the landing area, overlooking the entire entrance hall."
+						+ " You immediately recognise the half-demon sitting in the chair as Lilaya, and you can only assume that the gorgeous figure standing behind her is her Lilin mother, Lyssieth."
+						+ " Although Lilin can change their appearance at will, Lyssieth has chosen to appear as a beautiful half-demon in her mid-forties,"
+							+ " and you wonder if she did this to make Lilaya feel more comfortable, or whether that's simply the form she prefers to take."
+					+ "</p>"
+					+ "<p>"
+						+ "Remarking one last time upon how beautiful the mother-daughter pair are, you continue on your way..."
 					+ "</p>";
 		}
 
@@ -1775,8 +1781,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld STAIRCASE_DOWN = new DialogueNodeOld("Staircase down", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRCASE_DOWN = new DialogueNode("Staircase down", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1786,8 +1791,13 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "The grand, red-carpeted staircase is one of the first things you see when entering Lilaya's house."
-					+ " You wonder if you should use it to go back downstairs."
+						+ "Standing at the top of the grand, red-carpeted staircase, you find yourself looking down at the huge portrait of Lilaya and her mother."
+						+ " Although you didn't notice it from the ground floor, you seem to detect a hint of annoyance in Lyssieth's eyes,"
+							+ " giving you the impression that she's trying her best to hide her resentment towards either the artist, or someone who must have been close by."
+					+ "</p>"
+							//TODO met Lyssieth
+					+ "<p>"
+						+ "Wondering if you'll ever get to ask Lilaya, or perhaps even Lyssieth herself, about the circumstances under which this portrait was painted, you look away and continue on your way..."
 					+ "</p>";
 		}
 
@@ -1809,14 +1819,13 @@ public class LilayaHomeGeneric {
 	
 	private static String roseContent = "";
 	private static boolean askedAboutDuties = false;
-	public static final DialogueNodeOld AUNT_HOME_ROSE = new DialogueNodeOld("", "", true) {
+	public static final DialogueNode AUNT_HOME_ROSE = new DialogueNode("", "", true) {
 		/**
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getLabel() {
-			return Main.game.getLilaya().getName()
+			return Main.game.getNpc(Lilaya.class).getName()
 					+ "'s Home";
 		}
 
@@ -1837,11 +1846,11 @@ public class LilayaHomeGeneric {
 								+ " you ask."
 								+ "</p>"
 								+ "<p>"
-								+ UtilText.parseSpeech("Yes, I suppose she does give that impression,", Main.game.getRose())
+								+ UtilText.parseSpeech("Yes, I suppose she does give that impression,", Main.game.getNpc(Rose.class))
 								+ " Rose replies, "
 								+ UtilText.parseSpeech("but I'm afraid that I can't tell you much about her."
 										+ " It's not my place to talk about my Mistress behind her back, as I'm sure you can understand."
-										+ " If you want to know more about her, you'll have to get to know her better.", Main.game.getRose())
+										+ " If you want to know more about her, you'll have to get to know her better.", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 								+ "Rose blushes and fidgets nervously on the spot, obviously feeling very awkward about telling you that she can't help you out."
@@ -1862,7 +1871,7 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p>"
 									+ "Rose smiles to put you at ease, obviously sensing that you're a bit hesitant to broach the subject. "
-									+ UtilText.parseSpeech("Well, like most other slaves, I sold myself into slavery.", Main.game.getRose())
+									+ UtilText.parseSpeech("Well, like most other slaves, I sold myself into slavery.", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 									+ "You can't help but feel shocked as you hear that Rose willingly became a slave, but before you can ask why, she seems to sense your incoming question and continues, "
@@ -1895,35 +1904,35 @@ public class LilayaHomeGeneric {
 					@Override
 					public void effects() {
 						askedAboutDuties = false;
-						roseContent = "<p>"
-								+ "You wonder if Rose can tell you anything interesting about this world. "
-								+ UtilText.parsePlayerSpeech("What can you tell me about this world?")
+						roseContent = 
+								"<p>"
+									+ "Wondering if Rose is able to give you any interesting facts, you ask, [pc.speech(What can you tell me about this world?)]"
 								+ "</p>"
 								+ "<p>"
-								+ UtilText.parseSpeech("Well, I don't really know what's different here compared to where you come from, so without spending all day telling you every detail about this place,"
-										+ " I'll just give you some general information, ", Main.game.getRose())
-								+ " Rose replies helpfully. "
-								+ UtilText.parseSpeech("Basically, this world is ruled by queen Lilith, who's the most powerful demon to ever have lived."
-										+ " She lives here in Dominion, in that huge tower that can be seen from miles around."
-										+ " Although she personally rules over Dominion, she allows her daughters, the Lilin, to control other parts of her domain."
-										+ " Surrounding Dominion, there are four different areas of control, each ruled by a different Lilin;"
-										+ " the jungle, ruled by Lyxias; the Foloi Fields, ruled by Lunette; the desert, ruled by Lisophia; and the Endless Sea, ruled by Lirecea.", Main.game.getRose())
+									+ "[rose.speech(Really, [pc.sir], I'm happy to help in any way I can, but you'd be better off consulting the books in Mistress's library if you're looking for that sort of information,)]"
+									+ " Rose replies. "
+									+ "[rose.speech(But if you want some basic knowledge, then I can tell you that this world is ruled by Lilith, who's the most powerful demon to ever have existed."
+											+ " She lives here in Dominion, in that huge tower that can be seen from miles around."
+											+ " Although she personally rules over Dominion, she allows her daughters, the elder lilin, to control other parts of her domain."
+											+ " Surrounding Dominion, there's plenty of farmland and woodland, which collectively is called the 'Foloi Fields', and is ruled by Lunette."
+											+ " Other than that, I know that there's a jungle to the north, ruled by Lyxias; a desert to the south, ruled by Lisophia; and the Endless Sea to the East, ruled by Lirecea.)]"
 								+ "</p>"
 								+ "<p>"
-								+ "It seems as though every Lilin's name beings with an 'L', and you wonder how Rose is able to remember all these unusual names."
-								+ " Even though Rose's information was quite limited, you're still grateful that she's told you a little more about how this world works."
+									+ "It seems as though every elder lilin's name beings with an 'L', and you wonder how Rose is able to remember all these unusual names."
+									+ " Even though Rose's information was quite limited, you're still grateful that she's told you a little more about how this world works."
 								+ "</p>"
 								+ "<p>"
-								+ "From the way she finished her last sentence, you thought Rose had finished, but instead, she continues, "
-								+ UtilText.parseSpeech("If you're looking for more information about the culture and ways of Dominion, then I suppose I can give you a few pointers as well."
-										+ " The four most common races are cat, dog, horse, and wolf-morphs."
-										+ " Although there are several other races that inhabit this world, a lot of the more exotic ones tend to stay in the outer regions."
-										+ " There aren't many humans in our world, as most of them transform themselves in order to fit in with Dominion society a bit easier."
-										+ " Oh, speaking of which, watch out what you eat and drink, as there are many transformative consumables that will alter your body."
-										+ " So, unless you want to end up looking more like me, you shouldn't taste everything you find.", Main.game.getRose())
+									+ "[rose.speech(If you're looking for more information about the culture and ways of Dominion, then I suppose I can give you a few pointers as well."
+											+ " The most common races that you'll see walking the streets are demons, cat, dog, and horse-morphs."
+											+ " Although there are countless other races that inhabit this world, they mostly tend to stay in their home regions,"
+												+ " so you'll see plenty of cow-morphs and rabbit-morphs out in the fields, but almost none in the jungle or desert.)]"
+											+ "From the way she finished her last sentence, you thought Rose had finished, but instead, she continues, "
+											+ "[rose.speech(Also, there aren't many humans in our world, as most of them transform themselves in order to fit in with Dominion society a bit easier."
+												+ " Oh, speaking of which, don't drink any unmarked bottles of liquid, as, while a little expensive,"
+													+ " transformative potions are readily available for anyone to purchase, and they'll alter your body in a flash.)]"
 								+ "</p>"
 								+ "<p>"
-								+ "With that last warning, Rose looks like she's finished, and you wonder if you should ask her anything else, or leave her to carry on with her dusting."
+									+ "With that last warning, Rose looks like she's finished, and you wonder if you should ask her anything else, or leave her to carry on with her dusting."
 								+ "</p>";
 					}
 				};
@@ -1939,9 +1948,9 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p>"
 								+ "Rose's cheeks suddenly flush red, and although you asked your question in innocence, you realise that Rose's thoughts have instantly turned to some of her more intimate duties. "
-								+ UtilText.parseSpeech("E-Erm, well, ah, y-you know, demons get pretty horny, and Lilaya's no different,", Main.game.getRose())
+								+ UtilText.parseSpeech("E-Erm, well, ah, y-you know, demons get pretty horny, and Lilaya's no different,", Main.game.getNpc(Rose.class))
 								+ " she stammers, before regaining her composure. "
-								+ UtilText.parseSpeech("But other than that, I spend most of my time cleaning and cooking. You've got no idea how much dusting this place requires!", Main.game.getRose())
+								+ UtilText.parseSpeech("But other than that, I spend most of my time cleaning and cooking. You've got no idea how much dusting this place requires!", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 								+ "As she says this, you suddenly become aware that she's holding a little feather duster, of the same 'French-maid' style as the rest of her uniform."
@@ -1950,7 +1959,7 @@ public class LilayaHomeGeneric {
 								+ "<p>"
 								+ "Sensing what you're looking at, Rose suddenly blushes, and blurts out, "
 								+ UtilText.parseSpeech("I use a duster like this so I don't have to get my hands dirty!"
-										+ " You know, I take really good care of them, but Lilaya never seems to notice...", Main.game.getRose())
+										+ " You know, I take really good care of them, but Lilaya never seems to notice...", Main.game.getNpc(Rose.class))
 								+ "</p>"
 								+ "<p>"
 								+ "You don't quite know what's come over you, but you're finding it hard to think of anything other than Rose's perfect, feminine hands."
@@ -1974,11 +1983,11 @@ public class LilayaHomeGeneric {
 					@Override
 					public void effects() {
 						askedAboutDuties = false;
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					}
 					
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 					}
 				};
@@ -1989,8 +1998,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 
-	public static final DialogueNodeOld ROSE_HANDS = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROSE_HANDS = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -2022,8 +2030,8 @@ public class LilayaHomeGeneric {
 						true, false,
 						new SMRoseHands(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.HAND_SEX_DOM_ROSE)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getRose(), SexPositionSlot.HAND_SEX_SUB_ROSE))),
-						Rose.END_HAND_SEX);
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Rose.class), SexPositionSlot.HAND_SEX_SUB_ROSE))),
+						null, null, Rose.END_HAND_SEX);
 
 			} else {
 				return null;

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="storageVatsGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#storageVatsGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <path fill="#fff" fill-rule="evenodd" d="M13.48 1038.46c5.89 1.578 12.362 1.364 17.633.114l-.089-32.793c-2.71-5.526-14.857-5.01-17.324 0zM33.187 1021.487v17c4.42.676 13.87 1.186 20.938-.124l.187-16.938c-3.944-1.614-19.01-1.612-21.125.062z"/>
+        <path fill="none" stroke="#fff" stroke-width="3" d="M21.937 1003.112l-.062-5.187 22.062 7.625-.062 16.437"/>
+    </g>
+</svg>

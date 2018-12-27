@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="treasuryDoorGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#treasuryDoorGradient"/>
+    </defs>
+    <g fill-rule="evenodd" transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" rx="30.383" ry="30.381"/>
+        <path fill="#fff" stroke="#fff" stroke-width="1.157" d="M32.867 995.636c-8.42-.114-16.857 4.468-16.857 14.087v31.737h33.41l.21-31.737c.062-9.164-8.342-13.973-16.763-14.087zm-.228 2.295c7.04.101 14.066 4.402 14.015 12.595l-.177 28.373h-27.93v-28.373c0-8.6 7.052-12.697 14.092-12.595z"/>
+        <path fill="#fff" stroke="#fff" stroke-width=".825" d="M20.909 1036.701h10.91l.042-13.18h-3.16l-.036-8.09 3.22-.043.05-15.311c-5.456-.236-11.026 3.419-11.026 11.254z"/>
+        <path fill="#fff" stroke="#fff" stroke-width=".826" d="M44.309 1036.7H33.356l-.041-13.179h3.173l.035-8.09-3.233-.043-.049-15.31c5.477-.236 11.068 3.419 11.068 11.253z"/>
+        <path fill="#fff" stroke="#fff" stroke-width=".437" d="M30.038 1017.164v4.573l4.97.027v-4.6zm2.616.313c1.219 0 1.478 1.43.56 1.838l.776 1.982h-2.837l.805-2c-.806-.471-.414-1.82.696-1.82z"/>
+    </g>
+</svg>

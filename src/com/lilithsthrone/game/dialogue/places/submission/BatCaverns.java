@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -10,13 +12,12 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.3
- * @version 0.2.3
+ * @version 0.2.6
  * @author Innoxia
  */
 public class BatCaverns {
 
-	public static final DialogueNodeOld STAIRCASE = new DialogueNodeOld("Winding Staircase", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRCASE = new DialogueNode("Winding Staircase", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -44,8 +45,7 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld CAVERN_DARK = new DialogueNodeOld("Dark Cavern", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CAVERN_DARK = new DialogueNode("Dark Cavern", "", false) {
 		
 		@Override
 		public String getAuthor() {
@@ -70,7 +70,7 @@ public class BatCaverns {
 						"Explore the cavern's dark depths. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -81,8 +81,7 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld CAVERN_LIGHT = new DialogueNodeOld("Bioluminescent Cavern", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CAVERN_LIGHT = new DialogueNode("Bioluminescent Cavern", "", false) {
 		
 		@Override
 		public String getAuthor() {
@@ -107,7 +106,7 @@ public class BatCaverns {
 						"Explore the bioluminescent forest. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -118,8 +117,7 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld RIVER = new DialogueNodeOld("Underground River", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RIVER = new DialogueNode("Underground River", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -139,7 +137,7 @@ public class BatCaverns {
 						"Explore the sides of the river. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -150,8 +148,7 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld RIVER_BRIDGE = new DialogueNodeOld("Mushroom Bridge", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RIVER_BRIDGE = new DialogueNode("Mushroom Bridge", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -171,7 +168,7 @@ public class BatCaverns {
 						"Explore the bridge's surroundings. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -182,8 +179,7 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld RIVER_END = new DialogueNodeOld("Underground River", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RIVER_END = new DialogueNode("Underground River", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -203,7 +199,7 @@ public class BatCaverns {
 						"Explore the sides of the river. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -214,8 +210,7 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_LAKE = new DialogueNodeOld("Slime Lake", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_LAKE = new DialogueNode("Slime Lake", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -224,7 +219,22 @@ public class BatCaverns {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE");
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE"));
+			
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_QUEEN_UNKNOWN"));
+				
+			} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_THREE)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_QUEEN_KNOWLEDGE"));
+				
+			} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_TWO)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_QUEEN_GUESS"));
+				
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -235,13 +245,103 @@ public class BatCaverns {
 						"Explore the sides of the lake. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
 						
-			} else if(index==2) {
-				return new Response("Boat", "You see a small pier jutting out into the water close by, and beside it, a small boat has been moored. <b>Not yet implemented!</b>", null);
+			} else if(index==2 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_TWO)) {
+				return new Response("Island by boat", "You could use the boat to travel across the lake and reach the island.", SLIME_LAKE_ISLAND) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_BOAT"));
+						if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN)) {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_PACIFIED"));
+						} else {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_READY_FIGHT"));
+						}
+					}
+				};
+				
+			} else if(index==3 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_TWO)) {
+				if(Main.game.getPlayer().isAbleToFly()) {
+					return new Response("Fly to island", "Fly across to the island.", SLIME_LAKE_ISLAND) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_FLY"));
+							if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN)) {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_PACIFIED"));
+							} else {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_READY_FIGHT"));
+							}
+						}
+					};
+				} else {
+					return new Response("Fly to island", "You aren't able to fly. It looks like you'll have to use the boat...", null);
+				}
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNode SLIME_LAKE_ISLAND = new DialogueNode("Slime Lake", "", true) {
+		
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Explore", "You'd need to be on the other side of the lake in order to explore this area!", null);
+						
+			} else if(index==2 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_TWO)) {
+				return new Response("Return by boat", "Return to the other side of the lake by boat.", SLIME_LAKE) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_BOAT_RETURN"));
+					}
+				};
+				
+			} else if(index==3 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_TWO)) {
+				if(Main.game.getPlayer().isAbleToFly()) {
+					return new Response("Return by flying", "Return to the other side of the lake by flying.", SLIME_LAKE) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_FLY_RETURN"));
+						}
+					};
+					
+				} else {
+					return new Response("Return by flying", "You aren't able to fly. It looks like you'll have to use the boat...", null);
+				}
+				
+			} else if (index==4) {
+				return new ResponseEffectsOnly(
+						"Open Door",
+						"Push open the tower's front door and step inside."){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().setLocation(WorldType.SLIME_QUEENS_LAIR_GROUND_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE);
+								Main.game.getTextStartStringBuilder().append(
+										"<p>"
+											+ "Walking up to the base of the stone tower, you place [pc.a_hand] on the iron-barred oaken door, and with a firm shove, push it open and step inside."
+										+ "</p>");
+								if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR)) {
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR));
+								}
+								Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							}
+						};
+						
 			} else {
 				return null;
 			}

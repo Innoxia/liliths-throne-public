@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -28,8 +28,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ClothingEmporium {
 
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Nyan's Clothing Emporium (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Nyan's Clothing Emporium (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -60,8 +59,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_CLOTHING = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_CLOTHING = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -77,15 +75,12 @@ public class ClothingEmporium {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.nyanIntroduced);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_CLOTHING_STOCK_ROOM = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_CLOTHING_STOCK_ROOM = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -103,12 +98,11 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_CLOTHING_REPEAT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_CLOTHING_REPEAT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getAuthor() {
-			if(Main.game.getNyan().isPregnant() && !Main.game.getNyan().isReactedToPregnancy()) {
+			if(Main.game.getNpc(Nyan.class).isPregnant() && !Main.game.getNpc(Nyan.class).isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 				return "Duner";
 			} else {
 				return "Innoxia";
@@ -117,7 +111,7 @@ public class ClothingEmporium {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getNyan().isVisiblyPregnant() && !Main.game.getNyan().isReactedToPregnancy()) {
+			if(Main.game.getNpc(Nyan.class).isVisiblyPregnant() && !Main.game.getNpc(Nyan.class).isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_GREETING_REPEAT_PREGNANT");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_GREETING_REPEAT");
@@ -138,7 +132,7 @@ public class ClothingEmporium {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==1) {
-				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+				if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 					if(index==1) {
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanTalkedTo)) {
 							return new Response("Small Talk", "You've already had a chat with Nyan today. You can repeat this action tomorrow.", null);
@@ -147,10 +141,10 @@ public class ClothingEmporium {
 							return new Response("Small Talk", "Talk with Nyan about her store, the weather, and other such topics.", ROMANCE_TALK) {
 								@Override
 								public void effects() {
-									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 1f));
+									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 1f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanTalkedTo, true);
-									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
@@ -164,19 +158,19 @@ public class ClothingEmporium {
 							return new Response("Compliment", "Compliment Nyan's appearance and abilities.", ROMANCE_COMPLIMENT) {
 								@Override
 								public void effects() {
-									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 3f));
+									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 3f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanComplimented, true);
-									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
 						}
 						
 					} else if(index==3) {
-						if(Main.game.getNyan().getAffection(Main.game.getPlayer())<40) {
+						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<40) {
 							return new Response("Flirt", "You can tell that attempting to flirt with Nyan would end in disaster."
-									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 40 (currently "+Main.game.getNyan().getAffection(Main.game.getPlayer())+").)])", null);
+									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 40 (currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+").)])", null);
 							
 						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanFlirtedWith)) {
 							return new Response("Flirt", "You've already flirted with Nyan today. You can repeat this action tomorrow.", null);
@@ -185,19 +179,19 @@ public class ClothingEmporium {
 							return new Response("Flirt", "Flirt with Nyan a little.", ROMANCE_FLIRT) {
 								@Override
 								public void effects() {
-									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 4f));
+									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 4f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanFlirtedWith, true);
-									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
 						}
 						
 					} else if(index==4) {
-						if(Main.game.getNyan().getAffection(Main.game.getPlayer())<60) {
+						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<60) {
 							return new Response("Kiss", "You can tell that attempting to kiss Nyan would end in disaster."
-									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 60 (currently "+Main.game.getNyan().getAffection(Main.game.getPlayer())+").)])", null);
+									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 60 (currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+").)])", null);
 							
 						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanKissed)) {
 							return new Response("Kiss", "You've already kissed Nyan today. You can repeat this action tomorrow.", null);
@@ -206,19 +200,19 @@ public class ClothingEmporium {
 							return new Response("Kiss", "You can tell from the way Nyan looks at you that she wouldn't mind being kissed. Lean forwards and give her what she wants.", ROMANCE_KISS) {
 								@Override
 								public void effects() {
-									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5f));
+									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanKissed, true);
-									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
 						}
 						
 					} else if(index==5) {
-						if(Main.game.getNyan().getAffection(Main.game.getPlayer())<80) {
+						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<80) {
 							return new Response("Make Out", "You can tell that attempting to make out with Nyan would end in disaster."
-									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 80 (currently "+Main.game.getNyan().getAffection(Main.game.getPlayer())+").)])", null);
+									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 80 (currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+").)])", null);
 							
 						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanMakeOut)) {
 							return new Response("Make Out", "You've already made out with Nyan today. You can repeat this action tomorrow.", null);
@@ -227,10 +221,10 @@ public class ClothingEmporium {
 							return new Response("Make Out", "You can tell that Nyan is desperate for some intense physical contact with you. Lean forwards and passionately start making out with her.", ROMANCE_MAKE_OUT) {
 								@Override
 								public void effects() {
-									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 6f));
+									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 6f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanMakeOut, true);
-									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
@@ -242,22 +236,22 @@ public class ClothingEmporium {
 						} else {
 							return new Response("Gift", "Give Nyan a gift (opens gift selection screen).", ROMANCE_GIFT) {
 								@Override
-								public DialogueNodeOld getNextDialogue() {
-									return GiftDialogue.getGiftDialogue(Main.game.getNyan(), SHOP_CLOTHING_REPEAT, 1, ROMANCE_GIFT, 1);
+								public DialogueNode getNextDialogue() {
+									return GiftDialogue.getGiftDialogue(Main.game.getNpc(Nyan.class), SHOP_CLOTHING_REPEAT, 1, ROMANCE_GIFT, 1);
 								}
 								@Override
 								public void effects() {
-									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
 						}
 						
 					} else if(index==10) {
-						if(Main.game.getNyan().getAffection(Main.game.getPlayer())<95) {
+						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<95) {
 							return new Response("Sex", "You can tell that propositioning Nyan for sex would end in disaster."
-									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be maxxed out at 100 (currently "+Main.game.getNyan().getAffection(Main.game.getPlayer())+").)])", null);
+									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be maxxed out at 100 (currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+").)])", null);
 						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanSex)) {
 							return new Response("Sex", "You've already had sex with Nyan today. You can repeat this action tomorrow.", null);
 							
@@ -268,54 +262,54 @@ public class ClothingEmporium {
 									true, true,
 									new SMMissionary(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getNyan(), SexPositionSlot.MISSIONARY_ON_BACK))),
-									END_SEX,
-									UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Nyan.class), SexPositionSlot.MISSIONARY_ON_BACK))),
+									null,
+									null, END_SEX, UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
 								@Override
 								public void effects() {
-									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
 						}
 					}
 					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
+				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
 					if(index==1) {
 						return new Response("Report back", "Tell Nyan that you've dealt with the suppliers.", SHOP_REPORT_BACK) {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().incrementMoney(5000);
-								Main.game.getNyan().setSellModifier(1.25f);
-								Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 25));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_NYAN_HELP, Quest.SIDE_UTIL_COMPLETE));
+								Main.game.getNpc(Nyan.class).setSellModifier(1.25f);
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 25));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.SIDE_UTIL_COMPLETE));
 							}
 						};
 					}
 					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP) {
+				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP) {
 					if(index==1) {
 						return new Response("Report back", "Report back to Nyan once you've dealt with the suppliers.", null);
 					}
 					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES) {
+				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES) {
 					if(index==1) {
 						return new Response("Offer help", "Tell Nyan that you'll help her with her supplier problem.", SHOP_OFFER_HELP) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 10));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_NYAN_HELP, Quest.SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP));
 							}
 						};
 					}
 					
-				} else if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_NYAN_HELP)){
+				} else if(!Main.game.getPlayer().hasQuest(QuestLine.RELATIONSHIP_NYAN_HELP)){
 					if(index==1) {
 						return new Response("Enchanted Clothing", "Ask Nyan if she stocks enchanted clothing.", SHOP_ENCHANTED_CLOTHING) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_NYAN_HELP));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.RELATIONSHIP_NYAN_HELP));
 							}
 						};
 					}
@@ -327,8 +321,8 @@ public class ClothingEmporium {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_EXIT"));
-							if(Main.game.getNyan().isVisiblyPregnant()) {
-								Main.game.getNyan().setReactedToPregnancy(true);
+							if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+								Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 							}
 						}
 					};
@@ -340,113 +334,152 @@ public class ClothingEmporium {
 				
 			} else if(responseTab==0) {
 				if (index == 1) {
-					return new ResponseTrade("Female Clothing", "Ask her what female clothing is available.", Main.game.getNyan()){
+					return new ResponseTrade("Female Clothing", "Ask her what female clothing is available.", Main.game.getNpc(Nyan.class)){
 						@Override
 						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
+							Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleClothing())
-								Main.game.getNyan().addClothing(c, false);
+							for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getCommonFemaleClothing()) {
+								if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+									break;
+								}
+								Main.game.getNpc(Nyan.class).addClothing(c, false);
+							}
 						}
 					};
 					
 				} else if (index == 2) {
-					return new ResponseTrade("Female Lingerie", "Ask her what female lingerie is available.", Main.game.getNyan()){
+					return new ResponseTrade("Female Lingerie", "Ask her what female lingerie is available.", Main.game.getNpc(Nyan.class)){
 						@Override
 						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
+							Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleUnderwear())
-								Main.game.getNyan().addClothing(c, false);
+							for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getCommonFemaleUnderwear()) {
+								if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+									break;
+								}
+								Main.game.getNpc(Nyan.class).addClothing(c, false);
+							}
 						}
 					};
 					
 				} else if (index == 3) {
-					return new ResponseTrade("Female Accessories", "Ask her what female accessories are available.", Main.game.getNyan()){
+					return new ResponseTrade("Female Accessories", "Ask her what female accessories are available.", Main.game.getNpc(Nyan.class)){
 						@Override
 						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
+							Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleAccessories())
-								Main.game.getNyan().addClothing(c, false);
+							for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getCommonFemaleAccessories()) {
+								if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+									break;
+								}
+								Main.game.getNpc(Nyan.class).addClothing(c, false);
+							}
 						}
 					};
 					
 				} else if (index == 6) {
-					return new ResponseTrade("Male Clothing", "Ask her what male clothing is available.", Main.game.getNyan()){
+					return new ResponseTrade("Male Clothing", "Ask her what male clothing is available.", Main.game.getNpc(Nyan.class)){
 						@Override
 						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
+							Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleClothing())
-								Main.game.getNyan().addClothing(c, false);
+							for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getCommonMaleClothing()) {
+								if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+									break;
+								}
+								Main.game.getNpc(Nyan.class).addClothing(c, false);
+							}
 						}
 					};
 					
 				} else if (index == 7) {
-					return new ResponseTrade("Male Underwear", "Ask her what male underwear is available.", Main.game.getNyan()){
+					return new ResponseTrade("Male Underwear", "Ask her what male underwear is available.", Main.game.getNpc(Nyan.class)){
 						@Override
 						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
+							Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleLingerie())
-								Main.game.getNyan().addClothing(c, false);
+							for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getCommonMaleLingerie()) {
+								if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+									break;
+								}
+								Main.game.getNpc(Nyan.class).addClothing(c, false);
+							}
 						}
 					};
 					
 				} else if (index == 8) {
-					return new ResponseTrade("Male Accessories", "Ask her what male accessories are is available.", Main.game.getNyan()){
+					return new ResponseTrade("Male Accessories", "Ask her what male accessories are is available.", Main.game.getNpc(Nyan.class)){
 						@Override
 						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
+							Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleAccessories())
-								Main.game.getNyan().addClothing(c, false);
+							for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getCommonMaleAccessories()) {
+								if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+									break;
+								}
+								Main.game.getNpc(Nyan.class).addClothing(c, false);
+							}
 						}
 					};
 					
 				} else if (index == 11) {
-					return new ResponseTrade("Unisex Clothing", "Ask her what unisex clothing is available.", Main.game.getNyan()){
+					return new ResponseTrade("Unisex Clothing", "Ask her what unisex clothing is available.", Main.game.getNpc(Nyan.class)){
 						@Override
 						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
+							Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousClothing())
-								Main.game.getNyan().addClothing(c, false);
+							for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getCommonAndrogynousClothing()) {
+								if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+									break;
+								}
+								Main.game.getNpc(Nyan.class).addClothing(c, false);
+							}
 						}
 					};
 					
 				} else if (index == 12) {
-					return new ResponseTrade("Unisex Underwear", "Ask her what unisex underwear is available.", Main.game.getNyan()){
+					return new ResponseTrade("Unisex Underwear", "Ask her what unisex underwear is available.", Main.game.getNpc(Nyan.class)){
 						@Override
 						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
+							Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousLingerie())
-								Main.game.getNyan().addClothing(c, false);
+							for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getCommonAndrogynousLingerie()) {
+								if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+									break;
+								}
+								Main.game.getNpc(Nyan.class).addClothing(c, false);
+							}
 						}
 					};
 					
 				} else if (index == 13) {
-					return new ResponseTrade("Unisex Accessories", "Ask her what unisex accessories are is available.", Main.game.getNyan()){
+					return new ResponseTrade("Unisex Accessories", "Ask her what unisex accessories are is available.", Main.game.getNpc(Nyan.class)){
 						@Override
 						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
+							Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousAccessories())
-								Main.game.getNyan().addClothing(c, false);
+							for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getCommonAndrogynousAccessories()) {
+								if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+									break;
+								}
+								Main.game.getNpc(Nyan.class).addClothing(c, false);
+							}
 						}
 					};
 					
 				} else if (index == 5) {
-					if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
-						return new ResponseTrade("Specials", "Ask Nyan about any special items of clothing she might have in stock.", Main.game.getNyan()){
+					if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
+						return new ResponseTrade("Specials", "Ask Nyan about any special items of clothing she might have in stock.", Main.game.getNpc(Nyan.class)){
 							@Override
 							public void effects() {
-								Main.game.getNyan().clearNonEquippedInventory();
+								Main.game.getNpc(Nyan.class).clearNonEquippedInventory();
 		
-								for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getSpecials()) {
-									Main.game.getNyan().addClothing(c, false);
+								for (AbstractClothing c : ((Nyan) Main.game.getNpc(Nyan.class)).getSpecials()) {
+									if(Main.game.getNpc(Nyan.class).isInventoryFull()) {
+										break;
+									}
+									Main.game.getNpc(Nyan.class).addClothing(c, false);
 								}
 							}
 						};
@@ -471,8 +504,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_ENCHANTED_CLOTHING = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_ENCHANTED_CLOTHING = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -490,8 +522,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_OFFER_HELP = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_OFFER_HELP = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -509,8 +540,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_REPORT_BACK = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_REPORT_BACK = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -533,8 +563,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_TALK = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_TALK = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -563,8 +592,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_COMPLIMENT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_COMPLIMENT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -588,8 +616,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_FLIRT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_FLIRT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -613,8 +640,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_KISS = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_KISS = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -638,8 +664,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_MAKE_OUT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_MAKE_OUT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -663,12 +688,11 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld END_SEX = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode END_SEX = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNyan())==0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Nyan.class))==0) {
 				return UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_END_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_END_SEX");
@@ -686,8 +710,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNodeOld ROMANCE_GIFT = new DialogueNodeOld("Nyan's Clothing Emporium", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROMANCE_GIFT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 
 		@Override
 		public String getContent() {

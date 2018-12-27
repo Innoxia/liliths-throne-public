@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.5
+ * @version 0.2.12
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -40,6 +40,11 @@ public enum DialogueFlagValue {
 	nyanIntroduced,
 	kateIntroduced,
 	vickyIntroduced,
+
+	roxyIntroduced,
+	axelIntroduced,
+	eponaIntroduced,
+	elizabethIntroduced,
 	
 	
 	// Red-light district:
@@ -64,8 +69,7 @@ public enum DialogueFlagValue {
 	
 	reactedToKatePregnancy,
 	
-	
-	// Aunt's Home:
+	// Lilaya's Home:
 	knowsDate,
 	lilayaDateTalk,
 	auntHomeJustEntered,
@@ -128,6 +132,69 @@ public enum DialogueFlagValue {
 	lumiMet,
 	lumiDisabled,
 	lumiPromisedDinner,
+	
+	// Slime Queen's Tower:
+	slimeGuardsIntroduced,
+	slimeGuardsBluffed,
+	slimeGuardsDefeated,
+	slimeRoyalGuardIntroduced,
+	slimeRoyalGuardDefeated,
+	slimeQueenHelped,
+	slimeQueenConvinced,
+	slimeQueenForced,
+	
+	// Gambling Den:
+	axelToldAboutVengar,
+	roxyAddicted,
+	playedPregnancyRouletteAsMother,
+	playedPregnancyRouletteAsBreeder,
+	
+	// Nightlife:
+	julesIntroduced,
+	suckedJulesCock,
+	passedJules,
+	kalahariIntroduced,
+	kalahariWantsSex,
+	krugerIntroduced,
+	
+	// Submission:
+	impCitadelEncountered,
+	impCitadelArcanistEncountered,
+	impCitadelArcanistAcceptedTF,
+	impCitadelTreasurySearched,
+	impCitadelLaboratorySearched,
+
+	impCitadelPrisonerMale,
+	impCitadelPrisonerFemale,
+	impCitadelPrisonerAlpha,
+	
+	impFortressAlphaGuardsPacified,
+	impFortressAlphaBossEncountered,
+	impFortressAlphaPacified,
+	impFortressAlphaDefeated,
+	
+	impFortressFemalesGuardsPacified,
+	impFortressFemalesBossEncountered,
+	impFortressFemalesPacified,
+	impFortressFemalesDefeated,
+	
+	impFortressMalesGuardsPacified,
+	impFortressMalesBossEncountered,
+	impFortressMalesPacified,
+	impFortressMalesDefeated,
+	
+	impFortressDemonBossEncountered,
+	impFortressDemonDefeated,
+	impFortressDemonImpsDefeated,
+	
+	elizabethAskedAboutUniforms,
+	elizabethAskedAboutSurname,
+	
+	lyssiethQuestionAsked1,
+	lyssiethQuestionAsked2,
+	lyssiethQuestionAsked3,
+	lyssiethQuestionAsked4,
+	lyssiethQuestionAsked5,
 	
 	;
 }

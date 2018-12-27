@@ -7,6 +7,7 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -15,89 +16,6 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public enum TFEssence {
-	
-//	CAT_MORPH("Cat-morph",
-//			"An essence gained from a cat-morph.",
-//			"feline",
-//			"essenceCatMorph",
-//			Colour.RACE_CAT_MORPH,
-//			Rarity.COMMON),
-//	
-//	DOG_MORPH("Dog-morph",
-//			"An essence gained from a dog-morph.",
-//			"canine",
-//			"essenceDogMorph",
-//			Colour.RACE_DOG_MORPH,
-//			Rarity.COMMON),
-//	
-//	HORSE_MORPH("Horse-morph",
-//			"An essence gained from a horse-morph.",
-//			"equine",
-//			"essenceHorseMorph",
-//			Colour.RACE_HORSE_MORPH,
-//			Rarity.COMMON),
-//	
-//	SQUIRREL_MORPH("Squirrel-morph",
-//			"An essence gained from a squirrel-morph.",
-//			"squirrel",
-//			"essenceSquirrelMorph",
-//			Colour.RACE_SQUIRREL_MORPH,
-//			Rarity.COMMON),
-//	
-//	WOLF_MORPH("Wolf-morph",
-//			"An essence gained from a wolf-morph.",
-//			"lupine",
-//			"essenceWolfMorph",
-//			Colour.RACE_WOLF_MORPH,
-//			Rarity.COMMON),
-//
-//	COW_MORPH("Cow-morph",
-//			"An essence gained from a cow-morph.",
-//			"bovine",
-//			"essenceCowMorph",
-//			Colour.RACE_COW_MORPH,
-//			Rarity.COMMON),
-//
-//	HARPY("Harpy",
-//			"An essence gained from a harpy.",
-//			"avian",
-//			"essenceHarpy",
-//			Colour.RACE_HARPY,
-//			Rarity.UNCOMMON),
-//
-//	ALLIGATOR_MORPH("Gator-morph",
-//			"An essence gained from an alligator-morph.",
-//			"reptilian",
-//			"essenceGatorMorph",
-//			Colour.RACE_ALLIGATOR_MORPH,
-//			Rarity.COMMON),
-//	SLIME("Slime",
-//			"An essence gained from a slime.",
-//			"slime",
-//			"essenceSlime",
-//			Colour.RACE_SLIME,
-//			Rarity.COMMON),
-
-//	DEMON("Demon",
-//			"An essence gained from a demon.",
-//			"demonic",
-//			"essenceDemon",
-//			Colour.RACE_DEMON,
-//			Rarity.EPIC),
-	
-//	ANGEL("Angel",
-//			"An essence gained from an angel.",
-//			"angelic",
-//			"essenceAngel",
-//			Colour.RACE_ANGEL,
-//			Rarity.RARE),
-	
-//	HUMAN("Human",
-//			"An essence gained from a human.",
-//			"human",
-//			"essenceHuman",
-//			Colour.RACE_HUMAN,
-//			Rarity.COMMON),
 	
 	ARCANE("Arcane",
 			"An exceedingly rare pure arcane essence.",
@@ -129,19 +47,11 @@ public enum TFEssence {
 			String base = Util.inputStreamToString(is);
 			
 			String s = base;
-			s = s.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-			s = s.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
-			s = s.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
-			s = s.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
+			s = SvgUtil.colourReplacement(this.toString(), Colour.BASE_GREY, s);
 			this.SVGStringUncoloured = s;
 
 			String s2 = base;
-			s2 = s2.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-			s2 = s2.replaceAll("#ff5555", this.colour.getShades()[1]);
-			s2 = s2.replaceAll("#ff8080", this.colour.getShades()[2]);
-			s2 = s2.replaceAll("#ffaaaa", this.colour.getShades()[3]);
-			s2 = s2.replaceAll("#ffd5d5", this.colour.getShades()[4]);
+			s2 = SvgUtil.colourReplacement(this.toString(), colour, s2);
 			this.SVGString = s2;
 
 			is.close();
@@ -180,31 +90,6 @@ public enum TFEssence {
 	}
 	
 	public static AbstractItemType essenceToItem(TFEssence essence) {
-
-//		switch(essence) {
-//			case ARCANE:
-//				return ItemType.BOTTLED_ESSENCE_ARCANE;
-//			case CAT_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_CAT_MORPH;
-//			case COW_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_COW_MORPH;
-//			case DEMON:
-//				return ItemType.BOTTLED_ESSENCE_DEMON;
-//			case DOG_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_DOG_MORPH;
-//			case ALLIGATOR_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH;
-//			case HARPY:
-//				return ItemType.BOTTLED_ESSENCE_HARPY;
-//			case HORSE_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_HORSE_MORPH;
-//			case HUMAN:
-//				return ItemType.BOTTLED_ESSENCE_HUMAN;
-//			case SQUIRREL_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH;
-//			case WOLF_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_WOLF_MORPH;
-//		}
 		return ItemType.BOTTLED_ESSENCE_ARCANE;
 	}
 }

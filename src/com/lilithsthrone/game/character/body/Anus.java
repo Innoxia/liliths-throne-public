@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +8,8 @@ import com.lilithsthrone.game.character.body.types.AnusType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -18,9 +17,8 @@ import com.lilithsthrone.main.Main;
  * @version 0.1.83
  * @author Innoxia
  */
-public class Anus implements BodyPartInterface, Serializable {
+public class Anus implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 	
 	// Asshole variables:
 	protected AnusType type;
@@ -66,8 +64,8 @@ public class Anus implements BodyPartInterface, Serializable {
 		}
 		
 		String wetnessDescriptor = orificeAnus.getWetness(owner).getDescriptor();
-		if(Main.game.isInSex()) {
-			if(!Sex.getWetOrificeTypes(owner).get(OrificeType.ANUS).isEmpty()) {
+		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
+			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.ANUS)) {
 				wetnessDescriptor = "wet";
 			}
 		}
@@ -111,14 +109,14 @@ public class Anus implements BodyPartInterface, Serializable {
 				return "<p>[style.boldTfSex(Your asshole is now bleached!)]</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[style.boldTfSex([npc.Name]'s asshole is now bleached!)]</p>");
+						"<p>[style.boldTfSex([npc.NamePos] asshole is now bleached!)]</p>");
 			}
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>[style.boldTfSex(Your asshole is no longer bleached!)]</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[style.boldTfSex([npc.Name]'s asshole is no longer bleached!)]</p>");
+						"<p>[style.boldTfSex([npc.NamePos] asshole is no longer bleached!)]</p>");
 			}
 		}
 	}
@@ -173,7 +171,7 @@ public class Anus implements BodyPartInterface, Serializable {
 			} else {
 				switch(assHair) {
 					case ZERO_NONE:
-						transformation = UtilText.parse(owner, "<p>There is no longer any trace of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.name]'s asshole.</p>");
+						transformation = UtilText.parse(owner, "<p>There is no longer any trace of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.namePos] asshole.</p>");
 						break;
 					case ONE_STUBBLE:
 						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a stubbly patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");

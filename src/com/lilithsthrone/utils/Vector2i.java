@@ -1,14 +1,11 @@
 package com.lilithsthrone.utils;
 
-import java.io.Serializable;
-
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.3
  * @author Innoxia
  */
-public class Vector2i implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Vector2i {
 	int x, y;
 
 	public Vector2i(int x, int y) {

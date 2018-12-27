@@ -4,14 +4,18 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.86
- * @version 0.2.1
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Height {
+	
+	// Need to standardise to 1.5 each category
 
-
+//	/**6" to 2'*/
+//	NEGATIVE_THREE_MIMIMUM("fairy-sized", 15, 61, Colour.GENERIC_SIZE_ONE),
+	
 	/**2' to 3'6"*/
-	NEGATIVE_TWO_MIMIMUM("tiny", 61, 106, Colour.GENERIC_SIZE_ONE),
+	NEGATIVE_TWO_MIMIMUM("very tiny", 61, 106, Colour.GENERIC_SIZE_ONE),
 	
 	/**3'6" to 4'*/
 	NEGATIVE_ONE_TINY("tiny", 106, 122, Colour.GENERIC_SIZE_ONE),
@@ -62,10 +66,17 @@ public enum Height {
 	public int getMedianValue() {
 		return minimumValue + (maximumValue - minimumValue) / 2;
 	}
+	
+	/**
+	 * If height is less than this value, then that height is short stature.
+	 */
+	public static int getShortStatureCutOff() {
+		return ZERO_TINY.getMinimumValue();
+	}
 
-	public static Height getHeightFromInt(int inches) {
+	public static Height getHeightFromInt(int centimeters) {
 		for(Height cs : Height.values()) {
-			if(inches>=cs.getMinimumValue() && inches<cs.getMaximumValue()) {
+			if(centimeters >= cs.getMinimumValue() && centimeters < cs.getMaximumValue()) {
 				return cs;
 			}
 		}

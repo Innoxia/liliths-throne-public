@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>750</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[men's hakama]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[men's hakama]]></namePlural> 
+		
+		<description><![CDATA[Tied at the waist and falling approximately to the ankles, hakama, such as this one, are meant to be worn over a kimono.]]></description> 
+		
+		<physicalResistance>2</physicalResistance> 
+		
+		<femininity>MASCULINE</femininity> 
+		
+		<slot>LEG</slot> 
+		
+		<rarity>EPIC</rarity> 
+		
+		<clothingSet>RONIN</clothingSet>
+		
+		<imageName>mens_hakama.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType> 
+				
+				<clothingAccessRequired/>
+				
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_BLUE_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>REINDEER_GIFT</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(put)] on the hakama, before tying it up at [npc.her] waist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(put)] on the hakama on [npc2.name], before tying it up at [npc2.her] waist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(put)] on the hakama on [npc2.name], before firmly tying it up at [npc2.her] waist.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(untie)] [npc.her] hakama, before taking it off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(untie)] [npc2.namePos] hakama, before taking it off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(untie)] [npc2.namePos] hakama, before yanking it off.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

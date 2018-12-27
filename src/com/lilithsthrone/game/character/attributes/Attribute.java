@@ -5,14 +5,17 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Attribute {
@@ -28,8 +31,9 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
-						return "How much physical energy you have. You will be defeated in combat if this reaches 0.</br></br>"
-								+ "<b>Stamina = " + GameCharacter.HEALTH_CALCULATION + "</b>";
+						return "How much physical energy you have. You will be defeated in combat if this reaches 0.<br/>"
+								+ "Extra energy is added to the 'bonus' value from:<br/>"
+								+"<b>"+ GameCharacter.HEALTH_CALCULATION + "</b>";
 					else
 						return UtilText.parse(owner,
 								"How much physical energy [npc.name] has. [npc.She] will be defeated in combat if this reaches 0.");
@@ -47,8 +51,9 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
-						return "A measure of the amount of arcane energy in your aura.</br></br>"
-								+ "<b>Aura = " + GameCharacter.MANA_CALCULATION + "</b>";
+						return "A measure of the amount of arcane energy in your aura.<br/>"
+								+ "Extra aura is added to the 'bonus' value from:<br/>"
+								+ "<b>" + GameCharacter.MANA_CALCULATION + "</b>";
 					else
 						return UtilText.parse(owner,
 								"How much arcane energy [npc.name] has in [npc.her] aura.");
@@ -102,7 +107,7 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer()) {
-						return "How desperate for sexual contact you are. Your lust will move towards your resting lust value over time.</br>"
+						return "How desperate for sexual contact you are. Your lust will move towards your resting lust value over time.<br/>"
 								+ "<b>Resting Lust = " + GameCharacter.RESTING_LUST_CALCULATION + "</b>";
 					} else {
 						return UtilText.parse(owner,
@@ -126,7 +131,7 @@ public enum Attribute {
 									+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>maximum energy</b>.";
 							else
 								return UtilText.parse(owner,
-										"A measure of [npc.name]'s physical health.");
+										"A measure of [npc.namePos] physical health.");
 						}
 					},
 
@@ -145,7 +150,7 @@ public enum Attribute {
 									+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>maximum Aura</b>.";
 							else
 								return UtilText.parse(owner,
-										"A measure of [npc.name]'s affinity with the arcane.");
+										"A measure of [npc.namePos] affinity with the arcane.");
 						}
 					},
 
@@ -164,7 +169,7 @@ public enum Attribute {
 								return "Corruption is a measure of your perversion and depravity, and affects <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>which sex actions you are comfortable performing</b>.";
 							} else {
 								return UtilText.parse(owner,
-										"Corruption is a measure of [npc.name]'s perversion and depravity. It does <i>not</i> reflect how good or evil [npc.she] is.");
+										"Corruption is a measure of [npc.namePos] perversion and depravity. It does <i>not</i> reflect how good or evil [npc.she] is.");
 							}
 						}
 					},
@@ -420,40 +425,22 @@ public enum Attribute {
 			return "Increases damage vs wolf-morphs.";
 		}
 	},
+	DAMAGE_FOX_MORPH(0, -100, 100, "fox-morph damage", "Fox-morph damage", "swordIcon", Colour.RACE_FOX_MORPH, "fox-morph-obliteration", "fox-morph-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs fox-morphs.";
+		}
+	},
 	DAMAGE_SLIME(0, -100, 100, "slime damage", "Slime damage", "swordIcon", Colour.RACE_SLIME, "slime-obliteration", "slime-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases damage vs slimes.";
 		}
 	},
-	DAMAGE_ELEMENTAL_EARTH(0, -100, 100, "earth-elemental damage", "Earth-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_EARTH, "earth-elemental-obliteration", "earth-elemental-mercy", null) {
+	DAMAGE_ELEMENTAL(0, -100, 100, "elemental damage", "Elemental damage", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "elemental-obliteration", "elemental-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs earth-elementals.";
-		}
-	},
-	DAMAGE_ELEMENTAL_WATER(0, -100, 100, "water-elemental damage", "Water-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_WATER, "water-elemental-obliteration", "water-elemental-mercy", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs water-elementals.";
-		}
-	},
-	DAMAGE_ELEMENTAL_AIR(0, -100, 100, "air-elemental damage", "Air-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_AIR, "air-elemental-obliteration", "air-elemental-mercy", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs air-elementals.";
-		}
-	},
-	DAMAGE_ELEMENTAL_FIRE(0, -100, 100, "fire-elemental damage", "Fire-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_FIRE, "fire-elemental-obliteration", "fire-elemental-mercy", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs fire-elementals.";
-		}
-	},
-	DAMAGE_ELEMENTAL_ARCANE(0, -100, 100, "arcane-elemental damage", "Arcane-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "arcane-elemental-obliteration", "arcane-elemental-mercy", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs arcane-elementals.";
+			return "Increases damage vs elementals.";
 		}
 	},
 	
@@ -553,43 +540,24 @@ public enum Attribute {
 			return "Increases resistance vs damage inflicted by wolf-morphs.";
 		}
 	},
+	RESISTANCE_FOX_MORPH(0, -100, 100, "fox-morph resistance", "Fox-morph resistance", "shieldIcon", Colour.RACE_FOX_MORPH, "fox-morph-immunity", "fox-morph-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases resistance vs damage inflicted by fox-morphs.";
+		}
+	},
 	RESISTANCE_SLIME(0, -100, 100, "slime resistance", "Slime resistance", "shieldIcon", Colour.RACE_SLIME, "slime-immunity", "slime-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases resistance vs damage inflicted by slimes.";
 		}
 	},
-	RESISTANCE_ELEMENTAL_EARTH(0, -100, 100, "earth-elemental resistance", "Earth-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_EARTH, "earth-elemental-immunity", "earth-elemental-vulnerability", null) {
+	RESISTANCE_ELEMENTAL(0, -100, 100, "elemental resistance", "Elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "elemental-immunity", "elemental-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs earth-elementals.";
+			return "Increases resistance vs elementals.";
 		}
-	},
-	RESISTANCE_ELEMENTAL_WATER(0, -100, 100, "water-elemental resistance", "Water-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_WATER, "water-elemental-immunity", "water-elemental-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs water-elementals.";
-		}
-	},
-	RESISTANCE_ELEMENTAL_AIR(0, -100, 100, "air-elemental resistance", "Air-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_AIR, "air-elemental-immunity", "air-elemental-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs air-elementals.";
-		}
-	},
-	RESISTANCE_ELEMENTAL_FIRE(0, -100, 100, "fire-elemental resistance", "Fire-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_FIRE, "fire-elemental-immunity", "fire-elemental-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs fire-elementals.";
-		}
-	},
-	RESISTANCE_ELEMENTAL_ARCANE(0, -100, 100, "arcane-elemental resistance", "Arcane-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "arcane-elemental-immunity", "arcane-elemental-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs arcane-elementals.";
-		}
-	},
-	
+	}
 	;
 
 	
@@ -652,13 +620,7 @@ public enum Attribute {
 			}
 			SVGString = Util.inputStreamToString(is);
 
-			if (colour.getShades() != null) {
-				SVGString = SVGString.replaceAll("#ff2a2a", colour.getShades()[0]);
-				SVGString = SVGString.replaceAll("#ff5555", colour.getShades()[1]);
-				SVGString = SVGString.replaceAll("#ff8080", colour.getShades()[2]);
-				SVGString = SVGString.replaceAll("#ffaaaa", colour.getShades()[3]);
-				SVGString = SVGString.replaceAll("#ffd5d5", colour.getShades()[4]);
-			}
+			SVGString = SvgUtil.colourReplacement(this.toString(), colour, SVGString);
 
 			is.close();
 
@@ -666,11 +628,27 @@ public enum Attribute {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static Attribute[] getCoreAttributes() {
 		return new Attribute[] { MAJOR_PHYSIQUE, MAJOR_ARCANE, MAJOR_CORRUPTION };
 	}
 
+	public static Attribute getAttributeFromId(String attributeId) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6")) {
+			if(attributeId.startsWith("RESISTANCE_ELEMENTAL")) {
+				attributeId = "RESISTANCE_ELEMENTAL";
+			} else if(attributeId.startsWith("DAMAGE_ELEMENTAL")) {
+				attributeId = "DAMAGE_ELEMENTAL";
+			} else if(attributeId.equals("CORRUPTION")) {
+				attributeId = "MAJOR_CORRUPTION";
+			} else if(attributeId.equals("STRENGTH") || attributeId.equals("MAJOR_STRENGTH")) {
+				attributeId = "MAJOR_PHYSIQUE";
+			}
+		}
+		
+		return Attribute.valueOf(attributeId);
+	}
+	
 	public int getBaseValue() {
 		return baseValue;
 	}
@@ -706,43 +684,26 @@ public enum Attribute {
 			return "";
 		}
 		
-		if(target.isPlayer()) {
-			if (value > 0) {
-				return "<p style='text-align:center;'>"
-							+ "You gain <b>"+value+"</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-						+ "</p>";
-	
-			} else if (value < 0) {
-				return "<p style='text-align:center;'>"
-							+ "You lose <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-						+ "</p>";
-	
-			} else {
-				return "<p style='text-align:center;'>"
-							+ "Your <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> doesn't change..."
-						+ "</p>";
-			}
+		if (value > 0) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+						+ "[npc.Name] [npc.verb(gain)] <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
+					+ "</p>");
+
+		} else if (value < 0) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+						+ "[npc.Name] [npc.verb(lose)] <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
+					+ "</p>");
+			
+
 		} else {
-			if (value > 0) {
-				return UtilText.parse(target,
-						"<p>"
-							+ "[npc.Name] gains <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-						+ "</p>");
-	
-			} else if (value < 0) {
-				return UtilText.parse(target,
-						"<p>"
-							+ "[npc.Name] loses <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-						+ "</p>");
-				
-	
-			} else {
-				return UtilText.parse(target,
-						"<p>"
-							+ "[npc.Name]'s <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> remains unchanged..."
-						+ "</p>");
-			}
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+						+ "[npc.NamePos] <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> remains unchanged..."
+					+ "</p>");
 		}
+		
 	}
 
 	private StringBuilder descriptionSB = new StringBuilder();
@@ -752,7 +713,7 @@ public enum Attribute {
 
 		if (extraEffects != null)
 			for (String s : extraEffects)
-				descriptionSB.append("</br>" + s);
+				descriptionSB.append("<br/>" + s);
 
 		return descriptionSB.toString();
 	}

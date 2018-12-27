@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="traderGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#traderGradient"/>
+    </defs>
+    <g fill-rule="evenodd" transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" rx="30.383" ry="30.381"/>
+        <path fill="#fff" d="M18.498 1043.066h15.121l.125-25.553c.016-3.242-4.904-5.275-5.061-8.513l-.518-10.674-4.15-.043-.188 10.506c-.058 3.229-5.31 5.346-5.311 8.575zM36.693 1042.81h11.023l.091-18.628c.012-2.363-3.575-3.846-3.69-6.206l-.377-7.78-3.026-.033-.136 7.659c-.042 2.353-3.87 3.897-3.872 6.25z"/>
+    </g>
+</svg>

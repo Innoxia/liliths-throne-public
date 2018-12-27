@@ -1,6 +1,5 @@
 package com.lilithsthrone.utils;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -10,8 +9,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
  * @version 0.2.5
  * @author Innoxia
  */
-public class InventoryItemComparator implements Comparator<AbstractItem>, Serializable {
-	private static final long serialVersionUID = 1L;
+public class InventoryItemComparator implements Comparator<AbstractItem> {
 
 	@Override
 	public int compare(AbstractItem first, AbstractItem second) {

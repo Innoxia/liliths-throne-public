@@ -3,15 +3,13 @@ package com.lilithsthrone.game.character.race;
 import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Race {
@@ -22,20 +20,17 @@ public enum Race {
 			"none",
 			"none",
 			"none",
-			"",
-			"",
 			Colour.RACE_HUMAN,
 			Disposition.CIVILIZED,
-			StatusEffect.PURE_HUMAN,
 			Util.newArrayListOfValues(Attack.MAIN),
-			true,
 			0.5f,
 			1,
 			1,
 			Attribute.DAMAGE_HUMAN,
 			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			false),
 	
 	// HUMAN:
 	HUMAN("human",
@@ -47,22 +42,17 @@ public enum Race {
 			"men",
 			"women",
 			
-			UtilText.parseFromXMLFile("characters/raceInfo", "HUMAN_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "HUMAN_ADVANCED"),
-			
 			Colour.RACE_HUMAN,
 			Disposition.CIVILIZED,
-			StatusEffect.PURE_HUMAN,
 			Util.newArrayListOfValues(Attack.MAIN),
-			true,
 			0.5f,
 			1,
 			1,
 			Attribute.DAMAGE_HUMAN,
 			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			false),
 
 	// ANGEL:
 	ANGEL("angel",
@@ -72,24 +62,19 @@ public enum Race {
 			"angel",
 			"angel",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "ANGEL_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ANGEL_ADVANCED"),
-
 			Colour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
-			StatusEffect.PURE_HUMAN,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
-			false,
 			0.25f,
 			1,
 			1,
 			Attribute.DAMAGE_ANGEL,
 			Attribute.RESISTANCE_ANGEL,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			false),
 
 	// DEMON:
 	DEMON("demon",
@@ -99,51 +84,20 @@ public enum Race {
 			"incubi",
 			"succubi",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "DEMON_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "DEMON_ADVANCED"),
-
 			Colour.RACE_DEMON,
 			Disposition.CIVILIZED,
-			StatusEffect.DEMON,
 			Util.newArrayListOfValues(
 					Attack.SPECIAL_ATTACK,
 					Attack.SEDUCTION,
 					Attack.SPELL),
-			false,
 			0.75f,
 			2,
 			3,
 			Attribute.DAMAGE_DEMON,
 			Attribute.RESISTANCE_DEMON,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
-
-	IMP("imp",
-			"imps",
-			"imp",
-			"imp",
-			"imps",
-			"imps",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_ADVANCED"),
-
-			Colour.RACE_DEMON,
-			Disposition.UNPREDICTABLE,
-			StatusEffect.IMP,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SEDUCTION),
-			true,
-			0.75f,
-			2,
-			3,
-			Attribute.DAMAGE_IMP,
-			Attribute.RESISTANCE_IMP,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			false),
 
 	// BOVINES:
 	COW_MORPH("cow-morph",
@@ -153,24 +107,19 @@ public enum Race {
 			"cow-boys",
 			"cow-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "COW_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "COW_MORPH_ADVANCED"),
-
 			Colour.RACE_COW_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.COW_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			1,
 			Attribute.DAMAGE_COW_MORPH,
 			Attribute.RESISTANCE_COW_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	// CANINES:
 	DOG_MORPH("dog-morph",
@@ -180,22 +129,17 @@ public enum Race {
 			"dog-boys",
 			"dog-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "DOG_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "DOG_MORPH_ADVANCED"),
-
 			Colour.RACE_DOG_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.DOG_MORPH,
 			Util.newArrayListOfValues(Attack.MAIN),
-			true,
 			0.5f,
 			1,
 			2,
 			Attribute.DAMAGE_DOG_MORPH,
 			Attribute.RESISTANCE_DOG_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	WOLF_MORPH("wolf-morph",
 			"wolf-morphs",
@@ -203,25 +147,42 @@ public enum Race {
 			"wolf-girl",
 			"wolf-boys",
 			"wolf-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "WOLF_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "WOLF_MORPH_ADVANCED"),
 			
 			Colour.RACE_WOLF_MORPH,
 			Disposition.SAVAGE,
-			StatusEffect.WOLF_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			2,
 			Attribute.DAMAGE_WOLF_MORPH,
 			Attribute.RESISTANCE_WOLF_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
+	
+	FOX_MORPH("fox-morph",
+			"fox-morphs",
+			"fox-boy",
+			"fox-girl",
+			"fox-boys",
+			"fox-girls",
+			
+			Colour.RACE_FOX_MORPH,
+			Disposition.UNPREDICTABLE,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SEDUCTION,
+					Attack.SPELL),
+			0.5f,
+			1,
+			2,
+			Attribute.DAMAGE_FOX_MORPH,
+			Attribute.RESISTANCE_FOX_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL,
+			true),
 
 	// FELINES:
 	CAT_MORPH("cat-morph",
@@ -231,24 +192,19 @@ public enum Race {
 			"cat-boys",
 			"cat-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
-
 			Colour.RACE_CAT_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.CAT_MORPH,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			2,
 			Attribute.DAMAGE_CAT_MORPH,
 			Attribute.RESISTANCE_CAT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	// EQUINE:
 	HORSE_MORPH("horse-morph",
@@ -257,25 +213,20 @@ public enum Race {
 			"horse-girl",
 			"horse-boys",
 			"horse-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "HORSE_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "HORSE_MORPH_ADVANCED"),
-
+			
 			Colour.RACE_HORSE_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.HORSE_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			1,
 			Attribute.DAMAGE_HORSE_MORPH,
 			Attribute.RESISTANCE_HORSE_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	
 	 REINDEER_MORPH("reindeer-morph",
@@ -284,25 +235,20 @@ public enum Race {
 			"reindeer-girl",
 			"reindeer-boys",
 			"reindeer-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "REINDEER_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "REINDEER_MORPH_ADVANCED"),
 		 
 	  Colour.RACE_REINDEER_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.REINDEER_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			2,
 			Attribute.DAMAGE_REINDEER_MORPH,
 			Attribute.RESISTANCE_REINDEER_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 			
 
 	SQUIRREL_MORPH("squirrel-morph",
@@ -312,23 +258,18 @@ public enum Race {
 			"squirrel-boys",
 			"squirrel-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "SQUIRREL_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SQUIRREL_MORPH_ADVANCED"),
-
 			Colour.RACE_SQUIRREL_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.SQUIRREL_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN),
-			true,
 			0.5f,
 			1,
 			2,
 			Attribute.DAMAGE_SQUIRREL_MORPH,
 			Attribute.RESISTANCE_SQUIRREL_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	RAT_MORPH("rat-morph",
 			"rat-morphs",
@@ -337,24 +278,19 @@ public enum Race {
 			"rat-boys",
 			"rat-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "RAT_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "RAT_MORPH_ADVANCED"),
-
 			Colour.RACE_RAT_MORPH,
 			Disposition.NEUTRAL,
-			StatusEffect.RAT_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			4,
 			Attribute.DAMAGE_RAT_MORPH,
 			Attribute.RESISTANCE_RAT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	RABBIT_MORPH("rabbit-morph",
 			"rabbit-morphs",
@@ -363,24 +299,19 @@ public enum Race {
 			"rabbit-boys",
 			"rabbit-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "RABBIT_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "RABBIT_MORPH_ADVANCED"),
-
 			Colour.RACE_RABBIT_MORPH,
 			Disposition.NEUTRAL,
-			StatusEffect.RABBIT_MORPH,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			2,
 			8,
 			Attribute.DAMAGE_RABBIT_MORPH,
 			Attribute.RESISTANCE_RABBIT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 	
 	BAT_MORPH("bat-morph",
 			"bat-morphs",
@@ -389,24 +320,19 @@ public enum Race {
 			"bat-boys",
 			"bat-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "BAT_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "BAT_MORPH_ADVANCED"),
-
 			Colour.RACE_BAT_MORPH,
 			Disposition.NEUTRAL,
-			StatusEffect.BAT_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			2,
 			Attribute.DAMAGE_BAT_MORPH,
 			Attribute.RESISTANCE_BAT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 	
 	ALLIGATOR_MORPH("alligator-morph",
 			"alligator-morphs",
@@ -415,24 +341,19 @@ public enum Race {
 			"alligator-boys",
 			"alligator-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "ALLIGATOR_MORPH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ALLIGATOR_MORPH_ADVANCED"),
-
 			Colour.RACE_ALLIGATOR_MORPH,
 			Disposition.NEUTRAL,
-			StatusEffect.ALLIGATOR_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			4,
 			Attribute.DAMAGE_ALLIGATOR_MORPH,
 			Attribute.RESISTANCE_ALLIGATOR_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	// SLIME:
 	SLIME("slime",
@@ -442,22 +363,17 @@ public enum Race {
 			"slimes",
 			"slimes",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-
 			Colour.RACE_SLIME,
 			Disposition.NEUTRAL,
-			StatusEffect.SLIME,
 			Util.newArrayListOfValues(Attack.SEDUCTION),
-			true,
 			0.5f,
 			1,
 			1,
 			Attribute.DAMAGE_SLIME,
 			Attribute.RESISTANCE_SLIME,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			false),
 
 	// AVIAN:
 	HARPY("harpy",
@@ -466,159 +382,150 @@ public enum Race {
 			"harpy",
 			"harpies",
 			"harpies",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "HARPY_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "HARPY_ADVANCED"),
 			
 			Colour.RACE_HARPY,
 			Disposition.NEUTRAL,
-			StatusEffect.HARPY,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			3,
 			4,
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			false),
 	
 
 	// ELEMENTALS:
-	ELEMENTAL_EARTH("earth elemental",
-			"earth elementals",
-			"earth elemental",
-			"earth elemental",
-			"earth elementals",
-			"earth elementals",
+//	ELEMENTAL_EARTH("earth elemental",
+//			"earth elementals",
+//			"earth elemental",
+//			"earth elemental",
+//			"earth elementals",
+//			"earth elementals",
+//
+//			Colour.SPELL_SCHOOL_EARTH,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_EARTH,
+//			Attribute.RESISTANCE_ELEMENTAL_EARTH,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
+//	
+//	ELEMENTAL_WATER("water elemental",
+//			"water elementals",
+//			"water elemental",
+//			"water elemental",
+//			"water elementals",
+//			"water elementals",
+//
+//			Colour.SPELL_SCHOOL_WATER,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_WATER,
+//			Attribute.RESISTANCE_ELEMENTAL_WATER,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
+//	
+//	ELEMENTAL_AIR("air elemental",
+//			"air elementals",
+//			"air elemental",
+//			"air elemental",
+//			"air elementals",
+//			"air elementals",
+//
+//			Colour.SPELL_SCHOOL_AIR,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_AIR,
+//			Attribute.RESISTANCE_ELEMENTAL_AIR,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
+//	
+//	ELEMENTAL_FIRE("fire elemental",
+//			"fire elementals",
+//			"fire elemental",
+//			"fire elemental",
+//			"fire elementals",
+//			"fire elementals",
+//
+//			Colour.SPELL_SCHOOL_FIRE,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SEDUCTION,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_FIRE,
+//			Attribute.RESISTANCE_ELEMENTAL_FIRE,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
+//	
+//	ELEMENTAL_ARCANE("arcane elemental",
+//			"arcane elementals",
+//			"arcane elemental",
+//			"arcane elemental",
+//			"arcane elementals",
+//			"arcane elementals",
+//
+//			Colour.SPELL_SCHOOL_ARCANE,
+//			Disposition.NEUTRAL,
+//			Util.newArrayListOfValues(
+//					Attack.SEDUCTION,
+//					Attack.SPELL),
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_ELEMENTAL_ARCANE,
+//			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
+//			FurryPreference.MAXIMUM,
+//			FurryPreference.MAXIMUM,
+//			false),
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_ADVANCED"),
-
-			Colour.SPELL_SCHOOL_EARTH,
-			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_EARTH,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPELL),
-			false,
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_ELEMENTAL_EARTH,
-			Attribute.RESISTANCE_ELEMENTAL_EARTH,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
-	
-	ELEMENTAL_WATER("water elemental",
-			"water elementals",
-			"water elemental",
-			"water elemental",
-			"water elementals",
-			"water elementals",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_ADVANCED"),
-
-			Colour.SPELL_SCHOOL_WATER,
-			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_WATER,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPELL),
-			false,
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_ELEMENTAL_WATER,
-			Attribute.RESISTANCE_ELEMENTAL_WATER,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
-	
-	ELEMENTAL_AIR("air elemental",
-			"air elementals",
-			"air elemental",
-			"air elemental",
-			"air elementals",
-			"air elementals",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_ADVANCED"),
-
-			Colour.SPELL_SCHOOL_AIR,
-			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_AIR,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPELL),
-			false,
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_ELEMENTAL_AIR,
-			Attribute.RESISTANCE_ELEMENTAL_AIR,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
-	
-	ELEMENTAL_FIRE("fire elemental",
-			"fire elementals",
-			"fire elemental",
-			"fire elemental",
-			"fire elementals",
-			"fire elementals",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_ADVANCED"),
-
-			Colour.SPELL_SCHOOL_FIRE,
-			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_FIRE,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SEDUCTION,
-					Attack.SPELL),
-			false,
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_ELEMENTAL_FIRE,
-			Attribute.RESISTANCE_ELEMENTAL_FIRE,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
-	
-	ELEMENTAL_ARCANE("arcane elemental",
-			"arcane elementals",
-			"arcane elemental",
-			"arcane elemental",
-			"arcane elementals",
-			"arcane elementals",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_BASIC"),
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_ADVANCED"),
+	ELEMENTAL("elemental",
+			"elementals",
+			"elemental",
+			"elemental",
+			"elementals",
+			"elementals",
 
 			Colour.SPELL_SCHOOL_ARCANE,
 			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_ARCANE,
 			Util.newArrayListOfValues(
+					Attack.MAIN,
 					Attack.SEDUCTION,
 					Attack.SPELL),
-			false,
 			0.5f,
 			1,
 			1,
-			Attribute.DAMAGE_ELEMENTAL_ARCANE,
-			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
+			Attribute.DAMAGE_ELEMENTAL,
+			Attribute.RESISTANCE_ELEMENTAL,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
-	
+			FurryPreference.MAXIMUM,
+			false),
 	;
 
 	/*
@@ -1171,72 +1078,6 @@ public enum Race {
 	 * 
 	 * 
 	 * 
-	 * COW_MORPH("cow morph",
-	 * 
-	 * "Bovines are a humanoid race most commonly found in the city of Dominion."
-	 * +
-	 * " Bovines are quite stupid and the females are very submissive, and will happily do whatever their friends tell them to do."
-	 * +
-	 * " They are mostly known for their females having gigantic breasts and heavy lactation."
-	 * +
-	 * " Due to this, they are often the target of unwanted attention from the other races."
-	 * +
-	 * " Bovines love to have their breasts milked, and prefer their sexual partners to pay attention to their breasts."
-	 * ,
-	 * 
-	 * "Bovines are humanoid, with a human body and face." +
-	 * " Their legs and arms are covered in a fine layer of fur, ending at the thigh and upper arm."
-	 * + " Their feet are shaped into hooves." +
-	 * " A cow-like tail grows from above their ass." +
-	 * " They have a pair of cow-like ears and a pair of horns, with males having considerable larger horns than females."
-	 * +
-	 * " Females typically have three pairs of gigantic breasts, with multiple nipples on each."
-	 * + " Males have a horse-like cock.",
-	 * 
-	 * "Female bovines are extremely passive, and will usually submit when attacked."
-	 * + " Males, however, will defend themselves." +
-	 * " They are completely unable to use magic." +
-	 * "Males will use physical attacks in combat, and if a female decides to fight, she will use seduction."
-	 * ,
-	 * 
-	 * " Bovines will breed with any other race." +
-	 * " A Bovine pregnancy results in a pair of Bovines, which will rapidly reach full maturity and leave to make their own way in Dominion."
-	 * ,
-	 * 
-	 * RacialBody.BOVINE, Genus.BOVINE, Disposition.CIVILIZED,
-	 * StatusEffect.COW_MORPH),
-	 * 
-	 * MINOTAUR("minotaur",
-	 * 
-	 * "Minotaurs are an exclusively male humanoid monster race." +
-	 * " Minotaurs are extremely dominant and aggressive, and will attack almost anything on sight."
-	 * + " As a result, Minotaurs have been driven out of Dominion society." +
-	 * " A minotaur will usually have a herd of submissive Bovines following him everywhere."
-	 * +
-	 * " Minotaurs show a special interest in free Bovines, and after raping them, will force them to join his herd."
-	 * +
-	 * " The minotaur will then forcefully transform the Bovine into a hyper-breasted submissive fuck toy."
-	 * ,
-	 * 
-	 * "Minotaurs are humanoid monsters, with a fine layer of fur covering their entire bodies."
-	 * + " Their feet are shaped into hooves and their legs are digitigrade." +
-	 * " A cow-like tail grows from above their ass." +
-	 * " They have a pair of cow-like ears and a pair of huge horns." +
-	 * " They have anthropomorphic cow-like faces." +
-	 * " They have a gigantic horse-like cock.",
-	 * 
-	 * "Minotaurs will attack almost anything they see." +
-	 * " They are unable to learn magic, and will always fight using brute force."
-	 * ,
-	 * 
-	 * "Minotaurs will breed with anything they can catch." +
-	 * " Each Minotaur pregnancy will result in a single Minotaur, which will rapidly reach full maturity and leave to find a herd of his own."
-	 * ,
-	 * 
-	 * RacialBody.MINOTAUR, Genus.BOVINE, Disposition.UNPREDICTABLE,
-	 * StatusEffect.MINOTAUR),
-	 * 
-	 * 
 	 * 
 	 * SPIDER_MORPH("spider morph",
 	 * 
@@ -1403,7 +1244,7 @@ public enum Race {
 	 * +
 	 * " Once they have found and seduced a suitable mate, they will present themselves to be fucked, using demonic magic to force their partner to repeatedly orgasm."
 	 * +
-	 * " After milking their victim of cum, they will move on to their next conquest.</br>"
+	 * " After milking their victim of cum, they will move on to their next conquest.<br/>"
 	 * +
 	 * "The cum that they gather is transformed within their bodies into their own highly corruptive and addictive seed."
 	 * +
@@ -1411,7 +1252,7 @@ public enum Race {
 	 * +
 	 * " Having located a suitable victim, the Lilin will fuck them, filling them with their corruptive spooge."
 	 * +
-	 * " Such a union will more often than not result in the female birthing a litter of imps a few days later.</br>"
+	 * " Such a union will more often than not result in the female birthing a litter of imps a few days later.<br/>"
 	 * +
 	 * "Lilin are also able to create new demons by force-feeding them their corruptive cum over the course of a few days."
 	 * ,
@@ -1420,16 +1261,17 @@ public enum Race {
 	 * StatusEffect.LILIN);
 	 */
 
-	private String name, basicDescription, advancedDescription;
+	private String name;
 	private Colour colour;
 	private Disposition disposition;
-	private StatusEffect statusEffect;
 	private List<Attack> preferredAttacks;
-	private boolean vulnerableToLilithsLustStorm;
-	private int numberOfOffspringLow, numberOfOffspringHigh;
+	private int numberOfOffspringLow;
+	private int numberOfOffspringHigh;
 	private float chanceForMaleOffspring;
 	private Attribute damageMultiplier, resistanceMultiplier;
-	private FurryPreference defaultFemininePreference, defaultMasculinePreference;
+	private FurryPreference defaultFemininePreference;
+	private FurryPreference defaultMasculinePreference;
+	private boolean affectedByFurryPreference;
 	
 	private Race(String name,
 			String namePlural,
@@ -1438,14 +1280,9 @@ public enum Race {
 			String pluralMaleName,
 			String pluralFemaleName,
 
-			String basicDescription,
-			String advancedDescription,
-
 			Colour colour,
 			Disposition disposition,
-			StatusEffect statusEffect,
 			List<Attack> preferredAttacks,
-			boolean vulnerableToLilithsLustStorm,
 			
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow,
@@ -1455,19 +1292,16 @@ public enum Race {
 			Attribute resistanceMultiplier,
 			
 			FurryPreference defaultFemininePreference,
-			FurryPreference defaultMasculinePreference) {
+			FurryPreference defaultMasculinePreference,
+			
+			boolean affectedByFurryPreference) {
+		
 		this.name = name;
-
-		this.basicDescription = basicDescription;
-		this.advancedDescription = advancedDescription;
 
 		this.colour = colour;
 		this.disposition = disposition;
-		this.statusEffect = statusEffect;
 
 		this.preferredAttacks = preferredAttacks;
-
-		this.vulnerableToLilithsLustStorm = vulnerableToLilithsLustStorm;
 
 		this.chanceForMaleOffspring=chanceForMaleOffspring;
 		
@@ -1479,34 +1313,20 @@ public enum Race {
 		
 		this.defaultFemininePreference = defaultFemininePreference;
 		this.defaultMasculinePreference = defaultMasculinePreference;
+		
+		this.affectedByFurryPreference = affectedByFurryPreference;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public String getBasicDescription() {
-		return basicDescription;
-	}
-
-	public String getAdvancedDescription() {
-		return advancedDescription;
-	}
-
 	public Disposition getDisposition() {
 		return disposition;
 	}
 
-	public StatusEffect getStatusEffect() {
-		return statusEffect;
-	}
-
 	public List<Attack> getPreferredAttacks() {
 		return preferredAttacks;
-	}
-
-	public boolean isVulnerableToLilithsLustStorm() {
-		return vulnerableToLilithsLustStorm;
 	}
 
 	public int getNumberOfOffspringLow() {
@@ -1522,20 +1342,24 @@ public enum Race {
 	}
 	
 	public boolean isAffectedByFurryPreference() {
-		return defaultFemininePreference != null && defaultMasculinePreference!=null;
+		return affectedByFurryPreference;
 	}
-	
-	// Offspring names:
 	
 	public float getChanceForMaleOffspring() {
 		return chanceForMaleOffspring;
 	}
 
-	public Attribute getDamageMultiplier() {
+	/**
+	 * <b>Should only be used in Subspecies' getDamageMultipler() method!</b>
+	 */
+	public Attribute getDefaultDamageMultiplier() {
 		return damageMultiplier;
 	}
 
-	public Attribute getResistanceMultiplier() {
+	/**
+	 * <b>Should only be used in Subspecies' getResistanceMultiplier() method!</b>
+	 */
+	public Attribute getDefaultResistanceMultiplier() {
 		return resistanceMultiplier;
 	}
 

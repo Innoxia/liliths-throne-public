@@ -1,18 +1,22 @@
 package com.lilithsthrone.world;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -20,11 +24,10 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.3
  * @author Innoxia
  */
-public class Cell implements Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class Cell implements XMLSaving {
 
 	public static final int CELL_MAXIMUM_INVENTORY_SPACE = 48;
 	
@@ -33,9 +36,18 @@ public class Cell implements Serializable, XMLSaving {
 	private Vector2i location;
 
 	private String name;
-	private boolean discovered, northAccess, southAccess, eastAccess, westAccess, blocked;
+	private boolean discovered;
+	private boolean travelledTo;
+	private boolean northAccess;
+	private boolean southAccess;
+	private boolean eastAccess;
+	private boolean westAccess;
+	private boolean blocked;
 	private GenericPlace place;
 	private CharacterInventory inventory;
+	private Set<String> charactersPresentIds;
+	private Set<String> charactersHomeIds;
+	private Set<String> charactersGlobalIds;
 
 	public Cell(WorldType type, Vector2i location) {
 		this.type = type;
@@ -43,6 +55,7 @@ public class Cell implements Serializable, XMLSaving {
 		
 		name = "";
 		discovered = false;
+		travelledTo = false;
 		place = new GenericPlace(type.getStandardPlace());
 		
 		inventory = new CharacterInventory(0, CELL_MAXIMUM_INVENTORY_SPACE);
@@ -69,6 +82,7 @@ public class Cell implements Serializable, XMLSaving {
 		CharacterUtils.addAttribute(doc, element, "name", this.getName());
 		
 		CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.discovered));
+		CharacterUtils.addAttribute(doc, element, "travelledTo", String.valueOf(this.travelledTo));
 		CharacterUtils.addAttribute(doc, element, "northAccess", String.valueOf(this.northAccess));
 		CharacterUtils.addAttribute(doc, element, "southAccess", String.valueOf(this.southAccess));
 		CharacterUtils.addAttribute(doc, element, "eastAccess", String.valueOf(this.eastAccess));
@@ -98,6 +112,19 @@ public class Cell implements Serializable, XMLSaving {
 					Integer.valueOf(((Element)parentElement.getElementsByTagName("location").item(0)).getAttribute("y"))));
 		
 		cell.setDiscovered(Boolean.valueOf(parentElement.getAttribute("discovered")));
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
+			cell.setTravelledTo(Boolean.valueOf(parentElement.getAttribute("discovered")));
+			
+		} else {
+			try {
+				if(type.isRevealedOnStart()) {
+					cell.setTravelledTo(true);
+				} else {
+					cell.setTravelledTo(Boolean.valueOf(parentElement.getAttribute("travelledTo")));
+				}
+			} catch(Exception ex) {	
+			}
+		}
 		cell.setNorthAccess(Boolean.valueOf(parentElement.getAttribute("northAccess")));
 		cell.setSouthAccess(Boolean.valueOf(parentElement.getAttribute("southAccess")));
 		cell.setEastAccess(Boolean.valueOf(parentElement.getAttribute("eastAccess")));
@@ -154,6 +181,14 @@ public class Cell implements Serializable, XMLSaving {
 
 	public void setDiscovered(boolean discovered) {
 		this.discovered = discovered;
+	}
+
+	public boolean isTravelledTo() {
+		return travelledTo;
+	}
+
+	public void setTravelledTo(boolean travelledTo) {
+		this.travelledTo = travelledTo;
 	}
 
 	public GenericPlace getPlace() {
@@ -274,4 +309,82 @@ public class Cell implements Serializable, XMLSaving {
 	public void setInventory(CharacterInventory inventory) {
 		this.inventory = inventory;
 	}
+
+	public Set<String> getCharactersPresentIds() {
+		return charactersPresentIds;
+	}
+
+	public void addCharacterPresentId(String id) {
+		if(id.equals("NOT_SET")) {
+			return;
+		}
+		if(charactersPresentIds==null) {
+			charactersPresentIds = Collections.synchronizedSet(new HashSet<>());
+		}
+		synchronized (charactersPresentIds) {
+			charactersPresentIds.add(id);
+		}
+	}
+
+	public void removeCharacterPresentId(String id) {
+		if(charactersPresentIds==null) {
+			return;
+		}
+		synchronized (charactersPresentIds) {
+//			System.out.println("removed "+id);
+			charactersPresentIds.remove(id);
+		}
+	}
+
+	public Set<String> getCharactersHomeIds() {
+		return charactersHomeIds;
+	}
+
+	public void addCharacterHomeId(String id) {
+		if(id.equals("NOT_SET")) {
+			return;
+		}
+		if(charactersHomeIds==null) {
+			charactersHomeIds = Collections.synchronizedSet(new HashSet<>());
+		}
+		synchronized (charactersHomeIds) {
+			charactersHomeIds.add(id);
+		}
+	}
+
+	public void removeCharacterHomeId(String id) {
+		if(charactersHomeIds==null) {
+			return;
+		}
+		synchronized (charactersHomeIds) {
+			charactersHomeIds.remove(id);
+		}
+	}
+
+
+	public Set<String> getCharactersGlobalIds() {
+		return charactersGlobalIds;
+	}
+
+	public void addCharacterGlobalId(String id) {
+		if(id.equals("NOT_SET")) {
+			return;
+		}
+		if(charactersGlobalIds==null) {
+			charactersGlobalIds = Collections.synchronizedSet(new HashSet<>());
+		}
+		synchronized (charactersGlobalIds) {
+			charactersGlobalIds.add(id);
+		}
+	}
+
+	public void removeCharacterGlobalId(String id) {
+		if(charactersGlobalIds==null) {
+			return;
+		}
+		synchronized (charactersGlobalIds) {
+			charactersGlobalIds.remove(id);
+		}
+	}
+	
 }

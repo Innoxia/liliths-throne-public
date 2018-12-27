@@ -2,7 +2,6 @@ package com.lilithsthrone.game.inventory.item;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,18 +17,18 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.1
+ * @version 0.3
  * @author Innoxia
  */
-public abstract class AbstractItemType extends AbstractCoreType implements Serializable {
-
-	protected static final long serialVersionUID = 1L;
+public abstract class AbstractItemType extends AbstractCoreType {
 	
 	private String determiner, name, namePlural, description, pathName;
 	private boolean plural;
@@ -83,17 +82,17 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		}
 
 		if (colourPrimary == null) {
-			this.colourPrimary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourPrimary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourPrimary = colourPrimary;
 		}
 		if (colourSecondary == null) {
-			this.colourSecondary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourSecondary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourSecondary = colourSecondary;
 		}
 		if (colourTertiary == null) {
-			this.colourTertiary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourTertiary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourTertiary = colourTertiary;
 		}
@@ -116,35 +115,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 	
 	private String colourReplacement(Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
-		String s = inputString;
-		for (int i = 0; i <= 14; i++) {
-			s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
-			s = s.replaceAll("innoGrad" + i, this.hashCode() + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
-			
-		}
-		s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-		s = s.replaceAll("#ff5555", colour.getShades()[1]);
-		s = s.replaceAll("#ff8080", colour.getShades()[2]);
-		s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-		s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-		
-		if(colourSecondary!=null) {
-			s = s.replaceAll("#ff7f2a", colourSecondary.getShades()[0]);
-			s = s.replaceAll("#ff9955", colourSecondary.getShades()[1]);
-			s = s.replaceAll("#ffb380", colourSecondary.getShades()[2]);
-			s = s.replaceAll("#ffccaa", colourSecondary.getShades()[3]);
-			s = s.replaceAll("#ffe6d5", colourSecondary.getShades()[4]);
-		}
-		
-		if(colourTertiary!=null) {
-			s = s.replaceAll("#ffd42a", colourTertiary.getShades()[0]);
-			s = s.replaceAll("#ffdd55", colourTertiary.getShades()[1]);
-			s = s.replaceAll("#ffe680", colourTertiary.getShades()[2]);
-			s = s.replaceAll("#ffeeaa", colourTertiary.getShades()[3]);
-			s = s.replaceAll("#fff6d5", colourTertiary.getShades()[4]);
-		}
-		
-		return s;
+		return SvgUtil.colourReplacement(Integer.toString(this.hashCode()), colour, colourSecondary, colourTertiary, inputString);
 	}
 	
 	@Override
@@ -177,33 +148,31 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 
 	public static AbstractItem generateItem(AbstractItemType itemType) {
-		return new AbstractItem(itemType) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractItem(itemType) {};
 	}
 	
-	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum) {
-		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, character.getPenisRawCumProductionValue()) {
-			private static final long serialVersionUID = 1L;
-		};
+	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum, int millilitres) {
+		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {};
 	}
 
 	public static AbstractItem generateFilledBreastPump(Colour colour, GameCharacter character, FluidMilk milk, int quantity) {
-		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {};
 	}
 	
 	public String getId() {
-		return ItemType.itemToIdMap.get(this);
+		return ItemType.getItemToIdMap().get(this);
 	}
 	
 	public List<ItemEffect> getEffects() {
 		return effects;
 	}
 	
-	public boolean canBeSold() {
-		return true;
+	public boolean isAbleToBeSold() {
+		return getRarity()!=Rarity.QUEST;
+	}
+	
+	public boolean isAbleToBeDropped() {
+		return getRarity()!=Rarity.QUEST;
 	}
 	
 	// Enchantments:
@@ -344,6 +313,15 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 					+ " The closer you move it to your " + clothing.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
 					+ " As you touch the bristles to the " + clothing.getName() + "'s surface, the Dye-brush instantly evaporates!"
 					+ " You see that the arcane enchantment has dyed the " + clothing.getName() + " " + colour.getName() + "."
+				+ "</p>";
+	}
+	
+	public String getDyeBrushEffects(AbstractWeapon weapon, Colour colour) {
+		return "<p>"
+					+ "As you take hold of the Dye-brush, you see the purple glow around the tip growing in strength."
+					+ " The closer you move it to your " + weapon.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
+					+ " As you touch the bristles to the " + weapon.getName() + "'s surface, the Dye-brush instantly evaporates!"
+					+ " You see that the arcane enchantment has dyed the " + weapon.getName() + " " + colour.getName() + "."
 				+ "</p>";
 	}
 

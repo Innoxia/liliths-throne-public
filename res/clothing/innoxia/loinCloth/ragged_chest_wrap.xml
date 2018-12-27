@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>5</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[ragged chest wrap]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[ragged chest wraps]]></namePlural> 
+		
+		<description><![CDATA[A thick strip of ragged, tattered cloth, that's been shaped in such a way so as to be wrapped around the chest in order to support a pair of breasts. A single loop has been incorporated into the crude design, which is meant to be slung over one shoulder.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>CHEST</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>ragged_chest_wrap.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType> 
+				
+				<clothingAccessRequired>CHEST</clothingAccessRequired>
+				
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked/>
+				
+				<concealedSlots values="CONCEALED_BREASTS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_BROWN</colour>
+			<colour>CLOTHING_BROWN_DARK</colour>
+			<colour>CLOTHING_TAN</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags/>
+	</coreAttributes>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You take off your chest wrap.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You pull off [npc.name]'s chest wrap.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You grab hold of [npc.name]'s chest wrap and roughly pull it off.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] takes [npc.her] chest wrap off.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] pulls your chest wrap off.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] grabs hold of your chest wrap and roughly pulls it off.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] pulls [npc2.name]'s chest wrap off.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] grabs hold of [npc2.name]'s chest wrap and roughly pulls it off.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+
+	<!-- 'replacementText' is used for equipping and replacements. -->
+	<replacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You pull on the chest wrap.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You get [npc.name] to wear the chest wrap.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You hold [npc.name] still as you roughly force [npc.herHim] to wear the chest wrap.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] pulls on the chest wrap.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] gets you to wear the chest wrap.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] holds you still as [npc.she] roughly forces you to wear the chest wrap.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] gets [npc2.name] to wear the chest wrap.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces [npc2.herHim] to wear the chest wrap.
+		]]></NPCOtherNPCRough>
+	</replacementText>
+	
+</clothing>

@@ -9,6 +9,8 @@ public enum DisplacementType {
 	
 	REMOVE_OR_EQUIP("unequip", "", "", "", ""),
 	
+	OPEN("open", "opens", "opened", "close", "closes"),
+	
 	PULLS_UP("pull up", "pulls up", "pulled up", "pull down", "pulls down"),
 	
 	PULLS_DOWN("pull down", "pulls down", "pulled down", "pull up", "pulls up"),
@@ -22,6 +24,8 @@ public enum DisplacementType {
 	UNZIPS("unzip", "unzips", "unzipped", "zip up", "zips up"),
 	
 	UNTIE("untie", "unties", "untied", "tie-up", "ties-up"),
+	
+	UNBUCKLE("unbuckle", "unbuckles", "unbuckled", "buckle up", "buckles up"),
 	
 	UNBUTTONS("unbutton", "unbuttons", "unbuttoned", "button up", "buttons up");
 

@@ -1,13 +1,20 @@
 package com.lilithsthrone.game.character;
 
-import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -16,75 +23,105 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.62
- * @version 0.1.99
+ * @version 0.3
  * @author Innoxia
  */
-public class Litter implements Serializable, XMLSaving {
+public class Litter implements XMLSaving {
 
-	private static final long serialVersionUID = 1L;
-
-	private int dayOfConception, dayOfBirth;
-	private String motherId, fatherId;
-	private int sonsMother, daughtersMother, sonsFather, daughtersFather;
+	private LocalDateTime conceptionDate;
+	private LocalDateTime birthDate;
+	
+	private String motherId;
+	private String fatherId;
+	
+	private int sonsMother;
+	private int daughtersMother;
+	private int sonsFather;
+	private int daughtersFather;
+	
 	private List<String> offspring;
-	private Subspecies motherRace, fatherRace;
+	
+	private String birthedDescription;
+	
+	private Subspecies motherRace;
+	private Subspecies fatherRace;
 
-	public Litter(int dayOfConception, int dayOfBirth, GameCharacter mother, GameCharacter father, List<NPC> offspring) {
-		this.dayOfConception = dayOfConception;
-		this.dayOfBirth = dayOfBirth;
+	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, List<NPC> offspring) {
+		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
+		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
 		
 		motherId = mother.getId();
 		fatherId = father.getId();
 		motherRace = mother.getSubspecies();
 		fatherRace = father.getSubspecies();
-		
-		this.offspring = new ArrayList<>();
-		for(NPC npc : offspring) {
-			this.offspring.add(npc.getId());
-		}
-		
+
 		sonsMother = 0;
 		daughtersMother = 0;
 		sonsFather = 0;
 		daughtersFather = 0;
-		for(GameCharacter gc : offspring) {
-			if(gc.isFeminine()) {
-				if(gc.getRace()==mother.getRace()) {
+		this.offspring = new ArrayList<>();
+		
+		for(NPC npc : offspring) {
+			this.offspring.add(npc.getId());
+			if(npc.isFeminine()) {
+				if(npc.isTakesAfterMother()) {
 					daughtersMother++;
 				} else {
 					daughtersFather++;
 				}
-				
 			} else {
-				if(gc.getRace()==mother.getRace()) {
+				if(npc.isTakesAfterMother()) {
 					sonsMother++;
 				} else {
 					sonsFather++;
 				}
 			}
 		}
+		
+		generateBirthedDescription();
 	}
 	
-	public Litter(int dayOfConception, int dayOfBirth, String motherId, String fatherId, int sonsMother, int daughtersMother, int sonsFather, int daughtersFather, List<String> offspring, Subspecies motherRace, Subspecies fatherRace) {
-		this.dayOfConception = dayOfConception;
-		this.dayOfBirth = dayOfBirth;
+	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate,
+			String motherId, String fatherId,
+			int sonsMother, int daughtersMother, int sonsFather, int daughtersFather,
+			List<String> offspring,
+			Subspecies motherRace, Subspecies fatherRace, String birthedDescription) {
+
+		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
+		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
+		
 		this.motherId = motherId;
 		this.fatherId = fatherId;
+		
 		this.sonsMother = sonsMother;
 		this.daughtersMother = daughtersMother;
 		this.sonsFather = sonsFather;
 		this.daughtersFather = daughtersFather;
+		
 		this.offspring = offspring;
 		this.motherRace = motherRace;
 		this.fatherRace = fatherRace;
+		
+		this.birthedDescription = birthedDescription;
 	}
 
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element element = doc.createElement("litter");
 		parentElement.appendChild(element);
 
-		CharacterUtils.addAttribute(doc, element, "dayOfConception", String.valueOf(this.getDayOfConception()));
-		CharacterUtils.addAttribute(doc, element, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
+//		CharacterUtils.addAttribute(doc, element, "dayOfConception", String.valueOf(this.getDayOfConception()));
+//		CharacterUtils.addAttribute(doc, element, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "yearOfBirth", String.valueOf(this.getBirthDate().getYear()));
+		CharacterUtils.createXMLElementWithValue(doc, element, "monthOfBirth", this.getBirthDate().getMonth().toString());
+		CharacterUtils.createXMLElementWithValue(doc, element, "dayOfBirth", String.valueOf(this.getBirthDate().getDayOfMonth()));
+		
+		CharacterUtils.createXMLElementWithValue(doc, element, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
+		CharacterUtils.createXMLElementWithValue(doc, element, "monthOfConception", this.getConceptionDate().getMonth().toString());
+		CharacterUtils.createXMLElementWithValue(doc, element, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
+		
+		
+		
 		CharacterUtils.addAttribute(doc, element, "motherId", this.getMotherId());
 		CharacterUtils.addAttribute(doc, element, "fatherId", this.getFatherId());
 		
@@ -95,6 +132,9 @@ public class Litter implements Serializable, XMLSaving {
 		
 		CharacterUtils.addAttribute(doc, element, "motherRace", String.valueOf(this.getMotherRace()));
 		CharacterUtils.addAttribute(doc, element, "fatherRace", String.valueOf(this.getFatherRace()));
+
+		CharacterUtils.addAttribute(doc, element, "birthedDescription", this.getBirthedDescription());
+		
 		
 		Element innerElement = doc.createElement("offspringList");
 		element.appendChild(innerElement);
@@ -114,8 +154,9 @@ public class Litter implements Serializable, XMLSaving {
 		List<String> offspring = new ArrayList<>();
 		
 		Element element = (Element) parentElement.getElementsByTagName("offspringList").item(0);
-		for(int i=0; i<element.getElementsByTagName("offspring").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("offspring").item(i));
+		NodeList offSpringList = element.getElementsByTagName("offspring");
+		for(int i = 0; i < offSpringList.getLength(); i++){
+			Element e = ((Element)offSpringList.item(i));
 			
 			offspring.add(e.getAttribute("id"));
 		}
@@ -127,9 +168,42 @@ public class Litter implements Serializable, XMLSaving {
 			fatherRace = Subspecies.valueOf(parentElement.getAttribute("fatherRace"));
 		} catch(Exception ex) {
 		}
-		return new Litter(
-				Integer.valueOf(parentElement.getAttribute("dayOfConception")),
-				Integer.valueOf(parentElement.getAttribute("dayOfBirth")),
+		
+		LocalDateTime loadedConceptionDate;
+		LocalDateTime loadedBirthDate;
+		
+		if(parentElement.getElementsByTagName("dayOfConception").getLength()>0) {
+
+			int day = Integer.valueOf(((Element)parentElement.getElementsByTagName("dayOfConception").item(0)).getAttribute("value"));
+			Month month = Month.valueOf(((Element)parentElement.getElementsByTagName("monthOfConception").item(0)).getAttribute("value"));
+			int year = Integer.valueOf(((Element)parentElement.getElementsByTagName("yearOfConception").item(0)).getAttribute("value"));
+			
+			loadedConceptionDate = LocalDateTime.of(year, month, day, 12, 0);
+			
+
+			day = Integer.valueOf(((Element)parentElement.getElementsByTagName("dayOfBirth").item(0)).getAttribute("value"));
+			month = Month.valueOf(((Element)parentElement.getElementsByTagName("monthOfBirth").item(0)).getAttribute("value"));
+			year = Integer.valueOf(((Element)parentElement.getElementsByTagName("yearOfBirth").item(0)).getAttribute("value"));
+			
+			loadedBirthDate = LocalDateTime.of(year, month, day, 12, 0);
+			
+		} else {
+			int conceptionDay = Integer.valueOf(parentElement.getAttribute("dayOfConception"));
+			loadedConceptionDate = Main.game.getStartingDate().plusDays(conceptionDay);
+			
+			int birthDay = Integer.valueOf(parentElement.getAttribute("dayOfBirth"));
+			loadedBirthDate = Main.game.getStartingDate().plusDays(birthDay);
+		}
+		
+		String birthedDescription = "";
+		try {
+			birthedDescription = parentElement.getAttribute("birthedDescription");
+		} catch(Exception ex) {
+		}
+		
+		Litter litter = new Litter(
+				loadedConceptionDate,
+				loadedBirthDate,
 				parentElement.getAttribute("motherId"),
 				parentElement.getAttribute("fatherId"),
 				Integer.valueOf(parentElement.getAttribute("sonsMother")),
@@ -138,19 +212,30 @@ public class Litter implements Serializable, XMLSaving {
 				Integer.valueOf(parentElement.getAttribute("daughtersFather")),
 				offspring,
 				motherRace,
-				fatherRace);
+				fatherRace,
+				birthedDescription);
+		
+//		if(birthedDescription.isEmpty()) {
+//			litter.generateBirthedDescription();
+//		}
+		
+		return litter;
 	}
 
-	public int getDayOfConception() {
-		return dayOfConception;
-	}
-
-	public int getDayOfBirth() {
-		return dayOfBirth;
+	public boolean isSelfImpregnation() {
+		return this.getMotherId().equals(this.getFatherId());
 	}
 	
-	public void setDayOfBirth(int dayOfBirth) {
-		this.dayOfBirth = dayOfBirth;
+	public LocalDateTime getConceptionDate() {
+		return conceptionDate;
+	}
+
+	public LocalDateTime getBirthDate() {
+		return birthDate;
+	}
+	
+	public void setBirthDate(LocalDateTime birthDate) {
+		this.birthDate = birthDate;
 	}
 	
 	public String getMotherId() {
@@ -162,13 +247,31 @@ public class Litter implements Serializable, XMLSaving {
 	}
 
 	public GameCharacter getMother() {
-		return Main.game.getNPCById(motherId);
+		try {
+			return Main.game.getNPCById(motherId);
+		} catch (Exception e) {
+			Util.logGetNpcByIdError("Litter.getMother()", motherId);
+			return Main.game.getNpc(GenericFemaleNPC.class);
+		}
+	}
+
+	public boolean isMotherId(String motherId) {
+		return this.motherId.equals(motherId);
 	}
 
 	public GameCharacter getFather() {
-		return Main.game.getNPCById(fatherId);
+		try {
+			return Main.game.getNPCById(fatherId);
+		} catch (Exception e) {
+			Util.logGetNpcByIdError("Litter.getFather()", fatherId);
+			return Main.game.getNpc(GenericMaleNPC.class);
+		}
 	}
 
+	public boolean isFatherId(String fatherId) {
+		return this.fatherId.equals(fatherId);
+	}
+	
 	public List<String> getOffspring() {
 		return offspring;
 	}
@@ -201,95 +304,52 @@ public class Litter implements Serializable, XMLSaving {
 		return fatherRace;
 	}
 	
-	private static StringBuilder descriptionSB = new StringBuilder();
-	public String getBirthedDescriptionList() {
-		descriptionSB.setLength(0);
-		boolean foundChildren = false;
+	private void generateBirthedDescription() {
+		Map<String, Integer> sons = new HashMap<>();
+		Map<String, Integer> daughters = new HashMap<>();
 		
-		if(getMotherRace()!=getFatherRace()) {
-			if (getSonsFromMother() > 0) {
-				descriptionSB.append(
-						"<b>"+Util.intToString(getSonsFromMother())+ " </b><b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
-							+ (getSonsFromMother() > 1
-								? getMotherRace().getOffspringMaleName()
-								: getMotherRace().getOffspringMaleNameSingular())
-						+ "</b>");
-				foundChildren = true;
-			}
-			
-			if (getSonsFromFather() > 0) {
-				if(foundChildren) {
-					if(getDaughtersFromMother()+getDaughtersFromFather() > 0) {
-						descriptionSB.append(", ");
-					} else {
-						descriptionSB.append(" and ");
-					}
+		for(String id : this.getOffspring()) {
+			try {
+				GameCharacter character = Main.game.getNPCById(id);
+				Subspecies subspecies = character.getSubspecies();
+				if(Main.game.getNPCById(id).isFeminine()) {
+					String nameId = subspecies.getSingularMaleName(character)+"|"+subspecies.getPluralMaleName(character);
+					sons.putIfAbsent(nameId, 0);
+					sons.put(nameId, sons.get(nameId)+1);
+				} else {
+					String nameId = subspecies.getSingularFemaleName(character)+"|"+subspecies.getPluralFemaleName(character);
+					daughters.putIfAbsent(nameId, 0);
+					daughters.put(nameId, daughters.get(nameId)+1);
 				}
-				descriptionSB.append(
-						"<b>"+Util.intToString(getSonsFromFather())+ " </b><b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
-							+ (getSonsFromFather() > 1
-								? getFatherRace().getOffspringMaleName()
-								: getFatherRace().getOffspringMaleNameSingular())
-						+ "</b>");
-				foundChildren = true;
-			}
-			
-		} else {
-			if (getSonsFromMother()+getSonsFromFather() > 0) {
-				descriptionSB.append(
-						"<b>"+Util.intToString(getSonsFromMother()+getSonsFromFather())+ " </b><b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
-							+ (getSonsFromMother()+getSonsFromFather() > 1
-								? getMotherRace().getOffspringMaleName()
-								: getMotherRace().getOffspringMaleNameSingular())
-						+ "</b>");
-				foundChildren = true;
+			} catch (Exception e) {
 			}
 		}
 		
-		if(getMotherRace()!=getFatherRace()) {
-			if (getDaughtersFromMother() > 0) {
-				if(foundChildren) {
-					if(getDaughtersFromFather() > 0) {
-						descriptionSB.append(", ");
-					} else {
-						descriptionSB.append(" and ");
-					}
-				}
-				descriptionSB.append(
-						"<b>"+Util.intToString(getDaughtersFromMother())+ " </b><b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
-							+ (getDaughtersFromMother() > 1
-								? getMotherRace().getOffspringFemaleName()
-								: getMotherRace().getOffspringFemaleNameSingular())
-						+ "</b>");
-				foundChildren = true;
-			}
-			
-			if (getDaughtersFromFather() > 0) {
-				if(foundChildren) {
-					descriptionSB.append(", and ");
-				}
-				descriptionSB.append(
-						"<b>"+Util.intToString(getDaughtersFromFather())+ " </b><b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
-							+ (getDaughtersFromFather() > 1
-								? getFatherRace().getOffspringFemaleName()
-								: getFatherRace().getOffspringFemaleNameSingular())
-						+ "</b>");
-			}
-		} else {
-			if (getDaughtersFromMother()+getDaughtersFromFather() > 0) {
-				if(foundChildren) {
-					descriptionSB.append(" and ");
-				}
-				descriptionSB.append(
-						"<b>"+Util.intToString(getDaughtersFromMother()+getDaughtersFromFather())+ " </b><b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
-							+ (getDaughtersFromMother()+getDaughtersFromFather() > 1
-								? getMotherRace().getOffspringFemaleName()
-								: getMotherRace().getOffspringFemaleNameSingular())
-						+ "</b>");
-			}
+		List<String> entries = new ArrayList<>();
+		
+		for(Entry<String, Integer> entry : sons.entrySet()) {
+			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
+						+(entry.getValue() > 1
+							? entry.getKey().split("\\|")[1]
+							: entry.getKey().split("\\|")[0])
+						+"</b>");
+		}
+		for(Entry<String, Integer> entry : daughters.entrySet()) {
+			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
+						+(entry.getValue() > 1
+							? entry.getKey().split("\\|")[1]
+							: entry.getKey().split("\\|")[0])
+						+"</b>");
 		}
 		
-		return descriptionSB.toString();
+		birthedDescription = Util.stringsToStringList(entries, false);
+	}
+
+	public String getBirthedDescription() {
+		if(birthedDescription.isEmpty()) {
+			generateBirthedDescription();
+		}
+		return birthedDescription;
 	}
 
 }

@@ -6,12 +6,15 @@ import java.util.List;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
-import com.lilithsthrone.game.character.gender.GenderPreference;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Angel;
+import com.lilithsthrone.game.character.npc.dominion.Bunny;
+import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -49,8 +52,7 @@ public class RedLightDistrict {
 		return false;
 	}
 	
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Red-light District", "Red-light District", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Red-light District", "Red-light District", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -81,7 +83,7 @@ public class RedLightDistrict {
 					@Override
 					public void effects() {
 						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.angelIntroduced)) {
-							Main.game.getAngel().setLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_ENTRANCE, false);
+							Main.game.getNpc(Angel.class).setLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_ENTRANCE, false);
 						}
 						Main.mainController.moveGameWorld(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_ENTRANCE, true);
 					}
@@ -93,8 +95,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_ENTRANCE = new DialogueNodeOld("Entrance", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_ENTRANCE = new DialogueNode("Entrance", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -136,7 +137,7 @@ public class RedLightDistrict {
 					return new Response("Continue", "Angel leaves you alone to explore Angel's Kiss by yourself...", ANGELS_KISS_ENTRANCE){
 						@Override
 						public void effects() {
-							Main.game.getAngel().setLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_OFFICE, false);
+							Main.game.getNpc(Angel.class).setLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_OFFICE, false);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.angelIntroduced, true);
 						}
 					};
@@ -159,8 +160,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_CORRIDOR = new DialogueNodeOld("Corridor", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_CORRIDOR = new DialogueNode("Corridor", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -178,8 +178,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_STAIRS_UP = new DialogueNodeOld("Staircase Up", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_STAIRS_UP = new DialogueNode("Staircase Up", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -207,8 +206,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_STAIRS_DOWN = new DialogueNodeOld("Staircase Down", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_STAIRS_DOWN = new DialogueNode("Staircase Down", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -236,8 +234,7 @@ public class RedLightDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld ANGELS_KISS_BEDROOM = new DialogueNodeOld("Bedroom", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_BEDROOM = new DialogueNode("Bedroom", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -325,8 +322,8 @@ public class RedLightDistrict {
 										new SMStanding(
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
-										AFTER_SEX_PROSTITUTE,
-										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
+										null,
+										null, AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
 							
 						} else if (index == 2) {
 								return new ResponseSex("Submissive Sex",
@@ -335,8 +332,8 @@ public class RedLightDistrict {
 										new SMStanding(
 												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-										AFTER_SEX_PROSTITUTE,
-										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
+										null,
+										null, AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
 							
 						}
 						
@@ -354,8 +351,8 @@ public class RedLightDistrict {
 										new SMStanding(
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
-										AFTER_SEX_PROSTITUTE,
-										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
+										null,
+										null, AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
 									@Override
 									public void effects() {
 										Main.game.getPlayer().incrementMoney(-cost);
@@ -375,8 +372,8 @@ public class RedLightDistrict {
 										new SMStanding(
 												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-										AFTER_SEX_PROSTITUTE,
-										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
+										null,
+										null, AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
 									@Override
 									public void effects() {
 										Main.game.getPlayer().incrementMoney(-cost);
@@ -393,7 +390,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Sub)", "Tell Angel that you've like to act as the submissive partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_SUB){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
@@ -418,7 +415,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Dom)", "Tell Angel that you've like to act as the dominant partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_DOM){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
@@ -444,12 +441,11 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PROSTITUTE = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_PROSTITUTE = new DialogueNode("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -470,12 +466,11 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_SELL_SELF_SUB = new DialogueNode("Bedroom", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -494,8 +489,8 @@ public class RedLightDistrict {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_SELL_SELF_SUB,
-						UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_START")) {
+						null,
+						null, AFTER_SEX_SELL_SELF_SUB, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_START")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(payment);
@@ -519,8 +514,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_SELL_SELF_DOM = new DialogueNode("Bedroom", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -543,8 +537,8 @@ public class RedLightDistrict {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_SELL_SELF_DOM,
-						UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DOM_START")) {
+						null,
+						null, AFTER_SEX_SELL_SELF_DOM, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DOM_START")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(payment);
@@ -568,8 +562,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_SELL_SELF_DECLINE = new DialogueNodeOld("Bedroom", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_SELL_SELF_DECLINE = new DialogueNode("Bedroom", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -587,12 +580,11 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_SELL_SELF_DOM = new DialogueNode("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -616,12 +608,11 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_SELL_SELF_SUB = new DialogueNode("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -645,8 +636,7 @@ public class RedLightDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld ANGELS_KISS_BEDROOM_BUNNY = new DialogueNodeOld("Bunny's Bedroom", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_BEDROOM_BUNNY = new DialogueNode("Bunny's Bedroom", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -682,9 +672,9 @@ public class RedLightDistrict {
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getBunny(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_BUNNY,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_SEX")) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Bunny.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
+							null, AFTER_SEX_BUNNY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_SEX")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.bunnyIntroduced, true);
@@ -704,10 +694,10 @@ public class RedLightDistrict {
 							new SMDoggy(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getBunny(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getLoppy(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							AFTER_SEX_BUNNY_THREESOME,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
+											new Value<>(Main.game.getNpc(Bunny.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
+											new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+							null,
+							null, AFTER_SEX_BUNNY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.loppyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_NOT_INTRODUCED"))) {
@@ -715,7 +705,7 @@ public class RedLightDistrict {
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.bunnyIntroduced, true);
 //							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
-							Main.game.getLoppy().setLocation(WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_BUNNY, false);
+							Main.game.getNpc(Loppy.class).setLocation(WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_BUNNY, false);
 							Main.game.getPlayer().incrementMoney(-threesomeCost);
 						}
 					};
@@ -736,17 +726,16 @@ public class RedLightDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_SEX_BUNNY = new DialogueNodeOld("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_BUNNY = new DialogueNode("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getBunny()) == 0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Bunny.class)) == 0) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_AFTER_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_AFTER_SEX");
@@ -759,12 +748,11 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_BUNNY_THREESOME = new DialogueNodeOld("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_BUNNY_THREESOME = new DialogueNode("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
-			return 35;
+			return 5;
 		}
 
 		@Override
@@ -778,8 +766,7 @@ public class RedLightDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld ANGELS_KISS_BEDROOM_LOPPY = new DialogueNodeOld("Loppy's Bedroom", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_BEDROOM_LOPPY = new DialogueNode("Loppy's Bedroom", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -816,9 +803,9 @@ public class RedLightDistrict {
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_LOPPY,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX")) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
+							null, AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
@@ -836,10 +823,10 @@ public class RedLightDistrict {
 							"Pay "+dominantCost+" flames to let Loppy take charge and fuck you.",
 							true, true,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_LOPPY,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX_SUBMISSIVE")) {
+							null,
+							null, AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX_SUBMISSIVE")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
@@ -859,10 +846,10 @@ public class RedLightDistrict {
 							new SMDoggy(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getLoppy(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getBunny(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							AFTER_SEX_LOPPY_THREESOME,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
+											new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
+											new Value<>(Main.game.getNpc(Bunny.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+							null,
+							null, AFTER_SEX_LOPPY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bunnyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_NOT_INTRODUCED"))) {
@@ -870,7 +857,7 @@ public class RedLightDistrict {
 						public void effects() {
 //							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.bunnyIntroduced, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
-							Main.game.getBunny().setLocation(WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_LOPPY, false);
+							Main.game.getNpc(Bunny.class).setLocation(WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_LOPPY, false);
 							Main.game.getPlayer().incrementMoney(-threesomeCost);
 						}
 					};
@@ -891,17 +878,16 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_LOPPY = new DialogueNodeOld("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_LOPPY = new DialogueNode("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getLoppy()) == 0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Loppy.class)) == 0) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_AFTER_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_AFTER_SEX");
@@ -915,12 +901,11 @@ public class RedLightDistrict {
 	};
 
 	
-	public static final DialogueNodeOld AFTER_SEX_LOPPY_THREESOME = new DialogueNodeOld("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_LOPPY_THREESOME = new DialogueNode("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
 
 		@Override
 		public int getMinutesPassed() {
-			return 35;
+			return 5;
 		}
 
 		@Override
@@ -934,8 +919,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE = new DialogueNodeOld("Angel's Office", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1003,8 +987,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE_CONTINUE = new DialogueNodeOld("Angel's Office", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE_CONTINUE = new DialogueNode("Angel's Office", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1022,8 +1005,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE_PROSTITUTION = new DialogueNodeOld("Angel's Office", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE_PROSTITUTION = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1046,8 +1028,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE_BACKGROUND = new DialogueNodeOld("Angel's Office", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE_BACKGROUND = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1070,8 +1051,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld ANGELS_KISS_OFFICE_LICENSE_PURCHASE = new DialogueNodeOld("Angel's Office", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ANGELS_KISS_OFFICE_LICENSE_PURCHASE = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {

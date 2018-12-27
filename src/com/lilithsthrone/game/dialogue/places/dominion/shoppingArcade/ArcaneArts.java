@@ -5,10 +5,11 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.dominion.Vicky;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
@@ -26,13 +27,12 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.2.4
+ * @version 0.3
  * @author Innoxia
  */
 public class ArcaneArts {
 	
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Arcane Arts (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Arcane Arts (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -62,8 +62,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_WEAPONS = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_WEAPONS = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -108,7 +107,7 @@ public class ArcaneArts {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseTrade("Trade with Vicky", "Walk over to the counter and see what crystals and feathers Vicky has in stock.", Main.game.getVicky()) {
+				return new ResponseTrade("Trade with Vicky", "Walk over to the counter and see what crystals and feathers Vicky has in stock.", Main.game.getNpc(Vicky.class)) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vickyIntroduced, true);
@@ -139,10 +138,10 @@ public class ArcaneArts {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMVickyOverDesk(
-										Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-								VICKY_POST_SEX,
-									"<p>"
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexPositionSlot.MISSIONARY_DESK_DOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))),
+								null,
+									null, VICKY_POST_SEX, "<p>"
 										+ "[pc.speech(I was wondering... If you'd like to use me...)]"
 										+ " you say, looking sheepishly up at Vicky."
 									+ "</p>"
@@ -153,7 +152,7 @@ public class ArcaneArts {
 									+ "</p>"
 									+ "<p>"
 										+ "Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top."
-										+ " Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+										+ " Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 										+ " [vicky.speech(I hope you like it rough!)]"
 									+ "</p>");
 					} else {
@@ -170,8 +169,8 @@ public class ArcaneArts {
 									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
-									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexPositionSlot.MISSIONARY_DESK_DOM)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -180,8 +179,8 @@ public class ArcaneArts {
 									return null;
 								}
 							},
-							VICKY_POST_SEX_RAPE,
-							"<p>"
+							null,
+							null, VICKY_POST_SEX_RAPE, "<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's attitude, you try to back away towards the front door, muttering,"
 								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
 							+ "</p>"
@@ -200,7 +199,7 @@ public class ArcaneArts {
 								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
 							+ "</p>"
 							+ "<p>"
-								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ "Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
 							+ "</p>");
 					
@@ -222,8 +221,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld ARTHURS_PACKAGE = new DialogueNodeOld("Arcane Arts", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ARTHURS_PACKAGE = new DialogueNode("Arcane Arts", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -286,10 +284,10 @@ public class ArcaneArts {
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 							true, false,
 							new SMVickyOverDesk(
-									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-							VICKY_POST_SEX_PACKAGE,
-								"<p>"
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexPositionSlot.MISSIONARY_DESK_DOM)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))),
+							null,
+								null, VICKY_POST_SEX_PACKAGE, "<p>"
 									+ "[pc.speech(That second option doesn't sound so bad...)]"
 									+ " you say, grinning up at Vicky as she roughly presses you against the wall."
 								+ "</p>"
@@ -300,7 +298,7 @@ public class ArcaneArts {
 								+ "</p>"
 								+ "<p>"
 									+ "Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top."
-									+ " Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+									+ " Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 									+ " [vicky.speech(I hope you like it rough!)]"
 								+ "</p>");
 				} else {
@@ -316,8 +314,8 @@ public class ArcaneArts {
 									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
-									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexPositionSlot.MISSIONARY_DESK_DOM)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -326,8 +324,8 @@ public class ArcaneArts {
 									return null;
 								}
 							},
-							VICKY_POST_SEX_RAPE_PACKAGE,
-							"<p>"
+							null,
+							null, VICKY_POST_SEX_RAPE_PACKAGE, "<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's advances, you try to slip away, muttering,"
 								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
 							+ "</p>"
@@ -345,7 +343,7 @@ public class ArcaneArts {
 								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
 							+ "</p>"
 							+ "<p>"
-								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ "Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
 							+ "</p>");
 					
@@ -375,8 +373,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld ARTHURS_PACKAGE_BOUGHT = new DialogueNodeOld("Arcane Arts", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ARTHURS_PACKAGE_BOUGHT = new DialogueNode("Arcane Arts", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -401,8 +398,7 @@ public class ArcaneArts {
 	};
 	
 	
-	public static final DialogueNodeOld VICKY_POST_SEX_PACKAGE = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode VICKY_POST_SEX_PACKAGE = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -425,8 +421,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld VICKY_POST_SEX_RAPE_PACKAGE = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode VICKY_POST_SEX_RAPE_PACKAGE = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -450,8 +445,7 @@ public class ArcaneArts {
 	};
 	
 	
-	public static final DialogueNodeOld VICKY_POST_SEX = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode VICKY_POST_SEX = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -473,8 +467,7 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld VICKY_POST_SEX_RAPE = new DialogueNodeOld("Arcane Arts", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode VICKY_POST_SEX_RAPE = new DialogueNode("Arcane Arts", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -485,7 +478,7 @@ public class ArcaneArts {
 				+ "</p>"
 				+ "<p>"
 					+ "The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter."
-					+ " You quickly finish gathering your things, and, taking the package from on top of the counter, you prepare to make your next move."
+					+ " You quickly finish gathering your things, and prepare to make your next move."
 					+ " Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next..."
 				+ "</p>";
 		}

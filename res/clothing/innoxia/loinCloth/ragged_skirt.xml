@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>5</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[ragged skirt]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[ragged skirts]]></namePlural> 
+		
+		<description><![CDATA[A particularly crude and ragged skirt. Even the most destitute and disadvantaged residents of Dominion wouldn't be seen dead in this.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>LEG</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>ragged_skirt.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType> 
+				
+				<clothingAccessRequired/>
+				
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_BROWN</colour>
+			<colour>CLOTHING_BROWN_DARK</colour>
+			<colour>CLOTHING_TAN</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags/>
+	</coreAttributes>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You take off your skirt.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You pull off [npc.name]'s skirt.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You grab hold of [npc.name]'s skirt and roughly pull it off.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] takes [npc.her] skirt off.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] pulls your skirt off.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] grabs hold of your skirt and roughly pulls it off.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] pulls [npc2.name]'s skirt off.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] grabs hold of [npc2.name]'s skirt and roughly pulls it off.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+
+	<!-- 'replacementText' is used for equipping and replacements. -->
+	<replacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You pull on the skirt.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You get [npc.name] to wear the skirt.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You hold [npc.name] still as you roughly force [npc.herHim] to wear the skirt.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] pulls on the skirt.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] gets you to wear the skirt.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] holds you still as [npc.she] roughly forces you to wear the skirt.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] gets [npc2.name] to wear the skirt.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces [npc2.herHim] to wear the skirt.
+		]]></NPCOtherNPCRough>
+	</replacementText>
+	
+</clothing>

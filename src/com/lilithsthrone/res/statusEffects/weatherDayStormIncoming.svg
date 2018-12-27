@@ -1,127 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100%"
-   height="100%"
-   viewBox="0 0 64.000001 64.000001"
-   id="svg4311"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="weatherDayStormIncoming.svg">
-  <defs
-     id="defs4313">
-    <linearGradient
-       id="linearGradient4518"
-       inkscape:collect="always">
-      <stop
-         id="stop4520"
-         offset="0"
-         style="stop-color:#aa00d4;stop-opacity:1" />
-      <stop
-         id="stop4522"
-         offset="1"
-         style="stop-color:#6f7c91;stop-opacity:1" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient4508">
-      <stop
-         style="stop-color:#cc00ff;stop-opacity:1"
-         offset="0"
-         id="stop4510" />
-      <stop
-         style="stop-color:#b7bec8;stop-opacity:1"
-         offset="1"
-         id="stop4512" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4508"
-       id="linearGradient4514"
-       x1="479.00003"
-       y1="45.5"
-       x2="478.75003"
-       y2="27.25"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.9,0,0,0.9,13.992962,3.062138)" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4518"
-       id="linearGradient4516"
-       x1="492.75003"
-       y1="28.5"
-       x2="492.50003"
-       y2="12.499998"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.9,0,0,0.9,13.992962,3.062138)" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="2.828427"
-     inkscape:cx="284.53147"
-     inkscape:cy="-5.783529"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer3"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata4316">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="Stage3"
-     style="display:inline">
-    <g
-       id="g5048"
-       transform="translate(-415.12915,6.2728948)">
-      <ellipse
-         ry="15.715345"
-         rx="15.88587"
-         cy="22.921787"
-         cx="438.03732"
-         id="path4200-9-3"
-         style="display:inline;opacity:1;fill:#ffc100;fill-opacity:1;stroke:#000000;stroke-width:0.96461505;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="scccss"
-         inkscape:connector-curvature="0"
-         id="path4220-1-6-1"
-         d="m 470.38044,30.80639 c 6.23086,-0.03563 6.07191,-11.060337 -2.28838,-10.826396 1.62726,-5.456769 -5.18903,-7.394785 -7.76577,-4.446694 -0.29682,-5.6906868 -9.80795,-9.1620633 -13.17914,-1.497813 -14.59414,-2.294242 -13.67509,16.981677 -3.88243,16.925755 z"
-         style="display:inline;fill:url(#linearGradient4516);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.65269744;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="scccss"
-         inkscape:connector-curvature="0"
-         id="path4220-6-0"
-         d="m 424.84537,43.776717 c -8.14671,-0.04593 -7.93888,-14.256659 2.99202,-13.95511 -2.12761,-7.033717 6.78454,-9.531799 10.15355,-5.731741 0.3881,-7.335237 12.82368,-11.809805 17.23144,-1.930666 19.0815,-2.957254 17.87986,21.889203 5.07619,21.81712 z"
-         style="display:inline;fill:url(#linearGradient4514);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.84733212;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="linearGradient4518">
+            <stop offset="0" stop-color="#aa00d4"/>
+            <stop offset="1" stop-color="#6f7c91"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4508">
+            <stop offset="0" stop-color="#c0f"/>
+            <stop offset="1" stop-color="#b7bec8"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4514" x1="479" x2="478.75" y1="45.5" y2="27.25" gradientTransform="matrix(.9 0 0 .9 13.993 3.062)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4508"/>
+        <linearGradient id="linearGradient4516" x1="492.75" x2="492.5" y1="28.5" y2="12.5" gradientTransform="matrix(.9 0 0 .9 13.993 3.062)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4518"/>
+    </defs>
+    <g stroke="#000" transform="translate(-415.13 6.273)">
+        <ellipse cx="438.037" cy="22.922" fill="#ffc100" stroke-linecap="round" stroke-linejoin="round" stroke-width=".965" rx="15.886" ry="15.715"/>
+        <path fill="url(#linearGradient4516)" fill-rule="evenodd" stroke-width=".653" d="M470.38 30.806c6.231-.035 6.072-11.06-2.288-10.826 1.627-5.457-5.189-7.395-7.766-4.447-.297-5.69-9.808-9.162-13.179-1.498-14.594-2.294-13.675 16.982-3.882 16.926z"/>
+        <path fill="url(#linearGradient4514)" fill-rule="evenodd" stroke-width=".847" d="M424.845 43.777c-8.146-.046-7.939-14.257 2.992-13.955-2.127-7.034 6.785-9.532 10.154-5.732.388-7.335 12.824-11.81 17.231-1.93 19.082-2.958 17.88 21.888 5.077 21.816z"/>
     </g>
-  </g>
 </svg>

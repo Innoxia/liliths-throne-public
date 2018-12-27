@@ -3,31 +3,39 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.2.11
  * @author Innoxia
  */
 public class PlayerSelfFingerNipple {
 	
 	
 	public static final SexAction PLAYER_PINCH_NIPPLES = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getCharacterPerformingAction().isPlayer();
+		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Pinch nipples (self)";
@@ -49,7 +57,10 @@ public class PlayerSelfFingerNipple {
 					
 					"You reach up to your breasts, and, with eager fingers, start to pinch and rub at your exposed nipples.",
 					
-					"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc.name] smirks at you."));
+					Sex.isMasturbation()
+						?"Your nipples are just begging for some attention, and you whine in delight as you reach up to start pinching them."
+						:UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+								"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc.name] smirks at you.")));
 			
 			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
@@ -89,13 +100,16 @@ public class PlayerSelfFingerNipple {
 	
 	
 	public static final SexAction PLAYER_SELF_FINGER_NIPPLE_PENETRATION = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Finger nipples (self)";
@@ -156,15 +170,17 @@ public class PlayerSelfFingerNipple {
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_NIPPLE_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			SexPace.DOM_GENTLE,
-			null) {
+			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -196,15 +212,17 @@ public class PlayerSelfFingerNipple {
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_NIPPLE_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			SexPace.DOM_NORMAL,
-			null) {
+			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -236,15 +254,17 @@ public class PlayerSelfFingerNipple {
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_NIPPLE_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			SexPace.DOM_ROUGH,
-			null) {
+			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -276,15 +296,17 @@ public class PlayerSelfFingerNipple {
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_FINGER_NIPPLE_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			SexPace.SUB_NORMAL,
-			null) {
+			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -316,15 +338,17 @@ public class PlayerSelfFingerNipple {
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_FINGER_NIPPLE_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			SexPace.SUB_EAGER,
-			null) {
+			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -356,13 +380,16 @@ public class PlayerSelfFingerNipple {
 	};
 	
 	public static final SexAction PLAYER_SELF_FINGER_NIPPLE_STOP_PENETRATION = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {

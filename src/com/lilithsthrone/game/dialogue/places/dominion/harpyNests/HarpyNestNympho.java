@@ -4,18 +4,20 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
+import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
@@ -29,8 +31,7 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class HarpyNestNympho {
 
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO = new DialogueNodeOld("Harpy nest", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO = new DialogueNode("Harpy nest", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -39,7 +40,7 @@ public class HarpyNestNympho {
 		
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 
 		@Override
@@ -47,7 +48,7 @@ public class HarpyNestNympho {
 			if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoEncountered)) {
 					return "<p>"
-								+ "Due to the ongoing arcane storm, [harpyNympho.name]'s nest is completely deserted."
+								+ "Due to the ongoing arcane storm, [harpyNympho.namePos] nest is completely deserted."
 								+ " Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her."
 							+ "</p>";
 				} else {
@@ -60,7 +61,7 @@ public class HarpyNestNympho {
 			} else {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoEncountered)) {
 					return "<p>"
-								+ "You find yourself standing on the outskirts of [harpyNympho.name]'s nest; one of the most populous of all the nests in Dominion."
+								+ "You find yourself standing on the outskirts of [harpyNympho.namePos] nest; one of the most populous of all the nests in Dominion."
 								+ " Despite the importance of the matriarch who resides here, her nest is no bigger than any of the minor ones scattered throughout the Harpy Nests,"
 									+ " and comprises of a single, large platform built into the rooftops of several houses below."
 								+ (Main.game.isDayTime()
@@ -72,7 +73,7 @@ public class HarpyNestNympho {
 								+ "Taking a closer look at the multi-coloured inhabitants of this particular nest, you notice that something's slightly off about them."
 								+ " While still looking very pretty, the vast majority of the flock are rather plain-looking by harpy standards."
 								+ " A few of the nest's members stand out as being exceptionally beautiful in comparison, and you realise that those must be the only females of this particular flock."
-								+ " Knowing about [harpyNympho.name]'s obsession with sex, you surmise that she's gathered a huge following of males in order to keep her craving for cock satisfied."
+								+ " Knowing about [harpyNympho.namePos] obsession with sex, you surmise that she's gathered a huge following of males in order to keep her craving for cock satisfied."
 							+ "</p>"
 							+ "<p>"
 								+ "Looking towards the centre of the platform, you see if you can spot the nymphomaniac matriarch herself."
@@ -123,14 +124,14 @@ public class HarpyNestNympho {
 						return new Response("Approach [harpyNympho.name]", "Walk to the centre of the nest and talk to [harpyNympho.name].", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().getCummedInAreaMap().put(OrificeType.VAGINA, 75);
+								Main.game.getNpc(HarpyNympho.class).ingestFluid(Main.game.getNpc(HarpyNymphoCompanion.class), Main.game.getNpc(HarpyNymphoCompanion.class).getCum(), SexAreaOrifice.VAGINA, 250);
 							}
 						};
 					} else {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().getCummedInAreaMap().put(OrificeType.VAGINA, 75);
+								Main.game.getNpc(HarpyNympho.class).ingestFluid(Main.game.getNpc(HarpyNymphoCompanion.class), Main.game.getNpc(HarpyNymphoCompanion.class).getCum(), SexAreaOrifice.VAGINA, 250);
 							}
 						};
 					}
@@ -142,12 +143,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_APPROACH = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_APPROACH = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
@@ -161,14 +161,14 @@ public class HarpyNestNympho {
 						+ "</p>"
 						+ "<p>"
 							+ "As you pass the groups of loitering harpies, you overhear snippets of conversation,"
-							+ "[style.speechFeminine(...she let me unload in her three times last night...)]</br>"
-							+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]</br>"
-							+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]</br>"
+							+ "[style.speechFeminine(...she let me unload in her three times last night...)]<br/>"
+							+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]<br/>"
+							+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]<br/>"
 						+ "</p>"
 						+ "<p>"
 							+ "Smirking as you push through the crowds, you soon find yourself standing before the harpy they're all talking about."
 							+ " Moaning and squealing in delight, [harpyNympho.name] is once again riding her favourite boy-toy, [harpyNymphoCompanion.name]."
-							+ " As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of [harpyNympho.name]'s pussy."
+							+ " As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of [harpyNympho.namePos] pussy."
 							+ " After taking a few moments to catch her breath, she lifts herself up, allowing the hot load to drool out of her well-used cunt, and, leaning down to deliver a passionate kiss on her partner's lips, she calls out,"
 							+ " [harpyNympho.speech(Who's next?!)]"
 						+ "</p>"
@@ -194,14 +194,14 @@ public class HarpyNestNympho {
 						+ "</p>"
 						+ "<p>"
 							+ "As you pass the groups of loitering harpies, you overhear snippets of conversation,"
-							+ "[style.speechFeminine(...she let me unload in her three times last night...)]</br>"
-							+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]</br>"
-							+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]</br>"
+							+ "[style.speechFeminine(...she let me unload in her three times last night...)]<br/>"
+							+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]<br/>"
+							+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]<br/>"
 						+ "</p>"
 						+ "<p>"
 							+ "Pushing through the crowds, you soon find yourself standing before the harpy they're all talking about."
 							+ " Moaning and squealing in delight, [harpyNympho.name] is once again riding her favourite boy-toy, [harpyNymphoCompanion.name]."
-							+ " As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of [harpyNympho.name]'s pussy."
+							+ " As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of [harpyNympho.namePos] pussy."
 							+ " After taking a few moments to catch her breath, she lifts herself up, allowing the hot load to drool out of her well-used cunt, and, leaning down to deliver a passionate kiss on her partner's lips, she calls out,"
 							+ " [harpyNympho.speech(Who's next?!)]"
 						+ "</p>"
@@ -229,9 +229,9 @@ public class HarpyNestNympho {
 					+ "</p>"
 					+ "<p>"
 						+ "As you pass the groups of loitering harpies, you overhear snippets of conversation,"
-						+ "[style.speechFeminine(...she let me unload in her three times last night...)]</br>"
-						+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]</br>"
-						+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]</br>"
+						+ "[style.speechFeminine(...she let me unload in her three times last night...)]<br/>"
+						+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]<br/>"
+						+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]<br/>"
 					+ "</p>"
 					+ "<p>"
 						+ "Pushing through the crowds, you soon find yourself standing before the harpy they're all talking about."
@@ -269,10 +269,10 @@ public class HarpyNestNympho {
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyNympho(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							HARPY_NEST_NYMPHO_AFTER_SEX,
-							"<p>"
-								+ "Eager to help satisfy [harpyNympho.name]'s craving for sex, you reach down and grab her wings."
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyNympho.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
+							null, HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
+								+ "Eager to help satisfy [harpyNympho.namePos] craving for sex, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 							+ "</p>"
 							+ "<p>"
@@ -357,12 +357,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_TALK = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_TALK = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
@@ -433,12 +432,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_UGLY = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_UGLY = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
@@ -460,7 +458,7 @@ public class HarpyNestNympho {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[harpyNymphoCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getHarpyNymphoCompanion());
+				return new ResponseCombat("Fight", "[harpyNymphoCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyNymphoCompanion.class));
 					
 			} else {
 				return null;
@@ -468,12 +466,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_QUEEN = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_QUEEN = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
@@ -488,7 +485,7 @@ public class HarpyNestNympho {
 				+ "</p>"
 				+ "<p>"
 					+ "The murmurs of conversation that had been surrounding you up until this point start to fade away, and you realise that the crowds of male harpies all around you are listening in closely."
-					+ " From the moment you stepped foot inside [harpyNympho.name]'s nest, you could feel her flock's gaze resting on your beautiful figure, and now, loudly critiquing their matriarch's sexual skills,"
+					+ " From the moment you stepped foot inside [harpyNympho.namePos] nest, you could feel her flock's gaze resting on your beautiful figure, and now, loudly critiquing their matriarch's sexual skills,"
 						+ " you're getting their full attention."
 				+ "</p>"
 				+ "<p>"
@@ -509,7 +506,7 @@ public class HarpyNestNympho {
 					+ " [pc.speech(like having your pussy, ass and mouth all used at the same time. Or allowing your nest to run a train on your slutty little cunt here.)]"
 				+ "</p>"
 				+ "<p>"
-					+ "As you say that, you reach down and grab [harpyNympho.name]'s exposed pussy."
+					+ "As you say that, you reach down and grab [harpyNympho.namePos] exposed pussy."
 					+ " She lets out a little squeak, and, leaning into you, moans,"
 					+ " [harpyNympho.speech(Yes... I'll do that... What else?)]"
 				+ "</p>"
@@ -534,7 +531,7 @@ public class HarpyNestNympho {
 				+ "<p>"
 					+ "Producing a cock-shaped lollipop, [harpyNympho.name] holds it out towards you."
 					+ " [harpyNympho.speech("+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+", this will make you look like me! I-If you want to look like me, that is...)]"
-					+ " You take the lollipop in recognition of [harpyNympho.name]'s submission, but you're unsure whether you'll actually use it..."
+					+ " You take the lollipop in recognition of [harpyNympho.namePos] submission, but you're unsure whether you'll actually use it..."
 				+ "</p>"
 				+ "<p>"
 					+ "[pc.speech(Good girl!)] you say. [pc.speech(Now, you're going to get your nest to calm down, aren't you?)]"
@@ -543,7 +540,7 @@ public class HarpyNestNympho {
 					+ "[harpyNympho.speech(Yes "+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"! I'll be able to relieve all their stress if I start letting them use me all at once!)]"
 				+ "</p>"
 				+ "<p>"
-					+ "Thanks to your own obsession with sex, your powerful arcane aura, and your good looks, you've been able to subdue [harpyNympho.name]'s nest without fighting!"
+					+ "Thanks to your own obsession with sex, your powerful arcane aura, and your good looks, you've been able to subdue [harpyNympho.namePos] nest without fighting!"
 					+ " Looking down at the still-moaning matriarch, you wonder if you should give her some one-to-one tuition..."
 				+ "</p>";
 		}
@@ -555,10 +552,10 @@ public class HarpyNestNympho {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyNympho(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_NYMPHO_AFTER_SEX,
-						"<p>"
-							+ "Eager to help satisfy [harpyNympho.name]'s craving for sex, you reach down and grab her wings."
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyNympho.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						null,
+						null, HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
+							+ "Eager to help satisfy [harpyNympho.namePos] craving for sex, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 						+ "</p>"
 						+ "<p>"
@@ -587,12 +584,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_FIGHT = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_FIGHT = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
@@ -613,7 +609,7 @@ public class HarpyNestNympho {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[harpyNymphoCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getHarpyNymphoCompanion());
+				return new ResponseCombat("Fight", "[harpyNymphoCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyNymphoCompanion.class));
 					
 			} else {
 				return null;
@@ -621,12 +617,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_FIGHT_LOSE = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_FIGHT_LOSE = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
@@ -692,7 +687,7 @@ public class HarpyNestNympho {
 								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
 								+ " Before you know what you're doing, you're eagerly sucking and licking on the delicious candy, letting out little whining noises as you find yourself unable to stop..."
 							+ "</p>"
-							+ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyNympho(), Main.game.getPlayer(), null));
+							+ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyNympho.class), Main.game.getPlayer(), null));
 					}
 				};
 					
@@ -702,12 +697,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_FIGHT_BEAT_BF = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_FIGHT_BEAT_BF = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
@@ -726,7 +720,7 @@ public class HarpyNestNympho {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[harpyNympho.Name] looks furious as she launches her attack on you!", Main.game.getHarpyNympho());
+				return new ResponseCombat("Fight", "[harpyNympho.Name] looks furious as she launches her attack on you!", Main.game.getNpc(HarpyNympho.class));
 					
 			} else {
 				return null;
@@ -734,12 +728,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_FIGHT_LOSE_TO_MATRIARCH = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_FIGHT_LOSE_TO_MATRIARCH = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
@@ -753,7 +746,7 @@ public class HarpyNestNympho {
 					+ " [harpyNympho.speech(Come on, I'll make you feel better!)]"
 				+ "</p>"
 				+ "<p>"
-					+ "As the members of [harpyNympho.name]'s flock continue to hold you down, you hear the matriarch and her companion walking towards you."
+					+ "As the members of [harpyNympho.namePos] flock continue to hold you down, you hear the matriarch and her companion walking towards you."
 					+ " Some of the harpies start laughing as you try to wriggle free, but you're too weak from the fight to offer any real resistance."
 				+ "</p>"
 				+ "<p>"
@@ -804,7 +797,7 @@ public class HarpyNestNympho {
 								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
 								+ " Before you know what you're doing, you're eagerly sucking and licking on the delicious candy, letting out little whining noises as you find yourself unable to stop..."
 							+ "</p>"
-							+ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyNympho(), Main.game.getPlayer(), null));
+							+ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyNympho.class), Main.game.getPlayer(), null));
 					}
 				};
 					
@@ -814,19 +807,18 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_FIGHT_BEAT_NYMPHO = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_FIGHT_BEAT_NYMPHO = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "[harpyNympho.Name]'s flock, just a moment ago cheering and shouting support for their matriarch, falls completely silent as they see her slump to the floor, defeated."
-					+ " Walking forwards, you tower over the panting mass of pink feathers, and you hear an erotic moan slip out from between [harpyNympho.name]'s lips as she pushes herself up onto her knees."
+					+ "[harpyNympho.NamePos] flock, just a moment ago cheering and shouting support for their matriarch, falls completely silent as they see her slump to the floor, defeated."
+					+ " Walking forwards, you tower over the panting mass of pink feathers, and you hear an erotic moan slip out from between [harpyNympho.namePos] lips as she pushes herself up onto her knees."
 					+ " [harpyNympho.speech(Y-You're so... powerful...)]"
 				+ "</p>"
 				+ "<p>"
@@ -845,7 +837,7 @@ public class HarpyNestNympho {
 					+ "A chorus of eager agreements rise up from the surrounding crowd, and you find yourself smirking as you look back down at the defeated matriarch at your feet."
 					+ " Shuffling closer, [harpyNympho.name] holds up a pink cock-shaped lollipop."
 					+ " [harpyNympho.speechNoEffects("+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"! Please, have one of my special lollipops! This will make you look like me! I-If you want to look like me, that is...)]"
-					+ " You take the lollipop in recognition of [harpyNympho.name]'s submission, but you're unsure whether you'll actually use it..."
+					+ " You take the lollipop in recognition of [harpyNympho.namePos] submission, but you're unsure whether you'll actually use it..."
 				+ "</p>"
 				+ "<p>"
 					+ "[pc.speech(Good girl!)] you say. [pc.speech(Now, you're going to get your nest to calm down, aren't you?)]"
@@ -866,10 +858,10 @@ public class HarpyNestNympho {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyNympho(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_NYMPHO_AFTER_SEX,
-						"<p>"
-							+ "Eager to show this nest who's in charge, you reach down and grab [harpyNympho.name]'s wings."
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyNympho.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						null,
+						null, HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
+							+ "Eager to show this nest who's in charge, you reach down and grab [harpyNympho.namePos] wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 						+ "</p>"
 						+ "<p>"
@@ -898,19 +890,18 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT_NO_TF = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT_NO_TF = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
 		public String getContent() {
 			return "<p>"
 					+ "With a determined yank, you finally manage to pull one of your [pc.arms] free from the harpy's clutches."
-					+ " Before they're able to restrain you again, you grab the lollipop out of [harpyNympho.name]'s feathered hand, before smashing it on the floor beneath you."
+					+ " Before they're able to restrain you again, you grab the lollipop out of [harpyNympho.namePos] feathered hand, before smashing it on the floor beneath you."
 				+ "</p>"
 				+"<p>"
 					+ "[harpyNympho.speech(Silly [pc.girl]! That's not going to make this any easier for you!)]"
@@ -922,13 +913,13 @@ public class HarpyNestNympho {
 					+ " [harpyNymphoCompanion.speech(That sounds fun!)]"
 				+ "</p>"
 				+ "<p>"
-					+ "With [harpyNympho.name]'s pussy hovering above your face, you're held in position and forced to watch as [harpyNymphoCompanion.name] lifts up her skirt and pulls down her underwear."
-					+ " Stepping forwards, you see her tiny little avian cock standing to attention, and with a thrust of her hips, she slides into [harpyNympho.name]'s wet cunt."
-					+ " Some of the cum from [harpyNympho.name]'s previous creampie oozes out around [harpyNymphoCompanion.name]'s little cock, and you flinch as the salty jizz drips down onto your face."
+					+ "With [harpyNympho.namePos] pussy hovering above your face, you're held in position and forced to watch as [harpyNymphoCompanion.name] lifts up her skirt and pulls down her underwear."
+					+ " Stepping forwards, you see her tiny little avian cock standing to attention, and with a thrust of her hips, she slides into [harpyNympho.namePos] wet cunt."
+					+ " Some of the cum from [harpyNympho.namePos] previous creampie oozes out around [harpyNymphoCompanion.namePos] little cock, and you flinch as the salty jizz drips down onto your face."
 				+ "</p>"
 				+ "<p>"
-					+ "For the next few hours, you're forced to act as [harpyNympho.name]'s personal pussy-cleaner."
-					+ " One after another, the harpies of [harpyNympho.name]'s flock take turns fucking their sex-crazed matriarch."
+					+ "For the next few hours, you're forced to act as [harpyNympho.namePos] personal pussy-cleaner."
+					+ " One after another, the harpies of [harpyNympho.namePos] flock take turns fucking their sex-crazed matriarch."
 					+ " She insists that each one finish inside of her, and after receiving each creampie, she lowers herself down onto your face, forcing you to lick her clean before the next excited harpy's turn."
 				+ "</p>"
 				+ "<p>"
@@ -958,12 +949,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override
@@ -987,13 +977,13 @@ public class HarpyNestNympho {
 					+ " [harpyNymphoCompanion.speech(That sounds fun!)]"
 				+ "</p>"
 				+ "<p>"
-					+ "With [harpyNympho.name]'s pussy hovering above your face, you're held in position and forced to watch as [harpyNymphoCompanion.name] lifts up her skirt and pulls down her underwear."
-					+ " Stepping forwards, you see her tiny little avian cock standing to attention, and with a thrust of her hips, she slides into [harpyNympho.name]'s wet cunt."
-					+ " Some of the cum from [harpyNympho.name]'s previous creampie oozes out around [harpyNymphoCompanion.name]'s little cock, and you flinch as the salty jizz drips down onto your face."
+					+ "With [harpyNympho.namePos] pussy hovering above your face, you're held in position and forced to watch as [harpyNymphoCompanion.name] lifts up her skirt and pulls down her underwear."
+					+ " Stepping forwards, you see her tiny little avian cock standing to attention, and with a thrust of her hips, she slides into [harpyNympho.namePos] wet cunt."
+					+ " Some of the cum from [harpyNympho.namePos] previous creampie oozes out around [harpyNymphoCompanion.namePos] little cock, and you flinch as the salty jizz drips down onto your face."
 				+ "</p>"
 				+ "<p>"
-					+ "For the next few hours, you're forced to act as [harpyNympho.name]'s personal pussy-cleaner."
-					+ " One after another, the harpies of [harpyNympho.name]'s flock take turns fucking their sex-crazed matriarch."
+					+ "For the next few hours, you're forced to act as [harpyNympho.namePos] personal pussy-cleaner."
+					+ " One after another, the harpies of [harpyNympho.namePos] flock take turns fucking their sex-crazed matriarch."
 					+ " She insists that each one finish inside of her, and, after receiving each creampie, she lowers herself down onto your face, forcing you to lick her clean before the next excited harpy's turn."
 				+ "</p>"
 				+ "<p>"
@@ -1023,12 +1013,11 @@ public class HarpyNestNympho {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_NYMPHO_AFTER_SEX = new DialogueNodeOld("Harpy nest", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_NYMPHO_AFTER_SEX = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
-			return "[harpyNympho.Name]'s nest";
+			return "[harpyNympho.NamePos] nest";
 		}
 		
 		@Override

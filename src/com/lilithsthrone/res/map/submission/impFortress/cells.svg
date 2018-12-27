@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="cellsGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#cellsGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" transform="matrix(1.0059 0 0 .97558 -2.077 -1.57)">
+            <ellipse cx="22.741" cy="1035.89" stroke-width="3.229" rx="9.033" ry="4.717" transform="rotate(.008)"/>
+            <ellipse cx="60.641" cy="1032.638" stroke-width="3.056" rx="8.701" ry="4.387" transform="rotate(.876)"/>
+            <ellipse cx="159.16" cy="1033.98" stroke-width=".652" rx="3.339" ry="1.107" transform="matrix(.99961 .0279 -.12867 .99169 0 0)"/>
+            <ellipse cx="162.807" cy="1033.12" stroke-width=".652" rx="3.339" ry="1.107" transform="matrix(.99961 .0279 -.12867 .99169 0 0)"/>
+            <ellipse cx="166.686" cy="1032.342" stroke-width=".652" rx="3.339" ry="1.107" transform="matrix(.99961 .0279 -.12867 .99169 0 0)"/>
+            <ellipse cx="170.976" cy="1032.355" stroke-width=".652" rx="3.339" ry="1.107" transform="matrix(.99961 .0279 -.12867 .99169 0 0)"/>
+        </g>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.528" d="M19.933 1040.857l-.13-19.449"/>
+        <path fill="#fff" fill-rule="evenodd" d="M19.949 1019.601l.045 9.432 24.604-.047.068-9.338-24.717-.047zm11.675 1.158a3.684 3.399 0 0 1 3.684 3.398 3.684 3.399 0 0 1-3.684 3.4 3.684 3.399 0 0 1-3.683-3.4 3.684 3.399 0 0 1 3.683-3.398zm-7.278 1.781a1.777 1.64 0 0 1 1.777 1.64 1.777 1.64 0 0 1-1.777 1.64 1.777 1.64 0 0 1-1.777-1.64 1.777 1.64 0 0 1 1.777-1.64zm14.58.068a1.777 1.64 0 0 1 1.777 1.64 1.777 1.64 0 0 1-1.777 1.64 1.777 1.64 0 0 1-1.777-1.64 1.777 1.64 0 0 1 1.777-1.64z"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.528" d="M44.804 1040.892l-.131-19.449"/>
+        <path fill="none" stroke="#fff" stroke-width="2.187" d="M15.823 1041.78h32.604"/>
+    </g>
+</svg>

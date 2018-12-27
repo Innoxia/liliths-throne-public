@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <ellipse cx="31.978" cy="31.896" fill="#ffd5d5" fill-rule="evenodd" stroke="#000" stroke-width="2" color="#000" style="isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1" overflow="visible" rx="29.831" ry="29.831"/>
+    <path fill="#ff2a2a" fill-rule="evenodd" d="M31.775 44.568c.034-14.477 7.823-16.372 8.46-25.223.475-6.61-4.126-12.42-10.203-10.882-2.372.6-7.624 2.012-3.255 9.644 1.907 3.332-4.718 6.868-6.234 1.096-2.05-7.802 4.425-11.893 9.795-12.674 8.576-1.247 16.183 2.877 16.166 10.965-.026 12.802-12.796 13.07-13.298 27.074z"/>
+    <ellipse cx="31.621" cy="53.726" fill="#ff2a2a" rx="4.097" ry="4.079" transform="rotate(-1.281) skewX(-.087)"/>
+</svg>

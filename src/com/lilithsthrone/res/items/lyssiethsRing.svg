@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="innoGrad5">
+            <stop offset="0" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#f55"/>
+        </linearGradient>
+        <linearGradient id="innoGrad4">
+            <stop offset="0" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#faa"/>
+        </linearGradient>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="innoGrad1">
+            <stop offset="0" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#faa"/>
+        </linearGradient>
+        <linearGradient id="innoGrad3">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset=".347" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#ffd5d5"/>
+        </linearGradient>
+        <linearGradient id="linearGradient2359" x1="38.75" x2="150.893" y1="203.857" y2="77.964" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad3"/>
+        <linearGradient id="linearGradient2375" x1="82.143" x2="173.75" y1="210.286" y2="57.964" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient2383" x1="220.536" x2="172.679" y1="87.964" y2="61.357" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient2453" x1="73.615" x2="114.526" y1="185.794" y2="140.464" gradientTransform="translate(-.388 -.758)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad4"/>
+        <linearGradient id="linearGradient2461" x1="60.689" x2="-13.636" y1="181.479" y2="211.319" gradientTransform="translate(-.486 -.655)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad5"/>
+    </defs>
+    <g>
+        <g>
+            <path fill="url(#linearGradient2383)" fill-rule="evenodd" stroke="#000" stroke-width=".9" d="M40.762 95.342c8.594-16.163 59.856-30.978 94.323-29.547 34.132 1.417 82.733 14.3 92.278 45.002 8.135-20.696 11.244-56.047-86.369-69.549C68.727 37.952 2.304 63.413 40.762 95.342z"/>
+            <path fill="url(#linearGradient2375)" fill-rule="evenodd" stroke="#000" stroke-width=".9" d="M123.004 39.96c-38.263.05-82.46 7.396-101.561 37.882-18.786 29.983 17.273 90.004 22.502 97.504l108.414 24.546c13.325-17.097 107.115-63.09 90.232-110.006-12.526-34.811-66.687-47.788-103.642-49.547a326.9 326.9 0 0 0-15.945-.378zm-.793 2.713c6.569.005 12.907.245 18.784.62 33.103 2.118 85.728 18.306 86.14 45.913.193 12.971-15.892 19.476-30.683 19.545-34.691.163-59.338-15.955-89.778-18.865-22.855-2.185-51.918 6.976-68.866 1.138-4.262-1.469-7.446-8.124-5.683-12.274 12.433-29.268 54.616-36.102 90.086-36.077z"/>
+            <path fill="url(#linearGradient2359)" fill-rule="evenodd" stroke="#000" stroke-width=".9" d="M103.947 97.615c-29.59-1.616-66.542 9.24-67.958 56.82-.643 21.62 33.687 56.601 62.276 58.867 28.3 2.244 69.9-9.14 71.367-47.73 1.347-35.425-34.225-66.24-65.685-67.957z"/>
+            <g transform="matrix(.52108 -.00902 .0947 .60577 21.845 100.21)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(.5006 .1343 -.13161 .55594 42.199 44.071)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(.61724 .09916 -.01164 .74261 23.622 62.229)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(.47951 -.47098 .50425 .57657 -53.307 105.243)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(.50634 -.36275 .27188 .3976 -1.94 71.594)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <path fill="url(#linearGradient2453)" fill-rule="evenodd" stroke="#000" stroke-width=".9" d="M99.696 107.994c-20.153-.989-37.26 21.21-38.639 46.593-1.17 21.55 12.164 50.2 39.548 52.73 25.059 2.316 36.863-21.592 38.41-41.138 2.17-27.399-15.94-57.038-39.32-58.185z"/>
+            <g transform="matrix(-.14923 -.80876 .78416 -.35731 -54.377 222.657)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(.80958 0 0 .92566 9.918 -18.571)">
+                <ellipse cx="45.893" cy="182.83" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M48.582 180.56l.273-6.628c4.396.51 7.02 6.222 6.533 8.613z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M46.259 186.759l5.119 3.555c-2.874 2.83-8.298 1.842-10.3.65z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M42.143 181l-5.714 2.991c-1.208-4.218 2.828-8.781 5.178-9.643z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M41.732 180.996l-.631-6.44 4.672 4.61z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M45.204 178.85c.127-.253 3.852-4.925 3.852-4.925l.694 6.882z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M49.219 180.491c.315-.252 6.34 2.084 6.34 2.084l-6.393 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M49.434 185.858l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M46.151 187.815l-4.735 3.283.38-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M42.363 185.858l-6.06-1.831 5.745-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M45.457 178.408l-3.536 2.146.127 4.925 3.85 2.462 3.663-2.273-.253-5.43z"/>
+            </g>
+            <ellipse cx="42.576" cy="190.397" fill="url(#linearGradient2461)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".907" rx="35.276" ry="45.094" transform="matrix(.87021 -.49268 .33102 .94362 0 0)"/>
+            <path fill="#ffd5d5" d="M109.857 94.433c3.42.046 8.126.634 15.11 2.292 5.281 1.255 11.064 2.92 17.986 5.018 12.364 3.745 26.274 8.233 39.062 10.838 6.798 1.386 12.91 2.167 18.404 2.243 6.785.094 11.983-.904 16.051-2.552a25.427 25.427 0 0 0 3.84-1.934c2.098-1.297 5.013-4.078 7.106-8.478 2.936-6.17 3.075-12.598 3.356-17.655-.12 2.148-.616 5.154-1.66 8.171-1.065 3.073-2.526 5.693-4.311 7.843-2.7 3.254-5.565 4.741-7.193 5.748a24.842 24.842 0 0 1-3.103 1.626c-3.318 1.455-7.803 2.609-14.135 2.847-5.146.194-11.02-.232-17.754-1.248-12.72-1.917-26.654-5.662-39.284-8.82-7.053-1.765-12.88-3.14-18.256-4.158-7.124-1.35-11.758-1.734-15.22-1.781zM35.535 81.478c1.715-4.157 5.568-9.378 11.68-14.056 3.14-2.403 5.984-4.028 7.868-5.2 2.326-1.446 5.272-3.088 8.967-4.748 10.635-4.778 25.417-8.743 44.945-10.154 16.8-1.215 34.068-.296 49.424 2.03 20.138 3.052 33.041 7.84 39.851 11.217-6.847-3.395-19.509-8.529-39.695-12.161-15.346-2.762-32.7-4.179-49.716-3.417-19.74.885-35.07 4.5-46.22 9.267-3.886 1.661-7.008 3.35-9.474 4.884-1.934 1.203-4.827 3.416-7.666 6.37-5.845 6.084-8.174 11.63-9.964 15.968zM104.696 109.812c2.364.89 5.798 2.519 9.365 5.037 3.605 2.547 6.391 5.31 8.609 7.926.982 1.158 1.757 2.175 2.323 2.914 2.423 3.164 5.573 7.975 7.988 14.883 2.556 7.31 3.68 15.251 3.5 23.143-.177 7.74-1.572 13.94-2.693 17.692 1.124-3.76 2.698-9.888 3.133-17.675.442-7.92-.39-16.007-2.755-23.553-2.235-7.128-5.355-12.22-7.861-15.494a35.063 35.063 0 0 0-2.526-2.913c-2.454-2.552-5.564-5.131-9.395-7.42-3.842-2.296-7.275-3.632-9.688-4.54z"/>
+            <path fill="#ffd5d5" d="M101.88 116.138c.955.188 2.393.7 4.28 1.863 1.427.88 2.944 2.031 4.522 3.425 3.106 2.743 5.546 5.612 7.135 7.427.52.595 1.175 1.341 1.918 2.225 2.49 2.958 5.357 6.733 7.614 10.809 1.04 1.878 1.821 3.592 2.36 5.117.72 2.042.922 3.51.922 4.477 0-.972-.085-2.435-.652-4.56-.421-1.584-1.068-3.377-1.978-5.363-1.957-4.27-4.64-8.376-7.033-11.474a49.882 49.882 0 0 0-1.902-2.324c-1.564-1.788-4.442-4.64-7.787-7.078-1.74-1.27-3.397-2.274-4.935-3.018-2.044-.989-3.498-1.336-4.464-1.526z"/>
+            <ellipse cx="-72.155" cy="181.278" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".568" paint-order="stroke fill markers" rx="1.727" ry="2.265" transform="matrix(.7569 -.65352 .62605 .77978 0 0)"/>
+            <ellipse cx="-99.655" cy="189.069" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".551" paint-order="stroke fill markers" rx="1.825" ry="2.017" transform="matrix(.70464 -.70956 .7425 .66985 0 0)"/>
+            <ellipse cx="-87.417" cy="190.709" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".572" paint-order="stroke fill markers" rx="1.772" ry="2.236" transform="matrix(.82024 -.57203 .70497 .70923 0 0)"/>
+            <g fill-rule="evenodd">
+                <path fill="#ff2a2a" stroke="#000" stroke-linejoin="bevel" stroke-width=".744" d="M118.046 187.47l-46.66-41.344 56.86 4.271L79.2 184.515l20.408-58.825z" transform="matrix(.92442 -.04355 0 1.11895 8.039 -13.188)"/>
+                <path fill-opacity=".502" d="M106.259 148.548l-1.486-.13-5.035-23.14.413-1.818zM106.557 148.782l.344 1.153 17.708 1.018 1.575-1.283zM109.426 164.666l.993-.326 6.653 26.707-1.75-1.658zM99.862 173.626l-1.28.61-9.945-9.672.412-1.818zM88.815 162.849l-.863-1.229 3.746-13.4 1.538-.216z"/>
+            </g>
+            <ellipse cx="-2.849" cy="181.551" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".568" paint-order="stroke fill markers" rx="1.727" ry="2.265" transform="matrix(.9449 -.32735 .29337 .956 0 0)"/>
+            <ellipse cx="-17.259" cy="183.732" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".572" paint-order="stroke fill markers" rx="1.772" ry="2.236" transform="matrix(.97361 -.2282 .39278 .91963 0 0)"/>
+            <ellipse cx="39.835" cy="162.583" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".568" paint-order="stroke fill markers" rx="1.727" ry="2.265" transform="matrix(.99729 -.0736 .0379 .99928 0 0)"/>
+            <ellipse cx="28.004" cy="160.053" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".572" paint-order="stroke fill markers" rx="1.772" ry="2.236" transform="matrix(.99956 .0296 .14332 .98968 0 0)"/>
+            <ellipse cx="84.435" cy="125.281" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".568" paint-order="stroke fill markers" rx="1.727" ry="2.265" transform="matrix(.9679 .2513 -.28574 .9583 0 0)"/>
+            <ellipse cx="77.175" cy="117.602" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".572" paint-order="stroke fill markers" rx="1.772" ry="2.236" transform="matrix(.93685 .34973 -.18284 .98314 0 0)"/>
+            <ellipse cx="110.314" cy="88.624" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".568" paint-order="stroke fill markers" rx="1.727" ry="2.265" transform="matrix(.87177 .48991 -.52076 .8537 0 0)"/>
+            <ellipse cx="107.317" cy="77.764" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".572" paint-order="stroke fill markers" rx="1.772" ry="2.236" transform="matrix(.81663 .57716 -.4276 .90397 0 0)"/>
+            <ellipse cx="120.12" cy="52.201" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".568" paint-order="stroke fill markers" rx="1.727" ry="2.265" transform="matrix(.785 .6195 -.64716 .76236 0 0)"/>
+            <ellipse cx="121.157" cy="39.844" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".572" paint-order="stroke fill markers" rx="1.772" ry="2.236" transform="matrix(.71697 .6971 -.56295 .8265 0 0)"/>
+            <ellipse cx="124.47" cy="-46.561" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".551" paint-order="stroke fill markers" rx="1.825" ry="2.017" transform="matrix(.23164 .9728 -.9606 .27796 0 0)"/>
+            <ellipse cx="123.895" cy="-53.22" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".551" paint-order="stroke fill markers" rx="1.825" ry="2.017" transform="matrix(.23164 .9728 -.9606 .27796 0 0)"/>
+            <ellipse cx="124.032" cy="-61.088" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".551" paint-order="stroke fill markers" rx="1.825" ry="2.017" transform="matrix(.23164 .9728 -.9606 .27796 0 0)"/>
+            <ellipse cx="-99.449" cy="195.396" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".551" paint-order="stroke fill markers" rx="1.825" ry="2.017" transform="matrix(.70464 -.70956 .7425 .66985 0 0)"/>
+            <ellipse cx="-98.487" cy="201.881" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".551" paint-order="stroke fill markers" rx="1.825" ry="2.017" transform="matrix(.70464 -.70956 .7425 .66985 0 0)"/>
+            <g transform="matrix(-.57471 -.10566 -.14437 .5824 188.186 116.288)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(-.56153 .0401 .10877 .57505 164.465 54.202)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(-.68799 -.01635 -.03596 .73768 188.72 78.34)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(-.49846 -.55548 -.59463 .47746 269.84 134.217)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(-.5352 -.45326 -.3263 .34334 211.388 89.654)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(.21792 -.77333 -.84229 -.49945 259.354 249.006)">
+                <ellipse cx="55.685" cy="152.522" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M58.374 150.251l.273-6.626c4.923 1.366 7.1 6.35 6.533 8.612z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M56.05 156.45l4.867 3.777c-3.432 2.583-7.876 1.619-9.732.492z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M51.935 150.692l-5.715 2.991c-1.1-4.084 2.292-8.095 4.421-9.232z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M51.524 150.688l-1.01-6.471 5.05 4.64z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M54.996 148.542c.126-.253 3.851-4.925 3.851-4.925l.316 6.787z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M58.916 150.057l6.434 2.21-6.392 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M59.226 155.55l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M55.943 157.507l-4.735 3.283.379-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M52.155 155.55l-6.06-1.831 5.744-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M55.249 148.1l-3.536 2.146.126 4.925 3.852 2.462 3.661-2.273-.252-5.43z"/>
+            </g>
+            <g transform="matrix(-.89383 -.15027 -.06084 .91682 204.222 -1.85)">
+                <ellipse cx="45.893" cy="182.83" fill="#ffb380" stroke="#000" stroke-linecap="square" paint-order="stroke fill markers" rx="9.643" ry="9.33"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M48.582 180.56l.273-6.628c4.396.51 7.02 6.222 6.533 8.613z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M46.259 186.759l5.119 3.555c-2.874 2.83-8.298 1.842-10.3.65z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M42.143 181l-5.714 2.991c-1.208-4.218 2.828-8.781 5.178-9.643z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M41.732 180.996l-.631-6.44 4.672 4.61z"/>
+                <path fill="#fca" fill-rule="evenodd" d="M45.204 178.85c.127-.253 3.852-4.925 3.852-4.925l.694 6.882z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M49.219 180.491c.315-.252 6.34 2.084 6.34 2.084l-6.393 3.369z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M49.434 185.858l1.705 4.545-5.745-2.588z"/>
+                <path fill="#f95" fill-rule="evenodd" d="M46.151 187.815l-4.735 3.283.38-5.872z"/>
+                <path fill="#ff7f2a" fill-rule="evenodd" d="M42.363 185.858l-6.06-1.831 5.745-3.473z"/>
+                <path fill="#ffe6d5" fill-rule="evenodd" d="M45.457 178.408l-3.536 2.146.127 4.925 3.85 2.462 3.663-2.273-.253-5.43z"/>
+            </g>
+            <ellipse cx="-241.729" cy="39.99" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".598" paint-order="stroke fill markers" rx="1.93" ry="2.244" transform="matrix(-.70932 -.70489 -.74933 .6622 0 0)"/>
+            <ellipse cx="-244.323" cy="38.252" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".584" paint-order="stroke fill markers" rx="2.023" ry="2.04" transform="matrix(-.6595 -.7517 -.85427 .51984 0 0)"/>
+            <ellipse cx="-245.989" cy="63.283" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".608" paint-order="stroke fill markers" rx="1.997" ry="2.244" transform="matrix(-.7702 -.63781 -.82197 .56953 0 0)"/>
+            <ellipse cx="-212.689" cy="99.289" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".598" paint-order="stroke fill markers" rx="1.964" ry="2.203" transform="matrix(-.89835 -.43928 -.39762 .91755 0 0)"/>
+            <ellipse cx="-221.647" cy="119.175" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".601" paint-order="stroke fill markers" rx="2.012" ry="2.175" transform="matrix(-.93362 -.35827 -.50793 .8614 0 0)"/>
+            <ellipse cx="-161.192" cy="142.332" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".6" paint-order="stroke fill markers" rx="1.934" ry="2.258" transform="matrix(-.98614 -.16594 -.0265 .99965 0 0)"/>
+            <ellipse cx="-172.882" cy="156.918" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".598" paint-order="stroke fill markers" rx="1.963" ry="2.203" transform="matrix(-.99721 -.07465 -.14526 .9894 0 0)"/>
+            <ellipse cx="-114.616" cy="161.993" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".602" paint-order="stroke fill markers" rx="1.878" ry="2.341" transform="matrix(-.99797 .06368 .2443 .9697 0 0)"/>
+            <ellipse cx="-126.907" cy="172.211" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".597" paint-order="stroke fill markers" rx="1.898" ry="2.274" transform="matrix(-.98695 .16101 .13496 .99085 0 0)"/>
+            <ellipse cx="-66.401" cy="180.481" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".603" paint-order="stroke fill markers" rx="1.807" ry="2.436" transform="matrix(-.951 .3092 .48237 .87597 0 0)"/>
+            <ellipse cx="-79.441" cy="186.439" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".597" paint-order="stroke fill markers" rx="1.824" ry="2.367" transform="matrix(-.91291 .40815 .3899 .92086 0 0)"/>
+            <ellipse cx="-39.082" cy="173.487" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".602" paint-order="stroke fill markers" rx="1.763" ry="2.489" transform="matrix(-.88881 .45827 .60465 .79649 0 0)"/>
+            <ellipse cx="-50.901" cy="177.107" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".597" paint-order="stroke fill markers" rx="1.782" ry="2.423" transform="matrix(-.83246 .55408 .52354 .852 0 0)"/>
+            <ellipse cx="52.57" cy="155.821" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".58" paint-order="stroke fill markers" rx="1.778" ry="2.293" transform="matrix(-.32806 .94466 .91693 .39904 0 0)"/>
+            <ellipse cx="52.009" cy="148.252" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".58" paint-order="stroke fill markers" rx="1.778" ry="2.293" transform="matrix(-.32806 .94466 .91693 .39904 0 0)"/>
+            <ellipse cx="52.143" cy="139.308" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".58" paint-order="stroke fill markers" rx="1.778" ry="2.293" transform="matrix(-.32806 .94466 .91693 .39904 0 0)"/>
+            <ellipse cx="-244.094" cy="44.649" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".584" paint-order="stroke fill markers" rx="2.023" ry="2.04" transform="matrix(-.6595 -.7517 -.85427 .51984 0 0)"/>
+            <ellipse cx="-243.028" cy="51.207" fill="#ffe680" stroke="#000" stroke-linecap="square" stroke-width=".584" paint-order="stroke fill markers" rx="2.023" ry="2.04" transform="matrix(-.6595 -.7517 -.85427 .51984 0 0)"/>
+        </g>
+    </g>
+</svg>

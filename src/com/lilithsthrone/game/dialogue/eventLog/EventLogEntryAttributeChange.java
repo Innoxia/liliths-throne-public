@@ -12,7 +12,6 @@ import com.lilithsthrone.utils.Util;
  */
 public class EventLogEntryAttributeChange extends EventLogEntry {
 
-	private static final long serialVersionUID = 1L;
 	
 	private Attribute attribute;
 	private float change;

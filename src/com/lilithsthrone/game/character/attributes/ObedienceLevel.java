@@ -67,9 +67,9 @@ public enum ObedienceLevel {
 				break;
 			case NEGATIVE_FOUR_DEFIANT:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>defiant</b>"+(longDescription?", and only obeys commands when [npc.she]'s physically forced to.":".")));
+					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>defiant</b>"+(longDescription?", and only obeys commands when [npc.sheIs] physically forced to.":".")));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is defiant"+(longDescription?", and only obeys commands when [npc.she]'s physically forced to.":".")));
+					sb.append(UtilText.parse(character, "[npc.Name] is defiant"+(longDescription?", and only obeys commands when [npc.sheIs] physically forced to.":".")));
 				}
 				break;
 			case NEGATIVE_THREE_STRONG_INSUBORDINATE:
@@ -110,9 +110,9 @@ public enum ObedienceLevel {
 				break;
 			case POSITIVE_TWO_OBEDIENT:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>obedient</b>"+(longDescription?", and will do almost anything that [npc.she]'s told.":".")));
+					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>obedient</b>"+(longDescription?", and will do almost anything that [npc.sheIs] told.":".")));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is obedient"+(longDescription?", and will do almost anything that [npc.she]'s told.":".")));
+					sb.append(UtilText.parse(character, "[npc.Name] is obedient"+(longDescription?", and will do almost anything that [npc.sheIs] told.":".")));
 				}
 				break;
 			case POSITIVE_THREE_DISCIPLINED:
@@ -131,9 +131,9 @@ public enum ObedienceLevel {
 				break;
 			case POSITIVE_FIVE_SUBSERVIENT:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>subservient</b>"+(longDescription?", and will do absolutely anything that [npc.she]'s ordered to do.":".")));
+					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>subservient</b>"+(longDescription?", and will do absolutely anything that [npc.sheIs] ordered to do.":".")));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is subservient"+(longDescription?", and will do absolutely anything that [npc.she]'s ordered to do.":".")));
+					sb.append(UtilText.parse(character, "[npc.Name] is subservient"+(longDescription?", and will do absolutely anything that [npc.sheIs] ordered to do.":".")));
 				}
 				break;
 		}

@@ -12,7 +12,6 @@ import com.lilithsthrone.utils.Util;
  */
 public class EventLogEntryEncyclopediaUnlock extends EventLogEntry {
 
-	private static final long serialVersionUID = 1L;
 	
 	public EventLogEntryEncyclopediaUnlock(String description, Colour highlightDescriptionColour) {
 		super(Main.game.getMinutesPassed(), "Encyclopedia",  "<span style='color:"+highlightDescriptionColour.toWebHexString()+";'>"+Util.capitaliseSentence(description)+"</span>");
@@ -31,7 +30,7 @@ public class EventLogEntryEncyclopediaUnlock extends EventLogEntry {
 	public String getMainDialogueDescription() {
 		return "<p style='text-align:center;'>"
 				+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia</b>"
-				+ "</br>"
+				+ "<br/>"
 				+ description
 			+ "</p>";
 	}

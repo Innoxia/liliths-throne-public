@@ -1,7 +1,5 @@
 package com.lilithsthrone.game.inventory;
 
-import java.io.Serializable;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -9,12 +7,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.65
- * @version 0.1.89
+ * @version 0.3
  * @author Innoxia
  */
-public class ShopTransaction implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class ShopTransaction implements XMLSaving {
 
 	private AbstractCoreItem abstractItemSold;
 	private int price;
@@ -40,7 +36,7 @@ public class ShopTransaction implements Serializable, XMLSaving {
 	}
 	
 //	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
-//		return AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
+//		return AbstractItemType.generateItem(ItemType.getIdToItemMap().get(parentElement.getAttribute("id")));
 //	}
 
 	public AbstractCoreItem getAbstractItemSold() {

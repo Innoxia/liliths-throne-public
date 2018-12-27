@@ -15,11 +15,14 @@ import com.lilithsthrone.game.character.body.Skin;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -27,9 +30,11 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -37,7 +42,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.84
+ * @version 0.2.6
  * @author Innoxia
  */
 public class SuccubisSecrets {
@@ -88,8 +93,7 @@ public class SuccubisSecrets {
 	
 	
 	
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Succubi's Secrets (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Succubi's Secrets (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -143,8 +147,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -187,8 +190,7 @@ public class SuccubisSecrets {
 			}
 		}
 	};
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_WAKE = new DialogueNodeOld("Succubi's Secrets", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_WAKE = new DialogueNode("Succubi's Secrets", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -212,19 +214,19 @@ public class SuccubisSecrets {
 						true, true,
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getKate(), SexPositionSlot.CHAIR_BOTTOM))),
-						Kate.AFTER_SEX,
-						"<p>"
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexPositionSlot.CHAIR_BOTTOM))),
+						null,
+						null, Kate.AFTER_SEX, "<p>"
 						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
 						+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
 						+ " She glances up at you with big, innocent eyes, and begs, "
 						+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
 						+ "She is, without doubt, one of the most attractive women you've ever seen."
 						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
-						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getKate().getBreastSize().getDescriptor()
+						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
 						+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
 						+ "</p>"
 						+ "<p>"
@@ -235,7 +237,7 @@ public class SuccubisSecrets {
 						+ "<p>"
 						+ "She briefly pushes you back for a moment, panting, "
 						+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
 						+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
@@ -249,8 +251,7 @@ public class SuccubisSecrets {
 			}
 		}
 	};
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_WATCH = new DialogueNodeOld("Succubi's Secrets", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_WATCH = new DialogueNode("Succubi's Secrets", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -262,20 +263,20 @@ public class SuccubisSecrets {
 					+ "<p>"
 					+ "She rolls around and lets out a little moan, "
 					+ UtilText.parseSpeech("Aaah! Y-yeah... Give my little pussy a turn!",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 					+ "</p>"
 					+ "<p>"
 						+ "You see her tail snaking around beneath her, and as you watch, the spaded tip slips up between her legs, and, pulling her pink v-string panties to one side, thrusts up into her pussy."
 						+ " Due to the fact that she's wearing nothing more than an impossibly-small micro-skirt around her waist, you're able to see everything as she starts to pump her tail back and forth."
 						+ " Her spaded tail is buried deep in her drooling slit, and as it enthusiastically fucks its owner's eager cunt, she starts alternately squealing and sighing in delight. "
 						+ UtilText.parseSpeech("Deeper... Aaah yeah, like that!",
-								Main.game.getKate())
+								Main.game.getNpc(Kate.class))
 					+ "</p>"
 					+ "<p>"
 					+ "You can't take your eyes off of the lewd display before you, and you start to wonder how much longer she's going to keep this up."
 					+ " Just as you're deciding on what to do next, the demon suddenly opens her eyes, letting out an annoyed little huff as she stares right at you. "
 					+ UtilText.parseSpeech("How much longer do I have to do this for before you come over here and fuck me?! Y'know, that's one downside of not having any customers, I haven't had sex in, like, three whole days!",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 					+ "</p>";
 		}
 		
@@ -286,19 +287,19 @@ public class SuccubisSecrets {
 						true, true,
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getKate(), SexPositionSlot.CHAIR_BOTTOM))),
-						Kate.AFTER_SEX,
-						"<p>"
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexPositionSlot.CHAIR_BOTTOM))),
+						null,
+						null, Kate.AFTER_SEX, "<p>"
 						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
 						+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
 						+ " She glances up at you with big, innocent eyes, and begs, "
 						+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
 						+ "She is, without doubt, one of the most attractive women you've ever seen."
 						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
-						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getKate().getBreastSize().getDescriptor()
+						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
 						+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
 						+ "</p>"
 						+ "<p>"
@@ -309,7 +310,7 @@ public class SuccubisSecrets {
 						+ "<p>"
 						+ "She briefly pushes you back for a moment, panting, "
 						+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
 						+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
@@ -324,8 +325,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_NO_THANKS = new DialogueNodeOld("Succubi's Secrets", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_NO_THANKS = new DialogueNode("Succubi's Secrets", "-", true, true) {
 
 		@Override
 		public String getContent() {
@@ -337,7 +337,7 @@ public class SuccubisSecrets {
 						+ "</p>"
 						+"<p>"
 						+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 						+ " you hear her beg, but you've already made up your mind."
 						+ "</p>"
 						+ "<p>"
@@ -346,21 +346,21 @@ public class SuccubisSecrets {
 						+ "</p>"
 						+ "<p>"
 						+ UtilText.parseSpeech("Fine... Trust me to get the only prude in all of Dominion...",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 						+" she mumbles as you hear her covering herself back up."
 						+ "</p>"
 						+ "<p>"
 						+ "You turn around to see that she's stood up, and as she flattens down her mini skirt and wipes her tail on a tissue she's produced from somewhere,"
 						+ " you see that she is, without doubt, one of the most attractive women you've ever seen."
 						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
-						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getKate().getBreastSize().getDescriptor()
+						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
 						+" breasts, her wide hips and long, perfectly-formed legs finish her look as a top-class super-model."
 						+ "</p>"
 						+ "<p>"
 						+ "She seems to have got her own lust under control by now, and as she looks up, she seems rather ashamed of what she just did. "
 						+ UtilText.parseSpeech("Ehhh, sorry about that... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
 								+ " Weren't you deterred by the boarded-up windows and stuff?",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
 						+ UtilText.parsePlayerSpeech("So you're aware of how it appears to customers?")
@@ -370,7 +370,7 @@ public class SuccubisSecrets {
 						+ UtilText.parseSpeech("Well, yeah I'm aware! You know, the owners of this whole arcade keep threatening me with legal action, saying I have a 'responsibility' to keep the area looking nice."
 								+ " As if! As long as I display an 'open for business' sign, I'm following all the terms of my contract! You know what happened when I opened this place?! Thirty. Six. Customers. All in one day. Eugh!"
 								+ " As the last one of those demanding know-it-alls left, I followed them outside, boarded up the windows, and threw paint stripper all over the sign. One day's hard work is enough for anyone...",
-								Main.game.getKate())
+								Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
 						+ "As she's been speaking, she's started gathering items from the shelves on the other side of the room, stacking them up on a little metal trolley that's been sitting nearby."
@@ -378,10 +378,10 @@ public class SuccubisSecrets {
 						+ "</p>"
 						+ "<p>"
 						+ UtilText.parseSpeech("Well, I suppose I don't mind one customer every now and then. I could use the cash after all,",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 						+" she says, motioning for you to come and sit down. "
 						+ UtilText.parseSpeech("Oh, and I'm Kate by the way. Now come over here and take a seat.",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
 						+ "You do as she instructs, and as you sink down into the chair next to her, she hands you a little brochure of all the services she's capable of."
@@ -404,13 +404,12 @@ public class SuccubisSecrets {
 			}
 		}
 	};
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_ENTER = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_ENTER = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
 			
-			if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+			if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 				return "<p>"
 						+ "With the knowledge that appearances can be deceiving, you stride over to the door and push it open."
 						+ " As a big flake of peeling paint breaks off and falls to the floor, you step inside, marvelling once again at how radically different the interior is."
@@ -485,8 +484,7 @@ public class SuccubisSecrets {
 	
 	private static Map<BodyCoveringType, List<String>> CoveringsNamesMap;
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_MAIN = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_MAIN = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -513,10 +511,10 @@ public class SuccubisSecrets {
 	
 	private static Response getMainResponse(int index) {
 		if(index == 1){
-			return new ResponseTrade("Trade with Kate", "There's a separate leaflet tucked into the back of the brochure. It informs you that Kate is a registered distributor for a large jewellery firm.", Main.game.getKate()){
+			return new ResponseTrade("Trade with Kate", "There's a separate leaflet tucked into the back of the brochure. It informs you that Kate is a registered distributor for a large jewellery firm.", Main.game.getNpc(Kate.class)){
 				@Override
 				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy))
+					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy))
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 				}
 			};
@@ -531,7 +529,7 @@ public class SuccubisSecrets {
 						SHOP_BEAUTY_SALON_COSMETICS){
 					@Override
 					public void effects() {
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+						if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 						}
 					}
@@ -544,7 +542,7 @@ public class SuccubisSecrets {
 					SHOP_BEAUTY_SALON_HAIR){
 				@Override
 				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
 				}
@@ -556,7 +554,7 @@ public class SuccubisSecrets {
 						SHOP_BEAUTY_SALON_PIERCINGS){
 					@Override
 					public void effects() {
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+						if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 						}
 					}
@@ -568,7 +566,7 @@ public class SuccubisSecrets {
 						+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SHOP_BEAUTY_SALON_EYES){
 					@Override
 					public void effects() {
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+						if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 						}
 					}
@@ -607,7 +605,10 @@ public class SuccubisSecrets {
 								}
 							}
 						}
-
+						if(Main.game.getPlayer().getTailType()==TailType.DEMON_HAIR_TIP && !CoveringsNamesMap.containsKey(BodyCoveringType.HAIR_DEMON)) {
+							CoveringsNamesMap.put(BodyCoveringType.HAIR_DEMON, Util.newArrayListOfValues(BodyCoveringType.HAIR_DEMON.getName(Main.game.getPlayer())));
+						}
+						
 						if(Main.getProperties().hasValue(PropertyValue.pubicHairContent)) {
 							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getPubicHairType().getType(), new ArrayList<>());
 							CoveringsNamesMap.get(Main.game.getPlayer().getPubicHairType().getType()).add("growing around your pubic region");
@@ -631,7 +632,7 @@ public class SuccubisSecrets {
 						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
 					}
 
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
 				}
@@ -642,8 +643,7 @@ public class SuccubisSecrets {
 
 		} else if (index == 8) {
 			return new Response("Tattoos", "Most of the brochure is taken up with drawings and photographs displaying Kate's considerable artistic talents."
-					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...</br>"
-					+ "<b>Will be done as soon as possible!</b>", null);
+					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...", SHOP_BEAUTY_SALON_TATTOOS);
 
 		} else if (index == 9) {
 			return new ResponseSex("Sex",
@@ -652,9 +652,9 @@ public class SuccubisSecrets {
 					true, true,
 					new SMChair(
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getKate(), SexPositionSlot.CHAIR_BOTTOM))),
-					Kate.AFTER_SEX_REPEATED,
-					"<p>"
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexPositionSlot.CHAIR_BOTTOM))),
+					null,
+					null, Kate.AFTER_SEX_REPEATED, "<p>"
 					+ "Turning to the back of the brochure, you find a double-page spread that's filled with extremely explicit pictures of Kate inserting her tail into her various orifices."
 					+ " Looking over at the sleeping demon next to you, the words of the caption 'Don't make me do it myself...' echo through your mind."
 					+ "</p>"
@@ -670,14 +670,14 @@ public class SuccubisSecrets {
 					+ "<p>"
 					+ "Breaking off the kiss for a moment, she slurs, "
 					+ UtilText.parseSpeech("Mmm... Now this's a good dream!",
-							Main.game.getKate())
+							Main.game.getNpc(Kate.class))
 					+"</p>"
 					+ "<p>"
 					+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
 					+ "</p>"){
 				@Override
 				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
 				}
@@ -687,7 +687,7 @@ public class SuccubisSecrets {
 			return new Response("Leave", "Leave Kate's shop, heading back out into the Shopping Arcade.", EXTERIOR){
 				@Override
 				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
 				}
@@ -698,8 +698,7 @@ public class SuccubisSecrets {
 		}
 	}
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_HAIR = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_HAIR = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -741,8 +740,7 @@ public class SuccubisSecrets {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_SKIN_COLOUR = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_SKIN_COLOUR = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -837,8 +835,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_EYES = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_EYES = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -877,8 +874,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_PIERCINGS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_PIERCINGS = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -923,8 +919,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_OTHER = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_OTHER = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -949,7 +944,8 @@ public class SuccubisSecrets {
 //							:"")
 					
 					+(Main.game.isFacialHairEnabled()
-							?CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face. Feminine characters cannot grow facial hair.")
+							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face." 
+									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
 							:"")
 					
 					+(Main.game.isPubicHairEnabled()
@@ -996,8 +992,7 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_COSMETICS = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_COSMETICS = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -1050,24 +1045,107 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_TATTOOS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SHOP_BEAUTY_SALON_TATTOOS = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
 			descriptionSB = new StringBuilder();
 			
 			descriptionSB.append("<p>"
-					+ "Standard Tattoos cost 100 each."
-					+ " Arcane tattoos cost 250."
-						+ "</p>");
+							+ "[kate.speech(So, you want a tattoo, huh?)]"
+							+ " Kate grins, exhibiting a rare sign of energy as she quickly sits upright in her chair."
+							+ " [kate.speech(If you're looking for an enchanted one, just know that I've got to do the base tattoo first, then I can use my spells to weave an enchantment into it."
+							+ " Most of my tattoos cost five-hundred flames, and I charge one-hundred flames for all removals."
+							+ " Enchanting tattoos easily runs up into the tens of thousands, due to the very expensive refined essences that it requires. So, what'll it be?)]"
+						+ "</p>"
+						+CharacterModificationUtils.getKatesDivTattoos());
 			
 			return descriptionSB.toString();
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if (index == 8) {
+				return new Response("Tattoos", "You are already looking at the tattoos available...", null);
+			} else if(index==11) {
+				return new Response("Confirmations: ",
+						"Toggle tattoo removal confirmations."
+							+ " When turned on, it will take two clicks to remove tattoos."
+							+ " When turned off, it will only take one click.",
+							SHOP_BEAUTY_SALON_TATTOOS) {
+					@Override
+					public String getTitle() {
+						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)
+									?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
+									:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
+					}
+					
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.tattooRemovalConfirmations, !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations));
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+			}
+			
 			return getMainResponse(index);
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
+	};
+	
+	public static InventorySlot invSlotTattooToRemove = null;
+	
+	public static final DialogueNode SHOP_BEAUTY_SALON_TATTOOS_ADD = new DialogueNode("Succubi's Secrets", "-", true) {
+
+		@Override
+		public String getLabel() {
+			return "Succubi's Secrets - "+Util.capitaliseSentence(CharacterModificationUtils.tattooInventorySlot.getName()) +" Tattoo";
+		}
+		
+		@Override
+		public String getContent() {
+			descriptionSB = new StringBuilder();
+			
+			descriptionSB.append(CharacterModificationUtils.getKatesDivTattoosAdd());
+			
+			return descriptionSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			int value = CharacterModificationUtils.tattoo.getValue();
+			if (index == 1) {
+				if(Main.game.getPlayer().getMoney()<value) {
+					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You don't have enough money to get a tattoo!", null);
+					
+				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.NONE)
+						&& CharacterModificationUtils.tattoo.getWriting().getText().isEmpty()
+						&& CharacterModificationUtils.tattoo.getCounter().getType()==TattooCounterType.NONE) {
+					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You need to select a tattoo type, add some writing, or add a counter in order to make a tattoo!", null);
+					
+				} else {
+					return new Response("Apply ("+UtilText.formatAsMoney(value, "span")+")", "Tell Kate that you'd like her to give you this tattoo.", SHOP_BEAUTY_SALON_TATTOOS) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-value)); //TODO Kate description
+
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+							CharacterModificationUtils.tattoo.setName(CharacterModificationUtils.tattoo.getType().getName());
+							Main.game.getPlayer().addTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo);
+						}
+					};
+				}
+			
+			} else if(index==0) {
+				return new Response("Back", "Decide not to get this tattoo and return to the main selection screen.", SHOP_BEAUTY_SALON_TATTOOS);
+			}
+			
+			return null;
 		}
 
 		@Override

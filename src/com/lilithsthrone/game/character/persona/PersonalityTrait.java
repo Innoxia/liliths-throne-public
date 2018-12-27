@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum PersonalityTrait {
 
-	/**This reflects the level of creativity, imagination, and curiosity in a person. It is an indicator of how willing a person is to try out new things or to take risks.</br>
+	/**This reflects the level of creativity, imagination, and curiosity in a person. It is an indicator of how willing a person is to try out new things or to take risks.<br/>
 	 * Cautious -> Average -> Curious*/
 	ADVENTUROUSNESS("Adventurousness",
 			"This reflects the level of creativity, imagination, and curiosity in a person. It is an indicator of how willing a person is to try out new things or to take risks.",
@@ -23,19 +23,19 @@ public enum PersonalityTrait {
 			"Average", "You don't hold any particular aversion or willingness to try out new things.",
 			"Curious", "You are willing to take risks in order to feed your love of experiencing new things."),
 
-	/**How compassionate, cooperative, and friendly someone is towards others. It is an indication of how trusting, helpful, and well-tempered someone is.</br>
+	/**How compassionate, cooperative, and friendly someone is towards others. It is an indication of how trusting, helpful, and well-tempered someone is.<br/>
 	 * Selfish -> Average -> Trusting*/
 	AGREEABLENESS("Agreeableness",
 			"How compassionate, cooperative, and friendly someone is towards others. It is an indication of how trusting, helpful, and well-tempered someone is.",
 			Colour.BASE_GREEN,
-			"Selfish", "[npc.Name] treats others in an unfriendly, hostile manner, and rather than showing any signs of wanting to cooperate, [npc.she]'s far more likely to act in a competitive manner.",
+			"Selfish", "[npc.Name] treats others in an unfriendly, hostile manner, and rather than showing any signs of wanting to cooperate, [npc.sheIs] far more likely to act in a competitive manner.",
 			"Average", "[npc.Name] is friendly towards new people, but is also liable to drop any pretence of cooperation and compassion if that person turns out to be less-than-amicable.",
 			"Trusting", "[npc.Name] is very trusting, and always tries [npc.her] best to be friendly towards other people.",
 			"Selfish", "You treat others in an unfriendly, hostile manner, and rather than showing any signs of wanting to cooperate, you're far more likely to act in a competitive manner.",
 			"Average", "You are friendly towards new people, but are also liable to drop any pretence of cooperation and compassion if that person turns out to be less-than-amicable.",
 			"Trusting", "You are very trusting, and always try your best to be friendly towards other people."),
 	
-	/**How organised and willing to plan ahead a person is. It indicates the level of self-discipline a person has, and how seriously they treat their obligations to others.</br>
+	/**How organised and willing to plan ahead a person is. It indicates the level of self-discipline a person has, and how seriously they treat their obligations to others.<br/>
 	 * Careless -> Average -> Vigilant*/
 	CONSCIENTIOUSNESS("Conscientiousness",
 			"How organised and willing to plan ahead a person is. It indicates the level of self-discipline a person has, and how seriously they treat their obligations to others.",
@@ -48,7 +48,7 @@ public enum PersonalityTrait {
 			"Vigilant", "You always plan ahead, and never rush into anything without first weighing the pros and cons."),
 
 	// I wasn't sure whether to spell this as 'Extroversion' or 'Extraversion'.
-	/**How sociable and confident a person feels when in the company of others.</br>
+	/**How sociable and confident a person feels when in the company of others.<br/>
 	 * Introverted -> Average -> Extroverted*/
 	EXTROVERSION("Extroversion",
 			"How sociable and confident a person feels when in the company of others.",
@@ -58,9 +58,9 @@ public enum PersonalityTrait {
 			"Extroverted", "[npc.Name] loves being in social situations, and always seeks to be the life of the party.",
 			"Introverted", "You are not very sociable, and feel awkward and shy when in the company of others.",
 			"Average", "You enjoy the company of others, but you don't seek to be the life of the party.",
-			"Extroverted", "You love being in social situations, and always seeks to be the life of the party."),
+			"Extroverted", "You love being in social situations, and always seek to be the life of the party."),
 
-	/**How prone this character is to experiencing unpleasant emotions, such as anxiety, frustration, fear, and loneliness. Neurotic characters are often shy, lack emotional stability, and suffer from low control over their impulses.</br>
+	/**How prone this character is to experiencing unpleasant emotions, such as anxiety, frustration, fear, and loneliness. Neurotic characters are often shy, lack emotional stability, and suffer from low control over their impulses.<br/>
 	 * Confident -> Average -> Neurotic*/
 	NEUROTICISM("Neuroticism",
 			"How prone this character is to experiencing unpleasant emotions, such as anxiety, frustration, fear, and loneliness. Neurotic characters are often shy, lack emotional stability, and suffer from low control over their impulses.",
@@ -68,7 +68,7 @@ public enum PersonalityTrait {
 			"Confident", "[npc.Name] is very emotionally stable, and always feels calm and in control.",
 			"Average", "[npc.Name] has [npc.her] emotions under control, for the most part.",
 			"Neurotic", "[npc.Name] has a tendency to interpret situations in the worst possible manner, and often feels anxious, frustrated, and worried.",
-			"Confident", "You are very emotionally stable, and always feels calm and in control.",
+			"Confident", "You are very emotionally stable, and always feel calm and in control.",
 			"Average", "You have your emotions under control, for the most part.",
 			"Neurotic", "You have a tendency to interpret situations in the worst possible manner, and often feel anxious, frustrated, and worried.");
 	

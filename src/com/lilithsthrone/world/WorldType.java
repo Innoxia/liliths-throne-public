@@ -11,38 +11,62 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.3
  * @author Innoxia
  */
 public enum WorldType {
 	
 	// Dominion:
 	
-//	DOMINION(6,
-//			"Dominion",
-//			Colour.BASE_PURPLE,
-//			1,
-//			PlaceType.DOMINION_STREET,
-//			PlaceType.DOMINION_BACK_ALLEYS,
-//			Util.newArrayListOfValues(
-//					PlaceType.,
-//					PlaceType.,
-//					PlaceType.,
-//					PlaceType.,
-//					PlaceType.,
-//					PlaceType.,
-//					PlaceType.,
-//					PlaceType.,
-//
-//			Util.newArrayListOfValues(
-//					PlaceType.,
-//					PlaceType.DOMINION_DARK_ALLEYS,
-//					PlaceType.DOMINION_DARK_ALLEYS)),
+	WORLD_MAP("Lilith's Realm",
+			Colour.BASE_TAN,
+			1,
+			"/com/lilithsthrone/res/map/world_map.png",
+			null,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0x61997e), PlaceType.WORLD_MAP_THICK_JUNGLE), // thick jungle
+					new Value<>(new Color(0x81cca8), PlaceType.WORLD_MAP_JUNGLE), // jungle
+					new Value<>(new Color(0xb377b0), PlaceType.WORLD_MAP_JUNGLE_CITY), // jungle city
+					
+					new Value<>(new Color(0x696969), PlaceType.WORLD_MAP_FOOTHILLS), // foothills
+					new Value<>(new Color(0xc1c1c1), PlaceType.WORLD_MAP_MOUNTAINS), // low mountains
+					new Value<>(new Color(0xe0e0e0), PlaceType.WORLD_MAP_SNOWY_MOUNTAINS), // snowy mountains
+					
+					new Value<>(new Color(0xffffff), PlaceType.WORLD_MAP_SNOWY_VALLEY), // snowy valley
+					new Value<>(new Color(0xadffff), PlaceType.WORLD_MAP_GLACIAL_LAKE), // glacial lake
+					
+					new Value<>(new Color(0x8500ff), PlaceType.WORLD_MAP_DOMINION), // dominion
 
+					new Value<>(new Color(0xcbf1d5), PlaceType.WORLD_MAP_GRASSLANDS), // wild grasslands
+					new Value<>(new Color(0xe2ffd7), PlaceType.WORLD_MAP_FIELDS), // foloi fields
+					new Value<>(new Color(0xb4c490), PlaceType.WORLD_MAP_FOREST), // forest
+					new Value<>(new Color(0xd544ae), PlaceType.WORLD_MAP_FIELDS_CITY), // Elis
+					
+					new Value<>(new Color(0x98c488), PlaceType.WORLD_MAP_YOUKO_FOREST), // shinrin highland
+					
+					new Value<>(new Color(0x62e6d3), PlaceType.WORLD_MAP_WILD_RIVER), // dangrous river
+					new Value<>(new Color(0xa7fce8), PlaceType.WORLD_MAP_RIVER), // river
+					
+					new Value<>(new Color(0xc4fcff), PlaceType.WORLD_MAP_SEA), // endless sea
+					new Value<>(new Color(0x8264b0), PlaceType.WORLD_MAP_SEA_CITY), // sea city
+					
+					new Value<>(new Color(0xebffc4), PlaceType.WORLD_MAP_ARID_GRASSLAND), // arid grassland
+					new Value<>(new Color(0xd3e6b0), PlaceType.WORLD_MAP_ARID_SAVANNAH), // savannah
+					
+					new Value<>(new Color(0xffefc4), PlaceType.WORLD_MAP_DESERT), // desert
+					new Value<>(new Color(0xffce4a), PlaceType.WORLD_MAP_SAND_DUNES), // sand dunes
+					new Value<>(new Color(0xd5445e), PlaceType.WORLD_MAP_DESERT_CITY), // desert city
+					
+					new Value<>(new Color(0xff8100), PlaceType.WORLD_MAP_VOLCANO), // volcano
+					new Value<>(new Color(0x3b3b3b), PlaceType.WORLD_MAP_LAVA_FLOWS) // lava flows
+					)),
+	
+	
 	DOMINION("Dominion",
 			Colour.BASE_PURPLE,
 			1,
 			"/com/lilithsthrone/res/map/dominion/dominion.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
@@ -88,17 +112,55 @@ public enum WorldType {
 			Colour.BASE_BROWN,
 			1,
 			"/com/lilithsthrone/res/map/empty.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
+					new Value<>(new Color(0xffff00), PlaceType.GENERIC_HOLDING_CELL),
 					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))),
+
+	MUSEUM("Museum",
+			Colour.BASE_BROWN,
+			1,
+			"/com/lilithsthrone/res/map/prologue/museum.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xff0000), PlaceType.MUSEUM_ENTRANCE),
+					new Value<>(new Color(0x8000ff), PlaceType.MUSEUM_CROWDS),
+					new Value<>(new Color(0x0080ff), PlaceType.MUSEUM_OFFICE),
+					new Value<>(new Color(0xffff00), PlaceType.MUSEUM_STAGE),
+					new Value<>(new Color(0xff8000), PlaceType.MUSEUM_ROOM),
+					new Value<>(new Color(0x00ff00), PlaceType.MUSEUM_STAIRS),
+					new Value<>(new Color(0x808080), PlaceType.MUSEUM_LOBBY))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+
+	MUSEUM_LOST("Museum",
+			Colour.BASE_BROWN,
+			1,
+			"/com/lilithsthrone/res/map/prologue/museum_lost.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xff8000), PlaceType.MUSEUM_ROOM),
+					new Value<>(new Color(0x00ff00), PlaceType.MUSEUM_MIRROR),
+					new Value<>(new Color(0x808080), PlaceType.MUSEUM_CORRIDOR))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 	
 	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home",
 			Colour.BASE_BLUE_LIGHT,
 			1,
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_ground_floor.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_ENTRANCE_HALL),
@@ -107,7 +169,6 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.LILAYA_HOME_BIRTHING_ROOM),
 					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_KITCHEN),
 					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_LIBRARY),
-//					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
 					new Value<>(new Color(0x8000ff), PlaceType.LILAYA_HOME_FOUNTAIN),
 					new Value<>(new Color(0xff0080), PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR),
 					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR),
@@ -122,12 +183,12 @@ public enum WorldType {
 			Colour.BASE_BLUE_LIGHT,
 			1,
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR),
 					new Value<>(new Color(0xff0080), PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR),
-//					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
 					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_ROOM_LILAYA),
 					new Value<>(new Color(0x0080ff), PlaceType.LILAYA_HOME_ROOM_ROSE),
 					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_ROOM_PLAYER),
@@ -142,6 +203,7 @@ public enum WorldType {
 			Colour.BASE_CRIMSON,
 			1,
 			"/com/lilithsthrone/res/map/dominion/zaranixHome/first_floor.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ZARANIX_FF_CORRIDOR),
@@ -154,6 +216,7 @@ public enum WorldType {
 			Colour.BASE_CRIMSON,
 			1,
 			"/com/lilithsthrone/res/map/dominion/zaranixHome/ground_floor.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ZARANIX_GF_CORRIDOR),
@@ -170,6 +233,7 @@ public enum WorldType {
 			Colour.BASE_CRIMSON,
 			1,
 			"/com/lilithsthrone/res/map/dominion/harpyNests/harpyNests.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
@@ -186,13 +250,27 @@ public enum WorldType {
 			Colour.BASE_RED,
 			1,
 			"/com/lilithsthrone/res/map/dominion/slaverAlley/slaverAlley.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SLAVER_ALLEY_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SLAVER_ALLEY_ENTRANCE),
-					new Value<>(new Color(0xff00ff), PlaceType.SLAVER_ALLEY_MARKET_STALL),
+
+					new Value<>(new Color(0xff80ff), PlaceType.SLAVER_ALLEY_STALL_FEMALES),
+					new Value<>(new Color(0x0080ff), PlaceType.SLAVER_ALLEY_STALL_MALES),
+					
+					new Value<>(new Color(0xff8000), PlaceType.SLAVER_ALLEY_STALL_ANAL),
+					new Value<>(new Color(0xff00ff), PlaceType.SLAVER_ALLEY_STALL_VAGINAL),
+					new Value<>(new Color(0xff8080), PlaceType.SLAVER_ALLEY_STALL_ORAL),
+					new Value<>(new Color(0x404040), PlaceType.SLAVER_ALLEY_STATUE),
+					
+					new Value<>(new Color(0x21bfc5), PlaceType.SLAVER_ALLEY_MARKET_STALL_EXCLUSIVE),
+					new Value<>(new Color(0x004080), PlaceType.SLAVER_ALLEY_MARKET_STALL_BULK),
+					new Value<>(new Color(0x008080), PlaceType.SLAVER_ALLEY_CAFE),
+					
 					new Value<>(new Color(0x0000ff), PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION),
 					new Value<>(new Color(0xff0080), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP),
+					
 					new Value<>(new Color(0xffff00), PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK),
 					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))),
 	
@@ -200,6 +278,7 @@ public enum WorldType {
 			Colour.BASE_YELLOW,
 			1,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/shoppingArcade.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SHOPPING_ARCADE_PATH),
@@ -223,6 +302,7 @@ public enum WorldType {
 			Colour.BASE_CRIMSON,
 			1,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/supplierDen.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SUPPLIER_DEPOT_CORRIDOR),
@@ -234,6 +314,7 @@ public enum WorldType {
 			Colour.BASE_BLUE,
 			1,
 			"/com/lilithsthrone/res/map/dominion/enforcerHQ/enforcerHQ.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ENFORCER_HQ_CORRIDOR),
@@ -247,6 +328,7 @@ public enum WorldType {
 			Colour.BASE_MAGENTA,
 			1,
 			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissGroundFloor.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
@@ -259,6 +341,7 @@ public enum WorldType {
 			Colour.BASE_MAGENTA,
 			1,
 			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissFirstFloor.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
@@ -267,14 +350,39 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.ANGELS_KISS_BEDROOM_BUNNY),
 					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))),
 	
+
+	NIGHTLIFE_CLUB("The Watering Hole",
+			Colour.BASE_BLUE,
+			1,
+			"/com/lilithsthrone/res/map/dominion/nightLife/wateringHole.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.WATERING_HOLE_ENTRANCE),
+					
+					new Value<>(new Color(0x808080), PlaceType.WATERING_HOLE_MAIN_AREA),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.WATERING_HOLE_SEATING_AREA),
+					new Value<>(new Color(0xff00ff), PlaceType.WATERING_HOLE_VIP_AREA),
+					new Value<>(new Color(0xff8000), PlaceType.WATERING_HOLE_BAR),
+					new Value<>(new Color(0xffff00), PlaceType.WATERING_HOLE_DANCE_FLOOR),
+					new Value<>(new Color(0xff0000), PlaceType.WATERING_HOLE_TOILETS)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+	
 	// Other:
 
 	SUBMISSION("Submission",
 			Colour.BASE_GREEN,
 			1,
 			"/com/lilithsthrone/res/map/submission/submission.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x808000), PlaceType.SUBMISSION_ENTRANCE),
@@ -290,19 +398,117 @@ public enum WorldType {
 					new Value<>(new Color(0x000000), PlaceType.SUBMISSION_LILIN_PALACE_GATE),
 					new Value<>(new Color(0x404040), PlaceType.SUBMISSION_LILIN_PALACE_CAVERN),
 					
-					new Value<>(new Color(0x00ff00), PlaceType.SUBMISSION_IMP_FORTRESS_1),
-					new Value<>(new Color(0x32ff00), PlaceType.SUBMISSION_IMP_FORTRESS_2),
-					new Value<>(new Color(0x64ff00), PlaceType.SUBMISSION_IMP_FORTRESS_3),
-					new Value<>(new Color(0x96ff00), PlaceType.SUBMISSION_IMP_FORTRESS_4),
-					new Value<>(new Color(0xc8ff00), PlaceType.SUBMISSION_IMP_FORTRESS_5),
-					new Value<>(new Color(0xfaff00), PlaceType.SUBMISSION_IMP_FORTRESS_6))),
+					new Value<>(new Color(0x004fc9), PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA),
+					new Value<>(new Color(0x658cc9), PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA),
+					
+					new Value<>(new Color(0x6928c9), PlaceType.SUBMISSION_IMP_FORTRESS_DEMON),
+					new Value<>(new Color(0x8d65c9), PlaceType.SUBMISSION_IMP_TUNNELS_DEMON),
+					
+					new Value<>(new Color(0xa228c9), PlaceType.SUBMISSION_IMP_FORTRESS_FEMALES),
+					new Value<>(new Color(0xb065c9), PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES),
+					
+					new Value<>(new Color(0x0096c9), PlaceType.SUBMISSION_IMP_FORTRESS_MALES),
+					new Value<>(new Color(0x65b0c9), PlaceType.SUBMISSION_IMP_TUNNELS_MALES)
+					)),
+
+
+	LYSSIETH_PALACE("Lyssieth's Palace",
+			Colour.BASE_PURPLE,
+			1,
+			"/com/lilithsthrone/res/map/submission/lyssiethsPalace/groundFloor.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.LYSSIETH_PALACE_CORRIDOR),
+					new Value<>(new Color(0x404040), PlaceType.LYSSIETH_PALACE_WINDOWS),
+
+					new Value<>(new Color(0x00ff00), PlaceType.LYSSIETH_PALACE_ENTRANCE),
+					new Value<>(new Color(0xff80ff), PlaceType.LYSSIETH_PALACE_ROOM),
+					new Value<>(new Color(0xff8000), PlaceType.LYSSIETH_PALACE_HALL),
+					new Value<>(new Color(0x8000ff), PlaceType.LYSSIETH_PALACE_OFFICE),
+					new Value<>(new Color(0xff0080), PlaceType.LYSSIETH_PALACE_SIREN_OFFICE),
+					
+					new Value<>(new Color(0xff0000), PlaceType.LYSSIETH_PALACE_STAIRS_1),
+					new Value<>(new Color(0x0000ff), PlaceType.LYSSIETH_PALACE_STAIRS_2)
+					
+					)),
+	
+	IMP_FORTRESS_ALPHA("Imp Fortress",
+			Colour.BASE_CRIMSON,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_ALPHA_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_ALPHA_ENTRANCE),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_ALPHA_KEEP))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+
+	IMP_FORTRESS_DEMON("Imp Citadel",
+			Colour.BASE_PURPLE,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_DEMON_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_DEMON_ENTRANCE),
+					new Value<>(new Color(0x65b0c9), PlaceType.FORTRESS_DEMON_WELL),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_DEMON_KEEP),
+					new Value<>(new Color(0x8000ff), PlaceType.FORTRESS_DEMON_CELLS),
+					
+					new Value<>(new Color(0x80ff00), PlaceType.FORTRESS_LAB),
+					
+					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_TREASURY))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+
+	IMP_FORTRESS_FEMALES("Imp Fortress",
+			Colour.BASE_PINK,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_FEMALES_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_FEMALES_ENTRANCE),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_FEMALES_KEEP))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+
+	IMP_FORTRESS_MALES("Imp Fortress",
+			Colour.BASE_BLUE,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_MALES_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_MALES_ENTRANCE),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_MALES_KEEP))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 
 	BAT_CAVERNS("Bat Caverns",
 			Colour.BASE_BLACK,
 			1,
 			"/com/lilithsthrone/res/map/submission/batCaverns/batCaverns.png",
+			PlaceType.WORLD_MAP_DOMINION,
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x00ff00), PlaceType.BAT_CAVERN_ENTRANCE),
@@ -315,11 +521,74 @@ public enum WorldType {
 					new Value<>(new Color(0x004080), PlaceType.BAT_CAVERN_RIVER_END),
 					
 					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))),
+
+	SLIME_QUEENS_LAIR_GROUND_FLOOR("Slime Queen's Tower",
+			Colour.BASE_PINK,
+			1,
+			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairGroundFloor.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+
+					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.SLIME_QUEENS_LAIR_ENTRANCE),
+					new Value<>(new Color(0xff0000), PlaceType.SLIME_QUEENS_LAIR_STAIRS_UP),
+					
+					new Value<>(new Color(0xff8000), PlaceType.SLIME_QUEENS_LAIR_STORAGE_VATS),
+					new Value<>(new Color(0x40b4ff), PlaceType.SLIME_QUEENS_LAIR_ROOM),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.SLIME_QUEENS_LAIR_ENTRANCE_GUARDS),
+					
+					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+
+	SLIME_QUEENS_LAIR_FIRST_FLOOR("Slime Queen's Tower",
+			Colour.BASE_PINK,
+			1,
+			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairFirstFloor.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+
+					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.SLIME_QUEENS_LAIR_STAIRS_DOWN),
+					
+					new Value<>(new Color(0x40b4ff), PlaceType.SLIME_QUEENS_LAIR_ROOM),
+					
+					new Value<>(new Color(0xff00ff), PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD),
+					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+
+	GAMBLING_DEN("Gambling Den",
+			Colour.BASE_GOLD,
+			1,
+			"/com/lilithsthrone/res/map/submission/gamblingDen/gamblingDen.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.GAMBLING_DEN_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.GAMBLING_DEN_ENTRANCE),
+					
+					new Value<>(new Color(0xffff00), PlaceType.GAMBLING_DEN_TRADER),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.GAMBLING_DEN_GAMBLING),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.GAMBLING_DEN_PREGNANCY),
+					new Value<>(new Color(0xff00ff), PlaceType.GAMBLING_DEN_FUTA_PREGNANCY),
+					new Value<>(new Color(0xff8000), PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 	
 	JUNGLE(6,
 			"jungle",
 			Colour.BASE_GREEN_LIME,
 			240,
+			PlaceType.WORLD_MAP_DOMINION,
 			PlaceType.JUNGLE_PATH,
 			PlaceType.JUNGLE_DENSE_JUNGLE,
 			Util.newArrayListOfValues(
@@ -330,15 +599,19 @@ public enum WorldType {
 			Util.newArrayListOfValues(PlaceType.JUNGLE_TENTACLE_QUEENS_LAIR));
 
 	
-	private final String name, fileLocation;
+	private final String name;
+	private final String fileLocation;
 	private Colour colour;
-	private int worldSize, timeToTransition;
+	private int worldSize;
+	private int timeToTransition;
 	
-	private int tileSetRowNumber, moveCost;
+	private int tileSetRowNumber;
+	private int moveCost;
 	private PlaceType standardPlace, cutOffZone;
 	private List<PlaceType> places, dangerousPlaces;
 	
 	private boolean usesFile;
+	private PlaceType globalMapLocation;
 	private Map<Color, PlaceType> placesMap;
 	
 
@@ -346,6 +619,7 @@ public enum WorldType {
 			String name,
 			Colour colour,
 			int timeToTransition,
+			PlaceType globalMapLocation,
 			PlaceType standardPlace,
 			PlaceType cutOffZone,
 			List<PlaceType> places,
@@ -360,6 +634,8 @@ public enum WorldType {
 		this.standardPlace = standardPlace;
 		this.cutOffZone = cutOffZone;
 
+		this.globalMapLocation = globalMapLocation;
+		
 		this.places = places;
 		this.dangerousPlaces = dangerousPlaces;
 		
@@ -368,7 +644,7 @@ public enum WorldType {
 		
 	}
 	
-	WorldType(String name, Colour colour, int timeToTransition, String fileLocation, Map<Color, PlaceType> placesMap) {
+	WorldType(String name, Colour colour, int timeToTransition, String fileLocation, PlaceType globalMapLocation, Map<Color, PlaceType> placesMap) {
 		this.name = name;
 		this.colour = colour;
 		this.timeToTransition=timeToTransition;
@@ -382,6 +658,7 @@ public enum WorldType {
 		
 		this.fileLocation = fileLocation;
 		usesFile = true;
+		this.globalMapLocation = globalMapLocation;
 		this.placesMap=placesMap;
 	}
 	
@@ -423,6 +700,10 @@ public enum WorldType {
 
 	public List<PlaceType> getDangerousPlaces() {
 		return dangerousPlaces;
+	}
+
+	public PlaceType getGlobalMapLocation() {
+		return globalMapLocation;
 	}
 
 	public String getFileLocation() {
