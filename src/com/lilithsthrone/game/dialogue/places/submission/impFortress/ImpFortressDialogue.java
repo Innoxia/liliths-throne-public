@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.impFortress;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,7 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -290,7 +289,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -299,8 +298,8 @@ public class ImpFortressDialogue {
 			}
 			
 			// Move boss back to fortress:
-			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP);
-			Main.game.getFortressAlphaLeader().equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressAlphaLeader.class).setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP);
+			Main.game.getNpc(FortressAlphaLeader.class).equipClothing(true, true, false, true);
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -357,7 +356,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -366,8 +365,8 @@ public class ImpFortressDialogue {
 			}
 			
 			// Move boss back to fortress:
-			Main.game.getFortressFemalesLeader().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP);
-			Main.game.getFortressFemalesLeader().equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressFemalesLeader.class).setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP);
+			Main.game.getNpc(FortressFemalesLeader.class).equipClothing(true, true, false, true);
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -425,7 +424,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -434,8 +433,8 @@ public class ImpFortressDialogue {
 			}
 			
 			// Move boss back to fortress:
-			Main.game.getFortressMalesLeader().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP);
-			Main.game.getFortressMalesLeader().equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressMalesLeader.class).setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP);
+			Main.game.getNpc(FortressMalesLeader.class).equipClothing(true, true, false, true);
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -530,13 +529,13 @@ public class ImpFortressDialogue {
 	public static GameCharacter getBoss(WorldType fortress) {
 
 		if(fortress==WorldType.IMP_FORTRESS_ALPHA) {
-			return Main.game.getFortressAlphaLeader();
+			return Main.game.getNpc(FortressAlphaLeader.class);
 
 		} else if(fortress==WorldType.IMP_FORTRESS_FEMALES) {
-			return Main.game.getFortressFemalesLeader();
+			return Main.game.getNpc(FortressFemalesLeader.class);
 
 		} else if(fortress==WorldType.IMP_FORTRESS_MALES) {
-			return Main.game.getFortressMalesLeader();
+			return Main.game.getNpc(FortressMalesLeader.class);
 		}
 		
 		return null;
@@ -594,18 +593,8 @@ public class ImpFortressDialogue {
 		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_ALPHA_KEEP
 				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_FEMALES_KEEP
 				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_MALES_KEEP) {
-			allCharacters.addAll(getImpBossGroup(Main.game.getPlayer().getWorldLocation(), true));
-		}
-
-		if(Main.game.getPlayer().getCompanions().size()>1) {
-			Collections.sort(allCharacters, (c1, c2) ->
-				c1 instanceof Elemental
-					?(c2 instanceof Elemental
-							?c2.getLevel()-c1.getLevel()
-							:1)
-					:(c2 instanceof Elemental
-							?-1
-							:c2.getLevel()-c1.getLevel()));
+			allCharacters.add(getBoss());
+			allCharacters.addAll(getImpBossGroup(Main.game.getPlayer().getWorldLocation(), false));
 		}
 		
 		return allCharacters;
@@ -632,7 +621,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -659,7 +648,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -690,7 +679,7 @@ public class ImpFortressDialogue {
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
-					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE);
+					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE, true);
 					((NPC)impCharacter).equipClothing(true, true, true, true);
 				}
 	
@@ -842,7 +831,7 @@ public class ImpFortressDialogue {
 				public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 					if(getDominants().containsKey(getBoss())) {
 						Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-						map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS));
+						map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS));
 						return map;
 					}
 					return super.exposeAtStartOfSexMap();
@@ -883,7 +872,7 @@ public class ImpFortressDialogue {
 				public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 					if(getDominants().containsKey(getBoss())) {
 						Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-						map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS));
+						map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS));
 						return map;
 					}
 					return super.exposeAtStartOfSexMap();
@@ -1012,8 +1001,7 @@ public class ImpFortressDialogue {
 	
 	// Dialogues:
 	
-	public static final DialogueNodeOld ENTRANCE = new DialogueNodeOld("Gateway", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE = new DialogueNode("Gateway", "", false) {
 
 		@Override
 		public boolean isTravelDisabled() {
@@ -1254,8 +1242,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARDS_AFTER_ORAL_FOR_ENTRY = new DialogueNodeOld("Finished", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_ORAL_FOR_ENTRY = new DialogueNode("Finished", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1273,8 +1260,7 @@ public class ImpFortressDialogue {
 	};
 
 	
-	public static final DialogueNodeOld GUARDS_AFTER_ORAL_FOR_ENTRY_WITH_COMPANION = new DialogueNodeOld("Finished", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_ORAL_FOR_ENTRY_WITH_COMPANION = new DialogueNode("Finished", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1291,8 +1277,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRANCE_DEMONIC_COMMAND = new DialogueNodeOld("", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_DEMONIC_COMMAND = new DialogueNode("", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1315,8 +1300,7 @@ public class ImpFortressDialogue {
 	};
 
 	
-	public static final DialogueNodeOld ENTRANCE_ELEMENTAL = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_ELEMENTAL = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1335,8 +1319,7 @@ public class ImpFortressDialogue {
 	};
 
 	
-	public static final DialogueNodeOld GUARDS_AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_COMBAT_VICTORY = new DialogueNode("Victory", ".", true) {
 
 		@Override
 		public String getDescription() {
@@ -1651,8 +1634,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld GUARDS_AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1727,8 +1709,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARDS_AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1768,8 +1749,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GUARDS_AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GUARDS_AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1802,8 +1782,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld COURTYARD = new DialogueNodeOld("Courtyard", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COURTYARD = new DialogueNode("Courtyard", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1846,8 +1825,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP = new DialogueNodeOld("Keep", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP = new DialogueNode("Keep", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1887,8 +1865,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_ENTRY = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_ENTRY = new DialogueNode("Keep", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2029,7 +2006,7 @@ public class ImpFortressDialogue {
 							UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_PACIFIED_REPEAT_SEX", getAllCharacters())){
 						@Override
 						public void effects() {
-							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+							((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 						}
 					};
 					
@@ -2119,7 +2096,7 @@ public class ImpFortressDialogue {
 								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_PACIFIED_REPEAT_SEX_WITH_COMPANION", getAllCharacters())){
 							@Override
 							public void effects() {
-								((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+								((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 							}
 						};
 					}
@@ -2198,7 +2175,7 @@ public class ImpFortressDialogue {
 						if(Main.game.getPlayer().getMainWeapon()!=null
 								&& Main.game.getPlayer().getMainWeapon().getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
 								&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, Main.game.getPlayer().getMainWeapon())
-									>Attack.getMaximumDamage(Main.game.getFortressMalesLeader(), null, Attack.MAIN, Main.game.getFortressMalesLeader().getMainWeapon())) {
+									>Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon())) {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to 'test cut' the largest bamboo trunk behind [npc.name], thereby demonstrating your superiority in front of [npc.her] imp followers."),
@@ -2220,7 +2197,7 @@ public class ImpFortressDialogue {
 						} else if(Main.game.getPlayer().getOffhandWeapon()!=null
 								&& Main.game.getPlayer().getOffhandWeapon().getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
 								&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, Main.game.getPlayer().getOffhandWeapon())
-									>Attack.getMaximumDamage(Main.game.getFortressMalesLeader(), null, Attack.MAIN, Main.game.getFortressMalesLeader().getMainWeapon())) {
+									>Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon())) {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to 'test cut' the largest bamboo trunk behind [npc.name], thereby demonstrating your superiority in front of [npc.her] imp followers."),
@@ -2243,7 +2220,7 @@ public class ImpFortressDialogue {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(), "You don't think you can match [npc.namePos] demonstration with your weapons...</br>"
 											+ "(Requires you to have an equipped bladed weapon with a maximum damage greater than <b>"
-												+Attack.getMaximumDamage(Main.game.getFortressMalesLeader(), null, Attack.MAIN, Main.game.getFortressMalesLeader().getMainWeapon())+"</b>.)"),
+												+Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon())+"</b>.)"),
 									null);
 						}
 					}
@@ -2375,7 +2352,7 @@ public class ImpFortressDialogue {
 								:UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_ENTRY_OFFER_SEX", getAllCharacters())) {
 						@Override
 						public void effects() {
-							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+							((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 								
 							setBossEncountered();
 						}
@@ -2388,8 +2365,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_ALPHA_BRAWLER = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_ALPHA_BRAWLER = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2428,7 +2404,7 @@ public class ImpFortressDialogue {
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								if(getSubmissives().containsKey(getBoss())) {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-									map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
+									map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
 									return map;
 								}
 								return super.exposeAtStartOfSexMap();
@@ -2471,7 +2447,7 @@ public class ImpFortressDialogue {
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								if(getSubmissives().containsKey(getBoss())) {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-									map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
+									map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
 									return map;
 								}
 								return super.exposeAtStartOfSexMap();
@@ -2516,7 +2492,7 @@ public class ImpFortressDialogue {
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								if(getSubmissives().containsKey(getBoss())) {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-									map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
+									map.put(Main.game.getNpc(FortressAlphaLeader.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
 									return map;
 								}
 								return super.exposeAtStartOfSexMap();
@@ -2547,8 +2523,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_ALPHA_BRAWLER_SCARED_OFF = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_ALPHA_BRAWLER_SCARED_OFF = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2566,8 +2541,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_ALPHA_FORCED = new DialogueNodeOld("Finished", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_ALPHA_FORCED = new DialogueNode("Finished", "", true, true) {
 
 		@Override
 		public String getDescription() {
@@ -2598,8 +2572,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_AFTER_SEX_ALPHA_FORCED_SCARED_OFF = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_ALPHA_FORCED_SCARED_OFF = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2617,8 +2590,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_FEMALES_NYMPHO = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_FEMALES_NYMPHO = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2696,8 +2668,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_FEMALES_NYMPHO_SCARED_OFF = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_FEMALES_NYMPHO_SCARED_OFF = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2715,8 +2686,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_FEMALES_NYMPHO = new DialogueNodeOld("Finished", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_FEMALES_NYMPHO = new DialogueNode("Finished", "", true, true) {
 
 		@Override
 		public String getDescription() {
@@ -2747,8 +2717,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_AFTER_SEX_FEMALES_NYMPHO_SCARED_OFF = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_FEMALES_NYMPHO_SCARED_OFF = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2766,8 +2735,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_MALES_TAMESHIGIRI_MAIN = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_MALES_TAMESHIGIRI_MAIN = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2801,8 +2769,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_MALES_TAMESHIGIRI_OFFHAND = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_MALES_TAMESHIGIRI_OFFHAND = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2836,8 +2803,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE = new DialogueNodeOld("Keep", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE = new DialogueNode("Keep", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2855,8 +2821,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AUDIENCE = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AUDIENCE = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2985,7 +2950,7 @@ public class ImpFortressDialogue {
 						@Override
 						public void effects() {
 							setPacified();
-							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+							((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 						}
 					};
 					
@@ -3060,7 +3025,7 @@ public class ImpFortressDialogue {
 					@Override
 					public void effects() {
 						setPacified();
-						((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+						((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 					}
 				};
 				
@@ -3070,8 +3035,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_AUDIENCE = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_AUDIENCE = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -3107,8 +3071,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_AUDIENCE_KEY = new DialogueNodeOld("Step back", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_AUDIENCE_KEY = new DialogueNode("Step back", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -3121,8 +3084,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_VICTORY = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_VICTORY = new DialogueNode("Keep", ".", true) {
 
 		@Override
 		public String getDescription() {
@@ -3261,7 +3223,7 @@ public class ImpFortressDialogue {
 								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters())){
 							@Override
 							public void effects() {
-								((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+								((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 							}
 						};
 					}
@@ -3412,7 +3374,7 @@ public class ImpFortressDialogue {
 								KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters())){
 							@Override
 							public void effects() {
-								((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+								((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 							}
 						};
 						
@@ -3506,7 +3468,7 @@ public class ImpFortressDialogue {
 									UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters())){
 								@Override
 								public void effects() {
-									((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+									((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 								}
 							};
 						}
@@ -3589,7 +3551,7 @@ public class ImpFortressDialogue {
 									KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
 								@Override
 								public void effects() {
-									((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+									((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 										
 									if(!companion.isAttractedTo(getBoss()) && Main.game.isNonConEnabled()) {
 										Main.game.getTextEndStringBuilder().append(companion.incrementAffection(Main.game.getPlayer(), -50));
@@ -3638,8 +3600,7 @@ public class ImpFortressDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_DEFEAT = new DialogueNode("Keep", ".", true) {
 		
 		@Override
 		public String getDescription() {
@@ -3803,7 +3764,7 @@ public class ImpFortressDialogue {
 						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX"+appendPace, getAllCharacters())){
 					@Override
 					public void effects() {
-						((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+						((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 					}
 				};
 				
@@ -3813,8 +3774,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_PACIFIED = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_PACIFIED = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -3839,8 +3799,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -3881,8 +3840,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_VICTORY_SCARE_OFF = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_VICTORY_SCARE_OFF = new DialogueNode("", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -3895,8 +3853,7 @@ public class ImpFortressDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3927,7 +3884,7 @@ public class ImpFortressDialogue {
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.BOOST, 0),
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_DOMINANT, TFPotency.DRAIN, 0));
 							
-							FortressAlphaLeader boss = (FortressAlphaLeader) Main.game.getFortressAlphaLeader();
+							FortressAlphaLeader boss = (FortressAlphaLeader) Main.game.getNpc(FortressAlphaLeader.class);
 							
 							if((boss).isAbleToEquipGag(Main.game.getPlayer())) {
 								AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_GOLD, Colour.CLOTHING_WHITE, Colour.CLOTHING_GOLD, effects);
@@ -3950,7 +3907,7 @@ public class ImpFortressDialogue {
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_EXHIBITIONIST, TFPotency.MAJOR_BOOST, 0),
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_ASS, TFPotency.BOOST, 0));
 
-							FortressFemalesLeader boss = (FortressFemalesLeader) Main.game.getFortressFemalesLeader();
+							FortressFemalesLeader boss = (FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class);
 							
 							if(boss.isAbleToEquipButtPlug(Main.game.getPlayer())) {
 								AbstractClothing buttPlug = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"),
@@ -3975,7 +3932,7 @@ public class ImpFortressDialogue {
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
 
-							FortressMalesLeader boss = (FortressMalesLeader) Main.game.getFortressMalesLeader();
+							FortressMalesLeader boss = (FortressMalesLeader) Main.game.getNpc(FortressMalesLeader.class);
 							
 							if(boss.isAbleToEquipThong(Main.game.getPlayer())) {
 								AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED_DARK, effects);

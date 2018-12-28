@@ -674,7 +674,9 @@ public class WeaponType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
+			Util.newArrayListOfValues(
+					ItemTag.REMOVE_FROM_DEBUG_SPAWNER
+					)) {
 
 		@Override
 		public String equipText(GameCharacter character) {
@@ -1028,7 +1030,7 @@ public class WeaponType {
 	};
 	
 	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>();
-	public static List<AbstractWeaponType> allweapons = new ArrayList<>();
+	private static List<AbstractWeaponType> allweapons = new ArrayList<>();
 	public static List<AbstractWeaponType> moddedWeapons = new ArrayList<>();
 	
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
@@ -1134,12 +1136,10 @@ public class WeaponType {
 					weaponToIdMap.put(weapon, f.getName());
 					idToWeaponMap.put(f.getName(), weapon);
 					
-					if(weapon != MAIN_WESTERN_KKP) {
-						allweapons.add(weapon);
-					
-						if (weapon.getRarity() == Rarity.RARE) {
-							rareWeapons.add(weapon);
-						}
+					allweapons.add(weapon);
+				
+					if (weapon.getRarity() == Rarity.RARE) {
+						rareWeapons.add(weapon);
 					}
 					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -1147,5 +1147,9 @@ public class WeaponType {
 				}
 			}
 		}
+	}
+
+	public static List<AbstractWeaponType> getAllweapons() {
+		return allweapons;
 	}
 }

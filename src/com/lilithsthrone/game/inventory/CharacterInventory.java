@@ -1,8 +1,15 @@
 package com.lilithsthrone.game.inventory;
 
-import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -42,15 +49,6 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.<br/>
  * Only the very bravest dare venture past line 695.
@@ -59,9 +57,8 @@ import java.util.Set;
  * @version 0.2.10
  * @author Innoxia
  */
-public class CharacterInventory implements Serializable, XMLSaving {
+public class CharacterInventory implements XMLSaving {
 
-	private static final long serialVersionUID = 1L;
 
 	private List<AbstractItem> itemsInInventory;
 	private List<AbstractWeapon> weaponsInInventory;
@@ -1332,6 +1329,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return isAbleToUnequip(clothing, unequipIfAble, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, false);
 	}
 
+	private AbstractClothing previousClothingCheck = null;
 	private boolean isAbleToUnequip(AbstractClothing clothing, boolean unequipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, boolean continuingIsAbleToEquip) {
 
 		if(!unequipIfAble) {
@@ -1360,7 +1358,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			clothingToRemove.put(clothing, DisplacementType.REMOVE_OR_EQUIP);
 		}
 		
-		// Check for access needed: TODO check this works
+		// Check for access needed: TODO check this works TODO it doesn't
 		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 
 			// Keep iterating through until until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
@@ -1395,6 +1393,11 @@ public class CharacterInventory implements Serializable, XMLSaving {
 												}
 
 										} else {
+											if(equippedClothing.equals(previousClothingCheck)) {
+												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
+												return false;
+											}
+											previousClothingCheck = clothing;
 											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can  be removed:
 												clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 												

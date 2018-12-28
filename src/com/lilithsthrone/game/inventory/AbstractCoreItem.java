@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -25,9 +24,8 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.4
  * @author Innoxia
  */
-public abstract class AbstractCoreItem implements Serializable, XMLSaving {
+public abstract class AbstractCoreItem implements XMLSaving {
 
-	private static final long serialVersionUID = 1L;
 
 	protected String name, namePlural, SVGString;
 	protected Colour colourShade;
@@ -114,10 +112,6 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 	
 	public AbstractCoreItem enchant(TFEssence essence, TFModifier primaryModifier, TFModifier secondaryModifier) {
 		return this;
-	}
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public TFEssence getRelatedEssence() {

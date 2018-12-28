@@ -222,7 +222,7 @@ public class PenisAss {
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Shifting [npc.her] [npc.hips] a little, [npc.name] [npc.verb(reach)] back and eagerly [npc2.verb(press)] [npc.her] ass cheeks together,"
+							"Shifting [npc.her] [npc.hips] a little, [npc.name] [npc.verb(reach)] back and eagerly [npc.verb(press)] [npc.her] ass cheeks together,"
 									+ " before happily sliding the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] up and down between the cleft that's formed.",
 
 							"Taking a firm hold of [npc.her] [npc.ass], [npc.name] slowly [npc.verb(push)] [npc.her] cheeks together,"

@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -113,8 +113,7 @@ public class TunnelImpsDialogue {
 		return idSB.toString();
 	}
 	
-	public static final DialogueNodeOld IMP_ATTACK = new DialogueNodeOld("Imp Gang", "A group of imps attack!", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_ATTACK = new DialogueNode("Imp Gang", "A group of imps attack!", true) {
 		
 		@Override
 		public String getContent() {
@@ -228,8 +227,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_ATTACK_OFFER_BODY = new DialogueNodeOld("Imp Gang", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_ATTACK_OFFER_BODY = new DialogueNode("Imp Gang", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -301,8 +299,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld IMP_ATTACK_OFFER_COMPANION = new DialogueNodeOld("Imp Gang", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_ATTACK_OFFER_COMPANION = new DialogueNode("Imp Gang", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -397,8 +394,7 @@ public class TunnelImpsDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld IMP_ATTACK_OFFER_THREESOME = new DialogueNodeOld("Imp Gang", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_ATTACK_OFFER_THREESOME = new DialogueNode("Imp Gang", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -760,8 +756,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -1074,8 +1069,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 		
 		@Override
 		public String getDescription() {
@@ -1105,8 +1099,7 @@ public class TunnelImpsDialogue {
 	};
 	
 
-	public static final DialogueNodeOld AFTER_OFFER_COMPANION_TRANSFORMATION = new DialogueNodeOld("Imp Gang", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_OFFER_COMPANION_TRANSFORMATION = new DialogueNode("Imp Gang", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1131,8 +1124,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION_SOLO = new DialogueNodeOld("Imp Gang", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_TRANSFORMATION_SOLO = new DialogueNode("Imp Gang", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1181,8 +1173,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION = new DialogueNodeOld("Imp Gang", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_TRANSFORMATION = new DialogueNode("Imp Gang", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1231,8 +1222,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1272,8 +1262,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1315,8 +1304,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_WATCHING_COMPANION = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_WATCHING_COMPANION = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1352,8 +1340,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CONTINUE_ENSLAVEMENT = new DialogueNodeOld("Imps", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CONTINUE_ENSLAVEMENT = new DialogueNode("Imps", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1380,8 +1367,7 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_ENSLAVEMENT_DIALOGUE = new DialogueNode("New Slave", "", true) {
 		
 		@Override
 		public String getDescription(){

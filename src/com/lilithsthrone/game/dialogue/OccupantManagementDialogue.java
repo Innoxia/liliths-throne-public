@@ -71,36 +71,36 @@ public class OccupantManagementDialogue {
 		return Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
 	}
 	
-	public static DialogueNodeOld getSlaveryOverviewDialogue() {
+	public static DialogueNode getSlaveryOverviewDialogue() {
 		dayNumber = Main.game.getDayNumber();
 		return OCCUPANT_OVERVIEW;
 	}
 	
-	public static DialogueNodeOld getSlaveryManagementInspectSlaveDialogue(NPC slave) {
+	public static DialogueNode getSlaveryManagementInspectSlaveDialogue(NPC slave) {
 		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
 		CharactersPresentDialogue.resetContent(slave);
 		return SLAVE_MANAGEMENT_INSPECT;
 	}
 	
-	public static DialogueNodeOld getSlaveryManagementSlaveJobsDialogue(NPC slave) {
+	public static DialogueNode getSlaveryManagementSlaveJobsDialogue(NPC slave) {
 		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
 		CharactersPresentDialogue.resetContent(slave);
 		return SLAVE_MANAGEMENT_JOBS;
 	}
 	
-	public static DialogueNodeOld getSlaveryManagementSlavePermissionsDialogue(NPC slave) {
+	public static DialogueNode getSlaveryManagementSlavePermissionsDialogue(NPC slave) {
 		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
 		CharactersPresentDialogue.resetContent(slave);
 		return SLAVE_MANAGEMENT_PERMISSIONS;
 	}
 	
-	public static DialogueNodeOld getSlaveryManagementDialogue(NPC slaveTrader) {
+	public static DialogueNode getSlaveryManagementDialogue(NPC slaveTrader) {
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
 		slaveListManagementOverview = true;
 		return SLAVE_LIST_MANAGEMENT;
 	}
 	
-	public static DialogueNodeOld getSlaveryRoomListDialogue(NPC slaveTrader) {
+	public static DialogueNode getSlaveryRoomListDialogue(NPC slaveTrader) {
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
 		slaveListManagementOverview = false;
 		return SLAVE_LIST;
@@ -128,7 +128,7 @@ public class OccupantManagementDialogue {
 		} else if (index == 2) {
 			return new Response("Slave List", "Enter the slave management screen.", SLAVE_LIST_MANAGEMENT) {
 				@Override
-				public DialogueNodeOld getNextDialogue() {
+				public DialogueNode getNextDialogue() {
 					return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());
 				}
 				@Override
@@ -144,7 +144,7 @@ public class OccupantManagementDialogue {
 			} else if(Main.game.getOccupancyUtil().getGeneratedBalance()>0) {
 				return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getOccupancyUtil().getGeneratedBalance(), "span"), "Collect the money that you've earned through your slaves' activities.",  OCCUPANT_OVERVIEW) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getCurrentDialogueNode();
 					}
 					@Override
@@ -161,7 +161,7 @@ public class OccupantManagementDialogue {
 				
 				return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getOccupancyUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD), "Pay off the accumulated debt from the upkeep of your slaves and rooms.",  OCCUPANT_OVERVIEW) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getCurrentDialogueNode();
 					}
 					@Override
@@ -174,7 +174,7 @@ public class OccupantManagementDialogue {
 		} else if (index == 0) {
 			return new Response("Back", "Exit the room upgrades screen.", OCCUPANT_OVERVIEW) {
 				@Override
-				public DialogueNodeOld getNextDialogue() {
+				public DialogueNode getNextDialogue() {
 					return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				}
 				@Override
@@ -189,8 +189,7 @@ public class OccupantManagementDialogue {
 		}
 	}
 	
-	public static final DialogueNodeOld OCCUPANT_OVERVIEW = new DialogueNodeOld("Slavery Overview", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_OVERVIEW = new DialogueNode("Slavery Overview", ".", true) {
 		
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -343,16 +342,10 @@ public class OccupantManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			return getSlaveryResponse(index);
 		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
 	};
 	
 	
-	public static final DialogueNodeOld ROOM_MANAGEMENT = new DialogueNodeOld("Room Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_MANAGEMENT = new DialogueNode("Room Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -393,11 +386,6 @@ public class OccupantManagementDialogue {
 			} else {
 				return null;
 			}
-		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
 		}
 	};
 	
@@ -542,8 +530,7 @@ public class OccupantManagementDialogue {
 	
 	public static Cell cellToInspect;
 	
-	public static final DialogueNodeOld ROOM_UPGRADES = new DialogueNodeOld("Room Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_UPGRADES = new DialogueNode("Room Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -697,7 +684,7 @@ public class OccupantManagementDialogue {
 					return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getOccupancyUtil().getGeneratedBalance(), "span"),
 							"Collect the money that you've earned through your slaves' activities.",  ROOM_UPGRADES) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getCurrentDialogueNode();
 						}
 						@Override
@@ -715,7 +702,7 @@ public class OccupantManagementDialogue {
 					return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getOccupancyUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD),
 							"Pay off the accumulated debt from the upkeep of your slaves and rooms.",  ROOM_UPGRADES) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getCurrentDialogueNode();
 						}
 						@Override
@@ -728,7 +715,7 @@ public class OccupantManagementDialogue {
 			} else if(index==0) {
 				return new Response("Back", "Return to the previous screen.", ROOM_UPGRADES) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -736,17 +723,11 @@ public class OccupantManagementDialogue {
 				return null;
 			}
 		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
 	};
 	
 
 
-	public static final DialogueNodeOld ROOM_UPGRADES_MANAGEMENT = new DialogueNodeOld("Room Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_UPGRADES_MANAGEMENT = new DialogueNode("Room Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -773,7 +754,7 @@ public class OccupantManagementDialogue {
 					return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getOccupancyUtil().getGeneratedBalance(), "span"),
 							"Collect the money that you've earned through your slaves' activities.",  ROOM_UPGRADES_MANAGEMENT) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getCurrentDialogueNode();
 						}
 						@Override
@@ -791,7 +772,7 @@ public class OccupantManagementDialogue {
 					return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getOccupancyUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD),
 							"Pay off the accumulated debt from the upkeep of your slaves and rooms.",  ROOM_UPGRADES_MANAGEMENT) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getCurrentDialogueNode();
 						}
 						@Override
@@ -806,11 +787,6 @@ public class OccupantManagementDialogue {
 			} else {
 				return null;
 			}
-		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
 		}
 	};
 	
@@ -1003,8 +979,7 @@ public class OccupantManagementDialogue {
 	}
 	
 	
-	private static final DialogueNodeOld SLAVE_LIST = new DialogueNodeOld("Slave & Occupant Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode SLAVE_LIST = new DialogueNode("Slave & Occupant Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1203,7 +1178,7 @@ public class OccupantManagementDialogue {
 							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 						}
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							if(slaveListManagementOverview) {
 								return SLAVE_LIST_MANAGEMENT;
 							} else {
@@ -1274,7 +1249,7 @@ public class OccupantManagementDialogue {
 							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 						}
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							if(slaveListManagementOverview) {
 								return SLAVE_LIST_MANAGEMENT;
 							} else {
@@ -1288,16 +1263,10 @@ public class OccupantManagementDialogue {
 				}
 			}
 		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
 	};
 	
 
-	public static final DialogueNodeOld SLAVE_LIST_MANAGEMENT = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_LIST_MANAGEMENT = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1317,11 +1286,6 @@ public class OccupantManagementDialogue {
 			} else {
 				return SLAVE_LIST.getResponse(responseTab, index);
 			}
-		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
 		}
 	};
 	
@@ -1660,8 +1624,7 @@ public class OccupantManagementDialogue {
 	/**
 	 * <b>Use getSlaveryManagementDetailedDialogue(NPC slave) to initialise this!!!</b>
 	 */
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_INSPECT = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_INSPECT = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1705,18 +1668,12 @@ public class OccupantManagementDialogue {
 		}
 		
 		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
-		
-		@Override
 		public boolean reloadOnRestore() {
 			return true;
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_JOBS = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_JOBS = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1913,18 +1870,12 @@ public class OccupantManagementDialogue {
 		}
 		
 		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
-		
-		@Override
 		public boolean reloadOnRestore() {
 			return true;
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_PERMISSIONS = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_PERMISSIONS = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1993,11 +1944,6 @@ public class OccupantManagementDialogue {
 			}
 
 			return SLAVE_LIST.getResponse(responseTab, index);
-		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
 		}
 		
 		@Override
@@ -2085,7 +2031,7 @@ public class OccupantManagementDialogue {
 		} else if (index == 0) {
 			return new Response("Back", "Return to the slave management screen.",  SLAVE_LIST) {
 				@Override
-				public DialogueNodeOld getNextDialogue() {
+				public DialogueNode getNextDialogue() {
 					if(slaveListManagementOverview) {
 						return SLAVE_LIST_MANAGEMENT;
 					} else {
@@ -2103,8 +2049,7 @@ public class OccupantManagementDialogue {
 		}
 	}
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_MAKEUP = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_MAKEUP = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2161,8 +2106,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_HAIR = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_HAIR = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2212,8 +2156,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_PIERCINGS = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_PIERCINGS = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2268,8 +2211,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_EYES = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_EYES = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2317,8 +2259,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_COVERINGS = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_COVERINGS = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2403,8 +2344,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_OTHER = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_OTHER = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2475,8 +2415,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_TATTOOS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_TATTOOS = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -2521,8 +2460,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_TATTOOS_ADD = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_TATTOOS_ADD = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getLabel() {
@@ -2576,8 +2514,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_PERKS = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_PERKS = new DialogueNode("", "", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2651,11 +2588,6 @@ public class OccupantManagementDialogue {
 			}
 			
 			return SLAVE_LIST.getResponse(responseTab, index);
-		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
 		}
 		
 		@Override

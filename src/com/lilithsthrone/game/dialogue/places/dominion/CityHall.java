@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Relationship;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -18,8 +18,7 @@ import com.lilithsthrone.utils.Colour;
  */
 public class CityHall {
 
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("City Hall", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("City Hall", "-", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -44,8 +43,7 @@ public class CityHall {
 			}
 		}
 	};
-	public static final DialogueNodeOld CITY_HALL_ENTER = new DialogueNodeOld("City Hall ", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_HALL_ENTER = new DialogueNode("City Hall ", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -70,8 +68,7 @@ public class CityHall {
 		}
 	};
 	
-	public static final DialogueNodeOld CITY_HALL_PUBLIC_ENQUIRIES = new DialogueNodeOld("Bureau of Demographics", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_HALL_PUBLIC_ENQUIRIES = new DialogueNode("Bureau of Demographics", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -100,8 +97,7 @@ public class CityHall {
 	private static boolean unsuitableName = false;
 	private static boolean unsuitableSurname = false;
 	
-	public static final DialogueNodeOld CITY_HALL_NAME_CHANGE_FORM = new DialogueNodeOld("Bureau of Demographics", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_HALL_NAME_CHANGE_FORM = new DialogueNode("Bureau of Demographics", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -187,7 +183,7 @@ public class CityHall {
 		Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 		if(Main.mainController.getWebEngine().getDocument()!=null) {
 			if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
-					|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
+					|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32
 					|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
 				unsuitableName = true;
 			else {
@@ -196,8 +192,8 @@ public class CityHall {
 		}
 		Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
 		if(Main.mainController.getWebEngine().getDocument()!=null) {
-			if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
-					&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
+			if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()==0
+					&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 32
 							|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
 				unsuitableSurname = true;
 			else {

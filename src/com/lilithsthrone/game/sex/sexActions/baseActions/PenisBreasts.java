@@ -1376,27 +1376,27 @@ public class PenisBreasts {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Gently taking hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(guide)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a titfuck."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly taking hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(guide)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] an enthusiastic titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] an enthusiastic titfuck."));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly grabbing hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(pull)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a forceful titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a forceful titfuck."));
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(guide)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] a titfuck."));
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly taking hold of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(guide)] it up to [npc.her] cleavage, and, sliding forwards,"
-								+ " [npc.she] [npc2.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] an enthusiastic titfuck."));
+								+ " [npc.she] [npc.verb(press)] [npc.her] [npc.breasts+] together and [npc.verb(start)] giving [npc2.herHim] an enthusiastic titfuck."));
 						break;
 					default:
 						break;

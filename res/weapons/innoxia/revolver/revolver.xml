@@ -34,7 +34,7 @@
 		
 		<damage>20</damage> 
 		
-		<arcaneCost>0</arcaneCost> 
+		<arcaneCost>1</arcaneCost> 
 		
 		<damageVariance>MEDIUM</damageVariance> 
 		

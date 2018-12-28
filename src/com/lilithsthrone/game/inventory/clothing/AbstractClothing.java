@@ -1,11 +1,11 @@
 package com.lilithsthrone.game.inventory.clothing;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,16 +36,13 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
-import java.util.Set;
-
 /**
  * @since 0.1.0
  * @version 0.2.5
  * @author Innoxia
  */
-public abstract class AbstractClothing extends AbstractCoreItem implements Serializable, XMLSaving {
+public abstract class AbstractClothing extends AbstractCoreItem implements XMLSaving {
 
-	private static final long serialVersionUID = 1L;
 
 	private AbstractClothingType clothingType;
 	protected List<ItemEffect> effects;

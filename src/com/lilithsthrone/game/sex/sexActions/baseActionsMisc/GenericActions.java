@@ -118,7 +118,7 @@ public class GenericActions {
 						?"[npc2.Name] lets out a little giggle, and as you look down at [npc2.her] naked groin, you see a large bump start to form beneath [npc2.her] [npc2.skin]."
 								+ " Before you have any time to change your mind, it quickly grows out into a fat demonic cock, and as you stare down at the little wriggling bumps that press out all along its shaft,"
 								+ " a bead of precum seeps out and drips from the tip."
-						:"[npc2.Name] lets out a little giggle, and as you look down at [npc2.her] groin, you see a huge bulge quickly form beneath the fabric of [npc2.her] "
+						:"[npc2.Name] lets out a little giggle, and as you look down at [npc2.her] groin, you see a huge bulge quickly forming in [npc2.her] "
 								+Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"."
 								+ " Before you have any time to change your mind, [npc2.name] lets out [npc2.a_moan+], and you realise that [npc2.sheIs] now got a huge demonic cock hiding beneath [npc2.her] clothing.");
 		}
@@ -622,7 +622,7 @@ public class GenericActions {
 			return Sex.isDom(Main.game.getPlayer())
 					&& !Sex.isMasturbation()
 					&& !Sex.isSubHasEqualControl()
-					&& Sex.isCanRemoveOthersClothing(Sex.getActivePartner())
+					&& Sex.isCanRemoveOthersClothing(Sex.getActivePartner(), null)
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -661,7 +661,7 @@ public class GenericActions {
 			return Sex.isDom(Main.game.getPlayer())
 					&& !Sex.isMasturbation()
 					&& !Sex.isSubHasEqualControl()
-					&& !Sex.isCanRemoveOthersClothing(Sex.getActivePartner())
+					&& !Sex.isCanRemoveOthersClothing(Sex.getActivePartner(), null)
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 

@@ -1,14 +1,11 @@
 package com.lilithsthrone.game.character.persona;
 
-import java.io.Serializable;
-
 /**
  * @since 0.1.75
- * @version 0.1.85
+ * @version 0.3
  * @author Innoxia
  */
-public class NameTriplet implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class NameTriplet {
 	
 	private String masculine, androgynous, feminine;
 

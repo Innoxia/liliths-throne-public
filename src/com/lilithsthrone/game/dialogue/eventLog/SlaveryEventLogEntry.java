@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.eventLog;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +19,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.87
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
-public class SlaveryEventLogEntry implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class SlaveryEventLogEntry implements XMLSaving {
 
 	protected long time;
 	private String slaveID;

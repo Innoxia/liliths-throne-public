@@ -81,10 +81,10 @@
 	
 	<hitDescriptions>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], letting out an evil laugh as the ethereal blade unleashes a tremendous burst of arcane energy as it makes contact with [npc2.her] body!
+		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], letting out an evil laugh as the ethereal blade unleashes a tremendous burst of arcane energy upon contacting [npc2.her] body!
 		]]></hitText>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], grinning in delight as the ethereal blade delivers a cataclysmic blast of energy as it makes contact with [npc2.her] body!
+		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], grinning in delight as the ethereal blade delivers a cataclysmic blast of energy upon contacting with [npc2.her] body!
 		]]></hitText>
 		<hitText><![CDATA[
 		[npc.Name] [npc.verb(swing)] at [npc2.name] with [npc.her] scythe, laughing in maniacal glee as [npc2.her] body's contact with the ethereal blade triggers a tremendous burst of arcane energy!

@@ -1,12 +1,12 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 
 /**
@@ -14,8 +14,7 @@ import com.lilithsthrone.utils.Units;
  * @version 0.2.2
  * @author Innoxia
  */
-public class Hair implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Hair implements BodyPartInterface {
 	
 	protected HairType type;
 	protected int length;
@@ -58,8 +57,11 @@ public class Hair implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, HairType type) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
 			return "";
 		}
 		

@@ -1909,7 +1909,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.getArmType() == ArmType.LYCAN && owner.getFaceType() == FaceType.LYCAN;
+			return owner.getArmType() == ArmType.WOLF_MORPH && owner.getFaceType() == FaceType.LYCAN;
 		}
 	},
 

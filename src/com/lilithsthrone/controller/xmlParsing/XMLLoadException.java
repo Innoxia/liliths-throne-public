@@ -20,6 +20,6 @@ public class XMLLoadException extends Exception {
 	}
 
 	public XMLLoadException(Throwable cause, File causedByFile){
-		super("XML file ("+causedByFile.getAbsolutePath()+") failed to load. Cause: " + cause.getMessage(), cause);
+		super("XML file ("+causedByFile.getParentFile().getName()+"/"+causedByFile.getName()+") failed to load. Cause: " + cause.getMessage(), cause);
 	}
 }

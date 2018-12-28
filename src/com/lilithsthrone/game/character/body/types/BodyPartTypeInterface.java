@@ -50,16 +50,26 @@ public interface BodyPartTypeInterface {
 	/** A 1-word descriptor that best describes this body part. */
 	public String getDescriptor(GameCharacter gc);
 
-	/** @param gc TODO
+	/** @param body The body that this covering type is a part of.
 	 * @return The type of skin that is covering this body part. */
 	public BodyCoveringType getBodyCoveringType(Body body);
 	
 	public default BodyCoveringType getBodyCoveringType(GameCharacter gc) {
 		return getBodyCoveringType(gc.getBody());
 	}
-	
+
+	/** @return The race of this body part. */
 	public Race getRace();
 	
+	//TODO
+//	/** @return The description of this body part as seen in the character view screen. */
+//	public String getBodyDescription(GameCharacter owner);
+	
+	//TODO
+//	/** @return The description of this body part being changed. */
+//	public String getTransformationDescription(GameCharacter owner);
+
+	/** @return The name that should be used when describing this body part in the context of transformations. */
 	public default String getTransformName() {
 		if(getRace()==null) {
 			return "";

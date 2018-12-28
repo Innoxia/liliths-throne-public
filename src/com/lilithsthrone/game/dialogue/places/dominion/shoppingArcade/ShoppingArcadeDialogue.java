@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
@@ -17,8 +17,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class ShoppingArcadeDialogue {
 
 	
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Shopping arcade", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Shopping arcade", "-", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -71,8 +70,7 @@ public class ShoppingArcadeDialogue {
 		
 	};
 	
-	public static final DialogueNodeOld ENTRY = new DialogueNodeOld("Entrance to the arcade", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRY = new DialogueNode("Entrance to the arcade", "-", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -162,8 +160,7 @@ public class ShoppingArcadeDialogue {
 	};
 	
 	//TODO
-	public static final DialogueNodeOld ARCADE = new DialogueNodeOld("Shopping arcade", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ARCADE = new DialogueNode("Shopping arcade", "-", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -202,8 +199,7 @@ public class ShoppingArcadeDialogue {
 			"a cheese-board",
 			"a little book of cheat-codes for some obscene text-based RPG",
 			"a fruit bowl"};
-	public static final DialogueNodeOld GENERIC_SHOP = new DialogueNodeOld("Shop", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GENERIC_SHOP = new DialogueNode("Shop", "-", false) {
 		
 		@Override
 		public int getMinutesPassed(){

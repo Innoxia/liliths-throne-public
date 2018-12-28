@@ -5,6 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -42,7 +43,7 @@ public class CitadelYoukoSA {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().equals(Main.game.getSubmissionCitadelArcanist())
+			return !Sex.getCharacterPerformingAction().equals(Main.game.getNpc(SubmissionCitadelArcanist.class))
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexPositionSlot.MISC_WATCHING;
 		}
 

@@ -1,6 +1,6 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -12,8 +12,7 @@ import com.lilithsthrone.main.Main;
  */
 public class SubmissionEncounterDialogue {
 
-	public static final DialogueNodeOld FIND_ITEM = new DialogueNodeOld("Rubbish Pile", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FIND_ITEM = new DialogueNode("Rubbish Pile", "", true) {
 
 		@Override
 		public String getContent() {

@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -185,7 +185,7 @@ public class RoomPlayer {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
 				return new Response("Slavery Overview", "Open the slave management screen.",  ROOM) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return OccupantManagementDialogue.getSlaveryOverviewDialogue();
 					}
 				};
@@ -220,8 +220,7 @@ public class RoomPlayer {
 				+ "</i></p>";
 	}
 
-	public static final DialogueNodeOld ROOM = new DialogueNodeOld("Your Room", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public String getContent() {
@@ -244,8 +243,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNodeOld("Your Room", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -282,8 +280,7 @@ public class RoomPlayer {
 			return false;
 		}
 	};
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG = new DialogueNodeOld("Your Room", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -321,8 +318,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_WASH = new DialogueNodeOld("Your Room", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_WASH = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -351,8 +347,7 @@ public class RoomPlayer {
 		}
 	};
 
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNodeOld("Your Room", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public String getContent() {
@@ -424,8 +419,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNodeOld("Your Room", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public String getContent() {
@@ -484,8 +478,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNodeOld("Your Room", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public String getContent() {
@@ -549,8 +542,7 @@ public class RoomPlayer {
 	
 
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME = new DialogueNodeOld("Your Room", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME = new DialogueNode("Your Room", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -613,8 +605,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld BACK_HOME_AFTER_CLUBBER_SEX = new DialogueNodeOld("Your Room", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BACK_HOME_AFTER_CLUBBER_SEX = new DialogueNode("Your Room", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -670,8 +661,7 @@ public class RoomPlayer {
 		}
 	};
 
-	public static final DialogueNodeOld BACK_HOME_AFTER_SEX = new DialogueNodeOld("Your Room", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BACK_HOME_AFTER_SEX = new DialogueNode("Your Room", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -689,8 +679,7 @@ public class RoomPlayer {
 		}
 	};
 
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME = new DialogueNodeOld("Your Room", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME = new DialogueNode("Your Room", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){

@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -119,8 +119,7 @@ public class AlleywayAttackerDialogue {
 		return UtilText.parse(getMugger(), sb.toString());
 	}
 	
-	public static final DialogueNodeOld ALLEY_ATTACK = new DialogueNodeOld("Assaulted!", "A figure jumps out from the shadows!", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
 		
 		@Override
 		public String getContent() {
@@ -408,8 +407,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEY_PEACEFUL_TALK = new DialogueNodeOld("Talk", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_PEACEFUL_TALK = new DialogueNode("Talk", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -441,8 +439,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEY_PEACEFUL_OFFER_MONEY = new DialogueNodeOld("Offer money", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_PEACEFUL_OFFER_MONEY = new DialogueNode("Offer money", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -474,8 +471,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEY_PEACEFUL_OFFER_ROOM = new DialogueNodeOld("Offer room", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_PEACEFUL_OFFER_ROOM = new DialogueNode("Offer room", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -502,8 +498,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEY_PEACEFUL_OFFER_ROOM_BACK_HOME = new DialogueNodeOld("New Room", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_PEACEFUL_OFFER_ROOM_BACK_HOME = new DialogueNode("New Room", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -524,8 +519,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEY_PEACEFUL_ATTACK = new DialogueNodeOld("Attack", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_PEACEFUL_ATTACK = new DialogueNode("Attack", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -543,8 +537,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PEACEFUL = new DialogueNodeOld("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_PEACEFUL = new DialogueNode("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
 		
 		@Override
 		public String getContent() {
@@ -566,8 +559,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld STORM_ATTACK = new DialogueNodeOld("Attacked!", "A figure jumps out of a nearby doorway!", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STORM_ATTACK = new DialogueNode("Attacked!", "A figure jumps out of a nearby doorway!", true) {
 		
 		@Override
 		public String getLabel(){
@@ -608,8 +600,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -882,8 +873,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY_TALK = new DialogueNodeOld("Talk", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY_TALK = new DialogueNode("Talk", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -903,8 +893,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 		
 		Value<String, AbstractItem> potion = null;
 		
@@ -1063,7 +1052,7 @@ public class AlleywayAttackerDialogue {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -1076,8 +1065,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION_REFUSED = new DialogueNodeOld("Avoided Transformation", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_TRANSFORMATION_REFUSED = new DialogueNode("Avoided Transformation", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1156,8 +1144,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION = new DialogueNodeOld("Transformed", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_TRANSFORMATION = new DialogueNode("Transformed", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1236,8 +1223,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1289,7 +1275,7 @@ public class AlleywayAttackerDialogue {
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 						AFTER_COMBAT_VICTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -1304,8 +1290,7 @@ public class AlleywayAttackerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1327,7 +1312,7 @@ public class AlleywayAttackerDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};

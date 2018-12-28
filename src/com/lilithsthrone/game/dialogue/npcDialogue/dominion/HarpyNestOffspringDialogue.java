@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -53,8 +53,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	}
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER = new DialogueNodeOld("", "You encounter a certain special someone in the nests.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER = new DialogueNode("", "You encounter a certain special someone in the nests.", true) {
 		
 		@Override
 		public String getLabel(){
@@ -432,7 +431,7 @@ public class HarpyNestOffspringDialogue {
 				} else if (index == 0) {
 					return new Response("Leave", "Tell [npc.name] that you'll come back some other time.", OFFSPRING_ENCOUNTER) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								setOffspringFlags();
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
@@ -866,7 +865,7 @@ public class HarpyNestOffspringDialogue {
 				} else if (index == 0 && offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", OFFSPRING_ENCOUNTER) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -1003,8 +1002,7 @@ public class HarpyNestOffspringDialogue {
 	}
 	
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_APOLOGY = new DialogueNodeOld("A familiar face", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_APOLOGY = new DialogueNode("A familiar face", "", true) {
 		
 		@Override
 		public String getLabel(){
@@ -1095,7 +1093,7 @@ public class HarpyNestOffspringDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Give [npc.name] some time to think, and continue on your way.", OFFSPRING_ENCOUNTER_APOLOGY) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -1106,8 +1104,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_FIGHT = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_FIGHT = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -1196,8 +1193,7 @@ public class HarpyNestOffspringDialogue {
 	}
 	
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_TALKING = new DialogueNodeOld("", "You encounter a certain special someone in the nests.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_TALKING = new DialogueNode("", "You encounter a certain special someone in the nests.", true) {
 
 		@Override
 		public String getLabel(){
@@ -1291,7 +1287,7 @@ public class HarpyNestOffspringDialogue {
 							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 						}
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -1446,7 +1442,7 @@ public class HarpyNestOffspringDialogue {
 								offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 							}
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 						};
@@ -1458,8 +1454,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_BACKGROUND = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_BACKGROUND = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -1603,8 +1598,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_SMALL_TALK = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_SMALL_TALK = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -1703,8 +1697,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_ENCOURAGE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_ENCOURAGE = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -1769,8 +1762,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_SCOLD = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_SCOLD = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -1837,8 +1829,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_CHOOSE_NAME = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_CHOOSE_NAME = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -1888,8 +1879,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFSPRING_PRESENT = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_PRESENT = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -1935,8 +1925,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_SEX = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_SEX = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -2079,8 +2068,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OFFSPRING_ENCOUNTER_APARTMENT_FIGHT = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING_ENCOUNTER_APARTMENT_FIGHT = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -2133,8 +2121,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -2175,7 +2162,7 @@ public class HarpyNestOffspringDialogue {
 			if (index == 1) {
 				return new Response("Apologise", "Maybe you went too far... Perhaps you should apologise?", null){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -2418,7 +2405,7 @@ public class HarpyNestOffspringDialogue {
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 						AFTER_COMBAT_VICTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -2463,7 +2450,7 @@ public class HarpyNestOffspringDialogue {
 			} else if (index == 0) {
 				return new Response("Leave", "Now that you've taught [npc.name] a lesson, you can be on your way...", AFTER_COMBAT_VICTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -2487,8 +2474,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -2636,7 +2622,7 @@ public class HarpyNestOffspringDialogue {
 				if (index == 1) {
 					return new Response("Continue", "You're left to continue on your way...", AFTER_COMBAT_DEFEAT){
 						@Override
-						public DialogueNodeOld getNextDialogue(){
+						public DialogueNode getNextDialogue(){
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 						@Override
@@ -2652,8 +2638,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_CONSENSUAL = new DialogueNodeOld("Post-sex", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_CONSENSUAL = new DialogueNode("Post-sex", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -2692,7 +2677,7 @@ public class HarpyNestOffspringDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_CONSENSUAL){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -2703,8 +2688,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -2817,7 +2801,7 @@ public class HarpyNestOffspringDialogue {
 						Main.game.getTextStartStringBuilder().append(parsed);
 					}
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -2836,7 +2820,7 @@ public class HarpyNestOffspringDialogue {
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 						AFTER_COMBAT_VICTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -2884,8 +2868,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2942,7 +2925,7 @@ public class HarpyNestOffspringDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -2953,8 +2936,7 @@ public class HarpyNestOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENSLAVEMENT_DIALOGUE = new DialogueNode("New Slave", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -3013,7 +2995,7 @@ public class HarpyNestOffspringDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override

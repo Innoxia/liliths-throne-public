@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.places.JunglePlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
@@ -69,7 +69,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia
  */
 public enum PlaceType {
@@ -78,11 +78,51 @@ public enum PlaceType {
 	
 	GENERIC_IMPASSABLE("Impassable Tile", null, BaseColour.GREY, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
 	
-	GENERIC_EMPTY_TILE("Empty", "dominion/slaverAlleyIcon",  BaseColour.CRIMSON, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
+	GENERIC_EMPTY_TILE("Empty", "dominion/slaverAlleyIcon", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
 
-	GENERIC_HOLDING_CELL("Unknown", "dominion/slaverAlleyIcon",  BaseColour.GREY, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
+	GENERIC_HOLDING_CELL("Unknown", "dominion/slaverAlleyIcon", BaseColour.GREY, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
 	
-	GENERIC_MUSEUM("Museum", "dominion/slaverAlleyIcon",  BaseColour.TAN, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum"),
+	GENERIC_MUSEUM("Museum", "dominion/slaverAlleyIcon", BaseColour.TAN, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum"),
+	
+	
+	// World map:
+
+	WORLD_MAP_THICK_JUNGLE("thick jungle", "The further into the jungle one travels, the thicker the vegetation becomes, which allows particularly wild and dangerous predators to conceal themselves...", "#6b8f7e", null, true, true, true, ""),
+	WORLD_MAP_JUNGLE("jungle", "Sparse, tropical foliage is home to many different jungle animal-morphs, not all of which are friendly.", "#8fbfa8", null, true, true, true, ""),
+	WORLD_MAP_JUNGLE_CITY("Itza'aak", "A sprawling, Mayan-like city on the edge of the jungle, Itza'aak is the last bastion of civilisation in the north of Dominion.", "#b377b0", null, true, true, true, ""),
+
+	WORLD_MAP_FOOTHILLS("foothills", "A steady increase in elevation leads to the rolling hills at the base of the mountains of the moon.", Colour.BASE_GREY_DARK.getShades()[0], null, true, true, true, ""),
+	WORLD_MAP_MOUNTAINS("mountains", "The mountain range west of Dominion is known as the 'mountains of the moon', and is home to many alpine animal-morphs.", Colour.BASE_GREY_DARK.getShades()[2], null, true, true, true, ""),
+	WORLD_MAP_SNOWY_MOUNTAINS("mountain peaks", "The highest peaks of the mountains of the moon are capped in snow, and are home to several wild and aggressive races...", Colour.BASE_GREY_DARK.getShades()[3], null, true, true, true, ""),
+
+	WORLD_MAP_SNOWY_VALLEY("snowstorm valley", "This sheltered valley sees regular, heavy snowfall, and is home to numerous arctic races.", /*R*/"#eeeeee", null, true, true, true, ""),
+	WORLD_MAP_GLACIAL_LAKE("selkie lake", "On the western side of snowstorm valley, there can be found a huge, partially-frozen lake.", "#bbf0f1", null, true, true, true, ""),
+
+	WORLD_MAP_DOMINION("Dominion", "The capital city of the land bearing the same name, Dominion is Lilith's seat of power.", Colour.BASE_PURPLE.getShades()[2], null, false, false, true, ""),
+
+	WORLD_MAP_GRASSLANDS("grassland", "The grassland wilderness is home to many different races, the vast majority of which are just as wild and untamed as the land they inhabit.", "#beeac9", null, true, true, true, ""),
+	WORLD_MAP_FIELDS("Foloi fields", "The farmland surrounding Dominion is known as the 'Foloi fields', and is primarily inhabited by farmyard animal-morphs.", "#e5f8de", null, false, true, true, ""),
+	WORLD_MAP_FOREST("forest", "The thick forests scattered throughout the land are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.", "#8dbb7d", null, true, true, true, ""),
+	WORLD_MAP_FIELDS_CITY("Elis", "The largest and most prosperous of all settlements in the Foloi fields, Elis acts as a trading hub for both the youko and the races inhabiting the mountains.", "#d544ae", null, false, true, true, ""),
+
+	WORLD_MAP_YOUKO_FOREST("shinrin highlands", "The Shinrin highlands are a range of low, forest-covered hills, which steadily increase in elevation the further west you go. The elusive youko live here.", "#6ccc74", null, true, true, true, ""),
+
+	WORLD_MAP_WILD_RIVER("river Hubur (wild)", "Far from Dominion, the river Hubur is a dangerous place in which to swim, as it is home to many wild freshwater races.", "#c1f1ee", null, true, true, true, ""),
+	WORLD_MAP_RIVER("river Hubur", "The river Huber runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi fields are considered safe.", "#ccfffc", null, false, true, true, ""),
+
+	WORLD_MAP_SEA("endless sea", "The aquatic races inhabiting Dominion do not like to stray too far from shore, and so to them, the sea is considered to be endless.", Colour.BASE_BLUE_DARK.getShades()[2], null, true, true, true, ""),
+	WORLD_MAP_SEA_CITY("Atlantis", "The underwater city of Atlantis is situated off the eastern coast of Dominion, and, unsurprisingly, is particularly difficult for non-aquatic races to visit.", "#8264b0", null, true, true, true, ""),
+
+	WORLD_MAP_ARID_GRASSLAND("arid grassland", "To the south, the wild grassland starts to dry out, and is the preferred home for morphs such as lions, leopard, and zebras.", Colour.BASE_YELLOW_LIGHT.getShades()[2], null, true, true, true, ""),
+	WORLD_MAP_ARID_SAVANNAH("savannah", "Sparse, open-canopy woodlands are scattered across the arid grasslands, and are inhabited by the same races.", Colour.BASE_TAN.getShades()[2], null, true, true, true, ""),
+
+	WORLD_MAP_DESERT("desert", "To the south of the arid grassland, all vegetation dies out, creating a hot, barren wasteland.", "#ffe7a7", null, true, true, true, ""),
+	WORLD_MAP_SAND_DUNES("sand dunes", "At the southern edge of the desert, there lies a huge range of sand dunes, which are home to many dangerous races.", "#ffdb7a", null, true, true, true, ""),
+	WORLD_MAP_DESERT_CITY("Thinis", "A city resembling those of ancient Egypt, Thinis is the southern-most of Dominion's settlements, and is well known for its prestigious arcane university.", "#d5445e", null, true, true, true, ""),
+
+	WORLD_MAP_VOLCANO("dragon's breath volcano", "A huge volcano, perpetually oozing red-hot lava. Despite its name, dragons are no more common here than they are elsewhere in Dominion.", Colour.BASE_ORANGE.getShades()[1], null, true, true, true, ""),
+	WORLD_MAP_LAVA_FLOWS("lava flows", "The lava which pours forth from the volcano slowly runs off in a southern direction.", Colour.BASE_GREY_DARK.getShades()[0], null, true, true, true, ""),
+	
 	
 	// Museum:
 	
@@ -322,7 +362,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_JUNGLE("Jungle Entrance", "dominion/JungleExit",  BaseColour.GREEN_LIME, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_JUNGLE, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_JUNGLE("Dominion Exit", "dominion/JungleExit",  BaseColour.RED, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT, null, false, false, true, "in the streets of Dominion") {
 		@Override
 		public Population getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -333,7 +373,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_FIELDS("Fields Entrance", "dominion/fieldsExit",  BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_FIELDS, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_FIELDS("Dominion Exit", "dominion/fieldsExit",  BaseColour.RED, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT, null, false, false, true, "in the streets of Dominion") {
 		@Override
 		public Population getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -344,7 +384,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_SEA("Endless Sea Entrance", "dominion/endlessSeaExit",  BaseColour.TEAL, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_SEA, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_SEA("Dominion Exit", "dominion/endlessSeaExit",  BaseColour.RED, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT, null, false, false, true, "in the streets of Dominion") {
 		@Override
 		public Population getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -355,7 +395,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_DESERT("Desert Entrance", "dominion/desertExit", BaseColour.YELLOW, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_DESERT, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_DESERT("Dominion Exit", "dominion/desertExit", BaseColour.RED, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT, null, false, false, true, "in the streets of Dominion") {
 		@Override
 		public Population getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -379,7 +419,7 @@ public enum PlaceType {
 	
 	ENFORCER_HQ_BRAXS_OFFICE("Brax's Office", "dominion/enforcerHQ/braxsOffice", BaseColour.BLUE_STEEL, Colour.MAP_BACKGROUND, EnforcerHQDialogue.INTERIOR_BRAX, null, false, true, true, "in his office") {
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.braxEncountered)) {
 				return EnforcerHQDialogue.INTERIOR_BRAX_REPEAT;
 				
@@ -594,7 +634,12 @@ public enum PlaceType {
 	
 	LILAYA_HOME_KITCHEN("Kitchen", "dominion/lilayasHome/kitchen", BaseColour.TAN, Colour.MAP_BACKGROUND, LilayaHomeGeneric.KITCHEN, null, false, true, false, "in Lilaya's kitchen"),
 	
-	LILAYA_HOME_LIBRARY("Library", "dominion/lilayasHome/library", BaseColour.TEAL, Colour.MAP_BACKGROUND, Library.LIBRARY, null, false, true, false, "in Lilaya's library"),
+	LILAYA_HOME_LIBRARY("Library", "dominion/lilayasHome/library", BaseColour.TEAL, Colour.MAP_BACKGROUND, Library.LIBRARY, null, false, true, false, "in Lilaya's library") {
+		@Override
+		public void applyInventoryInit(CharacterInventory inventory) {
+			inventory.addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HALF_DEMON)));
+		}
+	},
 	
 	LILAYA_HOME_STAIR_UP("Staircase", "dominion/lilayasHome/stairsUp", BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND, LilayaHomeGeneric.STAIRCASE_UP, null, false, true, false, "in Lilaya's Home"),
 	
@@ -629,7 +674,7 @@ public enum PlaceType {
 	
 	ZARANIX_GF_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.CORRIDOR, null, false, true, false, "in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.CORRIDOR;
 				
@@ -641,7 +686,7 @@ public enum PlaceType {
 	
 	ZARANIX_GF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.STAIRS, null, false, true, false, "in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.STAIRS;
 				
@@ -653,7 +698,7 @@ public enum PlaceType {
 	
 	ZARANIX_GF_ENTRANCE("Entrance", "dominion/zaranixHome/entranceHall", BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.ENTRANCE, null, false, true, false, "in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.ENTRANCE;
 				
@@ -665,7 +710,7 @@ public enum PlaceType {
 	
 	ZARANIX_GF_LOUNGE("Lounge", "dominion/zaranixHome/lounge", BaseColour.ORANGE, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.LOUNGE, null, false, true, false, "in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.LOUNGE;
 				
@@ -677,7 +722,7 @@ public enum PlaceType {
 	
 	ZARANIX_GF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.ROOM, null, false, true, false, "in a room in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.ROOM;
 				
@@ -689,7 +734,7 @@ public enum PlaceType {
 	
 	ZARANIX_GF_MAID("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.CORRIDOR_MAID, null, true, true, false, "in Zaranix's Home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.CORRIDOR;
 				
@@ -705,7 +750,7 @@ public enum PlaceType {
 	
 	ZARANIX_GF_GARDEN_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.GARDEN_ROOM, null, false, true, false, "in a room in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.GARDEN_ROOM;
 				
@@ -717,7 +762,7 @@ public enum PlaceType {
 	
 	ZARANIX_GF_GARDEN("Garden", "dominion/zaranixHome/garden", BaseColour.GREEN, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.GARDEN, null, false, true, false, "in Zaranix's garden"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.GARDEN;
 				
@@ -729,7 +774,7 @@ public enum PlaceType {
 	
 	ZARANIX_GF_GARDEN_ENTRY("Garden", "dominion/zaranixHome/entranceHall", BaseColour.GREEN, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.GARDEN_ENTRY, null, false, true, false, "in Zaranix's garden"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.GARDEN_ENTRY;
 				
@@ -743,7 +788,7 @@ public enum PlaceType {
 	
 	ZARANIX_FF_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.CORRIDOR, null, false, true, false, "in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.CORRIDOR;
 				
@@ -755,7 +800,7 @@ public enum PlaceType {
 	
 	ZARANIX_FF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.STAIRS, null, false, true, false, "in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.STAIRS;
 				
@@ -767,7 +812,7 @@ public enum PlaceType {
 	
 	ZARANIX_FF_OFFICE("Zaranix's Room", "dominion/zaranixHome/roomZaranix", BaseColour.PINK_DEEP, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.ZARANIX_ROOM, null, true, true, false, "in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.ZARANIX_ROOM;
 				
@@ -783,7 +828,7 @@ public enum PlaceType {
 	
 	ZARANIX_FF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.ROOM, null, false, true, false, "in a room in Zaranix's home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.ROOM;
 				
@@ -795,7 +840,7 @@ public enum PlaceType {
 	
 	ZARANIX_FF_MAID("Corridor", null, BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.CORRIDOR_MAID, null, true, true, false, "in Zaranix's Home"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.CORRIDOR;
 				
@@ -900,7 +945,7 @@ public enum PlaceType {
 			return !Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
 		}
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.suppliersEncountered)) {
 				return SupplierDepot.SUPPLIER_DEPOT_OFFICE_REPEAT;
 				
@@ -1006,7 +1051,7 @@ public enum PlaceType {
 	
 	SLAVER_ALLEY_SCARLETTS_SHOP("Scarlett's Shop", "dominion/slaverAlley/scarlettsStall", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, ScarlettsShop.SCARLETTS_SHOP_EXTERIOR, null, false, true, true, "in Slaver's Alley"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) { // Scarlett owns the shop:
 				return ScarlettsShop.SCARLETTS_SHOP_EXTERIOR;
 				
@@ -1094,7 +1139,12 @@ public enum PlaceType {
 	SUBMISSION_GAMBLING_DEN("Gambling Den", "submission/gamblingDen", BaseColour.GOLD, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.GAMBLING_DEN, null, false, true, true, "in Submission"),
 	
 	SUBMISSION_LILIN_PALACE("Lyssieth's Palace", "submission/lilinPalace", BaseColour.PURPLE, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE, null, false, true, true, "in Submission"),
-	SUBMISSION_LILIN_PALACE_GATE("Lyssieth's Palace Gate", "submission/gate", BaseColour.PURPLE_LIGHT, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE_GATE, null, false, true, true, "in Submission"),
+	SUBMISSION_LILIN_PALACE_GATE("Lyssieth's Palace Gate", "submission/gate", BaseColour.PURPLE_LIGHT, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE_GATE, null, false, true, true, "in Submission") {
+		@Override
+		public Population getPopulation() {
+			return new Population(PopulationType.GUARDS, PopulationDensity.NUMEROUS, Subspecies.DEMON);
+		}
+	},
 	SUBMISSION_LILIN_PALACE_CAVERN("Cavern", null, BaseColour.GREY, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE_CAVERN, null, false, true, true, "in Submission"),
 
 	/**This fortress is <b>Alpha Imps</b>.*/
@@ -1124,7 +1174,7 @@ public enum PlaceType {
 
 	
 	
-	SUBMISSION_IMP_FORTRESS_DEMON("Imp Citadel", "submission/impFortress2", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_DEMON, null, true, true, true, "in Submission") {
+	SUBMISSION_IMP_FORTRESS_DEMON("Imp Citadel", "submission/impFortress2", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_DEMON, null, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
@@ -1164,7 +1214,7 @@ public enum PlaceType {
 			return FORTRESS_DEMON_ENTRANCE.getPopulation();
 		}
 	},
-	FORTRESS_DEMON_KEEP("Keep", "submission/impFortress/keep", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP, null, true, true, false, "in the Dark Siren's citadel") {
+	FORTRESS_DEMON_KEEP("Keep", "submission/impFortress/keep", BaseColour.PURPLE, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP, null, true, true, false, "in the Dark Siren's citadel") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL);
@@ -1256,17 +1306,41 @@ public enum PlaceType {
 	
 	// Lyssieth palace:
 	
-	LYSSIETH_PALACE_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.CORRIDOR, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_WINDOWS("Windows", null, BaseColour.GREY_DARK, Colour.MAP_BACKGROUND_DARK, LyssiethPalaceDialogue.WINDOWS, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_ENTRANCE("Entrance", "submission/lyssiethsPalace/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ENTRANCE, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_ROOM("Room", "submission/lyssiethsPalace/room", BaseColour.PINK, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ROOM, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_HALL("Hall", "submission/lyssiethsPalace/hall", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.HALL, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_THRONE_ROOM("Throne Room", "submission/lyssiethsPalace/throneRoom", BaseColour.PURPLE, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.THRONE_ROOM, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_STAIRS_1("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_STAIRS_2("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_TREASURY_DOOR("Iron Door", "submission/lyssiethsPalace/treasuryDoor", BaseColour.RED_DARK, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.TREASURY_DOOR, null, false, true, false, "in Lyssieth's Palace"),
-	LYSSIETH_PALACE_TREASURY("Treasury", "submission/lyssiethsPalace/treasury", BaseColour.GOLD, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.TREASURY, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.CORRIDOR, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return new Population(PopulationType.MAIDS, PopulationDensity.COUPLE, Util.newArrayListOfValues(Subspecies.HUMAN, Subspecies.HALF_DEMON));
+		}
+	},
+	LYSSIETH_PALACE_WINDOWS("Windows", null, BaseColour.GREY_DARK, Colour.MAP_BACKGROUND_DARK, LyssiethPalaceDialogue.WINDOWS, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	},
+	LYSSIETH_PALACE_ENTRANCE("Entrance", "submission/lyssiethsPalace/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ENTRANCE, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	},
+	LYSSIETH_PALACE_ROOM("Room", "submission/lyssiethsPalace/lounge", BaseColour.PINK, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.ROOM, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_HALL("Hall", "submission/lyssiethsPalace/throneRoom", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.HALL, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_OFFICE("Lyssieth's Office", "submission/lyssiethsPalace/office", BaseColour.GOLD, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.LYSSIETH_OFFICE_ENTER, null, false, true, false, "in Lyssieth's Palace"),
+	LYSSIETH_PALACE_SIREN_OFFICE("Meraxis's Office", "submission/lyssiethsPalace/officeSiren", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.SIREN_OFFICE, null, false, true, false, "in Lyssieth's Palace"),
 	
+	LYSSIETH_PALACE_STAIRS_1("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	},
+	LYSSIETH_PALACE_STAIRS_2("Staircase", "submission/lyssiethsPalace/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.STAIRCASE, null, false, true, false, "in Lyssieth's Palace") {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	},
 	
 	
 	// Bat caverns:
@@ -1338,21 +1412,46 @@ public enum PlaceType {
 
 	
 	private String name;
+	private String worldPlaceDescription;
 	protected String SVGString;
+	private String colourString;
 	private BaseColour colour;
 	private Colour backgroundColour;
-	protected DialogueNodeOld dialogue;
+	protected DialogueNode dialogue;
 	private Encounter encounterType;
 	private boolean dangerous, stormImmune, itemsDisappear;
 	private String virginityLossDescription;
 
 	private static Map<String, String> SVGOverrides = new HashMap<>(); 
 	
+	/**
+	 * Only to be used for world map places.
+	 */
+	private PlaceType(String name,
+			String worldPlaceDescription,
+			String colour,
+			Encounter encounterType,
+			boolean dangerous,
+			boolean stormImmune,
+			boolean itemsDisappear,
+			String virginityLossDescription) {
+		
+		this.name = name;
+		this.colourString = colour;
+		this.worldPlaceDescription = worldPlaceDescription;
+		this.encounterType = encounterType;
+		this.dangerous = dangerous;
+		this.stormImmune = stormImmune;
+		this.itemsDisappear = itemsDisappear;
+		this.virginityLossDescription = virginityLossDescription;
+		SVGString = null;
+	}
+	
 	private PlaceType(String name,
 			String SVGPath,
 			BaseColour colour,
 			Colour backgroundColour,
-			DialogueNodeOld dialogue,
+			DialogueNode dialogue,
 			Encounter encounterType,
 			boolean dangerous,
 			boolean stormImmune,
@@ -1395,8 +1494,16 @@ public enum PlaceType {
 		return name;
 	}
 
+	public String getWorldPlaceDescription() {
+		return worldPlaceDescription;
+	}
+
 	public BaseColour getColour() {
 		return colour;
+	}
+
+	public String getColourString() {
+		return colourString;
 	}
 
 	public Colour getBackgroundColour() {
@@ -1407,13 +1514,13 @@ public enum PlaceType {
 		return encounterType;
 	}
 
-	public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
+	public DialogueNode getDialogue(boolean withRandomEncounter) {
 		return getDialogue(withRandomEncounter, false);
 	}
 	
-	public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+	public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 		if (getEncounterType() != null && withRandomEncounter) {
-			DialogueNodeOld dn = getEncounterType().getRandomEncounter(forceEncounter);
+			DialogueNode dn = getEncounterType().getRandomEncounter(forceEncounter);
 			if (dn != null) {
 				return dn;
 			}

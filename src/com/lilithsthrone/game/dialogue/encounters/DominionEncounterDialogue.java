@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -14,8 +14,7 @@ import com.lilithsthrone.utils.Util;
  */
 public class DominionEncounterDialogue {
 
-	public static final DialogueNodeOld ALLEY_FIND_ITEM = new DialogueNodeOld("Abandoned package", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_FIND_ITEM = new DialogueNode("Abandoned package", "", true) {
 
 		@Override
 		public String getContent() {
@@ -49,8 +48,7 @@ public class DominionEncounterDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEY_FIND_CLOTHING = new DialogueNodeOld("Abandoned package", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_FIND_CLOTHING = new DialogueNode("Abandoned package", "", true) {
 
 		@Override
 		public String getContent() {
@@ -85,8 +83,7 @@ public class DominionEncounterDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEY_FIND_WEAPON = new DialogueNodeOld("Abandoned package", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_FIND_WEAPON = new DialogueNode("Abandoned package", "", true) {
 
 		@Override
 		public String getContent() {
@@ -120,8 +117,7 @@ public class DominionEncounterDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NESTS_FIND_ITEM = new DialogueNodeOld("Dropped item", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NESTS_FIND_ITEM = new DialogueNode("Dropped item", "", true) {
 
 		@Override
 		public String getContent() {
@@ -159,8 +155,7 @@ public class DominionEncounterDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld DOMINION_STREET_FIND_HAPPINESS = new DialogueNodeOld("Finding Happiness", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DOMINION_STREET_FIND_HAPPINESS = new DialogueNode("Finding Happiness", "", true) {
 
 		@Override
 		public String getContent() {

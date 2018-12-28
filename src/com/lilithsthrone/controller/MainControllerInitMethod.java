@@ -1,16 +1,5 @@
 package com.lilithsthrone.controller;
 
-import java.io.File;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import com.lilithsthrone.utils.Units;
-import org.w3c.dom.Document;
-import org.w3c.dom.events.EventTarget;
-
 import com.lilithsthrone.controller.eventListeners.EnchantmentEventListener;
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
 import com.lilithsthrone.controller.eventListeners.InventoryTooltipEventListener;
@@ -32,12 +21,8 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.markings.*;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
+import com.lilithsthrone.game.character.npc.dominion.Arthur;
+import com.lilithsthrone.game.character.persona.*;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
@@ -45,6 +30,7 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.*;
+import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
@@ -66,12 +52,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.occupantManagement.MilkingRoom;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobHours;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.*;
 import com.lilithsthrone.game.settings.ContentPreferenceValue;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
@@ -87,6 +68,7 @@ import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
@@ -951,7 +933,7 @@ public class MainControllerInitMethod {
 									OccupantManagementDialogue.cellToInspect = c;
 								}
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return OccupantManagementDialogue.ROOM_UPGRADES_MANAGEMENT;
 								}
 							});
@@ -981,7 +963,7 @@ public class MainControllerInitMethod {
 									OccupantManagementDialogue.cellToInspect = c;
 								}
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return OccupantManagementDialogue.ROOM_UPGRADES_MANAGEMENT;
 								}
 							});
@@ -1034,7 +1016,7 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("", "", LilayaHomeGeneric.ROOM_ARTHUR_INSTALLATION){
 									@Override
 									public void effects() {
-										Main.game.getArthur().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
+										Main.game.getNpc(Arthur.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
 										OccupantManagementDialogue.cellToInspect.addPlaceUpgrade(placeUpgrade);
 										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursRoomInstalled, true);
 									}
@@ -1195,8 +1177,8 @@ public class MainControllerInitMethod {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveSurnameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() >= 1
-										&& Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() == 0
+										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
 									unsuitableName = true;
 								else {
 									unsuitableName = false;
@@ -2563,8 +2545,8 @@ public class MainControllerInitMethod {
 
 				// ------------ Demonic/Slime transformations -------------- //
 				
-				for(ArmType armType: ArmType.values()) {
-					id = "CHANGE_ARM_"+armType;
+				for(AbstractArmType armType: ArmType.getAllArmTypes()) {
+					id = "CHANGE_ARM_"+ArmType.getIdFromArmType(armType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setArmType(armType);
@@ -2674,8 +2656,8 @@ public class MainControllerInitMethod {
 					}
 				}
 
-				for(AssType assType: AssType.values()) {
-					id = "CHANGE_ASS_"+assType;
+				for(AbstractAssType assType: AssType.getAllAssTypes()) {
+					id = "CHANGE_ASS_"+AssType.getIdFromAssType(assType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setAssType(assType);
@@ -2684,8 +2666,8 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for(BreastType breastType: BreastType.values()) {
-					id = "CHANGE_BREAST_"+breastType;
+				for(AbstractBreastType breastType: BreastType.getAllBreastTypes()) {
+					id = "CHANGE_BREAST_"+BreastType.getIdFromBreastType(breastType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setBreastType(breastType);
@@ -2755,6 +2737,18 @@ public class MainControllerInitMethod {
 
 				for(int i=1; i <= Arm.MAXIMUM_ROWS; i++) {
 					MainController.setArmCountListener(i);
+				}
+				
+				// Legs:
+
+				for(FootStructure footStructure : FootStructure.values()) {
+					id = "CHANGE_FOOT_STRUCTURE_"+footStructure;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setFootStructure(footStructure);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
 				}
 				
 				// Eyes:
@@ -3673,7 +3667,7 @@ public class MainControllerInitMethod {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU){
 								@Override
-								public DialogueNodeOld getNextDialogue() {
+								public DialogueNode getNextDialogue() {
 									return EnchantmentDialogue.getEnchantmentMenu(BodyChanging.getTarget().getTattooInSlot(invSlot), BodyChanging.getTarget(), invSlot);
 								}
 							});
@@ -4076,7 +4070,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			for (AbstractWeaponType weapon : WeaponType.allweapons) {
+			for (AbstractWeaponType weapon : WeaponType.getAllweapons()) {
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					if ((EventTarget) MainController.document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {
 						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mousemove", MainController.moveTooltipListener, false);
@@ -4123,7 +4117,6 @@ public class MainControllerInitMethod {
 
 			
 			for(Perk perk : Perk.values()) {
-
 				GameCharacter character = Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP
 						?Main.game.getPlayer()
 						:(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
@@ -4149,6 +4142,20 @@ public class MainControllerInitMethod {
 							character.removeTrait(perk);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
+					}
+				}
+				if(perk.isHiddenPerk()) {
+					id = "HIDDEN_PERK_"+perk;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						if(character.hasPerkAnywhereInTree(perk)) {
+							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character), false);
+						} else {
+							MainController.addEventListener(MainController.document, id, "mouseenter",
+									new TooltipInformationEventListener().setInformation("Unknown!",
+											"This is an undiscovered hidden perk, and as such, you have no idea what it could be!<br/><i>Hidden perks are discovered through the main quest.</i>"), false);
+						}
 					}
 				}
 			}
@@ -4184,7 +4191,6 @@ public class MainControllerInitMethod {
 										
 									} else if(character.getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(character, e)) {
 										if(character.addPerk(e.getRow(), e.getEntry())) {
-											character.incrementPerkPoints(-1);
 											if(e.getEntry().isEquippableTrait() && character.getTraits().size()<GameCharacter.MAX_TRAITS) {
 												character.addTrait(e.getEntry());
 											}
@@ -4241,9 +4247,8 @@ public class MainControllerInitMethod {
 					}
 				}
 			}
-			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.MENU
-					|| Main.game.getCurrentDialogueNode() == Library.DOMINION_MAP) {
-				
+			
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.MENU || Main.game.getCurrentDialogueNode() == Library.DOMINION_MAP) {
 				Cell[][] grid;
 				if(Main.game.getCurrentDialogueNode() == PhoneDialogue.MENU) {
 					grid = Main.game.getWorlds().get(Main.game.getPlayer().getWorldLocation()).getGrid();
@@ -4265,6 +4270,33 @@ public class MainControllerInitMethod {
 					}
 				}
 			}
+			
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.MAP || Main.game.getCurrentDialogueNode() == CityPlaces.WORLD_MAP) {
+				WorldType worldType = PhoneDialogue.worldTypeMap;
+				if(Main.game.getCurrentDialogueNode() == CityPlaces.WORLD_MAP) {
+					worldType = WorldType.WORLD_MAP;
+				}
+				Cell[][] grid = Main.game.getWorlds().get(worldType).getGrid();
+
+				for(int i=grid[0].length-1; i>=0; i--) {
+					for(int j=0; j<grid.length; j++) {
+						Cell c = grid[j][i];
+						if(PhoneDialogue.worldTypeMap == WorldType.WORLD_MAP || Main.game.getCurrentDialogueNode() == CityPlaces.WORLD_MAP) {
+							MainController.setWorldMapLocationListeners(c, i, j);
+						} else {
+							boolean discovered = c.isDiscovered() || Main.game.isMapReveal();
+							if(!discovered) {
+								continue;
+							}
+							if(c.getPlace().getPlaceType() == PlaceType.GENERIC_IMPASSABLE) {
+								continue;
+							}
+							MainController.setMapLocationListeners(c, i, j);
+						}
+					}
+				}
+			}
+			
 		}
 
 		// Hotkey bindings:

@@ -53,7 +53,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.2.4
+ * @version 0.3
  * @author Innoxia
  */
 public class ItemEffectType {
@@ -146,222 +146,10 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return ""; // THIS EFFECT IS NOT USED, AS AbstractFilledBreastPump OVERRIDES THE USUAL AbstractItem's applyEffects() METHOD!!!
+			// Then why is it here? :thinking:
 		}
 	};
 	
-	public static AbstractItemEffectType BOOK_READ_CAT_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds cat-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldCatMorph("+Attribute.DAMAGE_CAT_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldCatMorph("+Attribute.RESISTANCE_CAT_MORPH.getName()+")]"),
-			Colour.RACE_CAT_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.CAT_MORPH, ItemType.BOOK_CAT_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_COW_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds cow-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldCowMorph("+Attribute.DAMAGE_COW_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldCowMorph("+Attribute.RESISTANCE_COW_MORPH.getName()+")]"),
-			Colour.RACE_COW_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return null;
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return null;
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.COW_MORPH, ItemType.BOOK_COW_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_DEMON = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds demon encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldDemon("+Attribute.DAMAGE_DEMON.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldDemon("+Attribute.RESISTANCE_DEMON.getName()+")]"),
-			Colour.RACE_DEMON) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.DEMON, ItemType.BOOK_DEMON);
-		}
-	};
-
-	public static AbstractItemEffectType BOOK_READ_IMP = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds imp encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldImp("+Attribute.DAMAGE_IMP.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldImp("+Attribute.RESISTANCE_IMP.getName()+")]"),
-			Colour.RACE_IMP) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.IMP, ItemType.BOOK_IMP);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_DOG_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds dog-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldDogMorph("+Attribute.DAMAGE_DOG_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldDogMorph("+Attribute.RESISTANCE_DOG_MORPH.getName()+")]"),
-			Colour.RACE_DOG_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.DOG_MORPH, ItemType.BOOK_DOG_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_FOX_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds fox-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldDogMorph("+Attribute.DAMAGE_FOX_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldDogMorph("+Attribute.RESISTANCE_FOX_MORPH.getName()+")]"),
-			Colour.RACE_FOX_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.FOX_MORPH, ItemType.BOOK_FOX_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_ALLIGATOR_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds alligator-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldAlligatorMorph("+Attribute.DAMAGE_ALLIGATOR_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldAlligatorMorph("+Attribute.RESISTANCE_ALLIGATOR_MORPH.getName()+")]"),
-			Colour.RACE_ALLIGATOR_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.ALLIGATOR_MORPH, ItemType.BOOK_ALLIGATOR_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_HARPY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds harpy encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldHarpy("+Attribute.DAMAGE_HARPY.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldHarpy("+Attribute.RESISTANCE_HARPY.getName()+")]"),
-			Colour.RACE_HARPY) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.HARPY, ItemType.BOOK_HARPY);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_HORSE_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds horse-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldHorseMorph("+Attribute.DAMAGE_HORSE_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldHorseMorph("+Attribute.RESISTANCE_HORSE_MORPH.getName()+")]"),
-			Colour.RACE_HORSE_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.HORSE_MORPH, ItemType.BOOK_HORSE_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_REINDEER_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds reindeer-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldReindeerMorph("+Attribute.DAMAGE_REINDEER_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldReindeerMorph("+Attribute.RESISTANCE_REINDEER_MORPH.getName()+")]"),
-			Colour.RACE_REINDEER_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.REINDEER_MORPH, ItemType.BOOK_REINDEER_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_HUMAN = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds human encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldHuman("+Attribute.DAMAGE_HUMAN.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldHuman("+Attribute.RESISTANCE_HUMAN.getName()+")]"),
-			Colour.RACE_HUMAN) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.HUMAN, ItemType.BOOK_HUMAN);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_SQUIRREL_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds squirrel-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldSquirrelMorph("+Attribute.DAMAGE_SQUIRREL_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldSquirrelMorph("+Attribute.RESISTANCE_SQUIRREL_MORPH.getName()+")]"),
-			Colour.RACE_SQUIRREL_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.SQUIRREL_MORPH, ItemType.BOOK_SQUIRREL_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_RAT_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds rat-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldRatMorph("+Attribute.DAMAGE_RAT_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldRatMorph("+Attribute.RESISTANCE_RAT_MORPH.getName()+")]"),
-			Colour.RACE_RAT_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.RAT_MORPH, ItemType.BOOK_RAT_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_RABBIT_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds rabbit-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldRabbitMorph("+Attribute.DAMAGE_RABBIT_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldRabbitMorph("+Attribute.RESISTANCE_RABBIT_MORPH.getName()+")]"),
-			Colour.RACE_RABBIT_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.RABBIT_MORPH, ItemType.BOOK_RABBIT_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_BAT_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds bat-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldBatMorph("+Attribute.DAMAGE_BAT_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldBatMorph("+Attribute.RESISTANCE_BAT_MORPH.getName()+")]"),
-			Colour.RACE_BAT_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.BAT_MORPH, ItemType.BOOK_BAT_MORPH);
-		}
-	};
-	
-	public static AbstractItemEffectType BOOK_READ_WOLF_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds wolf-morph encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldWolfMorph("+Attribute.DAMAGE_WOLF_MORPH.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldWolfMorph("+Attribute.RESISTANCE_WOLF_MORPH.getName()+")]"),
-			Colour.RACE_WOLF_MORPH) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.WOLF_MORPH, ItemType.BOOK_WOLF_MORPH);
-		}
-	};
-
-	public static AbstractItemEffectType BOOK_READ_SLIME = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Adds slime encyclopedia entry.",
-			"[style.boldExcellent(+5)] [style.boldSlime("+Attribute.DAMAGE_SLIME.getName()+")]",
-			"[style.boldExcellent(+5)] [style.boldSlime("+Attribute.RESISTANCE_SLIME.getName()+")]"),
-			Colour.RACE_SLIME) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Subspecies.SLIME, ItemType.BOOK_SLIME);
-		}
-	};
 	
 	public static AbstractItemEffectType ORIENTATION_CHANGE = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"Sets orientation to gynephilic.",
@@ -2734,34 +2522,34 @@ public class ItemEffectType {
 	
 	// RACIAL:
 	
-	public static AbstractItemEffectType RACE_DEMON = new AbstractItemEffectType(null,
-			Colour.RACE_DEMON) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.DEMON, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.DEMON, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
+//	public static AbstractItemEffectType RACE_DEMON = new AbstractItemEffectType(null,
+//			Colour.RACE_DEMON) {
+//
+//		@Override
+//		public List<TFModifier> getPrimaryModifiers() {
+//			return TFModifier.getTFRacialBodyPartsList();
+//		}
+//
+//		@Override
+//		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+//			return getRacialSecondaryModifiers(Race.DEMON, primaryModifier);
+//		}
+//		
+//		@Override
+//		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+//			return getRacialPotencyModifiers(Race.DEMON, primaryModifier, secondaryModifier);
+//		}
+//		
+//		@Override
+//		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+//			return Util.newArrayListOfValues(getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+//		}
+//	};
 	
 	public static AbstractItemEffectType RACE_HUMAN = new AbstractItemEffectType(null,
 			Colour.RACE_HUMAN) {
@@ -3470,10 +3258,9 @@ public class ItemEffectType {
 		}
 	};
 	
-
-	private static Map<AbstractItemEffectType, String> itemEffectTypeToIdMap = new HashMap<>();
-	private static Map<String, AbstractItemEffectType> idToItemEffectTypeMap = new HashMap<>();
-	private static List<AbstractItemEffectType> allEffectTypes = new ArrayList<>();
+	public static Map<AbstractItemEffectType, String> itemEffectTypeToIdMap = new HashMap<>();
+	public static Map<String, AbstractItemEffectType> idToItemEffectTypeMap = new HashMap<>();
+	public static List<AbstractItemEffectType> allEffectTypes = new ArrayList<>();
 	
 	public static void addAbstractItemEffectToIds(String id, AbstractItemEffectType itemEffectType) {
 		allEffectTypes.add(itemEffectType);
@@ -3483,9 +3270,7 @@ public class ItemEffectType {
 	}
 	
 	public static AbstractItemEffectType getItemEffectTypeFromId(String id) {
-//		System.out.print("ID: "+id);
 		id = Util.getClosestStringMatch(id, idToItemEffectTypeMap.keySet());
-//		System.out.println("  set to: "+id);
 		return idToItemEffectTypeMap.get(id);
 	}
 	
@@ -3493,35 +3278,33 @@ public class ItemEffectType {
 		return itemEffectTypeToIdMap.get(itemEffectType);
 	}
 	
+	public static AbstractItemEffectType getBookEffectFromSubspecies(Subspecies subspecies) {
+		String id = Util.getClosestStringMatch("BOOK_READ_"+subspecies.toString(), idToItemEffectTypeMap.keySet());
+		return idToItemEffectTypeMap.get(id);
+	}
+	
 	public static List<AbstractItemEffectType> getAllEffectTypes() {
 		return allEffectTypes;
 	}
 
 	static {
-		
 		Field[] fields = ItemEffectType.class.getFields();
-		
 		for(Field f : fields){
-			
 			if (AbstractItemEffectType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractItemEffectType iet;
 				try {
 					iet = ((AbstractItemEffectType) f.get(null));
 					
 					allEffectTypes.add(iet);
 					
-					// I feel like this is stupid :thinking:
 					itemEffectTypeToIdMap.put(iet, f.getName());
 					idToItemEffectTypeMap.put(f.getName(), iet);
 					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
-				
 			}
 		}
-  	    
 	}
 	
 }

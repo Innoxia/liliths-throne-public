@@ -158,7 +158,7 @@ public enum BodyCoveringType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null),
 	
-	PENIS(BodyCoveringTemplateFactory.createOrificeSkin(null)),
+	PENIS(BodyCoveringTemplateFactory.createPenisSkin()),
 
 	ANUS(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_ANUS)),
 	

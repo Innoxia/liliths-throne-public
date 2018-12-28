@@ -669,16 +669,16 @@ public class RalphOral {
 			UtilText.nodeContentSB.append("You feel Ralph's cock slide back a little as he bends down towards you, ");
 			switch(Util.random.nextInt(4)){
 				case 0:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("That's right, keep earning your discount!", Main.game.getRalph()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("That's right, keep earning your discount!", Main.game.getNpc(Ralph.class)));
 					break;
 				case 1:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah... You're good at this!", Main.game.getRalph()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah... You're good at this!", Main.game.getNpc(Ralph.class)));
 					break;
 				case 2:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("Just remember to keep the noise down!", Main.game.getRalph()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("Just remember to keep the noise down!", Main.game.getNpc(Ralph.class)));
 					break;
 				default: 
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("Keep going, you're ~mmm~ doing a great job!", Main.game.getRalph()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("Keep going, you're ~mmm~ doing a great job!", Main.game.getNpc(Ralph.class)));
 					break;
 			}
 			
@@ -725,16 +725,16 @@ public class RalphOral {
 			UtilText.nodeContentSB.append("You feel Ralph's grip move down to grope and squeeze your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass as he groans down to you, ");
 				switch(Util.random.nextInt(4)){
 					case 0:
-						UtilText.nodeContentSB.append(UtilText.parseSpeech("I can't believe you asked for this!", Main.game.getRalph()));
+						UtilText.nodeContentSB.append(UtilText.parseSpeech("I can't believe you asked for this!", Main.game.getNpc(Ralph.class)));
 						break;
 					case 1:
-						UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah yeah! Fuck...", Main.game.getRalph()));
+						UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah yeah! Fuck...", Main.game.getNpc(Ralph.class)));
 						break;
 					case 2:
-						UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah, fuck! Your pussy's so fucking good!", Main.game.getRalph()));
+						UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah, fuck! Your pussy's so fucking good!", Main.game.getNpc(Ralph.class)));
 						break;
 					default: 
-						UtilText.nodeContentSB.append(UtilText.parseSpeech("Fuck! You're really earning this discount, huh?", Main.game.getRalph()));
+						UtilText.nodeContentSB.append(UtilText.parseSpeech("Fuck! You're really earning this discount, huh?", Main.game.getNpc(Ralph.class)));
 						break;
 				}
 			
@@ -786,16 +786,16 @@ public class RalphOral {
 			UtilText.nodeContentSB.append("You feel Ralph's grip move down to grope and squeeze your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass as he groans down to you, ");
 			switch(Util.random.nextInt(4)){
 				case 0:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("I can't believe you talked me into this!", Main.game.getRalph()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("I can't believe you talked me into this!", Main.game.getNpc(Ralph.class)));
 					break;
 				case 1:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah yeah! Fuck...", Main.game.getRalph()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah yeah! Fuck...", Main.game.getNpc(Ralph.class)));
 					break;
 				case 2:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah, fuck! This is pretty fucking good!", Main.game.getRalph()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("Ah, fuck! This is pretty fucking good!", Main.game.getNpc(Ralph.class)));
 					break;
 				default: 
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("You're really earning this discount, huh?", Main.game.getRalph()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("You're really earning this discount, huh?", Main.game.getNpc(Ralph.class)));
 					break;
 			}
 			
@@ -836,7 +836,7 @@ public class RalphOral {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getLastUsedSexAction(Main.game.getRalph())!=PARTNER_COMMAND_START_ORAL) {
+			if(Sex.getLastUsedSexAction(Main.game.getNpc(Ralph.class))!=PARTNER_COMMAND_START_ORAL) {
 				return SexActionPriority.HIGH;
 			} else {
 				return  SexActionPriority.NORMAL;
@@ -854,7 +854,7 @@ public class RalphOral {
 								+ "<br/><br/>");
 			
 			UtilText.nodeContentSB.append("You hear Ralph let out an impatient grunt as he bends down towards you, "
-					+ UtilText.parseSpeech("What are you doing? You agreed to do this, so don't keep me waiting!", Main.game.getRalph()));
+					+ UtilText.parseSpeech("What are you doing? You agreed to do this, so don't keep me waiting!", Main.game.getNpc(Ralph.class)));
 			
 			
 			return UtilText.nodeContentSB.toString();
@@ -890,7 +890,7 @@ public class RalphOral {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getLastUsedSexAction(Main.game.getRalph())==PARTNER_COMMAND_START_ORAL) {
+			if(Sex.getLastUsedSexAction(Main.game.getNpc(Ralph.class))==PARTNER_COMMAND_START_ORAL) {
 				return SexActionPriority.HIGH;
 			} else {
 				return SexActionPriority.NORMAL;
@@ -908,7 +908,7 @@ public class RalphOral {
 								+ "<br/><br/>");
 			
 			UtilText.nodeContentSB.append("You hear Ralph let out a very annoyed grunt as he bends down towards you, "
-					+ UtilText.parseSpeech("I'll show you how to get started!", Main.game.getRalph())
+					+ UtilText.parseSpeech("I'll show you how to get started!", Main.game.getNpc(Ralph.class))
 					+"<br/>"
 					+ "Before you have any time to respond, he suddenly pushes his hips forwards."
 					+ " His hard shaft quickly pushes your head back against the counter behind you, and before you know what's happening, the flared head of his equine member is rubbing forcefully over your face."
@@ -1134,7 +1134,7 @@ public class RalphOral {
 		public String getDescription() {
 			return "You feel Ralph's cock slide back a little as he bends down towards you, "
 					+ UtilText.parseSpeech("What did I tell you about this being a respectable establishment?! I made it quite clear what would happen if you made too much noise!"
-							+ " I'm knocking five percent off our deal, no complaints!", Main.game.getRalph())
+							+ " I'm knocking five percent off our deal, no complaints!", Main.game.getNpc(Ralph.class))
 					+"<br/>"
 					+ "Despite his usual polite and friendly temperament, he sounds quite angry as he scolds you, and you feel a little bad for putting the reputation of his shop on the line."
 					+ " Then again, he was the one to suggest this, so it's not as though you're entirely the one at fault here..."
@@ -1189,7 +1189,7 @@ public class RalphOral {
 			if(SexFlags.alertedCustomer){
 				UtilText.nodeContentSB.append("Ralph bends down towards you, "
 						+ UtilText.parseSpeech("What did I tell you about this being a respectable establishment?! I made it quite clear what would happen if you made too much noise!"
-								+ " I'm knocking five percent off our deal, no complaints!", Main.game.getRalph())
+								+ " I'm knocking five percent off our deal, no complaints!", Main.game.getNpc(Ralph.class))
 						+"<br/>"
 						+ "Despite his usual polite and friendly temperament, he sounds quite angry as he scolds you, and you feel a little bad for putting the reputation of his shop on the line."
 						+ " Then again, he was the one to suggest this, so it's not as though you're entirely the one at fault here..."
@@ -1211,7 +1211,7 @@ public class RalphOral {
 							:(Main.game.getPlayer().isVisiblyPregnant()
 									?"So you want a bigger discount, huh?! You know, it's a shame you're already pregnant, but I'll still give you another twenty percent if you let me fuck you."
 									:"So you want a bigger discount, huh?! Well, you let me put a few little foals in this belly of yours, and I'll give you another twenty five percent!")
-						), Main.game.getRalph())
+						), Main.game.getNpc(Ralph.class))
 					+"<br/><br/>"
 					+ "By now, you don't really care about the discount, all you want is to feel that delicious cock sliding in between your legs."
 					+ " Even before Ralph's finished giving you his offer, you're moaning in agreement, and he lets out a little laugh as he reaches down to grope your "
@@ -1286,7 +1286,7 @@ public class RalphOral {
 			if(SexFlags.alertedCustomer){
 				UtilText.nodeContentSB.append("Ralph bends down towards you, "
 						+ UtilText.parseSpeech("What did I tell you about this being a respectable establishment?! I made it quite clear what would happen if you made too much noise!"
-								+ " I'm knocking five percent off our deal, no complaints!", Main.game.getRalph())
+								+ " I'm knocking five percent off our deal, no complaints!", Main.game.getNpc(Ralph.class))
 						+"<br/>"
 						+ "Despite his usual polite and friendly temperament, he sounds quite angry as he scolds you, and you feel a little bad for putting the reputation of his shop on the line."
 						+ " Then again, he was the one to suggest this, so it's not as though you're entirely the one at fault here..."
@@ -1299,7 +1299,7 @@ public class RalphOral {
 					+ " As you hear him locking the front door and pulling down the shop's blinds, you realise that the last customer must have left some time ago."
 					+ " Before you have time to get out from under the counter, however, the imposing figure of Ralph moves back into view, blocking your way."
 					+ "<br/><br/>"
-					+ UtilText.parseSpeech("So you want a bigger discount, huh?! And how exactly do you intend to earn it?", Main.game.getRalph())
+					+ UtilText.parseSpeech("So you want a bigger discount, huh?! And how exactly do you intend to earn it?", Main.game.getNpc(Ralph.class))
 					+" He asks, crossing his arms and frowning down at you."
 					+ "<br/><br/>"
 					+ "You realise that although he was perfectly happy with having you suck his cock, he's going to need some convincing if you're to get him to use your other hole."
@@ -1309,7 +1309,7 @@ public class RalphOral {
 					+ "Suddenly, you feel a strong pair of hands grab your hips, and before you can react, Ralph pulls you back out from under the counter, and in one swift movement, pushes you down, face first, onto the counter-top."
 					+ " You let out a happy little cry at his dominant treatment of you, and as he roughly gropes and squeezes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, he leans down and growls in your ear, "
 					+ UtilText.parseSpeech(
-							"You know, I don't usually do this sort of thing... But damn, you've got a nice-looking ass! I'll give you another twenty percent if you let me take it for a spin.", Main.game.getRalph())
+							"You know, I don't usually do this sort of thing... But damn, you've got a nice-looking ass! I'll give you another twenty percent if you let me take it for a spin.", Main.game.getNpc(Ralph.class))
 					+"<br/><br/>"
 					+ "By now, you don't really care about the discount, all you want is to feel that delicious cock ramming its way into your rear entrance."
 					+ " Even before Ralph's finished giving you his offer, you're crying out in agreement, and he wastes no time in lining his massive cock up to your waiting asshole."
@@ -1811,7 +1811,7 @@ public class RalphOral {
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you roll over onto your back and playfully wrap your legs around Ralph,"
 							+ " pulling him forwards and rubbing your pussy against his now-flaccid equine cock as he finishes tying up the used condom."
 							+ " He places the little seed-filled package down next to you, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction, "
-							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getRalph()));
+							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
 				} else {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load"
 							+ (Main.game.getPlayer().isVisiblyPregnant()
@@ -1826,7 +1826,7 @@ public class RalphOral {
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you feel a little trickle of his warm, wet seed escaping from your entrance."
 							+ " Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled pussy against his now-flaccid equine cock."
 							+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction, "
-							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getRalph()));
+							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
 				}
 				
 			}else if(!Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()){
@@ -1843,7 +1843,7 @@ public class RalphOral {
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you roll over onto your back and playfully wrap your legs around Ralph,"
 							+ " pulling him forwards and rubbing your groin against his now-flaccid equine cock as he finishes tying up the used condom."
 							+ " He places the little seed-filled package down next to you, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction, "
-							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getRalph()));
+							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
 				} else {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into your ass, and as you feel the hot seed filling you up, you let out a satisfied groan."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft making sure to deposit its seed deep into your hungry back door."
@@ -1853,7 +1853,7 @@ public class RalphOral {
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you feel a little trickle of his warm, wet seed escaping from your rear entrance."
 							+ " Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled asshole against his now-flaccid equine cock."
 							+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction, "
-							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getRalph()));
+							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
 				}
 				
 			} else {
@@ -1886,7 +1886,7 @@ public class RalphOral {
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you shuffle forwards and playfully bite your lip at Ralph, watching as he finishes tying up the used condom."
 							+ " He places the little seed-filled package down next to you, and, after making sure that nobody's watching, he takes hold of one of your [pc.arms+] and pulls you to your feet,"
 							+ " motioning for you to continue shopping as he fulfils his end of the bargain, "
-							+ UtilText.parseSpeech("Well, I think you've more than earned that discount...", Main.game.getRalph()));
+							+ UtilText.parseSpeech("Well, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
 				} else {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into your stomach, and as you feel the hot seed filling you up, you let out a very muffled moan."
 							+ " The huge, black equine shaft continues to pump and twitch a few more times as it deposits its seed deep down your facial fuck hole."
@@ -1895,13 +1895,13 @@ public class RalphOral {
 							+ "As his balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used throat."
 							+ " A thick, slimy strand of cummy saliva drools down to form a little stream beneath your mouth, and you shuffle forwards, wiping yourself clean as you playfully smile up at Ralph."
 							+ " After making sure that nobody's watching, he takes hold of one of your [pc.arms+] and pulls you up, motioning for you to continue shopping as he fulfils his end of the bargain, "
-							+ UtilText.parseSpeech("Well, I think you've more than earned that discount...", Main.game.getRalph()));
+							+ UtilText.parseSpeech("Well, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
 				}
 			}
 			
 			
 			
-			if(((Ralph)Main.game.getRalph()).isDiscountActive() && (SexFlags.ralphDiscount<Main.game.getDialogueFlags().ralphDiscount)){
+			if(((Ralph)Main.game.getNpc(Ralph.class)).isDiscountActive() && (SexFlags.ralphDiscount<Main.game.getDialogueFlags().ralphDiscount)){
 				UtilText.nodeContentSB.append(
 						"<br/><br/>"
 						+ "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You have earned a "+SexFlags.ralphDiscount+"% discount for the next three days!</b>"
@@ -1919,13 +1919,13 @@ public class RalphOral {
 		@Override
 		public void applyEffects() {
 			// If your existing discount is bigger, just refresh the bigger discount:
-			if(((Ralph)Main.game.getRalph()).isDiscountActive()){
+			if(((Ralph)Main.game.getNpc(Ralph.class)).isDiscountActive()){
 				if(SexFlags.ralphDiscount>Main.game.getDialogueFlags().ralphDiscount){
-					Main.game.getRalph().setSellModifier(1.5f*((100-SexFlags.ralphDiscount)/100f));
+					Main.game.getNpc(Ralph.class).setSellModifier(1.5f*((100-SexFlags.ralphDiscount)/100f));
 					Main.game.getDialogueFlags().ralphDiscount=SexFlags.ralphDiscount;
 				}
 			}else{
-				Main.game.getRalph().setSellModifier(1.5f*((100-SexFlags.ralphDiscount)/100f));
+				Main.game.getNpc(Ralph.class).setSellModifier(1.5f*((100-SexFlags.ralphDiscount)/100f));
 				Main.game.getDialogueFlags().ralphDiscount=SexFlags.ralphDiscount;
 			}
 			

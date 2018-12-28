@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -33,7 +34,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelImpsDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
@@ -56,7 +57,6 @@ import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -84,10 +84,9 @@ public class ImpAttacker extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, subspecies, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
-
+		
 		if(!isImported) {
-			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			this.setLocation(Main.game.getPlayer(), true);
 			
 			// Set random level from 5 to 8:
 			setLevel(5 + Util.random.nextInt(4));
@@ -136,6 +135,9 @@ public class ImpAttacker extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
+			this.setHomeLocation();
+		}
 	}
 
 	@Override
@@ -232,7 +234,7 @@ public class ImpAttacker extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return TunnelImpsDialogue.IMP_ATTACK;
 	}
 
@@ -401,9 +403,6 @@ public class ImpAttacker extends NPC {
 			case COW_MORPH:
 				itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
 				break;
-			case DEMON: //TODO Will need changing later on:
-				itemType = ItemType.RACE_INGREDIENT_DEMON;
-				break;
 			case DOG_MORPH:
 				itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
 				break;
@@ -433,6 +432,7 @@ public class ImpAttacker extends NPC {
 				break;
 
 			case ANGEL:
+			case DEMON:
 			case HUMAN:
 			case NONE:
 			case SLIME:

@@ -1,9 +1,10 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.AbstractBreastType;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -11,23 +12,23 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.3
  * @author Innoxia
  */
-public class Breast implements BodyPartInterface, Serializable {
+public class Breast implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 
 	public static final int MAXIMUM_BREAST_ROWS = 5;
 	public static final int MAXIMUM_NIPPLES_PER_BREAST = 4;
 	
-	protected BreastType type;
+	protected AbstractBreastType type;
 	protected BreastShape shape;
 	protected int size;
 	protected int rows;
@@ -43,7 +44,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	 * @param size in inches from bust to underbust using the UK system.
 	 * @param lactation in mL.
 	 */
-	public Breast(BreastType type, BreastShape shape, int size, int milkStorage, int rows, int nippleSize, NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, float capacity, int elasticity, int plasticity, boolean virgin) {
+	public Breast(AbstractBreastType type, BreastShape shape, int size, int milkStorage, int rows, int nippleSize, NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.shape = shape;
 		this.size = size;
@@ -59,7 +60,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 	
 	@Override
-	public BreastType getType() {
+	public AbstractBreastType getType() {
 		return type;
 	}
 
@@ -136,34 +137,40 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 	
 	public String getDescriptor(GameCharacter owner) {
-		String nippleCountDescriptor = "";
+		List<String> list = new ArrayList<>();
+		
 		if(nippleCountPerBreast == 4) {
-			nippleCountDescriptor = "quad-nippled";
+			list.add("quad-nippled");
 		} else if(nippleCountPerBreast == 3) {
-			nippleCountDescriptor = "tri-nippled";
+			list.add("tri-nippled");
 		} else if(nippleCountPerBreast == 2) {
-			nippleCountDescriptor = "dual-nippled";
+			list.add("dual-nippled");
 		} 
 		
-		return UtilText.returnStringAtRandom(
-				nippleCountDescriptor,
-				type.getDescriptor(owner));
+		list.add(type.getDescriptor(owner));
+		list.add(this.getSize().getDescriptor());
+		list.add(this.getShape().getName());
 		
+		return Util.randomItemFrom(list);
 	}
-
-//	public String getLactationDescription(GameCharacter gc) {
-//		if (milkStorage == 0) {
-//			return " aren't producing any " + milk.getName(gc);
-//		} else {
-//			return " are producing " + getLactation().getDescriptor() + " " + milk.getName(gc) + ", totalling " + Units.fluid(milkStorage) + " when your breasts are full.";
-//		}
-//	}
 
 	public boolean hasBreasts() {
 		return size>=CupSize.AA.getMeasurement();
 	}
 
-	public String setType(GameCharacter owner, BreastType type) {
+	public String setType(GameCharacter owner, AbstractBreastType type) {
+		if(!Main.game.isStarted() || owner==null) {
+			this.type = type;
+			nipples.setType(owner, type.getNippleType());
+			milk.setType(type.getFluidType());
+			if(owner!=null) {
+				owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
+				owner.resetAreaKnownByCharacters(CoverableArea.NIPPLES);
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
+		
 		if (type == getType()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You already have the breasts of [pc.a_breastRace], so nothing happens...)]</p>";
@@ -174,16 +181,15 @@ public class Breast implements BodyPartInterface, Serializable {
 		
 		UtilText.transformationContentSB.setLength(0);
 		
-		if (owner.isPlayer()) {
-			UtilText.transformationContentSB.append(
-					"<p>"
-						+ "Your entire torso suddenly starts to feel extremely soft and sensitive, and you let out a little [pc.moan] as you feel your [pc.breasts] start to shift and transform.");
-		} else {
-			UtilText.transformationContentSB.append(
-					"<p>"
-					+ "[npc.Name] feels [npc.her] entire torso suddenly start to feel extremely soft and sensitive, and [npc.she] lets out a little [npc.moan] as [npc.her] [npc.breasts] start to shift and transform.");
-		}
-
+		UtilText.transformationContentSB.append(
+				"<p>"
+					+ "The front of [npc.namePos] torso suddenly feels extremely soft and sensitive, and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a transformation start to take place."
+					+" [npc.Her] nipples and areolae tingle and harden, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
+					+ " While there's no change to the [npc.breastFullDescription] which covers [npc.her] [npc.breasts],"
+						+ " [npc.she] [npc.verb(feel)] #IFnpc.hasBreasts()#THENtheir#ELSEits#ENDIF interior structure shifting and changing into a new form."
+					+ " After just a moment, the transformation ends, leaving [npc.herHim] with [npc.totalNipples] new nipples."
+					+ "<br/>");
+		
 		// Parse existing content before transformation:
 		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
 		UtilText.transformationContentSB.setLength(0);
@@ -193,297 +199,8 @@ public class Breast implements BodyPartInterface, Serializable {
 		milk.setType(type.getFluidType());
 		owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
 		owner.resetAreaKnownByCharacters(CoverableArea.NIPPLES);
-		
-		switch (type) {
-			case HUMAN:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving you with human breasts, covered in [pc.breastFullDescriptionColour]."
-								+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "You now have [style.boldHuman(human breasts and [pc.nipples])], and when lactating, you will produce [style.boldHuman(human milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with human breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldHuman(human breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldHuman(human milk)]."
-								+ "</p>");
-				}
-				break;
-			case DEMON_COMMON:
-				if (!owner.isShortStature()) {
-					UtilText.transformationContentSB.append(
-							" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with demonic breasts, covered in [npc.breastFullDescriptionColour]."
-							+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldDemon(demonic breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldDemon(demonic milk)]."
-							+ "</p>");
-					
-				} else {
-					UtilText.transformationContentSB.append(
-							" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with impish breasts, covered in [npc.breastFullDescriptionColour]."
-							+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldImp(impish breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldImp(impish milk)]."
-							+ "</p>");
-				}
-				break;
-			case DOG_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with canine breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldDogMorph(canine breasts and [pc.nipples])], and when lactating, you will produce [style.boldDemon(canine milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with canine breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldDogMorph(canine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldDogMorph(canine milk)]."
-								+ "</p>");
-				}
-				break;
-			case FOX_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with vulpine breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "</br>"
-							+ "You now have [style.boldFoxMorph(vulpine breasts and [pc.nipples])], and when lactating, you will produce [style.boldFoxMorph(vulpine milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with vulpine breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "</br>"
-								+ "[npc.She] now has [style.boldFoxMorph(vulpine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldFoxMorph(vulpine milk)]."
-								+ "</p>");
-				}
-				break;
-			case WOLF_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with lupine breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldWolfMorph(lupine breasts and [pc.nipples])], and when lactating, you will produce [style.boldWolfMorph(lupine milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with lupine breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldWolfMorph(lupine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldWolfMorph(lupine milk)]."
-								+ "</p>");
-				}
-				break;
-			case CAT_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with feline breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldCatMorph(feline breasts and [pc.nipples])], and when lactating, you will produce [style.boldCatMorph(feline milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with feline breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldCatMorph(feline breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldCatMorph(feline milk)]."
-								+ "</p>");
-				}
-				break;
-			case COW_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with bovine breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldCowMorph(bovine breasts and [pc.nipples])], and when lactating, you will produce [style.boldCowMorph(bovine milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with bovine breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldCowMorph(bovine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldCowMorph(bovine milk)]."
-								+ "</p>");
-				}
-				break;
-			case SQUIRREL_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with a squirrel-morph's breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldSquirrelMorph(squirrel-morph breasts and [pc.nipples])], and when lactating, you will produce [style.boldSquirrelMorph(squirrel-morph milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with a squirrel-morph's breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldSquirrelMorph(squirrel-morph breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldSquirrelMorph(squirrel-morph milk)]."
-								+ "</p>");
-				}
-				break;
-			case RAT_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with a rat-morph's breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldRatMorph(rat-morph breasts and [pc.nipples])], and when lactating, you will produce [style.boldRatMorph(rat-morph milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with a rat-morph's breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldRatMorph(rat-morph breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldRatMorph(rat-morph milk)]."
-								+ "</p>");
-				}
-				break;
-			case RABBIT_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with a rabbit-morph's breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldRabbitMorph(rabbit-morph breasts and [pc.nipples])], and when lactating, you will produce [style.boldRabbitMorph(rabbit-morph milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with a rabbit-morph's breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldRabbitMorph(rabbit-morph breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldRabbitMorph(rabbit-morph milk)]."
-								+ "</p>");
-				}
-				break;
-			case BAT_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with a bat-morph's breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldBatMorph(bat-morph breasts and [pc.nipples])], and when lactating, you will produce [style.boldBatMorph(bat-morph milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with a bat-morph's breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldBatMorph(bat-morph breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldBatMorph(bat-morph milk)]."
-								+ "</p>");
-				}
-				break;
-			case ALLIGATOR_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with reptilian breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldGatorMorph(reptilian breasts and [pc.nipples])], and when lactating, you will produce [style.boldGatorMorph(alligator-morph milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with reptilian breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldGatorMorph(reptilian breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldGatorMorph(alligator-morph milk)]."
-								+ "</p>");
-				}
-				break;
-			case HORSE_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with equine breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldHorseMorph(equine breasts and [pc.nipples])], and when lactating, you will produce [style.boldHorseMorph(equine milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with equine breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldHorseMorph(equine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldHorseMorph(equine milk)]."
-								+ "</p>");
-				}
-				break;
-			case REINDEER_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with rangiferine breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldReindeerMorph(rangiferine breasts and [pc.nipples])], and when lactating, you will produce [style.boldReindeerMorph(rangiferine milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with rangiferine breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldReindeerMorph(rangiferine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldReindeerMorph(rangiferine milk)]."
-								+ "</p>");
-				}
-				break;
-			case HARPY:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with avian breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
-							+ "<br/>"
-							+ "You now have [style.boldHarpy(avian breasts and [pc.nipples])], and when lactating, you will produce [style.boldHarpy(avian milk)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with avian breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldHarpy(avian breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldHarpy(avian milk)]."
-								+ "</p>");
-				}
-				break;
-			case ANGEL://TODO
-				break;
-		}
+
+		UtilText.transformationContentSB.append(type.getTransformationDescription(owner)+"</p>");
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
 				+ "<p>"
@@ -747,6 +464,11 @@ public class Breast implements BodyPartInterface, Serializable {
 
 	public String setRows(GameCharacter owner, int rows) {
 		rows = Math.max(1, Math.min(rows, MAXIMUM_BREAST_ROWS));
+		
+		if(owner==null) {
+			this.rows = rows;
+			return "";
+		}
 		
 		if(rows == getRows()) {
 			if(owner.isPlayer()) {

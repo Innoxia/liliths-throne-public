@@ -4,9 +4,10 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.main.Main;
 
@@ -33,7 +34,7 @@ public class SMAltarMissionarySealed extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 		if(character.isPlayer()) {
 			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
 		} else {

@@ -12,7 +12,7 @@ public class SvgUtil {
 	public static String colourReplacementPattern(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
 		String s = inputString;
 	
-		s = s.replaceAll("linearGradient\\d|innoGrad\\d",
+		s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
 				gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
 		
 		if(colour!=null) {
@@ -50,7 +50,7 @@ public class SvgUtil {
 		String s = inputString;
 	
 		if(gradientReplacementID!=null) {
-			s = s.replaceAll("linearGradient\\d|innoGrad\\d",
+			s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
 					gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
 		}
 		
@@ -94,7 +94,7 @@ public class SvgUtil {
 		String s = inputString;
 	
 		if(gradientReplacementID!=null) {
-			s = s.replaceAll("linearGradient\\d|innoGrad\\d",
+			s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
 					gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
 		}
 		

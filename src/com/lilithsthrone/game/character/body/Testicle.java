@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.TesticleType;
@@ -18,9 +17,8 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.7
  * @author Innoxia
  */
-public class Testicle implements BodyPartInterface, Serializable {
+public class Testicle implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 	
 	public static final int MIN_TESTICLE_COUNT = 2;
 	public static final int MAX_TESTICLE_COUNT = 8;
@@ -104,13 +102,17 @@ public class Testicle implements BodyPartInterface, Serializable {
 	}
 
 	public String setTesticleSize(GameCharacter owner, int testicleSize) {
-		if(!owner.hasPenisIgnoreDildo()) {
+		if(owner!=null && !owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
 		int oldSize = this.testicleSize;
 		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
 		int sizeChange = this.testicleSize - oldSize;
+
+		if(owner==null) {
+			return "";
+		}
 		
 		if (sizeChange == 0) {
 			if(owner.isPlayer()) {

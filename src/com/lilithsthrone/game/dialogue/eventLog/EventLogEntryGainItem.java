@@ -14,7 +14,6 @@ import com.lilithsthrone.utils.Util;
  */
 public class EventLogEntryGainItem extends EventLogEntry {
 
-	private static final long serialVersionUID = 1L;
 	
 	public EventLogEntryGainItem(AbstractCoreItem item) {
 		super(Main.game.getMinutesPassed(),

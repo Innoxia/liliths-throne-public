@@ -1125,7 +1125,7 @@ public enum TFModifier {
 		TFModSexualList.add(NONE);
 		
 		for(TFModifier tfMod : TFModifier.values()) {
-			if(tfMod.getAttributeCategory()!=null) {
+			if(tfMod.getAttributeCategory()!=null && tfMod!=TFModifier.DAMAGE_WEAPON && tfMod!=TFModifier.RESISTANCE_WEAPON) {
 				switch(tfMod.getAttributeCategory()) {
 					case CORRUPTION:
 						TFModCorruptionList.add(tfMod);

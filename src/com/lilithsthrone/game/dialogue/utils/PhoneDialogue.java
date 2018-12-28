@@ -32,7 +32,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -51,10 +51,11 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.*;
+import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
@@ -62,8 +63,7 @@ public class PhoneDialogue {
 	private static List<GameCharacter> charactersEncountered;
 	
 	private static StringBuilder journalSB;
-	public static final DialogueNodeOld MENU = new DialogueNodeOld("Phone home screen", "Phone", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MENU = new DialogueNode("Phone home screen", "Phone", true) {
 
 		@Override
 		public String getContent() {
@@ -156,6 +156,14 @@ public class PhoneDialogue {
 					return new Response("Transform", "Only demons and slimes can transform themselves!", null);
 				}
 				
+			} else if (index == 10) {
+				return new Response("Maps", "Take a look at maps of all the places you've visited.", MAP) {
+					@Override
+					public void effects() {
+						worldTypeMap = Main.game.getPlayer().getWorldLocation();
+					}
+				};
+				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
@@ -175,8 +183,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld PLANNER_MAIN = new DialogueNodeOld("Planner", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PLANNER_MAIN = new DialogueNode("Planner", "", true) {
 
 		@Override
 		public String getContent() {
@@ -239,8 +246,7 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld PLANNER_SIDE = new DialogueNodeOld("Planner", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PLANNER_SIDE = new DialogueNode("Planner", "", true) {
 
 		@Override
 		public String getContent() {
@@ -317,8 +323,7 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld PLANNER_RELATIONSHIP = new DialogueNodeOld("Planner", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PLANNER_RELATIONSHIP = new DialogueNode("Planner", "", true) {
 
 		@Override
 		public String getContent() {
@@ -454,8 +459,7 @@ public class PhoneDialogue {
 	}
 	
 
-	public static final DialogueNodeOld CHARACTER_APPEARANCE = new DialogueNodeOld("Selfie picture", "Take a selfie", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_APPEARANCE = new DialogueNode("Selfie picture", "Take a selfie", true) {
 
 		@Override
 		public String getContent() {
@@ -478,8 +482,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld CHARACTER_STATS = new DialogueNodeOld("Character Stats", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_STATS = new DialogueNode("Character Stats", "", true) {
 
 		@Override
 		public String getContent() {
@@ -830,8 +833,7 @@ public class PhoneDialogue {
 				+"</div>";
 	}
 	
-	public static final DialogueNodeOld CHARACTER_STATS_BODY = new DialogueNodeOld("Body Stats", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_STATS_BODY = new DialogueNode("Body Stats", "", true) {
 
 		@Override
 		public String getContent() {
@@ -892,8 +894,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_SEX = new DialogueNodeOld("Sex Stats", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_STATS_SEX = new DialogueNode("Sex Stats", "", true) {
 
 		@Override
 		public String getContent() {
@@ -994,8 +995,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_PREGNANCY = new DialogueNodeOld("Pregnancy Stats", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_STATS_PREGNANCY = new DialogueNode("Pregnancy Stats", "", true) {
 
 		private void OffspringHeaderDisplay(StringBuilder output, String word_one, String word_two, String color, int count) {
 			output.append("<div class='extraAttribute-quarter'>");
@@ -1018,8 +1018,9 @@ public class PhoneDialogue {
 			String color = female ? Colour.FEMININE.toWebHexString() : Colour.MASCULINE.toWebHexString();
 			String child_name = ChildMet(npc) ? npc.getName() : "Unknown";
 			String race_color = npc.getRace().getColour().toWebHexString();
-			String species_name = female ? npc.getSubspecies().getOffspringSubspecies().getSingularFemaleName(npc) :
-						       npc.getSubspecies().getOffspringSubspecies().getSingularMaleName(npc);
+			String species_name = female
+								? npc.getSubspecies().getSingularFemaleName(npc)
+								: npc.getSubspecies().getSingularMaleName(npc);
 			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "You" : npc.getMother().getName());
 			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer()?"You":npc.getFather().getName());
 			output.append("<tr>");
@@ -1232,7 +1233,7 @@ public class PhoneDialogue {
 								+ "<br/>"
 								+ "Conceived with [npc.name(a)] on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
-								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
+								+ "You gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>"));
 				} else {
 					contentSB.append(
@@ -1241,7 +1242,7 @@ public class PhoneDialogue {
 								+ "<br/>"
 								+ "Conceived with someone you can't remember on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
-								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
+								+ "You gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>");
 				}
 			}
@@ -1318,7 +1319,7 @@ public class PhoneDialogue {
 								+ "<br/>"
 								+ "Conceived with [npc.name(a)] on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
-								+ "[npc.She] gave birth to "+ litter.getBirthedDescriptionList()+ "."
+								+ "[npc.She] gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>"));
 					
 				} else {
@@ -1328,7 +1329,7 @@ public class PhoneDialogue {
 								+ "<br/>"
 								+ "Conceived with someone you can't remember on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
-								+ "They gave birth to "+ litter.getBirthedDescriptionList()+ "."
+								+ "They gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>");
 				}
 			}
@@ -1463,8 +1464,7 @@ public class PhoneDialogue {
 				+", whose current location is: <i>"+contact.getWorldLocation().getName()+", "+contact.getLocationPlace().getPlaceType().getName()+"</i>.");
 	}
 	
-	public static final DialogueNodeOld CONTACTS = new DialogueNodeOld("Contacts", "Look at your contacts.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CONTACTS = new DialogueNode("Contacts", "Look at your contacts.", true) {
 
 		@Override
 		public String getContent() {
@@ -1512,8 +1512,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CONTACTS_CHARACTER = new DialogueNodeOld("Contacts", "Look at your contacts.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CONTACTS_CHARACTER = new DialogueNode("Contacts", "Look at your contacts.", true) {
 
 		@Override
 		public String getLabel() {
@@ -1559,8 +1558,7 @@ public class PhoneDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld ENCYCLOPEDIA = new DialogueNodeOld("Encyclopedia", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCYCLOPEDIA = new DialogueNode("Encyclopedia", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1630,14 +1628,13 @@ public class PhoneDialogue {
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
 		itemsDiscoveredList.sort(new ItemRarityComparator());
 		
-		weaponsDiscoveredList.addAll(WeaponType.allweapons);
+		weaponsDiscoveredList.addAll(WeaponType.getAllweapons());
 		weaponsDiscoveredList.sort(new WeaponRarityComparator());
 		
 		clothingDiscoveredList.addAll(ClothingType.getAllClothing());
 		clothingDiscoveredList.sort(new ClothingRarityComparator());
 	}
-	public static final DialogueNodeOld WEAPON_CATALOGUE = new DialogueNodeOld("Discovered Weapons", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WEAPON_CATALOGUE = new DialogueNode("Discovered Weapons", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1689,8 +1686,7 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld CLOTHING_CATALOGUE = new DialogueNodeOld("Discovered Clothing", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CLOTHING_CATALOGUE = new DialogueNode("Discovered Clothing", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1742,8 +1738,7 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld ITEM_CATALOGUE = new DialogueNodeOld("Discovered items", "View discovered items", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ITEM_CATALOGUE = new DialogueNode("Discovered items", "View discovered items", true) {
 
 		@Override
 		public String getContent() {
@@ -1832,8 +1827,7 @@ public class PhoneDialogue {
 		
 	}
 
-	public static final DialogueNodeOld RACES = new DialogueNodeOld("Discovered races", "View discovered races", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RACES = new DialogueNode("Discovered races", "View discovered races", true) {
 
 		@Override
 		public String getContent() {
@@ -1896,8 +1890,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SUBSPECIES = new DialogueNodeOld("Discovered races", "View discovered races", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SUBSPECIES = new DialogueNode("Discovered races", "View discovered races", true) {
 
 		@Override
 		public String getLabel() {
@@ -2016,21 +2009,24 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld CHARACTER_LEVEL_UP = new DialogueNodeOld("Perks", "", true) {
+	public static final DialogueNode CHARACTER_LEVEL_UP = new DialogueNode("Perks", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-					"<div class='container-full-width' style='padding:8px;'>"
-						+ "<span style='color:"+Colour.PERK.toWebHexString()+";'>Perks</span> (circular icons) apply permanent boosts to your attributes.<br/>"
-						+ "<span style='color:"+Colour.TRAIT.toWebHexString()+";'>Traits</span> (square icons) provide unique effects for your character."
-							+ " Unlike perks, <b>traits will have no effect on your character until they're slotted into your 'Active Traits' bar</b>.<br/>"
-						+ "Perks require perk points to unlock. You earn one perk point each time you level up, and earn an extra two perk points every five levels."
-					+ "</div>"
+					"<details>"
+							+ "<summary>[style.boldPerk(Perk & Trait Information)]</summary>"
+							+ "[style.colourPerk(Perks)] (circular icons) apply permanent boosts to your attributes.<br/>"
+							+ "[style.colourPerk(Traits)] (square icons) provide unique effects for your character."
+								+ " Unlike perks, <b>traits will have no effect on your character until they're slotted into your 'Active Traits' bar</b>.<br/>"
+							+ "Perks require perk points to unlock. You earn one perk point each time you level up, and earn an extra two perk points every five levels.<br/><br/>"
+							+ "In addition to the perks that can be purchased via perk points, there are also several special, hidden perks that are unlocked via special events."
+							+ " There are currently [style.boldPerk("+Perk.getHiddenPerks().size()+")] special perks in the game."
+					+ "</details>"
+						
 					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
 					+ "<h6 style='text-align:center;'>Active Traits</h6>");
 
@@ -2054,12 +2050,31 @@ public class PhoneDialogue {
 					
 				}
 			}
-			UtilText.nodeContentSB.append("</div>"
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-						+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
-					+ "</div>");
+			
+			UtilText.nodeContentSB.append("<h6 style='text-align:center;'>Special Perks</h6>");
+			
+			for(Perk hiddenPerk : Perk.getHiddenPerks()) {
+//				if(Main.game.getPlayer().getSpecialPerks().contains(hiddenPerk)) {
+					UtilText.nodeContentSB.append("<div id='HIDDEN_PERK_" + hiddenPerk + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border:1% solid " + Colour.TRAIT.toWebHexString() + ";'>"
+							+ "<div class='square-button-content'>"+hiddenPerk.getSVGString()+"</div>"
+							+ (Main.game.getPlayer().getSpecialPerks().contains(hiddenPerk)
+									?""
+									:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.95; border-radius:50%;'></div>")
+							+ "</div>");
+					
+//				} else {
+//					UtilText.nodeContentSB.append("<div id='HIDDEN_PERK_" + hiddenPerk + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border:1% solid " + Colour.BASE_GREY.toWebHexString() + ";'>"
+//							+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown()+"</div>"
+//							+ "</div>");
+//				}
+			}
 			
 			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(Main.game.getPlayer()));
+			
+			UtilText.nodeContentSB.append("</div>"
+					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
+						+ "[style.italicsBad(Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!)]"
+					+ "</div>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2099,9 +2114,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_ARCANE = new DialogueNodeOld("Arcane Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_ARCANE = new DialogueNode("Arcane Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2161,7 +2175,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Arcane! This will cost <b>"+Spell.ELEMENTAL_ARCANE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_ARCANE) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2197,9 +2211,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_EARTH = new DialogueNodeOld("Earth Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_EARTH = new DialogueNode("Earth Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2263,7 +2276,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Earth! This will cost <b>"+Spell.ELEMENTAL_EARTH.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_EARTH) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2299,9 +2312,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_WATER = new DialogueNodeOld("Water Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_WATER = new DialogueNode("Water Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2365,7 +2377,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Water! This will cost <b>"+Spell.ELEMENTAL_WATER.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_WATER) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2401,9 +2413,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_AIR = new DialogueNodeOld("Air Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_AIR = new DialogueNode("Air Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2467,7 +2478,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Air! This will cost <b>"+Spell.ELEMENTAL_AIR.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_AIR) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2503,9 +2514,8 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_SPELLS_FIRE = new DialogueNodeOld("Fire Spells", "", true) {
+	public static final DialogueNode CHARACTER_SPELLS_FIRE = new DialogueNode("Fire Spells", "", true) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
@@ -2569,7 +2579,7 @@ public class PhoneDialogue {
 								"Summon your elemental by binding it to the school of Fire! This will cost <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
 								CHARACTER_SPELLS_FIRE) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -2606,8 +2616,7 @@ public class PhoneDialogue {
 	};
 	
 //	private static boolean confirmReset = false;
-	public static final DialogueNodeOld CHARACTER_FETISHES = new DialogueNodeOld("Desires & Fetishes", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_FETISHES = new DialogueNode("Desires & Fetishes", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2766,4 +2775,72 @@ public class PhoneDialogue {
 						:"")
 			+ "</div>";
 	}
+	
+	public static WorldType worldTypeMap = WorldType.DOMINION;
+	public static final DialogueNode MAP = new DialogueNode("Maps", "", true) {
+
+		@Override
+		public String getContent() {
+			if(worldTypeMap==WorldType.WORLD_MAP) {
+				return RenderingEngine.ENGINE.getFullWorldMap();
+			} else {
+				return RenderingEngine.ENGINE.getFullMap(worldTypeMap, true);
+			}
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			int i=2;
+			for(WorldType world : WorldType.values()) {
+				if(world != WorldType.WORLD_MAP
+						&& world != WorldType.EMPTY
+						&& world != WorldType.MUSEUM
+						&& world != WorldType.MUSEUM_LOST) {
+					if(index==i) {
+						if(worldTypeMap==world) {
+							return new Response(Util.capitaliseSentence(world.getName()), "You are already viewing the map of "+world.getName()+".", null);
+							
+						} else if(Main.game.getPlayer().getWorldsVisited().contains(world)) { 
+							return new Response(Util.capitaliseSentence(world.getName()), "View the map of "+world.getName()+".", MAP) {
+								@Override
+								public void effects() {
+									worldTypeMap = world;
+								}
+							};
+							
+						} else {
+							return new Response("???", "You haven't discovered this area yet.", null);
+						}
+					}
+					i++;
+				}
+			}
+			if (index == 1) {
+				if(worldTypeMap==WorldType.WORLD_MAP) {
+					return new Response("World map", "You are already viewing the world map.", null);
+					
+				} else if(Main.game.getPlayer().isDiscoveredWorldMap()) {
+					return new Response("World map", "Take a look at the world map.", MAP) {
+						@Override
+						public void effects() {
+							worldTypeMap = WorldType.WORLD_MAP;
+						}
+					};
+				} else {
+					return new Response("World map", "You haven't discovered the world map yet!", null);
+				}
+			
+			} else if (index == 0) {
+				return new Response("Back", "Return to the phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
+		}
+	};
 }
