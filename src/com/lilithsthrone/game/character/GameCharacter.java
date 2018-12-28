@@ -11648,7 +11648,7 @@ public abstract class GameCharacter implements XMLSaving {
 					this.incrementFetishExperience(Fetish.FETISH_MASOCHIST, 2);	
 				}
 				//Attacker is Sadistic
-				if (attacker.hasFetish(Fetish.FETISH_SADIST) && attacker != null) {
+				if (attacker != null && attacker.hasFetish(Fetish.FETISH_SADIST)) {
 					increment *= 1.05f;
 					attacker.incrementFetishExperience(Fetish.FETISH_SADIST, 2);
 				}
