@@ -508,23 +508,21 @@ public class MainController implements Initializable {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
 									enterConsumed = true;
-									boolean unsuitableName = false;
+									String name = "";
 									if(Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput')")!=null) {
 										 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											unsuitableName = FileUtils.isValid(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+											name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
 										}
 										
-										if (!unsuitableName) {
+										if (FileUtils.isValid(name)) {
 											Main.game.setContent(new Response("Rename Room", "Rename this room to whatever you've entered in the text box.", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
 													Main.game.getPlayerCell().getPlace().setName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
-										} else {
-											Main.game.setContent(new Response("Rename Room", "", Main.game.getCurrentDialogueNode()));
 										}
 									}
 								}

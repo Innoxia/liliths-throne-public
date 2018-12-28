@@ -1,24 +1,18 @@
 package com.lilithsthrone.world.places;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import com.lilithsthrone.utils.FileUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
+import com.lilithsthrone.utils.FileUtils;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.util.*;
 
 /**
  * @since 0.1.?
@@ -104,7 +98,7 @@ public class GenericPlace implements XMLSaving {
 					&& place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_FIELDS
 					&& place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_JUNGLE
 					&& place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_SEA)) {
-		place.setName(FileUtils.validate(parentElement.getAttribute("name")));
+			place.setName(FileUtils.validate(parentElement.getAttribute("name")));
 		}
 		
 		try {
