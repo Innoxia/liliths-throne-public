@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -49,7 +50,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -71,50 +72,55 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.2.12
  * @author Innoxia
  */
-public class FortressDemonLeader extends NPC {
+public class DarkSiren extends NPC {
 
-	public FortressDemonLeader() {
+	public DarkSiren() {
 		this(false);
 	}
 	
-	public FortressDemonLeader(boolean isImported) {
+	public DarkSiren(boolean isImported) {
 		super(isImported,
-				new NameTriplet("Mhyralyss"), "Lyssiethmartuilani",
+				new NameTriplet("Meraxis"), "Lyssiethmartuilani",
 				"The ruler of Submission's central imp citadel, 'The Dark Siren' is an incredibly powerful arcane user...",
 				26, Month.OCTOBER, 13,
 				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
 
-		if(!isImported || Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.5")) {
-			this.setPlayerKnowsName(false);
-			this.setGenericName("dark siren");
-			this.addTrait(Perk.CHUUNI);
-			this.setEssenceCount(TFEssence.ARCANE, 10000);
-			
-			this.addSpell(Spell.FIREBALL);
-			this.addSpellUpgrade(SpellUpgrade.FIREBALL_1);
-			this.addSpellUpgrade(SpellUpgrade.FIREBALL_2);
-			
-			this.addSpell(Spell.CLOAK_OF_FLAMES);
-			this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1);
-			
-			this.addSpell(Spell.ICE_SHARD);
-			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
-			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
-			
-			this.addSpell(Spell.POISON_VAPOURS);
-			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1);
-			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_2);
-			
-			this.addSpell(Spell.VACUUM);
-			this.addSpellUpgrade(SpellUpgrade.VACUUM_1);
-			
-			this.addSpell(Spell.SLAM);
-			this.addSpellUpgrade(SpellUpgrade.SLAM_1);
-			this.addSpellUpgrade(SpellUpgrade.SLAM_2);
-			this.addSpellUpgrade(SpellUpgrade.SLAM_3);
-			
-			this.addSpell(Spell.TELEKENETIC_SHOWER);
-			this.addSpellUpgrade(SpellUpgrade.TELEKENETIC_SHOWER_1);
+		if(!isImported) {
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.5")) {
+				this.setPlayerKnowsName(false);
+				this.setGenericName("dark siren");
+			}
+
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
+				this.addTrait(Perk.CHUUNI);
+				this.setEssenceCount(TFEssence.ARCANE, 10000);
+				
+				this.addSpell(Spell.FIREBALL);
+				this.addSpellUpgrade(SpellUpgrade.FIREBALL_1);
+				this.addSpellUpgrade(SpellUpgrade.FIREBALL_2);
+				
+				this.addSpell(Spell.CLOAK_OF_FLAMES);
+				this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1);
+				
+				this.addSpell(Spell.ICE_SHARD);
+				this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
+				this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
+				
+				this.addSpell(Spell.POISON_VAPOURS);
+				this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1);
+				this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_2);
+				
+				this.addSpell(Spell.VACUUM);
+				this.addSpellUpgrade(SpellUpgrade.VACUUM_1);
+				
+				this.addSpell(Spell.SLAM);
+				this.addSpellUpgrade(SpellUpgrade.SLAM_1);
+				this.addSpellUpgrade(SpellUpgrade.SLAM_2);
+				this.addSpellUpgrade(SpellUpgrade.SLAM_3);
+				
+				this.addSpell(Spell.TELEKENETIC_SHOWER);
+				this.addSpellUpgrade(SpellUpgrade.TELEKENETIC_SHOWER_1);
+			}
 			
 		}
 	}
@@ -126,7 +132,6 @@ public class FortressDemonLeader extends NPC {
 		this.setGenericName("dark siren");
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.5")) {
-			setName(new NameTriplet("Mhyralyss"));
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL);
 			setStartingBody(true);
 			equipClothing(true, true, true, true);
@@ -135,6 +140,7 @@ public class FortressDemonLeader extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6")) {
 			equipClothing(true, true, true, true);
 		}
+		setName(new NameTriplet("Meraxis"));
 	}
 	
 	@Override
@@ -166,6 +172,8 @@ public class FortressDemonLeader extends NPC {
 		
 		
 		// Body:
+		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
+		this.setHalfDemonSubspecies(Subspecies.HUMAN);
 		this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
@@ -272,6 +280,16 @@ public class FortressDemonLeader extends NPC {
 	}
 	
 	@Override
+	public String getSpeechColour() {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
+			return "#7E0094";
+		}//
+		return "#D397C5";//C374B1";
+	}
+	
+	
+	
+	@Override
 	public boolean isUnique() {
 		return true;
 	}
@@ -292,7 +310,7 @@ public class FortressDemonLeader extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	
@@ -313,7 +331,6 @@ public class FortressDemonLeader extends NPC {
 	}
 	
 	public Attack attackType() {
-		//TODO need to limit scythe spell
 		if(!getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty() && Math.random()<0.75f) {
 			return Attack.SPELL;
 		}

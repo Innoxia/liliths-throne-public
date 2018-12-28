@@ -1,7 +1,6 @@
 package com.lilithsthrone.game;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,8 +29,8 @@ import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
@@ -51,11 +50,10 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia
  */
-public class Properties implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Properties {
 
 	public String lastSaveLocation = "";
 	public String lastQuickSaveName = "";
@@ -776,8 +774,8 @@ public class Properties implements Serializable {
 						Element e = ((Element)element.getElementsByTagName("preference").item(i));
 						
 						try {
-							if(!e.getAttribute("orientation").isEmpty()) {
-								orientationPreferencesMap.put(SexualOrientation.valueOf(e.getAttribute("orientation")), Integer.valueOf(e.getAttribute("value")));
+							for(PronounType pronoun : PronounType.values()) {
+								agePreferencesMap.get(pronoun).put(AgeCategory.valueOf(e.getAttribute("age")), Integer.valueOf(e.getAttribute(pronoun.toString())));
 							}
 						} catch(IllegalArgumentException ex){
 							System.err.println("loadPropertiesFromXML() error: agePreferences preference");
@@ -976,7 +974,16 @@ public class Properties implements Serializable {
 	}
 	
 	public boolean isAdvancedRaceKnowledgeDiscovered(Subspecies subspecies) {
-		return subspeciesAdvancedKnowledge.contains(subspecies);
+		if(subspeciesAdvancedKnowledge.contains(subspecies)) {
+			return true;
+		}
+		// If this subspecies shares a lore book with the parent subspecies, and that parent subspecies is unlocked, then return true:
+		Subspecies coreSubspecies = Subspecies.getMainSubspeciesOfRace(subspecies.getRace());
+		if(ItemType.getLoreBook(subspecies).equals(ItemType.getLoreBook(coreSubspecies))) {
+			return subspeciesAdvancedKnowledge.contains(coreSubspecies);
+		}
+		
+		return false;
 	}
 	
 	public void setFeminineFurryPreference(Subspecies subspecies, FurryPreference furryPreference) {

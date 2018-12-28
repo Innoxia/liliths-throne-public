@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
@@ -93,7 +93,7 @@ public class ReindeerOverseerDialogue {
 					Main.game.getDialogueFlags().addReindeerEncountered(reindeer().getId());
 				}
 				@Override
-				public DialogueNodeOld getNextDialogue(){
+				public DialogueNode getNextDialogue(){
 					return Main.game.getDefaultDialogueNoEncounter();
 				}
 			};
@@ -103,8 +103,7 @@ public class ReindeerOverseerDialogue {
 		}
 	}
 	
-	public static final DialogueNodeOld ENCOUNTER_START = new DialogueNodeOld("Reindeer Overseer", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_START = new DialogueNode("Reindeer Overseer", "", true) {
 
 		@Override
 		public String getContent() {
@@ -203,8 +202,7 @@ public class ReindeerOverseerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_WORK = new DialogueNodeOld("Reindeer Overseer", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_WORK = new DialogueNode("Reindeer Overseer", "", true) {
 
 		@Override
 		public String getContent() {
@@ -468,8 +466,7 @@ public class ReindeerOverseerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_WORK_FINISHED = new DialogueNodeOld("Reindeer Overseer", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCOUNTER_WORK_FINISHED = new DialogueNode("Reindeer Overseer", "", true) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -500,8 +497,7 @@ public class ReindeerOverseerDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Reindeer Overseer", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Reindeer Overseer", "", true) {
 
 		@Override
 		public String getContent() {

@@ -50,7 +50,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -97,8 +97,7 @@ public class Vicky extends NPC {
 			ItemType.RACE_INGREDIENT_COW_MORPH,
 			ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH,
 			ItemType.RACE_INGREDIENT_REINDEER_MORPH,
-			ItemType.RACE_INGREDIENT_HUMAN,
-			ItemType.RACE_INGREDIENT_DEMON};
+			ItemType.RACE_INGREDIENT_HUMAN};
 	
 	private static List<AbstractItemType> availableSpellBooks = new ArrayList<>();
 	
@@ -319,7 +318,7 @@ public class Vicky extends NPC {
 		
 		List<AbstractCoreType> types = new ArrayList<>();
 		
-		for(AbstractWeaponType wt : WeaponType.allweapons) {
+		for(AbstractWeaponType wt : WeaponType.getAllweapons()) {
 			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
 				types.add(wt);
 //				for(int i=0; i<1+Util.random.nextInt(3); i++){
@@ -401,7 +400,7 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 
@@ -459,7 +458,7 @@ public class Vicky extends NPC {
 	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
 		sexPositionPreferences.clear();
 		
-		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM_VICKY);
+		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM);
 		
 		return sexPositionPreferences;
 	}

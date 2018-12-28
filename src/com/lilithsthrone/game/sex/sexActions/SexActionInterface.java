@@ -442,7 +442,8 @@ public interface SexActionInterface {
 						
 						if(!canStartPenetration
 								&& Sex.getSexPace(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))!=SexPace.DOM_ROUGH
-								&& Sex.getCharacterPerformingAction().isPlayer()) {
+								&& Sex.getCharacterPerformingAction().isPlayer()
+								&& !Sex.getSexManager().isSubsRestricted()) {
 							if(this.getTargetedCharacterOrifices().isEmpty()) {
 								canStartPenetration = true; // Can start submissive penetrations (getting penetrated, not doing the penetrating) when player is a sub with restricted control.
 							} else {

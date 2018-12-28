@@ -11,7 +11,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -145,8 +145,7 @@ public class OccupantDialogue {
 	
 	//TODO most important: add hooks to dominion tiles and set active character
 	
-	public static final DialogueNodeOld OCCUPANT_START = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_START = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -557,8 +556,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_TALK_LIFE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_TALK_LIFE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -593,8 +591,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_TALK_JOB = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_TALK_JOB = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -633,8 +630,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_TALK_LILAYA = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_TALK_LILAYA = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -669,8 +665,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_TALK_SLAVES = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_TALK_SLAVES = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -712,8 +707,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Finish", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Finish", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -749,8 +743,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_KICK_OUT = new DialogueNodeOld("Kicking out", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_KICK_OUT = new DialogueNode("Kicking out", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -763,8 +756,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_MOVE_OUT = new DialogueNodeOld("Moving out", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_MOVE_OUT = new DialogueNode("Moving out", "", true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -809,8 +801,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_MOVE_OUT_APARTMENT = new DialogueNodeOld("Moving out", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_MOVE_OUT_APARTMENT = new DialogueNode("Moving out", "", true, true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -840,8 +831,7 @@ public class OccupantDialogue {
 
 	private static int sleepTimer = 240;
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT = new DialogueNodeOld("Moving out", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT = new DialogueNode("Moving out", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -1235,8 +1225,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_TALK_LIFE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_TALK_LIFE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -1270,8 +1259,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_TALK_JOB = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_TALK_JOB = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed(){
@@ -1305,8 +1293,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_SLEEP_OVER = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_SLEEP_OVER = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1340,8 +1327,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -1384,8 +1370,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_REMOVE = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_REMOVE = new DialogueNode("", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -1398,8 +1383,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld APARTMENT_AFTER_SEX = new DialogueNodeOld("Finish", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode APARTMENT_AFTER_SEX = new DialogueNode("Finish", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1439,8 +1423,7 @@ public class OccupantDialogue {
 	// MANAGEMENT DIALOGUES:
 	
 	
-	public static final DialogueNodeOld OCCUPANT_CHOOSE_NAME = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_CHOOSE_NAME = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getContent() {

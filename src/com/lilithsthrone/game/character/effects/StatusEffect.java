@@ -49,11 +49,11 @@ import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.sex.LubricationType;
+import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
@@ -66,7 +66,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -760,7 +760,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
 					new Value<Attribute, Float>(Attribute.FERTILITY, 75f),
 					new Value<Attribute, Float>(Attribute.VIRILITY, 75f)),
-			Util.newArrayListOfValues("<b style='color: "+ Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Obeys Lilin</b>")) {
+			Util.newArrayListOfValues("<b style='color: "+ Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Demonic mindset</b>")) {
 
 		@Override
 		public String getName(GameCharacter target) {
@@ -769,13 +769,12 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You are completely and utterly corrupted. The lewd thoughts and fantasies that continuously run through your mind have unlocked the full power of the arcane, making your body hyper-fertile and virile.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] is completely and utterly corrupted."
-						+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
-			}
-
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] completely and utterly corrupted"
+						+ (owner.getSubspeciesOverride()!=null && owner.getSubspeciesOverride().getRace()==Race.DEMON
+						?", as is fitting for [npc.a_race]."
+						:", and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
+					+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
 		}
 
 		@Override
@@ -5559,7 +5558,7 @@ public enum StatusEffect {
 	
 	SET_SNOWFLAKE(
 			70,
-			"Snowflake",
+			"Glacial",
 			"set_snowflake",
 			Colour.BASE_BLUE_LIGHT,
 			true,
@@ -5570,17 +5569,10 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target!=null) {
-				if(target.isPlayer()) {
-					return "By donning snowflake jewels, you're confident that no ice will harm you!";
-					
-				} else {
-					return UtilText.parse(target, "By wearing snowflake jewels, [npc.name] is well-protected against any ice attacks.");
-					
-				}
-			} else {
+			if(target==null) {
 				return "";
 			}
+			return UtilText.parse(target, "By donning the complete set of specially enchanted snowflake jewellery, [npc.nameIs] more easily able to withstand ice attacks!");
 		}
 
 		@Override
@@ -5591,7 +5583,7 @@ public enum StatusEffect {
 		
 	SET_SUN(
 			70,
-			"Sun",
+			"Radiant",
 			"set_sun",
 			Colour.BASE_ORANGE,
 			true,
@@ -5602,17 +5594,10 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target!=null) {
-				if(target.isPlayer()) {
-					return "By donning jewels that sparkle like the sun, you're confident that no fire will harm you!";
-					
-				} else {
-					return UtilText.parse(target, "By wearing the sun, [npc.name] is well-protected against any fire attacks.");
-					
-				}
-			} else {
+			if(target==null) {
 				return "";
 			}
+			return UtilText.parse(target, "By donning jewels that sparkle like the sun, [npc.nameIsFull] confident that no fire will harm [npc.herHim]!");
 		}
 
 		@Override

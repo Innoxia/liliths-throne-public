@@ -1,8 +1,8 @@
 package com.lilithsthrone.world;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -16,11 +16,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.3
  * @author Innoxia
  */
-public class World implements Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class World implements XMLSaving {
 
 	public final int WORLD_WIDTH, WORLD_HEIGHT;
 	public static final int CELL_SIZE = 64;

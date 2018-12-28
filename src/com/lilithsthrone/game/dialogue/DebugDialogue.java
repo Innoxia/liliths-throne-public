@@ -12,6 +12,8 @@ import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Brax;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
@@ -46,8 +48,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class DebugDialogue {
 
-	public static final DialogueNodeOld DEBUG_MENU = new DialogueNodeOld("A powerful tool", "Open debug menu.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEBUG_MENU = new DialogueNode("A powerful tool", "Open debug menu.", false) {
 		
 		@Override
 		public String getContent() {
@@ -90,7 +91,7 @@ public class DebugDialogue {
 			if(index == 0) {
 				return new Response("Back", "", DEBUG_MENU){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -228,7 +229,7 @@ public class DebugDialogue {
 					return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>+1</span> <span style='color:"+Colour.PERK.toWebHexString()+";'>Perk point</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().setPerkPoints(Main.game.getPlayer().getPerkPoints()+1);
+							Main.game.getPlayer().incrementPerkPoints(1);
 						}
 					};
 					
@@ -334,7 +335,15 @@ public class DebugDialogue {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().ingestFluid(Main.game.getBrax(), Main.game.getBrax().getCum(), SexAreaOrifice.VAGINA, 1000);
+							Main.game.getPlayer().ingestFluid(Main.game.getNpc(Brax.class), Main.game.getNpc(Brax.class).getCum(), SexAreaOrifice.VAGINA, 1000);
+						}
+					};
+					
+				} else if (index == 7) {
+					return new Response("Lilaya's hypocrisy", "Lilaya cums in your vagina!", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().ingestFluid(Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getCum(), SexAreaOrifice.VAGINA, 1000);
 						}
 					};
 					
@@ -345,8 +354,7 @@ public class DebugDialogue {
 		}
 	};
 	private static StringBuilder coloursSB;
-	public static final DialogueNodeOld COLOURS = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COLOURS = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {
@@ -366,8 +374,7 @@ public class DebugDialogue {
 	
 	private static NPC activeOffspring = null;
 	
-	public static final DialogueNodeOld OFFSPRING = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFSPRING = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {
@@ -375,9 +382,9 @@ public class DebugDialogue {
 			
 			for(NPC npc : Main.game.getOffspring()) {
 				if(npc.isFeminine()) {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getMother().getName()+"'s daughter ("+npc.getRace().getName()+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
+					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getMother().getName()+"'s daughter ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
 				} else {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getFather().getName()+"'s son ("+npc.getRace().getName()+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
+					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getFather().getName()+"'s son ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
 				}
 			}
 			if(activeOffspring!=null) {
@@ -418,24 +425,21 @@ public class DebugDialogue {
 	public static InventorySlot activeSlot = null;
 	public static ItemTag itemTag = null;
 	public static int spawnCount = 1;
-	static {
-		clothingTotal.addAll(ClothingType.getAllClothing());
-	}
+	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
-		weaponsTotal.addAll(WeaponType.allweapons);
-	}
-	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
-	static {
-		for (AbstractItemType c : ItemType.getAllItems()) {
-			if(!c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
-				itemsTotal.add(c);
-			}
-		}
+		clothingTotal.addAll(ClothingType.getAllClothing());
+		clothingTotal.removeIf((c) -> c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
+		
+		weaponsTotal.addAll(WeaponType.getAllweapons());
+		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
+
+		itemsTotal.addAll(ItemType.getAllItems());
+		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
+		
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
-	public static final DialogueNodeOld SPAWN_MENU = new DialogueNodeOld("Spawn Menu", "Access the spawn menu.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SPAWN_MENU = new DialogueNode("Spawn Menu", "Access the spawn menu.", false) {
 
 		@Override
 		public String getHeaderContent() {
@@ -549,8 +553,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALL_ITEMS_VIEW = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALL_ITEMS_VIEW = new DialogueNode("", "", false) {
 
 		@Override
 		public String getHeaderContent() {
@@ -637,8 +640,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_PART_MATERIAL = new DialogueNodeOld("Set body material", "Set body material.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_PART_MATERIAL = new DialogueNode("Set body material", "Set body material.", false) {
 
 		@Override
 		public String getContent() {
@@ -664,8 +666,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_PART_RACE_RESET = new DialogueNodeOld("Reset body", "Set race.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BODY_PART_RACE_RESET = new DialogueNode("Reset body", "Set race.", false) {
 
 		@Override
 		public String getContent() {
@@ -736,11 +737,10 @@ public class DebugDialogue {
 	
 	
 	
-	public static final DialogueNodeOld CLOTHING_COLLAGE = new DialogueNodeOld("Clothing collage", "Clothing collage.", false) {
+	public static final DialogueNode CLOTHING_COLLAGE = new DialogueNode("Clothing collage", "Clothing collage.", false) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -774,8 +774,7 @@ public class DebugDialogue {
 	}
 
 	private static String parsedText = "", rawText = "";
-	public static final DialogueNodeOld PARSER = new DialogueNodeOld("Parser", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER = new DialogueNode("Parser", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -858,8 +857,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PARSER_HELP = new DialogueNodeOld("Innoxia's super fun and interesting guide to parsing", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER_HELP = new DialogueNode("Innoxia's super fun and interesting guide to parsing", "", true) {
 
 		/*
 		 * I've seen String concatenation... String concatenation that you've seen.
@@ -1007,7 +1005,7 @@ public class DebugDialogue {
 										+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!)</i>]<br/>"
 					+ "outputs:<br/>"
 					+ "'Lilaya storms up to Innoxia, shouting angrily in response to finding out that her sex scenes haven't been fixed yet, "
-						+UtilText.parseSpeech("What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!", Main.game.getLilaya())+"'"
+						+UtilText.parseSpeech("What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!", Main.game.getNpc(Lilaya.class))+"'"
 					
 					+ "</p>";
 		}
@@ -1048,8 +1046,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PARSER_TARGETS = new DialogueNodeOld("Parser", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER_TARGETS = new DialogueNode("Parser", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -1113,8 +1110,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PARSER_COMMANDS = new DialogueNodeOld("Parser", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER_COMMANDS = new DialogueNode("Parser", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -1182,8 +1178,7 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PARSER_COMMANDS_NEAT = new DialogueNodeOld("Parser", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARSER_COMMANDS_NEAT = new DialogueNode("Parser", "", true) {
 
 		@Override
 		public String getHeaderContent() {

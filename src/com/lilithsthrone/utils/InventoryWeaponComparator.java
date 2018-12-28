@@ -1,6 +1,5 @@
 package com.lilithsthrone.utils;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -10,8 +9,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
  * @version 0.2.5
  * @author Innoxia
  */
-public class InventoryWeaponComparator implements Comparator<AbstractWeapon>, Serializable {
-	private static final long serialVersionUID = 1L;
+public class InventoryWeaponComparator implements Comparator<AbstractWeapon> {
 
 	@Override
 	public int compare(AbstractWeapon first, AbstractWeapon second) {

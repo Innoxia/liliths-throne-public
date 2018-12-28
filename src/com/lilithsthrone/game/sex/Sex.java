@@ -35,7 +35,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.ParserTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -166,7 +166,7 @@ public class Sex {
 	private static Map<GameCharacter, Map<GameCharacter, Set<SexActionInterface>>> actionsAvailable;
 	private static Map<GameCharacter, Map<GameCharacter, Set<SexActionInterface>>> orgasmActionsAvailable;
 	
-	private static DialogueNodeOld postSexDialogue;
+	private static DialogueNode postSexDialogue;
 
 	private static Map<GameCharacter, SexActionInterface> lastUsedSexAction;
 	
@@ -192,11 +192,12 @@ public class Sex {
 	
 	// Clothes:
 
+	private static Set<GameCharacter> charactersAbleToRemoveSelfClothing;
+	private static Set<GameCharacter> charactersAbleToRemoveOthersClothing;
+	
 	private static AbstractClothing clothingBeingRemoved;
 	
 	private static Map<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> clothingPreSexMap;
-	
-	private static Set<GameCharacter> charactersAbleToRemoveSelfClothing, charactersAbleToRemoveOthersClothing;
 	
 	private static boolean sexFinished;
 	private static boolean partnerAllowedToUseSelfActions;
@@ -207,10 +208,11 @@ public class Sex {
 	public Sex() {
 	}
 
-	public DialogueNodeOld initialiseSex(boolean consensual,
+	public DialogueNode initialiseSex(
+			boolean consensual,
 			boolean subHasEqualControl,
 			SexManagerInterface sexManager,
-			DialogueNodeOld postSexDialogue,
+			DialogueNode postSexDialogue,
 			String sexStartDescription) {
 		return initialiseSex(consensual,
 				subHasEqualControl,
@@ -221,13 +223,13 @@ public class Sex {
 				sexStartDescription);
 	}
 	
-	public DialogueNodeOld initialiseSex(
+	public DialogueNode initialiseSex(
 			boolean consensual,
 			boolean subHasEqualControl,
 			SexManagerInterface sexManager,
 			List<GameCharacter> dominantSpectators,
 			List<GameCharacter> submissiveSpectators,
-			DialogueNodeOld postSexDialogue,
+			DialogueNode postSexDialogue,
 			String sexStartDescription) {
 
 		turn = 1;
@@ -288,17 +290,6 @@ public class Sex {
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			for(GameCharacter character2 : Sex.getAllParticipants()) {
 				character.addSexPartner(character2);
-			}
-		}
-		
-		charactersAbleToRemoveSelfClothing = new HashSet<>();
-		charactersAbleToRemoveOthersClothing = new HashSet<>();
-		for(GameCharacter character : Sex.getAllParticipants()) {
-			if(sexManager.isAbleToRemoveSelfClothing(character)) {
-				charactersAbleToRemoveSelfClothing.add(character);
-			}
-			if(sexManager.isAbleToRemoveOthersClothing(character)) {
-				charactersAbleToRemoveOthersClothing.add(character);
 			}
 		}
 		
@@ -464,6 +455,9 @@ public class Sex {
 		// This method appends wet descriptions to the sexSB StringBuilder:
 		calculateWetAreas(true);
 		
+		charactersAbleToRemoveSelfClothing = new HashSet<>();
+		charactersAbleToRemoveOthersClothing = new HashSet<>();
+		
 		// Store status of all clothes for both partners (so they can be restored afterwards):
 		clothingPreSexMap = new HashMap<>();
 		
@@ -528,7 +522,7 @@ public class Sex {
 		for(Entry<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> entry : clothingPreSexMap.entrySet()) {
 			GameCharacter character = entry.getKey();
 			if(character.isUnique()) { // Backup for unique NPCs, as they shouldn't be able to have clothing put on them during sex:
-				List<AbstractClothing> equippedClothing = character.getClothingCurrentlyEquipped();
+				List<AbstractClothing> equippedClothing = new ArrayList<>(character.getClothingCurrentlyEquipped());
 				for(AbstractClothing c : equippedClothing) {
 					if(!entry.getValue().keySet().contains(c)) {
 						character.forceUnequipClothingIntoVoid(character, c);
@@ -1108,8 +1102,7 @@ public class Sex {
 	}
 
 	
-	public static final DialogueNodeOld SEX_DIALOGUE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SEX_DIALOGUE = new DialogueNode("", "", true) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -1296,51 +1289,12 @@ public class Sex {
 		public boolean isContinuesDialogue(){
 			return sexStarted;
 		}
-
-		@Override
-		public boolean isDisplaysActionTitleOnContinuesDialogue() {
-			return true;
-		}
-
+		
 		@Override
 		public boolean isInventoryDisabled() {
 			return false;
 		}
 	};
-	
-//	public static final DialogueNodeOld SEX_DIALOGUE_RETURN = new DialogueNodeOld("", "", true) {
-//		private static final long serialVersionUID = 1L;
-//
-//		@Override
-//		public String getLabel() {
-//			return "Sex: "+getPosition().getName();
-//		}
-//
-//		@Override
-//		public String getContent() {
-//			return (!sexStarted?SEX_DIALOGUE.getContent():"");
-//		}
-//
-//		@Override
-//		public Response getResponse(int responseTab, int index) {
-//			return SEX_DIALOGUE.getResponse(0, index);
-//		}
-//
-//		@Override
-//		public boolean isContinuesDialogue(){
-//			return SEX_DIALOGUE.isContinuesDialogue();
-//		}
-//
-//		@Override
-//		public boolean isDisplaysActionTitleOnContinuesDialogue() {
-//			return false;
-//		}
-//
-//		@Override
-//		public boolean isInventoryDisabled() {
-//			return SEX_DIALOGUE.isInventoryDisabled();
-//		}
-//	};
 	
 	/**
 	 * Don't call this out of sex.
@@ -3032,9 +2986,9 @@ public class Sex {
 	public static SexActionInterface manageClothingToAccessCoverableArea(GameCharacter characterManagingClothing, GameCharacter targetForManagement, CoverableArea coverableArea) {
 		
 		SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = targetForManagement.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
-		if (clothingRemoval.getKey() == null) {
+		if (clothingRemoval == null || clothingRemoval.getKey() == null) {
 			unequipClothingText = UtilText.parse(characterManagingClothing, targetForManagement, "[npc.Name] can't find a piece of [npc2.namePos] clothing to remove! (Please tell Innoxia. :3)");
-			System.err.println("partnerManageClothingToAccessCoverableArea method can't get clothing! 1");
+			System.err.println("manageClothingToAccessCoverableArea() can't find clothing - CoverableArea."+coverableArea.toString());
 			return SexActionUtility.CLOTHING_REMOVAL;
 		}
 		
@@ -4108,7 +4062,10 @@ public class Sex {
 	}
 
 	public static boolean isCanRemoveSelfClothing(GameCharacter character) {
-		return charactersAbleToRemoveSelfClothing.contains(character);
+		if(charactersAbleToRemoveSelfClothing.contains(character)) {
+			return true;
+		}
+		return initialSexManager.isAbleToRemoveSelfClothing(character);
 	}
 
 	public static void setCanRemoveSelfClothing(GameCharacter character, boolean canRemoveSelfClothing) {
@@ -4119,8 +4076,11 @@ public class Sex {
 		}
 	}
 	
-	public static boolean isCanRemoveOthersClothing(GameCharacter character) {
-		return charactersAbleToRemoveOthersClothing.contains(character);
+	public static boolean isCanRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
+		if(charactersAbleToRemoveOthersClothing.contains(character)) {
+			return true;
+		}
+		return initialSexManager.isAbleToRemoveOthersClothing(character, clothing);
 	}
 
 	public static void setCanRemoveOthersClothing(GameCharacter character, boolean canRemoveOthersClothing) {
@@ -4155,11 +4115,11 @@ public class Sex {
 		return repeatActionsPlayer;
 	}
 
-	public static DialogueNodeOld getPostSexDialogue() {
+	public static DialogueNode getPostSexDialogue() {
 		return postSexDialogue;
 	}
 
-	public static DialogueNodeOld getSexDialogue() {
+	public static DialogueNode getSexDialogue() {
 		return SEX_DIALOGUE;
 	}
 

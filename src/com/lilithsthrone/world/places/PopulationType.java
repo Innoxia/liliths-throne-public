@@ -2,7 +2,7 @@ package com.lilithsthrone.world.places;
 
 /**
  * @since 0.2.12
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia
  */
 public enum PopulationType {
@@ -21,7 +21,10 @@ public enum PopulationType {
 
 	VIPS("VIPs"),
 	
-	GUARDS("guards");
+	GUARDS("guards"),
+
+	MAIDS("maids")
+	;
 
 	String name;
 	

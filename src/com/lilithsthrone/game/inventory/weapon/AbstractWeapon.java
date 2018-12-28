@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.weapon;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +37,8 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.11
  * @author Innoxia
  */
-public abstract class AbstractWeapon extends AbstractCoreItem implements Serializable, XMLSaving {
+public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSaving {
 
-	private static final long serialVersionUID = 1L;
 
 	private AbstractWeaponType weaponType;
 	protected List<ItemEffect> effects;

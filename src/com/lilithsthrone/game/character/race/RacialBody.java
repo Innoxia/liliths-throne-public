@@ -8,6 +8,9 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.AttributeRange;
+import com.lilithsthrone.game.character.body.types.AbstractArmType;
+import com.lilithsthrone.game.character.body.types.AbstractAssType;
+import com.lilithsthrone.game.character.body.types.AbstractBreastType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -292,7 +295,7 @@ public enum RacialBody {
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(30f, 50f))),
 			AntennaType.NONE,
-			ArmType.LYCAN, 1,
+			ArmType.WOLF_MORPH, 1,
 			AssType.WOLF_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.WOLF_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
@@ -634,9 +637,9 @@ public enum RacialBody {
 	private HashMap<Attribute, AttributeRange> attributeModifiers;
 
 	private AntennaType antennaType;
-	private ArmType armType;
-	private AssType assType;
-	private BreastType breastType;
+	private AbstractArmType armType;
+	private AbstractAssType assType;
+	private AbstractBreastType breastType;
 	private FaceType faceType;
 	private EyeType eyeType;
 	private EarType earType;
@@ -673,9 +676,9 @@ public enum RacialBody {
 
 	private RacialBody(HashMap<Attribute, AttributeRange> attributeModifiers,
 			AntennaType antennaType,
-			ArmType armType, int armRows,
-			AssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
-			BreastType breastType,
+			AbstractArmType armType, int armRows,
+			AbstractAssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
+			AbstractBreastType breastType,
 			CupSize maleBreastSize, int breastCountMale, Lactation maleLactationRate, Capacity maleBreastCapacity, OrificeElasticity maleBreastElasticity, OrificePlasticity maleBreastPlasticity,
 				NippleSize maleNippleSize, NippleShape maleNippleShape, AreolaeSize maleAreolaeSize, int maleNippleCountPerBreast,
 			CupSize femaleBreastSize, int breastCountFemale, Lactation femaleLactationRate, Capacity femaleBreastCapacity, OrificeElasticity femaleBreastElasticity, OrificePlasticity femaleBreastPlasticity,
@@ -901,15 +904,15 @@ public enum RacialBody {
 		return antennaType;
 	}
 
-	public ArmType getArmType() {
+	public AbstractArmType getArmType() {
 		return armType;
 	}
 
-	public AssType getAssType() {
+	public AbstractAssType getAssType() {
 		return assType;
 	}
 
-	public BreastType getBreastType() {
+	public AbstractBreastType getBreastType() {
 		return breastType;
 	}
 

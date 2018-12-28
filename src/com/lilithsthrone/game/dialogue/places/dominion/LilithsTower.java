@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -13,8 +13,7 @@ import com.lilithsthrone.utils.Colour;
  * @author Innoxia
  */
 public class LilithsTower {
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Lilith's Tower", "Lilith's tower.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Lilith's Tower", "Lilith's tower.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -55,11 +54,10 @@ public class LilithsTower {
 			}
 		}
 	};
-	public static final DialogueNodeOld LILITHS_DISTRICT_APPROACH = new DialogueNodeOld("Lilith's Tower Entrance", "Archway", false, true) {
+	public static final DialogueNode LILITHS_DISTRICT_APPROACH = new DialogueNode("Lilith's Tower Entrance", "Archway", false, true) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {

@@ -30,7 +30,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -60,8 +60,7 @@ public class OptionsDialogue {
 
 	private static boolean confirmNewGame = false;
 	
-	public static final DialogueNodeOld MENU = new DialogueNodeOld("Menu", "Menu", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MENU = new DialogueNode("Menu", "Menu", true) {
 		
 		@Override
 		public String getLabel() {
@@ -289,8 +288,7 @@ public class OptionsDialogue {
 	}
 
 	public static String loadConfirmationName = "", overwriteConfirmationName = "", deleteConfirmationName = "";
-	public static final DialogueNodeOld SAVE_LOAD = new DialogueNodeOld("Save game files", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SAVE_LOAD = new DialogueNode("Save game files", "", true) {
 
 		@Override
 		public String getContent() {
@@ -379,8 +377,7 @@ public class OptionsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMPORT_EXPORT = new DialogueNodeOld("Export character", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMPORT_EXPORT = new DialogueNode("Export character", "", true) {
 	
 		@Override
 		public String getContent() {
@@ -538,8 +535,7 @@ public class OptionsDialogue {
 	}
 	
 	
-	public static final DialogueNodeOld OPTIONS = new DialogueNodeOld("Options", "Options", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OPTIONS = new DialogueNode("Options", "Options", true) {
 		
 		@Override
 		public String getContent(){
@@ -707,8 +703,7 @@ public class OptionsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEYBINDS = new DialogueNodeOld("Options", "Options", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEYBINDS = new DialogueNode("Options", "Options", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -913,8 +908,7 @@ public class OptionsDialogue {
 				+ "</tr>";
 	}
 	
-	public static final DialogueNodeOld OPTIONS_PRONOUNS = new DialogueNodeOld("Options", "Options", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OPTIONS_PRONOUNS = new DialogueNode("Options", "Options", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -1093,8 +1087,7 @@ public class OptionsDialogue {
 	}
 	
 	
-	public static final DialogueNodeOld PATCH_NOTES = new DialogueNodeOld("Patch Notes", "Patch notes", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PATCH_NOTES = new DialogueNode("Patch Notes", "Patch notes", true) {
 		
 		@Override
 		public String getContent(){
@@ -1117,8 +1110,7 @@ public class OptionsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld DISCLAIMER = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DISCLAIMER = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getContent(){
@@ -1142,8 +1134,7 @@ public class OptionsDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld GENDER_PREFERENCE = new DialogueNodeOld("Gender preferences", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GENDER_PREFERENCE = new DialogueNode("Gender preferences", "", true) {
 		
 		@Override
 		public String getHeaderContent(){
@@ -1264,8 +1255,7 @@ public class OptionsDialogue {
 		return sb.toString();
 	}
 	
-	public static final DialogueNodeOld ORIENTATION_PREFERENCE = new DialogueNodeOld("Orientation preferences", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ORIENTATION_PREFERENCE = new DialogueNode("Orientation preferences", "", true) {
 		
 		@Override
 		public String getHeaderContent(){
@@ -1386,8 +1376,7 @@ public class OptionsDialogue {
 		return sb.toString();
 	}
 	
-	public static final DialogueNodeOld AGE_PREFERENCE = new DialogueNodeOld("Age preferences", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AGE_PREFERENCE = new DialogueNode("Age preferences", "", true) {
 		
 		@Override
 		public String getHeaderContent(){
@@ -1503,8 +1492,7 @@ public class OptionsDialogue {
 		return sb.toString();
 	}
 	
-	public static final DialogueNodeOld FURRY_PREFERENCE = new DialogueNodeOld("Furry preferences", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FURRY_PREFERENCE = new DialogueNode("Furry preferences", "", true) {
 		
 		@Override
 		public String getHeaderContent(){
@@ -1621,6 +1609,9 @@ public class OptionsDialogue {
 				switch(subspecies) {
 					case ANGEL:
 					case DEMON:
+					case HALF_DEMON:
+					case LILIN:
+					case ELDER_LILIN:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
 					case ELEMENTAL_EARTH:
@@ -1741,8 +1732,7 @@ public class OptionsDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content Options", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CONTENT_PREFERENCE = new DialogueNode("Content Options", "", true) {
 		
 		@Override
 		public String getHeaderContent(){
@@ -2171,8 +2161,7 @@ public class OptionsDialogue {
 	}
 	
 	
-	public static final DialogueNodeOld CREDITS = new DialogueNodeOld("Credits", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CREDITS = new DialogueNode("Credits", "", true) {
 		
 		@Override
 		public String getContent(){

@@ -1,5 +1,10 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
@@ -193,5 +198,21 @@ public enum SkinType implements BodyPartTypeInterface {
 	@Override
 	public Race getRace() {
 		return race;
+	}
+	
+	private static Map<Race, List<SkinType>> typesMap = new HashMap<>();
+	public static List<SkinType> getSkinTypes(Race r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
+		}
+		
+		List<SkinType> types = new ArrayList<>();
+		for(SkinType type : SkinType.values()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
 	}
 }

@@ -1283,10 +1283,11 @@ public enum Race {
 			Colour colour,
 			Disposition disposition,
 			List<Attack> preferredAttacks,
+			
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow,
-			
 			int numberOfOffspringHigh,
+			
 			Attribute damageMultiplier,
 			Attribute resistanceMultiplier,
 			

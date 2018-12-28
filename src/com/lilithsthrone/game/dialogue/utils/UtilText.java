@@ -11,13 +11,11 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.Race;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,6 +29,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -45,6 +44,8 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.FurryPreference;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -54,9 +55,9 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -881,9 +882,15 @@ public class UtilText {
 					}
 				}
 				if(arguments!=null) {
+					if(!character.isPlayer() && (character.getSubspecies()==Subspecies.FOX_ASCENDANT || character.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
+						return character.getSurname();
+					}
 					return character.getName(arguments);
 				} else {
 					if(character.isPlayerKnowsName() || character.isPlayer()) {
+						if(!character.isPlayer() && (character.getSubspecies()==Subspecies.FOX_ASCENDANT || character.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
+							return character.getSurname();
+						}
 						return character.getName();
 					}
 					return character.getName("the");
@@ -1048,7 +1055,9 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("fullName"),
+				Util.newArrayListOfValues(
+						"fullName",
+						"nameFull"),
 				true,
 				false,
 				"(prefix)",
@@ -1092,6 +1101,19 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				return character.getDescription();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"age"),
+				true,
+				false,
+				"",
+				"Returns the age of this character."){
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(character.getAgeValue());
 			}
 		});
 		
@@ -1152,7 +1174,7 @@ public class UtilText {
 				"Returns the day of the week start for this character's job. Does not work for slave jobs."){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return character.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.getDefault());
+				return character.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 			}
 		});
 		
@@ -1168,7 +1190,7 @@ public class UtilText {
 				"Returns the day of the week end for this character's job. Does not work for slave jobs."){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return character.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.getDefault());
+				return character.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 			}
 		});
 		
@@ -1558,7 +1580,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"races"),
+						"races",
+						"racePlural"),
 				true,
 				true,
 				"",//TODO
@@ -1608,6 +1631,29 @@ public class UtilText {
 					return ((NPC) character).getPreferredBodyDescription(arguments);
 				}
 				return ((NPC) character).getPreferredBodyDescription("b");
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"materialDescriptor",
+						"materialCompositionDescriptor",
+						"compositionDescriptor"),
+				true,
+				false,
+				"",
+				"Returns the name of the character's BodyMaterial."){
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				if(character.getBodyMaterial()==BodyMaterial.FLESH) {
+					return "covered in";
+				} else {
+					return UtilText.returnStringAtRandom(
+							"made from",
+							"composed entirely of",
+							"formed out of",
+							"made entirely from");
+				}
 			}
 		});
 		
@@ -3686,8 +3732,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.ARM){//TODO
+				"Returns a descriptor in the form of the character number of arms. i.e. If the character has 1 arm row it will return 'pair of', for 2, 'two pairs of', and 3, 'three pairs of'.",
+				BodyPartType.ARM){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if(character.getArmRows()==1) {
@@ -4104,20 +4150,34 @@ public class UtilText {
 			}
 		});
 		
-//		commandsList.add(new ParserCommand(
-//				Util.newArrayListOfValues(
-//						"milk",
-//						"milkName"),
-//				true,
-//				true,
-//				"",
-//				"Description of method",
-//				BodyPartType.BREAST){//TODO
-//			@Override
-//			public String parse(String command, String arguments, String target, GameCharacter character) {
-//				return character.getMilkName();
-//			}
-//		});
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"nipplesPerBreast"),
+				true,
+				false,
+				"",
+				"Returns the number of nipples that this character has on each breast. Will usually just be one.",
+				BodyPartType.BREAST){
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(character.getNippleCountPerBreast());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"totalNipples",
+						"totalNippleCount"),
+				true,
+				false,
+				"",
+				"Returns the total number of nipples that this character has. i.e. Breast rows * 2 * nipples per row",
+				BodyPartType.BREAST){
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(character.getBreastRows()*2*character.getNippleCountPerBreast());
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -5505,7 +5565,7 @@ public class UtilText {
 			engine.put("PERK_"+p.toString(), p);
 		}
 		for(StatusEffect sa : StatusEffect.values()) {
-			engine.put("SA_"+sa.toString(), sa);
+			engine.put("SE_"+sa.toString(), sa);
 		}
 		for(Attribute att : Attribute.values()) {
 			engine.put("ATTRIBUTE_"+att.toString(), att);

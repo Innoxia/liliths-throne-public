@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +15,8 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -25,9 +24,8 @@ import com.lilithsthrone.main.Main;
  * @version 0.1.83
  * @author Innoxia
  */
-public class Nipples implements BodyPartInterface, Serializable {
+public class Nipples implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 	
 	protected NippleType type;
 	protected OrificeNipples orificeNipples;

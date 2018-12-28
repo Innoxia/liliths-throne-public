@@ -2273,6 +2273,11 @@ public enum Spell {
 					"Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
+		public boolean isSpellBook() {
+			return false;
+		}
+		
+		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
 			descriptionSB.setLength(0);
@@ -2319,6 +2324,11 @@ public enum Spell {
 			null,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
+		
+		@Override
+		public boolean isSpellBook() {
+			return false;
+		}
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -2373,8 +2383,12 @@ public enum Spell {
 					"Affects [style.colourExcellent(all enemies)]")) {
 		
 		@Override
+		public boolean isSpellBook() {
+			return false;
+		}
+		
+		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
-
 			descriptionSB.setLength(0);
 
 			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
@@ -2567,6 +2581,10 @@ public enum Spell {
 
 	public List<String> getModifiersAsStringList() {
 		return modifiersList;
+	}
+	
+	public boolean isSpellBook() {
+		return true;
 	}
 	
 	public boolean isForbiddenSpell() {

@@ -43,8 +43,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -54,7 +54,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -88,7 +88,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public abstract class NPC extends GameCharacter implements XMLSaving {
@@ -356,7 +356,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public abstract void changeFurryLevel();
 	
-	public abstract DialogueNodeOld getEncounterDialogue();
+	public abstract DialogueNode getEncounterDialogue();
 	
 	public boolean isClothingStealable() {
 		return false;
@@ -532,6 +532,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public Map<Spell, Integer> getWeightedSpellsAvailable(GameCharacter target) {
 		Map<Spell, Integer> weightedSpellMap = new HashMap<>();
+		
+//		System.out.println(this.getName()+" "+target.getName()+": "+Combat.isOpponent(this, target));
 		
 		for(Spell spell : getSpellsAbleToCast()) {
 			switch(spell) {
@@ -757,7 +759,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		} else {
 			AbstractItemType raceIngredient = ItemType.INT_INGREDIENT_VANILLA_WATER;
 			AbstractItemType raceTFIngredient = ItemType.RACE_INGREDIENT_HUMAN;
-			AbstractItemType book = ItemType.BOOK_HUMAN;
+			AbstractItemType book = ItemType.getLoreBook(getSubspecies());
 			
 			switch(getSubspecies()) {
 				case CAT_MORPH:
@@ -768,13 +770,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case CAT_MORPH_LION:
 				case CAT_MORPH_LYNX:
 				case CAT_MORPH_TIGER:
-					book = ItemType.BOOK_CAT_MORPH;
 					raceIngredient = ItemType.INT_INGREDIENT_FELINE_FANCY;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_CAT_MORPH;
 					break;
 					
 				case COW_MORPH:
-					book = ItemType.BOOK_COW_MORPH;
 					raceIngredient = ItemType.STR_INGREDIENT_BUBBLE_MILK;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_COW_MORPH;
 					break;
@@ -782,7 +782,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case DOG_MORPH:
 				case DOG_MORPH_BORDER_COLLIE:
 				case DOG_MORPH_DOBERMANN:
-					book = ItemType.BOOK_DOG_MORPH;
 					raceIngredient = ItemType.FIT_INGREDIENT_CANINE_CRUSH;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_DOG_MORPH;
 					break;
@@ -791,32 +790,27 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case FOX_ASCENDANT:
 				case FOX_ASCENDANT_FENNEC:
 				case FOX_MORPH_FENNEC:
-					book = ItemType.BOOK_FOX_MORPH;
 					raceIngredient = ItemType.INT_INGREDIENT_GRAPE_JUICE;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_FOX_MORPH;
 					break;
 					
 				case HORSE_MORPH:
 				case HORSE_MORPH_ZEBRA:
-					book = ItemType.BOOK_HORSE_MORPH;
 					raceIngredient = ItemType.STR_INGREDIENT_EQUINE_CIDER;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_HORSE_MORPH;
 					break;
 					
 				case REINDEER_MORPH:
-					book = ItemType.BOOK_REINDEER_MORPH;
 					raceIngredient = ItemType.FIT_INGREDIENT_EGG_NOG;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_REINDEER_MORPH;
 					break;
 					
 				case WOLF_MORPH:
-					book = ItemType.BOOK_WOLF_MORPH;
 					raceIngredient = ItemType.STR_INGREDIENT_WOLF_WHISKEY;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_WOLF_MORPH;
 					break;
 					
 				case HUMAN:
-					book = ItemType.BOOK_HUMAN;
 					raceIngredient = ItemType.INT_INGREDIENT_VANILLA_WATER;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_HUMAN;
 					break;
@@ -828,14 +822,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 					
 				case DEMON:
-					book = ItemType.BOOK_DEMON;
+				case HALF_DEMON:
+				case LILIN:
+				case ELDER_LILIN:
 					raceIngredient = ItemType.COR_INGREDIENT_LILITHS_GIFT;
-					raceTFIngredient = ItemType.RACE_INGREDIENT_DEMON;
+					raceTFIngredient = null;
 					break;
 					
 				case IMP:
 				case IMP_ALPHA:
-					book = ItemType.BOOK_IMP;
 					raceIngredient = ItemType.COR_INGREDIENT_IMPISH_BREW;
 					raceTFIngredient = ItemType.COR_INGREDIENT_IMPISH_BREW;
 					break;
@@ -843,38 +838,32 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case HARPY:
 				case HARPY_BALD_EAGLE:
 				case HARPY_RAVEN:
-					book = ItemType.BOOK_HARPY;
 					raceIngredient = ItemType.SEX_INGREDIENT_HARPY_PERFUME;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_HARPY;
 					break;
 					
 				case ALLIGATOR_MORPH:
-					book = ItemType.BOOK_ALLIGATOR_MORPH;
 					raceIngredient = ItemType.STR_INGREDIENT_SWAMP_WATER;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH;
 					break;
 					
 				case SQUIRREL_MORPH:
-					book = ItemType.BOOK_SQUIRREL_MORPH;
 					raceIngredient = ItemType.FIT_INGREDIENT_SQUIRREL_JAVA;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
 					break;
 					
 				case BAT_MORPH:
-					book = ItemType.BOOK_BAT_MORPH;
 					raceIngredient = ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_BAT_MORPH;
 					break;
 					
 				case RAT_MORPH:
-					book = ItemType.BOOK_RAT_MORPH;
 					raceIngredient = ItemType.STR_INGREDIENT_BLACK_RATS_RUM;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_RAT_MORPH;
 					break;
 					
 				case RABBIT_MORPH:
 				case RABBIT_MORPH_LOP:
-					book = ItemType.BOOK_RABBIT_MORPH;
 					raceIngredient = ItemType.SEX_INGREDIENT_BUNNY_JUICE;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_RABBIT_MORPH;
 					break;
@@ -910,7 +899,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 					
 				case SLIME:
-					book = ItemType.BOOK_SLIME;
 					raceIngredient = ItemType.SEX_INGREDIENT_SLIME_QUENCHER;
 					if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
 						raceTFIngredient = ItemType.RACE_INGREDIENT_SLIME;
@@ -921,7 +909,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					
 			}
 			
-			if(rnd<0.6) {
+			if(rnd<0.6 && raceTFIngredient!=null) {
 				return Util.newArrayListOfValues(AbstractItemType.generateItem(raceTFIngredient));
 			
 			} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getSubspecies())) {
@@ -1265,7 +1253,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					itemType = ItemType.RACE_INGREDIENT_RABBIT_MORPH;
 					break;
 				case ANGEL:
+				case HALF_DEMON:
 				case DEMON:
+				case LILIN:
+				case ELDER_LILIN:
 				case IMP:
 				case IMP_ALPHA:
 				case HUMAN:
@@ -1524,7 +1515,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(Main.game.getPlayer().getVaginaType() != VaginaType.NONE && getPreferredBody().getVagina().getType() != VaginaType.NONE) {
 			// Vagina wetness:
-			if(Main.game.getPlayer().getVaginaWetness().getValue() < getPreferredBody().getVagina().getOrificeVagina().getWetness(Main.game.getGenericAndrogynousNPC()).getValue()) {
+			if(Main.game.getPlayer().getVaginaWetness().getValue() < getPreferredBody().getVagina().getOrificeVagina().getWetness(null).getValue()) {
 				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1), "Your pussy isn't wet enough!");
 			}
 		}
@@ -1773,23 +1764,21 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 		// Apply fetish modifiers:
 		
-		GameCharacter genericOwner = Main.game.getGenericAndrogynousNPC();
-		
-		Body body = CharacterUtils.generateBody(genericOwner, preferredGender, species, stage);
+		Body body = CharacterUtils.generateBody(null, preferredGender, species, stage);
 		
 		//Ass:
 		if(hasFetish(Fetish.FETISH_ANAL_GIVING)) {
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.RIBBED);
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.MUSCLE_CONTROL);
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.PUFFY);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.RIBBED);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.PUFFY);
 			}
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.TENTACLED);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.TENTACLED);
 			}
 			
-			body.getAss().setAssSize(genericOwner, AssSize.FIVE_HUGE.getValue());
-			body.getAss().setAssSize(genericOwner, HipSize.FIVE_VERY_WIDE.getValue());
+			body.getAss().setAssSize(null, AssSize.FIVE_HUGE.getValue());
+			body.getAss().setAssSize(null, HipSize.FIVE_VERY_WIDE.getValue());
 		}
 		
 		// Body:
@@ -1804,62 +1793,62 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		//Breasts:
 		if(Main.getProperties().multiBreasts==0) {
-			body.getBreast().setRows(genericOwner, 1);
+			body.getBreast().setRows(null, 1);
 			
 		} else if(Main.getProperties().multiBreasts==1) {
 			if(stage != RaceStage.GREATER) {
-				body.getBreast().setRows(genericOwner, 1);
+				body.getBreast().setRows(null, 1);
 			}
 		}
 
 		if(hasFetish(Fetish.FETISH_BREASTS_OTHERS) && preferredGender.isFeminine()) {
-			body.getBreast().setSize(genericOwner, CupSize.DD.getMeasurement() + (Util.random.nextInt(5)));
+			body.getBreast().setSize(null, CupSize.DD.getMeasurement() + (Util.random.nextInt(5)));
 		}
 		
 		// Face:
 		if(hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
-			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.PUFFY);
-			body.getFace().getMouth().setLipSize(genericOwner, LipSize.FOUR_HUGE.getValue());
+			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.PUFFY);
+			body.getFace().getMouth().setLipSize(null, LipSize.FOUR_HUGE.getValue());
 			
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
-				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.RIBBED);
-				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.MUSCLE_CONTROL);
+				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.RIBBED);
+				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
 			}
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
-				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.TENTACLED);
+				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.TENTACLED);
 			}
 		}
 		
 		// Hair:
 		if(preferredGender.isFeminine()) {
-			body.getHair().setLength(genericOwner, HairLength.THREE_SHOULDER_LENGTH.getMedianValue() + Util.random.nextInt(HairLength.SEVEN_TO_FLOOR.getMinimumValue() - HairLength.THREE_SHOULDER_LENGTH.getMedianValue()));
+			body.getHair().setLength(null, HairLength.THREE_SHOULDER_LENGTH.getMedianValue() + Util.random.nextInt(HairLength.SEVEN_TO_FLOOR.getMinimumValue() - HairLength.THREE_SHOULDER_LENGTH.getMedianValue()));
 			
 		} else {
-			body.getHair().setLength(genericOwner, HairLength.ONE_VERY_SHORT.getMedianValue() + Util.random.nextInt(HairLength.THREE_SHOULDER_LENGTH.getMinimumValue() - HairLength.ONE_VERY_SHORT.getMedianValue()));
+			body.getHair().setLength(null, HairLength.ONE_VERY_SHORT.getMedianValue() + Util.random.nextInt(HairLength.THREE_SHOULDER_LENGTH.getMinimumValue() - HairLength.ONE_VERY_SHORT.getMedianValue()));
 		}
 		
 		// Penis:
 		if(body.getPenis().getType()!=PenisType.NONE) {
 			if(preferredGender==Gender.F_P_TRAP && Math.random()>=0.1f) { // Most traps have a small cock:
-				body.getPenis().setPenisSize(genericOwner, PenisSize.ONE_TINY.getMedianValue() + Util.random.nextInt(4));
-				body.getPenis().getTesticle().setTesticleSize(genericOwner, TesticleSize.ONE_TINY.getValue());
-				body.getPenis().getTesticle().setCumStorage(genericOwner, CumProduction.ONE_TRICKLE.getMedianValue());
+				body.getPenis().setPenisSize(null, PenisSize.ONE_TINY.getMedianValue() + Util.random.nextInt(4));
+				body.getPenis().getTesticle().setTesticleSize(null, TesticleSize.ONE_TINY.getValue());
+				body.getPenis().getTesticle().setCumStorage(null, CumProduction.ONE_TRICKLE.getMedianValue());
 			} else {
-				body.getPenis().setPenisSize(genericOwner,body.getPenis().getSize().getMinimumValue() + Util.random.nextInt(body.getPenis().getSize().getMaximumValue() - body.getPenis().getSize().getMinimumValue()) +1);
+				body.getPenis().setPenisSize(null, body.getPenis().getSize().getMinimumValue() + Util.random.nextInt(body.getPenis().getSize().getMaximumValue() - body.getPenis().getSize().getMinimumValue()) +1);
 			}
 		}
 		
 		// Vagina:
 		if(body.getVagina().getType()!=VaginaType.NONE) {
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
-				body.getVagina().getOrificeVagina().addOrificeModifier(genericOwner, OrificeModifier.RIBBED);
-				body.getVagina().getOrificeVagina().addOrificeModifier(genericOwner, OrificeModifier.MUSCLE_CONTROL);
+				body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.RIBBED);
+				body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
 			}
 			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
-				body.getVagina().getOrificeVagina().addOrificeModifier(genericOwner, OrificeModifier.TENTACLED);
+				body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.TENTACLED);
 			}
 			
-			body.getVagina().getOrificeVagina().setWetness(genericOwner, Wetness.THREE_WET.getValue() + Util.random.nextInt(4));
+			body.getVagina().getOrificeVagina().setWetness(null, Wetness.THREE_WET.getValue() + Util.random.nextInt(4));
 		}
 		
 		return body;
@@ -3402,10 +3391,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 			// Player uses item on NPC:
 			} else {
-				boolean isItemOrdinary = !(item.getItemType().isTransformative() && item.getItemType().isFetishGiving());
+				boolean isItemOrdinary = !item.getItemType().isTransformative() && !item.getItemType().isFetishGiving();
 				
-				if((target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))
-						|| ((isItemOrdinary || !target.isUnique()) // Cannot TF non-player-slave uniques
+				if(((target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user)) || ((isItemOrdinary || !target.isUnique())) // Cannot TF non-player-slave uniques
 							&& ((Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target))
 								|| (target.getPartyLeader()==null || (target.getPartyLeader().equals(user) && isItemOrdinary))
 								|| (!target.isUnique()
@@ -3508,7 +3496,21 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"<p>"
 								+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."));
 					
-					if(target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+					if(target.getRace()==Race.DEMON) {
+						sb.append(UtilText.parse(target,
+							"<p>"
+								+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+								+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
+								+ " [npc.speech(Hah! Don't you know demons can't be transfo- ~Mrph!~)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and rather unceremoniously shove the neck down [npc.her] throat."
+								+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.her] go."
+								+ " [npc.She] coughs and splutters for a moment, before letting out an annoyed cry as [npc.she] wipes the liquid from [npc.her] mouth,"
+								+ " [npc.speech(T-The taste is kinda nice I suppose...)]"
+							+ "</p>"));
+								
+					} else if(target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						sb.append(UtilText.parse(target, 
 								" Seeing what you're offering [npc.herHim], [npc.she] lets out a delighted cry, and asks, "
 								+ " [npc.speech(Is that a transformation elixir?! Please, let me drink it! Change me into whatever you want!)]"
@@ -3552,15 +3554,27 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							+ "</p>"));
 						
 					} else {
-						sb.append(UtilText.parse(target, 
-								" Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-								+ " [npc.speech(Do you really expect me to drink some rando- ~Mrph!~)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and, rather unceremoniously, shove the neck down [npc.her] throat."
-								+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
-								+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] mind..."
-							+ "</p>"));
+						if(target.getRace()==Race.DEMON) {
+							sb.append(UtilText.parse(target, 
+									" Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
+									+ " [npc.speech(Hah! Don't you know demons can't be transfo- ~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and rather unceremoniously shove the neck down [npc.her] throat."
+									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.her] go."
+									+ " [npc.She] coughs and splutters for a moment, before letting out a lewd little cry as [npc.she] wipes the liquid from [npc.her] mouth,"
+									+ " [npc.speech(W-Wait! That was a fetish transformative?! I feel... hot...)]"));
+						} else {
+							sb.append(UtilText.parse(target, 
+									" Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(Do you really expect me to drink some rando- ~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and, rather unceremoniously, shove the neck down [npc.her] throat."
+									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
+									+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] mind..."
+								+ "</p>"));
+						}
 					}
 					
 					sb.append(itemOwner.useItem(item, target, false, true));

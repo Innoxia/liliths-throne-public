@@ -1,147 +1,252 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
-public enum AssType implements BodyPartTypeInterface {
-	HUMAN(BodyCoveringType.HUMAN, AnusType.HUMAN, Race.HUMAN),
+public class AssType {
 	
-	ANGEL(BodyCoveringType.ANGEL, AnusType.ANGEL, Race.ANGEL),
+	public static AbstractAssType HUMAN = new AbstractAssType(BodyCoveringType.HUMAN,
+			Race.HUMAN,
+			AnusType.HUMAN,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldHuman(human)], [npc.assholeFullDescription].",
+			"[npc.She] has a human, [npc.anusFullDescription(true)]"){
+	};
 	
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, AnusType.DEMON_COMMON, Race.DEMON),
+	public static AbstractAssType ANGEL = new AbstractAssType(BodyCoveringType.ANGEL,
+			Race.ANGEL,
+			AnusType.ANGEL,
+			null,
+			null,
+			Util.newArrayListOfValues("angelic"),
+			Util.newArrayListOfValues("angelic", "perfect"),
+			"[npc.She] now [npc.has] an [style.boldAngel(angelic)], [npc.assholeFullDescription].",
+			"[npc.She] has an angelic, [npc.anusFullDescription(true)]"){
+	};
 	
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, AnusType.DOG_MORPH, Race.DOG_MORPH),
+	public static AbstractAssType DEMON_COMMON = new AbstractAssType(BodyCoveringType.DEMON_COMMON,
+			Race.DEMON,
+			AnusType.DEMON_COMMON,
+			null,
+			null,
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic", "perfect"),
+			"[npc.She] now [npc.has] a [style.boldDemon(demonic)], [npc.assholeFullDescription].",
+			"[npc.She] has a demonic, [npc.anusFullDescription(true)]"){
+	};
 	
-	COW_MORPH(BodyCoveringType.BOVINE_FUR, AnusType.COW_MORPH, Race.COW_MORPH),
+	public static AbstractAssType DOG_MORPH = new AbstractAssType(BodyCoveringType.CANINE_FUR,
+			Race.DOG_MORPH,
+			AnusType.DOG_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldDogMorph(canine)], [npc.assholeFullDescription].",
+			"[npc.She] has a canine, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType COW_MORPH = new AbstractAssType(BodyCoveringType.BOVINE_FUR,
+			Race.COW_MORPH,
+			AnusType.COW_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldCowMorph(bovine)], [npc.assholeFullDescription].",
+			"[npc.She] has a bovine, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType SQUIRREL_MORPH = new AbstractAssType(BodyCoveringType.SQUIRREL_FUR,
+			Race.SQUIRREL_MORPH,
+			AnusType.SQUIRREL_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldSquirrelMorph(squirrel-like)], [npc.assholeFullDescription].",
+			"[npc.She] has a squirrel-like, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType RAT_MORPH = new AbstractAssType(BodyCoveringType.RAT_FUR,
+			Race.RAT_MORPH,
+			AnusType.RAT_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldRatMorph(rat-like)], [npc.assholeFullDescription].",
+			"[npc.She] has a rat-like, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType RABBIT_MORPH = new AbstractAssType(BodyCoveringType.RABBIT_FUR,
+			Race.RABBIT_MORPH,
+			AnusType.RABBIT_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldRabbitMorph(rabbit-like)], [npc.assholeFullDescription].",
+			"[npc.She] has a rabbit-like, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType BAT_MORPH = new AbstractAssType(BodyCoveringType.BAT_FUR,
+			Race.BAT_MORPH,
+			AnusType.BAT_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldBatMorph(bat-like)], [npc.assholeFullDescription].",
+			"[npc.She] has a bat-like, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType ALLIGATOR_MORPH = new AbstractAssType(BodyCoveringType.ALLIGATOR_SCALES,
+			Race.ALLIGATOR_MORPH,
+			AnusType.ALLIGATOR_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] an [style.boldGatorMorph(alligator-like)], [npc.assholeFullDescription].",
+			"[npc.She] has an alligator-like, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType WOLF_MORPH = new AbstractAssType(BodyCoveringType.LYCAN_FUR,
+			Race.WOLF_MORPH,
+			AnusType.WOLF_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldWolfMorph(lupine)], [npc.assholeFullDescription].",
+			"[npc.She] has a lupine, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType FOX_MORPH = new AbstractAssType(BodyCoveringType.FOX_FUR,
+			Race.FOX_MORPH,
+			AnusType.FOX_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldFoxMorph(vulpine)], [npc.assholeFullDescription].",
+			"[npc.She] has a vulpine, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType CAT_MORPH = new AbstractAssType(BodyCoveringType.FELINE_FUR,
+			Race.CAT_MORPH,
+			AnusType.CAT_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldCatMorph(feline)], [npc.assholeFullDescription].",
+			"[npc.She] has a feline, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType HORSE_MORPH = new AbstractAssType(BodyCoveringType.HORSE_HAIR,
+			Race.HORSE_MORPH,
+			AnusType.HORSE_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] an [style.boldHorseMorph(equine)], [npc.assholeFullDescription].",
+			"[npc.She] has an equine, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType REINDEER_MORPH = new AbstractAssType(BodyCoveringType.REINDEER_FUR,
+			Race.REINDEER_MORPH,
+			AnusType.REINDEER_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] a [style.boldReindeerMorph(reindeer-like)], [npc.assholeFullDescription].",
+			"[npc.She] has a reindeer-like, [npc.anusFullDescription(true)]"){
+	};
+	
+	public static AbstractAssType HARPY = new AbstractAssType(BodyCoveringType.FEATHERS,
+			Race.HARPY,
+			AnusType.HARPY,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"[npc.She] now [npc.has] an [style.boldHarpy(avian)], [npc.assholeFullDescription].",
+			"[npc.She] has an avian, [npc.anusFullDescription(true)]"){
+	};
+	
+	
+	private static List<AbstractAssType> allAssTypes;
+	private static Map<AbstractAssType, String> assToIdMap = new HashMap<>();
+	private static Map<String, AbstractAssType> idToAssMap = new HashMap<>();
+	
+	static {
+		allAssTypes = new ArrayList<>();
+		
+		// Add in hard-coded ass types:
+		Field[] fields = AssType.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractAssType.class.isAssignableFrom(f.getType())) {
+				
+				AbstractAssType ct;
+				try {
+					ct = ((AbstractAssType) f.get(null));
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, AnusType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
-
-	RAT_MORPH(BodyCoveringType.RAT_FUR, AnusType.RAT_MORPH, Race.RAT_MORPH),
-	
-	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, AnusType.RABBIT_MORPH, Race.RABBIT_MORPH),
-
-	BAT_MORPH(BodyCoveringType.BAT_FUR, AnusType.BAT_MORPH, Race.BAT_MORPH),
-	
-	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, AnusType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH),
-	
-	WOLF_MORPH(BodyCoveringType.LYCAN_FUR, AnusType.WOLF_MORPH, Race.WOLF_MORPH),
-	
-	FOX_MORPH(BodyCoveringType.FOX_FUR, AnusType.FOX_MORPH, Race.FOX_MORPH),
-	
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, AnusType.CAT_MORPH, Race.CAT_MORPH),
-	
-	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, AnusType.HORSE_MORPH, Race.HORSE_MORPH),
-	
-	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, AnusType.REINDEER_MORPH, Race.REINDEER_MORPH),
-	
-	HARPY(BodyCoveringType.FEATHERS, AnusType.HARPY, Race.HARPY);
-
-	private BodyCoveringType skinType;
-	private AnusType anusType;
-	private Race race;
-
-	private AssType(BodyCoveringType skinType, AnusType anusType, Race race) {
-		this.skinType = skinType;
-		this.anusType = anusType;
-		this.race = race;
-	}
-
-	/**
-	 * Use instead of <i>valueOf()</i>.
-	 */
-	public static AssType getTypeFromString(String value) {
-		if(value.equals("IMP")) {
-			value = "DEMON_COMMON";
-		}
-		return valueOf(value);
-	}
-	
-	@Override
-	public boolean isDefaultPlural() {
-		return false;
-	}
-
-	@Override
-	public String getDeterminer(GameCharacter gc) {
-		return "";
-	}
-	
-	@Override
-	public String getName(GameCharacter gc) {
-		switch(this){
-			default:
-				return UtilText.returnStringAtRandom("ass", "rear end", "butt", "rump");
-		}
-	}
-
-	@Override
-	public String getNameSingular(GameCharacter gc) {
-		return getName(gc);
-	}
-	
-	@Override
-	public String getNamePlural(GameCharacter gc) {
-		switch(this){
-			default:
-				return UtilText.returnStringAtRandom("asses", "rear ends", "butts", "rumps");
-		}
-	}
-
-	@Override
-	public String getDescriptor(GameCharacter gc) {
-		// Randomly give a size or type-specific descriptor:
-		switch(Util.random.nextInt(2)){
-			case 0:
-				switch (this) {
-					case ANGEL:
-						return UtilText.returnStringAtRandom("angelic", "perfect");
-					case DEMON_COMMON:
-						return UtilText.returnStringAtRandom("demonic", "perfect");
-					default:
-						return UtilText.returnStringAtRandom("");
+					assToIdMap.put(ct, f.getName());
+					idToAssMap.put(f.getName(), ct);
+					
+					allAssTypes.add(ct);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
 				}
-			default:
-				return gc.getAssSize().getDescriptor();
+			}
 		}
-	}
-
-	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
-		if(body!=null) {
-			return body.getSkin().getType().getBodyCoveringType(body);
-		}
-		return skinType;
-	}
-
-	@Override
-	public Race getRace() {
-		return race;
-	}
-	public AnusType getAnusType() {
-		return anusType;
 	}
 	
-	private static Map<Race, List<AssType>> typesMap = new HashMap<>();
-	public static List<AssType> getAssTypes(Race r) {
+	public static AbstractAssType getAssTypeFromId(String id) {
+		if(id.equals("IMP")) {
+			return AssType.DEMON_COMMON;
+		}
+		
+		id = Util.getClosestStringMatch(id, idToAssMap.keySet());
+		return idToAssMap.get(id);
+	}
+	
+	public static String getIdFromAssType(AbstractAssType assType) {
+		return assToIdMap.get(assType);
+	}
+	
+	public static List<AbstractAssType> getAllAssTypes() {
+		return allAssTypes;
+	}
+	
+	private static Map<Race, List<AbstractAssType>> typesMap = new HashMap<>();
+	public static List<AbstractAssType> getAssTypes(Race r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}
 		
-		List<AssType> types = new ArrayList<>();
-		for(AssType type : AssType.values()) {
+		List<AbstractAssType> types = new ArrayList<>();
+		for(AbstractAssType type : AssType.getAllAssTypes()) {
 			if(type.getRace()==r) {
 				types.add(type);
 			}
@@ -149,4 +254,5 @@ public enum AssType implements BodyPartTypeInterface {
 		typesMap.put(r, types);
 		return types;
 	}
+
 }

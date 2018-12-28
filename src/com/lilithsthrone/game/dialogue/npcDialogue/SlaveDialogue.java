@@ -11,7 +11,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -67,8 +67,7 @@ public class SlaveDialogue {
 		SlaveDialogue.enslavementTarget = enslavementTarget;
 	}
 
-	public static final DialogueNodeOld DEFAULT_ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DEFAULT_ENSLAVEMENT_DIALOGUE = new DialogueNode("New Slave", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -152,7 +151,7 @@ public class SlaveDialogue {
 						enslavementTarget.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 					}
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -163,8 +162,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_START = new DialogueNodeOld("", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_START = new DialogueNode("", ".", true) {
 		
 		@Override
 		public String getLabel() {
@@ -663,7 +661,7 @@ public class SlaveDialogue {
 				} else if (index == 0) {
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 						@Override
@@ -939,7 +937,7 @@ public class SlaveDialogue {
 					} else if (index == 0) {
 						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
 							@Override
-							public DialogueNodeOld getNextDialogue() {
+							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
@@ -1041,7 +1039,7 @@ public class SlaveDialogue {
 				case 0:
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 						@Override
@@ -1069,8 +1067,7 @@ public class SlaveDialogue {
 					+ "</i></p>";
 	}
 	
-	public static final DialogueNodeOld SLAVE_PROGRESSION = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_PROGRESSION = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getLabel(){
@@ -1158,8 +1155,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MINOR = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MINOR = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getLabel(){
@@ -1301,8 +1297,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_ENCOURAGE = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_ENCOURAGE = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getLabel(){
@@ -1482,8 +1477,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_HUG = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_HUG = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getLabel(){
@@ -1653,8 +1647,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_PETTINGS = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_PETTINGS = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getLabel(){
@@ -1799,8 +1792,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_PRESENT = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_PRESENT = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getLabel(){
@@ -1915,8 +1907,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_INSPECT = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_INSPECT = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getLabel(){
@@ -2230,8 +2221,7 @@ public class SlaveDialogue {
 	}
 	
 	
-	public static final DialogueNodeOld SLAVE_SPANKING = new DialogueNodeOld("", "", true, true) { //TODO
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_SPANKING = new DialogueNode("", "", true, true) { //TODO
 		
 		@Override
 		public String getLabel(){
@@ -2438,8 +2428,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MOLEST = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MOLEST = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getLabel(){
@@ -2699,8 +2688,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -2746,8 +2734,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_USES_YOU = new DialogueNodeOld("Ambushed", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_USES_YOU = new DialogueNode("Ambushed", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -2839,8 +2826,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_USES_YOU_POST_SEX = new DialogueNodeOld("Used", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_USES_YOU_POST_SEX = new DialogueNode("Used", "", true) {
 
 		@Override
 		public String getDescription(){
@@ -2866,7 +2852,7 @@ public class SlaveDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -2881,8 +2867,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_USES_YOU_STREETS = new DialogueNodeOld("Ambushed!", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_USES_YOU_STREETS = new DialogueNode("Ambushed!", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -2994,8 +2979,7 @@ public class SlaveDialogue {
 
 
 	
-	public static final DialogueNodeOld SLAVE_USES_YOU_POST_SEX_STREETS = new DialogueNodeOld("Used", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_USES_YOU_POST_SEX_STREETS = new DialogueNode("Used", "", true) {
 
 		@Override
 		public String getDescription(){
@@ -3021,7 +3005,7 @@ public class SlaveDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -3036,8 +3020,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_USES_YOU_ALLEYWAY = new DialogueNodeOld("Ambushed!", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_USES_YOU_ALLEYWAY = new DialogueNode("Ambushed!", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -3169,8 +3152,7 @@ public class SlaveDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld SLAVE_USES_YOU_POST_SEX_ALLEYWAY = new DialogueNodeOld("Used", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_USES_YOU_POST_SEX_ALLEYWAY = new DialogueNode("Used", "", true) {
 
 		@Override
 		public String getDescription(){
@@ -3196,7 +3178,7 @@ public class SlaveDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override

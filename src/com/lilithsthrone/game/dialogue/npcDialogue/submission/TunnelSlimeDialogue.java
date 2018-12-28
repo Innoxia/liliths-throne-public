@@ -5,7 +5,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -33,8 +33,7 @@ public class TunnelSlimeDialogue {
 		return Main.game.getActiveNPC();
 	}
 	
-	public static final DialogueNodeOld ATTACK = new DialogueNodeOld("Assaulted!", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ATTACK = new DialogueNode("Assaulted!", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -84,7 +83,7 @@ public class TunnelSlimeDialogue {
 								}
 							}
 							@Override
-							public DialogueNodeOld getNextDialogue(){
+							public DialogueNode getNextDialogue(){
 								return Main.game.getDefaultDialogueNoEncounter();
 							}
 						};
@@ -209,8 +208,7 @@ public class TunnelSlimeDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ATTACK_REPEAT = new DialogueNodeOld("Assaulted!", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ATTACK_REPEAT = new DialogueNode("Assaulted!", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -241,8 +239,7 @@ public class TunnelSlimeDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ATTACK_PREGNANCY_REVEAL = new DialogueNodeOld("Assaulted!", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ATTACK_PREGNANCY_REVEAL = new DialogueNode("Assaulted!", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -274,8 +271,7 @@ public class TunnelSlimeDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld AFTER_SLIME_SEX_AS_DOM = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_SEX_AS_DOM = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -296,7 +292,7 @@ public class TunnelSlimeDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SLIME_SEX_AS_DOM){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -307,8 +303,7 @@ public class TunnelSlimeDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SLIME_SEX_AS_SUB = new DialogueNodeOld("Used", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SLIME_SEX_AS_SUB = new DialogueNode("Used", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -334,7 +329,7 @@ public class TunnelSlimeDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SLIME_SEX_AS_SUB){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -345,8 +340,7 @@ public class TunnelSlimeDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld TRANSFORMED = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TRANSFORMED = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -369,7 +363,7 @@ public class TunnelSlimeDialogue {
 						}
 					}
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -418,8 +412,7 @@ public class TunnelSlimeDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld RESIST_TRANSFORMED = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RESIST_TRANSFORMED = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -510,7 +503,7 @@ public class TunnelSlimeDialogue {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_PLAYER_DEFEAT){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -523,8 +516,7 @@ public class TunnelSlimeDialogue {
 	};
 	
 
-	public static final DialogueNodeOld OFFER_MONEY = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OFFER_MONEY = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -541,7 +533,7 @@ public class TunnelSlimeDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", OFFER_MONEY){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -555,8 +547,7 @@ public class TunnelSlimeDialogue {
 	// Standard combat:
 	
 
-	public static final DialogueNodeOld AFTER_COMBAT_PLAYER_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_PLAYER_VICTORY = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -579,7 +570,7 @@ public class TunnelSlimeDialogue {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -672,7 +663,7 @@ public class TunnelSlimeDialogue {
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 							AFTER_COMBAT_PLAYER_VICTORY){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 						@Override
@@ -689,7 +680,7 @@ public class TunnelSlimeDialogue {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -769,7 +760,7 @@ public class TunnelSlimeDialogue {
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 							AFTER_COMBAT_PLAYER_VICTORY){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 						@Override
@@ -785,8 +776,7 @@ public class TunnelSlimeDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_COMBAT_PLAYER_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_PLAYER_DEFEAT = new DialogueNode("Defeat", "", true) {
 		
 		@Override
 		public String getDescription() {
@@ -909,7 +899,7 @@ public class TunnelSlimeDialogue {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_PLAYER_DEFEAT){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -921,8 +911,7 @@ public class TunnelSlimeDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -943,7 +932,7 @@ public class TunnelSlimeDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -962,7 +951,7 @@ public class TunnelSlimeDialogue {
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 						AFTER_COMBAT_PLAYER_VICTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override

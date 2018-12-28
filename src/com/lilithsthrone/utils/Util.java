@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.3
  * @author Innoxia
  */
 public class Util {
@@ -387,7 +387,7 @@ public class Util {
 	}
 	
 	public static String getStringOfLocalDateTime(LocalDateTime date) {
-		return intToDate(date.getDayOfMonth())+" "+date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault())+", "+date.getYear();
+		return intToDate(date.getDayOfMonth())+" "+date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+", "+date.getYear();
 	}
 	
 	/**

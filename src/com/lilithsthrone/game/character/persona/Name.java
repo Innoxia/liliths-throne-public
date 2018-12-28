@@ -584,7 +584,7 @@ public class Name {
 	 * Lyssieth<b>marturabitu</b> (Eldest daughter, if not the designated heir. As most Lilin's eldest daughters are also their designated heir, this surname is very rare.)<br/>
 	 * Lyssieth<b>martuilani</b> (A direct daughter of Lyssieth.)<br/>
 	 * Lyssieth<b>martu</b> (Lyssieth's grand-daughters or further.)<br/>
-	 * <b>Note:</b> Imps descended from Lilin are given the surname 'Lyssiethmartu', <i>however</i>, in LT's society, it is considered a great insult against Lyssieth to ever address an imp by this.
+	 * <b>Note:</b> Imps descended from Lilin (in these examples, Lyssieth) are given the surname 'Lyssiethmartu', <i>however</i>, in LT's society, it is considered a great insult against Lyssieth to ever address an imp by this.
 	 *  If they are ever transformed into a demon, they may use this surname, even if the Lilin who transformed them is not Lyssieth herself. (Again, however, that would be a grave insult against Lyssieth.)
 	 * @param gc
 	 * @return
@@ -597,7 +597,8 @@ public class Name {
 			while(mother.getMother()!=null) {
 				mother = mother.getMother();
 			}
-			if(mother.isLilin()) {
+			if(mother.getSubspecies()==Subspecies.LILIN
+					|| mother.getSubspecies()== Subspecies.ELDER_LILIN) {
 				surname = mother.getName();
 				List<GameCharacter> offspring = mother.getAllCharactersOfRelationType(Relationship.PARENT);
 				if(offspring.contains(gc)) {

@@ -15,8 +15,13 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
+import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
+import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -24,7 +29,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -79,9 +84,9 @@ public class ImpCitadelDialogue {
 	 */
 	public static void applyEntry() {
 		if(!isDefeated()) {
-			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
-			Main.game.getFortressMalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
-			Main.game.getFortressFemalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+			Main.game.getNpc(FortressAlphaLeader.class).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+			Main.game.getNpc(FortressMalesLeader.class).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+			Main.game.getNpc(FortressFemalesLeader.class).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
 		}
 	}
 	
@@ -91,25 +96,25 @@ public class ImpCitadelDialogue {
 	public static void applyExit() {
 		Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
 		
-		if(Main.game.getFortressAlphaLeader().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+		if(Main.game.getNpc(FortressAlphaLeader.class).getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
 			if(isDefeated() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
-				Main.game.getFortressAlphaLeader().setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+				Main.game.getNpc(FortressAlphaLeader.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 			} else {
-				Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
+				Main.game.getNpc(FortressAlphaLeader.class).setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
 			}
 		}
-		if(Main.game.getFortressMalesLeader().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+		if(Main.game.getNpc(FortressMalesLeader.class).getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
 			if(isDefeated() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
-				Main.game.getFortressMalesLeader().setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+				Main.game.getNpc(FortressMalesLeader.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 			} else {
-				Main.game.getFortressMalesLeader().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
+				Main.game.getNpc(FortressMalesLeader.class).setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
 			}
 		}
-		if(Main.game.getFortressFemalesLeader().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+		if(Main.game.getNpc(FortressFemalesLeader.class).getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
 			if(isDefeated() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
-				Main.game.getFortressFemalesLeader().setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+				Main.game.getNpc(FortressFemalesLeader.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 			} else {
-				Main.game.getFortressFemalesLeader().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
+				Main.game.getNpc(FortressFemalesLeader.class).setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
 			}
 		}
 	}
@@ -119,10 +124,11 @@ public class ImpCitadelDialogue {
 		for(GameCharacter character : getBossGroup(false)) {
 			character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		}
+		Main.game.getNpc(SubmissionCitadelArcanist.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		
 		// Sort out boss:
-		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_THRONE_ROOM);
-		Main.game.getLyssieth().addSlave((NPC) getBoss());
+		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
+		Main.game.getNpc(Lyssieth.class).addSlave((NPC) getBoss());
 		((NPC) getBoss()).equipClothing(true, true, true, true); // In case the player used steal on her.
 		
 		// Increment quest:
@@ -132,11 +138,11 @@ public class ImpCitadelDialogue {
 		
 		Main.game.getDialogueFlags().impFortressDemonDefeatedTime = Main.game.getMinutesPassed();
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonDefeated, true);
-
+		
 		Main.game.getDialogueFlags().impFortressAlphaDefeatedTime = Main.game.getMinutesPassed();
 		Main.game.getDialogueFlags().impFortressFemalesDefeatedTime = Main.game.getMinutesPassed();
 		Main.game.getDialogueFlags().impFortressMalesDefeatedTime = Main.game.getMinutesPassed();
-
+		
 		// Move NPCs out of hiding:
 		for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
 			if(character.getHomeLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON) {
@@ -240,17 +246,17 @@ public class ImpCitadelDialogue {
 		banishImps();
 		
 		// Move boss back to fortress:
-		Main.game.getFortressDemonLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+		Main.game.getNpc(DarkSiren.class).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
 
 		// Move defeated leaders into fortress:
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
-			Main.game.getFortressAlphaLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+			Main.game.getNpc(FortressAlphaLeader.class).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
 		}
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
-			Main.game.getFortressFemalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+			Main.game.getNpc(FortressFemalesLeader.class).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
 		}
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
-			Main.game.getFortressMalesLeader().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+			Main.game.getNpc(FortressMalesLeader.class).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
 		}
 		
 		// Move NPCs into hiding:
@@ -276,23 +282,23 @@ public class ImpCitadelDialogue {
 		if(includeBoss) {
 			bossGroup.add(getBoss());
 		}
-		bossGroup.add(Main.game.getFortressMalesLeader());
-		bossGroup.add(Main.game.getFortressAlphaLeader());
-		bossGroup.add(Main.game.getFortressFemalesLeader());
+		bossGroup.add(Main.game.getNpc(FortressMalesLeader.class));
+		bossGroup.add(Main.game.getNpc(FortressAlphaLeader.class));
+		bossGroup.add(Main.game.getNpc(FortressFemalesLeader.class));
 		
 		return bossGroup;
 	}
 
 	public static NPC getDemonLeader() {
-		return Main.game.getFortressMalesLeader();
+		return Main.game.getNpc(FortressMalesLeader.class);
 	}
 
 	public static GameCharacter getBoss() {
-		return Main.game.getFortressDemonLeader();
+		return Main.game.getNpc(DarkSiren.class);
 	}
 	
 	public static GameCharacter getArcanist() {
-		return Main.game.getSubmissionCitadelArcanist();
+		return Main.game.getNpc(SubmissionCitadelArcanist.class);
 	}
 
 	public static GameCharacter getMainCompanion() {
@@ -313,9 +319,9 @@ public class ImpCitadelDialogue {
 		
 		if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_DEMON_KEEP) {
 			allCharacters.add(getBoss());
-			allCharacters.add(Main.game.getFortressMalesLeader());
-			allCharacters.add(Main.game.getFortressAlphaLeader());
-			allCharacters.add(Main.game.getFortressFemalesLeader());
+			allCharacters.add(Main.game.getNpc(FortressMalesLeader.class));
+			allCharacters.add(Main.game.getNpc(FortressAlphaLeader.class));
+			allCharacters.add(Main.game.getNpc(FortressFemalesLeader.class));
 		}
 
 		// For the arcanist:
@@ -356,8 +362,7 @@ public class ImpCitadelDialogue {
 		};
 	}
 	
-	public static final DialogueNodeOld ENTRANCE = new DialogueNodeOld("Gateway", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE = new DialogueNode("Gateway", "", false) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -401,8 +406,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld LEAVE_FORTRESS = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LEAVE_FORTRESS = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -420,8 +424,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_CHALLENGE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_CHALLENGE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -445,8 +448,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_CHALLENGE_CONTINUE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_CHALLENGE_CONTINUE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -491,8 +493,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FIGHT_AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_FIGHT_AFTER_COMBAT_VICTORY = new DialogueNode("Victory", ".", true) {
 
 		@Override
 		public String getDescription() {
@@ -806,8 +807,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld IMP_FIGHT_AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_FIGHT_AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", ".", true) {
 		
 		@Override
 		public String getDescription() {
@@ -992,8 +992,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1033,8 +1032,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMP_AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1086,8 +1084,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld COURTYARD = new DialogueNodeOld("Courtyard", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode COURTYARD = new DialogueNode("Courtyard", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1123,8 +1120,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld WELL = new DialogueNodeOld("Well", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WELL = new DialogueNode("Well", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1161,8 +1157,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY = new DialogueNodeOld("Laboratory", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY = new DialogueNode("Laboratory", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1235,8 +1230,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_SEARCH = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_SEARCH = new DialogueNode("", "", false, true) {
 	
 		@Override
 		public int getMinutesPassed() {
@@ -1254,8 +1248,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST = new DialogueNodeOld("", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST = new DialogueNode("", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1511,8 +1504,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_EXIT = new DialogueNodeOld("", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_EXIT = new DialogueNode("", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -1525,8 +1517,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_SOLO_TF = new DialogueNodeOld("", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_SOLO_TF = new DialogueNode("", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1569,8 +1560,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_COMPANION_TF = new DialogueNodeOld("", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_COMPANION_TF = new DialogueNode("", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1620,8 +1610,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_BOTH_TF = new DialogueNodeOld("", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_BOTH_TF = new DialogueNode("", ".", true, true) {
 
 		@Override
 		public String getContent() {
@@ -1673,8 +1662,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld LABORATORY_ARCANIST_POST_SEX = new DialogueNodeOld("Finished", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode LABORATORY_ARCANIST_POST_SEX = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1703,8 +1691,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld TREASURY = new DialogueNodeOld("Treasury", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TREASURY = new DialogueNode("Treasury", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1759,8 +1746,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld TREASURY_SEARCH = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode TREASURY_SEARCH = new DialogueNode("", "", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1778,8 +1764,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP = new DialogueNode("Keep", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1829,8 +1814,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_ENTRY = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_ENTRY = new DialogueNode("Keep", ".", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1873,8 +1857,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_DEMONS_DEFEATED = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_DEMONS_DEFEATED = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -1909,8 +1892,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_CHALLENGE = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_CHALLENGE = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -1930,8 +1912,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_CHALLENGE_RING_TRICK = new DialogueNodeOld("Keep", ".", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_CHALLENGE_RING_TRICK = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1967,8 +1948,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_COLLAPSE_ESCAPE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_COLLAPSE_ESCAPE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2014,8 +1994,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld KEEP_COLLAPSE_ESCAPE_END = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_COLLAPSE_ESCAPE_END = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2029,12 +2008,11 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			return PlaceType.SUBMISSION_IMP_FORTRESS_DEMON.getDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 		
 		@Override
 		public String getDescription() {
@@ -2088,8 +2066,7 @@ public class ImpCitadelDialogue {
 	};
 
 	
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Keep", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_DEFEAT = new DialogueNode("Keep", ".", true) {
 		
 		@Override
 		public String getDescription() {
@@ -2124,21 +2101,21 @@ public class ImpCitadelDialogue {
 				Map<GameCharacter, SexPositionSlot> domSlots = new HashMap<>();
 				
 				if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					domSlots.put(Main.game.getFortressMalesLeader(), SexPositionSlot.DOGGY_BEHIND);
+					domSlots.put(Main.game.getNpc(FortressMalesLeader.class), SexPositionSlot.DOGGY_BEHIND);
 				} else if(isCompanionDialogue() && getMainCompanion().hasVagina() && getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					domSlots.put(Main.game.getFortressMalesLeader(), SexPositionSlot.DOGGY_BEHIND_SECOND);
+					domSlots.put(Main.game.getNpc(FortressMalesLeader.class), SexPositionSlot.DOGGY_BEHIND_SECOND);
 				} else {
-					domSlots.put(Main.game.getFortressMalesLeader(), SexPositionSlot.DOGGY_BEHIND);
+					domSlots.put(Main.game.getNpc(FortressMalesLeader.class), SexPositionSlot.DOGGY_BEHIND);
 				}
 				if(isCompanionDialogue()) {
-					domSlots.put(Main.game.getFortressAlphaLeader(),
-							domSlots.get(Main.game.getFortressMalesLeader())==SexPositionSlot.DOGGY_BEHIND_SECOND
+					domSlots.put(Main.game.getNpc(FortressAlphaLeader.class),
+							domSlots.get(Main.game.getNpc(FortressMalesLeader.class))==SexPositionSlot.DOGGY_BEHIND_SECOND
 								?SexPositionSlot.DOGGY_BEHIND
 								:SexPositionSlot.DOGGY_BEHIND_SECOND);
-					domSlots.put(Main.game.getFortressFemalesLeader(), SexPositionSlot.DOGGY_INFRONT);
+					domSlots.put(Main.game.getNpc(FortressFemalesLeader.class), SexPositionSlot.DOGGY_INFRONT);
 				} else {
-					domSlots.put(Main.game.getFortressAlphaLeader(), SexPositionSlot.DOGGY_INFRONT);
-					domSlots.put(Main.game.getFortressFemalesLeader(), SexPositionSlot.DOGGY_INFRONT_TWO);
+					domSlots.put(Main.game.getNpc(FortressAlphaLeader.class), SexPositionSlot.DOGGY_INFRONT);
+					domSlots.put(Main.game.getNpc(FortressFemalesLeader.class), SexPositionSlot.DOGGY_INFRONT_TWO);
 				}
 				
 				Map<GameCharacter, SexPositionSlot> subSlots = new HashMap<>();
@@ -2218,8 +2195,8 @@ public class ImpCitadelDialogue {
 			// Removed for now due to unexpected complexity. Will be added at some point.
 			
 //			if (index == 1) {
-//				return new Response(UtilText.parse(Main.game.getFortressMalesLeader(), "[npc.Name]"),
-//						UtilText.parse(Main.game.getFortressMalesLeader(), getBoss(),
+//				return new Response(UtilText.parse(Main.game.getNpc(FortressMalesLeader.class), "[npc.Name]"),
+//						UtilText.parse(Main.game.getNpc(FortressMalesLeader.class), getBoss(),
 //								"Tell [npc2.name] that you submit to [npc.name]...<br/><i>It's obvious from what [npc.sheHas] just said that [npc.she] wants to turn you into an imp broodmother!</i>"),
 //						PRISONER_INITIAL_SCENE) {
 //					@Override
@@ -2230,8 +2207,8 @@ public class ImpCitadelDialogue {
 //				};
 //				
 //			} else if (index == 2) {
-//				return new Response(UtilText.parse(Main.game.getFortressAlphaLeader(), "[npc.Name]"),
-//						UtilText.parse(Main.game.getFortressAlphaLeader(), getBoss(),
+//				return new Response(UtilText.parse(Main.game.getNpc(FortressAlphaLeader.class), "[npc.Name]"),
+//						UtilText.parse(Main.game.getNpc(FortressAlphaLeader.class), getBoss(),
 //								"Tell [npc2.name] that you submit to [npc.name]...<br/><i>It's obvious from what [npc.sheHas] just said that [npc.she] wants to abuse you and turn you into [npc.her] worthless cum-dump!</i>"),
 //						PRISONER_INITIAL_SCENE) {
 //					@Override
@@ -2242,8 +2219,8 @@ public class ImpCitadelDialogue {
 //				};
 //				
 //			} else if (index == 3) {
-//				return new Response(UtilText.parse(Main.game.getFortressFemalesLeader(), "[npc.Name]"),
-//						UtilText.parse(Main.game.getFortressFemalesLeader(), getBoss(),
+//				return new Response(UtilText.parse(Main.game.getNpc(FortressFemalesLeader.class), "[npc.Name]"),
+//						UtilText.parse(Main.game.getNpc(FortressFemalesLeader.class), getBoss(),
 //								"Tell [npc2.name] that you submit to [npc.name]...<br/><i>It's obvious from what [npc.sheHas] just said that [npc.she] wants to give you a big cock and put you to work breeding imps!</i>"),
 //						PRISONER_INITIAL_SCENE) {
 //					@Override
@@ -2281,8 +2258,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld THROWN_OUT = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode THROWN_OUT = new DialogueNode("", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2305,8 +2281,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld KEEP_AFTER_COMBAT_DEFEAT_POST_SEX = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KEEP_AFTER_COMBAT_DEFEAT_POST_SEX = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {
@@ -2344,11 +2319,11 @@ public class ImpCitadelDialogue {
 	
 	private static NPC getOwner() {
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelPrisonerAlpha)) {
-			return Main.game.getFortressAlphaLeader();
+			return Main.game.getNpc(FortressAlphaLeader.class);
 		} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelPrisonerFemale)) {
-			return Main.game.getFortressFemalesLeader();
+			return Main.game.getNpc(FortressFemalesLeader.class);
 		}
-		return Main.game.getFortressMalesLeader();
+		return Main.game.getNpc(FortressMalesLeader.class);
 	}
 	
 	private static String getOwnerDialogueIdEnding() {
@@ -2376,8 +2351,7 @@ public class ImpCitadelDialogue {
 	
 	// TODO parsing allCharacters() needs owner as second npc
 	
-	public static final DialogueNodeOld PRISONER_INITIAL_SCENE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_INITIAL_SCENE = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2420,7 +2394,7 @@ public class ImpCitadelDialogue {
 						
 						//TODO siren wants to watch them fuck your face(s)
 						if(getOwner() instanceof FortressFemalesLeader) {
-							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
+							((FortressFemalesLeader) Main.game.getNpc(FortressFemalesLeader.class)).equipStrapon();
 						}
 					}
 				};
@@ -2430,8 +2404,7 @@ public class ImpCitadelDialogue {
 	};
 
 
-	public static final DialogueNodeOld PRISONER_INITIAL_SCENE_COMPANION_STRIP = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_INITIAL_SCENE_COMPANION_STRIP = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2476,8 +2449,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PRISONER_STRIPPED = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_STRIPPED = new DialogueNode("", "", true, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2566,8 +2538,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PRISONER_STRIPPED_AFTER_SEX = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_STRIPPED_AFTER_SEX = new DialogueNode("", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2596,8 +2567,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CELLS = new DialogueNodeOld("Cells", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CELLS = new DialogueNode("Cells", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -2678,8 +2648,7 @@ public class ImpCitadelDialogue {
 	};
 	
 
-	public static final DialogueNodeOld PRISONER_BREAKFAST = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PRISONER_BREAKFAST = new DialogueNode("", "", true) {
 
 		@Override
 		public String getContent() {

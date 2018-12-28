@@ -52,6 +52,8 @@ public enum Occupation {
 	
 	NPC_SLIME_QUEEN_GUARD(Perk.JOB_MISC, "slime queen's guard", "-", OccupationTag.HAS_PREREQUISITES),
 	
+	NPC_LILIN(Perk.JOB_MISC, "lilin", "-", OccupationTag.HAS_PREREQUISITES),
+	
 	// NPC histories:
 
 	NPC_UNEMPLOYED(Perk.JOB_UNEMPLOYED, "unemployed", "[npc.NameIsFull] unemployed.", OccupationTag.HAS_PREREQUISITES),

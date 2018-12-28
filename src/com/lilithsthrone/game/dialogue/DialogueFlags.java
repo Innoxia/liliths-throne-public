@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,12 +17,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
-public class DialogueFlags implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class DialogueFlags implements XMLSaving {
 
 	public Set<DialogueFlagValue> values;
 	

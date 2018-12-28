@@ -36,7 +36,6 @@ import com.lilithsthrone.utils.XMLSaving;
  */
 public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	
-	private static final long serialVersionUID = 1L;
 
 	private AbstractTattooType type;
 	

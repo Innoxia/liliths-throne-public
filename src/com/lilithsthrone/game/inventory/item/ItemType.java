@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -13,7 +14,6 @@ import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
@@ -35,7 +35,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia
  */
 public class ItemType {
@@ -326,7 +326,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -374,7 +373,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -422,7 +420,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -470,7 +467,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -520,7 +516,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -570,7 +565,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -618,7 +612,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -668,7 +661,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -718,7 +710,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -768,7 +759,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -818,7 +808,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -867,7 +856,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -916,7 +904,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -965,7 +952,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1013,7 +999,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1061,7 +1046,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1112,7 +1096,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1161,7 +1144,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1210,7 +1192,6 @@ public class ItemType {
 					ItemTag.MISC_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1253,7 +1234,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isFetishGiving() {
@@ -1307,7 +1287,6 @@ public class ItemType {
 					ItemTag.MISC_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsedInSex() {
@@ -1352,7 +1331,6 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsedInSex() {
@@ -1381,55 +1359,6 @@ public class ItemType {
 	
 	// Racial ingredients:
 	
-	public static AbstractItemType RACE_INGREDIENT_DEMON = new AbstractItemType(2500,
-			"a bottle of",
-			false,
-			"Innoxia's Gift",
-			"Innoxia's Gifts",
-			"A glass bottle, filled with bubbling golden liquid."
-					+ " Someone's stuck a crude little sticker to one side of the bottle, and as you look closer, you see that it reads: 'Temporary item! Demon TFs don't work like this!'",
-			"raceDemonInnoxiasGift",
-			Colour.ATTRIBUTE_CORRUPTION,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_INNOXIAS_GIFT)),
-			Util.newArrayListOfValues(
-					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM,
-					ItemTag.SOLD_BY_RALPH)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public AbstractItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.RACE_DEMON;
-		}
-
-		@Override
-		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-			return ELIXIR;
-		}
-
-		@Override
-		public String getUseName() {
-			return "drink";
-		}
-
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"The moment you pull the stopper out from the top of the bottle of 'Innoxia's Gift', you're filled with a desperate need to drink the bubbling pink liquid contained within."
-							+ " Instantly, you bring the bottle to your lips and gulp it all down, suppressing your gag reflex as your senses are overwhelmed by how sickeningly sweet it is.",
-					"You pull the stopper out from the top of the bottle of 'Innoxia's Gift', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
-					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
-					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
-						+ " You suppress your gag reflex as your senses are suddenly overwhelmed by the sickeningly-sweet liquid.");
-		}
-	};
-	
 	public static AbstractItemType RACE_INGREDIENT_HUMAN = new AbstractItemType(1000,
 			"a vial of",
 			false,
@@ -1450,7 +1379,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1498,7 +1426,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1548,7 +1475,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1600,7 +1526,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1650,7 +1575,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1698,7 +1622,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1748,7 +1671,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1796,7 +1718,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1844,7 +1765,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1892,7 +1812,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1939,7 +1858,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1989,7 +1907,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -2038,7 +1955,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -2087,7 +2003,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isTransformative() {
@@ -2141,7 +2056,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.NOT_FOR_SALE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isTransformative() {
@@ -2342,7 +2256,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2355,11 +2268,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2380,7 +2293,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2393,11 +2305,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2419,7 +2331,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2432,11 +2343,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2457,7 +2368,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DEMON)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2470,11 +2380,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 
@@ -2495,7 +2405,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_IMP)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2508,11 +2417,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2533,7 +2442,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2564,7 +2472,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2577,11 +2484,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2602,7 +2509,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2615,11 +2521,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2640,7 +2546,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RABBIT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2653,11 +2558,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2678,7 +2583,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_BAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2691,11 +2595,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2716,7 +2620,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2729,11 +2632,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2754,7 +2657,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2767,11 +2669,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2792,7 +2694,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2805,11 +2706,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2830,7 +2731,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_REINDEER_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2843,11 +2743,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2868,7 +2768,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2881,11 +2780,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2906,7 +2805,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2919,11 +2817,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2944,7 +2842,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_FOX_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2957,11 +2854,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 
@@ -2982,7 +2879,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SLIME)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2995,11 +2891,11 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.DEMON || target.isPlayer();
+			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -3025,7 +2921,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.NOT_FOR_SALE)) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isTransformative() {
@@ -3072,7 +2967,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.NOT_FOR_SALE)) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isTransformative() {
@@ -3118,7 +3012,6 @@ public class ItemType {
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.NOT_FOR_SALE)) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isTransformative() {
@@ -3168,7 +3061,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isTransformative() {
@@ -3217,7 +3109,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isTransformative() {
@@ -3272,7 +3163,6 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3321,7 +3211,6 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
 		
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3373,7 +3262,6 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE)), null) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isFetishGiving() {
@@ -3443,7 +3331,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3483,7 +3370,6 @@ public class ItemType {
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3519,7 +3405,6 @@ public class ItemType {
 					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getUseName() {
@@ -3580,7 +3465,6 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
 		
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3616,7 +3500,6 @@ public class ItemType {
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3653,7 +3536,6 @@ public class ItemType {
 					ItemTag.MISC_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -3670,337 +3552,6 @@ public class ItemType {
 		}
 	};
 	
-	private static AbstractItemType createBookItem(int value,
-			String determiner,
-			boolean plural,
-			String name,
-			String namePlural,
-			String description,
-			String pathName,
-			Colour colourPrimary,
-			Colour colourSecondary,
-			Colour colourTertiary,
-			Rarity rarity,
-			TFEssence relatedEssence,
-			List<ItemEffect> effects,
-			List<ItemTag> itemTags) { 
-		return new AbstractItemType(value,
-				determiner,
-				plural,
-				name,
-				namePlural,
-				description,
-				pathName,
-				colourPrimary,
-				colourSecondary,
-				colourTertiary,
-				rarity,
-				relatedEssence,
-				effects,
-				itemTags) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public boolean isConsumedOnUse() {
-				return false;
-			}
-			
-			@Override
-			public String getUseName() {
-				return "read";
-			}
-			
-			@Override
-			public String getUseDescription(GameCharacter user, GameCharacter target) {
-				return getGenericUseDescription(user, target,
-						"Opening the book, you read its contents...",
-						"Opening the book, you force [npc.name] to read its contents...",
-						"[npc.Name] produces a book, titled '"+name+"', which [npc.she] then starts to read...",
-						"[npc.Name] produces a book, titled '"+name+"', which [npc.she] then forces you to read...");
-			}
-		};
-	}
-	
-	public static AbstractItemType BOOK_CAT_MORPH = createBookItem(250,
-			null,
-			false,
-			"Curious Kitties",
-			"Curious Kitties'",
-			"A book that details cat-morph society.",
-			"book_race_cat_morph",
-			Colour.RACE_CAT_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-
-	public static AbstractItemType BOOK_COW_MORPH = createBookItem(250,
-			null,
-			false,
-			"Milking Cows",
-			"Milking Cows'",
-			"A book that details cow-morph society.",
-			"book_race_cow_morph",
-			Colour.RACE_COW_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-
-	public static AbstractItemType BOOK_DEMON = createBookItem(250,
-			null,
-			false,
-			"Demonic Origins",
-			"Demonic Origins'",
-			"A book about demons and where they come from.",
-			"book_race_demon",
-			Colour.RACE_DEMON,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DEMON)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_IMP = createBookItem(250,
-			null,
-			false,
-			"Impish Fiends",
-			"Impish Fiends'",
-			"A book about imps and where they come from.",
-			"book_race_imp",
-			Colour.RACE_IMP,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_IMP)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_DOG_MORPH = createBookItem(250,
-			null,
-			false,
-			"Canine Culture",
-			"Canine Cultures",
-			"A book about dog-morphs and their culture.",
-			"book_race_dog_morph",
-			Colour.RACE_DOG_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_ALLIGATOR_MORPH = createBookItem(250,
-			null,
-			false,
-			"Rasselin' Gators",
-			"Rasselin' Gators",
-			"A book all about alligator-morphs, detailing their society and place within Dominion.",
-			"book_race_gator_morph",
-			Colour.RACE_ALLIGATOR_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-
-	public static AbstractItemType BOOK_FOX_MORPH = new AbstractItemType(250,
-			null,
-			false,
-			"Skulking Vulpines",
-			"Skulking Vulpines",
-			"A book about fox-morphs and their culture.",
-			"book_race_fox_morph",
-			Colour.RACE_FOX_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_FOX_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Skulking Vulpines', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Skulking Vulpines', which [npc.she] then forces you to read...");
-		}
-	};
-	
-	public static AbstractItemType BOOK_HARPY = createBookItem(250,
-			null,
-			false,
-			"All About Harpies",
-			"All About Harpies'",
-			"A book all about harpies, detailing their society and place within Dominion.",
-			"book_race_harpy",
-			Colour.RACE_HARPY,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HARPY)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_HORSE_MORPH = createBookItem(250,
-			null,
-			false,
-			"Equine Encyclopedia",
-			"Equine Encyclopedias",
-			"A book all about horse-morphs.",
-			"book_race_horse_morph",
-			Colour.RACE_HORSE_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_REINDEER_MORPH = createBookItem(250,
-			null,
-			false,
-			"The Eight",
-			"The Eight",
-			"A book all about reindeer-morphs.",
-			"book_race_reindeer_morph",
-			Colour.RACE_REINDEER_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_REINDEER_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_HUMAN = createBookItem(250,
-			null,
-			false,
-			"Concerning Humans",
-			"Concerning Humans'",
-			"A book about humans and their place within Dominion society.",
-			"book_race_human",
-			Colour.RACE_HUMAN,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_SQUIRREL_MORPH = createBookItem(250,
-			null,
-			false,
-			"Chasing Squirrels",
-			"Chasing Squirrels'",
-			"A book that details squirrel-morph society.",
-			"book_race_squirrel_morph",
-			Colour.RACE_SQUIRREL_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_RAT_MORPH = createBookItem(250,
-			null,
-			false,
-			"Causing Mischief",
-			"Causing Mischiefs",
-			"A book that details rat-morph society.",
-			"book_race_rat_morph",
-			Colour.RACE_RAT_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_RABBIT_MORPH = createBookItem(250,
-			null,
-			false,
-			"Bunny Litters",
-			"Bunny Litters'",
-			"A book that details rabbit-morph society.",
-			"book_race_rabbit_morph",
-			Colour.RACE_RABBIT_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RABBIT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_BAT_MORPH = createBookItem(250,
-			null,
-			false,
-			"Flying Foxes",
-			"Flying Foxes'",
-			"A book that details bat-morph society.",
-			"book_race_bat_morph",
-			Colour.RACE_BAT_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_BAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_WOLF_MORPH = createBookItem(250,
-			null,
-			false,
-			"Prowling Lupines",
-			"Prowling Lupines'",
-			"A book all about wolf-morphs.",
-			"book_race_wolf_morph",
-			Colour.RACE_WOLF_MORPH,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
-	public static AbstractItemType BOOK_SLIME = createBookItem(250,
-			null,
-			false,
-			"Slimy Fun",
-			"Slimy Funs",
-			"A book all about slimes.",
-			"book_race_slime",
-			Colour.RACE_SLIME,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SLIME)),
-			Util.newArrayListOfValues(ItemTag.BOOK));
-	
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",
 			false,
@@ -4015,7 +3566,6 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PRESENT)), null) {
 
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -4060,7 +3610,6 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4106,7 +3655,6 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4154,7 +3702,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_CHOCOLATES)),
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4197,7 +3744,6 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_PERFUME)),
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4241,7 +3787,6 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getDescription() {
@@ -4289,7 +3834,6 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.EGGPLANT)), null) {
 
-		private static final long serialVersionUID = 1L;
 		
 
 		@Override
@@ -4333,7 +3877,6 @@ public class ItemType {
 			null,
 			null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isTransformative() {
@@ -4380,7 +3923,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -4417,7 +3959,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -4448,7 +3989,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -4479,7 +4019,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -4512,7 +4051,6 @@ public class ItemType {
 			null,
 			null, null) {
 
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -4846,6 +4384,7 @@ public class ItemType {
 	private static List<AbstractItemType> batCavernItems = new ArrayList<>();
 	private static List<AbstractItemType> essences = new ArrayList<>();
 	private static List<AbstractItemType> allItems = new ArrayList<>();
+	private static Map<Subspecies, String> subspeciesBookId = new HashMap<>();
 	
 	/**
 	 * If you're looking for spell books, their id is:<br/>
@@ -4866,12 +4405,16 @@ public class ItemType {
 	public static AbstractItemType getSpellBookType(Spell s) {
 		return idToItemMap.get("SPELL_BOOK_"+s);
 	}
+	
 	public static AbstractItemType getSpellScrollType(SpellSchool school) {
 		return idToItemMap.get("SPELL_SCROLL_"+school);
 	}
 	
+	public static AbstractItemType getLoreBook(Subspecies subspecies) {
+		return idToItemMap.get(subspeciesBookId.get(subspecies));
+	}
+	
 	static{
-		
 		Field[] fields = ItemType.class.getFields();
 		
 		for(Field f : fields){
@@ -4911,8 +4454,7 @@ public class ItemType {
 		}
 		
 		for(Spell s : Spell.values()) {
-			if(s == Spell.WITCH_CHARM
-					|| s == Spell.WITCH_SEAL) {
+			if(!s.isSpellBook()) {
 				continue;
 			}
 			
@@ -4948,19 +4490,19 @@ public class ItemType {
 					String raceKnowledgeGained = "";
 					if(target.isPlayer()) {
 						if(s == Spell.ELEMENTAL_EARTH) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_EARTH, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_EARTH, true);
 							
 						} else if(s == Spell.ELEMENTAL_WATER) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_WATER, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_WATER, true);
 							
 						} else if(s == Spell.ELEMENTAL_AIR) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_AIR, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_AIR, true);
 							
 						} else if(s == Spell.ELEMENTAL_FIRE) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_FIRE, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_FIRE, true);
 							
 						} else if(s == Spell.ELEMENTAL_ARCANE) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_ARCANE, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_ARCANE, true);
 							
 						}
 					}
@@ -5096,8 +4638,6 @@ public class ItemType {
 					Util.newArrayListOfValues(new ItemEffect(effectType)),
 					Util.newArrayListOfValues(ItemTag.SPELL_BOOK)) {
 		
-				private static final long serialVersionUID = 1L;
-				
 				@Override
 				public String getSVGString() {
 					return super.getSVGString()
@@ -5195,8 +4735,6 @@ public class ItemType {
 					null,
 					Util.newArrayListOfValues(new ItemEffect(effectType)),
 					Util.newArrayListOfValues(ItemTag.SPELL_SCROLL)) {
-		
-				private static final long serialVersionUID = 1L;
 				
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {
@@ -5238,6 +4776,109 @@ public class ItemType {
 			
 			allItems.add(scroll);
 		}
+		
+		// Race books:
+		
+		Map<String, List<Subspecies>> subspeciesLoreMap = new HashMap<>();
+		for(Subspecies sub : Subspecies.values()) {
+			subspeciesLoreMap.putIfAbsent(sub.getAdvancedDescriptionId(), new ArrayList<>());
+			subspeciesLoreMap.get(sub.getAdvancedDescriptionId()).add(sub);
+		}
+		
+		// Add effects from here, as Subspecies and ItemEffectType are dependent on one another to be initialised.
+		for(Subspecies sub : Subspecies.values()) {
+			subspeciesLoreMap.putIfAbsent(sub.getAdvancedDescriptionId(), new ArrayList<>());
+			subspeciesLoreMap.get(sub.getAdvancedDescriptionId()).add(sub);
+		}
+		
+		for(Entry<String, List<Subspecies>> entry : subspeciesLoreMap.entrySet()) {
+			Subspecies mainSubspecies = entry.getValue().contains(Subspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
+											?Subspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
+											:entry.getValue().get(0);
+			
+			AbstractItemEffectType bookType = generateBookEffect(mainSubspecies);
+			ItemEffectType.allEffectTypes.add(bookType);
+			String id = "BOOK_READ_"+mainSubspecies.toString();
+			ItemEffectType.itemEffectTypeToIdMap.put(bookType, id);
+			ItemEffectType.idToItemEffectTypeMap.put(id, bookType);
+		}
+		
+		for(Entry<String, List<Subspecies>> entry : subspeciesLoreMap.entrySet()) {
+			Subspecies mainSubspecies = entry.getValue().contains(Subspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
+											?Subspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
+											:entry.getValue().get(0);
+			
+			AbstractItemType loreBook = new AbstractItemType(250,
+							null,
+							false,
+							mainSubspecies.getBookName(),
+							mainSubspecies.getBookNamePlural(),
+							"A book which contains advanced lore concerning "+mainSubspecies.getNamePlural(null)+".",
+							"race_book",
+							mainSubspecies.getColour(null),
+							Colour.CLOTHING_GOLD,
+							mainSubspecies.getColour(null),
+							Rarity.LEGENDARY,
+							null,
+							Util.newArrayListOfValues(new ItemEffect(ItemEffectType.getBookEffectFromSubspecies(mainSubspecies))),
+							Util.newArrayListOfValues(ItemTag.BOOK)) {
+
+				@Override
+				public String getSVGString() {
+					int offset = 6;
+					float left = (float) (30 + offset*Math.cos(Math.toRadians(60)));
+					left = Math.round(left*100);
+					left /=100;
+					return super.getSVGString()
+							+"<div style='width:40%;height:40%;position:absolute;left:"+left+"%;top:"+(30-offset)+"%; opacity:0.75; -webkit-transform: rotate(30deg);'>"
+								+ mainSubspecies.getSVGStringNoBackground()
+							+ "</div>";
+				}
+		
+				@Override
+				public boolean isConsumedOnUse() {
+					return false;
+				}
+				
+				@Override
+				public String getUseName() {
+					return "read";
+				}
+				
+				@Override
+				public String getUseDescription(GameCharacter user, GameCharacter target) {
+					return getGenericUseDescription(user, target,
+							"Opening the book, you read its contents...",
+							"Opening the book, you force [npc.name] to read its contents...",
+							"[npc.Name] produces a book, titled '"+getName(false)+"', which [npc.she] then starts to read...",
+							"[npc.Name] produces a book, titled '"+getName(false)+"', which [npc.she] then forces you to read...");
+				}
+			};
+			
+			String id = "BOOK_"+mainSubspecies.toString();
+					
+			itemToIdMap.put(loreBook, id);
+			idToItemMap.put(id, loreBook);
+			
+			for(Subspecies subspecies : entry.getValue()) {
+				subspeciesBookId.put(subspecies, id);
+			}
+			
+			allItems.add(loreBook);
+		}
+	}
+	
+	private static AbstractItemEffectType generateBookEffect(Subspecies subspecies) {
+		return new AbstractItemEffectType(Util.newArrayListOfValues(
+				"Adds "+subspecies.getName(null)+" encyclopedia entry.",
+				"[style.boldExcellent(+5)] <b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+subspecies.getDamageMultiplier().getName()+"</b>",
+				"[style.boldExcellent(+5)] <b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+subspecies.getResistanceMultiplier().getName()+"</b>"),
+				subspecies.getColour(null)) {
+			@Override
+			public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+				return getBookEffect(subspecies, true);
+			}
+		};
 	}
 
 	public static List<AbstractItemType> getDominionAlleywayItems() {

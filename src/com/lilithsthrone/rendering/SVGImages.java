@@ -41,7 +41,7 @@ public enum SVGImages {
 			playerMapIconFeminine,
 			playerMapDangerousIcon,
 
-			raceBackground, raceBackgroundHalf, raceBackgroundSlime, raceUnknown, raceDobermann, raceDobermannDesaturated,
+			raceBackground, raceBackgroundHalf, raceBackgroundSlime, raceBackgroundDemon, raceUnknown, raceDobermann, raceDobermannDesaturated,
 			
 			perkTreeArrow, spellOverlay,
 
@@ -264,6 +264,9 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundSlime.svg");
 			raceBackgroundSlime = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundDemon.svg");
+			raceBackgroundDemon = Util.inputStreamToString(is);
 			
 			
 			
@@ -1251,6 +1254,10 @@ public enum SVGImages {
 
 	public String getRaceBackgroundSlime() {
 		return raceBackgroundSlime;
+	}
+
+	public String getRaceBackgroundDemon() {
+		return raceBackgroundDemon;
 	}
 
 	public String getRaceUnknown() {

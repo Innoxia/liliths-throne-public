@@ -16,12 +16,16 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import com.lilithsthrone.controller.xmlParsing.*;
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
+import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -43,16 +47,13 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
-import java.util.function.Consumer;
 
 /**
  * @since 0.1.84
- * @version 0.2.12
+ * @version 0.3
  * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord), Pimgd
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
-
-	protected static final long serialVersionUID = 1L;
 	
 	private String determiner;
 	private String name;
@@ -392,13 +393,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				.map(Element::getTextContent).map(ClothingSet::valueOf)
 				.orElse(null);
 
-			this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/" 
+			this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/"
 				+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
 
 			this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
 				.filter(filterEmptyElements)
-				.map(Element::getTextContent)
+				.map(e -> clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent())
+				.filter(s -> !s.equals(this.pathName)) // if imageEquippedName is the same as imageName, we don't need to load it twice
 				.orElse(null);
+			
 
 			Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
 				String values = colorsElement.getAttribute("values");
@@ -573,6 +576,38 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		SVGStringMap = new HashMap<>();
 		SVGStringEquippedMap = new HashMap<>();
 		
+		// Add blocked parts due to sealing or plugging:
+		for(ItemTag tag : this.itemTags) {
+			switch(tag) {
+				case PLUGS_ANUS:
+				case SEALS_ANUS:
+					for(BlockedParts bp : this.blockedPartsList) {
+						if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP && !bp.blockedBodyParts.contains(CoverableArea.ANUS)) {
+							bp.blockedBodyParts.add(CoverableArea.ANUS);
+						}
+					}
+					break;
+				case PLUGS_NIPPLES:
+				case SEALS_NIPPLES:
+					for(BlockedParts bp : this.blockedPartsList) {
+						if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES)) {
+							bp.blockedBodyParts.add(CoverableArea.NIPPLES);
+						}
+					}
+					break;
+				case PLUGS_VAGINA:
+				case SEALS_VAGINA:
+					for(BlockedParts bp : this.blockedPartsList) {
+						if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP && !bp.blockedBodyParts.contains(CoverableArea.VAGINA)) {
+							bp.blockedBodyParts.add(CoverableArea.VAGINA);
+						}
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		
 		// Causes crash if done from here for some reason.
 		//this.isPatternAvailable = this.getSVGImage().contains("id=\"patternLayer\"");
 	}
@@ -663,9 +698,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c1, c2, c3, allowRandomEnchantment) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractClothing(clothingType, c1, c2, c3, allowRandomEnchantment) {};
 	}
 
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colourShade, boolean allowRandomEnchantment) {
@@ -723,9 +756,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c1, c2, c3, effects) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractClothing(clothingType, c1, c2, c3, effects) {};
 	}
 	
 	/**
@@ -1899,5 +1930,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	public List<ItemTag> getItemTags() {
 		return itemTags;
+	}
+	
+	public boolean isSexToy() {
+		for(ItemTag tag : this.getItemTags()) {
+			if(tag.isSexToy()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

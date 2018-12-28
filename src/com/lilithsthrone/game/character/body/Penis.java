@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,8 +11,8 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -28,8 +27,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.2
  * @author Innoxia
  */
-public class Penis implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Penis implements BodyPartInterface {
 
 	public static final float TWO_PENIS_SIZE_MULTIPLIER = 1.6f;
 
@@ -153,6 +151,16 @@ public class Penis implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, PenisType type) {
+		if(!Main.game.isStarted() || owner==null) {
+			this.type = type;
+			testicle.setType(owner, type.getTesticleType());
+			if(owner!=null) {
+				owner.resetAreaKnownByCharacters(CoverableArea.PENIS);
+				owner.resetAreaKnownByCharacters(CoverableArea.TESTICLES);
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
 		
 		if (type == getType()) {
 			if(owner.isPlayer()) {
@@ -761,6 +769,11 @@ public class Penis implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
+		if(owner==null) {
+			penisModifiers.add(modifier);
+			return "";
+		}
+		
 		if(!owner.hasPenisIgnoreDildo()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You don't have a penis, so nothing happens...)]</p>";
@@ -1032,5 +1045,9 @@ public class Penis implements BodyPartInterface, Serializable {
 		
 		// Catch:
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+	}
+	
+	public void clearPenisModifiers() {
+		penisModifiers.clear();
 	}
 }

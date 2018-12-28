@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -8,6 +7,7 @@ import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -15,8 +15,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.11
  * @author Innoxia
  */
-public class Eye implements BodyPartInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Eye implements BodyPartInterface {
 
 	public static final int MAXIMUM_PAIRS = 4;
 	
@@ -66,6 +65,16 @@ public class Eye implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, EyeType type) {
+		if(!Main.game.isStarted() || owner==null) {
+			this.type = type;
+			irisShape = type.getIrisShape();
+			pupilShape = type.getPupilShape();
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
+		
 		if (type == getType()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.eyes] of [pc.a_eyeRace], so nothing happens...)]</p>";

@@ -17,7 +17,7 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionOffspringDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyNestOffspringDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -194,7 +194,7 @@ public class NPCOffspring extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		if(this.getWorldLocation()==WorldType.HARPY_NEST) {
 			return HarpyNestOffspringDialogue.OFFSPRING_ENCOUNTER;
 		} else {

@@ -18,9 +18,13 @@ import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
+import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -30,7 +34,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -66,8 +70,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class CharacterCreation {
 
-	public static final DialogueNodeOld CHARACTER_CREATION_START = new DialogueNodeOld("Disclaimer", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHARACTER_CREATION_START = new DialogueNode("Disclaimer", "", true) {
 
 		@Override
 		public String getContent() {
@@ -84,8 +87,7 @@ public class CharacterCreation {
 		}
 	};
 
-	public static final DialogueNodeOld ALPHA_MESSAGE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALPHA_MESSAGE = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -109,8 +111,7 @@ public class CharacterCreation {
 		}
 	};
 
-	public static final DialogueNodeOld CONTENT_PREFERENCES = new DialogueNodeOld("Content Preferences", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CONTENT_PREFERENCES = new DialogueNode("Content Preferences", "", true) {
 
 		@Override
 		public String getHeaderContent() {
@@ -166,7 +167,7 @@ public class CharacterCreation {
 	
 	public static void resetBodyAppearance() {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
+		Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BROWN), true);
 		Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN), true);
 		Main.game.getPlayer().setBreastShape(BreastShape.ROUND);
@@ -550,14 +551,14 @@ public class CharacterCreation {
 		}
 	}
 	
-	public static final DialogueNodeOld CHOOSE_APPEARANCE = new DialogueNodeOld("A Night Out", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_APPEARANCE = new DialogueNode("A Night Out", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
 			return "<p>"
-						+ "By the time the taxi finally pulls up to the museum, you're already almost five minutes late."
-						+ " You'd promised your aunt Lily that you'd be here in time for her speech, and as you hurriedly pay the driver his fare and step out of the car, you hope that the opening event hasn't started yet."
+						+ "By the time the taxi finally pulls up to the British Museum, you're already almost five minutes late."
+						+ " The whole reason you're visiting London is to attend your aunt Lily's opening evening for her new exhibition,"
+							+ " and as you hurriedly pay the driver his fare and step out of the car, you hope that she hasn't started her speech yet."
 					+ "</p>"
 					+ "<p>"
 						+ "The street lights flicker into life as you rush over to the entrance, illuminating your surroundings with a dull orange glow."
@@ -609,8 +610,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_NAME = new DialogueNodeOld("A Night Out", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_NAME = new DialogueNode("A Night Out", "", true) {
 
 		boolean unsuitableName = false, unsuitableSurname = false;
 		
@@ -753,8 +753,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE = new DialogueNodeOld("In the Museum", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE = new DialogueNode("In the Museum", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -847,8 +846,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_CORE = new DialogueNodeOld("Core Body Appearance", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_CORE = new DialogueNode("Core Body Appearance", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -890,8 +888,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_FACE = new DialogueNodeOld("Face Appearance", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_FACE = new DialogueNode("Face Appearance", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -922,8 +919,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_HAIR = new DialogueNodeOld("Hair Appearance", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_HAIR = new DialogueNode("Hair Appearance", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -954,8 +950,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_BREASTS = new DialogueNodeOld("Breasts Appearance", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_BREASTS = new DialogueNode("Breasts Appearance", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -992,8 +987,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_ASS = new DialogueNodeOld("Ass Appearance", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_ASS = new DialogueNode("Ass Appearance", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -1024,8 +1018,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_GENITALS = new DialogueNodeOld("Genitals Appearance", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_GENITALS = new DialogueNode("Genitals Appearance", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -1079,8 +1072,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_PIERCINGS = new DialogueNodeOld("Piercings", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_PIERCINGS = new DialogueNode("Piercings", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -1121,8 +1113,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_TATTOOS = new DialogueNodeOld("Tattoos", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_TATTOOS = new DialogueNode("Tattoos", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -1148,8 +1139,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getLabel() {
@@ -1195,8 +1185,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_COSMETICS = new DialogueNodeOld("Cosmetics", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_COSMETICS = new DialogueNode("Cosmetics", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -1239,8 +1228,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_BODY_HAIR = new DialogueNodeOld("Body Hair", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_ADVANCED_APPEARANCE_BODY_HAIR = new DialogueNode("Body Hair", "", true) {
 		
 		@Override
 		public String getHeaderContent() {
@@ -1336,24 +1324,23 @@ public class CharacterCreation {
 	
 	public static void moveNPCIntoPlayerTile() {
 		if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC || (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && Main.game.getPlayer().hasVagina())) {
-			Main.game.getPrologueMale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+			Main.game.getNpc(PrologueMale.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 			
 		} else {
-			Main.game.getPrologueFemale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+			Main.game.getNpc(PrologueFemale.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		}
 	}
 	
 	public static void moveNPCOutOfPlayerTile() {
-		Main.game.getPrologueMale().setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
-		Main.game.getPrologueFemale().setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
+		Main.game.getNpc(PrologueMale.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
+		Main.game.getNpc(PrologueFemale.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 	}
 	
 	public static boolean femalePrologueNPC() {
 		return Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC || (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && Main.game.getPlayer().hasPenis());
 	}
 	
-	public static final DialogueNodeOld CHOOSE_BACKGROUND = new DialogueNodeOld("In the Museum", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_BACKGROUND = new DialogueNode("In the Museum", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -1471,8 +1458,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	public static final DialogueNodeOld BACKGROUND_SELECTION_MENU = new DialogueNodeOld("In the Museum", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BACKGROUND_SELECTION_MENU = new DialogueNode("In the Museum", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -1567,8 +1553,7 @@ public class CharacterCreation {
 	};
 	
 	
-	public static final DialogueNodeOld CHOOSE_SEX_EXPERIENCE = new DialogueNodeOld("Start", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CHOOSE_SEX_EXPERIENCE = new DialogueNode("Start", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1728,9 +1713,9 @@ public class CharacterCreation {
 	private static void applyGameStart() {
 		Main.getProperties().addRaceDiscovered(Subspecies.HUMAN);
 		
-		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
+		Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
-		Main.game.getLilaya().setBirthday(LocalDateTime.of(Main.game.getPlayer().getBirthday().getYear()-22, Main.game.getLilaya().getBirthMonth(), Main.game.getLilaya().getDayOfBirth(), 12, 0));
+		Main.game.getNpc(Lilaya.class).setBirthday(LocalDateTime.of(Main.game.getPlayer().getBirthday().getYear()-22, Main.game.getNpc(Lilaya.class).getBirthMonth(), Main.game.getNpc(Lilaya.class).getDayOfBirth(), 12, 0));
 		
 		Main.game.clearTextStartStringBuilder();
 		Main.game.clearTextEndStringBuilder();
@@ -1741,18 +1726,17 @@ public class CharacterCreation {
 	}
 
 	private static void applySkipPrologueStart() {
-		Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
-		Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
+		Main.game.getPlayer().addCharacterEncountered(Main.game.getNpc(Lilaya.class));
+		Main.game.getPlayer().addCharacterEncountered(Main.game.getNpc(Rose.class));
 		
-		Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getSubspecies());
-		Main.getProperties().addRaceDiscovered(Main.game.getRose().getSubspecies());
+		Main.getProperties().addRaceDiscovered(Main.game.getNpc(Lilaya.class).getSubspecies());
+		Main.getProperties().addRaceDiscovered(Main.game.getNpc(Rose.class).getSubspecies());
 
 		moveNPCOutOfPlayerTile();
 		Main.game.setPrologueFinished(true);
 	}
 	
-	public static final DialogueNodeOld FINAL_CHECK = new DialogueNodeOld("Start", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FINAL_CHECK = new DialogueNode("Start", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1823,8 +1807,7 @@ public class CharacterCreation {
 	
 	
 	private static StringBuilder importSB;
-	public static final DialogueNodeOld IMPORT_CHOOSE = new DialogueNodeOld("Import", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IMPORT_CHOOSE = new DialogueNode("Import", "", true) {
 		
 		@Override
 		public String getContent(){
@@ -1897,8 +1880,7 @@ public class CharacterCreation {
 				+ "</tr>";
 	}
 	
-	public static final DialogueNodeOld START_GAME_WITH_IMPORT = new DialogueNodeOld("Start game", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode START_GAME_WITH_IMPORT = new DialogueNode("Start game", "", true) {
 		
 		@Override
 		public String getLabel() {

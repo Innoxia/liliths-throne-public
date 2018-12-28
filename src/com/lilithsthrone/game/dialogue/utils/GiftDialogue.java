@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
@@ -14,9 +14,9 @@ import com.lilithsthrone.rendering.RenderingEngine;
 public class GiftDialogue {
 	
 	private static GameCharacter receiver;
-	private static DialogueNodeOld dialogueToReturnTo;
+	private static DialogueNode dialogueToReturnTo;
 	private static int returnDialogueTab;
-	private static DialogueNodeOld dialogueToProceedTo;
+	private static DialogueNode dialogueToProceedTo;
 	private static int proceedDialogueTab;
 	
 	/**
@@ -27,7 +27,7 @@ public class GiftDialogue {
 	 * @param proceedDialogueTab The tab which should be selected when proceeding to dialogueToProceedTo.
 	 * @return
 	 */
-	public static DialogueNodeOld getGiftDialogue(GameCharacter receiver, DialogueNodeOld dialogueToReturnTo, int returnDialogueTab, DialogueNodeOld dialogueToProceedTo, int proceedDialogueTab) {
+	public static DialogueNode getGiftDialogue(GameCharacter receiver, DialogueNode dialogueToReturnTo, int returnDialogueTab, DialogueNode dialogueToProceedTo, int proceedDialogueTab) {
 		GiftDialogue.receiver = receiver;
 		GiftDialogue.dialogueToReturnTo = dialogueToReturnTo;
 		GiftDialogue.returnDialogueTab = returnDialogueTab;
@@ -37,8 +37,7 @@ public class GiftDialogue {
 		return GIFT_DIALOGUE;
 	}
 	
-	public static final DialogueNodeOld GIFT_DIALOGUE = new DialogueNodeOld("Choose Gift", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GIFT_DIALOGUE = new DialogueNode("Choose Gift", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -69,7 +68,7 @@ public class GiftDialogue {
 		return receiver;
 	}
 
-	public static DialogueNodeOld getDialogueToProceedTo() {
+	public static DialogueNode getDialogueToProceedTo() {
 		return dialogueToProceedTo;
 	}
 

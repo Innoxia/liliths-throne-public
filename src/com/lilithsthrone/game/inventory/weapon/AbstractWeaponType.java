@@ -339,7 +339,11 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				try {
 					if(coreAttributes.getElementsByTagName("spells").getLength() > 0) {
 						for(int i=0; i<coreAttributes.getElementsByTagName("spell").getLength(); i++){
-							this.spells.add(Spell.valueOf(coreAttributes.getElementsByTagName("spell").item(i).getTextContent()));
+							String spellName = coreAttributes.getElementsByTagName("spell").item(i).getTextContent();
+							if(spellName.equals("DARK_SIREN_BANEFUL_FISSURE")) {
+								spellName = "DARK_SIREN_SIRENS_CALL";
+							}
+							this.spells.add(Spell.valueOf(spellName));
 						}
 					}
 				} catch(Exception ex) {
@@ -558,8 +562,6 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		
 		return new AbstractWeapon(wt, dt, c1, c2) {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public String onEquip(GameCharacter character) {
 				if (character.isPlayer()) {

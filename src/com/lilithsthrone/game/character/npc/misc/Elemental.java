@@ -45,7 +45,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.sex.PregnancyDescriptor;
@@ -70,8 +70,7 @@ public class Elemental extends NPC {
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 
 		if(!isImported) {
-			this.setWorldLocation(summoner.getWorldLocation());
-			this.setLocation(summoner.getLocation());
+			this.setLocation(summoner, false);
 			
 			setLevel(summoner.getLevel());
 			
@@ -261,7 +260,7 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public int getLevel() {
+	protected int getTrueLevel() {
 		if(this.getSummoner()==null) {
 			return level;
 		}
@@ -269,11 +268,16 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
+	public int getLevel() {
+		return getTrueLevel();
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	

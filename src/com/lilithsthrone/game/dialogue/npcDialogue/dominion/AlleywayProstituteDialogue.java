@@ -5,7 +5,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -41,8 +41,7 @@ public class AlleywayProstituteDialogue {
 				|| pt == PlaceType.DOMINION_CANAL_END);
 	}
 	
-	public static final DialogueNodeOld ALLEY_PROSTITUTE = new DialogueNodeOld("Prostitute", "You run into someone who's selling their body.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_PROSTITUTE = new DialogueNode("Prostitute", "You run into someone who's selling their body.", true) {
 		
 		@Override
 		public String getLabel(){
@@ -391,8 +390,7 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEY_PROSTITUTE_SAVED = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_PROSTITUTE_SAVED = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -445,8 +443,7 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEY_PROSTITUTE_FIGHT = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEY_PROSTITUTE_FIGHT = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -479,8 +476,7 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -603,8 +599,7 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 		
 		@Override
 		public String getDescription() {
@@ -717,7 +712,7 @@ public class AlleywayProstituteDialogue {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -729,8 +724,7 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PAID = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_PAID = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -800,8 +794,7 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PAID_FIGHT = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_PAID_FIGHT = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -834,8 +827,7 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PAID_PAY_THEM_TO_LEAVE = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_PAID_PAY_THEM_TO_LEAVE = new DialogueNode("", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -900,8 +892,7 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -956,8 +947,7 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){

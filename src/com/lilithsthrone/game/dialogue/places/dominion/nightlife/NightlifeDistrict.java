@@ -14,13 +14,16 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionClubNPC;
+import com.lilithsthrone.game.character.npc.dominion.Jules;
+import com.lilithsthrone.game.character.npc.dominion.Kalahari;
+import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.SMJulesCockSucking;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -43,6 +46,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
@@ -59,6 +63,9 @@ public class NightlifeDistrict {
 	
 	public static List<GameCharacter> getClubbersPresent() {
 		List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+//		for(GameCharacter clubber : clubbers) {
+//			System.out.println(clubber.getClass().getName());
+//		}
 		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
 		return clubbers;
 	}
@@ -358,8 +365,7 @@ public class NightlifeDistrict {
 	
 	private static final float KALAHARI_SELL_MODIFIER = 1.2f;
 
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Nightlife", "Nightlife", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Nightlife", "Nightlife", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -404,8 +410,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_ENTRANCE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_ENTRANCE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -464,7 +469,7 @@ public class NightlifeDistrict {
 						return new ResponseSex("Suck cock", "Suck Jules's cock in front of everyone in order to skip to the front of the queue.",
 								true, false,
 								new SMJulesCockSucking(
-										Util.newHashMapOfValues(new Value<>(Main.game.getJules(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 								null,
 								null, AFTER_JULES_BLOWJOB, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_START_BLOWJOB")) {
@@ -533,8 +538,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_ENTRANCE_WAITING = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_ENTRANCE_WAITING = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -552,8 +556,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_JULES_BLOWJOB = new DialogueNodeOld("Finished", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_JULES_BLOWJOB = new DialogueNode("Finished", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -566,8 +569,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_MAIN = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -768,8 +770,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_TALK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_TALK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -793,8 +794,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_FLIRT = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_FLIRT = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -818,8 +818,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_KISS = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_KISS = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -842,8 +841,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_GROPE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_GROPE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -866,8 +864,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_MAIN_LOSE_COMPANY = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_MAIN_LOSE_COMPANY = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -890,8 +887,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEARCH_GENDER = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEARCH_GENDER = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -949,8 +945,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEARCH_RACE = new DialogueNodeOld("The Watering Hole", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEARCH_RACE = new DialogueNode("The Watering Hole", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -968,29 +963,32 @@ public class NightlifeDistrict {
 				return new Response("Back", "Decide to look for a different gender.", WATERING_HOLE_SEARCH_GENDER);
 			}
 			int count = 1;
-			for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation().getSpecies()) {
-				if(count==index) {
-					return new Response(Util.capitaliseSentence(subspecies.getName(null)),
-							"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
-							(isSearchingForASub
-									?WATERING_HOLE_SEARCH_GENERATE
-									:WATERING_HOLE_SEARCH_GENERATE_DOM)) {
-						@Override
-						public void effects() {
-							clubberSubspecies = subspecies;
 
-							spawnClubbers(isSearchingForASub);
-						}
-					};
+			Population pop = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation();
+			if(pop!=null && !pop.getSpecies().isEmpty()) {
+				for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation().getSpecies()) {
+					if(count==index) {
+						return new Response(Util.capitaliseSentence(subspecies.getName(null)),
+								"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
+								(isSearchingForASub
+										?WATERING_HOLE_SEARCH_GENERATE
+										:WATERING_HOLE_SEARCH_GENERATE_DOM)) {
+							@Override
+							public void effects() {
+								clubberSubspecies = subspecies;
+	
+								spawnClubbers(isSearchingForASub);
+							}
+						};
+					}
+					count++;
 				}
-				count++;
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEARCH_GENERATE = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEARCH_GENERATE = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1025,8 +1023,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_CONTACTS = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_CONTACTS = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1062,8 +1059,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_FIND_CONTACT = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_FIND_CONTACT = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1082,8 +1078,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_LOITER_GENERATE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_LOITER_GENERATE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1169,8 +1164,7 @@ public class NightlifeDistrict {
 //		}
 	}
 
-	public static final DialogueNodeOld WATERING_HOLE_SEATING = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1321,8 +1315,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_TALK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_TALK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1346,8 +1339,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_FLIRT = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_FLIRT = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1371,8 +1363,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_FOOTSIE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_FOOTSIE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1395,8 +1386,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1419,8 +1409,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1443,8 +1432,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_AFTER_SEX = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_AFTER_SEX = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1495,8 +1483,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_AFTER_SEX_SEE_AGAIN = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_AFTER_SEX_SEE_AGAIN = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1519,8 +1506,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_AFTER_SEX_DO_NOT_SEE_AGAIN = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_AFTER_SEX_DO_NOT_SEE_AGAIN = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1543,8 +1529,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEATING_LOSE_COMPANY = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEATING_LOSE_COMPANY = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1567,8 +1552,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_BAR = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1615,7 +1599,7 @@ public class NightlifeDistrict {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI", getClubbersPresent()));
-							Main.game.getKalahari().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							Main.game.getNpc(Kalahari.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 						}
 					};
 				} else {
@@ -1636,8 +1620,7 @@ public class NightlifeDistrict {
 		return sb.toString();
 	}
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_INTRO = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_INTRO = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -1858,7 +1841,7 @@ public class NightlifeDistrict {
 						return new Response("Talk", "Lean forwards and talk to Kalahari for a little while.", WATERING_HOLE_BAR_KALAHARI_TALK) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 5));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 5));
 								Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_BAR_KALAHARI_TALK.getMinutesPassed()));
 							}
 						};
@@ -1871,9 +1854,9 @@ public class NightlifeDistrict {
 						return new Response("Flirt", "Start flirting with Kalahari.", WATERING_HOLE_BAR_KALAHARI_FLIRT) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 10));
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
 								Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_BAR_KALAHARI_FLIRT.getMinutesPassed()));
 							}
 						};
@@ -1888,7 +1871,7 @@ public class NightlifeDistrict {
 					} else if(Main.game.getMinutesPassed() - Main.game.getDialogueFlags().kalahariBreakStartTime < 60 * 12) {
 							return new Response("Break", "Kalahari has already used up her break tonight!", null);
 							
-					} else if(!likesKiss(Main.game.getKalahari())) {
+					} else if(!likesKiss(Main.game.getNpc(Kalahari.class))) {
 						return new Response("Break", "You don't know Kalahari well enough to ask her to spend her break with you. Try talking and flirting with her a little first...", null);
 						
 					} else {
@@ -1896,11 +1879,11 @@ public class NightlifeDistrict {
 							return new Response("Break", "Ask Kalahari if she's got a break coming up, and if she'd like to spend it with you.", WATERING_HOLE_BAR_KALAHARI_BREAK_KRUGER_INTRO) {
 								@Override
 								public void effects() {
-									Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
+									Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 									Main.game.getPlayer().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.krugerIntroduced, true);
 									Main.game.getDialogueFlags().kalahariBreakStartTime = Main.game.getMinutesPassed();
-									Main.game.getKruger().setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue()-7);
+									Main.game.getNpc(Kruger.class).setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue()-7);
 								}
 							};
 							
@@ -1908,7 +1891,7 @@ public class NightlifeDistrict {
 							return new Response("Break", "Ask Kalahari if she's got a break coming up, and if she'd like to relax in the VIP area with you again.", WATERING_HOLE_BAR_KALAHARI_BREAK) {
 								@Override
 								public void effects() {
-									Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
+									Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 									Main.game.getPlayer().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 									Main.game.getDialogueFlags().kalahariBreakStartTime = Main.game.getMinutesPassed();
 								}
@@ -2216,8 +2199,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_TALK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_TALK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2246,8 +2228,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_FLIRT = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_FLIRT = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2276,8 +2257,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KISS = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KISS = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2305,8 +2285,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_GROPE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_GROPE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2334,8 +2313,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_LOSE_COMPANY = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_LOSE_COMPANY = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2363,8 +2341,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_DRINK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_DRINK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2392,8 +2369,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2422,8 +2398,7 @@ public class NightlifeDistrict {
 	};
 
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_TALK = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_TALK = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2451,8 +2426,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_FLIRT = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_FLIRT = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2468,7 +2442,7 @@ public class NightlifeDistrict {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_FLIRT")
 					+ "<p>"
-						+ Main.game.getKalahari().getBreastDescription()
+						+ Main.game.getNpc(Kalahari.class).getBreastDescription()
 					+ "</p>"
 					+ UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_FLIRT_END");
 		}
@@ -2484,8 +2458,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_BREAK_KRUGER_INTRO = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_BREAK_KRUGER_INTRO = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2509,7 +2482,7 @@ public class NightlifeDistrict {
 					return new Response("Break over", "Kalahari has run out of break time. Let her get back to work.", WATERING_HOLE_KALAHARI_BREAK_OUT_OF_TIME) {
 						@Override
 						public void effects() {
-							Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
+							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
 						}
 					};
@@ -2524,7 +2497,7 @@ public class NightlifeDistrict {
 						return new Response("Talk", "Talk to Kalahari in order to get to know her better.", WATERING_HOLE_KALAHARI_BREAK_TALK) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 5));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 5));
 								Main.game.getTextEndStringBuilder().append(getKalahariStatus(false, WATERING_HOLE_KALAHARI_BREAK_TALK.getMinutesPassed()));
 							}
 						};
@@ -2538,7 +2511,7 @@ public class NightlifeDistrict {
 						return new Response("Flirt", "Start flirting with Kalahari.", WATERING_HOLE_KALAHARI_BREAK_FLIRT) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 10));
 								Main.game.getTextEndStringBuilder().append(getKalahariStatus(false, WATERING_HOLE_KALAHARI_BREAK_FLIRT.getMinutesPassed()));
 							}
 						};
@@ -2548,14 +2521,14 @@ public class NightlifeDistrict {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kalahariWantsSex)) {
 						return new Response("Kiss", "Kalahari is only interested in having sex right now!", null);
 						
-					} else if(!likesKiss(Main.game.getKalahari())) {
+					} else if(!likesKiss(Main.game.getNpc(Kalahari.class))) {
 						return new Response("Kiss", "You can tell that Kalahari doesn't want a kiss at the moment. It would be best to get to know her a little better first.", null);
 						
 					} else {
 						return new Response("Kiss", "Lean forwards and kiss Kalahari.", WATERING_HOLE_KALAHARI_BREAK_KISS) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 15));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 15));
 								Main.game.getTextEndStringBuilder().append(getKalahariStatus(false, WATERING_HOLE_KALAHARI_BREAK_KISS.getMinutesPassed()));
 							}
 						};
@@ -2565,21 +2538,21 @@ public class NightlifeDistrict {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kalahariWantsSex)) {
 						return new Response("Feel up", "Kalahari is only interested in having sex right now!", null);
 						
-					} else if(!likesGroping(Main.game.getKalahari())) {
+					} else if(!likesGroping(Main.game.getNpc(Kalahari.class))) {
 						return new Response("Feel up", "You can tell that Kalahari would react badly to any dominant move to feel her up. It would be best to spend some time flirting with her first.", null);
 						
 					} else {
 						return new Response("Feel up", "Press yourself against Kalahari and start feeling her up.", WATERING_HOLE_KALAHARI_BREAK_GROPE) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 20));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kalahari.class).incrementAffection(Main.game.getPlayer(), 20));
 								Main.game.getTextEndStringBuilder().append(getKalahariStatus(false, WATERING_HOLE_KALAHARI_BREAK_GROPE.getMinutesPassed()));
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
-								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer(), true);
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
+								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer(), true);
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, true);
-								Main.game.getKalahari().displaceClothingForAccess(CoverableArea.BREASTS);
-								Main.game.getKalahari().displaceClothingForAccess(CoverableArea.VAGINA);
+								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.BREASTS);
+								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.VAGINA);
 							}
 						};
 					}
@@ -2592,7 +2565,7 @@ public class NightlifeDistrict {
 								true, true,
 								new SMChair(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getKalahari(), SexPositionSlot.CHAIR_TOP))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexPositionSlot.CHAIR_TOP))),
 								null,
 								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"));
 					}
@@ -2604,7 +2577,7 @@ public class NightlifeDistrict {
 						return new ResponseSex("Sex (sub)", "Slide into Kalahari's lap and start having submissive sex with her.",
 								true, true,
 								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getKalahari(), SexPositionSlot.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))),
 								null,
 								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
@@ -2620,10 +2593,10 @@ public class NightlifeDistrict {
 //						return new ResponseSex("Kruger threesome", "Have a threesome with Kruger as the dom, and you and Kalahari as the subs.",
 //								true, true,
 //								new SMKrugerThreesome(
-//										Util.newHashMapOfValues(new Value<>(Main.game.getKruger(), SexPositionSlot.DOGGY_BEHIND)),
+//										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexPositionSlot.DOGGY_BEHIND)),
 //										Util.newHashMapOfValues(
 //												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-//												new Value<>(Main.game.getKalahari(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+//												new Value<>(Main.game.getNpc(Kalahari.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
 //								WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX,
 //								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
 //					}
@@ -2633,7 +2606,7 @@ public class NightlifeDistrict {
 					return new Response("Finish", "Let Kalahari get back to work.", WATERING_HOLE_KALAHARI_BREAK_END) {
 						@Override
 						public void effects() {
-							Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
+							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
 						}
 					};
@@ -2644,8 +2617,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_BREAK = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_BREAK = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2665,8 +2637,7 @@ public class NightlifeDistrict {
 	};
 	
 
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_TALK = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_TALK = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2684,8 +2655,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_FLIRT = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_FLIRT = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2703,8 +2673,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_KISS = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_KISS = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2722,8 +2691,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_GROPE = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_GROPE = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2734,10 +2702,10 @@ public class NightlifeDistrict {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_KALAHARI_BREAK_GROPE")
 					+ "<p>"
-						+ Main.game.getKalahari().getBreastDescription()
+						+ Main.game.getNpc(Kalahari.class).getBreastDescription()
 					+ "</p>"
 					+ UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_KALAHARI_BREAK_GROPE_AFTER_BREAST_REVEAL")
-						+ Main.game.getKalahari().getVaginaDescription()
+						+ Main.game.getNpc(Kalahari.class).getVaginaDescription()
 					+ "</p>"
 					+ UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_KALAHARI_BREAK_GROPE_AFTER_PUSSY_REVEAL");
 		}
@@ -2748,12 +2716,11 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getKalahari())>0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Kalahari.class))>0) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX_NO_ORGASM");
@@ -2766,8 +2733,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_END = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_END = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2790,8 +2756,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_KALAHARI_BREAK_OUT_OF_TIME = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_KALAHARI_BREAK_OUT_OF_TIME = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2815,8 +2780,7 @@ public class NightlifeDistrict {
 	};
 	
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2850,7 +2814,7 @@ public class NightlifeDistrict {
 					if(hasPartner()) {
 						return new Response("Kruger", UtilText.parse(getClubbersPresent(), "You can't talk to Kruger while [npc.name] is with you."), null);
 						
-					} else if(Main.game.getKruger().getLastTimeHadSex() >= Main.game.getMinutesPassed()-(60*12)) {
+					} else if(Main.game.getNpc(Kruger.class).getLastTimeHadSex() >= Main.game.getMinutesPassed()-(60*12)) {
 						return new Response("Kruger", "You've already had sex with Kruger tonight."
 								+ " Although you wouldn't mind having some more fun with him, you can tell that his patience would soon wear thin if you keep going back to him."
 								+ " You can always come back and ride his cock tomorrow night.", null);
@@ -2861,7 +2825,7 @@ public class NightlifeDistrict {
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_VIP_KRUGER"));
 								Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER.getMinutesPassed()));
-								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getKruger(), true);
+								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Kruger.class), true);
 							}
 						};
 					}
@@ -2873,8 +2837,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2896,7 +2859,7 @@ public class NightlifeDistrict {
 				return new Response("Talk", "Talk to Kruger for a little while.", WATERING_HOLE_VIP_KRUGER_TALK) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getKruger().incrementAffection(Main.game.getPlayer(), 5));
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kruger.class).incrementAffection(Main.game.getPlayer(), 5));
 						Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER_TALK.getMinutesPassed()));
 					}
 				};
@@ -2906,7 +2869,7 @@ public class NightlifeDistrict {
 					return new Response("Flirt", "Flirt with Kruger.", WATERING_HOLE_VIP_KRUGER_FLIRT) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getKruger().incrementAffection(Main.game.getPlayer(), 10));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kruger.class).incrementAffection(Main.game.getPlayer(), 10));
 							Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER_FLIRT.getMinutesPassed()));
 						}
 					};
@@ -2918,14 +2881,14 @@ public class NightlifeDistrict {
 				if(!Main.game.getPlayer().isFeminine()) {
 					return new Response("Kissed", "Kruger is gynephilic, so isn't interested in doing anything sexual with you.", null);
 					
-				} else if(!likesKiss(Main.game.getKruger())) {
+				} else if(!likesKiss(Main.game.getNpc(Kruger.class))) {
 					return new Response("Kissed", "Kruger doesn't seem to be interested in kissing you.", null);
 					
 				} else {
 					return new Response("Kissed", "You can tell that Kruger wants to kiss you. Lean forwards and let him.", WATERING_HOLE_VIP_KRUGER_KISSED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getKruger().incrementAffection(Main.game.getPlayer(), 15));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kruger.class).incrementAffection(Main.game.getPlayer(), 15));
 							Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER_KISSED.getMinutesPassed()));
 						}
 					};
@@ -2935,14 +2898,14 @@ public class NightlifeDistrict {
 				if(!Main.game.getPlayer().isFeminine()) {
 					return new Response("Felt up", "Kruger is gynephilic, so isn't interested in doing anything sexual with you.", null);
 					
-				} else if(!likesGroping(Main.game.getKruger())) {
+				} else if(!likesGroping(Main.game.getNpc(Kruger.class))) {
 					return new Response("Felt up", "Kruger doesn't seem to be interested in feeling you up at the moment.", null);
 					
 				} else {
 					return new Response("Felt up", "You can tell that Kruger wants to have some physical contact with you. Shuffle up beside him and let him feel you up.", WATERING_HOLE_VIP_KRUGER_FELT_UP) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getKruger().incrementAffection(Main.game.getPlayer(), 20));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Kruger.class).incrementAffection(Main.game.getPlayer(), 20));
 							Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_VIP_KRUGER_FELT_UP.getMinutesPassed()));
 						}
 					};
@@ -2953,14 +2916,14 @@ public class NightlifeDistrict {
 				if(!Main.game.getPlayer().isFeminine()) {
 					return new Response("Sex (sub)", "Kruger is gynephilic, so isn't interested in doing anything sexual with you.", null);
 					
-				} else if(!likesSex(Main.game.getKruger())) {
+				} else if(!likesSex(Main.game.getNpc(Kruger.class))) {
 					return new Response("Sex (sub)", "Kruger doesn't seem to be interested in having sex with you at the moment.", null);
 					
 				} else {
 					return new ResponseSex("Sex (sub)", "Slide into Kruger's lap and start having submissive sex with [npc.herHim].",
 							true, true,
 							new SMKrugerChair(
-									Util.newHashMapOfValues(new Value<>(Main.game.getKruger(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexPositionSlot.CHAIR_ORAL_SITTING)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 							null,
 							null, WATERING_HOLE_VIP_KRUGER_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_VIP_KRUGER_SEX_AS_SUB"));
@@ -2973,8 +2936,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_TALK = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_TALK = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -2992,8 +2954,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_FLIRT = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_FLIRT = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3011,8 +2972,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_KISSED = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_KISSED = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3030,8 +2990,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_FELT_UP = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_FELT_UP = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3049,10 +3008,9 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_AFTER_SEX = new DialogueNodeOld("The Watering Hole",
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_AFTER_SEX = new DialogueNode("The Watering Hole",
 			"Kruger is finished with you, and, being exhausted from the sex, you readily allow him to push you off of him.",
 			false) {
-		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getContent() {
@@ -3065,8 +3023,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_VIP_KRUGER_LEAVE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_LEAVE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3084,8 +3041,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3197,8 +3153,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR_DANCE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR_DANCE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3225,8 +3180,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR_KISS = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR_KISS = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3249,8 +3203,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR_GROPE = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR_GROPE = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3273,8 +3226,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DANCE_FLOOR_LOSE_COMPANY = new DialogueNodeOld("The Watering Hole", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DANCE_FLOOR_LOSE_COMPANY = new DialogueNode("The Watering Hole", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3297,8 +3249,7 @@ public class NightlifeDistrict {
 		}
 	};
 
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS = new DialogueNodeOld("Toilets", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS = new DialogueNode("Toilets", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3409,8 +3360,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3449,8 +3399,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3478,8 +3427,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_GET_READY = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_GET_READY = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3538,8 +3486,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3641,8 +3588,7 @@ public class NightlifeDistrict {
 		}
 	}
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_AFTER_SEX = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_AFTER_SEX = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -3696,8 +3642,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_AFTER_SEX_SEE_AGAIN = new DialogueNodeOld("The Watering Hole", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_AFTER_SEX_SEE_AGAIN = new DialogueNode("The Watering Hole", "", false, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3720,8 +3665,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_SEX_REJECTED = new DialogueNodeOld("Toilets", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_SEX_REJECTED = new DialogueNode("Toilets", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3745,8 +3689,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_TOILETS_USE = new DialogueNodeOld("Toilets", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_TOILETS_USE = new DialogueNode("Toilets", "", false) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3772,8 +3715,7 @@ public class NightlifeDistrict {
 	
 	// Dom partner:
 	
-	public static final DialogueNodeOld WATERING_HOLE_SEARCH_GENERATE_DOM = new DialogueNodeOld("The Watering Hole", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_SEARCH_GENERATE_DOM = new DialogueNode("The Watering Hole", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3792,8 +3734,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_CONTACTS_DOM = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_CONTACTS_DOM = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -3830,8 +3771,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_FIND_CONTACT_DOM = new DialogueNodeOld("The Watering Hole", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_FIND_CONTACT_DOM = new DialogueNode("The Watering Hole", "", true, true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -4119,8 +4059,7 @@ public class NightlifeDistrict {
 		Main.game.getPlayer().setLocation(WorldType.NIGHTLIFE_CLUB, currentBehaviour.getPlaceType());
 	}
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER = new DialogueNodeOld("The Watering Hole", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER = new DialogueNode("The Watering Hole", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -4756,8 +4695,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_REACT = new DialogueNodeOld("The Watering Hole", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_REACT = new DialogueNode("The Watering Hole", "", true, true) {
 		
 		@Override
 		public String getLabel() {
@@ -4794,8 +4732,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_TAKEN_HOME = new DialogueNode("", "", true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -4857,8 +4794,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX = new DialogueNode("", "", true) {
 		
 		@Override
 		public int getMinutesPassed(){
@@ -4924,8 +4860,7 @@ public class NightlifeDistrict {
 
 
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX = new DialogueNodeOld("Toilets", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX = new DialogueNode("Toilets", "", true) {
 		
 		@Override
 		public String getLabel() {

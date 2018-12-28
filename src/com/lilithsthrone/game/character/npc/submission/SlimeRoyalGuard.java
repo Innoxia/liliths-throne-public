@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -51,7 +52,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -81,7 +82,7 @@ public class SlimeRoyalGuard extends NPC {
 		super(isImported, new NameTriplet("Maximilian", "Max", "Maxine"), "Klinge",
 				"An incredibly rare and powerful demonic slime, [npc.name] prides [npc.herself] on [npc.her] skill with the sword.",
 				35, Month.APRIL, 14,
-				20, Gender.M_P_MALE, Subspecies.SLIME, RaceStage.GREATER,
+				20, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SLIME_QUEENS_LAIR_FIRST_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD, true);
 
 	}
@@ -93,8 +94,10 @@ public class SlimeRoyalGuard extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this.getBody())!=Subspecies.HUMAN) {
-			this.setBody(Gender.M_P_MALE, Subspecies.SLIME, RaceStage.HUMAN);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
+			this.setBodyMaterial(BodyMaterial.FLESH);
+			this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
+			setStartingBody(true);
 		}
 	}
 	
@@ -140,8 +143,9 @@ public class SlimeRoyalGuard extends NPC {
 		
 		
 		// Body:
-
+		
 		// Core:
+		this.setBodyMaterial(BodyMaterial.SLIME);
 		this.setHeight(205);
 		this.setFemininity(5);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
@@ -263,7 +267,7 @@ public class SlimeRoyalGuard extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null; //TODO
 	}
 

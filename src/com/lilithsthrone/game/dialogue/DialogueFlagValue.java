@@ -44,6 +44,7 @@ public enum DialogueFlagValue {
 	roxyIntroduced,
 	axelIntroduced,
 	eponaIntroduced,
+	elizabethIntroduced,
 	
 	
 	// Red-light district:
@@ -185,5 +186,15 @@ public enum DialogueFlagValue {
 	impFortressDemonBossEncountered,
 	impFortressDemonDefeated,
 	impFortressDemonImpsDefeated,
+	
+	elizabethAskedAboutUniforms,
+	elizabethAskedAboutSurname,
+	
+	lyssiethQuestionAsked1,
+	lyssiethQuestionAsked2,
+	lyssiethQuestionAsked3,
+	lyssiethQuestionAsked4,
+	lyssiethQuestionAsked5,
+	
 	;
 }

@@ -3,7 +3,7 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.effects.StatusEffect;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -20,8 +20,7 @@ public class MiscDialogue {
 	private static StringBuilder descriptionSB = new StringBuilder();
 	
 	
-	public static final DialogueNodeOld STATUS_EFFECTS = new DialogueNodeOld("Important status effect updates", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STATUS_EFFECTS = new DialogueNode("Important status effect updates", "", true) {
 
 		@Override
 		public String getContent() {

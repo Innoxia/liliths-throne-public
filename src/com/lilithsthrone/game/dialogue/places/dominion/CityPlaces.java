@@ -13,10 +13,11 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
+import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
@@ -28,6 +29,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -35,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.3
  * @author Innoxia
  */
 public class CityPlaces {
@@ -168,8 +170,7 @@ public class CityPlaces {
 		return mommyResponses;
 	}
 	
-	public static final DialogueNodeOld STREET = new DialogueNodeOld("Dominion Streets", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STREET = new DialogueNode("Dominion Streets", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -392,8 +393,7 @@ public class CityPlaces {
 	}
 
 	
-	public static final DialogueNodeOld BACK_ALLEYS = new DialogueNodeOld("Back Alleys", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BACK_ALLEYS = new DialogueNode("Back Alleys", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -424,7 +424,7 @@ public class CityPlaces {
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -434,8 +434,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld DARK_ALLEYS = new DialogueNodeOld("Dark Alleyways", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DARK_ALLEYS = new DialogueNode("Dark Alleyways", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -466,7 +465,7 @@ public class CityPlaces {
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -476,8 +475,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld BACK_ALLEYS_CANAL = new DialogueNodeOld("Canal Crossing", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BACK_ALLEYS_CANAL = new DialogueNode("Canal Crossing", ".", false) {
 		
 		@Override
 		public int getMinutesPassed() {
@@ -504,7 +502,7 @@ public class CityPlaces {
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -514,8 +512,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld BOULEVARD = new DialogueNodeOld("Dominion Boulevard", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BOULEVARD = new DialogueNode("Dominion Boulevard", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -596,8 +593,7 @@ public class CityPlaces {
 	};
 
 	
-	public static final DialogueNodeOld DOMINION_PLAZA = new DialogueNodeOld("Lilith's Plaza", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -695,8 +691,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld DOMINION_PLAZA_NEWS = new DialogueNodeOld("Lilith's Plaza", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DOMINION_PLAZA_NEWS = new DialogueNode("Lilith's Plaza", ".", false, true) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -720,8 +715,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld PARK = new DialogueNodeOld("Park", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARK = new DialogueNode("Park", ".", false) {
 
 		@Override
 		public String getAuthor() {
@@ -765,8 +759,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld PARK_ROSE_GARDEN = new DialogueNodeOld("Park", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARK_ROSE_GARDEN = new DialogueNode("Park", ".", false, true) {
 
 		@Override
 		public String getAuthor() {
@@ -808,8 +801,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld STREET_SHADED = new DialogueNodeOld("Dominion Streets (Shaded)", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STREET_SHADED = new DialogueNode("Dominion Streets (Shaded)", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -841,8 +833,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CANAL = new DialogueNodeOld("Dominion Canals", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CANAL = new DialogueNode("Dominion Canals", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -878,7 +869,7 @@ public class CityPlaces {
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -888,8 +879,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CANAL_END = new DialogueNodeOld("Dominion Canals", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CANAL_END = new DialogueNode("Dominion Canals", ".", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -914,7 +904,7 @@ public class CityPlaces {
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -926,8 +916,7 @@ public class CityPlaces {
 
 	// Entrances and exits:
 
-	public static final DialogueNodeOld CITY_EXIT_SEWERS = new DialogueNodeOld("Submission Entrance", "Enter the undercity of Submission.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_EXIT_SEWERS = new DialogueNode("Submission Entrance", "Enter the undercity of Submission.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -951,7 +940,7 @@ public class CityPlaces {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, false);
 						}
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
-						Main.game.getClaire().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
+						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
 					}
 				};
 
@@ -961,8 +950,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CITY_EXIT_SEWERS_ENTERING_SUBMISSION = new DialogueNodeOld("Enforcer Checkpoint", "Enter the undercity of Submission.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_EXIT_SEWERS_ENTERING_SUBMISSION = new DialogueNode("Enforcer Checkpoint", "Enter the undercity of Submission.", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -989,7 +977,7 @@ public class CityPlaces {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, true);
 						}
 						@Override
-						public DialogueNodeOld getNextDialogue(){
+						public DialogueNode getNextDialogue(){
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -1003,8 +991,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CITY_EXIT_JUNGLE = new DialogueNodeOld("Jungle Entrance", "Travel to the jungle.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_EXIT = new DialogueNode("Dominion Exit", "", false) {
 
 		@Override
 		public int getMinutesPassed() {
@@ -1013,112 +1000,52 @@ public class CityPlaces {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the demonic jungles."
-					+ " A pair of enforcers are preventing anyone from travelling to the jungle right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.4.0.</b>"
+			if(Main.game.getPlayer().isDiscoveredWorldMap()) {
+				return "<p>"
+						+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
+						+ " Now that you have a map, as well as business out there in the world beyond Dominion, there's nothing stopping you from leaving right now."
 					+ "</p>";
+				
+			} else {
+				return "<p>"
+							+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
+							+ " Although there's nothing stopping you from heading out into the world beyond, you have no reason to leave Dominion at the moment, and, without a map, you imagine that it would be quite easy to get lost."
+						+ "</p>"
+						+ "<p>"
+							+ "Your quest to find out how to return to your old world will no doubt eventually lead you to places other than Dominion, but for now, your business is within the city itself."
+						+ "</p>";
+			}
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Jungle", "Travel to the demonic jungle. (This will be added later!)", null){
-//					@Override
-//					public void specialEffects() {
-//						Main.mainController.moveGameWorld(true);
-//					}
-				};
+				if(Main.game.getPlayer().isDiscoveredWorldMap()) {
+					return new Response("World travel", "Take a look at your world map and decide where you want to travel to.", WORLD_MAP);
+					
+				} else {
+					return new Response("World travel", "You don't know what the rest of the world looks like, and, for now, your business is within the city.", null);
+				}
 
 			} else {
 				return null;
 			}
 		}
 	};
-	public static final DialogueNodeOld CITY_EXIT_FIELDS = new DialogueNodeOld("Fields Entrance", "Travel to the fields.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
+	
+	public static final DialogueNode WORLD_MAP = new DialogueNode("World Map", "", true) {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the outskirts of the city."
-					+ " A pair of enforcers are preventing anyone from travelling to the fields right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.3.0.</b>"
-					+ "</p>";
+			return RenderingEngine.ENGINE.getFullWorldMap();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Fields", "Travel to the fields. (This will be added later!)", null);
-
-			} else {
-				return null;
-			}
-		}
-	};
-	public static final DialogueNodeOld CITY_EXIT_SEA = new DialogueNodeOld("Endless Sea Entrance", "Travel to the Endless Sea.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the endless sea."
-					+ " A pair of enforcers are preventing anyone from travelling to the endless sea right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.6.0.</b>"
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Endless Sea", "Travel to the Endless Sea. (This will be added later!)", null);
-
-			} else {
-				return null;
-			}
-		}
-	};
-	public static final DialogueNodeOld CITY_EXIT_DESERT = new DialogueNodeOld("Desert Entrance", "Travel to the desert.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the desert."
-					+ " A pair of enforcers are preventing anyone from travelling to the desert right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.5.0.</b>"
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Desert", "Travel to the desert. (This will be added later!)", null);
-
+			// Rock island line
+			if (index == 0) {
+				return new Response("Back", "Decide against travelling anywhere right now, and head back into Dominion..", CITY_EXIT);
+			
 			} else {
 				return null;
 			}

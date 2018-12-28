@@ -28,7 +28,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -323,11 +323,11 @@ public class EnchantmentDialogue {
 		return inventorySB.toString();
 	}
 
-	public static DialogueNodeOld getEnchantmentMenu(AbstractCoreItem item) {
+	public static DialogueNode getEnchantmentMenu(AbstractCoreItem item) {
 		return getEnchantmentMenu(item, null, null);
 	}
 	
-	public static DialogueNodeOld getEnchantmentMenu(AbstractCoreItem item, GameCharacter tattooBearer, InventorySlot tattooSlot) {
+	public static DialogueNode getEnchantmentMenu(AbstractCoreItem item, GameCharacter tattooBearer, InventorySlot tattooSlot) {
 		EnchantmentDialogue.effects.clear();
 		EnchantmentDialogue.resetEnchantmentVariables();
 		EnchantmentDialogue.initModifiers(item, tattooBearer, tattooSlot);
@@ -340,8 +340,7 @@ public class EnchantmentDialogue {
 	/**
 	 * Use getEnchantmentMenu() to get this DialogueNodeOld when initially opening the Enchantment menu, as it resets all variables for you.
 	 */
-	public static final DialogueNodeOld ENCHANTMENT_MENU = new DialogueNodeOld("Enchantments", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCHANTMENT_MENU = new DialogueNode("Enchantments", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -363,7 +362,7 @@ public class EnchantmentDialogue {
 			if (index == 0) {
 				return new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						if(ingredient instanceof AbstractItem) {
 							return InventoryDialogue.ITEM_INVENTORY;
 							
@@ -608,8 +607,7 @@ public class EnchantmentDialogue {
 	}
 	
 	public static String loadConfirmationName = "", overwriteConfirmationName = "", deleteConfirmationName = "";
-	public static final DialogueNodeOld ENCHANTMENT_SAVE_LOAD = new DialogueNodeOld("Save enchantment files", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCHANTMENT_SAVE_LOAD = new DialogueNode("Save enchantment files", "", true) {
 
 		@Override
 		public String getContent() {
