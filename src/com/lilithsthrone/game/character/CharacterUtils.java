@@ -901,9 +901,13 @@ public class CharacterUtils {
 		
 //		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
 	}
-
+	// Overloaded the method generateHalfDemonBody to allow for keeping the gender of the initially generated body
 	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Subspecies halfSubspecies) {
-		Gender startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
+		return generateHalfDemonBody(linkedCharacter, halfSubspecies, Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE);
+	}
+	
+	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Subspecies halfSubspecies, Gender startingGender) {
+		
 		RacialBody demonBody = RacialBody.DEMON;
 		RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
 		switch(stage) {
