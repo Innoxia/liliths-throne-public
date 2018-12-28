@@ -725,12 +725,12 @@ public class Game implements XMLSaving {
 						Main.game.getPlayer().changeId(Main.game.getPlayer().generateId());
 					}
 
-					Set<NPC> updateSet = new HashSet<>();
+					Map<String, NPC> aliasMap = new HashMap<>();
 					Main.game.NPCMap.forEach((id, npc) -> {
 						// If NPC has an old ID, create a new one and queue it for update
 						if (id.contains(",") || id.contains("-")) {
 							String newId = npc.generateId();
-							updateSet.add(npc);
+							aliasMap.put(newId, npc);
 
 							// Move artwork for known generic NPCs
 							if (!npc.isUnique() && npc.isPlayerKnowsName()) {
@@ -742,15 +742,8 @@ public class Game implements XMLSaving {
 					});
 
 					// Apply update by adding new ids as alias
-					for (NPC c : updateSet) {
-						if (c.isUnique()) {
-							// Override duplicate of unique NPC with loaded variant
-							Main.game.NPCMap.remove(c.getId());
-						}
-						Main.game.addNPC(c);
-					}
-
-					if (!updateSet.isEmpty()) {
+					if (!aliasMap.isEmpty()) {
+						Main.game.NPCMap.putAll(aliasMap);
 						Main.game.setRequestAutosave(true);
 					}
 				}
