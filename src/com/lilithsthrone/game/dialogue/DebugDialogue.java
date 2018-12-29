@@ -14,6 +14,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
@@ -347,6 +349,53 @@ public class DebugDialogue {
 						}
 					};
 					
+				} else if (index == 8) {
+					return new Response("Lilaya's tests", "Automatically completes Lilaya's enchantment quest, making you able to enchant right away.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)){ //If the player hasn't completed the enchantment quest
+								if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)){ //But has started it
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_UTIL_COMPLETE)); //Finish it
+								}
+								else{ //But hasn't started it
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)); //Start the quest
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_UTIL_COMPLETE)); //And finish it
+								}
+							}
+						}
+					};
+
+				} else if (index == 9) {
+					return new Response("+1 Epona stamp", "Gives you one stamp you can get by playing the breeder roulette.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().eponaStamps += 1;
+						}
+					};
+
+				} else if(index == 10){
+					return new Response("Get slaver license", "Automatically completes the quest to get a slaver license. This will start the quest if you don't already have it, and finish it.", DEBUG_MENU){
+						@Override
+						public void effects(){
+							if(!Main.game.getPlayer().isHasSlaverLicense()){ //If the player doesn't have the slaver license
+								if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)){ //But has started the quest to get it
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE)); //Finish it.
+								}
+								else{ //But hasn't started the quest to get it
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY)); //Start the quest
+									Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced); //Introduce Finch
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE)); //And finish it
+								}
+							}
+						}
+					};
+				} else if (index == 11) {
+					return new Response("Get KKP", "Adds an extremely overpowered weapon in your inventory.", DEBUG_MENU) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WESTERN_KKP), false);
+						}
+					};
 				}
 			}
 			
