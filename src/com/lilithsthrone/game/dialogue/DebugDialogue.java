@@ -370,6 +370,7 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().eponaStamps += 1;
+							Main.game.getTextEndStringBuilder().append("Added 1 stamp, you now have "  + Main.game.getDialogueFlags().eponaStamps + " stamp(s)");
 						}
 					};
 
