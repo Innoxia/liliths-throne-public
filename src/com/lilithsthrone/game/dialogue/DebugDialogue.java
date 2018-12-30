@@ -390,13 +390,6 @@ public class DebugDialogue {
 							}
 						}
 					};
-				} else if (index == 11) {
-					return new Response("Get KKP", "Adds an extremely overpowered weapon in your inventory.", DEBUG_MENU) {
-						@Override
-						public void effects() {
-							Main.game.getPlayer().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WESTERN_KKP), false);
-						}
-					};
 				}
 			}
 			
