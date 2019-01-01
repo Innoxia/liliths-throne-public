@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Recht;
+import com.lilithsthrone.game.character.npc.dominion.Wallace;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -20,8 +22,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ServantsHall {
 
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Servants' Hall (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Servants' Hall (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -54,8 +55,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_ENTRY = new DialogueNodeOld("Servants' Hall", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_ENTRY = new DialogueNode("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -69,7 +69,7 @@ public class ServantsHall {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.wallaceIntroduced);
-						Main.game.getRecht().setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true); // This is only temporary until I'll need him for my grand project involving drama, passion, player enslavement, and A LOT OF DRAMA!
+						Main.game.getNpc(Recht.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true); // This is only temporary until I'll need him for my grand project involving drama, passion, player enslavement, and A LOT OF DRAMA!
 					}
 				};
 			} else {
@@ -83,8 +83,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_INTRODUCTION = new DialogueNodeOld("Servants' Hall", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_INTRODUCTION = new DialogueNode("Servants' Hall", "-", false) {
 		
 		@Override
 		public String getContent() {
@@ -106,8 +105,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_POST_WTF = new DialogueNodeOld("Servants' Hall", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_POST_WTF = new DialogueNode("Servants' Hall", "-", false) {
 		
 		@Override
 		public String getContent() {
@@ -137,8 +135,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_ENTRY_REPEAT = new DialogueNodeOld("Servants' Hall", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_ENTRY_REPEAT = new DialogueNode("Servants' Hall", "-", false) {
 		
 		@Override
 		public String getContent() {
@@ -170,8 +167,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_HUNT = new DialogueNodeOld("Servants' Hall", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_HUNT = new DialogueNode("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -193,8 +189,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_HUNT_REPEAT = new DialogueNodeOld("Servants' Hall", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_HUNT_REPEAT = new DialogueNode("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -216,8 +211,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_HUNT_CHOOSE = new DialogueNodeOld("Servants' Hall", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_HUNT_CHOOSE = new DialogueNode("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() { 
@@ -292,8 +286,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_HUNT_CHOSEN = new DialogueNodeOld("Servants' Hall", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_HUNT_CHOSEN = new DialogueNode("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -316,8 +309,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_HUNT_REFUSE = new DialogueNodeOld("Servants' Hall", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_HUNT_REFUSE = new DialogueNode("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -340,8 +332,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_CONTRACT = new DialogueNodeOld("Servants' Hall", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_CONTRACT = new DialogueNode("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -409,8 +400,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_HUNT_CHECK = new DialogueNodeOld("Servants' Hall", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_HUNT_CHECK = new DialogueNode("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -434,7 +424,7 @@ public class ServantsHall {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementMoney((int)(Main.game.getNonCompanionCharactersPresent().get(targetSlaveGiven() - 1).getValueAsSlave() * Main.game.getPlayer().getActiveContract().getValueMultiplier()));
-							Main.game.getWallace().addSlave(Main.game.getNonCompanionCharactersPresent().get(targetSlaveGiven() - 1));
+							Main.game.getNpc(Wallace.class).addSlave(Main.game.getNonCompanionCharactersPresent().get(targetSlaveGiven() - 1));
 							Main.game.getPlayer().setActiveContract(null);
 						}
 					};
@@ -451,8 +441,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_HUNT_VALID = new DialogueNodeOld ("Servants' Hall", "-", true) {
-		public static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_HUNT_VALID = new DialogueNode ("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() {
@@ -474,8 +463,7 @@ public class ServantsHall {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_RENTAL_HUNT_INVALID = new DialogueNodeOld ("Servants' Hall", "-", true) {
-		public static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_RENTAL_HUNT_INVALID = new DialogueNode ("Servants' Hall", "-", true) {
 		
 		@Override
 		public String getContent() {

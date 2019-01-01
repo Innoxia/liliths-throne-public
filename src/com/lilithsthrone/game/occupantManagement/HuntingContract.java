@@ -1155,8 +1155,9 @@ public class HuntingContract
 		for(Subspecies s : Subspecies.values()) {
 			switch(s) {
 			case ANGEL:
+			case ELDER_LILIN:
+			case LILIN:
 			case IMP:
-			case HUMAN:
 			case IMP_ALPHA:
 			case FOX_ASCENDANT:
 			case FOX_ASCENDANT_FENNEC:
@@ -1197,6 +1198,10 @@ public class HuntingContract
 				break;
 			case DEMON:
 				addToSubspeciesMap(10, gender, s, availableRaces);
+				break;
+			case HALF_DEMON:
+				addToSubspeciesMap(2, gender, s, availableRaces);
+				break;
 			case CAT_MORPH_LEOPARD:
 				addToSubspeciesMap(5, gender, s, availableRaces);
 				break;
@@ -1240,6 +1245,9 @@ public class HuntingContract
 				addToSubspeciesMap(20, gender, s, availableRaces);
 				break;
 			case HORSE_MORPH_ZEBRA:
+				addToSubspeciesMap(5, gender, s, availableRaces);
+				break;
+			case HUMAN:
 				addToSubspeciesMap(5, gender, s, availableRaces);
 				break;
 			case SQUIRREL_MORPH:
