@@ -31,6 +31,7 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -2004,7 +2005,30 @@ public class GenericOrgasms {
 		
 		return descriptionSB.toString();
 	}
-	
+
+	private static String PULLOUT_DENIED_ERROR_MESSAGE = "<p style='text-align:center; color:"
+			+ Colour.GENERIC_TERRIBLE.toWebHexString()
+			+ ";'><b>ERROR: GenericOrgasms.getGenericPullOutDeniedDescription() should not be called when there is no actual pc penis penetration going on.</b></p>";
+
+	private static String getGenericPullOutDeniedDescription() {
+		List<GameCharacter> possibleTargets = Sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS);
+		if(possibleTargets.isEmpty()) return PULLOUT_DENIED_ERROR_MESSAGE;
+		GameCharacter partner = possibleTargets.get(0);
+		StringBuilder sb = new StringBuilder();
+		List<SexAreaInterface> cummedInAreas = PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(Main.game.getPlayer(), partner);
+		if(cummedInAreas == null || cummedInAreas.isEmpty()) return PULLOUT_DENIED_ERROR_MESSAGE;
+		if(cummedInAreas.contains(SexAreaOrifice.MOUTH))
+			// no actual speech if mouth is already busy
+    		sb.append("[npc2.Name] doesn't let loose and gives you a look which you can only interpret as: [npc2.thought(I'm going to suck you dry!)]");
+		else
+			sb.append("Sensing your upcoming climax, [npc2.Name] warns you: [npc2.speech(Don't even try to pull out!)]");
+		sb.append("<p style='text-align:center; color:")
+				.append(Colour.GENERIC_TERRIBLE.toWebHexString())
+				.append(";'><i>Pull out denied.</i></p>")
+				.append(Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.INSIDE, false).getDescription());
+		return sb.toString();
+	}
+
 	// Doesn't have penis (or penis is not exposed), and isn't being vaginally penetrated:
 	public static final SexAction PLAYER_GENERIC_ORGASM = new SexAction(
 			SexActionType.ORGASM,
@@ -2327,6 +2351,11 @@ public class GenericOrgasms {
 			SexParticipantType.SELF) {
 
 		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : super.getParticipantType();
+		}
+
+		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().hasPenisIgnoreDildo()
 					&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
@@ -2353,11 +2382,16 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FLOOR, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FLOOR, true).applyEffects();
 			GameCharacter characterPenetrated = null;
 			SexAreaInterface areaContacted = null;
@@ -2367,15 +2401,28 @@ public class GenericOrgasms {
 				Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, characterPenetrated, areaContacted);
 			}
 		}
+
+		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FLOOR, true).isEndsSex();
 		}
 	};
 	
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_WALL = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : super.getParticipantType();
+		}
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().hasPenisIgnoreDildo()
@@ -2403,17 +2450,29 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.WALL, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.WALL, true).applyEffects();
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
 		}
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.WALL, true).isEndsSex();
 		}
 	};
@@ -2451,18 +2510,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.ASS, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.ASS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
 						CoverableArea.ASS,
@@ -2473,6 +2544,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.ASS, true).isEndsSex();
 		}
 	};
@@ -2510,18 +2582,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
 						CoverableArea.PENIS,
@@ -2532,11 +2616,17 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
-			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, true).isEndsSex();
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
+			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.GROIN, true).isEndsSex();
 		}
 	};
 
 	public static final SexAction PLAYER_GENERIC_ORGASM_SELF_GROIN = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : super.getParticipantType();
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2565,17 +2655,29 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_GROIN, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_GROIN, true).applyEffects();
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.isPlayer()) {
 				return Util.newArrayListOfValues(
 						CoverableArea.PENIS,
@@ -2586,6 +2688,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_GROIN, true).isEndsSex();
 		}
 	};
@@ -2623,18 +2726,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BREASTS, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BREASTS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
 						CoverableArea.BREASTS);
@@ -2644,11 +2759,17 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BREASTS, true).isEndsSex();
 		}
 	};
 
 	public static final SexAction PLAYER_GENERIC_ORGASM_SELF_BREASTS = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : super.getParticipantType();
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2677,18 +2798,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_BREASTS, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_BREASTS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.isPlayer()) {
 				return Util.newArrayListOfValues(
 						CoverableArea.BREASTS);
@@ -2698,6 +2831,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_BREASTS, true).isEndsSex();
 		}
 	};
@@ -2735,18 +2869,31 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FACE, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FACE, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this))
+				return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
 						CoverableArea.MOUTH);
@@ -2756,11 +2903,17 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FACE, true).isEndsSex();
 		}
 	};
 
 	public static final SexAction PLAYER_GENERIC_ORGASM_SELF_FACE = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : super.getParticipantType();
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2789,14 +2942,25 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FACE, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FACE, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
 		}
 
 		@Override
@@ -2810,6 +2974,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FACE, true).isEndsSex();
 		}
 	};
@@ -2847,18 +3012,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.HAIR, false).getDescription();
 		}
 		
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.HAIR, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
 						CoverableArea.HAIR);
@@ -2868,14 +3045,16 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.HAIR, true).isEndsSex();
 		}
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_STOMACH = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
 		@Override
 		public SexParticipantType getParticipantType() {
-			return SexParticipantType.NORMAL;
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : super.getParticipantType();
 		}
 		
 		@Override
@@ -2905,18 +3084,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.STOMACH, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.STOMACH, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
 						CoverableArea.STOMACH);
@@ -2926,11 +3117,17 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.STOMACH, true).isEndsSex();
 		}
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_SELF_STOMACH = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : super.getParticipantType();
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2959,18 +3156,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_STOMACH, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_STOMACH, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.isPlayer()) {
 				return Util.newArrayListOfValues(
 						CoverableArea.STOMACH);
@@ -2980,6 +3189,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_STOMACH, true).isEndsSex();
 		}
 	};
@@ -3017,18 +3227,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.LEGS, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.LEGS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
 						CoverableArea.LEGS);
@@ -3038,11 +3260,17 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.LEGS, true).isEndsSex();
 		}
 	};
 
 	public static final SexAction PLAYER_GENERIC_ORGASM_SELF_LEGS = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : super.getParticipantType();
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -3071,18 +3299,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_LEGS, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_LEGS, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.isPlayer()) {
 				return Util.newArrayListOfValues(
 						CoverableArea.LEGS,
@@ -3093,6 +3333,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_LEGS, true).isEndsSex();
 		}
 	};
@@ -3130,18 +3371,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FEET, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FEET, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
 						CoverableArea.FEET);
@@ -3151,11 +3404,17 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.FEET, true).isEndsSex();
 		}
 	};
 
 	public static final SexAction PLAYER_GENERIC_ORGASM_SELF_FEET = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : super.getParticipantType();
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -3184,18 +3443,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FEET, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FEET, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.isPlayer()) {
 				return Util.newArrayListOfValues(
 						CoverableArea.FEET);
@@ -3205,6 +3476,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.SELF_FEET, true).isEndsSex();
 		}
 	};
@@ -3242,18 +3514,30 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
+			if(Sex.isPullOutDenied(this)) return getGenericPullOutDeniedDescription();
 			return Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BACK, false).getDescription();
 		}
 
 		@Override
 		public void applyEffects() {
+			if(Sex.isPullOutDenied(this)) {
+				PLAYER_GENERIC_ORGASM_CREAMPIE.applyEffects();
+				return;
+			}
 			Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BACK, true).applyEffects();
 			// Pull out:
 			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
 		}
 
 		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(cumProvider, cumTarget);
+			return null;
+		}
+
+		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedOn(cumProvider, cumTarget);
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
 						CoverableArea.BACK);
@@ -3263,6 +3547,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
+			if(Sex.isPullOutDenied(this)) return PLAYER_GENERIC_ORGASM_CREAMPIE.endsSex();
 			return  Main.game.getPlayer().getSexActionOrgasmOverride(OrgasmCumTarget.BACK, true).isEndsSex();
 		}
 	};
@@ -4127,7 +4412,12 @@ public class GenericOrgasms {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.SELF) {
-		
+
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : SexParticipantType.SELF;
+		}
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return isGenericPartnerCumTargetRequirementsMet()
@@ -4173,6 +4463,11 @@ public class GenericOrgasms {
 	
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_WALL = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isPullOutDenied(this) ? SexParticipantType.NORMAL : SexParticipantType.SELF;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
