@@ -725,8 +725,18 @@ public class TooltipInformationEventListener implements EventListener {
 							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
 						}
 					}
-					tooltipSB.append(getBodyPartDiv("Anus", owner.getAssRace(), owner.getAssType().getAnusType().getBodyCoveringType(owner)));
-					tooltipSB.append(getBodyPartDiv("Nipples", owner.getBreastRace(), owner.getBreastType().getNippleType().getBodyCoveringType(owner)));
+
+					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer())) {
+						tooltipSB.append(getEmptyBodyPartDiv("Anus", "Unknown!"));
+					} else {
+						tooltipSB.append(getBodyPartDiv("Anus", owner.getAssRace(), owner.getAssType().getAnusType().getBodyCoveringType(owner)));
+					}
+
+					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer())) {
+						tooltipSB.append(getEmptyBodyPartDiv("Nipples", "Unknown!"));
+					} else {
+						tooltipSB.append(getBodyPartDiv("Nipples", owner.getBreastRace(), owner.getBreastType().getNippleType().getBodyCoveringType(owner)));
+					}
 
 					if (displayImage) {
 						boolean revealed = owner.isImageRevealed();
