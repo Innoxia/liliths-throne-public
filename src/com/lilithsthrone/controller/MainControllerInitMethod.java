@@ -5028,7 +5028,9 @@ public class MainControllerInitMethod {
 		
 		// Content preferences:
 
-		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.CONTENT_PREFERENCE || Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCES) {
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.CONTENT_PREFERENCE
+				|| Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCES
+				|| Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS) {
 			createToggleListener("ARTWORK_ON", PropertyValue.artwork, true);
 			createToggleListener("ARTWORK_OFF", PropertyValue.artwork, false);
 			createToggleListener("SILLY_ON", PropertyValue.sillyMode, true);
@@ -5081,7 +5083,8 @@ public class MainControllerInitMethod {
 					new Value<>("HAIR_ASS", PropertyValue.assHairContent),
 					new Value<>("FEMININE_BEARD", PropertyValue.feminineBeardsContent),
 					new Value<>("FURRY_TAIL_PENETRATION", PropertyValue.furryTailPenetrationContent),
-					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent));
+					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
+					new Value<>("ALTERNATIVE_FORCED_TF", PropertyValue.alternativeForcedTF));
 			
 			for(Entry<String, PropertyValue> entry : settingsMap.entrySet()) {
 				createToggleListener(entry.getKey()+"_ON", entry.getValue(), true);

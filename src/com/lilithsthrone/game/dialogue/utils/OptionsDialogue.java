@@ -583,7 +583,15 @@ public class OptionsDialogue {
 							:"<span style='color:"+dl.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(dl.getName())+"</span> [style.colourDisabled("+dl.getDescription()+")]")
 						 );
 			}
-			
+
+			UtilText.nodeContentSB.append("<p><b>Other difficulty/scenario options:<b></p>");
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"ALTERNATIVE_FORCED_TF",
+					Colour.BASE_BLUE,
+					"Alternative Forced TF",
+					"More aggressive and varying Forced TF/Kink giving. Probability is unaffected by the victors kinks.",
+					Main.game.isAlternativeForcedTFEnabled()));
+
 			UtilText.nodeContentSB.append("</p>");
 			
 			return UtilText.nodeContentSB.toString();
