@@ -789,6 +789,7 @@ public class TunnelSlimeDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(getSlime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
 				if (index == 1) {
+					if(!Main.game.isSpittingEnabled()) return Response.getDisallowedSpittingResponse("Resist");
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Resist",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())

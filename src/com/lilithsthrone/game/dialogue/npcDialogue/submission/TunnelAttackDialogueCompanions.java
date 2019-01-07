@@ -1222,6 +1222,7 @@ public class TunnelAttackDialogueCompanions {
 						:Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 				
 				if (index == 1) {
+					if(!Main.game.isSpittingEnabled()) return Response.getDisallowedSpittingResponse();
 					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(), Util.newArrayListOfValues(applicableFetish))) {
 						return new Response("Spit",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+applicableFetish.getName(Main.game.getPlayer())

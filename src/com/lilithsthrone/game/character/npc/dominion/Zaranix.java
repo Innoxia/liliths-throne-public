@@ -464,6 +464,7 @@ public class Zaranix extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
+				if(!Main.game.isSpittingEnabled()) return Response.getDisallowedSpittingResponse();
 				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 					return new Response("Spit",
 							"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())

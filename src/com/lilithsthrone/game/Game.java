@@ -3532,5 +3532,8 @@ public class Game implements XMLSaving {
 	public void setRequestAutosave(boolean requestAutosave) {
 		this.requestAutosave = requestAutosave;
 	}
-	
+
+	public boolean isSpittingEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.spittingDisabled);
+	}
 }
