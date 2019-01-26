@@ -1633,7 +1633,7 @@ public class PhoneDialogue {
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
 		itemsDiscoveredList.sort(new ItemRarityComparator());
 		
-		weaponsDiscoveredList.addAll(WeaponType.getAllweapons());
+		weaponsDiscoveredList.addAll(WeaponType.getAllWeapons());
 		weaponsDiscoveredList.sort(new WeaponRarityComparator());
 		
 		clothingDiscoveredList.addAll(ClothingType.getAllClothing());

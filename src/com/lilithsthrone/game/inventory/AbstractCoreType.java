@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.inventory;
 
+import com.lilithsthrone.utils.ResourceReader;
+
 /**
  * @since 0.1.0
  * @version 0.2.0
@@ -19,6 +21,10 @@ public class AbstractCoreType {
 
 	public Rarity getRarity() {
 		return Rarity.COMMON;
+	}
+
+	static {
+		new ResourceReader();
 	}
 	
 }

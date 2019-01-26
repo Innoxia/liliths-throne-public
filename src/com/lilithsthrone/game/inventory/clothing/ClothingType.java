@@ -2,11 +2,8 @@ package com.lilithsthrone.game.inventory.clothing;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.Path;
+import java.util.*;
 
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -16,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -33,7 +31,7 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public class ClothingType {
-	
+
 	private static String braEquipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		return AbstractClothingType.getEquipDescriptions(clothingOwner, clothingRemover, rough,
 				"You place the bra over your chest before fastening the straps at your back.",
@@ -11657,10 +11655,8 @@ public class ClothingType {
 		}
 	};
 	
-	
-	private static List<AbstractClothingType> allClothing, moddedClothingList;
-	
 	private static List<InventorySlot> coreClothingSlots, lingerieSlots;
+	private static List<AbstractClothingType> allClothing;
 	
 	private static Map<InventorySlot, List<AbstractClothingType>>commonClothingMap,
 															commonClothingMapFemale,
@@ -11669,27 +11665,40 @@ public class ClothingType {
 															commonClothingMapFemaleIncludingAndrogynous,
 															commonClothingMapMaleIncludingAndrogynous;
 	
-	private static Map<AbstractClothingType, String> clothingToIdMap = new HashMap<>();
-	private static Map<String, AbstractClothingType> idToClothingMap = new HashMap<>();
-	
+	private static Map<AbstractCoreType, String> clothingToIdMap = new HashMap<>();
+	private static Map<String, AbstractCoreType> idToClothingMap = new HashMap<>();
+
+	public static Map<AbstractCoreType, String> getClothingToIdMap() {
+		return clothingToIdMap;
+	}
+
+	public static Map<String, AbstractCoreType> getIdToClothingMap() {
+		return idToClothingMap;
+	}
+
 	public static AbstractClothingType getClothingTypeFromId(String id) {
 //		System.out.print("ID: "+id);
 //		System.out.println("  set to: "+id);
 		if(id.equals("EYES_SAFETY_GOGGLES")) {
 			return ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES;
 		}
-		if(id.equals("WITCH_HAT")) {
-			id = "innoxia_witch_witch_hat";
-		} else if(id.equals("WITCH_DRESS")) {
-			id = "innoxia_witch_witch_dress";
-		} else if(id.equals("WITCH_BOOTS")) {
-			id = "innoxia_witch_witch_boots";
-		} else if(id.equals("WITCH_BOOTS_THIGH_HIGH")) {
-			id = "innoxia_witch_witch_boots_thigh_high";
+		switch (id) {
+			case "WITCH_HAT":
+				id = "innoxia_witch_witch_hat";
+				break;
+			case "WITCH_DRESS":
+				id = "innoxia_witch_witch_dress";
+				break;
+			case "WITCH_BOOTS":
+				id = "innoxia_witch_witch_boots";
+				break;
+			case "WITCH_BOOTS_THIGH_HIGH":
+				id = "innoxia_witch_witch_boots_thigh_high";
+				break;
 		}
 
 		id = Util.getClosestStringMatch(id, idToClothingMap.keySet());
-		return idToClothingMap.get(id);
+		return (AbstractClothingType) idToClothingMap.get(id);
 	}
 	
 	public static String getIdFromClothingType(AbstractClothingType clothingType) {
@@ -11699,7 +11708,7 @@ public class ClothingType {
 //	public static AbstractClothingType TORSO_OVER_HOODIE_COPY = new AbstractClothingType(new File("res/items/clothing/rentalMommy/rental_mommy.xml")) {};
 	
 	static {
-		
+
 		commonClothingMap = new EnumMap<>(InventorySlot.class);
 		commonClothingMapFemale = new EnumMap<>(InventorySlot.class);
 		commonClothingMapMale = new EnumMap<>(InventorySlot.class);
@@ -11720,86 +11729,10 @@ public class ClothingType {
 		lingerieSlots = Util.newArrayListOfValues(InventorySlot.CHEST, InventorySlot.GROIN, InventorySlot.STOMACH, InventorySlot.SOCK);
 
 		allClothing = new ArrayList<>();
-		
-		// Load in modded clothing:
-		moddedClothingList = new ArrayList<>();
-		File dir = new File("res/mods");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/items/clothing");
-					
-					File[] clothingDirectoriesListing = modAuthorClothingDirectory.listFiles();
-					if (clothingDirectoriesListing != null) {
-						for (File clothingDirectory : clothingDirectoriesListing) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try{
-											AbstractClothingType ct = new AbstractClothingType(innerChild) {};
-											moddedClothingList.add(ct);
-											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-											clothingToIdMap.put(ct, id);
-											idToClothingMap.put(id, ct);
-											
-										} catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
-											System.err.println(ex);
-											System.out.println(ex); // temporary, I think mod loading failure should be displayed to player on screen
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		allClothing.addAll(moddedClothingList);
-		
-		
-		// Add in external res clothing:
-		
-		dir = new File("res/clothing");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] authorDirectoriesListing = dir.listFiles();
-			if (authorDirectoriesListing != null) {
-				for (File authorDirectory : authorDirectoriesListing) {
-					if (authorDirectory.isDirectory()){
-						for (File clothingDirectory : authorDirectory.listFiles()) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try {
-											AbstractClothingType ct = new AbstractClothingType(innerChild) {};
-											allClothing.add(ct);
-											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-		//											System.out.println(id);
-											clothingToIdMap.put(ct, id);
-											idToClothingMap.put(id, ct);
-										} catch(Exception ex) {
-											System.err.println("Loading modded clothing failed at 'ClothingType' Code 2. File path: "+innerChild.getAbsolutePath());
-											System.err.println("Actual exception: ");
-											ex.printStackTrace(System.err);
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		
-		
+
+		// TODO Remove all the hardcoded nonsense, get it from files
 		// Add in hard-coded clothing:
-		
+
 		Field[] fields = ClothingType.class.getFields();
 		
 		for(Field f : fields){
@@ -11856,10 +11789,6 @@ public class ClothingType {
 		return allClothing;
 	}
 
-	public static List<AbstractClothingType> getModdedClothingList() {
-		return moddedClothingList;
-	}
-
 	public static List<InventorySlot> getCoreClothingSlots() {
 		return coreClothingSlots;
 	}
@@ -11891,5 +11820,4 @@ public class ClothingType {
 	public static Map<InventorySlot, List<AbstractClothingType>> getCommonClothingMapMaleIncludingAndrogynous() {
 		return commonClothingMapMaleIncludingAndrogynous;
 	}
-
 }

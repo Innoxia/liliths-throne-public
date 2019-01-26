@@ -935,7 +935,7 @@ public class EnchantmentDialogue {
 						return new LoadedEnchantment(importedName, ClothingType.getClothingTypeFromId(doc.getElementsByTagName("clothingType").item(0).getTextContent()), effectsToBeAdded);
 						
 					} else if(doc.getElementsByTagName("weaponType").item(0)!=null) {
-						return new LoadedEnchantment(importedName, WeaponType.idToWeaponMap.get(doc.getElementsByTagName("weaponType").item(0).getTextContent()), effectsToBeAdded);
+						return new LoadedEnchantment(importedName, WeaponType.getWeaponTypeFromId(doc.getElementsByTagName("weaponType").item(0).getTextContent()), effectsToBeAdded);
 						
 					} else if(doc.getElementsByTagName("tattooType").item(0)!=null) {
 						return new LoadedEnchantment(importedName, TattooType.getTattooTypeFromId(doc.getElementsByTagName("tattooType").item(0).getTextContent()), effectsToBeAdded);

@@ -1,17 +1,16 @@
 package com.lilithsthrone.game.inventory.weapon;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.DamageVariance;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
@@ -20,6 +19,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.ResourceReader;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -1029,17 +1029,16 @@ public class WeaponType {
 	};
 	
 	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>();
-	private static List<AbstractWeaponType> allweapons = new ArrayList<>();
-	public static List<AbstractWeaponType> moddedWeapons = new ArrayList<>();
+	public static List<AbstractWeaponType> allWeapons;
 	
-	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
-	public static Map<String, AbstractWeaponType> idToWeaponMap = new HashMap<>();
+	public static Map<AbstractCoreType, String> weaponToIdMap;
+	public static Map<String, AbstractCoreType> idToWeaponMap;
 	
 	public static AbstractWeaponType getWeaponTypeFromId(String id) {
 //		System.out.print("ID: "+id);
 		id = Util.getClosestStringMatch(id, idToWeaponMap.keySet());
 //		System.out.println("  set to: "+id);
-		return idToWeaponMap.get(id);
+		return (AbstractWeaponType) idToWeaponMap.get(id);
 	}
 	
 	public static String getIdFromWeaponType(AbstractWeaponType weaponType) {
@@ -1047,79 +1046,6 @@ public class WeaponType {
 	}
 
 	static {
-		
-		// Load in modded clothing:
-		moddedWeapons = new ArrayList<>();
-		File dir = new File("res/mods");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/items/weapons");
-					
-					File[] clothingDirectoriesListing = modAuthorClothingDirectory.listFiles();
-					if (clothingDirectoriesListing != null) {
-						for (File clothingDirectory : clothingDirectoriesListing) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try {
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild) {};
-											moddedWeapons.add(ct);
-											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-//													System.out.println(id);
-											weaponToIdMap.put(ct, id);
-											idToWeaponMap.put(id, ct);
-										} catch(Exception ex) {
-											System.err.println("Loading modded weapon failed at 'WeaponType' Code 1. File path: "+innerChild.getAbsolutePath());
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		allweapons.addAll(moddedWeapons);
-		
-		
-		// Add in external res clothing:
-		
-		dir = new File("res/weapons");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] authorDirectoriesListing = dir.listFiles();
-			if (authorDirectoriesListing != null) {
-				for (File authorDirectory : authorDirectoriesListing) {
-					if (authorDirectory.isDirectory()){
-						for (File clothingDirectory : authorDirectory.listFiles()) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try {
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild) {};
-											allweapons.add(ct);
-											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-		//											System.out.println(id);
-											weaponToIdMap.put(ct, id);
-											idToWeaponMap.put(id, ct);
-										} catch(Exception ex) {
-											System.err.println("Loading modded weapon failed at 'WeaponType' Code 2. File path: "+innerChild.getAbsolutePath());
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		
 		Field[] fields = WeaponType.class.getFields();
 		
 		for(Field f : fields){
@@ -1135,7 +1061,7 @@ public class WeaponType {
 					weaponToIdMap.put(weapon, f.getName());
 					idToWeaponMap.put(f.getName(), weapon);
 					
-					allweapons.add(weapon);
+					allWeapons.add(weapon);
 				
 					if (weapon.getRarity() == Rarity.RARE) {
 						rareWeapons.add(weapon);
@@ -1148,7 +1074,7 @@ public class WeaponType {
 		}
 	}
 
-	public static List<AbstractWeaponType> getAllweapons() {
-		return allweapons;
+	public static List<AbstractWeaponType> getAllWeapons() {
+		return allWeapons;
 	}
 }

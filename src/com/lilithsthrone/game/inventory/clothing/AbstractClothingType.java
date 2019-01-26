@@ -278,7 +278,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			if(debug) {
 				System.out.println("1");
 			}
-			
+
 			this.blockedPartsList = coreAttributes
 				.getMandatoryFirstOf("blockedPartsList")
 				.getAllOf("blockedParts").stream()
@@ -306,7 +306,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.displacementDescriptions = new HashMap<>();
 
 			Consumer<String> loadItemMoveDescriptions = repositionDescListTag -> {
-				clothingElement.getAllOf(repositionDescListTag).stream() // <clothing>, not <coreAttributes>!
+				clothingElement.getAllOf(repositionDescListTag) // <clothing>, not <coreAttributes>!
 				.forEach( descriptionList ->{
 					DisplacementType type = DisplacementType.valueOf(descriptionList.getAttribute("type"));
 					
@@ -427,17 +427,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				.apply(coreAttributes.getMandatoryFirstOf("primaryColoursDye"));		
 
 			List<Colour> importedSecondaryColours = coreAttributes.getOptionalFirstOf("secondaryColours")
-				.map(getColoursFromElement::apply)
+				.map(getColoursFromElement)
 				.orElseGet(ArrayList::new);
 			List<Colour> importedSecondaryColoursDye = coreAttributes.getOptionalFirstOf("secondaryColoursDye")
-				.map(getColoursFromElement::apply)
+				.map(getColoursFromElement)
 				.orElseGet(ArrayList::new);
 
 			List<Colour> importedTertiaryColours = coreAttributes.getOptionalFirstOf("tertiaryColours")
-				.map(getColoursFromElement::apply)
+				.map(getColoursFromElement)
 				.orElseGet(ArrayList::new);
 			List<Colour> importedTertiaryColoursDye = coreAttributes.getOptionalFirstOf("tertiaryColoursDye")
-				.map(getColoursFromElement::apply)
+				.map(getColoursFromElement)
 				.orElseGet(ArrayList::new);
 
 			setUpColours(

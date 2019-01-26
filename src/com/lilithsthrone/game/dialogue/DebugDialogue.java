@@ -431,7 +431,7 @@ public class DebugDialogue {
 		clothingTotal.addAll(ClothingType.getAllClothing());
 		clothingTotal.removeIf((c) -> c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
 		
-		weaponsTotal.addAll(WeaponType.getAllweapons());
+		weaponsTotal.addAll(WeaponType.getAllWeapons());
 		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
 
 		itemsTotal.addAll(ItemType.getAllItems());

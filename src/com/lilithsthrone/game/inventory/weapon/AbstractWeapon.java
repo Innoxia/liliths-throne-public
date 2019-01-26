@@ -195,7 +195,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		AbstractWeapon weapon = null;
 		
 		try {
-			weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(parentElement.getAttribute("id")), DamageType.valueOf(parentElement.getAttribute("damageType")));
+			weapon = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId(parentElement.getAttribute("id")), DamageType.valueOf(parentElement.getAttribute("damageType")));
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
