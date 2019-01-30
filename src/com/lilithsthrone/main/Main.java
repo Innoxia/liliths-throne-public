@@ -497,24 +497,8 @@ public class Main extends Application {
 		Main.sexEngine = new Sex();
 		
 		loader = new FXMLLoader(getClass().getResource("/com/lilithsthrone/res/fxml/main.fxml"));
-		try {
-			if (Main.mainScene == null) {
-				pane = loader.load();
-				Main.mainController = loader.getController();
+		loadMainScene(loader);
 
-				Main.mainScene = new Scene(pane);
-				if (Main.getProperties().hasValue(PropertyValue.lightTheme))
-					Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet_light.css");
-				else
-					Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet.css");
-			}
-
-			Main.primaryStage.setScene(Main.mainScene);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 		Main.game.setContent(new Response("", "", OptionsDialogue.MENU));
 		
 	}
@@ -584,15 +568,21 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		
 		// Create folders:
 		File dir = new File("data/");
-		dir.mkdir();
-		dir = new File("data/saves");
-		dir.mkdir();
-		dir = new File("data/characters");
-		dir.mkdir();
-		
+		if (dir.exists() || dir.mkdir()) {
+			dir = new File("data/saves");
+			if (!dir.exists() && dir.mkdir()) {
+				System.err.println("Saves folder could not be created.");
+			}
+			dir = new File("data/characters");
+			if (!dir.exists() && dir.mkdir()) {
+				System.err.println("Characters folder could not be created.");
+			}
+		} else {
+			System.err.println("Data folder could not be created.");
+		}
+
 		// Open error log
 		if(!DEBUG) {
 			try {
@@ -643,25 +633,8 @@ public class Main extends Application {
 			public void handle(WorkerStateEvent t) {
 				
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/lilithsthrone/res/fxml/main.fxml"));
-				Pane pane;
-				try {
-					if (Main.mainScene == null) {
-						pane = loader.load();
-						Main.mainController = loader.getController();
+				loadMainScene(loader);
 
-						Main.mainScene = new Scene(pane);
-						if (Main.getProperties().hasValue(PropertyValue.lightTheme))
-							Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet_light.css");
-						else
-							Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet.css");
-					}
-
-					Main.primaryStage.setScene(Main.mainScene);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
 				Main.game.setPlayer(new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.MUSEUM, PlaceType.MUSEUM_ENTRANCE));
 
 				Main.game.initNewGame(startingDialogueNode);
@@ -672,7 +645,27 @@ public class Main extends Application {
 		});
 		new Thread(gen).start();
 	}
-	
+
+	private static void loadMainScene(FXMLLoader loader) {
+		try {
+			if (Main.mainScene == null) {
+				Pane pane = loader.load();
+				Main.mainController = loader.getController();
+
+				Main.mainScene = new Scene(pane);
+				if (Main.getProperties().hasValue(PropertyValue.lightTheme))
+					Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet_light.css");
+				else
+					Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet.css");
+			}
+
+			Main.primaryStage.setScene(Main.mainScene);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static boolean isVersionOlderThan(String versionToCheck, String versionToCheckAgainst) {
 		String[] v1 = versionToCheck.split("\\.");
 		String[] v2 = versionToCheckAgainst.split("\\.");
@@ -795,105 +788,51 @@ public class Main extends Application {
 	}
 	
 	public static void deleteGame(String name) {
-		File file = new File("data/saves/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			
-		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
-		}
+		deleteFile("data/saves/"+name+".xml");
 	}
 	
 	public static void deleteExportedGame(String name) {
-		File file = new File("data/saves/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			
-		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
-		}
+		deleteFile("data/saves/"+name+".xml");
 	}
 	
 	public static void deleteExportedCharacter(String name) {
-		File file = new File("data/characters/"+name+".xml");
+		deleteFile("data/characters/"+name+".xml");
+	}
 
+	private static void deleteFile(String s) {
+		File file = new File(s);
 		if (file.exists()) {
 			try {
-				file.delete();
+				if (!file.delete()) throw new Exception("File could not be deleted.");
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			
+
 		} else {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
 		}
 	}
-	
-	public static List<File> getSavedGames() {
-		List<File> filesList = new ArrayList<>();
-		
-		File dir = new File("data/saves");
-		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
-			if (directoryListing != null) {
-				filesList.addAll(Arrays.asList(directoryListing));
-			}
-		}
 
-		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
-		
-		return filesList;
+	public static List<File> getSavedGames() {
+		return getFiles("data/saves");
 	}
 	
 	public static List<File> getCharactersForImport() {
-		List<File> filesList = new ArrayList<>();
-		
-		File dir = new File("data/characters");
-		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
-			if (directoryListing != null) {
-				filesList.addAll(Arrays.asList(directoryListing));
-			}
-		}
-
-		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
-		
-		return filesList;
+		return getFiles("data/characters");
 	}
-	
+
 	public static List<File> getSlavesForImport() {
-		List<File> filesList = new ArrayList<>();
-		
-		File dir = new File("data/characters");
-		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
-			if (directoryListing != null) {
-				filesList.addAll(Arrays.asList(directoryListing));
-			}
-		}
-		
-		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
-		
-		return filesList;
+		return getFiles("data/characters");
 	}
-	
+
 	public static List<File> getGamesForImport() {
+		return getFiles("data/saves");
+	}
+
+	private static List<File> getFiles(String s) {
 		List<File> filesList = new ArrayList<>();
-		
-		File dir = new File("data/saves");
+		File dir = new File(s);
 		if (dir.isDirectory()) {
 			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
 			if (directoryListing != null) {
@@ -902,7 +841,7 @@ public class Main extends Application {
 		}
 
 		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
-		
+
 		return filesList;
 	}
 	
