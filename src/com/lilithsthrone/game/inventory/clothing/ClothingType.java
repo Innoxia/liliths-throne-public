@@ -11708,7 +11708,6 @@ public class ClothingType {
 //	public static AbstractClothingType TORSO_OVER_HOODIE_COPY = new AbstractClothingType(new File("res/items/clothing/rentalMommy/rental_mommy.xml")) {};
 	
 	static {
-
 		commonClothingMap = new EnumMap<>(InventorySlot.class);
 		commonClothingMapFemale = new EnumMap<>(InventorySlot.class);
 		commonClothingMapMale = new EnumMap<>(InventorySlot.class);

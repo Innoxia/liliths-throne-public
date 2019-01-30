@@ -49,6 +49,7 @@ public class Resource {
 							.forEach(xmlPath -> {
 								AbstractTattooType abstractTattooType = (AbstractTattooType) type.apply(xmlPath);
 								String id = author+"_"+name+"_"+xmlPath.getFileName().toString().split("\\.")[0];
+//								String id = author+"_"+name+"_"+abstractTattooType.getName().split("\\.")[0];
 								addToMap(abstractTattooType, id);
 							});
 					break;
@@ -89,7 +90,6 @@ public class Resource {
 	}
 
 	private void addToMap(AbstractCoreType abstractWeaponType, String id) {
-		System.out.println(id);
 		type.itemToId.put(abstractWeaponType, id);
 		type.idToItem.put(id, abstractWeaponType);
 	}

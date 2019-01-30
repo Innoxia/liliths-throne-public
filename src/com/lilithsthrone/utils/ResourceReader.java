@@ -1,7 +1,5 @@
 package com.lilithsthrone.utils;
 
-import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 
 import java.io.File;
@@ -13,9 +11,9 @@ import java.util.HashMap;
 
 public class ResourceReader {
 
-	static {
-		System.out.println("Test: " + ResourceReader.class);
+	private static ResourceReader reader = new ResourceReader();
 
+	static {
 		//TODO Because weaponType gets loaded after ResourceReader, need to figure out a way to fix.
 		WeaponType.allWeapons = new ArrayList<>();
 		WeaponType.idToWeaponMap = new HashMap<>();
@@ -60,4 +58,7 @@ public class ResourceReader {
 
 	}
 
+	public static ResourceReader getReader() {
+		return reader;
+	}
 }

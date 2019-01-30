@@ -1,6 +1,6 @@
 package com.lilithsthrone.game.inventory;
 
-import com.lilithsthrone.utils.ResourceReader;
+import static com.lilithsthrone.utils.ResourceReader.getReader;
 
 /**
  * @since 0.1.0
@@ -24,7 +24,7 @@ public class AbstractCoreType {
 	}
 
 	static {
-		new ResourceReader();
+		getReader();
 	}
 	
 }
