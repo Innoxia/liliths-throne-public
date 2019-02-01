@@ -244,7 +244,7 @@ public class MainControllerInitMethod {
 					// Create file chooser for .jpg and .png images in the most recently used directory
 					FileChooser chooser = new FileChooser();
 					chooser.setTitle("Add Images");
-					chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png"));
+					chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.gif"));
 					if (lastOpened != null)
 						chooser.setInitialDirectory(lastOpened);
 
