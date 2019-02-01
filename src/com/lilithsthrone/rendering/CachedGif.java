@@ -26,6 +26,7 @@ public class CachedGif extends CachedImage {
         if (f.length() / 1024 > 10240) {
             // Animated image is too large, use the first frame instead
             imageString = firstFrame.getImageString();
+            System.err.println("Warning: Animated image " + f.getName() + " is too large. Using first frame instead.");
         } else {
             // Load the animation
             try {
