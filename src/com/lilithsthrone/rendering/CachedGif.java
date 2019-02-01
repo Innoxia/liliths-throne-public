@@ -1,8 +1,5 @@
 package com.lilithsthrone.rendering;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,28 +15,26 @@ public class CachedGif extends CachedImage {
 
     @Override
     public boolean load(File f) {
-        try (ByteArrayOutputStream byteStream = new ByteArrayOutputStream()) {
-            // Load the first frame of the image
-            BufferedImage firstFrame = ImageIO.read(f);
-            updatePercentageWidth(firstFrame);
-            width = firstFrame.getWidth();
-            height = firstFrame.getHeight();
+        // Load the first frame of the image
+        CachedImage firstFrame = new CachedImage();
+        if (!firstFrame.load(f)) return false;
+        thumbnailString = firstFrame.getThumbnailString();
+        percentageWidth = firstFrame.getPercentageWidth();
+        width = firstFrame.getWidth();
+        height = firstFrame.getHeight();
 
-            // Resize the frame
-            int[] targetSize = getAdjustedSize(300, 300);
-            firstFrame = scaleDown(firstFrame, targetSize[0], targetSize[1]);
-
-            // Convert to string
-            ImageIO.setUseCache(false);
-            ImageIO.write(firstFrame, "PNG", byteStream);
-            thumbnailString = "data:image/png;base64," + Base64.getEncoder().encodeToString(byteStream.toByteArray());
-
+        if (f.length() / 1024 > 10240) {
+            // Animated image is too large, use the first frame instead
+            imageString = firstFrame.getImageString();
+        } else {
             // Load the animation
-            imageString = "data:image/gif;base64," + Base64.getEncoder().encodeToString(Files.readAllBytes(f.toPath()));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            try {
+                imageString = "data:image/gif;base64,"
+                        + Base64.getEncoder().encodeToString(Files.readAllBytes(f.toPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
         return true;
     }
