@@ -290,12 +290,12 @@ public class Response {
 				SB.append("<br/>"
 						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
+						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
 			} else {
 				SB.append("<br/>"
 						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
 						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
+						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
 			}
 		}
 		
@@ -502,20 +502,19 @@ public class Response {
 	}
 	
 	public boolean isFemininityInRange() {
-		if(femininityRequired==null)
+		if(femininityRequired==null) {
 			return true;
+		}
 		
 		switch(femininityRequired){
 			case ANDROGYNOUS:
 				return Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS;
 			case FEMININE:
-				return Main.game.getPlayer().getFemininityValue() >= Femininity.FEMININE.getMinimumFemininity();
 			case FEMININE_STRONG:
-				return Main.game.getPlayer().getFemininityValue() >= Femininity.FEMININE_STRONG.getMinimumFemininity();
+				return Main.game.getPlayer().getFemininityValue() >= femininityRequired.getMinimumFemininity();
 			case MASCULINE:
-				return Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity();
 			case MASCULINE_STRONG:
-				return Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE_STRONG.getMaximumFemininity();
+				return Main.game.getPlayer().getFemininityValue() <= femininityRequired.getMaximumFemininity();
 			default:
 				return true;
 		}

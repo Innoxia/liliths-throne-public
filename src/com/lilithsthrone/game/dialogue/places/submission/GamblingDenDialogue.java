@@ -38,11 +38,11 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallBack;
 import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallFront;
 import com.lilithsthrone.game.sex.managers.submission.SMRoxyPussyLicker;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -398,8 +398,8 @@ public class GamblingDenDialogue {
 								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMRoxyPussyLicker(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexPositionSlot.FACE_SITTING_ON_FACE)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotBipeds.FACE_SITTING_ON_FACE)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_SITTING_ON_BACK))),
 								null,
 								null, AFTER_ROXY_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "TRADER_REPLY_YES")){
 							@Override
@@ -441,8 +441,8 @@ public class GamblingDenDialogue {
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexPositionSlot.FACE_SITTING_ON_FACE)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotBipeds.FACE_SITTING_ON_FACE)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_SITTING_ON_BACK))),
 									null,
 									null, AFTER_ROXY_SEX_ADDICT, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START_ADDICT")){
 								@Override
@@ -459,8 +459,8 @@ public class GamblingDenDialogue {
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexPositionSlot.FACE_SITTING_ON_FACE)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotBipeds.FACE_SITTING_ON_FACE)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_SITTING_ON_BACK))),
 									null,
 									null, AFTER_ROXY_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START")){
 								@Override
@@ -1016,8 +1016,8 @@ public class GamblingDenDialogue {
 								null, null, null, null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Epona.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Epona.class), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null, EPONA_POST_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_SUB")) {
 							@Override
@@ -1036,8 +1036,8 @@ public class GamblingDenDialogue {
 								null, null, null, null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Epona.class), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Epona.class), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null, EPONA_POST_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_DOM")) {
 							@Override
@@ -1202,8 +1202,8 @@ public class GamblingDenDialogue {
 						null, null, null, null, null, null,
 						true, false,
 						new SMBreedingStallFront(true, false, false,
-								Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.BREEDING_STALL_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_FRONT))) {
+								Util.newHashMapOfValues(new Value<>(breeder, SexSlotBipeds.BREEDING_STALL_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_FRONT))) {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -1239,8 +1239,8 @@ public class GamblingDenDialogue {
 						null, null, null, null, null, null,
 						true, false,
 						new SMBreedingStallBack(true, false, false,
-								Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.BREEDING_STALL_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_BACK))) {
+								Util.newHashMapOfValues(new Value<>(breeder, SexSlotBipeds.BREEDING_STALL_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_BACK))) {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -1298,8 +1298,8 @@ public class GamblingDenDialogue {
 							null, null, null, null, null, null,
 							true, false,
 							new SMBreedingStallFront(true, false, false,
-									Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.BREEDING_STALL_FUCKING)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_FRONT))) {
+									Util.newHashMapOfValues(new Value<>(breeder, SexSlotBipeds.BREEDING_STALL_FUCKING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_FRONT))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -1335,8 +1335,8 @@ public class GamblingDenDialogue {
 							null, null, null, null, null, null,
 							true, false,
 							new SMBreedingStallBack(true, false, false,
-									Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.BREEDING_STALL_FUCKING)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_BACK))) {
+									Util.newHashMapOfValues(new Value<>(breeder, SexSlotBipeds.BREEDING_STALL_FUCKING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_BACK))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -1523,8 +1523,8 @@ public class GamblingDenDialogue {
 						null, null, null, null, null, null,
 						true, false,
 						new SMBreedingStallBack(true, false, false,
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(mother, SexPositionSlot.BREEDING_STALL_BACK))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(mother, SexSlotBipeds.BREEDING_STALL_BACK))) {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;

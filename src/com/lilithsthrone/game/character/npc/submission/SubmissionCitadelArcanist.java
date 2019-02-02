@@ -197,13 +197,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		// Anus settings and modifiers
 		
 		// Penis:
-//		this.setPenisVirgin(false);
-//		this.setPenisGirth(PenisGirth.FOUR_FAT);
-//		this.setPenisSize(8);
-//		this.setTesticleSize(TesticleSize.THREE_LARGE);
-//		this.setPenisCumStorage(200);
-//		this.setPenisCumExpulsion(FluidExpulsion.THREE_LARGE.getMedianValue());
-//		this.fillCumToMaxStorage();
+		// n/a
 		
 		// Vagina:
 		this.setVaginaVirgin(false);

@@ -15,8 +15,8 @@ import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -258,8 +258,8 @@ public class AlleywayProstituteDialogue {
 							"Pay [npc.name] "+cost+" flames to have a good time with [npc.herHim].",
 							true, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null, AFTER_SEX_PAID, "<p>"
 									+ "[pc.speech(Sure, I could do with having a good time,)]"
@@ -307,8 +307,8 @@ public class AlleywayProstituteDialogue {
 							"Pay [npc.name] "+cost+" flames to have a good time with [npc.herHim].",
 							true, true,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null, AFTER_SEX_PAID, "<p>"
 								+ "[pc.speech(Sure, I could do with having a good time,)]"
@@ -517,8 +517,8 @@ public class AlleywayProstituteDialogue {
 						"It's clear that [npc.she] wants you. Have some fun with [npc.name].",
 						true, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 						null, null, AFTER_SEX_VICTORY);
 				
 			} else if (index == 3) {
@@ -526,8 +526,8 @@ public class AlleywayProstituteDialogue {
 						"It's clear that [npc.she] wants you. Have some fun with [npc.name]. (Start the sex scene in the 'gentle' pace.)",
 						true, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 							@Override
 							public SexPace getStartingSexPaceModifier(GameCharacter character) {
 								if(character.isPlayer()) {
@@ -543,8 +543,8 @@ public class AlleywayProstituteDialogue {
 						"It's clear that [npc.she] wants you. Have some fun with [npc.name]. (Start the sex scene in the 'rough' pace.)",
 						true, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 							@Override
 							public SexPace getStartingSexPaceModifier(GameCharacter character) {
 								if(character.isPlayer()) {
@@ -562,8 +562,8 @@ public class AlleywayProstituteDialogue {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						false, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
@@ -653,8 +653,8 @@ public class AlleywayProstituteDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
@@ -666,8 +666,8 @@ public class AlleywayProstituteDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -687,8 +687,8 @@ public class AlleywayProstituteDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {

@@ -14,9 +14,9 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -165,16 +165,16 @@ public class CharactersPresentDialogue {
 									false, false,
 									isSittingSex()
 										? new SMChair(
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.CHAIR_TOP))) {
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.CHAIR_TOP))) {
 											@Override
 											public boolean isPublicSex() {
 												return isCompanionSexPublic();
 											}
 										}
 										: new SMStanding(
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.STANDING_SUBMISSIVE))) {
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.STANDING_SUBMISSIVE))) {
 											@Override
 											public boolean isPublicSex() {
 												return isCompanionSexPublic();
@@ -207,16 +207,16 @@ public class CharactersPresentDialogue {
 									true, false,
 									isSittingSex()
 										? new SMChair(
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.CHAIR_TOP))) {
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.CHAIR_TOP))) {
 											@Override
 											public boolean isPublicSex() {
 												return isCompanionSexPublic();
 											}
 										}
 										: new SMStanding(
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.STANDING_SUBMISSIVE))) {
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.STANDING_SUBMISSIVE))) {
 											@Override
 											public boolean isPublicSex() {
 												return isCompanionSexPublic();
@@ -248,16 +248,16 @@ public class CharactersPresentDialogue {
 									true, true,
 									isSittingSex()
 										? new SMChair(
-												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.CHAIR_BOTTOM)),
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))) {
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.CHAIR_BOTTOM)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))) {
 											@Override
 											public boolean isPublicSex() {
 												return isCompanionSexPublic();
 											}
 										}
 										: new SMStanding(
-												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 											@Override
 											public boolean isPublicSex() {
 												return isCompanionSexPublic();
@@ -308,7 +308,7 @@ public class CharactersPresentDialogue {
 				} else if (index == 2) {
 					
 					if(!characterViewed.isAbleToSelfTransform()) {
-						return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+						return new Response("Transformations", characterViewed.getUnableToTransformDescription(), null);
 						
 					} else if(!Main.game.isSavedDialogueNeutral()) {
 						return new Response("Transformations", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);

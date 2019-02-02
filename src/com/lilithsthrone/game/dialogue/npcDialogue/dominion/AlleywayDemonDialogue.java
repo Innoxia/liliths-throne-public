@@ -29,8 +29,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -249,8 +249,8 @@ public class AlleywayDemonDialogue {
 								"The [npc.race] is ready to use you as [npc.her] little fuck-toy...",
 								false, false,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null, null,
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ALLEY_ATTACK_OFFER_BODY", getDemon())){
 							@Override
@@ -312,8 +312,8 @@ public class AlleywayDemonDialogue {
 								null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM", getDemon())) {
@@ -334,8 +334,8 @@ public class AlleywayDemonDialogue {
 								null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB", getDemon())) {
@@ -599,8 +599,8 @@ public class AlleywayDemonDialogue {
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX", getDemon()));
@@ -610,8 +610,8 @@ public class AlleywayDemonDialogue {
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							true, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -629,8 +629,8 @@ public class AlleywayDemonDialogue {
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							true, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -651,8 +651,8 @@ public class AlleywayDemonDialogue {
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getDemon())) {
@@ -741,8 +741,8 @@ public class AlleywayDemonDialogue {
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE", getDemon()));
@@ -755,8 +755,8 @@ public class AlleywayDemonDialogue {
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -777,8 +777,8 @@ public class AlleywayDemonDialogue {
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -1245,8 +1245,8 @@ public class AlleywayDemonDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_SEX", getDemon())){
@@ -1265,8 +1265,8 @@ public class AlleywayDemonDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -1293,8 +1293,8 @@ public class AlleywayDemonDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {

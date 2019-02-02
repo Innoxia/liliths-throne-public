@@ -24,7 +24,7 @@ public class SexType implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof SexType){
 			if(((SexType)o).getAsParticipant() == getAsParticipant()
 				&& ((SexType)o).getPerformingSexArea() == getPerformingSexArea()

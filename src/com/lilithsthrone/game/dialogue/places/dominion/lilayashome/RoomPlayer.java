@@ -21,8 +21,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -104,63 +104,98 @@ public class RoomPlayer {
 							switch(orifice) {
 								case ANUS:
 									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your [pc.asshole] as you can, but there's so much in there that you're unable to fully clean it all out!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum out of your [pc.asshole] as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your [pc.asshole]."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
+												"You wash all of the cum out of your [pc.asshole]."));
 									}
 									break;
 								case ASS:
 									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum off of your [pc.ass] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum off of your [pc.ass] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.ass]."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
+												"You wash all of the cum off of your [pc.ass]."));
 									}
 									break;
 								case BREAST:
 									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum off of your [pc.breasts] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum off of your [pc.breasts] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.breasts]."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
+												"You wash all of the cum off of your [pc.breasts]."));
+									}
+									break;
+								case BREAST_CROTCH:
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum off of your [pc.crotchBoobs] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
+									} else {
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
+												"You wash all of the cum off of your [pc.crotchBoobs]."));
 									}
 									break;
 								case MOUTH:
 									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "The shower does nothing to clean the cum out of your stomach!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"The shower does nothing to clean the cum out of your stomach!"));
 									}
 									break;
 								case NIPPLE:
 									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your [pc.nipples] as you can, but there's so much in there that you're unable to fully clean it all out!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum out of your [pc.nipples] as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your [pc.nipples]."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
+												"You wash all of the cum out of your [pc.nipples]."));
+									}
+									break;
+								case NIPPLE_CROTCH:
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum out of your [pc.crotchNipples] as you can, but there's so much in there that you're unable to fully clean it all out!"));
+									} else {
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
+												"You wash all of the cum out of your [pc.crotchNipples]."));
 									}
 									break;
 								case THIGHS:
 									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum off of your [pc.thighs] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum off of your [pc.thighs] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.thighs]."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, 
+												"You wash all of the cum off of your [pc.thighs]."));
 									}
 									break;
 								case URETHRA_PENIS:
 									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your cock's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum out of your cock's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your cock's urethra."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
+												"You wash all of the cum out of your cock's urethra."));
 									}
 									break;
 								case URETHRA_VAGINA:
 									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your vagina's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum out of your vagina's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your vagina's urethra."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
+												"You wash all of the cum out of your vagina's urethra."));
 									}
 									break;
 								case VAGINA:
 									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your [pc.pussy] as you can, but there's so much in there that you're unable to fully clean it all out!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
+												"You wash as much of the cum out of your [pc.pussy] as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your [pc.pussy]."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
+												"You wash all of the cum out of your [pc.pussy]."));
 									}
 									break;
 							}
@@ -565,8 +600,8 @@ public class RoomPlayer {
 				return new ResponseSex("Sex (dom)", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Have dominant sex with [npc.name]."),
 						true, true,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexSlotBipeds.STANDING_SUBMISSIVE))),
 						null,
 						null, BACK_HOME_AFTER_CLUBBER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_DOM", NightlifeDistrict.getClubbersPresent()));
 				
@@ -574,8 +609,8 @@ public class RoomPlayer {
 				return new ResponseSex("Sex (sub)", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Have submissive sex with [npc.name]."),
 						true, true,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 						null,
 						null, BACK_HOME_AFTER_CLUBBER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_SUB", NightlifeDistrict.getClubbersPresent()));
 				

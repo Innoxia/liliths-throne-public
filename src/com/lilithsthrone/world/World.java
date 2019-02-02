@@ -48,7 +48,9 @@ public class World implements XMLSaving {
 		element.appendChild(innerElement);
 		for(int i=0; i<grid.length; i++) {
 			for(int j=0; j<grid[0].length; j++) {
-				grid[i][j].saveAsXML(innerElement, doc);
+				if(grid[i][j].getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+					grid[i][j].saveAsXML(innerElement, doc);
+				}
 			}
 		}
 		
@@ -56,23 +58,30 @@ public class World implements XMLSaving {
 	}
 	
 	public static World loadFromXML(Element parentElement, Document doc) {
-		int width = Integer.valueOf(parentElement.getAttribute("width"));
-		int height = Integer.valueOf(parentElement.getAttribute("height"));
-		Cell[][] newGrid = new Cell[width][height];
-		NodeList cells = ((Element) parentElement.getElementsByTagName("grid").item(0)).getElementsByTagName("cell");
-		for(int i = 0; i < cells.getLength(); i++){
-			Element e = (Element) cells.item(i);
-			
-			Cell c = Cell.loadFromXML(e, doc);
-			newGrid[c.getLocation().getX()][c.getLocation().getY()] = c;
-		}
-		
 		WorldType type = WorldType.EMPTY;
 		String worldType = parentElement.getAttribute("worldType");
 		if(worldType.equals("SEWERS")) {
 			type = WorldType.SUBMISSION;
 		} else {
 			type = WorldType.valueOf(worldType);
+		}
+		
+		int width = Integer.valueOf(parentElement.getAttribute("width"));
+		int height = Integer.valueOf(parentElement.getAttribute("height"));
+		Cell[][] newGrid = new Cell[width][height];
+		for(int i=0;i<width;i++) {
+			for(int j=0;j<height;j++) {
+				newGrid[i][j] = new Cell(type, new Vector2i(i, j));
+				newGrid[i][j].getPlace().setPlaceType(PlaceType.GENERIC_IMPASSABLE);
+			}
+		}
+		
+		NodeList cells = ((Element) parentElement.getElementsByTagName("grid").item(0)).getElementsByTagName("cell");
+		for(int i = 0; i < cells.getLength(); i++){
+			Element e = (Element) cells.item(i);
+			
+			Cell c = Cell.loadFromXML(e, doc);
+			newGrid[c.getLocation().getX()][c.getLocation().getY()] = c;
 		}
 		
 		return new World(width, height, newGrid, type);

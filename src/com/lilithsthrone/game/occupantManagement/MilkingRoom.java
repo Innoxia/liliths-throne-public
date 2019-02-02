@@ -358,7 +358,9 @@ public class MilkingRoom implements XMLSaving {
 									?"[style.colourDisabled(Unknown's)]"
 									:UtilText.parse(fluid.getFluidCharacter(), "<span style='color:"+fluid.getFluidCharacter().getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</span>"))
 								+ "<br/>"
-								+ "<span style='color:"+type.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(type.getRace().getName())+" "+type.getName(fluid.getFluidCharacter())+"</span>"
+								+ "<span style='color:"+type.getRace().getColour().toWebHexString()+";'>"
+									+Util.capitaliseSentence(type.getRace().getName(fluid.getFluid().isBestial(fluid.getFluidCharacter())))+" "+type.getName(fluid.getFluidCharacter()) //TODO this will change if the character ttransforms...
+								+"</span>"
 							+ "</div>");
 	
 					milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");

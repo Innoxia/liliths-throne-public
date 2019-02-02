@@ -50,11 +50,12 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -770,8 +771,8 @@ public class ImpFortressDialogue {
 	}
 	
 	private static SexManagerInterface getAlphaSexManager(GameCharacter sub1, GameCharacter sub2, ResponseTag... tags) {
-		HashMap<GameCharacter, SexPositionSlot> doms = new HashMap<>();
-		HashMap<GameCharacter, SexPositionSlot> subs = new HashMap<>();
+		HashMap<GameCharacter, SexSlot> doms = new HashMap<>();
+		HashMap<GameCharacter, SexSlot> subs = new HashMap<>();
 		
 		boolean doggy = true;
 		
@@ -780,48 +781,48 @@ public class ImpFortressDialogue {
 				if(isAlphaBossWantingOral(sub2)) {
 					doggy = false;
 					subs = Util.newHashMapOfValues(
-							new Value<>(sub1, SexPositionSlot.KNEELING_PERFORMING_ORAL),
-							new Value<>(sub2, SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO));
+							new Value<>(sub1, SexSlotBipeds.KNEELING_PERFORMING_ORAL),
+							new Value<>(sub2, SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO));
 					doms = Util.newHashMapOfValues(
-							new Value<>(getBoss(), SexPositionSlot.KNEELING_RECEIVING_ORAL));
+							new Value<>(getBoss(), SexSlotBipeds.KNEELING_RECEIVING_ORAL));
 					
 				} else {
 					subs = Util.newHashMapOfValues(
-							new Value<>(sub1, SexPositionSlot.DOGGY_ON_ALL_FOURS),
-							new Value<>(sub2, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND));
+							new Value<>(sub1, SexSlotBipeds.DOGGY_ON_ALL_FOURS),
+							new Value<>(sub2, SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND));
 					doms = Util.newHashMapOfValues(
-							new Value<>(getBoss(), SexPositionSlot.DOGGY_INFRONT),
-							new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.DOGGY_BEHIND),
-							new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.DOGGY_INFRONT_SECOND),
-							new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.DOGGY_BEHIND_SECOND));
+							new Value<>(getBoss(), SexSlotBipeds.DOGGY_INFRONT),
+							new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.DOGGY_BEHIND),
+							new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.DOGGY_INFRONT_SECOND),
+							new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.DOGGY_BEHIND_SECOND));
 				}
 					
 			} else if(isAlphaBossWantingOral(sub2)) {
 				doms = Util.newHashMapOfValues(
-						new Value<>(getBoss(), SexPositionSlot.DOGGY_INFRONT_SECOND),
-						new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.DOGGY_BEHIND_SECOND),
-						new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.DOGGY_INFRONT),
-						new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.DOGGY_BEHIND));
+						new Value<>(getBoss(), SexSlotBipeds.DOGGY_INFRONT_SECOND),
+						new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.DOGGY_BEHIND_SECOND),
+						new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.DOGGY_INFRONT),
+						new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.DOGGY_BEHIND));
 				
 			} else {
 				doms = Util.newHashMapOfValues(
-						new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.DOGGY_BEHIND),
-						new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.DOGGY_BEHIND_SECOND),
-						new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.DOGGY_SD_HUMPING));
+						new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.DOGGY_BEHIND),
+						new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.DOGGY_BEHIND_SECOND),
+						new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.DOGGY_SD_HUMPING));
 			}
 			
 		} else {
 			if(isAlphaBossWantingOral(sub1)) {
 				doggy = false;
-				subs = Util.newHashMapOfValues(new Value<>(sub1, SexPositionSlot.KNEELING_PERFORMING_ORAL));
-				doms = Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.KNEELING_RECEIVING_ORAL));
+				subs = Util.newHashMapOfValues(new Value<>(sub1, SexSlotBipeds.KNEELING_PERFORMING_ORAL));
+				doms = Util.newHashMapOfValues(new Value<>(getBoss(), SexSlotBipeds.KNEELING_RECEIVING_ORAL));
 					
 			} else {
-				subs = Util.newHashMapOfValues(new Value<>(sub1, SexPositionSlot.DOGGY_ON_ALL_FOURS));
+				subs = Util.newHashMapOfValues(new Value<>(sub1, SexSlotBipeds.DOGGY_ON_ALL_FOURS));
 				doms = Util.newHashMapOfValues(
-						new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.DOGGY_BEHIND),
-						new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.DOGGY_BEHIND_SECOND),
-						new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.DOGGY_SD_HUMPING));
+						new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.DOGGY_BEHIND),
+						new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.DOGGY_BEHIND_SECOND),
+						new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.DOGGY_SD_HUMPING));
 			}
 		}
 		
@@ -916,52 +917,52 @@ public class ImpFortressDialogue {
 	}
 	
 	private static SexManagerInterface getMalesSexManager(GameCharacter sub1, GameCharacter sub2, ResponseTag... tags) {
-		HashMap<GameCharacter, SexPositionSlot> doms = new HashMap<>();
-		HashMap<GameCharacter, SexPositionSlot> subs = new HashMap<>();
+		HashMap<GameCharacter, SexSlot> doms = new HashMap<>();
+		HashMap<GameCharacter, SexSlot> subs = new HashMap<>();
 		
 		if(sub2!=null) {
 			subs = Util.newHashMapOfValues(
-					new Value<>(sub1, SexPositionSlot.MISSIONARY_ON_BACK),
-					new Value<>(sub2, SexPositionSlot.MISSIONARY_ON_BACK_SECOND));
+					new Value<>(sub1, SexSlotBipeds.MISSIONARY_ON_BACK),
+					new Value<>(sub2, SexSlotBipeds.MISSIONARY_ON_BACK_SECOND));
 			
 			if(isMaleBossWantingToBreed(sub1)) {
 				if(isMaleBossWantingToBreed(sub2)) {
 					doms = Util.newHashMapOfValues(
-							new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS));
+							new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS));
 				} else {
 					doms = Util.newHashMapOfValues(
-							new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-							new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-							new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_SECOND),
-							new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_SECOND_TWO));
+							new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+							new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+							new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_SECOND),
+							new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_SECOND_TWO));
 				}
 				
 			} else if(isMaleBossWantingToBreed(sub2)) {
 				doms = Util.newHashMapOfValues(
-						new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-						new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-						new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-						new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO));
+						new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+						new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+						new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE),
+						new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO));
 					
 			} else {
 				doms = Util.newHashMapOfValues(
-						new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-						new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-						new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_FACE_SITTING));
+						new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+						new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+						new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_FACE_SITTING));
 			}
 			
 		} else {
-			subs = Util.newHashMapOfValues(new Value<>(sub1, SexPositionSlot.MISSIONARY_ON_BACK));
+			subs = Util.newHashMapOfValues(new Value<>(sub1, SexSlotBipeds.MISSIONARY_ON_BACK));
 			
 			if(isMaleBossWantingToBreed(sub1)) {
 				doms = Util.newHashMapOfValues(
-						new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS));
+						new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS));
 				
 			} else {
 				doms = Util.newHashMapOfValues(
-						new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-						new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-						new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO));
+						new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+						new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE),
+						new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO));
 			}
 		}
 		
@@ -1994,12 +1995,12 @@ public class ImpFortressDialogue {
 							false,
 							new SMMissionary(
 								Util.newHashMapOfValues(
-										new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-										new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-										new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-										new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+										new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+										new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+										new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE),
+										new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
+										new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 							null,
 							Main.game.getPlayer().getCompanions(),
 							KEEP_AFTER_SEX_PACIFIED,
@@ -2083,13 +2084,13 @@ public class ImpFortressDialogue {
 								false,
 								new SMMissionary(
 										Util.newHashMapOfValues(
-												new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-												new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-												new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-												new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)),
+												new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+												new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+												new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+												new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_FACE_SITTING_SECOND)),
 										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK),
-												new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_ON_BACK_SECOND))),
+												new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK),
+												new Value<>(getMainCompanion(), SexSlotBipeds.MISSIONARY_ON_BACK_SECOND))),
 								null,
 								null,
 								KEEP_AFTER_SEX_PACIFIED,
@@ -2329,21 +2330,21 @@ public class ImpFortressDialogue {
 							isCompanionDialogue()
 								?new SMMissionary(
 										Util.newHashMapOfValues(
-												new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-												new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-												new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-												new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)),
+												new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+												new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+												new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+												new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_FACE_SITTING_SECOND)),
 										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK),
-												new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_ON_BACK_SECOND)))
+												new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK),
+												new Value<>(getMainCompanion(), SexSlotBipeds.MISSIONARY_ON_BACK_SECOND)))
 								:new SMMissionary(
 										Util.newHashMapOfValues(
-												new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-												new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-												new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-												new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+												new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+												new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+												new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE),
+												new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO)),
 										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
+												new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 							null,
 							null,
 							KEEP_AFTER_SEX_DEFEAT,
@@ -2398,8 +2399,8 @@ public class ImpFortressDialogue {
 						false,
 						false,
 						new SMDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(getBoss(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								if(getSubmissives().containsKey(getBoss())) {
@@ -2441,8 +2442,8 @@ public class ImpFortressDialogue {
 						false,
 						false,
 						new SMDoggy(
-								Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+								Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexSlotBipeds.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(getBoss(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								if(getSubmissives().containsKey(getBoss())) {
@@ -2485,9 +2486,9 @@ public class ImpFortressDialogue {
 						false,
 						new SMDoggy(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND),
-										new Value<>(getMainCompanion(), SexPositionSlot.DOGGY_INFRONT)),
-								Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+										new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND),
+										new Value<>(getMainCompanion(), SexSlotBipeds.DOGGY_INFRONT)),
+								Util.newHashMapOfValues(new Value<>(getBoss(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								if(getSubmissives().containsKey(getBoss())) {
@@ -2621,8 +2622,8 @@ public class ImpFortressDialogue {
 						false,
 						false,
 						new SMMissionary(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.MISSIONARY_ON_BACK))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 						Main.game.getPlayer().getCompanions(),
 						null,
 						KEEP_AFTER_SEX_FEMALES_NYMPHO,
@@ -2638,8 +2639,8 @@ public class ImpFortressDialogue {
 						false,
 						false,
 						new SMMissionary(
-								Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.MISSIONARY_ON_BACK))),
+								Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 						Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
 						KEEP_AFTER_SEX_FEMALES_NYMPHO,
@@ -2656,9 +2657,9 @@ public class ImpFortressDialogue {
 						false,
 						new SMMissionary(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-										new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_FACE_SITTING)),
-								Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.MISSIONARY_ON_BACK))),
+										new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+										new Value<>(getMainCompanion(), SexSlotBipeds.MISSIONARY_FACE_SITTING)),
+								Util.newHashMapOfValues(new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 						null,
 						null,
 						KEEP_AFTER_SEX_FEMALES_NYMPHO,
@@ -2937,12 +2938,12 @@ public class ImpFortressDialogue {
 						false,
 						new SMMissionary(
 							Util.newHashMapOfValues(
-									new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-									new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-									new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-									new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+									new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+									new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+									new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE),
+									new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO)),
 							Util.newHashMapOfValues(
-									new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
+									new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 						null,
 						Main.game.getPlayer().getCompanions(),
 						KEEP_AFTER_SEX_AUDIENCE,
@@ -3011,13 +3012,13 @@ public class ImpFortressDialogue {
 						false,
 						new SMMissionary(
 							Util.newHashMapOfValues(
-									new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-									new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-									new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-									new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)),
+									new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+									new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+									new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+									new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_FACE_SITTING_SECOND)),
 							Util.newHashMapOfValues(
-									new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK),
-									new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_ON_BACK_SECOND))),
+									new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK),
+									new Value<>(getMainCompanion(), SexSlotBipeds.MISSIONARY_ON_BACK_SECOND))),
 						null,
 						Main.game.getPlayer().getCompanions(),
 						KEEP_AFTER_SEX_AUDIENCE,
@@ -3211,12 +3212,12 @@ public class ImpFortressDialogue {
 								false,
 								new SMMissionary(
 									Util.newHashMapOfValues(
-											new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-											new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-											new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-											new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+											new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+											new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+											new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE),
+											new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
+											new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 								null,
 								null,
 								KEEP_AFTER_SEX_VICTORY,
@@ -3363,12 +3364,12 @@ public class ImpFortressDialogue {
 								false,
 								new SMMissionary(
 									Util.newHashMapOfValues(
-											new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-											new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-											new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-											new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+											new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+											new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+											new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE),
+											new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
+											new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 								null,
 								Util.newArrayListOfValues(getMainCompanion()),
 								KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters())){
@@ -3455,13 +3456,13 @@ public class ImpFortressDialogue {
 									false,
 									new SMMissionary(
 										Util.newHashMapOfValues(
-												new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-												new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-												new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-												new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)),
+												new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+												new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+												new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+												new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_FACE_SITTING_SECOND)),
 										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK),
-												new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_ON_BACK_SECOND))),
+												new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK),
+												new Value<>(getMainCompanion(), SexSlotBipeds.MISSIONARY_ON_BACK_SECOND))),
 									null,
 									null,
 									KEEP_AFTER_SEX_VICTORY,
@@ -3540,12 +3541,12 @@ public class ImpFortressDialogue {
 									false,
 									new SMMissionary(
 											Util.newHashMapOfValues(
-													new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-													new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-													new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-													new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+													new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+													new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+													new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE),
+													new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO)),
 											Util.newHashMapOfValues(
-													new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_ON_BACK))),
+													new Value<>(getMainCompanion(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
@@ -3743,21 +3744,21 @@ public class ImpFortressDialogue {
 						isCompanionDialogue()
 							?new SMMissionary(
 									Util.newHashMapOfValues(
-											new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-											new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-											new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-											new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)),
+											new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+											new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+											new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+											new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_FACE_SITTING_SECOND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK),
-											new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_ON_BACK_SECOND)))
+											new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK),
+											new Value<>(getMainCompanion(), SexSlotBipeds.MISSIONARY_ON_BACK_SECOND)))
 							:new SMMissionary(
 									Util.newHashMapOfValues(
-											new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-											new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-											new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-											new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+											new Value<>(getBoss(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS),
+											new Value<>(getImpBossGroup(false).get(0), SexSlotBipeds.MISSIONARY_FACE_SITTING),
+											new Value<>(getImpBossGroup(false).get(1), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE),
+											new Value<>(getImpBossGroup(false).get(2), SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
+											new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))),
 						null,
 						null,
 						KEEP_AFTER_SEX_DEFEAT,

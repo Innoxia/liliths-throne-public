@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.body.types;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 
 /**
  * @since 0.1.0
@@ -50,10 +51,15 @@ public interface BodyPartTypeInterface {
 	/** A 1-word descriptor that best describes this body part. */
 	public String getDescriptor(GameCharacter gc);
 
-	/** @param body The body that this covering type is a part of.
+	/**
+	 * <b>BodyCoveringType when assigned to a character should be checked through their appropriate methods!</b>
+	 * @param body The body that this covering type is a part of.
 	 * @return The type of skin that is covering this body part. */
 	public BodyCoveringType getBodyCoveringType(Body body);
 	
+	/**
+	 * <b>BodyCoveringType when assigned to a character should be checked through their appropriate methods!</b>
+	 */
 	public default BodyCoveringType getBodyCoveringType(GameCharacter gc) {
 		return getBodyCoveringType(gc.getBody());
 	}
@@ -111,10 +117,17 @@ public interface BodyPartTypeInterface {
 			case ELEMENTAL:
 				return "elemental";
 			case NONE:
-				break;
+				return "none";
 			case SLIME:
 				return "slime";
 		}
 		return "";
+	}
+	
+	/**
+	 * @return A BodyPartClothingBlock object which defines how this BodyPartInterface is blocking InventorySlots. Returns null if it doesn't affect inventorySlots in any way.
+	 */
+	public default BodyPartClothingBlock getBodyPartClothingBlock() {
+		return null;
 	}
 }

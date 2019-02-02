@@ -19,8 +19,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -361,10 +361,10 @@ public class SupplierDepot {
 							Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, null, null, null, null,
 							true, false,
 							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SupplierLeader.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getNpc(SupplierPartner.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+											new Value<>(Main.game.getNpc(SupplierLeader.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
+											new Value<>(Main.game.getNpc(SupplierPartner.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))),
 							null,
 							null, AFTER_SEX_WILLING_DOMMED_THEM, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_FUCK_THEM"));
 					
@@ -375,9 +375,9 @@ public class SupplierDepot {
 							true, false,
 							new SMDoggy(
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SupplierLeader.class), SexPositionSlot.DOGGY_BEHIND),
-											new Value<>(Main.game.getNpc(SupplierPartner.class), SexPositionSlot.DOGGY_INFRONT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+											new Value<>(Main.game.getNpc(SupplierLeader.class), SexSlotBipeds.DOGGY_BEHIND),
+											new Value<>(Main.game.getNpc(SupplierPartner.class), SexSlotBipeds.DOGGY_INFRONT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 							null,
 							null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_SUB_FUCKED"));
 					
@@ -464,9 +464,9 @@ public class SupplierDepot {
 						true, false,
 						new SMDoggy(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SupplierLeader.class), SexPositionSlot.DOGGY_BEHIND),
-										new Value<>(Main.game.getNpc(SupplierPartner.class), SexPositionSlot.DOGGY_INFRONT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+										new Value<>(Main.game.getNpc(SupplierLeader.class), SexSlotBipeds.DOGGY_BEHIND),
+										new Value<>(Main.game.getNpc(SupplierPartner.class), SexSlotBipeds.DOGGY_INFRONT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 						null,
 						null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_OFFER_BODY"));
 				
@@ -538,9 +538,9 @@ public class SupplierDepot {
 						true, true,
 						new SMDoggy(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SupplierLeader.class), SexPositionSlot.DOGGY_BEHIND),
-										new Value<>(Main.game.getNpc(SupplierPartner.class), SexPositionSlot.DOGGY_INFRONT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+										new Value<>(Main.game.getNpc(SupplierLeader.class), SexSlotBipeds.DOGGY_BEHIND),
+										new Value<>(Main.game.getNpc(SupplierPartner.class), SexSlotBipeds.DOGGY_INFRONT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 						null,
 						null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_ENFORCER_THANKS"));
 				
@@ -580,10 +580,10 @@ public class SupplierDepot {
 						null, null, null, null, null, null,
 						false, false,
 						new SMDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SupplierLeader.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-										new Value<>(Main.game.getNpc(SupplierPartner.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+										new Value<>(Main.game.getNpc(SupplierLeader.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
+										new Value<>(Main.game.getNpc(SupplierPartner.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))),
 						null,
 						null, AFTER_SEX_WILLING_DOMMED_THEM, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_FUCK_THEM"));
 				
@@ -594,9 +594,9 @@ public class SupplierDepot {
 						true, true,
 						new SMDoggy(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SupplierLeader.class), SexPositionSlot.DOGGY_BEHIND),
-										new Value<>(Main.game.getNpc(SupplierPartner.class), SexPositionSlot.DOGGY_INFRONT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+										new Value<>(Main.game.getNpc(SupplierLeader.class), SexSlotBipeds.DOGGY_BEHIND),
+										new Value<>(Main.game.getNpc(SupplierPartner.class), SexSlotBipeds.DOGGY_INFRONT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 						null,
 						null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_SUB_FUCKED"));
 				
@@ -622,9 +622,9 @@ public class SupplierDepot {
 						false, false,
 						new SMDoggy(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SupplierLeader.class), SexPositionSlot.DOGGY_BEHIND),
-										new Value<>(Main.game.getNpc(SupplierPartner.class), SexPositionSlot.DOGGY_INFRONT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+										new Value<>(Main.game.getNpc(SupplierLeader.class), SexSlotBipeds.DOGGY_BEHIND),
+										new Value<>(Main.game.getNpc(SupplierPartner.class), SexSlotBipeds.DOGGY_INFRONT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 						null,
 						null, AFTER_SEX_FUCKED, "");
 				

@@ -69,7 +69,6 @@
 				
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
 			</blockedParts>
-			
 		</blockedPartsList>
 		
 		<incompatibleSlots/> 

@@ -235,7 +235,7 @@ public enum Combat {
 	 * 
 	 * @param playerVictory
 	 */
-	private static void endCombat(boolean playerVictory) {
+	public static void endCombat(boolean playerVictory) {
 		
 		postCombatStringBuilder.setLength(0);
 		

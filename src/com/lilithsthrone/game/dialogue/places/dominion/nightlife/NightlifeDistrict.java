@@ -34,12 +34,12 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMGloryHole;
 import com.lilithsthrone.game.sex.managers.dominion.SMKrugerChair;
 import com.lilithsthrone.game.sex.managers.dominion.SMStallSex;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -467,10 +467,11 @@ public class NightlifeDistrict {
 							return new Response("Suck cock", "You can't gain access to your mouth, so you can't suck Jules's cock!", null);
 						}
 						return new ResponseSex("Suck cock", "Suck Jules's cock in front of everyone in order to skip to the front of the queue.",
-								true, false,
+								true,
+								false,
 								new SMJulesCockSucking(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL))),
 								null,
 								null, AFTER_JULES_BLOWJOB, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_START_BLOWJOB")) {
 							@Override
@@ -966,7 +967,7 @@ public class NightlifeDistrict {
 
 			Population pop = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation();
 			if(pop!=null && !pop.getSpecies().isEmpty()) {
-				for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation().getSpecies()) {
+				for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation().getSpecies().keySet()) {
 					if(count==index) {
 						return new Response(Util.capitaliseSentence(subspecies.getName(null)),
 								"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
@@ -976,7 +977,6 @@ public class NightlifeDistrict {
 							@Override
 							public void effects() {
 								clubberSubspecies = subspecies;
-	
 								spawnClubbers(isSearchingForASub);
 							}
 						};
@@ -1236,8 +1236,8 @@ public class NightlifeDistrict {
 						return new ResponseSex("Sex (dom)", UtilText.parse(getClubbersPresent(), "Pull [npc.name] into your lap and start having dominant sex with [npc.herHim]."),
 								true, true,
 								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.CHAIR_TOP))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.CHAIR_TOP))),
 								null,
 								null, WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_SEX_AS_DOM", getClubbersPresent()));
 						
@@ -1262,8 +1262,8 @@ public class NightlifeDistrict {
 						return new ResponseSex("Sex (sub)", UtilText.parse(getClubbersPresent(), "Slide into [npc.namePos] lap and start having submissive sex with [npc.herHim]."),
 								true, true,
 								new SMChair(
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))),
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))),
 								null,
 								null, WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_SEX_AS_SUB", getClubbersPresent()));
 						
@@ -2564,8 +2564,8 @@ public class NightlifeDistrict {
 						return new ResponseSex("Sex (dom)", "Pull Kalahari into your lap and start having dominant sex with her.",
 								true, true,
 								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexPositionSlot.CHAIR_TOP))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotBipeds.CHAIR_TOP))),
 								null,
 								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"));
 					}
@@ -2577,8 +2577,8 @@ public class NightlifeDistrict {
 						return new ResponseSex("Sex (sub)", "Slide into Kalahari's lap and start having submissive sex with her.",
 								true, true,
 								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotBipeds.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))),
 								null,
 								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
 					}
@@ -2923,8 +2923,8 @@ public class NightlifeDistrict {
 					return new ResponseSex("Sex (sub)", "Slide into Kruger's lap and start having submissive sex with [npc.herHim].",
 							true, true,
 							new SMKrugerChair(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexPositionSlot.CHAIR_ORAL_SITTING)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexSlotBipeds.CHAIR_ORAL_SITTING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_KNEELING))),
 							null,
 							null, WATERING_HOLE_VIP_KRUGER_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_VIP_KRUGER_SEX_AS_SUB"));
 				}
@@ -3282,8 +3282,8 @@ public class NightlifeDistrict {
 						return new ResponseSex("Stall sex", UtilText.parse(getClubbersPresent(), "Try and get [npc.name] to have sex in one of the toilet's stalls."),
 								true, true,
 								new SMStallSex(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null, WATERING_HOLE_TOILETS_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_SEX", getClubbersPresent()));
 						
@@ -3390,8 +3390,8 @@ public class NightlifeDistrict {
 				return new ResponseSex("Use glory hole", UtilText.parse(characters.get(0), "Do as [npc.name] says and step up to the glory hole."),
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(characters.get(0), SexPositionSlot.GLORY_HOLE_KNEELING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE))),
+								Util.newHashMapOfValues(new Value<>(characters.get(0), SexSlotBipeds.GLORY_HOLE_KNEELING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE))),
 						null,
 						null, WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_USING", characters));
 			}
@@ -3457,10 +3457,10 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (close door)", "Close the door, affording yourself some privacy as you start to service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.GLORY_HOLE_KNEELING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.GLORY_HOLE_KNEELING)),
 								Util.newHashMapOfValues(
-										new Value<>(characters.get(0), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE),
-										new Value<>(characters.get(1), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_TWO))),
+										new Value<>(characters.get(0), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE),
+										new Value<>(characters.get(1), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_TWO))),
 						null,
 						null, WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING", characters));
 				
@@ -3470,10 +3470,10 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (public view)", "Leave the door open, so that everyone in the toilets can watch as you service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.GLORY_HOLE_KNEELING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.GLORY_HOLE_KNEELING)),
 								Util.newHashMapOfValues(
-										new Value<>(characters.get(0), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE),
-										new Value<>(characters.get(1), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
+										new Value<>(characters.get(0), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE),
+										new Value<>(characters.get(1), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
 							@Override
 							public boolean isPublicSex() {
 								return true;
@@ -4564,8 +4564,8 @@ public class NightlifeDistrict {
 						return new ResponseSex("Sex (sub)", UtilText.parse(getClubbersPresent(), "Slide into [npc.namePos] lap and start having submissive sex with [npc.herHim]."),
 								true, true,
 								new SMChair(
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))),
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))),
 								null,
 								null, WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_START", getClubbersPresent()));
 						
@@ -4629,8 +4629,8 @@ public class NightlifeDistrict {
 						return new ResponseSex("Stall sex", UtilText.parse(getClubbersPresent(), "Let [npc.name] fuck you in one of the toilet's stalls."),
 								true, true,
 								new SMStallSex(
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START", getClubbersPresent()));
@@ -4755,8 +4755,8 @@ public class NightlifeDistrict {
 				return new ResponseSex("Sex", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Have submissive sex with [npc.name]."),
 						true, true,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 						null,
 						null,
 						WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX,

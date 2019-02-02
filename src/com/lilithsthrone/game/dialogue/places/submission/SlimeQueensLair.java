@@ -24,10 +24,10 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -152,10 +152,10 @@ public class SlimeQueensLair {
 							null, null, null, null, null, null,
 							true, false,
 							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))) {
+											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
+											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -171,9 +171,9 @@ public class SlimeQueensLair {
 							true, true,
 							new SMDoggy(
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexPositionSlot.DOGGY_INFRONT),
-											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexPositionSlot.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_INFRONT),
+											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_BEHIND)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -192,10 +192,10 @@ public class SlimeQueensLair {
 							null, null, null, null, null, null,
 							true, false,
 							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))) {
+											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
+											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -211,9 +211,9 @@ public class SlimeQueensLair {
 							true, true,
 							new SMDoggy(
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexPositionSlot.DOGGY_INFRONT),
-											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexPositionSlot.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_INFRONT),
+											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_BEHIND)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -400,9 +400,9 @@ public class SlimeQueensLair {
 						false, false,
 						new SMDoggy(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexPositionSlot.DOGGY_INFRONT),
-										new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+										new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_INFRONT),
+										new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -594,9 +594,9 @@ public class SlimeQueensLair {
 							null, null, null, null, null, null,
 							true, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+											new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null, AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
 				
@@ -607,8 +607,8 @@ public class SlimeQueensLair {
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+											new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null, AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
 				} else {
@@ -820,8 +820,8 @@ public class SlimeQueensLair {
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 							@Override
 							public boolean isPlayerAbleToStopSex() {
 								return false;
@@ -910,8 +910,8 @@ public class SlimeQueensLair {
 						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
 				
@@ -936,9 +936,9 @@ public class SlimeQueensLair {
 						null, null, null, null, null, null,
 						true, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
 			
@@ -949,8 +949,8 @@ public class SlimeQueensLair {
 						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
 			} else {
@@ -975,8 +975,8 @@ public class SlimeQueensLair {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 						null,
 						null, AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
 				
@@ -1129,9 +1129,9 @@ public class SlimeQueensLair {
 						null, null, null, null, null, null,
 						true, false,
 						new SMMissionary(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeQueen.class), SexPositionSlot.MISSIONARY_ON_BACK))),
+										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotBipeds.MISSIONARY_ON_BACK))),
 						null,
 						null,
 						AFTER_SLIME_QUEEN_SEX, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_SEX_START"));
@@ -1204,9 +1204,9 @@ public class SlimeQueensLair {
 						null, null, null, null, null, null,
 						true, false,
 						new SMDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeQueen.class), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 						null,
 						null, AFTER_SLIME_QUEEN_SEX, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_SEX_START"));
 				

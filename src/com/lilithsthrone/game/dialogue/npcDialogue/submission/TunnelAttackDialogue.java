@@ -24,8 +24,8 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -235,8 +235,8 @@ public class TunnelAttackDialogue {
 								null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_OFFER_BODY", getMugger())) {
@@ -295,8 +295,8 @@ public class TunnelAttackDialogue {
 								null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_SEX_AS_DOM", getMugger())) {
@@ -317,8 +317,8 @@ public class TunnelAttackDialogue {
 								null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_SEX_AS_SUB", getMugger())) {
@@ -582,8 +582,8 @@ public class TunnelAttackDialogue {
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX", getMugger()));
@@ -593,8 +593,8 @@ public class TunnelAttackDialogue {
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							true, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -612,8 +612,8 @@ public class TunnelAttackDialogue {
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							true, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -633,8 +633,8 @@ public class TunnelAttackDialogue {
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getMugger()));
@@ -708,8 +708,8 @@ public class TunnelAttackDialogue {
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE", getMugger()));
@@ -722,8 +722,8 @@ public class TunnelAttackDialogue {
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -744,8 +744,8 @@ public class TunnelAttackDialogue {
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -943,8 +943,8 @@ public class TunnelAttackDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
@@ -954,8 +954,8 @@ public class TunnelAttackDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -973,8 +973,8 @@ public class TunnelAttackDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -1026,8 +1026,8 @@ public class TunnelAttackDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
@@ -1037,8 +1037,8 @@ public class TunnelAttackDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -1056,8 +1056,8 @@ public class TunnelAttackDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -1105,8 +1105,8 @@ public class TunnelAttackDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
@@ -1116,8 +1116,8 @@ public class TunnelAttackDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -1135,8 +1135,8 @@ public class TunnelAttackDialogue {
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {

@@ -10,8 +10,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -59,8 +59,8 @@ public class ReindeerOverseerDialogue {
 					"Ask [npc.name] if [npc.she]'d like to blow off some steam with you.",
 					true, true,
 					new SMStanding(
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-							Util.newHashMapOfValues(new Value<>(reindeer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+							Util.newHashMapOfValues(new Value<>(reindeer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 					null,
 					null, AFTER_SEX, "<p>"
 						+ "Putting on your most seductive voice, you step close to [npc.name] and ask,"

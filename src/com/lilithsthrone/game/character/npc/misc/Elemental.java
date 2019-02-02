@@ -214,12 +214,7 @@ public class Elemental extends NPC {
 			// Anus settings and modifiers
 			
 			// Penis:
-//				this.setPenisVirgin(false);
-//				this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-//				this.setPenisSize(8);
-//				this.setTesticleSize(TesticleSize.TWO_AVERAGE);
-//				this.setPenisCumStorage(100);
-//				this.fillCumToMaxStorage();
+			// n/a
 			
 			// Vagina:
 			this.setVaginaVirgin(true);

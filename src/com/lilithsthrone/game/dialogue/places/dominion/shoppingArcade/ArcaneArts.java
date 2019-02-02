@@ -17,8 +17,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMVickyOverDesk;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -138,8 +138,8 @@ public class ArcaneArts {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMVickyOverDesk(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexPositionSlot.MISSIONARY_DESK_DOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))),
 								null,
 									null, VICKY_POST_SEX, "<p>"
 										+ "[pc.speech(I was wondering... If you'd like to use me...)]"
@@ -169,8 +169,8 @@ public class ArcaneArts {
 									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexPositionSlot.MISSIONARY_DESK_DOM)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -284,8 +284,8 @@ public class ArcaneArts {
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 							true, false,
 							new SMVickyOverDesk(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexPositionSlot.MISSIONARY_DESK_DOM)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))),
 							null,
 								null, VICKY_POST_SEX_PACKAGE, "<p>"
 									+ "[pc.speech(That second option doesn't sound so bad...)]"
@@ -314,8 +314,8 @@ public class ArcaneArts {
 									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexPositionSlot.MISSIONARY_DESK_DOM)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {

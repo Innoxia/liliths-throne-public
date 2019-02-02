@@ -30,8 +30,8 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -41,7 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class PrologueDialogue {
@@ -112,8 +112,8 @@ public class PrologueDialogue {
 							null, null, null,
 							true, true,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(PrologueFemale.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(PrologueFemale.class), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX,
@@ -124,7 +124,7 @@ public class PrologueDialogue {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().hasPenis()) {
-								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, Colour.CLOTHING_WHITE, false), false);
+								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_penis_condom", Colour.CLOTHING_WHITE, false), false);
 							}
 						}
 					};
@@ -135,8 +135,8 @@ public class PrologueDialogue {
 							null, null, null,
 							true, true,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(PrologueMale.class), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(PrologueMale.class), SexSlotBipeds.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 							null,
 							null,
 							AFTER_SEX,
@@ -144,9 +144,9 @@ public class PrologueDialogue {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().hasPenis()) {
-								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, Colour.CLOTHING_WHITE, false), false);
+								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_penis_condom", Colour.CLOTHING_WHITE, false), false);
 							}
-							Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, Colour.CLOTHING_WHITE, false), false);
+							Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_penis_condom", Colour.CLOTHING_WHITE, false), false);
 						}
 					};
 				}

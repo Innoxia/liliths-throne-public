@@ -30,8 +30,9 @@ import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogu
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -44,7 +45,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class DominionSuccubusAttacker extends NPC {
@@ -216,7 +217,10 @@ public class DominionSuccubusAttacker extends NPC {
 							+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
 						+ "</p>";
 			} else if (!target.isPlayer()){
-				target.unequipClothingIntoVoid(target.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
+				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
+				if(clothing!=null && clothing.getClothingType().isCondom()) {
+					target.unequipClothingIntoVoid(clothing, true, equipper);
+				}
 				return "<p>"
 							+ "You pull out a condom and try to give it to the horny [npc.race], but [npc.she] simply laughs in your face before grabbing the little foil packet and tearing it in two."
 							+ " Mocking your attempt at trying to get her to wear a rubber, [npc.she] sneers,"

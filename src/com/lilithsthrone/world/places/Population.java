@@ -1,34 +1,28 @@
 package com.lilithsthrone.world.places;
 
-import java.util.List;
+import java.util.Map;
 
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 
 /**
  * @since 0.2.12
- * @version 0.2.12
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Population {
 	
 	private PopulationType type;
 	private PopulationDensity density;
-	private List<Subspecies> species;
+	private Map<Subspecies, SubspeciesSpawnRarity> species;
 	
-	public Population(PopulationType type, PopulationDensity density, Subspecies... species) {
-		this.type = type;
-		this.density = density;
-		this.species = Util.newArrayListOfValues(species);
-	}
-	
-	public Population(PopulationType type, PopulationDensity density, List<Subspecies> species) {
+	public Population(PopulationType type, PopulationDensity density, Map<Subspecies, SubspeciesSpawnRarity> species) {
 		this.type = type;
 		this.density = density;
 		this.species = species;
 	}
 
-	public List<Subspecies> getSpecies() {
+	public Map<Subspecies, SubspeciesSpawnRarity> getSpecies() {
 		return species;
 	}
 

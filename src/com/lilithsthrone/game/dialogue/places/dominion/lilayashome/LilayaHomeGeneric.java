@@ -28,11 +28,12 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -69,10 +70,10 @@ public class LilayaHomeGeneric {
 		public String getContent() {
 			return "<p>"
 						+ "Positioned near the very centre of Dominion, Lilaya's home would be more aptly described as a palace, rather than a town-house."
-						+ " While the surrounding buildings are of an impressive size, you reckon that you could  fit at least two or three of them into the plot which your aunt's dwelling occupies."
+						+ " While the surrounding buildings are of an impressive size, you reckon that you could  fit at least two or three of them into the plot which your [lilaya.relation(pc)]'s dwelling occupies."
 					+ "</p>"
 					+ "<p>"
-						+ "With your demonic aunt happily treating you as one of her blood-relatives, you've been given full permission to come and go from here as you please."
+						+ "With your demonic [lilaya.relation(pc)] happily treating you as one of her blood-relatives, you've been given full permission to come and go from here as you please."
 						+ " If you wanted to enter the house right now, all you'd need to do is knock on the front door, and you can be sure that Lilaya's cat-girl maid, Rose, will respond in mere moments."
 					+ "</p>";
 		}
@@ -93,7 +94,7 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p>"
 									+ "Moving forwards into the impressive entrance hall, you greet the cat-girl maid as she closes the door behind you."
-									+ " Turning to smile at you one last time, Rose then excuses herself, before quickly hurrying off in the direction of your aunt's laboratory..."
+									+ " Turning to smile at you one last time, Rose then excuses herself, before quickly hurrying off in the direction of your [lilaya.relation(pc)]'s laboratory..."
 								+ "</p>");
 						
 						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
@@ -251,8 +252,68 @@ public class LilayaHomeGeneric {
 			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
 			
 			if(index==3) {
+				if(room.isAutoSellMilk()) {
+					return new ResponseEffectsOnly("Milk: [style.colourGold(Selling)]", "Any milk that's collected in this room is being automatically sold.") {
+						@Override
+						public void effects() {
+							room.setAutoSellMilk(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Milk: [style.colourOrange(Storing)]", "Any milk that's collected in this room is being stored.") {
+						@Override
+						public void effects() {
+							room.setAutoSellMilk(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+				}
+				
+			} else if(index==4) {
+				if(room.isAutoSellCum()) {
+					return new ResponseEffectsOnly("Cum: [style.colourGold(Selling)]", "Any cum that's collected in this room is being automatically sold.") {
+						@Override
+						public void effects() {
+							room.setAutoSellCum(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Cum: [style.colourOrange(Storing)]", "Any cum that's collected in this room is being stored.") {
+						@Override
+						public void effects() {
+							room.setAutoSellCum(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+				}
+				
+			} else if(index==5) {
+				if(room.isAutoSellGirlcum()) {
+					return new ResponseEffectsOnly("Girlcum: [style.colourGold(Selling)]", "Any girlcum that's collected in this room is being automatically sold.") {
+						@Override
+						public void effects() {
+							room.setAutoSellGirlcum(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Girlcum: [style.colourOrange(Storing)]", "Any girlcum that's collected in this room is being stored.") {
+						@Override
+						public void effects() {
+							room.setAutoSellGirlcum(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+				}
+				
+			} else if(index==6) {
 				if(Main.game.getPlayer().getBreastRawStoredMilkValue()==0) {
-					return new Response("Milk Self", "There is no milk stored in your [pc.breasts], so you can't milk yourself at the moment!",  null);
+					return new Response("Milk Self", "There is no milk stored in your breasts, so you can't milk yourself at the moment!",  null);
 					
 				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 					return new Response("Milk Self", "You are unable to get access to your nipples, so you can't milk yourself at the moment!",  null);
@@ -327,7 +388,7 @@ public class LilayaHomeGeneric {
 					};
 				}
 				
-			} else if(index==4) {
+			} else if(index==7) {
 				if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 					return new Response("Milk Self Cum", "You don't have a penis, so you can't produce any cum...",  null);
 					
@@ -408,7 +469,7 @@ public class LilayaHomeGeneric {
 					};
 				}
 				
-			} else if(index==5) {
+			} else if(index==8) {
 				if(!Main.game.getPlayer().hasVagina()) {
 					return new Response("Milk Self Girlcum", "You don't have a vagina, so you can't produce any girlcum...",  null);
 					
@@ -490,71 +551,92 @@ public class LilayaHomeGeneric {
 				}
 				
 				
-			} else if(index==6) {
-				if(room.isAutoSellMilk()) {
-					return new ResponseEffectsOnly("Milk: [style.colourGold(Selling)]", "Any milk that's collected in this room is being automatically sold.") {
-						@Override
-						public void effects() {
-							room.setAutoSellMilk(false);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
+			} else if(index==9) {
+				if(!Main.game.getPlayer().hasBreastsCrotch()) {
+					return new Response("Milk Self (Udders)", "You do not have any udders to milk!",  null);
+					
+				} else if(Main.game.getPlayer().getBreastCrotchRawStoredMilkValue()==0) {
+					return new Response("Milk Self ([pc.CrotchBoobs])", "There is no milk stored in your [pc.crotchBoobs], so you can't milk yourself at the moment!",  null);
+					
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES_CROTCH, true)) {
+					return new Response("Milk Self ([pc.CrotchBoobs])", "You are unable to get access to your [pc.crotchNipples], so you can't milk yourself at the moment!",  null);
+					
+				} else if(charactersPresent.size()==8) {
+					return new Response("Milk Self ([pc.CrotchBoobs])", "There are no free milking machines for you to use!",  null);
 					
 				} else {
-					return new ResponseEffectsOnly("Milk: [style.colourOrange(Storing)]", "Any milk that's collected in this room is being stored.") {
+					return new Response("Milk Self ([pc.CrotchBoobs])", "Use this room's spare milking equipment to milk your [pc.crotchBoobs].", MILKED) {
 						@Override
 						public void effects() {
-							room.setAutoSellMilk(true);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							int milked = MilkingRoom.getActualMilkPerHour(Main.game.getPlayer());
+							if(milked < Main.game.getPlayer().getBreastCrotchRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(Main.game.getPlayer())) {
+								milked = (int) Math.min(Main.game.getPlayer().getBreastCrotchRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(Main.game.getPlayer()));
+							}
+							room.incrementFluidStored(Main.game.getPlayer(), Main.game.getPlayer().getMilkCrotch(), milked);
+							Main.game.getPlayer().incrementBreastCrotchStoredMilk(-milked);
+							
+							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the artisan milker's comfortable, padded leather bed, and, attaching the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+												?" special 'Lact-o-Cups'"
+												:" soft suction cups")
+											+" to your [pc.crotchBoobsRows] [pc.crotchBoobs], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts gently humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+													?" the aftermarket suction cups begin to expertly squeeze and suck the [pc.crotchMilk+] from your [pc.crotchNipples+]."
+													:" begins to squeeze and suck the [pc.crotchMilk+] from your [pc.crotchNipples+].")
+											+ " You let out a delighted sigh at the satisfying feeling of being milked in comfort, and, allowing your eyes to close, you take a relaxing, well-earned break from your daily activities."
+										+ "</p>");
+							} else if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the industrial milker's uncomfortable metal bed, and, attaching the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+												?" special 'Lact-o-Cups'"
+												:" hard suction cups")
+											+" to your [pc.crotchBoobsRows] [pc.crotchBoobs], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts loudly whirring and humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+													?" the aftermarket suction cups begin to expertly squeeze and suck the [pc.crotchMilk+] from your [pc.crotchNipples+]."
+													:" begins to roughly squeeze and suck the [pc.crotchMilk+] from your [pc.crotchNipples+].")
+											+ " You let out a distressed moan at the harsh feeling of being milked by such a crude machine, but,"
+												+ " determined to see this through to the end, you hold still and allow the industrial-grade contraption to do its work."
+										+ "</p>");
+							} else {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the milking machine's leather bed, and, attaching the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+												?" special 'Lact-o-Cups'"
+												:" suction cups")
+											+" to your [pc.crotchBoobsRows] [pc.crotchBoobs], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+													?" the aftermarket suction cups begin to expertly squeeze and suck the [pc.crotchMilk+] from your [pc.crotchNipples+]."
+													:" begins to squeeze and suck the [pc.crotchMilk+] from your [pc.crotchNipples+].")
+											+ " You let out a little moan at the feeling of being milked by the machine, and hold still as you allow the contraption to do its work."
+										+ "</p>");
+							}
+
+							Main.game.getTextEndStringBuilder().append(
+								"<p>"
+									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up."
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
+										+ milked+"ml of [pc.crotchMilk] added to this room's storage!"
+								+ "</p>");
 						}
 					};
 				}
 				
-			} else if(index==7) {
-				if(room.isAutoSellCum()) {
-					return new ResponseEffectsOnly("Cum: [style.colourGold(Selling)]", "Any cum that's collected in this room is being automatically sold.") {
-						@Override
-						public void effects() {
-							room.setAutoSellCum(false);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-					
-				} else {
-					return new ResponseEffectsOnly("Cum: [style.colourOrange(Storing)]", "Any cum that's collected in this room is being stored.") {
-						@Override
-						public void effects() {
-							room.setAutoSellCum(true);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-				}
-				
-			} else if(index==8) {
-				if(room.isAutoSellGirlcum()) {
-					return new ResponseEffectsOnly("Girlcum: [style.colourGold(Selling)]", "Any girlcum that's collected in this room is being automatically sold.") {
-						@Override
-						public void effects() {
-							room.setAutoSellGirlcum(false);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-					
-				} else {
-					return new ResponseEffectsOnly("Girlcum: [style.colourOrange(Storing)]", "Any girlcum that's collected in this room is being stored.") {
-						@Override
-						public void effects() {
-							room.setAutoSellGirlcum(true);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-				}
-				
-			} else if(index-9<charactersPresent.size()) {
-				return new Response(UtilText.parse(charactersPresent.get(index-9), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-9), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+			} else if(index-10<charactersPresent.size()) {
+				GameCharacter character = charactersPresent.get(index-10);
+				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(charactersPresent.get(index-9));
+						Main.game.setActiveNPC((NPC) character);
 					}
 				};
 				
@@ -1279,7 +1361,7 @@ public class LilayaHomeGeneric {
 							+ "</p>"
 							+ "<p>"
 								+ "[pc.speech(Mmm, yes...)] you moan, feeling a jolt of excitement as Arthur's hands run down to your groin."
-								+ " Leaning back into him, you pull your aunt forwards, passionately thrusting your tongue into her mouth as you reach down to help guide Arthur's fingers between your legs..."
+								+ " Leaning back into him, you pull your [lilaya.relation(pc)] forwards, passionately thrusting your tongue into her mouth as you reach down to help guide Arthur's fingers between your legs..."
 							+ "</p>"
 							+ "<p>"
 								+ "[lilaya.speech(Wake up, [pc.name]...)] Lilaya sighs..."
@@ -1327,7 +1409,7 @@ public class LilayaHomeGeneric {
 								+ "[pc.speech(What's wrong? Is it not work- ~Aah!~)] you start to question, but Lilaya suddenly steps around behind you, and with a little giggle, reaches forwards to wrap her arms around you."
 							+ "</p>"
 							+ "<p>"
-								+ "[lilaya.speech(I could see that look in your eyes...)] she says, and a jolt of excitement suddenly runs through you as you feel your aunt's hands run down to your groin."
+								+ "[lilaya.speech(I could see that look in your eyes...)] she says, and a jolt of excitement suddenly runs through you as you feel your [lilaya.relation(pc)]'s hands run down to your groin."
 							+ "</p>"
 							+ "<p>"
 								+ "[pc.speech(Mmm... Yes...)] you moan, turning your head and pressing your lips against Lilaya's."
@@ -1397,7 +1479,7 @@ public class LilayaHomeGeneric {
 				+ "</p>"
 				+ "<p>"
 					+ "[pc.speech(Thank you, Lilaya,)]"
-					+ " you say, stepping forwards to give your aunt a loving hug,"
+					+ " you say, stepping forwards to give your [lilaya.relation(pc)] a loving hug,"
 					+ " [pc.speech(you saved me again, huh?)]"
 				+ "</p>"
 				+ "<p>"
@@ -1559,7 +1641,7 @@ public class LilayaHomeGeneric {
 					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 									" is dutifully making Lilaya a meal."
-									+ " You notice that [npc.sheIs] taking care to prepare it just the way your demonic aunt likes."
+									+ " You notice that [npc.sheIs] taking care to prepare it just the way your demonic [lilaya.relation(pc)] likes."
 								+ "</p>"));
 						break;
 					}
@@ -1818,16 +1900,8 @@ public class LilayaHomeGeneric {
 	};
 	
 	private static String roseContent = "";
-	private static boolean askedAboutDuties = false;
+	private static SizedStack<Integer> askedAboutDuties = new SizedStack<>(4);
 	public static final DialogueNode AUNT_HOME_ROSE = new DialogueNode("", "", true) {
-		/**
-		 */
-
-		@Override
-		public String getLabel() {
-			return Main.game.getNpc(Lilaya.class).getName()
-					+ "'s Home";
-		}
 
 		@Override
 		public String getContent() {
@@ -1840,23 +1914,11 @@ public class LilayaHomeGeneric {
 				return new Response("Lilaya", "Ask Rose about her owner, Lilaya.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						askedAboutDuties = false;
-						roseContent = "<p>"
-								+ UtilText.parsePlayerSpeech("What can you tell me about Lilaya? She seems to be quite... reclusive,")
-								+ " you ask."
-								+ "</p>"
-								+ "<p>"
-								+ UtilText.parseSpeech("Yes, I suppose she does give that impression,", Main.game.getNpc(Rose.class))
-								+ " Rose replies, "
-								+ UtilText.parseSpeech("but I'm afraid that I can't tell you much about her."
-										+ " It's not my place to talk about my Mistress behind her back, as I'm sure you can understand."
-										+ " If you want to know more about her, you'll have to get to know her better.", Main.game.getNpc(Rose.class))
-								+ "</p>"
-								+ "<p>"
-								+ "Rose blushes and fidgets nervously on the spot, obviously feeling very awkward about telling you that she can't help you out."
-								+ " You suppose that she's right, though."
-								+ " It would be a big breach of trust if Rose were to start telling you Lilaya's secrets."
-								+ "</p>";
+						askedAboutDuties.push(index);
+						for(Integer i : askedAboutDuties) {
+							System.out.println(i);
+						}
+						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_LILAYA");
 					}
 				};
 
@@ -1864,38 +1926,8 @@ public class LilayaHomeGeneric {
 				return new Response("Slavery", "Ask Rose how she became a slave.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						askedAboutDuties = false;
-						roseContent = "<p>"
-									+ "Not really sure about the best way to approach the subject, you decide to just ask your question outright, and hope that you don't cause Rose any offence, "
-									+ UtilText.parsePlayerSpeech("If you don't mind me asking, how did you end up as a slave?")
-								+ "</p>"
-								+ "<p>"
-									+ "Rose smiles to put you at ease, obviously sensing that you're a bit hesitant to broach the subject. "
-									+ UtilText.parseSpeech("Well, like most other slaves, I sold myself into slavery.", Main.game.getNpc(Rose.class))
-								+ "</p>"
-								+ "<p>"
-									+ "You can't help but feel shocked as you hear that Rose willingly became a slave, but before you can ask why, she seems to sense your incoming question and continues, "
-									+ "[rose.speech(When you sell yourself as a slave, all your debts and crimes are forgiven, so many people choose a life of slavery in order to escape their past."
-											+ " I suppose I'm somewhat of an unusual case, though, because I didn't have anything to run away from."
-											+ " You see, I used to work as a maid for Lilaya's mother, Lyssieth, and while working for her, Lilaya and I grew very close...)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Rose suddenly blushes, and you notice that her tail has wrapped itself tightly around her leg."
-									+ " She's obviously thinking back to when she first met Lilaya, and as she takes a moment to move past her recollection of the past, you wonder how she ended up selling herself into slavery."
-								+ "</p>"
-								+ "<p>"
-									+ "You don't have to wonder for too long, as after a moment, Rose suddenly remembers that you're here, and continues,"
-									+ " [rose.speech(Lyssieth didn't approve of how much time we were spending together, and when Lilaya started to insist that we call each other 'sister', her mother didn't take it well..."
-											+ " I was called before her and told that I was to be fired, and never to speak to Lilaya again."
-											+ " I didn't have any family or friends, and meeting Lilaya was, and still is, the best thing to ever have happened to me."
-											+ " At my suggestion, we agreed that the only way Lyssieth would tolerate my presence would be if I became Lilaya's slave."
-											+ " We were forbidden from referring to each other as 'sister', which we still keep to now, even though Lyssieth isn't around anymore, but when we're in private, we..."
-											+ " I-I've said too much...)]"
-								+ "</p>"
-								+ "<p>"
-									+ "From the moment you saw them interacting with each other, you knew Lilaya and Rose were close, but even so, the revelation that Rose sacrificed her freedom so that they could be together takes you by surprise."
-									+ " As Rose starts blushing, you realise that they must truly love each other, and you feel a little bit awkward at having Rose tell you about this intimate part of their relationship."
-								+ "</p>";
+						askedAboutDuties.push(index);
+						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_SLAVE");
 					}
 				};
 
@@ -1903,37 +1935,8 @@ public class LilayaHomeGeneric {
 				return new Response("World", "Ask Rose to tell you something about this world.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						askedAboutDuties = false;
-						roseContent = 
-								"<p>"
-									+ "Wondering if Rose is able to give you any interesting facts, you ask, [pc.speech(What can you tell me about this world?)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[rose.speech(Really, [pc.sir], I'm happy to help in any way I can, but you'd be better off consulting the books in Mistress's library if you're looking for that sort of information,)]"
-									+ " Rose replies. "
-									+ "[rose.speech(But if you want some basic knowledge, then I can tell you that this world is ruled by Lilith, who's the most powerful demon to ever have existed."
-											+ " She lives here in Dominion, in that huge tower that can be seen from miles around."
-											+ " Although she personally rules over Dominion, she allows her daughters, the elder lilin, to control other parts of her domain."
-											+ " Surrounding Dominion, there's plenty of farmland and woodland, which collectively is called the 'Foloi Fields', and is ruled by Lunette."
-											+ " Other than that, I know that there's a jungle to the north, ruled by Lyxias; a desert to the south, ruled by Lisophia; and the Endless Sea to the East, ruled by Lirecea.)]"
-								+ "</p>"
-								+ "<p>"
-									+ "It seems as though every elder lilin's name beings with an 'L', and you wonder how Rose is able to remember all these unusual names."
-									+ " Even though Rose's information was quite limited, you're still grateful that she's told you a little more about how this world works."
-								+ "</p>"
-								+ "<p>"
-									+ "[rose.speech(If you're looking for more information about the culture and ways of Dominion, then I suppose I can give you a few pointers as well."
-											+ " The most common races that you'll see walking the streets are demons, cat, dog, and horse-morphs."
-											+ " Although there are countless other races that inhabit this world, they mostly tend to stay in their home regions,"
-												+ " so you'll see plenty of cow-morphs and rabbit-morphs out in the fields, but almost none in the jungle or desert.)]"
-											+ "From the way she finished her last sentence, you thought Rose had finished, but instead, she continues, "
-											+ "[rose.speech(Also, there aren't many humans in our world, as most of them transform themselves in order to fit in with Dominion society a bit easier."
-												+ " Oh, speaking of which, don't drink any unmarked bottles of liquid, as, while a little expensive,"
-													+ " transformative potions are readily available for anyone to purchase, and they'll alter your body in a flash.)]"
-								+ "</p>"
-								+ "<p>"
-									+ "With that last warning, Rose looks like she's finished, and you wonder if you should ask her anything else, or leave her to carry on with her dusting."
-								+ "</p>";
+						askedAboutDuties.push(index);
+						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_WORLD");
 					}
 				};
 
@@ -1941,48 +1944,51 @@ public class LilayaHomeGeneric {
 				return new Response("Duties", "Ask Rose about what duties she's expected to perform.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						askedAboutDuties = true;
-						roseContent = "<p>"
-								+ "Being curious about the sort of things Rose is expected to do as a slave, you ask her, "
-								+ UtilText.parsePlayerSpeech("So, what sort of things do you have to do for Lilaya?")
-								+ "</p>"
-								+ "<p>"
-								+ "Rose's cheeks suddenly flush red, and although you asked your question in innocence, you realise that Rose's thoughts have instantly turned to some of her more intimate duties. "
-								+ UtilText.parseSpeech("E-Erm, well, ah, y-you know, demons get pretty horny, and Lilaya's no different,", Main.game.getNpc(Rose.class))
-								+ " she stammers, before regaining her composure. "
-								+ UtilText.parseSpeech("But other than that, I spend most of my time cleaning and cooking. You've got no idea how much dusting this place requires!", Main.game.getNpc(Rose.class))
-								+ "</p>"
-								+ "<p>"
-								+ "As she says this, you suddenly become aware that she's holding a little feather duster, of the same 'French-maid' style as the rest of her uniform."
-								+ " Looking at the little instrument, you find your gaze being curiously drawn to Rose's delicate hands."
-								+ "</p>"
-								+ "<p>"
-								+ "Sensing what you're looking at, Rose suddenly blushes, and blurts out, "
-								+ UtilText.parseSpeech("I use a duster like this so I don't have to get my hands dirty!"
-										+ " You know, I take really good care of them, but Lilaya never seems to notice...", Main.game.getNpc(Rose.class))
-								+ "</p>"
-								+ "<p>"
-								+ "You don't quite know what's come over you, but you're finding it hard to think of anything other than Rose's perfect, feminine hands."
-								+ " As you watch, she places her duster down on a little table next to you, and, with a little step forwards, she starts to gently rub her hands together,"
-									+ " sliding her slender, feminine fingers over each other and making little moaning noises."
-								+ " With a gulp, you suddenly realise that she's displaying them for your benefit, and as she looks up into your eyes, she makes a pleading little whine."
-								+ "</p>";
+						askedAboutDuties.push(index);
+						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_DUTIES");
 					}
 				};
 
-			} else if (index == 5 && askedAboutDuties) {
+			} else if (index == 5
+					&& askedAboutDuties.size()>=4
+					&& askedAboutDuties.get(0)==3
+					&& askedAboutDuties.get(1)==1
+					&& askedAboutDuties.get(2)==4
+					&& askedAboutDuties.get(3)==2) {
 				return new Response("Rose's hands", "You've never noticed how amazing Rose's hands are before...", ROSE_HANDS){
 					@Override
 					public boolean isSexHighlight() {
 						return true;
 					}
-				};
-
-			} else if (index == 0) {
-				return new Response("Dismiss", "Let Rose get back on with her work.", ROOM_ROSE){
 					@Override
 					public void effects() {
-						askedAboutDuties = false;
+						askedAboutDuties.clear();
+					}
+				};
+
+			} else if (index == 6
+					&& (Main.game.getNpc(Lilaya.class).isPregnant() && Main.game.getNpc(Lilaya.class).isCharacterReactedToPregnancy(Main.game.getPlayer()))) {
+
+				if(Main.game.getPlayer().hasItemType(ItemType.MOTHERS_MILK)) {
+					return new Response("Mother's milk", "Give Rose one of the Mother's milk from your inventory, and ask her to give it to Lilaya so that her pregnancy can be over quicker.", AUNT_HOME_ROSE) {
+						@Override
+						public void effects() {
+							askedAboutDuties.clear();
+							roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_MOTHERS_MILK");
+							Main.game.getPlayer().removeItemByType(ItemType.MOTHERS_MILK);
+							Main.game.getNpc(Lilaya.class).useItem(AbstractItemType.generateItem(ItemType.MOTHERS_MILK), Main.game.getNpc(Lilaya.class), false);
+						}
+					};
+					
+				} else {
+					return new Response("Mother's milk", "If you were to have a 'Mother's milk' in your inventory, you could ask Rose to give it to Lilaya so that her pregnancy can be over quicker.", null);
+				}
+				
+			} else if (index == 0) {
+				return new Response("Dismiss", "Let Rose get back on with her work.", ROOM_ROSE) {
+					@Override
+					public void effects() {
+						askedAboutDuties.clear();
 						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					}
 					
@@ -2029,8 +2035,8 @@ public class LilayaHomeGeneric {
 						+ " <b>Please remember that you need to have read the disclaimer before playing this game!</b> <b style='color:"+BaseColour.CRIMSON.toWebHexString()+";'>18+ only!</b>",
 						true, false,
 						new SMRoseHands(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.HAND_SEX_DOM_ROSE)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Rose.class), SexPositionSlot.HAND_SEX_SUB_ROSE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.HAND_SEX_DOM_ROSE)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Rose.class), SexSlotBipeds.HAND_SEX_SUB_ROSE))),
 						null, null, Rose.END_HAND_SEX);
 
 			} else {

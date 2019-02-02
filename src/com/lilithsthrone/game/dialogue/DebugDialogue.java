@@ -6,6 +6,7 @@ import java.util.List;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
@@ -34,6 +35,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
@@ -1266,6 +1268,28 @@ public class DebugDialogue {
 		@Override
 		public boolean disableHeaderParsing() {
 			return true;
+		}
+	};
+	
+	
+	public static final DialogueNode POST_SEX_2KOMA = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			if(Sex.isDom(Main.game.getPlayer())) {
+				GameCharacter target = Sex.getSubmissiveParticipants().entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA", target);
+			} else {
+				GameCharacter target = Sex.getDominantParticipants().entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA_AS_SUB", target);
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Now that you've put this bitch in [npc.her] place, you can continue with what you were doing...", Main.game.getDefaultDialogueNoEncounter());
+			}
+			return null;
 		}
 	};
 

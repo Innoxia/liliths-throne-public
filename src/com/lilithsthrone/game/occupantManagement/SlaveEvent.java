@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.2.2
- * @version 0.2.2
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum SlaveEvent {
@@ -33,6 +33,7 @@ public enum SlaveEvent {
 
 	JOB_CUM_MILKED("Cum Milked", "[npc.NamePos] [npc.cum+] was milked."),
 	JOB_MILK_MILKED("Milked", "[npc.Name] was milked of [npc.her] [npc.milk+]."),
+	JOB_MILK_CROTCH_MILKED("Udders Milked", "[npc.Name] was milked of [npc.her] [npc.crotchMilk+]."),
 	JOB_GIRLCUM_MILKED("Girlcum Milked", "[npc.NamePos] [npc.girlcum+] was milked."),
 	
 	JOB_CLEANING("Cleaning Fun", "<i>Placeholder event.</i>"),

@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.12
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Name {
@@ -567,14 +566,16 @@ public class Name {
 
 	
 	public static String getRandomName(GameCharacter gc) {
-		if(gc.getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity()) {
-			return getRandomTriplet(gc.getRace()).getMasculine();
-			
-		} else if (gc.getFemininityValue() <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-			return getRandomTriplet(gc.getRace()).getAndrogynous();
-			
-		} else {
-			return getRandomTriplet(gc.getRace()).getFeminine();
+		switch(gc.getFemininity()) {
+			case MASCULINE_STRONG:
+			case MASCULINE:
+				return getRandomTriplet(gc.getRace()).getMasculine();
+			case ANDROGYNOUS:
+				return getRandomTriplet(gc.getRace()).getAndrogynous();
+			case FEMININE:
+			case FEMININE_STRONG:
+			default:
+				return getRandomTriplet(gc.getRace()).getFeminine();
 		}
 	}
 	
@@ -600,7 +601,7 @@ public class Name {
 			if(mother.getSubspecies()==Subspecies.LILIN
 					|| mother.getSubspecies()== Subspecies.ELDER_LILIN) {
 				surname = mother.getName();
-				List<GameCharacter> offspring = mother.getAllCharactersOfRelationType(Relationship.PARENT);
+				List<GameCharacter> offspring = mother.getAllCharactersOfRelationType(Relationship.Parent);
 				if(offspring.contains(gc)) {
 					offspring.sort((c1, c2) -> c1.getAgeValue()-c2.getAgeValue());
 					if(offspring.get(0).equals(gc)) {

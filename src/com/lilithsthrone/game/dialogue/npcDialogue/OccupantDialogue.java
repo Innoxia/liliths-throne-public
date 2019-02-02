@@ -20,9 +20,9 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -355,8 +355,8 @@ public class OccupantDialogue {
 						return new ResponseSex("Sex", "Have sex with [npc.name].", 
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(occupant(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_START", occupant())) {
@@ -377,8 +377,8 @@ public class OccupantDialogue {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(occupant(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_AS_SUB_START", occupant())) {
@@ -403,9 +403,9 @@ public class OccupantDialogue {
 									true, true,
 									new SMDoggy(
 											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_INFRONT),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+													new Value<>(companions.get(0), SexSlotBipeds.DOGGY_INFRONT),
+													new Value<>(occupant(), SexSlotBipeds.DOGGY_BEHIND)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 									null,
 									null,
 									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SPITROASTED_START", companions.get(0), occupant())) {
@@ -431,10 +431,10 @@ public class OccupantDialogue {
 									null, null, null, null, null, null,
 									true, false,
 									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
 											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+													new Value<>(companions.get(0), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
+													new Value<>(occupant(), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))),
 									null,
 									null,
 									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
@@ -519,7 +519,7 @@ public class OccupantDialogue {
 						
 					case 7:
 						if(!occupant().isAbleToSelfTransform()) {
-							return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+							return new Response("Transformations", occupant().getUnableToTransformDescription(), null);
 							
 						} else {
 							return new Response("Transformations",
@@ -1028,8 +1028,8 @@ public class OccupantDialogue {
 						return new ResponseSex("Sex", "Have sex with [npc.name].", 
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(occupant(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_START", occupant())) {
@@ -1050,8 +1050,8 @@ public class OccupantDialogue {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, true,
 								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										Util.newHashMapOfValues(new Value<>(occupant(), SexSlotBipeds.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
 								null,
 								null,
 								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_AS_SUB_START", occupant())) {
@@ -1076,9 +1076,9 @@ public class OccupantDialogue {
 									true, true,
 									new SMDoggy(
 											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_INFRONT),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+													new Value<>(companions.get(0), SexSlotBipeds.DOGGY_INFRONT),
+													new Value<>(occupant(), SexSlotBipeds.DOGGY_BEHIND)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 									null,
 									null,
 									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SPITROASTED_START", companions.get(0), occupant())) {
@@ -1104,10 +1104,10 @@ public class OccupantDialogue {
 									null, null, null, null, null, null,
 									true, false,
 									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
 											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+													new Value<>(companions.get(0), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
+													new Value<>(occupant(), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))),
 									null,
 									null,
 									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
@@ -1191,7 +1191,7 @@ public class OccupantDialogue {
 						
 					case 7:
 						if(!occupant().isAbleToSelfTransform()) {
-							return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+							return new Response("Transformations", occupant().getUnableToTransformDescription(), null);
 							
 						} else {
 							return new Response("Transformations",

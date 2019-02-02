@@ -71,8 +71,9 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -266,7 +267,7 @@ public class Vicky extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(14);
+		this.setPenisSize(9);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();
@@ -361,7 +362,7 @@ public class Vicky extends NPC {
 				break;
 			}
 		}
-		
+//		System.out.println(availableIngredients.length);
 		
 		AbstractItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
@@ -455,10 +456,10 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
+	public Set<SexSlot> getSexPositionPreferences(GameCharacter target) {
 		sexPositionPreferences.clear();
 		
-		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM);
+		sexPositionPreferences.add(SexSlotBipeds.MISSIONARY_DESK_DOM);
 		
 		return sexPositionPreferences;
 	}

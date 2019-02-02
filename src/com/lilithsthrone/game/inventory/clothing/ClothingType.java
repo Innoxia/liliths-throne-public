@@ -13,8 +13,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -29,7 +27,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.7
+ * @version 0.3.1
  * @author Innoxia
  */
 public class ClothingType {
@@ -1918,7 +1916,7 @@ public class ClothingType {
 					"[npc.Name] guides your [pc.arms] through the leather jacket's sleeves as [npc.she] pulls it on you.",
 					null, null, null);
 		}
-
+		
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
@@ -2607,7 +2605,9 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.TRANSPARENT,
+					ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3826,7 +3826,8 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4702,7 +4703,9 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.TRANSPARENT,
+					ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5351,7 +5354,9 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN,
+					ItemTag.FITS_NON_BIPED_BODY_HUMANOID)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5430,7 +5435,9 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN,
+					ItemTag.FITS_NON_BIPED_BODY_HUMANOID)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5509,7 +5516,9 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN,
+					ItemTag.FITS_NON_BIPED_BODY_HUMANOID)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5561,7 +5570,9 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN,
+					ItemTag.FITS_NON_BIPED_BODY_HUMANOID)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5617,7 +5628,9 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN,
+					ItemTag.FITS_NON_BIPED_BODY_HUMANOID)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7527,8 +7540,7 @@ public class ClothingType {
 									ClothingAccess.FEET,
 									ClothingAccess.CALVES),
 							Util.newArrayListOfValues(
-									CoverableArea.FEET,
-									CoverableArea.THIGHS),
+									CoverableArea.FEET),
 							null,
 							null)),
 			null,
@@ -7583,8 +7595,7 @@ public class ClothingType {
 									ClothingAccess.FEET,
 									ClothingAccess.CALVES),
 							Util.newArrayListOfValues(
-									CoverableArea.FEET,
-									CoverableArea.THIGHS),
+									CoverableArea.FEET),
 							null,
 							null)),
 			null,
@@ -7641,8 +7652,7 @@ public class ClothingType {
 									ClothingAccess.FEET,
 									ClothingAccess.CALVES),
 							Util.newArrayListOfValues(
-									CoverableArea.FEET,
-									CoverableArea.THIGHS),
+									CoverableArea.FEET),
 							null,
 							null)),
 			null,
@@ -7652,7 +7662,9 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN,
+					ItemTag.FITS_TALONS)){
 		
 
 		@Override
@@ -7698,8 +7710,7 @@ public class ClothingType {
 									ClothingAccess.FEET,
 									ClothingAccess.CALVES),
 							Util.newArrayListOfValues(
-									CoverableArea.FEET,
-									CoverableArea.THIGHS),
+									CoverableArea.FEET),
 							null,
 							null)),
 			null,
@@ -7755,8 +7766,7 @@ public class ClothingType {
 									ClothingAccess.CALVES,
 									ClothingAccess.LEGS_UP_TO_GROIN),
 							Util.newArrayListOfValues(
-									CoverableArea.FEET,
-									CoverableArea.THIGHS),
+									CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 							null),
 					new BlockedParts(
@@ -7847,8 +7857,7 @@ public class ClothingType {
 									ClothingAccess.FEET,
 									ClothingAccess.CALVES),
 							Util.newArrayListOfValues(
-									CoverableArea.FEET,
-									CoverableArea.THIGHS),
+									CoverableArea.FEET),
 							null,
 							null)),
 			null,
@@ -7858,7 +7867,9 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(
+					ItemTag.TRANSPARENT,
+					ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8068,10 +8079,10 @@ public class ClothingType {
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
-			null,
-			null,
-			null,
-			null,
+			ColourListPresets.JUST_TAN.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.JUST_GREY.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
@@ -8274,8 +8285,7 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							Util.newArrayListOfValues(
-									CoverableArea.FEET,
-									CoverableArea.THIGHS),
+									CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							Util.newArrayListOfValues(InventorySlot.ANKLE))),
 			null,
@@ -8522,67 +8532,66 @@ public class ClothingType {
 			}
 	};
 	
-	public static AbstractClothingType PENIS_CONDOM = new AbstractClothingType(20,
-			"a",
-			false,
-			"condom",
-			"condoms",
-			"A sheath-shaped rubbery barrier device, designed to fit over a penis and prevent any semen from entering the body of a sexual partner.",
-			1,
-			null,
-			InventorySlot.PENIS,
-			Rarity.COMMON,
-			null,
-			"clothing/penis_condom_unequipped",
-			"clothing/penis_condom_equipped",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
-							null,
-							null, null)),
-			null,
-			ColourListPresets.ALL.getPresetColourList(),
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(
-					ItemTag.DISCARDED_WHEN_UNEQUIPPED,
-					ItemTag.ENABLE_SEX_EQUIP,
-					ItemTag.REQUIRES_PENIS)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			
-			if(applyEffects) {
-				if(InventoryDialogue.getInventoryNPC()!=null) {
-					return ((NPC) InventoryDialogue.getInventoryNPC()).getCondomEquipEffects(clothingRemover, clothingOwner, rough);
-				}
-			}
-			
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You tear open the packet and roll the condom down the length of your [pc.penis].",
-					"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-					"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
-					"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
-					"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-					"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slip off your condom and throw it away.",
-					"You slip [npc.namePos] condom off and throw it away.",
-					"You grab [npc.namePos] [npc.penis] and pull [npc.her] condom off, before throwing it away.",
-					"[npc.Name] slips off [npc.her] condom and throws it away.",
-					"[npc.Name] slips off your condom and throws it away.",
-					"[npc.Name] grabs your [pc.penis] and pulls your condom off, before throwing it away.", null, null);
-		}
-	};
+//	public static AbstractClothingType PENIS_CONDOM = new AbstractClothingType(20,
+//			"a",
+//			false,
+//			"condom",
+//			"condoms",
+//			"A sheath-shaped rubbery barrier device, designed to fit over a penis and prevent any semen from entering the body of a sexual partner.",
+//			1,
+//			null,
+//			InventorySlot.PENIS,
+//			Rarity.COMMON,
+//			null,
+//			"clothing/penis_condom_unequipped",
+//			"clothing/penis_condom_equipped",
+//			null,
+//			Util.newArrayListOfValues(
+//					new BlockedParts(
+//							DisplacementType.REMOVE_OR_EQUIP,
+//							Util.newArrayListOfValues(ClothingAccess.GROIN),
+//							null,
+//							null, null)),
+//			null,
+//			ColourListPresets.ALL.getPresetColourList(),
+//			null,
+//			null,
+//			null,
+//			null,
+//			null,
+//			Util.newArrayListOfValues(
+//					ItemTag.DISCARDED_WHEN_UNEQUIPPED,
+//					ItemTag.ENABLE_SEX_EQUIP,
+//					ItemTag.REQUIRES_PENIS)){
+//		
+//		@Override
+//		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			if(applyEffects) {
+//				if(InventoryDialogue.getInventoryNPC()!=null) {
+//					return ((NPC) InventoryDialogue.getInventoryNPC()).getCondomEquipEffects(clothingRemover, clothingOwner, rough);
+//				}
+//			}
+//			
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You tear open the packet and roll the condom down the length of your [pc.penis].",
+//					"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
+//					"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
+//					"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
+//					"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
+//					"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
+//		}
+//
+//		@Override
+//		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You slip off your condom and throw it away.",
+//					"You slip [npc.namePos] condom off and throw it away.",
+//					"You grab [npc.namePos] [npc.penis] and pull [npc.her] condom off, before throwing it away.",
+//					"[npc.Name] slips off [npc.her] condom and throws it away.",
+//					"[npc.Name] slips off your condom and throws it away.",
+//					"[npc.Name] grabs your [pc.penis] and pulls your condom off, before throwing it away.", null, null);
+//		}
+//	};
 	
 	
 	// CLOTHING SETS:
@@ -9390,62 +9399,6 @@ public class ClothingType {
 					null,
 					"[npc.Name] unfastens the chastity belt's locks and takes it off.",
 					"[npc.Name] unfastens the chastity belt's locks and takes it off of your groin.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType BDSM_CHASTITY_CAGE = new AbstractClothingType(250,
-			"a",
-			false,
-			"chastity cage",
-			"chastity cages",
-			"A little cage designed to imprison a cock.",
-			0,
-			null,
-			InventorySlot.PENIS,
-			Rarity.EPIC,
-			ClothingSet.BDSM,
-			"clothing/bdsm_groin_chastityCage",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
-							Util.newArrayListOfValues(CoverableArea.PENIS),
-							null, null)),
-			null,
-			ColourListPresets.ALL.getPresetColourList(),
-			null,
-			ColourListPresets.JUST_GOLD.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(
-					ItemTag.SOLD_BY_FINCH,
-					ItemTag.REQUIRES_PENIS)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slide the chastity cage down over your [pc.cock] and clip it into place.",
-					"You slide the chastity cage down over [npc.namePos] [npc.cock] and clip it into place.",
-					null,
-					"[npc.Name] slides the chastity cage down over [npc.her] [npc.cock] and clips it into place.",
-					"[npc.Name] slides the chastity cage down over your [pc.cock] and clips it into place.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You unclip the chastity cage and take it off.",
-					"You unclip [npc.namePos] chastity cage and take it off.",
-					null,
-					"[npc.Name] unclips [npc.her] chastity cage and takes it off.",
-					"[npc.Name] unclips your chastity cage and takes it off.",
 					null, null, null);
 		}
 	};
@@ -11678,6 +11631,16 @@ public class ClothingType {
 		if(id.equals("EYES_SAFETY_GOGGLES")) {
 			return ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES;
 		}
+		if(id.equals("kobolds_belt_leather_belt")) {
+			id = "innoxia_hips_leather_belt";
+		}
+		if(id.equals("BDSM_CHASTITY_CAGE")) {
+			id = "innoxia_bdsm_chastity_cage";
+		}
+		if(id.equals("PENIS_CONDOM")) {
+			id = "innoxia_penis_condom";
+		}
+		
 		if(id.equals("WITCH_HAT")) {
 			id = "innoxia_witch_witch_hat";
 		} else if(id.equals("WITCH_DRESS")) {
@@ -11816,7 +11779,8 @@ public class ClothingType {
 					
 					allClothing.add(ct);
 					
-					if(ct==ClothingType.PENIS_CONDOM
+					// hmm... I don't know why this is here...
+					if(ct.isCondom()
 							|| ct==ClothingType.TORSO_OVER_CHRISTMAS_SWEATER
 							|| ct==ClothingType.HEAD_ANTLER_HEADBAND
 							|| ct==ClothingType.PIERCING_EAR_SNOW_FLAKES
