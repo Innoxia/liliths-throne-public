@@ -61,8 +61,6 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -478,10 +476,13 @@ public class ZaranixMaidKatherine extends NPC {
 			if(index==1) {
 				return new ResponseSex("Used", "Katherine uses you.",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKatherine.class), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
-						null, null, AFTER_SEX_DEFEAT);
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKatherine.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null),
+						AFTER_SEX_DEFEAT,
+						"");
 			} else {
 				return null;
 			}

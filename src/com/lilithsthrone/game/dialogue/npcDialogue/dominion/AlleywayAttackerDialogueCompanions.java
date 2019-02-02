@@ -26,9 +26,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -976,13 +974,12 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Threesome"),
 								UtilText.parse(getMugger(), companion, "Have dominant sex with [npc.name], and get [npc2.name] to join in with the fun."),
 								true, false,
-								new SMDoggy(
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND),
-												new Value<>(companion, SexSlotBipeds.DOGGY_INFRONT)),
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
-								null,
-								null,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										Util.newArrayListOfValues(getMugger()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_THREESOME", getMugger(), companion));
 					}
 					
@@ -1143,13 +1140,12 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Threesome"),
 								UtilText.parse(getMugger(), companion, "Have dominant sex with [npc.name], and get [npc2.name] to join in with the fun."),
 								true, false,
-								new SMDoggy(
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND),
-												new Value<>(companion, SexSlotBipeds.DOGGY_INFRONT)),
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
-								null,
-								null,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										Util.newArrayListOfValues(getMugger()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_THREESOME", getMugger(), companion));
 					}
 					

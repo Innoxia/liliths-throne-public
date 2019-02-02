@@ -16,6 +16,7 @@ import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -25,11 +26,9 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -892,13 +891,14 @@ public class SlaveDialogue {
 										UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Let [npc1.name] and [npc2.name] spitroast you."),
 										null, null, null, null, null, null,
 										true, true,
-										new SMDoggy(
-												Util.newHashMapOfValues(
-														new Value<>(charactersPresent.get(1), SexSlotBipeds.DOGGY_INFRONT),
-														new Value<>(charactersPresent.get(0), SexSlotBipeds.DOGGY_BEHIND)),
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
-										null,
-										null, AFTER_SEX, "<p>"
+										new SMGeneric(
+												Util.newArrayListOfValues(charactersPresent.get(1), charactersPresent.get(0)),
+												Util.newArrayListOfValues(Main.game.getPlayer()),
+												null,
+												null,
+												ResponseTag.PREFER_DOGGY),
+										AFTER_SEX,
+										"<p>"
 											+ ""//TODO
 										+ "</p>") {
 									@Override
@@ -917,13 +917,14 @@ public class SlaveDialogue {
 									UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Push [npc1.name] and [npc2.name] down onto all fours, side-by-side, and get ready to fuck them."),
 									null, null, null, null, null, null,
 									true, false,
-									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(
-													new Value<>(charactersPresent.get(0), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
-													new Value<>(charactersPresent.get(1), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))),
-									null,
-									null, AFTER_SEX, "<p>"
+									new SMGeneric(
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											Util.newArrayListOfValues(charactersPresent.get(0), charactersPresent.get(1)),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY),
+									AFTER_SEX,
+									"<p>"
 										+ ""//TODO
 									+ "</p>") {
 								@Override
@@ -2782,19 +2783,12 @@ public class SlaveDialogue {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.SUB_EAGER;
-								}
-								return null;
-							}
-						},
-						null,
-						null, SLAVE_USES_YOU_POST_SEX, "<p>"
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_SUB_EAGER), SLAVE_USES_YOU_POST_SEX, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 						+ "</p>");
@@ -2803,19 +2797,12 @@ public class SlaveDialogue {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.SUB_RESISTING;
-								}
-								return null;
-							}
-						},
-						null,
-						null, SLAVE_USES_YOU_POST_SEX, "<p>"
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_SUB_RESISTING), SLAVE_USES_YOU_POST_SEX, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
@@ -2904,17 +2891,13 @@ public class SlaveDialogue {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))){
-							@Override
-							public boolean isPublicSex() {
-								return true;
-							}
-						},
-						null,
-						null,
-						SLAVE_USES_YOU_POST_SEX_STREETS, "<p>"
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null),
+						SLAVE_USES_YOU_POST_SEX_STREETS,
+						"<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
@@ -2923,23 +2906,12 @@ public class SlaveDialogue {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.SUB_EAGER;
-								}
-								return null;
-							}
-							@Override
-							public boolean isPublicSex() {
-								return true;
-							}
-						},
-						null,
-						null,
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 						SLAVE_USES_YOU_POST_SEX_STREETS, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
@@ -2949,23 +2921,12 @@ public class SlaveDialogue {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.SUB_RESISTING;
-								}
-								return null;
-							}
-							@Override
-							public boolean isPublicSex() {
-								return true;
-							}
-						},
-						null,
-						null,
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 						SLAVE_USES_YOU_POST_SEX_STREETS, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
@@ -3079,17 +3040,13 @@ public class SlaveDialogue {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))){
-							@Override
-							public boolean isPublicSex() {
-								return true;
-							}
-						},
-						null,
-						null,
-						SLAVE_USES_YOU_POST_SEX_ALLEYWAY, "<p>"
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null),
+						SLAVE_USES_YOU_POST_SEX_ALLEYWAY,
+						"<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
@@ -3098,23 +3055,12 @@ public class SlaveDialogue {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.SUB_EAGER;
-								}
-								return null;
-							}
-							@Override
-							public boolean isPublicSex() {
-								return true;
-							}
-						},
-						null,
-						null,
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 						SLAVE_USES_YOU_POST_SEX_ALLEYWAY, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
@@ -3124,23 +3070,12 @@ public class SlaveDialogue {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.SUB_RESISTING;
-								}
-								return null;
-							}
-							@Override
-							public boolean isPublicSex() {
-								return true;
-							}
-						},
-						null,
-						null,
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 						SLAVE_USES_YOU_POST_SEX_ALLEYWAY, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."

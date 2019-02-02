@@ -28,6 +28,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -36,7 +37,6 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -433,19 +433,14 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Sex (gentle)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.DOM_GENTLE;
-								}
-								return null;
-							}
-						},
-						null,
-						null, TEST_DIALOGUE_AFTER_SEX, "<p>"
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(TestNPC.class)),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
+						TEST_DIALOGUE_AFTER_SEX,
+						"<p>"
 							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
@@ -457,19 +452,14 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Sex (rough)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.DOM_ROUGH;
-								}
-								return null;
-							}
-						},
-						null,
-						null, TEST_DIALOGUE_AFTER_SEX, "<p>"
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(TestNPC.class)),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
+						TEST_DIALOGUE_AFTER_SEX,
+						"<p>"
 								+ "You step forwards, wrapping your [pc.arms] around the [test.race] and roughly pulling [test.herHim] into you."
 							+ "</p>"
 							+ "<p>"

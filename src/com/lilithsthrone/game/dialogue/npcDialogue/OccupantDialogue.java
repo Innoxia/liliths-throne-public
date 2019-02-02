@@ -16,16 +16,14 @@ import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -401,13 +399,12 @@ public class OccupantDialogue {
 									UtilText.parse(companions.get(0), occupant(), "Let [npc.name] and [npc2.name] spitroast you."),
 									null, null, null, null, null, null,
 									true, true,
-									new SMDoggy(
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexSlotBipeds.DOGGY_INFRONT),
-													new Value<>(occupant(), SexSlotBipeds.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
-									null,
-									null,
+									new SMGeneric(
+											Util.newArrayListOfValues(companions.get(0), occupant()),
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY),
 									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SPITROASTED_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
@@ -430,13 +427,12 @@ public class OccupantDialogue {
 									UtilText.parse(companions.get(0), occupant(), "Push [npc1.name] and [npc2.name] down onto all fours and get ready to fuck them side-by-side."),
 									null, null, null, null, null, null,
 									true, false,
-									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
-													new Value<>(occupant(), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))),
-									null,
-									null,
+									new SMGeneric(
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											Util.newArrayListOfValues(companions.get(0), occupant()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY),
 									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
@@ -1074,13 +1070,12 @@ public class OccupantDialogue {
 									UtilText.parse(companions.get(0), occupant(), "Let [npc.name] and [npc2.name] spitroast you."),
 									null, null, null, null, null, null,
 									true, true,
-									new SMDoggy(
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexSlotBipeds.DOGGY_INFRONT),
-													new Value<>(occupant(), SexSlotBipeds.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
-									null,
-									null,
+									new SMGeneric(
+											Util.newArrayListOfValues(companions.get(0), occupant()),
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY),
 									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SPITROASTED_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
@@ -1103,13 +1098,12 @@ public class OccupantDialogue {
 									UtilText.parse(companions.get(0), occupant(), "Push [npc1.name] and [npc2.name] down onto all fours and get ready to fuck them side-by-side."),
 									null, null, null, null, null, null,
 									true, false,
-									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
-													new Value<>(occupant(), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))),
-									null,
-									null,
+									new SMGeneric(
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											Util.newArrayListOfValues(companions.get(0), occupant()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY),
 									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {

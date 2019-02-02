@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -8,18 +7,15 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.4
@@ -183,44 +179,39 @@ public class BatCavernBatAttackerDialogue {
 					return new ResponseSex("Have some fun",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))),
-							null, null, AFTER_SEX_VICTORY);
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getActiveNPC()),
+									null,
+									null),
+							AFTER_SEX_VICTORY,
+							"");
 					
 				} else if (index == 3) {
 					return new ResponseSex("Have some gentle fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_GENTLE;
-									}
-									return null;
-								}
-							},
-							null, null, AFTER_SEX_VICTORY);
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getActiveNPC()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
+							AFTER_SEX_VICTORY,
+							"");
 					
 				} else if (index == 4) {
 					return new ResponseSex("Have some rough fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_ROUGH;
-									}
-									return null;
-								}
-							},
-							null, null, AFTER_SEX_VICTORY);
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getActiveNPC()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
+							AFTER_SEX_VICTORY,
+							"");
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
@@ -307,19 +298,14 @@ public class BatCavernBatAttackerDialogue {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_GENTLE;
-									}
-									return null;
-								}
-							},
-							null,
-							null, AFTER_SEX_VICTORY, "<p>"
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getActiveNPC()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
+							AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down, you take hold of [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace..."
 							+ "</p>");
@@ -328,19 +314,14 @@ public class BatCavernBatAttackerDialogue {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_ROUGH;
-									}
-									return null;
-								}
-							},
-							null,
-							null, AFTER_SEX_VICTORY, "<p>"
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getActiveNPC()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
+							AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down, you grab [npc.namePos] [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace..."
 							+ "</p>");
@@ -526,19 +507,14 @@ public class BatCavernBatAttackerDialogue {
 						return new ResponseSex("Eager Sex",
 								"[npc.Name] forces [npc.herself] on you...",
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-									@Override
-									public SexPace getStartingSexPaceModifier(GameCharacter character) {
-										if(character.isPlayer()) {
-											return SexPace.SUB_EAGER;
-										}
-										return null;
-									}
-								},
-								null,
-								null, AFTER_SEX_DEFEAT, "<p>"
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getActiveNPC()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										null,
+										null,
+										ResponseTag.START_PACE_PLAYER_SUB_EAGER),
+								AFTER_SEX_DEFEAT,
+								"<p>"
 									+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 								+ "</p>");
@@ -547,19 +523,14 @@ public class BatCavernBatAttackerDialogue {
 						return new ResponseSex("Resist Sex",
 								"[npc.Name] forces [npc.herself] on you...",
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-									@Override
-									public SexPace getStartingSexPaceModifier(GameCharacter character) {
-										if(character.isPlayer()) {
-											return SexPace.SUB_RESISTING;
-										}
-										return null;
-									}
-								},
-								null,
-								null, AFTER_SEX_DEFEAT, "<p>"
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getActiveNPC()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										null,
+										null,
+										ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
+								AFTER_SEX_DEFEAT,
+								"<p>"
 									+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 									+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 									+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
@@ -645,19 +616,14 @@ public class BatCavernBatAttackerDialogue {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_EAGER;
-									}
-									return null;
-								}
-							},
-							null,
-							null, AFTER_SEX_DEFEAT, "<p>"
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getActiveNPC()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>");
@@ -666,19 +632,14 @@ public class BatCavernBatAttackerDialogue {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_RESISTING;
-									}
-									return null;
-								}
-							},
-							null,
-							null, AFTER_SEX_DEFEAT, "<p>"
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getActiveNPC()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
@@ -754,19 +715,14 @@ public class BatCavernBatAttackerDialogue {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_EAGER;
-									}
-									return null;
-								}
-							},
-							null,
-							null, AFTER_SEX_DEFEAT, "<p>"
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getActiveNPC()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>");
@@ -775,19 +731,14 @@ public class BatCavernBatAttackerDialogue {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_RESISTING;
-									}
-									return null;
-								}
-							},
-							null,
-							null, AFTER_SEX_DEFEAT, "<p>"
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getActiveNPC()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."

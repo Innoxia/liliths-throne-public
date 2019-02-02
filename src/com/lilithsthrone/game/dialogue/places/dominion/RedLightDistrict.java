@@ -18,14 +18,12 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -691,13 +689,12 @@ public class RedLightDistrict {
 					return new ResponseSex("Threesome ("+UtilText.formatAsMoney(threesomeCost, "span")+")",
 							"Pay "+threesomeCost+" flames to have sex with both Bunny and Loppy at the same time.",
 							true, false,
-							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Bunny.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getNpc(Loppy.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))),
-							null,
-							null, AFTER_SEX_BUNNY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(Bunny.class), Main.game.getNpc(Loppy.class)),
+									null,
+									null,
+									ResponseTag.PREFER_DOGGY), AFTER_SEX_BUNNY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.loppyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_NOT_INTRODUCED"))) {
@@ -843,13 +840,14 @@ public class RedLightDistrict {
 					return new ResponseSex("Threesome ("+UtilText.formatAsMoney(threesomeCost, "span")+")",
 							"Pay "+threesomeCost+" flames to have sex with both Loppy and Bunny at the same time.",
 							true, false,
-							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Loppy.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getNpc(Bunny.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))),
-							null,
-							null, AFTER_SEX_LOPPY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(Loppy.class), Main.game.getNpc(Bunny.class)),
+									null,
+									null,
+									ResponseTag.PREFER_DOGGY),
+							AFTER_SEX_LOPPY_THREESOME,
+							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bunnyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_NOT_INTRODUCED"))) {

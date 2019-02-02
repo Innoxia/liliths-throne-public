@@ -232,15 +232,16 @@
 	
 	
 	[2 hours]
-	Need to make a more universal template for encounters
-		Make generic sex account for centaurs
-			can stop sex after offering body
+	can stop sex after offering body in encounters
+			
+	need to not be able to grop when mounting if taur and under is not taur
 			
 	need cum targets set for target in new slots calculations
 			
 	fix positioning text repeats
 	
 	alleyway/generic encounter threesome needs doggy style SM replaced
+		Implement PREFER DOGGY
 			
 	TODO START_PACE_PLAYER_SUB_RESISTING
 		
