@@ -35,6 +35,7 @@ import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
@@ -256,11 +257,11 @@ public class AlleywayDemonDialogueCompanions {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getDemon()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								Util.newArrayListOfValues(getMainCompanion()),
+								Util.newArrayListOfValues(getMainCompanion())),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getDemon(), getMainCompanion())) {
 							@Override
 							public void effects() {
@@ -326,11 +327,11 @@ public class AlleywayDemonDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getDemon(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body in order to avoid a violent confrontation."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getDemon()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_OFFER_COMPANION", getDemon(), companion)) {
 							@Override
 							public void effects() {
@@ -386,11 +387,11 @@ public class AlleywayDemonDialogueCompanions {
 								Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, Fetish.FETISH_DOMINANT.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(getDemon()),
 								null,
-								null,
+								null),
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM", getAllCharacters())) {
 							@Override
 							public void effects() {
@@ -408,11 +409,11 @@ public class AlleywayDemonDialogueCompanions {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getDemon()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null,
+								null),
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB", getAllCharacters())) {
 							@Override
 							public void effects() {
@@ -505,11 +506,11 @@ public class AlleywayDemonDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getDemon(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body in order to avoid a violent confrontation."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getDemon()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_PEACEFUL_OFFERED_COMPANION, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_PEACEFUL_OFFER_COMPANION", getDemon(), companion)) {
 							@Override
 							public void effects() {
@@ -762,11 +763,11 @@ public class AlleywayDemonDialogueCompanions {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 						null, null, null,
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(getDemon()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						Util.newArrayListOfValues(getMainCompanion()),
+						Util.newArrayListOfValues(getMainCompanion())),
 						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "STORM_ATTACK_OFFER_BODY", getDemon(), getMainCompanion()));
 					
 			} else if (index == 4) {
@@ -818,11 +819,11 @@ public class AlleywayDemonDialogueCompanions {
 					return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 							UtilText.parse(getDemon(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body in order to avoid a violent confrontation."),
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(companion, SexSlotBipeds.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getDemon()),
+									Util.newArrayListOfValues(companion),
 							null,
-							Util.newArrayListOfValues(Main.game.getPlayer()),
+							Util.newArrayListOfValues(Main.game.getPlayer())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_OFFER_COMPANION", getDemon(), companion)) {
 						@Override
 						public void effects() {
@@ -875,11 +876,11 @@ public class AlleywayDemonDialogueCompanions {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getDemon()),
 							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							Util.newArrayListOfValues(getMainCompanion())),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
 					
 				} else if (index == 3) {
@@ -926,11 +927,11 @@ public class AlleywayDemonDialogueCompanions {
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getDemon()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							Util.newArrayListOfValues(getMainCompanion())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 					
 				} else if (index == 6) {
@@ -1014,11 +1015,11 @@ public class AlleywayDemonDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Give to [npc.name]"),
 								UtilText.parse(companion, getDemon(), "Tell [npc.name] that [npc.she] can have some fun with [npc2.name] while you watch."),
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(companion, SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(companion),
+										Util.newArrayListOfValues(getDemon()),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getDemon(), companion));
 					}
 					
@@ -1034,11 +1035,11 @@ public class AlleywayDemonDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getDemon(), companion, "Tell [npc.name] that [npc.she] can use [npc2.name]."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getDemon()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getDemon(), companion)) {
 							@Override
 							public void effects() {
@@ -1072,11 +1073,11 @@ public class AlleywayDemonDialogueCompanions {
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getDemon()),
 							null,
-							null,
+							null),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE", getAllCharacters()));
 					
 				} else if (index == 3) {
@@ -1216,11 +1217,11 @@ public class AlleywayDemonDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Give to [npc.name]"),
 								UtilText.parse(companion, getDemon(), "Tell [npc.name] that [npc.she] can have some fun with [npc2.name] while you watch."),
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(companion, SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(companion),
+										Util.newArrayListOfValues(getDemon()),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getDemon(), companion));
 					}
 					
@@ -1239,11 +1240,11 @@ public class AlleywayDemonDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getDemon(), companion, "Tell [npc.name] that [npc.she] can use [npc2.name]."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getDemon()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getDemon(), companion)) {
 							@Override
 							public void effects() {
@@ -1685,11 +1686,11 @@ public class AlleywayDemonDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "[npc.Name] used"),
 								UtilText.parse(getDemon(), companion, "[npc.Name] uses [npc2.namePos] body in order to get some sexual relief..."),
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexSlotBipeds.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getDemon()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_DEFEAT_USES_COMPANION", getDemon(), companion));
 						
 					}
@@ -1704,11 +1705,11 @@ public class AlleywayDemonDialogueCompanions {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getDemon(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getDemon()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							Util.newArrayListOfValues(getMainCompanion())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 					
 				} else if (index == 2) {

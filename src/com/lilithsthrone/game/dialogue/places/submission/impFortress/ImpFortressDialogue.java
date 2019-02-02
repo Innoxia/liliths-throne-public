@@ -848,6 +848,7 @@ public class ImpFortressDialogue {
 									case START_PACE_PLAYER_DOM_ROUGH:
 										return SexPace.DOM_ROUGH;
 									case START_PACE_PLAYER_SUB_RESIST:
+									case START_PACE_PLAYER_SUB_RESISTING:
 										return SexPace.SUB_RESISTING;
 									case START_PACE_PLAYER_SUB_EAGER:
 										return SexPace.SUB_EAGER;
@@ -889,6 +890,7 @@ public class ImpFortressDialogue {
 									case START_PACE_PLAYER_DOM_ROUGH:
 										return SexPace.DOM_ROUGH;
 									case START_PACE_PLAYER_SUB_RESIST:
+									case START_PACE_PLAYER_SUB_RESISTING:
 										return SexPace.SUB_RESISTING;
 									case START_PACE_PLAYER_SUB_EAGER:
 										return SexPace.SUB_EAGER;
@@ -982,6 +984,7 @@ public class ImpFortressDialogue {
 								case START_PACE_PLAYER_DOM_ROUGH:
 									return SexPace.DOM_ROUGH;
 								case START_PACE_PLAYER_SUB_RESIST:
+								case START_PACE_PLAYER_SUB_RESISTING:
 									return SexPace.SUB_RESISTING;
 								case START_PACE_PLAYER_SUB_EAGER:
 									return SexPace.SUB_EAGER;

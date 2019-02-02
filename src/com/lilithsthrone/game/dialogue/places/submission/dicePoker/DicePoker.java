@@ -11,13 +11,11 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.6
@@ -601,11 +599,11 @@ public class DicePoker {
 				return new ResponseSex("Accept",
 						UtilText.parse(gambler, "Allow [npc.name] to publicly fuck you in order to get your money back."),
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(gambler, SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(gambler),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null, END_LOSS_SEX, UtilText.parse(gambler,"<p>"
+						null), END_LOSS_SEX, UtilText.parse(gambler,"<p>"
 							+ "[pc.speech(Ok...)] you reply. [pc.speech(You can use me however you like...)]"
 						+ "</p>"
 						+ "<p>"

@@ -328,7 +328,7 @@
 
 	<htmlContent tag="HORSE_MORPH_BASIC"><![CDATA[
 	<p>
-		Horse-morphs are one of the more common anthropomorphic races found in this world. A pair of horse-like ears and a swishing tail are usually enough to identify a horse-morph.
+		Horse-morphs are one of the more common anthropomorphic races found in this world. A pair of horse-like ears and a swishing tail are usually enough to identify a horse-morph. If a horse-morph grows a pair of feathered wings, they will be defined as a 'pegasus-morph'. A single horn growing out of their forehead marks them as a 'unicorn-morph', while having both wings and horn is enough to define someone as an 'alicorn-morph'.
 	</p>
 	]]>
 	</htmlContent>
@@ -350,17 +350,17 @@
 
 	<htmlContent tag="CENTAUR_BASIC"><![CDATA[
 	<p>
-		Centaurs in this reality are defined in exactly the same way as those from Greek mythology; by having the lower body of a feral horse. While they can be of any race, the upper bodies of the vast majority of centaurs in the wild are human in nature. Any wings grown by a centaur will appear on their horse's body, defining them as a 'pegataur'.
+		Centaurs in this reality are defined in exactly the same way as those from Greek mythology; by having the lower body of a feral horse. While they can be of any race, the upper bodies of the vast majority of centaurs in the wild are human in nature. Any wings grown by a centaur will appear on their horse's body, defining them as a 'pegataur'. A single horn growing out of their forehead marks them as a 'unitaur', while having both wings and horn is enough to define someone as an 'alitaur'.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="CENTAUR_ADVANCED"><![CDATA[
 	<p>
-		Centaurs, as well as the less-common pegataurs, are almost exclusively found in the farmland surrounding Dominion, known as the 'Foloi Fields'. While they typically do their best to be law-abiding citizens, they possess a very wild temperament, and it doesn't take much to provoke one into displaying their more primal instincts.
+		Centaurs, as well as the less-common pegataurs, unitaurs, and alitaurs, are almost exclusively found in the farmland surrounding Dominion, known as the 'Foloi Fields'. While they typically do their best to be law-abiding citizens, they possess a very wild temperament, and it doesn't take much to provoke one into displaying their more primal instincts.
 	</p>
 	<p>
-		Possessing the lower body of a feral horse, centaurs are capable of great feats of strength, and as such they are highly sought-after by the arcane-impotent farmer population for manual labour. While happy enough to perform tasks such as ploughing fields or carrying farmyard equipment, being used as transport (with someone riding their back) is considered a serious taboo in centaur culture, with only centaur-slaves ever being used for such a demeaning job.
+		Possessing the lower body of a feral horse, centaurs are capable of great feats of strength, and as such they are highly sought-after by the arcane-impotent farmer population for manual labour. While happy enough to perform tasks such as ploughing fields or carrying farmyard equipment, being used as transport (with someone riding their back) is considered to be a sign of either extreme intimacy or utmost subservience. Only doting couples or centaur-slaves are ever involved in such a demeaning practice.
 	</p>
 	]]>
 	</htmlContent>

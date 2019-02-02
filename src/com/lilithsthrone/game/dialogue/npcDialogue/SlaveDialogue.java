@@ -28,6 +28,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
@@ -762,11 +763,11 @@ public class SlaveDialogue {
 							} else {
 								return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
 										false, false,
-										new SMStanding(
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+										new SMGeneric(
+												Util.newArrayListOfValues(Main.game.getPlayer()),
+												Util.newArrayListOfValues(Main.game.getActiveNPC()),
 										null,
-										null, AFTER_SEX, "<p>"
+										null), AFTER_SEX, "<p>"
 											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 											+ " [npc.She] desperately tries to push you away, [npc.moaning],"
 											+ " [npc.speech(No! Stop!)]"
@@ -807,11 +808,11 @@ public class SlaveDialogue {
 							} else {
 								return new ResponseSex("Sex", "Have sex with [npc.name].", 
 										true, false,
-										new SMStanding(
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+										new SMGeneric(
+												Util.newArrayListOfValues(Main.game.getPlayer()),
+												Util.newArrayListOfValues(Main.game.getActiveNPC()),
 										null,
-										null, AFTER_SEX, "<p>"
+										null), AFTER_SEX, "<p>"
 											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 											+ " [npc.She] desperately leans into you, [npc.moaning],"
 											+ " [npc.speech(~Mmm!~ Yes!)]"
@@ -854,11 +855,11 @@ public class SlaveDialogue {
 								return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
 										Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 										true, true,
-										new SMStanding(
-												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+										new SMGeneric(
+												Util.newArrayListOfValues(Main.game.getActiveNPC()),
+												Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
-										null, AFTER_SEX, "<p>"
+										null), AFTER_SEX, "<p>"
 											+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
 											+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
 											+ " [npc.speech(Looking for some fun, hmm?)]"
@@ -2768,11 +2769,11 @@ public class SlaveDialogue {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null, SLAVE_USES_YOU_POST_SEX, "<p>"
+						null), SLAVE_USES_YOU_POST_SEX, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
