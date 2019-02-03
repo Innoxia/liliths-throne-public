@@ -153,9 +153,16 @@ public class CultistDialogue {
 						true, true,
 						new SMCultistKneeling(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.KNEELING_RECEIVING_ORAL_CULTIST)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL_CULTIST))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL_CULTIST))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						},
 						null,
-						null, ENCOUNTER_CHAPEL_POST_ORAL_SEX, "<p>"
+						null,
+						ENCOUNTER_CHAPEL_POST_ORAL_SEX,
+						"<p>"
 							+ "You do as [npc.name] commands, and obediently drop to your knees in front of her."
 							+ " Looking down at your submissive form, the succubus cultist coos in delight,"
 							+ " [npc.speech(Good [pc.girl]! You're eager for my gift, aren't you?!)]"
@@ -193,7 +200,12 @@ public class CultistDialogue {
 							true, false,
 							new SMAltarMissionary(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))) {
+								@Override
+								public boolean isPublicSex() {
+									return false;
+								}
+							},
 							null,
 							null, ENCOUNTER_CHAPEL_POST_VAGINAL_SEX, "<p>"
 								+ "You smirk at [npc.name], before batting your eyelids and putting on the most seductive voice you can muster,"
@@ -238,7 +250,12 @@ public class CultistDialogue {
 						true, false,
 						new SMAltarMissionary(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						},
 						null,
 						null, ENCOUNTER_CHAPEL_POST_ANAL_SEX, "<p>"
 							+ "You smirk at [npc.name], before stepping forwards and asking,"
@@ -411,7 +428,12 @@ public class CultistDialogue {
 						true, false,
 						new SMAltarMissionary(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						},
 						null,
 						null, ENCOUNTER_CHAPEL_POST_DOM_SEX, "<p>"
 							+ "You decide against using her broomstick, and step forwards so that you're standing between [npc.namePos] legs."
@@ -429,7 +451,12 @@ public class CultistDialogue {
 						false, false,
 						new SMAltarMissionarySealed(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						},
 						null,
 						null, ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX, "<p>"
 							+ "As you pick up [npc.namePos] broomstick, you feel a powerful surge of arcane energy flowing into your body."
@@ -508,7 +535,12 @@ public class CultistDialogue {
 						false, false,
 						new SMAltarMissionarySealed(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						},
 						null,
 						null, ENCOUNTER_CHAPEL_POST_ORAL_SEX, (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 							?"<p>"

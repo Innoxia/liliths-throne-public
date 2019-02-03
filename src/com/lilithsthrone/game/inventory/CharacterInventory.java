@@ -56,7 +56,7 @@ import com.lilithsthrone.utils.XMLSaving;
  * Only the very bravest dare venture past line 695.
  * 
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.3.1
  * @author Innoxia
  */
 public class CharacterInventory implements XMLSaving {
@@ -874,10 +874,9 @@ public class CharacterInventory implements XMLSaving {
 			// Clothing specials:
 			} else if (!c.isCanBeEquipped(character)) {
 				transformationIncompatible(character, c, clothingToRemove, c.getCannotBeEquippedText(character));
-				
-			// Piercings:
 			}
 
+			// Piercings:
 			if(character.getBody().getBodyMaterial().isRequiresPiercing()) {
 				if(c.getClothingType().getSlot()==InventorySlot.PIERCING_EAR && !character.isPiercedEar()){
 				transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] ears are no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
@@ -965,12 +964,12 @@ public class CharacterInventory implements XMLSaving {
 		// Check to see if any of the character's body parts are blocking equipping this item:
 		BodyPartClothingBlock block = newClothing.getClothingType().getSlot().getBodyPartClothingBlock(characterClothingOwner);
 		if (block != null && Collections.disjoint(block.getRequiredTags(), newClothing.getItemTags())) {
-			equipTextSB.append("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + UtilText.parse(characterClothingOwner, block.getDescription()) + "</span>");
+			equipTextSB.append("[style.colourBad(" + UtilText.parse(characterClothingOwner, block.getDescription()) + ")]");
 			return false;
 		}
 		
 		if (!newClothing.getClothingType().isCanBeEquipped(characterClothingOwner)) {
-			equipTextSB.append("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + newClothing.getClothingType().getCannotBeEquippedText(characterClothingOwner) + "</span>");
+			equipTextSB.append("[style.colourBad(" + newClothing.getClothingType().getCannotBeEquippedText(characterClothingOwner) + ")]");
 			return false;
 		}
 
@@ -1382,7 +1381,7 @@ public class CharacterInventory implements XMLSaving {
 			clothingToRemove.put(clothing, DisplacementType.REMOVE_OR_EQUIP);
 		}
 		
-		// Check for access needed: TODO check this works TODO it doesn't TODO please come back and fix this some time
+		// Check for access needed: TODO check this works TODO it doesn't TODO I did a temporary fix. please come back and fix this properly some time
 		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList(characterClothingOwner)) {
 
 			// Keep iterating through until until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
@@ -1421,7 +1420,7 @@ public class CharacterInventory implements XMLSaving {
 										} else {
 											if(equippedClothing.equals(previousClothingCheck)) {
 												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
-												return false;
+												return true;
 											}
 											previousClothingCheck = clothing;
 											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can  be removed:
@@ -1538,8 +1537,17 @@ public class CharacterInventory implements XMLSaving {
 	/**
 	 * If pass in DisplacementType.REMOVE_OR_EQUIP, returns isAbleToUnequip().
 	 */
-	public boolean isAbleToBeDisplaced(AbstractClothing clothing, DisplacementType dt, boolean displaceIfAble, boolean automaticClothingManagement,
-			GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, boolean continuingIsAbleToEquip) {
+	public boolean isAbleToBeDisplaced(AbstractClothing clothing,
+			DisplacementType dt,
+			boolean displaceIfAble,
+			boolean automaticClothingManagement,
+			GameCharacter characterClothingOwner,
+			GameCharacter characterRemovingClothing,
+			boolean continuingIsAbleToEquip) {
+		
+		if(!continuingIsAbleToEquip) {
+			previousClothingCheck = null;
+		}
 		
 		if(!displaceIfAble) {
 			if(characterClothingOwner==null) {
@@ -1560,9 +1568,8 @@ public class CharacterInventory implements XMLSaving {
 		}
 
 		boolean displacementTypeFound = false;
-		// Check for access needed: TODO check this works   // TODO it doesn't... Keeps looping
+		// Check for access needed: TODO check this works TODO it doesn't - keeps looping TODO I did a temporary fix. please come back and fix this properly some time
 		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList(characterClothingOwner)) {
-
 			// Keep iterating through until until we find the displacementType:
 			if (bp.displacementType == dt) {
 				displacementTypeFound = true;
@@ -1576,7 +1583,11 @@ public class CharacterInventory implements XMLSaving {
 						if (equippedClothing != clothing) {
 							for (BlockedParts bpEquipped : equippedClothing.getClothingType().getBlockedPartsList(characterClothingOwner)) {
 								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
-
+									if(equippedClothing.equals(previousClothingCheck)) {
+										System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
+										return true;
+									}
+									previousClothingCheck = clothing;
 									if (bp.clothingAccessRequired.contains(caBlocked)
 											&& (automaticClothingManagement
 													?isAbleToBeDisplaced(equippedClothing, bpEquipped.displacementType, false, true, characterClothingOwner, characterRemovingClothing, false)
@@ -1585,9 +1596,9 @@ public class CharacterInventory implements XMLSaving {
 										
 										if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP && !clothingToRemove.containsKey(equippedClothing)) { // Can be displaced:
 											if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
-												if(automaticClothingManagement)
+												if(automaticClothingManagement) {
 													clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
-												else{
+												} else {
 													unableToDisplaceText = new StringBuilder(Util.capitaliseSentence(clothing.getClothingType().getDeterminer()) + " " + clothing.getName() + " can't be displaced because "
 															+ equippedClothing.getClothingType().getDeterminer() + " " + equippedClothing.getName() + " " + (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way.");
 													blockingClothing = equippedClothing;
@@ -1596,9 +1607,9 @@ public class CharacterInventory implements XMLSaving {
 											}
 
 										} else {
-											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) // Can be removed:
+											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can be removed:
 												clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
-											else {
+											} else {
 												unableToDisplaceText = new StringBuilder(Util.capitaliseSentence(clothing.getClothingType().getDeterminer()) + " " + clothing.getName() + " can't be displaced because "
 														+ equippedClothing.getClothingType().getDeterminer() + " " + equippedClothing.getName() + " " + (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way.");
 												blockingClothing = equippedClothing;

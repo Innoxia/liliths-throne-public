@@ -141,7 +141,9 @@ public class ArcaneArts {
 										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))),
 								null,
-									null, VICKY_POST_SEX, "<p>"
+								null,
+								VICKY_POST_SEX,
+								"<p>"
 										+ "[pc.speech(I was wondering... If you'd like to use me...)]"
 										+ " you say, looking sheepishly up at Vicky."
 									+ "</p>"

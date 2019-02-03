@@ -37,11 +37,6 @@ public class SMJulesCockSucking extends SexManagerDefault {
 	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
-
-	@Override
-	public boolean isPublicSex() {
-		return true;
-	}
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {

@@ -5028,7 +5028,7 @@ public enum StatusEffect {
 			80,
 			"exposed",
 			"exposed",
-			Colour.BASE_PINK_DEEP,
+			Colour.BASE_PINK_LIGHT,
 			Colour.GENERIC_BAD,
 			Colour.GENERIC_BAD,
 			false,
@@ -5060,7 +5060,7 @@ public enum StatusEffect {
 			80,
 			"exposed (feral parts)",
 			"exposedFeral",
-			Colour.BASE_PINK_DEEP,
+			Colour.BASE_PINK_LIGHT,
 			Colour.BASE_TAN,
 			Colour.BASE_TAN,
 			false,
@@ -5096,7 +5096,7 @@ public enum StatusEffect {
 			80,
 			"exposed breasts",
 			"exposed",
-			Colour.BASE_PINK_DEEP,
+			Colour.BASE_PINK_LIGHT,
 			Colour.GENERIC_BAD,
 			Colour.GENERIC_BAD,
 			false,
@@ -5128,7 +5128,7 @@ public enum StatusEffect {
 			80,
 			"exposed",
 			"exposed",
-			Colour.BASE_PINK_DEEP,
+			Colour.BASE_PINK_LIGHT,
 			Colour.GENERIC_BAD,
 			Colour.GENERIC_BAD,
 			false,
@@ -5163,9 +5163,9 @@ public enum StatusEffect {
 			80,
 			"exhibitionist",
 			"exposedExhibitionist",
+			Colour.BASE_PINK_LIGHT,
 			Colour.BASE_PINK_DEEP,
-			Colour.BASE_PINK,
-			Colour.BASE_PINK,
+			Colour.BASE_PINK_DEEP,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
@@ -5196,9 +5196,9 @@ public enum StatusEffect {
 			80,
 			"exhibitionist",
 			"exposedExhibitionist",
+			Colour.BASE_PINK_LIGHT,
 			Colour.BASE_PINK_DEEP,
-			Colour.BASE_PINK,
-			Colour.BASE_PINK,
+			Colour.BASE_PINK_DEEP,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
@@ -5229,9 +5229,9 @@ public enum StatusEffect {
 			80,
 			"exhibitionist",
 			"exposedExhibitionist",
+			Colour.BASE_PINK_LIGHT,
 			Colour.BASE_PINK_DEEP,
-			Colour.BASE_PINK,
-			Colour.BASE_PINK,
+			Colour.BASE_PINK_DEEP,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 30f),
@@ -12108,7 +12108,7 @@ public enum StatusEffect {
 		}
 		exposedAreas+= (anusExposed?1:0) + (breastsExposed?1:0) + (crotchBoobsExposed?1:0);
 		
-		int size = 100/exposedAreas+1;
+		int size = Math.min(50, (100/exposedAreas+1));
 		int marginTop = (100-(exposedAreas*size))/2;
 		int marginLeft = (50-size)/2;
 

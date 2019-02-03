@@ -91,7 +91,14 @@ public class RentalMommyDialogue {
 								Util.newArrayListOfValues(Main.game.getActiveNPC()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null), AFTER_SEX_MOMMY_AS_DOM, UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_SUB")
+						null) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						},
+						AFTER_SEX_MOMMY_AS_DOM,
+						UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_SUB")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_SUB")) {
 					@Override
@@ -110,7 +117,14 @@ public class RentalMommyDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								Util.newArrayListOfValues(Main.game.getActiveNPC()),
 						null,
-						null), AFTER_SEX_MOMMY_AS_SUB, UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_DOM")
+						null) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						},
+						AFTER_SEX_MOMMY_AS_SUB,
+						UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_DOM")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_DOM")) {
 					@Override

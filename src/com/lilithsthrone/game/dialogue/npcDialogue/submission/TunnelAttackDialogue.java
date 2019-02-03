@@ -235,9 +235,15 @@ public class TunnelAttackDialogue {
 								new SMGeneric(
 										Util.newArrayListOfValues(getMugger()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-								null,
-								null),
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_OFFER_BODY", getMugger())) {
+										null,
+										null) {
+									@Override
+									public boolean isPlayerAbleToStopSex() {
+										return false;
+									}
+								},
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_OFFER_BODY", getMugger())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();

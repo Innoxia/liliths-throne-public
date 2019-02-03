@@ -388,7 +388,7 @@ public class FingerBreastsCrotch {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().hasBreastsCrotch()
 					&& Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs()
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL;
+					&& Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue();
 		}
 
 		@Override

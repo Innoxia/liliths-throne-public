@@ -244,8 +244,13 @@ public class HarpyAttackerDialogue {
 								new SMGeneric(
 										Util.newArrayListOfValues(getHarpy()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-								null,
-								null),
+										null,
+										null) {
+									@Override
+									public boolean isPlayerAbleToStopSex() {
+										return false;
+									}
+								},
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", "HARPY_ATTACK_OFFER_BODY", getHarpy())) {
 							@Override
 							public void effects() {
@@ -579,8 +584,13 @@ public class HarpyAttackerDialogue {
 						new SMGeneric(
 								Util.newArrayListOfValues(getHarpy()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
-						null,
-						null),
+								null,
+								null) {
+							@Override
+							public boolean isPlayerAbleToStopSex() {
+								return false;
+							}
+						},
 						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", "STORM_ATTACK_OFFER_BODY", getHarpy()));
 					
 			} else {

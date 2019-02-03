@@ -167,7 +167,6 @@ public class ResponseSex extends Response {
 												return SexPace.DOM_GENTLE;
 											case START_PACE_PLAYER_DOM_ROUGH:
 												return SexPace.DOM_ROUGH;
-											case START_PACE_PLAYER_SUB_RESIST:
 											case START_PACE_PLAYER_SUB_RESISTING:
 												return SexPace.SUB_RESISTING;
 											case START_PACE_PLAYER_SUB_EAGER:
@@ -205,7 +204,6 @@ public class ResponseSex extends Response {
 												return SexPace.DOM_GENTLE;
 											case START_PACE_PLAYER_DOM_ROUGH:
 												return SexPace.DOM_ROUGH;
-											case START_PACE_PLAYER_SUB_RESIST:
 											case START_PACE_PLAYER_SUB_RESISTING:
 												return SexPace.SUB_RESISTING;
 											case START_PACE_PLAYER_SUB_EAGER:
@@ -490,7 +488,6 @@ public class ResponseSex extends Response {
 									return SexPace.DOM_GENTLE;
 								case START_PACE_PLAYER_DOM_ROUGH:
 									return SexPace.DOM_ROUGH;
-								case START_PACE_PLAYER_SUB_RESIST:
 								case START_PACE_PLAYER_SUB_RESISTING:
 									return SexPace.SUB_RESISTING;
 								case START_PACE_PLAYER_SUB_EAGER:
@@ -644,7 +641,6 @@ public class ResponseSex extends Response {
 									return SexPace.DOM_GENTLE;
 								case START_PACE_PLAYER_DOM_ROUGH:
 									return SexPace.DOM_ROUGH;
-								case START_PACE_PLAYER_SUB_RESIST:
 								case START_PACE_PLAYER_SUB_RESISTING:
 									return SexPace.SUB_RESISTING;
 								case START_PACE_PLAYER_SUB_EAGER:
@@ -788,7 +784,6 @@ public class ResponseSex extends Response {
 									return SexPace.DOM_GENTLE;
 								case START_PACE_PLAYER_DOM_ROUGH:
 									return SexPace.DOM_ROUGH;
-								case START_PACE_PLAYER_SUB_RESIST:
 								case START_PACE_PLAYER_SUB_RESISTING:
 									return SexPace.SUB_RESISTING;
 								case START_PACE_PLAYER_SUB_EAGER:

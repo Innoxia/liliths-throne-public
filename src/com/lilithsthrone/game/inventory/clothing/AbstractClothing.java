@@ -522,7 +522,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public String getCannotBeEquippedText(GameCharacter clothingOwner) {
-		return this.getClothingType().getCannotBeEquippedText(clothingOwner);
+		return UtilText.parse(clothingOwner, this.getClothingType().getCannotBeEquippedText(clothingOwner));
 	}
 	
 	@Override

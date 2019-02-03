@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>2000</value> 
+		
+		<determiner><![CDATA[a set of]]></determiner>
+		
+		<name><![CDATA[taur-trousers]]></name>
+		
+		<namePlural pluralByDefault="true"><![CDATA[taur-trousers]]></namePlural> 
+		
+		<description><![CDATA[A set of specially-designed trousers, suitable to be fit onto the lower body of any taur race. A very weak telekinetic enchantment helps the wearer put them on without assistance. There is a zip running down beneath the rear portion, allowing the wearer to do their business without taking them off.]]></description> 
+		
+		<physicalResistance>1</physicalResistance> 
+		
+		<femininity>ANDROGYNOUS</femininity> 
+		
+		<slot>LEG</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/>
+		
+		<imageName>taur_trousers.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessRequired>
+				
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>UNZIPS</displacementType> 
+				
+				<clothingAccessRequired/>
+				
+				<blockedBodyParts>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BREASTS_CROTCH</bodyPart>
+					<bodyPart>NIPPLES_CROTCH</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_TAUR"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_TAUR_BODY</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the unzipped taur-trousers down over [npc.her] head, before allowing the weak telekinetic enchantment to zip them up beneath [npc.her] [npc.legRace]'s body.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the unzipped taur-trousers down over [npc2.namePos] head, before zipping them up beneath [npc2.her] [npc2.legRace]'s body.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(force)] the unzipped taur-trousers down over [npc2.namePos] head, before roughly zipping them up beneath [npc2.her] [npc2.legRace]'s body.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] focuses [npc.her] thoughts on unzipping [npc.her] taur-trousers, and, sure enough, the weak telekinetic enchantment sets to work, soon allowing [npc.herHim] to take them off by pulling them up and over [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unzip)] [npc2.namePos] taur-trousers, before pulling them up and over [npc2.her] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(unzip)] [npc2.namePos] taur-trousers, before yanking them up and over [npc2.her] head.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

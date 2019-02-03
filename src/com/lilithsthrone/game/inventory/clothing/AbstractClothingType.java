@@ -26,7 +26,10 @@ import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -1319,6 +1322,30 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public boolean isCanBeEquipped(GameCharacter clothingOwner) {
 		// This might not be the most efficient way of making this method, but I found it to be easily-readable:
+		if(getItemTags().contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_HARPY_WINGS) && clothingOwner.getArmType()!=ArmType.HARPY) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_HOOFS) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_TALONS) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
+			return false;
+		}
 		if(clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_NO_PENIS)) {
 			return false;
 		}
@@ -1337,54 +1364,48 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return true;
 	}	
 
-	public String getCannotBeEquippedText(GameCharacter clothingOwner) {
+	public String getCannotBeEquippedText(GameCharacter clothingOwner) { // ...
+		if(getItemTags().contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arachnid bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for cephalopod bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_HARPY_WINGS) && clothingOwner.getArmType()!=ArmType.HARPY) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_HOOFS) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for hoofs, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for long-tailed bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for tailed bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_TALONS) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for talons, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for taur bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
 		if(clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_NO_PENIS)) {
-			if(clothingOwner.isPlayer()) {
-				return "You have a penis, which is blocking you from wearing the "+this.getName()+"!";
-			} else {
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] has a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
-			}
+			return UtilText.parse(clothingOwner, "[npc.NameHasFull] a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
 		}
-		
 		if(!clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_PENIS)) {
-			if(clothingOwner.isPlayer()) {
-				return "You don't have a penis, so you can't wear the "+this.getName()+"!";
-			} else {
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] doesn't have a penis, so [npc.she] can't wear the "+this.getName()+"!");
-			}
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a penis, so [npc.she] can't wear the "+this.getName()+"!");
 		}
-		
 		if(clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_NO_VAGINA)) {
-			if(clothingOwner.isPlayer()) {
-				return "You have a vagina, which is blocking you from wearing the "+this.getName()+"!";
-			} else {
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] has a vagina, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
-			}
+			return UtilText.parse(clothingOwner, "[npc.NameHasFull] a vagina, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
 		}
-		
 		if(!clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_VAGINA)) {
-			if(clothingOwner.isPlayer()) {
-				return "You don't have a vagina, so you can't wear the "+this.getName()+"!";
-			} else {
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] doesn't have a vagina, so [npc.she] can't wear the "+this.getName()+"!");
-			}
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a vagina, so [npc.she] can't wear the "+this.getName()+"!");
 		}
-
 		if(!clothingOwner.isBreastFuckableNipplePenetration() && this.getItemTags().contains(ItemTag.REQUIRES_FUCKABLE_NIPPLES)) {
-			return UtilText.parse(clothingOwner,
-					"[npc.NamePos] nipples are not fuckable, so [npc.she] can't wear the "+this.getName()+"!");
+			return UtilText.parse(clothingOwner, "[npc.NamePos] nipples are not fuckable, so [npc.she] can't wear the "+this.getName()+"!");
 		}
 		
-		if(clothingOwner.isPlayer()) {
-			return "You cannot wear the "+this.getName()+"!";
-		} else {
-			return UtilText.parse(clothingOwner,
-					"[npc.Name] cannot wear the "+this.getName()+"!");
-		}
+		return UtilText.parse(clothingOwner, "[npc.Name] cannot wear the "+this.getName()+"!");
 	}
 	
 	public boolean isMufflesSpeech() {

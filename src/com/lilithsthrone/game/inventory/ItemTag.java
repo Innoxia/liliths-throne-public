@@ -104,36 +104,36 @@ public enum ItemTag {
 	// These 'FITS' tags are used to check for whether clothing is suitable for certain body parts. They should be pretty self-explanatory.
 	FITS_HOOFS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits hoofs)]"),
+					"[style.colourBestial(Only fits hoofs)]"),
 			false),
 	FITS_TALONS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits talons)]"),
+					"[style.colourBestial(Only fits talons)]"),
 			false),
 	FITS_HARPY_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits harpy wings)]"),
+					"[style.colourBestial(Only fits arm-wings)]"),
 			false),
 	FITS_NON_BIPED_BODY_HUMANOID(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits humanoid parts of non-biped bodies)]"),
+					"[style.colourHuman(Fits humanoid parts of non-biped bodies)]"),
 			false),
 	FITS_TAUR_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits taur bodies)]"),
+					"[style.colourBestial(Only fits taur bodies)]"),
 			false),
 	FITS_LONG_TAIL_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits long-tailed bodies)]"),false), //lamia, eels
+					"[style.colourBestial(Only fits long-tailed bodies)]"),false), //lamia, eels
 	FITS_TAIL_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits tailed bodies)]"),false), //mermaids
+					"[style.colourBestial(Only fits tailed bodies)]"),false), //mermaids
 	FITS_ARACHNID_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits arachnid bodies)]"),false), //spiders and scorpions
+					"[style.colourBestial(Only fits arachnid bodies)]"),false), //spiders and scorpions
 	FITS_CEPHALOPOD_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits cephalopod bodies)]"),false), //octopuses and squids
+					"[style.colourBestial(Only fits cephalopod bodies)]"),false), //octopuses and squids
 	
 	
 	PREVENTS_ERECTION_PHYSICAL( // Prevents the wearer from getting an erection during sex, by means of physically limiting the space into which the erection could take shape (i.e. chastity cages). As of 0.3.1, only affects descriptors.

@@ -1652,14 +1652,11 @@ public class ZaranixHomeGroundFloorRepeat {
 						true, false,
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexSlotBipeds.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
-							@Override
-							public boolean isPublicSex() {
-								return true;
-							}
-						},
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 						null,
-						null, WALKIES_AMBER_FUCKS_POST_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_AMBER_FUCKS_START")) {
+						null,
+						WALKIES_AMBER_FUCKS_POST_SEX,
+						UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_AMBER_FUCKS_START")) {
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), 10f));

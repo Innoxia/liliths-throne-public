@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.managers.universal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,6 @@ public class SMGeneric extends SexManagerDefault {
 			this.submissiveSpectators.removeIf(sp -> sp==null);
 		}
 		
-		
 		boolean nonBiped=false;
 		for(GameCharacter character : submissives) {
 			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL) {
@@ -64,19 +64,44 @@ public class SMGeneric extends SexManagerDefault {
 			}
 		}
 		
-		// This scene contains characters who are non-bipedal:
-		if(nonBiped) {
-			this.position = SexPositionOther.STANDING;
-			SexSlot[] slotsDominant = new SexSlot[] {SexSlotOther.STANDING_DOMINANT, SexSlotOther.STANDING_DOMINANT_TWO};
-			SexSlot[] slotsSubmissive = new SexSlot[] {SexSlotOther.STANDING_SUBMISSIVE, SexSlotOther.STANDING_SUBMISSIVE_TWO};
-			setUpVariables(dominants, slotsDominant, submissives, slotsSubmissive);
+		SexSlot[] slotsDominant;
+		SexSlot[] slotsSubmissive;
+		if(nonBiped) { // This scene contains characters who are non-bipedal, so use the SexPositionOther classes:
+			if(Arrays.asList(tags).contains(ResponseTag.PREFER_DOGGY)) {
+				this.position = SexPositionOther.ALL_FOURS;
+				if(submissives.size()==1) {
+					slotsDominant = new SexSlot[] {SexSlotOther.ALL_FOURS_MOUNTING, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET};
+				} else {
+					slotsDominant = new SexSlot[] {SexSlotOther.ALL_FOURS_MOUNTING, SexSlotOther.ALL_FOURS_MOUNTING_TWO, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO};
+				}
+				slotsSubmissive = new SexSlot[] {SexSlotOther.ALL_FOURS_FUCKED, SexSlotOther.ALL_FOURS_FUCKED_TWO};
+				
+			} else {
+				this.position = SexPositionOther.STANDING;
+				slotsDominant = new SexSlot[] {SexSlotOther.STANDING_DOMINANT, SexSlotOther.STANDING_DOMINANT_TWO};
+				slotsSubmissive = new SexSlot[] {SexSlotOther.STANDING_SUBMISSIVE, SexSlotOther.STANDING_SUBMISSIVE_TWO};
+			}
 			
 		} else {
-			this.position = SexPositionBipeds.STANDING;
-			SexSlot[] slotsDominant = new SexSlot[] {SexSlotBipeds.STANDING_DOMINANT};
-			SexSlot[] slotsSubmissive = new SexSlot[] {SexSlotBipeds.STANDING_SUBMISSIVE};
-			setUpVariables(dominants, slotsDominant, submissives, slotsSubmissive);
+			if(Arrays.asList(tags).contains(ResponseTag.PREFER_DOGGY)) {
+				this.position = SexPositionBipeds.DOGGY_STYLE;
+				if(submissives.size()==1) {
+					slotsDominant = new SexSlot[] {SexSlotBipeds.DOGGY_BEHIND, SexSlotBipeds.DOGGY_INFRONT, SexSlotBipeds.DOGGY_INFRONT_TWO, SexSlotBipeds.DOGGY_FEET};
+				} else {
+					slotsDominant = new SexSlot[] {
+							SexSlotBipeds.DOGGY_BEHIND, SexSlotBipeds.DOGGY_BEHIND_SECOND,
+							SexSlotBipeds.DOGGY_INFRONT, SexSlotBipeds.DOGGY_INFRONT_SECOND,
+							SexSlotBipeds.DOGGY_INFRONT_TWO, SexSlotBipeds.DOGGY_INFRONT_SECOND_TWO};
+				}
+				slotsSubmissive = new SexSlot[] {SexSlotBipeds.DOGGY_ON_ALL_FOURS, SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND, SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD, SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH};
+				
+			} else {
+				this.position = SexPositionBipeds.STANDING;
+				slotsDominant = new SexSlot[] {SexSlotBipeds.STANDING_DOMINANT};
+				slotsSubmissive = new SexSlot[] {SexSlotBipeds.STANDING_SUBMISSIVE};
+			}
 		}
+		setUpVariables(dominants, slotsDominant, submissives, slotsSubmissive);
 	}
 	
 	private void setUpVariables(List<GameCharacter> dominants, SexSlot[] slotsDominant, List<GameCharacter> submissives, SexSlot[] slotsSubmissive) {

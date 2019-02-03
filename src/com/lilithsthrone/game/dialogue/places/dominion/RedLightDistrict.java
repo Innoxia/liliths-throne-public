@@ -694,7 +694,9 @@ public class RedLightDistrict {
 									Util.newArrayListOfValues(Main.game.getNpc(Bunny.class), Main.game.getNpc(Loppy.class)),
 									null,
 									null,
-									ResponseTag.PREFER_DOGGY), AFTER_SEX_BUNNY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
+									ResponseTag.PREFER_DOGGY),
+							AFTER_SEX_BUNNY_THREESOME,
+							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.loppyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_NOT_INTRODUCED"))) {

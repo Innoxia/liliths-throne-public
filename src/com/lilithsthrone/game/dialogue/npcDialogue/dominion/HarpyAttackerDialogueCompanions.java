@@ -250,9 +250,15 @@ public class HarpyAttackerDialogueCompanions {
 								new SMGeneric(
 										Util.newArrayListOfValues(getHarpy()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-								null,
-								Util.newArrayListOfValues(getMainCompanion())),
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getHarpy(), getMainCompanion())) {
+										null,
+										Util.newArrayListOfValues(getMainCompanion())) {
+									@Override
+									public boolean isPlayerAbleToStopSex() {
+										return false;
+									}
+								},
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getHarpy(), getMainCompanion())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -754,8 +760,13 @@ public class HarpyAttackerDialogueCompanions {
 						new SMGeneric(
 								Util.newArrayListOfValues(getHarpy()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
-						null,
-						Util.newArrayListOfValues(getMainCompanion())),
+								null,
+								Util.newArrayListOfValues(getMainCompanion())) {
+							@Override
+							public boolean isPlayerAbleToStopSex() {
+								return false;
+							}
+						},
 						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "STORM_ATTACK_OFFER_BODY", getHarpy(), getMainCompanion()));
 					
 			} else if (index == 4) {

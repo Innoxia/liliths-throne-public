@@ -356,8 +356,14 @@ public class OccupantDialogue {
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										Util.newArrayListOfValues(occupant()),
 								null,
-								null),
-								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_START", occupant())) {
+								null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								AFTER_SEX,
+								UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_START", occupant())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -378,7 +384,12 @@ public class OccupantDialogue {
 										Util.newArrayListOfValues(occupant()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null),
+								null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
 								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_AS_SUB_START", occupant())) {
 							@Override
 							public void effects() {
@@ -404,8 +415,14 @@ public class OccupantDialogue {
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											null,
 											null,
-											ResponseTag.PREFER_DOGGY),
-									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SPITROASTED_START", companions.get(0), occupant())) {
+											ResponseTag.PREFER_DOGGY) {
+										@Override
+										public boolean isPublicSex() {
+											return false;
+										}
+									},
+									AFTER_SEX,
+									UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SPITROASTED_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
 									applyReactionReset();
@@ -432,7 +449,12 @@ public class OccupantDialogue {
 											Util.newArrayListOfValues(companions.get(0), occupant()),
 											null,
 											null,
-											ResponseTag.PREFER_DOGGY),
+											ResponseTag.PREFER_DOGGY) {
+										@Override
+										public boolean isPublicSex() {
+											return false;
+										}
+									},
 									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
@@ -1027,7 +1049,12 @@ public class OccupantDialogue {
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										Util.newArrayListOfValues(occupant()),
 								null,
-								null),
+								null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
 								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_START", occupant())) {
 							@Override
 							public void effects() {
@@ -1049,7 +1076,12 @@ public class OccupantDialogue {
 										Util.newArrayListOfValues(occupant()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null),
+								null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
 								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_AS_SUB_START", occupant())) {
 							@Override
 							public void effects() {
@@ -1075,7 +1107,12 @@ public class OccupantDialogue {
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											null,
 											null,
-											ResponseTag.PREFER_DOGGY),
+											ResponseTag.PREFER_DOGGY) {
+										@Override
+										public boolean isPublicSex() {
+											return false;
+										}
+									},
 									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SPITROASTED_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
@@ -1103,7 +1140,12 @@ public class OccupantDialogue {
 											Util.newArrayListOfValues(companions.get(0), occupant()),
 											null,
 											null,
-											ResponseTag.PREFER_DOGGY),
+											ResponseTag.PREFER_DOGGY) {
+										@Override
+										public boolean isPublicSex() {
+											return false;
+										}
+									},
 									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {

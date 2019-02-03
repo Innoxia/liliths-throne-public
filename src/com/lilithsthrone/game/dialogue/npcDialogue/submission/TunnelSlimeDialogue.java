@@ -194,8 +194,15 @@ public class TunnelSlimeDialogue {
 								new SMGeneric(
 										Util.newArrayListOfValues(slime()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-								null,
-								null), AFTER_SLIME_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "OFFER_BODY"));
+										null,
+										null) {
+									@Override
+									public boolean isPlayerAbleToStopSex() {
+										return false;
+									}
+								},
+								AFTER_SLIME_SEX_AS_SUB,
+								UtilText.parseFromXMLFile("places/submission/tunnelSlime", "OFFER_BODY"));
 					} else {
 						return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
 					}

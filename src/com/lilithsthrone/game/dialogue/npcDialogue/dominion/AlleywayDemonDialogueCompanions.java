@@ -256,9 +256,15 @@ public class AlleywayDemonDialogueCompanions {
 								new SMGeneric(
 										Util.newArrayListOfValues(getDemon()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-								null,
-								Util.newArrayListOfValues(getMainCompanion())),
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getDemon(), getMainCompanion())) {
+										null,
+										Util.newArrayListOfValues(getMainCompanion())) {
+									@Override
+									public boolean isPlayerAbleToStopSex() {
+										return false;
+									}
+								},
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getDemon(), getMainCompanion())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -760,8 +766,13 @@ public class AlleywayDemonDialogueCompanions {
 						new SMGeneric(
 								Util.newArrayListOfValues(getDemon()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
-						null,
-						Util.newArrayListOfValues(getMainCompanion())),
+								null,
+								Util.newArrayListOfValues(getMainCompanion())) {
+							@Override
+							public boolean isPlayerAbleToStopSex() {
+								return false;
+							}
+						},
 						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "STORM_ATTACK_OFFER_BODY", getDemon(), getMainCompanion()));
 					
 			} else if (index == 4) {

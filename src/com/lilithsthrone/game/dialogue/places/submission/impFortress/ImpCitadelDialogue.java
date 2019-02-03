@@ -986,7 +986,7 @@ public class ImpCitadelDialogue {
 							null,
 							IMP_AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()),
-							ResponseTag.START_PACE_PLAYER_SUB_RESIST);
+							ResponseTag.START_PACE_PLAYER_SUB_RESISTING);
 				}
 			}
 			return null;

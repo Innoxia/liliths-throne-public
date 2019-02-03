@@ -60,7 +60,14 @@ public class ReindeerOverseerDialogue {
 							Util.newArrayListOfValues(Main.game.getPlayer()),
 							Util.newArrayListOfValues(reindeer()),
 					null,
-					null), AFTER_SEX, "<p>"
+					null) {
+						@Override
+						public boolean isPublicSex() {
+							return false;
+						}
+					},
+					AFTER_SEX,
+					"<p>"
 						+ "Putting on your most seductive voice, you step close to [npc.name] and ask,"
 						+ " [pc.speech(You know, if you're feeling stressed from all this work, maybe I could help you to blow off some steam?)]"
 					+ "</p>"

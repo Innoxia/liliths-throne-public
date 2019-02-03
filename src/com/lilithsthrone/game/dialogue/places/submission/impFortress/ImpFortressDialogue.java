@@ -847,7 +847,6 @@ public class ImpFortressDialogue {
 										return SexPace.DOM_GENTLE;
 									case START_PACE_PLAYER_DOM_ROUGH:
 										return SexPace.DOM_ROUGH;
-									case START_PACE_PLAYER_SUB_RESIST:
 									case START_PACE_PLAYER_SUB_RESISTING:
 										return SexPace.SUB_RESISTING;
 									case START_PACE_PLAYER_SUB_EAGER:
@@ -889,7 +888,6 @@ public class ImpFortressDialogue {
 										return SexPace.DOM_GENTLE;
 									case START_PACE_PLAYER_DOM_ROUGH:
 										return SexPace.DOM_ROUGH;
-									case START_PACE_PLAYER_SUB_RESIST:
 									case START_PACE_PLAYER_SUB_RESISTING:
 										return SexPace.SUB_RESISTING;
 									case START_PACE_PLAYER_SUB_EAGER:
@@ -983,7 +981,6 @@ public class ImpFortressDialogue {
 									return SexPace.DOM_GENTLE;
 								case START_PACE_PLAYER_DOM_ROUGH:
 									return SexPace.DOM_ROUGH;
-								case START_PACE_PLAYER_SUB_RESIST:
 								case START_PACE_PLAYER_SUB_RESISTING:
 									return SexPace.SUB_RESISTING;
 								case START_PACE_PLAYER_SUB_EAGER:
@@ -1695,7 +1692,7 @@ public class ImpFortressDialogue {
 							null,
 							null,
 							GUARDS_AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "GUARDS_AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_RESIST);
+							UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "GUARDS_AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_RESISTING);
 				}
 				
 			} else {
@@ -3684,7 +3681,7 @@ public class ImpFortressDialogue {
 					title = "Resist sex";
 					appendPace = "_RESIST";
 					description = UtilText.parse(getBoss(), "Struggle against [npc.name] and [npc.her] imps and do your best to resist having sex with them. (Starts sex in the 'Resisting' pace.)");
-					tag = ResponseTag.START_PACE_PLAYER_SUB_RESIST;
+					tag = ResponseTag.START_PACE_PLAYER_SUB_RESISTING;
 				}
 				
 				if(isAlphaFortress()) {

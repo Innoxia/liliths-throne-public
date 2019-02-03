@@ -2139,7 +2139,7 @@ public class GenericOrgasms {
 					case BREAST_CROTCH:
 						return "Paizuri climax";
 					case MOUTH:
-						break;
+						return "Deepthroat";
 					case NIPPLE: case NIPPLE_CROTCH:
 						return "Nipple Creampie";
 					case THIGHS:

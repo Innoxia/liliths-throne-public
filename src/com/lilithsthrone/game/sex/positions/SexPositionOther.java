@@ -6,12 +6,18 @@ import java.util.Map;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Arm;
+import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.character.body.Tail;
+import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexActionInteractions;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * AbstractSexPositions for taurs, including taur-biped interactions.
@@ -181,6 +187,18 @@ public class SexPositionOther {
 						StandardSexActionInteractions.faceToFace.getSexActionInteractions(SexSlotOther.STANDING_SUBMISSIVE, SexSlotOther.RECEIVING_ORAL)));
 			}
 		}
+		@Override
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvidor) {
+			// The character sucking cock can use their arms to force a creampie:
+			if((Sex.getSexPositionSlot(cumTarget)==SexSlotOther.PERFORMING_ORAL
+					|| Sex.getSexPositionSlot(cumTarget)==SexSlotOther.PERFORMING_ORAL_TWO)
+				&& (Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.RECEIVING_ORAL
+						|| Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.RECEIVING_ORAL_TWO)) {
+				return Util.newHashMapOfValues(
+						new Value<>(Arm.class, genericFaceForceCreampieAreas));
+			}
+			return null;
+		}
 	};
 	
 	public static final AbstractSexPosition ALL_FOURS = new AbstractSexPosition("",
@@ -205,81 +223,66 @@ public class SexPositionOther {
 		@Override
 		public String getDescription() {
 			StringBuilder sb = new StringBuilder();
-			boolean receivingDom = Sex.isDom(Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_FUCKED));
-			Set<GameCharacter> performers;
-			if(receivingDom) {
-				performers = Sex.getSubmissiveParticipants().keySet();
-			} else {
-				performers = Sex.getDominantParticipants().keySet();
-			}
 			
 			GameCharacter fucked1 = Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_FUCKED);
 			GameCharacter fucked2 = Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_FUCKED_TWO);
+			GameCharacter fucking1 = Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_MOUNTING);
+			GameCharacter fucking2 = Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_MOUNTING_TWO);
 			GameCharacter inFront1 = Sex.getCharacterInPosition(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET);
 			GameCharacter inFront2 = Sex.getCharacterInPosition(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO);
+
+			sb.append(UtilText.parse(fucked1,
+					"[npc.NameIsFull] "
+					+(SexSlotOther.ALL_FOURS_FUCKED.isStanding(fucked1)
+							?"standing upright,"
+							:(fucked1.getLegConfiguration().isBipedalPositionedGenitals()?"on all fours,":"lying down on [npc.her] [npc.legRace]'s body,"))));
 			
-			if(fucked2!=null) {
-				if(fucked1.getLegConfiguration().isBipedalPositionedGenitals()) {
-					if(fucked2.getLegConfiguration().isBipedalPositionedGenitals()) {
-						sb.append(UtilText.parse(fucked1, fucked2, "[npc.Name] and [npc2.name] are on all fours side-by-side, ready to be fucked by "));
-					} else {
-						sb.append(UtilText.parse(fucked1, fucked2, "[npc.NameIsFull] on all fours beside [npc2.name], ready to be fucked by "));
-					}
-					
-				} else if(fucked2.getLegConfiguration().isBipedalPositionedGenitals()) {
-					sb.append(UtilText.parse(fucked1, fucked2, "[npc2.NameIsFull] on all fours beside [npc.name], ready to be fucked by "));
-					
+			if(fucking1!=null) {
+				sb.append(UtilText.parse(fucked1, fucking1,
+						" presenting [npc.herself] to [npc2.name], "));
+
+				if(inFront1!=null) {
+					sb.append(UtilText.parse(fucked1, inFront1,
+							"while [npc2.nameIsFull] positioned in front of [npc.herHim], ready to put [npc.her] mouth to use."));
 				} else {
-					sb.append(UtilText.parse(fucked1, fucked2, "[npc.Name] and [npc2.name] are standing side-by-side, ready to be mounted by "));
+					sb.append(UtilText.parse(fucking1,
+							fucking1.getLegConfiguration().isBipedalPositionedGenitals()
+								?"ready to be fucked by [npc.herHim]."
+								:"ready to be mounted and fucked by [npc.herHim]."));
 				}
 				
-				List<String> names = new ArrayList<>();
-				for(GameCharacter performer : performers) {
-					names.add(UtilText.parse(performer, "[npc.name]"));
-				}
-				sb.append(Util.stringsToStringList(names, false)+".");
+			} else if(inFront1!=null) {
+				sb.append(UtilText.parse(fucked1, inFront1,
+						" ready to put [npc.her] mouth to use on [npc2.namePos] genitals."));
+			}
+			if(fucked2!=null) {
+				sb.append(UtilText.parse(fucked2,
+						"<br/><br/>"
+						+ "[npc.NameIsFull] "
+						+(SexSlotOther.ALL_FOURS_FUCKED_TWO.isStanding(fucked2)
+								?"standing"
+								:(fucked2.getLegConfiguration().isBipedalPositionedGenitals()?"on all fours":"lying [npc.her] [npc.legRace]'s body down"))));
+
+				sb.append(UtilText.parse(fucked2, fucked1,
+						" beside [npc2.name], and, in a similar manner to [npc.her] partner, is"));
 				
-			} else {
-				sb.append(UtilText.parse(fucked1,
-						"[npc.NameIsFull] "+(fucked1.getLegConfiguration().isBipedalPositionedGenitals()?"on all fours,":"standing upright,")));
-				
-				if(Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_MOUNTING)!=null) {
-					sb.append(UtilText.parse(fucked1, Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_MOUNTING),
+				if(fucking2!=null) {
+					sb.append(UtilText.parse(fucked2, fucking2,
 							" presenting [npc.herself] to [npc2.name], "));
 
-					if(Sex.getCharacterInPosition(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET)!=null) {
-						sb.append(UtilText.parse(fucked1, Sex.getCharacterInPosition(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET),
-								"while [npc2.nameIsFull] positioned in front of [npc.herHim]."));
+					if(inFront2!=null) {
+						sb.append(UtilText.parse(fucked2, inFront2,
+								"while [npc2.nameIsFull] positioned in front of [npc.herHim], ready to use [npc.her] mouth."));
 					} else {
-						sb.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_MOUNTING),
-								"ready to be mounted and fucked by [npc.herHim]."));
+						sb.append(UtilText.parse(fucking2,
+								fucking2.getLegConfiguration().isBipedalPositionedGenitals()
+									?"ready to be fucked by [npc.herHim]."
+									:"ready to be mounted and fucked by [npc.herHim]."));
 					}
 					
-				} else if(Sex.getCharacterInPosition(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET)!=null) {
-					sb.append(UtilText.parse(fucked1, Sex.getCharacterInPosition(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET),
-							" ready to have [npc.her] mouth used by [npc2.name]."));
-				}
-			}
-			if(inFront1!=null) {
-				if(fucked1.getLegConfiguration().isBipedalPositionedGenitals()) {
-					sb.append(UtilText.parse(inFront1, fucked1," [npc.NameIsFull] "+(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET.isStanding(inFront1))+" in front of [npc2.name], ready to busy [npc.herself] with [npc2.her] [npc2.breasts+] and mouth."));
-				} else {
-					sb.append(UtilText.parse(inFront1, fucked1," [npc.NameIsFull] "+(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET.isStanding(inFront1))+" in front of [npc2.name], ready receive oral from [npc2.herHim]."));
-				}
-			}
-			if(inFront2!=null) {
-				if(fucked2!=null) {
-					if(fucked2.getLegConfiguration().isBipedalPositionedGenitals()) {
-						sb.append(UtilText.parse(inFront1, fucked2," [npc.NameIsFull] "+(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET.isStanding(inFront1))+" in front of [npc2.name], ready to busy [npc.herself] with [npc2.her] [npc2.breasts+] and mouth."));
-					} else {
-						sb.append(UtilText.parse(inFront1, fucked2," [npc.NameIsFull] "+(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET.isStanding(inFront1))+" in front of [npc2.name], ready receive oral from [npc2.herHim]."));
-					}
-				} else {
-					if(fucked1.getLegConfiguration().isBipedalPositionedGenitals()) {
-						sb.append(UtilText.parse(inFront1, fucked1," [npc.NameIsFull] "+(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET.isStanding(inFront1))+" in front of [npc2.name], ready to busy [npc.herself] with [npc2.her] [npc2.breasts+] and mouth."));
-					} else {
-						sb.append(UtilText.parse(inFront1, fucked1," [npc.NameIsFull] "+(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET.isStanding(inFront1))+" in front of [npc2.name], ready receive oral from [npc2.herHim]."));
-					}
+				} else if(inFront2!=null) {
+					sb.append(UtilText.parse(fucked2, inFront2,
+							" ready to put [npc.her] mouth to use on [npc2.namePos] genitals."));
 				}
 			}
 			
@@ -290,19 +293,39 @@ public class SexPositionOther {
 			if(Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_FUCKED_TWO)!=null) {
 				return generateSlotTargetsMap(Util.newArrayListOfValues(
 						StandardSexActionInteractions.fuckingTaur.getSexActionInteractions(SexSlotOther.ALL_FOURS_MOUNTING, SexSlotOther.ALL_FOURS_FUCKED),
-						Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_MOUNTING_TWO)!=null
+						(Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_MOUNTING_TWO)!=null
 							?StandardSexActionInteractions.fuckingTaur.getSexActionInteractions(SexSlotOther.ALL_FOURS_MOUNTING_TWO, SexSlotOther.ALL_FOURS_FUCKED_TWO)
-							:StandardSexActionInteractions.fuckingTaur.getSexActionInteractions(SexSlotOther.ALL_FOURS_MOUNTING, SexSlotOther.ALL_FOURS_FUCKED_TWO),
-						StandardSexActionInteractions.allFoursFrontInteraction.getSexActionInteractions(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET, SexSlotOther.ALL_FOURS_FUCKED),
-						Sex.getCharacterInPosition(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO)!=null
-							?StandardSexActionInteractions.allFoursFrontInteraction.getSexActionInteractions(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO, SexSlotOther.ALL_FOURS_FUCKED_TWO)
-							:StandardSexActionInteractions.allFoursFrontInteraction.getSexActionInteractions(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET, SexSlotOther.ALL_FOURS_FUCKED_TWO)));
+							:StandardSexActionInteractions.fuckingTaur.getSexActionInteractions(SexSlotOther.ALL_FOURS_MOUNTING, SexSlotOther.ALL_FOURS_FUCKED_TWO)),
+						StandardSexActionInteractions.allFoursFrontInteraction.getSexActionInteractions(SexSlotOther.ALL_FOURS_FUCKED, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET),
+						(Sex.getCharacterInPosition(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO)!=null
+							?StandardSexActionInteractions.allFoursFrontInteraction.getSexActionInteractions(SexSlotOther.ALL_FOURS_FUCKED_TWO, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO)
+							:StandardSexActionInteractions.allFoursFrontInteraction.getSexActionInteractions(SexSlotOther.ALL_FOURS_FUCKED_TWO, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET))));
 				
 			} else {
 				return generateSlotTargetsMap(Util.newArrayListOfValues(
 						StandardSexActionInteractions.fuckingTaur.getSexActionInteractions(SexSlotOther.ALL_FOURS_MOUNTING, SexSlotOther.ALL_FOURS_FUCKED),
-						StandardSexActionInteractions.faceToFace.getSexActionInteractions(SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET, SexSlotOther.ALL_FOURS_FUCKED)));
+						StandardSexActionInteractions.allFoursFrontInteraction.getSexActionInteractions(SexSlotOther.ALL_FOURS_FUCKED, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET)));
 			}
+		}
+		@Override
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvidor) {
+			if((Sex.getSexPositionSlot(cumTarget)==SexSlotOther.ALL_FOURS_FUCKED
+					|| Sex.getSexPositionSlot(cumTarget)==SexSlotOther.ALL_FOURS_FUCKED_TWO)) {
+				// The character being fucked can use their tails or tentacles to force a creampie:
+				if((Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.ALL_FOURS_MOUNTING
+						|| Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.ALL_FOURS_MOUNTING_TWO)) {
+					return Util.newHashMapOfValues(
+							new Value<>(Tail.class, genericGroinForceCreampieAreas),
+							new Value<>(Tentacle.class, genericGroinForceCreampieAreas));
+				}
+				// The character performing oral can use their arm(s) to force a mouth creampie:
+				if((Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET
+						|| Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO)) {
+					return Util.newHashMapOfValues(
+							new Value<>(Arm.class, genericFaceForceCreampieAreas));
+				}
+			}
+			return null;
 		}
 	};
 }

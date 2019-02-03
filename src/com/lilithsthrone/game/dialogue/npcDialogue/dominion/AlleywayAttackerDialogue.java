@@ -254,7 +254,12 @@ public class AlleywayAttackerDialogue {
 										Util.newArrayListOfValues(getMugger()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null),
+								null) {
+									@Override
+									public boolean isPlayerAbleToStopSex() {
+										return false;
+									}
+								},
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_OFFER_BODY", getMugger())) {
 							@Override
 							public void effects() {
@@ -589,7 +594,12 @@ public class AlleywayAttackerDialogue {
 								Util.newArrayListOfValues(getMugger()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null),
+						null) {
+							@Override
+							public boolean isPlayerAbleToStopSex() {
+								return false;
+							}
+						},
 						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "STORM_ATTACK_OFFER_BODY", getMugger()));
 					
 			} else {

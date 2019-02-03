@@ -603,7 +603,9 @@ public class DicePoker {
 								Util.newArrayListOfValues(gambler),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null), END_LOSS_SEX, UtilText.parse(gambler,"<p>"
+						null),
+						END_LOSS_SEX,
+						UtilText.parse(gambler,"<p>"
 							+ "[pc.speech(Ok...)] you reply. [pc.speech(You can use me however you like...)]"
 						+ "</p>"
 						+ "<p>"

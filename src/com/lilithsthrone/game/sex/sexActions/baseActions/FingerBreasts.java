@@ -378,7 +378,7 @@ public class FingerBreasts {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().hasBreasts()
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL;
+					&& Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue();
 		}
 
 		@Override

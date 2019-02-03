@@ -25,8 +25,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -593,24 +593,22 @@ public class SlimeQueensLair {
 							UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Pull [slimeRoyalGuard.name] to [slimeRoyalGuard.his] feet and get ready to fuck [slimeRoyalGuard.him]."),
 							null, null, null, null, null, null,
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
 							null,
-							null, AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
+							null), AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
 				
 				} else if(index==2) {
 					return new ResponseSex("Submit",
 							UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Let [slimeRoyalGuard.name] fuck you."),
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null, AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
+							null), AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
 				} else {
 					return null;
 				}
@@ -818,17 +816,19 @@ public class SlimeQueensLair {
 						UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Push [slimeRoyalGuard.name] over the edge and tire him out through sex."),
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+						null,
+						null) {
 							@Override
 							public boolean isPlayerAbleToStopSex() {
 								return false;
 							}
 						},
-						null,
-						null, AFTER_SLIME_ROYAL_GUARD_SEX_SEDUCTION, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "ROYAL_GUARD_SEX_SEDUCTION")) {
+						AFTER_SLIME_ROYAL_GUARD_SEX_SEDUCTION,
+						UtilText.parseFromXMLFile("places/submission/slimeQueensLair",
+						"ROYAL_GUARD_SEX_SEDUCTION")) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeRoyalGuardDefeated, true);
@@ -908,12 +908,11 @@ public class SlimeQueensLair {
 						"[slimeRoyalGuard.Name] moves to have some fun with you...",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null, AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
+						null), AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
 				
 			} else {
 				return null;
@@ -935,24 +934,22 @@ public class SlimeQueensLair {
 						UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Pull [slimeRoyalGuard.name] to [slimeRoyalGuard.his] feet and get ready to fuck [slimeRoyalGuard.him]."),
 						null, null, null, null, null, null,
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
 						null,
-						null, AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
+						null), AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
 			
 			} else if(index==2) {
 				return new ResponseSex("Submit",
 						UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Let [slimeRoyalGuard.name] fuck you."),
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null, AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
+						null), AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
 			} else {
 				return null;
 			}
@@ -973,12 +970,13 @@ public class SlimeQueensLair {
 						"[slimeRoyalGuard.Name] moves to have some fun with you...",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), SexSlotBipeds.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null, AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
+						null),
+						AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED,
+						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
 				
 			} else {
 				return null;

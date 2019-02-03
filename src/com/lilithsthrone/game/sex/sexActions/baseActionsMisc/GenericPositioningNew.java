@@ -975,7 +975,7 @@ public class GenericPositioningNew {
 				} else {
 					return "Wanting [npc2.name] to mount [npc.herHim] and start rutting [npc.herHim] like an animal, [npc.name] [npc.verb(drop)] down onto all fours before [npc2.herHim]."
 							+ " Crawling back so that [npc.sheIs] under [npc2.namePos] feral [npc2.legRace]'s body, [npc.she] [npc.verb(raise)] [npc.her] [npc.hips+] and [npc.moansVerb],"
-							+ " [npc.speech(Come on, mount me and rut me like an animal!)]";
+							+ " [npc.speech(Come on, mount me already!)]";
 				}
 				
 			} else {
@@ -984,10 +984,10 @@ public class GenericPositioningNew {
 							+ " Stepping back and pushing [npc.her] [npc.ass+] against [npc2.namePos] groin, [npc.she] [npc.verb(look)] back over [npc.her] shoulder and [npc.moansVerb],"
 							+ " [npc.speech(Come on, fuck me like an animal!)]";
 				} else {
-					return "Wanting [npc2.name] to mount [npc.herHim] and start rutting [npc.herHim] like an animal, [npc.name] [npc.verb(present)] the rear end of [npc.her] feral [npc.legRace]'s body to [npc2.herHim]."
+					return "Wanting [npc2.name] to mount [npc.herHim] and start rutting [npc.herHim], [npc.name] [npc.verb(present)] the rear end of [npc.her] feral [npc.legRace]'s body to [npc2.herHim]."
 							+ " Stepping back and pushing [npc.her] [npc.ass+] against [npc2.name], [npc.she] [npc.verb(force)] [npc2.herHim] to rear up and mount [npc.herHim]."
 							+ " Looking back over [npc.her] shoulder, [npc.she] [npc.moansVerb],"
-							+ " [npc.speech(That's right, mount me and rut me like an animal!)]";
+							+ " [npc.speech(That's right, fuck me like an animal!)]";
 				}
 			}
 		}
@@ -1060,7 +1060,7 @@ public class GenericPositioningNew {
 				} else {
 					return "Wanting [npc2.name] to mount [npc.herHim] and start rutting [npc.herHim] like an animal, [npc.name] [npc.verb(present)] the rear end of [npc.her] feral [npc.legRace]'s body to [npc2.herHim]."
 							+ " Stepping back and pushing [npc.her] [npc.ass+] against [npc2.name], [npc.she] [npc.verb(look)] back over [npc.her] shoulder and [npc.verb(plead)],"
-							+ " [npc.speech(Please, mount me and rut me like an animal!)]";
+							+ " [npc.speech(Please, fuck me like an animal!)]";
 				}
 			}
 		}
@@ -1117,7 +1117,7 @@ public class GenericPositioningNew {
 				} else {
 					return "Wanting to mount [npc2.name] and start rutting [npc2.herHim] like an animal, [npc.name] [npc.verb(push)] [npc2.herHim] down onto all fours before [npc.herHim]."
 							+ " Stepping over [npc2.herHim] so that [npc2.sheIs] under [npc.her] feral [npc.legRace]'s body, [npc.she] [npc.verb(bend)] [npc.her] [npc.legs] a little and [npc.moansVerb],"
-							+ " [npc.speech(Oh yes, now to mount you and rut you like an animal!)]";
+							+ " [npc.speech(Oh yes, now to fuck you like an animal!)]";
 				}
 				
 			} else {
@@ -1128,7 +1128,7 @@ public class GenericPositioningNew {
 				} else {
 					return "Wanting to mount [npc2.name] and start rutting [npc2.herHim] like an animal, [npc.name] [npc.verb(move)] around behind [npc2.her] feral [npc2.legRace]'s body."
 							+ " With [npc2.her] rear end now presented to [npc.herHim], [npc.she] [npc.verb(jolt)] forwards and [npc.verb(rear)] up, mounting [npc2.herHim] in one swift movement."
-							+ " [npc.speech(Oh yes, now to rut you like an animal!)]";
+							+ " [npc.speech(Oh yes, now to fuck you like an animal!)]";
 				}
 			}
 		}
@@ -1190,7 +1190,7 @@ public class GenericPositioningNew {
 				} else {
 					return "Wanting to mount [npc2.name] and start rutting [npc2.herHim] like an animal, [npc.name] [npc.verb(try)] to push [npc2.herHim] down onto all fours before [npc.herHim]."
 							+ " Gripping [npc2.her] shoulders and exerting a downwards pressure, [npc.she] [npc.verb(plead)],"
-							+ " [npc.speech(Please, get down and let me mount you like an animal!)]";
+							+ " [npc.speech(Please, get down and let me fuck you like an animal!)]";
 				}
 				
 			} else {
@@ -1201,7 +1201,7 @@ public class GenericPositioningNew {
 				} else {
 					return "Wanting to mount [npc2.name] and start rutting [npc2.herHim] like an animal, [npc.name] [npc.verb(move)] around behind [npc2.her] feral [npc2.legRace]'s body."
 							+ " With [npc2.her] rear end now presented to [npc.herHim], [npc.she] [npc.verb(plead)],"
-							+ " [npc.speech(Please, let me mount you and rut you like an animal!)]";
+							+ " [npc.speech(Please, let me mount you!)]";
 				}
 			}
 		}

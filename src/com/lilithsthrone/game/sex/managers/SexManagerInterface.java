@@ -238,6 +238,16 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isPublicSex() {
+		for(GameCharacter character : this.getDominants().keySet()) {
+			if(character.getLocationPlace().isPopulated()) {
+				return true;
+			}
+		}
+		for(GameCharacter character : this.getSubmissives().keySet()) {
+			if(character.getLocationPlace().isPopulated()) {
+				return true;
+			}
+		}
 		return false;
 	}
 

@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -111,6 +112,7 @@ public class Vagina implements BodyPartInterface {
 		
 		if(owner.isVaginaBestial()) {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
+					(this.getType().getRace()==Race.HORSE_MORPH?"mare":null),
 					"feral",
 					owner.getVaginaRace().getName(true)+"-",
 					"bestial",

@@ -72,7 +72,7 @@ public class SexSlot {
 	}
 	
 	public boolean isMeetsPreferenceCriteria(GameCharacter character, AbstractSexPosition position, SexType preference) {
-		StandardSexActionInteractions.setCharacterForPositionTesting(character);
+		VariableInteractions.setCharacterForPositionTesting(character);
 		
 		if(position.getSlotTargets().containsKey(this)) {
 			for(SexActionInteractions value : position.getSlotTargets().get(this).values()) {

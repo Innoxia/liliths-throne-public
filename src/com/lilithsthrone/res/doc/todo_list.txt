@@ -127,6 +127,7 @@
 		Lilaya now has reactions for if you're wearing a condom and for if your condom breaks while fucking her vagina.
 		Added demon transformation reaction scenes from Lilaya, and added follow-up scenes involving more transformations and sex.
 		Added teleportation action between Lyssieth's office and Lilaya's laboratory.
+		Added taur-compatible sex scenes to almost all of the 'generic' NPCs (such as the ones you meet in Dominion's alleyways). There are only three taur sex positions at the moment (initial standing, oral, and doggy-style/mounting positions). More will be added later on.
 	
 	Body transformations:
 		Added full support for udders/crotch-boobs. This was primarily meant for only taur bodies, but there is an option under 'Options -> Furry Preferences' to have greater anthro-morphs spawning in with them as well.
@@ -147,18 +148,20 @@
 		Expanded and improved detection of character relationships. (PR#929 by orvail)
 	
 	Clothing:
-		Added: 'Anal-only pastie' (Vagina slot, sold by Finch.)
-		Added: 'Ornate chastity cage' (Penis slot, sold by Finch.)
+		Added: 'Anal-only pastie' (Vagina slot, sold by Finch, androgynous.)
+		Added: 'Ornate chastity cage' (Penis slot, sold by Finch, androgynous.)
 		Slightly improved chastity cage icon and description.
-		Added: 'Dragon-branded condom' and 'Stallion-branded condom' (sold by Ralph and Roxy). Condoms can no longer be enchanted (when you load into this version, condom enchantments will be reset), and instead have a maximum cum limit before they break.
+		Added: 'Dragon-branded condom' and 'Stallion-branded condom' (Penis slot, sold by Ralph and Roxy, androgynous). Condoms can no longer be enchanted (when you load into this version, condom enchantments will be reset), and instead have a maximum cum limit before they break.
 		Condoms can no longer be enchanted. Instead, they can be sabotaged (so that they always break at moment of orgasm) and repaired (costs one essence to revert sabotage).
 		Altered belt icon and text.
-		Added: 'leather wrist bracelets' (Wrist slot, sold by Finch. They're just a minor variation of the usual wrist restraints.)
+		Added: 'leather wrist bracelets' (Wrist slot, sold by Finch, androgynous. They're just a minor variation of the usual wrist restraints.)
 		Clothing slots are now 'restricted' instead of being completely blocked by certain racial parts (such as by legs with hoofed feet or harpy wings). Clothing now has tags that allow clothing to be equipped into these 'restricted' slots (this is shown in the clothing's tooltip if available).
 		Added more clothing tooltip information, to let you know about clothing's extra effects (such as allowing sex-equip, being discarded when unequipped, and requiring penis/vagina/fuckable nipples). Also added this info to the clothing inspect dialogue.
 		Improved fishnet images to make them a little clearer.
 		Added 'TRANSPARENT' item tag for clothing, to mark that it leaves all parts fully visible. This has been applied to fishnets, chastity cages, condoms, and anal plugs.
 		Added secondary and tertiary dye colours to stiletto heels.
+		Added: 'Taur-trousers' (Leg slot, sold by Nyan, androgynous, can only be worn by characters with a taur lower body.)
+		Added: 'Taur-skirt' (Leg slot, sold by Nyan, feminine, can only be worn by characters with a taur lower body.)
 		
 	Other:
 		Improved background code for determining who is allowed to do what during sex.
@@ -228,36 +231,28 @@
 		Fixed pregnancy stats page's 'Resolved Pregnancy' entries having the genders of your offspring swapped.
 		Fixed parsing error when using a used condom on someone.
 		Tongues being lubricated by saliva will no longer be displayed as lubrication information during sex.
+		If one of your slaves ambushes you in the streets of DOminion, it should now be correctly treated as public sex.
+		Fixed issue where you could offer body to muggers, then immediately end sex in the resulting sex scene.
+		Fixed 'submit' in combat going back to the combat dialogue for one turn before defeat.
+		Applied a temporary fix to the issue where sometimes trying to displace/remove clothing would not work and potentially soft-lock the game.
 	
 	
 	
-	[2 hours]
-	can stop sex after offering body in encounters
-			
-	need to not be able to grop when mounting if taur and under is not taur
-			
-	need cum targets set for target in new slots calculations
-			
-	fix positioning text repeats
 	
-	alleyway/generic encounter threesome needs doggy style SM replaced
-		Implement PREFER DOGGY
-			
-	TODO START_PACE_PLAYER_SUB_RESISTING
-		
-	[30 minutes]
 	merge Nnxx debug commands and add centaur to it
 	merge other small PR fixes
 	
-	[2 hours]
 	final tests & bug fixes and package
+	
 	
 	
 	Main map movement
 	Fields centaur encounter
 	Add furry taurs toggle
 	
-	need default wings/tails/horns and available ones
+	need animal parts reactions
+	
+	need default wings/tails/horns and available ones in RacialBody for use in default parts spawning
 	
 	Need to correctly aplpy SubspeciesSpawnRarity to spawn chances
 	
@@ -267,19 +262,27 @@
 	
 	player demon half-subspecies not showing?
 	
+	fix LustLevel SE descriptions
+	
+	can pull up t-shirts beneath over-torso clothing
+	
 	DSG crits
 	Send out thank you messages
 	Jam
 	
 	Breast Size setting
 	
+	move shin guards out to res
+	
 	Fetish spawn chances
+	
+	wash companions option
 	
 	Need to stop "lack a vagina, so nothing happens..." from clothing effects
 	
 	Need unique Lyssieth taking virginity text
 	
-	com.lilithsthrone.game.inventory.CharacterInventory.isAbleToBeDisplaced(CharacterInventory.java:1556)
+	spit on pussy/ass/cock actions
 	
 	Need pump targets
 	
@@ -355,6 +358,7 @@
 	
 	why are the body types abstract?
 	
+	fix isAbleToBeDisplaced properly
 	during sexual interactions clicking the 'forbid self clothing' and 'forbid self action' doesn't have any effect and your partner still goes ahead to displace clothing and perform self actions
 	essence drain shooting weapons is broken
 	if you make bree pregnant the police station counter gets bugged and you can't interact with either of them

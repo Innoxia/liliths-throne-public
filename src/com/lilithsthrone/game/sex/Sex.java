@@ -3833,7 +3833,7 @@ public class Sex {
 	}
 	
 	private static SexActionInteractions getCloacaHandledInteractions(SexActionInteractions interactions, GameCharacter character, GameCharacter target) {
-		SexActionInteractions interactionsCopy = new SexActionInteractions(null, interactions.getAvailableCumTargets());
+		SexActionInteractions interactionsCopy = new SexActionInteractions(null, interactions.getAvailableCumTargets(), interactions.getProvidedCumTargets());
 		boolean characterCloaca = character.getGenitalArrangement()==GenitalArrangement.CLOACA;
 		boolean targetCloaca = target.getGenitalArrangement()==GenitalArrangement.CLOACA;
 		
@@ -4091,8 +4091,12 @@ public class Sex {
 	public static List<OrgasmCumTarget> getAvailableCumTargets(GameCharacter orgasmingCharacter) {
 		if(Sex.getSexPositionSlot(orgasmingCharacter)==SexSlotBipeds.MISC_WATCHING || Sex.getSexPositionSlot(Sex.getTargetedPartner(orgasmingCharacter))==SexSlotBipeds.MISC_WATCHING) {
 			return StandardSexActionInteractions.spectator.getAvailableCumTargets();
+			
 		} else {
-			return Sex.sexManager.getPosition().getSexInteractions(Sex.getSexPositionSlot(orgasmingCharacter), Sex.getSexPositionSlot(Sex.getTargetedPartner(orgasmingCharacter))).getAvailableCumTargets();
+			GameCharacter target = Sex.getTargetedPartner(orgasmingCharacter);
+			return Util.mergeLists(
+					Sex.sexManager.getPosition().getSexInteractions(Sex.getSexPositionSlot(orgasmingCharacter), Sex.getSexPositionSlot(target)).getAvailableCumTargets(),
+					Sex.sexManager.getPosition().getSexInteractions(Sex.getSexPositionSlot(target), Sex.getSexPositionSlot(orgasmingCharacter)).getProvidedCumTargets());
 		}
 	}
 	

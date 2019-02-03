@@ -123,8 +123,15 @@ public class BatCavernSlimeAttackerDialogue {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getActiveNPC()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-							null,
-							null), AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_OFFER_BODY")) {
+									null,
+									null) {
+								@Override
+								public boolean isPlayerAbleToStopSex() {
+									return false;
+								}
+							},
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_OFFER_BODY")) {
 						@Override
 						public void effects() {
 							if(Main.game.getActiveNPC().isVisiblyPregnant()){

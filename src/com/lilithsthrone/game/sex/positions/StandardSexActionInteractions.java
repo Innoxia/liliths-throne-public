@@ -4,10 +4,8 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -20,11 +18,6 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class StandardSexActionInteractions {
 	
-	private static GameCharacter characterForPositionTesting;
-	
-	public static void setCharacterForPositionTesting(GameCharacter characterForPositionTesting) {
-		StandardSexActionInteractions.characterForPositionTesting = characterForPositionTesting;
-	}
 	
 	// Misc:
 	
@@ -43,10 +36,8 @@ public class StandardSexActionInteractions {
 	public static VariableInteractions faceToFace = new VariableInteractions() { //TODO size difference?
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
-				GameCharacter target = Sex.getCharacterInPosition(targetSlot);
-				if(target==null) {
-					target = characterForPositionTesting==null?Main.game.getPlayer():characterForPositionTesting;
-				}
+				GameCharacter performer = getCharacter(performerSlot);
+				GameCharacter target = getCharacter(targetSlot);
 				
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
@@ -61,7 +52,16 @@ public class StandardSexActionInteractions {
 								SexActionPresets.mouthToBreasts),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.STOMACH,
-								target.getLegConfiguration().isBipedalPositionedGenitals()?OrgasmCumTarget.GROIN:null,
+								target.getLegConfiguration().isBipedalPositionedGenitals() && performer.getLegConfiguration().isBipedalPositionedGenitals()
+									?OrgasmCumTarget.GROIN
+									:null,
+								OrgasmCumTarget.LEGS,
+								OrgasmCumTarget.FLOOR),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.STOMACH,
+								target.getLegConfiguration().isBipedalPositionedGenitals() && performer.getLegConfiguration().isBipedalPositionedGenitals()
+									?OrgasmCumTarget.GROIN
+									:null,
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FLOOR)))));
 			}
@@ -70,10 +70,7 @@ public class StandardSexActionInteractions {
 	public static VariableInteractions performingOral = new VariableInteractions() { //TODO size difference?
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
-				GameCharacter target = Sex.getCharacterInPosition(targetSlot);
-				if(target==null) {
-					target = characterForPositionTesting==null?Main.game.getPlayer():characterForPositionTesting;
-				}
+				GameCharacter target = getCharacter(targetSlot);
 				
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
@@ -89,33 +86,20 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.SELF_LEGS,
 								OrgasmCumTarget.SELF_GROIN,
 								OrgasmCumTarget.SELF_FEET,
+								OrgasmCumTarget.FLOOR),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.FACE,
+								OrgasmCumTarget.HAIR,
+								OrgasmCumTarget.BREASTS,
+								OrgasmCumTarget.STOMACH,
 								OrgasmCumTarget.FLOOR)))));
-			}
-	};
-
-	public static VariableInteractions allFoursFrontInteraction = new VariableInteractions() { //TODO size difference?
-			@Override
-			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
-				GameCharacter target = Sex.getCharacterInPosition(targetSlot);
-				if(target==null) {
-					target = characterForPositionTesting==null?Main.game.getPlayer():characterForPositionTesting;
-				}
-				
-				if(target.getLegConfiguration().isBipedalPositionedGenitals()) {
-					return performingOral.getSexActionInteractions(performerSlot, targetSlot);
-				} else {
-					return faceToFace.getSexActionInteractions(performerSlot, targetSlot);
-				}
 			}
 	};
 
 	public static VariableInteractions performingOralBehind = new VariableInteractions() { //TODO size difference?
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
-				GameCharacter target = Sex.getCharacterInPosition(targetSlot);
-				if(target==null) {
-					target = characterForPositionTesting==null?Main.game.getPlayer():characterForPositionTesting;
-				}
+				GameCharacter target = getCharacter(targetSlot);
 				
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
@@ -140,10 +124,9 @@ public class StandardSexActionInteractions {
 	public static VariableInteractions fuckingTaur = new VariableInteractions() { //TODO size difference?
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
-				GameCharacter target = Sex.getCharacterInPosition(targetSlot);
-				if(target==null) {
-					target = characterForPositionTesting==null?Main.game.getPlayer():characterForPositionTesting;
-				}
+				GameCharacter performer = getCharacter(performerSlot);
+				GameCharacter target = getCharacter(targetSlot);
+				boolean isAbleToReachTargetUpperTorso = performer.getLegConfiguration()==target.getLegConfiguration();
 				
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
@@ -151,13 +134,28 @@ public class StandardSexActionInteractions {
 								SexActionPresets.penisToAss,
 								SexActionPresets.penisToVagina,
 								SexActionPresets.tailToLowerHalf,
-								SexActionPresets.fingerToUpperTorso),
+								isAbleToReachTargetUpperTorso
+									?SexActionPresets.fingerToUpperTorso
+									:null),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.ASS,
 								OrgasmCumTarget.GROIN,
 								OrgasmCumTarget.BACK,
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FLOOR)))));
+			}
+	};
+
+	public static VariableInteractions allFoursFrontInteraction = new VariableInteractions() { //TODO size difference?
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				GameCharacter performer = getCharacter(performerSlot);
+				
+				if(performerSlot.isStanding(performer)) {
+					return faceToFace.getSexActionInteractions(performerSlot, targetSlot);
+				} else {
+					return performingOral.getSexActionInteractions(performerSlot, targetSlot);
+				}
 			}
 	};
 	
