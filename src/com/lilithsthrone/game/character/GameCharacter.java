@@ -624,7 +624,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getPerkPoints()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getAdditionalPerkPoints()));
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "health", String.valueOf(this.getHealth()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "mana", String.valueOf(this.getMana()));
@@ -4443,11 +4443,6 @@ public abstract class GameCharacter implements XMLSaving {
 			experience -= getExperienceNeededForNextLevel();
 
 			level++;
-
-			incrementPerkPoints(1);
-			if(level%5==0) {
-				perkPoints+=2;
-			}
 		}
 		if (getLevel() == LEVEL_CAP) {
 			experience = 0;
