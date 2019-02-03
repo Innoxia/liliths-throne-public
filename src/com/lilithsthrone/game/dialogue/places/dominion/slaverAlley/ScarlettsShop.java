@@ -163,7 +163,7 @@ public class ScarlettsShop {
 							collar.setSealed(true);
 							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(collar, true, Main.game.getNpc(Alexa.class));
 							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG, Colour.CLOTHING_PINK, false), true, Main.game.getNpc(Alexa.class));
-							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, Colour.CLOTHING_PINK, false), true, Main.game.getNpc(Alexa.class));
+//							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, Colour.CLOTHING_PINK, false), true, Main.game.getNpc(Alexa.class));
 						}
 					};
 					
@@ -226,9 +226,10 @@ public class ScarlettsShop {
 								AbstractClothing ballgag = Main.game.getNpc(Scarlett.class).getClothingInSlot(InventorySlot.MOUTH);
 								ballgag.setSealed(false);
 								Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(ballgag, true, Main.game.getNpc(Alexa.class));
-								AbstractClothing wristRestraints = Main.game.getNpc(Scarlett.class).getClothingInSlot(InventorySlot.WRIST);
-								wristRestraints.setSealed(false);
-								Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(wristRestraints, true, Main.game.getNpc(Alexa.class));
+
+//								AbstractClothing wristRestraints = Main.game.getNpc(Scarlett.class).getClothingInSlot(InventorySlot.WRIST);
+//								wristRestraints.setSealed(false);
+//								Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(wristRestraints, true, Main.game.getNpc(Alexa.class));
 								
 								Main.game.getNpc(Scarlett.class).setAffection(Main.game.getNpc(Alexa.class), AffectionLevel.NEGATIVE_FIVE_LOATHE.getMedianValue());
 								Main.game.getNpc(Scarlett.class).setObedience(ObedienceLevel.NEGATIVE_FOUR_DEFIANT.getMedianValue());
