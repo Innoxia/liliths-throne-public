@@ -64,7 +64,9 @@
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>FITS_NON_BIPED_BODY_HUMANOID</tag>
+		</itemTags>
 	</coreAttributes>
 
 	<displacementText type="REMOVE_OR_EQUIP">

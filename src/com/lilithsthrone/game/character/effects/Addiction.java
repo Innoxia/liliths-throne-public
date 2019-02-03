@@ -42,7 +42,7 @@ public class Addiction implements XMLSaving {
 	}
 
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof Addiction)
 					&& ((Addiction)o).getFluid().equals(this.getFluid())

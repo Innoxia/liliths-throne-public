@@ -1469,9 +1469,9 @@ public class ConChairTop {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getLastUsedPlayerAction() == PLAYER_ROUGH_TALK)
+			if(Sex.getLastUsedPlayerAction() == PLAYER_ROUGH_TALK) {
 				return SexActionPriority.HIGH;
-			
+			}
 			return SexActionPriority.NORMAL;
 		}
 
@@ -1573,15 +1573,15 @@ public class ConChairTop {
 			if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES)){
 				return UtilText.returnStringAtRandom(
 						"Reaching up to your chest, [npc.name] starts greedily groping and squeezing at your [pc.breasts+],"
-								+ " driving the fabric of your [pc.lowClothing(nipples)] into your [pc.breasts] and causing you to gasp and squirm under [npc.her] touch.",
+								+ " driving the fabric of your [pc.lowClothing(NIPPLES)] into your [pc.breasts] and causing you to gasp and squirm under [npc.her] touch.",
 								
 						"You suddenly find that your [pc.breasts+] are the target of [npc.namePos] attention, and as [npc.she] eagerly starts pressing [npc.her] [npc.hands+]"
-								+ " into the fabric of your [pc.topClothing(nipples)], you find yourself letting out [pc.a_moan+].",
+								+ " into the fabric of your [pc.topClothing(NIPPLES)], you find yourself letting out [pc.a_moan+].",
 						
 						"[npc.NamePos] attention is suddenly drawn to your [pc.breastRows] [pc.breasts+], and you find yourself letting out [pc.a_moan+] as [npc.she] reaches up and starts groping"
-						+ " your [pc.breasts+] through the fabric of your [pc.topClothing(nipples)].",
+						+ " your [pc.breasts+] through the fabric of your [pc.topClothing(NIPPLES)].",
 						
-						"A [pc.moan+] escapes from between your [pc.lips+] as [npc.name] suddenly starts groping your [pc.breastRows] [pc.breasts+] through the fabric of your [pc.topClothing(nipples)].");
+						"A [pc.moan+] escapes from between your [pc.lips+] as [npc.name] suddenly starts groping your [pc.breastRows] [pc.breasts+] through the fabric of your [pc.topClothing(NIPPLES)].");
 				
 			}else{
 				return UtilText.returnStringAtRandom(

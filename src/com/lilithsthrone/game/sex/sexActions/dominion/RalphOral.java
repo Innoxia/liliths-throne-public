@@ -69,7 +69,7 @@ public class RalphOral {
 					+ " Opening your mouth, you simply move your lips down to kiss the flared head of his horse-like shaft.");
 			
 			if(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, LubricationType.PRECUM))
-				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, a dollop of salty pre-cum leaks into your mouth."
+				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, a dollop of salty precum leaks into your mouth."
 						+ " You let out a surprised moan as the salty liquid drips past your lips");
 			else
 				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, you feel the heat of his bestial cock radiating across your face."
@@ -123,7 +123,7 @@ public class RalphOral {
 		@Override
 		public String getDescription() {
 			return "You sit perfectly still, trying your best not to make a sound as Ralph finishes dealing with the customer above you."
-					+ " A slimy stream of saliva and pre-cum drools down from your stretched lips, and you silently slide forwards a little more as you try to use Ralph's cock to push the liquid back down your throat.";
+					+ " A slimy stream of saliva and precum drools down from your stretched lips, and you silently slide forwards a little more as you try to use Ralph's cock to push the liquid back down your throat.";
 		}
 	};
 	
@@ -157,7 +157,7 @@ public class RalphOral {
 		public String getDescription() {
 			return "As Ralph finishes dealing with the customer above you, you decide to have a little fun."
 					+ " Pulling back, you gently run your tongue around the flared head of his equine cock, teasing the tip over his bumpy urethra."
-					+ " A slimy stream of saliva and pre-cum drools down from your stretched lips, and you reach up to smear the natural lubricant up and down his shaft, gently stroking his balls as you carry on teasing his head with your tongue."
+					+ " A slimy stream of saliva and precum drools down from your stretched lips, and you reach up to smear the natural lubricant up and down his shaft, gently stroking his balls as you carry on teasing his head with your tongue."
 					+ " You grin mischievously as you hear Ralph struggling to maintain his composure in front of the customer, and as you hear him tactfully directing the customer to look at the other side of the shop,"
 					+ " he slams his cock forwards down your throat, letting you know that he's clearly not amused by your little game...";
 		}
@@ -1620,7 +1620,7 @@ public class RalphOral {
 						UtilText.nodeContentSB.append("out into the condom that you're wearing.");
 						
 					} else if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
-						UtilText.nodeContentSB.append(" into your [pc.lowClothing(penis)].");
+						UtilText.nodeContentSB.append(" into your [pc.lowClothing(PENIS)].");
 						
 					} else {
 						UtilText.nodeContentSB.append(" out all over the floor beneath you.");

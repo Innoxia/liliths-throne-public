@@ -472,6 +472,15 @@ h6{
 	  #222 20px
 	);
 }
+.inventory-item-slot.disabled-light, .inventory-item-slot.piercing.disabled-light{
+	background: repeating-linear-gradient(
+	  135deg,
+	  #333,
+	  #333 10px,
+	  #292929 10px,
+	  #292929 20px
+	);
+}
 .inventory-item-slot.concealed, .inventory-item-slot.piercing.concealed {
 	background: #222;
 }
@@ -543,9 +552,9 @@ h6{
 }
 .raceBlockIcon{
 	position:absolute;
-	width:60%;
-	height:60%;
-	margin:20%;
+	width:75%;
+	height:75%;
+	margin:12.5%;
 	pointer-events: none;
 	-webkit-user-select: none;
 }

@@ -11,6 +11,7 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
@@ -64,6 +65,7 @@ import com.lilithsthrone.utils.Bearing;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.WorldType;
 
@@ -111,7 +113,7 @@ public enum PlaceType {
 	WORLD_MAP_RIVER("river Hubur", "The river Huber runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi fields are considered safe.", "#ccfffc", null, false, true, true, ""),
 
 	WORLD_MAP_SEA("endless sea", "The aquatic races inhabiting Dominion do not like to stray too far from shore, and so to them, the sea is considered to be endless.", Colour.BASE_BLUE_DARK.getShades()[2], null, true, true, true, ""),
-	WORLD_MAP_SEA_CITY("Atlantis", "The underwater city of Atlantis is situated off the eastern coast of Dominion, and, unsurprisingly, is particularly difficult for non-aquatic races to visit.", "#8264b0", null, true, true, true, ""),
+	WORLD_MAP_SEA_CITY("Lyonesse", "The underwater city of Lyonesse is situated off the eastern coast of Dominion, and, unsurprisingly, is particularly difficult for non-aquatic races to visit.", "#8264b0", null, true, true, true, ""),
 
 	WORLD_MAP_ARID_GRASSLAND("arid grassland", "To the south, the wild grassland starts to dry out, and is the preferred home for morphs such as lions, leopard, and zebras.", Colour.BASE_YELLOW_LIGHT.getShades()[2], null, true, true, true, ""),
 	WORLD_MAP_ARID_SAVANNAH("savannah", "Sparse, open-canopy woodlands are scattered across the arid grasslands, and are inhabited by the same races.", Colour.BASE_TAN.getShades()[2], null, true, true, true, ""),
@@ -129,20 +131,20 @@ public enum PlaceType {
 	MUSEUM_ENTRANCE("Entrance", "prologue/exit",  BaseColour.RED, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum") {
 		@Override
 		public Population getPopulation() {
-			return new Population(PopulationType.PEOPLE, PopulationDensity.FEW, Subspecies.HUMAN);
+			return new Population(PopulationType.PEOPLE, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON)));
 		}
 	},
 	MUSEUM_CROWDS("Crowds", "prologue/crowd",  BaseColour.YELLOW, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum") {
 		@Override
 		public Population getPopulation() {
-			return new Population(PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.HUMAN);
+			return new Population(PopulationType.CROWD, PopulationDensity.DENSE, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON)));
 		}
 	},
 	MUSEUM_OFFICE("Office", "prologue/office",  BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum"),
 	MUSEUM_STAGE("Stage", "prologue/stage",  BaseColour.ORANGE, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum") {
 		@Override
 		public Population getPopulation() {
-			return new Population(PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.HUMAN);
+			return new Population(PopulationType.CROWD, PopulationDensity.DENSE, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON)));
 		}
 	},
 	MUSEUM_ROOM("Exhibit Room", "prologue/room",  BaseColour.TAN, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum"),
@@ -150,7 +152,7 @@ public enum PlaceType {
 	MUSEUM_LOBBY("Lobby", null,  BaseColour.TAN, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum") {
 		@Override
 		public Population getPopulation() {
-			return new Population(PopulationType.PEOPLE, PopulationDensity.FEW, Subspecies.HUMAN);
+			return new Population(PopulationType.PEOPLE, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON)));
 		}
 	},
 	MUSEUM_CORRIDOR("Corridor", null,  BaseColour.TAN, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum"),
@@ -1095,7 +1097,10 @@ public enum PlaceType {
 	WATERING_HOLE_VIP_AREA("VIP Area", "dominion/nightLife/vipArea", BaseColour.PURPLE, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_VIP, null, false, true, true, "in 'The Watering Hole'") {
 		@Override
 		public Population getPopulation() {
-			return new Population(PopulationType.VIPS, PopulationDensity.SEVERAL, Subspecies.CAT_MORPH_LION, Subspecies.HORSE_MORPH_ZEBRA);
+			return new Population(PopulationType.VIPS, PopulationDensity.SEVERAL,
+					Util.newHashMapOfValues(
+							new Value<>(Subspecies.CAT_MORPH_LION, SubspeciesSpawnRarity.FOUR_COMMON),
+							new Value<>(Subspecies.HORSE_MORPH_ZEBRA, SubspeciesSpawnRarity.FOUR_COMMON)));
 		}
 	},
 
@@ -1142,7 +1147,8 @@ public enum PlaceType {
 	SUBMISSION_LILIN_PALACE_GATE("Lyssieth's Palace Gate", "submission/gate", BaseColour.PURPLE_LIGHT, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE_GATE, null, false, true, true, "in Submission") {
 		@Override
 		public Population getPopulation() {
-			return new Population(PopulationType.GUARDS, PopulationDensity.NUMEROUS, Subspecies.DEMON);
+			return new Population(PopulationType.GUARDS, PopulationDensity.NUMEROUS,
+					Util.newHashMapOfValues(new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.FOUR_COMMON)));
 		}
 	},
 	SUBMISSION_LILIN_PALACE_CAVERN("Cavern", null, BaseColour.GREY, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE_CAVERN, null, false, true, true, "in Submission"),
@@ -1199,7 +1205,10 @@ public enum PlaceType {
 			if(ImpCitadelDialogue.isImpsDefeated() || ImpCitadelDialogue.isDefeated()) {
 				return null;
 			}
-			return new Population(PopulationType.GUARDS, PopulationDensity.NUMEROUS, Subspecies.IMP_ALPHA, Subspecies.IMP);
+			return new Population(PopulationType.GUARDS, PopulationDensity.NUMEROUS,
+					Util.newHashMapOfValues(
+							new Value<>(Subspecies.IMP_ALPHA, SubspeciesSpawnRarity.TWO_RARE),
+							new Value<>(Subspecies.IMP, SubspeciesSpawnRarity.FOUR_COMMON)));
 		}
 	},
 	FORTRESS_DEMON_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.COURTYARD, null, false, true, false, "in the Dark Siren's citadel") {
@@ -1226,7 +1235,10 @@ public enum PlaceType {
 			if(ImpCitadelDialogue.isImpsDefeated() || ImpCitadelDialogue.isDefeated()) {
 				return null;
 			}
-			return new Population(PopulationType.GUARDS, PopulationDensity.FEW, Subspecies.IMP_ALPHA, Subspecies.IMP);
+			return new Population(PopulationType.GUARDS, PopulationDensity.FEW,
+					Util.newHashMapOfValues(
+							new Value<>(Subspecies.IMP_ALPHA, SubspeciesSpawnRarity.TWO_RARE),
+							new Value<>(Subspecies.IMP, SubspeciesSpawnRarity.FOUR_COMMON)));
 		}
 	},
 	FORTRESS_LAB("Laboratory", "submission/impFortress/laboratory", BaseColour.ORANGE, Colour.MAP_BACKGROUND, ImpCitadelDialogue.LABORATORY, null, false, true, false, "in the Dark Siren's citadel") {
@@ -1309,7 +1321,10 @@ public enum PlaceType {
 	LYSSIETH_PALACE_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, LyssiethPalaceDialogue.CORRIDOR, null, false, true, false, "in Lyssieth's Palace") {
 		@Override
 		public Population getPopulation() {
-			return new Population(PopulationType.MAIDS, PopulationDensity.COUPLE, Util.newArrayListOfValues(Subspecies.HUMAN, Subspecies.HALF_DEMON));
+			return new Population(PopulationType.MAIDS, PopulationDensity.COUPLE,
+					Util.newHashMapOfValues(
+							new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.TWO_RARE),
+							new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.FOUR_COMMON)));
 		}
 	},
 	LYSSIETH_PALACE_WINDOWS("Windows", null, BaseColour.GREY_DARK, Colour.MAP_BACKGROUND_DARK, LyssiethPalaceDialogue.WINDOWS, null, false, true, false, "in Lyssieth's Palace") {
@@ -1537,6 +1552,10 @@ public enum PlaceType {
 		return getPopulation()!=null && !getPopulation().getSpecies().isEmpty();
 	}
 
+	public boolean isLand() {
+		return true;
+	}
+	
 	public boolean isDangerous() {
 		return dangerous;
 	}

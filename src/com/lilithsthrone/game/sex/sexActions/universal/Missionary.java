@@ -8,7 +8,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -46,12 +46,12 @@ public class Missionary {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK
-							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK_SECOND
-							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK_THIRD
-							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK_FOURTH)
-					&& (Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND)
+					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.MISSIONARY_ON_BACK
+							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.MISSIONARY_ON_BACK_SECOND
+							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.MISSIONARY_ON_BACK_THIRD
+							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.MISSIONARY_ON_BACK_FOURTH)
+					&& (Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS
+						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND)
 					&& !Sex.isMasturbation();
 		}
 

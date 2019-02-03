@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ORGASM_REACTION_CREAMPIE_CONDOM_BROKE"><![CDATA[
+	<p>
+		Lilaya lets out a desperate wail as she realises that your condom's just broken at the critical moment. With your [pc.cum] dripping out of her [lilaya.pussy+], she lets out a distressed cry and pushes you away from her. [npc.speechNoEffects(What the fuck?! What kind of cheap, shitty condoms are you buying?! <b>Fuck!</b>)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ORGASM_REACTION_CREAMPIE_CONDOM"><![CDATA[
+	<p>
+		Lilaya lets out a delighted moan as she realises that your condom has prevented any of your cum from entering her pussy. Biting her lip, she lets out a happy little cry, [npc.speechNoEffects(~Mmm!~ Your cock throbbing inside of me like that feels so good!)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ORGASM_REACTION_CREAMPIE"><![CDATA[
+	<p>
+		Lilaya suddenly realises what you've just done, and as she feels your [pc.cum] dripping out of her [lilaya.pussy+], she lets out an angry cry and violently shoves you away from her. [npc.speechNoEffects(What the fuck?! I told you to pull out! <b>Fuck!</b>)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

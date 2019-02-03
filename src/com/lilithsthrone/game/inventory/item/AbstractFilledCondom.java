@@ -62,7 +62,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof AbstractFilledCondom)
 					&& ((AbstractFilledCondom)o).getCumProvidorId().equals(this.getCumProvidorId())
@@ -144,11 +144,12 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 					+ "</p>"
 					+ target.ingestFluid(getCumProvidor(), cum, SexAreaOrifice.MOUTH, millilitresStored));
 		} else {
-			return "<p>"
+			return UtilText.parse(user, target,
+					"<p>"
 						+ "[npc.Name] scrunches [npc.her] [npc.eyes] shut as [npc.she] [npc.verb(gulp)] down the slimy fluid,"
 						+ " trying [npc.her] best not to think about what [npc.sheHas] just done as "+(user.equals(target)?"[npc.she] [npc.verb(throw)]":"[npc2.name] [npc2.verb(throw)]")+" the now-empty condom to the floor..."
 					+ "</p>"
-					+ target.ingestFluid(getCumProvidor(), cum, SexAreaOrifice.MOUTH, millilitresStored);
+					+ target.ingestFluid(getCumProvidor(), cum, SexAreaOrifice.MOUTH, millilitresStored));
 		}
 		
 	}

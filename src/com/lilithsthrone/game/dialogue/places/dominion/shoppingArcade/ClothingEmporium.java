@@ -13,8 +13,8 @@ import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -261,8 +261,8 @@ public class ClothingEmporium {
 									null, null, null, null, null, null,
 									true, true,
 									new SMMissionary(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Nyan.class), SexPositionSlot.MISSIONARY_ON_BACK))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Nyan.class), SexSlotBipeds.MISSIONARY_ON_BACK))),
 									null,
 									null, END_SEX, UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
 								@Override

@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -380,6 +383,18 @@ public class ArmType {
 		@Override
 		public boolean allowsFlight() {
 			return true;
+		}
+
+		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
+				Util.newArrayListOfValues(
+						InventorySlot.HAND,
+						InventorySlot.WRIST),
+				Race.HARPY,
+				"Due to the fact that [npc.nameHasFull] bird-like wings instead of arms, only specialist clothing can be worn in this slot.",
+				Util.newArrayListOfValues(ItemTag.FITS_HARPY_WINGS));
+		@Override
+		public BodyPartClothingBlock getBodyPartClothingBlock() {
+			return clothingBlock;
 		}
 	};
 	

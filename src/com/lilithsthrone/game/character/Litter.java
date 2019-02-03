@@ -3,18 +3,25 @@ package com.lilithsthrone.game.character;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
+import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -23,8 +30,8 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.62
- * @version 0.3
- * @author Innoxia
+ * @version 0.3.1
+ * @author Innoxia, orvail
  */
 public class Litter implements XMLSaving {
 
@@ -271,6 +278,18 @@ public class Litter implements XMLSaving {
 	public boolean isFatherId(String fatherId) {
 		return this.fatherId.equals(fatherId);
 	}
+
+	public Set<GameCharacter> getOffspringCharacters() {
+		HashSet<GameCharacter> result = new HashSet<>();
+		offspring.stream().map(x -> {
+			try {
+				return Main.game.getNPCById(x);
+			} catch (Exception e) {
+				return null;
+			}
+		}).filter(Objects::nonNull).forEach(result::add);
+		return result;
+	}
 	
 	public List<String> getOffspring() {
 		return offspring;
@@ -313,13 +332,13 @@ public class Litter implements XMLSaving {
 				GameCharacter character = Main.game.getNPCById(id);
 				Subspecies subspecies = character.getSubspecies();
 				if(Main.game.getNPCById(id).isFeminine()) {
-					String nameId = subspecies.getSingularMaleName(character)+"|"+subspecies.getPluralMaleName(character);
-					sons.putIfAbsent(nameId, 0);
-					sons.put(nameId, sons.get(nameId)+1);
-				} else {
 					String nameId = subspecies.getSingularFemaleName(character)+"|"+subspecies.getPluralFemaleName(character);
 					daughters.putIfAbsent(nameId, 0);
 					daughters.put(nameId, daughters.get(nameId)+1);
+				} else {
+					String nameId = subspecies.getSingularMaleName(character)+"|"+subspecies.getPluralMaleName(character);
+					sons.putIfAbsent(nameId, 0);
+					sons.put(nameId, sons.get(nameId)+1);
 				}
 			} catch (Exception e) {
 			}
@@ -341,8 +360,75 @@ public class Litter implements XMLSaving {
 							: entry.getKey().split("\\|")[0])
 						+"</b>");
 		}
-		
+
 		birthedDescription = Util.stringsToStringList(entries, false);
+	}
+	
+	//TODO Add this to the generateBirthedDescription() method above.
+	@SuppressWarnings("unused")
+	private String getRelationshipInformation() {
+		StringBuilder descriptionSB = new StringBuilder();
+		
+		// FIXME: this won't work when there are multiple children, even if they all have the same gender
+		Set<PronounType> childrenPronouns = getOffspringCharacters().stream().map(x -> x.getGender().getType()).collect(Collectors.toSet());
+		PronounType childrenPronoun = PronounType.NEUTRAL;
+		if(childrenPronouns.size() == 1) {
+		    childrenPronoun = childrenPronouns.iterator().next();
+		}
+		
+		Set<Relationship> relFather = Collections.emptySet();
+		if(getFather() != null) {
+			relFather = getOffspringCharacters().stream()
+					.flatMap(x -> x.getRelationshipsTo(getFather()).stream())
+					.collect(Collectors.toSet());
+		}
+
+		Set<Relationship> relMother = Collections.emptySet();
+		if(getFather() != null) {
+			relMother = getOffspringCharacters().stream()
+					.flatMap(x -> x.getRelationshipsTo(getMother()).stream())
+					.collect(Collectors.toSet());
+		}
+
+		Set<Relationship> relPlayer = Collections.emptySet();
+		if(getFather() != null && !getFather().isPlayer() && getMother() != null && !getMother().isPlayer()) {
+			relPlayer = getOffspringCharacters().stream()
+					.flatMap(x -> x.getRelationshipsTo(Main.game.getPlayer()).stream())
+					.collect(Collectors.toSet());
+		}
+
+		if(!relMother.isEmpty() || !relFather.isEmpty()) {
+			descriptionSB.append(" (");
+			if(!relFather.isEmpty()) {
+				if(getFather().isPlayer()) {
+					descriptionSB.append("your ");
+				} else {
+					descriptionSB.append(getFather().getName() + "'s ");
+				}
+				descriptionSB.append(GameCharacter.getRelationshipStr(relFather, childrenPronoun));
+				if(!relMother.isEmpty() || !relPlayer.isEmpty()) {
+					descriptionSB.append(", ");
+				}
+			}
+
+			if(!relMother.isEmpty()) {
+				if(getMother().isPlayer()) {
+					descriptionSB.append("your ");
+				} else {
+					descriptionSB.append(getMother().getName() + "'s ");
+				}
+				descriptionSB.append(GameCharacter.getRelationshipStr(relMother, childrenPronoun));
+				if(!relPlayer.isEmpty())
+					descriptionSB.append(", ");
+			}
+
+			if(!relPlayer.isEmpty()) {
+				descriptionSB.append("your ");
+				descriptionSB.append(GameCharacter.getRelationshipStr(relPlayer, childrenPronoun));
+			}
+			descriptionSB.append(")");
+		}
+		return descriptionSB.toString();
 	}
 
 	public String getBirthedDescription() {

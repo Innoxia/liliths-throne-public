@@ -22,7 +22,7 @@ public class Scar implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof Scar)
 					&& ((Scar)o).getType()==type

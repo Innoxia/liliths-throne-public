@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum InventorySlot {
@@ -154,12 +153,15 @@ public enum InventorySlot {
 	private String tattooSlotName;
 	private boolean jewellery;
 	private boolean coreClothing;
+
+	private static List<InventorySlot> humanoidSlots;
 	private static List<InventorySlot> clothingSlots;
 	private static List<InventorySlot> mainClothingSlots;
 	private static List<InventorySlot> extraClothingSlots;
 	private static List<InventorySlot> piercingSlots;
 
 	static {
+		humanoidSlots = new ArrayList<>();
 		clothingSlots = new ArrayList<>();
 		piercingSlots = new ArrayList<>();
 		extraClothingSlots = new ArrayList<>();
@@ -211,6 +213,46 @@ public enum InventorySlot {
 		piercingSlots.add(PIERCING_NIPPLE);
 		piercingSlots.add(PIERCING_VAGINA);
 		piercingSlots.add(PIERCING_PENIS);
+		
+
+		humanoidSlots.add(HEAD);
+		humanoidSlots.add(EYES);
+		humanoidSlots.add(HAIR);
+		humanoidSlots.add(MOUTH);
+		humanoidSlots.add(NECK);
+
+		humanoidSlots.add(TORSO_OVER);
+		humanoidSlots.add(TORSO_UNDER);
+		humanoidSlots.add(CHEST);
+		humanoidSlots.add(NIPPLE);
+		humanoidSlots.add(STOMACH);
+		
+		humanoidSlots.add(HAND);
+		humanoidSlots.add(WRIST);
+		humanoidSlots.add(FINGER);
+		humanoidSlots.add(HIPS);
+//		humanoidSlots.add(ANUS);
+		
+//		humanoidSlots.add(LEG);
+//		humanoidSlots.add(GROIN);
+//		humanoidSlots.add(FOOT);
+//		humanoidSlots.add(SOCK);
+//		humanoidSlots.add(ANKLE);
+		
+		humanoidSlots.add(HORNS);
+		humanoidSlots.add(TAIL);
+//		humanoidSlots.add(WINGS); //TODO special case, as can be either
+		humanoidSlots.add(PENIS);
+		humanoidSlots.add(VAGINA);
+		
+		humanoidSlots.add(PIERCING_EAR);
+		humanoidSlots.add(PIERCING_NOSE);
+		humanoidSlots.add(PIERCING_TONGUE);
+		humanoidSlots.add(PIERCING_LIP);
+		humanoidSlots.add(PIERCING_STOMACH);
+		humanoidSlots.add(PIERCING_NIPPLE);
+//		humanoidSlots.add(PIERCING_VAGINA);
+//		humanoidSlots.add(PIERCING_PENIS);
 	}
 
 	private InventorySlot(int zLayer, String name, boolean plural, boolean coreClothing, boolean jewellery, String tattooSlotName) {
@@ -246,6 +288,10 @@ public enum InventorySlot {
 		return jewellery;
 	}
 
+	public static List<InventorySlot> getHumanoidSlots() {
+		return humanoidSlots;
+	}
+
 	public static List<InventorySlot> getClothingSlots() {
 		return clothingSlots;
 	}
@@ -263,117 +309,38 @@ public enum InventorySlot {
 	}
 
 	/**
-	 * Calculates if the character cannot wear clothing in the provided slot due to his or her race. If a part of their body is preventing the clothing from being equipped, this method returns the race of that body part.<br/>
-	 * e.g. Horse legs block FOOT slot, so passing in a character who has horse legs and InventorySlot.FOOT will return Race.HORSE_MORPH.<br/>
-	 * This method returns null if the slot is not being blocked.
+	 * Returns the first applicable BodyPartClothingBlock found from the supplied character's body parts.
 	 * 
-	 * @param character
-	 * @param slot
-	 * @return Race which is blocking this slot. Returns null if nothing is
-	 *         blocking the slot.
+	 * @param character The character to check.
+	 * @return A BodyPartClothingBlock object which represents how this part is being blocked. Returns null if nothing is blocking the slot.
 	 */
-	public Race slotBlockedByRace(GameCharacter character) {
+	public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
 		if (character == null) {
 			return null;
 		}
-		
 		if(character.getHairRawLengthValue()==0 && this == InventorySlot.HAIR) {
-			return character.getHairRace();
+			return new BodyPartClothingBlock(
+					Util.newArrayListOfValues(InventorySlot.HAIR),
+					character.getHairRace(),
+					"[npc.Name] [npc.do]n't have any hair, so [npc.she] can't wear any hair accessories!",
+					Util.newArrayListOfValues());
+		}
+		// leg configuration:
+		BodyPartClothingBlock block = character.getLegConfiguration().getBodyPartClothingBlock(character);
+		if(block!=null) {
+			if(block.getBlockedSlots().contains(this)) {
+				return block;
+			}
 		}
 		
-		if (character.getLegType() == LegType.HORSE_MORPH && this == InventorySlot.FOOT) {
-			return Race.HORSE_MORPH;
+		for(BodyPartInterface bodypart : character.getBody().getAllBodyParts()) {
+			block = bodypart.getType().getBodyPartClothingBlock();
+			if(block!=null) {
+				if(block.getBlockedSlots().contains(this)) {
+					return block;
+				}
+			}
 		}
-		
-		if (character.getLegType() == LegType.DEMON_HOOFED && this == InventorySlot.FOOT) {
-			return Race.DEMON;
-		}
-		
-		if (character.getLegType() == LegType.REINDEER_MORPH && this == InventorySlot.FOOT) {
-			return Race.REINDEER_MORPH;
-		}
-		
-		if (character.getLegType() == LegType.HARPY && this == InventorySlot.FOOT) {
-			return Race.HARPY;
-		}
-		
-		if (character.getArmType() == ArmType.HARPY && this == InventorySlot.HAND) {
-			return Race.HARPY;
-		}
-		
-		if (character.getLegType() == LegType.COW_MORPH && this == InventorySlot.FOOT) {
-			return Race.COW_MORPH;
-		}
-
-		return null;
-	}
-	
-	/**
-	 * Complimentary method to slotBlockedByRace(GameCharacter character,
-	 * InventorySlot slot).
-	 * 
-	 * @param character
-	 * @param slot
-	 * @return A description of why this slot can't be used.
-	 */
-	public String getCannotBeWornDescription(GameCharacter character) {
-		
-		if(character.getHairRawLengthValue()==0 && this == InventorySlot.HAIR) {
-			if(character.isPlayer())
-				return "You don't have any hair, so you can't wear any hair accessories!";
-			else
-				return UtilText.parse(character,
-						"[npc.Name] doesn't have any hair, so [npc.she] can't wear any hair accessories!");
-		}
-		
-		if (character.getLegType() == LegType.HORSE_MORPH && this == InventorySlot.FOOT) {
-			if(character.isPlayer())
-				return "Your horse-like hoofs prevent you from wearing footwear of any kind!";
-			else
-				return UtilText.parse(character,
-						"[npc.NamePos] horse-like hoofs prevent [npc.herHim] from wearing footwear of any kind!");
-		}
-		
-		if (character.getLegType() == LegType.DEMON_HOOFED && this == InventorySlot.FOOT) {
-			if(character.isPlayer())
-				return "Your demonic hoofs prevent you from wearing footwear of any kind!";
-			else
-				return UtilText.parse(character,
-						"[npc.NamePos] demonic hoofs prevent [npc.herHim] from wearing footwear of any kind!");
-		}
-		
-		if (character.getLegType() == LegType.REINDEER_MORPH && this == InventorySlot.FOOT) {
-			if(character.isPlayer())
-				return "Your reindeer-like hoofs prevent you from wearing footwear of any kind!";
-			else
-				return UtilText.parse(character,
-						"[npc.NamePos] reindeer-like hoofs prevent [npc.herHim] from wearing footwear of any kind!");
-		}
-		
-		if (character.getLegType() == LegType.COW_MORPH && this == InventorySlot.FOOT) {
-			if(character.isPlayer())
-				return "Your cow-like hoofs prevent you from wearing footwear of any kind!";
-			else
-				return UtilText.parse(character,
-						"[npc.NamePos] cow-like hoofs prevent [npc.herHim] from wearing footwear of any kind!");
-		}
-		
-		if (character.getLegType() == LegType.HARPY && this == InventorySlot.FOOT) {
-			if(character.isPlayer())
-				return "Your bird-like talons prevent you from wearing footwear of any kind!";
-			else
-				return UtilText.parse(character,
-						"[npc.NamePos] bird-like talons prevent [npc.herHim] from wearing footwear of any kind!");
-		}
-		
-		if (character.getArmType() == ArmType.HARPY && this == InventorySlot.HAND) {
-			if(character.isPlayer())
-				return "You can't fit any hand clothing onto your harpy wings!";
-			else
-				return UtilText.parse(character,
-						"[npc.Name] can't fit any hand clothing onto [npc.her] harpy wings!");
-		}
-		
 		return null;
 	}
 }

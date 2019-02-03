@@ -552,10 +552,8 @@ public enum Fetish {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You love cumming. You don't really care where it goes; all you want is to pump out load after load of your salty seed...";
-			else
-				return UtilText.parse(owner, "[npc.Name] has a fetish for cumming.");
+				return UtilText.parse(owner,
+						"[npc.NameHasFull] a particular obsession with cumming. Pumping any and all orifices full of cum is what [npc.she] [npc.verb(love)] the most, but spurting it all over someone's body is also an acceptable pastime.");
 		}
 
 		@Override

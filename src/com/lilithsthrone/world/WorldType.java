@@ -644,7 +644,12 @@ public enum WorldType {
 		
 	}
 	
-	WorldType(String name, Colour colour, int timeToTransition, String fileLocation, PlaceType globalMapLocation, Map<Color, PlaceType> placesMap) {
+	WorldType(String name,
+			Colour colour,
+			int timeToTransition,
+			String fileLocation,
+			PlaceType globalMapLocation,
+			Map<Color, PlaceType> placesMap) {
 		this.name = name;
 		this.colour = colour;
 		this.timeToTransition=timeToTransition;

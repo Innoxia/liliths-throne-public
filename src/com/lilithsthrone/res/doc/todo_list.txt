@@ -106,8 +106,13 @@
 	
 	- Add Enforcer alleyway encounter
 		If human, forcibly search
+			Check for demon looking like human.
 		Else, question, can lead into search
 		Fights end with locked in stocks
+	
+	- Fix major bug in conditional parsing engine:
+		When entering imp fortresses, this is always visible. The first time entering, conditional parsing breaks, but then it works on subsequent visits.
+		Using the #IF format in sex actions also breaks when using npc2
 	
 	
 		
@@ -115,121 +120,279 @@
 	Patch notes:
 	
 	Gameplay:
-		<b>Your character's demonic parts will be reset to human</b> when you load into this version. Demonic transformations are now only attainable through lore-correct methods (i.e. being corrupted into a demon by a lilin).
-		Removed item 'Innoxia's gift' and any crafted elixirs that were made using this item. (Again, to align demon transformations to the game's lore.)
-		If a character is not a demon, then demonic transformations applied while being a slime are reset to human upon returning to flesh. Non-demonic transformations are reset to demonic ones in a similar fashion if the character is a demon.
-		Demons and all subspecies are now correctly immune to all transformation potions.
-		Tidied up, expanded, and fixed bugs in Elizabeth's dialogue.
-		If you have completed the Siren's quest up to returning to Elizabeth in a previous version, your quest progress will be reverted one step (so you just need to return to her again), and you will be moved back out from the gates or the palace tile into one of the palace cavern tiles. (So that you can see the new handing-in quest dialogue, as well as to fix issues with being too far ahead.)
-		Added Lyssieth as an in-game NPC, along with a map of her palace.
-		Added final part of Dominion/Submission quest, where you meet Lyssieth.
-		If you have the masochist fetish, you now gain 1 essence every time you are critically hit in combat. If you have the sadist fetish, you now gain 1 essence every time you critically hit an opponent.
-		Changed the game's opening to explicitly state that the museum is in London.
-		Added 'maps' menu to phone, so you can view every area you've been to at any time. (You will need to re-visit areas to unlock them if you're carrying on from a previous save.)
-		Added a world map, which is unlocked after Lyssieth's content. Travel to other areas isn't in just yet, but it will be in the next version.
-		Added lore-friendly demon TF for the player, via Lyssieth content. Lilaya & Meraxis reactions, along with more demon TF content, will come in the next version as well.
+		<b>Reset:</b> Player body to human if you are a demon when loading into this version. I did this so you'd have the chance to see the new demon TF scenes.
+		Expanded the demon TF sex scene to add options at each stage of orgasm, with different body modification outcomes depending on what you do.
+		Added in all placeholder dialogue for Lyssieth and Meraxis.
+		Lilaya now gets very angry if you get her pregnant, and locks you out of her lab until she's given birth. You can give Rose 'Mother's milk' in her talking scenes (outside her room) in order to speed up Lilaya's pregnancy.
+		Lilaya now has reactions for if you're wearing a condom and for if your condom breaks while fucking her vagina.
+		Added demon transformation reaction scenes from Lilaya, and added follow-up scenes involving more transformations and sex.
+		Added teleportation action between Lyssieth's office and Lilaya's laboratory.
+		Added taur-compatible sex scenes to almost all of the 'generic' NPCs (such as the ones you meet in Dominion's alleyways). There are only three taur sex positions at the moment (initial standing, oral, and doggy-style/mounting positions). More will be added later on.
+	
+	Body transformations:
+		Added full support for udders/crotch-boobs. This was primarily meant for only taur bodies, but there is an option under 'Options -> Furry Preferences' to have greater anthro-morphs spawning in with them as well.
+		Crotch-boobs/udders have separate transformations to your normal breasts. Transformation options have been added to add racial TF food item enchanting, as well as to the self-TF menu that demons and slimes have access to.
+		Added crotch-boob/udder milking support in the milking rooms. (The moo-milker doesn't work on udders yet.)
+		Added sex actions related to crotch-boobs/udders: Groping, kissing, breastfeeding, paizuri/naizuri, and nipple penetration.
+		Added 'cloaca' transformation option to racial potion crafting (set 'core' as primary modifier, and 'internal' as secondary, and then add/remove cloaca by using potency), as well as to the self-transformation menu (under 'core').
+		Updated sex actions to take into account cloaca - if someone does have one, then anal actions are not available from accessing their ass, but instead accessing their crotch. (i.e. Back-to-wall will unlock anal options if the target has a cloaca.)
+		Added option in 'Content Options' menu to disable cloacas on bipedal races. (Harpies and alligator-morphs spawn in with cloacas by default.)
+		Added engine support for the non-bipedal lower bodies: 'taur', 'winged-taur', 'tail' (mermaids), 'long tail' (lamia), 'arachnid' (arachnae), and 'cephalopod' (octopus-morphs).
+		Added transformation enchanting to food for leg configurations. (Only 'bipedal' and 'taur' races are in the game at the moment, but the other lower body types will be added later on.)
+		Added 'pegasus-morph', 'unicorn-morph', 'alicorn-morph', 'centaur', 'pegataur', 'unitaur', and 'alitaur' subspecies. Other unique taur subspecies will be added later on, but for now only their names & status effect icons change to show that they are 'taur'.
+		Added 'demonic horse' tail transformation.
+		Added 'pegataur' wing transformation for horse-morphs.
 	
 	Contributors:
-		Fixed incorrect labelling and descriptions in the demon alleyway attacker quick transformation scene. (#985 by ChillaChris)
-		Minor description fix. (#986 by ChillaChris)
-		Fixed modding clothing's 'equipped' image variant not working. (#988 by CognitiveMist)
+		Fixed incorrect dialogue been shown in the female imp fortress when scaring the leader off after sex. (Nnxx)
+		Expanded and improved detection of character relationships. (PR#929 by orvail)
+		Added a few more utility options to the debug menu. (PR#1007 by Nnxx)
+		Added a lot more names and name variety. (PR#989 by Nnxx)
+		Fixed anus/nipple areas always being revealed in body-part overview tooltip. (PR#1024 by 0d721077)
+		Fixed perk point bug, which was causing the issues where perk points could sometimes be negative, and sometimes be massively over-inflated. Perk points will be reset to their correct value when you load into this version. (PR#998 by BDPMP)
+		Added: 'Raincoat' (Over-torso slot, sold by Nyan, androgynous.) (Created by Bloom and wasp609.)
 	
 	Clothing:
-		Added a 'drab green' colour for clothing.
-		Added: 'plunge blouse' (Feminine, torso slot.)
-		Added: 'asymmetrical skirt' (Feminine, leg slot.)
-		Added: 'strappy stiletto sandals' (Feminine, foot slot.)
-		Added: 'lacy thong' (Feminine, groin slot.)
-		Added: 'feminine blazer' (Feminine, over-torso slot.)
-		Added: 'half-rim glasses' (Androgynous, eye slot.)
-		The butler outfit is now classed as being androgynous.
-	
+		Added: 'Anal-only pastie' (Vagina slot, sold by Finch, androgynous.)
+		Added: 'Ornate chastity cage' (Penis slot, sold by Finch, androgynous.)
+		Slightly improved chastity cage icon and description.
+		Added: 'Dragon-branded condom' and 'Stallion-branded condom' (Penis slot, sold by Ralph and Roxy, androgynous). Condoms can no longer be enchanted (when you load into this version, condom enchantments will be reset), and instead have a maximum cum limit before they break.
+		Condoms can no longer be enchanted. Instead, they can be sabotaged (so that they always break at moment of orgasm) and repaired (costs one essence to revert sabotage).
+		Altered belt icon and text.
+		Added: 'leather wrist bracelets' (Wrist slot, sold by Finch, androgynous. They're just a minor variation of the usual wrist restraints.)
+		Clothing slots are now 'restricted' instead of being completely blocked by certain racial parts (such as by legs with hoofed feet or harpy wings). Clothing now has tags that allow clothing to be equipped into these 'restricted' slots (this is shown in the clothing's tooltip if available).
+		Added more clothing tooltip information, to let you know about clothing's extra effects (such as allowing sex-equip, being discarded when unequipped, and requiring penis/vagina/fuckable nipples). Also added this info to the clothing inspect dialogue.
+		Improved fishnet images to make them a little clearer.
+		Added 'TRANSPARENT' item tag for clothing, to mark that it leaves all parts fully visible. This has been applied to fishnets, chastity cages, condoms, and anal plugs.
+		Added secondary and tertiary dye colours to stiletto heels.
+		Added: 'Taur-trousers' (Leg slot, sold by Nyan, androgynous, can only be worn by characters with a taur lower body.)
+		Added: 'Taur-skirt' (Leg slot, sold by Nyan, feminine, can only be worn by characters with a taur lower body.)
+		
 	Other:
-		Expanded lore in the 'Lilith's Dynasty' and 'arcane arousal' books in the library, and organised library actions.
-		Tidied up Rose's dialogue about the world.
-		Updated demon lore in the encyclopedia, adn slightly expanded slime lore to make mention of their body's hydrophobic membrane.
-		Submissive partners in sex can no longer remove sex toys from their partner. (Dildos, and anything that plugs or seals orifices are considered sex toys.)
-		Added subspecies and proper detection for half-demons, lilin, and elder lilin.
-		Slightly improved background code for offspring and litters - I did test this a lot, but if you run into any issues with pregnancies, please let me know!
-		Changed Lilaya's post-sex dialogue to remove references to arcane-related lore that ended up not being used.
-		Added foot structure options to demon/slime transform menu, along with numerous other minor changes and improvements.
-		Added covering patterns 'marked', 'mottled', 'spotted', and 'striped' for penis.
-		Changed transformation references of 'breasts' and 'ass' to 'nipples' and 'anus', as that's all the transformation is affecting. (Breast and ass coverings are based on your torso's covering.)
-		Added some more descriptors for breasts and ass to draw from for when being described.
-		Tidied up code in a lot of places.
-		Changed the siren's name from Mhyralyss to Meraxis. (I was finding the spelling of 'Mhyralyss' to be a little too cumbersome.)
-		Dark alleyway demons now obey the same rules as all other NPCs when it comes to using items on them.
-		Subspecies lore books have had their icons changed.
-		Added half-demon lore book to Lilaya's library.
-		Lilaya now tells you to remember to pull out at the start of sex.
-		Changed 'Obeys lilin' effect at maximum corruption to 'Demonic mindset'. (A requirement to be turned into a demon.)
-	
+		Improved background code for determining who is allowed to do what during sex.
+		Added support in sex engine for any number of actions to be executed upon sex initialisation.
+		Slightly altered the 'cum stud' fetish so that it's now mainly about the love of filling orifices with cum, so that NPCs who like/love this fetish will now prioritise creampies/cumming inside their partners.
+		Slightly altered Lyssieth's fetishes and desires.
+		Improved positioning action code, and made available to NPCs the 'facesitting' positions in generic sex.
+		<b>Added:</b> 'Mating press' position for use in generic sex scenes.
+		Characters should now always refer to you (and others) by your nickname/pet name when talking.
+		<b>Added:</b> 'Force creampie' (requires advantageous body position, such as being on top in 69 position), 'Leg-lock' (required unhindered legs), 'Hug-lock' (requires at least two free, unhindered arms), 'Wing-lock' (requires wings large enough to fly), and 'Tail-lock' (required at least one free prehensile tail) as orgasm preparation actions in relevant positions, allowing both you and NPCs to force partners to cum inside.
+		Tidied up generic orgasm code.
+		Added 'prevents erection' tag for chastity cages, but currently this only affects descriptors during sex. (I'll add more to it at some point.)
+		Characters who dislike the 'pregnancy' fetish, or who dislike the 'cum addict' fetish, will now ask for you to pull out just before you orgasm.
+		Slightly improved the 'sex noise' insertions in sentences.
+		Added number of times NPCs would like to orgasm to the 'Orgasms' sex status effect tooltip.
+		Average-size wings are no longer considered large enough to sustain flight on bipeds. Bipeds need large or huge wings in order to fly, while taurs need hugs wings. Arm-wings do not unlock flight for taurs.
+		Slightly improved aspects of Lilaya's scenes in her lab, and changed some of Rose's dialogue when you talk to her outside her room.
+		Improved Lilaya's reaction to being fed vixen's virility in sex.
+		Removed Lilaya's reaction implying sex would no longer be available during Lyssieth's long dialogue.
+		Added 'Innoxia's Gift' as a debug-only item. It now transforms non-demons into half-demons, and half-demons into full demons. (Type 'buggy' at any point to bring the debug menu up.)
+		Adjusted some of the more ridiculously-sized penises to slightly more believable, although still extremely large, values. (Such as Amber going from 18 inches to 10.)
+		Slightly tidied up and compacted the Furry Preferences screen.
+		Set multi-breast values for animal-morphs to more closely resemble their real-life thorax-counterparts. (Remember that you can turn this off in the 'Options -> Furry Settings' menu.)
+		Slightly altered some average breast sizes (rabbit-morph from E to C, bat-moprh from C to B).
+		Improved lactation transformation menu options.
+		Changed access requirement for Rose's hand holding scene. You now need to talk to her in the order 3, 1, 4, 2 in order for the hand-holding scene action to appear.
+		Humans and harpies can now spawn as slaves in the stocks in Slaver Alley.
+		Slightly reduced save file size.
+		Added 'Cowgirl (on back)' positioning action in sex.
+		Added foot structure transformation options to the 'racial food' items' enchantment menu. Select 'legs' as the primary enchantment, and then, depending on the item, you'll be able to select one or more from the three foot structure types as the secondary modifier. 
+		Compacted formatting of additional information during sex. (Meaning things which were coloured, such as lubrications and penetrations.)
+		Youko tails are now treated as being prehensile.
+		Updated the exposes status effects, changing the icon, description, and effects. Added an alternative (neutral) effect for if the exposed cahracter's lower body is not bipedal.
+		Added 'horns per row' self-transform option to the demon & slime self-transformation menus.
+		Increased base value of demon and half-demon slaves to 120,000 and 50,000, respectively.
+		Clothing transformation status effect updates now tell you which item of your clothing has caused the transformation.
+		
 	Bugs:
-		Fixed potential issue with radial gradients in images not being coloured correctly.
-		Fixed issue with null pointer exception being thrown in some sex scenes, which was causing sex to freeze.
-		Fixed issue with not being able to progress past one action with dominant partners in the Watering Hole (everything should be working correctly in there again now).
-		Fixed issue where equipping clothing during sex would sometimes result in an error being thrown when sex finished.
-		Fixed some days and months being displayed in the language of your computer's default language instead of English.
-		Fixed issue where all weapons would revert their primary colour to default when you enchanted them.
-		Fixed pregnancy probability descriptions during sex always acting as though the potential mother already had a chance of being pregnant.
-		Fixed incorrect name parsing during Siren's pre-fight scene.
-		Fixed issue where Imps would be incorrectly shown as being present in the very bottom-left tunnel tile of Submission.
-		Added error handling for some bugs in clothing management during sex.
-		Fixed elementals not getting perk points as their summoner level up.
-		Enchanting strength-related drinks will no longer duplicate physical damage & resistance as primary modifiers.
-		Fixed error log spamming 'Failed to load character' messages.
-		Fixed issue with NPCs in sex sometimes failing to remove clothing, which would throw an error and freeze the sex scene.
-		Fixed some clothing (such as the clover clamps) not registering that they were blocking parts correctly, resulting in some parsing errors in some sex actions.
-		Fixed some incorrect descriptions in sex scenes.
-		Fixed imps in the tunnels being treated as though their generic names ('fearless imp', 'nervous imp', etc.) were their real names.
-		Added error handling for when two pieces of clothing accidentally end up blocking one another.
-		Fixed incorrect parsing in imp fortresses, where imps would be described instead of the demon boss.
-		Fixed issue where a scene from Arthur's dialogue was missing (at the point where you agree to find Lyssieth).
-		Fixed issue where covering colour options would not show up in transform or Kate's menus.
-		Fixed siren's call being available as a spell book, and removed it from known spells, if you'd already learned it.
-		Fixed bug where setting all age categories to disabled would sometimes throw an error and break the game in strange ways.
-		Fixed Maximilian (the slime queen's royal guard) not being a demon slime.
-		Fixed Wolfgang and Karl having empty descriptions, and fixed their post-sex 'offer body' scene acting as though you fought them.
-		Performing a handjob climax on a slime no longer incorrectly describes cum shooting inside of them.
-		Fixed issue where all characters would sometimes gain health and mana when you loaded a game.
-		Fixed body covering colours not saving if set via the debug menu, causing them to be reset every time you loaded the game.
-		Fixed some subspecies advanced lore entries being hidden, even if they shared the same unlocked lore entry as their race's core subspecies.
-		You can no longer change surnames to be blank after character creation, as it was causing some bugs.
-		Fixed incorrect grammatical parsing in some sex actions.
-		Fixed issue where unique NPCs would accept fetish TF potions.
-		Fixed characters who like the pregnancy or cum addict fetishes asking their partners to pull out.
-		Fixed issue where when loading a game, all characters on your tile would have their concealed parts revealed.
-		Some fixes to sex action grammar.
-		Fixed the 'Foxy Fuck' potion (from the youko in the citadel) not transforming your ass into a fox's.
-		
-		
-		
-		
-	Finish lore-friendly demon TF content placeholders
-		check to see if player can TF away cock during sex
+		Fixed cause of a major bug where both unique and generic NPCs were sometimes not being loaded in correctly. (Reported instances of this were affecting Scarlett and Brax, but could have affected any character.) Unique characters are added back into your save when you load into this version.
+		Quite a few typo and parsing fixes, including quite a few grammatical fixes in sex actions.
+		Fixed issue where futanari testicles would be described as being external, even if futanari external testicles were turned off in content options.
+		Fixed bug where Lyssieth would always have a minimum-size penis.
+		Fixed post-sex affection decreases not taking into account if you liked the associated fetish or not. (It was only checking if you had the fetish, not if you liked it.)
+		Fixed issue with several incorrect 'initial penetration' descriptions during sex.
+		Fixed issue with sex sometimes starting with the dialogue already scrolled down a fair way.
+		Fixed being able to self-transform during initial demon transformation scene, which was messing things up.
+		Fixed 'limit--' and 'limit++' buttons in enchantment screen sometimes not working.
+		Fixed grammatically incorrect descriptions of your virginity losses when they were taken by yourself. 
+		Fixed issue where error log would sometimes be spammed with incorrect warnings about clothing blocking other clothing's removal.
+		Intercrural sex is no longer blocked by socks or tights.
+		Fixed bug where partner would not be able to choose to cum on the floor in positions where they should have been able to.
+		Fixed 'keep fucking' action (preparation for partner orgasming while fucking you with a dildo) incorrectly having the cum fetishes associated with it.
+		Cum, milk, and girlcum will no longer be randomly given the descriptor 'human' in scenes.
+		Fixed issue where NPCs in sex would sometimes not get a chance to take an 'orgasm preparation' action before you orgasmed.
+		Clothing that you put on during sex is no longer removed and thrown to the floor at the end of sex.
+		Fixed bug where sometimes the sequence of orgasm actions would leave Lilaya with no opportunity to react to being creampied.
+		Fixed Lilaya and Meraxis not being recognised as your half-sisters, nor Lyssieth as your mother, after demon TF.
+		Ralph will now correctly stock modded clothing with the tag 'SOLD_BY_RALPH'.
+		Clothing rarity defined as non-common will now accurately display that rarity. (Mostly affects modded clothing.)
+		Fixed bug where demon offspring were not being assigned the correct subspecies. (Which was causing Lyssieth to give birth to elder lilin.)
+		Fixed bug where NPCs would sometimes react to your impending orgasm as though it was a different participant that was about to orgasm.
+		Fixed issue with incorrect recognition of potential fathers of ongoing pregnancies. This mostly affected dialogue where a character would (incorrectly) react to you getting them pregnant.
+		Fixed post-defeat siren being reset and moved back to her fortress after 2 weeks like her subordinates. (She will be returned to her office upon game loading.)
+		Fixed bug where footjob actions would be describing the wrong person's foot.
+		Foot structure is now correctly saved & loaded.
+		Fixed issue where spreader bar would be concealed by trousers, rendering both trousers and spreader bar impossible to remove.
+		Fixed pregnancy stats page's 'Resolved Pregnancy' entries having the genders of your offspring swapped.
+		Fixed parsing error when using a used condom on someone.
+		Tongues being lubricated by saliva will no longer be displayed as lubrication information during sex.
+		If one of your slaves ambushes you in the streets of DOminion, it should now be correctly treated as public sex.
+		Fixed issue where you could offer body to muggers, then immediately end sex in the resulting sex scene.
+		Fixed 'submit' in combat going back to the combat dialogue for one turn before defeat.
+		Fixed some odd lust tooltip descriptions (such as saying you aren't interested at all in having sex when at 100 lust).
+		The sadist fetish now correctly applies lust damage to the attacker, not the target.
 	
-	Palace scenes
-		pregnancy reaction variations
-		Need to add dialogue and duel actions to siren's office
 	
-	Stop Lilaya special tests if not demon and revealed as aunt
 	
-	support for Lilaya reactions - she is now your sister
-		She is absolutely furious
-		She refuses to have sex with you
-		She demands
-	    Lilaya & Mhyralyss content related to this,
-	    another sex scene - need positions for desktop
-		Lilaya and Myhralyss gain incest fetishes
-		Post-lilaya demon sex dialogue
 	
+	
+	
+	final tests & bug fixes and package
+	
+	Fix the issue where sometimes trying to displace/remove clothing will not work and potentially soft-lock the game!!!
+	
+	Main map movement
+	Fields centaur encounter
+	Add furry taurs toggle
+	
+	need animal parts reactions
+	
+	need default wings/tails/horns and available ones in RacialBody for use in default parts spawning
+	
+	Need to correctly apply SubspeciesSpawnRarity to spawn chances
+	
+	Issue in method: dailyReset(), for character ID: -1,Vicky (bound must be positive) - somehow available ingredients was empty or something?
+	
+	player demon half-subspecies not showing?
+	
+	can pull up t-shirts beneath over-torso clothing
+	
+	Send out thank you messages
+	Jam
+	
+	Breast Size setting
+	
+	move shin guards out to res
+	
+	Fetish spawn chances
+	
+	wash companions option
+	
+	Need to stop "lack a vagina, so nothing happens..." from clothing effects
+	
+	Need unique Lyssieth taking virginity text
+	
+	spit on pussy/ass/cock actions
+	
+	Need pump targets
+	
+	furry fetish
+	bestial fetish
+	
+	need to sort out hips zLayer
+	
+	If you open guests' inventory from the slave menu you can force them to take it
+	
+	CrotchBreasts
+		Need tail self-interactions
+		Need NPC self-interactions
+		Need to refactor self-interactions to be player/NPC
+		
+    Main map movement
+    	WASD
+    	Click line paths
+    	Add centaur encounter
+		Edge detection for encounters
+	
+	Collate bug reports
+	
+	Denial sex orgasm
+	
+	Offspring moving in
+		
+	Make NPCs throw away given condoms in non-full-control sex based on fetishes
+	
+	need cloaca sex interactions for if penis isn't erect
+	
+	CrotchBreasts
+		moo milker
+			Need multiple (2 for now) uses
+				use AbstractItemUseEffect class to set list of uses for each itemType
+	
+	Meraxis
+		Duel (if affection is below 10, it's set to 10 for agreeing)
+		When at
+			+10:
+				Ask about her chuuni (+5)
+				Ask about her fortress (+5)
+				Spell testing (+5)
+				Incantation experiments (+5)
+				Chuuni clothing (+5)
+			+30:
+				Ask about her family (+5)
+				Can teleport to club with her
+					Wears chuuni outfit
+					+75 ask her to wear dress
+				Can give gifts
+			+75:
+			+100:
+				Ask about romance
+					Take virginity (she acts like she's binding you into a contract to forever ensure her power is greater than yours, but you can tell that she's nervous)
+				
+		
+	Sex action improvements:
+	need ongoing breastfeeding
+		need ongoing self handjob
+		need cum feeding/stuffing actions
+		Go over all actions and account for leg configuration/reach
+		Need size-difference:
+			Penetration-orifice
+				Too loose is already done, but needs special descriptions
+				Need too tight
+					Maybe a scale: Impenetrable, too tight, snug fit, too loose, cavernous mismatch
+					Add loosening actions, like pushing head in? Fingering could also loosen.
+				cock-pussy
+			positioning
+	
+	Sort out SexFlag requests
+	
+	why are the body types abstract?
+	
+	if you make bree pregnant the police station counter gets bugged and you can't interact with either of them
+	fix isAbleToBeDisplaced properly
+	during sexual interactions clicking the 'forbid self clothing' and 'forbid self action' doesn't have any effect and your partner still goes ahead to displace clothing and perform self actions
+	essence drain shooting weapons is broken
+	improve Lilith soul infusement lore
+	Remember Tp from Lilaya's lab to Lyssieth
+	Lyssieth needs impregnation desire and cum stud fetish
+	update jam & faf blog links, and message neko
+	Check "Into Submission" quest text
+	when I load into a fresh game I seem to loose points from leveling up. When I loaded into a previous save one time I was at -17 points to use the second time I loaded up my game I was in the hole -35.
+	check to see the demon quest triggers are just based on your demonic status, not quest progression or anything like that
+	add the multiple-partner scenes to slave scenes and other encounters
+	When visiting a person you know in dominion that has their own place and you initiate sex. When you select the forbid self clothing. The text is said but then they start displacing their clothing anyway and the icon remains as forbid self clothing instead of changing to allow self clothing.
+	Add ability to use pumps on slaves
+	the watering hole is still having issues as a sub lol. Now when I run around with a person as a sub, it seems that during our adventure a new randomly generated NPC will pop up and join our group, taking over any further dialog while retaining the old NPC on the top right list. From what I gather so far it seems to happen the most when a NPC takes you to the booths to do things
+	I found a minor bug in that when looking at the pregnancy stats tab in the menus that it will say one gender in the fathered/mothered section, but then say the other gender in the offspring list
+	slow fluids absorbtion rate
+	the dialogue after impregnating a Demon in the Dark Alley needs to be changed. As its pre 0.3.0 and is the one for Imps. Even though its completely redone
+	add offspring moving in text
+	Hi. Also the Essences and Jinxes dialogue also needs to be updated. Especially since instead of a Pentagram its still a square
+	add a way to change foot type to potions, and I'll also add a TF item for all subspecies, so that you don't have to fiddle about with things
+	bribing doberman duo in clothing suppliers quest with one's body doesn't seem to be working - the text after the act implies that the deal has been struck and they'll allow other suppliers back, yet the quest doesn't advance and going back to them shows text as if the PC was defeated in battle and raped instead
+	seem to be experiencing a bug where horse slaves (haven't tested guests or PC) have three different hair settings when sent to kate, one where you'd expect and two more under the "coverings" category, one of which is replacing the fur settings. All 3 functionally change hair, meaning you can't dye fur. this bug persists across save/loads, and effects both naturally generated horses as well as transformed ones.
+		I've gone back and created a new save to test if this still occurs for horse PCs, and it does. This hasn't occurred with any variant of the cat, dog, or fox races, and doesn't effect the cow race either. i haven't tested the other races and race variants.
+	centaurs
+		greataxe
+		bows
+	Check NPCs prepare orgasms for other NPCs?
+	
+	Add transformations to event log
 	
 	siren as companion?
 	
 	fix arcane stat descriptions and attribute maximums (no maximum, remove permanent gains from potions)
 	
-	
-	condoms
 	
 	check slave shops overstocking
 	
@@ -269,10 +432,6 @@
 	Make alleyway succubi immune to enslavement with explanation
 	
 	need foot structure potions	
-	
-		World Map Travel
-			Click to add waypoints
-			Edge detection for encounters
 	
 	----------
 	
@@ -359,6 +518,8 @@
 	Combat should only show health/mana bars and status effects
 	
 	Need cum/milk/girlcum self TFs
+	
+	Remove sealed missionary
 	
 	prevent enslavement items from being put on people during sex
 	

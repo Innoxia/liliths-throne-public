@@ -16,10 +16,6 @@ public enum Race {
 
 	NONE("none",
 			"none",
-			"none",
-			"none",
-			"none",
-			"none",
 			Colour.RACE_HUMAN,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
@@ -34,19 +30,15 @@ public enum Race {
 	
 	// HUMAN:
 	HUMAN("human",
-			"humans",
-			
-			"man",
-			"woman",
-			
-			"men",
-			"women",
-			
+			"human",
 			Colour.RACE_HUMAN,
+			
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
+			
 			0.5f,
 			1,
+			
 			1,
 			Attribute.DAMAGE_HUMAN,
 			Attribute.RESISTANCE_HUMAN,
@@ -56,12 +48,7 @@ public enum Race {
 
 	// ANGEL:
 	ANGEL("angel",
-			"angels",
 			"angel",
-			"angel",
-			"angel",
-			"angel",
-
 			Colour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -69,6 +56,7 @@ public enum Race {
 					Attack.SPELL),
 			0.25f,
 			1,
+
 			1,
 			Attribute.DAMAGE_ANGEL,
 			Attribute.RESISTANCE_ANGEL,
@@ -78,12 +66,7 @@ public enum Race {
 
 	// DEMON:
 	DEMON("demon",
-			"demons",
-			"incubus",
-			"succubus",
-			"incubi",
-			"succubi",
-
+			"demonic-horse",
 			Colour.RACE_DEMON,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -92,6 +75,7 @@ public enum Race {
 					Attack.SPELL),
 			0.75f,
 			2,
+
 			3,
 			Attribute.DAMAGE_DEMON,
 			Attribute.RESISTANCE_DEMON,
@@ -101,12 +85,7 @@ public enum Race {
 
 	// BOVINES:
 	COW_MORPH("cow-morph",
-			"cow-morphs",
-			"cow-boy",
-			"cow-girl",
-			"cow-boys",
-			"cow-girls",
-
+			"cow",
 			Colour.RACE_COW_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -114,6 +93,7 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			1,
 			Attribute.DAMAGE_COW_MORPH,
 			Attribute.RESISTANCE_COW_MORPH,
@@ -123,17 +103,13 @@ public enum Race {
 
 	// CANINES:
 	DOG_MORPH("dog-morph",
-			"dog-morphs",
-			"dog-boy",
-			"dog-girl",
-			"dog-boys",
-			"dog-girls",
-
+			"dog",
 			Colour.RACE_DOG_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
 			0.5f,
 			1,
+
 			2,
 			Attribute.DAMAGE_DOG_MORPH,
 			Attribute.RESISTANCE_DOG_MORPH,
@@ -142,12 +118,7 @@ public enum Race {
 			true),
 
 	WOLF_MORPH("wolf-morph",
-			"wolf-morphs",
-			"wolf-boy",
-			"wolf-girl",
-			"wolf-boys",
-			"wolf-girls",
-			
+			"wolf",
 			Colour.RACE_WOLF_MORPH,
 			Disposition.SAVAGE,
 			Util.newArrayListOfValues(
@@ -155,6 +126,7 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+			
 			2,
 			Attribute.DAMAGE_WOLF_MORPH,
 			Attribute.RESISTANCE_WOLF_MORPH,
@@ -163,12 +135,7 @@ public enum Race {
 			true),
 	
 	FOX_MORPH("fox-morph",
-			"fox-morphs",
-			"fox-boy",
-			"fox-girl",
-			"fox-boys",
-			"fox-girls",
-			
+			"fox",
 			Colour.RACE_FOX_MORPH,
 			Disposition.UNPREDICTABLE,
 			Util.newArrayListOfValues(
@@ -177,6 +144,7 @@ public enum Race {
 					Attack.SPELL),
 			0.5f,
 			1,
+			
 			2,
 			Attribute.DAMAGE_FOX_MORPH,
 			Attribute.RESISTANCE_FOX_MORPH,
@@ -186,12 +154,7 @@ public enum Race {
 
 	// FELINES:
 	CAT_MORPH("cat-morph",
-			"cat-morphs",
-			"cat-boy",
-			"cat-girl",
-			"cat-boys",
-			"cat-girls",
-
+			"cat",
 			Colour.RACE_CAT_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -199,6 +162,7 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			2,
 			Attribute.DAMAGE_CAT_MORPH,
 			Attribute.RESISTANCE_CAT_MORPH,
@@ -208,12 +172,7 @@ public enum Race {
 
 	// EQUINE:
 	HORSE_MORPH("horse-morph",
-			"horse-morphs",
-			"horse-boy",
-			"horse-girl",
-			"horse-boys",
-			"horse-girls",
-			
+			"horse",
 			Colour.RACE_HORSE_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -221,6 +180,7 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+			
 			1,
 			Attribute.DAMAGE_HORSE_MORPH,
 			Attribute.RESISTANCE_HORSE_MORPH,
@@ -230,19 +190,15 @@ public enum Race {
 
 	
 	 REINDEER_MORPH("reindeer-morph",
-			"reindeer-morphs",
-			"reindeer-boy",
-			"reindeer-girl",
-			"reindeer-boys",
-			"reindeer-girls",
-		 
-	  Colour.RACE_REINDEER_MORPH,
+			"reindeer",
+			Colour.RACE_REINDEER_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+		 
 			2,
 			Attribute.DAMAGE_REINDEER_MORPH,
 			Attribute.RESISTANCE_REINDEER_MORPH,
@@ -252,18 +208,14 @@ public enum Race {
 			
 
 	SQUIRREL_MORPH("squirrel-morph",
-			"squirrel-morphs",
-			"squirrel-boy",
-			"squirrel-girl",
-			"squirrel-boys",
-			"squirrel-girls",
-
+			"squirrel",
 			Colour.RACE_SQUIRREL_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN),
 			0.5f,
 			1,
+
 			2,
 			Attribute.DAMAGE_SQUIRREL_MORPH,
 			Attribute.RESISTANCE_SQUIRREL_MORPH,
@@ -272,12 +224,7 @@ public enum Race {
 			true),
 
 	RAT_MORPH("rat-morph",
-			"rat-morphs",
-			"rat-boy",
-			"rat-girl",
-			"rat-boys",
-			"rat-girls",
-
+			"rat",
 			Colour.RACE_RAT_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -285,6 +232,7 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			4,
 			Attribute.DAMAGE_RAT_MORPH,
 			Attribute.RESISTANCE_RAT_MORPH,
@@ -293,12 +241,7 @@ public enum Race {
 			true),
 
 	RABBIT_MORPH("rabbit-morph",
-			"rabbit-morphs",
-			"rabbit-boy",
-			"rabbit-girl",
-			"rabbit-boys",
-			"rabbit-girls",
-
+			"rabbit",
 			Colour.RACE_RABBIT_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -306,6 +249,7 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			2,
+
 			8,
 			Attribute.DAMAGE_RABBIT_MORPH,
 			Attribute.RESISTANCE_RABBIT_MORPH,
@@ -314,12 +258,7 @@ public enum Race {
 			true),
 	
 	BAT_MORPH("bat-morph",
-			"bat-morphs",
-			"bat-boy",
-			"bat-girl",
-			"bat-boys",
-			"bat-girls",
-
+			"bat",
 			Colour.RACE_BAT_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -327,6 +266,7 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			2,
 			Attribute.DAMAGE_BAT_MORPH,
 			Attribute.RESISTANCE_BAT_MORPH,
@@ -335,12 +275,7 @@ public enum Race {
 			true),
 	
 	ALLIGATOR_MORPH("alligator-morph",
-			"alligator-morphs",
-			"alligator-boy",
-			"alligator-girl",
-			"alligator-boys",
-			"alligator-girls",
-
+			"alligator",
 			Colour.RACE_ALLIGATOR_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -348,6 +283,7 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			4,
 			Attribute.DAMAGE_ALLIGATOR_MORPH,
 			Attribute.RESISTANCE_ALLIGATOR_MORPH,
@@ -357,17 +293,13 @@ public enum Race {
 
 	// SLIME:
 	SLIME("slime",
-			"slimes",
 			"slime",
-			"slime",
-			"slimes",
-			"slimes",
-
 			Colour.RACE_SLIME,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(Attack.SEDUCTION),
 			0.5f,
 			1,
+
 			1,
 			Attribute.DAMAGE_SLIME,
 			Attribute.RESISTANCE_SLIME,
@@ -377,12 +309,7 @@ public enum Race {
 
 	// AVIAN:
 	HARPY("harpy",
-			"harpies",
-			"harpy",
-			"harpy",
-			"harpies",
-			"harpies",
-			
+			"avian",
 			Colour.RACE_HARPY,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -390,6 +317,7 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			3,
+			
 			4,
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
@@ -506,12 +434,7 @@ public enum Race {
 //			false),
 
 	ELEMENTAL("elemental",
-			"elementals",
 			"elemental",
-			"elemental",
-			"elementals",
-			"elementals",
-
 			Colour.SPELL_SCHOOL_ARCANE,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -520,6 +443,7 @@ public enum Race {
 					Attack.SPELL),
 			0.5f,
 			1,
+
 			1,
 			Attribute.DAMAGE_ELEMENTAL,
 			Attribute.RESISTANCE_ELEMENTAL,
@@ -1262,6 +1186,7 @@ public enum Race {
 	 */
 
 	private String name;
+	private String nameBestial;
 	private Colour colour;
 	private Disposition disposition;
 	private List<Attack> preferredAttacks;
@@ -1274,30 +1199,25 @@ public enum Race {
 	private boolean affectedByFurryPreference;
 	
 	private Race(String name,
-			String namePlural,
-			String singularMaleName,
-			String singularFemaleName,
-			String pluralMaleName,
-			String pluralFemaleName,
-
+			String nameBestial,
+			
 			Colour colour,
 			Disposition disposition,
 			List<Attack> preferredAttacks,
-			
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow,
-			int numberOfOffspringHigh,
 			
+			int numberOfOffspringHigh,
 			Attribute damageMultiplier,
 			Attribute resistanceMultiplier,
 			
 			FurryPreference defaultFemininePreference,
 			FurryPreference defaultMasculinePreference,
-			
 			boolean affectedByFurryPreference) {
 		
 		this.name = name;
-
+		this.nameBestial = nameBestial;
+		
 		this.colour = colour;
 		this.disposition = disposition;
 
@@ -1317,7 +1237,10 @@ public enum Race {
 		this.affectedByFurryPreference = affectedByFurryPreference;
 	}
 
-	public String getName() {
+	public String getName(boolean bestial) {
+		if(bestial) {
+			return nameBestial;
+		}
 		return name;
 	}
 

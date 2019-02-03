@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- ROSE -->
+	
+	<htmlContent tag="ROSE_TALK_LILAYA"><![CDATA[
+	<p>
+		[pc.speech(What can you tell me about Lilaya?)] you ask, wanting to know more about Rose's mistress.
+	</p>
+	<p>
+		[rose.speech(Well, I can tell you what's publicly known, but as you must understand, I cannot reveal any personal information,)] Rose replies, [rose.speech(My mistress is the recognised daughter of the elder lilin Lyssieth, and as such is at the very top of Dominion's social hierarchy. Despite being invited to nearly every single prestigious social gathering in the city, she prefers to keep herself busy with her arcane experiments and research. This house in which she lives was once owned by her mother, but was given to her as a place in which she could continue with her work without being disturbed.)]
+	</p>
+	<p>
+		Having given you a brief overview of what's publicly known about her mistress, Rose smiles in a somewhat-dutiful manner, before asking, [rose.speech(Is there anything else I can help you with, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROSE_TALK_SLAVE"><![CDATA[
+	<p>
+		Not really sure about the best way to approach the subject, you decide to just ask your question outright and hope that it doesn't cause Rose any offence, [pc.speech(If you don't mind me asking, how did you end up as a slave?)]
+	</p>
+	<p>
+		Rose smiles to put you at ease, obviously sensing that you're a bit hesitant to broach the subject. [rose.speech(Well, like a lot of other slaves, I sold myself into slavery, under a contract stipulating that I am non-transferable. In other words, that I am only ever to be owned by Lilaya.)]
+	</p>
+	<p>
+		You can't help but feel shocked as you hear that Rose willingly became a slave, but before you can ask why, she seems to sense your incoming question and continues, [rose.speech(When you sell yourself as a slave, all your debts and crimes are forgiven, so many people choose a life of slavery in order to escape their past. I suppose I'm somewhat of an unusual case, though, because I didn't have anything to run away from. You see, I was originally hired through an agency to serve as one of Lilaya's personal maids, and while working for her, we grew very close...)]
+	</p>
+	<p>
+		Rose suddenly blushes, and you notice that her tail has wrapped itself tightly around her leg. She's obviously thinking back to when she first met Lilaya, and after taking a moment to move past her recollection of the past, she continues, [rose.speech(Lyssieth didn't approve of how much time we were spending together, and when Lilaya and I were discovered kissing one another, her mother didn't take it well... I was soon informed that I was to be fired, and instructed never to speak to Lilaya again. As you might understand, Lilaya and I were distraught. At my suggestion, we agreed that the only way Lyssieth would tolerate my continued presence would be if I were to become Lilaya's slave. True enough, her mother accepted my new place as her daughter's property, and from that point on we took extra care not to be discovered in one another's embrace...)]
+	</p>
+	<p>
+		From the moment you saw them interacting with each other, you knew Lilaya and Rose were close, but even so, the revelation that Rose sacrificed her freedom so that they could be together takes you by surprise. As Rose starts blushing, you realise that they must deeply care for one other, and you feel a little bit awkward at having Rose tell you about this intimate part of their relationship.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROSE_TALK_WORLD"><![CDATA[
+	<p>
+		Wondering if Rose is able to give you any interesting information about Dominion, you ask, [pc.speech(What can you tell me about this world?)]
+	</p>
+	<p>
+		[rose.speech(Really, [pc.sir], I'm happy to help in any way I can, but you'd be better off consulting the books in Mistress's library if you're looking for that sort of information,)] Rose replies, [rose.speech(If you want some basic knowledge, however, then I can tell you that this world is ruled by Lilith, who's the most powerful demon to ever have existed. She lives here in Dominion, in that huge tower that can be seen from miles around. Although she personally rules over this city, she allows her daughters, the elder lilin, to control other parts of her domain. Surrounding Dominion, there's plenty of farmland and woodland, which collectively is called the 'Foloi Fields', and is ruled by Lunette. Other than that, I know that there's a jungle to the north, ruled by Lyxias; a desert to the south, ruled by Lisophia; and the Endless Sea to the East, ruled by Lirecea.)]
+	</p>
+	<p>
+		It seems as though every elder lilin's name beings with an 'L', and you wonder how Rose is able to remember them all. Even though the maid's information was quite limited, you're still grateful that she's told you a little more about how this world works. It doesn't look like she's finished just yet, however, and takes a little breath before continuing, [rose.speech(If you're looking for more information about the culture and ways of Dominion, then I suppose I can give you a few pointers as well. The most common races that you'll see walking the streets are demons, cat, dog, and horse-morphs. Although there are countless other races that inhabit this world, they mostly tend to stay in their home regions, so you'll see plenty of cow-morphs and rabbit-morphs out in the fields, but almost none in the jungle or desert.)]
+	</p>
+	<p>
+		Coming to the end, Rose finishes by saying, [rose.speech(The number of humans in our world seems to decrease every year. In order to escape the discrimination and prejudice against humans, they're more and more often choosing to transform themselves. Oh, speaking of which, don't drink any unmarked bottles of liquid, as while they're a little expensive, transformative potions are readily available for anyone to purchase, and they'll alter your body in a flash.)]
+	</p>
+	<p>
+		With that last warning, Rose looks like she's finished, and you wonder if you should ask her anything else, or leave her to carry on with her dusting.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROSE_TALK_DUTIES"><![CDATA[
+	<p>
+		Being curious about the sort of work Rose is expected to carry out, you ask her, [pc.speech(So, what sort of things do you have to do for Lilaya?)]
+	</p>
+	<p>
+		Rose's cheeks suddenly flush red, and although you asked your question in innocence, you realise that Rose's thoughts have instantly turned to some of her more intimate duties. [rose.speech(E-Erm, well, y-you know, demons get pretty horny, and Lilaya's no different. I attend to all of m-mistress's needs...)] she stammers, before starting to regain her composure. [rose.speech(B-But other than that, I spend most of my time cleaning and cooking. You've got no idea how much dusting this place requires!)]
+	</p>
+	<p>
+		As she says this, you suddenly become aware that she's holding a little feather duster, of the same 'French-maid' style as the rest of her uniform. Looking at the little instrument, you find your gaze being curiously drawn to Rose's delicate hands.
+	</p>
+	<p>
+		Sensing what you're looking at, Rose suddenly blushes, and blurts out, [rose.speech(I use a duster like this so I don't have to get my hands dirty! You know, I take really good care of them, but Lilaya never seems to notice...)]
+	</p>
+	<p>
+		You don't quite know what's come over you, but you're finding it hard to think of anything other than Rose's perfect, feminine hands. As you watch, she places her duster down on a little table next to you, and, with a little step forwards, she starts to gently rub her hands together, sliding her slender, feminine fingers over each other and making little moaning noises. With a gulp, you suddenly realise that she's displaying them for your benefit, and as she looks up into your eyes, she makes a pleading little whine.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROSE_TALK_MOTHERS_MILK"><![CDATA[
+	<p>
+		Wanting to help Lilaya to get her pregnancy over with as soon as possible, you produce a bottle of 'Mother's milk' from your inventory, before handing it over to Rose with the words, [pc.speech(Could you please give this to Lilaya? As you no doubt know, I got her pregnant, and I'd like to help her get it over with as soon as possible.)]
+	</p>
+	<p>
+		[rose.speech(Of course, [pc.sir],)] the maid dutifully replies, taking the bottle from you. [rose.speech(I know that mistress isn't opposed to drinking these, so I shall deliver it to her as soon as we're finished. I can assure you that she'll consume it straight away. If you had any more of these, it would be a good idea to wait for a couple of hours before handing them over to me, as I believe that the enchantment needs some time in which to work before any subsequent effects can be applied.)]
+	</p>
+	<p>
+		Thanking Rose for doing as you've asked, as well as for the information, you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

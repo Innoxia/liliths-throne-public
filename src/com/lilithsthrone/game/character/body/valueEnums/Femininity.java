@@ -8,10 +8,10 @@ import com.lilithsthrone.utils.Colour;
  * @author Innoxia
  */
 public enum Femininity {
-	MASCULINE_STRONG(0, 20, Colour.MASCULINE_PLUS),
-	MASCULINE(20, 40, Colour.MASCULINE),
-	ANDROGYNOUS(40, 60, Colour.ANDROGYNOUS),
-	FEMININE(60, 80, Colour.FEMININE),
+	MASCULINE_STRONG(0, 19, Colour.MASCULINE_PLUS),
+	MASCULINE(20, 39, Colour.MASCULINE),
+	ANDROGYNOUS(40, 59, Colour.ANDROGYNOUS),
+	FEMININE(60, 79, Colour.FEMININE),
 	FEMININE_STRONG(80, 100, Colour.FEMININE_PLUS);
 
 	private int minimumFemininity, maximumFemininity;
@@ -37,7 +37,7 @@ public enum Femininity {
 
 	public static Femininity valueOf(int femininity) {
 		for(Femininity f : Femininity.values()) {
-			if(femininity>=f.getMinimumFemininity() && femininity<f.getMaximumFemininity()) {
+			if(femininity>=f.getMinimumFemininity() && femininity<=f.getMaximumFemininity()) {
 				return f;
 			}
 		}

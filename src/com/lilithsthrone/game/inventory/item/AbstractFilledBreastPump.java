@@ -60,7 +60,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof AbstractFilledBreastPump)
 					&& ((AbstractFilledBreastPump)o).getMilkProvidorId().equals(this.getMilkProvidorId())

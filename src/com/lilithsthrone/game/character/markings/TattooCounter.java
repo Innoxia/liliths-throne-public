@@ -34,7 +34,7 @@ public class TattooCounter implements XMLSaving {
 	}
 
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof TattooCounter)
 					&& ((TattooCounter)o).getType().equals(this.getType())

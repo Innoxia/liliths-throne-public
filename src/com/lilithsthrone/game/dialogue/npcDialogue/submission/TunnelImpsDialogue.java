@@ -1142,7 +1142,8 @@ public class TunnelImpsDialogue {
 						Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
 						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
-						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
+						AFTER_SEX_DEFEAT,
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 				
 			} else if (index == 2) {
 				return new ResponseSex("Eager Sex",
@@ -1154,7 +1155,8 @@ public class TunnelImpsDialogue {
 						null,
 						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
 						AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_EAGER);
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()),
+						ResponseTag.START_PACE_PLAYER_SUB_EAGER);
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
@@ -1166,7 +1168,8 @@ public class TunnelImpsDialogue {
 						null,
 						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
 						AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_RESIST);
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()),
+						ResponseTag.START_PACE_PLAYER_SUB_RESISTING);
 			} else {
 				return null;
 			}
@@ -1215,7 +1218,7 @@ public class TunnelImpsDialogue {
 						null,
 						null,
 						AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_RESIST);
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_RESISTING);
 			} else {
 				return null;
 			}

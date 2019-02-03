@@ -50,7 +50,7 @@ public enum Capacity {
 	}
 
 	public int getMedianValue() {
-		return maximumSizeComfortable.getMedianValue();//.getMinimumValue() + (maximumSizeComfortable.getMaximumValue() - maximumSizeComfortable.getMinimumValue()) / 2;
+		return maximumSizeComfortable.getMedianValue();
 	}
 
 	public static Capacity getCapacityFromValue(float capacity) {
@@ -62,9 +62,6 @@ public enum Capacity {
 		return SEVEN_GAPING;
 	}
 
-	/**
-	 * This should only really be used for calculating what size to stretch a demonic orifice to.
-	 */
 	public static Capacity getCapacityToFitPenis(PenisSize size) {
 		for(Capacity c : Capacity.values()) {
 			if(size==c.getMaximumSizeComfortable()) {
