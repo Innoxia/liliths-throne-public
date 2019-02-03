@@ -235,7 +235,7 @@ public enum Combat {
 	 * 
 	 * @param playerVictory
 	 */
-	private static void endCombat(boolean playerVictory) {
+	public static void endCombat(boolean playerVictory) {
 		
 		postCombatStringBuilder.setLength(0);
 		
@@ -569,7 +569,7 @@ public enum Combat {
 
 		@Override
 		public String getContent() {
-			return combatContent;
+			return combatStringBuilder.toString();
 		}
 		
 		@Override
@@ -1383,8 +1383,14 @@ public enum Combat {
 					+ "You kneel in front of [npc.name], lowering your head in submission as you mutter,"
 					+ " [pc.speech(I don't want to fight any more, I submit.)]"
 				+ "</p>"));
+		
+		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Submit", attackStringBuilder.toString()));
 
-		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Wait", attackStringBuilder.toString()));
+		combatStringBuilder.append(getCharactersTurnDiv(enemyLeader, "Victory",
+				UtilText.parse(enemyLeader,
+					"<p>"
+						+ "[npc.Name] lets out a triumphant laugh, before moving forwards to take advantage of your submission..."
+					+ "</p>")));
 	}
 
 	private static void escape(GameCharacter attacker) {

@@ -369,7 +369,7 @@ public class Covering  {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 //		if(super.equals(o)){
 			if(o instanceof Covering){
 				if(((Covering)o).getType() == type

@@ -11,10 +11,10 @@ public enum FootStructure {
 	PLANTIGRADE("plantigrade", "[npc.She] [npc.verb(walk)] with [npc.her] feet flat on the ground."),
 
 	/**walk on toes with the heel permanently raised*/
-	DIGITIGRADE("digitigrade", "[npc.She] [npc.verb(walk)] on [npc.her] toes, with [npc.her] heel being permanently raised."),
+	DIGITIGRADE("digitigrade", "[npc.She] [npc.verb(walk)] on [npc.her] [npc.toes], with [npc.her] heel being permanently raised."),
 
 	/**walk on hoof with the rest of the foot permanently raised*/
-	UNGULIGRADE("unguligrade", "[npc.She] [npc.verb(walk)] on [npc.her] hoofs, with the rest of [npc.her] foot being permanently raised.");
+	UNGULIGRADE("unguligrade", "[npc.She] [npc.verb(walk)] on [npc.her] [npc.toes], with the rest of [npc.her] foot being permanently raised.");
 	
 	private String name;
 	private String description;

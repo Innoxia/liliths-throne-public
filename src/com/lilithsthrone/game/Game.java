@@ -81,7 +81,7 @@ import java.util.stream.IntStream;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia, AlacoGit
  */
 public class Game implements XMLSaving {
@@ -114,6 +114,7 @@ public class Game implements XMLSaving {
 	private boolean inSex;
 	private boolean imperialMeasurements;
 	private boolean requestAutosave;
+	private boolean playerMovedLocation;
 	
 	private Weather currentWeather;
 	private long nextStormTime;
@@ -133,10 +134,19 @@ public class Game implements XMLSaving {
 	// Dialogues:
 	private DialogueNode currentDialogueNode;
 	private DialogueNode savedDialogueNode = null;
-	private String currentDialogue, savedDialogue, previousPastDialogueSBContents = "";
-	private int initialPositionAnchor = 0, responsePage = 0, responseTab = 0;
-	private StringBuilder pastDialogueSB = new StringBuilder(), choicesDialogueSB = new StringBuilder();
-	private StringBuilder textEndStringBuilder = new StringBuilder(), textStartStringBuilder = new StringBuilder();
+	
+	private String currentDialogue;
+	private String savedDialogue;
+	private String previousPastDialogueSBContents = "";
+	
+	private int initialPositionAnchor = 0;
+	private int responsePage = 0;
+	private int responseTab = 0;
+	
+	private StringBuilder pastDialogueSB = new StringBuilder();
+	private StringBuilder choicesDialogueSB = new StringBuilder();
+	private StringBuilder textEndStringBuilder = new StringBuilder();
+	private StringBuilder textStartStringBuilder = new StringBuilder();
 	
 	// Logs:
 	private List<EventLogEntry> eventLog = new ArrayList<>();
@@ -695,154 +705,9 @@ public class Game implements XMLSaving {
 
 				
 				// Add in new NPCS:
+				Main.game.initUniqueNPCs();
 				
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Scarlett.class))) {
-					Main.game.addNPC(new Scarlett(), false);
-					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
-						Main.game.getNpc(Scarlett.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST);
-					}
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Rose.class))) {
-					Main.game.addNPC(new Rose(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kate.class))) {
-					Main.game.addNPC(new Kate(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Vicky.class))) {
-					Main.game.addNPC(new Vicky(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Pix.class))) {
-					Main.game.addNPC(new Pix(), false);
-				}
-				
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Arthur.class))) {
-					Main.game.addNPC(new Arthur(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Amber.class))) {
-					Main.game.addNPC(new Amber(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(ZaranixMaidKatherine.class))) {
-					Main.game.addNPC(new ZaranixMaidKatherine(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(ZaranixMaidKelly.class))) {
-					Main.game.addNPC(new ZaranixMaidKelly(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Zaranix.class))) {
-					Main.game.addNPC(new Zaranix(), false);
-					
-					NPC zaranix = Main.game.getNpc(Zaranix.class);
-					NPC amber = Main.game.getNpc(Amber.class);
-					NPC kelly = Main.game.getNpc(ZaranixMaidKelly.class);
-					NPC katherine = Main.game.getNpc(ZaranixMaidKatherine.class);
-					
-					zaranix.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-					zaranix.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-					zaranix.setAffection(amber, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-
-					amber.setAffection(zaranix, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-					amber.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-					amber.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-
-					kelly.setAffection(zaranix, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-					kelly.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-					kelly.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-
-					katherine.setAffection(zaranix, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-					katherine.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-					katherine.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-				}
-				
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ashley.class))) {
-					Main.game.addNPC(new Ashley(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierLeader.class))) {
-					Main.game.addNPC(new SupplierLeader(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierPartner.class))) {
-					Main.game.addNPC(new SupplierPartner(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Angel.class))) {
-					Main.game.addNPC(new Angel(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Bunny.class))) {
-					Main.game.addNPC(new Bunny(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Loppy.class))) {
-					Main.game.addNPC(new Loppy(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lumi.class))) {
-					Main.game.addNPC(new Lumi(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Claire.class))) {
-					Main.game.addNPC(new Claire(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeQueen.class))) { // Add slime queen quest NPCs:
-					Main.game.addNPC(new SlimeQueen(), false);
-					Main.game.addNPC(new SlimeGuardIce(), false);
-					Main.game.addNPC(new SlimeGuardFire(), false);
-					Main.game.addNPC(new SlimeRoyalGuard(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Roxy.class))) { // Add gambling den NPCs:
-					Main.game.addNPC(new Roxy(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Axel.class))) {
-					Main.game.addNPC(new Axel(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Epona.class))) {
-					Main.game.addNPC(new Epona(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Jules.class))) { // Add nightclub NPCs:
-					Main.game.addNPC(new Jules(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kruger.class))) {
-					Main.game.addNPC(new Kruger(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kalahari.class))) {
-					Main.game.addNPC(new Kalahari(), false);
-					Main.game.getNpc(Kalahari.class).setFather(Main.game.getNpc(Kruger.class));
-					Main.game.getNpc(Kalahari.class).setAffection(Main.game.getNpc(Kruger.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-					Main.game.getNpc(Kruger.class).setAffection(Main.game.getNpc(Kalahari.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-				}
-
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressAlphaLeader.class))) {
-					Main.game.addNPC(new FortressAlphaLeader(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(DarkSiren.class))) {
-					Main.game.addNPC(new DarkSiren(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressFemalesLeader.class))) {
-					Main.game.addNPC(new FortressFemalesLeader(), false);
-				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressMalesLeader.class))) {
-					Main.game.addNPC(new FortressMalesLeader(), false);
-				}
-
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SubmissionCitadelArcanist.class))) {
-					Main.game.addNPC(new SubmissionCitadelArcanist(), false);
-				}
-
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lyssieth.class))) {
-					Main.game.addNPC(new Lyssieth(), false);
-
-					Main.game.getNpc(Lilaya.class).setAffection(Main.game.getNpc(Lyssieth.class), -60);
-					Main.game.getNpc(Lilaya.class).setAffection(Main.game.getNpc(DarkSiren.class), 15);
-					Main.game.getNpc(Lilaya.class).setMother(Main.game.getNpc(Lyssieth.class));
-
-					Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lyssieth.class), -25);
-					Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lilaya.class), 35);
-					Main.game.getNpc(DarkSiren.class).setMother(Main.game.getNpc(Lyssieth.class));
-				}
-				
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Elizabeth.class))) {
-					Main.game.addNPC(new Elizabeth(), false);
-					Main.game.getNpc(Elizabeth.class).setMother(Main.game.getNpc(Lyssieth.class));
-
-					Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getNpc(Lilaya.class), 100);
-					Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getNpc(DarkSiren.class), 50);
-					Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getNpc(Elizabeth.class), 75);
-				}
-				
-				if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) { // Fix for incorrect positioning bug in an old version:
 					Main.game.getNpc(Jules.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_ENTRANCE);
 					Main.game.getNpc(Kruger.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 					Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
@@ -885,7 +750,7 @@ public class Game implements XMLSaving {
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.5.1")) { //Reset ass/nipple/lip colours
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(!npc.isSlave() || (npc.getOwner()!=null && !npc.getOwner().isPlayer()))
-						npc.setSkinCovering(new Covering(npc.getSkinType().getBodyCoveringType(npc), npc.getCovering(npc.getSkinType().getBodyCoveringType(npc)).getPrimaryColour()), true);
+						npc.setSkinCovering(new Covering(npc.getSkinCovering(), npc.getCovering(npc.getSkinCovering()).getPrimaryColour()), true);
 					}
 				}
 				
@@ -988,6 +853,15 @@ public class Game implements XMLSaving {
 					}
 					Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_LIBRARY).getInventory().addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HALF_DEMON)));
 				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.0.5")) {
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
+						ImpCitadelDialogue.clearFortress();
+						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
+						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
+						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
+						((DarkSiren)Main.game.getNpc(DarkSiren.class)).postDefeatReset();
+					}
+				}
 				
 				Main.game.pendingSlaveInStocksReset = false;
 				
@@ -1089,185 +963,9 @@ public class Game implements XMLSaving {
 	}
 	
 	public void initNewGame(DialogueNode startingDialogueNode) {
-		// Set up NPCs:
-		try {
-			NPCMap.clear();
-			
-			addNPC(new GenericMaleNPC(), false);
-			addNPC(new GenericFemaleNPC(), false);
-			addNPC(new GenericAndrogynousNPC(), false);
-			
-			addNPC(new PrologueMale(), false);
-			
-			addNPC(new PrologueFemale(), false);
-			
-			addNPC(new TestNPC(), false);
 
-			// Story:
-			
-			Lilaya lilaya = new Lilaya();
-			addNPC(lilaya, false);
-			lilaya.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
-			
-			Rose rose = new Rose();
-			addNPC(rose, false);
-			rose.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
-			lilaya.addSlave(rose);
-			rose.setObedience(ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMedianValue());
-			lilaya.setAffection(rose, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-			rose.setAffection(lilaya, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-			
-			Brax brax = new Brax();
-			addNPC(brax, false);
-	
-			CandiReceptionist candiReceptionist = new CandiReceptionist();
-			addNPC(candiReceptionist, false);
-	
-			brax.setAffection(candiReceptionist, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-			candiReceptionist.setAffection(brax, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-
-			// Shopping Promenade:
-			
-			addNPC(new Ralph(), false);
-			
-			addNPC(new Nyan(), false);
-			
-			addNPC(new Vicky(), false);
-			
-			addNPC(new Pix(), false);
-			
-			addNPC(new Kate(), false);
-
-			// Harpy nests:
-			
-			Scarlett scarlett = new Scarlett();
-			addNPC(scarlett, false);
-			
-			Alexa alexa = new Alexa();
-			addNPC(alexa, false);
-			
-			alexa.setAffection(scarlett, AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
-			scarlett.setAffection(alexa, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			scarlett.setAffection(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
-			
-			HarpyBimbo harpyBimbo = new HarpyBimbo();
-			addNPC(harpyBimbo, false);
-			
-			HarpyBimboCompanion harpyBimboCompanion = new HarpyBimboCompanion();
-			addNPC(harpyBimboCompanion, false);
-	
-			harpyBimbo.setAffection(harpyBimboCompanion, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			harpyBimboCompanion.setAffection(harpyBimbo, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
-			
-			HarpyDominant harpyDominant = new HarpyDominant();
-			addNPC(harpyDominant, false);
-	
-			HarpyDominantCompanion harpyDominantCompanion = new HarpyDominantCompanion();
-			addNPC(harpyDominantCompanion, false);
-	
-			harpyDominant.setAffection(harpyDominantCompanion, AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
-			harpyDominantCompanion.setAffection(harpyDominant, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
-			
-			HarpyNympho harpyNympho = new HarpyNympho();
-			addNPC(harpyNympho, false);
-	
-			HarpyNymphoCompanion harpyNymphoCompanion = new HarpyNymphoCompanion();
-			addNPC(harpyNymphoCompanion, false);
-	
-			harpyNympho.setAffection(harpyNymphoCompanion, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-			harpyNymphoCompanion.setAffection(harpyNympho, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
-			
-			addNPC(new Pazu(), false);
-			
-			addNPC(new Finch(), false);
-			
-			// Zaranix:
-			Zaranix zaranix = new Zaranix();
-			addNPC(zaranix, false);
-			
-			ZaranixMaidKatherine katherine = new ZaranixMaidKatherine();
-			addNPC(katherine, false);
-			
-			ZaranixMaidKelly kelly = new ZaranixMaidKelly();
-			addNPC(kelly, false);
-			
-			Amber amber = new Amber();
-			addNPC(amber, false);
-			
-			
-			zaranix.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			zaranix.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			zaranix.setAffection(amber, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-
-			amber.setAffection(zaranix, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-			amber.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			amber.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-
-			kelly.setAffection(zaranix, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			kelly.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			kelly.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-
-			katherine.setAffection(zaranix, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			katherine.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			katherine.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-			
-			addNPC(new Arthur(), false);
-
-			addNPC(new Ashley(), false);
-			addNPC(new SupplierLeader(), false);
-			addNPC(new SupplierPartner(), false);
-
-			addNPC(new Angel(), false);
-			addNPC(new Bunny(), false);
-			addNPC(new Loppy(), false);
-			
-			addNPC(new Lumi(), false);
-			addNPC(new Claire(), false);
-
-			addNPC(new SlimeQueen(), false);
-			addNPC(new SlimeGuardIce(), false);
-			addNPC(new SlimeGuardFire(), false);
-			addNPC(new SlimeRoyalGuard(), false);
-			
-			addNPC(new Roxy(), false);
-			addNPC(new Axel(), false);
-			addNPC(new Epona(), false);
-
-			addNPC(new Jules(), false);
-			addNPC(new Kruger(), false);
-			addNPC(new Kalahari(), false);
-			Main.game.getNpc(Kalahari.class).setFather(Main.game.getNpc(Kruger.class));
-			Main.game.getNpc(Kalahari.class).setAffection(Main.game.getNpc(Kruger.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-			Main.game.getNpc(Kruger.class).setAffection(Main.game.getNpc(Kalahari.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-
-			addNPC(new FortressAlphaLeader(), false);
-			addNPC(new DarkSiren(), false);
-			addNPC(new FortressFemalesLeader(), false);
-			addNPC(new FortressMalesLeader(), false);
-
-			addNPC(new SubmissionCitadelArcanist(), false);
-
-			addNPC(new Lyssieth(), false);
-			addNPC(new Elizabeth(), false);
-			
-			getNpc(Lilaya.class).setAffection(getNpc(Lyssieth.class), -60);
-			getNpc(Lilaya.class).setAffection(getNpc(DarkSiren.class), 15);
-			getNpc(Lilaya.class).setMother(getNpc(Lyssieth.class));
-
-			getNpc(DarkSiren.class).setAffection(getNpc(Lyssieth.class), -25);
-			getNpc(DarkSiren.class).setAffection(getNpc(Lilaya.class), 35);
-			getNpc(DarkSiren.class).setMother(getNpc(Lyssieth.class));
-
-			getNpc(Elizabeth.class).setMother(getNpc(Lyssieth.class));
-			getNpc(Elizabeth.class).setAffection(getNpc(Lyssieth.class), 100);
-
-			getNpc(Lyssieth.class).setAffection(getNpc(Lilaya.class), 100);
-			getNpc(Lyssieth.class).setAffection(getNpc(DarkSiren.class), 50);
-			getNpc(Lyssieth.class).setAffection(getNpc(Elizabeth.class), 75);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		NPCMap.clear();
+		initUniqueNPCs();
 
 		// This is due to the fact that on new world creation, the player is placed at coordinates (0, 0), which reveals the three squares at the bottom left corner of the map:
 		Main.game.getActiveWorld().getCell(0, 0).setDiscovered(false);
@@ -1279,6 +977,193 @@ public class Game implements XMLSaving {
 		SlaverAlleyDialogue.dailyReset();
 
 		setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode));
+	}
+	
+	private void initUniqueNPCs() {
+		// Set up NPCs:
+		try {
+			List<Class<? extends NPC>> addedNpcs = new ArrayList<>();
+			
+			// Misc.:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(GenericMaleNPC.class))) { addNPC(new GenericMaleNPC(), false); addedNpcs.add(GenericMaleNPC.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(GenericFemaleNPC.class))) { addNPC(new GenericFemaleNPC(), false);  addedNpcs.add(GenericFemaleNPC.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(GenericAndrogynousNPC.class))) { addNPC(new GenericAndrogynousNPC(), false); addedNpcs.add(GenericAndrogynousNPC.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(PrologueMale.class))) { addNPC(new PrologueMale(), false); addedNpcs.add(PrologueMale.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(PrologueFemale.class))) { addNPC(new PrologueFemale(), false); addedNpcs.add(PrologueFemale.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(TestNPC.class))) { addNPC(new TestNPC(), false); addedNpcs.add(TestNPC.class); }
+
+			// Contributors:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lumi.class))) { addNPC(new Lumi(), false); addedNpcs.add(Lumi.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Pazu.class))) { addNPC(new Pazu(), false); addedNpcs.add(Pazu.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ashley.class))) { addNPC(new Ashley(), false); addedNpcs.add(Ashley.class); }
+			
+			// Story:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Rose.class))) { addNPC(new Rose(), false); addedNpcs.add(Rose.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lilaya.class))) { addNPC(new Lilaya(), false); addedNpcs.add(Lilaya.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Arthur.class))) { addNPC(new Arthur(), false); addedNpcs.add(Arthur.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lyssieth.class))) { addNPC(new Lyssieth(), false); addedNpcs.add(Lyssieth.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Elizabeth.class))) { addNPC(new Elizabeth(), false); addedNpcs.add(Elizabeth.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SubmissionCitadelArcanist.class))) { addNPC(new SubmissionCitadelArcanist(), false); addedNpcs.add(SubmissionCitadelArcanist.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(DarkSiren.class))) { addNPC(new DarkSiren(), false); addedNpcs.add(DarkSiren.class); }
+			
+			if(addedNpcs.contains(Lilaya.class)) {
+				getNpc(Lilaya.class).setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+				getNpc(Lilaya.class).setAffection(getNpc(Rose.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				getNpc(Lilaya.class).addSlave(getNpc(Rose.class));
+				
+				getNpc(Lilaya.class).setAffection(getNpc(Lyssieth.class), -60);
+				getNpc(Lilaya.class).setAffection(getNpc(DarkSiren.class), 15);
+				getNpc(Lilaya.class).setMother(getNpc(Lyssieth.class));
+			}
+			if(addedNpcs.contains(Rose.class)) {
+				getNpc(Rose.class).setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+				getNpc(Rose.class).setAffection(getNpc(Lilaya.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				getNpc(Rose.class).setObedience(ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMedianValue());
+				getNpc(Rose.class).setAffection(getNpc(Lyssieth.class), -40);
+			}
+			if(addedNpcs.contains(DarkSiren.class)) {
+				getNpc(DarkSiren.class).setAffection(getNpc(Lyssieth.class), -25);
+				getNpc(DarkSiren.class).setAffection(getNpc(Lilaya.class), 35);
+				getNpc(DarkSiren.class).setMother(getNpc(Lyssieth.class));
+			}
+			if(addedNpcs.contains(Elizabeth.class)) {
+				getNpc(Elizabeth.class).setMother(getNpc(Lyssieth.class));
+				getNpc(Elizabeth.class).setAffection(getNpc(Lyssieth.class), 100);
+			}
+			if(addedNpcs.contains(Lyssieth.class)) {
+				getNpc(Lyssieth.class).setAffection(getNpc(Lilaya.class), 100);
+				getNpc(Lyssieth.class).setAffection(getNpc(DarkSiren.class), 50);
+				getNpc(Lyssieth.class).setAffection(getNpc(Elizabeth.class), 75);
+				getNpc(Lyssieth.class).setAffection(getNpc(Rose.class), -80);
+			}
+
+			// Enforcers:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Brax.class))) { addNPC(new Brax(), false); addedNpcs.add(Brax.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(CandiReceptionist.class))) { addNPC(new CandiReceptionist(), false); addedNpcs.add(CandiReceptionist.class); }
+			
+			if(addedNpcs.contains(Brax.class)) {
+				getNpc(Brax.class).setAffection(getNpc(CandiReceptionist.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+			}
+			if(addedNpcs.contains(CandiReceptionist.class)) {
+				getNpc(CandiReceptionist.class).setAffection(getNpc(Brax.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+			}
+
+			// Shopping Promenade:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ralph.class))) { addNPC(new Ralph(), false); addedNpcs.add(Ralph.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Nyan.class))) { addNPC(new Nyan(), false); addedNpcs.add(Nyan.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Vicky.class))) { addNPC(new Vicky(), false); addedNpcs.add(Vicky.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Pix.class))) { addNPC(new Pix(), false); addedNpcs.add(Pix.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kate.class))) { addNPC(new Kate(), false); addedNpcs.add(Kate.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierLeader.class))) { addNPC(new SupplierLeader(), false); addedNpcs.add(SupplierLeader.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierPartner.class))) { addNPC(new SupplierPartner(), false); addedNpcs.add(SupplierPartner.class); }
+
+			// Harpy nests:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Scarlett.class))) { addNPC(new Scarlett(), false); addedNpcs.add(Scarlett.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Alexa.class))) { addNPC(new Alexa(), false); addedNpcs.add(Alexa.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyBimbo.class))) { addNPC(new HarpyBimbo(), false); addedNpcs.add(HarpyBimbo.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyBimboCompanion.class))) { addNPC(new HarpyBimboCompanion(), false); addedNpcs.add(HarpyBimboCompanion.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyDominant.class))) { addNPC(new HarpyDominant(), false); addedNpcs.add(HarpyDominant.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyDominantCompanion.class))) { addNPC(new HarpyDominantCompanion(), false); addedNpcs.add(HarpyDominantCompanion.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyNympho.class))) { addNPC(new HarpyNympho(), false); addedNpcs.add(HarpyNympho.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyNymphoCompanion.class))) { addNPC(new HarpyNymphoCompanion(), false); addedNpcs.add(HarpyNymphoCompanion.class); }
+
+			if(addedNpcs.contains(Scarlett.class)) {
+				Main.game.getNpc(Scarlett.class).setAffection(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
+				Main.game.getNpc(Scarlett.class).setAffection(Main.game.getNpc(Alexa.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
+					Main.game.getNpc(Scarlett.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST);
+				}
+			}
+			if(addedNpcs.contains(Alexa.class)) {
+				Main.game.getNpc(Alexa.class).setAffection(Main.game.getNpc(Scarlett.class), AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
+			}
+			if(addedNpcs.contains(HarpyBimbo.class)) {
+				Main.game.getNpc(HarpyBimbo.class).setAffection(Main.game.getNpc(HarpyBimboCompanion.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			}
+			if(addedNpcs.contains(HarpyBimboCompanion.class)) {
+				Main.game.getNpc(HarpyBimboCompanion.class).setAffection(Main.game.getNpc(HarpyBimbo.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+			}
+			if(addedNpcs.contains(HarpyDominant.class)) {
+				Main.game.getNpc(HarpyDominant.class).setAffection(Main.game.getNpc(HarpyDominantCompanion.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+			}
+			if(addedNpcs.contains(HarpyDominantCompanion.class)) {
+				Main.game.getNpc(HarpyDominantCompanion.class).setAffection(Main.game.getNpc(HarpyDominant.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+			}
+			if(addedNpcs.contains(HarpyNympho.class)) {
+				Main.game.getNpc(HarpyNympho.class).setAffection(Main.game.getNpc(HarpyNymphoCompanion.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			}
+			if(addedNpcs.contains(HarpyNymphoCompanion.class)) {
+				Main.game.getNpc(HarpyNymphoCompanion.class).setAffection(Main.game.getNpc(HarpyNympho.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+			}
+			
+			// Slaver alley:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Finch.class))) { addNPC(new Finch(), false); addedNpcs.add(Finch.class); }
+
+			// Zaranix's home:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Zaranix.class))) { addNPC(new Zaranix(), false); addedNpcs.add(Zaranix.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Amber.class))) { addNPC(new Amber(), false); addedNpcs.add(Amber.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(ZaranixMaidKatherine.class))) { addNPC(new ZaranixMaidKatherine(), false); addedNpcs.add(ZaranixMaidKatherine.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(ZaranixMaidKelly.class))) { addNPC(new ZaranixMaidKelly(), false); addedNpcs.add(ZaranixMaidKelly.class); }
+
+			if(addedNpcs.contains(Zaranix.class)) {
+				Main.game.getNpc(Zaranix.class).setAffection(Main.game.getNpc(ZaranixMaidKatherine.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(Zaranix.class).setAffection(Main.game.getNpc(ZaranixMaidKelly.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(Zaranix.class).setAffection(Main.game.getNpc(Amber.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			}
+			if(addedNpcs.contains(Amber.class)) {
+				Main.game.getNpc(Amber.class).setAffection(Main.game.getNpc(Zaranix.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				Main.game.getNpc(Amber.class).setAffection(Main.game.getNpc(ZaranixMaidKelly.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(Amber.class).setAffection(Main.game.getNpc(ZaranixMaidKatherine.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			}
+			if(addedNpcs.contains(ZaranixMaidKatherine.class)) {
+				Main.game.getNpc(ZaranixMaidKatherine.class).setAffection(Main.game.getNpc(Zaranix.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(ZaranixMaidKatherine.class).setAffection(Main.game.getNpc(ZaranixMaidKelly.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(ZaranixMaidKatherine.class).setAffection(Main.game.getNpc(Amber.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			}
+			if(addedNpcs.contains(ZaranixMaidKelly.class)) {
+				Main.game.getNpc(ZaranixMaidKelly.class).setAffection(Main.game.getNpc(Zaranix.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(ZaranixMaidKelly.class).setAffection(Main.game.getNpc(ZaranixMaidKatherine.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(ZaranixMaidKelly.class).setAffection(Main.game.getNpc(Amber.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			}
+
+			// Angel's kiss:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Angel.class))) { addNPC(new Angel(), false); addedNpcs.add(Angel.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Bunny.class))) { addNPC(new Bunny(), false); addedNpcs.add(Bunny.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Loppy.class))) { addNPC(new Loppy(), false); addedNpcs.add(Loppy.class); }
+
+			// Slime queen:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeQueen.class))) { addNPC(new SlimeQueen(), false); addedNpcs.add(SlimeQueen.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeGuardIce.class))) { addNPC(new SlimeGuardIce(), false); addedNpcs.add(SlimeGuardIce.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeGuardFire.class))) { addNPC(new SlimeGuardFire(), false); addedNpcs.add(SlimeGuardFire.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeRoyalGuard.class))) { addNPC(new SlimeRoyalGuard(), false); addedNpcs.add(SlimeRoyalGuard.class); }
+			
+			// Submission:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Claire.class))) { addNPC(new Claire(), false); addedNpcs.add(Claire.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressAlphaLeader.class))) { addNPC(new FortressAlphaLeader(), false); addedNpcs.add(FortressAlphaLeader.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressFemalesLeader.class))) { addNPC(new FortressFemalesLeader(), false); addedNpcs.add(FortressFemalesLeader.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressMalesLeader.class))) { addNPC(new FortressMalesLeader(), false); addedNpcs.add(FortressMalesLeader.class); }
+			
+			// Nightclub:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Jules.class))) { addNPC(new Jules(), false); addedNpcs.add(Jules.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kruger.class))) { addNPC(new Kruger(), false); addedNpcs.add(Kruger.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kalahari.class))) { addNPC(new Kalahari(), false); addedNpcs.add(Kalahari.class); }
+
+			if(addedNpcs.contains(Kalahari.class)) {
+				Main.game.getNpc(Kalahari.class).setFather(Main.game.getNpc(Kruger.class));
+				Main.game.getNpc(Kalahari.class).setAffection(Main.game.getNpc(Kruger.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			}
+			if(addedNpcs.contains(Kruger.class)) {
+				Main.game.getNpc(Kruger.class).setAffection(Main.game.getNpc(Kalahari.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			}
+			
+			// Gambling den:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Roxy.class))) { addNPC(new Roxy(), false); addedNpcs.add(Roxy.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Axel.class))) { addNPC(new Axel(), false); addedNpcs.add(Axel.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Epona.class))) { addNPC(new Epona(), false); addedNpcs.add(Epona.class); }
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Main updating for game mechanics, as everything is based on turns.
@@ -1305,7 +1190,7 @@ public class Game implements XMLSaving {
 		// Reset imp tunnels after 5 days if DS is defeated:
 		if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
 			boolean alphaReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressAlphaDefeatedTime) > 60*24*5);
-			boolean demonReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressDemonDefeatedTime) > 60*24*5);
+//			boolean demonReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressDemonDefeatedTime) > 60*24*5);
 			boolean femalesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressFemalesDefeatedTime) > 60*24*5);
 			boolean malesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressMalesDefeatedTime) > 60*24*5);
 			
@@ -1318,9 +1203,9 @@ public class Game implements XMLSaving {
 			if(malesReset && Main.game.getPlayer().getWorldLocation()!=WorldType.IMP_FORTRESS_MALES) {
 				ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
 			}
-			if(demonReset && Main.game.getPlayer().getWorldLocation()!=WorldType.IMP_FORTRESS_DEMON) {
-				ImpCitadelDialogue.resetFortress();
-			}
+//			if(demonReset && Main.game.getPlayer().getWorldLocation()!=WorldType.IMP_FORTRESS_DEMON) {
+//				ImpCitadelDialogue.resetFortress();
+//			}
 		}
 		
 		// Do the player's companion check before anything else, as if a companion leaves, then the follow-up check to send to work needs to be performed.
@@ -1452,7 +1337,7 @@ public class Game implements XMLSaving {
 						npc.setPendingClothingDressing(false);
 						
 					} else if(!npc.isSlave() && !npc.isUnique()
-							&& (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))){
+							&& (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))) {
 						// Try to replace clothing to cover themselves up:
 						if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
 							npc.replaceAllClothing();
@@ -1521,7 +1406,7 @@ public class Game implements XMLSaving {
 			
 			if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 				for(CoverableArea ca : CoverableArea.values()) {
-					if(npc.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
+					if(npc.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 						npc.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 					}
 				}
@@ -1736,6 +1621,7 @@ public class Game implements XMLSaving {
 			
 			String chosenResponse = response.getTitle();
 			DialogueNode node = response.getNextDialogue();
+			setPlayerMovedLocation(false);
 			response.applyEffects();
 			
 			if(response instanceof ResponseCombat) {
@@ -1744,6 +1630,7 @@ public class Game implements XMLSaving {
 				
 			} else if(response instanceof ResponseSex) {
 				setContent(new Response("", "", ((ResponseSex)response).initSex()));
+				((ResponseSex)response).postSexInitEffects();
 				return;
 				
 			} else if(response instanceof ResponseEffectsOnly) {
@@ -1752,7 +1639,7 @@ public class Game implements XMLSaving {
 			} else if(response instanceof ResponseTrade) {
 				((ResponseTrade)response).openTrade();
 				return;
-			} 
+			}
 			
 			
 			if (node != null) {
@@ -1925,7 +1812,11 @@ public class Game implements XMLSaving {
 				textStartStringBuilder.setLength(0);
 				
 				if(started) {
-					Main.game.endTurn(getCurrentDialogueNode().getMinutesPassed());
+					if(isPlayerMovedLocation()) {
+						Main.game.endTurn(getModifierTravelTime(Main.game.getPlayer().getLocationPlace().getPlaceType().isLand(), getCurrentDialogueNode().getMinutesPassed()));
+					} else {
+						Main.game.endTurn(getCurrentDialogueNode().getMinutesPassed());
+					}
 				}
 				
 				TooltipUpdateThread.cancelThreads=true;
@@ -1937,15 +1828,35 @@ public class Game implements XMLSaving {
 	public void setContent(Response response, boolean allowTimeProgress, Colour flashMessageColour, String flashMessageText){
 		
 		DialogueNode node = response.getNextDialogue();
+		setPlayerMovedLocation(false);
 		response.applyEffects();
+		
+		if(response instanceof ResponseCombat) {
+			setContent(new Response("", "", ((ResponseCombat)response).initCombat()));
+			return;
+			
+		} else if(response instanceof ResponseSex) {
+			setContent(new Response("", "", ((ResponseSex)response).initSex()));
+			((ResponseSex)response).postSexInitEffects();
+			return;
+			
+		} else if(response instanceof ResponseEffectsOnly) {
+			return;
+			
+		} else if(response instanceof ResponseTrade) {
+			((ResponseTrade)response).openTrade();
+			return;
+		}
 		
 		if (node == null){
 			return;
 		}
-
+		
 		int currentPosition = 0;
 		if(getCurrentDialogueNode()!=null) {
-			currentPosition =  (int) Main.mainController.getWebEngine().executeScript("document.getElementById('content-block').scrollTop");
+			if(!Main.game.isInSex() || Sex.getTurn()>1) { // First turn of sex should always reset to top
+				currentPosition =  (int) Main.mainController.getWebEngine().executeScript("document.getElementById('content-block').scrollTop");
+			}
 		}
 		
 		String headerContent = node.getHeaderContent();
@@ -2104,13 +2015,13 @@ public class Game implements XMLSaving {
 		//-------------------- MEMORY LEAK PROBLEM
 		setMainContentRegex(node.isContinuesDialogue()
 				?(isContentScroll(node)
-						?"<body onLoad='scrollToElement()'>"
+					?"<body onLoad='scrollToElement()'>"
 						+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
 					:"<body>")
 				:(isContentScroll(node)
-						?"<body onLoad='scrollToElement()'>"
+					?"<body onLoad='scrollToElement()'>"
 						+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = "+currentPosition+";}</script>"
-				:"<body>"),
+					:"<body>"),
 				currentDialogue);
 		//--------------------
 		
@@ -2120,7 +2031,11 @@ public class Game implements XMLSaving {
 		//-------------------- MEMORY LEAK PROBLEM
 		if(started) {
 			if(allowTimeProgress) {
-				Main.game.endTurn(getCurrentDialogueNode().getMinutesPassed());
+				if(isPlayerMovedLocation()) {
+					Main.game.endTurn(getModifierTravelTime(Main.game.getPlayer().getLocationPlace().getPlaceType().isLand(), getCurrentDialogueNode().getMinutesPassed()));
+				} else {
+					Main.game.endTurn(getCurrentDialogueNode().getMinutesPassed());
+				}
 			} else {
 				Main.game.endTurn(0);
 			}
@@ -2806,12 +2721,36 @@ public class Game implements XMLSaving {
 //			}
 //		}
 		
-		charactersPresent.sort((c1, c2) ->
-				(c2.getLevel()-c1.getLevel())==0
-					?c2.getName().compareTo(c1.getName())
-					:(c2.getLevel()-c1.getLevel()));
+		try {
+			charactersPresent.sort((c1, c2) ->
+					(c2.getLevel()-c1.getLevel())==0
+						?c2.getName().compareTo(c1.getName())
+						:(c2.getLevel()-c1.getLevel()));
+		} catch(Exception ex) {
+		}
 		
 		return charactersPresent;
+	}
+	
+	private static int getModifierTravelTime(boolean onLand, int time) {
+		int maxTime = 0;
+		
+		for(GameCharacter character : Main.game.getPlayer().getParty()) {
+			int speed = onLand
+						?character.getLegConfiguration().getLandSpeedModifier()
+						:character.getLegConfiguration().getWaterSpeedModifier();
+			
+			int travelMinutes = time;
+			travelMinutes = (int) (travelMinutes*((100+speed)/100f));
+			if(time>0) {
+				travelMinutes = Math.max(1, travelMinutes);
+			}
+			if(travelMinutes>maxTime) {
+				maxTime = travelMinutes;
+			}
+		}
+		
+		return maxTime;
 	}
 	
 	public String getWeatherImage() {
@@ -3392,6 +3331,14 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.involuntaryNTR);
 	}
 
+	public boolean isFutanariTesticlesEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.futanariTesticles);
+	}
+
+	public boolean isAnalContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.analContent);
+	}
+
 	public boolean isPlotDiscovered() {
 		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
 	}
@@ -3453,6 +3400,14 @@ public class Game implements XMLSaving {
 
 	public void setRequestAutosave(boolean requestAutosave) {
 		this.requestAutosave = requestAutosave;
+	}
+
+	public boolean isPlayerMovedLocation() {
+		return playerMovedLocation;
+	}
+
+	public void setPlayerMovedLocation(boolean playerMovedLocation) {
+		this.playerMovedLocation = playerMovedLocation;
 	}
 	
 }

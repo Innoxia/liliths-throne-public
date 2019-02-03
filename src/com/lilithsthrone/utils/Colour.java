@@ -101,6 +101,7 @@ public enum Colour {
 	STATUS_EFFECT_TIME_MEDIUM(false, BaseColour.ORANGE, "orange"),
 	STATUS_EFFECT_TIME_LOW(false, BaseColour.RED, "red"),
 
+	RACE_BESTIAL(false, BaseColour.TAN, "tan", Util.newArrayListOfValues("bestial", "animal", "feral")),
 	RACE_UNKNOWN(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("unknown")),
 	RACE_HUMAN(false, BaseColour.BLUE_STEEL, "pale blue", Util.newArrayListOfValues("human")),
 	RACE_DEMON(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("demon")),
@@ -118,6 +119,11 @@ public enum Colour {
 	RACE_CAT_MORPH_LEOPARD_SNOW(false, BaseColour.SILVER, "silver", Util.newArrayListOfValues("leopardSnowMorph", "snowLeopard", "snep", "leopardSnow", "snowLeopardMorph")),
 	RACE_COW_MORPH(false, BaseColour.TAN, "tan", Util.newArrayListOfValues("cowMorph", "cow")),
 	RACE_HORSE_MORPH(false, BaseColour.ORANGE, "orange", Util.newArrayListOfValues("horseMorph", "horse")),
+	RACE_PEGASUS(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("pegasusMorph", "pegasus")),
+	RACE_UNICORN(false, BaseColour.WHITE, "white", Util.newArrayListOfValues("unicornMorph", "unicorn")),
+	RACE_ALICORN(false, BaseColour.YELLOW_LIGHT, "light yellow", Util.newArrayListOfValues("alicornMorph", "alicorn")),
+	RACE_CENTAUR(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("centaur")),
+	RACE_PEGATAUR(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("pegataur")),
 	RACE_REINDEER_MORPH(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("reindeerMorph", "reindeer")),
 	RACE_WOLF_MORPH(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("wolfMorph", "wolf")),
 	RACE_FOX_MORPH(false, BaseColour.GINGER, "ginger", Util.newArrayListOfValues("foxMorph", "fox")),
@@ -1057,6 +1063,23 @@ public enum Colour {
 	}
 	
 	public String[] getShades(int shadesCount) {
+		return getShades(shadesCount, false, 1);
+	}
+
+	public String[] getShadesRgbaFormat(float opacity) {
+		return getShades(5, true, opacity);
+	}
+	
+	/**
+	 * @param shadesCount Number of shades to calculate.
+	 * @return Array of Strings, with each one being in the format:<br/>
+	 * {@code rgba(63,107,169, opacity)}
+	 */
+	public String[] getShadesRgbaFormat(int shadesCount, float opacity) {
+		return getShades(shadesCount, true, opacity);
+	}
+	
+	private String[] getShades(int shadesCount, boolean rgba, float opacity) {
 		String[] shadesString = new String[shadesCount];
 		float luminosity = -0.5f;
 		float increment = (Math.abs(luminosity)*2)/(shadesCount-1);
@@ -1074,8 +1097,12 @@ public enum Colour {
 
 			b = blu + (int)(blu * (i * increment + luminosity));
 			b = Math.max(Math.min(b, 255), 0);
-
-			shadesString[i] = String.format("#%02X%02X%02X", r, g, b);
+			
+			if(rgba) {
+				shadesString[i] = "rgba("+r+","+g+","+b+", "+opacity+")";
+			} else {
+				shadesString[i] = String.format("#%02X%02X%02X", r, g, b);
+			}
 		}
 
 		return shadesString;

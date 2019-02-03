@@ -268,7 +268,7 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = UnspawnedChildren(
-						npc-> (npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION) || npc.getSubspecies()==Subspecies.ANGEL));
+						npc-> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION) || npc.getSubspecies()==Subspecies.ANGEL));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -382,7 +382,7 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = UnspawnedChildren(
-						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION));
+						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -437,7 +437,7 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = UnspawnedChildren(
-						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST));
+						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -522,7 +522,7 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = UnspawnedChildren(
-						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST));
+						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -796,7 +796,7 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) {
 					List<NPC> offspringAvailable = UnspawnedChildren(
-						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.SUBMISSION));
+						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);

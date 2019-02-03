@@ -1,60 +1,644 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
+	<!-- LAB -->
+	
 	<htmlContent tag="LAB"><![CDATA[
 	<p>
 		You find yourself walking towards the door to Lilaya's laboratory, and as you get closer, you see that it's been left wide open. You could walk over to the doorway and enter her lab right now, or continue on your way and choose to come back at another time.
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="LAB_PREGNANT"><![CDATA[
+	<p>
+		As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut. A little piece of paper has been stuck on it, and you see that your demonic [lilaya.relation(pc)] has left you a handwritten note:
+	</p>
+	<p style='text-align:center;'>
+		#IF lilaya.isCondomBroke()
+		#THEN
+			<i>Hey [pc.name], I know the condom breaking wasn't your fault, but I need some time alone. I don't want anyone seeing me pregnant. Come back later after I've given birth.</i>
+		#ELSE
+			<i>Hey [pc.name], would you kindly fuck off and give me some time alone? I don't want anyone seeing me pregnant, especially not you! Come back later after I've given birth.</i>
+		#ENDIF
+	</p>
+	<p>
+		Letting out a defeated sigh, you decide to do as the note asks, and step back from the door.
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(It doesn't look as though you're going to be able to get back in until Lilaya's pregnancy has run its course. Maybe Rose could help?)]
+	</p>
+	]]>
+	</htmlContent>
 
 	<htmlContent tag="LAB_PREGNANCY_RISK"><![CDATA[
 	<p>
-		As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut. A little piece of paper has been stuck on it, and you see that Lilaya has left you a handwritten note:
+		As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut. A little piece of paper has been stuck on it, and you see that demonic [lilaya.relation(pc)] has left you a handwritten note:
 	</p>
 	<p style='text-align:center;'>
-		<i>Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean. I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not.</i>
+		#IF lilaya.isCondomBroke()
+		#THEN
+			<i>Hey [pc.name], I may have overreacted a little, but this really is all your fault for buying cheap crappy condoms. I'm keeping this door locked until I know if I'm pregnant or not.</i>
+		#ELSE
+			<i>Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean. I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not.</i>
+		#ENDIF
 	</p>
 	<p>
-		Letting out a defeated sigh, you decide against risking angering her any further, and step back from the door. It looks like you'll just have to wait until she's calmed down.
+		Letting out a defeated sigh, you decide to leave Lilaya alone for now, and step back from the door. It looks like you'll just have to wait until she's calmed down before seeing her again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_PREGNANCY_RESOLVED"><![CDATA[
+	<p>
+		You find yourself walking towards the door to Lilaya's laboratory, and as you get closer, you see that it's once again been left wide open. Realising that Lilaya's pregnancy must now have been resolved, you wonder if you should enter her lab right now, or continue on your way and choose to come back at another time.
 	</p>
 	]]>
 	</htmlContent>
 	
 	
 	
+	<!-- LAB_ENTRY -->
+	
+	<htmlContent tag="LAB_ENTRY_DEMON_REACTION_PREGNANCY_RESOLVED"><![CDATA[
+	<p>
+		As Lilaya hasn't seen you since you were transformed into a demon by Lyssieth, you ready yourself for the worst as you step through the open doorway into her lab.
+	</p>
+	<p>
+		On the opposite side of the room, you see your demonic [lilaya.relation(pc)] sitting at one of the long lab tables, busily performing an experiment. Noticing your entry out of the corner of her eye, she looks across and shoots you a furious glare, before starting to stand up. As she gets to her feet, you notice that she has a flat belly, so although there's still the issue of you being a demon at hand, at least the issue of her pregnancy has been resolved.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_DEMON_REACTION_NO_PREGNANCY"><![CDATA[
+	<p>
+		As Lilaya hasn't seen you since you were transformed into a demon by Lyssieth, you ready yourself for the worst and step through the open doorway into her lab.
+	</p>
+	<p>
+		On the opposite side of the room, you see the half-demon who's now your demonic [lilaya.relation(pc)] sitting at one of the long lab tables, busily performing an experiment. Noticing your entry out of the corner of her eye, she looks across and shoots you a furious glare, before standing up and marching over to you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_DEMON_REACTION"><![CDATA[
+	<p>
+		[lilaya.speech(I simply do <i>not</i> even know what to say!)] she yells in a shrill voice, before contradicting her statement by continuing, [lilaya.speech(I already heard from Meraxis via the resonance stone all about what mommy did! A full demon?! I didn't believe her at first! H-How could you?!)]
+	</p>
+	<p>
+		[pc.speech(How else am I to defeat the other elder lilin without a demon's power?)] you respond with your own question as you try to reason with Lilaya. [pc.speech(Surely you can see how this is for the best?)]
+	</p>
+	<p>
+		[lilaya.speech(Oh, I can see how it's for the best alright,)] Lilaya replies, crossing her arms and letting her voice take on a sinister, icy tone, [lilaya.speech(For my entire life, I've been begging mommy to turn me into a full demon, but no matter what I said, she always refused, telling me that she'd sworn never to turn anyone into a demon ever again. Now that she's quite clearly proven that her word means <i>nothing</i>, she has no choice but to finally give me what I want.)]
+	</p>
+	<p>
+		[pc.speech(Lilaya, please, there's no-)] you start to reason, finding your [lilaya.relation(pc)]'s cold, calculating voice to be of some concern, but you're not able to get even one sentence out before her composure breaks. 
+	</p>
+	<p>
+		[lilaya.speech(<b><i>No!</i></b>)] she screams, [lilaya.speech(I won't hear any of it! Both you and mommy have betrayed me, so you can make it up to me by convincing her to finally turn me into a real demon! I <i>hate</i> being a half-demon! <b><i>I hate it!</i></b>)]
+	</p>
+	<p>
+		Although most of her anger seems directed at your now-shared mother, Lilaya is definitely more than a little upset with you. As you're wondering whether to agree with her demands and convince Lyssieth to transform her into a full demon, she continues,
+		#IF lilaya.getTotalTimesHadSex(pc)>0
+		#THEN [lilaya.speech(And don't think for <i>one second</i> that I'm going to let you fuck me again until you agree to do as I say!)]
+		#ELSE [lilaya.speech(And don't think for <i>one second</i> that I'm going to offer you any special tests until you agree to do as I say!)]
+		#ENDIF
+	</p>
+	<p>
+		Knowing that demonic transformations are permanent, you wonder what you should choose to say...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="LAB_ENTRY_PREGNANT"><![CDATA[
+	<p>
+		Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life.
+	</p>
+	<p>
+		On the opposite side of the room, you see your demonic [lilaya.relation(pc)] sitting at one of the long lab tables, busily performing an experiment. Noticing your entry out of the corner of her eye, she looks across and glares angrily at you, before starting to stand up. As she gets to her feet, you notice that her movements are slightly unusual, and as she steps around the table that she was working at, you see the cause of her clumsy motions taking the form of a clearly swollen belly.
+	</p>
+	<p>
+		[lilaya.speech(Yes, that's right!)] she angrily shouts, before marching over towards you.
+		#IF lilaya.isCondomBroke()
+		#THEN [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]
+		#ELSE [lilaya.speech(You ended up getting me pregnant! This is all your fault for using such cheap, crappy condoms! Why couldn't you have just pulled out instead?!)]
+		#ENDIF
+	</p>
+	<p>
+		Not giving you a chance to talk, she continues furiously scolding you, before launching into the reason as to why she's so upset to be pregnant, [lilaya.speech(You <i>know</i> I'm just a half-demon! That means all my kids end up as imps! Do you have any idea of how embarrassing and shameful it is to be called an 'imp-breeder', or 'imp-fucker'?! <i>Do you?!</i>)]
+	</p>
+	<p>
+		As you start to answer in the negative, Lilaya suddenly whacks you on the arm, and, with tears in her eyes, she shouts, [lilaya.speech(Get out! <b>Get out!</b>)]
+	</p>
+	<p>
+		You try to apologise as your furious [lilaya.relation(pc)] marches you over to the door of her lab, but your words fall on deaf ears. With one last furious yell, she pushes you out into the corridor, before slamming the door shut and locking it behind you.
+	</p>
+	<p>
+		[style.italicsBad(It doesn't look as though you're going to be able to get back in until Lilaya's pregnancy has run its course...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_NOT_PREGNANT"><![CDATA[
+	<p>
+		Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life.
+	</p>
+	<p>
+		On the opposite side of the room, you see your demonic [lilaya.relation(pc)] sitting at one of the long lab tables, busily performing an experiment. Noticing your entry out of the corner of her eye, she looks across and narrows her eyes at you, before standing up and marching over to where you're standing.
+	</p>
+	<p>
+		[lilaya.speech(You're a very lucky [pc.girl],)] she firmly states as she approaches, [lilaya.speech(As you can see, I'm not pregnant. You'd have been in so much trouble if I was!)]
+	</p>
+	<p>
+		#IF lilaya.isCondomBroke()
+		#THEN
+			[pc.speech(Well, it wasn't my fault the condom broke. Everything worked out fine in the end anyway,)] you say, sensing that Lilaya's anger won't last.
+		#ELSE
+			[pc.speech(Everything worked out fine in the end then,)] you say, sensing that Lilaya's anger won't last.
+		#ENDIF
+	</p>
+	<p>
+		True enough, she lets out a resigned sigh as you say that, and, lowering her voice, she continues, [lilaya.speech(Yes, it did. As we only ever give birth to imps, it's extremely embarrassing and shameful for half-demons to get pregnant. Even those who know that I'm the recognised daughter of Lyssieth herself would call me 'imp-breeder' or 'imp-fucker' behind my back... I <i>hate</i> being pregnant!)]
+	</p>
+	<p>
+		Reassuring your [lilaya.relation(pc)] that everything's ok, you walk her back over to her lab table, where she lets out one final sigh and says that she forgives you for not pulling out like she asked. As her thoughts turn back to the sex which the two of you had, Lilaya starts hungrily staring at your body, and, with a sultry tone in her voice, she traces a finger over your chest and asks,
+		#IF lilaya.isCondomBroke()
+		#THEN [lilaya.speech(Now that you're here, would you like me to run some more <i>tests</i>? With the condition that you've got a proper condom this time, or that you'll be sure to pull out...)]
+		#ELSE [lilaya.speech(Now that you're here, would you like me to run some more <i>tests</i>? With the condition that you'll be sure to pull out, of course...)]
+		#ENDIF
+	</p>
+	<p>
+		You wonder if you should take her up on that offer, or discuss some other business with her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_PREGNANCY_RESOLVED"><![CDATA[
+	<p>
+		Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life.
+	</p>
+	<p>
+		On the opposite side of the room, you see your demonic [lilaya.relation(pc)] sitting at one of the long lab tables, busily performing an experiment. Noticing your entry out of the corner of her eye, she looks across and narrows her eyes at you, before standing up and marching over to where you're standing.
+	</p>
+	<p>
+		[lilaya.speech(I've decided to forgive you,)] she firmly states as she approaches, and as she comes to stand before you, you take note of the fact that her belly is flat once again. [lilaya.speech(As you can see, I've given birth, and the imps that you got me knocked up with are no doubt out there in Submission somewhere, causing trouble for everyone! They even tried stealing some of my lab equipment as they left...)]
+	</p>
+	<p>
+		[pc.speech(Sorry for the trouble,)] you say.
+	</p>
+	<p>
+		#IF lilaya.isCondomBroke()
+		#THEN
+			Your [lilaya.relation(pc)] lets out a resigned sigh as you say that, and, lowering her voice, she continues, [lilaya.speech(Yes, well, I've already forgiven you. It wasn't really your fault that the condom broke. Just know now that I <i>hate</i> being pregnant, so don't let this happen again.)]
+		#ELSE
+			Your [lilaya.relation(pc)] lets out a resigned sigh as you say that, and, lowering her voice, she continues, [lilaya.speech(Yes, well, I've already forgiven you. Just know now that I <i>hate</i> being pregnant, so when I say pull out, I mean it.)]
+		#ENDIF
+	</p>
+	<p>
+		Reassuring your [lilaya.relation(pc)] that you now appreciate how much she dislikes being pregnant, you walk her back over to her lab table, where she lets out one final sigh and says that she really did try to warn you about pulling out. As her thoughts turn back to the sex which the two of you had, Lilaya starts hungrily staring at your body, and, with a sultry tone in her voice, she traces a finger over your chest and asks,
+		#IF lilaya.isCondomBroke()
+		#THEN [lilaya.speech(Now that you're here, and that whole business is behind us, would you like me to run some more <i>tests</i>? With the condition that you've got a proper condom this time, or that you'll be sure to pull out...)]
+		#ELSE [lilaya.speech(Now that you're here, and that whole business is behind us, would you like me to run some more <i>tests</i>? With the condition that you'll be sure to pull out, of course...)]
+		#ENDIF
+	</p>
+	<p>
+		You wonder if you should take her up on that offer, or discuss some other business with her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_BASE"><![CDATA[
+	<p>
+		Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life.
+	</p>
+	<p>
+		On the opposite side of the room, you see your demonic [lilaya.relation(pc)] sitting at one of the long lab tables, with her back to the door. Open books and sheets of paper litter the tabletop and floor around her, but she seems far more interested in something other than work at the moment. Rose is straddling her lap, leaning in against Lilaya's chest as she whispers down to her demonic mistress. You see your [lilaya.relation(pc)]'s hand reaching up Rose's skirt, and from the movement of her arm, you can tell that she's fingering her cat-girl maid.
+	</p>
+	<p>
+		Before you can say anything, you hear some surprising words coming out of Rose's mouth as she moans down into Lilaya's ear,
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
+		 [rose.speech(~Mmm!~ That's right, you horny little slut. ~Aah!~ Come on, please your Mistress!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
+		 [rose.speech(~Mmm!~ That's right, slut. ~Aah!~ Do a good job, and maybe this'll be the year I let you fuck me!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
+		 [rose.speech(~Mmm!~ Come on, slut, you can do better than that! ~Aah!~ Yes, get those fingers in deeper!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
+		 [rose.speech(~Ooh!~ You dirty little slut! ~Mmm!~ That's right, focus on my clit a little more!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
+		 [rose.speech(~Ooh!~ Yes, that's it, slut, focus on my clit! ~Mmm!~ Maybe I'll let you use your tongue tonight!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_ROSE_TOLD_ON_YOU_DEMON"><![CDATA[
+	<p>
+		Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs. She suddenly notices you out of the corner of her eye, and, turning to give you an evil grin, she pointedly grinds down against your demonic [lilaya.relation(pc)], before letting out a little eek and jumping to her feet as she feigns surprise. [rose.speech(M-Mistress! [pc.NameIsFull] here!)]
+	</p>
+	<p>
+		Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair. [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right, Rose?!)]
+	</p>
+	<p>
+		[rose.speech(Yes, Mistress!)] Rose squeaks in agreement, [rose.speech(That's right!)]
+	</p>
+	<p>
+		Brushing down her skirt, Lilaya blushes a little and clears her throat, [lilaya.speech(~Ahem!~ Well, it's a good job that you came here to see me, [pc.name]. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
+	</p>
+	<p>
+		As you're indebted to Lilaya for allowing you to live here, you see no other option but to apologise. Stepping forwards, you make up an excuse and say, [pc.speech(I'm sorry, Lilaya. I don't know what came over me. It must be this arcane aura of mine... or something...)]
+	</p>
+	<p>
+		[lilaya.speech(Hmm... Well, I've already told you that you're not getting any sex from me until you help me convince mommy to turn me into a full demon. As you're quite clearly desperate for it, perhaps you should just do as I say already!)] Lilaya exclaims in her sternest voice.
+	</p>
+	<p>
+		You wonder if you should agree to convince Lyssieth to permanently transform Lilaya into a full demon, or just ask about some other business...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_BASE_END_DEMON"><![CDATA[
+	<p>
+		Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs. She suddenly notices you out of the corner of her eye, and, letting out a little eek, she quickly leaps up onto her feet. [rose.speech(M-Mistress! [pc.NamePos] here!)]
+	</p>
+	<p>
+		Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair. [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right, Rose?!)]
+	</p>
+	<p>
+		[rose.speech(Yes, Mistress!)] Rose squeaks in agreement, [rose.speech(That's right!)]
+	</p>
+	<p>
+		Brushing down her skirt, Lilaya clears her throat, [lilaya.speech(~Ahem!~ So, have you changed your mind, [pc.name]? You're ready to convince mommy to turn me into a full demon as well, aren't you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_ROSE_TOLD_ON_YOU"><![CDATA[
+	<p>
+		Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs. She suddenly notices you out of the corner of her eye, and, turning to give you an evil grin, she pointedly grinds down against your demonic [lilaya.relation(pc)], before letting out a little eek and jumping to her feet as she feigns surprise. [rose.speech(M-Mistress! [pc.NameIsFull] here!)]
+	</p>
+	<p>
+		Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair. [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right, Rose?!)]
+	</p>
+	<p>
+		[rose.speech(Yes, Mistress!)] Rose squeaks in agreement, [rose.speech(That's right!)]
+	</p>
+	<p>
+	#IF !lilaya.isCharacterReactedToPregnancy(pc) && !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
+	#THEN
+		#IF lilaya.isCharacterPossiblyFather(pc.getId())
+		#THEN
+			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], you got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. But anyway, it's a good job that you came here to see me, [pc.name]. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
+		#ELSE
+			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], mommy got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. But anyway, it's a good job that you came here to see me, [pc.name]. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
+		#ENDIF
+	#ELSE
+		Brushing down her skirt, Lilaya blushes a little and clears her throat, [lilaya.speech(~Ahem!~ Well, it's a good job that you came here to see me, [pc.name]. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
+	#ENDIF
+	</p>
+	<p>
+		As you're indebted to Lilaya for allowing you to live here, you see no other option but to apologise. Stepping forwards, you make up an excuse and say, [pc.speech(I'm sorry, Lilaya. I don't know what came over me. It must be this arcane aura of mine... or something...)]
+	</p>
+	<p>
+		[lilaya.speech(Hmm... Well, if you find yourself feeling like that, there's no need to sneak off into my room. J-Just come back here and I-I can run some tests on you! O-Ok?)] Lilaya responds, trying her best to sound stern and in control, but ultimately failing as her thoughts shift to wanting to do lewd things with you.
+	</p>
+	<p>
+		[pc.speech(Yes, Lilaya,)] you respond, much in the same way you always used to with your [lilaya.relation(pc)] Lily.
+	</p>
+	<p>
+		[lilaya.speech(So, now that that's out of the way, what is it you need?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_BASE_END"><![CDATA[
+	<p>
+		Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs. She suddenly notices you out of the corner of her eye, and, letting out a little eek, she quickly leaps up onto her feet. [rose.speech(M-Mistress! [pc.NamePos] here!)]
+	</p>
+	<p>
+		Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair. [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right, Rose?!)]
+	</p>
+	<p>
+		[rose.speech(Yes, Mistress!)] Rose squeaks in agreement, [rose.speech(That's right!)]
+	</p>
+	<p>
+	#IF !lilaya.isCharacterReactedToPregnancy(pc) && !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
+	#THEN
+		#IF lilaya.isCharacterPossiblyFather(pc.getId())
+		#THEN
+			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], you got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
+		#ELSE
+			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], mommy got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
+		#ENDIF
+	#ELSE
+		Brushing down her skirt, Lilaya clears her throat, [lilaya.speech(~Ahem!~ So, what is it you need, [pc.name]?)]
+	#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_ARTHUR_PREGNANCY_BASE"><![CDATA[
+	<p>
+		As you approach the door to Lilaya's lab, you hear the distinctive sound of your demonic [lilaya.relation(pc)]'s voice getting louder and louder, [lilaya.speech(...and I told you <i>three times</i> already! <i>Don't touch my notes!</i>)]
+	</p>
+	<p>
+		Stepping through the open doorway, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your angry [lilaya.relation(pc)]'s furious scolding. [arthur.speech(Sorry, Lilaya, I just thought that-)]
+	</p>
+	<p>
+		[lilaya.speech(Be quiet!)] Lilaya shrieks, before suddenly noticing your entry. [lilaya.speech(And now the other asshole's here! [pc.Name]! Come and take a seat, <i>this instant</i>!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_ARTHUR_PREGNANT"><![CDATA[
+	<p>
+		Looking down at your [lilaya.relation(pc)]'s stomach, you see the reason why she's addressing you in such a furious manner; her belly is quite visibly swollen, making it obvious that you've ended up getting her pregnant. Knowing from experience that it's best to just do as you're told when your [lilaya.relation(pc)] is like this, you walk over to the chair next to Arthur and sit down.
+	</p>
+	<p>
+		Addressing you, Lilaya shouts, [lilaya.speech(You <i>know</i> I'm just a half-demon! That means all my kids end up as imps! Do you have any idea of how embarrassing and shameful it is to be called an 'imp-breeder', or 'imp-fucker'?! <i>Do you?!</i>)]
+	</p>
+	<p>
+		Not even giving you a chance to answer, she continues in the same furious tone, [lilaya.speech(Once this business with Arthur is sorted out, I don't want to see you anywhere near my lab until my pregnancy is resolved!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_ARTHUR_NOT_PREGNANT"><![CDATA[
+	<p>
+		Knowing from experience that it's best to just do as you're told when your [lilaya.relation(pc)]'s like this, you walk over to the chair next to Arthur and sit down. Looking up at Lilaya's flat stomach, you see that you didn't end up getting her pregnant after all, and, seeing what it is you're glancing at, she firmly says, [lilaya.speech(Yes, luckily for you, I'm not pregnant. You'd have been in so much trouble if I was!)]
+	</p>
+	<p>
+	<p>
+		Taking a step back, Lilaya doesn't pause for a moment, and angrily continues, [lilaya.speech(As we only ever give birth to imps, it's extremely embarrassing and shameful for half-demons to get pregnant. Even those who know that I'm the recognised daughter of Lyssieth herself would call me 'imp-breeder' or 'imp-fucker' behind my back... I <i>hate</i> being pregnant!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_ARTHUR_BASE"><![CDATA[
+	<p>
+		As you approach the door to Lilaya's lab, you hear the distinctive sound of your demonic [lilaya.relation(pc)]'s voice getting louder and louder, [lilaya.speech(...and I told you <i>three times</i> already! <i>Don't touch my notes!</i>)]
+	</p>
+	<p>
+		Stepping through the open doorway, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your angry [lilaya.relation(pc)]'s furious scolding. [arthur.speech(Sorry, Lilaya, I just thought that-)]
+	</p>
+	<p>
+		[lilaya.speech(Be quiet!)] Lilaya shrieks, before suddenly noticing your entry. [lilaya.speech([pc.Name]! Please come in and take a seat!)]
+	</p>
+	<p>
+		Knowing from experience that it's best to just do as you're told when your [lilaya.relation(pc)]'s like this, you walk over to the chair next to Arthur and sit down.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENTRY_ARTHUR"><![CDATA[
+	<p>
+		Lilaya starts pacing back and forth, her eyes fixed on Arthur as she explains the situation to the two of you, [lilaya.speech(It's just impossible. Absolutely <i>impossible</i>! I might need your help in order to figure out how to return [pc.name] to [pc.her] world, but I simply <i>cannot</i> be around you for longer than five minutes!)]
+	</p>
+	<p>
+		[arthur.speech(Lilaya, please, how many times to I have to say I'm sorr-)] Arthur starts, before being cut short by a sudden exclamation from your [lilaya.relation(pc)].
+	</p>
+	<p>
+		[lilaya.speech(You wouldn't have had to say sorry even <i>once</i> if you could have just refrained from fucking my mother! And right here in my lab of all places!)] Lilaya shouts, her cheeks burning red from embarrassment and anger. With a dismissive swipe of her hand, she turns to you and demands, [lilaya.speech([pc.Name], you're going to help Rose find a suitable room for Arthur! I simply can't have this insufferable cheating bastard hanging around in my lab!)]
+	</p>
+	<p>
+		Finding yourself in an increasingly awkward position, you realise that your only real option is to agree to do as she asks...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LAB_DEMON_TF_AGREE -->
+	
+	<htmlContent tag="LAB_DEMON_TF_AGREE"><![CDATA[
+	<p>
+		Having been convinced by Lilaya's passionate plea, you agree to do as she asks,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(Ok, Lilaya, use the resonance stone to contact mommy, and I'll help you to convince her.)]
+		#ELSE [pc.speech(Ok, Lilaya, use the resonance stone to contact Lyssieth, and I'll help you to convince her.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_DEMON_TF_AGREE_AFTER_REPEAT"><![CDATA[
+	<p>
+		Wanting to let Lilaya know that you've changed your mind, you say,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(Go on, use the resonance stone to contact mommy, and I'll help you to convince her to turn you into a full demon.)]
+		#ELSE [pc.speech(Go on, use the resonance stone to contact Lyssieth, and I'll help you to convince her to turn you into a full demon.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_DEMON_TF_AGREE_CORE"><![CDATA[
+	<p>
+		Your [lilaya.relation(pc)]'s eyes light up as you say this, and she quickly rushes over to the other side of her lab where she keeps the resonance stone. Holding it in one hand, you see the dark-purple sphere light up and start to emit a soft pink glow. In a clear voice, Lilaya states, [lilaya.speech(Mommy, I need you to come here. Right now.)]
+	</p>
+	<p>
+		[lyssieth.speech(Yes, dear,)] you hear Lyssieth's voice being projected from out of the arcane device. A moment later, the elder lilin appears before you in a bright purple flash, and although at first she's smiling, her expression turns into one of worry as she sees the angry expression on Lilaya's face. [lyssieth.speech(Oh, sweetheart, what's wrong? You look upse-)]
+	</p>
+	<p>
+		[lilaya.speech(Of course I'm upset!)] Lilaya interrupts, [lilaya.speech(You said you'd never turn anyone into a demon ever again, and then you go back on your word the moment you meet [pc.name]! So it turns out that you were just lying to me for all these years! You have no problem at all with turning people into demons, so you've got no reason to leave me as a half-demon for any longer! Tell her, [pc.name]!)]
+	</p>
+	<p>
+		Having already agreed to help Lilaya, you ask your mother,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(There'd be no harm in making Lilaya a full demon, would there mommy? It's what she really wants...)]
+		#ELSE [pc.speech(There'd be no harm in making Lilaya a full demon, would there? It's what she really wants...)]
+		#ENDIF
+	</p>
+	<p>
+		Lyssieth starts to let out a deep, defeated sigh, before suddenly noticing that Rose is present and duly altering her reaction into an unfriendly sneer, [lyssieth.speech(I will only discuss this back in the privacy of my palace. Come here.)]
+	</p>
+	<p>
+		Doing as your mother says, both you and Lilaya step up next to her, and, wrapping an arm around each of you, she teleports you back to her palace in yet another flash of purple light...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_DEMON_TF_REFUSE"><![CDATA[
+	<p>
+		Shaking your head, you reply,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(This issue is between you and mommy. I don't want to get between the two of you like this, so I can't do as you ask. Sorry, Lilaya.)]
+		#ELSE [pc.speech(This issue is between you and mother. I don't want to get between the two of you like this, so I can't do as you ask. Sorry, Lilaya.)]
+		#ENDIF
+	</p>
+	<p>
+		[lilaya.speech(Eugh! You're unbelievable,)] Lilaya crossly states, before turning and pacing back and forth in front of you. [lilaya.speech(I should have known that you and mommy would already have agreed to keep me as a half-demon... Fine! I think you can see how upset I am about being stuck in this half-demon form, so if you want to be a good [pc.sister], then you'll think this over and let me know when you've agreed to help me out.)]
+	</p>
+	<p>
+		[pc.speech(Ok, I'll think about it some more,)] you reply.
+	</p>
+	<p>
+		[lilaya.speech(And remember, you're not getting any sex from me until I'm a full demon, just like you!)] Lilaya finally states, and although her voice is still raised, you sense that her initial anger is dying down. Wondering if you'll change your mind after giving this matter some thought, you think about what to ask your [lilaya.relation(pc)] next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--LAB_TELEPORT_TO_LYSSIETHS_OFFICE-->
+	
+	<htmlContent tag="LAB_TELEPORT_TO_LYSSIETHS_OFFICE"><![CDATA[
+	<p>
+		Wanting to see Lyssieth again, you ask, [pc.speech(Lilaya, could you use the resonance stone to contact Lyssieth? I'd like to talk to her about something.)]
+	</p>
+	<p>
+		[lilaya.speech(Of course,)] your [lilaya.relation(pc)] replies, before heading over to the desk in which she keeps the communication device. As she retrieves the small, dark sphere and holds it up in one hand, you see it start to emit a pink glow, and she says, [lilaya.speech(Mommy, [pc.name] would like you to come here.)]
+	</p>
+	<p>
+		Just a moment later, a flash of purple light fills the lab, and there before you stands the familiar figure of Lyssieth. Smiling at Lilaya, she then turns and steps towards you, before pulling you into a hug and saying, [lyssieth.speech(Let's return to my palace.)]
+	</p>
+	<p>
+		With that, the two of you are teleported back into the elder lilin's office, and, releasing you from the hug, Lyssieth smiles at you and asks, [lyssieth.speech(So, what is it you wanted?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_TELEPORT_TO_LYSSIETHS_OFFICE_COMPANION"><![CDATA[
+	<p>
+		Wanting to see Lyssieth again, you ask, [pc.speech(Lilaya, could you use the resonance stone to contact Lyssieth? I'd like to talk to her about something.)]
+	</p>
+	<p>
+		[lilaya.speech(Of course,)] your [lilaya.relation(pc)] replies, before heading over to the desk in which she keeps the communication device. As she retrieves the small, dark sphere and holds it up in one hand, you see it start to emit a pink glow, and she says, [lilaya.speech(Mommy, [pc.name] would like you to come here.)]
+	</p>
+	<p>
+		Just a moment later, a flash of purple light fills the lab, and there before you stands the familiar figure of Lyssieth. Smiling at Lilaya, she then turns and steps towards you, before pulling you and [npc.name] into a hug and saying, [lyssieth.speech(Let's return to my palace.)]
+	</p>
+	<p>
+		With that, the three of you are teleported back into the elder lilin's office, and, releasing you both from the hug, Lyssieth asks [npc.name] to wait in Meraxis's office. After [npc.sheHas] left, Lyssieth smiles at you and asks, [lyssieth.speech(So, what is it you wanted?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- END_SEX -->
+	
+	<htmlContent tag="LAB_END_SEX_CREAMPIE"><![CDATA[
+	<p>
+		Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, looks down at the [pc.cum+] dripping out from between her thighs, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull out!)]
+	</p>
+	<p>
+		Grabbing a tissue from a nearby desk, she starts frantically trying to clean your [pc.cum] out of her creampied pussy. Her face has gone completely scarlet, and as the reality of what you've just done sinks in, she turns on you in a furious rage, [lilaya.speech(What did I say?! Huh?! I fucking told you to pull out! I do <i>not</i> want to be giving birth to a brood of imps! Oh fuck... You'd better fucking hope I don't get pregnant from this!)]
+	</p>
+	<p>
+		Continuing to shout and curse, she grabs you by the [pc.arm] and marches you over to the lab's exit. With one last angry cry, she throws you out, before slamming the door behind you. You start to wonder if perhaps you made a mistake, but surely she'll have calmed down in a couple of hours...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_END_SEX"><![CDATA[
+	<p>
+		Disentangling herself from your clutches, Lilaya lets out a very satisfied sigh as she stands up and stretches her arms up high. You see her demonic wings and tail following suit, and as she stretches, she turns back to face you. With one last smile and a quick kiss on your cheek, she then rushes back over to her workplace.
+	</p>
+	<p>
+		[lilaya.speech(Oh, fuck, that was amazing!)] your demonic [lilaya.relation(pc)] cries out, energetically gathering up papers before starting to frantically write down some notes. [lilaya.speech(With the power of your aura, I'm sure that anyone who you have sex with will feel turned on, even if they're not really into you at first. I-I mean, I'm not advocating anything like <i>that</i>, of course, I just mean that your aura certainly does have some strong effects...)]
+	</p>
+	<p>
+		With that, Lilaya buries herself in her work, seemingly forgetting that you're still here. You quickly sort yourself out, and, smiling at the fact that you've given Lilaya a good time, leave her to carry on with her work.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- LILAYA_GEISHA -->
+	
+	<htmlContent tag="LILAYA_GEISHA"><![CDATA[
+	<p>
+		[pc.speech(I really want to see how you look wearing that kimono,)] you say, [pc.speech(would you like to try it on and show me?)]
+	</p>
+	<p>
+		Lilaya's cheeks flush bright red, and, without saying a word, she grabs your hand and starts pulling you towards the door. For a moment, you think she's going to throw you out of the lab, but she instead leads you out into the corridor and over towards the staircase.
+	</p>
+	<p>
+		[lilaya.speech(I-I haven't r-really thought about h-how I look in it yet,)] Lilaya stammers out, without turning to look at you, [lilaya.speech(s-so I hope you like it!)]
+	</p>
+	<p>
+		Leading you up the stairs, your demonic [lilaya.relation(pc)] pulls you along the first-floor corridor, and, without hesitation, into her exceptionally-messy room. Her clothes are scattered all over the floor, and every available surface is littered with beauty products and yet more discarded clothing. You don't have any time to think about the state of your [lilaya.relation(pc)]'s room, however, as you're far more concerned with the fact that she's instantly started stripping off in front of you.
+	</p>
+	<p>
+		Either because she's completely indifferent to you seeing her naked, or, more likely, that she's so flustered at the prospect of modelling her kimono for you that she's forgotten you're there, your [lilaya.relation(pc)] quickly pulls off all of her clothes with little regard to your presence. Deciding that it would be best both for her dignity and for the surprise of seeing her wearing her kimono, you turn your back to Lilaya, and allow her to get changed into the clothes that you gifted her.
+	</p>
+	<p>
+		[lilaya.speech(Aah! I-I forgot you were there!)] Lilaya calls out, proving the second assumption to be true. [lilaya.speech(Y-You can turn around now.)]
+	</p>
+	<p>
+		Turning around, you see your demonic [lilaya.relation(pc)] blushing profusely as she looks to the floor. The elegant pink kimono, delicate kanzashi, and delightful geta that you bought her as a Yuletide gift all work together to accentuate your [lilaya.relation(pc)]'s natural beauty. You find yourself gasping at how gorgeous she looks, which makes her look up and smile shyly at you.
+	</p>
+	<p>
+		[pc.speech(Wow, Lilaya, you look gorgeous!)] you exclaim, causing her cheeks to turn an even deeper shade of red.
+	</p>
+	<p>
+		[lilaya.speech(R-Really?)] Lilaya asks, stepping forwards as a huge smile breaks out across her face. [lilaya.speech(W-Well, I have you to thank for giving it to me.)]
+	</p>
+	<p>
+		The tone of your [lilaya.relation(pc)]'s voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassment is on her mind. [lilaya.speech(You know, I really do need to show you how thankful I am... While I'm wearing my kimono, perhaps you'd like to have some fun?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END_SEX_GEISHA_CREAMPIE"><![CDATA[
+	<p>
+		Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, looks down at the [pc.cum+] dripping out from between her thighs, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull out!)]
+	</p>
+	<p>
+		Grabbing a tissue from a nearby cabinet, she starts frantically trying to clean your [pc.cum] out of her creampied pussy. Her face has gone completely scarlet, and as the reality of what you've just done sinks in, she turns on you in a furious rage, [lilaya.speech(What did I say?! Huh?! I fucking told you to pull out! Do you know how fucking fertile demons are?! Oh fuck... You'd better fucking hope I don't get pregnant from this!)]
+	</p>
+	<p>
+		Continuing to shout and curse, she grabs you by the [pc.arm] and marches you over to her bedroom door. With one last angry cry, she throws you out, before slamming the door behind you. You start to wonder if perhaps you made a mistake, but surely she'll have calmed down in a couple of hours...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END_SEX_GEISHA"><![CDATA[
+	<p>
+		Lilaya collapses back onto her bed, letting out a very satisfied sigh as she stretches out her arms and wings, [lilaya.speech(That was amazing! We definitely need to do this again some time!)]
+	</p>
+	<p>
+		Reassuring her that you will, you exit your [lilaya.relation(pc)]'s bedroom and head back to your own, allowing her to get changed and head back down to her lab.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Pregnancy stuff -->
+	
 	<htmlContent tag="DETECT_PREGNANCY_TYPE_SLIME"><![CDATA[
 	<p>
-		[lilaya.speech(Don't worry, I'm here for you,)]
-		 she says, pulling you into a loving hug for a moment before stepping back,
-		 [lilaya.speech(and anyway, giving birth to slimes is super easy and stress-free.
-		  We should do this in the birthing room, follow me!)]
+		[lilaya.speech(Don't worry, I'm here for you,)] she says, pulling you into a loving hug for a moment before stepping back, [lilaya.speech(and anyway, giving birth to slimes is super easy and stress-free.  We should do this in the birthing room, follow me!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ASSIST_BIRTHING_FIRST_TIME"><![CDATA[
 	<p>
-		Taking your hands in hers, she leads you out of the lab and down the hallway.
-		 You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you.
-		 Stepping inside, you find yourself in a specially-purposed birthing room.
-		 Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring.
-		 A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment.
-		 A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
+		Taking your hands in hers, she leads you out of the lab and down the hallway. You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you. Stepping inside, you find yourself in a specially-purposed birthing room. Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring. A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment. A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
 	</p>
 	<p>
-		As Lilaya leads you over to the bed, she explains the situation, 
-		 [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen.
-		 In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here.
-		 Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
+		As Lilaya leads you over to the bed, she explains the situation,  [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen. In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here. Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
 	</p>
 	<p>
-		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, 
-		 [lilaya.speech(Don't worry, you don't need to stay conscious during this.
-		 Now, after I've delivered your children, they're going to grow pretty quickly, so don't be alarmed!
-		 They're also going to be pretty hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there.
-		 Oh, and also, they're probably going to want to leave straight away.
-		 All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
+		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you,  [lilaya.speech(Don't worry, you don't need to stay conscious during this. Now, after I've delivered your children, they're going to grow pretty quickly, so don't be alarmed! They're also going to be pretty hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
 	</p>
 	<p>
 		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
@@ -73,57 +657,29 @@
 	
 	<htmlContent tag="ASSIST_BIRTHING_SLIME"><![CDATA[
 	<p>
-		Taking your hands in hers, she leads you out of the lab and down the hallway.
-		 You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you.
-		 Stepping inside, you find yourself in a specially purposed birthing room.
-		 Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring.
-		 A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment.
-		 A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
+		Taking your hands in hers, she leads you out of the lab and down the hallway. You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you. Stepping inside, you find yourself in a specially purposed birthing room. Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring. A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment. A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
 	</p>
 	<p>
-		As Lilaya closes the door behind you, she explains the situation, 
-		 [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen.
-		 In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here.
-		 Slimes, such as yourself, don't give birth like other creatures.
-		 Those little cores inside of you don't need a vagina to exit through; instead, they'll simply split off from your body, taking some of your slime with them. 
-		 Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
+		As Lilaya closes the door behind you, she explains the situation,  [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen. In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here. Slimes, such as yourself, don't give birth like other creatures. Those little cores inside of you don't need a vagina to exit through; instead, they'll simply split off from your body, taking some of your slime with them.  Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
 	</p>
 	<p>
-		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, 
-		 [lilaya.speech(Don't worry, you don't need to stay conscious during this, and I'll make sure to keep feeding you fluids to replenish any slime that your children take with them.
-		 I'll do the same with the newly birthed slimes, so they'll quickly get all of the fluid they need to mature to adulthood.
-		 Oh, and also, they're probably going to want to leave straight away.
-		 All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
+		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you,  [lilaya.speech(Don't worry, you don't need to stay conscious during this, and I'll make sure to keep feeding you fluids to replenish any slime that your children take with them. I'll do the same with the newly birthed slimes, so they'll quickly get all of the fluid they need to mature to adulthood. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
 	</p>
 	<p>
-		Lilaya gets you to lie down on the bed, and, smiling, she asks,
-		 [lilaya.speech(You ready?)]
+		Lilaya gets you to lie down on the bed, and, smiling, she asks, [lilaya.speech(You ready?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ASSIST_BIRTHING"><![CDATA[
 	<p>
-		Taking your hands in hers, she leads you out of the lab and down the hallway.
-		 You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you.
-		 Stepping inside, you once again find yourself standing in the specially purposed birthing room.
-		 Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring.
-		 A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment.
-		 A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
+		Taking your hands in hers, she leads you out of the lab and down the hallway. You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you. Stepping inside, you once again find yourself standing in the specially purposed birthing room. Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring. A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment. A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
 	</p>
 	<p>
-		As Lilaya leads you over to the bed, she reminds you of what's about to happen, 
-		[lilaya.speech(Ok, so I know you've done this before, but I'll quickly go over what's going to happen.
-				 In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here.
-				 Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
+		As Lilaya leads you over to the bed, she reminds you of what's about to happen, [lilaya.speech(Ok, so I know you've done this before, but I'll quickly go over what's going to happen. In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here. Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
 	</p>
 	<p>
-		You let out a sigh she says this, but she squeezes your hand in hers and reassures you, 
-		[lilaya.speech(Don't worry, remember, you don't need to stay conscious during this.
-				 Now, just remember that after I've delivered your children, they're going to grow pretty quickly!
-				 They're also going to be hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there.
-				 Oh, and also, they're probably going to want to leave straight away.
-				 All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
+		You let out a sigh she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, remember, you don't need to stay conscious during this. Now, just remember that after I've delivered your children, they're going to grow pretty quickly! They're also going to be hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
 	</p>
 	<p>
 		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
@@ -142,7 +698,7 @@
 	
 	<htmlContent tag="LILAYA_FRIEND_ACCOMMODATION"><![CDATA[
 	<p>
-		Wanting to ask Lilaya about the possibility of inviting your new friend to come and live here, you take a step towards your demonic aunt and ask, [pc.speech(Er, Lilaya, you know all of these empty rooms you've got in your house?)]
+		Wanting to ask Lilaya about the possibility of inviting your new friend to come and live here, you take a step towards your demonic [lilaya.relation(pc)] and ask, [pc.speech(Er, Lilaya, you know all of these empty rooms you've got in your house?)]
 	</p>
 	<p>
 		[lilaya.speech(Mmm, what about them?)] she answers, raising one eyebrow as she peers at you over the top of her glasses.
@@ -157,16 +713,16 @@
 		[pc.speech(I'll pay for their rent and expenses,)] you reply. [pc.speech(I'll be able to afford that, don't worry.)]
 	</p>
 	<p>
-		[lilaya.speech(Mmm, well, ok then. After all, the more people living here, the more opportunities I'll have to run some background tests on arcane aura fluctuations. You see, I'm very interested in finding out if your demon-strength aura has any sort of long-term impact on those around you. I doubt that it will, but as far as I'm aware, nobody's done research into this before!)] your aunt replies, giving you her explicit permission to invite your new friend to come and live here with you.
+		[lilaya.speech(Mmm, well, ok then. After all, the more people living here, the more opportunities I'll have to run some background tests on arcane aura fluctuations. You see, I'm very interested in finding out if your demon-strength aura has any sort of long-term impact on those around you. I doubt that it will, but as far as I'm aware, nobody's done research into this before!)] your [lilaya.relation(pc)] replies, giving you her explicit permission to invite your new friend to come and live here with you.
 	</p>
 	<p>
-		[pc.speech(Thanks, Lilaya! You have no idea how much you're helping them out by doing this,)] you say, smiling fondly at your aunt as she pushes her glasses back up to the bridge of her nose.
+		[pc.speech(Thanks, Lilaya! You have no idea how much you're helping them out by doing this,)] you say, smiling fondly at your [lilaya.relation(pc)] as she pushes her glasses back up to the bridge of her nose.
 	</p>
 	<p>
 		[lilaya.speech(Y-Yes, well, y-you're welcome,)] Lilaya stutters a little, blushing in response to your heartfelt thanks. [lilaya.speech(Just go to whichever room you'd like to use, then call for Rose to prepare it as a guest bedroom. A-And it's not like I'm doing this just for you or your friend, I-I'm just interested in researching the arcane!)]
 	</p>
 	<p>
-		[pc.speech(Ok, thanks again,)] you reply, not wanting to say too much more out of fear of embarrassing your aunt. Giving her a loving smile, you turn around and head for the lab's exit, determined to return to your friend and invite them to come and live here as soon as possible.
+		[pc.speech(Ok, thanks again,)] you reply, not wanting to say too much more out of fear of embarrassing your [lilaya.relation(pc)]. Giving her a loving smile, you turn around and head for the lab's exit, determined to return to your friend and invite them to come and live here as soon as possible.
 	</p>
 	<p style='text-align:center;'>
 		[style.italicsGood(You can now invite characters to come and live with you! To do so, you'll need to upgrade one of the empty rooms into a 'Guest Room', before asking the character to move in with you.)]

@@ -32,6 +32,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -259,17 +260,19 @@ public class InventoryTooltipEventListener implements EventListener {
 						
 						List<String> clothingBlockingThisSlot = new ArrayList<>();
 						for (AbstractClothing c : equippedToCharacter.getClothingCurrentlyEquipped()) {
-							if (c.getClothingType().getIncompatibleSlots().contains(invSlot)) {
+							if (c.getClothingType().getIncompatibleSlots(equippedToCharacter).contains(invSlot)) {
 								clothingBlockingThisSlot.add(c.getName());
 							}
 						}
+						
+						BodyPartClothingBlock block = invSlot.getBodyPartClothingBlock(equippedToCharacter);
 						
 						if (!renderingTattoos && !clothingBlockingThisSlot.isEmpty()) {
 							setBlockedTooltipContent(UtilText.parse(equippedToCharacter, "This slot is currently <b style='color:" + Colour.SEALED.toWebHexString() + ";'>blocked</b> by [npc.namePos] ")
 									+ Util.stringsToStringList(clothingBlockingThisSlot, false) + ".");
 							
-						} else if (!renderingTattoos && invSlot.slotBlockedByRace(equippedToCharacter) != null) {
-							setBlockedTooltipContent(invSlot.getCannotBeWornDescription(equippedToCharacter));
+						} else if (!renderingTattoos && block != null) {
+							setBlockedTooltipContent("<span style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>Restricted!</span>", UtilText.parse(equippedToCharacter, block.getDescription()));
 							
 						} else {
 							
@@ -486,14 +489,18 @@ public class InventoryTooltipEventListener implements EventListener {
 		// Main.mainController.getTooltip().show(Main.primaryStage);
 	}
 
+
 	private void setBlockedTooltipContent(String description){
+		setBlockedTooltipContent("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Blocked!</span>", description);
+	}
+	private void setBlockedTooltipContent(String title, String description){
 		boolean dirty = equippedToCharacter.isDirtySlot(invSlot);
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 164);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 144);
 		Main.mainController.setTooltipContent(UtilText.parse(equippedToCharacter,
 				"<div class='title'>"
-						+ Util.capitaliseSentence(invSlot.getName())+ ": <span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Blocked!</span>"
+						+ Util.capitaliseSentence(invSlot.getName())+ ": "+title
 				+ "</div>"
-				+"<div class='description' style='text-align:center;'>"
+				+"<div class='description' style='height:72px; text-align:center;'>"
 					+ (dirty
 						?"[npc.NamePos] "+invSlot.getName()+" "+(invSlot.isPlural()?"are":"is")
 								+ " <span style='color:"+Colour.CUM.toWebHexString()+";'>dirty</span>!<br/>"
@@ -506,7 +513,7 @@ public class InventoryTooltipEventListener implements EventListener {
 
 	private void setEmptyInventorySlotTooltipContent(){
 		boolean dirty = equippedToCharacter.isDirtySlot(invSlot);
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60+(dirty?64:0));
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60+(dirty?56:0));
 		Main.mainController.setTooltipContent(UtilText.parse(equippedToCharacter,
 				"<div class='title'>"
 						+ Util.capitaliseSentence(invSlot.getName())

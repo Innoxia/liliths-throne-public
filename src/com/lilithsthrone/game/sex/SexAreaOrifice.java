@@ -77,6 +77,52 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 	},
 	
+	NIPPLE_CROTCH(2,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f,
+			4, 2,
+			true) {
+		@Override
+		public String getName(GameCharacter owner) {
+			return owner.getNippleCrotchName();
+		}
+		@Override
+		public boolean isPlural() {
+			return true;
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
+		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.NIPPLES_CROTCH;
+		}
+	},
+	
+	BREAST_CROTCH(1,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f,
+			25, 0,
+			false) {
+		@Override
+		public String getName(GameCharacter owner) {
+			return owner.getBreastCrotchName();
+		}
+		@Override
+		public boolean isPlural() {
+			return true;
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
+		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.BREASTS_CROTCH;
+		}
+	},
+	
 	ASS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,

@@ -98,9 +98,7 @@ public class DominionAlleywayAttacker extends NPC {
 					case ELEMENTAL_EARTH:
 					case ELEMENTAL_FIRE:
 					case ELEMENTAL_WATER:
-						break;
 					case HALF_DEMON:
-//						addToSubspeciesMap(1000, gender, s, availableRaces); // Testing
 						break;
 						
 					// Canals spawn only:
@@ -122,66 +120,10 @@ public class DominionAlleywayAttacker extends NPC {
 						break;
 						
 					// Regular spawns:
-					case CAT_MORPH:
-						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LYNX:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD_SNOW:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LION:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_TIGER:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CHEETAH:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CARACAL:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case COW_MORPH:
-						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
-						break;
-					case DOG_MORPH:
-						addToSubspeciesMap(canalSpecies?3:12, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_BORDER_COLLIE:
-						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
-						break;
-					case FOX_MORPH:
-						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
-						break;
-					case FOX_MORPH_FENNEC:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH:
-						addToSubspeciesMap(canalSpecies?4:16, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH_ZEBRA:
-						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
-						break;
-					case SQUIRREL_MORPH:
-						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
-						break;
-					case WOLF_MORPH:
-						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH:
-						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH_LOP:
-						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
-						break;
+					default:
+						if(Subspecies.getWorldSpecies().get(WorldType.DOMINION).containsKey(s)) {
+							addToSubspeciesMap((int) (canalSpecies?25:100 * Subspecies.getWorldSpecies().get(WorldType.DOMINION).get(s).getChanceMultiplier()), gender, s, availableRaces);
+						}
 				}
 			}
 			

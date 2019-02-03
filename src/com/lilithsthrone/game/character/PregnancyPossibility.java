@@ -26,7 +26,7 @@ public class PregnancyPossibility implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		return (o instanceof PregnancyPossibility)
 				&& ((PregnancyPossibility)o).getMotherId().equals(motherId)
 				&& ((PregnancyPossibility)o).getFatherId().equals(fatherId)

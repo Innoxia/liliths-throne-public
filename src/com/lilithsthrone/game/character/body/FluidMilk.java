@@ -19,10 +19,11 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.7
+ * @version 0.3.1
  * @author Innoxia
  */
 public class FluidMilk implements FluidInterface {
+
 	
 	protected FluidType type;
 	protected FluidFlavour flavour;
@@ -91,7 +92,7 @@ public class FluidMilk implements FluidInterface {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof FluidMilk){
 			if(((FluidMilk)o).getType().equals(this.getType())
 				&& ((FluidMilk)o).getFlavour() == this.getFlavour()
@@ -143,7 +144,7 @@ public class FluidMilk implements FluidInterface {
 		return UtilText.returnStringAtRandom(
 				modifierDescriptor,
 				flavour.getRandomFlavourDescriptor(),
-				type.getDescriptor(gc));
+				(type.getDescriptor(gc).equals("human")?null:type.getDescriptor(gc)));
 	}
 
 	@Override
@@ -478,5 +479,13 @@ public class FluidMilk implements FluidInterface {
 	
 	public float getValuePerMl() {
 		return 0.1f + this.getFluidModifiers().size()*0.4f + (this.getFlavour()!=FluidFlavour.MILK?0.5f:0);
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(FluidMilk.class);
 	}
 }

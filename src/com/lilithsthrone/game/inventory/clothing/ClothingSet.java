@@ -204,7 +204,7 @@ public enum ClothingSet {
 		int setCount = 0;
 		
 		for(InventorySlot slot : this.getBlockedSlotsCountingTowardsFullSet()) {
-			if(slot.slotBlockedByRace(target) != null) {
+			if(slot.getBodyPartClothingBlock(target) != null) {
 				setCount++;
 			}
 		}

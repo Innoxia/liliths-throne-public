@@ -80,7 +80,15 @@ public enum SVGImages {
 			hypnoWatchBase, hypnoWatchGynephilic, hypnoWatchAmbiphilic, hypnoWatchAndrophilic,
 			
 			// Sex:
-			coverableAreaMouth, coverableAreaAnus, coverableAreaAss, coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple, coverableAreaVagina, coverableAreaThighs, coverableAreaUrethraVagina, coverableAreaUrethraPenis,
+			coverableAreaMouth,
+			coverableAreaAnus, coverableAreaAss,
+			coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple,
+			coverableAreaBreastsCrotch, coverableAreaUdders, coverableAreaNippleCrotch,
+			coverableAreaVagina, coverableAreaUrethraVagina,
+			coverableAreaMound,
+			coverableAreaThighs,
+			coverableAreaUrethraPenis,
+			
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot,
 			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
 			stretching, holeTooBig;
@@ -633,6 +641,16 @@ public enum SVGImages {
 			coverableAreaNipple = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaVagina.svg");
 			coverableAreaVagina = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaMound.svg");
+			coverableAreaMound = Util.inputStreamToString(is);
+			
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaBreastsCrotch.svg");
+			coverableAreaBreastsCrotch = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaUdders.svg");
+			coverableAreaUdders = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaNippleCrotch.svg");
+			coverableAreaNippleCrotch = Util.inputStreamToString(is);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaUrethraVagina.svg");
 			coverableAreaUrethraVagina = Util.inputStreamToString(is);
@@ -1024,8 +1042,24 @@ public enum SVGImages {
 		return coverableAreaBreastsFlat;
 	}
 
+	public String getCoverableAreaBreastsCrotch() {
+		return coverableAreaBreastsCrotch;
+	}
+
+	public String getCoverableAreaUdders() {
+		return coverableAreaUdders;
+	}
+
+	public String getCoverableAreaNippleCrotch() {
+		return coverableAreaNippleCrotch;
+	}
+
 	public String getCoverableAreaVagina() {
 		return coverableAreaVagina;
+	}
+
+	public String getCoverableAreaMound() {
+		return coverableAreaMound;
 	}
 	
 	public String getCoverableAreaUrethraVagina() {

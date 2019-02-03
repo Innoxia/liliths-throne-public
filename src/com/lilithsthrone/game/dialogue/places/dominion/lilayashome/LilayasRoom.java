@@ -19,10 +19,10 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMPantyMasturbation;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -127,7 +127,7 @@ public class LilayasRoom {
 				return new ResponseSex("Panty Masturbation", "Use Lilaya's panties to help you masturbate",
 						true, true,
 						new SMPantyMasturbation(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MASTURBATING_KNEELING))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MASTURBATING_KNEELING))),
 						null,
 						null, PANTIES_POST_MASTURBATION, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "PANTIES_MASTURBATION"));
 
@@ -327,8 +327,8 @@ public class LilayasRoom {
 						null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, false,
 						new SMMissionary(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Rose.class), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Rose.class), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))) {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -493,10 +493,10 @@ public class LilayasRoom {
 				return new ResponseSex("Sex", "Have dominant sex with Rose and Lilaya.",
 						true, false,
 						new SMDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-										new Value<>(Main.game.getNpc(Rose.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))) {
+										new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
+										new Value<>(Main.game.getNpc(Rose.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))) {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;

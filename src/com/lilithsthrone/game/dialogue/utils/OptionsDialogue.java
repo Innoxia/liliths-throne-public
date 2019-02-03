@@ -53,7 +53,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.3.1
  * @author Innoxia
  */
 public class OptionsDialogue {
@@ -1512,27 +1512,26 @@ public class OptionsDialogue {
 					+ "<span style='height:16px;width:800px;float:left;'></span>"
 					
 					+ "<div class='container-full-width' style='text-align: center;'>"
-					+ "<div style='display:inline-block; margin:0 auto;'>");
+						+ "<div style='display:inline-block; margin:4px auto 8px auto;'>"
+							+"<div style='width:160px; float:left;'>"
+								+ "<b>Multi-breasts:</b> "
+							+ "</div>");
 			
-			UtilText.nodeContentSB.append(
-//					"<div style='width:160px; float:left;'>"
-//						+ "<b>Human encounters:</b> "
-//					+ "</div>"
-//					+ "<div id='furry_preference_human_encounter_zero' class='preference-button"+(Main.getProperties().humanEncountersLevel==0?" selected":"")+"'>Off</div>"
-//					+ "<div id='furry_preference_human_encounter_one' class='preference-button"+(Main.getProperties().humanEncountersLevel==1?" selected":"")+"'>5%</div>"
-//					+ "<div id='furry_preference_human_encounter_two' class='preference-button"+(Main.getProperties().humanEncountersLevel==2?" selected":"")+"'>10%</div>"
-//					+ "<div id='furry_preference_human_encounter_three' class='preference-button"+(Main.getProperties().humanEncountersLevel==3?" selected":"")+"'>20%</div>"
-//					+ "<div id='furry_preference_human_encounter_four' class='preference-button"+(Main.getProperties().humanEncountersLevel==4?" selected":"")+"'>50%</div>"
-//					+ "<br/><br/>"
-						
-					"<div style='width:160px; float:left;'>"
-						+ "<b>Multi-breasts:</b> "
-					+ "</div>"
-					+ "<div id='furry_preference_multi_breast_zero' class='preference-button"+(Main.getProperties().multiBreasts==0?" selected":"")+"'>Off</div>"
-					+ "<div id='furry_preference_multi_breast_one' class='preference-button"+(Main.getProperties().multiBreasts==1?" selected":"")+"'>Furry-only</div>"
-					+ "<div id='furry_preference_multi_breast_two' class='preference-button"+(Main.getProperties().multiBreasts==2?" selected":"")+"'>On</div>"
-						
-					+ "</div>"
+			for(int i=0; i<3; i++) {
+				UtilText.nodeContentSB.append("<div id='MULTI_BREAST_PREFERENCE_"+i+"' class='preference-button"+(Main.getProperties().multiBreasts==i?" selected":"")+"'>"+com.lilithsthrone.game.Properties.multiBreastsLabels[i]+"</div>");
+			}
+							
+			UtilText.nodeContentSB.append("</div>"
+						+ "<div style='display:inline-block; margin:8px auto 4px auto;'>"
+						+"<div style='width:160px; float:left;'>"
+							+ "<b>Udders:</b> "
+						+ "</div>");
+			
+			for(int i=0; i<3; i++) {
+				UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='preference-button"+(Main.getProperties().udders==i?" selected":"")+"'>"+com.lilithsthrone.game.Properties.uddersLabels[i]+"</div>");
+			}
+							
+			UtilText.nodeContentSB.append("</div>"
 					+ "</div>");
 
 			
@@ -1602,58 +1601,19 @@ public class OptionsDialogue {
 													+ "<div id='furry_preference_female_maximum_all' class='preference-button'>"+FurryPreference.MAXIMUM.getName()+"</div>"
 												+"</div>"
 											+"</div>"
-											+ "<div class='container-full-width' style='text-align: center;'>");
+											+ "<div class='container-full-width' style='text-align: center;'>"
+											+"<div class='container-full-width' style='text-align:center; background:"+getEntryBackgroundColour(false)+";'>"
+												+"<div class='container-full-width' style='text-align:center; width:calc(60% - 16px);background:transparent; margin:0 0 0 40%; padding:0;'>"
+													+ "<b style='color:"+Colour.FEMININE.toWebHexString()+"; float:left; width:50%; text-align:center;'>Feminine:</b>"
+													+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+"; float:left; width:50%; text-align:center;'>Masculine:</b>"
+												+ "</div>"
+											+ "</div>");
 
 			int i=0;
 			for(Subspecies subspecies : Subspecies.values()) {
-				switch(subspecies) {
-					case ANGEL:
-					case DEMON:
-					case HALF_DEMON:
-					case LILIN:
-					case ELDER_LILIN:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-					case IMP:
-					case IMP_ALPHA:
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-					case HUMAN:
-					case SLIME:
-						break;
-					case ALLIGATOR_MORPH:
-					case CAT_MORPH:
-					case CAT_MORPH_LYNX:
-					case CAT_MORPH_LEOPARD_SNOW:
-					case CAT_MORPH_LEOPARD:
-					case CAT_MORPH_LION:
-					case CAT_MORPH_TIGER:
-					case CAT_MORPH_CHEETAH:
-					case CAT_MORPH_CARACAL:
-					case COW_MORPH:
-					case HORSE_MORPH:
-					case HORSE_MORPH_ZEBRA:
-					case REINDEER_MORPH:
-					case SQUIRREL_MORPH:
-					case WOLF_MORPH:
-					case FOX_MORPH:
-					case FOX_MORPH_FENNEC:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-					case DOG_MORPH:
-					case DOG_MORPH_DOBERMANN:
-					case DOG_MORPH_BORDER_COLLIE:
-					case BAT_MORPH:
-					case RAT_MORPH:
-					case RABBIT_MORPH:
-					case RABBIT_MORPH_LOP:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
+				if(subspecies.isDisplayedInFurryPreferences()) {
+					UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
+					i++;
 				}
 			}
 			UtilText.nodeContentSB.append("</div>");
@@ -1701,27 +1661,24 @@ public class OptionsDialogue {
 		
 		sb.append("<div class='container-full-width' style='text-align:center; background:"+getEntryBackgroundColour(altColour)+";'>");
 		
-		sb.append("<div class='container-full-width' style='text-align:center; width:calc(40% - 16px);background:transparent;'>"
+		sb.append("<div class='container-full-width' style='text-align:center; width:40%;background:transparent; margin:auto 0; padding:auto 0;'>"
 					+"<b style='color:"+s.getColour(null).toWebHexString()+"; float:left; width:100%; text-align:center;'>" +Util.capitaliseSentence(s.getName(null))+"</b>"
-					+"<br/>"
-					+ s.getDescription(null)
+					+ "<div class='title-button no-select' id='SUBSPECIES_PREFERNCE_INFO_"+s+"' style='position:absolute; left:5%; right:auto; top:auto; bottom:auto;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 				+"</div>"
-				// Feminine:
-				+"<div class='container-full-width' style='text-align:center; width:calc(60% - 16px);background:transparent;'>"
-					+ "<b style='color:"+Colour.FEMININE.toWebHexString()+"; float:left; width:50%; text-align:center;'>Feminine:</b>"
-					+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+"; float:left; width:50%; text-align:center;'>Masculine:</b>");
+				+"<div class='container-full-width' style='text-align:center; width:60%;background:transparent; margin:0; padding:0;'>");
 		
 		for(FurryPreference preference : FurryPreference.values()) {
 			sb.append("<div id='FEMININE_"+preference+"_"+s+"' class='square-button small"
 						+(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(s)==preference
-							?" selected' style='border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
-							:"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
+							?" selected' style='width:7%; border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
+							:"' style='width:7%;'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
 		}
+		sb.append("<div style='width:10%; display:inline-block; position:relative; padding:0; margin:0;'>&nbsp;</div>");
 		for(FurryPreference preference : FurryPreference.values()) {
 			sb.append("<div id='MASCULINE_"+preference+"_"+s+"' class='square-button small"
 						+(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(s)==preference
-							?" selected' style='border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
-							:"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
+							?" selected' style='width:7%; border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
+							:"' style='width:7%;'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
 		}
 		
 		sb.append("</div>");
@@ -1847,7 +1804,6 @@ public class OptionsDialogue {
 							"This enables nipple-penetration transformations and sex actions.",
 							Main.getProperties().hasValue(PropertyValue.nipplePenContent)));
 			
-
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"ANAL",
 							Colour.BASE_ORANGE,
@@ -1855,13 +1811,21 @@ public class OptionsDialogue {
 							"When disabled, all non-unique NPCs will spawn in hating anal (which will make them never use anal actions in sex).",
 							Main.getProperties().hasValue(PropertyValue.analContent)));
 			
-
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FUTA_BALLS",
 							Colour.BASE_PINK,
 							"Futanari Testicles",
 							"When enabled, futanari NPCs will spawn with external testicles. When disabled, they will always be internal.",
 							Main.getProperties().hasValue(PropertyValue.futanariTesticles)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"CLOACA",
+							Colour.BASE_PINK_LIGHT,
+							"Bipedal cloacas",
+							"When enabled, certain bipedal races (such as harpies and alligator-morphs) will have cloacas."
+									+ " When disabled, all bipeds with cloacas will be treated as having a regular genitalia configuration."
+									+ " Some special races, such as lamia, always have cloacas, and are not affected by this.",
+							Main.getProperties().hasValue(PropertyValue.bipedalCloaca)));
 				
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"HAIR_FACIAL",
@@ -2103,7 +2067,7 @@ public class OptionsDialogue {
 		contentSB.append(
 				"<div class='container-full-width' style='padding:0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+(enabled?colour.toWebHexString():Colour.TEXT_GREY.toWebHexString())+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");

@@ -83,7 +83,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 	FOOT(1, 0, false) {
 		@Override
 		public String getName(GameCharacter owner) {
-			return owner.getLegType().getFeetNameSingular(owner);
+			return owner.getLegType().getFootNameSingular(owner);
 		}
 		@Override
 		public boolean isPlural() {

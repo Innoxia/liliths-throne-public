@@ -17,10 +17,11 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Face implements BodyPartInterface {
+
 	
 	protected FaceType type;
 	protected boolean piercedNose;
@@ -531,5 +532,13 @@ public class Face implements BodyPartInterface {
 		this.facialHair = facialHair;
 
 		return UtilText.transformationContentSB.toString();
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Face.class);
 	}
 }

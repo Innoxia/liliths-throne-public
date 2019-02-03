@@ -19,10 +19,11 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.2.7
+ * @version 0.3.1
  * @author Innoxia
  */
 public class FluidCum implements FluidInterface, XMLSaving {
+
 	
 	protected FluidType type;
 	protected FluidFlavour flavour;
@@ -107,7 +108,7 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof FluidCum){
 			if(((FluidCum)o).getType().equals(this.getType())
 				&& ((FluidCum)o).getFlavour() == this.getFlavour()
@@ -172,7 +173,7 @@ public class FluidCum implements FluidInterface, XMLSaving {
 				"hot",
 				modifierDescriptor,
 				flavour.getRandomFlavourDescriptor(),
-				type.getDescriptor(gc));
+				(type.getDescriptor(gc).equals("human")?null:type.getDescriptor(gc)));
 	}
 
 	@Override
@@ -509,5 +510,13 @@ public class FluidCum implements FluidInterface, XMLSaving {
 
 	public float getValuePerMl() {
 		return 0.1f + this.getFluidModifiers().size()*0.1f + (this.getFlavour()!=FluidFlavour.CUM?0.5f:0);
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(FluidCum.class);
 	}
 }

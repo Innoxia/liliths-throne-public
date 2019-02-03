@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,6 +33,7 @@ import com.lilithsthrone.game.character.body.Ass;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Breast;
+import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Ear;
@@ -64,7 +67,6 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -73,6 +75,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
@@ -92,6 +95,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -103,6 +107,7 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -206,14 +211,14 @@ public class CharacterUtils {
 		boolean takesAfterMother = true;
 		GameCharacter parentTakesAfter = mother;
 		boolean raceFromMother = true;
-		RacialBody motherBody = RacialBody.valueOfRace(Subspecies.getOffspringFromMotherSubspecies(mother, father).getRace());
-		RacialBody fatherBody = RacialBody.valueOfRace(Subspecies.getOffspringFromFatherSubspecies(mother, father).getRace());
+		AbstractRacialBody motherBody = RacialBody.valueOfRace(Subspecies.getOffspringFromMotherSubspecies(mother, father).getRace());
+		AbstractRacialBody fatherBody = RacialBody.valueOfRace(Subspecies.getOffspringFromFatherSubspecies(mother, father).getRace());
 		Subspecies raceTakesAfter = mother.getSubspecies();
 		boolean feminineGender = startingGender.isFeminine();
 		NPC blankNPC = Main.game.getNpc(GenericAndrogynousNPC.class);
 		
 		if(body==null) {
-			RacialBody startingBodyType = RacialBody.HUMAN;
+			AbstractRacialBody startingBodyType = RacialBody.HUMAN;
 			RaceStage stage = RaceStage.HUMAN;
 			
 			// Core body type is random:
@@ -274,9 +279,9 @@ public class CharacterUtils {
 		List<BodyCoveringType> typesToInfluence = new ArrayList<>();
 		// Skin & fur colours:
 		for(BodyPartInterface bp : body.getAllBodyParts()){
-			if(bp.getType().getBodyCoveringType(body)!=null
+			if(bp.getBodyCoveringType(body)!=null
 					&& !(bp instanceof Eye)) {
-				typesToInfluence.add(bp.getType().getBodyCoveringType(body));
+				typesToInfluence.add(bp.getBodyCoveringType(body));
 			}
 		}
 		typesToInfluence.add(BodyCoveringType.ANUS);
@@ -298,27 +303,27 @@ public class CharacterUtils {
 		// Iris colour:
 		if(Math.random()<=0.9f) {
 			if(Math.random()>=takesAfterMotherChance) {
-				body.getCoverings().put(body.getEye().getType().getBodyCoveringType(body),
-						new Covering(body.getEye().getType().getBodyCoveringType(body), mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).getPattern(),
-								mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).getPrimaryColour(), mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).isPrimaryGlowing(),
-								mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).getPrimaryColour(), mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).isPrimaryGlowing()));
+				body.getCoverings().put(body.getEye().getBodyCoveringType(body),
+						new Covering(body.getEye().getBodyCoveringType(body), mother.getCovering(mother.getEyeCovering()).getPattern(),
+								mother.getCovering(mother.getEyeCovering()).getPrimaryColour(), mother.getCovering(mother.getEyeCovering()).isPrimaryGlowing(),
+								mother.getCovering(mother.getEyeCovering()).getPrimaryColour(), mother.getCovering(mother.getEyeCovering()).isPrimaryGlowing()));
 			} else {
-				body.getCoverings().put(body.getEye().getType().getBodyCoveringType(body),
-						new Covering(body.getEye().getType().getBodyCoveringType(body), father.getCovering(father.getEyeType().getBodyCoveringType(father)).getPattern(),
-								father.getCovering(father.getEyeType().getBodyCoveringType(father)).getPrimaryColour(), father.getCovering(father.getEyeType().getBodyCoveringType(father)).isPrimaryGlowing(),
-								father.getCovering(father.getEyeType().getBodyCoveringType(father)).getPrimaryColour(), father.getCovering(father.getEyeType().getBodyCoveringType(father)).isPrimaryGlowing()));
+				body.getCoverings().put(body.getEye().getBodyCoveringType(body),
+						new Covering(body.getEye().getBodyCoveringType(body), father.getCovering(father.getEyeCovering()).getPattern(),
+								father.getCovering(father.getEyeCovering()).getPrimaryColour(), father.getCovering(father.getEyeCovering()).isPrimaryGlowing(),
+								father.getCovering(father.getEyeCovering()).getPrimaryColour(), father.getCovering(father.getEyeCovering()).isPrimaryGlowing()));
 			}
 		}
 		// Pupil colour:
 		if(Math.random()<=0.5f) {
 			if(Math.random()>=takesAfterMotherChance) {
 				body.getCoverings().put(BodyCoveringType.EYE_PUPILS,
-						new Covering(body.getEye().getType().getBodyCoveringType(body), mother.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
+						new Covering(body.getEye().getBodyCoveringType(body), mother.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
 								mother.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), mother.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing(),
 								mother.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), mother.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing()));
 			} else {
 				body.getCoverings().put(BodyCoveringType.EYE_PUPILS,
-						new Covering(body.getEye().getType().getBodyCoveringType(body), father.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
+						new Covering(body.getEye().getBodyCoveringType(body), father.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
 								father.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), father.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing(),
 								father.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), father.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing()));
 			}
@@ -327,12 +332,12 @@ public class CharacterUtils {
 		if(Math.random()<=0.5f) {
 			if(Math.random()>=takesAfterMotherChance) {
 				body.getCoverings().put(BodyCoveringType.EYE_SCLERA,
-						new Covering(body.getEye().getType().getBodyCoveringType(body), mother.getCovering(BodyCoveringType.EYE_SCLERA).getPattern(),
+						new Covering(body.getEye().getBodyCoveringType(body), mother.getCovering(BodyCoveringType.EYE_SCLERA).getPattern(),
 								mother.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColour(), mother.getCovering(BodyCoveringType.EYE_SCLERA).isPrimaryGlowing(),
 								mother.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColour(), mother.getCovering(BodyCoveringType.EYE_SCLERA).isPrimaryGlowing()));
 			} else {
 				body.getCoverings().put(BodyCoveringType.EYE_SCLERA,
-						new Covering(body.getEye().getType().getBodyCoveringType(body), father.getCovering(BodyCoveringType.EYE_SCLERA).getPattern(),
+						new Covering(body.getEye().getBodyCoveringType(body), father.getCovering(BodyCoveringType.EYE_SCLERA).getPattern(),
 								father.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColour(), father.getCovering(BodyCoveringType.EYE_SCLERA).isPrimaryGlowing(),
 								father.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColour(), father.getCovering(BodyCoveringType.EYE_SCLERA).isPrimaryGlowing()));
 			}
@@ -779,15 +784,15 @@ public class CharacterUtils {
 		
 		// Skin & fur colours:
 		for(BodyPartInterface bp : character.getAllBodyParts()){
-			if(bp.getType().getBodyCoveringType(character)!=null
+			if(bp.getBodyCoveringType(character)!=null
 					&& !(bp instanceof Eye)) {
-				if(tempList.contains(bp.getType().getBodyCoveringType(character))) {
-					Covering covering = character.getCovering(bp.getType().getBodyCoveringType(character));
+				if(tempList.contains(bp.getBodyCoveringType(character))) {
+					Covering covering = character.getCovering(bp.getBodyCoveringType(character));
 					body.getCoverings().put(
-							bp.getType().getBodyCoveringType(character),
+							bp.getBodyCoveringType(character),
 							new Covering(covering.getType(), covering.getPattern(), covering.getModifier(), covering.getPrimaryColour(), covering.isPrimaryGlowing(), covering.getSecondaryColour(), covering.isSecondaryGlowing()));
-					tempList.remove(bp.getType().getBodyCoveringType(character));
-//					System.out.println("Set: "+bp.getType().getName(character)+" : "+bp.getType().getBodyCoveringType().getName(character)+"("+bp.getType().getRace().getName()+") : "+covering.getPrimaryColour().getName());
+					tempList.remove(bp.getBodyCoveringType(character));
+//					System.out.println("Set: "+bp.getType().getName(character)+" : "+bp.getBodyCoveringType().getName(character)+"("+bp.getType().getRace().getName()+") : "+covering.getPrimaryColour().getName());
 				}
 			}
 		}
@@ -835,9 +840,19 @@ public class CharacterUtils {
 	}
 
 	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Subspecies halfSubspecies) {
-		Gender startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
-		RacialBody demonBody = RacialBody.DEMON;
-		RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
+		Gender startingGender;
+		RaceStage stage;
+		AbstractRacialBody demonBody = RacialBody.DEMON;
+		
+		if(linkedCharacter!=null) {
+			startingGender = linkedCharacter.getGender();
+			stage = linkedCharacter.getRaceStage();
+			
+		} else {
+			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
+			stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
+		}
+		
 		switch(stage) {
 			case GREATER:
 				break;
@@ -863,7 +878,7 @@ public class CharacterUtils {
 				true));
 		
 		body.setBreast(new Breast(BreastType.DEMON_COMMON,
-				BreastShape.getRandomBreastShape(),
+				Util.randomItemFrom(demonBody.getBreastShapes()),
 				(startingGender.getGenderName().isHasBreasts()? demonBody.getBreastSize() : demonBody.getNoBreastSize()),
 				(startingGender.isFeminine() ? demonBody.getFemaleLactationRate() : demonBody.getMaleLactationRate()),
 				(Main.getProperties().multiBreasts==2
@@ -876,6 +891,23 @@ public class CharacterUtils {
 				(startingGender.isFeminine() ? demonBody.getFemaleBreastCapacity() : demonBody.getMaleBreastCapacity()),
 				(startingGender.isFeminine() ? demonBody.getFemaleBreastElasticity() : demonBody.getMaleBreastElasticity()),
 				(startingGender.isFeminine() ? demonBody.getFemaleBreastPlasticity() : demonBody.getMaleBreastPlasticity()), 
+				true));
+		
+		body.setBreastCrotch(
+				new BreastCrotch(((demonBody.getLegConfiguration()!=LegConfiguration.BIPEDAL && Main.getProperties().udders>=1) || (stage==RaceStage.GREATER && Main.getProperties().udders==2)) && startingGender.isFeminine()
+					?demonBody.getBreastType()
+					:BreastType.NONE,
+				Util.randomItemFrom(demonBody.getBreastCrotchShapes()),
+				demonBody.getBreastCrotchSize(),
+				demonBody.getBreastCrotchLactationRate(),
+				demonBody.getBreastCrotchCount(),
+				demonBody.getBreastCrotchNippleSize(),
+				demonBody.getBreastCrotchNippleShape(),
+				demonBody.getBreastCrotchAreolaeSize(),
+				demonBody.getNippleCountPerBreastCrotch(),
+				demonBody.getBreastCrotchCapacity(),
+				demonBody.getBreastCrotchElasticity(),
+				demonBody.getBreastCrotchPlasticity(), 
 				true));
 
 		if(halfSubspecies==Subspecies.HUMAN) {
@@ -962,11 +994,11 @@ public class CharacterUtils {
 		return generateBody(linkedCharacter, startingGender, RacialBody.valueOfRace(species.getRace()), species, stage);
 	}
 	
-	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, RacialBody startingBodyType, RaceStage stage) {
+	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, AbstractRacialBody startingBodyType, RaceStage stage) {
 		return generateBody(linkedCharacter, startingGender, startingBodyType, null, stage);
 	}
 	
-	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, RacialBody startingBodyType, Subspecies species, RaceStage stage) {
+	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, AbstractRacialBody startingBodyType, Subspecies species, RaceStage stage) {
 		
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
@@ -982,51 +1014,8 @@ public class CharacterUtils {
 			}
 			if(linkedCharacter==null || !linkedCharacter.isUnique()) {
 				List<Subspecies> slimeSubspecies = new ArrayList<>();
-				// I do it like this so that when I add a new Subspecies, the IDE tells me there's one to account for here.
 				for(Subspecies subspecies : Subspecies.values()) {
 					switch(subspecies) {
-						case ALLIGATOR_MORPH:
-						case BAT_MORPH:
-						case CAT_MORPH:
-						case CAT_MORPH_CARACAL:
-						case CAT_MORPH_CHEETAH:
-						case CAT_MORPH_LEOPARD:
-						case CAT_MORPH_LEOPARD_SNOW:
-						case CAT_MORPH_LION:
-						case CAT_MORPH_LYNX:
-						case CAT_MORPH_TIGER:
-						case COW_MORPH:
-						case DOG_MORPH:
-						case DOG_MORPH_BORDER_COLLIE:
-						case DOG_MORPH_DOBERMANN:
-						case FOX_MORPH:
-						case FOX_MORPH_FENNEC:
-						case HARPY:
-						case HARPY_BALD_EAGLE:
-						case HARPY_RAVEN:
-						case HORSE_MORPH:
-						case HORSE_MORPH_ZEBRA:
-						case HUMAN:
-						case RABBIT_MORPH:
-						case RABBIT_MORPH_LOP:
-						case RAT_MORPH:
-						case REINDEER_MORPH:
-						case SQUIRREL_MORPH:
-						case WOLF_MORPH:
-							if(startingGender.isFeminine()) {
-								for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
-									if(entry.getValue() != FurryPreference.HUMAN) {
-										slimeSubspecies.add(subspecies);
-									}
-								}
-							} else {
-								for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
-									if(entry.getValue() != FurryPreference.HUMAN) {
-										slimeSubspecies.add(subspecies);
-									}
-								}
-							}
-							break;
 						// Special races that slimes/half-demons do not spawn as:
 						case ELEMENTAL_AIR:
 						case ELEMENTAL_ARCANE:
@@ -1043,6 +1032,21 @@ public class CharacterUtils {
 						case IMP_ALPHA:
 						case ELDER_LILIN:
 						case LILIN:
+							break;
+						default:
+							if(startingGender.isFeminine()) {
+								for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
+									if(entry.getValue() != FurryPreference.HUMAN) {
+										slimeSubspecies.add(subspecies);
+									}
+								}
+							} else {
+								for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
+									if(entry.getValue() != FurryPreference.HUMAN) {
+										slimeSubspecies.add(subspecies);
+									}
+								}
+							}
 							break;
 					}
 				}
@@ -1077,10 +1081,10 @@ public class CharacterUtils {
 						startingBodyType.getAnusPlasticity(),
 						true),
 				new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
-						BreastShape.getRandomBreastShape(),
+						Util.randomItemFrom(startingBodyType.getBreastShapes()),
 						(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
-						((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
+						((stage.isSkinFurry() && Main.getProperties().multiBreasts>=1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
 								?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
 								:1),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
@@ -1102,7 +1106,7 @@ public class CharacterUtils {
 									:(startingGender.isFeminine() ? RacialBody.HUMAN.getFemaleHairLength() : RacialBody.HUMAN.getMaleHairLength()))
 							:(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
 						HairStyle.getRandomHairStyle((startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
-				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
+				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()),
 				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
 						startingBodyType.getBodyMaterial(),
 						startingBodyType.getGenitalArrangement(),
@@ -1133,6 +1137,23 @@ public class CharacterUtils {
 				.tail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE))
 				.tentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE))
 				.wing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
+				.breastCrotch(
+					new BreastCrotch(
+							((startingBodyType.getLegConfiguration()!=LegConfiguration.BIPEDAL && Main.getProperties().udders>=1) || (stage==RaceStage.GREATER && Main.getProperties().udders==2)) && startingGender.isFeminine()
+								?startingBodyType.getBreastType()
+								:BreastType.NONE,
+							Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
+							startingBodyType.getBreastCrotchSize(),
+							startingBodyType.getBreastCrotchLactationRate(),
+							startingBodyType.getBreastCrotchCount(),
+							startingBodyType.getBreastCrotchNippleSize(),
+							startingBodyType.getBreastCrotchNippleShape(),
+							startingBodyType.getBreastCrotchAreolaeSize(),
+							startingBodyType.getNippleCountPerBreastCrotch(),
+							startingBodyType.getBreastCrotchCapacity(),
+							startingBodyType.getBreastCrotchElasticity(),
+							startingBodyType.getBreastCrotchPlasticity(), 
+							true))
 				.build();
 		
 		if(body.getPenis().getType()!=PenisType.NONE
@@ -1161,7 +1182,7 @@ public class CharacterUtils {
 	
 	public static Body reassignBody(GameCharacter linkedCharacter, Body body, Gender startingGender, Subspecies species, RaceStage stage) {
 		
-		RacialBody startingBodyType = RacialBody.valueOfRace(species.getRace());
+		AbstractRacialBody startingBodyType = RacialBody.valueOfRace(species.getRace());
 		
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
@@ -1178,10 +1199,10 @@ public class CharacterUtils {
 						true));
 		
 		body.setBreast(new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
-				BreastShape.getRandomBreastShape(),
+				Util.randomItemFrom(startingBodyType.getBreastShapes()),
 				(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
-				((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
+				((stage.isSkinFurry() && Main.getProperties().multiBreasts>=1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
 						?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
 						:1),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
@@ -1191,6 +1212,23 @@ public class CharacterUtils {
 				(startingGender.isFeminine() ? startingBodyType.getFemaleBreastCapacity() : startingBodyType.getMaleBreastCapacity()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleBreastElasticity() : startingBodyType.getMaleBreastElasticity()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleBreastPlasticity() : startingBodyType.getMaleBreastPlasticity()), 
+				true));
+
+		body.setBreastCrotch(
+				new BreastCrotch(((startingBodyType.getLegConfiguration()!=LegConfiguration.BIPEDAL && Main.getProperties().udders>=1) || (stage==RaceStage.GREATER && Main.getProperties().udders==2)) && startingGender.isFeminine()
+					?startingBodyType.getBreastType()
+					:BreastType.NONE,
+				Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
+				startingBodyType.getBreastCrotchSize(),
+				startingBodyType.getBreastCrotchLactationRate(),
+				startingBodyType.getBreastCrotchCount(),
+				startingBodyType.getBreastCrotchNippleSize(),
+				startingBodyType.getBreastCrotchNippleShape(),
+				startingBodyType.getBreastCrotchAreolaeSize(),
+				startingBodyType.getNippleCountPerBreastCrotch(),
+				startingBodyType.getBreastCrotchCapacity(),
+				startingBodyType.getBreastCrotchElasticity(),
+				startingBodyType.getBreastCrotchPlasticity(), 
 				true));
 		
 		body.setFace(new Face((stage.isFaceFurry()?startingBodyType.getFaceType():FaceType.HUMAN),
@@ -1208,7 +1246,7 @@ public class CharacterUtils {
 						:(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
 					HairStyle.getRandomHairStyle((startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))));
 		
-		body.setLeg(new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN));
+		body.setLeg(new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()));
 		
 		body.setSkin(new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN));
 		
@@ -1426,7 +1464,7 @@ public class CharacterUtils {
 		}
 		
 		if(character.hasBreasts()) {
-			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 +(Util.random.nextInt(5)))); // Random size between -2 and +2 of base value.
+			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 + Util.random.nextInt(5))); // Random size between -2 and +2 of base value.
 			if(Math.random()<=0.015f || character.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
 				character.setBreastMilkStorage((int)((character.getBreastSize().getMeasurement() * 5)*(1+(Math.random()*2))));
 				if(Math.random()<=0.025f) {
@@ -1434,6 +1472,25 @@ public class CharacterUtils {
 				}
 				if(Math.random()<=0.025f) {
 					character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
+				}
+			}
+		}
+		
+		//BreastsCrotch:
+		if(character.hasBreastsCrotch()) {
+			character.setBreastCrotchSize(Math.max(CupSize.FLAT.getMeasurement(), character.getBreastCrotchSize().getMeasurement() -2 + Util.random.nextInt(5)));// Random size between -2 and +2 of base value. 
+			// If bipedal, make sure it's smaller than the smallest upper cup size:
+			if(character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+				character.setBreastCrotchSize(Math.min(character.getBreastCrotchRawSizeValue(), character.getBreastRawSizeValue()-(character.getBreastRows())));
+			}
+			
+			if(Math.random()<=0.015f || character.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
+				character.setBreastCrotchMilkStorage((int)((character.getBreastCrotchSize().getMeasurement() * 5)*(1+(Math.random()*2))));
+				if(Math.random()<=0.025f) {
+					character.addMilkCrotchModifier(FluidModifier.ADDICTIVE);
+				}
+				if(Math.random()<=0.025f) {
+					character.addMilkCrotchModifier(FluidModifier.HALLUCINOGENIC);
 				}
 			}
 		}
@@ -1453,8 +1510,8 @@ public class CharacterUtils {
 		}
 		
 		// Hair:
-		if(Math.random()<=0.1f && !character.getCovering(character.getHairType().getBodyCoveringType(character)).getType().getDyePatterns().isEmpty()) { // 10% chance to have a non-natural hair colour:
-			Covering currentCovering = character.getCovering(character.getHairType().getBodyCoveringType(character));
+		if(Math.random()<=0.1f && !character.getCovering(character.getHairCovering()).getType().getDyePatterns().isEmpty()) { // 10% chance to have a non-natural hair colour:
+			Covering currentCovering = character.getCovering(character.getHairCovering());
 			character.setHairCovering(new Covering(
 					currentCovering.getType(),
 					Util.randomItemFrom(currentCovering.getType().getDyePatterns()),
@@ -1767,6 +1824,12 @@ public class CharacterUtils {
 			character.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.ZERO_HATE);
 			character.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.ZERO_HATE);
 		}
+		// Decided against this. Made the EXPOSED status effects less severe for non-bipeds instead.
+//		if((!character.getLegConfiguration().isBipedalPositionedGenitals() || !character.getLegConfiguration().isBipedalPositionedCrotchBoobs())
+//				&& !character.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+//			availableFetishes.remove(Fetish.FETISH_EXHIBITIONIST);
+//			character.setFetishDesire(Fetish.FETISH_EXHIBITIONIST, FetishDesire.THREE_LIKE);
+//		}
 		
 		// Desires:
 		int[] posDesireProb = new int[] {1, 1, 2, 2, 2, 3, 3};
@@ -1879,29 +1942,41 @@ public class CharacterUtils {
 					// Don't add clothing if not core
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-						if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty() && (slot.slotBlockedByRace(character) != character.getRace())) {
+						if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty()) {
 							
+							BodyPartClothingBlock block = slot.getBodyPartClothingBlock(character);
 							List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot);
+							clothingToUse = clothingToUse.stream().filter((c) ->
+								!c.isCondom()
+									&& (block==null || !Collections.disjoint(c.getItemTags(), block.getRequiredTags()))
+									&& (!character.hasBreastsCrotch()
+											|| character.getLegConfiguration()==LegConfiguration.TAUR  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
+											|| c.isConcealsSlot(character, InventorySlot.STOMACH)
+											|| c.getSlot()!=InventorySlot.TORSO_UNDER || c.getSlot()!=InventorySlot.TORSO_OVER
+											|| character.getInventorySlotsConcealed().containsKey(InventorySlot.STOMACH))
+								).collect(Collectors.toList());
 							
 							if(character.getHistory()==Occupation.NPC_PROSTITUTE) {
 								clothingToUse = suitableFeminineClothing.get(Occupation.NPC_PROSTITUTE);
 							}
-							AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
 							
-							if(ct!=null) {
-								clothingToUse.remove(ClothingType.PENIS_CONDOM);
-								AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
-										ct,
-										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-												? ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-												: (slot.isCoreClothing()
-														?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-														:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
-										false);
-								if(ct.isPatternAvailable() && Math.random() >= 0.8f) {
-									clothingToAdd.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllPatterns().values())).getName());
+							if(!clothingToUse.isEmpty()) {
+								AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
+								
+								if(ct!=null) {
+									AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
+											ct,
+											(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
+													? ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+													: (slot.isCoreClothing()
+															?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+															:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
+											false);
+									if(ct.isPatternAvailable() && Math.random() >= 0.8f) {
+										clothingToAdd.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllPatterns().values())).getName());
+									}
+									character.equipClothingFromNowhere(clothingToAdd, true, character);
 								}
-								character.equipClothingFromNowhere(clothingToAdd, true, character);
 							}
 						}
 					}
@@ -1921,30 +1996,42 @@ public class CharacterUtils {
 				if((!slot.isCoreClothing() && onlyAddCoreClothing)
 						|| (slot==InventorySlot.LEG
 							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null
-							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType().toString().contains("DRESS"))) {//TODO please don't do this
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType().toString().contains("DRESS"))) {//TODO please don't do this //BE QUIET
 					// Don't add clothing if not core
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-						if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty() && (slot.slotBlockedByRace(character) != character.getRace())) {
-							
+						if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty()) {
+
+							BodyPartClothingBlock block = slot.getBodyPartClothingBlock(character);
 							List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot);
-							clothingToUse.remove(ClothingType.PENIS_CONDOM);
-							AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
+							clothingToUse = clothingToUse.stream().filter((c) ->
+								!c.isCondom()
+								&& (block==null || !Collections.disjoint(c.getItemTags(), block.getRequiredTags()))
+									&& (!character.hasBreastsCrotch()
+											|| character.getLegConfiguration()==LegConfiguration.TAUR  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
+											|| c.isConcealsSlot(character, InventorySlot.STOMACH)
+											|| c.getSlot()!=InventorySlot.TORSO_UNDER || c.getSlot()!=InventorySlot.TORSO_OVER
+											|| character.getInventorySlotsConcealed().containsKey(InventorySlot.STOMACH))
+								).collect(Collectors.toList());
 							
-							if(ct!=null) {
-								AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
-										ct,
-										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-												?  ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-														: (slot.isCoreClothing()
-																?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-																:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
-										false);
-								if(ct.isPatternAvailable() && Math.random() >= 0.8f) {
-									clothingToAdd.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllPatterns().values())).getName());
-								}
+							if(!clothingToUse.isEmpty()) {
+								AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
 								
-								character.equipClothingFromNowhere(clothingToAdd, true, character);
+								if(ct!=null) {
+									AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
+											ct,
+											(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
+													?  ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+															: (slot.isCoreClothing()
+																	?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+																	:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
+											false);
+									if(ct.isPatternAvailable() && Math.random() >= 0.8f) {
+										clothingToAdd.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllPatterns().values())).getName());
+									}
+									
+									character.equipClothingFromNowhere(clothingToAdd, true, character);
+								}
 							}
 								
 						}
@@ -1971,8 +2058,11 @@ public class CharacterUtils {
 			}
 			
 			if(!character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-				if(!clothingMap.get(slot).isEmpty() && (slot.slotBlockedByRace(character) != character.getRace())) {
+				if(!clothingMap.get(slot).isEmpty()) {
+
+					BodyPartClothingBlock block = slot.getBodyPartClothingBlock(character);
 					List<AbstractClothingType> clothingToUse = clothingMap.get(slot);
+					clothingToUse = clothingToUse.stream().filter((c) -> (block==null || !Collections.disjoint(c.getItemTags(), block.getRequiredTags()))).collect(Collectors.toList());
 					
 					AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
 					
@@ -2000,20 +2090,20 @@ public class CharacterUtils {
 				
 			} else if(character.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
 				
-				for(BlockedParts bp : ct.getBlockedPartsList()) {
+				for(BlockedParts bp : ct.getBlockedPartsList(character)) {
 					boolean leavesAnusExposed = character.isCoverableAreaExposed(CoverableArea.ANUS) && !bp.blockedBodyParts.contains(CoverableArea.ANUS);
 					boolean leavesNipplesExposed = character.isCoverableAreaExposed(CoverableArea.NIPPLES) && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES);
 					boolean leavesPenisExposed = !character.hasPenis() || (character.isCoverableAreaExposed(CoverableArea.PENIS) && !bp.blockedBodyParts.contains(CoverableArea.PENIS));
 					boolean leavesVaginaExposed = !character.hasVagina() || (character.isCoverableAreaExposed(CoverableArea.VAGINA) && !bp.blockedBodyParts.contains(CoverableArea.VAGINA));
-					//TODO
-					if(!leavesNipplesExposed || (!leavesAnusExposed || !leavesPenisExposed && !leavesVaginaExposed)) {
+					//TODO check this:
+					if(!ct.isTransparent() && (!leavesNipplesExposed || (!leavesAnusExposed || (!leavesPenisExposed && !leavesVaginaExposed)))) {
 						canEquip = false;
 					}
 				}
 				
 				
 			} else {
-				for(InventorySlot is : ct.getIncompatibleSlots()) {
+				for(InventorySlot is : ct.getIncompatibleSlots(character)) {
 					if(character.getClothingInSlot(is) != null) {
 						canEquip = false;
 					}

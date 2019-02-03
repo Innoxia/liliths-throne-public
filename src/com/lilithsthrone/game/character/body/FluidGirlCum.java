@@ -19,10 +19,11 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.2.7
+ * @version 0.3.1
  * @author Innoxia
  */
 public class FluidGirlCum implements FluidInterface, XMLSaving {
+
 	
 	protected FluidType type;
 	protected FluidFlavour flavour;
@@ -92,7 +93,7 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 	}
 
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof FluidGirlCum){
 			if(((FluidGirlCum)o).getType().equals(this.getType())
 				&& ((FluidGirlCum)o).getFlavour() == this.getFlavour()
@@ -144,7 +145,7 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 		return UtilText.returnStringAtRandom(
 				modifierDescriptor,
 				flavour.getRandomFlavourDescriptor(),
-				type.getDescriptor(gc));
+				(type.getDescriptor(gc).equals("human")?null:type.getDescriptor(gc)));
 	}
 
 	@Override
@@ -474,5 +475,13 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 
 	public float getValuePerMl() {
 		return 4f + this.getFluidModifiers().size()*1f + (this.getFlavour()!=FluidFlavour.GIRL_CUM?1f:0);
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(FluidGirlCum.class);
 	}
 }

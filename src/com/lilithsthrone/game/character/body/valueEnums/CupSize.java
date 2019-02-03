@@ -9,7 +9,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
  */
 public enum CupSize {
 	
-	FLAT("no", "no", 0),
+	FLAT("flat", "flat", 0),
 
 	// Training bra sizes:
 	
