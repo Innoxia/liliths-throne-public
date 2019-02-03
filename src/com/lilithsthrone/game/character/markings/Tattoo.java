@@ -87,7 +87,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof Tattoo)
 					&& ((Tattoo)o).getType()==type

@@ -10,6 +10,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreastsCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerClit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
@@ -17,10 +18,12 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreastsCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFeet;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisUrethraPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisUrethraVagina;
@@ -29,13 +32,16 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.TailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TailVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreastsCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMound;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioningNew;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
@@ -77,7 +83,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.97
- * @version 0.2.9
+ * @version 0.3.1
  * @author Innoxia
  */
 public class SexActionPresets {
@@ -88,7 +94,13 @@ public class SexActionPresets {
 			SexAreaOrifice.THIGHS,
 			SexAreaOrifice.URETHRA_PENIS,
 			SexAreaOrifice.URETHRA_VAGINA,
-			SexAreaOrifice.VAGINA);
+			SexAreaOrifice.VAGINA,
+			SexAreaOrifice.NIPPLE_CROTCH,
+			SexAreaOrifice.BREAST_CROTCH);
+
+	public static List<SexAreaInterface> crotchBoobAreas = Util.newArrayListOfValues(
+			SexAreaOrifice.NIPPLE_CROTCH,
+			SexAreaOrifice.BREAST_CROTCH);
 
 	public static List<SexAreaInterface> thighAreas = Util.newArrayListOfValues(
 			SexAreaOrifice.THIGHS);
@@ -96,16 +108,16 @@ public class SexActionPresets {
 	public static List<SexAreaInterface> feetAreas = Util.newArrayListOfValues(
 			SexAreaPenetration.FOOT);
 	
-	private static List<SexAreaInterface> vaginaAreas = Util.newArrayListOfValues(
+	public static List<SexAreaInterface> vaginaAreas = Util.newArrayListOfValues(
 			SexAreaPenetration.CLIT,
 			SexAreaOrifice.URETHRA_VAGINA,
 			SexAreaOrifice.VAGINA);
 
-	private static List<SexAreaInterface> penisAreas = Util.newArrayListOfValues(
+	public static List<SexAreaInterface> penisAreas = Util.newArrayListOfValues(
 			SexAreaPenetration.PENIS,
 			SexAreaOrifice.URETHRA_PENIS);
 	
-	private static List<SexAreaInterface> assAreas = Util.newArrayListOfValues(
+	public static List<SexAreaInterface> assAreas = Util.newArrayListOfValues(
 			SexAreaOrifice.ANUS,
 			SexAreaOrifice.ASS);
 	
@@ -113,7 +125,7 @@ public class SexActionPresets {
 			SexAreaPenetration.TONGUE,
 			SexAreaOrifice.MOUTH);
 
-	private static List<SexAreaInterface> breastAreas = Util.newArrayListOfValues(
+	public static List<SexAreaInterface> breastAreas = Util.newArrayListOfValues(
 			SexAreaOrifice.NIPPLE,
 			SexAreaOrifice.BREAST);
 
@@ -122,9 +134,16 @@ public class SexActionPresets {
 			SexAreaPenetration.TAIL,
 			SexAreaPenetration.TENTACLE);
 
-	private static List<SexAreaInterface> lowerHalf = Util.newArrayListOfValues(
+	public static List<SexAreaInterface> lowerHalf = Util.newArrayListOfValues(
 			SexAreaPenetration.TAIL,
 			SexAreaPenetration.TENTACLE);
+
+	public static List<SexAreaInterface> upperHalf = Util.newArrayListOfValues(
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.NIPPLE,
+			SexAreaOrifice.BREAST,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.MOUTH);
 	
 	private static List<SexAreaInterface> alLAreas = Util.mergeLists(appendageAreas, groinAreas, assAreas, mouthAreas, breastAreas);
 	
@@ -133,6 +152,7 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToAss = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToUpperHalf = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToBreasts = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToCrotchBoobs = new HashMap<>();
 
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> lowerHalfToAppendages = new HashMap<>();
 	
@@ -154,6 +174,7 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> groinToGroin = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> groinToVagina = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> groinToAss= new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> groinToMouth= new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> penisToVagina = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> penisToBreasts = new HashMap<>();
@@ -177,6 +198,11 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> kissing = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToBreasts = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToLowerHalf = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToAss = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToVagina = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToPenis = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToCrotchBoobs = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> breastsToMouth = new HashMap<>();
 	
@@ -199,6 +225,7 @@ public class SexActionPresets {
 			appendagesToAllAreas.put(area, alLAreas);
 			
 			appendagesToBreasts.put(area, breastAreas);
+			appendagesToCrotchBoobs.put(area, crotchBoobAreas);
 			
 			appendagesToLowerHalf.put(area, groinAreas);
 			appendagesToLowerHalf.put(area, lowerHalf);
@@ -219,14 +246,21 @@ public class SexActionPresets {
 			groinToGroin.put(area, groinAreas);
 			groinToAss.put(area, assAreas);
 			groinToVagina.put(area, vaginaAreas);
+			groinToMouth.put(area, mouthAreas);
 		}
 		
 		for(SexAreaInterface area : mouthAreas) {
 			kissing.put(area, mouthAreas);
-		}
-		
-		for(SexAreaInterface area : mouthAreas) {
+			mouthToAss.put(area, assAreas);
+			mouthToVagina.put(area, vaginaAreas);
+			mouthToPenis.put(area, penisAreas);
+			mouthToCrotchBoobs.put(area, crotchBoobAreas);
+			
 			mouthToBreasts.put(area, breastAreas);
+			
+			mouthToLowerHalf.put(area, groinAreas);
+			mouthToLowerHalf.put(area, lowerHalf);
+			mouthToLowerHalf.put(area, assAreas);
 		}
 		
 		for(SexAreaInterface area : breastAreas) {
@@ -254,6 +288,7 @@ public class SexActionPresets {
 	}
 
 	public static List<Class<?>> positioningActions = new ArrayList<>();
+	public static List<Class<?>> positioningActionsNew = new ArrayList<>();
 	public static List<Class<?>> miscActions = new ArrayList<>();
 	public static List<Class<?>> sexActions = new ArrayList<>();
 	public static List<Class<?>> selfActions = new ArrayList<>();
@@ -263,6 +298,7 @@ public class SexActionPresets {
 	static {
 
 		positioningActions.add(GenericPositioning.class);
+		positioningActionsNew.add(GenericPositioningNew.class);
 		
 		miscActions.add(GenericActions.class);
 		miscActions.add(GenericOrgasms.class);
@@ -272,6 +308,7 @@ public class SexActionPresets {
 		// Finger actions:
 		sexActions.add(FingerAnus.class);
 		sexActions.add(FingerBreasts.class);
+		sexActions.add(FingerBreastsCrotch.class);
 		sexActions.add(FingerNipple.class);
 		sexActions.add(FingerVagina.class);
 		sexActions.add(FingerClit.class);
@@ -284,7 +321,9 @@ public class SexActionPresets {
 		sexActions.add(ClitMouth.class);
 		sexActions.add(TongueMound.class);
 		sexActions.add(TongueBreasts.class);
+		sexActions.add(TongueBreastsCrotch.class);
 		sexActions.add(TongueNipple.class);
+		sexActions.add(TongueNippleCrotch.class);
 		sexActions.add(PenisMouth.class);
 
 		// Tail actions:
@@ -295,8 +334,10 @@ public class SexActionPresets {
 		sexActions.add(PenisAss.class);
 		sexActions.add(PenisAnus.class);
 		sexActions.add(PenisNipple.class);
+		sexActions.add(PenisNippleCrotch.class);
 		sexActions.add(PenisVagina.class);
 		sexActions.add(PenisBreasts.class);
+		sexActions.add(PenisBreastsCrotch.class);
 		sexActions.add(PenisThighs.class);
 		sexActions.add(PenisFoot.class);
 		sexActions.add(PenisFeet.class);

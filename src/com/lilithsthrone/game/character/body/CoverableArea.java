@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.body;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum CoverableArea {
@@ -27,6 +27,9 @@ public enum CoverableArea {
 	
 	BREASTS("breasts"),
 	NIPPLES("nipples"),
+	
+	BREASTS_CROTCH("crotch-breasts"),
+	NIPPLES_CROTCH("crotch-nipples"),
 
 	HAIR("hair"),
 	MOUTH("mouth");

@@ -34,7 +34,7 @@ public class Vector2i {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof Vector2i){
 			if(((Vector2i)o).getX() == x
 				&& ((Vector2i)o).getY() == y){

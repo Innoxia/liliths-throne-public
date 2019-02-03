@@ -37,7 +37,8 @@ public class BlockedParts implements XMLSaving {
 	 * @param clothingAccessBlocked The clothing access that this displacement blocks/reveals.
 	 * @param concealedSlots Slots that are concealed by this displacementType.
 	 */
-	public BlockedParts(DisplacementType displacementType,
+	public BlockedParts(
+			DisplacementType displacementType,
 			List<ClothingAccess> clothingAccessRequired,
 			List<CoverableArea> blockedBodyParts,
 			List<ClothingAccess> clothingAccessBlocked,
@@ -68,6 +69,17 @@ public class BlockedParts implements XMLSaving {
 		} else {
 			this.concealedSlots = new ArrayList<>();
 		}
+	}
+	
+	/**
+	 * @param blockedParts The BlockedParts to copy.
+	 */
+	public BlockedParts(BlockedParts blockedParts) {
+		this(blockedParts.displacementType,
+				blockedParts.clothingAccessRequired,
+				blockedParts.blockedBodyParts,
+				blockedParts.clothingAccessBlocked,
+				blockedParts.concealedSlots);
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {

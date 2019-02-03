@@ -50,7 +50,7 @@ public class ItemEffect implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof ItemEffect){
 			if((((ItemEffect)o).getItemEffectType()==null && itemEffectType==null
 					||((ItemEffect)o).getItemEffectType()!=null && ((ItemEffect)o).getItemEffectType().equals(itemEffectType))
@@ -172,6 +172,12 @@ public class ItemEffect implements XMLSaving {
 						|| getSecondaryModifier()==TFModifier.TF_TYPE_3
 						|| getSecondaryModifier()==TFModifier.TF_TYPE_4
 						|| getSecondaryModifier()==TFModifier.TF_TYPE_5
+						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_ARACHNID
+						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL
+						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD
+						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL
+						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG
+						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR
 						|| getSecondaryModifier()==TFModifier.REMOVAL)) {
 			return UtilText.parse(target,
 					"<p style='text-align:center;'>"

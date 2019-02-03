@@ -6,11 +6,10 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
@@ -18,7 +17,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.8
- * @version 0.2.9
+ * @version 0.3.1
  * @author Innoxia
  */
 public class MilkingStall {
@@ -34,8 +33,8 @@ public class MilkingStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MILKING_STALL_FUCKING
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.MILKING_STALL_FUCKING
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL
 					&& Sex.isDom(Sex.getCharacterPerformingAction());
 		}
 		
@@ -60,10 +59,9 @@ public class MilkingStall {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMMilkingStall(
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.MILKING_STALL_FUCKING)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotBipeds.MILKING_STALL_FUCKING)),
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL))));
 			
-			SexFlags.resetRequests();
 		}
 	};
 	
@@ -78,8 +76,8 @@ public class MilkingStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MILKING_STALL_PERFORMING_ORAL
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.MILKING_STALL_PERFORMING_ORAL
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL
 					&& Sex.isDom(Sex.getCharacterPerformingAction());
 		}
 		
@@ -103,10 +101,9 @@ public class MilkingStall {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMMilkingStall(
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.MILKING_STALL_PERFORMING_ORAL)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotBipeds.MILKING_STALL_PERFORMING_ORAL)),
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL))));
 			
-			SexFlags.resetRequests();
 		}
 	};
 	
@@ -121,8 +118,8 @@ public class MilkingStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MILKING_STALL_RECEIVING_ORAL
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.MILKING_STALL_RECEIVING_ORAL
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL
 					&& Sex.isDom(Sex.getCharacterPerformingAction());
 		}
 		
@@ -146,10 +143,9 @@ public class MilkingStall {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMMilkingStall(
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.MILKING_STALL_RECEIVING_ORAL)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotBipeds.MILKING_STALL_RECEIVING_ORAL)),
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL))));
 			
-			SexFlags.resetRequests();
 		}
 	};
 
@@ -165,8 +161,8 @@ public class MilkingStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) == SexPositionSlot.MILKING_STALL_FUCKING;
+					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) == SexSlotBipeds.MILKING_STALL_FUCKING;
 		}
 		
 		@Override

@@ -17,11 +17,14 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -32,9 +35,9 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -44,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Lab {
@@ -53,31 +56,43 @@ public class Lab {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
-				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_PREGNANCY_RISK");
-			} else {
-				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB");
+			if(Main.game.getNpc(Lilaya.class).getBaseFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+				if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_PREGNANCY_RISK");
+				
+				} else if(Main.game.getNpc(Lilaya.class).isPregnant() && Main.game.getNpc(Lilaya.class).isCharacterReactedToPregnancy(Main.game.getPlayer())) {
+					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_PREGNANT");
+					
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaBirthNews)) {
+					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_PREGNANCY_RESOLVED");
+				}
 			}
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB");
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
-					return new Response("Enter", "The door to Lilaya's laboratory is firmly shut. You'd better come back later.", null);
-				} else {
-					return new Response("Enter", "Step through the door and enter Lilaya's laboratory", LAB_ENTRY) {
-						@Override
-						public void effects() {
-							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)
-									&& Main.game.getPlayer().getQuest(QuestLine.MAIN) != Quest.MAIN_1_I_ARTHURS_TALE
-									&& !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)
-									&& Main.game.getNpc(Lilaya.class).getAffection(Main.game.getPlayer())>0) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), -10));
-							}
-						}
-					};
+				if(Main.game.getNpc(Lilaya.class).getBaseFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+					if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
+						return new Response("Enter", "The door to Lilaya's laboratory is firmly shut. You'd better come back later.", null);
+						
+					} else if((Main.game.getNpc(Lilaya.class).isPregnant() && Main.game.getNpc(Lilaya.class).isCharacterReactedToPregnancy(Main.game.getPlayer()))) {
+						return new Response("Enter", "The door to Lilaya's laboratory is firmly shut. You're not going to be able to get back in until her pregnancy is resolved.", null);
+					}
 				}
+				
+				return new Response("Enter", "Step through the door and enter Lilaya's laboratory", LAB_ENTRY) {
+					@Override
+					public void effects() {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)
+								&& Main.game.getPlayer().getQuest(QuestLine.MAIN) != Quest.MAIN_1_I_ARTHURS_TALE
+								&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults)
+								&& Main.game.getNpc(Lilaya.class).getAffection(Main.game.getPlayer())>0) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), -10));
+						}
+					}
+				};
 				
 			} else if (index == 6) {
 				return new ResponseEffectsOnly("Entrance hall", "Fast travel to the entrance hall."){
@@ -101,7 +116,168 @@ public class Lab {
 		}
 	};
 	
+	private static void setEntryFlags() {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.roseToldOnYou, false);
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, false);
+		if(Main.game.getNpc(Lilaya.class).isPregnant()) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaBirthNews, true);
+		} else {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaBirthNews, false);
+		}
+		if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+			Main.game.getNpc(Lilaya.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		}
+	}
 	
+	private static List<Response> getLabEntryGeneratedResponses() {
+		List<Response> generatedResponses = new ArrayList<>();
+		
+		if (Main.game.getPlayer().isVisiblyPregnant()) {
+			if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+				generatedResponses.add(new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null));
+				
+			} else {
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
+					generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
+						@Override
+						public void effects() {
+							setEntryFlags();
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY, Quest.SIDE_PREGNANCY_LILAYA_THE_MIDWIFE));
+						}
+					});
+					
+				} else {
+					generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY_REPEAT){
+						@Override
+						public void effects() {
+							setEntryFlags();
+						}
+					});
+				}
+			}
+		}
+		
+		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+				if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+					generatedResponses.add(new Response("Essences & Jinxes", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
+					
+				} else {
+					generatedResponses.add(new Response("Essences & Jinxes", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES){
+						@Override
+						public void effects() {
+							setEntryFlags();
+						}
+					});
+				}
+				
+			} else {
+				generatedResponses.add(new Response("Extract Essences",
+						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceExtractionKnown)
+								?"Ask Lilaya if you can use her equipment to extract some essences."
+								:"Ask Lilaya if there's any way to extract essences you've absorbed",
+							ESSENCE_EXTRACTION){
+					@Override
+					public void effects() {
+						setEntryFlags();
+					}
+				});
+			}
+		}
+		
+		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
+				if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+					generatedResponses.add(new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null));
+					
+				} else {
+					generatedResponses.add(new Response("Slaver", "Ask Lilaya for a letter of recommendation in order to obtain a slaver license.", LILAYA_SLAVER_RECOMMENDATION){
+						@Override
+						public void effects() {
+							setEntryFlags();
+						}
+					});
+				}
+			}
+		}
+		
+		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION) && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
+			if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+				generatedResponses.add(new Response("Accommodation", "You'll need to complete Lilaya's initial tests before you can ask her about inviting friends home!", null));
+				
+			} else {
+				generatedResponses.add(new Response("Accommodation", "Ask Lilaya about inviting your new friend to live in one of the many spare rooms in the mansion.", LILAYA_FRIEND_ACCOMMODATION){
+					@Override
+					public void effects() {
+						setEntryFlags();
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ACCOMMODATION, Quest.SIDE_UTIL_COMPLETE));
+					}
+				});
+			}
+		}
+		
+		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaDateTalk)
+				&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
+			generatedResponses.add(new Response("Current Date", "Ask Lilaya why the calendar in your room is three years ahead of the correct date.", LILAYA_CURRENT_DATE_TALK) {
+				@Override
+				public void effects() {
+					setEntryFlags();
+					Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaDateTalk, true);
+				}
+			});
+		}
+		
+		if(Main.game.getPlayer().hasItemType(ItemType.PRESENT) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent3)) {
+			if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+				generatedResponses.add(new Response("Give Present", "Although you have a present in your inventory, Lilaya is not interested in receiving it, due to her resentment towards you for being a full demon, while she is not.", null));
+				
+			} else {
+				generatedResponses.add(new Response("Give Present", "Give the present in your inventory to Lilaya.", LILAYA_PRESENT) {
+					@Override
+					public void effects() {
+						setEntryFlags();
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
+						
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent3, true);
+							
+						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent1)) {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent2, true);
+							
+						} else {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent1, true);
+						}
+					}
+				});
+			}
+		}
+		
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent3)) {
+			if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+				generatedResponses.add(new Response("Geisha Lilaya", "Lilaya is not interested in showing off her kimono, nor having sex with you, until she's a full demon as well.", null));
+				
+			} else {
+				generatedResponses.add(new Response("Geisha Lilaya", "Ask Lilaya if she'd like to wear the gifts you got for her.", LILAYA_GEISHA) {
+					@Override
+					public void effects() {
+						setEntryFlags();
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
+						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
+						Main.game.getNpc(Lilaya.class).resetInventory(false);
+						
+						Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(
+								AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_PINK, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, false), true, Main.game.getNpc(Lilaya.class));
+						Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(
+								AbstractClothingType.generateClothing(ClothingType.KIMONO_DRESS, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, Colour.CLOTHING_PINK, false), true, Main.game.getNpc(Lilaya.class));
+						Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_GETA, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK, null, false), true, Main.game.getNpc(Lilaya.class));
+						Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Lilaya.class));
+					}
+				});
+			}
+		}
+		
+		return generatedResponses;
+	}
 	
 	public static final DialogueNode LAB_ENTRY = new DialogueNode("Lilaya's Laboratory", "", true) {
 
@@ -110,497 +286,132 @@ public class Lab {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) { //TODO check
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
+					
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ARTHUR_PREGNANCY_BASE"));
+					
 					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
-						UtilText.nodeContentSB.append(// pregnant
-								"<p>"
-									+ "As you approach the door to Lilaya's lab, you hear Lilaya's high-pitched shouting getting louder and louder,"
-									+ " [lilaya.speech(...and I told you three times already! <i>Don't touch my notes!</i>)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding."
-									+ " [arthur.speech(Sorry, Lilaya, I just thought that-)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(Be quiet!)]"
-									+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab."
-									+ " [lilaya.speech([pc.Name]! Come and take a seat, this instant!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Looking down at your aunt's stomach, you see the reason why she's addressing you in the same furious tone;"
-										+ " her belly is quite clearly swollen, and it's immediately obvious that you've ended up getting her pregnant."
-									+ " Knowing from experience that it's best to just do as you're told when your aunt's like this, you walk over to the chair next to Arthur and sit down."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(You can consider yourself very lucky indeed, [pc.name]!)]"
-									+ " Lilaya shouts, before stepping back and lowering her voice a little,"
-									+ " [lilaya.speech(I've already decided to forgive you; after all, I've got bigger fish to fry right now.)]"
-								+ "</p>");
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ARTHUR_PREGNANT"));
 						
 					} else {
-						UtilText.nodeContentSB.append(
-								"<p>"
-									+ "As you approach the door to Lilaya's lab, you hear Lilaya's high-pitched shouting getting louder and louder,"
-									+ " [lilaya.speech(...and I told you three times already! <i>Don't touch my notes!</i>)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding."
-									+ " [arthur.speech(Sorry, Lilaya, I just thought that-)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(Be quiet!)]"
-									+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab."
-									+ " [lilaya.speech([pc.Name]! Come and take a seat, this instant!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Knowing from experience that it's best to just do as you're told when your aunt's like this, you walk over to the chair next to Arthur and sit down."
-									+ " Looking up at your aunt's flat stomach, you see that you didn't end up getting her pregnant after all."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(You can consider yourself very lucky indeed, [pc.name]! As you can see, I'm not pregnant!)]"
-									+ " Lilaya shouts, before stepping back and lowering her voice a little,"
-									+ " [lilaya.speech(I've already decided to forgive you; after all, I've got bigger fish to fry right now.)]"
-								+ "</p>");
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ARTHUR_NOT_PREGNANT"));
 					}
 					
 				} else {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "As you approach the door to Lilaya's lab, you hear Lilaya's high-pitched shouting getting louder and louder,"
-								+ " [lilaya.speech(...and I told you three times already! <i>Don't touch my notes!</i>)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding."
-								+ " [arthur.speech(Sorry, Lilaya, I just thought that-)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[lilaya.speech(Be quiet!)]"
-								+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab."
-								+ " [lilaya.speech([pc.Name]! Please come in and take a seat!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Knowing from experience that it's best to just do as you're told when your aunt's like this, you walk over to the chair next to Arthur and sit down."
-							+ "</p>");
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ARTHUR_BASE"));
 				}
-				
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "Lilaya starts pacing back and forth in front of you as she explains the situation,"
-							+ " [lilaya.speech(It's just impossible. Absolutely <i>impossible</i>!"
-								+ " I do need your help in order to figure out how to return [pc.name] to [pc.her] world, but I simply <i>cannot</i> be around you for longer than five minutes!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[arthur.speech(Lilaya, please, how many times to I have to say I'm sorr-)]"
-							+ " Arthur starts, before being cut short by a sudden exclamation from your aunt."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(You wouldn't have had to say sorry even <i>once</i> if you hadn't decided to fuck her!"
-								+ " And right here in my lab of all places!)]"
-							+ " Lilaya shouts, before stepping between the two of you and turning her back to Arthur as she addresses you,"
-							+ " [lilaya.speech([pc.Name], can you please help Rose to find a suitable room for Arthur? I simply can't have that insufferable asshole hanging around in my lab all the time.)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Finding yourself in an increasingly awkward position as Lilaya waits for your answer, you realise that your only real option is to agree to do as she asks."
-						+ "</p>");
+
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ARTHUR"));
 				
 			} else {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
+				if(Main.game.getPlayer().getRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaBirthNews)) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION_PREGNANCY_RESOLVED"));
+					} else {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION_NO_PREGNANCY"));
+					}
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION"));
+					
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
 					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
-						UtilText.nodeContentSB.append(
-								"<p>"
-									+ "Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life."
-								+ "</p>"
-								+ "<p>"
-									+ "On the opposite side of the room, you see Lilaya sitting down in a chair, looking straight at you."
-									+ " As soon as your eyes meet, she starts to stand up, but you notice that her movements are slightly unusual."
-									+ " Stepping around the desk that she was working at, you see the cause of her clumsy motions taking the form of a clearly swollen belly."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(Yeah, that's right,)] she cries out as she approaches, [lilaya.speech(you ended up getting me pregnant!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "You gulp nervously as you expect her to fly off in another angry fit, but, sensing your unease, Lilaya lets out a resigned sigh before lowering her voice,"
-									+ " [lilaya.speech(Don't worry, there's nothing that can be done about it now anyway. Being pregnant sucks, but I might have been a little too harsh on you."
-									+ " After all, it's only for a week or so that I've got to carry your kids around.)]"
-								+ "</p>"
-								+ "<p>"
-									+ "As she's been speaking, Lilaya has been gently rubbing her pregnant bump, and as she looks up at you, she notices that you're staring at her belly."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(You want a feel?)] she asks, but before you can respond, she steps forwards and grabs your [pc.arm], before guiding your [pc.hand] down to rest on her stomach."
-									+ " Running your [pc.hands+] all over her round tummy, you hear Lilaya let out a happy little moan."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(You know, as inconvenient as being pregnant is, wouldn't it be fun to run some more <i>tests</i> like this? After all, it's not like you need to pull out any more...)]"
-									+ " she asks, biting her lip at you."
-								+ "</p>");
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_PREGNANT"));
 						
 					} else {
-						UtilText.nodeContentSB.append(
-								"<p>"
-									+ "Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life."
-								+ "</p>"
-								+ "<p>"
-									+ "On the opposite side of the room, you see Lilaya sitting down in a chair, looking straight at you."
-									+ " As soon as your eyes meet, she stands up, and with a few quick strides, crosses the room."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(Yeah, that's right,)] she cries out as she approaches, [lilaya.speech(I'm not pregnant!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "You gulp nervously as you expect her to give you another scolding, but, sensing your unease, Lilaya lets out a resigned sigh before lowering her voice,"
-									+ " [lilaya.speech(Don't worry, I'm not angry at you any more. Being pregnant sucks, but I might have been a little too harsh on you.)]"
-								+ "</p>"
-								+ "<p>"
-									+ "As she's been speaking, Lilaya has been greedily staring at your body, and as you realise that you're being let off the hook, you start to notice the sultry tone in her voice."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(You know, I'm feeling pretty good right now about not getting pregnant..."
-									+ " You want me to run some more <i>tests</i>? Just, promise to pull out this time, ok?)] she asks, biting her lip at you."
-								+ "</p>");
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_NOT_PREGNANT"));
 					}
+					
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaBirthNews)) {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_PREGNANCY_RESOLVED"));
 					
 				} else {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life."
-							+ "</p>"
-							+ "<p>"
-								+ "On the far side of the lab, Lilaya is sitting at one of the long tables, with her back to the door."
-								+ " Open books and pieces of paper litter the tabletop and floor around her, but she seems far more interested in something else at the moment."
-								+ " Rose is straddling her lap, leaning in Lilaya's chest as she whispers down to her demonic mistress."
-								+ " You see Lilaya's hand reaching up Rose's skirt, and from the movement of her arm, you can tell that she's fingering her cat-girl maid."
-							+ "</p>");
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE"));
+
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_NAUGHTY_ROSE"));
 					
-					double rnd = Math.random();
-					if(rnd<0.08f) {
-						UtilText.nodeContentSB.append(
-							"<p>"
-								+ "Before you can say anything, you hear some surprising words coming out of Rose's mouth as she moans down into Lilaya's ear,"
-								+ " [rose.speech(~Mmm!~ That's right, you horny little slut. ~Aaah!~ Come on, please your Mistress!)]"
-							+ "</p>");
-						
-					} else if(rnd<0.16f) {
-						UtilText.nodeContentSB.append(
-								"<p>"
-									+ "Before you can say anything, you hear some surprising words coming out of Rose's mouth as she moans down into Lilaya's ear,"
-									+ " [rose.speech(~Mmm!~ That's right, slut. ~Aaah!~ Do a good job, and I'll let you fuck me later!)]"
-								+ "</p>");
-						
-					} else if(rnd<0.24f) {
-						UtilText.nodeContentSB.append(
-								"<p>"
-									+ "Before you can say anything, you hear some surprising words coming out of Rose's mouth as she moans down into Lilaya's ear,"
-									+ " [rose.speech(~Mmm!~ Come on, slut, you can do better than that! ~Aaah!~ Yes, good girl!)]"
-								+ "</p>");
-					}
-					
-					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
-						UtilText.nodeContentSB.append(
-								"<p>"
-									+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs."
-									+ " She suddenly notices you out of the corner of her eye, and, turning to give you an evil grin, she pointedly grinds down against your demonic aunt,"
-										+ " before letting out a little eek and jumping to her feet as she feigns surprise."
-									+ " [rose.speech(M-Mistress! [pc.NamePos] here!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair."
-									+ " [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right, Rose?!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[rose.speech(Yes, Mistress!)]"
-									+ " Rose squeaks."
-									+ " [rose.speech(That's right!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Brushing down her skirt, Lilaya clears her throat,"
-									+ " [lilaya.speech(Ahem! Well, it's a good job that you came here to see me, [pc.name]."
-									+ " Rose has already told me all about your little adventure in my room. So, what do you have to say for yourself?)]"
-								+ "</p>"
-								+ "<p>"
-									+ "As you're indebted to Lilaya for allowing you to live here, you see no other option but to apologise."
-									+ " Stepping forwards, you bow your head a little and sigh."
-									+ " [pc.speech(I'm sorry, Lilaya. I don't know what came over me. It must be this arcane aura of mine... or something...)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(Hmm... Well, if you find yourself feeling like that, there's no need to sneak off into my room. J-Just come back here and I-I can run some tests on you! O-Ok?)]"
-									+ " Lilaya responds, trying her best to sound stern and in control, but utterly failing as her thoughts shift to wanting to do lewd things with you."
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(Yes, Lilaya,)]"
-									+ " you respond, much in the same way you always used to with your aunt Lily."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(So, now that that's out of the way, what is it you need?)]"
-								+ "</p>");
+					if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ROSE_TOLD_ON_YOU_DEMON"));
+						} else {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE_END_DEMON"));
+						}
 						
 					} else {
-						UtilText.nodeContentSB.append(
-								"<p>"
-									+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs."
-									+ " She suddenly notices you out of the corner of her eye, and, letting out a little eek, she quickly leaps up onto her feet."
-									+ " [rose.speech(M-Mistress! [pc.NamePos] here!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair."
-									+ " [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right, Rose?!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[rose.speech(Yes, Mistress!)] Rose squeaks. [rose.speech(That's right!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Brushing down her skirt, Lilaya clears her throat,"
-									+ " [lilaya.speech(Ahem! So, what is it you need?)]"
-								+ "</p>");
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ROSE_TOLD_ON_YOU"));
+						} else {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE_END"));
+						}
 					}
 				}
 			}
-		
+			
 			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
+			if(Main.game.getPlayer().getRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
+				if(index == 1) {
+					return new Response("Agree",
+							"Tell Lilaya that you'll help her convince Lyssieth to turn her into a full demon.<br/>[style.italicsDemon(This will end with Lilaya being permanently transformed into a demon!)]",
+							LAB_DEMON_TF_AGREE){
+						@Override
+						public Colour getHighlightColour() {
+							return Colour.RACE_DEMON;
+						}
+						@Override
+						public void effects() {
+							setEntryFlags();
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon, true);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_DEMON_TF_AGREE"));
+						}
+					};
+					
+				} else if(index == 2) {
+					return new Response("Refuse",
+							"Try and convince Lilaya that she should stay as a half-demon.<br/>[style.italics(You can always change your mind later and tell Lilaya you'll help her to become a full demon.)]",
+							LAB_DEMON_TF_REFUSE){
+						@Override
+						public void effects() {
+							setEntryFlags();
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon, true);
+						}
+					};
+				}
 				return null;
-				
+					
 			} else if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
 				if(index == 1) {
-					return new Response("Agree", "Knowing how fierce your aunt can get when she's in one of these moods, you realise that you don't really have much of a choice...", LAB_ARTHURS_TALE){
+					return new Response("Agree", "Knowing how fierce your [lilaya.relation(pc)] can get when she's in one of these moods, you realise that you don't really have much of a choice...", LAB_ARTHURS_TALE){
 						@Override
 						public void effects() {
+							setEntryFlags();
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM));
-							Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
 						}
 					};
-					
-				} else {
-					return null;
 				}
+				return null;
 				
-			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
-				if (index == 1) {
-					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
-						return new ResponseSex("\"Tests\"",
-								"Let Lilaya run her \"tests\" on you.",
-								Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-								true, true,
-								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
-								null,
-								null, Lilaya.AUNT_END_SEX,
-								"<p>"
-									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
-									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth,"
-									+ " [lilaya.speech(Mmm, yes!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Wrapping her arms around your back, Lilaya clumsily pulls you over towards one of the lab's many chairs."
-									+ " You feel her swollen belly rubbing against your stomach as she guides you across the room, and as she pushes you down onto a seat, she slowly sinks down into your lap,"
-									+ " continuing her passionate kisses and moans as you both prepare for another round of \"tests\"."
-								+ "</p>"){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
-								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
-								Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
-							}
-						};
-						
-					} else {
-						return new ResponseSex("\"Tests\"",
-								"Let Lilaya run her \"tests\" on you.",
-								Util.newArrayListOfValues(Fetish.FETISH_INCEST),
-								null,
-								CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-								true, true,
-								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
-								null,
-								null, Lilaya.AUNT_END_SEX,
-								"<p>"
-									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
-									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth,"
-									+ (Main.game.getPlayer().hasPenis() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
-											?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)]"
-											:" [lilaya.speech(Mmm, yes!)]")
-								+ "</p>"
-								+ "<p>"
-									+ "Wrapping her arms around your back, Lilaya pulls you over towards one of the lab's many chairs."
-									+ " Spinning you around and pushing you down into the seat, she sits down in your lap, continuing her passionate kisses and moans as you both prepare for another round of \"tests\"."
-								+ "</p>"){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
-								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
-								Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
-							}
-						};
-					}
-
-				} else if(index == 0) {
-					return new Response("Leave", "Tell Lilaya that you don't have time, but you're glad that she's not angry with you any more.", LAB_EXIT){
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults) && Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+				if(index==0) {
+					return new Response("Thrown out", "Lilaya is clearly not interested in talking to you until her pregnancy has been resolved...", LAB_EXIT_THROWN_OUT) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
+							setEntryFlags();
 						}
 					};
-					
-				} else {
-					return null;
 				}
+				return null;
 				
 			} else {
-				
-				List<Response> generatedResponses = new ArrayList<>();
-				
-				if (Main.game.getPlayer().isVisiblyPregnant()) {
-					if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-						generatedResponses.add(new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null));
-						
-					} else {
-						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
-							generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY, Quest.SIDE_PREGNANCY_LILAYA_THE_MIDWIFE));
-								}
-							});
-							
-						} else {
-							generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY_REPEAT){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-								}
-							});
-						}
-					}
-				}
-				
-				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-						if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-							generatedResponses.add(new Response("Essences & Jinxes", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
-							
-						} else {
-							generatedResponses.add(new Response("Essences & Jinxes", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-								}
-							});
-						}
-						
-					} else {
-						if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceExtractionKnown)) {
-							generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if you can use her equipment to extract some essences.", ESSENCE_EXTRACTION){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-								}
-							});
-						} else {
-							generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if there's any way to extract essences you've absorbed.", ESSENCE_EXTRACTION){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-								}
-							});
-						}
-					}
-				}
-				
-				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
-					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
-						if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-							generatedResponses.add(new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null));
-							
-						} else {
-							generatedResponses.add(new Response("Slaver", "Ask Lilaya for a letter of recommendation in order to obtain a slaver license.", LILAYA_SLAVER_RECOMMENDATION){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-								}
-							});
-						}
-					}
-				}
-
-				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION) && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
-					if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-						generatedResponses.add(new Response("Accommodation", "You'll need to complete Lilaya's initial tests before you can ask her about inviting friends home!", null));
-						
-					} else {
-						generatedResponses.add(new Response("Accommodation", "Ask Lilaya about inviting your new friend to live in one of the many spare rooms in the mansion.", LILAYA_FRIEND_ACCOMMODATION){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ACCOMMODATION, Quest.SIDE_UTIL_COMPLETE));
-							}
-						});
-					}
-				}
-				
-				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.lilayaDateTalk)
-						&& Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
-					generatedResponses.add(new Response("Current Date", "Ask Lilaya why the calendar in your room is three years ahead of the correct date.", LILAYA_CURRENT_DATE_TALK) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.lilayaDateTalk);
-						}
-					});
-				}
-				
-				if(Main.game.getPlayer().hasItemType(ItemType.PRESENT) && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.givenLilayaPresent3)) {
-					generatedResponses.add(new Response("Give Present", "Give the present in your inventory to Lilaya.", LILAYA_PRESENT) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
-							
-							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent3, true);
-								
-							} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent1)) {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent2, true);
-								
-							} else {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent1, true);
-							}
-						}
-					});
-				}
-				
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.givenLilayaPresent3)) {
-					generatedResponses.add(new Response("Geisha Lilaya", "Ask Lilaya if she'd like to wear the gifts you got for her.", LILAYA_GEISHA) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
-							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
-							Main.game.getNpc(Lilaya.class).resetInventory(false);
-							
-							Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(
-									AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_PINK, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, false), true, Main.game.getNpc(Lilaya.class));
-							Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(
-									AbstractClothingType.generateClothing(ClothingType.KIMONO_DRESS, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, Colour.CLOTHING_PINK, false), true, Main.game.getNpc(Lilaya.class));
-							Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_GETA, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK, null, false), true, Main.game.getNpc(Lilaya.class));
-							Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Lilaya.class));
-						}
-					});
-				}
+				List<Response> generatedResponses = getLabEntryGeneratedResponses();
 				
 				// Return responses:
 				if(index==0) {
 					return new Response("Leave", "Say goodbye to Lilaya and exit her lab.", LAB) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
+							setEntryFlags();
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "You tell Lilaya that you've got to get going, and, after saying goodbye, you head over to the lab's door and make your exit."
@@ -609,45 +420,78 @@ public class Lab {
 					};
 					
 				} else if (index == 1) {
-					if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS) {
-						return new Response("Tests", "Let Lilaya know that you're here to let her run her tests on you.", AUNT_HOME_LABORATORY_TESTING){
+					if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+						return new Response("Full demon",
+								"Tell Lilaya that you'll help her convince her mother to turn her into a full demon.<br/>[style.italicsDemon(This will end with Lilaya being permanently transformed into a full demon!)]",
+								LAB_DEMON_TF_AGREE) {
+							@Override
+							public Colour getHighlightColour() {
+								return Colour.RACE_DEMON;
+							}
 							@Override
 							public void effects() {
-								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
+								setEntryFlags();
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_DEMON_TF_AGREE_AFTER_REPEAT"));
 							}
 						};
 						
 					} else {
-						if(Main.game.getNpc(Arthur.class).getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LAB) {
-							return new Response("\"Tests\"", "Lilaya can't run any \"tests\" on you while Arthur is still present in her lab. Find him a suitable room first.", null);
+						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS) {
+							return new Response("Tests", "Let Lilaya know that you're here to let her run her tests on you.", AUNT_HOME_LABORATORY_TESTING){
+								@Override
+								public void effects() {
+									setEntryFlags();
+								}
+							};
 							
-						} else if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hadSexWithLilaya)) {
-							return new Response("\"Tests\"", "Let Lilaya know that you're here to let her run more of her \"tests\" on you.", AUNT_HOME_LABORATORY_TESTING_MORE_SEX){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-								}
-							};
 						} else {
-							return new Response("Tests", "Let Lilaya know that you're here to let her run more of her tests on you.", AUNT_HOME_LABORATORY_TESTING_REPEAT){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-								}
-							};
+							if(Main.game.getNpc(Arthur.class).getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LAB) {
+								return new Response("\"Tests\"", "Lilaya can't run any \"tests\" on you while Arthur is still present in her lab. Find him a suitable room first.", null);
+								
+							} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hadSexWithLilaya)) {
+								return new Response("\"Tests\"", "Let Lilaya know that you're here to let her run more of her \"tests\" on you.", AUNT_HOME_LABORATORY_TESTING_MORE_SEX){
+									@Override
+									public void effects() {
+										setEntryFlags();
+									}
+								};
+							} else {
+								return new Response("Tests", "Tell Lilaya that you want her to run more of her 'tests' on you.", AUNT_HOME_LABORATORY_TESTING_REPEAT){
+									@Override
+									public void effects() {
+										setEntryFlags();
+									}
+								};
+							}
 						}
 					}
 
-				} else if(index<6) {
+				} else if(index<10) {
 					if(index-2 < generatedResponses.size()) {
 						return generatedResponses.get(index-2);
 					} else {
 						return null;
 					}
 					
-				} else {
-					return null;
+				} else if(index==11 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)) {
+					// Teleport
+					return new Response("Lyssieth's office", "Ask Lilaya to use the resonance stone to contact Lyssieth, and ask her to teleport you to her office.", LyssiethPalaceDialogue.LYSSIETH_OFFICE_TALK){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
+							if(Main.game.getPlayer().hasCompanions()) { //TODO test
+								for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
+									companion.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, false);
+								}
+								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_TELEPORT_TO_LYSSIETHS_OFFICE_COMPANION", Main.game.getPlayer().getMainCompanion()));
+							} else {
+								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_TELEPORT_TO_LYSSIETHS_OFFICE"));
+							}
+						}
+					};
 				}
+				
+				return null;
 			}
 		}
 
@@ -657,9 +501,70 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNode LAB_EXIT = new DialogueNode("Lilaya's Laboratory", "", false) {
-		
+	public static final DialogueNode LILAYA_END_SEX = new DialogueNode("Get up", "Lilaya really needs to get back to work.", true) {
 
+		@Override
+		public String getDescription() {
+			if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
+					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+				return "Lilaya looks pretty angry, maybe you should have pulled out...";
+			} else {
+				return "Lilaya really needs to get back to work.";
+			}
+		}
+
+		@Override
+		public String getContent() {
+			if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
+					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX_CREAMPIE");
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX");
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
+						&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+						&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+					return new Response("Thrown out", "Maybe it's best to leave Lilaya to cool down for a while.", Lab.LAB_EXIT_THROWN_OUT){
+						@Override
+						public void effects() {
+							if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, true);
+							}
+							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+							
+							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
+							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+						}
+					};
+					
+				} else {
+					return new Response("Continue", "Leave the lab and let Lilaya carry on with her work.", Lab.LAB_EXIT) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							
+							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
+							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+						}
+					};
+				}
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNode LAB_EXIT = new DialogueNode("Lilaya's Laboratory", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -686,13 +591,54 @@ public class Lab {
 		public String getContent() {
 			return "<p>"
 						+ "You find yourself standing outside the door to Lilaya's laboratory."
-						+ " Your demonic aunt seemed pretty angry, and you think that it's probably a good idea if you gave her some time to cool off before trying to speak to her again..."
+						+ " Your demonic [lilaya.relation(pc)] seemed pretty angry, and you think that it's probably a good idea if you gave her some time to cool off before trying to speak to her again..."
 					+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return null;
+		}
+	};
+	
+	public static final DialogueNode LAB_DEMON_TF_AGREE = new DialogueNode("", "", true, true) {
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_DEMON_TF_AGREE_CORE");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Lyssieth", "Let Lilaya use the resonance stone to contact Lyssieth.", LyssiethPalaceDialogue.LILAYA_DEMON_TF_START){
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
+						if(Main.game.getPlayer().hasCompanions()) { //TODO test
+							for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
+								companion.setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+							}
+						}
+						Main.game.getNpc(Lilaya.class).setLocation(Main.game.getPlayer(), false);
+						Main.game.getNpc(Lyssieth.class).setLocation(Main.game.getPlayer(), false);
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode LAB_DEMON_TF_REFUSE = new DialogueNode("", "", true, true) {
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_DEMON_TF_REFUSE");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LAB_ENTRY.getResponse(responseTab, index);
 		}
 	};
 	
@@ -709,7 +655,7 @@ public class Lab {
 						+ " [pc.speech(so here you go. Happy Yuletide yet again Lilaya!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Your demonic aunt cheeks turn a deep shade of scarlet, and she stutters in her embarrassment,"
+						+ "Your demonic [lilaya.relation(pc)] cheeks turn a deep shade of scarlet, and she stutters in her embarrassment,"
 						+ " [lilaya.speech(P-Please! [pc.Name]! I-I said you'd already given me enough!)]"
 					+ "</p>"
 					+ "<p>"
@@ -720,12 +666,12 @@ public class Lab {
 					+ "<p>"
 						+ "[lilaya.speech(W-Well, these are random gifts, right? S-So it's probably not even going to be a kimono, b-but thank you anyway,)]"
 						+ " Lilaya says, placing the gift down on the table beside her, before pulling off the ribbon and wrapping paper."
-						+ " Lifting off the lid, your easily-embarrassed aunt fails to contain an excited little cry as she sees what's inside."
+						+ " Lifting off the lid, your easily-embarrassed [lilaya.relation(pc)] fails to contain an excited little cry as she sees what's inside."
 						+ " Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink "+ClothingType.KIMONO_DRESS.getName()+", before turning and beaming at you in delight."
 						+ " [lilaya.speech(Thank you so, so much, [pc.name]! This is the best Yuletide ever!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Before you can say anything, your demonic aunt leaps forwards and pulls you into the most loving hug yet; her [lilaya.breastSize] breasts squishing up against your body as she holds you close."
+						+ "Before you can say anything, your demonic [lilaya.relation(pc)] leaps forwards and pulls you into the most loving hug yet; her [lilaya.breastSize] breasts squishing up against your body as she holds you close."
 						+ " After a moment, she then pulls back, and, placing the "+ClothingType.KIMONO_DRESS.getName()+" to one side, she waits to see what you'd like to discuss next."
 					+ "</p>";
 				
@@ -736,7 +682,7 @@ public class Lab {
 						+ " [pc.speech(so here you go. Happy Yuletide again, Lilaya!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Your aunt's cheeks flush bright red as you give her another gift."
+						+ "Your [lilaya.relation(pc)]'s cheeks flush bright red as you give her another gift."
 						+ " [lilaya.speech([pc.name]! Y-You didn't have to! O-One gift was more than enough!)]"
 					+ "</p>"
 					+ "<p>"
@@ -760,7 +706,7 @@ public class Lab {
 						+ " [lilaya.speech(don't feel obliged to get me any more gifts! This is already far more than I ever would have dreamed of!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Almost as if to hide her sudden embarrassment, your demonic aunt steps forwards and pulls you into another tight hug; her [lilaya.breastSize] breasts pressing up against you as she holds you close."
+						+ "Almost as if to hide her sudden embarrassment, your demonic [lilaya.relation(pc)] steps forwards and pulls you into another tight hug; her [lilaya.breastSize] breasts pressing up against you as she holds you close."
 						+ " After a moment, she then pulls back, and, placing the "+ClothingType.KIMONO_GETA.getNamePlural()+" to one side, she waits to see what you'd like to discuss next."
 					+ "</p>";
 					
@@ -771,7 +717,7 @@ public class Lab {
 							+ " [pc.speech(so here you go. Happy Yuletide, Lilaya!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Your aunt gasps as you give her the gift you bought,"
+							+ "Your [lilaya.relation(pc)] gasps as you give her the gift you bought,"
 							+ " [lilaya.speech([pc.Name]! Y-You didn't have to do that! Oh my goodness, t-thank you so much!)]"
 						+ "</p>"
 						+ "<p>"
@@ -793,7 +739,7 @@ public class Lab {
 							+ " [lilaya.speech(Oh, [pc.name]! It's beautiful! Thank you so much!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Before you can react, your demonic aunt leaps forwards and pulls you into a loving hug; a gesture that you instantly reciprocate."
+							+ "Before you can react, your demonic [lilaya.relation(pc)] leaps forwards and pulls you into a loving hug; a gesture that you instantly reciprocate."
 							+ " You feel the warmth of her body as she presses herself tightly against you, squashing her [lilaya.breastSize] breasts into your chest as she sighs,"
 							+ " [lilaya.speech(Really, thank you so much.)]"
 						+ "</p>"
@@ -814,53 +760,7 @@ public class Lab {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "[pc.speech(I really want to see how you look wearing that kimono,)]"
-						+ " you say,"
-						+ " [pc.speech(would you like to try it on and show me?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Lilaya's cheeks flush bright red, and, without saying a word, she grabs your hand and starts pulling you towards the door."
-						+ " For a moment, you think she's going to throw you out of the lab, but she instead leads you out into the corridor and over towards the staircase."
-					+ "</p>"
-					+ "<p>"
-						+ "[lilaya.speech(I-I haven't r-really thought about h-how I look in it yet,)]"
-						+ " Lilaya stammers out, without turning to look at you,"
-						+ " [lilaya.speech(s-so I hope you like it!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Leading you up the stairs, your demonic aunt pulls you along the first-floor corridor, and, without hesitation, into her exceptionally-messy room."
-						+ " Her clothes are scattered all over the floor, and every available surface is littered with beauty products and yet more discarded clothing."
-						+ " You don't have any time to think about the state of your aunt's room, however, as you're far more concerned with the fact that she's instantly started stripping off in front of you."
-					+ "</p>"
-					+ "<p>"
-						+ "Either because she's completely indifferent to you seeing her naked, or, more likely, that she's so flustered at the prospect of modelling her kimono for you that she's forgotten you're there,"
-							+ " your aunt quickly pulls off all of her clothes with little regard to your presence."
-						+ " Deciding that it would be best both for her dignity and for the surprise of seeing her wearing her kimono, you turn your back to Lilaya, and allow her to get changed into the clothes that you gifted her."
-					+ "</p>"
-					+ "<p>"
-						+ "[lilaya.speech(Aah! I-I forgot you were there!)]"
-						+ " Lilaya calls out, proving the second assumption to be true."
-						+ " [lilaya.speech(Y-You can turn around now.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Turning around, you see your demonic aunt blushing profusely as she looks to the floor."
-						+ " The elegant pink kimono, delicate kanzashi, and delightful geta that you bought her as a Yuletide gift all work together to accentuate your aunt's natural beauty."
-						+ " You find yourself gasping at how gorgeous she looks, which makes her look up and smile shyly at you."
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(Wow, Lilaya, you look gorgeous!)]"
-						+ " you exclaim, causing her cheeks to turn an even deeper shade of red."
-					+ "</p>"
-					+ "<p>"
-						+ "[lilaya.speech(R-Really?)]"
-						+ " Lilaya asks, stepping forwards as a huge smile breaks out across her face."
-						+ " [lilaya.speech(W-Well, I have you to thank for giving it to me.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassment is on her mind."
-						+ " [lilaya.speech(You know, I really do need to show you how thankful I am... While I'm wearing my kimono, perhaps you'd like to have some fun?)]"
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_GEISHA");
 		}
 
 		@Override
@@ -869,13 +769,14 @@ public class Lab {
 				return new ResponseSex("Sex", "Start having sex with Lilaya.",
 						Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(Lilaya.class)),
 						null,
-						null, Lilaya.AUNT_END_SEX_GEISHA,
+						null),
+						END_SEX_GEISHA,
 						"<p>"
-							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace."
+							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic [lilaya.relation(pc)] into your embrace."
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 						+ "</p>"
 						+ "<p>"
@@ -889,7 +790,7 @@ public class Lab {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.hadSexWithLilaya, true);
 					}
 				};
 
@@ -897,27 +798,28 @@ public class Lab {
 				return new ResponseSex("Submissive Sex", "Start having submissive sex with Lilaya.",
 						Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(Lilaya.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-								null, Lilaya.AUNT_END_SEX_GEISHA,
-								"<p>"
-									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace."
-									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
-								+ "</p>"
-								+ "<p>"
-									+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
-											?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
-											:" [lilaya.speech(Mmm, yes!)] she giggles.")
-								+ "</p>"
-								+ "<p>"
-									+ "As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth."
-									+ " You let out a desperate little whine as she pulls you close to her body, and, passionately making out with one another, you both give in to your lust."
-								+ "</p>"){
+						null),
+						END_SEX_GEISHA,
+						"<p>"
+							+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic [lilaya.relation(pc)] to reach up and pull you into her embrace."
+							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
+						+ "</p>"
+						+ "<p>"
+							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
+									:" [lilaya.speech(Mmm, yes!)] she giggles.")
+						+ "</p>"
+						+ "<p>"
+							+ "As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth."
+							+ " You let out a desperate little whine as she pulls you close to her body, and, passionately making out with one another, you both give in to your lust."
+						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.hadSexWithLilaya, true);
 					}
 				};
 
@@ -937,7 +839,7 @@ public class Lab {
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "[pc.speech(You really do look amazing, Lilaya, but that might be going a little too far,)]"
-									+ " you respond, not liking the idea of having sex with your aunt."
+									+ " you respond, not liking the idea of having sex with your [lilaya.relation(pc)]."
 								+ "</p>"
 								+ "<p>"
 									+ "[lilaya.speech(Aww, well, I understand,)]"
@@ -945,7 +847,7 @@ public class Lab {
 									+ " [lilaya.speech(Just let me know if you want to see me in this again!)]"
 								+ "</p>"
 								+ "<p>"
-									+ "Reassuring her that you will, you exit your aunt's bedroom and head back to your own, pleased that your gift looks so good on her."
+									+ "Reassuring her that you will, you exit your [lilaya.relation(pc)]'s bedroom and head back to your own, pleased that your gift looks so good on her."
 								+ "</p>");
 					}
 				};
@@ -956,9 +858,72 @@ public class Lab {
 		}
 	};
 	
+	public static final DialogueNode END_SEX_GEISHA = new DialogueNode("Finished", "Lilaya collapses back on her bed with a satisfied sigh.", true) {
+		
+		@Override
+		public String getDescription() {
+			if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
+					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+				return "Lilaya looks pretty angry, maybe you should have pulled out...";
+			} else {
+				return "Lilaya collapses back on her bed with a satisfied sigh.";
+			}
+		}
+
+		@Override
+		public String getContent() {
+			if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
+					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA_CREAMPIE");
+				
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_CREAMPIE");
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
+						&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+						&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+					return new Response("Thrown out", "Maybe it's best to leave Lilaya to cool down for a while.", RoomPlayer.ROOM){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+							if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, true);
+							}
+							Main.game.getNpc(Lilaya.class).washAllOrifices();
+
+							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
+							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+						}
+					};
+					
+				} else {
+					return new Response("To your room", "Head back to your room.", RoomPlayer.ROOM){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							
+							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
+							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+						}
+					};
+				}
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	
 	public static final DialogueNode LILAYA_EXPLAINS_ESSENCES = new DialogueNode("", "", true, true) {
-		
 		
 		@Override
 		public String getContent() {
@@ -966,7 +931,7 @@ public class Lab {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.jinxedClothingDiscovered)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.jinxedClothingDiscovered)) {
 				
 				if(getJinxedClothingExample() == null) { // If the PC has somehow removed the clothing already (jinxed condom):
 					UtilText.nodeContentSB.append("<p>"
@@ -994,7 +959,7 @@ public class Lab {
 						+ "[lilaya.speech(Well then, whose fault is it? Hmm? I can't be running around saving you every time you get in trouble, understood?!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "If it were anyone else, you might have argued back, but Lilaya's stern words sound exactly like the sort of lecture you used to receive from your aunt Lily."
+						+ "If it were anyone else, you might have argued back, but Lilaya's stern words sound exactly like the sort of lecture you used to receive from your [lilaya.relation(pc)] Lily."
 						+ " That, combined with the fact that this is a rare display of frustration from Lilaya, leaves you muttering out an apology in the hope that you can calm her down."
 						+ " Thankfully, she lets out one last exasperated sigh before taking in a deep breath and speaking in her normal tone."
 					+ "</p>"
@@ -1003,8 +968,8 @@ public class Lab {
 								+ " Anyway, if that's all it is, the solution to your little clothing problem is actually quite simple!)]"
 					+ "</p>");
 				
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)
-						|| Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceOrgasmDiscovered)
+						|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essencePostCombatDiscovered)) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "[pc.speech(Actually, there <i>is</i> something else as well. I recently had this weird experience, where I saw someone's arcane aura."
@@ -1032,7 +997,7 @@ public class Lab {
 								+ " Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face."
 							+ "</p>");
 					
-				} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceBottledDiscovered)) {
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceBottledDiscovered)) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "[pc.speech(Actually, there <i>is</i> something else as well. I had this little bottle with a swirling light in it, and when I took out the stopper, the light sort of shot <i>into</i> me...)]"
@@ -1094,8 +1059,8 @@ public class Lab {
 				}
 				
 			} else {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)
-						|| Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceOrgasmDiscovered)
+						|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essencePostCombatDiscovered)) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "[pc.speech(Well, you see, I recently had this weird experience, where I saw someone's arcane aura."
@@ -1123,7 +1088,7 @@ public class Lab {
 								+ " Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face."
 							+ "</p>");
 					
-				} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceBottledDiscovered)) {
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceBottledDiscovered)) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "[pc.speech(Well, you see, I had this little bottle with a swirling light in it, and when I took out the stopper, the light sort of shot <i>into</i> me...)]"
@@ -1163,9 +1128,9 @@ public class Lab {
 				return new Response("What's wrong?", "Ask Lilaya what's wrong.", LILAYA_EXPLAINS_ESSENCES_2) {
 					@Override
 					public void effects() {
-						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceBottledDiscovered)
-								&& !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)
-								&& !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
+						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceBottledDiscovered)
+								&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceOrgasmDiscovered)
+								&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essencePostCombatDiscovered)) {
 							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1, false);
 						}
 					}
@@ -1184,8 +1149,8 @@ public class Lab {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)
-					|| Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceOrgasmDiscovered)
+					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essencePostCombatDiscovered)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+"[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction."
@@ -1217,7 +1182,7 @@ public class Lab {
 							+ " Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]"
 						+ "</p>");
 			
-			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceBottledDiscovered)) {
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceBottledDiscovered)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 								+"[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction."
@@ -1351,7 +1316,7 @@ public class Lab {
 				+ "</p>");
 			
 
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.jinxedClothingDiscovered) && getJinxedClothingExample() != null) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.jinxedClothingDiscovered) && getJinxedClothingExample() != null) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims,"
@@ -1416,7 +1381,7 @@ public class Lab {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceExtractionKnown)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essenceExtractionKnown)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Turning towards Lilaya, you get her attention before asking, [pc.speech(Is it ok if I extract some more essences?)]"
@@ -1595,7 +1560,7 @@ public class Lab {
 				return new Response("Back", "Stop extracting essences.", LAB_ENTRY) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.essenceExtractionKnown);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.essenceExtractionKnown, true);
 					}
 				};
 
@@ -1684,10 +1649,10 @@ public class Lab {
 //			return UtilText.parse("/res/txt/dialogue/places/dominion/aunts_home/lab_testing.txt", AuntsHome.getContext());
 			
 			return "<p>"
-						+ "Stepping forwards, you smile at your demonic aunt."
+						+ "Stepping forwards, you smile at your demonic [lilaya.relation(pc)]."
 						+ " [pc.speech(Hi, Lilaya, I'm here for those tests you mentioned.)]"
 					+ "</p>"
-					+ (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)
+					+ (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)
 							? "<p>"
 									+ "[lilaya.speech(Excellent! Let's just... Wait... Are you <i>pregnant</i>?!"
 									+ " Well, nevermind, I can help you deal with that later! For now, let's just get these tests done, come over here!)]"
@@ -1743,8 +1708,8 @@ public class Lab {
 						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS) {
 							Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME);
 						}
-						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya))
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToPregnancyLilaya);
+						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya))
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
 					}
 				};
 
@@ -1763,10 +1728,10 @@ public class Lab {
 //			return UtilText.parse("/res/txt/dialogue/places/dominion/aunts_home/lab_testing_repeat.txt", AuntsHome.getContext());
 
 			return "<p>"
-						+ "Stepping forwards, you smile at your demonic aunt."
+						+ "Stepping forwards, you smile at your demonic [lilaya.relation(pc)]."
 						+ " [pc.speech(Hi, Lilaya, I'm here for some more of those tests...)]"
 					+ "</p>"
-					+ (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)
+					+ (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)
 							? "<p>"
 									+ "[lilaya.speech(Excellent! Let's just... Wait... Are you <i>pregnant</i>?!"
 									+ " Well, if you want help with that, all you have to do is ask! For now, let's just get these... Erm... <i>tests</i> done, come over here!)]"
@@ -1787,8 +1752,8 @@ public class Lab {
 				return new Response("Sit down", "You know exactly why Lilaya seems embarrassed about these 'tests'...", AUNT_HOME_LABORATORY_TESTING_ROMANCE){
 					@Override
 					public void effects() {
-						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya))
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToPregnancyLilaya);
+						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya))
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
 					}
 				};
 
@@ -1802,8 +1767,8 @@ public class Lab {
 								+ "<p>"
 									+ "[lilaya.speech(If you change your mind, just let me know!)] she says, before backing off a little to give you some space."
 								+ "</p>");
-						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToPregnancyLilaya);
+						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
 						}
 					}
 				};
@@ -1814,13 +1779,11 @@ public class Lab {
 		}
 	};
 	public static final DialogueNode AUNT_HOME_LABORATORY_TESTING_MORE_SEX = new DialogueNode("", "", true, true) {
-		/**
-		 */
 
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Stepping forwards, you smile at your demonic aunt."
+						+ "Stepping forwards, you smile at your demonic [lilaya.relation(pc)]."
 						+ " [pc.speech(Hi, Lilaya, I was wondering if you wanted to run some more of those... <i>tests</i>?)]"
 					+ "</p>"
 					+ "<p>"
@@ -1846,10 +1809,11 @@ public class Lab {
 						CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))),
 						null,
-						null, Lilaya.AUNT_END_SEX,
+						null,
+						LILAYA_END_SEX,
 						"<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
@@ -1868,7 +1832,7 @@ public class Lab {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.hadSexWithLilaya, true);
 						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
 					}
 				};
@@ -1935,7 +1899,7 @@ public class Lab {
 
 					+ "<p>"
 					+ "You're quite taken aback at Lilaya's apparent hatred for Arthur."
-					+ " You assume, seeing as he shares the same name, that he's this world's version of your aunt Lily's colleague from the museum."
+					+ " You assume, seeing as he shares the same name, that he's this world's version of your [lilaya.relation(pc)] Lily's colleague from the museum."
 					+ " Back there, they were close friends, and you wonder what's happened in this reality to cause Lilaya to dislike him so much."
 					+ " Seeing how angry she's gotten just at the thought of him, you decide that it would be wise not to press the matter further, and instead you just agree to convince Arthur to apologise."
 					+ "</p>"
@@ -1954,7 +1918,7 @@ public class Lab {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parsePlayerThought("There's no way, she's my aunt! But then again, I suppose she doesn't see herself as that...")
+					+ UtilText.parsePlayerThought("There's no way, she's my [lilaya.relation(pc)]! But then again, I suppose she doesn't see herself as that...")
 					+ "</p>";
 		}
 
@@ -2073,10 +2037,10 @@ public class Lab {
 					+ "</p>"
 
 					+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_INCEST) ? "<p>"
-							+ UtilText.parsePlayerThought("Fuck this is hot... I always wanted to do this to aunt Lily!")
+							+ UtilText.parsePlayerThought("Fuck this is hot... I always wanted to do this to [lilaya.relation(pc)] Lily!")
 							+ "</p>"
 							: "<p>"
-									+ UtilText.parsePlayerThought("What am I doing?! She looks exactly like aunt Lily!")
+									+ UtilText.parsePlayerThought("What am I doing?! She looks exactly like [lilaya.relation(pc)] Lily!")
 									+ "</p>")
 
 					+ "<p>"
@@ -2089,14 +2053,15 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Let it happen",
-						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(Fetish.FETISH_INCEST),
+						"You know that this can only end one way. Although Lilaya reminds you of your [lilaya.relation(pc)] Lily, you always did have a crush on her...", Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexPositionSlot.CHAIR_TOP))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))),
 						null,
-						null, Lilaya.AUNT_END_SEX,
+						null,
+						LILAYA_END_SEX,
 						"<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
@@ -2116,7 +2081,7 @@ public class Lab {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.hadSexWithLilaya, true);
 						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
 					}
 				};
@@ -2222,7 +2187,7 @@ public class Lab {
 		public String getContent() {
 				return "<p>"
 							+ "[pc.speech(You're right, Lilaya, I didn't think about that...)]"
-							+ " you admit, feeling like you're on the receiving end of yet another of your aunt's scoldings."
+							+ " you admit, feeling like you're on the receiving end of yet another of your [lilaya.relation(pc)]'s scoldings."
 						+ "</p>"
 						+ "<p>"
 							+ "[lilaya.speech(Well, luckily for you, I think I can help,)]"
@@ -2258,7 +2223,7 @@ public class Lab {
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.speech(Thanks, Lilaya,)]"
-							+ " you say, smiling at your demonic aunt."
+							+ " you say, smiling at your demonic [lilaya.relation(pc)]."
 							+ " She cheerily returns your smile, before backing off to give you some space."
 						+ "</p>";
 		}
@@ -2279,13 +2244,13 @@ public class Lab {
 		@Override
 		public String getContent() {
 			PlayerCharacter player = Main.game.getPlayer();
-			GameCharacter aunt = Main.game.getNpc(Lilaya.class);
+			GameCharacter lilaya = Main.game.getNpc(Lilaya.class);
 			
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly."
+						+ "Stepping forwards, you smile at your demonic [lilaya.relation(pc)], before looking down and rubbing your belly."
 						+ " [pc.speech(Erm... Lilaya...)]"
 					+ "</p>"
 					+"<p>"
@@ -2297,27 +2262,27 @@ public class Lab {
 					+ "</p>");
 			
 			// Player has had sex with Lilaya before:
-			if(player.getSexPartnerStats(aunt) != null) {
-				if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() == aunt)) {
-					if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() != aunt)) {
+			if(player.getSexPartnerStats(lilaya) != null) {
+				if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() == lilaya)) {
+					if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() != lilaya)) {
 						// Lilaya might be the 'father':
 						UtilText.nodeContentSB.append(
 							"<p>"
-								+"[pc.speech(Erm... Lilaya? Just so you know, you <i>might</i> be the one who got me pregnant...)] you explain, looking down at your demonic aunt as she carries on feeling your stomach."
+								+"[pc.speech(Erm... Lilaya? Just so you know, you <i>might</i> be the one who got me pregnant...)] you explain, looking down at your demonic [lilaya.relation(pc)] as she carries on feeling your stomach."
 							+ "</p>"
 							+ "<p>"
 								+"[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, clearly not at all fazed by the fact that she might be the other parent to your children."
 							+ "</p>"
 							+"<p>"
 								+ "You feel very conscious of the fact that you just admitted to having had other sexual partners to Lilaya."
-								+ " As you glance over to the nearby chair that you both had sex on, the feeling of guilt in the back of your mind causes you to start explaining yourself to your demonic aunt, "
+								+ " As you glance over to the nearby chair that you both had sex on, the feeling of guilt in the back of your mind causes you to start explaining yourself to your demonic [lilaya.relation(pc)], "
 								+ UtilText.parsePlayerSpeech("Well... You don't mind do you? I mean, I still like you and everything...")
 							+ "</p>"
 							+ "<p>"
 								+ "You look up to see a puzzled expression on Lilaya's face, and she momentarily stops feeling your stomach, leaving her hands to rest on your belly as she replies, "
-								+ UtilText.parseSpeech("Mind about what? Oh!", aunt)
+								+ UtilText.parseSpeech("Mind about what? Oh!", lilaya)
 								+ " Her cheeks go red as she starts to blush. "
-								+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", aunt)
+								+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", lilaya)
 							+ "</p>"
 							+ "<p>"
 								+ "For a moment, you're not quite sure what she's talking about, but then you realise that she completely misinterpreted what you were saying."
@@ -2329,10 +2294,10 @@ public class Lab {
 						// Lilaya is definitely the 'father':
 						UtilText.nodeContentSB.append(
 								"<p>"
-									+"[pc.speech(Erm... Lilaya? Just so you know, you're definitely the one that got me pregnant...)] you explain, looking down at your demonic aunt as she carries on feeling your stomach."
+									+"[pc.speech(Erm... Lilaya? Just so you know, you're definitely the one that got me pregnant...)] you explain, looking down at your demonic [lilaya.relation(pc)] as she carries on feeling your stomach."
 								+ "</p>"
 								+ "<p>"
-								+"[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, clearly not at all fazed by the fact that she's the \"father\" to your children."
+								+"[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, clearly not at all fazed by the fact that she's the 'father' to your children."
 							+ "</p>");
 					}
 					
@@ -2341,14 +2306,14 @@ public class Lab {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "You feel very conscious of the fact that you're presenting clear evidence of having other sexual partners to Lilaya."
-								+ " As you glance over to the nearby chair that you both had sex on, the feeling of guilt in the back of your mind causes you to start explaining yourself to your demonic aunt, "
+								+ " As you glance over to the nearby chair that you both had sex on, the feeling of guilt in the back of your mind causes you to start explaining yourself to your demonic [lilaya.relation(pc)], "
 								+ UtilText.parsePlayerSpeech("Erm... Lilaya... You don't mind do you? I mean, I still like you and everything...")
 							+ "</p>"
 							+ "<p>"
 								+ "You look up to see a puzzled expression on Lilaya's face, and she momentarily stops feeling your stomach, leaving her hands to rest on your belly as she replies, "
-								+ UtilText.parseSpeech("Mind about what? Oh!", aunt)
+								+ UtilText.parseSpeech("Mind about what? Oh!", lilaya)
 								+ " Her cheeks go red as she starts to blush. "
-								+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", aunt)
+								+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", lilaya)
 							+ "</p>"
 							+ "<p>"
 								+ "For a moment, you're not quite sure what she's talking about, but then you realise that she completely misinterpreted what you were saying."
@@ -2362,7 +2327,7 @@ public class Lab {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "She suddenly breaks off from fondling your abdomen, and, grabbing your wrist, starts pulling you into her lab."
-						+ " You look around to see that Rose has vacated the area, leaving you alone with your demonic aunt."
+						+ " You look around to see that Rose has vacated the area, leaving you alone with your demonic [lilaya.relation(pc)]."
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech(This is so exciting! I wonder how your body's going to react, what with you coming from another universe and everything!)]"
@@ -2379,7 +2344,7 @@ public class Lab {
 					+ "<p>"
 						+ "[lilaya.speech(So, I'm guessing you've already realised that the arcane has a big influence on pregnancy speed around here,)]"
 						+ " she laughs, stroking your belly once more before stepping back and tinkering with some small dials on the instrument she's just retrieved. "
-						+ UtilText.parseSpeech("I've actually done a fair bit of research on the arcane's influence on pregnancies, so I know that without its presence, pregnancies should really be taking about nine months...", aunt)
+						+ UtilText.parseSpeech("I've actually done a fair bit of research on the arcane's influence on pregnancies, so I know that without its presence, pregnancies should really be taking about nine months...", lilaya)
 					+ "</p>"
 					+ "<p>"
 						+ "As you try to assimilate the information Lilaya's giving you, the instrument in her hand starts giving off a faint pink glow, and, letting out a satisfied hum, she brings it down to your pregnant bump."
@@ -2439,8 +2404,8 @@ public class Lab {
 					return new Response("Give birth", "Tell Lilaya that you're ready to give birth", LILAYA_DETECTS_BIRTHING_TYPE){
 						@Override
 						public void effects() {
-							if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToPregnancyLilaya);
+							if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
 							}
 						}
 					};
@@ -2448,8 +2413,8 @@ public class Lab {
 					return new Response("Give birth", "You need to wait until your belly has finished growing before you're able to give birth.", null){
 						@Override
 						public void effects() {
-							if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToPregnancyLilaya);
+							if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
 							}
 						}
 					};
@@ -2459,12 +2424,12 @@ public class Lab {
 				return new Response("Back", "Tell Lilaya that you need a moment to think.", LAB_EXIT){
 					@Override
 					public void effects() {
-						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToPregnancyLilaya);
+						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
 						}
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-									+ "[pc.speech(Thanks for your help, Lilaya, but can I just have a moment to think?)] you ask, smiling at your demonic aunt."
+									+ "[pc.speech(Thanks for your help, Lilaya, but can I just have a moment to think?)] you ask, smiling at your demonic [lilaya.relation(pc)]."
 								+ "</p>"
 								+ "<p>"
 									+ "[lilaya.speech(Sure, just let me know if you need anything else!)] she says, before backing off a little to give you some space."
@@ -2488,11 +2453,11 @@ public class Lab {
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly."
+						+ "Stepping forwards, you smile at your demonic [lilaya.relation(pc)], before looking down and rubbing your belly."
 						+ " [pc.speech(Erm... Lilaya...)]"
 					+ "</p>");
 
-			if(player.isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
+			if(player.isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[lilaya.speech(Wait... Are you <i>pregnant</i>?!)] she asks."
@@ -2656,7 +2621,7 @@ public class Lab {
 				return new Response("Start", "Tell Lilaya that you're ready to give birth now.", LILAYA_ASSISTS_BIRTHING_DELIVERS){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, false);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
 						
@@ -2673,7 +2638,7 @@ public class Lab {
 				return new Response("Knock out", "Ask Lilaya if she could give you something to knock you out. After all, she said you didn't need to be conscious for this.", LILAYA_ASSISTS_BIRTHING_KNOCK_OUT){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, false);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
 
@@ -2904,7 +2869,7 @@ public class Lab {
 				return new Response("Lay eggs", "Tell Lilaya that you're ready to lay your eggs now.", LILAYA_ASSISTS_EGG_LAYING_DELIVERS){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, false);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
 
@@ -3089,131 +3054,12 @@ public class Lab {
 	};
 	
 	
-	private static String getOffspringDescriptor(Subspecies subspecies, boolean feminine) {
-		
-		if(!feminine) {
-			switch (subspecies) {
-				case ANGEL:
-					return (" radiant");
-				case CAT_MORPH:
-				case CAT_MORPH_LYNX:
-				case CAT_MORPH_CARACAL:
-				case CAT_MORPH_CHEETAH:
-				case DEMON:
-				case HALF_DEMON:
-				case LILIN:
-				case ELDER_LILIN:
-					return (" good-looking");
-				case CAT_MORPH_LEOPARD_SNOW:
-				case CAT_MORPH_LEOPARD:
-				case CAT_MORPH_TIGER:
-				case CAT_MORPH_LION:
-					return (" strong");
-				case COW_MORPH:
-					return (" strong");
-				case ELEMENTAL_AIR:
-				case ELEMENTAL_ARCANE:
-				case ELEMENTAL_EARTH:
-				case ELEMENTAL_FIRE:
-				case ELEMENTAL_WATER:
-				case IMP:
-				case IMP_ALPHA:
-				case FOX_MORPH:
-				case FOX_MORPH_FENNEC:
-				case FOX_ASCENDANT:
-				case FOX_ASCENDANT_FENNEC:
-					return (" mischievous");
-				case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
-					return (" smiling");
-				case ALLIGATOR_MORPH:
-					return (" tough");
-				case HARPY:
-				case HARPY_RAVEN:
-				case HARPY_BALD_EAGLE:
-					return (" feminine");
-				case HORSE_MORPH:
-				case HORSE_MORPH_ZEBRA:
-					return (" strong");
-				case REINDEER_MORPH:
-					return (" strong");
-				case HUMAN:
-					return (" smiling");
-				case SLIME:
-					return (" bubbly");
-				case SQUIRREL_MORPH:
-					return (" playful");
-				case RABBIT_MORPH:
-				case RABBIT_MORPH_LOP:
-					return (" playful");
-				case WOLF_MORPH:
-					return (" powerful");
-				case BAT_MORPH:
-					return (" smiling");
-				case RAT_MORPH:
-					return (" grinning");
-			}
-		}
-		switch(subspecies) {
-			case ANGEL:
-				return (" radiant");
-			case CAT_MORPH:
-			case CAT_MORPH_LYNX:
-			case CAT_MORPH_CARACAL:
-			case CAT_MORPH_CHEETAH:
-			case DEMON:
-			case HALF_DEMON:
-			case LILIN:
-			case ELDER_LILIN:
-				return (" pretty");
-			case CAT_MORPH_LEOPARD_SNOW:
-			case CAT_MORPH_LEOPARD:
-			case CAT_MORPH_TIGER:
-			case CAT_MORPH_LION:
-				return (" strong");
-			case COW_MORPH:
-				return (" docile");
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
-			case IMP:
-			case IMP_ALPHA:
-			case FOX_MORPH:
-			case FOX_MORPH_FENNEC:
-			case FOX_ASCENDANT:
-			case FOX_ASCENDANT_FENNEC:
-				return (" cheeky");
-			case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
-				return (" playful");
-			case ALLIGATOR_MORPH:
-				return (" tough");
-			case HARPY:
-			case HARPY_RAVEN:
-			case HARPY_BALD_EAGLE:
-				return (" feminine");
-			case HORSE_MORPH:
-			case HORSE_MORPH_ZEBRA:
-				return (" confident");
-			case REINDEER_MORPH:
-				return (" strong");
-			case HUMAN:
-				return (" smiling");
-			case SLIME:
-				return (" bubbly");
-			case SQUIRREL_MORPH:
-				return (" wily");
-			case RABBIT_MORPH:
-			case RABBIT_MORPH_LOP:
-				return (" happy");
-			case WOLF_MORPH:
-				return (" grinning");
-			case BAT_MORPH:
-				return (" smiling");
-			case RAT_MORPH:
-				return (" grinning");
-		}
-		return "";
+	private static String getOffspringDescriptor(GameCharacter offspring) {
+		List<String> descriptors = new ArrayList<>();
+		descriptors.add(offspring.getBodyShape().getName(false));
+		descriptors.add(offspring.getHeight().getDescriptor());
+		descriptors.add(offspring.getFemininity().getName(false));
+		return Util.randomItemFrom(descriptors);
 	}
 	
 	private static StringBuilder litterSB;
@@ -3266,9 +3112,9 @@ public class Lab {
 			for(String id : Main.game.getPlayer().getLastLitterBirthed().getOffspring()) {
 				try {
 					GameCharacter offspring = Main.game.getNPCById(id);
-					String descriptor = getOffspringDescriptor(offspring.getSubspecies(), offspring.isFeminine());
+					String descriptor = getOffspringDescriptor(offspring);
 					litterSB.append("<br/><b>"
-							+ UtilText.parse(offspring, "A "+(descriptor.isEmpty()?"":descriptor+" ")+"[npc.race]")
+							+ UtilText.parse(offspring, UtilText.generateSingularDeterminer(descriptor)+" "+descriptor+" [npc.race]")
 							+ "</b>");
 				} catch(Exception ex) {
 				}
@@ -3295,13 +3141,11 @@ public class Lab {
 	
 	public static final DialogueNode LAB_ARTHURS_TALE = new DialogueNode("Lilaya's Laboratory", "", true, true) {
 		
-
-		
 		@Override
 		public String getContent() {
 			return "<p>"
 						+ "[pc.speech(Ok, Lilaya, I'll find a room for Arthur,)]"
-						+ " you answer, trying to get your aunt to calm down as you agree to do as she asks."
+						+ " you answer, trying to get your [lilaya.relation(pc)] to calm down as you agree to do as she asks."
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech(Thank you, [pc.name], I would have asked Rose to do it for me, but as I agreed to let you use the empty rooms already, I thought it best that you should be the one to decide where Arthur goes,)]"

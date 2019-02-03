@@ -31,8 +31,8 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -213,8 +213,8 @@ public class SuccubisSecrets {
 				return new ResponseSex("Sex", "You can't resist the horny succubus's request...",
 						true, true,
 						new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexPositionSlot.CHAIR_BOTTOM))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotBipeds.CHAIR_BOTTOM))),
 						null,
 						null, Kate.AFTER_SEX, "<p>"
 						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
@@ -286,8 +286,8 @@ public class SuccubisSecrets {
 				return new ResponseSex("Fuck her", "Do as she says and start having sex with her.",
 						true, true,
 						new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexPositionSlot.CHAIR_BOTTOM))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotBipeds.CHAIR_BOTTOM))),
 						null,
 						null, Kate.AFTER_SEX, "<p>"
 						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
@@ -587,7 +587,7 @@ public class SuccubisSecrets {
 						
 					} else {
 						for(BodyPartInterface bp : Main.game.getPlayer().getAllBodyParts()){
-							if(bp.getType().getBodyCoveringType(Main.game.getPlayer())!=null
+							if(bp.getBodyCoveringType(Main.game.getPlayer())!=null
 									&& !(bp instanceof Hair)
 									&& !(bp instanceof Eye)) {
 								
@@ -598,10 +598,10 @@ public class SuccubisSecrets {
 									name = "vagina";
 								}
 								
-								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType(Main.game.getPlayer()))) {
-									CoveringsNamesMap.get(bp.getType().getBodyCoveringType(Main.game.getPlayer())).add(name);
+								if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(Main.game.getPlayer()))) {
+									CoveringsNamesMap.get(bp.getBodyCoveringType(Main.game.getPlayer())).add(name);
 								} else {
-									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(name));
+									CoveringsNamesMap.put(bp.getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(name));
 								}
 							}
 						}
@@ -651,8 +651,8 @@ public class SuccubisSecrets {
 							+ " On a double-page spread, there's an extremely lewd collection of pictures of Kate inserting her tail into her various orifices, with the suggestive caption 'Don't make me do it myself...'",
 					true, true,
 					new SMChair(
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexPositionSlot.CHAIR_BOTTOM))),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotBipeds.CHAIR_BOTTOM))),
 					null,
 					null, Kate.AFTER_SEX_REPEATED, "<p>"
 					+ "Turning to the back of the brochure, you find a double-page spread that's filled with extremely explicit pictures of Kate inserting her tail into her various orifices."
@@ -720,7 +720,7 @@ public class SuccubisSecrets {
 
 					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by your hair length.")
 					
-					+CharacterModificationUtils.getKatesDivCoveringsNew(true, Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairType().getBodyCoveringType(Main.game.getPlayer())).getType(),
+					+CharacterModificationUtils.getKatesDivCoveringsNew(true, Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairCovering()).getType(),
 							"[pc.Hair] Colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 					;
 		}
@@ -849,7 +849,7 @@ public class SuccubisSecrets {
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Main.game.getPlayer().getEyeType().getBodyCoveringType(Main.game.getPlayer()), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
+							true, Main.game.getPlayer().getEyeCovering(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)

@@ -14,7 +14,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Mouth implements BodyPartInterface {
@@ -191,6 +191,14 @@ public class Mouth implements BodyPartInterface {
 						+piercingUnequip);
 			}
 		}
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Mouth.class);
 	}
 	
 }

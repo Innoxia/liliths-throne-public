@@ -5,9 +5,9 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -17,8 +17,8 @@ import com.lilithsthrone.main.Main;
  */
 public class SMAmberDoggyFucked extends SexManagerDefault {
 
-	public SMAmberDoggyFucked(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.DOGGY_STYLE,
+	public SMAmberDoggyFucked(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionBipeds.DOGGY_STYLE,
 				dominants,
 				submissives);
 	}

@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.body.types;
 
 /**
  * @since 0.1.69.9
- * @version 0.2.8
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum BodyPartType {
@@ -13,9 +13,15 @@ public enum BodyPartType {
 	ARM("arms"),
 	ASS("ass"),
 	ANUS("anus"),
+	
 	BREAST("breasts"),
 	NIPPLES("nipples"),
 	MILK("milk"),
+	
+	BREAST_CROTCH("crotch-breasts"),
+	NIPPLES_CROTCH("crotch-nipples"),
+	MILK_CROTCH("crotch-breast-milk"),
+	
 	EAR("ears"),
 	EYE("eyes"),
 	FACE("face"),

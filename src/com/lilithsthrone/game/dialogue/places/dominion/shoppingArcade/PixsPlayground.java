@@ -9,9 +9,9 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMPixShowerTime;
 import com.lilithsthrone.game.sex.managers.universal.SMFaceToWall;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -577,8 +577,8 @@ public class PixsPlayground {
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_TOO_TIRED"));
 				
@@ -587,8 +587,8 @@ public class PixsPlayground {
 						"Tell Pix that you can make it up to her right now...",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_OFFER_SEX"));
 				
@@ -597,8 +597,8 @@ public class PixsPlayground {
 						"Apologise to Pix and accept her punishment.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_ACCEPT_PUNISHMENT"));
 				
@@ -631,8 +631,8 @@ public class PixsPlayground {
 							"Use the energy that you've saved by holding back during your exercise to break free from Pix, and then turn the tables on her...",
 							false, false,
 							new SMFaceToWall(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL))) {
 								@Override
 								public boolean isPlayerStartNaked() {
 									return true;
@@ -732,8 +732,8 @@ public class PixsPlayground {
 						"Let Pix have her fun with you.",
 						true, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX_CONSENSUAL, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_CONSENSUAL_START"));
 				

@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.12
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -74,10 +74,13 @@ public enum DialogueFlagValue {
 	lilayaDateTalk,
 	auntHomeJustEntered,
 	hadSexWithLilaya,
+	lilayaCondomBroke,
 	reactedToPregnancyLilaya,
 	waitingOnLilayaPregnancyResults,
+	waitingOnLilayaBirthNews,
 	essenceExtractionKnown,
 	roseToldOnYou,
+	lilayaReactedToPlayerAsDemon,
 	
 	readBook1,
 	readBook2,
@@ -112,6 +115,7 @@ public enum DialogueFlagValue {
 	
 	// Slaver Alley:
 	finchIntroduced,
+	statueTruthRevealed,
 	
 	// Zaranix:
 	zaranixDiscoveredHome,
@@ -195,6 +199,8 @@ public enum DialogueFlagValue {
 	lyssiethQuestionAsked3,
 	lyssiethQuestionAsked4,
 	lyssiethQuestionAsked5,
+
+	meraxisRepeatDemonTF,
 	
 	;
 }

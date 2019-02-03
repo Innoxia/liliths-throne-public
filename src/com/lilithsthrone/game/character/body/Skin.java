@@ -8,10 +8,11 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Skin implements BodyPartInterface {
+
 	
 	protected SkinType type;
 
@@ -347,5 +348,13 @@ public class Skin implements BodyPartInterface {
 				+ "<p>"
 				+ owner.postTransformationCalculation()
 				+ "</p>";
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Skin.class);
 	}
 }

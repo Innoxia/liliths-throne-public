@@ -9,7 +9,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 
@@ -50,7 +50,7 @@ public class SexActionUtility {
 				return "You remain still, not making a move...";
 			}
 			
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISC_WATCHING) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.MISC_WATCHING) {
 				List<GameCharacter> characters = new ArrayList<>(Sex.getAllParticipants());
 				characters.remove(Sex.getCharacterPerformingAction());
 				if(characters.size()>=2) {
@@ -122,7 +122,7 @@ public class SexActionUtility {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return true;//Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
+			return true;
 		}
 		
 		@Override

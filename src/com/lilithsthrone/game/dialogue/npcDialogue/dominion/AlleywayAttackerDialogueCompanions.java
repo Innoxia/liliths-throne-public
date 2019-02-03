@@ -19,16 +19,14 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -38,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.10
- * @version 0.2.10
+ * @version 0.3.1
  * @author Innoxia
  */
 public class AlleywayAttackerDialogueCompanions {
@@ -272,12 +270,18 @@ public class AlleywayAttackerDialogueCompanions {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								null,
-								Util.newArrayListOfValues(getMainCompanion()),
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getMugger(), getMainCompanion())) {
+								new SMGeneric(
+										Util.newArrayListOfValues(getMugger()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										null,
+										Util.newArrayListOfValues(getMainCompanion())) {
+									@Override
+									public boolean isPlayerAbleToStopSex() {
+										return false;
+									}
+								},
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getMugger(), getMainCompanion())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -310,13 +314,12 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 								UtilText.parse(getMugger(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
 								true, true,
-								new SMDoggy(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.DOGGY_BEHIND)),
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-												new Value<>(companion, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-								null,
-								null,
+								new SMGeneric(
+										Util.newArrayListOfValues(getMugger()),
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_BODY_WITH_COMPANION", getMugger(), companion)) {
 							@Override
 							public void effects() {
@@ -342,11 +345,11 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getMugger(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body in order to avoid a violent confrontation."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getMugger()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_COMPANION", getMugger(), companion)) {
 							@Override
 							public void effects() {
@@ -402,11 +405,11 @@ public class AlleywayAttackerDialogueCompanions {
 								Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, Fetish.FETISH_DOMINANT.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(getMugger()),
 								null,
-								null,
+								null),
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM", getAllCharacters())) {
 							@Override
 							public void effects() {
@@ -424,11 +427,11 @@ public class AlleywayAttackerDialogueCompanions {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getMugger()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null,
+								null),
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB", getAllCharacters())) {
 							@Override
 							public void effects() {
@@ -489,13 +492,12 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 								UtilText.parse(getMugger(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name]."),
 								true, true,
-								new SMDoggy(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.DOGGY_BEHIND)),
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-												new Value<>(companion, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-								null,
-								null,
+								new SMGeneric(
+										Util.newArrayListOfValues(getMugger()),
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_PEACEFUL_THREESOME, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_PEACEFUL_OFFER_BODY_WITH_COMPANION", getMugger(), companion)) {
 							@Override
 							public void effects() {
@@ -521,11 +523,11 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getMugger(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getMugger()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_PEACEFUL_OFFERED_COMPANION, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_PEACEFUL_OFFER_COMPANION", getMugger(), companion)) {
 							@Override
 							public void effects() {
@@ -778,12 +780,18 @@ public class AlleywayAttackerDialogueCompanions {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 						null, null, null,
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						null,
-						Util.newArrayListOfValues(getMainCompanion()),
-						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "STORM_ATTACK_OFFER_BODY", getMugger(), getMainCompanion()));
+						new SMGeneric(
+								Util.newArrayListOfValues(getMugger()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								Util.newArrayListOfValues(getMainCompanion())) {
+							@Override
+							public boolean isPlayerAbleToStopSex() {
+								return false;
+							}
+						},
+						AFTER_SEX_DEFEAT,
+						UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "STORM_ATTACK_OFFER_BODY", getMugger(), getMainCompanion()));
 					
 			} else if (index == 4) {
 				GameCharacter companion = getMainCompanion();
@@ -807,13 +815,12 @@ public class AlleywayAttackerDialogueCompanions {
 					return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 							UtilText.parse(getMugger(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
 							true, true,
-							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(companion, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+									null,
+									null,
+									ResponseTag.PREFER_DOGGY),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_BODY_WITH_COMPANION", getMugger(), companion));
 				}
 				
@@ -834,11 +841,11 @@ public class AlleywayAttackerDialogueCompanions {
 					return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 							UtilText.parse(getMugger(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body in order to avoid a violent confrontation."),
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(companion),
 							null,
-							Util.newArrayListOfValues(Main.game.getPlayer()),
+							Util.newArrayListOfValues(Main.game.getPlayer())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_COMPANION", getMugger(), companion)) {
 						@Override
 						public void effects() {
@@ -891,49 +898,35 @@ public class AlleywayAttackerDialogueCompanions {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getMugger()),
 							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							Util.newArrayListOfValues(getMainCompanion())),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
 					
 				} else if (index == 3) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_GENTLE;
-									}
-									return null;
-								}
-							},
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getMugger()),
+									null,
+									Util.newArrayListOfValues(getMainCompanion()),
+									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
 					
 				} else if (index == 4) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_ROUGH;
-									}
-									return null;
-								}
-							},
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getMugger()),
+									null,
+									Util.newArrayListOfValues(getMainCompanion()),
+									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
 					
 				} else if (index == 5) {
@@ -942,11 +935,11 @@ public class AlleywayAttackerDialogueCompanions {
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							Util.newArrayListOfValues(getMainCompanion())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 					
 				} else if (index == 6) {
@@ -993,13 +986,12 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Threesome"),
 								UtilText.parse(getMugger(), companion, "Have dominant sex with [npc.name], and get [npc2.name] to join in with the fun."),
 								true, false,
-								new SMDoggy(
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND),
-												new Value<>(companion, SexPositionSlot.DOGGY_INFRONT)),
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-								null,
-								null,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										Util.newArrayListOfValues(getMugger()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_THREESOME", getMugger(), companion));
 					}
 					
@@ -1013,11 +1005,11 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Give to [npc.name]"),
 								UtilText.parse(companion, getMugger(), "Tell [npc.name] that [npc.she] can have some fun with [npc2.name] while you watch."),
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(companion),
+										Util.newArrayListOfValues(getMugger()),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getMugger(), companion));
 					}
 					
@@ -1033,11 +1025,11 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getMugger(), companion, "Tell [npc.name] that [npc.she] can use [npc2.name]."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getMugger()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getMugger(), companion)) {
 							@Override
 							public void effects() {
@@ -1071,11 +1063,11 @@ public class AlleywayAttackerDialogueCompanions {
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getMugger()),
 							null,
-							null,
+							null),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE", getAllCharacters()));
 					
 				} else if (index == 3) {
@@ -1085,19 +1077,12 @@ public class AlleywayAttackerDialogueCompanions {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_GENTLE;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getMugger()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getAllCharacters()));
 					
 				} else if (index == 4) {
@@ -1107,19 +1092,12 @@ public class AlleywayAttackerDialogueCompanions {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_ROUGH;
-									}
-									return null;
-								}
-							},
-							null,
-							null, AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getAllCharacters()));
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getMugger()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_ROUGH), AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getAllCharacters()));
 					
 				} else if (index == 5) {
 					return new Response("Submit",
@@ -1174,13 +1152,12 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Threesome"),
 								UtilText.parse(getMugger(), companion, "Have dominant sex with [npc.name], and get [npc2.name] to join in with the fun."),
 								true, false,
-								new SMDoggy(
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND),
-												new Value<>(companion, SexPositionSlot.DOGGY_INFRONT)),
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-								null,
-								null,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										Util.newArrayListOfValues(getMugger()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_THREESOME", getMugger(), companion));
 					}
 					
@@ -1198,11 +1175,11 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Give to [npc.name]"),
 								UtilText.parse(companion, getMugger(), "Tell [npc.name] that [npc.she] can have some fun with [npc2.name] while you watch."),
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(companion),
+										Util.newArrayListOfValues(getMugger()),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getMugger(), companion));
 					}
 					
@@ -1221,11 +1198,11 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getMugger(), companion, "Tell [npc.name] that [npc.she] can use [npc2.name]."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getMugger()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getMugger(), companion)) {
 							@Override
 							public void effects() {
@@ -1337,13 +1314,12 @@ public class AlleywayAttackerDialogueCompanions {
 							return new ResponseSex(UtilText.parse(companion, "Threesome"),
 									UtilText.parse(getMugger(), companion, "[npc.Name] uses this opportunity to have sex with both you and [npc2.name]..."),
 									false, false,
-									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(
-													new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-													new Value<>(companion, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-									null,
-									null,
+									new SMGeneric(
+											Util.newArrayListOfValues(getMugger()),
+											Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY),
 									AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_THREESOME", getMugger(), companion));
 						
 					} else if (getMugger().isAttractedTo(companion) && Main.getProperties().hasValue(PropertyValue.involuntaryNTR)) {
@@ -1351,11 +1327,11 @@ public class AlleywayAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "[npc.Name] used"),
 								UtilText.parse(getMugger(), companion, "[npc.Name] uses [npc2.namePos] body in order to get some sexual relief..."),
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getMugger()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_USES_COMPANION", getMugger(), companion));
 						
 					}
@@ -1424,49 +1400,35 @@ public class AlleywayAttackerDialogueCompanions {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							Util.newArrayListOfValues(getMainCompanion())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_EAGER;
-									}
-									return null;
-								}
-							},
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									Util.newArrayListOfValues(getMainCompanion()),
+									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_RESISTING;
-									}
-									return null;
-								}
-							},
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									Util.newArrayListOfValues(getMainCompanion()),
+									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
 				}
@@ -1507,49 +1469,35 @@ public class AlleywayAttackerDialogueCompanions {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null,
+							null),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_EAGER;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_RESISTING;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
 				} else {
@@ -1586,49 +1534,35 @@ public class AlleywayAttackerDialogueCompanions {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null,
+							null),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_EAGER;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_RESISTING;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
 				} else {

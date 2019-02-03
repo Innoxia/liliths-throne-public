@@ -28,15 +28,16 @@ import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -287,8 +288,8 @@ public class TestNPC extends NPC {
 						Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 						false, false,
 						new SMDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 						null,
 						null, TEST_DIALOGUE_AFTER_RAPE, "<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
@@ -310,8 +311,8 @@ public class TestNPC extends NPC {
 						Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 						false, false,
 						new SMDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public SexPace getStartingSexPaceModifier(GameCharacter character) {
 								if(character.isPlayer()) {
@@ -341,8 +342,8 @@ public class TestNPC extends NPC {
 						Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 						false, false,
 						new SMDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public SexPace getStartingSexPaceModifier(GameCharacter character) {
 								if(character.isPlayer()) {
@@ -416,11 +417,11 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Sex",
 						"Well, [test.she] <i>is</i> asking for it!",
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(TestNPC.class)),
 						null,
-						null, TEST_DIALOGUE_AFTER_SEX, "<p>"
+						null), TEST_DIALOGUE_AFTER_SEX, "<p>"
 							+ "You step forwards, wrapping your [pc.arms] around the [test.race] and pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
@@ -432,19 +433,14 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Sex (gentle)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexPositionSlot.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.DOM_GENTLE;
-								}
-								return null;
-							}
-						},
-						null,
-						null, TEST_DIALOGUE_AFTER_SEX, "<p>"
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(TestNPC.class)),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
+						TEST_DIALOGUE_AFTER_SEX,
+						"<p>"
 							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
@@ -456,19 +452,14 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Sex (rough)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(TestNPC.class), SexPositionSlot.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.DOM_ROUGH;
-								}
-								return null;
-							}
-						},
-						null,
-						null, TEST_DIALOGUE_AFTER_SEX, "<p>"
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(TestNPC.class)),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
+						TEST_DIALOGUE_AFTER_SEX,
+						"<p>"
 								+ "You step forwards, wrapping your [pc.arms] around the [test.race] and roughly pulling [test.herHim] into you."
 							+ "</p>"
 							+ "<p>"

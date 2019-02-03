@@ -124,7 +124,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	// Other:
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof AbstractCoreItem){
 			if(((AbstractCoreItem)o).getName().equals(this.getName())
 				&& ((AbstractCoreItem)o).getColour() == this.getColour()

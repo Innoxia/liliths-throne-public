@@ -18,14 +18,12 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -319,21 +317,21 @@ public class RedLightDistrict {
 								return new ResponseSex("Sex",
 										UtilText.parse(npc, "Have sex with [npc.name], with you as the dominant partner."),
 										true, false,
-										new SMStanding(
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
+										new SMGeneric(
+												Util.newArrayListOfValues(Main.game.getPlayer()),
+												Util.newArrayListOfValues(npc),
 										null,
-										null, AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
+										null), AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
 							
 						} else if (index == 2) {
 								return new ResponseSex("Submissive Sex",
 										UtilText.parse(npc, "Let [npc.name] take charge, allowing you to have submissive sex with [npc.herHim]."),
 										true, false,
-										new SMStanding(
-												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										new SMGeneric(
+												Util.newArrayListOfValues(npc),
+												Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
-										null, AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
+										null), AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
 							
 						}
 						
@@ -348,11 +346,11 @@ public class RedLightDistrict {
 								return new ResponseSex("Sex ("+UtilText.formatAsMoney(cost, "span")+")",
 										UtilText.parse(npc, "Pay "+cost+" flames to have sex with [npc.name], with you as the dominant partner."),
 										true, false,
-										new SMStanding(
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
+										new SMGeneric(
+												Util.newArrayListOfValues(Main.game.getPlayer()),
+												Util.newArrayListOfValues(npc),
 										null,
-										null, AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
+										null), AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
 									@Override
 									public void effects() {
 										Main.game.getPlayer().incrementMoney(-cost);
@@ -369,11 +367,11 @@ public class RedLightDistrict {
 								return new ResponseSex("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")",
 										UtilText.parse(npc, "Pay "+cost+" flames to let [npc.name] take charge, allowing you to have submissive sex with [npc.herHim]."),
 										true, false,
-										new SMStanding(
-												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										new SMGeneric(
+												Util.newArrayListOfValues(npc),
+												Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
-										null, AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
+										null), AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
 									@Override
 									public void effects() {
 										Main.game.getPlayer().incrementMoney(-cost);
@@ -486,11 +484,11 @@ public class RedLightDistrict {
 				return new ResponseSex("Sex ("+UtilText.formatAsMoney(2000, "span")+")",
 						"Accept the price of "+2000+" flames to have sex with [npc.name].",
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null, AFTER_SEX_SELL_SELF_SUB, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_START")) {
+						null), AFTER_SEX_SELL_SELF_SUB, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_START")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(payment);
@@ -534,11 +532,11 @@ public class RedLightDistrict {
 				return new ResponseSex("Sex ("+UtilText.formatAsMoney(2000, "span")+")",
 						"Accept the price of "+2000+" flames to have sex with [npc.name].",
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getActiveNPC()),
 						null,
-						null, AFTER_SEX_SELL_SELF_DOM, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DOM_START")) {
+						null), AFTER_SEX_SELL_SELF_DOM, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DOM_START")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(payment);
@@ -670,11 +668,11 @@ public class RedLightDistrict {
 					return new ResponseSex("Sex ("+UtilText.formatAsMoney(cost, "span")+")",
 							"Pay "+cost+" flames to have sex with Bunny.",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Bunny.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(Bunny.class)),
 							null,
-							null, AFTER_SEX_BUNNY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_SEX")) {
+							null), AFTER_SEX_BUNNY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_SEX")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.bunnyIntroduced, true);
@@ -691,13 +689,14 @@ public class RedLightDistrict {
 					return new ResponseSex("Threesome ("+UtilText.formatAsMoney(threesomeCost, "span")+")",
 							"Pay "+threesomeCost+" flames to have sex with both Bunny and Loppy at the same time.",
 							true, false,
-							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Bunny.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							null,
-							null, AFTER_SEX_BUNNY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(Bunny.class), Main.game.getNpc(Loppy.class)),
+									null,
+									null,
+									ResponseTag.PREFER_DOGGY),
+							AFTER_SEX_BUNNY_THREESOME,
+							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.loppyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_NOT_INTRODUCED"))) {
@@ -801,11 +800,11 @@ public class RedLightDistrict {
 					return new ResponseSex("Sex ("+UtilText.formatAsMoney(cost, "span")+")",
 							"Pay "+cost+" flames to have sex with Loppy.",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(Loppy.class)),
 							null,
-							null, AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX")) {
+							null), AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
@@ -822,11 +821,11 @@ public class RedLightDistrict {
 					return new ResponseSex("Submissive Sex ("+UtilText.formatAsMoney(dominantCost, "span")+")",
 							"Pay "+dominantCost+" flames to let Loppy take charge and fuck you.",
 							true, true,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getNpc(Loppy.class)),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null, AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX_SUBMISSIVE")) {
+							null), AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX_SUBMISSIVE")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
@@ -843,13 +842,14 @@ public class RedLightDistrict {
 					return new ResponseSex("Threesome ("+UtilText.formatAsMoney(threesomeCost, "span")+")",
 							"Pay "+threesomeCost+" flames to have sex with both Loppy and Bunny at the same time.",
 							true, false,
-							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Loppy.class), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getNpc(Bunny.class), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							null,
-							null, AFTER_SEX_LOPPY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(Loppy.class), Main.game.getNpc(Bunny.class)),
+									null,
+									null,
+									ResponseTag.PREFER_DOGGY),
+							AFTER_SEX_LOPPY_THREESOME,
+							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bunnyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_NOT_INTRODUCED"))) {

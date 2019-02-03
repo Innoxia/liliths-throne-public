@@ -56,8 +56,7 @@ public class EnchantingUtils {
 	public static AbstractClothing craftClothing(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		AbstractClothing craftedClothing = null;
 
-		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
-		effectsToBeAdded.addAll(effects);
+		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
 		
 		craftedClothing = AbstractClothingType.generateClothing(
 				(AbstractClothingType) ingredient.getEnchantmentItemType(effects),
@@ -78,10 +77,11 @@ public class EnchantingUtils {
 		return craftedClothing;
 	}
 	
-	public static void craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+	public static Tattoo craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
 		((Tattoo)ingredient).setEffects(effectsToBeAdded);
 		((Tattoo)ingredient).setName(EnchantmentDialogue.getOutputName());
+		return (Tattoo) ingredient;
 	}
 	
 	public static AbstractWeapon craftWeapon(AbstractCoreItem ingredient, List<ItemEffect> effects) {
@@ -169,7 +169,7 @@ public class EnchantingUtils {
 	
 	
 	
-	private static Set<TFModifier> freePrimaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MILK, TFModifier.TF_CUM, TFModifier.TF_GIRLCUM);
+	private static Set<TFModifier> freePrimaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MILK, TFModifier.TF_MILK_CROTCH, TFModifier.TF_CUM, TFModifier.TF_GIRLCUM);
 	private static Set<TFModifier> freeSecondaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MOD_REGENERATION, TFModifier.TF_MOD_CUM_EXPULSION);
 	
 	private static boolean isEffectFreeForWaterSchool(ItemEffect effect) {

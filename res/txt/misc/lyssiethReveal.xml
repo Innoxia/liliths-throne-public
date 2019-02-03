@@ -141,7 +141,7 @@
 		[siren.speech(M-Mom,)] [siren.name] stutters, [siren.speech(it seals my dark powers away! If I take it off, then the whole universe could be destroyed!)]
 	</p>
 	<p>
-		[lyssieth.speech([siren.Name]! You're embarrassing me in front of our guest, now, not another word!)] Lyssieth says, before finally turning to face you, [lyssieth.speech(I do apologise on behalf of my troublesome daughter, and thank you so much for bringing her back to m-)]
+		[lyssieth.speech([siren.Name]! You're embarrassing me in front of our guest! Now, not another word from you!)] Lyssieth says, before finally turning to face you, [lyssieth.speech(I do apologise on behalf of my troublesome daughter, and thank you so much for bringing her back to m-)]
 	</p>
 	<p>
 		As Lyssieth's gaze comes to rest on your face, her eyes suddenly open wide, and you see the hand that's placed on the back of her chair suddenly clench tightly into the leather padding. Her calm, friendly voice completely changes to take on a deep, spine-chilling tone, and as she speaks, the ground beneath your feet almost seems to tremble, [lyssieth.speech(It's <i>you</i>?! <i>You're</i> the one who's been living with my dear Lilaya?!)]
@@ -449,12 +449,12 @@
 		You can tell that Lilaya's existential crisis has reached breaking point, and, realising that the simple truth will be enough to calm her down, you reassure her, [pc.speech(Yes, you're a half-demon now, Lilaya, but your personality, your mannerisms, even your looks are all the same as they were when you were Lily. You're still fundamentally the same person deep down inside, even if you can't feel it. Remember how I instantly recognised you the first time I saw you? You're still <i>you</i>, Lilaya.)]
 	</p>
 	<p>
-		Thankfully, your words have the desired effect, and your aunt's anger dissipates as quickly as it appeared. Collapsing down onto a nearby chair, she sighs, [lilaya.speech(I don't know... So I'm really your aunt, huh? Just in a different body, in a different reality...
+		Thankfully, your words have the desired effect, and your aunt's anger dissipates as quickly as it appeared. Collapsing down onto a nearby chair, she sighs, [lilaya.speech(I don't know... So I was really your aunt, huh? I'm just a different version of.. well... myself. In a different body, in a different reality...
 		#IF pc.getSexCount(lilaya)>0
 		#THEN
-			 And we had sex... One thing's for sure; that's not happening again. I mean, you're <i>actually</i> my [pc.niece], after all...
+			 And we had sex... Well, I mean, I suppose you're not <i>really</i> my [pc.niece] any more, so I guess I don't mind that...
 		#ELSE
-			 I don't think I'll be offering any more of those special tests... I mean, you're <i>actually</i> my [pc.niece], after all...
+			 I mean, I suppose you're not <i>really</i> my [pc.niece] any more, so I guess I don't mind still offering you those tests...
 		#ENDIF)]
 	</p>
 	<p>
@@ -505,7 +505,7 @@
 		[pc.speech(Why did you choose to betray Lilith, and not simply hand me over to her?)] you ask.
 	</p>
 	<p>
-		[lyssieth.speech(Because if I did that, then mother might finally be able to turn all of humanity into demons,)] Lyssieth replies, [lyssieth.speech(And I cna't let that happen!)]
+		[lyssieth.speech(Because if I did that, then mother might finally be able to turn all of humanity into demons,)] Lyssieth replies, [lyssieth.speech(And I can't let that happen!)]
 	</p>
 	<p>
 		[pc.speech(Yes, but why do you care for humans so much? From what you've already said, your sisters don't seem to have any qualms about treating humans like dirt.)]
