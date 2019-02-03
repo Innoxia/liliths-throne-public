@@ -146,6 +146,7 @@
 	Contributors:
 		Fixed incorrect dialogue been shown in the female imp fortress when scaring the leader off after sex. (Nnxx)
 		Expanded and improved detection of character relationships. (PR#929 by orvail)
+		Added a few more utility options to the debug menu. (PR#1007 by Nnxx)
 	
 	Clothing:
 		Added: 'Anal-only pastie' (Vagina slot, sold by Finch, androgynous.)
