@@ -38,22 +38,17 @@ import com.lilithsthrone.controller.eventListeners.information.CopyInfoEventList
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
@@ -95,7 +90,6 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
@@ -447,26 +441,7 @@ public class MainController implements Initializable {
 //							 for(KeyboardAction action : KeyboardAction.values()) {
 //								 System.out.println(action.getPrimaryDefault().getFullName()+(action.getSecondaryDefault()!=null?" | "+action.getSecondaryDefault().getFullName():"")+": "+action.getName());
 //							 }
-							 NPC target = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false,  false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-							 CharacterUtils.reassignBody(target, target.getBody(), target.getGender(), Subspecies.CENTAUR, RaceStage.PARTIAL);
-							 try {
-								Main.game.addNPC(target, false);
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							Main.game.setContent(new ResponseSex(
-										"Centaur sex test",
-										"",
-										false,
-										false,
-										new SMGeneric(
-												Util.newArrayListOfValues(Main.game.getPlayer()),
-												Util.newArrayListOfValues(target),
-												null,
-												null),
-										DebugDialogue.POST_SEX_2KOMA,
-										"Centaur testing sex start."));
+							 
 							 
 //							 System.out.println(Main.game.isInSex());
 						 }

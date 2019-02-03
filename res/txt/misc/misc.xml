@@ -32,5 +32,26 @@
 	</p>
 	]]>
 	</htmlContent>
+
+	<htmlContent tag="A_WILD_CENTAUR_APPEARS"><![CDATA[
+	<p>
+		As you find yourself thinking about the nature of centaurs, one suddenly appears before you! From the lustful look in [npc.her] [npc.eyes], you can tell that [npc.she] wants some sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_SEX_CENTAUR"><![CDATA[
+	<p>
+		Having put [npc.name] in [npc.her] place, you gather your things and make your exit, leaving [npc.herHim] panting and moaning on the floor behind you.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="POST_SEX_CENTAUR_AS_SUB"><![CDATA[
+	<p>
+		Having put you in your place, [npc.name] gathers [npc.her] things and makes [npc.her] exit, leaving you panting and [pc.moaning] on the floor. After a few minutes, you've got your breath back, and, getting your own things in order, you brush yourself down and set off on your way.
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

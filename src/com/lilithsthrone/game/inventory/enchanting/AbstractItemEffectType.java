@@ -3215,7 +3215,8 @@ public abstract class AbstractItemEffectType {
 						return getHornTypeRacialEffectUtil(race, target, 4);
 							
 					default:
-						AbstractHornType hornType = Util.randomItemFrom(RacialBody.valueOfRace(race).getHornTypes(true));
+						List<AbstractHornType> hornTypes = RacialBody.valueOfRace(race).getHornTypes(true);
+						AbstractHornType hornType = hornTypes.isEmpty()?HornType.NONE:Util.randomItemFrom(hornTypes);
 						return new RacialEffectUtil(hornType==HornType.NONE?"Removes horns.":Util.capitaliseSentence(race.getName(false))+" horn transformation.", 0, "") {
 							@Override public String applyEffect() { return target.setHornType(hornType); } };
 				}
@@ -4398,7 +4399,9 @@ public abstract class AbstractItemEffectType {
 	}
 
 	private static RacialEffectUtil getHornTypeRacialEffectUtil(Race race, GameCharacter target, int index) {
-		AbstractHornType selectedHornType =  Util.randomItemFrom(RacialBody.valueOfRace(race).getHornTypes(true));
+		List<AbstractHornType> hornTypes = RacialBody.valueOfRace(race).getHornTypes(true);
+		AbstractHornType selectedHornType = hornTypes.isEmpty()?HornType.NONE:Util.randomItemFrom(hornTypes);
+		
 		return new RacialEffectUtil("Grows "+selectedHornType.getTransformName()+" horns.", 0, "") {
 			@Override public String applyEffect() { return target.setHornType(selectedHornType); } };
 	}

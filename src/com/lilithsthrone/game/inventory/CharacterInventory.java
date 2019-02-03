@@ -1545,9 +1545,9 @@ public class CharacterInventory implements XMLSaving {
 			GameCharacter characterRemovingClothing,
 			boolean continuingIsAbleToEquip) {
 		
-		if(!continuingIsAbleToEquip) {
-			previousClothingCheck = null;
-		}
+//		if(!continuingIsAbleToEquip) {
+//			previousClothingCheck = null;
+//		}
 		
 		if(!displaceIfAble) {
 			if(characterClothingOwner==null) {
@@ -1568,7 +1568,7 @@ public class CharacterInventory implements XMLSaving {
 		}
 
 		boolean displacementTypeFound = false;
-		// Check for access needed: TODO check this works TODO it doesn't - keeps looping TODO I did a temporary fix. please come back and fix this properly some time
+		// Check for access needed: TODO check this works TODO it doesn't - keeps looping TODO fix this properly!!!!!
 		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList(characterClothingOwner)) {
 			// Keep iterating through until until we find the displacementType:
 			if (bp.displacementType == dt) {
@@ -1583,11 +1583,11 @@ public class CharacterInventory implements XMLSaving {
 						if (equippedClothing != clothing) {
 							for (BlockedParts bpEquipped : equippedClothing.getClothingType().getBlockedPartsList(characterClothingOwner)) {
 								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
-									if(equippedClothing.equals(previousClothingCheck)) {
-										System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
-										return true;
-									}
-									previousClothingCheck = clothing;
+//									if(equippedClothing.equals(previousClothingCheck)) {
+//										System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's displacement!!!");
+//										return true;
+//									}
+//									previousClothingCheck = clothing;
 									if (bp.clothingAccessRequired.contains(caBlocked)
 											&& (automaticClothingManagement
 													?isAbleToBeDisplaced(equippedClothing, bpEquipped.displacementType, false, true, characterClothingOwner, characterRemovingClothing, false)

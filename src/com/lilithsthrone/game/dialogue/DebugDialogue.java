@@ -12,9 +12,11 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -23,6 +25,7 @@ import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.npcDialogue.unique.LumiDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.ParserCommand;
 import com.lilithsthrone.game.dialogue.utils.ParserTarget;
@@ -39,6 +42,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
@@ -389,6 +393,21 @@ public class DebugDialogue {
 									Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced); //Introduce Finch
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE)); //And finish it
 								}
+							}
+						}
+					};
+					
+				} else if(index == 11){
+					return new Response("Centaur", "A wild centaur appears! (Please only use this on a completely neutral tile, as it will probably break things otherwise.)", CENTAUR_SEX){
+						@Override
+						public void effects(){
+							NPC target = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false,  false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							CharacterUtils.reassignBody(target, target.getBody(), target.getGender(), Subspecies.CENTAUR, RaceStage.PARTIAL);
+							try {
+								Main.game.addNPC(target, false);
+								Main.game.setActiveNPC(target);
+							} catch (Exception e) {
+								e.printStackTrace();
 							}
 						}
 					};
@@ -1330,7 +1349,104 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Now that you've put this bitch in [npc.her] place, you can continue with what you were doing...", Main.game.getDefaultDialogueNoEncounter());
+				if(Sex.isDom(Main.game.getPlayer())) {
+					return new Response("Continue", "Now that you've put this bitch in [npc.her] place, you can continue with what you were doing...", Main.game.getDefaultDialogueNoEncounter());
+				} else {
+					return new Response("Continue", "Now that you've been put in your place like the bitch you are, you can continue with what you were doing...", Main.game.getDefaultDialogueNoEncounter());
+				}
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode CENTAUR_SEX = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			NPC centaur = Main.game.getActiveNPC();
+			return UtilText.parseFromXMLFile("misc/misc", "A_WILD_CENTAUR_APPEARS", centaur);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			NPC centaur = Main.game.getActiveNPC();
+			
+			if(index==1) {
+				return new ResponseSex(
+						UtilText.parse(centaur, "Dom [npc.herHim]"),
+						UtilText.parse(centaur, "Take the dominant role and fuck this [npc.race]."),
+						true,
+						false,
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(centaur),
+								Main.game.getPlayer().getCompanions(),
+								null),
+						DebugDialogue.POST_SEX_CENTAUR,
+						"<p>"
+							+ "Deciding that you want to dominate this [npc.race] who just magically appeared before you, you step up to [npc.herHim] and growl,"
+							+ " [pc.speech(It's time to put you in your place!)]"
+						+ "</p>");
+				
+			} else if(index==2) {
+				return new ResponseSex(
+						UtilText.parse(centaur, "Submit to [npc.herHim]"),
+						UtilText.parse(centaur, "Take the submissive role and let this [npc.race] fuck you."),
+						true,
+						false,
+						new SMGeneric(
+								Util.newArrayListOfValues(centaur),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								Main.game.getPlayer().getCompanions()),
+						DebugDialogue.POST_SEX_CENTAUR,
+						"<p>"
+							+ "Deciding that you want to get dominated by this [npc.race] who just magically appeared before you, you step up to [npc.herHim] and plead,"
+							+ " [pc.speech(It's time for you to put me in my place!)]"
+						+ "</p>");
+				
+			} else if(index==0) {
+				return new Response("Nevermind", UtilText.parse(centaur, "Decide not to do anything with this [npc.race], and instead just continue with what you were doing..."), Main.game.getDefaultDialogueNoEncounter()) {
+					@Override
+					public void effects() {
+						Main.game.banishNPC(centaur);
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode POST_SEX_CENTAUR = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			if(Sex.isDom(Main.game.getPlayer())) {
+				GameCharacter target = Sex.getSubmissiveParticipants().entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR", target);
+			} else {
+				GameCharacter target = Sex.getDominantParticipants().entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR_AS_SUB", target);
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				NPC centaur = Main.game.getActiveNPC();
+				if(Sex.isDom(Main.game.getPlayer())) {
+					return new Response("Continue", UtilText.parse(centaur, "Now that you've put this [npc.race] in [npc.her] place, you can continue with what you were doing..."), Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.banishNPC(centaur);
+						}
+					};
+				} else {
+					return new Response("Continue", UtilText.parse(centaur, "Now that you've been put in your place by this [npc.race], you can continue with what you were doing..."), Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.banishNPC(centaur);
+						}
+					};
+				}
 			}
 			return null;
 		}

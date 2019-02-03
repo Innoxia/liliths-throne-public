@@ -149,6 +149,8 @@
 		Added a few more utility options to the debug menu. (PR#1007 by Nnxx)
 		Added a lot more names and name variety. (PR#989 by Nnxx)
 		Fixed anus/nipple areas always being revealed in body-part overview tooltip. (PR#1024 by 0d721077)
+		Fixed perk point bug, which was causing the issues where perk points could sometimes be negative, and sometimes be massively over-inflated. Perk points will be reset to their correct value when you load into this version. (PR#998 by BDPMP)
+		Added: 'Raincoat' (Over-torso slot, sold by Nyan, androgynous.) (Created by Bloom and wasp609.)
 	
 	Clothing:
 		Added: 'Anal-only pastie' (Vagina slot, sold by Finch, androgynous.)
@@ -237,17 +239,17 @@
 		If one of your slaves ambushes you in the streets of DOminion, it should now be correctly treated as public sex.
 		Fixed issue where you could offer body to muggers, then immediately end sex in the resulting sex scene.
 		Fixed 'submit' in combat going back to the combat dialogue for one turn before defeat.
-		Applied a temporary fix to the issue where sometimes trying to displace/remove clothing would not work and potentially soft-lock the game.
+		Fixed some odd lust tooltip descriptions (such as saying you aren't interested at all in having sex when at 100 lust).
+		The sadist fetish now correctly applies lust damage to the attacker, not the target.
 	
 	
 	
 	
-	merge Nnxx debug commands and add centaur to it
-	merge other small PR fixes
+	
 	
 	final tests & bug fixes and package
 	
-	
+	Fix the issue where sometimes trying to displace/remove clothing will not work and potentially soft-lock the game!!!
 	
 	Main map movement
 	Fields centaur encounter
@@ -257,19 +259,14 @@
 	
 	need default wings/tails/horns and available ones in RacialBody for use in default parts spawning
 	
-	Need to correctly aplpy SubspeciesSpawnRarity to spawn chances
-	
-	2koma - account for centaurs
+	Need to correctly apply SubspeciesSpawnRarity to spawn chances
 	
 	Issue in method: dailyReset(), for character ID: -1,Vicky (bound must be positive) - somehow available ingredients was empty or something?
 	
 	player demon half-subspecies not showing?
 	
-	fix LustLevel SE descriptions
-	
 	can pull up t-shirts beneath over-torso clothing
 	
-	DSG crits
 	Send out thank you messages
 	Jam
 	
@@ -297,7 +294,9 @@
 	If you open guests' inventory from the slave menu you can force them to take it
 	
 	CrotchBreasts
-		Need self-interactions
+		Need tail self-interactions
+		Need NPC self-interactions
+		Need to refactor self-interactions to be player/NPC
 		
     Main map movement
     	WASD
@@ -312,8 +311,6 @@
 	Offspring moving in
 		
 	Make NPCs throw away given condoms in non-full-control sex based on fetishes
-	
-	need clothing tag for non-concealable (chastity cages and such)
 	
 	need cloaca sex interactions for if penis isn't erect
 	
@@ -361,10 +358,10 @@
 	
 	why are the body types abstract?
 	
+	if you make bree pregnant the police station counter gets bugged and you can't interact with either of them
 	fix isAbleToBeDisplaced properly
 	during sexual interactions clicking the 'forbid self clothing' and 'forbid self action' doesn't have any effect and your partner still goes ahead to displace clothing and perform self actions
 	essence drain shooting weapons is broken
-	if you make bree pregnant the police station counter gets bugged and you can't interact with either of them
 	improve Lilith soul infusement lore
 	Remember Tp from Lilaya's lab to Lyssieth
 	Lyssieth needs impregnation desire and cum stud fetish
@@ -372,15 +369,12 @@
 	Check "Into Submission" quest text
 	when I load into a fresh game I seem to loose points from leveling up. When I loaded into a previous save one time I was at -17 points to use the second time I loaded up my game I was in the hole -35.
 	check to see the demon quest triggers are just based on your demonic status, not quest progression or anything like that
-	the sadism fetish deals the lust dmg to my enemy rather than my character - it says I take the lust dmg but the opponent takes the lust (check PRs fix)
 	add the multiple-partner scenes to slave scenes and other encounters
 	When visiting a person you know in dominion that has their own place and you initiate sex. When you select the forbid self clothing. The text is said but then they start displacing their clothing anyway and the icon remains as forbid self clothing instead of changing to allow self clothing.
 	Add ability to use pumps on slaves
-	you seem to gain negative perk points at some point. I'm not sure if it's some levels being bugged or the imp fortresses doing it but it definitely happens
 	the watering hole is still having issues as a sub lol. Now when I run around with a person as a sub, it seems that during our adventure a new randomly generated NPC will pop up and join our group, taking over any further dialog while retaining the old NPC on the top right list. From what I gather so far it seems to happen the most when a NPC takes you to the booths to do things
 	I found a minor bug in that when looking at the pregnancy stats tab in the menus that it will say one gender in the fathered/mothered section, but then say the other gender in the offspring list
 	slow fluids absorbtion rate
-	add a way to change foot type to potions
 	the dialogue after impregnating a Demon in the Dark Alley needs to be changed. As its pre 0.3.0 and is the one for Imps. Even though its completely redone
 	add offspring moving in text
 	Hi. Also the Essences and Jinxes dialogue also needs to be updated. Especially since instead of a Pentagram its still a square

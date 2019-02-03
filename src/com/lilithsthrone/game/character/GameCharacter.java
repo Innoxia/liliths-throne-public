@@ -1498,7 +1498,7 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.appendToImportLog(log, "<br/>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			
 			try {
-				if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3")) {
+				if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3.0.5")) {
 					character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
 					CharacterUtils.appendToImportLog(log, "<br/>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
 				}
@@ -12900,7 +12900,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "Due to [npc.her] [style.boldFetish(sadist fetish)], [npc.name] [npc.verb(take)]"
 							+ " <b>"+(manaLoss)+"</b>"+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(get)] aroused by inflicting damage!"
 						+ "</p>"))
-						+incrementLust(manaLoss, false);
+						+attacker.incrementLust(manaLoss, false);
 				
 			} else {
 				setHealth(getHealth() + increment);
