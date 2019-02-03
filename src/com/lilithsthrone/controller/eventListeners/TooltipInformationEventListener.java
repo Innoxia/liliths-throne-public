@@ -729,12 +729,23 @@ public class TooltipInformationEventListener implements EventListener {
 							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
 						}
 					}
-					tooltipSB.append(getBodyPartDiv("Anus", owner.getAssRace(), owner.getAnusCovering(), owner.isAnusBestial()));
-					tooltipSB.append(getBodyPartDiv("Nipples", owner.getBreastRace(), owner.getNippleCovering(), owner.isNippleBestial()));
+
+					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer())) {
+						tooltipSB.append(getEmptyBodyPartDiv("Anus", "Unknown!"));
+					} else {
+						tooltipSB.append(getBodyPartDiv("Anus", owner.getAssRace(), owner.getAssType().getAnusType().getBodyCoveringType(owner), owner.isAnusBestial()));
+					}
+
+					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer())) {
+						tooltipSB.append(getEmptyBodyPartDiv("Nipples", "Unknown!"));
+					} else {
+						tooltipSB.append(getBodyPartDiv("Nipples", owner.getBreastRace(), owner.getBreastType().getNippleType().getBodyCoveringType(owner), owner.isNippleBestial()));
+					}
+
 					if(crotchBreasts) {
 						tooltipSB.append(getBodyPartDiv("Nipples ("+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs")+")", owner.getBreastCrotchRace(), owner.getNippleCrotchCovering(), owner.isNippleCrotchBestial()));
 					}
-
+					
 					if (displayImage) {
 						boolean revealed = owner.isImageRevealed();
 						tooltipSB.append("</div>"
