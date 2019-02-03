@@ -231,8 +231,14 @@ public class Util {
 	}
 	
 	@SafeVarargs
+	/**
+	 * @param values The values to add to the new list.
+	 * @return A list of provided values, with nulls stripped.
+	 */
 	public static <U> ArrayList<U> newArrayListOfValues(U... values) {
-		return new ArrayList<>(Arrays.asList(values));
+		ArrayList<U> list = new ArrayList<>(Arrays.asList(values));
+		list.removeIf(e -> e==null);
+		return list;
 	}
 	
 	@SafeVarargs
@@ -258,13 +264,19 @@ public class Util {
 	}
 	
 	@SafeVarargs
+	/**
+	 * @param maps The maps to draw entries from.
+	 * @return A new map containing all of the entries from the provided 'maps'. Nulls are stripped, and 'maps' are unaltered.
+	 */
 	public static <U, T> Map<U, List<T>> mergeMaps(Map<U, List<T>>... maps) {
 		Map<U, List<T>> mergedMap = new HashMap<>();
 		
 		for(Map<U, List<T>> map : maps) {
-			for(Entry<U, List<T>> entry : map.entrySet()) {
-				mergedMap.putIfAbsent(entry.getKey(), new ArrayList<>());
-				mergedMap.get(entry.getKey()).addAll(entry.getValue());
+			if(map!=null) {
+				for(Entry<U, List<T>> entry : map.entrySet()) {
+					mergedMap.putIfAbsent(entry.getKey(), new ArrayList<>());
+					mergedMap.get(entry.getKey()).addAll(entry.getValue());
+				}
 			}
 		}
 		
@@ -423,7 +435,21 @@ public class Util {
 		
 		return intToString;
 	}
-	
+
+	/**
+	 * @param integer Input number to convert.
+	 * @return 'once', 'twice', or 'integer times'
+	 */
+	public static String intToCount(int integer) {
+		if(integer==1) {
+			return "once";
+		} else if(integer==2) {
+			return "twice";
+		}
+		
+		return intToString(integer)+" times";
+	}
+		
 	public static String intToPosition(int integer) {
 		String intToString = "";
 		
@@ -639,6 +665,26 @@ public class Util {
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts) {
 		return insertIntoSentences(sentence, frequency, inserts, true);
 	}
+	
+	private static String insertIntoSentencesAtPunctuation(String sentence, String[] inserts) {
+		splitSentence = sentence.split(" ");
+		utilitiesStringBuilder.setLength(0);
+		
+		utilitiesStringBuilder.append(inserts[random.nextInt(inserts.length)]+" ");
+		
+		char cOld = 'X';
+		for(char c : sentence.toCharArray()) {
+			utilitiesStringBuilder.append(c);
+			
+			if((cOld=='.'||cOld=='!'||cOld=='?'||cOld==',')
+					&& c==' ') {
+				utilitiesStringBuilder.append(inserts[random.nextInt(inserts.length)]+" ");
+			}
+			cOld = c;
+		}//^\.\. |! |\? 
+
+		return utilitiesStringBuilder.toString();
+	}
 
 	private static String[] bimboWords = new String[] { ", like,", ", like,", ", like,", ", um,", ", uh,", ", ah," };
 	/**
@@ -718,7 +764,11 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addSexSounds(String sentence, int frequency) {
-		return insertIntoSentences(sentence, frequency, sexSounds);
+		if(Math.random()<0.75f) { // 75% chance of the sex sounds to be more readable:
+			return insertIntoSentencesAtPunctuation(sentence, sexSounds);
+		} else {
+			return insertIntoSentences(sentence, frequency, sexSounds);
+		}
 	}
 
 	private static String[] drunkSounds = new String[] { " ~Hic!~" };
@@ -804,8 +854,8 @@ public class Util {
 		return Util.toStringList(list, (String o) -> capitalise?Util.capitaliseSentence(o):o, "and");
 	}
 
-	public static String stringsToStringChoice(List<String> list) {
-		return Util.toStringList(list, Util::capitaliseSentence, "or");
+	public static String stringsToStringChoice(List<String> list, boolean capitalise) {
+		return Util.toStringList(list, (String o) -> capitalise?Util.capitaliseSentence(o):o, "or");
 	}
 
 	public static String colourSetToStringList(Set<Colour> colourSet) {

@@ -60,8 +60,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -194,7 +193,7 @@ public class ZaranixMaidKatherine extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-		this.setPenisSize(20);
+		this.setPenisSize(12);
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(100);
 		this.fillCumToMaxStorage();
@@ -352,11 +351,11 @@ public class ZaranixMaidKatherine extends NPC {
 			} if(index==2) {
 				return new ResponseSex("Use Katherine", "Have some fun with the horny maid.",
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKatherine.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKatherine.class)),
 						null,
-						null,
+						null),
 						AFTER_SEX_VICTORY, "<p>"
 							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Katherine."
 							+ " Stepping over to where she's leaning back against the wall, you reach forwards and take hold of her arm, before pulling her hand away from her groin."
@@ -372,11 +371,11 @@ public class ZaranixMaidKatherine extends NPC {
 						"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKatherine.class), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKatherine.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null,
+						null),
 						AFTER_SEX_VICTORY, "<p>"
 							+ "Not willing to take the dominant role, but with a deep desire to have sex with the horny succubus, you walk up to where Katherine's collapsed against the wall, and sigh,"
 							+ " [pc.speech(Katherine... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
@@ -477,10 +476,13 @@ public class ZaranixMaidKatherine extends NPC {
 			if(index==1) {
 				return new ResponseSex("Used", "Katherine uses you.",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKatherine.class), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						null, null, AFTER_SEX_DEFEAT);
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKatherine.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null),
+						AFTER_SEX_DEFEAT,
+						"");
 			} else {
 				return null;
 			}

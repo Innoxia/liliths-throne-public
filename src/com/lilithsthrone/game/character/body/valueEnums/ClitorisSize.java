@@ -61,7 +61,7 @@ public enum ClitorisSize {
 
 	/**
 	 * To fit into a sentence: "Your clitoris is "+getDescriptor()+"." "Your "
-	 * getDescriptor()+" cock is dribbling pre-cum."
+	 * getDescriptor()+" cock is dribbling precum."
 	 */
 	public String getDescriptor() {
 		return descriptor;

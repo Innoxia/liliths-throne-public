@@ -5,8 +5,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -35,7 +35,7 @@ public class ConChairPositions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.CHAIR_BOTTOM);
+			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.CHAIR_BOTTOM);
 		}
 		
 		@Override
@@ -62,12 +62,12 @@ public class ConChairPositions {
 		public void applyEffects() {
 			if(Sex.isDom(Main.game.getPlayer())) {
 				Sex.setSexManager(new SMChair(
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.CHAIR_BOTTOM))));
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP)),
+						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexSlotBipeds.CHAIR_BOTTOM))));
 			} else {
 				Sex.setSexManager(new SMChair(
-						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.CHAIR_BOTTOM)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))));
+						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexSlotBipeds.CHAIR_BOTTOM)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))));
 			}
 		}
 	};
@@ -86,7 +86,7 @@ public class ConChairPositions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.CHAIR_TOP);
+			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.CHAIR_TOP);
 		}
 		
 		@Override
@@ -113,12 +113,12 @@ public class ConChairPositions {
 		public void applyEffects() {
 			if(Sex.isDom(Main.game.getPlayer())) {
 				Sex.setSexManager(new SMChair(
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
-						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.CHAIR_TOP))));
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
+						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexSlotBipeds.CHAIR_TOP))));
 			} else {
 				Sex.setSexManager(new SMChair(
-						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.CHAIR_TOP)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))));
+						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexSlotBipeds.CHAIR_TOP)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM))));
 			}
 		}
 	};

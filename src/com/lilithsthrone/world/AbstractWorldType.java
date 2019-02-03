@@ -79,7 +79,7 @@ public abstract class AbstractWorldType {
 	}
 	
 	@Override
-	public boolean equals (Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
+	public boolean equals(Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
 		if(super.equals(o)){
 			if(o instanceof AbstractWorldType){
 				if(((AbstractWorldType)o).getName().equals(getName())

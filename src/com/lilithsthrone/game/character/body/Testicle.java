@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body;
 
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.TesticleType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
@@ -8,13 +9,14 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.7
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Testicle implements BodyPartInterface {
@@ -189,6 +191,9 @@ public class Testicle implements BodyPartInterface {
 	}
 
 	public boolean isInternal() {
+		if(!Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+			return true;
+		}
 		return internal;
 	}
 
@@ -421,5 +426,13 @@ public class Testicle implements BodyPartInterface {
 						+ "[npc.She] will now expel [style.boldSex(" + UtilText.generateSingularDeterminer(expulsionDescriptor) + " "+expulsionDescriptor+")] amount of stored cum at each orgasm!"
 					+ "</p>");
 		}
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Testicle.class);
 	}
 }

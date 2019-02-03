@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.NippleType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
@@ -21,11 +22,10 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Nipples implements BodyPartInterface {
-
 	
 	protected NippleType type;
 	protected OrificeNipples orificeNipples;
@@ -34,14 +34,16 @@ public class Nipples implements BodyPartInterface {
 	protected int areolaeSize;
 	protected int nippleSize;
 	protected boolean pierced;
+	protected boolean crotchNipples;
 
-	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
+	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin, boolean crotchNipples) {
 		this.type = type;
 		this.nippleSize = nippleSize;
 		this.nippleShape = nippleShape;
 		areolaeShape = AreolaeShape.NORMAL;
 		this.areolaeSize = areolaeSize;
 		orificeNipples = new OrificeNipples(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		this.crotchNipples = crotchNipples;
 	}
 	
 	@Override
@@ -56,40 +58,20 @@ public class Nipples implements BodyPartInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter owner) {
-		String name = "";
-		
-		switch(nippleShape) {
-			case LIPS:
-				name = UtilText.returnStringAtRandom("lipple", "nipple-lip");
-				break;
-			case NORMAL:
-				name = type.getNameSingular(owner);
-				break;
-			case VAGINA:
-				name = UtilText.returnStringAtRandom("nipple-cunt", "nipple-pussy");
-				break;
-		}
-		
-		return name;
+//		if(crotchNipples) {
+//			return type.getNameCrotchSingular(owner);
+//		} else {
+			return type.getNameSingular(owner);
+//		}
 	}
 
 	@Override
 	public String getNamePlural(GameCharacter owner) {
-		String name = "";
-		
-		switch(nippleShape) {
-			case LIPS:
-				name = UtilText.returnStringAtRandom("lipples", "nipple-lips");
-				break;
-			case NORMAL:
-				name = type.getNamePlural(owner);
-				break;
-			case VAGINA:
-				name = UtilText.returnStringAtRandom("nipple-cunts", "nipple-pussies");
-				break;
-		}
-		
-		return name;
+//		if(crotchNipples) {
+//			return type.getNameCrotchPlural(owner);
+//		} else {
+			return type.getNamePlural(owner);
+//		}
 	}
 
 	@Override
@@ -391,5 +373,36 @@ public class Nipples implements BodyPartInterface {
 			}
 		}
 		
+	}
+
+	public boolean isCrotchNipples() {
+		return crotchNipples;
+	}
+
+	@Override
+	public BodyCoveringType getBodyCoveringType(GameCharacter gc) {
+		if(this.isCrotchNipples()) {
+			return BodyCoveringType.NIPPLES_CROTCH;
+		}
+		return BodyCoveringType.NIPPLES;
+	}
+
+	@Override
+	public BodyCoveringType getBodyCoveringType(Body body) {
+		if(this.isCrotchNipples()) {
+			return BodyCoveringType.NIPPLES_CROTCH;
+		}
+		return BodyCoveringType.NIPPLES;
+	}
+	
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		if(this.isCrotchNipples()) {
+			return owner.getLegConfiguration().getBestialParts().contains(BreastCrotch.class);
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Breast.class);
 	}
 }

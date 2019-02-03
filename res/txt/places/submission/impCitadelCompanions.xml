@@ -1394,7 +1394,7 @@
 	
 	<htmlContent tag="KEEP_CHALLENGE"><![CDATA[
 	<p>
-		As impressive as [siren.namePos] speech was, you know that she's no match for your indomitable might. Knowing that it's a waste of your precious time to be swatting these pathetic demons out of your way, you smirk at the half-succubus and call out, [pc.speech(Big words, from someone too terrified to fight me one-on-one! I honestly expected more from someone calling herself the 'dark siren', but I see that you're just another poser, hiding behind her minions!)]
+		As impressive as [siren.namePos] speech was, you know that she's no match for your indomitable might. As it would be a waste of your precious time to be swatting these pathetic demons out of your way, you simply smirk at the half-succubus and call out, [pc.speech(Big words, from someone too terrified to fight me one-on-one! I honestly expected more from someone calling herself the 'dark siren', but I see that you're just another poser, hiding behind her minions!)]
 	</p>
 	<p>
 		[siren.speech(You dare speak to me in such a manner?! Have you no understanding of the arcane powers that I wield? You are nothing to me!)] [siren.name] replies, stepping down from her dias. While this forwards movement was undoubtedly intended to intimidate you, the loss of the extra height afforded to her by her raised platform causes her to end up being hidden behind her demon lieutenants. In a flustered attempt to resolve this issue, she calls out, [siren.speech(S-Stand aside, minions!)]

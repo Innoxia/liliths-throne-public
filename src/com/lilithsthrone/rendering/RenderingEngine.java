@@ -45,6 +45,7 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -54,7 +55,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
@@ -167,8 +168,8 @@ public enum RenderingEngine {
 		Set<InventorySlot> blockedSlots = new HashSet<>();
 		
 		for (AbstractClothing c : charactersInventoryToRender.getClothingCurrentlyEquipped()) {
-			if (c.getClothingType().getIncompatibleSlots() != null) {
-				for (InventorySlot is : c.getClothingType().getIncompatibleSlots()) {
+			if (c.getClothingType().getIncompatibleSlots(charactersInventoryToRender) != null) {
+				for (InventorySlot is : c.getClothingType().getIncompatibleSlots(charactersInventoryToRender)) {
 					blockedSlots.add(is);
 				}
 			}
@@ -363,13 +364,16 @@ public enum RenderingEngine {
 			if((charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosLeft())
 					|| (!charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosRight())) {
 				AbstractClothing clothing = charactersInventoryToRender.getClothingInSlot(invSlot);
-				
+
+				BodyPartClothingBlock block = invSlot.getBodyPartClothingBlock(charactersInventoryToRender);
 				if (clothing != null) {
 					// add to content:
 					equippedPanelSB.append(
 							// If slot is sealed:
 							"<div class='"+inventorySlotId + getClassRarityIdentifier(clothing.getRarity()) + "'"
 								+ (clothing.isSealed() ? "style='border-width:2px; border-color:" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
+
+								+ (block!=null?"<div class='raceBlockIcon' style='opacity:0.5;'>" + Subspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>":"")
 								
 								// Picture:
 								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(charactersInventoryToRender)+"</div>"
@@ -395,12 +399,12 @@ public enum RenderingEngine {
 													+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
 												+ "</div>");
 						
-					} else if (invSlot.slotBlockedByRace(charactersInventoryToRender) != null) {
+					} else if (block != null) {
 						equippedPanelSB.append(
-								"<div class='"+inventorySlotId+" disabled'>"
+								"<div class='"+inventorySlotId+" disabled-light'>"
 									+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
 									+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
-									+ "<div class='raceBlockIcon'>" + Subspecies.getMainSubspeciesOfRace(invSlot.slotBlockedByRace(charactersInventoryToRender)).getSVGString(charactersInventoryToRender) + "</div>"
+									+ "<div class='raceBlockIcon' style='opacity:0.5;'>" + Subspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>"
 								+ "</div>");
 						
 					} else {
@@ -1232,7 +1236,7 @@ public enum RenderingEngine {
 										+ "<div class='icon-content'>"
 											+ (pop.getSpecies().size()>1
 													?SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
-													:pop.getSpecies().get(0).getSVGString(null))
+													:pop.getSpecies().keySet().iterator().next().getSVGString(null))
 										+ "</div>"
 									+ "</div>"
 									+" <div style='color:"+Colour.BASE_GREY.toWebHexString()+";'>"
@@ -2180,7 +2184,7 @@ public enum RenderingEngine {
 	
 	
 	private static boolean isLimitedSpectatorPanel(GameCharacter character) {
-		return Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING && !character.isPlayer();
+		return Sex.getSexPositionSlot(character)==SexSlotBipeds.MISC_WATCHING && !character.isPlayer();
 	}
 	
 	private static String getCharacterPanelSexDiv(boolean compact, String idPrefix, GameCharacter character) {
@@ -2372,6 +2376,55 @@ public enum RenderingEngine {
 
 	public static void setPageLeft(int pageLeft) {
 		RenderingEngine.pageLeft = pageLeft;
+	}
+
+	public static void setPage(GameCharacter charactersInventoryToRender, AbstractCoreItem item) {
+		int uniqueItemCount = 0;
+		
+		for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getMapOfDuplicateWeapons().entrySet()) {
+			if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+				uniqueItemCount++;
+				if(entry.getKey().equals(item)) {
+					if(charactersInventoryToRender.isPlayer()) {
+						setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
+						return;
+					} else {
+						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
+						return;
+					}
+				}
+			}
+		}
+		
+		for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getMapOfDuplicateClothing().entrySet()) {
+			if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+				uniqueItemCount++;
+				if(entry.getKey().equals(item)) {
+					if(charactersInventoryToRender.isPlayer()) {
+						setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
+						return;
+					} else {
+						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
+						return;
+					}
+				}
+			}
+		}
+		
+		for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getMapOfDuplicateItems().entrySet()) {
+			if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+				uniqueItemCount++;
+				if(entry.getKey().equals(item)) {
+					if(charactersInventoryToRender.isPlayer()) {
+						setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
+						return;
+					} else {
+						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
+						return;
+					}
+				}
+			}
+		}
 	}
 
 	public static int getPageRight() {

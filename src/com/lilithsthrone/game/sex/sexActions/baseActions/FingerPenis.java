@@ -7,7 +7,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
@@ -48,7 +48,7 @@ public class FingerPenis {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.SIXTY_NINE_TOP) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.SIXTY_NINE_TOP) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(prop)] [npc.herself] up on one [npc.arm], before using [npc.her] free [npc.hand] to stroke and squeeze [npc2.namePos] [npc2.balls+].",
 

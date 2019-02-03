@@ -11,10 +11,11 @@ import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Hair implements BodyPartInterface {
+
 	
 	protected HairType type;
 	protected int length;
@@ -536,5 +537,13 @@ public class Hair implements BodyPartInterface {
 		
 		// Catch:
 		return "";
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Hair.class);
 	}
 }

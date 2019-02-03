@@ -152,7 +152,7 @@ public class CityHall {
 				}
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().getAllCharactersOfRelationType(Relationship.PARENT).isEmpty()) {
+				if(Main.game.getPlayer().getAllCharactersOfRelationType(Relationship.Parent).isEmpty()) {
 					return new Response("Offspring ("+UtilText.formatAsMoneyUncoloured(5000, "span")+")",
 							"Change your name, and also have all lines of your offspring update their surnames to your surname.<br/>[style.italicsBad(You do not have any children, so you can't do this!)]", null);
 					

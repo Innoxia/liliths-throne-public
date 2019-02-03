@@ -81,7 +81,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Kate extends NPC {
@@ -257,7 +257,7 @@ public class Kate extends NPC {
 		// (For when she grows one)
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.THREE_THICK);
-		this.setPenisSize(25);
+		this.setPenisSize(15);
 //		this.setInternalTesticles(true); Use player preferences
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(150);
@@ -491,10 +491,6 @@ public class Kate extends NPC {
 		}
 	}
 	
-	
-	
-	
-	
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
@@ -505,7 +501,10 @@ public class Kate extends NPC {
 							+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
 						+ "</p>";
 			} else {
-				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
+				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
+				if(clothing!=null && clothing.getClothingType().isCondom()) {
+					target.unequipClothingIntoVoid(clothing, true, equipper);
+				}
 				return "<p>"
 							+ "As you pull out a condom, a worried frown flashes across Kate's face, "
 							+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getNpc(Kate.class))

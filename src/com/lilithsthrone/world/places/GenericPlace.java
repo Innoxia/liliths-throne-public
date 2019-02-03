@@ -152,7 +152,7 @@ public class GenericPlace implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof GenericPlace){
 			if(((GenericPlace)o).getPlaceType() == placeType
 				&& ((GenericPlace)o).getPlaceUpgrades().equals(placeUpgrades)){

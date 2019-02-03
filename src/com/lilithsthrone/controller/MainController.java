@@ -8,6 +8,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -24,6 +25,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.*;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -35,15 +37,24 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -73,7 +84,7 @@ import java.util.Map.Entry;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -387,6 +398,15 @@ public class MainController implements Initializable {
 
 						 if(event.getCode()==KeyCode.END && Main.DEBUG){
 //							 Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
+//							 System.out.println(UtilText.parse(Main.game.getPlayer(), Sex.getActivePartner(), "[npc.Name], [npc2.Name].  #IFnpc2.isFeminine()#THEN:3#ENDIF #IFnpc.isFeminine()#THEN:0#ENDIF"));
+//							 Main.game.getPlayer().setLegConfiguration(LegConfiguration.TAUR, false);
+							 
+//							 for(KeyboardAction action : KeyboardAction.values()) {
+//								 System.out.println(action.getPrimaryDefault().getFullName()+(action.getSecondaryDefault()!=null?" | "+action.getSecondaryDefault().getFullName():"")+": "+action.getName());
+//							 }
+							 
+							 
+//							 System.out.println(Main.game.isInSex());
 						 }
 						 
 
@@ -1112,11 +1132,31 @@ public class MainController implements Initializable {
 		}
 	}
 	
+	static void setBreastCrotchCountListener(int i) {
+		String id = "CROTCH_BOOB_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setBreastCrotchRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
 	static void setNippleCountListener(int i) {
 		String id = "NIPPLE_COUNT_"+i;
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				BodyChanging.getTarget().setNippleCountPerBreast(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setNippleCrotchCountListener(int i) {
+		String id = "NIPPLE_CROTCH_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setNippleCrotchCountPerBreast(i);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -1137,6 +1177,16 @@ public class MainController implements Initializable {
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				BodyChanging.getTarget().setHornRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setHornsPerRowCountListener(int i) {
+		String id = "HORN_COUNT_PER_ROW_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setHornsPerRow(i);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -1437,8 +1487,14 @@ public class MainController implements Initializable {
 							case BREAST_STATUS:
 								si = SexAreaOrifice.BREAST;
 								break;
+							case BREAST_CROTCH_STATUS:
+								si = SexAreaOrifice.BREAST_CROTCH;
+								break;
 							case NIPPLE_STATUS:
 								si = SexAreaOrifice.NIPPLE;
+								break;
+							case NIPPLE_CROTCH_STATUS:
+								si = SexAreaOrifice.NIPPLE_CROTCH;
 								break;
 							case THIGH_STATUS:
 								si = SexAreaOrifice.THIGHS;
@@ -1455,7 +1511,9 @@ public class MainController implements Initializable {
 							default:
 								break;
 						}
-						setStatusEffectSexTargetChangeListener(documentAttributes, id, character, si);
+						if(si!=null) {
+							setStatusEffectSexTargetChangeListener(documentAttributes, id, character, si);
+						}
 					}
 					
 					TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, character);
@@ -1663,7 +1721,7 @@ public class MainController implements Initializable {
 				
 				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 						"Races Present",
-						Util.subspeciesToStringList(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies(), true)+".",
+						Util.subspeciesToStringList(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().keySet(), true)+".",
 						(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().size()/3)*16);
 				addEventListener(documentRight, id, "mouseenter", el, false);
 			}
@@ -1903,6 +1961,168 @@ public class MainController implements Initializable {
 						Main.game.getNpc(TestNPC.class).setLocation(WorldType.SHOPPING_ARCADE, Main.game.getPlayer().getLocation(), true);
 					}
 				});
+			}
+		}
+		if (lastKeysEqual(KeyCode.D, KeyCode.K, KeyCode.O, KeyCode.M, KeyCode.A)) {
+			if(Main.game!=null) {
+				if(Main.game.isStarted()
+						&& Main.game.isInNewWorld()
+						&& Main.game.isInCombat()
+						&& Combat.getAllCombatants().size()==1
+						&& !Combat.getEnemies().get(0).isUnique()
+						&& Main.game.getPlayer().hasPenis()
+						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+						&& Combat.getEnemies().get(0).hasVagina()
+						&& Combat.getEnemies().get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					GameCharacter target = Combat.getEnemies().get(0);
+					Combat.endCombat(true);
+//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+					Main.game.setContent(new ResponseSex(
+							"Dominate",
+							"",
+							false,
+							false,
+							new SexManagerDefault(
+									SexPositionBipeds.MATING_PRESS,
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_TOP)),
+									Util.newHashMapOfValues(new Value<>(target, SexSlotBipeds.MATING_PRESS_BOTTOM))) {
+								@Override
+								public boolean isPositionChangingAllowed(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public boolean isPlayerAbleToSwapPositions() {
+									return false;
+								}
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									return Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)),
+											new Value<>(target, Util.newArrayListOfValues(CoverableArea.VAGINA)));
+								}
+								@Override
+								public void initStartingLustAndArousal(GameCharacter character) {
+									if(!character.isPlayer()) {
+										character.setLust(100);
+										character.setArousal(25);
+									} else {
+										super.initStartingLustAndArousal(character);
+									}
+								}
+								@Override
+								public SexPace getForcedSexPace(GameCharacter character) {
+									if(!character.isPlayer()) {
+										return SexPace.SUB_EAGER;
+									}
+									return null;
+								}
+								@Override
+								public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+									return false;
+								}
+								@Override
+								public boolean isAppendStartingExposedDescriptions(GameCharacter character) {
+									return false;
+								}
+							},
+							null,
+							null,
+							DebugDialogue.POST_SEX_2KOMA,
+							UtilText.parseFromXMLFile("misc/misc", "START_SEX_2KOMA", Main.game.getPlayer(), target)) {
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), target, PenisVagina.PENIS_FUCKING_START, true, true));
+						}
+					});
+					
+				} else {
+					Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot dominate!");
+				}
+			}
+		}
+
+		if (lastKeysEqual(KeyCode.S, KeyCode.K, KeyCode.O, KeyCode.M, KeyCode.A)) {
+			if(Main.game!=null) {
+				if(Main.game.isStarted()
+						&& Main.game.isInNewWorld()
+						&& Main.game.isInCombat()
+						&& Combat.getAllCombatants().size()==1
+						&& !Combat.getEnemies().get(0).isUnique()
+						&& Combat.getEnemies().get(0).hasPenis()
+						&& Combat.getEnemies().get(0).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+						&& Main.game.getPlayer().hasVagina()
+						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					GameCharacter target = Combat.getEnemies().get(0);
+					Combat.endCombat(false);
+//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+					Main.game.setContent(new ResponseSex(
+							"Dominated",
+							"",
+							false,
+							false,
+							new SexManagerDefault(
+									SexPositionBipeds.MATING_PRESS,
+									Util.newHashMapOfValues(new Value<>(target, SexSlotBipeds.MATING_PRESS_TOP)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_BOTTOM))) {
+								@Override
+								public boolean isPositionChangingAllowed(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public boolean isPlayerAbleToSwapPositions() {
+									return false;
+								}
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									return Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+											new Value<>(target, Util.newArrayListOfValues(CoverableArea.PENIS)));
+								}
+								@Override
+								public void initStartingLustAndArousal(GameCharacter character) {
+									character.setLust(100);
+									character.setArousal(25);
+								}
+								@Override
+								public SexPace getForcedSexPace(GameCharacter character) {
+									if(!character.isPlayer()) {
+										if(character.getFetishDesire(Fetish.FETISH_DOMINANT).isNegative()) {
+											return SexPace.DOM_NORMAL;
+										}
+										return SexPace.DOM_ROUGH;
+									}
+									return null;
+								}
+								@Override
+								public boolean isAppendStartingExposedDescriptions(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public boolean isAppendStartingWetDescriptions() {
+									return false;
+								}
+								@Override
+								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+								}
+								@Override
+								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+								}
+							},
+							null,
+							null,
+							DebugDialogue.POST_SEX_2KOMA,
+							UtilText.parseFromXMLFile("misc/misc", "START_SEX_2KOMA", target, Main.game.getPlayer())) {
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							return Util.newArrayListOfValues(new InitialSexActionInformation(target, Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, true, true));
+						}
+					});
+					
+				} else {
+					Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot dominate!");
+				}
 			}
 		}
 	}

@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -30,8 +31,9 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -69,121 +71,23 @@ public class GenericSexualPartner extends NPC {
 			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
-				switch(s) {
-					// No spawn chance:
-					case ANGEL:
-					case DEMON:
-					case HALF_DEMON:
-					case LILIN:
-					case ELDER_LILIN:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-						break;
-						
-					// Low spawn chance:
-					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case SLIME:
-						addToSubspeciesMap(1, gender, s, availableRaces);
-						break;
-					case RAT_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-
-					case BAT_MORPH:
-						addToSubspeciesMap(1, gender, s, availableRaces);
-						break;
-					case HARPY:
-						addToSubspeciesMap(4, gender, s, availableRaces);
-						break;
-					case HARPY_RAVEN:
-						addToSubspeciesMap(1, gender, s, availableRaces);
-						break;
-					case HARPY_BALD_EAGLE:
-						addToSubspeciesMap(1, gender, s, availableRaces);
-						break;
-					case HUMAN:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-						
-					// Special spawns:
-					case REINDEER_MORPH:
-						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							addToSubspeciesMap(10, gender, s, availableRaces);
-						}
-						break;
-						
-					// Regular spawns:
-					case CAT_MORPH:
-						addToSubspeciesMap(25, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD_SNOW:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LION:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_TIGER:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LYNX:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CHEETAH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CARACAL:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case COW_MORPH:
-						addToSubspeciesMap(15, gender, s, availableRaces);
-						break;
-					case DOG_MORPH:
-						addToSubspeciesMap(15, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_BORDER_COLLIE:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case FOX_MORPH:
+				if(s==Subspecies.REINDEER_MORPH
+						&& Main.game.getSeason()==Season.WINTER
+						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
+					addToSubspeciesMap(10, gender, s, availableRaces);
+					
+				} else if(s.getRace()!=Race.DEMON
+						&& s.getRace()!=Race.ANGEL
+						&& s.getRace()!=Race.ELEMENTAL
+						&& s!=Subspecies.FOX_ASCENDANT
+						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
+						&& s!=Subspecies.SLIME) {
+					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
 						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
-					case FOX_MORPH_FENNEC:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH_ZEBRA:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case SQUIRREL_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
-					case WOLF_MORPH:
-						addToSubspeciesMap(25, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH_LOP:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-				}
-			}
+					} else {
+						addToSubspeciesMap(3, gender, s, availableRaces);
+					}
+				}}
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
@@ -270,7 +174,7 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	@Override
-	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
+	public Set<SexSlot> getSexPositionPreferences(GameCharacter target) {
 		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
 			return super.getSexPositionPreferences(target);
 		}
@@ -278,9 +182,9 @@ public class GenericSexualPartner extends NPC {
 		sexPositionPreferences.clear();
 		
 		if(Sex.isInForeplay() || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
-			sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_KNEELING);
+			sexPositionPreferences.add(SexSlotBipeds.GLORY_HOLE_KNEELING);
 		} else {
-			sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_FUCKED);
+			sexPositionPreferences.add(SexSlotBipeds.GLORY_HOLE_FUCKED);
 		}
 		
 		return sexPositionPreferences;

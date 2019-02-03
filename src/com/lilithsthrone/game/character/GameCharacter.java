@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
@@ -21,9 +22,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.utils.*;
 import org.w3c.dom.Comment;
@@ -52,74 +55,8 @@ import com.lilithsthrone.game.character.body.FluidInterface;
 import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Testicle;
-import com.lilithsthrone.game.character.body.types.AbstractArmType;
-import com.lilithsthrone.game.character.body.types.AbstractAssType;
-import com.lilithsthrone.game.character.body.types.AbstractBreastType;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.FluidType;
-import com.lilithsthrone.game.character.body.types.FootStructure;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.NippleType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TentacleType;
-import com.lilithsthrone.game.character.body.types.TongueType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
-import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
-import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
-import com.lilithsthrone.game.character.body.valueEnums.Lactation;
-import com.lilithsthrone.game.character.body.valueEnums.LipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
-import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
-import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
-import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
@@ -129,6 +66,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.markings.Scar;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -157,6 +95,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -187,7 +126,6 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -212,6 +150,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionOrgasmOverride;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
@@ -230,8 +169,8 @@ import com.lilithsthrone.world.places.PlaceType;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.3
- * @author Innoxia
+ * @version 0.3.1
+ * @author Innoxia, orvail(relationship section)
  */
 public abstract class GameCharacter implements XMLSaving {
 
@@ -418,7 +357,7 @@ public abstract class GameCharacter implements XMLSaving {
 		this.level = level;
 		petNameMap = new HashMap<>();
 		
-		RacialBody startingRace = RacialBody.valueOfRace(startingSubspecies.getRace());
+		AbstractRacialBody startingRace = RacialBody.valueOfRace(startingSubspecies.getRace());
 		
 		if(birthday==null) {
 			setBirthday(Main.game.getDateNow());
@@ -682,7 +621,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getPerkPoints()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getAdditionalPerkPoints()));
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "health", String.valueOf(this.getHealth()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "mana", String.valueOf(this.getMana()));
@@ -1556,7 +1495,7 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.appendToImportLog(log, "<br/>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			
 			try {
-				if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3")) {
+				if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3.0.5")) {
 					character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
 					CharacterUtils.appendToImportLog(log, "<br/>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
 				}
@@ -2881,6 +2820,16 @@ public abstract class GameCharacter implements XMLSaving {
 	public void setAreaKnownByCharacter(CoverableArea area, GameCharacter target, boolean known) {
 		setAreaKnownByCharacter(area, target.getId(), known);
 	}
+	
+	public void setAllAreasKnownByCharacter(GameCharacter target, boolean known) {
+		for(CoverableArea area : CoverableArea.values()) {
+			if(known) {
+				areasKnownByCharactersMap.get(area).add(target.getId());
+			} else {
+				areasKnownByCharactersMap.get(area).remove(target.getId());
+			}
+		}
+	}
 
 	/**
 	 * Removes all other character's knowledge of this area.
@@ -2912,7 +2861,11 @@ public abstract class GameCharacter implements XMLSaving {
 	public void setKnowsCharacterArea(CoverableArea area, GameCharacter target, boolean known) {
 		target.setAreaKnownByCharacter(area, this, known);
 	}
-
+	
+	public Colour getSpeechGlowColour() {
+		return null;
+	}
+	
 	public String getSpeechColour() {
 		if(this.isPlayer()) {
 			switch(Femininity.valueOf(getFemininityValue())) {
@@ -2990,6 +2943,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getBodyDescription() {
 		return body.getDescription(this);
 	}
+
+	public void setBody(Body newBody) {
+		body = newBody;
+
+		postTransformationCalculation();
+	}
 	
 	public void setBody(Gender startingGender, GameCharacter mother, GameCharacter father) {
 		body = CharacterUtils.generateBody(this, startingGender, mother, father);
@@ -2997,7 +2956,7 @@ public abstract class GameCharacter implements XMLSaving {
 		postTransformationCalculation();
 	}
 	
-	public void setBody(Gender startingGender, RacialBody startingBodyType, RaceStage stage) {
+	public void setBody(Gender startingGender, AbstractRacialBody startingBodyType, RaceStage stage) {
 		body = CharacterUtils.generateBody(this, startingGender, startingBodyType, stage);
 		
 		postTransformationCalculation();
@@ -3132,14 +3091,16 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String getNameIgnoresPlayerKnowledge() {
-		if(getFemininityValue()>Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-			return nameTriplet.getFeminine();
-			
-		} else if(getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
-			return nameTriplet.getAndrogynous();
-			
-		} else {
-			return nameTriplet.getMasculine();
+		switch(this.getFemininity()) {
+			case MASCULINE_STRONG:
+			case MASCULINE:
+				return nameTriplet.getMasculine();
+			case ANDROGYNOUS:
+				return nameTriplet.getAndrogynous();
+			case FEMININE:
+			case FEMININE_STRONG:
+			default:
+				return nameTriplet.getFeminine();
 		}
 	}
 	
@@ -3497,103 +3458,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public int getValueAsSlave() {
-		int value = 10000;
-		switch(this.getSubspecies()) {
-			case ANGEL:
-				value = 80000;
-				break;
-			case CAT_MORPH:
-			case CAT_MORPH_CARACAL:
-			case CAT_MORPH_CHEETAH:
-			case CAT_MORPH_LEOPARD:
-			case CAT_MORPH_LEOPARD_SNOW:
-			case CAT_MORPH_LION:
-			case CAT_MORPH_LYNX:
-			case CAT_MORPH_TIGER:
-				value = 12000;
-				break;
-			case DOG_MORPH:
-			case DOG_MORPH_BORDER_COLLIE:
-			case DOG_MORPH_DOBERMANN:
-				value = 8000;
-				break;
-			case COW_MORPH:
-				value = 15000;
-				break;
-			case HORSE_MORPH:
-			case HORSE_MORPH_ZEBRA:
-			case REINDEER_MORPH:
-				value = 18000;
-				break;
-			case LILIN:
-				value = 500000000;
-				break;
-			case ELDER_LILIN:
-				value = 1000000000;
-				break;
-			case HALF_DEMON:
-				value = 40000;
-				break;
-			case DEMON:
-				value = 60000;
-				break;
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
-				value = 100000;
-				break;
-			case IMP:
-			case IMP_ALPHA:
-				value = 1000;
-				break;
-			case HARPY:
-			case HARPY_BALD_EAGLE:
-			case HARPY_RAVEN:
-				value = 12000;
-				break;
-			case HUMAN:
-				value = 4000;
-				break;
-			case SQUIRREL_MORPH:
-				value = 6000;
-				break;
-			case ALLIGATOR_MORPH:
-				value = 10000;
-				break;
-			case WOLF_MORPH:
-				value = 10000;
-				break;
-			case FOX_MORPH:
-			case FOX_MORPH_FENNEC:
-				value = 8000;
-				break;
-			case FOX_ASCENDANT:
-				value = 15000 * this.getTailCount();
-				break;
-			case FOX_ASCENDANT_FENNEC:
-				value = 15000 * this.getTailCount();
-				break;
-			case BAT_MORPH:
-				value = 10000;
-				break;
-			case RAT_MORPH:
-				value = 6000;
-				break;
-			case RABBIT_MORPH:
-			case RABBIT_MORPH_LOP:
-				value = 12000;
-				break;
-			case SLIME:
-				value = 10000;
-				break;
-		}
-		
+		int value = this.getSubspecies().getBaseSlaveValue(this);
 		value += (getFetishes().size()*50);
-		
 		value *= (100+(getObedienceValue()/2))/100f;
-		
 		return value;
 	}
 	
@@ -4337,33 +4204,145 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Relationships:
 	
-	/**
-	 * @param character The character whose relationship is to be checked.
-	 * @return How this character is related to the passed in 'character'. i.e. If the 'character' is a child of this character, then this method will return PARENT (as this character is the parent to that 'character').
-	 */
-	public Relationship getRelationship(GameCharacter character) {//TODO grandchildren, cousins, etc.
-		// If this character is the character's parent:
-		if((!character.getMotherId().isEmpty() && character.getMotherId().equals(getId()))
-				|| (!character.getFatherId().isEmpty() && character.getFatherId().equals(getId()))) {
-			return Relationship.PARENT;
+	private Set<GameCharacter> getParents() {
+		HashSet<GameCharacter> result = new HashSet<>();
+		GameCharacter c;
+		if((c = getMother()) != null)
+			result.add(c);
+		if((c = getFather()) != null)
+			result.add(c);
+		return result;
+	}
+
+	protected Set<GameCharacter> getChildren() {
+		HashSet<GameCharacter> result = new HashSet<>();
+		getLittersBirthed().stream()
+			.flatMap(l -> l.getOffspring().stream().map(o -> {
+				try { return Main.game.getNPCById(o); }
+				catch(Exception e) { return null; }
+			}))
+			.filter(Objects::nonNull)
+			.forEach(result::add);
+		getLittersFathered().stream()
+			.flatMap(l -> l.getOffspring().stream().map(o -> {
+				try { return Main.game.getNPCById(o); }
+				catch(Exception e) { return null; }
+			}))
+			.filter(Objects::nonNull)
+			.forEach(result::add);
+		return result;
+	}
+
+	private Set<GameCharacter> getParents(int level, Set<GameCharacter> trace) {
+	    assert level >= 0;
+
+	    if(trace != null)
+			trace.add(this);
+
+	    if(level == 0)
+	        return getParents();
+
+		HashSet<GameCharacter> result = new HashSet<>();
+		GameCharacter c;
+		if((c = getMother()) != null)
+			result.addAll(c.getParents(level - 1, trace));
+		if((c = getFather()) != null)
+			result.addAll(c.getParents(level - 1, trace));
+		return result;
+	}
+
+	private Set<GameCharacter> getChildren(int level, Set<GameCharacter> exclude) {
+	    assert level >= 0;
+
+	    if(exclude != null && exclude.contains(this)) {
+	    	return Collections.emptySet();
+	    }
+
+	    if(level == 0) {
+	        return getChildren();
+	    }
+	    
+		HashSet<GameCharacter> result = new HashSet<>();
+		for(GameCharacter child : getChildren()) {
+			result.addAll(child.getChildren(level - 1, exclude));
 		}
-		// If this character is the character's child:
-		if((!getMotherId().isEmpty() && getMotherId().equals(character.getId()))
-				|| (!getFatherId().isEmpty() && getFatherId().equals(character.getId()))) {
-			return Relationship.OFFSPRING;
+		return result;
+	}
+
+	private Set<GameCharacter> getNonCommonNodes(int up, int down) {
+		HashSet<GameCharacter> result = new HashSet<>();
+		HashSet<GameCharacter> trace = new HashSet<>();
+		getParents(up, trace).stream()
+				.flatMap(p -> p.getChildren(down, trace).stream())
+				.filter(s -> !s.equals(this))
+				.forEach(result::add);
+		return result;
+	}
+
+	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
+		EnumSet<Relationship> result = EnumSet.noneOf(Relationship.class);
+
+        if(character.getParents(0, null).contains(this))
+            result.add(Relationship.Parent);
+        if(character.getParents(1, null).contains(this))
+            result.add(Relationship.GrandParent);
+        if(character.getParents(2, null).contains(this))
+            result.add(Relationship.GrandGrandParent);
+        if(character.getChildren(0, null).contains(this))
+            result.add(Relationship.Child);
+        if(character.getChildren(1, null).contains(this))
+            result.add(Relationship.GrandChild);
+        if(character.getChildren(2, null).contains(this))
+            result.add(Relationship.GrandGrandChild);
+
+		Set<GameCharacter> commonParents = character.getParents();
+		commonParents.retainAll(this.getParents());
+		if(commonParents.size() == 1) {
+			result.add(Relationship.HalfSibling);
+		} else if(commonParents.size() == 2) {
+			result.add(Relationship.Sibling);
 		}
-		// If this character is the character's sibling:
-		if((!getMotherId().isEmpty() && getMotherId().equals(character.getMotherId()))
-				|| (!getFatherId().isEmpty() && getFatherId().equals(character.getFatherId()))) {
-			return Relationship.SIBLING;
-		}
+
+		if(character.getNonCommonNodes(1,0).contains(this))
+			result.add(Relationship.Pibling);
+		if(character.getNonCommonNodes(2,0).contains(this))
+			result.add(Relationship.GrandPibling);
+		if(character.getNonCommonNodes(1,1).contains(this))
+			result.add(Relationship.Cousin);
+		if(character.getNonCommonNodes(0,1).contains(this))
+			result.add(Relationship.Nibling);
+
+		result.removeAll(Arrays.asList(excludedRelationships));
 		
-		return Relationship.NONE;
+		return result;
+	}
+
+    public String getRelationshipStrTo(GameCharacter character, Relationship... excludedRelationships) {
+	    return getRelationshipStr(getRelationshipsTo(character, excludedRelationships), getGender().getType());
+    }
+
+    public static String getRelationshipStr(Collection<Relationship> rel, PronounType pronounType) {
+	    return UtilText.getNaturalEnumeration(rel.stream().map(x -> x.toString(pronounType)).collect(Collectors.toList()));
+    }
+
+    public boolean isRelatedTo(GameCharacter character, Relationship... excludedRelationships) {
+		return !getRelationshipsTo(character, excludedRelationships).isEmpty();
 	}
 	
-	public boolean isRelatedTo(GameCharacter character) {
-		return getRelationship(character) != Relationship.NONE;
+	/**
+	 * @param relationship The relationship type to check.
+	 * @return A (potentially empty) list of all characters who are related to this character by the specified relationship. i.e. If the passed in relationship is PARENT, the list will be of all characters who are this character's children.
+	 */
+	public List<GameCharacter> getAllCharactersOfRelationType(Relationship relationship) {
+		List<GameCharacter> characters = new ArrayList<>();
+		for(NPC npc: Main.game.getAllNPCs()) {
+			if(this.getRelationshipsTo(npc).contains(relationship)) {
+				characters.add(npc);
+			}
+		}
+		return characters;
 	}
+	
 	
 	public GameCharacter getMother() {
 		if(motherId==null || motherId.isEmpty()) {
@@ -4411,20 +4390,6 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void setFather(GameCharacter father) {
 		fatherId = father.getId();
-	}
-	
-	/**
-	 * @param relationship The relationship type to check.
-	 * @return A (potentially empty) list of all characters who are related to this character by the specified relationship. i.e. If the passed in relationship is PARENT, the list will be of all characters who are this character's children.
-	 */
-	public List<GameCharacter> getAllCharactersOfRelationType(Relationship relationship) {
-		List<GameCharacter> characters = new ArrayList<>();
-		for(NPC npc: Main.game.getAllNPCs()) {
-			if(this.getRelationship(npc)==relationship) {
-				characters.add(npc);
-			}
-		}
-		return characters;
 	}
 
 	public LocalDateTime getConceptionDate() {
@@ -4475,11 +4440,6 @@ public abstract class GameCharacter implements XMLSaving {
 			experience -= getExperienceNeededForNextLevel();
 
 			level++;
-
-			incrementPerkPoints(1);
-			if(level%5==0) {
-				perkPoints+=2;
-			}
 		}
 		if (getLevel() == LEVEL_CAP) {
 			experience = 0;
@@ -4957,17 +4917,35 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasTransformationFetish() {
 		return hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) || hasFetish(Fetish.FETISH_KINK_GIVING);
 	}
+
+	public String addFetish(Fetish fetish) {
+		return addFetish(fetish, false);
+	}
 	
-	public boolean addFetish(Fetish fetish) {
+	public String addFetish(Fetish fetish, boolean shortDescription) {
 		if (fetishes.contains(fetish)) {
-			return false;
+			if(!Main.game.isStarted()) {
+				return "";
+			}
+			return "<p style='text-align:center;'>"
+						+ UtilText.parse(this, "[style.colourDisabled(Nothing happens, as [npc.name] already [npc.has] the "+fetish.getName(this)+" fetish...)]")
+					+"</p>";
 		}
 		
 		fetishes.add(fetish);
 
 		applyFetishGainEffects(fetish);
-
-		return true;
+		if(!Main.game.isStarted()) {
+			return "";
+		}
+		return "<p style='text-align:center;'>"
+					+ (shortDescription
+						?UtilText.parse(this,
+							"[npc.NameHasFull] [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(this)+" fetish)]!")
+						:UtilText.parse(this,
+							"A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+									+ " As [npc.she] [npc.verb(stagger)] back from the brink of unconsciousness, [npc.she] [npc.verb(discover)] that [npc.sheHasFull] [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(this)+" fetish)]!"))
+				+"</p>";
 	}
 	
 	private void applyFetishGainEffects(Fetish fetish) {
@@ -4983,16 +4961,35 @@ public abstract class GameCharacter implements XMLSaving {
 		calculateSpecialFetishes();
 	}
 
-	public boolean removeFetish(Fetish fetish) {
+	public String removeFetish(Fetish fetish) {
+		return removeFetish(fetish, false);
+	}
+	
+	public String removeFetish(Fetish fetish, boolean shortDescription) {
 		if (!fetishes.contains(fetish)) {
-			return false;
+			if(!Main.game.isStarted()) {
+				return "";
+			}
+			return "<p style='text-align:center;'>"
+						+UtilText.parse(this, "[style.colourDisabled(Nothing happens, as [npc.name] already [npc.verb(lack)] the "+fetish.getName(this)+" fetish...)]")
+					+"</p>";
 		}
 		
 		fetishes.remove(fetish);
 
 		applyFetishLossEffects(fetish);
-		
-		return true;
+
+		if(!Main.game.isStarted()) {
+			return "";
+		}
+		return "<p style='text-align:center;'>"
+					+ (shortDescription
+						?UtilText.parse(this,
+								"[npc.NameHasFull] [style.boldBad(lost)] [npc.her] [style.boldFetish("+fetish.getName(this)+" fetish)]!")
+						:UtilText.parse(this,
+							"A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+							+ " As [npc.she] [npc.verb(stagger)] back from the brink of unconsciousness, [npc.she] [npc.verb(discover)] that [npc.sheHasFull] [style.boldBad(lost)] [npc.her] [style.boldFetish("+fetish.getName(this)+" fetish)]!"))
+				+"</p>";
 	}
 	
 	public void clearFetishes() {
@@ -5040,19 +5037,40 @@ public abstract class GameCharacter implements XMLSaving {
 	public void clearFetishDesires() {
 		fetishDesireMap.clear();
 	}
+
+	public String setFetishDesire(Fetish fetish, FetishDesire desire) {
+		return setFetishDesire(fetish, desire, false);
+	}
 	
-	public boolean setFetishDesire(Fetish fetish, FetishDesire desire) {
-		if(fetishDesireMap.get(fetish)==desire) {
-			return false;
+	public String setFetishDesire(Fetish fetish, FetishDesire desire, boolean shortDescription) {
+		if(fetishDesireMap.get(fetish)!=desire) {
+			fetishDesireMap.put(fetish, desire);
+			if(!Main.game.isStarted()) {
+				return "";
+			}
+			if(this.hasFetish(fetish)) {
+				return "<p style='text-align:center;'>"
+							+ UtilText.parse(this, "[style.colourDisabled(As [npc.she] [npc.has] the "+fetish.getName(this)+" fetish, [npc.her] love of it can't decrease...)]")
+						+"</p>";
+			}
+			return "<p style='text-align:center;'>"
+					+ (shortDescription
+							?UtilText.parse(this, "[npc.Name] now <b style='color:"+desire.getColour().toWebHexString()+";'>"+desire.getNameAsVerb()+"</b> [style.boldLust("+fetish.getShortDescriptor()+")]!")
+							:UtilText.parse(this, "A warm wave of arcane energy rises up within [npc.name], and as [npc.she] [npc.verb(feel)] its influential power seeping into [npc.her] mind,"
+								+ " [npc.she] [npc.verb(realise)] that [npc.she] now <b style='color:"+desire.getColour().toWebHexString()+";'>"+desire.getNameAsVerb()+"</b> [style.boldLust("+fetish.getShortDescriptor()+")]!"))
+				+"</p>";
+			
+		} else {
+			if(!Main.game.isStarted()) {
+				return "";
+			}
+			return "<p style='text-align:center;'>"
+						+UtilText.parse(this, "[style.colourDisabled(Nothing happens, as [npc.she] already "+desire.getNameAsPlayerVerb()+" "+fetish.getShortDescriptor()+"...)]")
+					+"</p>";
 		}
-		
-		fetishDesireMap.put(fetish, desire);
-		
-		return true;
 	}
 	
 	public FetishDesire getBaseFetishDesire(Fetish fetish) {
-		
 		if(!fetishDesireMap.containsKey(fetish)) {
 			return FetishDesire.TWO_NEUTRAL;
 		}
@@ -5141,7 +5159,9 @@ public abstract class GameCharacter implements XMLSaving {
 			for(ItemEffect ie : c.getEffects()) {
 				String clothingEffectDescription = ie.applyEffect(this, this, turnTime);
 				if (this.isPlayer() && !clothingEffectDescription.isEmpty()) {
-					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "") + clothingEffectDescription);
+					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "")
+							+ "<p style='margin:0 auto;padding:0 auto;color:"+c.getRarity().getColour().toWebHexString()+";'><b>"+ Util.capitaliseSentence(c.getName())+":</b></p>"
+							+ clothingEffectDescription);
 				}
 			}
 		}
@@ -5151,7 +5171,9 @@ public abstract class GameCharacter implements XMLSaving {
 			for(ItemEffect ie : tattoo.getEffects()) {
 				String tattooEffectDescription = ie.applyEffect(this, this, turnTime);
 				if (this.isPlayer() && !tattooEffectDescription.isEmpty()) {
-					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "") + tattooEffectDescription);
+					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "")
+							+ "<p style='margin:0 auto;padding:0 auto;'><b>"+ Util.capitaliseSentence(tattoo.getName())+":</b></p>"
+							+ tattooEffectDescription);
 				}
 			}
 		}
@@ -5584,13 +5606,14 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * Get the ovverriding behaviour of this character when using a generic orgasm action in sex.
+	 * Get the overriding behaviour of this character when using a <b>generic</b> orgasm action in sex. (This does <b>not</b> affect custom orgasm scenes!)
+	 * @param sexAction The sex action being used to orgasm.
 	 * @param target The area targeted for orgasm.
 	 * @param applyExtraEffects True if extra effects should be applied, false if not.
 	 * @return SexActionOrgasmOverride class, for use in GenericOrgasms class.
 	 */
-	public SexActionOrgasmOverride getSexActionOrgasmOverride(OrgasmCumTarget target, boolean applyExtraEffects) {
-		return new SexActionOrgasmOverride(false, GenericOrgasms.getGenericOrgasmDescription(this, target)) {
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+		return new SexActionOrgasmOverride(false, GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target)) {
 				@Override
 				public void applyEffects() {
 				}
@@ -5671,19 +5694,84 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getVirginityLossDescription(SexType sexType) {
 		
 		if(this.getVirginityLoss(sexType)==null || this.getVirginityLoss(sexType).getKey()==null) {
-			return "someone";
+			return UtilText.parse(this, "[npc.Name] lost [npc.her] virginity to someone [npc.she] can't remember."); // Catch bugged virginity loss save.
 		}
 		
 		if(this.getVirginityLoss(sexType).getKey()!=null && this.getVirginityLoss(sexType).getKey().isEmpty()) { // Support for versions prior to 0.2.10
-			return virginityLossMap.get(sexType).getValue();
+			return "[npc.Name] lost [npc.her] virginity to "+virginityLossMap.get(sexType).getValue()+".";
 			
 		} else {
 			try {
-				return UtilText.parse(Main.game.getNPCById(this.getVirginityLoss(sexType).getKey()),
-						"[npc.name] "+virginityLossMap.get(sexType).getValue());
+				if(Main.game.getNPCById(this.getVirginityLoss(sexType).getKey()).equals(this)) {
+					return UtilText.parse(this, "[npc.Name] took [npc.her] own virginity "+virginityLossMap.get(sexType).getValue()+".");
+				}
+				String virginityLossPrefix = "";
+				if(sexType.getPerformingSexArea().isOrifice()) {
+					switch((SexAreaOrifice)sexType.getPerformingSexArea()) {
+						case ANUS:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] anal virginity to [npc.name] ";
+							break;
+						case ASS:
+							virginityLossPrefix = "[npc2.NamePos] ass cheeks were first used by [npc.name] ";
+							break;
+						case BREAST:
+							virginityLossPrefix = "[npc2.Name] first gave paizuri to [npc.name] ";
+							break;
+						case BREAST_CROTCH:
+							virginityLossPrefix = "[npc2.Name] first gave [npc2.crotchBoob]-paizuri to [npc.name] ";
+							break;
+						case MOUTH:
+							virginityLossPrefix = "[npc2.Name] first performed oral sex on [npc.name] ";
+							break;
+						case NIPPLE:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] nipple virginity to [npc.name] ";
+							break;
+						case NIPPLE_CROTCH:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] [npc2.crotchNipple] virginity to [npc.name] ";
+							break;
+						case THIGHS:
+							virginityLossPrefix = "[npc2.Name] first gave intercrural sex to [npc.name] ";
+							break;
+						case URETHRA_PENIS:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] penile urethra virginity to [npc.name] ";
+							break;
+						case URETHRA_VAGINA:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] vaginal urethra virginity to [npc.name] ";
+							break;
+						case VAGINA:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] virginity to [npc.name] ";
+							break;
+					}
+				} else {
+					switch((SexAreaPenetration)sexType.getPerformingSexArea()) {
+						case CLIT:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] clit virginity to [npc.name] ";
+							break;
+						case FINGER:
+							virginityLossPrefix = "[npc2.NamePos] first experience fingering someone was with [npc.name] ";
+							break;
+						case FOOT:
+							virginityLossPrefix = "[npc2.NamePos] first experience giving a footjob was to [npc.name] ";
+							break;
+						case PENIS:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] penile virginity to [npc.name] ";
+							break;
+						case TAIL:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] tail virginity to [npc.name] ";
+							break;
+						case TENTACLE:
+							virginityLossPrefix = "[npc2.Name] lost [npc2.her] tenatacle virginity to [npc.name] ";
+							break;
+						case TONGUE:
+							virginityLossPrefix = "[npc2.Name] first performed penetrative oral sex on [npc.name] ";
+							break;
+					}
+				}
+				return UtilText.parse(Main.game.getNPCById(this.getVirginityLoss(sexType).getKey()), this,
+						virginityLossPrefix+virginityLossMap.get(sexType).getValue()+".");
 			} catch(Exception e) {
 				Util.logGetNpcByIdError("getVirginityLossDescription()", this.getVirginityLoss(sexType).getKey());
-				return "someone";
+				return UtilText.parse(this, "[npc.Name] lost [npc.her] virginity to someone [npc.she] can't remember."); // Catch bugged virginity loss save.
 			}
 		}
 	}
@@ -5739,11 +5827,17 @@ public abstract class GameCharacter implements XMLSaving {
 						case BREAST:
 							s = getDirtyTalkBreastsPenetrated(target, isPlayerDom);
 							break;
+						case BREAST_CROTCH:
+							s = getDirtyTalkBreastsCrotchPenetrated(target, isPlayerDom);
+							break;
 						case MOUTH:
 							s = getDirtyTalkMouthPenetrated(target, isPlayerDom);
 							break;
 						case NIPPLE:
 							s = getDirtyTalkNipplePenetrated(target, isPlayerDom);
+							break;
+						case NIPPLE_CROTCH:
+							s = getDirtyTalkNippleCrotchPenetrated(target, isPlayerDom);
 							break;
 						case THIGHS:
 							s = null;
@@ -6770,6 +6864,222 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return UtilText.parse(this, target, returnedLine);
 	}
+
+	/**
+	 * @return A <b>non-formatted</b> String of this character's speech related to having their crotch-boob nipples used. Returns null if no penetration found.
+	 */
+	public String getDirtyTalkNippleCrotchPenetrated(GameCharacter target, boolean isPlayerDom){
+		String returnedLine = "";
+		
+		if(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.NIPPLE_CROTCH) != null) {
+			switch(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.NIPPLE_CROTCH)) {
+				case FINGER:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right, be a good [npc2.girl] now and push your [npc2.fingers] deeper into my [npc.crotchNipple]!",
+									"Good [npc2.girl]! Keep those [npc2.fingers] of yours busy in my [npc.crotchNipple]!",
+									"What a good [npc2.girl]! My [npc.crotchNipples] love the feeling of your [npc2.fingers]!");
+							break;
+						case DOM_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right, push your [npc2.fingers] deep into my [npc.crotchNipple]!",
+									"Good [npc2.girl]! Get those [npc2.fingers] deep into my [npc.crotchNipple]!",
+									"Keep going! Curl your [npc2.fingers] up a bit!");
+							break;
+						case DOM_ROUGH:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Come on slut, you can get your [npc2.fingers] deeper into my [npc.crotchNipple] than that!",
+									"Keep it up bitch! Get those [npc2.fingers] deep into my [npc.crotchNipple]!",
+									"Keep going slut! Curl your [npc2.fingers] up and put in a little more effort!");
+							break;
+						case SUB_EAGER:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Keep fingering my [npc.crotchNipple]!",
+									"Keep going! My [npc.crotchNipples] love your attention!",
+									"Oh yes! I love getting my [npc.crotchNipples] fingered!");
+							break;
+						case SUB_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Keep fingering my [npc.crotchNipple]!",
+									"Keep going! I love this!",
+									"Oh yes!");
+							break;
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Stop it! Stop! Please!",
+									"Please, no more! Take your fingers out of my [npc.crotchNipple]!",
+									"Get out of my [npc.crotchNipple]! Stop! Please!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Fuck!",
+									"Yeah!",
+									"Oh yeah!");
+							break;
+					}
+					break;
+				case PENIS:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							returnedLine = UtilText.returnStringAtRandom(
+									"My [npc.crotchNipples] love your [npc2.cock]!",
+									"Good [npc2.girl]! Keep sliding that delicious cock of yours in and out of my [npc.crotchNipples]!",
+									"What a good [npc2.girl]! Enjoy my [npc.crotchNipples] as your reward now!");
+							break;
+						case DOM_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"You like feeling my [npc.crotchNipple] gripping down on your cock?!",
+									"Good [npc2.girl]! Push your [npc2.cock] deep into my [npc.crotchNipple]!",
+									"Keep going! Get that [npc2.cock] in deep like a good [npc2.girl]!");
+							break;
+						case DOM_ROUGH:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right slut, my [npc.crotchNipples] could use some attention from a little fuck toy like you!",
+									"Come on bitch! You can get your worthless [npc2.cock] deeper into my [npc.crotchNipples] than that!",
+									"Fucking slut, put some more effort in! My [npc.crotchNipple]s deserve better than your worthless [npc2.cock]!");
+							break;
+						case SUB_EAGER:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Fuck my [npc.crotchNipples]! Fuck them harder! Don't stop!",
+									"Don't stop! Harder! Fuck my [npc.crotchNipples]! Yes, yes, yes!",
+									"Oh yes! Fuck my [npc.crotchNipples]! I love your [npc2.cock]!");
+							break;
+						case SUB_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Fuck my [npc.crotchNipples]!",
+									"Don't stop! Fuck my [npc.crotchNipples]!",
+									"Oh yes! Fuck me!");
+							break;
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Stop it! Stop! Please!",
+									"Please, no more! Take your cock out of my [npc.crotchNipple]!",
+									"Get out of my [npc.crotchNipple]! Stop! Please!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+							break;
+					}
+					break;
+				case TAIL:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							returnedLine = UtilText.returnStringAtRandom(
+									"My [npc.crotchNipples] love your [npc2.tail]! Keep going!",
+									"Good [npc2.girl]! Keep fucking my [npc.crotchNipples] with that [npc2.tail] of yours!",
+									"What a good [npc2.girl]! Enjoy my [npc.crotchNipples] as your reward now!");
+							break;
+						case DOM_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Oh yes! Your [npc2.tail] feels so good!",
+									"Good [npc2.girl]! Push your [npc2.tail] deep into my [npc.crotchNipple]!",
+									"Keep going! Get that [npc2.tail] deep into my [npc.crotchNipples] like a good [npc2.girl]!");
+							break;
+						case DOM_ROUGH:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right slut, get that [npc2.tail] deep into my [npc.crotchNipple] like a good little fuck toy!",
+									"Come on bitch! You can get your [npc2.tail] deeper into my [npc.crotchNipples] than that!",
+									"Fucking bitch, put some more effort in! My [npc.crotchNipple]s deserve better than some slut's [npc2.tail]!");
+							break;
+						case SUB_EAGER:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Fuck my [npc.crotchNipples]! Fuck them harder! Don't stop!",
+									"Don't stop! Harder! Fuck my [npc.crotchNipples]! Yes, yes, yes!",
+									"Oh yes! Fuck my [npc.crotchNipples]! I love your [npc2.tail]!");
+							break;
+						case SUB_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Fuck my [npc.crotchNipples]!",
+									"Don't stop! Fuck my [npc.crotchNipples]!",
+									"Oh yes! Fuck me!");
+							break;
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Stop it! Stop! Please!",
+									"Please, no more! Take your tail out of my [npc.crotchNipple]!",
+									"Get out of my [npc.crotchNipple]! Stop! Please!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+							break;
+					}
+					break;
+				case TONGUE:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right, keep sucking on my [npc.crotchNipples] like a good [npc2.girl]!",
+									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy!",
+									"What a good [npc2.girl]! You love my [npc.crotchNipples], don't you?!");
+							break;
+						case DOM_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Oh yes! Keep sucking on my [npc.crotchNipples]!",
+									"Good [npc2.girl]! Get that [npc2.tongue] of yours deep into my [npc.crotchNipples]!",
+									"Keep going! My [npc.crotchNipples] love the feel of your [npc2.tongue]!");
+							break;
+						case DOM_ROUGH:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right slut, keep sucking on my [npc.crotchNipples] like the worthless little fuck toy you are!",
+									"Come on bitch! Get that [npc2.tongue] of yours deeper into my [npc.crotchNipples]!",
+									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my [npc.crotchNipples] like this?!");
+							break;
+						case SUB_EAGER:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! I love the feeling of your lips on my [npc.crotchNipples]! Don't stop!",
+									"Don't stop! Suck on my [npc.crotchNipples]! Yes, yes, yes!",
+									"Oh yes! Lick my [npc.crotchNipples]! I love your [npc2.tongue]! Get it deeper!");
+							break;
+						case SUB_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Don't stop!",
+									"Don't stop! I love your [npc2.tongue]!",
+									"Oh yes! Suck on my [npc.crotchNipples]!");
+							break;
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Stop it! Stop! Please!",
+									"Please, no more! Take your tongue out of my [npc.crotchNipple]!",
+									"Leave me alone! Stop! Please!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Get that tongue deeper!",
+									"Oh yeah! Keep going!",
+									"Deeper! Don't stop!");
+							break;
+					}
+					break;
+				default:// Self penetration:
+					switch(Sex.getSexPace(this)) {
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Go away! Leave me alone!",
+									"Stop it! Just go away!",
+									"Please stop! Don't do this!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Fuck!",
+									"Yeah!",
+									"Oh yeah!");
+							break;
+					}
+			}
+		}
+
+		if(returnedLine.isEmpty()) {
+			return null;
+		}
+		return UtilText.parse(this, target, returnedLine);
+	}
 	
 	/**
 	 * @return A <b>non-formatted</b> String of this character's speech related to having their nipples used. Returns null if no penetration found.
@@ -6987,6 +7297,224 @@ public abstract class GameCharacter implements XMLSaving {
 		return UtilText.parse(this, target, returnedLine);
 	}
 	
+
+	/**
+	 * @return A <b>non-formatted</b> String of this character's speech related to having their crotch-boobs used. Returns null if no penetration found.
+	 */
+	public String getDirtyTalkBreastsCrotchPenetrated(GameCharacter target, boolean isPlayerDom){
+		String returnedLine = "";
+		
+		if(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.BREAST_CROTCH) != null) {
+			switch(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.BREAST_CROTCH)) {
+				case FINGER:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right, be a good [npc2.girl] and keep fondling my [npc.crotchBoobs]!",
+									"Good [npc2.girl]! Keep those [npc2.hands] of yours busy with my [npc.crotchBoobs]!",
+									"What a good [npc2.girl]! My [npc.crotchBoobs] love all of this attention!");
+							break;
+						case DOM_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right, keep fondling my [npc.crotchBoobs]!",
+									"Good [npc2.girl]! Keep those [npc2.hands] of yours busy with my [npc.crotchBoobs]!",
+									"Keep going! My [npc.crotchBoobs] love all of this attention!");
+							break;
+						case DOM_ROUGH:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Come on slut, keep fondling my [npc.crotchBoobs]!",
+									"Keep it up bitch! Keep those [npc2.hands] of yours busy with my [npc.crotchBoobs]!",
+									"Keep going slut! My [npc.crotchBoobs] need more attention!");
+							break;
+						case SUB_EAGER:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Keep fondling my [npc.crotchBoobs]!",
+									"Keep going! My [npc.crotchBoobs] love all this attention!",
+									"Oh yes! I love getting my [npc.crotchBoobs] fondled!");
+							break;
+						case SUB_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Keep fondling my [npc.crotchBoobs]!",
+									"Keep going! I love this!",
+									"Oh yes!");
+							break;
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Stop it! Stop! Please!",
+									"Please, no more! Get away from my [npc.crotchBoobs]!",
+									"Get away from my [npc.crotchBoobs]! Stop! Please!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Fuck!",
+									"Yeah!",
+									"Oh yeah!");
+							break;
+					}
+					break;
+				case PENIS:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							returnedLine = UtilText.returnStringAtRandom(
+									"My [npc.crotchBoobs] love your [npc2.cock]!",
+									"Good [npc2.girl]! Keep sliding that delicious cock of yours between my [npc.crotchBoobs]!",
+									"What a good [npc2.girl]! Enjoy my [npc.crotchBoobs] as your reward now!");
+							break;
+						case DOM_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"You like feeling my [npc.crotchBoobs] gripping down around your cock?!",
+									"Good [npc2.girl]! Push your [npc2.cock] deep between my [npc.crotchBoobs]!",
+									"Keep going! Get that [npc2.cock] between my [npc.crotchBoobs] like a good [npc2.girl]!");
+							break;
+						case DOM_ROUGH:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right slut, my [npc.crotchBoobs] could use some attention from a little fuck toy like you!",
+									"Come on bitch! You can get your worthless [npc2.cock] deeper between my [npc.crotchBoobs] than that!",
+									"Fucking slut, put some more effort in! My [npc.crotchBoobs] deserve better than your worthless [npc2.cock]!");
+							break;
+						case SUB_EAGER:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Fuck my [npc.crotchBoobs]! Fuck them harder! Don't stop!",
+									"Don't stop! Harder! Fuck my [npc.crotchBoobs]! Yes, yes, yes!",
+									"Oh yes! Fuck my [npc.crotchBoobs]! I love your [npc2.cock]!");
+							break;
+						case SUB_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Fuck my [npc.crotchBoobs]!",
+									"Don't stop! Fuck my [npc.crotchBoobs]!",
+									"Oh yes! Fuck me!");
+							break;
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Stop it! Stop! Please!",
+									"Please, no more! Get your cock away from my [npc.crotchBoobs]!",
+									"Get away from me! Stop! Please!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+							break;
+					}
+					break;
+				case TAIL:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							returnedLine = UtilText.returnStringAtRandom(
+									"My [npc.crotchBoobs] love your [npc2.tail]!",
+									"Good [npc2.girl]! Keep sliding that delicious tail of yours between my [npc.crotchBoobs]!",
+									"What a good [npc2.girl]! Enjoy my [npc.crotchBoobs] as your reward now!");
+							break;
+						case DOM_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"You like feeling my [npc.crotchBoobs] gripping down around your tail?!",
+									"Good [npc2.girl]! Push your [npc2.tail] deep between my [npc.crotchBoobs]!",
+									"Keep going! Get that [npc2.tail] between my [npc.crotchBoobs] like a good [npc2.girl]!");
+							break;
+						case DOM_ROUGH:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right slut, my [npc.crotchBoobs] could use some attention from a little fuck toy like you!",
+									"Come on bitch! You can get your worthless [npc2.tail] deeper between my [npc.crotchBoobs] than that!",
+									"Fucking slut, put some more effort in! My [npc.crotchBoobs] deserve better than your worthless [npc2.tail]!");
+							break;
+						case SUB_EAGER:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Fuck my [npc.crotchBoobs]! Fuck them harder! Don't stop!",
+									"Don't stop! Harder! Fuck my [npc.crotchBoobs]! Yes, yes, yes!",
+									"Oh yes! Fuck my [npc.crotchBoobs]! I love your [npc2.tail]!");
+							break;
+						case SUB_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Fuck my [npc.crotchBoobs]!",
+									"Don't stop! Fuck my [npc.crotchBoobs]!",
+									"Oh yes! Fuck me!");
+							break;
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Stop it! Stop! Please!",
+									"Please, no more! Get your tail away from my [npc.crotchBoobs]!",
+									"Get away from me! Stop! Please!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+							break;
+					}
+					break;
+				case TONGUE:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right, keep sucking on my [npc.crotchBoobs] like a good [npc2.girl]!",
+									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy on my [npc.crotchBoobs]!",
+									"What a good [npc2.girl]! You love my [npc.crotchBoobs], don't you?!");
+							break;
+						case DOM_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Oh yes! Keep sucking on my [npc.crotchBoobs]!",
+									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy on my [npc.crotchBoobs]!",
+									"Keep going! My [npc.crotchBoobs] love the feel of your [npc2.tongue]!");
+							break;
+						case DOM_ROUGH:
+							returnedLine = UtilText.returnStringAtRandom(
+									"That's right slut, keep sucking on my [npc.crotchBoobs] like the worthless little fuck toy you are!",
+									"Come on bitch! Keep that [npc2.tongue] of yours busy on my [npc.crotchBoobs]!",
+									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my [npc.crotchBoobs] like this?!");
+							break;
+						case SUB_EAGER:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! I love the feeling of your lips on my [npc.crotchBoobs]! Don't stop!",
+									"Don't stop! Suck on my [npc.crotchBoobs]! Yes, yes, yes!",
+									"Oh yes! Lick my nipples! I love your [npc2.tongue]!");
+							break;
+						case SUB_NORMAL:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Don't stop!",
+									"Don't stop! I love your [npc2.tongue]!",
+									"Oh yes! Suck on my [npc.crotchBoobs]!");
+							break;
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Stop it! Stop! Please!",
+									"Please, no more! Get away from me!",
+									"Leave me alone! Stop! Please!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Yes! Keep going!",
+									"Oh yeah! Keep going!",
+									"Deeper! Don't stop!");
+							break;
+					}
+					break;
+				default:// Self penetration:
+					switch(Sex.getSexPace(this)) {
+						case SUB_RESISTING:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Go away! Leave me alone!",
+									"Stop it! Just go away!",
+									"Please stop! Don't do this!");
+							break;
+						default:
+							returnedLine = UtilText.returnStringAtRandom(
+									"Fuck!",
+									"Yeah!",
+									"Oh yeah!");
+							break;
+					}
+			}
+		}
+
+		if(returnedLine.isEmpty()) {
+			return null;
+		}
+		return UtilText.parse(this, target, returnedLine);
+	}
+	
+	
 	// Dirty talk related to penetrating areas:
 	
 	
@@ -7047,37 +7575,39 @@ public abstract class GameCharacter implements XMLSaving {
 						break;
 					case ASS:
 						break;
-					case BREAST:
+					case BREAST: case BREAST_CROTCH:
+						String name = orifice==SexAreaOrifice.BREAST?"[npc2.breasts]":"[npc2.crotchBoobs]";
+						String namePlus = orifice==SexAreaOrifice.BREAST?"[npc2.breasts+]":"[npc2.crotchBoobs+]";
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love having your [npc2.breasts] fondled like this, don't you?",
-										"I love your [npc2.breasts]!",
-										"What a good [npc2.girl]! Your tits love the feeling of my [npc1.fingers], don't they?"));
+										"Good [npc2.girl], you love having your "+name+" fondled like this, don't you?",
+										"I love your "+name+"!",
+										"What a good [npc2.girl]! Your "+name+" love the feeling of my [npc1.fingers], don't they?"));
 								break;
 							case DOM_NORMAL:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of having your [npc2.breasts] fondled, don't you?!",
-										"I love your [npc2.breasts+]!",
-										"You like it when I press my [npc1.fingers] into your [npc2.breasts], like <i>this</i>?!"));
+										"You love the feeling of having your "+name+" fondled, don't you?!",
+										"I love your "+namePlus+"!",
+										"You like it when I press my [npc1.fingers] into your "+name+", like <i>this</i>?!"));
 								break;
 							case DOM_ROUGH:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! Moaning as I grope your [npc2.breasts+]!",
-										"You love this, don't you bitch?! Having your [npc2.breasts] groped and fondled like <i>this</i>!",
-										"That's right slut! Your [npc2.breasts+] are mine to use however I want!"));
+										"What a dirty slut! Moaning as I grope your "+namePlus+"!",
+										"You love this, don't you bitch?! Having your "+name+" groped and fondled like <i>this</i>!",
+										"That's right slut! Your "+namePlus+" are mine to use however I want!"));
 								break;
 							case SUB_EAGER:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love the feel of your [npc2.breasts]!",
-										"I love giving your tits the attention they deserve!",
-										"I love your [npc2.breasts]!"));
+										"Yes! I love the feel of your "+name+"!",
+										"I love giving your "+name+" the attention they deserve!",
+										"I love your "+name+"!"));
 								break;
 							case SUB_NORMAL:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love the feel of your [npc2.breasts]!",
-										"I love giving your tits the attention they deserve!",
-										"I love your [npc2.breasts]!"));
+										"Yes! I love the feel of your "+name+"!",
+										"I love giving your "+name+" the attention they deserve!",
+										"I love your "+name+"!"));
 								break;
 							case SUB_RESISTING:
 								availableLines.add(UtilText.returnStringAtRandom(
@@ -7138,37 +7668,39 @@ public abstract class GameCharacter implements XMLSaving {
 										"Oh yeah!"));
 						}
 						break;
-					case NIPPLE:
+					case NIPPLE: case NIPPLE_CROTCH:
+						String nameNipple = orifice==SexAreaOrifice.NIPPLE?"[npc2.nipples]":"[npc2.crotchNipples]";
+						String nameNipplePlus = orifice==SexAreaOrifice.NIPPLE?"[npc2.nipples+]":"[npc2.crotchNipples+]";
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love feeling my [npc1.fingers] deep in your nipples, don't you?",
-										"I love fingering cute little nipples like yours!",
-										"What a good [npc2.girl]! Your tits love the feeling of my [npc1.fingers], don't they?"));
+										"Good [npc2.girl], you love feeling my [npc1.fingers] deep in your "+nameNipple+", don't you?",
+										"I love fingering cute little "+nameNipple+" like yours!",
+										"What a good [npc2.girl]! Your "+nameNipplePlus+" love the feeling of my [npc1.fingers], don't they?"));
 								break;
 							case DOM_NORMAL:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of my [npc1.fingers] deep in your nipples, don't you?!",
-										"I love fingering cute little nipples like yours!",
-										"You like it when I curl my [npc1.fingers] up inside your tits, like <i>this</i>?!"));
+										"You love the feeling of my [npc1.fingers] deep in your "+nameNipple+", don't you?!",
+										"I love fingering cute little "+nameNipple+" like yours!",
+										"You like it when I curl my [npc1.fingers] up inside your "+nameNipplePlus+", like <i>this</i>?!"));
 								break;
 							case DOM_ROUGH:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! Moaning as I stuff my [npc1.fingers] deep into your nipples!",
-										"You love this, don't you bitch?! Feeling my [npc1.fingers] pushing deep into your tits!",
-										"That's right slut! You love having my [npc1.fingers] stuffed deep in your slutty nipples!"));
+										"What a dirty slut! Moaning as I stuff my [npc1.fingers] deep into your "+nameNipple+"!",
+										"You love this, don't you bitch?! Feeling my [npc1.fingers] pushing deep into your "+nameNipplePlus+"!",
+										"That's right slut! You love having my [npc1.fingers] stuffed deep in your slutty "+nameNipple+"!"));
 								break;
 							case SUB_EAGER:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Let me get my fingers deep inside your nipples!",
-										"I love giving your tits the attention they deserve!",
-										"I love fingering your nipples!"));
+										"Yes! Let me get my fingers deep inside your "+nameNipple+"!",
+										"I love giving your "+nameNipplePlus+" the attention they deserve!",
+										"I love fingering your "+nameNipple+"!"));
 								break;
 							case SUB_NORMAL:
 								availableLines.add(UtilText.returnStringAtRandom(
-										"I love fingering your nipples!",
-										"I love giving your tits the attention they deserve!",
-										"I love fingering your nipples!"));
+										"I love fingering your "+nameNipple+"!",
+										"I love giving your "+nameNipplePlus+" the attention they deserve!",
+										"I love fingering your "+nameNipple+"!"));
 								break;
 							case SUB_RESISTING:
 								availableLines.add(UtilText.returnStringAtRandom(
@@ -7396,6 +7928,52 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						}
 						break;
+					case BREAST_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl]! Feel my cock slide up between your [npc2.crotchBoobs]!",
+										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding up between your [npc2.crotchBoobs+]!",
+										"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.cock]!"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck! Your [npc2.crotchBoobs+] feel so good to fuck!",
+										"Oh yes! Wrap your [npc2.crotchBoobs+] around my cock!",
+										"Your [npc2.crotchBoobs+] were made for my cock!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"That's right slut, pleasure my cock! Push your [npc2.crotchBoobs+] together and make this good for me!",
+										"What a horny bitch! Using your [npc2.crotchBoobs+] to please my cock like a desperate slut!",
+										"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my cock and pleasing me like the slut you are?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Use my cock! I love your [npc2.crotchBoobs+]!",
+										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+										"Oh yes! Use me! I love your [npc2.crotchBoobs+]!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Fuck me!",
+										"Don't stop! Fuck me!",
+										"Oh yes! Fuck me!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! Get off my cock!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck me! Yes! Harder!",
+										"Oh yeah! Fuck me!",
+										"Harder! Don't stop!"));
+								break;
+						}
+						break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
@@ -7467,6 +8045,52 @@ public abstract class GameCharacter implements XMLSaving {
 										"Yes! Use my cock! I love your tits!",
 										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
 										"Oh yes! Use me! I love your tits!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Fuck me!",
+										"Don't stop! Fuck me!",
+										"Oh yes! Fuck me!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! Get off my cock!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck me! Yes! Harder!",
+										"Oh yeah! Fuck me!",
+										"Harder! Don't stop!"));
+								break;
+						}
+						break;
+					case NIPPLE_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl]! Feel my cock slide deep into your [npc2.crotchNipple]!",
+										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding deep into your cute little [npc2.crotchNipple]!",
+										"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.cock]!"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
+										"Oh yes! Take my cock! Take it deep!",
+										"Your [npc2.crotchNipples] were made for my cock!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"That's right slut, take my cock! Feel it pushing deep into your [npc2.crotchNipple]!",
+										"What a horny bitch! Taking my cock deep into your [npc2.crotchNipple] like a slut!",
+										"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little [npc2.crotchNipple]?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Use my cock! I love your [npc2.crotchNipples]!",
+										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+										"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
 								break;
 							case SUB_NORMAL:
 								availableLines.add(UtilText.returnStringAtRandom(
@@ -7653,6 +8277,52 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 						}
 						break;
+					case BREAST_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl]! Feel my [npc1.tail] slide up between your [npc2.crotchBoobs]!",
+										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding up between your [npc2.crotchBoobs+]!",
+										"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.tail]!"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck! Your [npc2.crotchBoobs] feel so good to fuck!",
+										"Oh yes! Wrap your [npc2.crotchBoobs] around my [npc1.tail]!",
+										"Your [npc2.crotchBoobs] were made for my [npc1.tail]!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"That's right slut, pleasure my [npc1.tail]! Push your [npc2.crotchBoobs] together and make this good for me!",
+										"What a horny bitch! Using your [npc2.crotchBoobs] to please my [npc1.tail] like a desperate slut!",
+										"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my [npc1.tail] and pleasing me like the slut you are?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Use my [npc1.tail]! I love your [npc2.crotchBoobs]!",
+										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+										"Oh yes! Use me! I love your [npc2.crotchBoobs]!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Fuck me!",
+										"Don't stop! Fuck me!",
+										"Oh yes! Fuck me!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! Get off my [npc1.tail]!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck me! Yes! Harder!",
+										"Oh yeah! Fuck me!",
+										"Harder! Don't stop!"));
+								break;
+						}
+						break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
@@ -7724,6 +8394,52 @@ public abstract class GameCharacter implements XMLSaving {
 										"Yes! Use my [npc1.tail]! I love your tits!",
 										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
 										"Oh yes! Use me! I love your tits!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Fuck me!",
+										"Don't stop! Fuck me!",
+										"Oh yes! Fuck me!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! I don't want to do this!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck me! Yes! Harder!",
+										"Oh yeah! Fuck me!",
+										"Harder! Don't stop!"));
+								break;
+						}
+						break;
+					case NIPPLE_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl]! Feel my [npc1.tail] slide deep into your [npc2.crotchNipple]!",
+										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding deep into your cute little [npc2.crotchNipple]!",
+										"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.tail]!"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
+										"Oh yes! Take my [npc1.tail] deep into your [npc2.crotchNipple]!",
+										"Your [npc2.crotchNipples] were made for my [npc1.tail]!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"That's right slut, take my [npc1.tail]! Feel it pushing deep into your [npc2.crotchNipple]!",
+										"What a horny bitch! Taking my [npc1.tail] deep into your [npc2.crotchNipple] like a slut!",
+										"You feel that, fuck toy?! Do you feel my [npc1.tail] sinking deep into your slutty little [npc2.crotchNipple]?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Use my [npc1.tail]! I love your [npc2.crotchNipples]!",
+										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+										"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
 								break;
 							case SUB_NORMAL:
 								availableLines.add(UtilText.returnStringAtRandom(
@@ -7910,6 +8626,52 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 						}
 						break;
+					case BREAST_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl]! Feel my [npc1.tentacle] slide up between your [npc2.crotchBoobs]!",
+										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding up between your [npc2.crotchBoobs+]!",
+										"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.tentacle]!"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck! Your [npc2.crotchBoobs] feel so good to fuck!",
+										"Oh yes! Wrap your [npc2.crotchBoobs] around my [npc1.tentacle]!",
+										"Your [npc2.crotchBoobs] were made for my [npc1.tentacle]!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"That's right slut, pleasure my [npc1.tentacle]! Push your [npc2.crotchBoobs] together and make this good for me!",
+										"What a horny bitch! Using your [npc2.crotchBoobs] to please my [npc1.tentacle] like a desperate slut!",
+										"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my [npc1.tentacle] and pleasing me like the slut you are?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Use my [npc1.tentacle]! I love your [npc2.crotchBoobs]!",
+										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+										"Oh yes! Use me! I love your [npc2.crotchBoobs]!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Fuck me!",
+										"Don't stop! Fuck me!",
+										"Oh yes! Fuck me!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! Get off my [npc1.tentacle]!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck me! Yes! Harder!",
+										"Oh yeah! Fuck me!",
+										"Harder! Don't stop!"));
+								break;
+						}
+						break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
@@ -7981,6 +8743,52 @@ public abstract class GameCharacter implements XMLSaving {
 										"Yes! Use my [npc1.tentacle]! I love your tits!",
 										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
 										"Oh yes! Use me! I love your tits!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Fuck me!",
+										"Don't stop! Fuck me!",
+										"Oh yes! Fuck me!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! I don't want to do this!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck me! Yes! Harder!",
+										"Oh yeah! Fuck me!",
+										"Harder! Don't stop!"));
+								break;
+						}
+						break;
+					case NIPPLE_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl]! Feel my [npc1.tentacle] slide deep into your [npc2.crotchNipple]!",
+										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding deep into your cute little [npc2.crotchNipple]!",
+										"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.tentacle]!"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
+										"Oh yes! Take my [npc1.tentacle] deep into your [npc2.crotchNipple]!",
+										"Your [npc2.crotchNipples] were made for my [npc1.tentacle]!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"That's right slut, take my [npc1.tentacle]! Feel it pushing deep into your [npc2.crotchNipple]!",
+										"What a horny bitch! Taking my [npc1.tentacle] deep into your [npc2.crotchNipple] like a slut!",
+										"You feel that, fuck toy?! Do you feel my [npc1.tentacle] sinking deep into your slutty little [npc2.crotchNipple]?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Use my [npc1.tentacle]! I love your [npc2.crotchNipples]!",
+										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+										"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
 								break;
 							case SUB_NORMAL:
 								availableLines.add(UtilText.returnStringAtRandom(
@@ -8168,6 +8976,52 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 						}
 						break;
+					case BREAST_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl]! Feel my [npc1.clit] slide up between your [npc2.crotchBoobs]!",
+										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding up between your [npc2.crotchBoobs+]!",
+										"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.clit]!"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck! Your [npc2.crotchBoobs] feel so good to fuck!",
+										"Oh yes! Wrap your [npc2.crotchBoobs] around my [npc1.clit]!",
+										"Your [npc2.crotchBoobs] were made for my [npc1.clit]!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"That's right slut, pleasure my [npc1.clit]! Push your [npc2.crotchBoobs] together and make this good for me!",
+										"What a horny bitch! Using your [npc2.crotchBoobs] to please my [npc1.clit] like a desperate slut!",
+										"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my [npc1.clit] and pleasing me like the slut you are?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Use my [npc1.clit]! I love your [npc2.crotchBoobs]!",
+										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+										"Oh yes! Use me! I love your [npc2.crotchBoobs]!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Fuck me!",
+										"Don't stop! Fuck me!",
+										"Oh yes! Fuck me!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! Get off my [npc1.clit]!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck me! Yes! Harder!",
+										"Oh yeah! Fuck me!",
+										"Harder! Don't stop!"));
+								break;
+						}
+						break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
@@ -8250,6 +9104,52 @@ public abstract class GameCharacter implements XMLSaving {
 								availableLines.add(UtilText.returnStringAtRandom(
 										"I don't want to do this! Please let me stop!",
 										"Let me go! Get off my clit!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck me! Yes! Harder!",
+										"Oh yeah! Fuck me!",
+										"Harder! Don't stop!"));
+								break;
+						}
+						break;
+					case NIPPLE_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl]! Feel my [npc1.clit] slide deep into your [npc2.crotchNipple]!",
+										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding deep into your cute little [npc2.crotchNipple]!",
+										"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.clit]!"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
+										"Oh yes! Take my [npc1.clit] deep into your [npc2.crotchNipple]!",
+										"Your [npc2.crotchNipples] were made for my [npc1.clit]!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"That's right slut, take my [npc1.clit]! Feel it pushing deep into your [npc2.crotchNipple]!",
+										"What a horny bitch! Taking my [npc1.clit] deep into your [npc2.crotchNipple] like a slut!",
+										"You feel that, fuck toy?! Do you feel my [npc1.clit] sinking deep into your slutty little [npc2.crotchNipple]?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Use my [npc1.clit]! I love your [npc2.crotchNipples]!",
+										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+										"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Fuck me!",
+										"Don't stop! Fuck me!",
+										"Oh yes! Fuck me!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! I don't want to do this!",
 										"Please! Stop! I don't want this!"));
 								break;
 							default:
@@ -8425,6 +9325,52 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 						}
 						break;
+					case BREAST_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl], you love having your [npc2.crotchBoobs] fondled like this, don't you?",
+										"I love your [npc2.crotchBoobs]!",
+										"What a good [npc2.girl]! Your [npc2.crotchBoobs] love the feeling of my [npc1.toes], don't they?"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"You love the feeling of having your [npc2.crotchBoobs] fondled, don't you?!",
+										"I love your [npc2.crotchBoobs+]!",
+										"You like it when I press my [npc1.toes] into your [npc2.crotchBoobs], like <i>this</i>?!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"What a dirty slut! Moaning as I grope your [npc2.crotchBoobs+]!",
+										"You love this, don't you bitch?! Having your [npc2.crotchBoobs] groped and fondled like <i>this</i>!",
+										"That's right slut! Your [npc2.crotchBoobs+] are mine to use however I want!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! I love the feel of your [npc2.crotchBoobs]!",
+										"I love giving your [npc2.crotchBoobs] the attention they deserve!",
+										"I love your [npc2.crotchBoobs]!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! I love the feel of your [npc2.crotchBoobs]!",
+										"I love giving your [npc2.crotchBoobs] the attention they deserve!",
+										"I love your [npc2.crotchBoobs]!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! I don't want to do this!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck!",
+										"Yeah!",
+										"Oh yeah!"));
+								break;
+						}
+						break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
@@ -8501,6 +9447,52 @@ public abstract class GameCharacter implements XMLSaving {
 										"I love foot-fucking your nipples!",
 										"I love giving your tits the attention they deserve!",
 										"I love foot-fucking your nipples!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! I don't want to do this!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Fuck!",
+										"Yeah!",
+										"Oh yeah!"));
+								break;
+						}
+						break;
+					case NIPPLE_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Good [npc2.girl], you love feeling my [npc1.toes] deep in your [npc2.crotchNipples], don't you?",
+										"I love foot-fucking cute little [npc2.crotchNipples] like yours!",
+										"What a good [npc2.girl]! Your [npc2.crotchNipples] love the feeling of my [npc1.toes], don't they?"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"You love the feeling of my [npc1.toes] deep in your [npc2.crotchNipple], don't you?!",
+										"I love foot-fucking cute little [npc2.crotchNipples] like yours!",
+										"You like it when I curl my [npc1.toes] up inside your [npc2.crotchNipples], like <i>this</i>?!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"What a dirty slut! Moaning as I stuff my [npc1.toes] deep into your [npc2.crotchNipples]!",
+										"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your [npc2.crotchNipples]!",
+										"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty [npc2.crotchNipples]!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Let me get my toes deep inside your [npc2.crotchNipples]!",
+										"I love giving your [npc2.crotchNipples] the attention they deserve!",
+										"I love foot-fucking your [npc2.crotchNipples]!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I love foot-fucking your [npc2.crotchNipples]!",
+										"I love giving your [npc2.crotchNipples] the attention they deserve!",
+										"I love foot-fucking your [npc2.crotchNipples]!"));
 								break;
 							case SUB_RESISTING:
 								availableLines.add(UtilText.returnStringAtRandom(
@@ -8681,6 +9673,52 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 						}
 						break;
+					case BREAST_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Your [npc2.crotchBoobs] taste so good!",
+										"Good [npc2.girl]! I love the taste of your [npc2.crotchBoobs]!",
+										"What a good [npc2.girl]! You love having your [npc2.crotchBoobs] kissed like this, don't you?"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Oh yes! Your [npc2.crotchBoobs] taste so good!",
+										"You like this? Feeling my tongue running over your [npc2.crotchBoobs]?!",
+										"I love the taste of your [npc2.crotchBoobs]!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Keep still slut, and be thankful that I'm giving your [npc2.crotchBoobs] some attention!",
+										"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+										"You'd better appreciate this bitch! You know how lucky you are, having me lick your [npc2.crotchBoobs]?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
+										"Oh yes! Let me kiss your [npc2.crotchBoobs]! Yes, yes, yes!",
+										"Oh yes! I love your [npc2.crotchBoobs]!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
+										"Oh yes! Let me kiss your [npc2.crotchBoobs]!",
+										"I love your tits!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! I don't want to do this!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Keep going!",
+										"Oh yeah! Keep going!",
+										"Don't stop!"));
+								break;
+						}
+						break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
@@ -8773,6 +9811,52 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 						}
 						break;
+					case NIPPLE_CROTCH:
+						switch(Sex.getSexPace(this)) {
+							case DOM_GENTLE:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Your [npc2.crotchNipples] taste so good!",
+										"Good [npc2.girl]! I love the taste of your [npc2.crotchNipples]!",
+										"What a good [npc2.girl]! You love having my tongue in your [npc2.crotchNipples], don't you?"));
+								break;
+							case DOM_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Oh yes! Your [npc2.crotchNipples] taste so good!",
+										"You like this? Feeling my tongue deep in your hot little [npc2.crotchNipples]?!",
+										"I love the taste of your [npc2.crotchNipples]!"));
+								break;
+							case DOM_ROUGH:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Keep still slut, I need to practice my skills on fuckable [npc2.crotchNipples] like yours!",
+										"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+										"You'd better appreciate this bitch! You know how lucky you are, having me lick your [npc2.crotchNipples]?!"));
+								break;
+							case SUB_EAGER:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
+										"Oh yes! Let me suck on your [npc2.crotchNipples]! Yes, yes, yes!",
+										"Oh yes! I love your [npc2.crotchNipples]! Let me get my [npc1.tongue] nice and deep!"));
+								break;
+							case SUB_NORMAL:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
+										"Oh yes! Let me suck on your [npc2.crotchNipples]!",
+										"I love your [npc2.crotchNipples]! Let me get my [npc1.tongue] nice and deep!"));
+								break;
+							case SUB_RESISTING:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"I don't want to do this! Please let me stop!",
+										"Let me go! I don't want to do this!",
+										"Please! Stop! I don't want this!"));
+								break;
+							default:
+								availableLines.add(UtilText.returnStringAtRandom(
+										"Yes! Get that tongue deeper!",
+										"Oh yeah! Keep going!",
+										"Deeper! Don't stop!"));
+								break;
+						}
+						break;
 					case THIGHS:
 						break;
 					case URETHRA_PENIS:
@@ -8838,8 +9922,19 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Area reveals: TODO All reveals need to take in character being revealed
 
-	public String getAssRevealDescription(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
-
+	public String getAssRevealDescription(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting, boolean locationSpecific) {
+		
+		if(locationSpecific) {
+			switch(this.getGenitalArrangement()) {
+				case CLOACA:
+					break;
+				case CLOACA_BEHIND:
+					break;
+				case NORMAL:
+					break;
+			}
+		}
+		
 //		SexPace selfPace = SexPace.DOM_NORMAL;
 		SexPace reactingPace = SexPace.DOM_NORMAL;
 		if(Main.game.isInSex()) {
@@ -9115,6 +10210,69 @@ public abstract class GameCharacter implements XMLSaving {
 		} else {
 			return "";
 		}
+	}
+
+	public String getBreastsCrotchRevealDescription(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
+		
+		SexPace reactingPace = SexPace.DOM_NORMAL;
+		if(Main.game.isInSex()) {
+			reactingPace = Sex.getSexPace(charactersReacting.get(0));
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p>");
+		
+		GameCharacter npcReacting = charactersReacting.get(0);
+		
+		if(characterBeingRevealed.equals(npcReacting)) {
+			switch(reactingPace) {
+				case DOM_GENTLE:
+					sb.append("[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.her] [npc.crotchBoobs+] are revealed.");
+					break;
+				case DOM_NORMAL:
+					sb.append("[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.her] [npc.crotchBoobs+] are revealed.");
+					break;
+				case DOM_ROUGH:
+					sb.append("[npc.Name] [npc.verb(let)] out a hungry growl as [npc.her] [npc.crotchBoobs+] are revealed.");
+					break;
+				case SUB_EAGER:
+					sb.append("[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.her] [npc.crotchBoobs+] are revealed.");
+					break;
+				case SUB_NORMAL:
+					sb.append("[npc.Name] [npc.verb(let)] out [npc.a_moan] as [npc.her] [npc.crotchBoobs+] are revealed.");
+					break;
+				case SUB_RESISTING:
+					sb.append("[npc.Name] [npc.verb(let)] out [npc.a_sob+] as [npc.her] [npc.crotchBoobs+] are revealed.");
+					break;
+			}
+			
+		} else {
+			switch(reactingPace) {
+				case DOM_GENTLE:
+					sb.append("[npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc.namePos] [npc.crotchBoobs+] are revealed.");
+					break;
+				case DOM_NORMAL:
+					sb.append("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.namePos] [npc.crotchBoobs+] are revealed.");
+					break;
+				case DOM_ROUGH:
+					sb.append("[npc2.Name] [npc2.verb(let)] out a hungry growl as [npc.namePos] [npc.crotchBoobs+] are revealed.");
+					break;
+				case SUB_EAGER:
+					sb.append("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.namePos] [npc.crotchBoobs+] are revealed.");
+					break;
+				case SUB_NORMAL:
+					sb.append("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan] as [npc.namePos] [npc.crotchBoobs+] are revealed.");
+					break;
+				case SUB_RESISTING:
+					sb.append("[npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.namePos] [npc.crotchBoobs+] are revealed.");
+					break;
+			}
+		}
+		
+
+		sb.append("</p>");
+		return UtilText.parse(characterBeingRevealed, npcReacting, sb.toString());
+		
 	}
 
 	public String getPenisRevealDescription(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
@@ -9674,8 +10832,17 @@ public abstract class GameCharacter implements XMLSaving {
 				case MOUTH:
 					orificeName = "mouth";
 					break;
+				case BREAST:
+					orificeName = "[npc2.breasts+]";
+					break;
+				case BREAST_CROTCH:
+					orificeName = "[npc2.crotchBoobs+]";
+					break;
 				case NIPPLE:
 					orificeName = "[npc2.nipple+]";
+					break;
+				case NIPPLE_CROTCH:
+					orificeName = "[npc2.nippleCrotch+]";
 					break;
 				case URETHRA_PENIS:
 				case URETHRA_VAGINA:
@@ -9686,9 +10853,6 @@ public abstract class GameCharacter implements XMLSaving {
 					break;
 				case THIGHS:
 					orificeName = "thighs";
-					break;
-				case BREAST:
-					orificeName = "[npc2.breasts+]";
 					break;
 			}
 		} else {
@@ -9848,6 +11012,7 @@ public abstract class GameCharacter implements XMLSaving {
 							"in and out between the cheeks of");
 					break;
 				case BREAST:
+				case BREAST_CROTCH:
 				case THIGHS:
 					penetrationDescription = UtilText.returnStringAtRandom(
 							"between",
@@ -9856,6 +11021,7 @@ public abstract class GameCharacter implements XMLSaving {
 				case ANUS:
 				case MOUTH:
 				case NIPPLE:
+				case NIPPLE_CROTCH:
 				case URETHRA_PENIS:
 				case URETHRA_VAGINA:
 				case VAGINA:
@@ -9976,12 +11142,14 @@ public abstract class GameCharacter implements XMLSaving {
 			switch((SexAreaOrifice)orifice) {
 				case ASS:
 				case BREAST:
+				case BREAST_CROTCH:
 				case THIGHS:
 					penetrationAdjective = "between";
 					break;
 				case ANUS:
 				case MOUTH:
 				case NIPPLE:
+				case NIPPLE_CROTCH:
 				case URETHRA_PENIS:
 				case URETHRA_VAGINA:
 				case VAGINA:
@@ -10128,7 +11296,7 @@ public abstract class GameCharacter implements XMLSaving {
 						
 						initialDescriptions.clear();
 						initialDescriptions.add(" [npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] [npc2.asshole+] squeezes down around [npc.her] [npc.cock+].");
-						for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+						for(OrificeModifier mod : characterPenetrated.getAssOrificeModifiers()) {
 							switch(mod) {
 								case MUSCLE_CONTROL:
 									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.asshole+],"
@@ -10201,7 +11369,7 @@ public abstract class GameCharacter implements XMLSaving {
 						
 						initialDescriptions.clear();
 						initialDescriptions.add(" [npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] [npc2.vagina+] squeezes down around [npc.her] [npc.cock+].");
-						for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+						for(OrificeModifier mod : characterPenetrated.getVaginaOrificeModifiers()) {
 							switch(mod) {
 								case MUSCLE_CONTROL:
 									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.vagina+],"
@@ -10273,7 +11441,7 @@ public abstract class GameCharacter implements XMLSaving {
 						
 						initialDescriptions.clear();
 						initialDescriptions.add(" [npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] [npc2.nipple+] squeezes down around [npc.her] [npc.cock+].");
-						for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+						for(OrificeModifier mod : characterPenetrated.getNippleOrificeModifiers()) {
 							switch(mod) {
 								case MUSCLE_CONTROL:
 									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.nipple+],"
@@ -10345,7 +11513,7 @@ public abstract class GameCharacter implements XMLSaving {
 						
 						initialDescriptions.clear();
 						initialDescriptions.add(" [npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] throat squeezes down around [npc.her] [npc.cock+].");
-						for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+						for(OrificeModifier mod : characterPenetrated.getFaceOrificeModifiers()) {
 							switch(mod) {
 								case MUSCLE_CONTROL:
 									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] throat,"
@@ -10426,8 +11594,17 @@ public abstract class GameCharacter implements XMLSaving {
 			case MOUTH:
 				orificeName = "mouth";
 				break;
+			case BREAST:
+				orificeName = "[npc2.breasts+]";
+				break;
+			case BREAST_CROTCH:
+				orificeName = "[npc2.crotchBoobs+]";
+				break;
 			case NIPPLE:
 				orificeName = "[npc2.nipple+]";
+				break;
+			case NIPPLE_CROTCH:
+				orificeName = "[npc2.crotchNipple+]";
 				break;
 			case URETHRA_PENIS:
 			case URETHRA_VAGINA:
@@ -10438,9 +11615,6 @@ public abstract class GameCharacter implements XMLSaving {
 				break;
 			case THIGHS:
 				orificeName = "thighs";
-				break;
-			case BREAST:
-				orificeName = "[npc2.breasts+]";
 				break;
 		}
 		
@@ -10494,6 +11668,13 @@ public abstract class GameCharacter implements XMLSaving {
 					StringBuilderSB.append(getPartnerNippleVirginityLossDescription(characterPenetrated, characterPenetrating, penetrationType));
 				}
 				break;
+			case NIPPLE_CROTCH:
+				if(characterPenetrated.isPlayer()) {
+					StringBuilderSB.append(getPlayerNippleCrotchVirginityLossDescription(characterPenetrated, characterPenetrating, penetrationType));
+				} else {
+					StringBuilderSB.append(getPartnerNippleCrotchVirginityLossDescription(characterPenetrated, characterPenetrating, penetrationType));
+				}
+				break;
 			case URETHRA_PENIS: case URETHRA_VAGINA:
 				if(characterPenetrated.isPlayer()) {
 					StringBuilderSB.append(getPlayerUrethraVirginityLossDescription(characterPenetrated, characterPenetrating, penetrationType));
@@ -10508,7 +11689,7 @@ public abstract class GameCharacter implements XMLSaving {
 					StringBuilderSB.append(getPartnerVaginaVirginityLossDescription(characterPenetrated, characterPenetrating, penetrationType));
 				}
 				break;
-			case ASS: case BREAST: case THIGHS:
+			case ASS: case BREAST: case BREAST_CROTCH: case THIGHS:
 				// Don't have a virginity to lose.
 				break;
 		}
@@ -10878,6 +12059,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return formatVirginityLoss("You'll always remember this moment as the time that you lost your nipple virginity!");
 	}
 	
+	private String getPlayerNippleCrotchVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaPenetration penetration){
+		return formatVirginityLoss("You'll always remember this moment as the time that you lost your [pc.crotchNipple] virginity!");
+	}
+	
 	private String getPlayerUrethraVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		return formatVirginityLoss("You have lost your urethral virginity!");
 	}
@@ -10954,6 +12139,19 @@ public abstract class GameCharacter implements XMLSaving {
 						:""));
 	}
 	
+	private String getPartnerNippleCrotchVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaPenetration penetration){
+		return UtilText.parse(characterPenetrated, characterPenetrating,
+				(characterPenetrated.equals(characterPenetrating)
+						?formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own [npc2.crotchNipple] virginity!")
+						:formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] [npc2.crotchNipple] virginity!"))
+				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;>"
+							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
+								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+						+ "</p>"
+						:""));
+	}
+	
 	private String getPartnerUrethraVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		return UtilText.parse(characterPenetrated, characterPenetrating,
 				(characterPenetrated.equals(characterPenetrating)
@@ -11001,6 +12199,8 @@ public abstract class GameCharacter implements XMLSaving {
 				break;
 			case BREAST:
 				break;
+			case BREAST_CROTCH:
+				break;
 			case MOUTH:
 				switch(penetrationType) {
 					case FINGER:
@@ -11042,9 +12242,13 @@ public abstract class GameCharacter implements XMLSaving {
 			case NIPPLE:
 				switch(penetrationType) {
 					case FINGER: case PENIS: case TONGUE: case TAIL: case TENTACLE: case FOOT: case CLIT:
-						return formatStretching(this.isPlayer()
-								?"Your [pc.nipples+] are being stretched."
-								:UtilText.parse(this, "[npc.NamePos] [npc.nipples+] are being stretched."));
+						return formatStretching(UtilText.parse(this, "[npc.NamePos] [npc.nipples+] are being stretched."));
+				}
+				break;
+			case NIPPLE_CROTCH:
+				switch(penetrationType) {
+					case FINGER: case PENIS: case TONGUE: case TAIL: case TENTACLE: case FOOT: case CLIT:
+						return formatStretching(UtilText.parse(this, "[npc.NamePos] [npc.crotchNipples+] are being stretched."));
 				}
 				break;
 			case THIGHS:
@@ -11076,10 +12280,14 @@ public abstract class GameCharacter implements XMLSaving {
 				break;
 			case BREAST:
 				break;
+			case BREAST_CROTCH:
+				break;
 			case MOUTH:
 				return formatStretching(UtilText.parse(this, "[npc.Name] [npc.verb(let)] out a muffled [npc.moan] as [npc.her] throat finishes stretching out to a comfortable size."));
 			case NIPPLE:
 				return formatStretching(UtilText.parse(this, "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.her] [npc.nipples+] finish stretching out to a comfortable size."));
+			case NIPPLE_CROTCH:
+				return formatStretching(UtilText.parse(this, "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.her] [npc.crotchNipples+] finish stretching out to a comfortable size."));
 			case THIGHS:
 				break;
 			case URETHRA_PENIS: case URETHRA_VAGINA:
@@ -11106,10 +12314,14 @@ public abstract class GameCharacter implements XMLSaving {
 				break;
 			case BREAST:
 				break;
+			case BREAST_CROTCH:
+				break;
 			case MOUTH:
 				break;
 			case NIPPLE:
 				return formatTooLoose(UtilText.parse(this, "[npc.Her] nipples are too loose to provide much pleasure..."));
+			case NIPPLE_CROTCH:
+				return formatTooLoose(UtilText.parse(this, "[npc.Her] [npc.crotchNipples] are too loose to provide much pleasure..."));
 			case THIGHS:
 				break;
 			case URETHRA_PENIS: case URETHRA_VAGINA:
@@ -11231,7 +12443,7 @@ public abstract class GameCharacter implements XMLSaving {
 					"<p>"
 						+ "Due to the addictive properties of "+(charactersFluid==null?"":(charactersFluid.equals(this)?"[npc.her]":UtilText.parse(charactersFluid, "[npc.namePos]")))+" "+fluid.getName(charactersFluid)
 							+", [npc.name] [npc.verb(find)] [npc.herself] [style.colourArcane(craving)]"
-							+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName()+"</span> "+fluid.getName(charactersFluid)+"!"
+							+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName(fluid.isBestial(charactersFluid))+"</span> "+fluid.getName(charactersFluid)+"!"
 					+ "</p>"));
 			
 			
@@ -11240,7 +12452,9 @@ public abstract class GameCharacter implements XMLSaving {
 			setLastTimeSatisfiedAddiction(fluid.getType(), Main.game.getMinutesPassed());
 				fluidIngestionSB.append(UtilText.parse(this, charactersFluid,
 						"<p>"
-							+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName()+"</span> "+fluid.getName(charactersFluid)
+							+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"
+								+fluid.getType().getRace().getName(fluid.isBestial(charactersFluid))
+							+"</span> "+fluid.getName(charactersFluid)
 								+" has been satisfied!"
 							+ (curedWithdrawal
 								?" [npc.She] [npc.verb(feel)] deeply grateful to "+(charactersFluid==null?"":UtilText.parse(charactersFluid, "[npc.namePos]"))+" for providing [npc.herHim] with what [npc.she] needed most..."
@@ -11683,7 +12897,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "Due to [npc.her] [style.boldFetish(sadist fetish)], [npc.name] [npc.verb(take)]"
 							+ " <b>"+(manaLoss)+"</b>"+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(get)] aroused by inflicting damage!"
 						+ "</p>"))
-						+incrementLust(manaLoss, false);
+						+attacker.incrementLust(manaLoss, false);
 				
 			} else {
 				setHealth(getHealth() + increment);
@@ -11860,9 +13074,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isWearingCondom() {
-//		if(Main.game.isInSex() && this == Sex.getPartner())
-//			System.out.println("condom inner: "+(this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot())!=null));
-		return this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot())!=null && this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getClothingType().equals(ClothingType.PENIS_CONDOM);
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.getClothingType().isCondom()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean isExhibitionist() {
@@ -11880,7 +13097,7 @@ public abstract class GameCharacter implements XMLSaving {
 	// Pregnancy:
 	
 	/**
-	 * @return Whether the supplied character has reacted to this GameCharacter's pregnancy.
+	 * @return Whether the supplied character has reacted to this GameCharacter's pregnancy. Is automatically reset to false after giving birth, in the PREGNANT_3 status effect extraRemovalEffects() method.
 	 */
 	public boolean isCharacterReactedToPregnancy(GameCharacter character) {
 		return pregnancyReactions.contains(character.getId());
@@ -11966,7 +13183,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		this.addPotentialPartnerAsMother(pregPoss);
 		partner.addPotentialPartnerAsFather(pregPoss);
-
+		
 		String pregnancyDescription = PregnancyDescriptor.getPregnancyDescriptorBasedOnProbability(pregnancyChance).getDescriptor(this, partner);
 		
 		// Now roll for pregnancy:
@@ -12039,11 +13256,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	/**
-	 * Ends the character's pregnancy. If ended with birth, also handles litters
-	 * added to the littersBirthed list.
+	 * Ends the character's pregnancy. If ended with birth, also handles litters added to the littersBirthed list.
 	 * 
-	 * @param withBirth
-	 *            True if this pregnancy ends by giving birth.
+	 * @param withBirth True if this pregnancy ends by giving birth.
 	 */
 	public void endPregnancy(boolean withBirth) {
 		for(PregnancyPossibility pregPoss : potentialPartnersAsMother) {
@@ -12124,20 +13339,17 @@ public abstract class GameCharacter implements XMLSaving {
 	public void setPregnantLitter(Litter pregnantLitter) {
 		this.pregnantLitter = pregnantLitter;
 	}
-	
-	public boolean isCharacterPossiblyMother(String id) {
-		for(PregnancyPossibility pp : getPotentialPartnersAsMother()) {
-			if(pp.getMotherId().equals(id)) {
-				return true;
-			}
-		}
-		return false;
-	}
 
+	/**
+	 * @return A list of PregnancyPossibilities which are linked to the possibility of this character being a mother. i.e. A list of all the people who could have gotten them pregnant.
+	 */
 	public List<PregnancyPossibility> getPotentialPartnersAsMother() {
 		return potentialPartnersAsMother;
 	}
-	
+
+	/**
+	 * Add this PregnancyPossibility to the list of people who could have gotten this character pregnant.
+	 */
 	public void addPotentialPartnerAsMother(PregnancyPossibility possibility) {
 		boolean alreadyContainedPossibility = false;
 		
@@ -12154,20 +13366,29 @@ public abstract class GameCharacter implements XMLSaving {
 			potentialPartnersAsMother.add(possibility);
 		}
 	}
-	
+
+	/**
+	 * @return true If the supplied character's id is a potential father of this character's currently-ongoing pregnancy.
+	 */
 	public boolean isCharacterPossiblyFather(String id) {
-		for(PregnancyPossibility pp : getPotentialPartnersAsFather()) {
+		for(PregnancyPossibility pp : getPotentialPartnersAsMother()) {
 			if(pp.getFatherId().equals(id)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
+	/**
+	 * @return A list of PregnancyPossibilities which are linked to the possibility of this character being a father. i.e. A list of all the people who this character could have gotten pregnant.
+	 */
 	public List<PregnancyPossibility> getPotentialPartnersAsFather() {
 		return potentialPartnersAsFather;
 	}
-	
+
+	/**
+	 * Add this PregnancyPossibility to the list of people who this character could have gotten pregnant.
+	 */
 	public void addPotentialPartnerAsFather(PregnancyPossibility possibility) {
 		boolean alreadyContainedPossibility = false;
 		
@@ -12188,6 +13409,7 @@ public abstract class GameCharacter implements XMLSaving {
 	// Cummed in areas:
 	
 	public List<FluidStored> getFluidsStoredInOrifice(SexAreaOrifice orifice) {
+		fluidsStoredMap.putIfAbsent(orifice, new ArrayList<>());
 		return fluidsStoredMap.get(orifice);
 	}
 	
@@ -12273,10 +13495,10 @@ public abstract class GameCharacter implements XMLSaving {
 			switch(orifice) {
 				case MOUTH:
 					break;
-				case ASS: case BREAST: case THIGHS:
+				case ASS: case BREAST: case BREAST_CROTCH: case THIGHS:
 					clearFluidsStored(orifice);
 					break;
-				case ANUS: case NIPPLE: case URETHRA_PENIS: case URETHRA_VAGINA: case VAGINA:
+				case ANUS: case NIPPLE: case NIPPLE_CROTCH: case URETHRA_PENIS: case URETHRA_VAGINA: case VAGINA:
 					drainTotalFluidsStored(orifice, 500);
 					break;
 			}
@@ -12703,6 +13925,32 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
+	public boolean isSpeechMuffled() {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.getClothingType().isMufflesSpeech()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isArmMovementHindered() {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.getClothingType().isHindersArmMovement()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isLegMovementHindered() {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.getClothingType().isHindersLegMovement()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public void clearNonEquippedInventory(){
 		inventory.clearNonEquippedInventory();
@@ -12825,20 +14073,33 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 	}
-	
+
+	/**
+	 * @return true If an item was removed.
+	 */
 	public void removeItem(AbstractItem item) {
 		inventory.removeItem(item);
 	}
-	
+
+	/**
+	 * @return true If this item is in the character's inventory.
+	 */
 	public boolean hasItem(AbstractItem item) {
 		return inventory.hasItem(item);
 	}
 	
 	/**
-	 * @return true if one of the items in this inventory has the same type as the Item provided.
+	 * @return true If one of the items in this inventory has the same type as the Item provided.
 	 */
 	public boolean hasItemType(AbstractItemType item) {
 		return inventory.hasItemType(item);
+	}
+	
+	/**
+	 * @return true If an item was removed.
+	 */
+	public boolean removeItemByType(AbstractItemType item) {
+		return inventory.removeItemByType(item);
 	}
 	
 	/**
@@ -13194,7 +14455,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return new HashMap<>();
 		}
 		
-		Map<InventorySlot, List<AbstractClothing>> concealedMap = new HashMap<>(inventory.getInventorySlotsConcealed());
+		Map<InventorySlot, List<AbstractClothing>> concealedMap = new HashMap<>(inventory.getInventorySlotsConcealed(this));
 		
 		if(Main.game.isInSex()) {
 			for(InventorySlot slot : Sex.getSexManager().getSlotsConcealed(this)) {
@@ -13215,7 +14476,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isSlotIncompatible(InventorySlot slot) {
-		return inventory.isSlotIncompatible(slot);
+		return inventory.isSlotIncompatible(this, slot);
 	}
 	
 	public void deleteAllEquippedClothing() {
@@ -13403,7 +14664,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public void equipClothingOverride(AbstractClothing newClothing, boolean replaceClothing, boolean removeFromInventoryOrFloor) {
 		List<InventorySlot> slotsToClear = new ArrayList<>();
 		slotsToClear.add(newClothing.getClothingType().getSlot());
-		slotsToClear.addAll(newClothing.getClothingType().getIncompatibleSlots());
+		slotsToClear.addAll(newClothing.getClothingType().getIncompatibleSlots(this));
 		
 		for(InventorySlot slot : slotsToClear) {
 			AbstractClothing clothing = this.getClothingInSlot(slot);
@@ -13484,10 +14745,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String unequipClothingIntoUnequippersInventory(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) {
-		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS);
+		boolean unknownBreastsCrotch = !this.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.ANUS);
 		
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
 
@@ -13514,7 +14776,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			if(!this.isPlayer() && Main.game.getCharactersPresent().contains(this)) {
 				for(CoverableArea ca : CoverableArea.values()) {
-					if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
+					if(this.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 						this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 					}
 				}
@@ -13529,31 +14791,37 @@ public abstract class GameCharacter implements XMLSaving {
 				+ "</p>"
 				+(this.isPlayer() || Main.game.isInSex()
 						?""
-						:((unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
+						:((unknownBreasts && this.isCoverableAreaVisible(CoverableArea.BREASTS)
 									?"<p>"
 									+ UtilText.parse(this, this.getBreastDescription())
 								+ "</p>"
 								+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 								:"")
-						+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
+						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
 								?"<p>"
-									+ UtilText.parse(this, this.getAssDescription())
+								+ UtilText.parse(this, this.getBreastCrotchDescription())
+							+ "</p>"
+							+ characterClothingUnequipper.getBreastsCrotchRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+							:"")
+						+ (unknownAss && this.isCoverableAreaVisible(CoverableArea.ANUS)
+								?"<p>"
+									+ UtilText.parse(this, this.getAssDescription(true))
 								+ "</p>"
-								+ characterClothingUnequipper.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								+ characterClothingUnequipper.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper), true)
 								:"")
-						+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
+						+ (unknownPenis && this.isCoverableAreaVisible(CoverableArea.PENIS) && this.hasPenis()
 								?"<p>"
 									+ UtilText.parse(this, this.getPenisDescription())
 								+ "</p>"
 								+ characterClothingUnequipper.getPenisRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 								:"")
-						+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
+						+ (unknownVagina && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.hasVagina()
 								?"<p>"
 									+ UtilText.parse(this, this.getVaginaDescription())
 								+ "</p>"
 								+ characterClothingUnequipper.getVaginaRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 								:"")
-						+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
+						+ ((unknownPenis || unknownVagina) && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.isCoverableAreaVisible(CoverableArea.PENIS) && !this.hasVagina() && !this.hasPenis()
 								?"<p>"
 								+ UtilText.parse(this, this.getMoundDescription())
 							+ "</p>"
@@ -13564,10 +14832,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String unequipClothingIntoInventory(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) {
-		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS);
+		boolean unknownBreastsCrotch = !this.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.ANUS);
 		
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
 
@@ -13594,7 +14863,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 			if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
 				for(CoverableArea ca : CoverableArea.values()) {
-					if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
+					if(this.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 						this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 					}
 				}
@@ -13609,31 +14878,37 @@ public abstract class GameCharacter implements XMLSaving {
 				+ "</p>"
 				+(this.isPlayer() || Main.game.isInSex()
 						?""
-						:((unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
-									?"<p>"
+						:((unknownBreasts && this.isCoverableAreaVisible(CoverableArea.BREASTS)
+								?"<p>"
 									+ UtilText.parse(this, this.getBreastDescription())
 								+ "</p>"
 								+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 								:"")
-						+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
+						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
 								?"<p>"
-									+ UtilText.parse(this, this.getAssDescription())
+									+ UtilText.parse(this, this.getBreastCrotchDescription())
 								+ "</p>"
-								+ characterClothingUnequipper.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								+ characterClothingUnequipper.getBreastsCrotchRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 								:"")
-						+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
+						+ (unknownAss && this.isCoverableAreaVisible(CoverableArea.ANUS)
+								?"<p>"
+									+ UtilText.parse(this, this.getAssDescription(true))
+								+ "</p>"
+								+ characterClothingUnequipper.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper), true)
+								:"")
+						+ (unknownPenis && this.isCoverableAreaVisible(CoverableArea.PENIS) && this.hasPenis()
 								?"<p>"
 									+ UtilText.parse(this, this.getPenisDescription())
 								+ "</p>"
 								+ characterClothingUnequipper.getPenisRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 								:"")
-						+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
+						+ (unknownVagina && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.hasVagina()
 								?"<p>"
 									+ UtilText.parse(this, this.getVaginaDescription())
 								+ "</p>"
 								+ characterClothingUnequipper.getVaginaRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 								:"")
-						+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
+						+ ((unknownPenis || unknownVagina) && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.isCoverableAreaVisible(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
 								?"<p>"
 								+ UtilText.parse(this, this.getMoundDescription())
 							+ "</p>"
@@ -13645,10 +14920,11 @@ public abstract class GameCharacter implements XMLSaving {
 
 
 	public String unequipClothingOntoFloor(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
-		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS);
+		boolean unknownBreastsCrotch = !this.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.ANUS);
 		
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
 
@@ -13677,7 +14953,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
-				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
+				if(this.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 				}
 			}
@@ -13689,37 +14965,43 @@ public abstract class GameCharacter implements XMLSaving {
 				+ droppedItemText(clothing)
 				+(this.isPlayer() || Main.game.isInSex()
 						?""
-						:(unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
+						:(unknownBreasts && this.isCoverableAreaVisible(CoverableArea.BREASTS)
 									?"<p>"
 										+ UtilText.parse(this, this.getBreastDescription())
 									+ "</p>"
 									+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 									:"")
-							+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
-									?"<p>"
-										+ UtilText.parse(this, this.getAssDescription())
-									+ "</p>"
-									+ characterClothingUnequipper.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-									:"")
-							+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
-									?"<p>"
-										+ UtilText.parse(this, this.getPenisDescription())
-									+ "</p>"
-									+ characterClothingUnequipper.getPenisRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-									:"")
-							+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
-									?"<p>"
-										+ UtilText.parse(this, this.getVaginaDescription())
-									+ "</p>"
-									+ characterClothingUnequipper.getVaginaRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-									:"")
-							+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
-									?"<p>"
-									+ UtilText.parse(this, this.getMoundDescription())
+						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
+							?"<p>"
+								+ UtilText.parse(this, this.getBreastCrotchDescription())
+							+ "</p>"
+							+ characterClothingUnequipper.getBreastsCrotchRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+							:"")
+						+ (unknownAss && this.isCoverableAreaVisible(CoverableArea.ANUS)
+								?"<p>"
+									+ UtilText.parse(this, this.getAssDescription(true))
 								+ "</p>"
-								+ characterClothingUnequipper.getMoundRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-								:""));
-	}
+								+ characterClothingUnequipper.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper), true)
+								:"")
+						+ (unknownPenis && this.isCoverableAreaVisible(CoverableArea.PENIS) && this.hasPenis()
+								?"<p>"
+									+ UtilText.parse(this, this.getPenisDescription())
+								+ "</p>"
+								+ characterClothingUnequipper.getPenisRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								:"")
+						+ (unknownVagina && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.hasVagina()
+								?"<p>"
+									+ UtilText.parse(this, this.getVaginaDescription())
+								+ "</p>"
+								+ characterClothingUnequipper.getVaginaRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								:"")
+						+ ((unknownPenis || unknownVagina) && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.isCoverableAreaVisible(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
+								?"<p>"
+								+ UtilText.parse(this, this.getMoundDescription())
+							+ "</p>"
+							+ characterClothingUnequipper.getMoundRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+							:""));
+}
 	
 	public void forceUnequipClothingIntoVoid(GameCharacter characterRemovingClothing, AbstractClothing clothing) {
 		applyUnequipClothingEffects(clothing);
@@ -13727,10 +15009,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String unequipClothingIntoVoid(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
-		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS);
+		boolean unknownBreastsCrotch = !this.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.ANUS);
 
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
 
@@ -13754,7 +15037,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner()!=null && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
-				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
+				if(this.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 				}
 			}
@@ -13765,36 +15048,42 @@ public abstract class GameCharacter implements XMLSaving {
 				+"</p>"
 				+ (this.isPlayer() || Main.game.isInSex()
 						?""
-						:(unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
-									?"<p>"
-										+ UtilText.parse(this, this.getBreastDescription())
-									+ "</p>"
-									+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-									:"")
-							+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
-									?"<p>"
-										+ UtilText.parse(this, this.getAssDescription())
-									+ "</p>"
-									+ characterClothingUnequipper.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-									:"")
-							+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
-									?"<p>"
-										+ UtilText.parse(this, this.getPenisDescription())
-									+ "</p>"
-									+ characterClothingUnequipper.getPenisRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-									:"")
-							+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
-									?"<p>"
-										+ UtilText.parse(this, this.getVaginaDescription())
-									+ "</p>"
-									+ characterClothingUnequipper.getVaginaRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-									:"")
-							+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
-									?"<p>"
-									+ UtilText.parse(this, this.getMoundDescription())
+						:(unknownBreasts && this.isCoverableAreaVisible(CoverableArea.BREASTS)
+								?"<p>"
+									+ UtilText.parse(this, this.getBreastDescription())
 								+ "</p>"
-								+ characterClothingUnequipper.getMoundRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-								:""));
+								+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								:"")
+						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
+								?"<p>"
+									+ UtilText.parse(this, this.getBreastCrotchDescription())
+								+ "</p>"
+								+ characterClothingUnequipper.getBreastsCrotchRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								:"")
+						+ (unknownAss && this.isCoverableAreaVisible(CoverableArea.ANUS)
+								?"<p>"
+									+ UtilText.parse(this, this.getAssDescription(true))
+								+ "</p>"
+								+ characterClothingUnequipper.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper), true)
+								:"")
+						+ (unknownPenis && this.isCoverableAreaVisible(CoverableArea.PENIS) && this.hasPenis()
+								?"<p>"
+									+ UtilText.parse(this, this.getPenisDescription())
+								+ "</p>"
+								+ characterClothingUnequipper.getPenisRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								:"")
+						+ (unknownVagina && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.hasVagina()
+								?"<p>"
+									+ UtilText.parse(this, this.getVaginaDescription())
+								+ "</p>"
+								+ characterClothingUnequipper.getVaginaRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								:"")
+						+ ((unknownPenis || unknownVagina) && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.isCoverableAreaVisible(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
+								?"<p>"
+								+ UtilText.parse(this, this.getMoundDescription())
+							+ "</p>"
+							+ characterClothingUnequipper.getMoundRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+							:""));
 	}
 
 
@@ -13819,10 +15108,11 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return True if the clothing can be displaced, false if it can't/
 	 */
 	public boolean isAbleToBeDisplaced(AbstractClothing clothing, DisplacementType dt, boolean displaceIfAble, boolean automaticClothingManagement, GameCharacter characterClothingDisplacer) {
-		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS);
+		boolean unknownBreastsCrotch = !this.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.ANUS);
 		
 		boolean wasAbleToDisplace = inventory.isAbleToBeDisplaced(clothing, dt, displaceIfAble, automaticClothingManagement, this, characterClothingDisplacer);
 
@@ -13834,38 +15124,44 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
-				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
+				if(this.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 				}
 			}
 			
 			if(!Main.game.isInSex()) {
 				inventory.appendToDisplaceDescription(
-					(unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
+					(unknownBreasts && this.isCoverableAreaVisible(CoverableArea.BREASTS)
 							?"<p>"
 								+ UtilText.parse(this, this.getBreastDescription())
 							+ "</p>"
 							+ characterClothingDisplacer.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingDisplacer))
 							:"")
-					+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
+					+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
 							?"<p>"
-								+ UtilText.parse(this, this.getAssDescription())
+								+ UtilText.parse(this, this.getBreastCrotchDescription())
 							+ "</p>"
-							+ characterClothingDisplacer.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingDisplacer))
+							+ characterClothingDisplacer.getBreastsCrotchRevealDescription(this, Util.newArrayListOfValues(characterClothingDisplacer))
 							:"")
-					+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
+					+ (unknownAss && this.isCoverableAreaVisible(CoverableArea.ANUS)
+							?"<p>"
+								+ UtilText.parse(this, this.getAssDescription(true))
+							+ "</p>"
+							+ characterClothingDisplacer.getAssRevealDescription(this, Util.newArrayListOfValues(characterClothingDisplacer), true)
+							:"")
+					+ (unknownPenis && this.isCoverableAreaVisible(CoverableArea.PENIS) && this.hasPenis()
 							?"<p>"
 								+ UtilText.parse(this, this.getPenisDescription())
 							+ "</p>"
 							+ characterClothingDisplacer.getPenisRevealDescription(this, Util.newArrayListOfValues(characterClothingDisplacer))
 							:"")
-					+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
+					+ (unknownVagina && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.hasVagina()
 							?"<p>"
 								+ UtilText.parse(this, this.getVaginaDescription())
 							+ "</p>"
 							+ characterClothingDisplacer.getVaginaRevealDescription(this, Util.newArrayListOfValues(characterClothingDisplacer))
 							:"")
-					+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
+					+ ((unknownPenis || unknownVagina) && this.isCoverableAreaVisible(CoverableArea.VAGINA) && this.isCoverableAreaVisible(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
 							?"<p>"
 							+ UtilText.parse(this, this.getMoundDescription())
 						+ "</p>"
@@ -13911,7 +15207,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public SimpleEntry<AbstractClothing, DisplacementType> getNextClothingToRemoveForCoverableAreaAccess(CoverableArea coverableArea) {
-		return inventory.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
+		return inventory.getNextClothingToRemoveForCoverableAreaAccess(this, coverableArea);
 	}
 	
 	public void displaceClothingForAccess(CoverableArea coverableArea) {
@@ -13925,15 +15221,19 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public boolean isAbleToAccessCoverableArea(CoverableArea area, boolean byRemovingClothing) {
-		return inventory.isAbleToAccessCoverableArea(area, byRemovingClothing);
+		return inventory.isAbleToAccessCoverableArea(this, area, byRemovingClothing);
 	}
 	
 	public AbstractClothing getClothingBlockingCoverableAreaAccess(CoverableArea area, boolean byRemovingClothing) {
-		return inventory.getClothingBlockingCoverableAreaAccess(area, byRemovingClothing);
+		return inventory.getClothingBlockingCoverableAreaAccess(this, area, byRemovingClothing);
 	}
 	
 	public boolean isCoverableAreaExposed(CoverableArea area) {
-		return inventory.isCoverableAreaExposed(area);
+		return inventory.isCoverableAreaExposed(this, area, false);
+	}
+	
+	public boolean isCoverableAreaVisible(CoverableArea area) {
+		return inventory.isCoverableAreaExposed(this, area, true);
 	}
 	
 	public boolean isSexAreaExposed(SexAreaInterface sArea) {
@@ -13972,13 +15272,23 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isOrificeTypeExposed(SexAreaOrifice ot) {
 		switch(ot) {
 			case ANUS:
-				return isCoverableAreaExposed(CoverableArea.ANUS);
+				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA) {
+					return isCoverableAreaExposed(CoverableArea.VAGINA) || isCoverableAreaExposed(CoverableArea.PENIS);
+				} else {
+					return isCoverableAreaExposed(CoverableArea.ANUS);
+				}
 			case ASS:
 				return isCoverableAreaExposed(CoverableArea.ASS);
 			case MOUTH:
 				return isCoverableAreaExposed(CoverableArea.MOUTH);
+			case BREAST:
+				return isCoverableAreaExposed(CoverableArea.BREASTS);
+			case BREAST_CROTCH:
+				return isCoverableAreaExposed(CoverableArea.BREASTS_CROTCH);
 			case NIPPLE:
 				return isCoverableAreaExposed(CoverableArea.NIPPLES);
+			case NIPPLE_CROTCH:
+				return isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH);
 			case URETHRA_PENIS:
 				return isCoverableAreaExposed(CoverableArea.PENIS);
 			case URETHRA_VAGINA:
@@ -13987,8 +15297,6 @@ public abstract class GameCharacter implements XMLSaving {
 				return isCoverableAreaExposed(CoverableArea.VAGINA);
 			case THIGHS:
 				return isCoverableAreaExposed(CoverableArea.THIGHS);
-			case BREAST:
-				return isCoverableAreaExposed(CoverableArea.BREASTS);
 		}
 		return false;
 	}
@@ -14009,11 +15317,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public AbstractClothing getLowestZLayerCoverableArea(CoverableArea area) {
-		return inventory.getLowestZLayerCoverableArea(area);
+		return inventory.getLowestZLayerCoverableArea(this, area);
 	}
 
 	public AbstractClothing getHighestZLayerCoverableArea(CoverableArea area) {
-		return inventory.getHighestZLayerCoverableArea(area);
+		return inventory.getHighestZLayerCoverableArea(this, area);
 	}
 	
 	public Set<InventorySlot> getDirtySlots() {
@@ -14105,8 +15413,8 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	private GenderAppearance calculateGenderAppearance(boolean colouredGender) {
-		boolean visibleVagina = isCoverableAreaExposed(CoverableArea.VAGINA) && hasVagina();
-		boolean visiblePenis = isCoverableAreaExposed(CoverableArea.PENIS) && hasPenis();
+		boolean visibleVagina = isCoverableAreaVisible(CoverableArea.VAGINA) && hasVagina();
+		boolean visiblePenis = isCoverableAreaVisible(CoverableArea.PENIS) && hasPenis();
 		
 		if(this.getFemininityValue()>=Femininity.FEMININE.getMinimumFemininity()) {
 			if(hasBreasts()) {
@@ -14194,7 +15502,7 @@ public abstract class GameCharacter implements XMLSaving {
 								Gender.F_V_B_FEMALE);
 						
 					} else {
-						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
+						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your feminine appearance and [pc.breastSize] breasts, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
@@ -14297,7 +15605,7 @@ public abstract class GameCharacter implements XMLSaving {
 								Gender.F_V_FEMALE);
 						
 					} else {
-						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
+						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your feminine appearance, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
@@ -14402,7 +15710,7 @@ public abstract class GameCharacter implements XMLSaving {
 								Gender.N_V_B_TOMBOY);
 						
 					} else {
-						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
+						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your androgynous appearance and [pc.breastSize] breasts, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
@@ -14505,7 +15813,7 @@ public abstract class GameCharacter implements XMLSaving {
 								Gender.N_V_TOMBOY);
 						
 					} else {
-						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
+						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your androgynous appearance, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]"
@@ -14610,7 +15918,7 @@ public abstract class GameCharacter implements XMLSaving {
 								Gender.M_P_B_BUSTYBOY);
 						
 					} else {
-						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
+						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your masculine appearance and [pc.breastSize] breasts, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
@@ -14713,7 +16021,7 @@ public abstract class GameCharacter implements XMLSaving {
 								Gender.M_P_MALE);
 						
 					} else {
-						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
+						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your masculine appearance, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
@@ -14785,10 +16093,26 @@ public abstract class GameCharacter implements XMLSaving {
 				&& this.getRace()!=Race.SLIME;
 	}
 	
+	/**
+	 * @return True if this character's self-transform menu can be accessed.
+	 */
 	public boolean isAbleToSelfTransform() {
-		return this instanceof Elemental
-				|| this.getRace()==Race.DEMON
-				|| this.getRace()==Race.SLIME;
+		return getUnableToTransformDescription().isEmpty();
+	}
+	
+	/**
+	 * @return A description of why this character cannot self-transform. Returns an empty String if they are able to self-transform.
+	 */
+	public String getUnableToTransformDescription() {
+		if((this.getSubspeciesOverride()==null || this.getSubspeciesOverride().getRace()!=Race.DEMON)
+				&& this.getRace()!=Race.SLIME
+				&& !(this instanceof Elemental)) {
+			return "Only demons, slimes, and elementals can transform their bodies at will!";
+		}
+		if(Main.game.isInSex() && Sex.isSelfTransformDisabled(this)) {
+			return UtilText.parse(this, "Although [npc.nameIsFull] normally able to self-transform, [npc.she] cannot do so during this sex scene!");
+		}
+		return "";
 	}
 	
 	public Race getAntennaRace() {
@@ -14805,6 +16129,10 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public Race getBreastRace() {
 		return body.getBreast().getType().getRace();
+	}
+
+	public Race getBreastCrotchRace() {
+		return body.getBreastCrotch().getType().getRace();
 	}
 
 	public Race getFaceRace() {
@@ -14862,7 +16190,7 @@ public abstract class GameCharacter implements XMLSaving {
 		StringBuilder postTFSB = new StringBuilder();
 		// If this is the first time getting this covering type:
 		for(BodyPartInterface bp : this.getAllBodyParts()) {
-			BodyCoveringType bct = bp.getType().getBodyCoveringType(this);
+			BodyCoveringType bct = bp.getBodyCoveringType(this);
 			if(!this.getBodyCoveringTypesDiscovered().contains(bct)) {
 				if(bct!=null) {
 					this.getBodyCoveringTypesDiscovered().add(bct);
@@ -14887,6 +16215,10 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case NIPPLES:
 							this.body.updateNippleColouring();
+							bctName = bct.getName(this);
+							break;
+						case NIPPLES_CROTCH:
+							this.body.updateNippleCrotchColouring();
 							bctName = bct.getName(this);
 							break;
 						case PENIS:
@@ -15556,6 +16888,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setAntennaType(AntennaType hornType) {
 		return body.getAntenna().setType(this, hornType);
 	}
+	public BodyCoveringType getAntennaCovering() {
+		return getCovering(body.getAntenna());
+	}
+	public boolean isAntennaBestial() {
+		return body.getAntenna().isBestial(this);
+	}
 	// Misc.:
 	public boolean hasAntennas() {
 		return body.getAntenna().getType() != AntennaType.NONE;
@@ -15600,6 +16938,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setArmType(AbstractArmType type) {
 		return body.getArm().setType(this, type);
+	}
+	public BodyCoveringType getArmCovering() {
+		return getCovering(body.getArm());
+	}
+	public boolean isArmBestial() {
+		return body.getArm().isBestial(this);
 	}
 	// Names:
 	public String getArmName() {
@@ -15696,6 +17040,18 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setAssType(AbstractAssType type) {
 		return body.getAss().setType(this, type);
 	}
+	public BodyCoveringType getAssCovering() {
+		return getCovering(body.getAss());
+	}
+	public BodyCoveringType getAnusCovering() {
+		return getCovering(body.getAss().getAnus());
+	}
+	public boolean isAssBestial() {
+		return body.getAss().isBestial(this);
+	}
+	public boolean isAnusBestial() {
+		return body.getAss().getAnus().isBestial(this);
+	}
 	// Names:
 	public String getAssName() {
 		return body.getAss().getName(this);
@@ -15715,8 +17071,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getAssPronoun() {
 		return body.getAss().getType().getPronoun();
 	}
-	public String getAssDescription() {
-		return body.getAssDescription(this);
+	/**
+	 * @param locationSpecific Whether this description is specific to looking at the person's ass. If they have a cloaca, and you pass in true, it will say something along the lines of "there's no asshole here".
+	 * @return A description of this character's asshole.
+	 */
+	public String getAssDescription(boolean locationSpecific) {
+		return body.getAssDescription(this, locationSpecific);
 	}
 	// Names:
 	public String getAnusName() {
@@ -16055,6 +17415,10 @@ public abstract class GameCharacter implements XMLSaving {
 					this.setBreastType(BreastType.DEMON_COMMON);
 					resetAreas = true;
 				}
+				if(this.getBreastCrotchType().getRace()!=Race.DEMON && this.getBreastCrotchType()!=BreastType.NONE) {
+					this.setBreastCrotchType(BreastType.DEMON_COMMON);
+					resetAreas = true;
+				}
 				if(this.getEarType().getRace()!=Race.DEMON) {
 					this.setEarType(EarType.DEMON_COMMON);
 					resetAreas = true;
@@ -16123,6 +17487,10 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				if(this.getBreastType().getRace()!=Race.DEMON) {
 					this.setBreastType(BreastType.DEMON_COMMON);
+					resetAreas = true;
+				}
+				if(this.getBreastCrotchType().getRace()!=Race.DEMON && this.getBreastCrotchType()!=BreastType.NONE) {
+					this.setBreastCrotchType(BreastType.DEMON_COMMON);
 					resetAreas = true;
 				}
 				if(race==Race.HUMAN) {
@@ -16227,6 +17595,10 @@ public abstract class GameCharacter implements XMLSaving {
 					this.setBreastType(BreastType.HUMAN);
 					resetAreas = true;
 				}
+				if(this.getBreastCrotchType().getRace()==Race.DEMON) {
+					this.setBreastCrotchType(BreastType.HUMAN);
+					resetAreas = true;
+				}
 				if(this.getEarType().getRace()==Race.DEMON) {
 					this.setEarType(EarType.HUMAN);
 					resetAreas = true;
@@ -16301,6 +17673,18 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public boolean isBreastFuckablePaizuri() {
 		return body.getBreast().getRawSizeValue() >= CupSize.C.getMeasurement();
+	}
+	public BodyCoveringType getBreastCovering() {
+		return getCovering(body.getBreast());
+	}
+	public BodyCoveringType getNippleCovering() {
+		return getCovering(body.getBreast().getNipples());
+	}
+	public boolean isBreastBestial() {
+		return body.getBreast().isBestial(this);
+	}
+	public boolean isNippleBestial() {
+		return body.getBreast().getNipples().isBestial(this);
 	}
 	// Type:
 	public AbstractBreastType getBreastType() {
@@ -16592,6 +17976,323 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	
+// ------------------------------ Crotch Breasts: ------------------------------ //
+
+	// Misc:
+	public boolean hasBreastsCrotch() {
+		return body.getBreastCrotch().getType()!=BreastType.NONE;
+	}
+	public boolean isBreastsCrotchVisibleThroughClothing() {
+		return body.getBreastCrotch().isVisibleThroughClothing(this);
+	}
+	public boolean isBreastCrotchFuckableNipplePenetration() {
+		return body.getBreastCrotch().isFuckable();
+	}
+	public boolean isBreastCrotchFuckablePaizuri() {
+		return body.getBreastCrotch().getRawSizeValue() >= CupSize.C.getMeasurement();
+	}
+	public BodyCoveringType getBreastCrotchCovering() {
+		return getCovering(body.getBreastCrotch());
+	}
+	public BodyCoveringType getNippleCrotchCovering() {
+		return getCovering(body.getBreastCrotch().getNipples());
+	}
+	public boolean isBreastCrotchBestial() {
+		return body.getBreastCrotch().isBestial(this);
+	}
+	public boolean isNippleCrotchBestial() {
+		return body.getBreastCrotch().getNipples().isBestial(this);
+	}
+	// Type:
+	public AbstractBreastType getBreastCrotchType() {
+		return body.getBreastCrotch().getType();
+	}
+	public String setBreastCrotchType(AbstractBreastType type) {
+		return body.getBreastCrotch().setType(this, type);
+	}
+	// Shape:
+	public BreastShape getBreastCrotchShape() {
+		return body.getBreastCrotch().getShape();
+	}
+	public String setBreastCrotchShape(BreastShape shape) {
+		return body.getBreastCrotch().setShape(this, shape);
+	}
+	// Names:
+	public String getBreastCrotchName() {
+		return body.getBreastCrotch().getName(this);
+	}
+	public String getBreastCrotchNameSingular() {
+		return body.getBreastCrotch().getNameSingular(this);
+	}
+	public String getBreastCrotchName(boolean withDescriptor) {
+		return body.getBreastCrotch().getName(this, withDescriptor);
+	}
+	public String getBreastCrotchDescriptor() {
+		return body.getBreastCrotch().getDescriptor(this);
+	}
+	public String getBreastCrotchPronoun() {
+		return body.getBreastCrotch().getType().getPronoun();
+	}
+	public String getBreastCrotchDescription() {
+		return body.getBreastCrotchDescription(this);
+	}
+	// Breast rows:
+	public int getBreastCrotchRows() {
+		return body.getBreastCrotch().getRows();
+	}
+	public String setBreastCrotchRows(int rows) {
+		return body.getBreastCrotch().setRows(this, rows);
+	}
+	public String incrementBreastCrotchRows(int increment) {
+		return setBreastCrotchRows(getBreastCrotchRows() + increment);
+	}
+	// Lactation:
+	public Lactation getBreastCrotchMilkStorage() {
+		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+			return Lactation.ZERO_NONE;
+		}
+		return body.getBreastCrotch().getMilkStorage();
+	}
+	public int getBreastCrotchRawMilkStorageValue() {
+		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+			return 0;
+		}
+		return body.getBreastCrotch().getRawMilkStorageValue();
+	}
+	public String setBreastCrotchMilkStorage(int lactation) {
+		return body.getBreastCrotch().setMilkStorage(this, lactation);
+	}
+	public String incrementBreastCrotchMilkStorage(int increment) {
+		return setBreastCrotchMilkStorage(getBreastCrotchRawMilkStorageValue() + increment);
+	}
+	// Current milk:
+	public Lactation getBreastCrotchStoredMilk() {
+		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+			return Lactation.ZERO_NONE;
+		}
+		return body.getBreastCrotch().getStoredMilk();
+	}
+	public float getBreastCrotchRawStoredMilkValue() {
+		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+			return 0;
+		}
+		return body.getBreastCrotch().getRawStoredMilkValue();
+	}
+	public String setBreastCrotchStoredMilk(float lactation) {
+		return body.getBreastCrotch().setStoredMilk(this, lactation);
+	}
+	public String incrementBreastCrotchStoredMilk(float increment) {
+		return setBreastCrotchStoredMilk(getBreastCrotchRawStoredMilkValue() + increment);
+	}
+	// Regen:
+	public FluidRegeneration getBreastCrotchLactationRegeneration() {
+		return body.getBreastCrotch().getLactationRegeneration();
+	}
+	public int getBreastCrotchRawLactationRegenerationValue() {
+		return body.getBreastCrotch().getRawLactationRegenerationValue();
+	}
+	public String setBreastCrotchLactationRegeneration(int regenerationValue) {
+		return body.getBreastCrotch().setLactationRegeneration(this, regenerationValue);
+	}
+	public String incrementBreastCrotchLactationRegeneration(int increment) {
+		return setBreastCrotchLactationRegeneration(getBreastCrotchRawLactationRegenerationValue() + increment);
+	}
+	// Breast size:
+	public CupSize getBreastCrotchSize() {
+		return body.getBreastCrotch().getSize();
+	}
+	public int getBreastCrotchRawSizeValue() {
+		return body.getBreastCrotch().getRawSizeValue();
+	}
+	public String setBreastCrotchSize(int size) {
+		return body.getBreastCrotch().setSize(this, size);
+	}
+	public String setBreastCrotchSize(CupSize size) {
+		return body.getBreastCrotch().setSize(this, size.getMeasurement());
+	}
+	public String incrementBreastCrotchSize(int increment) {
+		return setBreastCrotchSize(getBreastCrotchRawSizeValue() + increment);
+	}
+	
+	// Nipples:
+	
+	// Type:
+	/**NippleType is automatically changed when BreastCrotchType is set.*/
+	public NippleType getNippleCrotchType() {
+		return body.getBreastCrotch().getNipples().getType();
+	}
+	// Names:
+	public String getNippleCrotchName() {
+		return body.getBreastCrotch().getNipples().getName(this);
+	}
+	public String getNippleCrotchNameSingular() {
+		return body.getBreastCrotch().getNipples().getNameSingular(this, false);
+	}
+	public String getNippleCrotchName(boolean withDescriptor) {
+		return body.getBreastCrotch().getNipples().getName(this, withDescriptor);
+	}
+	public String getNippleCrotchDescriptor() {
+		return body.getBreastCrotch().getNipples().getDescriptor(this);
+	}
+	// Count:
+	public int getNippleCrotchCountPerBreast() {
+		return body.getBreastCrotch().getNippleCountPerBreast();
+	}
+	public String setNippleCrotchCountPerBreast(int count) {
+		return body.getBreastCrotch().setNippleCountPerBreast(this, count);
+	}
+	public String incrementNippleCrotchCountPerBreast(int increment) {
+		return body.getBreastCrotch().setNippleCountPerBreast(this, getNippleCrotchCountPerBreast() + increment);
+	}
+	// Nipple Shape:
+	public NippleShape getNippleCrotchShape() {
+		return body.getBreastCrotch().getNipples().getNippleShape();
+	}
+	public String setNippleCrotchShape(NippleShape nippleShape) {
+		return body.getBreastCrotch().getNipples().setNippleShape(this, nippleShape);
+	}
+	// Nipple size:
+	public NippleSize getNippleCrotchSize() {
+		return body.getBreastCrotch().getNipples().getNippleSize();
+	}
+	public String setNippleCrotchSize(int nippleSize) {
+		return body.getBreastCrotch().getNipples().setNippleSize(this, nippleSize);
+	}
+	public String setNippleCrotchSize(NippleSize nippleSize) {
+		return body.getBreastCrotch().getNipples().setNippleSize(this, nippleSize.getValue());
+	}
+	public String incrementNippleCrotchSize(int increment) {
+		return body.getBreastCrotch().getNipples().setNippleSize(this, getNippleCrotchSize().getValue() + increment);
+	}
+	// Areolae size:
+	public AreolaeSize getAreolaeCrotchSize() {
+		return body.getBreastCrotch().getNipples().getAreolaeSize();
+	}
+	public String setAreolaeCrotchSize(int areolaeSize) {
+		return body.getBreastCrotch().getNipples().setAreolaeSize(this, areolaeSize);
+	}
+	public String setAreolaeCrotchSize(AreolaeSize areolaeSize) {
+		return body.getBreastCrotch().getNipples().setAreolaeSize(this, areolaeSize.getValue());
+	}
+	public String incrementAreolaeCrotchSize(int increment) {
+		return body.getBreastCrotch().getNipples().setAreolaeSize(this, getAreolaeCrotchSize().getValue() + increment);
+	}
+	// Areolae Shape:
+	public AreolaeShape getAreolaeCrotchShape() {
+		return body.getBreastCrotch().getNipples().getAreolaeShape();
+	}
+	public String setAreolaeCrotchShape(AreolaeShape areolaeShape) {
+		return body.getBreastCrotch().getNipples().setAreolaeShape(this, areolaeShape);
+	}
+	// Piercing:
+	public boolean isPiercedNippleCrotch() {
+		return body.getBreastCrotch().getNipples().isPierced();
+	}
+	public String setPiercedNipplesCrotch(boolean pierced) {
+		return body.getBreastCrotch().getNipples().setPierced(this, pierced);
+	}
+	// Orifice stats:
+	// Wetness:
+	public Wetness getNippleCrotchWetness() {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().getWetness(this);
+	}
+	// Capacity:
+	public Capacity getNippleCrotchCapacity() {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().getCapacity();
+	}
+	public float getNippleCrotchRawCapacityValue() {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().getRawCapacityValue();
+	}
+	public float getNippleCrotchStretchedCapacity() {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().getStretchedCapacity();
+	}
+	public void setNippleCrotchStretchedCapacity(float capacity){
+		body.getBreastCrotch().getNipples().getOrificeNipples().setStretchedCapacity(capacity);
+	}
+	public void incrementNippleCrotchStretchedCapacity(float increment){
+		body.getBreastCrotch().getNipples().getOrificeNipples().setStretchedCapacity(getNippleCrotchStretchedCapacity() + increment);
+	}
+	public String setNippleCrotchCapacity(float capacity, boolean setStretchedValueToNewValue) {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().setCapacity(this, capacity, setStretchedValueToNewValue);
+	}
+	public String incrementNippleCrotchCapacity(float increment, boolean setStretchedValueToNewValue) {
+		return setNippleCrotchCapacity(getNippleCrotchRawCapacityValue() + increment, setStretchedValueToNewValue);
+	}
+	// Elasticity:
+	public OrificeElasticity getNippleCrotchElasticity() {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().getElasticity();
+	}
+	public String setNippleCrotchElasticity(int elasticity) {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().setElasticity(this, elasticity);
+	}
+	public String incrementNippleCrotchElasticity(int increment) {
+		return setNippleCrotchElasticity(getNippleCrotchElasticity().getValue() + increment);
+	}
+	// Plasticity:
+	public OrificePlasticity getNippleCrotchPlasticity() {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().getPlasticity();
+	}
+	public String setNippleCrotchPlasticity(int plasticity) {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().setPlasticity(this, plasticity);
+	}
+	public String incrementNippleCrotchPlasticity(int increment) {
+		return setNippleCrotchPlasticity(getNippleCrotchPlasticity().getValue() + increment);
+	}
+	// Virginity:
+	public boolean isNippleCrotchVirgin() {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().isVirgin();
+	}
+	public void setNippleCrotchVirgin(boolean virgin) {
+		body.getBreastCrotch().getNipples().getOrificeNipples().setVirgin(virgin);
+	}
+	// Modifiers:
+	public Set<OrificeModifier> getNippleCrotchOrificeModifiers() {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().getOrificeModifiers();
+	}
+	public boolean hasNippleCrotchOrificeModifier(OrificeModifier modifier) {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().hasOrificeModifier(modifier);
+	}
+	public String addNippleCrotchOrificeModifier(OrificeModifier modifier) {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().addOrificeModifier(this, modifier);
+	}
+	public String removeNippleCrotchOrificeModifier(OrificeModifier modifier) {
+		return body.getBreastCrotch().getNipples().getOrificeNipples().removeOrificeModifier(this, modifier);
+	}
+	
+	// Milk:
+	public FluidMilk getMilkCrotch() {
+		return body.getBreastCrotch().getMilk();
+	}
+	public FluidType getMilkCrotchType() {
+		return body.getBreastCrotch().getMilk().getType();
+	}
+	public String getMilkCrotchName() {
+		return body.getBreastCrotch().getMilk().getName(this);
+	}
+	// Flavour:
+	public FluidFlavour getMilkCrotchFlavour() {
+		return body.getBreastCrotch().getMilk().getFlavour();
+	}
+	public String setMilkCrotchFlavour(FluidFlavour flavour) {
+		return body.getBreastCrotch().getMilk().setFlavour(this, flavour);
+	}
+	// Modifiers:
+	public boolean hasMilkCrotchModifier(FluidModifier fluidModifier) {
+		return body.getBreastCrotch().getMilk().hasFluidModifier(fluidModifier);
+	}
+	public String addMilkCrotchModifier(FluidModifier fluidModifier) {
+		return body.getBreastCrotch().getMilk().addFluidModifier(this, fluidModifier);
+	}
+	public String removeMilkCrotchModifier(FluidModifier fluidModifier) {
+		return body.getBreastCrotch().getMilk().removeFluidModifier(this, fluidModifier);
+	}
+	// Transformations:
+	public List<ItemEffect> getMilkCrotchTransformativeEffects() {
+		return body.getBreastCrotch().getMilk().getTransformativeEffects();
+	}
+	
+	
+	
 	// ------------------------------ Ears: ------------------------------ //
 	
 	// Type:
@@ -16600,6 +18301,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setEarType(EarType type) {
 		return body.getEar().setType(this, type);
+	}
+	public BodyCoveringType getEarCovering() {
+		return getCovering(body.getEar());
+	}
+	public boolean isEarBestial() {
+		return body.getEar().isBestial(this);
 	}
 	// Names:
 	public String getEarName() {
@@ -16638,6 +18345,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setEyeType(EyeType type) {
 		return body.getEye().setType(this, type);
+	}
+	public BodyCoveringType getEyeCovering() {
+		return getCovering(body.getEye());
+	}
+	public boolean isEyeBestial() {
+		return body.getEye().isBestial(this);
 	}
 	// Names:
 	public String getEyeName() {
@@ -16759,6 +18472,15 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setFaceType(FaceType type) {
 		return body.getFace().setType(this, type);
+	}
+	public BodyCoveringType getFaceCovering() {
+		return getCovering(body.getFace());
+	}
+	public BodyCoveringType getMouthCovering() {
+		return getCovering(body.getFace().getMouth());
+	}
+	public boolean isFaceBestial() {
+		return body.getFace().isBestial(this);
 	}
 	// Names:
 	public String getFaceName() {
@@ -17002,12 +18724,57 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Type:
 	public GenitalArrangement getGenitalArrangement() {
+		if(!Main.getProperties().hasValue(PropertyValue.bipedalCloaca) && this.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+			return GenitalArrangement.NORMAL;
+		}
 		return body.getGenitalArrangement();
 	}
 	public String setGenitalArrangement(GenitalArrangement type) {
-		body.setGenitalArrangement(type);
+		if(this.getGenitalArrangement() == type) {
+			System.out.println("hmmmmmm");
+			return "<p>"
+						+ UtilText.parse(this, "[style.italicsDisabled(Nothing happens, as [npc.namePos] genitals are already in this configuration...)]")
+					+ "</p>";
+		}
+		if(!this.getLegConfiguration().isGenitalConfigurationTransformable()) {
+			System.out.println("hmm");
+			return "<p>"
+						+ UtilText.parse(this, "[style.italicsDisabled(Nothing happens, as [npc.namePos] genital configuration cannot be transformed while [npc.her] lower body is of type '[npc.legConfiguration]'...)]")
+					+ "</p>";
+		}
 		
-		return ""; // TODO
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p>");
+		switch(this.getGenitalArrangement()) {
+			case CLOACA:
+				sb.append(UtilText.parse(this, "[npc.Name] [npc.verb(let)] out a surprised gasp as an intense, tingling sensation runs down into [npc.her] cloaca."));
+				break;
+			case CLOACA_BEHIND:
+				sb.append(UtilText.parse(this, "[npc.Name] [npc.verb(let)] out a surprised gasp as an intense, tingling sensation runs down into [npc.her] rear-facing cloaca."));
+				break;
+			case NORMAL:
+				sb.append(UtilText.parse(this, "[npc.Name] [npc.verb(let)] out a surprised gasp as an intense, tingling sensation runs down into [npc.her] crotch and ass."));
+				break;
+		}
+
+		body.setGenitalArrangement(type);
+		switch(type) {
+			case CLOACA:
+				sb.append(UtilText.parse(this, " Before [npc.sheHasFull] a chance to react, [npc.her] internal organs shift and transform;"
+						+ " [npc.her] genitals and asshole reposition themselves to be located within a [style.boldTfSex(front-facing, slit-like cloaca, in the place where [npc.her] genitals should normally be)]."));
+				break;
+			case CLOACA_BEHIND:
+				sb.append(UtilText.parse(this, " Before [npc.sheHasFull] a chance to react, [npc.her] internal organs shift and transform;"
+						+ " [npc.her] genitals and asshole reposition themselves to be located within a [style.boldTfSex(rear-facing, slit-like cloaca, in the place where [npc.her] asshole should normally be)]."));
+				break;
+			case NORMAL:
+				sb.append(UtilText.parse(this, " Before [npc.sheHasFull] a chance to react, [npc.her] internal organs shift and transform;"
+						+ " [npc.her] cloaca quickly disappears, leaving [npc.her] [style.boldTfSex(genitals and asshole to be located in the places where they would normally be)]."));
+				break;
+		}
+		sb.append("</p>");
+		
+		return sb.toString();
 	}
 	
 	
@@ -17024,6 +18791,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setHairType(HairType type) {
 		return body.getHair().setType(this, type);
+	}
+	public BodyCoveringType getHairCovering() {
+		return getCovering(body.getHair());
+	}
+	public boolean isHairBestial() {
+		return body.getHair().isBestial(this);
 	}
 	// Names:
 	public String getHairName() {
@@ -17066,7 +18839,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Covering:
 	public String setHairCovering(Covering covering, boolean updateBodyHair) {
-		if(!getCovering(getHairType().getBodyCoveringType(this)).equals(covering)) {
+		if(!getCovering(getHairCovering()).equals(covering)) {
 			body.getCoverings().put(covering.getType(), covering);
 
 			body.updateCoverings(false, false, updateBodyHair, false);
@@ -17097,11 +18870,17 @@ public abstract class GameCharacter implements XMLSaving {
 	// ------------------------------ Horns: ------------------------------ //
 	
 	// Type:
-	public HornType getHornType() {
+	public AbstractHornType getHornType() {
 		return body.getHorn().getType();
 	}
-	public String setHornType(HornType hornType) {
+	public String setHornType(AbstractHornType hornType) {
 		return body.getHorn().setType(this, hornType);
+	}
+	public BodyCoveringType getHornCovering() {
+		return getCovering(body.getHorn());
+	}
+	public boolean isHornBestial() {
+		return body.getHorn().isBestial(this);
 	}
 	// Misc.:
 	public boolean hasHorns() {
@@ -17156,25 +18935,42 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementHornsPerRow(int increment) {
 		return body.getHorn().setHornsPerRow(this, getHornsPerRow() + increment);
 	}
+	public int getTotalHorns() {
+		return body.getHorn().getHornsPerRow() * body.getHorn().getHornRows();
+	}
 	
 	
 	
 	// ------------------------------ Legs: ------------------------------ //
 	
 	// Type:
-	public LegType getLegType() {
+	public AbstractLegType getLegType() {
 		return body.getLeg().getType();
 	}
-	public String setLegType(LegType type) {
+	public String setLegType(AbstractLegType type) {
 		return body.getLeg().setType(this, type);
+	}
+	public BodyCoveringType getLegCovering() {
+		return getCovering(body.getLeg());
+	}
+	public boolean isLegBestial() {
+		return body.getLeg().isBestial(this);
 	}
 	// Foot Structure:
 	public FootStructure getFootStructure() {
 		return body.getLeg().getFootStructure();
 	}
 	public String setFootStructure(FootStructure footStructure) {
-		return body.getLeg().setFootStructure(footStructure);
+		return body.getLeg().setFootStructure(this, footStructure);
 	}
+	// LegConfiguration:
+	public LegConfiguration getLegConfiguration() {
+		return body.getLeg().getLegConfiguration();
+	}
+	// Leg configuration needs to be set from an AbstractLegType 
+//	public String setLegConfiguration(LegConfiguration legConfiguration, boolean overrideAvailabilityCheck) {
+//		return body.getLeg().setLegConfiguration(this, legConfiguration, overrideAvailabilityCheck);
+//	}
 	// Name:
 	public String getLegName() {
 		return body.getLeg().getName(this);
@@ -17238,6 +19034,12 @@ public abstract class GameCharacter implements XMLSaving {
 	// Type:
 	public TongueType getTongueType() {
 		return body.getFace().getTongue().getType();
+	}
+	public BodyCoveringType getTongueCovering() {
+		return getCovering(body.getFace().getTongue());
+	}
+	public boolean isTongueBestial() {
+		return body.getFace().getTongue().isBestial(this);
 	}
 	// Names:
 	public String getTongueName() {
@@ -17328,6 +19130,34 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getPenis();
 	}
 	
+	/**
+	 * @return True if this character has an erection. Erections can currently only occur during sex, and are prevented by certain items of clothing.
+	 */
+	public boolean hasErection() {
+		if(Main.game.isInSex()) {
+			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+				if(c.getClothingType().getItemTags().contains(ItemTag.PREVENTS_ERECTION_OTHER)
+						|| c.getClothingType().getItemTags().contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @return True if this character's erection is, or would, be prevented by an item of restrictive clothing.
+	 */
+	public boolean isErectionPreventedPhysically() {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.getClothingType().getItemTags().contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	// Type:
 	public PenisType getPenisType() {
 		return getCurrentPenis().getType();
@@ -17350,6 +19180,12 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		return s + clothingRemovalSB.toString();
+	}
+	public BodyCoveringType getPenisCovering() {
+		return getCurrentPenis().getBodyCoveringType(this);
+	}
+	public boolean isPenisBestial() {
+		return getCurrentPenis().isBestial(this);
 	}
 	// Misc.:
 	public boolean hasPenisIgnoreDildo() {
@@ -17517,6 +19353,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setSecondPenisType(PenisType type) {
 		return body.getSecondPenis().setType(this, type);
 	}
+	public BodyCoveringType getSecondPenisCovering() {
+		return getCovering(body.getSecondPenis());
+	}
+	public boolean isSecondPenisBestial() {
+		return body.getSecondPenis().isBestial(this);
+	}
 	// Misc.:
 	public boolean hasSecondPenis() {
 		return body.getSecondPenis().getType() != PenisType.NONE;
@@ -17629,7 +19471,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	// ------------------------------ Testicles: ------------------------------ //
-	
+
+	public BodyCoveringType getTesticlesCovering() {
+		return getCovering(body.getPenis().getTesticle());
+	}
+	public boolean isTesticlesBestial() {
+		return body.getPenis().getTesticle().isBestial(this);
+	}
 	// Count:
 	public int getPenisNumberOfTesticles() {
 		return getCurrentPenis().getTesticle().getTesticleCount();
@@ -17803,6 +19651,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setSkinType(SkinType type) {
 		return body.getSkin().setType(this, type);
 	}
+	public BodyCoveringType getSkinCovering() {
+		return getCovering(body.getSkin());
+	}
+	public boolean isSkinBestial() {
+		return body.getSkin().isBestial(this);
+	}
 	// Names:
 	public String getSkinName() {
 		return body.getSkin().getName(this);
@@ -17819,8 +19673,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getSkinPronoun() {
 		return body.getSkin().getType().getPronoun();
 	}
+	public BodyCoveringType getCovering(BodyPartInterface bodyPart) {
+		return bodyPart.getBodyCoveringType(this);
+	}
 	public Covering getCovering(BodyCoveringType bodyCoveringType) {
-		
 		switch(bodyCoveringType) {
 			case MAKEUP_BLUSHER:
 			case MAKEUP_EYE_LINER:
@@ -17927,6 +19783,9 @@ public abstract class GameCharacter implements XMLSaving {
 				case NIPPLES:
 				case SLIME_NIPPLES:
 					return body.getCoverings().get(BodyCoveringType.SLIME_NIPPLES);
+				case NIPPLES_CROTCH:
+				case SLIME_NIPPLES_CROTCH:
+					return body.getCoverings().get(BodyCoveringType.SLIME_NIPPLES_CROTCH);
 				case MOUTH:
 				case SLIME_MOUTH:
 					return body.getCoverings().get(BodyCoveringType.SLIME_MOUTH);
@@ -17964,7 +19823,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if(!getCovering(getSkinType().getBodyCoveringType(this)).equals(covering)) {
+		if(!getCovering(covering.getType()).equals(covering)) {
 
 			BodyCoveringType coveringType = covering.getType();
 			
@@ -17974,7 +19833,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			List<String> affectedParts = new ArrayList<>();
 			for (BodyPartInterface part : body.getAllBodyParts()) {
-				if (part.getType().getBodyCoveringType(this) == coveringType) {
+				if (part.getBodyCoveringType(this) == coveringType) {
 					affectedParts.add(part.getName(this));
 				}
 			}
@@ -18021,6 +19880,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setTailType(TailType type) {
 		return body.getTail().setType(this, type);
 	}
+	public BodyCoveringType getTailCovering() {
+		return getCovering(body.getTail());
+	}
+	public boolean isTailBestial() {
+		return body.getTail().isBestial(this);
+	}
 	// Misc.:
 	public boolean isTailPrehensile(){
 		return body.getTail().getType().isPrehensile();
@@ -18055,13 +19920,22 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	// ------------------------------ Tentacle: ------------------------------ //
-	
+
+	public boolean hasTentacle() {
+		return getTentacleType() != TentacleType.NONE;
+	}
 	// Type:
 	public TentacleType getTentacleType() {
 		return body.getTentacle().getType();
 	}
 	public String setTentacleType(TentacleType type) {
 		return body.getTentacle().setType(this, type);
+	}
+	public BodyCoveringType getTentacleCovering() {
+		return getCovering(body.getTentacle());
+	}
+	public boolean isTentacleBestial() {
+		return body.getTentacle().isBestial(this);
 	}
 	// Names:
 	public String getTentacleName() {
@@ -18103,6 +19977,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setVaginaType(VaginaType type) {
 		return body.getVagina().setType(this, type);
+	}
+	public BodyCoveringType getVaginaCovering() {
+		return getCovering(body.getVagina());
+	}
+	public boolean isVaginaBestial() {
+		return body.getVagina().isBestial(this);
 	}
 	// Misc.:
 	public boolean hasVagina() {
@@ -18235,6 +20115,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	//Clitoris:
+	public boolean isClitorisBestial() {
+		return body.getVagina().getClitoris().isBestial(this);
+	}
 	// Clitoris size:
 	public ClitorisSize getVaginaClitorisSize() {
 		return body.getVagina().getClitoris().getClitorisSize();
@@ -18382,13 +20265,22 @@ public abstract class GameCharacter implements XMLSaving {
 		
 	
 	// ------------------------------ Wings: ------------------------------ //
-	
+
+	public boolean hasWings() {
+		return getWingType() != WingType.NONE;
+	}
 	// Type:
 	public WingType getWingType() {
 		return body.getWing().getType();
 	}
 	public String setWingType(WingType type) {
 		return body.getWing().setType(this, type);
+	}
+	public BodyCoveringType getWingCovering() {
+		return getCovering(body.getWing());
+	}
+	public boolean isWingBestial() {
+		return body.getWing().isBestial(this);
 	}
 	// Size:
 	public WingSize getWingSize() {
@@ -18421,5 +20313,22 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public abstract boolean isAbleToBeImpregnated();
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		GameCharacter that = (GameCharacter) o;
+		return Objects.equals(id, that.id);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
 }

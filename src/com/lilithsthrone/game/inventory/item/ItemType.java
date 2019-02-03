@@ -36,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class ItemType {
@@ -467,7 +467,6 @@ public class ItemType {
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.ATTRIBUTE_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
-
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1359,6 +1358,55 @@ public class ItemType {
 	};
 	
 	// Racial ingredients:
+	
+
+	public static AbstractItemType DEBUG_DEMON_POTION = new AbstractItemType(100_000_000,
+			"a bottle of",
+			false,
+			"Innoxia's Gift",
+			"Innoxia's Gifts",
+			"Once thought to be lost forever, this bottle of bubbling pink liquid has made a surprise return, and can turn anyone who drinks it into a demon!"
+					+ "<br/>[style.italicsMinorGood(While this is a debug-only item, it should be safe to use anywhere.)]",
+			"raceDemonInnoxiasGift",
+			Colour.ATTRIBUTE_CORRUPTION,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DEBUG_DEMON_POTION_EFFECT)),
+			Util.newArrayListOfValues()) {
+
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return true;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"The moment you pull the stopper out from the top of the bottle of 'Innoxia's Gift', you're filled with a desperate need to drink the bubbling pink liquid contained within."
+							+ " Instantly, you bring the bottle to your lips and gulp it all down, suppressing your gag reflex as your senses are overwhelmed by how sickeningly sweet it is.",
+					"You pull the stopper out from the top of the bottle of 'Innoxia's Gift', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
+					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
+						+ " You suppress your gag reflex as your senses are suddenly overwhelmed by the sickeningly-sweet liquid.");
+		}
+	};
 	
 	public static AbstractItemType RACE_INGREDIENT_HUMAN = new AbstractItemType(1000,
 			"a vial of",

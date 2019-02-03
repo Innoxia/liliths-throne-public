@@ -71,8 +71,9 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -266,7 +267,7 @@ public class Vicky extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(35);
+		this.setPenisSize(22);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();
@@ -361,19 +362,22 @@ public class Vicky extends NPC {
 				break;
 			}
 		}
-		
+//		System.out.println(availableIngredients.length);
 		
 		AbstractItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		for(int i=0; i<10;i++) {
-			if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0, Main.game.getPlayer(), Main.game.getPlayer())!=null) {
-				AbstractItem potion = EnchantingUtils.craftItem(ingredient, Util.newArrayListOfValues(new ItemEffect(ingredient.getEnchantmentEffect(), primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0)));
-				this.addItem(potion, false);
-				potion.setName(EnchantingUtils.getPotionName(ingredient, potion.getEffects()));
+			try {
+				if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0, Main.game.getPlayer(), Main.game.getPlayer())!=null) {
+					AbstractItem potion = EnchantingUtils.craftItem(ingredient, Util.newArrayListOfValues(new ItemEffect(ingredient.getEnchantmentEffect(), primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0)));
+					this.addItem(potion, false);
+					potion.setName(EnchantingUtils.getPotionName(ingredient, potion.getEffects()));
+				}
+				
+				ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
+				primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
+			} catch(Exception ex) {
 			}
-			
-			ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
-			primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		}
 		
 		for(AbstractItemType itemType : availableSpellBooks) {
@@ -455,10 +459,10 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
+	public Set<SexSlot> getSexPositionPreferences(GameCharacter target) {
 		sexPositionPreferences.clear();
 		
-		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM);
+		sexPositionPreferences.add(SexSlotBipeds.MISSIONARY_DESK_DOM);
 		
 		return sexPositionPreferences;
 	}

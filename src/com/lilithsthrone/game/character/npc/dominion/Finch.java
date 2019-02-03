@@ -175,7 +175,7 @@ public class Finch extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.ZERO_SLENDER);
+		this.setPenisGirth(PenisGirth.ONE_THIN);
 		this.setPenisSize(8);
 		this.setTesticleSize(TesticleSize.ONE_TINY);
 		// Leave cum as normal value

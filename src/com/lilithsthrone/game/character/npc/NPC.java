@@ -75,8 +75,10 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -106,7 +108,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public Set<NPCFlagValue> NPCFlagValues;
 	
-	protected Set<SexPositionSlot> sexPositionPreferences;
+	protected Set<SexSlot> sexPositionPreferences;
 	
 	protected Body bodyPreference = null;
 	
@@ -147,7 +149,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 			for(CoverableArea ca : CoverableArea.values()) {
-				if(isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
+				if(isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 				}
 			}
@@ -797,6 +799,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 					
 				case HORSE_MORPH:
+				case HORSE_MORPH_UNICORN:
+				case HORSE_MORPH_PEGASUS:
+				case HORSE_MORPH_ALICORN:
+				case CENTAUR:
+				case PEGATAUR:
+				case ALITAUR:
+				case UNITAUR:
 				case HORSE_MORPH_ZEBRA:
 					raceIngredient = ItemType.STR_INGREDIENT_EQUINE_CIDER;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_HORSE_MORPH;
@@ -1078,7 +1087,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public String getPreferredBodyDescription(String tag) {
 		return "<"+tag+" style='color:"+getPreferredBody().getGender().getColour().toWebHexString()+";'>"+getPreferredBody().getGender().getName()+"</"+tag+">"
-				+ " <"+tag+" style='color:"+getPreferredBody().getRace().getColour().toWebHexString()+";'>"+getPreferredBody().getRace().getName()+"</"+tag+">";
+				+ " <"+tag+" style='color:"+getPreferredBody().getRace().getColour().toWebHexString()+";'>"+getPreferredBody().getRace().getName(false)+"</"+tag+">";
 	}
 	
 	public Body getPreferredBody() {
@@ -1213,6 +1222,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					reaction = "Time to turn you into a hot little "+raceName+"!";
 					break;
 				case HORSE_MORPH:
+				case HORSE_MORPH_UNICORN:
+				case HORSE_MORPH_PEGASUS:
+				case HORSE_MORPH_ALICORN:
+				case CENTAUR:
+				case PEGATAUR:
+				case ALITAUR:
+				case UNITAUR:
 				case HORSE_MORPH_ZEBRA:
 					itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
 					if (getPreferredBody().getGender().isFeminine()) {
@@ -2552,11 +2568,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							break;
 						case BREAST:
 							break;
+						case BREAST_CROTCH:
+							break;
 						case MOUTH:
 							this.setFaceVirgin(false);
 							break;
 						case NIPPLE:
 							this.setNippleVirgin(false);
+							break;
+						case NIPPLE_CROTCH:
+							this.setNippleCrotchVirgin(false);
 							break;
 						case THIGHS:
 							break;
@@ -2625,7 +2646,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							keenToPerform = true;
 						}
 						break;
-					case BREAST:
+					case BREAST: case BREAST_CROTCH: case NIPPLE: case NIPPLE_CROTCH:
 						if(this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative()) {
 							return true;
 						} else if(this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isPositive()) {
@@ -2636,13 +2657,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if(this.getFetishDesire(Fetish.FETISH_ORAL_GIVING).isNegative()) {
 							return true;
 						} else if(this.getFetishDesire(Fetish.FETISH_ORAL_GIVING).isPositive()) {
-							keenToPerform = true;
-						}
-						break;
-					case NIPPLE:
-						if(this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative()) {
-							return true;
-						} else if(this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isPositive()) {
 							keenToPerform = true;
 						}
 						break;
@@ -2731,7 +2745,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							keenToPerform = true;
 						}
 						break;
-					case BREAST:
+					case BREAST: case NIPPLE: case BREAST_CROTCH: case NIPPLE_CROTCH:
 						if(this.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isNegative()) {
 							return true;
 						} else if(this.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isPositive()) {
@@ -2742,13 +2756,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if(this.getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isNegative()) {
 							return true;
 						} else if(this.getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isPositive()) {
-							keenToPerform = true;
-						}
-						break;
-					case NIPPLE:
-						if(this.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isNegative()) {
-							return true;
-						} else if(this.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isPositive()) {
 							keenToPerform = true;
 						}
 						break;
@@ -3178,7 +3185,23 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 
-	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
+	/**
+	 * @param slot The slot to check.
+	 * @param target The person who is being interacted with in this slot.
+	 * @return Whether this NPC is happy to be in this SexSlot
+	 */
+	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
+		SexType targetSexPreference = this.getForeplayPreference(target);
+		if(!Sex.isInForeplay()) {
+			targetSexPreference = this.getMainSexPreference(target);
+		}
+		if(targetSexPreference==null) {
+			return true;
+		}
+		return slot.isMeetsPreferenceCriteria(this, position, targetSexPreference);
+	}
+	
+	public Set<SexSlot> getSexPositionPreferences(GameCharacter target) {
 		SexType targetSexPreference = this.getForeplayPreference(target);
 		
 		if(!Sex.isInForeplay()) {
@@ -3186,109 +3209,115 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		sexPositionPreferences.clear();
-		
+		//TODO move into a slot method, taking in SexType preference
 		if(targetSexPreference!=null) {
 			if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))) {
-				sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
-				sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_ORAL_SITTING);
+				sexPositionPreferences.add(SexSlotBipeds.SIXTY_NINE_TOP);
+				sexPositionPreferences.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_ORAL_SITTING);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE))) {
-				sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
-				sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
-				sexPositionPreferences.add(SexPositionSlot.FACE_SITTING_ON_FACE);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_ORAL_SITTING);
+				sexPositionPreferences.add(SexSlotBipeds.SIXTY_NINE_TOP);
+				sexPositionPreferences.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_SITTING_ON_FACE);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_ORAL_SITTING);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))) {
-				sexPositionPreferences.add(SexPositionSlot.FACE_SITTING_ON_FACE);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_ORAL_SITTING);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_SITTING_ON_FACE);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_ORAL_SITTING);
 				
 			}  else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.BREAST))
 					|| targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.NIPPLE))
 					|| targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.TONGUE))
 					|| targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TONGUE))) {
-				sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
-				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))){
-				sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
-				sexPositionPreferences.add(SexPositionSlot.KNEELING_PERFORMING_ORAL);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_KNEELING);
-				sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_KNEELING);
+				sexPositionPreferences.add(SexSlotBipeds.SIXTY_NINE_TOP);
+				sexPositionPreferences.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_KNEELING);
+				sexPositionPreferences.add(SexSlotBipeds.GLORY_HOLE_KNEELING);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))){
-				sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
-				sexPositionPreferences.add(SexPositionSlot.KNEELING_PERFORMING_ORAL);
-				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND_ORAL);
-				sexPositionPreferences.add(SexPositionSlot.FACE_SITTING_ON_BACK);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_KNEELING);
-				sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_KNEELING);
+				sexPositionPreferences.add(SexSlotBipeds.SIXTY_NINE_TOP);
+				sexPositionPreferences.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.DOGGY_BEHIND_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_SITTING_ON_BACK);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_KNEELING);
+				sexPositionPreferences.add(SexSlotBipeds.GLORY_HOLE_KNEELING);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))){
-				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND_ORAL);
-				sexPositionPreferences.add(SexPositionSlot.FACE_SITTING_ON_BACK);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_KNEELING);
-				sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_KNEELING);
+				sexPositionPreferences.add(SexSlotBipeds.DOGGY_BEHIND_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_SITTING_ON_BACK);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_KNEELING);
+				sexPositionPreferences.add(SexSlotBipeds.GLORY_HOLE_KNEELING);
 				
 			} else if(targetSexPreference.getTargetedSexArea()==SexAreaOrifice.ANUS){
-				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.BREAST))
 					|| targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE))) {
-				sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS))
 					|| targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS))) {
-				sexPositionPreferences.add(SexPositionSlot.KNEELING_PERFORMING_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS))) {
-				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
-				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
-				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_BOTTOM);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.DOGGY_BEHIND);
+				sexPositionPreferences.add(SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_BOTTOM);
+				sexPositionPreferences.add(SexSlotBipeds.MATING_PRESS_TOP);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))) {
-				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
-				sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
-				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
-				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_BOTTOM);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.DOGGY_BEHIND);
+				sexPositionPreferences.add(SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_BOTTOM);
+				sexPositionPreferences.add(SexSlotBipeds.MATING_PRESS_TOP);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS))) {
-				sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
-				sexPositionPreferences.add(SexPositionSlot.DOGGY_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ON_BACK);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_TOP);
-				sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_FUCKED);
+				sexPositionPreferences.add(SexSlotBipeds.COWGIRL_RIDING);
+				sexPositionPreferences.add(SexSlotBipeds.DOGGY_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexSlotBipeds.MISSIONARY_ON_BACK);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_TOP);
+				sexPositionPreferences.add(SexSlotBipeds.GLORY_HOLE_FUCKED);
+				sexPositionPreferences.add(SexSlotBipeds.MATING_PRESS_BOTTOM);
 				
 			} else if(targetSexPreference.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS))) {
-				sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
-				sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
-				sexPositionPreferences.add(SexPositionSlot.DOGGY_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ON_BACK);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_TOP);
-				sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_FUCKED);
+				sexPositionPreferences.add(SexSlotBipeds.COWGIRL_RIDING);
+				sexPositionPreferences.add(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.DOGGY_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexSlotBipeds.MISSIONARY_ON_BACK);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_TOP);
+				sexPositionPreferences.add(SexSlotBipeds.GLORY_HOLE_FUCKED);
+				sexPositionPreferences.add(SexSlotBipeds.MATING_PRESS_BOTTOM);
 				
 			}
 		}
 		
 		if(sexPositionPreferences.isEmpty()){ // If no preferences found, add 'standard' positions:
 			if(Sex.isInForeplay()) {
-				sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
-				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
-				sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_BOTTOM);
+				sexPositionPreferences.add(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_BOTTOM);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_TOP);
 				
 			} else {
-				sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
-				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
-				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
-				sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
-				sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
-				sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
-				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ON_BACK);
-				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS);
-				sexPositionPreferences.add(SexPositionSlot.CHAIR_BOTTOM);
+				sexPositionPreferences.add(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.DOGGY_BEHIND);
+				sexPositionPreferences.add(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL);
+				sexPositionPreferences.add(SexSlotBipeds.SIXTY_NINE_TOP);
+				sexPositionPreferences.add(SexSlotBipeds.COWGIRL_RIDING);
+				sexPositionPreferences.add(SexSlotBipeds.MISSIONARY_ON_BACK);
+				sexPositionPreferences.add(SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_BOTTOM);
+				sexPositionPreferences.add(SexSlotBipeds.CHAIR_TOP);
 			}
 		}
 		

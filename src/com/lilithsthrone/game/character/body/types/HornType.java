@@ -1,139 +1,228 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.types.AbstractHornType;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.utils.Util;
 
 /**
  * 
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
-public enum HornType implements BodyPartTypeInterface {
-	NONE("", null, null),
+public class HornType {
+	
+	//TODO If any more horn types are added, check to see that the potion TFs still work. (5 types is currently the maximum.)
+	
+	public static final AbstractHornType NONE = new AbstractHornType(
+			BodyCoveringType.HORN,
+			Race.NONE,
+			2,
+			"none",
+			"",
+			"",
+			new ArrayList<>(),
+			new ArrayList<>(),
+			"<br/>[npc.Name] now [npc.has] [style.boldTfGeneric(no horns)].",
+			"") {
+	};
 
-	BOVINE_CURVED("curved", BodyCoveringType.HORN, Race.COW_MORPH),
-	BOVINE_STRAIGHT("straight", BodyCoveringType.HORN, Race.COW_MORPH),
+	// Cows:
 	
-	REINDEER_RACK("multi-branched", BodyCoveringType.ANTLER_REINDEER, Race.REINDEER_MORPH),
-	
-	CURLED("curled", BodyCoveringType.HORN, Race.DEMON),
-	SPIRAL("spiral", BodyCoveringType.HORN, Race.DEMON),
-	CURVED("curved", BodyCoveringType.HORN, Race.DEMON),
-	SWEPT_BACK("swept-back", BodyCoveringType.HORN, Race.DEMON),
-	STRAIGHT("straight", BodyCoveringType.HORN, Race.DEMON);
-	
-	//TODO If any more horn types are added, check to see that the potion TFs still work. (5 might be the maximum.)
-	
-	private BodyCoveringType skinType;
-	private Race race;
-	
-	private HornType(String descriptor, BodyCoveringType skinType, Race race) {
-		this.skinType = skinType;
-		this.race = race;
-	}
+	public static final AbstractHornType BOVINE_CURVED = new AbstractHornType(
+			BodyCoveringType.HORN,
+			Race.COW_MORPH,
+			2,
+			"curved",
+			"horn",
+			"horns",
+			Util.newArrayListOfValues("curved", "bovine"),
+			Util.newArrayListOfValues("curved", "bovine", "smooth"),
+			"Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.feel] them quickly grow out into slightly-curved horns."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(curved horns)].",
+			"[npc.HornsDeterminer] [npc.hornColour(true)], curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF grows out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+	};
 
-	/**
-	 * Use instead of <i>valueOf()</i>.
-	 */
-	public static HornType getTypeFromString(String value) {
-		return valueOf(value);
-	}
+	public static final AbstractHornType BOVINE_STRAIGHT = new AbstractHornType(
+			BodyCoveringType.HORN,
+			Race.COW_MORPH,
+			2,
+			"straight",
+			"horn",
+			"horns",
+			Util.newArrayListOfValues("straight", "bovine"),
+			Util.newArrayListOfValues("straight", "bovine", "smooth"),
+			"Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.feel] them quickly grow out into sleek, straight horns."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(straight horns)].",
+			"[npc.HornsDeterminer] [npc.hornColour(true)], straight #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF grows out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+	};
 
-	@Override
-	public String getDeterminer(GameCharacter gc) {
-		return "a pair of";
-	}
-
-	@Override
-	public boolean isDefaultPlural() {
-		return true;
-	}
+	// Reindeer:
 	
-	@Override
-	public String getNameSingular(GameCharacter gc) {
-		switch(this){
-			case REINDEER_RACK:
-				return "antler";
-			default:
-				return UtilText.returnStringAtRandom("horn");
+	public static final AbstractHornType REINDEER_RACK = new AbstractHornType(
+			BodyCoveringType.ANTLER_REINDEER,
+			Race.REINDEER_MORPH,
+			2,
+			"multi-branched",
+			"antler",
+			"antlers",
+			Util.newArrayListOfValues("multi-branched", "reindeer"),
+			Util.newArrayListOfValues("multi-branched", "reindeer"),
+			"Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.feel] them quickly grow out into branching, multi-pronged antlers."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(reindeer-like antlers)].",
+			"[npc.HornsDeterminer] [npc.hornColour(true)], multi-branched #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF grows out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+	};
+	
+	// Horse:
+	
+	public static final AbstractHornType HORSE_STRAIGHT = new AbstractHornType(
+			BodyCoveringType.HORN,
+			Race.HORSE_MORPH,
+			1,
+			"unicorn",
+			"horn",
+			"horns",
+			Util.newArrayListOfValues("straight", "twirling", "unicorn"),
+			Util.newArrayListOfValues("straight", "twirling", "unicorn"),
+			"A hard nub suddenly pushes out from the middle of [npc.her] forehead, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.feel] it quickly grow out into a straight, twirling unicorn's horn."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(unicorn horn)].",
+			"[npc.HornsDeterminer] [npc.hornColour(true)], unicorn's #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF grows out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+	};
+
+	// Demons:
+	
+	public static final AbstractHornType CURLED = new AbstractHornType(
+			BodyCoveringType.HORN,
+			Race.DEMON,
+			2,
+			"curled",
+			"horn",
+			"horns",
+			Util.newArrayListOfValues("curled", "demonic"),
+			Util.newArrayListOfValues("curled", "demonic", "smooth"),
+			"Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.feel] them quickly grow out into circular-curling horns."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(curled horns)].",
+			"[npc.HornsDeterminer] [npc.hornColour(true)], circular-curling #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF grows out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+	};
+	
+	public static final AbstractHornType SPIRAL = new AbstractHornType(
+			BodyCoveringType.HORN,
+			Race.DEMON,
+			2,
+			"spiral", //Rasen no Chikara
+			"horn",
+			"horns",
+			Util.newArrayListOfValues("spiral", "demonic"),
+			Util.newArrayListOfValues("spiral", "demonic", "smooth"),
+			"Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.feel] them quickly grow out into twisted, spiralling horns."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(spiral horns)].",
+			"[npc.HornsDeterminer] [npc.hornColour(true)], spiralling #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF grows out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+	};
+	
+	public static final AbstractHornType CURVED = new AbstractHornType(
+			BodyCoveringType.HORN,
+			Race.DEMON,
+			2,
+			"curved",
+			"horn",
+			"horns",
+			Util.newArrayListOfValues("curved", "demonic"),
+			Util.newArrayListOfValues("curved", "demonic", "smooth"),
+			"Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.feel] them quickly grow out into slightly-curved horns."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(curved horns)].",
+			"[npc.HornsDeterminer] [npc.hornColour(true)], curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF grows out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+	};
+	
+	public static final AbstractHornType SWEPT_BACK = new AbstractHornType(
+			BodyCoveringType.HORN,
+			Race.DEMON,
+			2,
+			"swept-back",
+			"horn",
+			"horns",
+			Util.newArrayListOfValues("swept-back", "demonic"),
+			Util.newArrayListOfValues("swept-back", "demonic", "smooth"),
+			"Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.feel] them curve and sweep back over [npc.her] head."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(swept-back horns)].",
+			"[npc.HornsDeterminer] [npc.hornColour(true)], swept-back #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF grows out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+	};
+	
+	public static final AbstractHornType STRAIGHT = new AbstractHornType(
+			BodyCoveringType.HORN,
+			Race.DEMON,
+			2,
+			"straight",
+			"horn",
+			"horns",
+			Util.newArrayListOfValues("straight", "demonic"),
+			Util.newArrayListOfValues("straight", "demonic", "smooth"),
+			"Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.feel] them quickly grow out into sleek, straight horns."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(straight horns)].",
+			"[npc.HornsDeterminer] [npc.hornColour(true)], straight #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF grows out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+	};
+	
+	
+	private static List<AbstractHornType> allHornTypes;
+	private static Map<AbstractHornType, String> hornToIdMap = new HashMap<>();
+	private static Map<String, AbstractHornType> idToHornMap = new HashMap<>();
+	
+	static {
+		allHornTypes = new ArrayList<>();
+		
+		// Add in hard-coded horn types:
+		Field[] fields = HornType.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractHornType.class.isAssignableFrom(f.getType())) {
+				
+				AbstractHornType ct;
+				try {
+					ct = ((AbstractHornType) f.get(null));
+
+					hornToIdMap.put(ct, f.getName());
+					idToHornMap.put(f.getName(), ct);
+					
+					allHornTypes.add(ct);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
-	@Override
-	public String getNamePlural(GameCharacter gc) {
-		switch(this){
-			case REINDEER_RACK:
-				return "antlers";
-			default:
-				return UtilText.returnStringAtRandom("horns");
-		}
-	}
-
-	@Override
-	public String getDescriptor(GameCharacter gc) {
-		switch(this){
-			case NONE:
-				return "";
-			case SWEPT_BACK:
-				return UtilText.returnStringAtRandom("swept-back");
-			case REINDEER_RACK:
-				return UtilText.returnStringAtRandom("branching");
-			case STRAIGHT: case BOVINE_STRAIGHT:
-				return UtilText.returnStringAtRandom("straight");
-			case CURLED:
-				return UtilText.returnStringAtRandom("curled");
-			case CURVED: case BOVINE_CURVED:
-				return UtilText.returnStringAtRandom("curved");
-			case SPIRAL:
-				return UtilText.returnStringAtRandom("spiral");
-		}
-		return "";
-	}
-
-	@Override
-	public String getTransformName() {
-		switch(this){
-			case NONE:
-				return "none";
-			case SWEPT_BACK:
-				return UtilText.returnStringAtRandom("swept-back");
-			case REINDEER_RACK:
-				return UtilText.returnStringAtRandom("branching");
-			case STRAIGHT: case BOVINE_STRAIGHT:
-				return UtilText.returnStringAtRandom("straight");
-			case CURLED:
-				return UtilText.returnStringAtRandom("curled");
-			case CURVED: case BOVINE_CURVED:
-				return UtilText.returnStringAtRandom("curved");
-			case SPIRAL:
-				return UtilText.returnStringAtRandom("spiral");
-		}
-		return "";
-	}
-
-	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
-	}
-
-	@Override
-	public Race getRace() {
-		return race;
+	public static AbstractHornType getHornTypeFromId(String id) {
+		id = Util.getClosestStringMatch(id, idToHornMap.keySet());
+		return idToHornMap.get(id);
 	}
 	
-	public static List<HornType> getHornTypesSuitableForTransformation(List<HornType> options) {
-		if (!options.contains(HornType.NONE)) {
-			return options;
+	public static String getIdFromHornType(AbstractHornType hornType) {
+		return hornToIdMap.get(hornType);
+	}
+	
+	public static List<AbstractHornType> getAllHornTypes() {
+		return allHornTypes;
+	}
+	
+	private static Map<Race, List<AbstractHornType>> typesMap = new HashMap<>();
+	public static List<AbstractHornType> getHornTypes(Race r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
 		}
 		
-		List<HornType> duplicatedOptions = new ArrayList<>(options);
-		duplicatedOptions.remove(HornType.NONE);
-		return duplicatedOptions;
+		List<AbstractHornType> types = new ArrayList<>();
+		for(AbstractHornType type : HornType.getAllHornTypes()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
 	}
 }

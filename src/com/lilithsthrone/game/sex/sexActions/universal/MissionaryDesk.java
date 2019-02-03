@@ -8,7 +8,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -46,10 +46,10 @@ public class MissionaryDesk {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_DESK_SUB
-							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_DESK_SUB_SECOND)
-					&& (Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.MISSIONARY_DESK_DOM
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.MISSIONARY_DESK_DOM_SECOND)
+					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.MISSIONARY_DESK_SUB
+							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.MISSIONARY_DESK_SUB_SECOND)
+					&& (Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.MISSIONARY_DESK_DOM
+						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.MISSIONARY_DESK_DOM_SECOND)
 					&& !Sex.isMasturbation();
 		}
 

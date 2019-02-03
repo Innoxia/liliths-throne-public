@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -39,6 +40,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -53,7 +55,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class ItemEffectType {
@@ -89,53 +91,6 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return ""; // THIS EFFECT IS NOT USED, AS AbstractFilledCondom OVERRIDES THE USUAL AbstractItem's applyEffects() METHOD!!!
-		}
-	};
-	
-	public static AbstractItemEffectType GENERIC_DURABILITY = new AbstractItemEffectType(null,
-			Colour.GENERIC_ATTRIBUTE) {
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return Util.newArrayListOfValues(
-					TFPotency.BOOST,
-					TFPotency.MINOR_BOOST,
-					TFPotency.MAJOR_BOOST,
-					TFPotency.MAJOR_DRAIN,
-					TFPotency.MINOR_DRAIN,
-					TFPotency.DRAIN);
-		}
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			switch (potency) {
-			case BOOST:
-				return Util.newArrayListOfValues("It is [style.boldGood(strong)].");
-			case DRAIN:
-				return Util.newArrayListOfValues("It is [style.boldBad(fragile)].");
-			case MAJOR_BOOST:
-				return Util.newArrayListOfValues("It is [style.boldExcellent(extremely strong)].");
-			case MAJOR_DRAIN:
-				return Util.newArrayListOfValues("It is [style.boldTerrible(very fragile)].");
-			case MINOR_BOOST:
-				return Util.newArrayListOfValues("It is [style.boldMinorGood(reliable)].");
-			case MINOR_DRAIN:
-				return Util.newArrayListOfValues("It is [style.boldMinorBad(a little weak)].");
-			default:
-				return null;
-			}
-		}
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "";
-		}
-	};
-
-	public static AbstractItemEffectType GENERIC_BROKEN = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"This object is broken."),
-			Colour.GENERIC_BAD) {
-
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p>It is broken.</p>";
 		}
 	};
 
@@ -2313,43 +2268,18 @@ public class ItemEffectType {
 					
 					if(!fetishesToAdd.isEmpty()) {
 						Fetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
-						target.addFetish(f);
-						
-						return "<p>"
-									+(target.isPlayer()
-										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
-										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"))
-								+"</p>";
+						return target.addFetish(f);
 						
 					} else {
 						return "<p>"
-									+(target.isPlayer()
-										?"[style.colourDisabled(Nothing happens...)]"
-										:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"))
+									+"[style.colourDisabled(Nothing happens...)]"
 								+"</p>";
 					}
 					
 				} else {
 					Fetish fetish = secondaryModifier.getFetish();
 					
-					if(!target.hasFetish(fetish)) {
-						target.addFetish(fetish);
-						return "<p>"
-									+(target.isPlayer()
-										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"
-										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
-								+"</p>";	
-					} else {
-						return "<p>"
-									+(target.isPlayer()
-										?"[style.colourDisabled(Nothing happens, as you already have the "+fetish.getName(target)+" fetish...)]"
-										:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already has the "+fetish.getName(target)+" fetish...)]"))
-								+"</p>";
-					}
+					return target.addFetish(fetish);
 				}
 				
 			} else if(potency==TFPotency.MINOR_BOOST) {
@@ -2366,21 +2296,12 @@ public class ItemEffectType {
 					if(!fetishesToBoost.isEmpty()) {
 						Fetish f = fetishesToBoost.get(Util.random.nextInt(fetishesToBoost.size()));
 						FetishDesire newDesire = target.getFetishDesire(f).getNextDesire();
-						target.setFetishDesire(f, newDesire);
 						
-						return "<p>"
-									+(target.isPlayer()
-										?"A warm wave of arcane energy rises up within you, and as you feel its influential power seeping into your mind,"
-												+ " you realise that you now <b style='color:"+newDesire.getColour().toWebHexString()+";'>"+newDesire.getNameAsPlayerVerb()+"</b> [style.boldFetish("+f.getShortDescriptor()+")]!"
-										:UtilText.parse(target, "A warm wave of arcane energy rises up within [npc.name], and as [npc.she] feels its influential power seeping into [npc.her] mind,"
-												+ " [npc.she] realises that [npc.she] now <b style='color:"+newDesire.getColour().toWebHexString()+";'>"+newDesire.getNameAsVerb()+"</b> [style.boldLust("+f.getShortDescriptor()+")]!"))
-								+"</p>";
+						return target.setFetishDesire(f, newDesire);
 						
 					} else {
 						return "<p>"
-									+(target.isPlayer()
-										?"[style.colourDisabled(Nothing happens...)]"
-										:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"))
+									+"[style.colourDisabled(Nothing happens...)]"
 								+"</p>";
 					}
 					
@@ -2388,21 +2309,7 @@ public class ItemEffectType {
 					Fetish fetish = secondaryModifier.getFetish();
 					FetishDesire newDesire = target.getFetishDesire(fetish).getNextDesire();
 					
-					if(target.setFetishDesire(fetish, newDesire)) {
-						return "<p>"
-									+(target.isPlayer()
-										?"A warm wave of arcane energy rises up within you, and as you feel its influential power seeping into your mind,"
-												+ " you realise that you now <b style='color:"+newDesire.getColour().toWebHexString()+";'>"+newDesire.getNameAsPlayerVerb()+"</b> [style.boldFetish("+fetish.getShortDescriptor()+")]!"
-										:UtilText.parse(target, "A warm wave of arcane energy rises up within [npc.name], and as [npc.she] feels its influential power seeping into [npc.her] mind,"
-												+ " [npc.she] realises that [npc.she] now <b style='color:"+newDesire.getColour().toWebHexString()+";'>"+newDesire.getNameAsVerb()+"</b> [style.boldLust("+fetish.getShortDescriptor()+")]!"))
-								+"</p>";
-					} else {
-						return "<p>"
-									+(target.isPlayer()
-										?"[style.colourDisabled(Nothing happens, as you already "+newDesire.getNameAsPlayerVerb()+" "+fetish.getShortDescriptor()+"...)]"
-										:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already "+newDesire.getNameAsPlayerVerb()+" "+fetish.getShortDescriptor()+"...)]"))
-								+"</p>";
-					}
+					return target.setFetishDesire(fetish, newDesire);
 				}
 				
 			} else if(potency==TFPotency.MINOR_DRAIN) {
@@ -2419,21 +2326,12 @@ public class ItemEffectType {
 					if(!fetishesToDrain.isEmpty()) {
 						Fetish f = fetishesToDrain.get(Util.random.nextInt(fetishesToDrain.size()));
 						FetishDesire newDesire = target.getFetishDesire(f).getPreviousDesire();
-						target.setFetishDesire(f, newDesire);
 						
-						return "<p>"
-									+(target.isPlayer()
-										?"A warm wave of arcane energy rises up within you, and as you feel its influential power seeping into your mind,"
-												+ " you realise that you now <b style='color:"+newDesire.getColour().toWebHexString()+";'>"+newDesire.getNameAsPlayerVerb()+"</b> [style.boldFetish("+f.getShortDescriptor()+")]!"
-										:UtilText.parse(target, "A warm wave of arcane energy rises up within [npc.name], and as [npc.she] feels its influential power seeping into [npc.her] mind,"
-												+ " [npc.she] realises that [npc.she] now <b style='color:"+newDesire.getColour().toWebHexString()+";'>"+newDesire.getNameAsVerb()+"</b> [style.boldLust("+f.getShortDescriptor()+")]!"))
-								+"</p>";
+						return target.setFetishDesire(f, newDesire);
 						
 					} else {
 						return "<p>"
-									+(target.isPlayer()
-										?"[style.colourDisabled(Nothing happens...)]"
-										:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"))
+									+"[style.colourDisabled(Nothing happens...)]"
 								+"</p>";
 					}
 					
@@ -2441,29 +2339,7 @@ public class ItemEffectType {
 					Fetish fetish = secondaryModifier.getFetish();
 					FetishDesire newDesire = target.getFetishDesire(fetish).getPreviousDesire();
 					
-					if(target.setFetishDesire(fetish, newDesire)) {
-						return "<p>"
-									+(target.isPlayer()
-										?"A warm wave of arcane energy rises up within you, and as you feel its influential power seeping into your mind,"
-												+ " you realise that you now <b style='color:"+newDesire.getColour().toWebHexString()+";'>"+newDesire.getNameAsPlayerVerb()+"</b> [style.boldFetish("+fetish.getShortDescriptor()+")]!"
-										:UtilText.parse(target, "A warm wave of arcane energy rises up within [npc.name], and as [npc.she] feels its influential power seeping into [npc.her] mind,"
-												+ " [npc.she] realises that [npc.she] now <b style='color:"+newDesire.getColour().toWebHexString()+";'>"+newDesire.getNameAsVerb()+"</b> [style.boldLust("+fetish.getShortDescriptor()+")]!"))
-								+"</p>";
-					} else {
-						if(target.hasFetish(fetish)) {
-							return "<p>"
-									+(target.isPlayer()
-										?"[style.colourDisabled(As you have the "+fetish.getName(target)+" fetish, your love of it can't decrease...)]"
-										:UtilText.parse(target, "[style.colourDisabled(As [npc.she] has the "+fetish.getName(target)+" fetish, [npc.her] love of it can't decrease...)]"))
-								+"</p>";
-						} else {
-							return "<p>"
-										+(target.isPlayer()
-											?"[style.colourDisabled(Nothing happens, as you already "+newDesire.getNameAsPlayerVerb()+" "+fetish.getShortDescriptor()+"...)]"
-											:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already "+newDesire.getNameAsPlayerVerb()+" "+fetish.getShortDescriptor()+"...)]"))
-									+"</p>";
-						}
-					}
+					return target.setFetishDesire(fetish, newDesire);
 				}
 				
 			} else {
@@ -2479,42 +2355,18 @@ public class ItemEffectType {
 					
 					if(!fetishesToRemove.isEmpty()) {
 						Fetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
-						target.removeFetish(f);
+						return target.removeFetish(f);
 						
-						return "<p>"
-									+(target.isPlayer()
-										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
-										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"))
-								+"</p>";
 					} else {
 						return "<p>"
-									+(target.isPlayer()
-										?"[style.colourDisabled(Nothing happens...)]"
-										:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"))
+									+"[style.colourDisabled(Nothing happens...)]"
 								+"</p>";
 					}
 					
 				} else {
 					Fetish fetish = secondaryModifier.getFetish();
 					
-					if(target.hasFetish(fetish)) {
-						target.removeFetish(fetish);
-						return "<p>"
-									+(target.isPlayer()
-										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+fetish.getName(target)+" fetish)]!"
-										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldBad(lost)] [npc.her] [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
-								+"</p>";
-					} else {
-						return "<p>"
-									+(target.isPlayer()
-										?"[style.colourDisabled(Nothing happens, as you already lack the "+fetish.getName(target)+" fetish...)]"
-										:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already lacks the "+fetish.getName(target)+" fetish...)]"))
-								+"</p>";
-					}
+					return target.removeFetish(fetish);
 				}
 			}
 		}
@@ -2522,34 +2374,42 @@ public class ItemEffectType {
 	
 	// RACIAL:
 	
-//	public static AbstractItemEffectType RACE_DEMON = new AbstractItemEffectType(null,
-//			Colour.RACE_DEMON) {
-//
-//		@Override
-//		public List<TFModifier> getPrimaryModifiers() {
-//			return TFModifier.getTFRacialBodyPartsList();
-//		}
-//
-//		@Override
-//		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-//			return getRacialSecondaryModifiers(Race.DEMON, primaryModifier);
-//		}
-//		
-//		@Override
-//		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-//			return getRacialPotencyModifiers(Race.DEMON, primaryModifier, secondaryModifier);
-//		}
-//		
-//		@Override
-//		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-//			return Util.newArrayListOfValues(getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
-//		}
-//		
-//		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-//			return getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-//		}
-//	};
+	public static AbstractItemEffectType DEBUG_DEMON_POTION_EFFECT = new AbstractItemEffectType(null,
+			Colour.RACE_DEMON) {
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			List<String> effectsDescription = new ArrayList<>();
+			
+			effectsDescription.add("[style.boldBad(Does not affect player or unique characters)]");
+			
+			effectsDescription.add("[style.boldTfGeneric(Transforms)] non-demons into [style.boldDemon(half-demons)]");
+
+			effectsDescription.add("[style.boldTfGeneric(Transforms)] half-demons into [style.boldDemon(demons)]");
+			
+			return effectsDescription;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			if(target.isPlayer()) {
+				return "<p style='text-align:center'>[style.italicsDisbaled(This item does not work on you...)]</p>";
+			}
+			if(target.isUnique() && (!target.isSlave() || target.getOwner().isPlayer())) {
+				return "<p style='text-align:center'>[style.italicsDisbaled(This item does not work on non-slave unique characters...)]</p>";
+			}
+			
+			Subspecies sub = target.getSubspecies();
+			if(sub.getRace()!=Race.DEMON) {
+				target.setBody(CharacterUtils.generateHalfDemonBody(target, sub));
+				return UtilText.parse(target, "<p style='text-align:center; color:"+Colour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
+			} else {
+				target.setBody(target.getGender(), Subspecies.DEMON, RaceStage.GREATER);
+				target.setSubspeciesOverride(Subspecies.DEMON);
+				return UtilText.parse(target, "<p style='text-align:center; color:"+Colour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
+			}
+		}
+	};
 	
 	public static AbstractItemEffectType RACE_HUMAN = new AbstractItemEffectType(null,
 			Colour.RACE_HUMAN) {
@@ -3017,7 +2877,8 @@ public class ItemEffectType {
 				return TFModifier.getTFBodyPartFetishList();
 				
 			} else if(primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT
-					|| primaryModifier == TFModifier.CLOTHING_SEALING) {
+					|| primaryModifier == TFModifier.CLOTHING_SEALING
+					|| primaryModifier == TFModifier.CLOTHING_CONDOM) {
 				return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
 				
 			} else {
@@ -3031,6 +2892,7 @@ public class ItemEffectType {
 					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
+					|| primaryModifier == TFModifier.CLOTHING_CONDOM
 					|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
 				return TFPotency.getAllPotencies();
 				
@@ -3092,6 +2954,22 @@ public class ItemEffectType {
 					effectsList.add("[style.boldMinorBad(Slightly decreases)] [style.boldLust(desire)] for [style.boldFetish("+secondaryModifier.getName()+" fetish)] while worn.");
 				}
 				
+			} else if(primaryModifier == TFModifier.CLOTHING_CONDOM) {
+				if(potency==TFPotency.MAJOR_BOOST) {
+					effectsList.add("[style.boldExcellent(Infinite)] safe cum capacity.");
+					
+				} else if(potency==TFPotency.BOOST) {
+					effectsList.add("[style.boldGood("+CumProduction.SIX_EXTREME.getMaximumValue()+"ml)] safe cum capacity.");
+					
+				} else if(potency==TFPotency.MINOR_BOOST) {
+					effectsList.add("[style.boldMinorGood("+CumProduction.FIVE_HUGE.getMaximumValue()+"ml)] safe cum capacity.");
+					
+				} else if(potency==TFPotency.MAJOR_DRAIN
+						|| potency==TFPotency.DRAIN
+						|| potency==TFPotency.MINOR_DRAIN) {
+					effectsList.add("[style.boldTerrible(Sabotaged)] to always break!");
+				}
+				
 			} else {
 				return getClothingTFDescriptions(primaryModifier, secondaryModifier, potency, limit, user, target);
 			}
@@ -3111,7 +2989,8 @@ public class ItemEffectType {
 					|| primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT
 					|| primaryModifier == TFModifier.CLOTHING_SEALING
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
-					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {
+					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
+					|| primaryModifier == TFModifier.CLOTHING_CONDOM) {
 				return "";
 			}
 			return applyClothingTF(primaryModifier, secondaryModifier, potency, limit, user, target, timer);

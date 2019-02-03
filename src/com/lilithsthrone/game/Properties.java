@@ -36,7 +36,7 @@ import java.util.*;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Properties {
@@ -55,7 +55,21 @@ public class Properties {
 	public int money = 0;
 	public int arcaneEssences = 0;
 	public int humanEncountersLevel = 1;
+	
 	public int multiBreasts = 1;
+	public static String[] multiBreastsLabels = new String[] {"Off", "Furry-only", "On"};
+	public static String[] multiBreastsDescriptions = new String[] {
+			"Randomly-generated NPCs will never spawn in with multiple rows of breasts.",
+			"Randomly-generated NPCs will only spawn in with multiple rows of breasts if they have furry skin. (Default setting.)",
+			"Randomly-generated NPCs will spawn in with multiple rows of breasts if their breast type is furry (starts at 'Minor morph' level)."};
+	
+	public int udders = 1;
+	public static String[] uddersLabels = new String[] {"Off", "Taur-only", "On"};
+	public static String[] uddersDescriptions = new String[] {
+			"Randomly-generated taurs nor anthro-morphs will ever spawn in with udders or crotch-boobs.",
+			"Randomly-generated NPCs will only ever spawn in with udders or crotch-boobs if they have a non-bipedal body. (Default setting.)",
+			"Randomly-generated greater-anthro-morphs, as well as taurs, will spawn in with udders and crotch boobs."};
+	
 	public int forcedTFPercentage = 40;
 	public int forcedFetishPercentage = 0;
 
@@ -219,6 +233,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
+			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
 
 			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthVariance", String.valueOf(pregnancyBreastGrowthVariance));
@@ -553,6 +568,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.2.12")) {
 						values.add(PropertyValue.autoSexClothingManagement);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.0.5")) {
+						values.add(PropertyValue.bipedalCloaca);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -634,6 +652,12 @@ public class Properties {
 					multiBreasts = Integer.valueOf(((Element)element.getElementsByTagName("multiBreasts").item(0)).getAttribute("value"));
 				} else {
 					multiBreasts = 1;
+				}
+				
+				if(element.getElementsByTagName("udders").item(0)!=null) {
+					udders = Integer.valueOf(((Element)element.getElementsByTagName("udders").item(0)).getAttribute("value"));
+				} else {
+					udders = 1;
 				}
 				
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {

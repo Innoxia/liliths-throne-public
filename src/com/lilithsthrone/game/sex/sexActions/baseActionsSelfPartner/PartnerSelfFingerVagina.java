@@ -8,8 +8,8 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -53,7 +53,7 @@ public class PartnerSelfFingerVagina {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
+			if(Sex.getPosition()==SexPositionBipeds.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexSlotBipeds.DOGGY_ON_ALL_FOURS) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back between [npc.her] [npc.legs], [npc.name] teases [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
 								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia for you.",

@@ -623,7 +623,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	SLIME_GUARD_ICE(Util.newArrayListOfValues("slimeGuardIce", "slimeIce"), "") {
+	SLIME_GUARD_ICE(Util.newArrayListOfValues("slimeGuardIce", "slimeIce", "crystal"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(SlimeGuardIce.class).getDescription();
 		}
@@ -634,7 +634,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	SLIME_GUARD_FIRE(Util.newArrayListOfValues("slimeGuardFire", "slimeFire"), "") {
+	SLIME_GUARD_FIRE(Util.newArrayListOfValues("slimeGuardFire", "slimeFire", "blaze"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(SlimeGuardFire.class).getDescription();
 		}
@@ -755,7 +755,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	DARK_SIREN(Util.newArrayListOfValues("darkSiren", "siren"), "") {
+	DARK_SIREN(Util.newArrayListOfValues("darkSiren", "siren", "meraxis"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(DarkSiren.class).getDescription();
 		}

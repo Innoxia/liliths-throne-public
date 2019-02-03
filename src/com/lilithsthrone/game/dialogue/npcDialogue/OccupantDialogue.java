@@ -16,16 +16,14 @@ import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -354,12 +352,18 @@ public class OccupantDialogue {
 					} else {
 						return new ResponseSex("Sex", "Have sex with [npc.name].", 
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(occupant()),
 								null,
-								null,
-								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_START", occupant())) {
+								null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								AFTER_SEX,
+								UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_START", occupant())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -376,11 +380,16 @@ public class OccupantDialogue {
 						return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(occupant()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null,
+								null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
 								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_AS_SUB_START", occupant())) {
 							@Override
 							public void effects() {
@@ -401,14 +410,19 @@ public class OccupantDialogue {
 									UtilText.parse(companions.get(0), occupant(), "Let [npc.name] and [npc2.name] spitroast you."),
 									null, null, null, null, null, null,
 									true, true,
-									new SMDoggy(
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_INFRONT),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-									null,
-									null,
-									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SPITROASTED_START", companions.get(0), occupant())) {
+									new SMGeneric(
+											Util.newArrayListOfValues(companions.get(0), occupant()),
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY) {
+										@Override
+										public boolean isPublicSex() {
+											return false;
+										}
+									},
+									AFTER_SEX,
+									UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SPITROASTED_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
 									applyReactionReset();
@@ -430,13 +444,17 @@ public class OccupantDialogue {
 									UtilText.parse(companions.get(0), occupant(), "Push [npc1.name] and [npc2.name] down onto all fours and get ready to fuck them side-by-side."),
 									null, null, null, null, null, null,
 									true, false,
-									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-									null,
-									null,
+									new SMGeneric(
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											Util.newArrayListOfValues(companions.get(0), occupant()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY) {
+										@Override
+										public boolean isPublicSex() {
+											return false;
+										}
+									},
 									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
@@ -519,7 +537,7 @@ public class OccupantDialogue {
 						
 					case 7:
 						if(!occupant().isAbleToSelfTransform()) {
-							return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+							return new Response("Transformations", occupant().getUnableToTransformDescription(), null);
 							
 						} else {
 							return new Response("Transformations",
@@ -1027,11 +1045,16 @@ public class OccupantDialogue {
 					} else {
 						return new ResponseSex("Sex", "Have sex with [npc.name].", 
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(occupant()),
 								null,
-								null,
+								null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
 								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_START", occupant())) {
 							@Override
 							public void effects() {
@@ -1049,11 +1072,16 @@ public class OccupantDialogue {
 						return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(occupant()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null,
+								null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
 								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_AS_SUB_START", occupant())) {
 							@Override
 							public void effects() {
@@ -1074,13 +1102,17 @@ public class OccupantDialogue {
 									UtilText.parse(companions.get(0), occupant(), "Let [npc.name] and [npc2.name] spitroast you."),
 									null, null, null, null, null, null,
 									true, true,
-									new SMDoggy(
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_INFRONT),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-									null,
-									null,
+									new SMGeneric(
+											Util.newArrayListOfValues(companions.get(0), occupant()),
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY) {
+										@Override
+										public boolean isPublicSex() {
+											return false;
+										}
+									},
 									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SPITROASTED_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
@@ -1103,13 +1135,17 @@ public class OccupantDialogue {
 									UtilText.parse(companions.get(0), occupant(), "Push [npc1.name] and [npc2.name] down onto all fours and get ready to fuck them side-by-side."),
 									null, null, null, null, null, null,
 									true, false,
-									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-									null,
-									null,
+									new SMGeneric(
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											Util.newArrayListOfValues(companions.get(0), occupant()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY) {
+										@Override
+										public boolean isPublicSex() {
+											return false;
+										}
+									},
 									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
@@ -1191,7 +1227,7 @@ public class OccupantDialogue {
 						
 					case 7:
 						if(!occupant().isAbleToSelfTransform()) {
-							return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+							return new Response("Transformations", occupant().getUnableToTransformDescription(), null);
 							
 						} else {
 							return new Response("Transformations",
