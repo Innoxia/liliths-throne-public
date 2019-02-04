@@ -34,6 +34,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -55,6 +56,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
@@ -4161,4 +4163,44 @@ public class Sex {
 	public static boolean isSizeDifference() {
 		return isSizeDifference(Sex.getAllParticipants());
 	}
+
+	/**
+	 * @return true if the players pull out decision is denied by the otherwise cummed in (dominant) partner.
+	 */
+	public static boolean isPullOutDenied(SexAction action) {
+		// not pc? abort
+		if(Sex.getCharacterPerformingAction() != Main.game.getPlayer()) return false;
+
+		// abort if no one has ongoing actions with the pc
+		List<GameCharacter> possiblePartners = Sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS);
+		if(possiblePartners.isEmpty()) return false;
+		// penis should have only one ongoing action
+		GameCharacter partner = possiblePartners.get(0);
+
+		if(!Sex.getDominantParticipants().containsKey(partner) // partner must be dominant
+				|| !(SexFlags.partnerRequestedCreampie || !SexFlags.partnerRequestedPullOut)) // this one is evil: abort unless partner has requested creampie or not specifically requested pull out
+			return false;
+
+		// simulate creampie to get affected areas
+		List<SexAreaInterface> cummedInAreas = GenericOrgasms.PLAYER_GENERIC_ORGASM_CREAMPIE.getAreasCummedIn(Main.game.getPlayer(), partner);
+
+		// deny pull out if partner has pregnancy fetish and would be impregnated
+		if(cummedInAreas != null && partner.hasFetish(Fetish.FETISH_PREGNANCY)) {
+			List<SexAreaInterface> impregnatedThrough = partner.getSubspecies() == Subspecies.SLIME
+					? Util.newArrayListOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.MOUTH, SexAreaOrifice.NIPPLE, SexAreaOrifice.URETHRA_PENIS, SexAreaOrifice.URETHRA_VAGINA)
+					: Util.newArrayListOfValues(SexAreaOrifice.VAGINA);
+			// deny pull out if any matches
+			if(!Collections.disjoint(impregnatedThrough, cummedInAreas)) return true;
+		}
+
+		// deny pull out if partner is cum addict and would be able to swallow
+		if(cummedInAreas != null
+				&& partner.hasFetish(Fetish.FETISH_CUM_ADDICT)
+				&& cummedInAreas.contains(SexAreaOrifice.MOUTH))
+			return true;
+
+		// do not deny otherwise
+		return false;
+	}
+
 }
