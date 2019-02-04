@@ -7,18 +7,28 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.types.BodyPartType;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Brax;
-import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.*;
+import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.npcDialogue.unique.LumiDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
+import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
+import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
+import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.ParserCommand;
@@ -29,7 +39,9 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -82,6 +94,9 @@ public class DebugDialogue {
 			} else if(index == 2) {
 				return "Misc.";
 				
+			} else if(index == 3) {
+				return "Forced TFs";
+
 			}
 			return null;
 		}
@@ -181,7 +196,8 @@ public class DebugDialogue {
 					
 				}
 				
-			} else if(responseTab==1) {
+			}
+			else if(responseTab==1) {
 				if (index == 1) {
 					return new Response("<span style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>+500 xp</span>", "Give yourself 500xp.", DEBUG_MENU){
 						@Override
@@ -277,9 +293,10 @@ public class DebugDialogue {
 					
 				}
 				
-			} else if(responseTab==2) {
+			}
+			else if(responseTab==2) {
 				if (index == 1) {
-					return new Response("Test colours", "Test text for readability", COLOURS){
+					return new Response("Test colours", "Test text for readability", COLOURS) {
 						@Override
 						public void effects() {
 							coloursSB = new StringBuilder("<p>");
@@ -289,67 +306,141 @@ public class DebugDialogue {
 							for (BaseColour bc : BaseColour.values())
 								coloursSB.append(bc + ": <span style='color:" + bc.toWebHexString() + ";'>Test text for readability.</span><br/>");
 							coloursSB.append("</p>");
-							
+
 						}
 					};
-					
+
 				} else if (index == 2) {
 					return new Response("Offspring", "View available offspring", OFFSPRING);
-					
+
 				} else if (index == 3) {
-					return new Response("[style.boldBad(Month -)]", "Reduce current month by 1.", DEBUG_MENU){
+					return new Response("[style.boldBad(Month -)]", "Reduce current month by 1.", DEBUG_MENU) {
 						@Override
 						public void effects() {
 							Main.game.setStartingDateMonth(Main.game.getStartingDate().getMonth().minus(1));
-							
+
 						}
 					};
-					
+
 				} else if (index == 4) {
-						return new Response("[style.boldGood(Month +)]", "Increase current month by 1.", DEBUG_MENU){
-							@Override
-							public void effects() {
-								Main.game.setStartingDateMonth(Main.game.getStartingDate().getMonth().plus(1));
-								
-							}
-						};
-						
-				}  else if (index == 5) {
-					if(Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.DOMINION_BACK_ALLEYS) {
+					return new Response("[style.boldGood(Month +)]", "Increase current month by 1.", DEBUG_MENU) {
+						@Override
+						public void effects() {
+							Main.game.setStartingDateMonth(Main.game.getStartingDate().getMonth().plus(1));
+
+						}
+					};
+
+				} else if (index == 5) {
+					if (Main.game.getPlayer().getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS) {
 						return new Response("Lumi test", "Lumi can only be spawned in alleyway tiles.", null);
-						
-					} else if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
+
+					} else if (!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
 						return new Response("Lumi test", "Lumi can only be spawned into empty tiles!", null);
-						
-					}  else if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+
+					} else if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
 						return new Response("Lumi test", "Lumi can not be spawned during an arcane storm.", null);
 					}
-					return new ResponseEffectsOnly("Lumi test", "Spawn Lumi to test her dialogue and scenes."){
+					return new ResponseEffectsOnly("Lumi test", "Spawn Lumi to test her dialogue and scenes.") {
 						@Override
 						public void effects() {
 							Main.game.setContent(new Response("", "", LumiDialogue.LUMI_APPEARS));
 						}
 					};
-					
+
 				} else if (index == 6) {
-					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
+					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().ingestFluid(Main.game.getNpc(Brax.class), Main.game.getNpc(Brax.class).getCum(), SexAreaOrifice.VAGINA, 1000);
 						}
 					};
-					
+
 				} else if (index == 7) {
-					return new Response("Lilaya's hypocrisy", "Lilaya cums in your vagina!", DEBUG_MENU){
+					return new Response("Lilaya's hypocrisy", "Lilaya cums in your vagina!", DEBUG_MENU) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().ingestFluid(Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getCum(), SexAreaOrifice.VAGINA, 1000);
 						}
 					};
-					
+				} else if (index == 8) {
+					return new Response("Get Lyssieth", "Unlock ability for demon TF", DEBUG_MENU) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_3_A_FINDING_THE_YOUKO);
+						}
+					};
 				}
 			}
-			
+			else if(responseTab==3) {
+				switch (index) {
+					case 1:
+						return new Response("Wolf girl TF", "Cuz why not?", Brax.AFTER_DEFEAT_TRANSFORMATION);
+					case 2:
+						if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)) {
+							return new Response("Demonic TF fuck", "You must meet Lilin first, in order for this function to work", null);
+						}
+						return new Response("Demonic TF fuck", "Perhaps one time tf wasn't enough?~", LyssiethPalaceDialogue.DEMON_TF_START) {
+							@Override
+							public void effects() {
+								((Lyssieth) Main.game.getNpc(Lyssieth.class)).setLilinBody();
+							}
+						};
+					case 3:
+						return new Response("Fox girl TF", "From the arcanist themself", ImpCitadelDialogue.LABORATORY_ARCANIST_SOLO_TF){
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
+								Util.Value<String, AbstractItem> potion = ((NPC)ImpCitadelDialogue.getArcanist()).getTransformativePotion(Main.game.getPlayer(), true);
+								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getArcanist().useItem(potion.getValue(), Main.game.getPlayer(), false));
+								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "LABORATORY_ARCANIST_SOLO_TF_OFFER_SEX", ImpCitadelDialogue.getAllCharacters()));
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF, true);
+							}
+						};
+					case 4:
+						return new Response("Nympho Harpy TF", "Become the harpy nympho", HarpyNestNympho.HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT)
+						{
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append("<p>"
+										+ "Obediently doing as you're told, you open your mouth and let the lollipop slide past your [pc.lips+]."
+										+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
+										+ " Before you know what you're doing, you're eagerly sucking and licking on the delicious candy, letting out little whining noises as you find yourself unable to stop..."
+										+ "</p>"
+										+ ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyNympho.class), Main.game.getPlayer(), null));
+							}
+						};
+					case 5:
+						return new Response("Dommy Harpy TF", "Become the dommy harpy", HarpyNestDominant.HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT)
+						{
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append("<p>"
+										+ "You stay still, allowing [harpyDominant.name] to spray the bottle's contents onto your face and neck as she taunts you,"
+										+ " [harpyDominant.speech(You want to act like an angry, bitchy little harpy? You'd better have the body to match it!)]"
+										+ "</p>"
+										+ "<p>"
+										+ "You try to make a response, but as you open your mouth, the choking perfume enters your airways, leaving you coughing and spluttering on the floor."
+										+ " Before you know what you're doing, you're breathing in deeply, letting out little whining noises as you find yourself desperate to inhale as much of the sweet-smelling perfume as you possibly can..."
+										+ "</p>"
+										+ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyDominant.class), Main.game.getPlayer(), null));
+							}
+						};
+					case 6:
+						return new Response("Bimbo Harpy TF", "Become the harpy bimbo", HarpyNestBimbo.HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT)
+						{
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append( "<p>"
+										+ "Obediently doing as you're told, you open your mouth and let the lollipop slide past your [pc.lips+]."
+										+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
+										+ " Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
+										+ "</p>"
+										+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyBimbo.class), Main.game.getPlayer(), null));
+							}
+						};
+				}
+			}
 			return null;
 		}
 	};
@@ -1268,5 +1359,4 @@ public class DebugDialogue {
 			return true;
 		}
 	};
-
 }
