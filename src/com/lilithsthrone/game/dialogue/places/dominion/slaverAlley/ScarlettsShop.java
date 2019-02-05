@@ -224,9 +224,10 @@ public class ScarlettsShop {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-Main.game.getDialogueFlags().scarlettPrice));
 								
 								AbstractClothing ballgag = Main.game.getNpc(Scarlett.class).getClothingInSlot(InventorySlot.MOUTH);
-								ballgag.setSealed(false);
-								Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(ballgag, true, Main.game.getNpc(Alexa.class));
-
+								if (ballgag != null) {
+									ballgag.setSealed(false);
+									Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(ballgag, true, Main.game.getNpc(Alexa.class));
+								}
 //								AbstractClothing wristRestraints = Main.game.getNpc(Scarlett.class).getClothingInSlot(InventorySlot.WRIST);
 //								wristRestraints.setSealed(false);
 //								Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(wristRestraints, true, Main.game.getNpc(Alexa.class));
