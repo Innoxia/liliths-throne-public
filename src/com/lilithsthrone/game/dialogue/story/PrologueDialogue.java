@@ -359,7 +359,7 @@ public class PrologueDialogue {
 					@Override
 					public void effects() {
 						
-						Main.game.setWeather(Weather.MAGIC_STORM, 300);
+						Main.game.setWeatherInSeconds(Weather.MAGIC_STORM, 5*60*60);
 
 						Main.game.setRenderMap(true);
 						

@@ -25,8 +25,8 @@ public class HarpyNestAlexa {
 	public static final DialogueNode ALEXAS_NEST_EXTERIOR = new DialogueNode("Alexa's nest", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -125,8 +125,8 @@ public class HarpyNestAlexa {
 	public static final DialogueNode ALEXAS_NEST = new DialogueNode("Alexa's nest", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60*5;
 		}
 
 		@Override
@@ -208,8 +208,8 @@ public class HarpyNestAlexa {
 	public static final DialogueNode ALEXAS_NEST_SCARLETT = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -271,8 +271,8 @@ public class HarpyNestAlexa {
 	public static final DialogueNode ALEXAS_NEST_NO_PUNISHMENT = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -323,8 +323,8 @@ public class HarpyNestAlexa {
 	public static final DialogueNode ALEXAS_NEST_TAKE_PUNISHMENT = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -419,8 +419,8 @@ public class HarpyNestAlexa {
 	public static final DialogueNode ALEXAS_NEST_TAKE_PUNISHMENT_ENDURE = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60*5;
 		}
 
 		@Override
@@ -481,8 +481,8 @@ public class HarpyNestAlexa {
 	public static final DialogueNode ALEXAS_NEST_TAKE_PUNISHMENT_STRUGGLE = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60*5;
 		}
 
 		@Override
@@ -544,8 +544,8 @@ public class HarpyNestAlexa {
 	public static final DialogueNode ALEXAS_NEST_TAKE_PUNISHMENT_ENJOY = new DialogueNode("Alexa's nest", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60*5;
 		}
 
 		@Override
@@ -616,6 +616,11 @@ public class HarpyNestAlexa {
 	
 	public static final DialogueNode ALEXAS_NEST_TAKE_FLIGHT = new DialogueNode("Alexa's nest", ".", true, true) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 60*5;
+		}
+		
 		@Override
 		public String getContent() {
 			return "<p>"

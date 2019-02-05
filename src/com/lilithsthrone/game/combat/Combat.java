@@ -1595,7 +1595,7 @@ public enum Combat {
 					endTurnStatusEffectText.append("<p><b style='color: " + se.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(se.getName(character)) + ":</b> " + effectString+ "</p>");
 				}
 //				if (!se.isBeneficial()) {
-					character.setStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
+					character.setCombatStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
 //				}
 				if (character.getStatusEffectDuration(se) <= 0) {
 					effectsToRemove.add(se);

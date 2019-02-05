@@ -566,8 +566,8 @@ public class ClothingEmporium {
 	public static final DialogueNode ROMANCE_TALK = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override

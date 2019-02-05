@@ -839,7 +839,16 @@ public class CharacterCreation {
 				return new Response("Extra hair", "Enter the customisation menu for facial, pubic, and body hair.", CHOOSE_ADVANCED_APPEARANCE_BODY_HAIR);
 				
 			} else if (index == 0) {
-				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_NAME);
+				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_NAME) {
+					@Override
+					public int getSecondsPassed() {
+						return -60;
+					}
+					@Override
+					public void effects() {
+						Main.game.getPlayer().moveToAdjacentMatchingCellType(false, PlaceType.MUSEUM_ENTRANCE);
+					}
+				};
 				
 			} else {
 				return null;
@@ -1721,7 +1730,7 @@ public class CharacterCreation {
 		Main.game.clearTextStartStringBuilder();
 		Main.game.clearTextEndStringBuilder();
 
-		Main.game.setWeather(Weather.MAGIC_STORM, 300);
+		Main.game.setWeatherInSeconds(Weather.MAGIC_STORM, 5*60*60);
 		
 		Main.game.getPlayerCell().resetInventory();
 	}

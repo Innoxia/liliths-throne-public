@@ -121,6 +121,13 @@ public class Response {
 		}
 	}
 
+	/**
+	 * @return The number of seconds that pass when choosing this response.
+	 */
+	public int getSecondsPassed() {
+		return 0;
+	}
+	
 	public boolean disabledOnNullDialogue(){
 		return true;
 	}

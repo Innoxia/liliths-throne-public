@@ -21,8 +21,8 @@ public class CityHall {
 	public static final DialogueNode OUTSIDE = new DialogueNode("City Hall", "-", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override

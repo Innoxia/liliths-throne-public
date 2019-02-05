@@ -59,8 +59,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode ENTRANCE = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -86,8 +86,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode CORRIDOR = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -104,8 +104,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode WINDOWS = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -122,8 +122,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode ROOM = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -140,8 +140,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode HALL = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -158,8 +158,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode STAIRCASE = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -175,8 +175,8 @@ public class LyssiethPalaceDialogue {
 
 	public static final DialogueNode SIREN_OFFICE = new DialogueNode("", "", true) {
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -253,8 +253,8 @@ public class LyssiethPalaceDialogue {
 	
 	public static final DialogueNode MERAXIS_DEMON_TF_START = new DialogueNode("", "", true, true) {
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -287,8 +287,8 @@ public class LyssiethPalaceDialogue {
 	
 	public static final DialogueNode MERAXIS_DEMON_TF_ORIFICE_SELECTION = new DialogueNode("", "", true, true) {
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -304,8 +304,8 @@ public class LyssiethPalaceDialogue {
 	
 	public static final DialogueNode MERAXIS_DEMON_TF_WAIT_IN_OFFICE = new DialogueNode("", "", true, true) {
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -331,8 +331,8 @@ public class LyssiethPalaceDialogue {
 	
 	public static final DialogueNode MERAXIS_DEMON_TF_WAIT_IN_OFFICE_FINISHED = new DialogueNode("", "", true, true) {
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -356,8 +356,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LYSSIETH_OFFICE_ENTER = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -517,8 +517,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LYSSIETH_OFFICE_TALK = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -535,8 +535,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LAB_TELEPORT = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -556,8 +556,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode SIREN_OFFICE_LEAVE = new DialogueNode("", "", true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -831,8 +831,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode AFTER_DEMON_TF_SEX_SURNAME = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -859,8 +859,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode AFTER_DEMON_TF_SIREN_OFFICE_LEAVE = new DialogueNode("", "", true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -889,8 +889,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LILAYA_DEMON_TF_START = new DialogueNode("", "", true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -915,8 +915,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LILAYA_DEMON_TF_MERAXIS_CHOICE = new DialogueNode("", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -970,8 +970,8 @@ public class LyssiethPalaceDialogue {
 	
 	public static final DialogueNode LILAYA_DEMON_TF_SEX_CHOICE = new DialogueNode("", "", true, true) {
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1011,8 +1011,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LILAYA_DEMON_TF_ORIFICE_SELECTION = new DialogueNode("", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1298,8 +1298,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode AFTER_LILAYA_DEMON_TF_SEX = new DialogueNode("", "", true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1643,8 +1643,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LILAYA_DEMON_TF_WAIT_IN_OFFICE = new DialogueNode("", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1687,8 +1687,8 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LILAYA_DEMON_TF_FINISHED_REACTION = new DialogueNode("", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1751,8 +1751,8 @@ public class LyssiethPalaceDialogue {
 		}
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override

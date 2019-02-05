@@ -1,4 +1,4 @@
-package com.lilithsthrone.controller.eventListeners;
+package com.lilithsthrone.controller.eventListeners.tooltips;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.2.4
  * @author Innoxia
  */
-public class InventoryTooltipEventListener implements EventListener {
+public class TooltipInventoryEventListener implements EventListener {
 	private GameCharacter owner, equippedToCharacter;
 	private AbstractCoreItem coreItem;
 	private AbstractItem item;
@@ -527,7 +527,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	}
 	
 	
-	public InventoryTooltipEventListener setCoreItem(AbstractCoreItem coreItem, GameCharacter owner, GameCharacter equippedToCharacter) {
+	public TooltipInventoryEventListener setCoreItem(AbstractCoreItem coreItem, GameCharacter owner, GameCharacter equippedToCharacter) {
 		resetVariables();
 		this.coreItem = coreItem;
 		this.equippedToCharacter = equippedToCharacter;
@@ -535,7 +535,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setItem(AbstractItem item, GameCharacter owner, GameCharacter equippedToCharacter) {
+	public TooltipInventoryEventListener setItem(AbstractItem item, GameCharacter owner, GameCharacter equippedToCharacter) {
 		resetVariables();
 		this.item = item;
 		this.equippedToCharacter = equippedToCharacter;
@@ -543,7 +543,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setTattoo(InventorySlot invSlot, Tattoo tattoo, GameCharacter owner, GameCharacter equippedToCharacter) {
+	public TooltipInventoryEventListener setTattoo(InventorySlot invSlot, Tattoo tattoo, GameCharacter owner, GameCharacter equippedToCharacter) {
 		resetVariables();
 		this.invSlot = invSlot;
 		this.tattoo = tattoo;
@@ -552,13 +552,13 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setGenericItem(AbstractItemType genericItem) {
+	public TooltipInventoryEventListener setGenericItem(AbstractItemType genericItem) {
 		resetVariables();
 		this.genericItem = genericItem;
 		return this;
 	}
 
-	public InventoryTooltipEventListener setClothing(AbstractClothing clothing, GameCharacter owner, GameCharacter equippedToCharacter) {
+	public TooltipInventoryEventListener setClothing(AbstractClothing clothing, GameCharacter owner, GameCharacter equippedToCharacter) {
 		resetVariables();
 		this.clothing = clothing;
 		this.equippedToCharacter = equippedToCharacter;
@@ -566,63 +566,63 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 
-	public InventoryTooltipEventListener setDyeClothingPrimary(AbstractClothing dyeClothing, Colour colour) {
+	public TooltipInventoryEventListener setDyeClothingPrimary(AbstractClothing dyeClothing, Colour colour) {
 		resetVariables();
 		this.dyeClothing = dyeClothing;
 		this.colour = colour;
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setDyeClothingSecondary(AbstractClothing dyeClothing, Colour secondaryColour) {
+	public TooltipInventoryEventListener setDyeClothingSecondary(AbstractClothing dyeClothing, Colour secondaryColour) {
 		resetVariables();
 		this.dyeClothing = dyeClothing;
 		this.secondaryColour = secondaryColour;
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setDyeClothingTertiary(AbstractClothing dyeClothing, Colour tertiaryColour) {
+	public TooltipInventoryEventListener setDyeClothingTertiary(AbstractClothing dyeClothing, Colour tertiaryColour) {
 		resetVariables();
 		this.dyeClothing = dyeClothing;
 		this.tertiaryColour = tertiaryColour;
 		return this;
 	}
 
-	public InventoryTooltipEventListener setDyeWeaponPrimary(AbstractWeapon dyeWeapon, Colour colour) {
+	public TooltipInventoryEventListener setDyeWeaponPrimary(AbstractWeapon dyeWeapon, Colour colour) {
 		resetVariables();
 		this.dyeWeapon = dyeWeapon;
 		this.colour = colour;
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setDyeWeaponSecondary(AbstractWeapon dyeWeapon, Colour secondaryColour) {
+	public TooltipInventoryEventListener setDyeWeaponSecondary(AbstractWeapon dyeWeapon, Colour secondaryColour) {
 		resetVariables();
 		this.dyeWeapon = dyeWeapon;
 		this.secondaryColour = secondaryColour;
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setDyeClothingPattern(AbstractClothing dyeClothing, Pattern pattern) {
+	public TooltipInventoryEventListener setDyeClothingPattern(AbstractClothing dyeClothing, Pattern pattern) {
 		resetVariables();
 		this.dyeClothing = dyeClothing;
 		this.pattern = pattern;
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setGenericClothing(AbstractClothingType genericClothing, Colour colour) {
+	public TooltipInventoryEventListener setGenericClothing(AbstractClothingType genericClothing, Colour colour) {
 		resetVariables();
 		this.genericClothing = genericClothing;
 		this.colour = colour;
 		return this;
 	}
 
-	public InventoryTooltipEventListener setGenericWeapon(AbstractWeaponType genericWeapon, DamageType dt) {
+	public TooltipInventoryEventListener setGenericWeapon(AbstractWeaponType genericWeapon, DamageType dt) {
 		resetVariables();
 		this.genericWeapon = genericWeapon;
 		this.dt = dt;
 		return this;
 	}
 
-	public InventoryTooltipEventListener setWeapon(AbstractWeapon weapon, GameCharacter owner, boolean isEquipped) {
+	public TooltipInventoryEventListener setWeapon(AbstractWeapon weapon, GameCharacter owner, boolean isEquipped) {
 		resetVariables();
 		this.weapon = weapon;
 		if(isEquipped) {
@@ -632,7 +632,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 
-	public InventoryTooltipEventListener setInventorySlot(InventorySlot invSlot, GameCharacter equippedToCharacter) {
+	public TooltipInventoryEventListener setInventorySlot(InventorySlot invSlot, GameCharacter equippedToCharacter) {
 		resetVariables();
 		this.invSlot = invSlot;
 		this.equippedToCharacter = equippedToCharacter;
@@ -640,19 +640,19 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setTFModifier(TFModifier enchantmentModifier) {
+	public TooltipInventoryEventListener setTFModifier(TFModifier enchantmentModifier) {
 		resetVariables();
 		this.enchantmentModifier = enchantmentModifier;
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setTFPotency(TFPotency potency) {
+	public TooltipInventoryEventListener setTFPotency(TFPotency potency) {
 		resetVariables();
 		this.potency = potency;
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setEssence(TFEssence essence) {
+	public TooltipInventoryEventListener setEssence(TFEssence essence) {
 		resetVariables();
 		this.essence = essence;
 		return this;

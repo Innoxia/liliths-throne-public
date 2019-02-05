@@ -1043,8 +1043,8 @@ public class Brax extends NPC {
 	public static final DialogueNode AFTER_SUBMISSIVE_SEX = new DialogueNode("Brax is done", "Brax has finished having his fun with you.", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 
 		@Override

@@ -55,8 +55,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode EXTERIOR = new DialogueNode("Enforcer HQ", "Enforcer HQ", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -87,8 +87,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode CORRIDOR = new DialogueNode("Corridor", "-", false) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 		
 		@Override
@@ -108,8 +108,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode ENTRANCE = new DialogueNode("Entrance hall", "-", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 		
 		@Override
@@ -140,8 +140,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode WAITING_AREA = new DialogueNode("Waiting area", "-", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 		
 		@Override
@@ -187,8 +187,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode GUARDED_DOOR = new DialogueNode("Guarded door", "-", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 		
 		@Override
@@ -256,8 +256,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode RECEPTION_DESK = new DialogueNode("Reception desk", "-", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -1280,8 +1280,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode INTERIOR_BRAX = new DialogueNode("[brax.namePos] Office", "-", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override

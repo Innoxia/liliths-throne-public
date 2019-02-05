@@ -338,8 +338,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode ENTRANCE = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -375,8 +375,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode STAIRS = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -521,8 +521,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode KATHERINE_DECLINE = new DialogueNode("", "", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -549,8 +549,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode CORRIDOR = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -646,8 +646,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode GARDEN_ENTRY = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -669,8 +669,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode GARDEN = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -692,8 +692,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode GARDEN_ROOM = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -719,8 +719,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode ROOM = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -742,8 +742,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -770,8 +770,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_GREETING = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -915,8 +915,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_FOOT_STALL = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -957,8 +957,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_DECLINED_FOOT_STALL = new DialogueNode("", "", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -980,8 +980,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_FOOT_MASSAGE_REFUSED = new DialogueNode("", "", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1003,8 +1003,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_FOOT_MASSAGE = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -1064,8 +1064,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_FOOT_MASSAGE_ORAL = new DialogueNode("", "", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -1087,8 +1087,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_FOOT_MASSAGE_ORAL_REFUSED = new DialogueNode("", "", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1110,8 +1110,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_DECLINED_WALK = new DialogueNode("", "", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1128,8 +1128,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_FURIOUS = new DialogueNode("Lounge", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1212,8 +1212,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_LOSES_IT = new DialogueNode("Lounge", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1235,8 +1235,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode COMBAT_LOSS = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1263,8 +1263,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode AFTER_AMBER_SEX_LOSS = new DialogueNode("Used", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1281,8 +1281,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode COMBAT_VICTORY = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1329,8 +1329,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode COMBAT_VICTORY_LEAVE = new DialogueNode("Finished", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1347,8 +1347,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode AFTER_AMBER_SEX_VICTORY = new DialogueNode("Finished", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1365,8 +1365,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode AFTER_AMBER_SEX_SUB_VICTORY = new DialogueNode("Used", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1383,8 +1383,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode LOUNGE_AMBER_WALKIES = new DialogueNode("Lounge", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1437,8 +1437,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_HUMILIATION = new DialogueNode("Demon Home", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1481,8 +1481,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_HUMILIATION_REFUSE = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -1510,8 +1510,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_HUMILIATION_RELUCTANT = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -1539,8 +1539,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_HUMILIATION_EAGER = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -1568,8 +1568,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_PEACEFUL = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1597,8 +1597,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_PUNISHMENT = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1626,8 +1626,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_AMBER_FUCKS = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1672,8 +1672,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_AMBER_FUCKS_REFUSED = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1725,6 +1725,11 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_PET_FUCKS = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 15*60;
+		}
+
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS");
 		}
@@ -1732,7 +1737,7 @@ public class ZaranixHomeGroundFloorRepeat {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Amber's friend", "You stay by Mistress Amber's side as the two of you head over to what must be Mistress's friend.", WALKIES_PET_FUCKS_SNIFFING) {
+				return new Response("Amber's friend", "You stay by Mistress Amber's side as the two of you head over to who must be Mistress's friend.", WALKIES_PET_FUCKS_SNIFFING) {
 					@Override
 					public void effects() {
 						Gender petGender = Gender.getGenderFromUserPreferences(false, false);
@@ -1799,8 +1804,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_PET_FUCKS_SNIFFING = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -1959,8 +1964,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_PET_FUCKS_REFUSE = new DialogueNode("Demon Home", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1990,8 +1995,8 @@ public class ZaranixHomeGroundFloorRepeat {
 	public static final DialogueNode WALKIES_HOME = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override

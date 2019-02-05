@@ -1,4 +1,4 @@
-package com.lilithsthrone.controller.eventListeners;
+package com.lilithsthrone.controller.eventListeners.tooltips;
 
 import java.util.List;
 import java.util.Map;
@@ -144,7 +144,7 @@ public class TooltipInformationEventListener implements EventListener {
 					if (statusEffect.isCombatEffect()) {
 						tooltipSB.append("<div class='subTitle'><b>Turns remaining: " + owner.getStatusEffectDuration(statusEffect) + "</b></div>");
 					} else {
-						int timerHeight = (int) ((owner.getStatusEffectDuration(statusEffect)/(60*6f))*100);
+						int timerHeight = (int) ((owner.getStatusEffectDuration(statusEffect)/(60*60*6f))*100);
 
 						Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
 						
@@ -158,7 +158,7 @@ public class TooltipInformationEventListener implements EventListener {
 						}
 						
 						tooltipSB.append("<div class='subTitle'><b>Time remaining: "
-								+ "<b style='color:"+timerColour.toWebHexString()+";'>" + (owner.getStatusEffectDuration(statusEffect) / 60) + ":" + String.format("%02d", (owner.getStatusEffectDuration(statusEffect) % 60)) + "</b>"
+								+ "<b style='color:"+timerColour.toWebHexString()+";'>" + (owner.getStatusEffectDuration(statusEffect) / (60*60)) + ":" + String.format("%02d", ((owner.getStatusEffectDuration(statusEffect)/60) % (60))) + "</b>"
 								+ "</div>");
 						//STATUS_EFFECT_TIME_OVERFLOW
 					}
@@ -855,8 +855,21 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipSize(360, 100);
 
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title'>" + "<b style='color:" + Main.game.getCurrentWeather().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getCurrentWeather().getName()) + "</b>" + "</div>"
-					+ "<div class='title'>" + "<b>" + ((Main.game.getWeatherTimeRemaining() / 60) + 1) + " hour" + (((Main.game.getWeatherTimeRemaining() / 60) + 1) > 1 ? "s" : "") + " remaining" + "</b>" + "</div>");
+			int minutes = Math.max(1, Main.game.getWeatherTimeRemainingInSeconds()/60);
+			int hours = minutes/60;
+			tooltipSB.append(
+				"<div class='title'>"
+					+ "<b style='color:" + Main.game.getCurrentWeather().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getCurrentWeather().getName()) + "</b>"
+				+ "</div>"
+				+ "<div class='title'><b>"
+					+ (hours>0
+							?hours+" hour"+(hours>1?"s ":" ")
+							:"")
+					+ (minutes%60>0
+							?minutes+" minute"+(minutes>1?"s ":" ")
+							:"")
+					+"remaining"
+				+ "</b></div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 

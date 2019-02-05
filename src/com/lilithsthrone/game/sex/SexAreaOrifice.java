@@ -15,7 +15,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	MOUTH(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			2, 15,
+			2/60f, 15/60f,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -34,7 +34,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	NIPPLE(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 2,
+			4/60f, 2/60f,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -57,7 +57,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	BREAST(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			25, 0,
+			25/60f, 0,
 			false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -80,7 +80,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	NIPPLE_CROTCH(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 2,
+			4/60f, 2/60f,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -103,7 +103,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	BREAST_CROTCH(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			25, 0,
+			25/60f, 0,
 			false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -126,7 +126,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	ASS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			25, 0,
+			25/60f, 0,
 			false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -146,7 +146,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	ANUS(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 4,
+			4/60f, 4/60f,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -165,7 +165,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	VAGINA(4,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 2,
+			4/60f, 2/60f,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -184,7 +184,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	THIGHS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			25, 0,
+			25/60f, 0,
 			false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -207,7 +207,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	URETHRA_VAGINA(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 2,
+			4/60f, 2/60f,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -226,7 +226,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	URETHRA_PENIS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 2,
+			4/60f, 2/60f,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -249,8 +249,8 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	private float arousalChangePenetratingStretching;
 	private float arousalChangePenetratingTooLoose;
 	private float arousalChangePenetratingDry;
-	private int cumLossPerMinute;
-	private int cumAbsorptionPerMinute;
+	private float cumLossPerSecond;
+	private float cumAbsorptionPerSecond;
 	private boolean takesPenisVirginity;
 
 	/**
@@ -261,8 +261,8 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	 * @param arousalChangePenetratingStretching
 	 * @param arousalChangePenetratingTooLoose
 	 * @param arousalChangePenetratingDry
-	 * @param cumLossPerMinute The amount of cum or other fluids that leak out of this orifice every minute.
-	 * @param cumAbsorptionPerMinute The amount of cum or other fluids that are absorbed into the character's body through this orifice every minute.
+	 * @param cumLossPerSecond The amount of cum or other fluids that leak out of this orifice every second.
+	 * @param cumAbsorptionPerSecond The amount of cum or other fluids that are absorbed into the character's body through this orifice every second.
 	 * @param takesPenisVirginity
 	 */
 	private SexAreaOrifice(float baseArousalWhenPenetrated,
@@ -272,8 +272,8 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			float arousalChangePenetratingStretching,
 			float arousalChangePenetratingTooLoose,
 			float arousalChangePenetratingDry,
-			int cumLossPerMinute,
-			int cumAbsorptionPerMinute,
+			float cumLossPerSecond,
+			float cumAbsorptionPerSecond,
 			boolean takesPenisVirginity) {
 		this.baseArousalWhenPenetrated = baseArousalWhenPenetrated;
 		this.arousalChangePenetratedStretching = arousalChangePenetratedStretching;
@@ -282,8 +282,8 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		this.arousalChangePenetratingStretching = arousalChangePenetratingStretching;
 		this.arousalChangePenetratingTooLoose = arousalChangePenetratingTooLoose;
 		this.arousalChangePenetratingDry = arousalChangePenetratingDry;
-		this.cumLossPerMinute = cumLossPerMinute;
-		this.cumAbsorptionPerMinute = cumAbsorptionPerMinute;
+		this.cumLossPerSecond = cumLossPerSecond;
+		this.cumAbsorptionPerSecond = cumAbsorptionPerSecond;
 		this.takesPenisVirginity = takesPenisVirginity;
 	}
 
@@ -320,12 +320,12 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		return arousalChangePenetratingDry;
 	}
 
-	public int getCumLossPerMinute() {
-		return cumLossPerMinute;
+	public float getCumLossPerSecond() {
+		return cumLossPerSecond;
 	}
 	
-	public int getCumAbsorptionPerMinute() {
-		return cumAbsorptionPerMinute;
+	public float getCumAbsorptionPerSecond() {
+		return cumAbsorptionPerSecond/60f;
 	}
 
 	/**
@@ -337,12 +337,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		return takesPenisVirginity;
 	}
 	
-	public int getCharactersCumLossPerMinute(GameCharacter target) {
-		int cumLost = this.getCumAbsorptionPerMinute();
+	public float getCharactersCumLossPerSecond(GameCharacter target) {
+		float cumLost = this.getCumAbsorptionPerSecond();
 		
 		if(!target.isOrificePlugged(this)) {
-			cumLost += (int) (this.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getTotalFluidInArea(this), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
+			cumLost += this.getCumLossPerSecond() * (1 + 5*Util.getModifiedDropoffValue(target.getTotalFluidInArea(this), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue());
 		}
 		
 		return cumLost;

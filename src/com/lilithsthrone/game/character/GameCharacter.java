@@ -1893,8 +1893,12 @@ public abstract class GameCharacter implements XMLSaving {
 				if(Integer.valueOf(e.getAttribute("value")) != -1) {
 					StatusEffect effect = StatusEffect.valueOf(e.getAttribute("type"));
 					if(!noPregnancy || (effect!=StatusEffect.PREGNANT_0 && effect!=StatusEffect.PREGNANT_1 && effect!=StatusEffect.PREGNANT_2 && effect!=StatusEffect.PREGNANT_3)) {
-						character.addStatusEffect(effect, Integer.valueOf(e.getAttribute("value")));
-						CharacterUtils.appendToImportLog(log, "<br/>Added Status Effect: "+StatusEffect.valueOf(e.getAttribute("type")).getName(character)+" ("+Integer.valueOf(e.getAttribute("value"))+" minutes)");
+						int seconds = Integer.valueOf(e.getAttribute("value"));
+						if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) {
+							seconds*=60;
+						}
+						character.addStatusEffect(effect, seconds);
+						CharacterUtils.appendToImportLog(log, "<br/>Added Status Effect: "+StatusEffect.valueOf(e.getAttribute("type")).getName(character)+" ("+Integer.valueOf(e.getAttribute("value"))+" seconds)");
 					}
 				}
 			}catch(IllegalArgumentException ex){
@@ -1928,7 +1932,11 @@ public abstract class GameCharacter implements XMLSaving {
 			if(pregnancyElement!=null) {
 				CharacterUtils.appendToImportLog(log, "<br/><br/>Pregnancies:");
 				
-				character.setTimeProgressedToFinalPregnancyStage(Integer.valueOf(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage")));
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) {
+					character.setTimeProgressedToFinalPregnancyStage(Integer.valueOf(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage"))*60);
+				} else {
+					character.setTimeProgressedToFinalPregnancyStage(Integer.valueOf(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage")));
+				}
 				
 				nodes = pregnancyElement.getElementsByTagName("potentialPartnersAsMother");
 				element = (Element) nodes.item(0);
@@ -4625,16 +4633,16 @@ public abstract class GameCharacter implements XMLSaving {
 			potionAttributes.remove(att);
 		}
 		
-		potionTimeRemaining += 30 * (this.isPlayer()&&this.hasTrait(Perk.JOB_CHEF, true)?2:1);
+		potionTimeRemaining += 30 * 60 * (this.isPlayer()&&this.hasTrait(Perk.JOB_CHEF, true)?2:1);
 		
-		if(potionTimeRemaining>=12*60) {
-			addStatusEffect(StatusEffect.POTION_EFFECTS, 12*60);
+		if(potionTimeRemaining>=12*60*60) {
+			addStatusEffect(StatusEffect.POTION_EFFECTS, 12*60*60);
 			
-		} else if(potionTimeRemaining>60) {
+		} else if(potionTimeRemaining>60*60) {
 			addStatusEffect(StatusEffect.POTION_EFFECTS, potionTimeRemaining);
 			
 		} else {
-			addStatusEffect(StatusEffect.POTION_EFFECTS, 60);
+			addStatusEffect(StatusEffect.POTION_EFFECTS, 60*60);
 			
 		}
 		
@@ -5122,19 +5130,19 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// Status effects:
 
-	public void calculateStatusEffects(int turnTime) {
+	public void calculateStatusEffects(int secondsPassed) {
 		// Count down status effects:
 		String s;
 		List<StatusEffect> tempListStatusEffects = new ArrayList<>();
 		for (StatusEffect se : getStatusEffects()) {
 			if (!se.isCombatEffect()){
-				s = se.applyEffect(this, turnTime);
+				s = se.applyEffect(this, secondsPassed);
 				if(s.length()!=0) {
 					statusEffectDescriptions.put(se, s);
 				}
 			}
 			
-			incrementStatusEffectDuration(se, -turnTime);
+			incrementStatusEffectDuration(se, -secondsPassed);
 			
 			if (statusEffects.get(se) < 0 && !se.isConditionsMet(this)) {
 				tempListStatusEffects.add(se);
@@ -5160,7 +5168,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// Clothing effects:
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			for(ItemEffect ie : c.getEffects()) {
-				String clothingEffectDescription = ie.applyEffect(this, this, turnTime);
+				String clothingEffectDescription = ie.applyEffect(this, this, secondsPassed);
 				if (this.isPlayer() && !clothingEffectDescription.isEmpty()) {
 					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "")
 							+ "<p style='margin:0 auto;padding:0 auto;color:"+c.getRarity().getColour().toWebHexString()+";'><b>"+ Util.capitaliseSentence(c.getName())+":</b></p>"
@@ -5172,7 +5180,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// Tattoo effects:
 		for(Tattoo tattoo : tattoos.values()) {
 			for(ItemEffect ie : tattoo.getEffects()) {
-				String tattooEffectDescription = ie.applyEffect(this, this, turnTime);
+				String tattooEffectDescription = ie.applyEffect(this, this, secondsPassed);
 				if (this.isPlayer() && !tattooEffectDescription.isEmpty()) {
 					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "")
 							+ "<p style='margin:0 auto;padding:0 auto;'><b>"+ Util.capitaliseSentence(tattoo.getName())+":</b></p>"
@@ -5200,14 +5208,14 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 
-	public boolean addStatusEffect(StatusEffect statusEffect, int length) {
+	public boolean addStatusEffect(StatusEffect statusEffect, int seconds) {
 		if (hasStatusEffect(statusEffect)){
 			// refresh the effect
-			statusEffects.put(statusEffect, length);//(Main.game.isInCombat()&&statusEffect.isCombatEffect()&&statusEffect.isBeneficial())?length+1:length);
+			statusEffects.put(statusEffect, seconds);//(Main.game.isInCombat()&&statusEffect.isCombatEffect()&&statusEffect.isBeneficial())?length+1:length);
 			return false;
 		}
 		
-		statusEffects.put(statusEffect, length);//(Main.game.isInCombat()&&statusEffect.isCombatEffect()&&statusEffect.isBeneficial())?length+1:length);
+		statusEffects.put(statusEffect, seconds);//(Main.game.isInCombat()&&statusEffect.isCombatEffect()&&statusEffect.isBeneficial())?length+1:length);
 		
 		// Increment bonus attributes from this StatusEffect:
 		if (statusEffect.getAttributeModifiers(this) != null) {
@@ -5266,41 +5274,31 @@ public abstract class GameCharacter implements XMLSaving {
 		return true;
 	}
 
-
 	public int getStatusEffectDuration(StatusEffect se) {
 		return statusEffects.get(se);
 	}
 
-
-	public boolean setStatusEffectDuration(StatusEffect se, int length) {
-		if (!statusEffects.containsKey(se))
+	public boolean setCombatStatusEffectDuration(StatusEffect se, int turns) {
+		if (!statusEffects.containsKey(se)) {
 			return false;
+		}
 
-		statusEffects.put(se, length);
+		statusEffects.put(se, turns);
 
 		return true;
 	}
 
-
-	public boolean incrementStatusEffectDuration(StatusEffect se, int increment) {
-		if (!statusEffects.containsKey(se) || statusEffects.get(se) == -1)
+	public boolean incrementStatusEffectDuration(StatusEffect se, int secondsIncrement) {
+		if (!statusEffects.containsKey(se) || statusEffects.get(se) == -1) {
 			return false;
-
-//		if (statusEffects.get(se) + increment < 0) // Remove the status effect
-//													// if it ticked past 0:
-//			removeStatusEffect(se);
-//		else // Otherwise, increment the status effect:
-			
-		statusEffects.put(se, statusEffects.get(se) + increment);
-
+		}
+		statusEffects.put(se, statusEffects.get(se) + secondsIncrement);
 		return true;
 	}
-
 
 	public Map<StatusEffect, String> getStatusEffectDescriptions() {
 		return statusEffectDescriptions;
 	}
-
 
 	public void clearCombatStatusEffects() {
 		List<StatusEffect> removalList = new ArrayList<>();
@@ -5308,8 +5306,9 @@ public abstract class GameCharacter implements XMLSaving {
 			if (se.isCombatEffect())
 				removalList.add(se);
 		}
-		for (StatusEffect se : removalList)
+		for (StatusEffect se : removalList) {
 			removeStatusEffect(se);
+		}
 	}
 
 	
@@ -12342,8 +12341,8 @@ public abstract class GameCharacter implements XMLSaving {
 		return ingestFluid(fluid.getFluidCharacter(), fluid.getCumSubspecies(), fluid.getFluid(), orificeIngestedThrough, fluid.getMillilitres());
 	}
 
-	public String ingestFluid(GameCharacter charactersFluid, FluidInterface fluid, SexAreaOrifice orificeIngestedThrough, int millilitres) {
-		return ingestFluid(charactersFluid, null, fluid, orificeIngestedThrough, millilitres);
+	public String ingestFluid(GameCharacter charactersFluid, FluidInterface fluid, SexAreaOrifice orificeIngestedThrough, float millilitres) {
+		return ingestFluid(charactersFluid, charactersFluid.getSubspecies(), fluid, orificeIngestedThrough, millilitres);
 	}
 	
 	/**
@@ -12352,7 +12351,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param addictive Is this fluid addictive or not.
 	 * @return A <b>formatted paragraph</b> description of addiction increasing/satisfied, or an empty String if no addictive effects occur.
 	 */
-	public String ingestFluid(GameCharacter charactersFluid, Subspecies subspecies, FluidInterface fluid, SexAreaOrifice orificeIngestedThrough, int millilitres) {
+	public String ingestFluid(GameCharacter charactersFluid, Subspecies subspecies, FluidInterface fluid, SexAreaOrifice orificeIngestedThrough, float millilitres) {
 		StringBuilder fluidIngestionSB = new StringBuilder();
 		
 		List<FluidModifier> modifiers = fluid.getFluidModifiers();
@@ -12432,7 +12431,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(modifiers.contains(FluidModifier.HALLUCINOGENIC)) {
 			this.addPsychoactiveFluidIngested(fluid.getType());
-			this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
+			this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60*60);
 			fluidIngestionSB.append(UtilText.parse(this,
 					"<p>"
 						+ "Due to the psychoactive properties of "+(charactersFluid==null?"":(charactersFluid.equals(this)?"[npc.her]":UtilText.parse(charactersFluid, "[npc.namePos]")))+" "+fluid.getName(charactersFluid)
@@ -12480,7 +12479,7 @@ public abstract class GameCharacter implements XMLSaving {
 //		
 //		if(modifiers.contains(FluidModifier.HALLUCINOGENIC)) {
 //			this.addPsychoactiveFluidIngested(fluid);
-//			this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
+//			this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60*60);
 //			if(isPlayer()) {
 //				fluidIngestionSB.append("<p>"
 //							+ "Due to the psychoactive properties of the "+fluid.getName(null)
@@ -12997,14 +12996,14 @@ public abstract class GameCharacter implements XMLSaving {
 		return LustLevel.getLustLevelFromValue(getAttributeValue(Attribute.LUST));
 	}
 	
-	public void alignLustToRestingLust(int minutes) {
+	public void alignLustToRestingLust(int secondsPassed) {
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
 			setLust(75);
 		} else {
 			if(getLust()>getRestingLust()) {
-				incrementLust(-Math.min(getLust()-getRestingLust(), 0.5f*minutes), false);
+				incrementLust(-Math.min(getLust()-getRestingLust(), 0.008f*secondsPassed), false);
 			} else if((int)getLust()!=getRestingLust()) {
-				incrementLust(Math.min(getRestingLust()-getLust(), 0.5f*minutes), false);
+				incrementLust(Math.min(getRestingLust()-getLust(), 0.008f*secondsPassed), false);
 			}
 		}
 	}
@@ -13128,7 +13127,7 @@ public abstract class GameCharacter implements XMLSaving {
 						addAddiction(new Addiction(fs.getFluid().getType(), Main.game.getMinutesPassed(), fs.getCharactersFluidID()));
 					}
 					if(fs.getFluid().getFluidModifiers().contains(FluidModifier.HALLUCINOGENIC)) {
-						this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
+						this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60*60);
 					}
 				}
 			}
@@ -13162,7 +13161,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public String rollForPregnancy(GameCharacter partner, int cumQuantity) {
+	public String rollForPregnancy(GameCharacter partner, float cumQuantity) {
 		if(partner instanceof Elemental) {
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
 					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
@@ -13177,7 +13176,7 @@ public abstract class GameCharacter implements XMLSaving {
 		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
 		boolean selfFertile = getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN);
 		if (partnerVirile && selfFertile && isAbleToBeImpregnated()) {
-			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt(cumQuantity).getPregnancyModifier();
+			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt((int) cumQuantity).getPregnancyModifier();
 			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
 			pregnancyChance = Math.max(0, Math.min(pregnancyChance/3, 1));
 		}
@@ -13192,7 +13191,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// Now roll for pregnancy:
 		if (!isPregnant()) {
 			if (!hasStatusEffect(StatusEffect.PREGNANT_0)) {
-				addStatusEffect(StatusEffect.PREGNANT_0, 60 * (4 + Util.random.nextInt(5)));
+				addStatusEffect(StatusEffect.PREGNANT_0, (60 * 60) * (4 + Util.random.nextInt(5)));
 			}
 			if (Math.random() <= pregnancyChance) {
 				Race litterSizeBasedOn = null;
@@ -13454,7 +13453,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return total;
 	}
 	
-	public void drainTotalFluidsStored(SexAreaOrifice area, int drain) {
+	public void drainTotalFluidsStored(SexAreaOrifice area, float drain) {
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		int drained = 0;
 		for(FluidStored f : fluidsStoredMap.get(area)) {
@@ -13462,7 +13461,7 @@ public abstract class GameCharacter implements XMLSaving {
 				break;
 			}
 			
-			int drainAmount = Math.min(Math.abs(drain), f.getMillilitres());
+			float drainAmount = Math.min(Math.abs(drain), f.getMillilitres());
 			f.incrementMillilitres(-drainAmount);
 			drained+=drainAmount;
 		}

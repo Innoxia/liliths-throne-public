@@ -50,8 +50,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode ENTRANCE = new DialogueNode("Entrance Hall", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -91,8 +91,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode GUARD_POST = new DialogueNode("Guard Post", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -447,8 +447,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode STAIRCASE_UP = new DialogueNode("Spiral Staircase", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -476,8 +476,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode STAIRCASE_DOWN = new DialogueNode("Spiral Staircase", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -505,8 +505,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode CORRIDOR = new DialogueNode("Corridor", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 		
 		@Override
@@ -523,8 +523,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode ROOM = new DialogueNode("Bedroom", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 		
 		@Override
@@ -541,8 +541,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode STORAGE_VATS = new DialogueNode("Distillery", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 		
 		@Override
@@ -559,8 +559,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode ROYAL_GUARD_POST = new DialogueNode("Royal Guard Post", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -660,8 +660,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode ROYAL_GUARD_POST_TALK = new DialogueNode("Royal Guard Post", "", false, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -678,8 +678,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode ROYAL_GUARD_POST_ADMIRE = new DialogueNode("Royal Guard Post", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -732,8 +732,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode ROYAL_GUARD_POST_ADMIRE_INSTRUCT = new DialogueNode("Royal Guard Post", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -773,8 +773,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode ROYAL_GUARD_POST_ADMIRE_INSTRUCT_OVERPOWER = new DialogueNode("Royal Guard Post", "", false, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -792,8 +792,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode ROYAL_GUARD_POST_ADMIRE_SEDUCE = new DialogueNode("Royal Guard Post", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -1024,8 +1024,8 @@ public class SlimeQueensLair {
 	public static final DialogueNode BED_CHAMBER = new DialogueNode("Bed Chamber", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 //		@Override

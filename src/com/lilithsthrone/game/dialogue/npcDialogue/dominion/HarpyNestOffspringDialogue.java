@@ -2850,8 +2850,8 @@ public class HarpyNestOffspringDialogue {
 	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override

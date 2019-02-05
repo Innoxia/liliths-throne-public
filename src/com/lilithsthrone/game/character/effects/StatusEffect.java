@@ -1372,7 +1372,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasSnowedThisWinter)) {
 				Main.game.getDialogueFlags().values.add(DialogueFlagValue.hasSnowedThisWinter);
 				
@@ -1505,7 +1505,7 @@ public enum StatusEffect {
 					"[style.boldExcellent(Double)] all <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
@@ -1563,7 +1563,7 @@ public enum StatusEffect {
 					"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
@@ -1617,7 +1617,7 @@ public enum StatusEffect {
 					+ ";'>Enhanced libido</b>")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
@@ -1899,7 +1899,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
@@ -1939,7 +1939,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
@@ -1980,7 +1980,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			List<InventorySlot> slotsToClean = new ArrayList<>();
 			StringBuilder sb = new StringBuilder();
 			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
@@ -2049,8 +2049,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return StatusEffect.BODY_CUM.applyEffect(target, minutesPassed);
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return StatusEffect.BODY_CUM.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -2082,7 +2082,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer()) {
 				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.jinxedClothingDiscovered)) {
 					Main.game.getDialogueFlags().values.add(DialogueFlagValue.jinxedClothingDiscovered);
@@ -2287,8 +2287,8 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("Open to <b style='color: " + Colour.PSYCHOACTIVE.toWebHexString() + ";'>Hypnotic Suggestion</b>")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.isPlayer() && Math.random()<=Util.getModifiedDropoffValue(minutesPassed*0.0075f, 0.5f)) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(target.isPlayer() && Math.random()<=Util.getModifiedDropoffValue((secondsPassed/60)*0.0075f, 0.5f)) {
 				
 				if(target.getPsychoactiveFluidsIngested().isEmpty()) {
 					return "<p>"
@@ -2424,8 +2424,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60f*6)))); // alcohol level will completely go after 6 hours
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			target.incrementAlcoholLevel(-((secondsPassed/60)*(1f/(60f*6)))); // alcohol level will completely go after 6 hours
 			return "";
 		}
 
@@ -2465,9 +2465,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
-			return "";
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return DRUNK_1.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -2505,9 +2504,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
-			return "";
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return DRUNK_1.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -2546,9 +2544,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
-			return "";
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return DRUNK_1.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -2587,9 +2584,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
-			return "";
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return DRUNK_1.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -3035,7 +3031,7 @@ public enum StatusEffect {
 					}
 				}
 				
-				target.addStatusEffect(PREGNANT_1, 60 * (72 + Util.random.nextInt(13)));
+				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
 				
 				if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
@@ -3214,7 +3210,7 @@ public enum StatusEffect {
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 
-			target.addStatusEffect(PREGNANT_2, 60 * (72 + Util.random.nextInt(13)));
+			target.addStatusEffect(PREGNANT_2, 60 * 60 * (72 + Util.random.nextInt(13)));
 			
 			boolean breastGrowth = false;
 			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
@@ -3311,7 +3307,7 @@ public enum StatusEffect {
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 
-			target.setTimeProgressedToFinalPregnancyStage(Main.game.getMinutesPassed());
+			target.setTimeProgressedToFinalPregnancyStage(Main.game.getSecondsPassed());
 
 			boolean lactationIncrease = false;
 			if(Main.getProperties().pregnancyLactationIncrease>0 && target.getBreastRawMilkStorageValue()<Main.getProperties().pregnancyLactationLimit) {
@@ -3495,8 +3491,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementPenisStoredCum(minutesPassed * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			target.incrementPenisStoredCum((secondsPassed/60) * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
 			return "";
 		}
 
@@ -3534,7 +3530,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
@@ -3572,8 +3568,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementBreastStoredMilk(minutesPassed * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			target.incrementBreastStoredMilk((secondsPassed/60) * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
 			return "";
 		}
 
@@ -3608,7 +3604,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
@@ -3651,8 +3647,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementBreastCrotchStoredMilk(minutesPassed * target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue());
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			target.incrementBreastCrotchStoredMilk((secondsPassed/60) * target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue());
 			return "";
 		}
 
@@ -3697,7 +3693,7 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
@@ -3737,78 +3733,40 @@ public enum StatusEffect {
 			int i=0;
 			String s="";
 			
-			// Vagina:
 			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
 				s = "Recovering Vagina";
 				i++;
-				
-			// Ass:
 			}
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
 				s = "Recovering Anus";
 				i++;
-				
-			// Nipples:
 			}
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
 				s = "Recovering Nipples";
 				i++;
-				
-			// Urethra:
 			}
 			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				s = "Recovering Urethra";
+				s = "Recovering Penile Urethra";
+				i++;
+			}
+			if (target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
+				s = "Recovering Vaginal Urethra";
 				i++;
 			}
 			
-			if(i>1)
+			if(i>1) {
 				return "Recovering Orifices";
-			else
+			} else {
 				return s;
+			}
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			// Vagina:
 			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				switch(target.getVaginaElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
-					case ZERO_UNYIELDING:
-						target.incrementVaginaStretchedCapacity(-(1/6f) * (minutesPassed/60f));
-						break;
-					//Takes 4 hours to recover each inch of capacity:
-					case ONE_RIGID:
-						target.incrementVaginaStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
-						target.incrementVaginaStretchedCapacity(-(1/2f) * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case THREE_FLEXIBLE:
-						target.incrementVaginaStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementVaginaStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
-						target.incrementVaginaStretchedCapacity(-2 * (minutesPassed/60f));
-						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
-						target.incrementVaginaStretchedCapacity(-4 * (minutesPassed/60f));
-						break;
-					//Should have been instant after sex, this is just a backup:
-					case SEVEN_ELASTIC:
-						target.incrementVaginaStretchedCapacity(-100);
-						break;
-					default:
-						break;
-				}
-			
+				target.incrementVaginaStretchedCapacity(target.getVaginaPlasticity().getRecoveryModifier()*secondsPassed);
+				
 				if(target.getVaginaStretchedCapacity()<target.getVaginaRawCapacityValue()) {
 					target.setVaginaStretchedCapacity(target.getVaginaRawCapacityValue());
 				}
@@ -3816,131 +3774,38 @@ public enum StatusEffect {
 			
 			// Ass:
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-				switch(target.getAssElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
-					case ZERO_UNYIELDING:
-						target.incrementAssStretchedCapacity(-(1/6f) * (minutesPassed/60f));
-						break;
-					//Takes 4 hours to recover each inch of capacity:
-					case ONE_RIGID:
-						target.incrementAssStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
-						target.incrementAssStretchedCapacity(-(1/2f) * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case THREE_FLEXIBLE:
-						target.incrementAssStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementAssStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
-						target.incrementAssStretchedCapacity(-2 * (minutesPassed/60f));
-						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
-						target.incrementAssStretchedCapacity(-4 * (minutesPassed/60f));
-						break;
-					//Should have been instant after sex, this is just a backup:
-					case SEVEN_ELASTIC:
-						target.incrementAssStretchedCapacity(-100);
-						break;
-					default:
-						break;
-				}
+				target.incrementAssStretchedCapacity(target.getAssPlasticity().getRecoveryModifier()*secondsPassed);
 				
-				if(target.getAssStretchedCapacity()<target.getAssRawCapacityValue())
+				if(target.getAssStretchedCapacity()<target.getAssRawCapacityValue()) {
 					target.setAssStretchedCapacity(target.getAssRawCapacityValue());
+				}
 			}
 			
 			// Nipples:
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-				switch(target.getNippleElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
-					case ZERO_UNYIELDING:
-						target.incrementNippleStretchedCapacity(-(1/6f) * (minutesPassed/60f));
-						break;
-					//Takes 4 hours to recover each inch of capacity:
-					case ONE_RIGID:
-						target.incrementNippleStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
-						target.incrementNippleStretchedCapacity(-(1/2f) * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case THREE_FLEXIBLE:
-						target.incrementNippleStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementNippleStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
-						target.incrementNippleStretchedCapacity(-2 * (minutesPassed/60f));
-						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
-						target.incrementNippleStretchedCapacity(-4 * (minutesPassed/60f));
-						break;
-					//Should have been instant after sex, this is just a backup:
-					case SEVEN_ELASTIC:
-						target.incrementNippleStretchedCapacity(-100);
-						break;
-					default:
-						break;
-				}
+				target.incrementNippleStretchedCapacity(target.getNipplePlasticity().getRecoveryModifier()*secondsPassed);
 				
-				if(target.getNippleStretchedCapacity()<target.getNippleRawCapacityValue())
+				if(target.getNippleStretchedCapacity()<target.getNippleRawCapacityValue()) {
 					target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
+				}
 			}
 			
-			// Urethra:
+			// Penile Urethra:
 			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				switch(target.getUrethraElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
-					case ZERO_UNYIELDING:
-						target.incrementPenisStretchedCapacity(-(1/6f) * (minutesPassed/60f));
-						break;
-					//Takes 4 hours to recover each inch of capacity:
-					case ONE_RIGID:
-						target.incrementPenisStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
-						target.incrementPenisStretchedCapacity(-(1/2f) * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case THREE_FLEXIBLE:
-						target.incrementPenisStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementPenisStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
-						target.incrementPenisStretchedCapacity(-2 * (minutesPassed/60f));
-						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
-						target.incrementPenisStretchedCapacity(-4 * (minutesPassed/60f));
-						break;
-					//Should have been instant after sex, this is just a backup:
-					case SEVEN_ELASTIC:
-						target.incrementPenisStretchedCapacity(-100);
-						break;
-					default:
-						break;
-				}
+				target.incrementPenisStretchedCapacity(target.getUrethraPlasticity().getRecoveryModifier()*secondsPassed);
 				
-				if(target.getPenisStretchedCapacity()<target.getPenisRawCapacityValue())
+				if(target.getPenisStretchedCapacity()<target.getPenisRawCapacityValue()) {
 					target.setPenisStretchedCapacity(target.getPenisRawCapacityValue());
+				}
+			}
+			
+			// Vaginal Urethra:
+			if (target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
+				target.incrementVaginaUrethraStretchedCapacity(target.getVaginaUrethraPlasticity().getRecoveryModifier()*secondsPassed);
+				
+				if(target.getVaginaUrethraStretchedCapacity()<target.getVaginaUrethraRawCapacityValue()) {
+					target.setVaginaUrethraStretchedCapacity(target.getVaginaUrethraRawCapacityValue());
+				}
 			}
 			
 			return "";
@@ -4019,8 +3884,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target)*minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			float cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerSecond(target)*secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4044,7 +3909,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target);
+			int cumLost = (int) (SexAreaOrifice.VAGINA.getCharactersCumLossPerSecond(target)*60);
 			
 			if(target.isOrificePlugged(SexAreaOrifice.VAGINA)) {
 				if(target.isPlayer()) {
@@ -4126,8 +3991,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			float cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4151,7 +4016,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target);
+			int cumLost = (int) (SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerSecond(target)*60);
 			
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your pussy's recently-used urethra.<br/>"
@@ -4219,8 +4084,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			float cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4244,7 +4109,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target);
+			int cumLost = (int) (SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerSecond(target)*60);
 			
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your cock's recently-used urethra.<br/>"
@@ -4312,8 +4177,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			float cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4337,7 +4202,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target);
+			int cumLost = (int) (SexAreaOrifice.ANUS.getCharactersCumLossPerSecond(target)*60);
 
 			if(target.isOrificePlugged(SexAreaOrifice.ANUS)) {
 				if(target.isPlayer()) {
@@ -4419,8 +4284,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			float cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4444,7 +4309,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target);
+			int cumLost = (int) (SexAreaOrifice.NIPPLE.getCharactersCumLossPerSecond(target)*60);
 			
 			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE)) {
 				if(target.isPlayer()) {
@@ -4535,8 +4400,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			float cumLost = SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4560,7 +4425,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerMinute(target);
+			int cumLost = (int) (SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerSecond(target)*60);
 			
 			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE_CROTCH)) {
 				if(target.isPlayer()) {
@@ -4650,8 +4515,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.MOUTH.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			float cumLost = SexAreaOrifice.MOUTH.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			target.drainTotalFluidsStored(SexAreaOrifice.MOUTH, cumLost);
 			
@@ -4660,7 +4525,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int lossPerMinute = SexAreaOrifice.MOUTH.getCharactersCumLossPerMinute(target);
+			int lossPerMinute = (int) (SexAreaOrifice.MOUTH.getCharactersCumLossPerSecond(target)*60);
 			
 			return UtilText.parse(target, 
 					target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
@@ -5965,7 +5830,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "-";
 		}
 
@@ -6652,7 +6517,7 @@ public enum StatusEffect {
 		null,
 		null) {
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if (target.isPlayer()) {
 				return "The <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Witch's Seal</b> is preventing you from making a move!";
 				
@@ -6690,7 +6555,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
 			null) {
 			@Override
-			public String applyEffect(GameCharacter target, int minutesPassed) {
+			public String applyEffect(GameCharacter target, int secondsPassed) {
 				if (target.isPlayer()) {
 					return "The <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making you appear irresistibly attractive!";
 					
@@ -6736,7 +6601,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(25 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -6807,7 +6672,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>5</b> [style.boldFire(Fire Damage)] per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_FIRE), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -6852,7 +6717,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if (target.isPlayer()) {
 				return "You are [style.boldTerrible(stunned)] from the blinding flash!";
 				
@@ -7259,7 +7124,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if (target.isPlayer()) {
 				return "You are [style.boldTerrible(stunned)] from freezing fog's detonation!";
 				
@@ -7689,7 +7554,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -7736,7 +7601,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 				
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -7785,7 +7650,7 @@ public enum StatusEffect {
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
 				
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -7839,7 +7704,7 @@ public enum StatusEffect {
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
 				
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -7956,7 +7821,7 @@ public enum StatusEffect {
 					"<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(Math.random()<(target.isPlayer()?0.1f:0.166f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -8014,7 +7879,7 @@ public enum StatusEffect {
 					"<b>25%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(Math.random()<(target.isPlayer()?0.25f:0.33f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -8440,7 +8305,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -8487,7 +8352,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -8534,7 +8399,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>20</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(20 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -9184,7 +9049,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -9224,7 +9089,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -9264,7 +9129,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("[style.boldTerrible(All party members)] take <b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			StringBuilder sb = new StringBuilder();
 			if(Combat.getEnemies().contains(target)) {
 				for(NPC combatant : Combat.getEnemies()) {
@@ -9628,7 +9493,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn to a random enemy")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			GameCharacter randomEnemy = Main.game.getPlayer();
 			
 			if(Combat.getEnemies().contains(target)) {
@@ -11567,7 +11432,7 @@ public enum StatusEffect {
 		return attributeModifiersList;
 	}
 	
-	public String applyEffect(GameCharacter target, int minutesPassed) {
+	public String applyEffect(GameCharacter target, int secondsPassed) {
 		return "";
 	}
 

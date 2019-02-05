@@ -277,7 +277,7 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public String rollForPregnancy(GameCharacter partner, int cum) {
+	public String rollForPregnancy(GameCharacter partner, float cum) {
 		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
 				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 	}

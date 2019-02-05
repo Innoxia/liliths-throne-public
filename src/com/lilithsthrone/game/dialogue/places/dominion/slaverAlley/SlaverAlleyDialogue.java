@@ -203,8 +203,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode OUTSIDE = new DialogueNode("Slaver Alley", "-", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -284,8 +284,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode ALLEYWAY = new DialogueNode("Alleyway", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -337,8 +337,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_FEMALE = new DialogueNode("A Woman's Touch", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -366,8 +366,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_MALE = new DialogueNode("Iron & Steel", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -395,8 +395,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_ANAL = new DialogueNode("The Rear Entrance", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -424,8 +424,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_VAGINAL = new DialogueNode("White Lilies", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -453,8 +453,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_ORAL = new DialogueNode("Viva Voce", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -482,8 +482,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_STATUE = new DialogueNode("Statue of the Fallen Angel", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -504,8 +504,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_EXCLUSIVE = new DialogueNode("Zaibatsu Exchange", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -522,8 +522,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_BULK = new DialogueNode("Royal Dominion Company", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -540,8 +540,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_CAFE = new DialogueNode("", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -558,8 +558,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL = new DialogueNode("", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -588,8 +588,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode AUCTION_BLOCK = new DialogueNode("Auctioning block", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -931,8 +931,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode PUBLIC_STOCKS = new DialogueNode("Public Stocks", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1041,8 +1041,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode SLAVERY_ADMINISTRATION_EXTERIOR = new DialogueNode("Slavery Administration", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override

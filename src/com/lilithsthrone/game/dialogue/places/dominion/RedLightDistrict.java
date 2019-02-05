@@ -53,8 +53,8 @@ public class RedLightDistrict {
 	public static final DialogueNode OUTSIDE = new DialogueNode("Red-light District", "Red-light District", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -96,8 +96,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_ENTRANCE = new DialogueNode("Entrance", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -161,8 +161,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_CORRIDOR = new DialogueNode("Corridor", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -179,8 +179,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_STAIRS_UP = new DialogueNode("Staircase Up", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -207,8 +207,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_STAIRS_DOWN = new DialogueNode("Staircase Down", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -235,8 +235,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_BEDROOM = new DialogueNode("Bedroom", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -442,8 +442,8 @@ public class RedLightDistrict {
 	public static final DialogueNode AFTER_SEX_PROSTITUTE = new DialogueNode("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -467,8 +467,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_SELL_SELF_SUB = new DialogueNode("Bedroom", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -515,8 +515,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_SELL_SELF_DOM = new DialogueNode("Bedroom", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 25;
+		public int getSecondsPassed() {
+			return 25*60;
 		}
 
 		@Override
@@ -563,8 +563,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_SELL_SELF_DECLINE = new DialogueNode("Bedroom", ".", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -581,8 +581,8 @@ public class RedLightDistrict {
 	public static final DialogueNode AFTER_SEX_SELL_SELF_DOM = new DialogueNode("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -609,8 +609,8 @@ public class RedLightDistrict {
 	public static final DialogueNode AFTER_SEX_SELL_SELF_SUB = new DialogueNode("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -637,8 +637,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_BEDROOM_BUNNY = new DialogueNode("Bunny's Bedroom", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -728,8 +728,8 @@ public class RedLightDistrict {
 	public static final DialogueNode AFTER_SEX_BUNNY = new DialogueNode("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -750,8 +750,8 @@ public class RedLightDistrict {
 	public static final DialogueNode AFTER_SEX_BUNNY_THREESOME = new DialogueNode("Bunny's Bedroom", "Disentangle yourself from Bunny's clutches.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -768,8 +768,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_BEDROOM_LOPPY = new DialogueNode("Loppy's Bedroom", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -881,8 +881,8 @@ public class RedLightDistrict {
 	public static final DialogueNode AFTER_SEX_LOPPY = new DialogueNode("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -904,8 +904,8 @@ public class RedLightDistrict {
 	public static final DialogueNode AFTER_SEX_LOPPY_THREESOME = new DialogueNode("Loppy's Bedroom", "Disentangle yourself from Loppy's clutches.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -922,8 +922,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_OFFICE = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -990,8 +990,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_OFFICE_CONTINUE = new DialogueNode("Angel's Office", ".", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1008,8 +1008,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_OFFICE_PROSTITUTION = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1031,8 +1031,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_OFFICE_BACKGROUND = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1054,8 +1054,8 @@ public class RedLightDistrict {
 	public static final DialogueNode ANGELS_KISS_OFFICE_LICENSE_PURCHASE = new DialogueNode("Angel's Office", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override

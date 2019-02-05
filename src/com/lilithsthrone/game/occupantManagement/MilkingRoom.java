@@ -423,11 +423,11 @@ public class MilkingRoom implements XMLSaving {
 		return milkyMilknessSB.toString();
 	}
 	
-	public boolean isAbleToIngestThroughArea(GameCharacter ingestingCharacter, CoverableArea area, int millilitres) {
+	public boolean isAbleToIngestThroughArea(GameCharacter ingestingCharacter, CoverableArea area, float millilitres) {
 		return getAreaIngestionBlockedDescription(ingestingCharacter, area, millilitres).isEmpty();
 	}
 	
-	public String getAreaIngestionBlockedDescription(GameCharacter ingestingCharacter, CoverableArea area, int millilitres) {
+	public String getAreaIngestionBlockedDescription(GameCharacter ingestingCharacter, CoverableArea area, float millilitres) {
 		StringBuilder sb = new StringBuilder();
 		
 		if(millilitres<=0) {

@@ -660,32 +660,32 @@ public abstract class AbstractItemEffectType {
 		int labiaSizeIncrement = (potency.isNegative()?-1:1);
 		
 		int TFCount = 0;
-		int minutesRequired = 60;
+		int secondsRequired = 60*60;
 		
 		switch(potency) {
 			case MINOR_BOOST:
-				minutesRequired = 7 * 24 * 60;
+				secondsRequired = 7 * 24 * 60 * 60;
 				break;
 			case BOOST:
-				minutesRequired = 24 * 60;
+				secondsRequired = 24 * 60 * 60;
 				break;
 			case MAJOR_BOOST:
-				minutesRequired = 60;
+				secondsRequired = 60 * 60;
 				break;
 			case MINOR_DRAIN:
-				minutesRequired = 7 * 24 * 60;
+				secondsRequired = 7 * 24 * 60 * 60;
 				break;
 			case DRAIN:
-				minutesRequired = 24 * 60;
+				secondsRequired = 24 * 60 * 60;
 				break;
 			case MAJOR_DRAIN:
-				minutesRequired = 60;
+				secondsRequired = 60 * 60;
 				break;
 		}
 		
-		TFCount = timer.getTimePassed()/minutesRequired;
+		TFCount = timer.getSecondsPassed()/secondsRequired;
 		if(TFCount>=1) {
-			timer.setTimePassed(timer.getTimePassed()%minutesRequired);
+			timer.setSecondsPassed(timer.getSecondsPassed()%secondsRequired);
 		}
 //		System.out.println(timer.getTimePassed() + ", " + minutesRequired + ": " +TFCount);
 		

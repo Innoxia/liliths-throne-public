@@ -31,7 +31,7 @@ public abstract class DialogueNode {
 	/**
 	 * @return The number of minutes that pass when entering into this dialogue node.
 	 */
-	public int getMinutesPassed(){
+	public int getSecondsPassed() {
 		return 0;
 	}
 

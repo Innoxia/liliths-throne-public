@@ -26,9 +26,9 @@ public class FluidStored implements XMLSaving {
 	private FluidCum cum;
 	private FluidMilk milk;
 	private FluidGirlCum girlCum;
-	private int millilitres;
+	private float millilitres;
 	
-	public FluidStored(GameCharacter character, FluidCum cum, int millilitres) {
+	public FluidStored(GameCharacter character, FluidCum cum, float millilitres) {
 		this.charactersFluidID = character.getId();
 		
 		this.cumSubspecies = character.getSubspecies();
@@ -46,7 +46,7 @@ public class FluidStored implements XMLSaving {
 		this.millilitres = millilitres;
 	}
 	
-	public FluidStored(String charactersFluidID, Subspecies cumSubspecies, FluidCum cum, int millilitres) {
+	public FluidStored(String charactersFluidID, Subspecies cumSubspecies, FluidCum cum, float millilitres) {
 		this.charactersFluidID = charactersFluidID;
 		
 		this.cumSubspecies = cumSubspecies;
@@ -64,7 +64,7 @@ public class FluidStored implements XMLSaving {
 		this.millilitres = millilitres;
 	}
 
-	public FluidStored(String charactersFluidID, FluidMilk milk, int millilitres) {
+	public FluidStored(String charactersFluidID, FluidMilk milk, float millilitres) {
 		this.charactersFluidID = charactersFluidID;
 		
 		this.milk = new FluidMilk(milk.getType());
@@ -81,7 +81,7 @@ public class FluidStored implements XMLSaving {
 		this.millilitres = millilitres;
 	}
 	
-	public FluidStored(String charactersFluidID, FluidGirlCum girlCum, int millilitres) {
+	public FluidStored(String charactersFluidID, FluidGirlCum girlCum, float millilitres) {
 		this.charactersFluidID = charactersFluidID;
 		
 		this.girlCum = new FluidGirlCum(girlCum.getType());
@@ -123,7 +123,7 @@ public class FluidStored implements XMLSaving {
 
 	public static FluidStored loadFromXML(StringBuilder log, Element parentElement, Document doc) {
 		String ID = parentElement.getAttribute("charactersFluidID");
-		int millimetres = Integer.parseInt(parentElement.getAttribute("millilitres"));
+		float millimetres = Float.parseFloat(parentElement.getAttribute("millilitres"));
 		
 		if(parentElement.getElementsByTagName("milk").item(0)!=null) {
 			return new FluidStored(ID, FluidMilk.loadFromXML(parentElement, doc), millimetres);
@@ -185,18 +185,15 @@ public class FluidStored implements XMLSaving {
 		return cumSubspecies;
 	}
 
-	public int getMillilitres() {
-		return millilitres;
+	public float getMillilitres() {
+		return Util.getRoundedFloat(millilitres, 10);
 	}
 	
-	public void setMillilitres(int millilitres) {
-		this.millilitres = millilitres;
-		if(this.millilitres<0) {
-			this.millilitres = 0;
-		}
+	public void setMillilitres(float millilitres) {
+		this.millilitres = Math.max(0, millilitres);
 	}
 	
-	public void incrementMillilitres(int increment) {
+	public void incrementMillilitres(float increment) {
 		setMillilitres(this.millilitres + increment);
 	}
 	

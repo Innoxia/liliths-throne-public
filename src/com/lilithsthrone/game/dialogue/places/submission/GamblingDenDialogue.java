@@ -213,8 +213,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode CORRIDOR = new DialogueNode("Gambling Den", "", false) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -499,8 +499,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode AFTER_ROXY_SEX = new DialogueNode("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -570,8 +570,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode AFTER_ROXY_SEX_ITEM_OBTAINED = new DialogueNode("Roxy's Fun Box", "", false, true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -588,8 +588,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode AFTER_ROXY_SEX_ADDICT = new DialogueNode("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -1387,8 +1387,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_FINISHED = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 		
 		@Override
@@ -1581,8 +1581,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 		
 		@Override
