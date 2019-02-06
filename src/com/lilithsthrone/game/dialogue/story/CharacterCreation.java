@@ -64,10 +64,19 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class CharacterCreation {
+
+	public static final int TIME_TO_NAME = 120;
+	public static final int TIME_TO_APPEARANCE = 60;
+	public static final int TIME_TO_CLOTHING = 30;
+	public static final int TIME_TO_BACKGROUND = 150;
+	public static final int TIME_TO_JOB = 150;
+	public static final int TIME_TO_SEX_EXPERIENCE = 150;
+	public static final int TIME_TO_FINAL_CHECK = 150;
+	
 
 	public static final DialogueNode CHARACTER_CREATION_START = new DialogueNode("Disclaimer", "", true) {
 
@@ -338,7 +347,7 @@ public class CharacterCreation {
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_RED, false), true, character);
-				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_SUIT_JACKET, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torsoOver_suit_jacket", Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, character);
@@ -419,7 +428,11 @@ public class CharacterCreation {
 			character.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WESTERN_KKP));
 		}
 	}
-
+	
+	private static void generateClothingOnFloor(String clothingType, Colour colour) {
+		generateClothingOnFloor(ClothingType.getClothingTypeFromId(clothingType), colour, null, null);
+	}
+	
 	private static void generateClothingOnFloor(AbstractClothingType clothingType, Colour colour) {
 		generateClothingOnFloor(clothingType, colour, null, null);
 	}
@@ -456,7 +469,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE);
 				generateClothingOnFloor(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE);
 				generateClothingOnFloor(ClothingType.NECK_TIE, Colour.CLOTHING_RED);
-				generateClothingOnFloor(ClothingType.TORSO_OVER_SUIT_JACKET, Colour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_torsoOver_suit_jacket", Colour.CLOTHING_BLACK);
 				break;
 				
 			case ANDROGYNOUS:
@@ -492,7 +505,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER);
 				generateClothingOnFloor(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER);
 				generateClothingOnFloor(ClothingType.WRIST_BANGLE, Colour.CLOTHING_SILVER);
-				generateClothingOnFloor(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_SILVER);
+				generateClothingOnFloor("innoxia_ankle_anklet", Colour.CLOTHING_SILVER);
 				
 				generateClothingOnFloor(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL);
 				break;
@@ -520,7 +533,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_RED);
 				generateClothingOnFloor(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK);
 
-				generateClothingOnFloor(ClothingType.HAND_ELBOWLENGTH_GLOVES, Colour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_hand_elbow_length_gloves", Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_BLACK, Colour.CLOTHING_PINK);
 
@@ -545,7 +558,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.TORSO_OVER_OPEN_CARDIGAN, Colour.CLOTHING_BLACK);
 				
 				generateClothingOnFloor(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD);
-				generateClothingOnFloor(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_GOLD);
+				generateClothingOnFloor("innoxia_ankle_anklet", Colour.CLOTHING_GOLD);
 				break;
 		}
 	}
@@ -597,7 +610,12 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Wait your turn, and hope that the event hasn't started yet.", CHOOSE_NAME);
+				return new Response("Continue", "Wait your turn, and hope that the event hasn't started yet.", CHOOSE_NAME) {
+					@Override
+					public int getSecondsPassed() {
+						return TIME_TO_NAME;
+					}
+				};
 				
 			}
 			else if (index == 0) {
@@ -663,7 +681,14 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Continue", "Use this name and continue to the final character creation screen."){
+				return new ResponseEffectsOnly("Continue", "Use this name and continue to the next stage of the character creation screen."){
+					@Override
+					public int getSecondsPassed() {
+						if (unsuitableName || unsuitableSurname)  {
+							return super.getSecondsPassed();
+						}
+						return TIME_TO_APPEARANCE;
+					}
 					@Override
 					public void effects() {
 						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
@@ -746,7 +771,12 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 0) {
-				return new Response("Back", "Return to gender selection.", CHOOSE_APPEARANCE);
+				return new Response("Back", "Return to gender selection.", CHOOSE_APPEARANCE) {
+					@Override
+					public int getSecondsPassed() {
+						return -TIME_TO_NAME;
+					}
+				};
 				
 			} else {
 				return null;
@@ -800,6 +830,10 @@ public class CharacterCreation {
 			if (index == 1) {
 				return new Response("Continue", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.", InventoryDialogue.INVENTORY_MENU) {
 					@Override
+					public int getSecondsPassed() {
+						return TIME_TO_CLOTHING;
+					}
+					@Override
 					public void effects() {
 						equipPiercings();
 						InventoryDialogue.setBuyback(false);
@@ -842,11 +876,11 @@ public class CharacterCreation {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_NAME) {
 					@Override
 					public int getSecondsPassed() {
-						return -60;
+						return -TIME_TO_APPEARANCE;
 					}
 					@Override
 					public void effects() {
-						Main.game.getPlayer().moveToAdjacentMatchingCellType(false, PlaceType.MUSEUM_ENTRANCE);
+						Main.game.getPlayer().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_ENTRANCE, false);
 					}
 				};
 				
@@ -1450,6 +1484,10 @@ public class CharacterCreation {
 			if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Return to clothing selection.") {
 					@Override
+					public int getSecondsPassed() {
+						return -TIME_TO_BACKGROUND;
+					}
+					@Override
 					public void effects() {
 						moveNPCOutOfPlayerTile();
 						InventoryDialogue.setBuyback(false);
@@ -1460,7 +1498,12 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 1) {
-				return new Response("Select Job", "Proceed to the job selection screen.", BACKGROUND_SELECTION_MENU);
+				return new Response("Select Job", "Proceed to the job selection screen.", BACKGROUND_SELECTION_MENU) {
+					@Override
+					public int getSecondsPassed() {
+						return TIME_TO_JOB;
+					}
+				};
 				
 			} else {
 				return null;
@@ -1501,35 +1544,6 @@ public class CharacterCreation {
 						+ "</div>");
 			}
 			
-//				int i=0;
-//				for(History history : History.getAvailableHistories(Main.game.getPlayer())) {
-//					if(i%2==0) {
-//						UtilText.nodeContentSB.append("<div class='container-full-width'>");
-//					}
-//					UtilText.nodeContentSB.append(
-//							"<div class='container-half-width'>"
-//								+"<div class='container-full-width' style='margin:0 8px; width: calc(25% - 16px);'>"
-//									+ "<div id='OCCUPATION_" + history + "' class='fetish-icon full" + (Main.game.getPlayer().getHistory()==history
-//										? " owned' style='border:2px solid " + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
-//										: " unlocked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";" + "'>")
-//										+ "<div class='fetish-icon-content'>"+history.getAssociatedPerk().getSVGString()+"</div>"
-//									+ "</div>"
-//								+ "</div>"
-//								+"<div class='container-full-width' style='margin:0 8px; width: calc(75% - 16px);'>"
-//									+ "<h6 style='color:"+history.getAssociatedPerk().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(history.getName())+"</h6>"
-//									+ "<p>"
-//										+ history.getDescription()
-//									+ "</p>"
-//								+ "</div>"
-//							+ "</div>");
-//					if(i%2!=0) {
-//						UtilText.nodeContentSB.append("</div>");
-//					}
-//					i++;
-//				}
-//				if(i%2!=0) {
-//					UtilText.nodeContentSB.append("</div>");
-//				}
 			UtilText.nodeContentSB.append("</div>");
 			
 			return UtilText.nodeContentSB.toString();
@@ -1538,13 +1552,22 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Back", "Return to the previous screen.", CHOOSE_BACKGROUND);
+				return new Response("Back", "Return to the previous screen.", CHOOSE_BACKGROUND) {
+					@Override
+					public int getSecondsPassed() {
+						return -TIME_TO_JOB;
+					}
+				};
 				
 			} else if (index == 1) {
 				if(Main.game.getPlayer().getHistory().getAssociatedPerk()==null) {
 					return new Response("Continue", "You need to select a job before continuing!", null);
 				} else {
 					return new Response("Continue", femalePrologueNPC()?"Tell [prologueFemale.name] what it is you do for a living.":"Tell [prologueMale.name] what it is you do for a living.", CHOOSE_SEX_EXPERIENCE) {
+						@Override
+						public int getSecondsPassed() {
+							return TIME_TO_SEX_EXPERIENCE;
+						}
 						@Override
 						public void effects() {
 							Main.game.getPlayer().getVirginityLossMap().replaceAll((k, v) ->
@@ -1686,7 +1709,11 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Once you're happy with your sexual experience, proceed to the next part of the character creation.", FINAL_CHECK) {
+				return new Response("Continue", "Once you're happy with your sexual experience, proceed to the final part of the character creation.", FINAL_CHECK) {
+					@Override
+					public int getSecondsPassed() {
+						return TIME_TO_FINAL_CHECK;
+					}
 					@Override
 					public void effects() {
 						if(!Main.game.getPlayer().hasPenis()) {
@@ -1712,7 +1739,12 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 0) {
-				return new Response("Back", "Return to background selection.", BACKGROUND_SELECTION_MENU);
+				return new Response("Back", "Return to background selection.", BACKGROUND_SELECTION_MENU) {
+					@Override
+					public int getSecondsPassed() {
+						return -TIME_TO_SEX_EXPERIENCE;
+					}
+				};
 				
 			} else {
 				return null;
@@ -1743,7 +1775,6 @@ public class CharacterCreation {
 		Main.getProperties().addRaceDiscovered(Main.game.getNpc(Rose.class).getSubspecies());
 
 		moveNPCOutOfPlayerTile();
-		Main.game.setPrologueFinished(true);
 	}
 	
 	public static final DialogueNode FINAL_CHECK = new DialogueNode("Start", "", true) {
@@ -1780,6 +1811,10 @@ public class CharacterCreation {
 			} else if (index == 2) {
 				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.<br/><br/><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
+					public int getSecondsPassed() {
+						return 60*60;
+					}
+					@Override
 					public void effects() {
 						
 						Main.game.setRenderMap(true);
@@ -1802,6 +1837,10 @@ public class CharacterCreation {
 				
 			} else if (index == 0) {
 				return new Response("Back", "Return to background selection.", CHOOSE_SEX_EXPERIENCE){
+					@Override
+					public int getSecondsPassed() {
+						return -TIME_TO_FINAL_CHECK;
+					}
 					@Override
 					public void effects() {
 						// Remove attribute gain sentences in the start game screen:

@@ -3992,7 +3992,7 @@ public class CharacterModificationUtils {
 										+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ (c.isMetallic()
 											?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-													:(c.isRainbow()
+												:(c.isRainbow()
 													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
 															+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
 															+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"

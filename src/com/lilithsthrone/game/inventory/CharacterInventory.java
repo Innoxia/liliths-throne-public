@@ -1902,7 +1902,7 @@ public class CharacterInventory implements XMLSaving {
 							for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsList(character)) {
 								if (bpIterated.clothingAccessBlocked.contains(ca) 
 										&& !clothing.getDisplacedList().contains(bpIterated.displacementType)
-//										&& !isCoverableAreaExposedFromElsewhere(clothing, coverableArea)
+										&& !isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea) //TODO This was commented out, which was causing issues with NOCs performing redundant displacements (unzipping + pulling down). Why?
 										) {
 									// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to displace this new clothing:
 									return findNextClothingDisplacement(character, coverableArea, clothing, bpIterated.displacementType, zLayerSortedList);

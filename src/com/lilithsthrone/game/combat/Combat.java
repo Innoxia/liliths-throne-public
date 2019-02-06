@@ -292,8 +292,9 @@ public enum Combat {
 			for(Entry<AbstractCoreItem, Integer> entry : lootedItemsMap.entrySet()) {
 				itemsLooted.add("<b style='color:"+entry.getKey().getRarity().getColour().toWebHexString()+";'>"+entry.getKey().getName()+"</b>"+(entry.getValue()>1?" <b>(x"+entry.getValue()+")</b>":""));
 			}
-			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] " + Util.stringsToStringList(itemsLooted, false) +"!</div>");
-
+			if(!itemsLooted.isEmpty()) {
+				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] " + Util.stringsToStringList(itemsLooted, false) +"!</div>");
+			}
 			// Apply essence drops:
 			boolean essenceDropFound = false;
 			Map<TFEssence, Integer> essences = new HashMap<>();

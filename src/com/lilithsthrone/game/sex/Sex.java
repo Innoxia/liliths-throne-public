@@ -642,7 +642,7 @@ public class Sex {
 		StringBuilder sb = new StringBuilder();
 
 		// Asshole:
-		if (participant.getAssRawCapacityValue() != participant.getAssStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(SexAreaOrifice.ANUS)) {
+		if (participant.getAssRawCapacityValue() != participant.getAssStretchedCapacity() && areasStretched.get(participant).contains(SexAreaOrifice.ANUS)) {
 			if (participant.getAssPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 				participant.setAssStretchedCapacity(participant.getAssRawCapacityValue());
 				sb.append("<p style='text-align:center;'>[style.italicsPlasticity([npc.NamePos] asshole quickly recovers from its ordeal, [style.italicsExcellent(instantly regaining all of its tightness)]!)]</p>");
@@ -667,7 +667,7 @@ public class Sex {
 			}
 		}
 		// Vagina:
-		if (participant.getVaginaRawCapacityValue() != participant.getVaginaStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(SexAreaOrifice.VAGINA)) {
+		if (participant.getVaginaRawCapacityValue() != participant.getVaginaStretchedCapacity() && areasStretched.get(participant).contains(SexAreaOrifice.VAGINA)) {
 			if (participant.getVaginaPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 				participant.setVaginaStretchedCapacity(participant.getVaginaRawCapacityValue());
 				sb.append("<p style='text-align:center;'>[style.italicsPlasticity([npc.NamePos] pussy quickly recovers from its ordeal, [style.italicsExcellent(instantly regaining all of its tightness)]!)]</p>");
@@ -692,7 +692,7 @@ public class Sex {
 			}
 		}
 		// Nipples:
-		if (participant.getNippleRawCapacityValue() != participant.getNippleStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(SexAreaOrifice.NIPPLE)) {
+		if (participant.getNippleRawCapacityValue() != participant.getNippleStretchedCapacity() && areasStretched.get(participant).contains(SexAreaOrifice.NIPPLE)) {
 			if (participant.getNipplePlasticity() == OrificePlasticity.ZERO_RUBBERY){
 				participant.setNippleStretchedCapacity(participant.getNippleRawCapacityValue());
 				sb.append("<p style='text-align:center;'>[style.italicsPlasticity([npc.NamePos] [npc.nipples+] quickly recover from their ordeal, [style.italicsExcellent(instantly regaining all of their tightness)]!)]</p>");
@@ -717,7 +717,7 @@ public class Sex {
 			}
 		}
 		// Penis urethra:
-		if (participant.getPenisRawCapacityValue() != participant.getPenisStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(SexAreaOrifice.URETHRA_PENIS)) {
+		if (participant.getPenisRawCapacityValue() != participant.getPenisStretchedCapacity() && areasStretched.get(participant).contains(SexAreaOrifice.URETHRA_PENIS)) {
 			if (participant.getUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 				participant.setPenisStretchedCapacity(participant.getPenisRawCapacityValue());
 				sb.append("<p style='text-align:center;'>[style.italicsPlasticity([npc.NamePos] penile urethra quickly recovers from its ordeal, [style.italicsExcellent(instantly regaining all of its tightness)]!)]</p>");
@@ -742,7 +742,7 @@ public class Sex {
 			}
 		}
 		// Vaginal urethra:
-		if (participant.getVaginaUrethraRawCapacityValue() != participant.getVaginaUrethraStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(SexAreaOrifice.URETHRA_VAGINA)) {
+		if (participant.getVaginaUrethraRawCapacityValue() != participant.getVaginaUrethraStretchedCapacity() && areasStretched.get(participant).contains(SexAreaOrifice.URETHRA_VAGINA)) {
 			if (participant.getVaginaUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 				participant.setVaginaUrethraStretchedCapacity(participant.getVaginaUrethraRawCapacityValue());
 				sb.append("<p style='text-align:center;'>[style.italicsPlasticity([npc.NamePos] vaginal urethra quickly recovers from its ordeal, [style.italicsExcellent(instantly regaining all of its tightness)]!)]</p>");
@@ -767,7 +767,7 @@ public class Sex {
 			}
 		}
 		// Special case for throat, as you aren't stretching it out, merely getting more experienced at sucking cock:
-		if (participant.getFaceRawCapacityValue() != participant.getFaceStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(SexAreaOrifice.MOUTH)) {
+		if (participant.getFaceRawCapacityValue() != participant.getFaceStretchedCapacity() && areasStretched.get(participant).contains(SexAreaOrifice.MOUTH)) {
 			// Increment core capacity by the Plasticity's capacityIncreaseModifier:
 			participant.incrementFaceCapacity(
 					(participant.getFaceStretchedCapacity()-participant.getFaceRawCapacityValue())*participant.getFacePlasticity().getCapacityIncreaseModifier(),

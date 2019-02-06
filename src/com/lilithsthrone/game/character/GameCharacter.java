@@ -13444,8 +13444,8 @@ public abstract class GameCharacter implements XMLSaving {
 		return !fluidsStoredMap.get(area).isEmpty();
 	}
 	
-	public int getTotalFluidInArea(SexAreaOrifice area) {
-		int total = 0;
+	public float getTotalFluidInArea(SexAreaOrifice area) {
+		float total = 0;
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		for(FluidStored f : fluidsStoredMap.get(area)) {
 			total+=f.getMillilitres();
@@ -13455,7 +13455,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void drainTotalFluidsStored(SexAreaOrifice area, float drain) {
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
-		int drained = 0;
+		float drained = 0;
 		for(FluidStored f : fluidsStoredMap.get(area)) {
 			if(drained>=Math.abs(drain)) {
 				break;
@@ -13468,7 +13468,7 @@ public abstract class GameCharacter implements XMLSaving {
 		fluidsStoredMap.get(area).removeIf((fs) -> fs.getMillilitres()<=0);
 	}
 	
-	public void incrementAllFluidsStored(SexAreaOrifice area, int increment) {
+	public void incrementAllFluidsStored(SexAreaOrifice area, float increment) {
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		for(FluidStored f : fluidsStoredMap.get(area)) {
 			f.incrementMillilitres(increment);

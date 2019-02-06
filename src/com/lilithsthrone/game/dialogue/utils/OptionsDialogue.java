@@ -118,7 +118,6 @@ public class OptionsDialogue {
 							Main.mainController.setRightPanelContent("");
 							Main.mainController.setButtonsContent("");
 							Main.game.setRenderMap(false);
-							Main.game.setPrologueFinished(false);
 							Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 							confirmNewGame = false;
 						}

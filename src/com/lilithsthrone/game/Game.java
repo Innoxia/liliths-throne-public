@@ -56,7 +56,6 @@ import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
-import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
@@ -174,7 +173,7 @@ public class Game implements XMLSaving {
 	public static final int FONT_SIZE_HUGE = 36;
 	
 	public static final int TIME_SKIP_YEARS = 3;
-	public static final int TIME_START_SECONDS = (21*60 + 4)*60;
+	public static final int TIME_START_SECONDS = (20*60 + 34)*60;
 	
 	public static String loadingVersion = Main.VERSION_NUMBER;
 	
@@ -207,7 +206,6 @@ public class Game implements XMLSaving {
 	private Encounter currentEncounter;
 	
 	private boolean started;
-	private boolean prologueFinished;
 	
 	private DialogueFlags dialogueFlags;
 	
@@ -255,7 +253,6 @@ public class Game implements XMLSaving {
 		dialogueFlags = new DialogueFlags();
 
 		started = false;
-		prologueFinished = true;
 
 		NPCMap = new ConcurrentHashMap<>();
 		
@@ -1265,6 +1262,21 @@ public class Game implements XMLSaving {
 		endTurn(secondsPassed, true);
 	}
 	
+	public void endTurn(Response response, DialogueNode dialogue) {
+		int seconds = 0;
+		if(dialogue!=null) {
+			seconds = dialogue.getSecondsPassed();
+		}
+		if(response.getSecondsPassed()!=Response.DEFAULT_TIME_PASSED_VALUE) {
+			seconds = response.getSecondsPassed();
+		}
+		if(isPlayerMovedLocation()) {
+			Main.game.endTurn(getModifierTravelTime(Main.game.getPlayer().getLocationPlace().getPlaceType().isLand(), seconds), true);
+		} else {
+			Main.game.endTurn(seconds, true);
+		}
+	}
+	
 	private boolean isInNPCUpdateLoop = false;
 	public boolean pendingSlaveInStocksReset = true;
 	private List<NPC> npcsToRemove = new ArrayList<>();
@@ -1378,17 +1390,18 @@ public class Game implements XMLSaving {
 
 		for(NPC npc : NPCMap.values()) {
 			// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
-			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
-					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL
-					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL_END
-					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
-					&& npc.getWorldLocation() == WorldType.DOMINION
-					&& npc instanceof DominionAlleywayAttacker
-					&& !npc.isSlave()
-					&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())
-					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
-						banishNPC(npc);
-					}
+			// I moved this into their dialogue scenes (in v0.3.0.6). I left it here in case I need to quickly revert it. If you're reading this, it's probably ok to delete this section. 
+//			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
+//					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL
+//					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL_END
+//					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
+//					&& npc.getWorldLocation() == WorldType.DOMINION
+//					&& npc instanceof DominionAlleywayAttacker
+//					&& !npc.isSlave()
+//					&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())
+//					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+//						banishNPC(npc);
+//					}
 			
 			// Non-slave NPCs clean clothes:
 			if((!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer())) && !Main.game.getCharactersPresent().contains(npc)) {
@@ -1397,27 +1410,27 @@ public class Game implements XMLSaving {
 			}
 			
 			// Set NPC resource values:
-			if(!Main.game.isInCombat() && !Main.game.isInSex()) {
-				if(!Main.game.getPlayer().getCompanions().contains(npc)) {
-					if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
-						npc.setHealthPercentage(1);
-						npc.setManaPercentage(1);
+			if(secondsPassedThisTurn>=0) {
+				if(!Main.game.isInCombat() && !Main.game.isInSex() && Main.game.isPrologueFinished()) { // Do not alter values during combat, sex, or prologue
+					if(!Main.game.getPlayer().getCompanions().contains(npc)) {
+						if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+							npc.setHealthPercentage(1);
+							npc.setManaPercentage(1);
+						}
+						npc.alignLustToRestingLust(secondsPassedThisTurn*10);
+					} else {
+						// Regenerate health and stamina over time:
+						if (npc.getHealthPercentage() < 1) {
+							npc.incrementHealth((secondsPassedThisTurn/60f) * npc.getRegenerationRate());
+						}
+						if (npc.getManaPercentage() < 1) {
+							npc.incrementMana((secondsPassedThisTurn/60f) * npc.getRegenerationRate());
+						}
+						npc.alignLustToRestingLust(secondsPassedThisTurn);
 					}
-					npc.alignLustToRestingLust(secondsPassedThisTurn*10);
-				} else {
-					// Regenerate health and stamina over time:
-					if (npc.getHealthPercentage() < 1) {
-						npc.incrementHealth((secondsPassedThisTurn/60f) * npc.getRegenerationRate());
-					}
-					if (npc.getManaPercentage() < 1) {
-						npc.incrementMana((secondsPassedThisTurn/60f) * npc.getRegenerationRate());
-					}
-					npc.alignLustToRestingLust(secondsPassedThisTurn);
 				}
+				npc.calculateStatusEffects(secondsPassedThisTurn);
 			}
-			
-			npc.calculateStatusEffects(secondsPassedThisTurn);
-			
 			// Replace clothing if not in player's tile:
 			if(hoursPassed > 0) {
 				if(!Main.game.isInCombat() && !Main.game.isInSex()
@@ -1544,19 +1557,20 @@ public class Game implements XMLSaving {
 		npcsToRemove.clear();
 		npcsToAdd.clear();
 		
-		// If not in combat:
-		if (!isInCombat() && !isInSex() && !currentDialogueNode.isRegenerationDisabled()) {
-			// Regenerate health and stamina over time:
-			if (Main.game.getPlayer().getHealthPercentage() < 1) {
-				Main.game.getPlayer().incrementHealth((secondsPassedThisTurn/60) * Main.game.getPlayer().getRegenerationRate());
+		if(secondsPassedThisTurn>=0) {
+			if (!isInCombat() && !isInSex() && !currentDialogueNode.isRegenerationDisabled() && Main.game.isPrologueFinished()) {// If not in combat, sex, prologue, or regen-disabled scene, handle resources values:
+				// Regenerate health and stamina over time:
+				if (Main.game.getPlayer().getHealthPercentage() < 1) {
+					Main.game.getPlayer().incrementHealth((secondsPassedThisTurn/60) * Main.game.getPlayer().getRegenerationRate());
+				}
+				if (Main.game.getPlayer().getManaPercentage() < 1) {
+					Main.game.getPlayer().incrementMana((secondsPassedThisTurn/60) * Main.game.getPlayer().getRegenerationRate());
+				}
+				Main.game.getPlayer().alignLustToRestingLust(secondsPassedThisTurn);
 			}
-			if (Main.game.getPlayer().getManaPercentage() < 1) {
-				Main.game.getPlayer().incrementMana((secondsPassedThisTurn/60) * Main.game.getPlayer().getRegenerationRate());
+			if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) { // Handle status effects:
+				Main.game.getPlayer().calculateStatusEffects(secondsPassedThisTurn);
 			}
-			Main.game.getPlayer().alignLustToRestingLust(secondsPassedThisTurn);
-		}
-		if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) {
-			Main.game.getPlayer().calculateStatusEffects(secondsPassedThisTurn);
 		}
 		
 		for(int i=1; i <= hoursPassed; i++) {
@@ -1729,6 +1743,9 @@ public class Game implements XMLSaving {
 				return;
 				
 			} else if(response instanceof ResponseEffectsOnly) {
+				if(Main.game.isStarted()) {
+					Main.game.endTurn(response, null); // Only increment time if response overrides getSecondsPassed
+				}
 				return;
 				
 			} else if(response instanceof ResponseTrade) {
@@ -1907,11 +1924,7 @@ public class Game implements XMLSaving {
 				textStartStringBuilder.setLength(0);
 				
 				if(started) {
-					if(isPlayerMovedLocation()) {
-						Main.game.endTurn(getModifierTravelTime(Main.game.getPlayer().getLocationPlace().getPlaceType().isLand(), getCurrentDialogueNode().getSecondsPassed()));
-					} else {
-						Main.game.endTurn(getCurrentDialogueNode().getSecondsPassed());
-					}
+					Main.game.endTurn(response, node);
 				}
 				
 				TooltipUpdateThread.cancelThreads=true;
@@ -1936,6 +1949,9 @@ public class Game implements XMLSaving {
 			return;
 			
 		} else if(response instanceof ResponseEffectsOnly) {
+			if(Main.game.isStarted()) {
+				Main.game.endTurn(response, null); // Only increment time if response overrides getSecondsPassed
+			}
 			return;
 			
 		} else if(response instanceof ResponseTrade) {
@@ -2126,11 +2142,7 @@ public class Game implements XMLSaving {
 		//-------------------- MEMORY LEAK PROBLEM
 		if(started) {
 			if(allowTimeProgress) {
-				if(isPlayerMovedLocation()) {
-					Main.game.endTurn(getModifierTravelTime(Main.game.getPlayer().getLocationPlace().getPlaceType().isLand(), getCurrentDialogueNode().getSecondsPassed()));
-				} else {
-					Main.game.endTurn(getCurrentDialogueNode().getSecondsPassed());
-				}
+				Main.game.endTurn(response, node);
 			} else {
 				Main.game.endTurn(0);
 			}
@@ -2756,7 +2768,7 @@ public class Game implements XMLSaving {
 				} catch (Exception e) {
 					System.err.println("Failed to load character present home: "+id);
 					cell.removeCharacterHomeId(id);
-//					e.printStackTrace();
+					e.printStackTrace();
 				}
 			}
 		}
@@ -2840,7 +2852,7 @@ public class Game implements XMLSaving {
 			if(time>0) {
 				travelTime = Math.max(1, travelTime);
 			}
-			if(travelTime>maxTime) {
+			if(Math.abs(travelTime)>maxTime) {
 				maxTime = travelTime;
 			}
 		}
@@ -3269,6 +3281,10 @@ public class Game implements XMLSaving {
 	public boolean isStarted() {
 		return started;
 	}
+	
+	public boolean isPrologueFinished() {
+		return getPlayer()!=null && getPlayer().hasQuest(QuestLine.MAIN) && getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_PROLOGUE);
+	}
 
 	// Dialogues:
 
@@ -3279,14 +3295,6 @@ public class Game implements XMLSaving {
 		return Main.game.getPlayer().getWorldLocation()!=WorldType.EMPTY
 				&& Main.game.getPlayer().getWorldLocation()!=WorldType.MUSEUM
 					&& Main.game.getPlayer().getWorldLocation()!=WorldType.MUSEUM_LOST;
-	}
-
-	public boolean isPrologueFinished() {
-		return prologueFinished;
-	}
-
-	public void setPrologueFinished(boolean prologueFinished) {
-		this.prologueFinished = prologueFinished;
 	}
 	
 	public StringBuilder getTextStartStringBuilder() {

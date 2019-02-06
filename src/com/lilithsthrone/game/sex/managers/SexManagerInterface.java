@@ -258,7 +258,6 @@ public interface SexManagerInterface {
 			speciesPresent = new ArrayList<>(pop.getSpecies().keySet());
 		}
 		if(speciesPresent!=null && !speciesPresent.isEmpty()) {
-			
 			List<Race> racesPresent = new ArrayList<>();
 			for(Subspecies species : speciesPresent) {
 				if(!racesPresent.contains(species.getRace())) {

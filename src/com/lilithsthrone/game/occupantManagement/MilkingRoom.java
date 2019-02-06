@@ -349,7 +349,7 @@ public class MilkingRoom implements XMLSaving {
 				
 					milkyMilknessSB.append(
 							"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-								+ "[style.colourExcellent("+fluid.getMillilitres()+"ml)]"
+								+ "[style.colourExcellent("+Util.getRoundedFloat(fluid.getMillilitres(), 2)+"ml)]"
 							+ "</div>");
 				
 					milkyMilknessSB.append(

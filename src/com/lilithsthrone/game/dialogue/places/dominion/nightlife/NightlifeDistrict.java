@@ -4953,7 +4953,7 @@ public class NightlifeDistrict {
 				return new Response("See again",
 						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you hope to see [npc.herHim] again.</br>"
 								+ "[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
-						PlaceType.DOMINION_BOULEVARD.getDialogue(false)) {
+						PlaceType.WATERING_HOLE_TOILETS.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -4965,7 +4965,7 @@ public class NightlifeDistrict {
 			} else if(index==2) {
 				return new Response("Hope not (gentle)",
 						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Make a non-committal response, secretly hoping that you won't see [npc.name] again.</br>[style.italicsBad(Removes this character from the game.)]"),
-						PlaceType.DOMINION_BOULEVARD.getDialogue(false)) {
+						PlaceType.WATERING_HOLE_TOILETS.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -4977,7 +4977,7 @@ public class NightlifeDistrict {
 			} else if(index==3) {
 				return new Response("Hope not (harsh)",
 						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Crudely tell [npc.name] that you were only interested in fucking [npc.herHim].</br>[style.italicsBad(Removes this character from the game.)]"),
-						PlaceType.DOMINION_BOULEVARD.getDialogue(false)) {
+						PlaceType.WATERING_HOLE_TOILETS.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(

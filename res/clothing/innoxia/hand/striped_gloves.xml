@@ -76,10 +76,10 @@
 
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
-		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc.her] elbows, before pulling free from [npc.her] [npc.hands].]]>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc.her] elbows, before pulling them free from [npc.her] [npc.hands].]]>
 		</self>
 		<other>
-		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc2.namePos] elbows, before pulling free from [npc2.her] [npc2.hands].]]>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc2.namePos] elbows, before pulling them free from [npc2.her] [npc2.hands].]]>
 		</other>
 		<otherRough>
 		  <![CDATA[[npc.Name] [npc.verb(yank)] the gloves down from [npc2.namePos] elbows, before roughly pulling them free from [npc2.her] [npc2.hands].]]>

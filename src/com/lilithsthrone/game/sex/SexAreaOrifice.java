@@ -341,9 +341,9 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		float cumLost = this.getCumAbsorptionPerSecond();
 		
 		if(!target.isOrificePlugged(this)) {
-			cumLost += this.getCumLossPerSecond() * (1 + 5*Util.getModifiedDropoffValue(target.getTotalFluidInArea(this), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue());
+			cumLost += this.getCumLossPerSecond() * (1 + 0.06*Util.getModifiedDropoffValue(target.getTotalFluidInArea(this), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue());
 		}
-		
+//		System.out.println(target.getName()+" "+cumLost);
 		return cumLost;
 	}
 	

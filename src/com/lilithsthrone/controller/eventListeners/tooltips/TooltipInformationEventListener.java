@@ -156,9 +156,29 @@ public class TooltipInformationEventListener implements EventListener {
 						} else if (timerHeight<50) {
 							timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
 						}
+						int minutes = Math.max(1, owner.getStatusEffectDuration(statusEffect)/60);
+						int hours = minutes/60;
+						int days = hours/24;
 						
 						tooltipSB.append("<div class='subTitle'><b>Time remaining: "
-								+ "<b style='color:"+timerColour.toWebHexString()+";'>" + (owner.getStatusEffectDuration(statusEffect) / (60*60)) + ":" + String.format("%02d", ((owner.getStatusEffectDuration(statusEffect)/60) % (60))) + "</b>"
+								+ "<b style='color:"+timerColour.toWebHexString()+";'>"
+								+(days>0
+									?days+" day"+(days>1?"s":"")
+										+(hours%24>0
+												?" "+(hours%24)+" hour"+((hours%24)>1?"s":"")
+														+ (minutes%60>0
+																?" "+(minutes%60)+" minute"+((minutes%60)>1?"s":"")
+																		:"")
+												:(minutes%60>0
+														?" "+(minutes%60)+" minute"+((minutes%60)>1?"s":"")
+																:""))
+									:(hours>0
+											?" "+(hours)+" hour"+((hours)>1?"s":"")
+													+ (minutes%60>0
+															?" "+(minutes%60)+" minute"+((minutes%60)>1?"s":"")
+																	:"")
+											:(minutes)+" minute"+((minutes)>1?"s":"")))
+								+ "</b>"
 								+ "</div>");
 						//STATUS_EFFECT_TIME_OVERFLOW
 					}

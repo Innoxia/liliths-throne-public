@@ -1898,12 +1898,9 @@ public enum SpecialAttack {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "A powerful, primal energy bubbles just beneath the surface of your wolf-like body, and although you're able to keep it under control, you could always tap into it to deliver a savage attack.";
-			else
-				return UtilText.parse(owner,
-						"A powerful, primal energy bubbles just beneath the surface of [npc.namePos] wolf-like body, and [npc.sheIs] able to use it to deliver a savage attack.");
-		}
+			return UtilText.parse(owner,
+					"A powerful, primal energy bubbles just beneath the surface of [npc.namePos] wolf-like body, and [npc.sheIs] able to use it to deliver a savage attack.");
+	}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {

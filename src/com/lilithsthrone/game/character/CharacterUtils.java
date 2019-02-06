@@ -2254,7 +2254,7 @@ public class CharacterUtils {
 	static {
 		suitableFeminineClothing.put(Occupation.NPC_PROSTITUTE,
 				Util.newArrayListOfValues(
-						ClothingType.ANKLE_BRACELET,
+						ClothingType.getClothingTypeFromId("innoxia_ankle_anklet"),
 						ClothingType.CHEST_LACY_PLUNGE_BRA,
 						ClothingType.CHEST_OPEN_CUP_BRA,
 						ClothingType.CHEST_PLUNGE_BRA,
@@ -2270,7 +2270,7 @@ public class CharacterUtils {
 						ClothingType.GROIN_LACY_PANTIES,
 						ClothingType.GROIN_THONG,
 						ClothingType.GROIN_VSTRING,
-						ClothingType.HAND_ELBOWLENGTH_GLOVES,
+						ClothingType.getClothingTypeFromId("innoxia_hand_elbow_length_gloves"),
 						ClothingType.HEAD_HEADBAND,
 						ClothingType.HEAD_HEADBAND_BOW,
 						ClothingType.LEG_CROTCHLESS_CHAPS,

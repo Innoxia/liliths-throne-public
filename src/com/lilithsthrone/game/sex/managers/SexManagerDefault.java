@@ -227,8 +227,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		GameCharacter targetedCharacter = Sex.getTargetedPartner(partner);
 		
 		// Skip over remove clothing if action is of HIGH or MAX priority
-		if(Sex.getAvailableSexActionsPartner().get(0).getPriority()!=SexActionPriority.HIGH
-				&& Sex.getAvailableSexActionsPartner().get(0).getPriority()!=SexActionPriority.UNIQUE_MAX) {
+		if(!availableActions.isEmpty()
+				&& availableActions.get(0).getPriority()!=SexActionPriority.HIGH
+				&& availableActions.get(0).getPriority()!=SexActionPriority.UNIQUE_MAX) {
 				
 			List<CoverableArea> targetAreasToBeExposed = new ArrayList<>();
 			List<CoverableArea> partnerAreasToBeExposed = new ArrayList<>();

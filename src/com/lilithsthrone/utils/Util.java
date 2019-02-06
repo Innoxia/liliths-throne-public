@@ -347,8 +347,8 @@ public class Util {
 	    }
 	}
 	
-	public static float getRoundedFloat(float input, int significantFigures) {
-		return (float) (((int)(input*Math.pow(10, significantFigures)))/Math.pow(10, significantFigures));
+	public static String getRoundedFloat(float input, int decimalPlaces) {
+		return String.format(Locale.ENGLISH,"%."+decimalPlaces+"f", input);
 	}
 	
 	private static String[] numbersLessThanTwenty = {
@@ -894,6 +894,7 @@ public class Util {
 			}
 		} catch(NoSuchElementException ex) {
 			System.err.println("Util.toStringList() error - NoSuchElementException! (It's probably nothing to worry about...)");
+			ex.printStackTrace();
 		}
 		return utilitiesStringBuilder.toString();
 	}

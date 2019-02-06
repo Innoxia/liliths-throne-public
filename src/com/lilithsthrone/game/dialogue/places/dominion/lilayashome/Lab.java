@@ -2326,7 +2326,7 @@ public class Lab {
 
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "She suddenly breaks off from fondling your abdomen, and, grabbing your wrist, starts pulling you into her lab."
+						+ "She suddenly breaks off from fondling your abdomen, and, grabbing your wrist, starts pulling you further into her lab."
 						+ " You look around to see that Rose has vacated the area, leaving you alone with your demonic [lilaya.relation(pc)]."
 					+ "</p>"
 					+ "<p>"

@@ -28,6 +28,8 @@ import com.lilithsthrone.utils.Util;
  */
 public class Response {
 	
+	public static final int DEFAULT_TIME_PASSED_VALUE = Integer.MIN_VALUE;
+	
 	protected String title;
 	protected String tooltipText;
 	protected DialogueNode nextDialogue;
@@ -122,10 +124,12 @@ public class Response {
 	}
 
 	/**
+	 * When this returns a value other than DEFAULT_TIME_PASSED_VALUE, then it overrides the next DialogueNode's getSecondsPassed method, and is therefore used to determine how much time passes when selecting this Response.
+	 * 
 	 * @return The number of seconds that pass when choosing this response.
 	 */
 	public int getSecondsPassed() {
-		return 0;
+		return DEFAULT_TIME_PASSED_VALUE;
 	}
 	
 	public boolean disabledOnNullDialogue(){

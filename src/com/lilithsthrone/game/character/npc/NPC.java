@@ -324,7 +324,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 			}
 			
-			npc.bodyPreference = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("preferredBody").item(0), doc);
+			try {
+				npc.bodyPreference = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("preferredBody").item(0), doc);
+			} catch(Exception ex) {
+			}
 		}
 	}
 	

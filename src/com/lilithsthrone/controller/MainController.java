@@ -62,6 +62,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -2232,11 +2233,11 @@ public class MainController implements Initializable {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn) {
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1));
+						Main.game.setContent(new Response("", "", Main.game.getPlayer().getLocationPlace().getDialogue(true)));
 					}
 				});
 			}
@@ -2253,11 +2254,11 @@ public class MainController implements Initializable {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn) {
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1));
+						Main.game.setContent(new Response("", "", Main.game.getPlayer().getLocationPlace().getDialogue(true)));
 					}
 				});
 			}
@@ -2274,11 +2275,11 @@ public class MainController implements Initializable {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn) {
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()));
+						Main.game.setContent(new Response("", "", Main.game.getPlayer().getLocationPlace().getDialogue(true)));
 					}
 				});
 			}
@@ -2295,11 +2296,11 @@ public class MainController implements Initializable {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn) {
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()));
+						Main.game.setContent(new Response("", "", Main.game.getPlayer().getLocationPlace().getDialogue(true)));
 					}
 				});
 			}

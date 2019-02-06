@@ -121,39 +121,54 @@
 	
 	Contributors:
 		Fixed bug where adding fetishes/changing desires from phone fetish menu would not work. (PR#1034 by BDPMP)
+		Fixed bug in the main quest, where purchasing Scarlett from Alexa would not work. (PR#1038 by BDPMP)
+		Correction from previous patch notes: GynoidDoesGames was the author of PR#989 (the increase in name variety).
+	
+	Clothing:
+		Changed & added colours, altered icons, and moved out to res/clothing/innoxia the follow clothing items: 'suit jacket', 'anklet', 'shin guards', 'elbow-length gloves'.
+		Added metallic effect to metal colours in clothing & weapon dye screens.
 	
 	Other:
-		The game now starts at 21:04, so that when you get to your room, you can sleep until morning in one button press (instead of sleeping until 21:00 and then again until morning).
+		The game now starts at 20:34, so that by the time you get to your room (after 21:00), you can sleep until morning in one button press (instead of sleeping until 21:00 and then again until morning). Time now also passes in the character creation scenes.
 		Improved formatting of the post-sex descriptions for orifices being stretched.
 		Changed smallest time-unit that the game was tracking from minutes to seconds. Travel through some tiles now takes less than a minute (such as moving in Lilaya's home now taking 10 seconds per tile, and sex actions taking 20 seconds instead of 60).
 		After waiting in the queue or giving Jules a blowjob at the nightclub, you will now be moved one tile north, into the club itself, instead of remaining on the entrance tile. 
 		Made the calendar and time button-areas larger (above the minimap), and added more information to the time tooltip (to include seconds).
-	
+		Creampies no longer drain during sex scenes.
+		Reduced Brax's Physique, increased his corruption, stopped him from using 'Savage attack' in combat, and fixed issue where he would have just a single chaos feather as a weapon.
+		Gave Alexa 15 base arcane, as well as the Slam spell, to explain how she's able to use arcane force in her punishment scenes.
+		Improved 'recovering orifice' status effect description and icon.
+		Improved status effect 'time remaining' tooltip display.
+		
 	Bugs:
+		Fixed major bug where walking in Dominion's boulevard tiles during an arcane storm would cause a game-breaking background bug. (Related to the tile's population not being generated correctly.)
 		Fixed post-sex oral experience gain description for NPCs referencing your ability to perform oral, not theirs.
-		Vaginal urethra is now tracked correctly in the 'recovering orifices' status effect, and thus now actually returns to the relevant capacity over time.
+		Vaginal urethra and crotch nipples are now tracked correctly in the 'recovering orifices' status effect, and thus they now actually return to their natural capacity over time.
 		Fixed background issue where orifices' post-stretched recover rate was being based on their elasticity, not plasticity.
 		Fixed issue where taur land speed movement reduction (-50% time) wasn't being applied.
+		Fixed decimal formatting in creampie status effects.
+		Typo fixes.
+		Fixed post-sex scene in the nightclub's toilets appending dialogue as though you were back out in teh streets of Dominion.
+		Fixed background error related to NPCs not having a body preference set when loading into this version from an old save.
+		Added handling of unusual scenario (which I couldn't replicate) where an NPC would have no available actions from which to select during sex.
+		Fixed issue with NPCs performing redundant displacements (such as pulling down trousers, then unzipping them).
 	
 	
 	
 	
 	
-	Alexa arcane? in spanking scene
 	
+	sex positions auto-switching without action input?
+	is sex with guests supposed to always allow the partner to control the positions?
+		positioning is far too aggressive
+	NPCs choosing oral when vaginal is available?
+		
 	vary daylight based on time of year
 	
-	Major game-breaking issue with loading saves from older versions.
 	.jar isn't launching without using console
 	
 	So, my elemental's still doing that thing where she starts an ongoing action, stops it the next turn, and keeps cycling through it.
-	Scarlett issues:
-		I can't buy Scarlett from Alexa. The money is removed, but the option to buy her still persists
-		It appears that Scarlett is spawned in the Harpy Nests where Alexa can be found and not in the shop.
-		The error.log says I don't have the quest : MAIN_1_F_SCARLETTS_FATE
-		You cannot buy Scarlett from Alexa for the quest to get information about Arthur's location
-			The button does nothing until you leave where it will subtract flames for 10000x the amount of times you hit it.
-			
+	
 	taur positioning "Get fucked" parses tooltip as though it's all you
 	When entering the club, be spawned-in the space north of the entrance
 	Not sure if Inno meant for it to read as "a pair of udders" when you try to select one
@@ -170,6 +185,7 @@
 	lube updates in sex are talking about urethra when it's off. Also starting lubrication text is being spammed with slime.
 	my character is a pegasustaur despite having a unicorn horn, while having an alitaur npc companion
 		Having both wings and a horn lists you as a pegataur, when it should be alitaur
+		
 	tooltip text on status effects scrolling off under image
 	END_SEX_CREAMPIE not found when ending sex after Lilaya's geisha scene (finishing in her mouth)
 	Horn TF: "A hard nub suddenly pushes out from teh middle of your forehead, and you gasp as you command_unknown... it quickly grow out into a... now have a pair of unicorn horn."
@@ -179,11 +195,8 @@
 	After beating wolfgang and Karl I got wolf whiskey and meat and marrow
 	TF cock to human and it talks about feral when on taur
 	black-black-striped tiger
-	sex positions auto-switching without action input?
 	condoms not being stocked by Ralph or Roxy?
 	the slave administration Finch inventory doesn't daily reset properly. With this, i mean, that he sels everything the first day, but after that he only sels slave collars thats properly daily resets
-	is sex with guests supposed to always allow the partner to control the positions?
-		positioning is far too aggressive
 	is it normal for chapels to spawn everywhere in dominion?
 	Both my player character and their slaves, all slimes, keep automatically changing their hair colors and sometimes body colors back to the default green (or for body blue) periodically with no input from me.
 		Sometimes when loading the game, but often also just from playing for long periods.
@@ -200,40 +213,26 @@
 			She is doing the "I've decided to forgive you" even if knocked up by Lyssieth
 	:BlobSweats: Also, after not witnessing Lilaya and Miraxis being transformed, Lilaya still strongly dislikes Lyssieth
 	taurs finger themselves?!
-		
-		
+	
+	need orgasm to check for end sex?
+		append end sex if player not ready to orgasm and end condition reached?
+		will this affect special scenes?
+	
+	Check DominionAlleywayAttacker public void hourlyUpdate() {
+	
+	Add ambush action on street tiles during storm
 	
 	I guess Inno didn't do a clean build or something.
 	1.8.0_201 and _202 are the latest versions currently. Actually probably forever now, because I think Java announced they would release their final update in January of this year.
 	
 	Slime body color and bodyhair color are the same. You cannot change one without the other automatically changing.  This could be intentional, but given they are presented as different things in the transformation menu, I just assumed it is a bug.
 	
-	
-	The issue with existing saves crashing is because the surrounding population in dominion has an empty set for a species, causing 
-		pop.getSpecies().keySet().iterator().next()
-	java.util.NoSuchElementException
-	at java.util.HashMap$HashIterator.nextNode(Unknown Source)
-	at java.util.HashMap$KeyIterator.next(Unknown Source)
-	at com.lilithsthrone.rendering.RenderingEngine.renderAttributesPanelRight(RenderingEngine.java:1244)
-	at com.lilithsthrone.controller.MainController.updateUI(MainController.java:2182)
-	at com.lilithsthrone.game.Game.endTurn(Game.java:1554)
-	at com.lilithsthrone.game.Game.endTurn(Game.java:1252)
-	at com.lilithsthrone.game.Game.setContent(Game.java:2118)
-	at com.lilithsthrone.game.Game.setContent(Game.java:2183)
-	
-	
-	java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-	at java.util.ArrayList.rangeCheck(Unknown Source)
-	at java.util.ArrayList.get(Unknown Source)
-	at com.lilithsthrone.game.sex.managers.SexManagerDefault.getPartnerSexAction(SexManagerDefault.java:230)
-	at com.lilithsthrone.game.sex.Sex.endSexTurn(Sex.java:1407)
-	at com.lilithsthrone.game.sex.sexActions.SexActionInterface$1.effects(SexActionInterface.java:738)
-	at com.lilithsthrone.game.dialogue.responses.Response.applyEffects(Response.java:185)
-	at com.lilithsthrone.game.Game.setContent(Game.java:1706)
+	pregnancy roulette - game declared centaur winner, even though kids were players
 	
 	
 	
-	
+	More weapon dye colours
+	Stuff dsg mentioned
 	
 	need to add birthing scene for taur bodies
 	

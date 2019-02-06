@@ -2459,7 +2459,7 @@ public enum Subspecies {
 				worldSpecies.get(type.getKey()).put(species, type.getValue());
 				
 				try {
-					if(type == WorldType.DOMINION && RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(Attribute.MAJOR_ARCANE).getMinimum()>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
+					if(type.getKey()==WorldType.DOMINION && RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(Attribute.MAJOR_ARCANE).getMinimum()>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
 						dominionStormImmuneSpecies.put(species, type.getValue());
 					}
 				} catch(Exception ex) {	

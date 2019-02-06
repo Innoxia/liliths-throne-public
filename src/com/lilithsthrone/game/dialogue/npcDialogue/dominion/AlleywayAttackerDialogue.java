@@ -9,7 +9,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -44,6 +43,12 @@ public class AlleywayAttackerDialogue {
 		return (pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
 				|| pt == PlaceType.DOMINION_CANAL
 				|| pt == PlaceType.DOMINION_CANAL_END);
+	}
+
+	private static boolean isStorm() {
+		PlaceType pt = getMugger().getLocationPlace().getPlaceType();
+		return (pt != PlaceType.DOMINION_BACK_ALLEYS
+				&& !isCanal());
 	}
 	
 	private static NPC getMugger() {
@@ -600,7 +605,8 @@ public class AlleywayAttackerDialogue {
 								return false;
 							}
 						},
-						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "STORM_ATTACK_OFFER_BODY", getMugger()));
+						AFTER_SEX_DEFEAT,
+						UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "STORM_ATTACK_OFFER_BODY", getMugger()));
 					
 			} else {
 				return null;
@@ -638,7 +644,7 @@ public class AlleywayAttackerDialogue {
 					return new Response("Continue", "Leave [npc.name] be and continue on your way...", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
-							if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
 								Main.game.banishNPC(getMugger());
 							}
 						}
@@ -700,7 +706,7 @@ public class AlleywayAttackerDialogue {
 						}
 					};
 					
-				} else if (index == 7 && getMugger().getLocationPlace().getPlaceType().getEncounterType()!=Encounter.DOMINION_STREET) {
+				} else if (index == 7 && !isStorm()) {
 					if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 						return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
 						
@@ -725,7 +731,7 @@ public class AlleywayAttackerDialogue {
 						}
 					};
 					
-				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) && !isStorm()) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -746,7 +752,7 @@ public class AlleywayAttackerDialogue {
 					return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()){
 						@Override
 						public void effects() {
-							if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
 								Main.game.banishNPC(getMugger());
 							}
 						}
@@ -810,7 +816,7 @@ public class AlleywayAttackerDialogue {
 						}
 					};
 					
-				} else if (index == 7) {
+				} else if (index == 7 && !isStorm()) {
 					if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 						return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
 						
@@ -835,7 +841,7 @@ public class AlleywayAttackerDialogue {
 						}
 					};
 					
-				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) && !isStorm()) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -1019,6 +1025,12 @@ public class AlleywayAttackerDialogue {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
+						public void effects() {
+							if(isStorm()) {
+								Main.game.banishNPC(getMugger());
+							}
+						}
+						@Override
 						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
@@ -1194,7 +1206,7 @@ public class AlleywayAttackerDialogue {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
-						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
 							Main.game.banishNPC(getMugger());
 						}
 					}
@@ -1208,7 +1220,7 @@ public class AlleywayAttackerDialogue {
 					}
 				};
 				
-			} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+			} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) && !isStorm()) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -1250,6 +1262,12 @@ public class AlleywayAttackerDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
+					@Override
+					public void effects() {
+						if(isStorm()) {
+							Main.game.banishNPC(getMugger());
+						}
+					}
 					@Override
 					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();

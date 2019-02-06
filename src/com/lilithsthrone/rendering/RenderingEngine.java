@@ -1201,7 +1201,7 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
-			if(charactersPresent.isEmpty() && place.getPopulation()==null) {
+			if(charactersPresent.isEmpty() && (place.getPopulation()==null || place.getPopulation().getSpecies().isEmpty())) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");
 				
 			} else {

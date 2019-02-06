@@ -186,7 +186,7 @@ public class FluidStored implements XMLSaving {
 	}
 
 	public float getMillilitres() {
-		return Util.getRoundedFloat(millilitres, 10);
+		return millilitres;
 	}
 	
 	public void setMillilitres(float millilitres) {
