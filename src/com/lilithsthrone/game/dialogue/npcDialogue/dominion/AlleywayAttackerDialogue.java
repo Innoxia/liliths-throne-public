@@ -265,7 +265,8 @@ public class AlleywayAttackerDialogue {
 										return false;
 									}
 								},
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_OFFER_BODY", getMugger())) {
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_OFFER_BODY", getMugger())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();

@@ -79,6 +79,8 @@ public class CharacterInventory implements XMLSaving {
 	// Clothing that's currently blocking this inventory from unequipping/displacing something:
 	private AbstractClothing blockingClothing;
 
+	protected BlockedParts extraBlockedParts;
+	
 	// Weapons
 	private AbstractWeapon mainWeapon, offhandWeapon;
 
@@ -131,7 +133,13 @@ public class CharacterInventory implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "maxInventorySpace", String.valueOf(this.getMaximumInventorySpace()));
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(this.getEssenceCount(TFEssence.ARCANE)));
-
+		
+		if(extraBlockedParts!=null) {
+			Element innerElement = doc.createElement("extraBlockedParts");
+			characterInventory.appendChild(innerElement);
+			extraBlockedParts.saveAsXML(innerElement, doc);
+		}
+		
 		Element dirtySlotsElement = doc.createElement("dirtySlots");
 		characterInventory.appendChild(dirtySlotsElement);
 		for(InventorySlot slot : this.getDirtySlots()) {
@@ -190,7 +198,16 @@ public class CharacterInventory implements XMLSaving {
 		}
 		inventory.setMoney(Integer.valueOf(((Element)parentElement.getElementsByTagName("money").item(0)).getAttribute("value")));
 		inventory.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)parentElement.getElementsByTagName("essences").item(0)).getAttribute("value")));
-
+		
+		try {
+			NodeList nodes = parentElement.getElementsByTagName("extraBlockedParts");
+			Element extraBlockedPartsElement = (Element) nodes.item(0);
+			if(extraBlockedPartsElement!=null) {
+				inventory.setExtraBlockedParts(BlockedParts.loadFromXML((Element) extraBlockedPartsElement.getElementsByTagName("blockedParts").item(0), doc, "CharacterInventory extraBlockedParts"));
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
 		
 		NodeList nodes = parentElement.getElementsByTagName("dirtySlots");
 		Element dirtySlotContainerElement = (Element) nodes.item(0);
@@ -378,6 +395,20 @@ public class CharacterInventory implements XMLSaving {
 	
 	public boolean isAnyQuestItemPresent() {
 		return getUniqueQuestWeaponCount()>0 || getUniqueQuestClothingCount()>0 || getUniqueQuestItemCount()>0;
+	}
+
+	/**
+	 * @param extraBlockedParts A special BlockedParts object to define conceal overrides to CoverableAreas and InventorySlots. Starts as null, and should be set to such if you want to remove these overrides.
+	 */
+	public void setExtraBlockedParts(BlockedParts extraBlockedParts) {
+		this.extraBlockedParts = extraBlockedParts;
+	}
+	
+	/**
+	 * @return A special BlockedParts object that provides conceal overrides to CoverableAreas and InventorySlots. Should only be used for characters that are to remain mostly concealed, such as Glory Hole participants.
+	 */
+	public BlockedParts getExtraBlockedParts() {
+		return extraBlockedParts;
 	}
 	
 	
@@ -829,6 +860,15 @@ public class CharacterInventory implements XMLSaving {
 				}
 			}
 		}
+
+		if(this.getExtraBlockedParts()!=null) {
+			for(InventorySlot slot :this.getExtraBlockedParts().concealedSlots) {
+				if(!concealedMap.containsKey(slot)) {
+					concealedMap.put(slot, new ArrayList<>());
+				}
+			}
+		}
+		
 		return concealedMap;
 	}
 	
@@ -913,7 +953,7 @@ public class CharacterInventory implements XMLSaving {
 			if (c.getClothingType().getSlot() == InventorySlot.WINGS && character.getWingType()==WingType.NONE) {
 				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] any wings, so [npc.she] can't wear the "+c.getName()+"!");
 			}
-			if (c.getClothingType().getSlot() == InventorySlot.HORNS && character.getHornType()==HornType.NONE) {
+			if (c.getClothingType().getSlot() == InventorySlot.HORNS && character.getHornType().equals(HornType.NONE)) {
 				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] any horns, so [npc.she] can't wear the "+c.getName()+"!");
 			}
 			if (c.getClothingType().getSlot() == InventorySlot.TAIL && character.getTailType()==TailType.NONE) {
@@ -1075,7 +1115,7 @@ public class CharacterInventory implements XMLSaving {
 			equipTextSB.append(UtilText.parse(characterClothingOwner, "[npc.Name] [npc.does]n't have any wings, so [npc.she] can't wear the "+newClothing.getName()+"!"));
 			return false;
 		}
-		if (newClothing.getClothingType().getSlot() == InventorySlot.HORNS && characterClothingOwner.getHornType()==HornType.NONE) {
+		if (newClothing.getClothingType().getSlot() == InventorySlot.HORNS && characterClothingOwner.getHornType().equals(HornType.NONE)) {
 			equipTextSB.append(UtilText.parse(characterClothingOwner, "[npc.Name] [npc.does]n't have any horns, so [npc.she] can't wear the "+newClothing.getName()+"!"));
 			return false;
 		}
@@ -1916,10 +1956,23 @@ public class CharacterInventory implements XMLSaving {
 		return new SimpleEntry<>(clothingToRemove, displacement);
 	}
 
+	/**
+	 * @param character The character who is being checked.
+	 * @param area The area to test for exposure.
+	 * @param justVisible pass in true if you want to know if the area is visible (i.e. through transparent clothes). Pass in false if you want to know if there is any clothing blocking the area, regardless of transparency.
+	 * @return
+	 */
 	public boolean isCoverableAreaExposed(GameCharacter character, CoverableArea area, boolean justVisible) {
 		if(area==CoverableArea.TESTICLES) { // There are no proper checks in clothing for testicle access, so use penis access:
 			return isCoverableAreaExposed(character, CoverableArea.PENIS, justVisible);
 		}
+		
+		if(this.getExtraBlockedParts()!=null && justVisible) {
+			if(this.getExtraBlockedParts().blockedBodyParts.contains(area)) {
+				return false;
+			}
+		}
+		
 		if(area==CoverableArea.BREASTS_CROTCH || area==CoverableArea.NIPPLES_CROTCH) { //TODO centaur check
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:

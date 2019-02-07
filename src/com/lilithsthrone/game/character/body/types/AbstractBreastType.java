@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
@@ -113,6 +114,9 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 
 	@Override
 	public String getDeterminer(GameCharacter gc) {
+		if(gc.getBreastCrotchShape()==BreastShape.UDDERS) {
+			return "a set of";
+		}
 		if(gc.getBreastRows()==1) {
 			return "a pair of";
 		} else {
@@ -122,7 +126,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 
 	@Override
 	public boolean isDefaultPlural() {
-		return false;
+		return true;
 	}
 
 	@Override

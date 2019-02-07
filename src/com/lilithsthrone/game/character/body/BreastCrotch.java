@@ -418,15 +418,15 @@ public class BreastCrotch implements BodyPartInterface {
 		int rowsDifference = Math.abs(rows - getRows());
 		
 		if (rows < getRows()) {
-				transformation = UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] [npc.verb(let)] out a worried gasp as [npc.she] [npc.verb(feel)] a strange tightening sensation just above [npc.her] groin, and before [npc.sheHasFull] time to react, [npc.her] "
-								+ (rowsDifference==1
-									?"highest pair of [npc.crotchBoobs]"
-									:"highest "+Util.intToString(rowsDifference)+" pairs of [npc.crotchBoobs]")
-								+ " rapidly shrink away and [style.boldShrink(disappear)] into the [npc.skin] of [npc.her] stomach.<br/>"
-								+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of [npc.crotchBoobs])]!" 
-							+ "</p>");
+			transformation = UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] [npc.verb(let)] out a worried gasp as [npc.she] [npc.verb(feel)] a strange tightening sensation just above [npc.her] groin, and before [npc.sheHasFull] time to react, [npc.her] "
+							+ (rowsDifference==1
+								?"highest set of [npc.crotchNipples]"
+								:"highest "+Util.intToString(rowsDifference)+" sets of [npc.crotchNipples]")
+							+ " rapidly shrink away and [style.boldShrink(disappear)] into the [npc.skin] of [npc.her] stomach.<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " "+(getShape()==BreastShape.UDDERS?"set":"pair")+ (rows > 1 ? "s" : "") + " of [npc.crotchBoobs])]!" 
+						+ "</p>");
 			
 			
 		} else if (rows > getRows()) {

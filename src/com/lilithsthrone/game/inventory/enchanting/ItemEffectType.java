@@ -529,7 +529,7 @@ public class ItemEffectType {
 	public static AbstractItemEffectType STR_SWAMP_WATER = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'",
-			"[style.boldMinorBad(Adds)] 50% to [style.boldAlcohol(intoxication level)]"),
+			"[style.boldMinorBad(Adds)] 75% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
@@ -540,7 +540,7 @@ public class ItemEffectType {
 					+"A powerful wave of arcane energy washes over you..."
 					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ target.incrementAlcoholLevel(0.5f);
+					+ target.incrementAlcoholLevel(0.75f);
 		}
 	};
 	

@@ -874,7 +874,7 @@ public class CharacterModificationUtils {
 		
 		for(AbstractHornType horn : types) {
 			if((horn.getRace() !=null && availableRaces.contains(horn.getRace()))
-					|| horn==HornType.NONE) {
+					|| horn.equals(HornType.NONE)) {
 				
 				Colour c = Colour.TEXT_GREY;
 				
@@ -882,7 +882,7 @@ public class CharacterModificationUtils {
 					c = horn.getRace().getColour();
 				}
 				
-				if(BodyChanging.getTarget().getHornType() == horn) {
+				if(BodyChanging.getTarget().getHornType().equals(horn)) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(horn.getTransformName())+"</span>"
@@ -4273,7 +4273,7 @@ public class CharacterModificationUtils {
 		
 		switch(invSlot) {
 			case HORNS:
-				if(BodyChanging.getTarget().getHornType()==HornType.NONE) {
+				if(BodyChanging.getTarget().getHornType().equals(HornType.NONE)) {
 					disabled = true;
 				}
 				break;

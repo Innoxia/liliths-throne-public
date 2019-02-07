@@ -3173,7 +3173,7 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default://TODO
 								return new RacialEffectUtil("Adds an extra pair of horns.", singleBoost, " pair of horns") { @Override public String applyEffect() {
 									List<AbstractHornType> hornTypesSuitableForTransformation = RacialBody.valueOfRace(race).getHornTypes(true);
-									if(target.getHornType()==HornType.NONE && !hornTypesSuitableForTransformation.isEmpty()) {
+									if(target.getHornType().equals(HornType.NONE) && !hornTypesSuitableForTransformation.isEmpty()) {
 										return target.setHornType(hornTypesSuitableForTransformation.get(0));
 									} else {
 										return target.incrementHornRows(singleBoost);
@@ -3217,7 +3217,7 @@ public abstract class AbstractItemEffectType {
 					default:
 						List<AbstractHornType> hornTypes = RacialBody.valueOfRace(race).getHornTypes(true);
 						AbstractHornType hornType = hornTypes.isEmpty()?HornType.NONE:Util.randomItemFrom(hornTypes);
-						return new RacialEffectUtil(hornType==HornType.NONE?"Removes horns.":Util.capitaliseSentence(race.getName(false))+" horn transformation.", 0, "") {
+						return new RacialEffectUtil(hornType.equals(HornType.NONE)?"Removes horns.":Util.capitaliseSentence(race.getName(false))+" horn transformation.", 0, "") {
 							@Override public String applyEffect() { return target.setHornType(hornType); } };
 				}
 				

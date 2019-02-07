@@ -72,7 +72,7 @@ public class Horn implements BodyPartInterface {
 		}
 		
 		if (type == getType()) {
-			if(type == HornType.NONE) {
+			if(type.equals(HornType.NONE)) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(lack)] horns, so nothing happens...)]</p>");
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.horns] of [npc.a_hornRace], so nothing happens...)]</p>");
@@ -81,7 +81,7 @@ public class Horn implements BodyPartInterface {
 		
 		UtilText.transformationContentSB.setLength(0);
 		
-		if(this.type == HornType.NONE) {
+		if(this.type.equals(HornType.NONE)) {
 			UtilText.transformationContentSB.append(UtilText.parse(owner, 
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp and [npc.verb(rub)] at [npc.her] forehead as [npc.she] [npc.verb(feel)] it growing hot and sensitive."
@@ -124,7 +124,7 @@ public class Horn implements BodyPartInterface {
 		boolean removingHorns = owner.getHornRows() > rows;
 		this.rows = rows;
 		
-		if (owner.getHornType() == HornType.NONE) {
+		if (owner.getHornType().equals(HornType.NONE)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -164,7 +164,7 @@ public class Horn implements BodyPartInterface {
 		boolean removingHorns = owner.getHornsPerRow() > hornsPerRow;
 		this.hornsPerRow = hornsPerRow;
 		
-		if (owner.getHornType() == HornType.NONE) {
+		if (owner.getHornType().equals(HornType.NONE)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -199,7 +199,7 @@ public class Horn implements BodyPartInterface {
 		this.length = Math.max(0, Math.min(length, HornLength.FOUR_MASSIVE.getMaximumValue()));
 		int sizeChange = this.length - oldLength;
 		
-		if(owner.getHornType()==HornType.NONE) {
+		if(owner.getHornType().equals(HornType.NONE)) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] [npc.do]n't have any horns, so nothing seems to happen...)]</p>");
 		}
 		

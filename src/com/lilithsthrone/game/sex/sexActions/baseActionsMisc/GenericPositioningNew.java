@@ -89,12 +89,15 @@ public class GenericPositioningNew {
 						?Sex.getCharacterPerformingAction().isPlayer()
 						:true)
 				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
-						?(((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getTargetedPartner(Sex.getCharacterPerformingAction())).contains(data.getPerformerSlots().get(0))
-								|| ((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterPerformingAction()).isEmpty())
+						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.game.getPlayer())
 						:true);
 	}
 
 	private static void setNewSexManager(PositioningData data, boolean requestAccepted) {
+//		for(SexSlot slot : ((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))) {
+//			System.out.println(slot.getName(Sex.getCharacterPerformingAction()));
+//		}
+		
 		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
 		Map<GameCharacter, SexSlot> submissives = new HashMap<>();
 		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants().keySet());
@@ -545,9 +548,9 @@ public class GenericPositioningNew {
 		@Override
 		public String getActionDescription() {
 			if(Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()) {
-				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between [npc.her] front and back.";
+				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between [npc2.her] front and back.";
 			} else {
-				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between kneeling beneath or behind [npc.her] animalistic body.";
+				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between kneeling beneath or behind [npc2.her] animalistic body.";
 			}
 		}
 		@Override
@@ -957,12 +960,12 @@ public class GenericPositioningNew {
 		public String getActionDescription() {
 			if(Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()) {
 				if(Sex.getCharacterTargetedForSexAction(this).getLegConfiguration().isBipedalPositionedGenitals()) {
-					return "Drop down onto all fours so that [npc.name] can fuck you, doggy-style.";
+					return "Drop down onto all fours so that [npc2.name] can fuck you, doggy-style.";
 				} else {
-					return "Drop down onto all fours so that [npc.name] can mount and rut you.";
+					return "Drop down onto all fours so that [npc2.name] can mount and rut you.";
 				}
 			} else {
-				return "Present your hindquarters to [npc2.name] and get [npc.herHim] to mount your animalistic body.";
+				return "Present your hindquarters to [npc2.name] and get [npc2.herHim] to mount your animalistic body.";
 			}
 		}
 		@Override

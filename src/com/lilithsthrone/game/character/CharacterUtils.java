@@ -1388,13 +1388,18 @@ public class CharacterUtils {
 		return body;
 	}
 	
+	
+
+	public static String setGenericName(GameCharacter character, List<String> exclusiveAdjectives) {
+		return setGenericName(character, null, exclusiveAdjectives);
+	}
 	/**
 	 * Generates and sets a generic name for this character, based on their personality.
 	 * @param character The character to set a generic name for.
 	 * @param exclusiveAdjectives A list of adjectives to exclude from the random assignment.
 	 * @return The adjective that was chosen to describe the character.
 	 */
-	public static String setGenericName(GameCharacter character, List<String> exclusiveAdjectives) {
+	public static String setGenericName(GameCharacter character, String baseName, List<String> exclusiveAdjectives) {
 
 		List<String> characterAdjectives = new ArrayList<>();
 
@@ -1456,7 +1461,11 @@ public class CharacterUtils {
 		
 		String adjective = Util.randomItemFrom(characterAdjectives);
 		
-		character.setGenericName(adjective+" "+character.getSubspecies().getName(character));
+		if(baseName==null || baseName.isEmpty()) {
+			character.setGenericName(adjective+" "+character.getSubspecies().getName(character));
+		} else {
+			character.setGenericName(adjective+" "+baseName);
+		}
 		
 		return adjective;
 	}

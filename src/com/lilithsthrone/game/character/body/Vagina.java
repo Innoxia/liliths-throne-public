@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -121,7 +122,7 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add(type.getDescriptor(owner));
 		}
 		
-		descriptorList.add(orificeVagina.getCapacity().getDescriptor());
+		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor());
 		
 		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
@@ -135,7 +136,7 @@ public class Vagina implements BodyPartInterface {
 		
 		descriptorList.add(type.getDescriptor(owner));
 		
-		descriptorList.add(orificeUrethra.getCapacity().getDescriptor());
+		descriptorList.add(Capacity.getCapacityFromValue(orificeUrethra.getStretchedCapacity()).getDescriptor());
 		
 		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}

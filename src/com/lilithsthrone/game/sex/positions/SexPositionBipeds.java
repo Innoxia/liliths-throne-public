@@ -544,7 +544,7 @@ public class SexPositionBipeds {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.FACE_SITTING_ON_BACK), Sex.getCharacterInPosition(SexSlotBipeds.FACE_SITTING_ON_FACE),
-					"[npc.NameIs] lying on [npc.her] back as [npc2.name] [npc2.verb(sit)] on [npc.her] [npc.face+].");
+					"[npc.NameIsFull] lying on [npc.her] back as [npc2.name] [npc2.verb(sit)] on [npc.her] [npc.face+].");
 		}
 
 		@Override
@@ -2575,7 +2575,8 @@ public class SexPositionBipeds {
 									new SexActionInteractions(
 											Util.mergeMaps(
 													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToGroin,
+													SexActionPresets.groinToVagina,
+													SexActionPresets.groinToPenis,
 													SexActionPresets.groinToAss,
 													SexActionPresets.kissing),
 											Util.newArrayListOfValues(

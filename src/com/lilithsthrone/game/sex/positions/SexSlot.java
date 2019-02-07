@@ -71,20 +71,45 @@ public class SexSlot {
 		return standing;
 	}
 	
-	public boolean isMeetsPreferenceCriteria(GameCharacter character, AbstractSexPosition position, SexType preference) {
+	public boolean isMeetsPreferenceCriteria(GameCharacter character, AbstractSexPosition position, SexSlot targetedSlot, SexType preference) {
 		VariableInteractions.setCharacterForPositionTesting(character);
 		
 		if(position.getSlotTargets().containsKey(this)) {
-			for(SexActionInteractions value : position.getSlotTargets().get(this).values()) {
-				for(Entry<SexAreaInterface, List<SexAreaInterface>> interaction : value.getInteractions().entrySet()) {
+			if(targetedSlot==null) { // If no targeted slot, check all available slots:
+				for(SexActionInteractions value : position.getSlotTargets().get(this).values()) {
+					for(Entry<SexAreaInterface, List<SexAreaInterface>> interaction : value.getInteractions().entrySet()) {
+						if(interaction.getKey()==preference.getPerformingSexArea() && interaction.getValue().contains(preference.getTargetedSexArea())) {
+							return true;
+						}
+					}
+				}
+				
+			} else if(position.getSlotTargets().get(this).containsKey(targetedSlot)) {
+				for(Entry<SexAreaInterface, List<SexAreaInterface>> interaction : position.getSlotTargets().get(this).get(targetedSlot).getInteractions().entrySet()) {
 					if(interaction.getKey()==preference.getPerformingSexArea() && interaction.getValue().contains(preference.getTargetedSexArea())) {
 						return true;
 					}
 				}
 			}
 		}
-		for(Entry<SexSlot, Map<SexSlot, SexActionInteractions>> value : position.getSlotTargets().entrySet()) {
-			for(Entry<SexSlot, SexActionInteractions> entry : value.getValue().entrySet()) {
+		
+		 // Check for the opposite interactions (i.e. the targeted slot interacting with this slot):
+		
+		if(targetedSlot==null) { // If no targeted slot, check all available slots:
+			for(Entry<SexSlot, Map<SexSlot, SexActionInteractions>> value : position.getSlotTargets().entrySet()) {
+				for(Entry<SexSlot, SexActionInteractions> entry : value.getValue().entrySet()) {
+					if(entry.getKey()==this) {
+						for(Entry<SexAreaInterface, List<SexAreaInterface>> interaction : entry.getValue().getInteractions().entrySet()) {
+							if(interaction.getKey()==preference.getTargetedSexArea() && interaction.getValue().contains(preference.getPerformingSexArea())) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+			
+		} else if(position.getSlotTargets().containsKey(targetedSlot)) {
+			for(Entry<SexSlot, SexActionInteractions> entry : position.getSlotTargets().get(targetedSlot).entrySet()) {
 				if(entry.getKey()==this) {
 					for(Entry<SexAreaInterface, List<SexAreaInterface>> interaction : entry.getValue().getInteractions().entrySet()) {
 						if(interaction.getKey()==preference.getTargetedSexArea() && interaction.getValue().contains(preference.getPerformingSexArea())) {
@@ -94,24 +119,26 @@ public class SexSlot {
 				}
 			}
 		}
+		
 		return false;
 	};
 
-	@Override
-	public boolean equals(Object o) {
-		if(o instanceof SexSlot){
-			if(((SexSlot)o).getDescription().equals(getDescription())){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	@Override
-	public int hashCode() {
-		int result = 0;
-		result = 31 * result + getDescription().hashCode();
-		return result;
-	}
+	// What was this for?
+//	@Override
+//	public boolean equals(Object o) {
+//		if(o instanceof SexSlot){
+//			if(((SexSlot)o).getDescription().equals(getDescription())){
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+//	
+//	@Override
+//	public int hashCode() {
+//		int result = 0;
+//		result = 31 * result + getDescription().hashCode();
+//		return result;
+//	}
 	
 }

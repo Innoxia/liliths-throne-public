@@ -1000,7 +1000,7 @@ public class LilayaHomeGeneric {
 		public String getContent() {
 			return "<p>"
 						+ "You find yourself standing in Arthur's Room, which, due to the occupant's need to carry out any experiments assigned to him, looks like a miniature version of Lilaya's lab."
-						+ " The walls are lined with cluttered tables, stacked bookcases, and cupboards filled with all manner of scientific-looking apparatus."
+						+ " The walls are lined with cluttered tables, stacked bookcases, and cupboards full of all manner of scientific-looking apparatus."
 						+ " A solitary bed is positioned in one corner, but aside from that, there's no other indication that this room doubles as Arthur's sleeping quarters."
 					+ "</p>"
 					+ "<p>"

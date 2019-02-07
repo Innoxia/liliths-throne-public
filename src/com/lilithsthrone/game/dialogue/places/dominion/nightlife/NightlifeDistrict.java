@@ -1,9 +1,11 @@
 package com.lilithsthrone.game.dialogue.places.dominion.nightlife;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.Weather;
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.AlcoholLevel;
@@ -30,6 +32,9 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.BlockedParts;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -3358,7 +3363,7 @@ public class NightlifeDistrict {
 								WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY) {
 							@Override
 							public void effects() {
-								spawnSubGloryHoleNPC();
+								spawnSubGloryHoleNPC("stranger");
 							}
 						};
 						
@@ -3378,8 +3383,8 @@ public class NightlifeDistrict {
 								WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_GET_READY) {
 							@Override
 							public void effects() {
-								spawnDomGloryHoleNPC();
-								spawnDomGloryHoleNPC();
+								spawnDomGloryHoleNPC("stranger");
+								spawnDomGloryHoleNPC("stranger");
 							}
 						};
 					
@@ -3566,8 +3571,58 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	private static void spawnDomGloryHoleNPC() {
-		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+	private static String gloryholdNpcNameDescriptor="";
+	private static void spawnDomGloryHoleNPC(String genericName) {
+		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
+		
+		npc.setRaceConcealed(true);
+		
+		List<CoverableArea> blockedAreas = new ArrayList<>();
+		Collections.addAll(blockedAreas, CoverableArea.values());
+		blockedAreas.remove(CoverableArea.PENIS);
+		blockedAreas.remove(CoverableArea.VAGINA);
+		blockedAreas.remove(CoverableArea.TESTICLES);
+		blockedAreas.remove(CoverableArea.THIGHS);
+		blockedAreas.remove(CoverableArea.LEGS);
+
+		List<InventorySlot> concealedSlots = new ArrayList<>();
+		Collections.addAll(concealedSlots, InventorySlot.values());
+		concealedSlots.remove(InventorySlot.PENIS);
+		concealedSlots.remove(InventorySlot.VAGINA);
+		concealedSlots.remove(InventorySlot.GROIN);
+		concealedSlots.remove(InventorySlot.LEG);
+		
+		npc.setExtraBlockedParts(new BlockedParts(
+				DisplacementType.OPEN,
+				new ArrayList<>(),
+				blockedAreas,
+				new ArrayList<>(),
+				concealedSlots));
+		
+		double rnd = Math.random();
+		if(rnd<0.1f && !gloryholdNpcNameDescriptor.equals("wasted")) {
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
+			gloryholdNpcNameDescriptor="wasted";
+			npc.setGenericName("wasted "+genericName);
+			
+		} else if(Math.random()<0.3f && !gloryholdNpcNameDescriptor.equals("drunk")) {
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY), npc, false);
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
+			gloryholdNpcNameDescriptor="drunk";
+			npc.setGenericName("drunk "+genericName);
+			
+		} else if(Math.random()<0.4f && !gloryholdNpcNameDescriptor.equals("tipsy")) {
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
+			gloryholdNpcNameDescriptor="tipsy";
+			npc.setGenericName("tipsy "+genericName);
+			
+		} else {
+			gloryholdNpcNameDescriptor = CharacterUtils.setGenericName(npc, genericName, Util.newArrayListOfValues(gloryholdNpcNameDescriptor));
+		}
+		
+		npc.setDescription("[npc.Name] is one of the Water Hole's patrons, who, seeking to take a break from the club floor, has wandered into the toilets to find you servicing the glory holes...");
+		
 		if(Math.random()<0.4f) {
 			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		} else {
@@ -3600,8 +3655,51 @@ public class NightlifeDistrict {
 		}
 	}
 	
-	private static void spawnSubGloryHoleNPC() {
-		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+	private static void spawnSubGloryHoleNPC(String genericName) {
+		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
+		
+		npc.setRaceConcealed(true);
+		
+		List<CoverableArea> blockedAreas = new ArrayList<>();
+		Collections.addAll(blockedAreas, CoverableArea.values());
+		blockedAreas.remove(CoverableArea.MOUTH);
+
+		List<InventorySlot> concealedSlots = new ArrayList<>();
+		Collections.addAll(concealedSlots, InventorySlot.values());
+		concealedSlots.remove(InventorySlot.MOUTH);
+		concealedSlots.remove(InventorySlot.PIERCING_LIP);
+		concealedSlots.remove(InventorySlot.PIERCING_TONGUE);
+		
+		npc.setExtraBlockedParts(new BlockedParts(
+				DisplacementType.OPEN,
+				new ArrayList<>(),
+				blockedAreas,
+				new ArrayList<>(),
+				concealedSlots));
+
+		List<String> descriptors;
+		double rnd = Math.random();
+		if(rnd<0.1f) {
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
+			descriptors = Util.newArrayListOfValues("wasted", "intoxicated");
+			
+		} else if(Math.random()<0.3f) {
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY), npc, false);
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
+			descriptors = Util.newArrayListOfValues("drunk");
+			
+		} else if(Math.random()<0.4f) {
+			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
+			descriptors = Util.newArrayListOfValues("tipsy");
+			
+		} else {
+			descriptors = Util.newArrayListOfValues("horny", "desperate", "horny");
+		}
+		npc.setGenericName(Util.randomItemFrom(descriptors)+" "+genericName);
+		
+		npc.setDescription("[npc.Name] is one of the Water Hole's patrons, who, seeking to take a break from the club floor, has wandered into the toilets to service the glory holes...");
+		
 		if(Math.random()<0.4f) {
 			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		} else {

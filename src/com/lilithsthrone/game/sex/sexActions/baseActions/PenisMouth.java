@@ -1444,7 +1444,7 @@ public class PenisMouth {
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] greedily [npc2.verb(thrust)] [npc2.her] [npc2.cock+] deep down [npc.namePos] throat,"
-								+ " letting out a muffled [npc2.moan] as [npc2.she] enthusiastically receives [npc2.her] blowjob.",
+								+ " letting out a muffled [npc2.moan] as [npc2.she] enthusiastically [npc2.verb(receive)] [npc2.her] blowjob.",
 	
 						" A muffled [npc2.moan] bursts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] thrusting [npc2.her] [npc2.cock+] deep down [npc.namePos] throat.",
 	
@@ -1463,7 +1463,7 @@ public class PenisMouth {
 			case DOM_GENTLE:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] gently [npc2.verb(slide)] [npc2.her] [npc2.cock+] deep into [npc.namePos] throat,"
-								+ " letting out a soft, muffled [npc2.moan] as [npc2.she] receives [npc2.her] blowjob.",
+								+ " letting out a soft, muffled [npc2.moan] as [npc2.she] [npc2.verb(receive)] [npc2.her] blowjob.",
 	
 						" A muffled [npc2.moan] drifts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] slowly sliding [npc2.her] [npc2.cock+] deep into [npc.namePos] throat.",
 
@@ -1472,7 +1472,7 @@ public class PenisMouth {
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] violently [npc2.verb(thrust)] [npc2.her] [npc2.cock+] deep into [npc.namePos] throat,"
-								+ " letting out a muffled [npc2.moan] as [npc2.she] receives [npc2.her] blowjob.",
+								+ " letting out a muffled [npc2.moan] as [npc2.she] [npc2.verb(receive)] [npc2.her] blowjob.",
 	
 						" A muffled [npc2.moan] drifts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] violently thrusting [npc2.her] [npc2.cock+] deep into [npc.namePos] throat.",
 
@@ -1481,7 +1481,7 @@ public class PenisMouth {
 			case SUB_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] [npc2.verb(thrust)] [npc2.her] [npc2.cock+] deep into [npc.namePos] throat,"
-								+ " letting out a muffled [npc2.moan] as [npc2.she] receives [npc2.her] blowjob.",
+								+ " letting out a muffled [npc2.moan] as [npc2.she] [npc2.verb(receive)] [npc2.her] blowjob.",
 	
 						" A muffled [npc2.moan] bursts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] thrusting [npc2.her] [npc2.cock+] deep into [npc.namePos] throat.",
 

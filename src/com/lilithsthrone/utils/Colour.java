@@ -321,6 +321,14 @@ public enum Colour {
 	MILK(false, BaseColour.YELLOW_LIGHT,  "light yellow", Util.newArrayListOfValues("milk", "lactation")),
 	CUM(false, BaseColour.BLUE_LIGHT,  "light blue", Util.newArrayListOfValues("cum", "cummed", "dirty")),
 	GIRLCUM(false, BaseColour.PINK_LIGHT,  "light pink", Util.newArrayListOfValues("girlcum", "gcum")),
+
+	VAGINA(false, BaseColour.PINK,  "pink", Util.newArrayListOfValues("vagina", "pussy", "cunt")),
+	ANUS(false, BaseColour.PINK_DEEP,  "deep pink", Util.newArrayListOfValues("asshole", "anus", "ass")),
+	PENIS(false, BaseColour.PURPLE,  "purple", Util.newArrayListOfValues("penis", "cock")),
+	NIPPLES(false, BaseColour.PINK_LIGHT,  "light pink", Util.newArrayListOfValues("nipples", "nipple")),
+	NIPPLES_CROTCH(false, BaseColour.PURPLE_LIGHT,  "light purple", Util.newArrayListOfValues("nipplesCrotch", "crotchNipples")),
+	URETHRA_PENIS(false, BaseColour.VIOLET,  "violet", Util.newArrayListOfValues("penisUrethra", "urethraPenis", "urethra")),
+	UREHTRA_VAGINA(false, BaseColour.LILAC,  "lilac", Util.newArrayListOfValues("vaginaUrethra", "urethraVagina")),
 	
 	SEALED(false, BaseColour.PINK_DEEP, "pink"),
 	DISPLACED(false, BaseColour.CRIMSON, "crimson"),

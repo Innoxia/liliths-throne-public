@@ -708,8 +708,8 @@ public class Util {
 					continue;
 				}
 
-				// Add a full stop to the insert, creating its own sentence
-				insert += ".";
+//				// Add a full stop to the insert, creating its own sentence
+//				insert += ".";
 			}
 
 			int len = splitSentence[offset].length();

@@ -2771,7 +2771,7 @@ public enum Subspecies {
 				break;
 			case TAUR:
 				if(body.getLeg().getType().getRace()==Race.HORSE_MORPH) {
-					if(body.getHorn().getType()==HornType.HORSE_STRAIGHT && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
+					if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
 						if(body.getWing().getType()!=WingType.NONE) {
 							return Subspecies.ALITAUR;
 						}
@@ -2924,12 +2924,12 @@ public enum Subspecies {
 				subspecies = Subspecies.HORSE_MORPH;
 				
 				if(body.getWing().getType()==WingType.PEGASUS) {
-					if(body.getHorn().getType()==HornType.HORSE_STRAIGHT && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
+					if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
 						return Subspecies.HORSE_MORPH_ALICORN;
 					}
 					return Subspecies.HORSE_MORPH_PEGASUS;
 				}
-				if(body.getHorn().getType()==HornType.HORSE_STRAIGHT && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
+				if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
 					return Subspecies.HORSE_MORPH_UNICORN;
 				}
 				if(((body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getPrimaryColour()==Colour.COVERING_BLACK

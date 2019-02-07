@@ -110,7 +110,7 @@ public enum SlaveEventTag {
 		return description;
 	}
 	
+	// For sue in overriding.
 	public void applyEffects(GameCharacter character) {
-		// :3
 	}
 }

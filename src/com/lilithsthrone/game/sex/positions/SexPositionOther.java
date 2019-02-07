@@ -151,7 +151,7 @@ public class SexPositionOther {
 		private String getPositionDescription(SexSlot performingSlot, GameCharacter performer, GameCharacter receiver) {
 			return UtilText.parse(performer, receiver,
 					receiver.getLegConfiguration().isBipedalPositionedGenitals()
-						?" [npc.NameIsFull] "+(performingSlot.isStanding(performer)?"standing":"kneeling")+" in front [npc2.name], ready to put [npc.her] mouth to use on [npc.her] [npc.ass]."
+						?" [npc.NameIsFull] "+(performingSlot.isStanding(performer)?"standing":"kneeling")+" in front [npc2.name], ready to put [npc.her] mouth to use on [npc.her] genitals."
 						:" [npc.NameIsFull] "+(performingSlot.isStanding(performer)?"standing":"kneeling")+" beneath [npc2.namePos] feral [npc2.legRace] body, ready to put [npc.her] mouth to use"
 						+(receiver.hasPenis()
 								?" and suck [npc2.her] [npc2.cock]."

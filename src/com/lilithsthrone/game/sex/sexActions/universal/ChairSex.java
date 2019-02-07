@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -14,13 +13,14 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.PositioningData;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -42,8 +42,7 @@ public class ChairSex {
 						?Sex.getCharacterPerformingAction().isPlayer()
 						:true)
 				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
-						?(((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getTargetedPartner(Sex.getCharacterPerformingAction())).contains(data.getPerformerSlots().get(0))
-								|| ((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterPerformingAction()).isEmpty())
+						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.game.getPlayer())
 						:true);
 	}
 
@@ -411,8 +410,7 @@ public class ChairSex {
 		@Override
 		public String getDescription() {
 			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_TOP) {
-				if(Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexSlotBipeds.CHAIR_TOP)
-						|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()) {
+				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX, SexSlotBipeds.CHAIR_TOP, Main.game.getPlayer())) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Roughly pushing [npc2.name] down, [npc.name] [npc.verb(straddle)] [npc2.her] lap, leaning forwards to glare into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
@@ -428,8 +426,7 @@ public class ChairSex {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_BOTTOM) {
-				if(Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexSlotBipeds.CHAIR_BOTTOM)
-						|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()) {
+				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX, SexSlotBipeds.CHAIR_BOTTOM, Main.game.getPlayer())) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Sitting down, [npc.name] [npc.verb(grab)] hold of [npc2.namePos] [npc2.arm], and with a sharp tug,"
@@ -447,8 +444,7 @@ public class ChairSex {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_ORAL_SITTING) {
-				if(Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexSlotBipeds.CHAIR_ORAL_SITTING)
-						|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()) {
+				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX_ORAL, SexSlotBipeds.CHAIR_ORAL_SITTING, Main.game.getPlayer())) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Sitting down, [npc.name] [npc.verb(grab)] hold of [npc2.namePos] [npc2.arm], and with a sharp tug, [npc.she] [npc.verb(pull)] [npc2.herHim] down onto [npc2.her] knees before [npc.herHim]."
@@ -466,8 +462,7 @@ public class ChairSex {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_KNEELING) {
-				if(Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexSlotBipeds.CHAIR_KNEELING)
-						|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()) {
+				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX_ORAL, SexSlotBipeds.CHAIR_KNEELING, Main.game.getPlayer())) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Roughly pushing [npc2.name] down, [npc.name] kneels before [npc2.herHim], leaning forwards to glare up into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
@@ -488,12 +483,17 @@ public class ChairSex {
 
 		@Override
 		public void applyEffects() {
-			Set<SexSlot> positionPreferences = Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this));
-
-			if((Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_TOP && (positionPreferences.contains(SexSlotBipeds.CHAIR_TOP) || positionPreferences.isEmpty()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_BOTTOM && (positionPreferences.contains(SexSlotBipeds.CHAIR_BOTTOM) || positionPreferences.isEmpty()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_ORAL_SITTING && (positionPreferences.contains(SexSlotBipeds.CHAIR_ORAL_SITTING) || positionPreferences.isEmpty()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_KNEELING && (positionPreferences.contains(SexSlotBipeds.CHAIR_KNEELING) || positionPreferences.isEmpty()))) {
+			if((Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_TOP
+					&& ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX, SexSlotBipeds.CHAIR_TOP, Main.game.getPlayer()))
+					
+				|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_BOTTOM
+						&& ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX, SexSlotBipeds.CHAIR_BOTTOM, Main.game.getPlayer()))
+				
+				|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_ORAL_SITTING
+						&& ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX_ORAL, SexSlotBipeds.CHAIR_ORAL_SITTING, Main.game.getPlayer()))
+				
+				|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_KNEELING
+						&& ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX_ORAL, SexSlotBipeds.CHAIR_KNEELING, Main.game.getPlayer()))) {
 				setNewSexManager(Sex.getPositionRequest(), true);
 			}
 			

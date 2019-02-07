@@ -217,7 +217,7 @@ public class CityPlaces {
 					}
 					
 					UtilText.nodeContentSB.append("<p>"
-								+ "The streets are very busy at this time of day, and are filled with people hurrying to and fro."
+								+ "The streets are very busy at this time of day, and are packed with people hurrying to and fro."
 								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
 								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
 								+ " all the other sorts that you'd find in any old city."

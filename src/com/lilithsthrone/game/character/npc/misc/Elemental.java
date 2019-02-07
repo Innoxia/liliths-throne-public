@@ -146,7 +146,7 @@ public class Elemental extends NPC {
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
 		this.setLegType(LegType.DEMON_COMMON);
-		if(summoner.getHornType()==HornType.NONE || summoner.getHornType().getRace()==Race.DEMON) {
+		if(summoner.getHornType().equals(HornType.NONE) || summoner.getHornType().getRace()==Race.DEMON) {
 			this.setHornType(summoner.getHornType());
 		} else if(this.isFeminine()) {
 			this.setHornType(HornType.SWEPT_BACK);

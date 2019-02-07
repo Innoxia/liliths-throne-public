@@ -1418,7 +1418,7 @@ public class EnforcerHQDialogue {
 		public String getContent() {
 			return "<p>"
 					+ "As you take a closer look at [brax.namePos] office, you notice that the scantily-clad model in every single poster is a wolf-girl."
-					+ " Looking past [brax.namePos] desk, your eyes are drawn to a glass display cabinet sitting just behind him, and you see that it's filled with little, half-naked, models of wolf-girls."
+					+ " Looking past [brax.namePos] desk, your eyes are drawn to a glass display cabinet sitting just behind him, and you see that it's full of little, half-naked, models of wolf-girls."
 					+ " From your observations of [brax.namePos] office, it's safe to assume that he has a fetish for females of the same race as him."
 					+ "</p>"
 					+ "<p>"

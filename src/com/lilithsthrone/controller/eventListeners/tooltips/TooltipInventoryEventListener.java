@@ -387,7 +387,7 @@ public class TooltipInventoryEventListener implements EventListener {
 									break;
 									
 								case HORNS:
-									if(equippedToCharacter.getHornType()==HornType.NONE) {
+									if(equippedToCharacter.getHornType().equals(HornType.NONE)) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"You don't have any horns.",
 												"[npc.Name] doesn't have any horns."));

@@ -872,7 +872,7 @@ public class OccupancyUtil implements XMLSaving {
 					
 					
 				case IDLE:
-					// Can not reach :3
+					// This shouldn't be able to be reached.
 					break;
 			}
 			

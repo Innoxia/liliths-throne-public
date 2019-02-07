@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
-import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -53,6 +52,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
@@ -237,16 +237,12 @@ public class Kruger extends NPC {
 	}
 
 	@Override
-	public Set<SexSlot> getSexPositionPreferences(GameCharacter target) {
-		sexPositionPreferences.clear();
-		
+	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
 		if(Sex.isInForeplay()) {
-			sexPositionPreferences.add(SexSlotBipeds.CHAIR_ORAL_SITTING);
+			return slot==SexSlotBipeds.CHAIR_ORAL_SITTING;
 		} else {
-			sexPositionPreferences.add(SexSlotBipeds.CHAIR_BOTTOM);
+			return slot==SexSlotBipeds.CHAIR_BOTTOM;
 		}
-		
-		return sexPositionPreferences;
 	}
 
 	@Override

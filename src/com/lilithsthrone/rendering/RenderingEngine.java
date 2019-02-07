@@ -410,7 +410,7 @@ public enum RenderingEngine {
 						boolean disabled = false;
 						switch(invSlot){
 							case HORNS:
-								disabled = charactersInventoryToRender.getHornType()==HornType.NONE;
+								disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
 								break;
 							case PENIS:
 								disabled = !charactersInventoryToRender.hasPenisIgnoreDildo();
@@ -465,7 +465,7 @@ public enum RenderingEngine {
 						boolean disabled = false;
 						switch(invSlot){
 							case HORNS:
-								disabled = charactersInventoryToRender.getHornType()==HornType.NONE;
+								disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
 								break;
 							case PENIS:
 								disabled = !charactersInventoryToRender.hasPenisIgnoreDildo();

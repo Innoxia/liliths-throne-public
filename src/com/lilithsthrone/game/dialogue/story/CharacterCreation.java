@@ -1659,7 +1659,7 @@ public class CharacterCreation {
 					break;
 				case WRITER:
 					UtilText.nodeContentSB.append(
-							"[pc.speech(I'm a professional author,)]" // I write erotic novels... :3
+							"[pc.speech(I'm a professional author,)]" // I write erotic novels...
 							+ " you explain,"
 							+ " [pc.speech(and I'm currently waiting to hear back from my publisher about my latest novel.)]");
 					break;
@@ -1939,7 +1939,7 @@ public class CharacterCreation {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "<b>TODO:</b> I will enable the ability to go through the full character creation with imported characters soon! :3"
+						+ "<b>TODO:</b> I will enable the ability to go through the full character creation with imported characters at some point!"
 					+ "</p>"
 					+ "<br/>"
 					+"<details>"

@@ -4141,6 +4141,7 @@ public class Body implements XMLSaving {
 		
 		Penis viewedPenis = owner.getCurrentPenis();
 		
+		boolean hallucinating = false;
 		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.CUM)) {
 			viewedPenis = new Penis(penis.getType(),
 					(int) (penis.getRawSizeValue() * 2.25f),
@@ -4149,6 +4150,7 @@ public class Body implements XMLSaving {
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),
 					penis.getTesticle().getTesticleCount());
 			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive cum you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.namePos]")+" cock to be distorted!</i> ");
+			hallucinating = true;
 		}
 
 		switch(owner.getGenitalArrangement()) {
@@ -4310,7 +4312,7 @@ public class Body implements XMLSaving {
 					descriptionSB.append(" [style.colourGood(You have retained your penile virginity.)]");
 				}
 				
-			} else {
+			} else if(!hallucinating) {
 				if (!viewedPenis.isVirgin()) {
 					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 						if(ot.isInternalOrifice()) {
@@ -4762,6 +4764,8 @@ public class Body implements XMLSaving {
 		descriptionSB = new StringBuilder();
 
 		Vagina viewedVagina = vagina;
+		
+		boolean hallucinating = false;
 		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.GIRLCUM)) {
 			viewedVagina = new Vagina(vagina.getType(),
 					vagina.getRawLabiaSizeValue(),
@@ -4773,6 +4777,7 @@ public class Body implements XMLSaving {
 					vagina.getOrificeVagina().isVirgin());
 			viewedVagina.setPierced(owner, vagina.isPierced());
 			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive girlcum which you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.namePos]")+" pussy to be distorted!</i> ");
+			hallucinating = true;
 		}
 
 		switch(owner.getGenitalArrangement()) {
@@ -4917,12 +4922,15 @@ public class Body implements XMLSaving {
 		// Virgin/capacity:
 		if (viewedVagina.getOrificeVagina().isVirgin()) {
 			if (isPlayer) {
-				descriptionSB.append(" [style.colourSex(Within your " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + " [pc.pussy], your hymen is still intact, as it has never been penetrated before.)]"
+				descriptionSB.append(" [style.colourSex(Within your " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor()
+						+ " [pc.pussy], your hymen is still intact, as it has never been penetrated before.)]"
 						+ " [style.colourGood(You have retained your vaginal virginity.)]");
-			} else {
-				descriptionSB.append(" [style.colourSex(Within [npc.her] " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + " [npc.pussy], [npc.her] hymen is still intact, as it has never been penetrated before.)]"
+			} else if(!hallucinating) {
+				descriptionSB.append(" [style.colourSex(Within [npc.her] " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor()
+						+ " [npc.pussy], [npc.her] hymen is still intact, as it has never been penetrated before.)]"
 						+ " [style.colourGood([npc.She] has retained [npc.her] vaginal virginity.)]");
 			}
+			
 		} else {
 			if (isPlayer) {
 				descriptionSB.append(" [style.colourSex(Your pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
@@ -4942,7 +4950,7 @@ public class Body implements XMLSaving {
 					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You have lost your virginity.</span>");
 				}
 				
-			} else{
+			} else if(!hallucinating) {
 				descriptionSB.append(" [style.colourSex([npc.Her] pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
 						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]"
 						+ " <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.She] has lost [npc.her] virginity.</span>");

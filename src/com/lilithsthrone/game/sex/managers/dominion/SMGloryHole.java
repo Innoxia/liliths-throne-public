@@ -61,14 +61,8 @@ public class SMGloryHole extends SexManagerDefault {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.MOUTH);
 			
-		} else if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE)) {
-			Collections.addAll(concealedSlots, InventorySlot.values());
-			concealedSlots.remove(InventorySlot.PENIS);
-			concealedSlots.remove(InventorySlot.VAGINA);
-			concealedSlots.remove(InventorySlot.GROIN);
-			concealedSlots.remove(InventorySlot.LEG);
-			
-		} else if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_TWO)) {
+		} else if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE)
+				||Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_TWO)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.PENIS);
 			concealedSlots.remove(InventorySlot.VAGINA);

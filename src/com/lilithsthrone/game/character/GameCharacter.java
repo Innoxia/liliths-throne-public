@@ -124,6 +124,7 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
@@ -2737,6 +2738,34 @@ public abstract class GameCharacter implements XMLSaving {
 						+ this.getBodyDescription()
 					+ "</p>"
 					+ PhoneDialogue.getBodyStatsPanel(this));
+			
+		} else {
+			infoScreenSB.append("</p>"
+					+ "<br/>"
+						+ "<h6>Appearance</h6>"
+					+ "<p>"
+						+ UtilText.parse(this, "As [npc.namePos] body is mostly concealed, your knowledge of [npc.her] appearance is severely limited...")
+					+ "</p>"
+					+ (Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.ASS, this)
+						?"<p>"
+							+ this.getAssDescription(false)
+						+ "</p>"
+						:"")
+					+ (Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.BREASTS, this) && this.hasBreasts()
+							?"<p>"
+								+ this.getBreastDescription()
+							+ "</p>"
+							:"")
+					+ (Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.PENIS, this) && this.hasPenis()
+							?"<p>"
+								+ this.getPenisDescription()
+							+ "</p>"
+							:"")
+					+ (Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.VAGINA, this) && this.hasVagina()
+							?"<p>"
+								+ this.getVaginaDescription()
+							+ "</p>"
+							:""));	
 		}
 		
 		return infoScreenSB.toString();
@@ -15221,7 +15250,21 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 	}
-
+	
+	/**
+	 * @param extraBlockedParts A special BlockedParts object to define conceal overrides to CoverableAreas and InventorySlots. Starts as null, and should be set to such if you want to remove these overrides.
+	 */
+	public void setExtraBlockedParts(BlockedParts extraBlockedParts) {
+		inventory.setExtraBlockedParts(extraBlockedParts);
+	}
+	
+	/**
+	 * @return A special BlockedParts object that provides conceal overrides to CoverableAreas and InventorySlots. Should only be used for characters that are to remain mostly concealed, such as Glory Hole participants.
+	 */
+	public BlockedParts getExtraBlockedParts() {
+		return inventory.getExtraBlockedParts();
+	}
+	
 	public boolean isAbleToAccessCoverableArea(CoverableArea area, boolean byRemovingClothing) {
 		return inventory.isAbleToAccessCoverableArea(this, area, byRemovingClothing);
 	}

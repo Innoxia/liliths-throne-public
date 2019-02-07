@@ -110,6 +110,10 @@
 		Else, question, can lead into search
 		Fights end with locked in stocks
 	
+	- Repeat alleyway
+		after 3 subs in a row, can agree to be their bitch (reveals their name, new options when meeting them again)
+		after 3 doms in a row, can force them to accept being your bitch (reveals their name - you can rename them, new options)
+	
 	- Fix major bug in conditional parsing engine:
 		When entering imp fortresses, this is always visible. The first time entering, conditional parsing breaks, but then it works on subsequent visits.
 		Using the #IF format in sex actions also breaks when using npc2
@@ -122,6 +126,7 @@
 	Contributors:
 		Fixed bug where adding fetishes/changing desires from phone fetish menu would not work. (PR#1034 by BDPMP)
 		Fixed bug in the main quest, where purchasing Scarlett from Alexa would not work. (PR#1038 by BDPMP)
+		Fixed a Lilaya Condom Breaking reaction then/else error. (PR#1039 by EPSIL0N)
 		Correction from previous patch notes: GynoidDoesGames was the author of PR#989 (the increase in name variety).
 	
 	Clothing:
@@ -139,6 +144,24 @@
 		Gave Alexa 15 base arcane, as well as the Slam spell, to explain how she's able to use arcane force in her punishment scenes.
 		Improved 'recovering orifice' status effect description and icon.
 		Improved status effect 'time remaining' tooltip display.
+		Glory hole participants are now almost completely hidden from view - the only information available about them is their genitals and status effects.
+		Increased 'Swamp Water' intoxication effect from +50% to +75% intoxication.
+		The stretched orifices status effect is now shown in sex, so you can easily see how much everything is stretched by via the tooltip.
+		
+	Sex (bugs and improvements):
+		Added handling of unusual scenario (which I couldn't replicate) where an NPC would have no available actions from which to select during sex.
+		Fixed issue with NPCs performing redundant displacements (such as pulling down trousers, then unzipping them).
+		Fixed issue where NPCs would continuously switch position in sex. They can still switch position if they have 'full' control (usually when they are the dom or if it's fully consensual sex), but will now only do it once in foreplay and once in main sex.
+		Improved NPC preference generation methods, so NPCs' sex action preferences should now be a little more reasonable. (i.e. They will still take their fetishes into account, but are now more likely to want to perform actual penetration in sex.)
+		Fixed issue with the 'request/offer oral' actions, where any form of tongue action was not being registered as being a viable oral option for the NPC to perform.
+		You now earn essences for the first five orgasms each character has in sex, at a rate of 2/2/2/1/1 (4/4/4/2/2 with the Nymphomaniac trait). 0 essences are earned if the character has the 'recovering aura' effect. Updated orgasm tooltip to show this.
+		Added 'cowgirl (bottom)' positioning action.
+		Added more indication that positioning actions are requests when you are not the dom or a full-control sub.
+		NPCs who do not dislike the 'cum stud' fetish now prefer to cum on body parts where available, instead of the floor.
+		NPCs will now refuse your requests (offering/requesting body parts) if they are being rough, you are the sub, and you don't have full control in the scene.
+		Tweaked the sex AI to try and reduce instances of start/stop actions. (I will do more work on this soon.)
+		Fixed NPCs not using positioning actions in taur sex scenes.
+		NPCs now take into account more than one fetish at a time when deciding upon what actions they want to perform, so now, for example, if they have oral+anal fetishes, anilingus is far more likely to be chosen than it was in previous versions.
 		
 	Bugs:
 		Fixed major bug where walking in Dominion's boulevard tiles during an arcane storm would cause a game-breaking background bug. (Related to the tile's population not being generated correctly.)
@@ -147,44 +170,44 @@
 		Fixed background issue where orifices' post-stretched recover rate was being based on their elasticity, not plasticity.
 		Fixed issue where taur land speed movement reduction (-50% time) wasn't being applied.
 		Fixed decimal formatting in creampie status effects.
-		Typo fixes.
-		Fixed post-sex scene in the nightclub's toilets appending dialogue as though you were back out in teh streets of Dominion.
+		Typo & parsing fixes.
+		Fixed post-sex scene in the nightclub's toilets appending dialogue as though you were back out in the streets of Dominion.
 		Fixed background error related to NPCs not having a body preference set when loading into this version from an old save.
-		Added handling of unusual scenario (which I couldn't replicate) where an NPC would have no available actions from which to select during sex.
-		Fixed issue with NPCs performing redundant displacements (such as pulling down trousers, then unzipping them).
+		Randomly generated capacity descriptors (tight, loose, etc.) are now correctly generated based on the orifice's current capacity, taking into account any stretching.
+		Intercrural is no longer available in the mating press position.
+		Body parts' appearances affected by psychedelic fluids no longer always say that they are virgin.
+		Glory hole users will no longer spawn in as taurs (as it would be quite difficult using the stalls, let alone the holes themselves, as a taur).
+		Fixed glory hole user's full inventory being visible when they switched to fucking you.
+		Fixed the 'too loose' sex status effect persisting after the penetration was removed.
+		Fixed parsing errors in the taur positioning action tooltips, as well as some incorrect descriptions related to the starting scene text.
+		Fixed issue with alitaur, unitaur, alicorn-morph, and unicorn-morph not being detected correctly (they were always detected as a pegataur or pegasus-morph).
 	
 	
 	
+	replace == with equals for all body parts you made into abstract ones
+		horns done
 	
-	
-	
-	sex positions auto-switching without action input?
-	is sex with guests supposed to always allow the partner to control the positions?
-		positioning is far too aggressive
-	NPCs choosing oral when vaginal is available?
-		
 	vary daylight based on time of year
+	
+	people really want NPC multiple orgasms
 	
 	.jar isn't launching without using console
 	
-	So, my elemental's still doing that thing where she starts an ongoing action, stops it the next turn, and keeps cycling through it.
+	trader add bulk actions tab for sell everything/all clothing/all items/all weapons - cycle 5 for rarity
 	
-	taur positioning "Get fucked" parses tooltip as though it's all you
-	When entering the club, be spawned-in the space north of the entrance
+	orifice rejuvination item
+	aphrodesiac item
+	
 	Not sure if Inno meant for it to read as "a pair of udders" when you try to select one
+		add aprsing for getShape()==BreastShape.UDDERS?"set":"pair" and plurals
 	Not sure if it's been mentioned but in the TF menu if you are trying to rapidly click one of the buttons (In my case milk capacity) for crotch boobs it is quite annoying that every mention of crotch boobs switches between crotch tits/boob/breast for every click, making my selection jump between the values because of the varied text length, if it were possible I'd suggest locking the name for it, or at least locking it for each page visit
 	if someone has too many sexual preferences the sexual preference window isn't big enough to show 'suggested actions' anymore
-	At the moment, the game only takes into account one fetish at a time when deciding upon what actions the NPC wants to perform, so even if they have oral+anal fetishes, rimming might not be chosen
 	Apperently she had crotch boobs with fuckable crotch nipples which were not in the desc of her?
 	Udders: I'll improve the setting a little to be able to define it per race, as well as to make the limiting options hide already-spawned udders
 	The option to TF a alley/sewer slime has been gone for a while
 	All female demons have crotch-boobs when crotch-boob preference is turned on (also you can't transform them away). This is including Kate.
 	There are sometimes two deepthroat orgasm options
-	Grammatical error "as you receives your blowjob"
-	Incorrect starting oral description ("...kneeling in front of you, ready to put her mouth to use on her ass.")
 	lube updates in sex are talking about urethra when it's off. Also starting lubrication text is being spammed with slime.
-	my character is a pegasustaur despite having a unicorn horn, while having an alitaur npc companion
-		Having both wings and a horn lists you as a pegataur, when it should be alitaur
 		
 	tooltip text on status effects scrolling off under image
 	END_SEX_CREAMPIE not found when ending sex after Lilaya's geisha scene (finishing in her mouth)
@@ -214,9 +237,6 @@
 	:BlobSweats: Also, after not witnessing Lilaya and Miraxis being transformed, Lilaya still strongly dislikes Lyssieth
 	taurs finger themselves?!
 	
-	need orgasm to check for end sex?
-		append end sex if player not ready to orgasm and end condition reached?
-		will this affect special scenes?
 	
 	Check DominionAlleywayAttacker public void hourlyUpdate() {
 	
@@ -228,6 +248,19 @@
 	Slime body color and bodyhair color are the same. You cannot change one without the other automatically changing.  This could be intentional, but given they are presented as different things in the transformation menu, I just assumed it is a bug.
 	
 	pregnancy roulette - game declared centaur winner, even though kids were players
+	
+	clothing presets
+	
+	AI:
+		once started their preferred action, allow start others
+		So, my elemental's still doing that thing where she starts an ongoing action, stops it the next turn, and keeps cycling through it.
+		Should use addSexTypeWeighting somehow to determine what actions they perform
+	
+	need orgasm to check for end sex?
+		append end sex if player not ready to orgasm and end condition reached?
+		will this affect special scenes?
+	
+	
 	
 	
 	
@@ -334,6 +367,7 @@
 		need ongoing self handjob
 		need cum feeding/stuffing actions
 		Go over all actions and account for leg configuration/reach
+		position speech should be based on what they want to do, like "I'm going to fuck your ass!"
 		Need size-difference:
 			Penetration-orifice
 				Too loose is already done, but needs special descriptions
@@ -341,6 +375,7 @@
 					Maybe a scale: Impenetrable, too tight, snug fit, too loose, cavernous mismatch
 					Add loosening actions, like pushing head in? Fingering could also loosen.
 				cock-pussy
+				speech for when stretching orifice
 			positioning
 	
 	Sort out SexFlag requests

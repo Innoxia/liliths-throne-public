@@ -1,9 +1,12 @@
 package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.function.Predicate;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,6 +35,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
@@ -56,7 +60,12 @@ public class GenericSexualPartner extends NPC {
 		this(Gender.F_V_B_FEMALE, WorldType.EMPTY, new Vector2i(0, 0), isImported);
 	}
 	
+
 	public GenericSexualPartner(Gender gender, WorldType worldLocation, Vector2i location, boolean isImported) {
+		this(gender, worldLocation, location, isImported, null);
+	}
+	
+	public GenericSexualPartner(Gender gender, WorldType worldLocation, Vector2i location, boolean isImported, Predicate<Subspecies> subspeciesRemovalFilter) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
@@ -70,7 +79,14 @@ public class GenericSexualPartner extends NPC {
 			// RACE & NAME:
 			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
+			List<Subspecies> availableSubspecies = new ArrayList<>();
+			Collections.addAll(availableSubspecies, Subspecies.values());
+			
+			if(subspeciesRemovalFilter!=null) {
+				availableSubspecies.removeIf(subspeciesRemovalFilter);
+			}
+			
+			for(Subspecies s : availableSubspecies) {
 				if(s==Subspecies.REINDEER_MORPH
 						&& Main.game.getSeason()==Season.WINTER
 						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
@@ -165,7 +181,7 @@ public class GenericSexualPartner extends NPC {
 	private boolean playerRequested = false;
 	
 	@Override
-	public void generateSexChoices(GameCharacter target, SexType request) {
+	public void generateSexChoices(GameCharacter target, List<SexType> request) {
 		if(this.getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_TOILETS && Sex.getTurn()>1) {
 			playerRequested = true;
 		}
@@ -174,20 +190,17 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	@Override
-	public Set<SexSlot> getSexPositionPreferences(GameCharacter target) {
+	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
 		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
-			return super.getSexPositionPreferences(target);
-		}
-		
-		sexPositionPreferences.clear();
-		
-		if(Sex.isInForeplay() || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
-			sexPositionPreferences.add(SexSlotBipeds.GLORY_HOLE_KNEELING);
+			return super.isHappyToBeInSlot(position, slot, target);
+			
 		} else {
-			sexPositionPreferences.add(SexSlotBipeds.GLORY_HOLE_FUCKED);
+			if(Sex.isInForeplay() || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
+				return slot==SexSlotBipeds.GLORY_HOLE_KNEELING;
+			} else {
+				return slot==SexSlotBipeds.GLORY_HOLE_FUCKED;
+			}
 		}
-		
-		return sexPositionPreferences;
 	}
 
 	@Override

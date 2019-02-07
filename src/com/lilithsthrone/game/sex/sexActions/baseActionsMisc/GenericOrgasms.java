@@ -88,7 +88,7 @@ public class GenericOrgasms {
 				|| !Sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
 				|| !Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)
 				|| Sex.getCharacterPerformingAction().isWearingCondom()
-				|| (!Sex.getCharacterPerformingAction().isPlayer() && isActiveNPCObeyingPlayer() && SexFlags.playerRequestedCreampie)) {
+				|| (!Sex.getCharacterPerformingAction().isPlayer() && isActiveNPCObeyingPlayer() && SexFlags.characterRequestedCreampie)) {
 			return false;
 		}
 		
@@ -1442,7 +1442,7 @@ public class GenericOrgasms {
 								break;
 						}
 						cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
-						if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || SexFlags.playerRequestedCreampie)
+						if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || SexFlags.characterRequestedCreampie)
 						{
 							cumTargetSB.append(" " + UtilText.returnStringAtRandom("greedily","hungrily"));
 						}
@@ -2068,7 +2068,7 @@ public class GenericOrgasms {
 			}
 			
 			// Will not use if obeying the player and player asked for pull out:
-			if(!Sex.getCharacterPerformingAction().isPlayer() && isActiveNPCObeyingPlayer() && SexFlags.playerRequestedPullOut) {
+			if(!Sex.getCharacterPerformingAction().isPlayer() && isActiveNPCObeyingPlayer() && SexFlags.characterRequestedPullOut) {
 				return false;
 			}
 			
@@ -2424,6 +2424,14 @@ public class GenericOrgasms {
 		@Override
 		public String getDescription() {
 			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.FLOOR, false).getDescription();
+		}
+
+		@Override
+		public SexActionPriority getPriority() {
+			if(!Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative()) {
+				return SexActionPriority.LOW; // Prefer cumming on someone if they don't dislike cumming.
+			}
+			return super.getPriority();
 		}
 		
 		@Override
@@ -3493,13 +3501,8 @@ public class GenericOrgasms {
 
 		@Override
 		public void applyEffects() {
-			if(Sex.getCharacterPerformingAction().isPlayer()) {
-				SexFlags.playerRequestedCreampie = true;
-				SexFlags.playerRequestedPullOut = false;
-			} else {
-				SexFlags.partnerRequestedCreampie = true;
-				SexFlags.partnerRequestedPullOut = false;
-			}
+			SexFlags.characterRequestedCreampie = true;
+			SexFlags.characterRequestedPullOut = false;
 		}
 		
 		@Override
@@ -4559,14 +4562,8 @@ public class GenericOrgasms {
 
 		@Override
 		public void applyEffects() {
-			if(Sex.getCharacterPerformingAction().isPlayer()) {
-				SexFlags.playerRequestedCreampie = false;
-				SexFlags.playerRequestedPullOut = true;
-				
-			} else {
-				SexFlags.partnerRequestedCreampie = false;
-				SexFlags.partnerRequestedPullOut = true;
-			}
+			SexFlags.characterRequestedCreampie = false;
+			SexFlags.characterRequestedPullOut = true;
 		}
 
 		@Override
@@ -4654,8 +4651,8 @@ public class GenericOrgasms {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.playerRequestedCreampie = false;
-			SexFlags.playerRequestedPullOut = false;
+			SexFlags.characterRequestedCreampie = false;
+			SexFlags.characterRequestedPullOut = false;
 		}
 
 		@Override

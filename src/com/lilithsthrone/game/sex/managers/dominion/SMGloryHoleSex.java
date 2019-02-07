@@ -59,7 +59,7 @@ public class SMGloryHoleSex extends SexManagerDefault {
 			concealedSlots.remove(InventorySlot.GROIN);
 			concealedSlots.remove(InventorySlot.LEG);
 			
-		} else if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.BREEDING_STALL_FUCKING)) {
+		} else if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_FUCKING)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.PENIS);
 			concealedSlots.remove(InventorySlot.VAGINA);

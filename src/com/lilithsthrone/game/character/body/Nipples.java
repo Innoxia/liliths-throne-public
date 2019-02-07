@@ -106,7 +106,7 @@ public class Nipples implements BodyPartInterface {
 		
 		descriptorList.add(type.getDescriptor(owner));
 		if(orificeNipples.getCapacity()!= Capacity.ZERO_IMPENETRABLE) {
-			descriptorList.add(orificeNipples.getCapacity().getDescriptor());
+			descriptorList.add(Capacity.getCapacityFromValue(orificeNipples.getStretchedCapacity()).getDescriptor());
 		}
 		
 		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));

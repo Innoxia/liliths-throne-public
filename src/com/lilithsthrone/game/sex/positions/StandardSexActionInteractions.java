@@ -131,6 +131,7 @@ public class StandardSexActionInteractions {
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
 						Util.mergeMaps(
+								SexActionPresets.penisToThighs,
 								SexActionPresets.penisToAss,
 								SexActionPresets.penisToVagina,
 								SexActionPresets.tailToLowerHalf,

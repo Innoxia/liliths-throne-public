@@ -51,7 +51,7 @@ public class HarpyNestAlexa {
 						
 					} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_E_REPORT_TO_ALEXA)) {
 						if(Main.game.getNpc(Alexa.class).getLocation().equals(Main.game.getPlayer().getLocation())) {
-							return new Response("Meet with Alexa", "You'll be able to interact with Alexa again later! :3", null);
+							return new Response("Meet with Alexa", "You'll be able to interact with Alexa again later!", null);
 							
 						} else {
 							return new Response("Meet with Alexa", "Alexa has flown off to Slaver Alley! You'll have to find her there.", null);
