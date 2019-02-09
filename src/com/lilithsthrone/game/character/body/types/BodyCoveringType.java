@@ -220,6 +220,8 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(CoveringPattern.EYE_SCLERA_HETEROCHROMATIC))),
 	
 	SLIME_HAIR(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allHairCoveringPatterns)),
+
+	SLIME_BODY_HAIR(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allHairCoveringPatterns)),
 	
 	SLIME_ANUS(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_ANUS, null)),
 	

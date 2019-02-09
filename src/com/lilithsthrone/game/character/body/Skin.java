@@ -355,6 +355,6 @@ public class Skin implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Skin.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Skin.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

@@ -1497,7 +1497,7 @@ public class GamblingDenDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "Epona rolls the dice, and you watch as it clatters to a halt on the number "+Util.intToString(roll)+"."
-						+ " [epona.speech(Alright, [pc.name], that means you're going "+Util.intToPosition(roll)+"! Now, erm, I'll keep rolling for the rest of you!)]"
+						+ " [epona.speech(Alright, [pc.name], that means you're going "+Util.intToPosition(roll)+"! Now I'll keep rolling for the rest of you!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You all then have to wait while Epona rolls for each of the other breeders."
@@ -1536,7 +1536,9 @@ public class GamblingDenDialogue {
 							}
 						},
 						null,
-						null, PREGNANCY_ROULETTE_BREEDER_POST_SEX, roll==1
+						null,
+						PREGNANCY_ROULETTE_BREEDER_POST_SEX,
+						roll==1
 							?UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FIRST", Util.newArrayListOfValues(mother))
 							:UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_MIDDLE", Util.newArrayListOfValues(mother))){
 					@Override
@@ -1606,7 +1608,6 @@ public class GamblingDenDialogue {
 									Main.game.banishNPC(npc);
 								}
 								Main.game.banishNPC(mother);
-								
 							}
 						};
 						

@@ -1032,6 +1032,6 @@ public class Vagina implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Vagina.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Vagina.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

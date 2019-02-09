@@ -297,8 +297,10 @@ public class Roxy extends NPC {
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing!=null
-					&& clothing.getRarity()==Rarity.COMMON
-					&& (clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH) || clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN))) {
+					&& (clothing.getRarity()==Rarity.COMMON || clothing.isCondom())
+					&& (clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)
+							|| clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
+							|| clothing.getItemTags().contains(ItemTag.SOLD_BY_RALPH))) {
 				if(clothing.isCondom()) {
 					Colour condomColour = Util.randomItemFrom(clothing.getAvailablePrimaryColours());
 					Colour condomColourSec = Colour.CLOTHING_BLACK;

@@ -1516,32 +1516,8 @@ public class OptionsDialogue {
 						+ "<br/><br/>Please note that mythological and demonic races, such as harpies and demons, are not affected by furry preferences."
 					+ "</div>"
 							
-					+ "<span style='height:16px;width:800px;float:left;'></span>"
+					+ "<span style='height:16px;width:800px;float:left;'></span>");
 					
-					+ "<div class='container-full-width' style='text-align: center;'>"
-						+ "<div style='display:inline-block; margin:4px auto 8px auto;'>"
-							+"<div style='width:160px; float:left;'>"
-								+ "<b>Multi-breasts:</b> "
-							+ "</div>");
-			
-			for(int i=0; i<3; i++) {
-				UtilText.nodeContentSB.append("<div id='MULTI_BREAST_PREFERENCE_"+i+"' class='preference-button"+(Main.getProperties().multiBreasts==i?" selected":"")+"'>"+com.lilithsthrone.game.Properties.multiBreastsLabels[i]+"</div>");
-			}
-							
-			UtilText.nodeContentSB.append("</div>"
-						+ "<div style='display:inline-block; margin:8px auto 4px auto;'>"
-						+"<div style='width:160px; float:left;'>"
-							+ "<b>Udders:</b> "
-						+ "</div>");
-			
-			for(int i=0; i<3; i++) {
-				UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='preference-button"+(Main.getProperties().udders==i?" selected":"")+"'>"+com.lilithsthrone.game.Properties.uddersLabels[i]+"</div>");
-			}
-							
-			UtilText.nodeContentSB.append("</div>"
-					+ "</div>");
-
-			
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width'>"
 						+"<div class='container-half-width inner'>"
@@ -1715,7 +1691,7 @@ public class OptionsDialogue {
 								"Enables tooltips containing thumbnail images of the character.",
 								Main.getProperties().hasValue(PropertyValue.thumbnail)));
 			
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("ARTIST_", Colour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
 			List<Artist> artists = new ArrayList<>(Artwork.allArtists);
 			Collections.reverse(artists);// So that they're in alphabetical order
 			for(Artist artist : artists) {
@@ -1754,11 +1730,11 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.nonConContent)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-				"SILLY",
-				Colour.GENERIC_GOOD,
-				"Silly mode",
-				"This enables funny flavour text throughout the game.",
-					Main.getProperties().hasValue(PropertyValue.sillyMode)));
+							"SILLY",
+							Colour.GENERIC_GOOD,
+							"Silly mode",
+							"This enables funny flavour text throughout the game.",
+							Main.getProperties().hasValue(PropertyValue.sillyMode)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"VOLUNTARY_NTR",
@@ -1834,6 +1810,27 @@ public class OptionsDialogue {
 									+ " Some special races, such as lamia, always have cloacas, and are not affected by this.",
 							Main.getProperties().hasValue(PropertyValue.bipedalCloaca)));
 				
+
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.NIPPLES, "Multi-breasts", "Choose how you want the game to display multi-breasts."));
+			for(int i=2; i>=0; i--) {
+				UtilText.nodeContentSB.append("<div id='MULTI_BREAST_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().multiBreasts==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+							+(Main.getProperties().multiBreasts==i
+								?(i==0?"[style.boldBad(":"[style.boldGood(")
+								:"[style.colourDisabled(")
+							+com.lilithsthrone.game.Properties.multiBreastsLabels[i]+")]</div>");
+			}
+			UtilText.nodeContentSB.append("</div></div>");
+			
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose how you want the game to handle udders and crotch-boobs."));
+			for(int i=2; i>=0; i--) {
+				UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().udders==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+						+(Main.getProperties().udders==i
+							?(i==0?"[style.boldBad(":"[style.boldGood(")
+							:"[style.colourDisabled(")
+						+com.lilithsthrone.game.Properties.uddersLabels[i]+")]</div>");
+			}
+			UtilText.nodeContentSB.append("</div></div>");
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"HAIR_FACIAL",
 							Colour.BASE_LILAC_LIGHT,
@@ -1879,7 +1876,7 @@ public class OptionsDialogue {
 							0,
 							100));
 
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("FORCED_TF_TENDENCY_", Colour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
 			UtilText.nodeContentSB.append((Main.getProperties().getForcedTFTendency()==ForcedTFTendency.NEUTRAL
 												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
 													+ ForcedTFTendency.NEUTRAL.getName()
@@ -1928,7 +1925,7 @@ public class OptionsDialogue {
 							100));
 					
 
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("FORCED_FETISH_TENDENCY_", Colour.FETISH, "Forced Fetish Tendency",
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.FETISH, "Forced Fetish Tendency",
 					"This allows you to override NPC tastes and control the tendency for forced fetishes to be for topping or bottoming."));
 			UtilText.nodeContentSB.append((Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.NEUTRAL
 												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
@@ -2054,7 +2051,7 @@ public class OptionsDialogue {
 	/**
 	 * TO be followed by: </div></div>
 	 */
-	private static String getCustomContentPreferenceDivStart(String id, Colour colour, String title, String description) {
+	private static String getCustomContentPreferenceDivStart(Colour colour, String title, String description) {
 		StringBuilder contentSB = new StringBuilder();
 
 		contentSB.append(

@@ -123,7 +123,12 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		You can now spend 3 arcane essences to identify clothing in your possession.
+		The cost for having a vendor identify your clothing has increased from 10 to 400.
+	
 	Contributors:
+		Added clothing: 'Bunny Headband' (head slot, androgynous, sold by Nyan). (created by dsg)
 		Fixed bug where adding fetishes/changing desires from phone fetish menu would not work. (PR#1034 by BDPMP)
 		Fixed bug in the main quest, where purchasing Scarlett from Alexa would not work. (PR#1038 by BDPMP)
 		Fixed a Lilaya Condom Breaking reaction then/else error. (PR#1039 by EPSIL0N)
@@ -134,6 +139,7 @@
 		Added metallic effect to metal colours in clothing & weapon dye screens.
 	
 	Other:
+		Moved multi-breast and udder settings from furry preferences to content options. Both of these options now disable/enable all relevant descriptions & interactions if you set them to off/on, instead of preventing/allowing NPCs to spawn with them.
 		The game now starts at 20:34, so that by the time you get to your room (after 21:00), you can sleep until morning in one button press (instead of sleeping until 21:00 and then again until morning). Time now also passes in the character creation scenes.
 		Improved formatting of the post-sex descriptions for orifices being stretched.
 		Changed smallest time-unit that the game was tracking from minutes to seconds. Travel through some tiles now takes less than a minute (such as moving in Lilaya's home now taking 10 seconds per tile, and sex actions taking 20 seconds instead of 60).
@@ -147,6 +153,9 @@
 		Glory hole participants are now almost completely hidden from view - the only information available about them is their genitals and status effects.
 		Increased 'Swamp Water' intoxication effect from +50% to +75% intoxication.
 		The stretched orifices status effect is now shown in sex, so you can easily see how much everything is stretched by via the tooltip.
+		Added auburn as a possible colour for fur and feathers.
+		Added slime body hair as a new covering, so it can now have a separate colour to the rest of the body's slime.
+		Added a short alternate ending to Lilaya's sex scenes for if you didn't get her to orgasm.
 		
 	Sex (bugs and improvements):
 		Added handling of unusual scenario (which I couldn't replicate) where an NPC would have no available actions from which to select during sex.
@@ -159,9 +168,11 @@
 		Added more indication that positioning actions are requests when you are not the dom or a full-control sub.
 		NPCs who do not dislike the 'cum stud' fetish now prefer to cum on body parts where available, instead of the floor.
 		NPCs will now refuse your requests (offering/requesting body parts) if they are being rough, you are the sub, and you don't have full control in the scene.
-		Tweaked the sex AI to try and reduce instances of start/stop actions. (I will do more work on this soon.)
+		Improved the sex AI to reduce the instances of NPCs doing the annoying 'start/stop' action cycle. (After doing this, I saw no more instances of this annoying cycling of actions, but I can't be sure that it's been fixed entirely.)
 		Fixed NPCs not using positioning actions in taur sex scenes.
 		NPCs now take into account more than one fetish at a time when deciding upon what actions they want to perform, so now, for example, if they have oral+anal fetishes, anilingus is far more likely to be chosen than it was in previous versions.
+		Added 'none' option to self-transform menu for crotch-boobs, and slightly improved the formatting of the breasts & crotch-boobs windows.
+		NPCs' ability to perform actions based on their fetishes/desires has been improved.
 		
 	Bugs:
 		Fixed major bug where walking in Dominion's boulevard tiles during an arcane storm would cause a game-breaking background bug. (Related to the tile's population not being generated correctly.)
@@ -181,80 +192,69 @@
 		Fixed the 'too loose' sex status effect persisting after the penetration was removed.
 		Fixed parsing errors in the taur positioning action tooltips, as well as some incorrect descriptions related to the starting scene text.
 		Fixed issue with alitaur, unitaur, alicorn-morph, and unicorn-morph not being detected correctly (they were always detected as a pegataur or pegasus-morph).
+		Fixed issues with some dialogues returning incorrect text in sex and transformations.
+		Fixed udders being described as 'a pair'. Also fixed transformation text related to this issue.
+		Fixed crotch-boob transformation screen from generating random names (crotch-boobs, crotch-tits, crotch-breasts, etc.) each time you selected an option, which was causing the screen's elements to resize.
+		Fixed broken horn transformation text.
+		Fixed issue where all races, including demons and humans, were spawning with crotch-boobs. Now only furry races will spawn with them. All crotch boobs on bipeds will be reset to default values when you load into this version.
+		Races that do not normally have crotch boobs are no longer described as not having any in the appearance screen (as that is to be assumed).
+		Fixed incorrect crotch nipple descriptors being generated (that were being based on breasts, not crotch-boobs).
+		Fixed cases where crotch-boobs were being incorrectly treated as though they had penetrable nipples, both in descriptions and sex actions.
+		Stopped excessive lube information (including slime parts and urethra info) from being displayed at the start of sex.
+		Removed duplicate 'deepthroat' orgasm action from the kneeling oral position.
+		Fixed post-sex scene in Lilaya's geisha scene returning an error.
+		Fixed the 'Limit--' button in enchantment screen not working correctly.
+		Wolfgang and Karl now correctly drop dog-related items after beating them, instead of wolf-related ones.
+		Fixed issue where tigers could spawn as 'black with black stripes'. They now have a small chance to have their primary colour as auburn, amber, or tan instead of orange.
+		Human parts are no longer ever described as being animal-like (for if you TF parts on a taur body to human).
+		Lilaya and Meraxis now gain a significant amount of affection towards Lyssieth as part of their demon transformation. Lilaya now also gains a lot of affection towards you for agreeing to help her. This is all applied retroactively to your save when you load into this version. 
+		Fixed the body hair (beard, underarm, pubic, ass) options in the self-transformation menu showing a cost, even though it's free to change.
+		Fixed pubic hair options in the self-transformation menu being locked out by having 'ass hair' disabled, instead of 'pubic hair'.
+		Fixed debug menu's self-transform menu not having eye colours as an option.
+		Fixed penetration/orifice type status effects (the 'ass status', 'vagina status', etc. ones) being applied to characters not in sex, which was sometimes causing a background error to be thrown.
+		Fixed several issues with Lilaya's pregnancy-related dialogue after she's become a full demon.
+		Blocked Lilaya from switching her position in her 'testing' chair sex scene, as she was being a little too aggressive with it.
+		Fixed partner's lust dropping to 0 during the last turn of sex. (It is now correctly set to 0 after sex, so long as they orgasmed at least once.)
+		Fixed the 'Arcane Pregnancy Tester' item not removing you as a potential father from the pregnancy stats page (so long as you were not the father). This was most notable after losing the pregnancy roulette game, where in the pregnancy stats screen, it would still show you as a potential father.
+		Fixed bug where Roxy would not stock condoms.
+		Fixed regular chastity cage being called 'ornate chastity cage'.
+		Fixed lilin offspring not being generated with the correct surname.
+		Fixed issue where dying clothing would sometimes not work and throw a background error.
+		Fixed potential cause of an issue where slime colourings would sometimes reset.
+		Added handling of game-breaking error that could sometimes occur when displacing clothing that was accidentally configured to block one anotehr's displacements.
 	
 	
 	
-	replace == with equals for all body parts you made into abstract ones
-		horns done
 	
-	vary daylight based on time of year
 	
-	people really want NPC multiple orgasms
+	
+	clothing presets
+		test: colour list presets
+		test: singleColour="true"
+		need type to have multiple
+	
+	insertable dildo needs to stretch
 	
 	.jar isn't launching without using console
+	I guess Inno didn't do a clean build or something.
+	1.8.0_201 and _202 are the latest versions currently. Actually probably forever now, because I think Java announced they would release their final update in January of this year.
+	
+	Also, there needs to be a 'standing in front' position for taurs. So people can still breast feed and fondle and such
+	
+	the slave administration Finch inventory doesn't daily reset properly. With this, i mean, that he sels everything the first day, but after that he only sels slave collars thats properly daily resets
+	
+	people really want NPC multiple orgasms
 	
 	trader add bulk actions tab for sell everything/all clothing/all items/all weapons - cycle 5 for rarity
 	
 	orifice rejuvination item
 	aphrodesiac item
 	
-	Not sure if Inno meant for it to read as "a pair of udders" when you try to select one
-		add aprsing for getShape()==BreastShape.UDDERS?"set":"pair" and plurals
-	Not sure if it's been mentioned but in the TF menu if you are trying to rapidly click one of the buttons (In my case milk capacity) for crotch boobs it is quite annoying that every mention of crotch boobs switches between crotch tits/boob/breast for every click, making my selection jump between the values because of the varied text length, if it were possible I'd suggest locking the name for it, or at least locking it for each page visit
-	if someone has too many sexual preferences the sexual preference window isn't big enough to show 'suggested actions' anymore
-	Apperently she had crotch boobs with fuckable crotch nipples which were not in the desc of her?
-	Udders: I'll improve the setting a little to be able to define it per race, as well as to make the limiting options hide already-spawned udders
 	The option to TF a alley/sewer slime has been gone for a while
-	All female demons have crotch-boobs when crotch-boob preference is turned on (also you can't transform them away). This is including Kate.
-	There are sometimes two deepthroat orgasm options
-	lube updates in sex are talking about urethra when it's off. Also starting lubrication text is being spammed with slime.
-		
-	tooltip text on status effects scrolling off under image
-	END_SEX_CREAMPIE not found when ending sex after Lilaya's geisha scene (finishing in her mouth)
-	Horn TF: "A hard nub suddenly pushes out from teh middle of your forehead, and you gasp as you command_unknown... it quickly grow out into a... now have a pair of unicorn horn."
-	I started a new game, and I can't modify enchantment limit by the -- modifier.
-	I noticed a lot of crotch-boobs as well on pretty much all the notable NPCs when I played.
-	KNeeling position: "You is kneeling on the floor in front of the lion; your just inches away from his groin..."
-	After beating wolfgang and Karl I got wolf whiskey and meat and marrow
-	TF cock to human and it talks about feral when on taur
-	black-black-striped tiger
-	condoms not being stocked by Ralph or Roxy?
-	the slave administration Finch inventory doesn't daily reset properly. With this, i mean, that he sels everything the first day, but after that he only sels slave collars thats properly daily resets
-	is it normal for chapels to spawn everywhere in dominion?
-	Both my player character and their slaves, all slimes, keep automatically changing their hair colors and sometimes body colors back to the default green (or for body blue) periodically with no input from me.
-		Sometimes when loading the game, but often also just from playing for long periods.
-	not sure if it's a bug or was just left out, but there is no option for eye color in the debug TF menu
-	in the TF menu (ass hair) it shows a flame cost but no flames are removed
-		So, it works as intended but the UI basically has a typo
-		For the crotch boob section there is a distinct lack of none option
-			Other than setting it to flat theres no clear way to get rid of them if you accidently put it on or wanted to change it but that still would have nipples so some slight UI tweaks are needed I think
-	Centaurs spawned from buggy can have items in the leg slot equipped even though that slot is supposed to be blocked, cant test if it is the same with normal spawns
-	Has anyone had issues with Lilaya's dialogue after you creampied her after you turned her into a demon?
-		Ok and now I'm getting her dialogue for her giving birth even though she is currently pregnant
-		:BlobSweats: This is during her being pregnant after being impregnated whilst becoming a full demon: "I've decided to forgive you" ...
-			:BlobHyperSweats: And its doing that scene again whenever she is pregnant afterwards
-			She is doing the "I've decided to forgive you" even if knocked up by Lyssieth
-	:BlobSweats: Also, after not witnessing Lilaya and Miraxis being transformed, Lilaya still strongly dislikes Lyssieth
-	taurs finger themselves?!
 	
-	
-	Check DominionAlleywayAttacker public void hourlyUpdate() {
+	fly to tile quick travel
 	
 	Add ambush action on street tiles during storm
-	
-	I guess Inno didn't do a clean build or something.
-	1.8.0_201 and _202 are the latest versions currently. Actually probably forever now, because I think Java announced they would release their final update in January of this year.
-	
-	Slime body color and bodyhair color are the same. You cannot change one without the other automatically changing.  This could be intentional, but given they are presented as different things in the transformation menu, I just assumed it is a bug.
-	
-	pregnancy roulette - game declared centaur winner, even though kids were players
-	
-	clothing presets
-	
-	AI:
-		once started their preferred action, allow start others
-		So, my elemental's still doing that thing where she starts an ongoing action, stops it the next turn, and keeps cycling through it.
-		Should use addSexTypeWeighting somehow to determine what actions they perform
 	
 	need orgasm to check for end sex?
 		append end sex if player not ready to orgasm and end condition reached?
@@ -264,8 +264,14 @@
 	
 	
 	
+	Submissive NPCs to make requests, as the player is already capable of doing.
+	
+	Fade-to-black functionality to skip to the end of sex when you wouldn't have permission to just end sex normally.
+	
 	More weapon dye colours
 	Stuff dsg mentioned
+	
+	vary daylight based on time of year
 	
 	need to add birthing scene for taur bodies
 	
@@ -310,6 +316,7 @@
 	
 	furry fetish
 	bestial fetish
+	squirting fetish
 	
 	need to sort out hips zLayer
 	
@@ -377,6 +384,10 @@
 				cock-pussy
 				speech for when stretching orifice
 			positioning
+	
+	if someone has too many sexual preferences the sexual preference window isn't big enough to show 'suggested actions' anymore
+		tidy up tooltip to embed picture in description, and put effects at bottom, assign a new div to each description
+	tooltip text on status effects scrolling off under image
 	
 	Sort out SexFlag requests
 	
@@ -700,8 +711,6 @@
 	
 	Need to split noncon and go over all encounters
 	
-	Still stopping blowjob?!
-	
 	Alright here's a loaded bug: I found out one of my dog slaves was producing girlcum with a different effect than the others (psychoactive), so I gave them a potion to change it. The remaining girlcum stored lost its psychoactive effect and when I tried to sell it, it sold the other stack of girlcum, then prevented me from going back into the room until the hour changed. Still got stuck there though, and when I tried selling it again, same thing happened
 	
 	The children of succubi are said to be imps in the offspring tab, but always appear as greater succubi, is this a change in the lore or a bug?
@@ -711,7 +720,7 @@
 	how do i see what spells my companion can cast???
 	
 	1: Make it that a penis can't be at the same time tapered, blunt and flared. It doesn't make any sense. Like other transformations, the last one to happen should be the one who takes over.
-2: Thrusting into mouth while receiving cunnilingus and receiving paizuri?
+	2: Thrusting into mouth while receiving cunnilingus and receiving paizuri?
 
 	so just a heads up, performing anal in missionary seems broken again, the option for it is gone even if both participants are well exposed
 	
@@ -733,8 +742,6 @@
 	add Vicky repeat encounter - approaches behind you and rapes
 	
 	Orgasm in urethra needs to fill their balls with the person's cum
-	
-	
 	
 	
 	
@@ -1685,8 +1692,6 @@ my character is a guy, so this is super confusing lol
 	dirty talk action duplicated for Kate
 	
 	Check Lilaya Geisha scene.
-	
-	Is breast groping supposed to be blocked until the nipples are exposed? That makes no sense and I think it was different before. Where's my groping over clothing
 	
 	I'm so disappointed that transforming into a wolf-slime-thing doesn't let you access the relevant option with Brax. I mean, alright, it's not the same, but…
 	

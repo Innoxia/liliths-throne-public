@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
@@ -41,10 +42,11 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Util {
+	
 	public static Random random = new Random();
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
@@ -600,7 +602,9 @@ public class Util {
 	}
 
 	public static String inchesToFeetAndInches(int inches) {
-		return ((((inches) / 12) == 0 ? "" : (inches) / 12) + (((inches) / 12) > 0 ? "'" : "") + (((inches) % 12) == 0 ? "" : " ") + (((inches) % 12) != 0 ? ((inches) % 12) + "&quot;" : ""));
+		return inches==0
+					?"0"+UtilText.INCH_SYMBOL
+					:((((inches) / 12) == 0 ? "" : (inches) / 12) + (((inches) / 12) > 0 ? UtilText.FOOT_SYMBOL : "") + (((inches) % 12) == 0 ? "" : " ") + (((inches) % 12) != 0 ? ((inches) % 12) + UtilText.INCH_SYMBOL : ""));
 	}
 
 	public static int conversionKilogramsToPounds(int kg) {

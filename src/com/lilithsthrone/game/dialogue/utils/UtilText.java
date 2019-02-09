@@ -31,10 +31,12 @@ import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -74,6 +76,9 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
  * @author Innoxia, Pimvgd, AlacoGit
  */
 public class UtilText {
+
+	public static final String FOOT_SYMBOL = "&#8242;"; // prime
+	public static final String INCH_SYMBOL = "&#8243;"; // double prime
 
 	private static String modifiedSentence;
 	public static StringBuilder transformationContentSB = new StringBuilder(4096);
@@ -895,7 +900,7 @@ public class UtilText {
 				Util.newArrayListOfValues("name"),
 				true,
 				false,
-				"(prefix)",
+				"(prefix/real name)",
 				"Returns the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
 				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
 			@Override
@@ -915,6 +920,9 @@ public class UtilText {
 					if(!character.isPlayer() && (character.getSubspecies()==Subspecies.FOX_ASCENDANT || character.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
 						return character.getSurname();
 					}
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return character.getNameIgnoresPlayerKnowledge();
+					}
 					return character.getName(arguments);
 				} else {
 					if(character.isPlayerKnowsName() || character.isPlayer()) {
@@ -932,9 +940,9 @@ public class UtilText {
 				Util.newArrayListOfValues("namePos"),
 				true,
 				false,
-				"(real name)",
+				"(prefix/real name)",
 				"Returns a possessive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
-				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+				+ " If you need the actual name (for player third-person reference, or to ignore knowledge of name), pass either ' ' or 'true' as an argument.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if(!speechTarget.equals("")) {
@@ -942,7 +950,10 @@ public class UtilText {
 				}
 				
 				if(arguments!=null) {
-					return character.getName() + "'s";
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return character.getNameIgnoresPlayerKnowledge()+"'s";
+					}
+					return character.getName(arguments) + "'s";
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						if(command.startsWith("N")) {
@@ -963,7 +974,7 @@ public class UtilText {
 				Util.newArrayListOfValues("nameIs"),
 				true,
 				false,
-				"(real name)",
+				"(prefix/real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
 				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
 			@Override
@@ -973,7 +984,10 @@ public class UtilText {
 				}
 				
 				if(arguments!=null) {
-					return character.getName() + "'s";
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return character.getNameIgnoresPlayerKnowledge()+"'s";
+					}
+					return character.getName(arguments) + "'s";
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you're";
@@ -990,7 +1004,7 @@ public class UtilText {
 				Util.newArrayListOfValues("nameIsFull"),
 				true,
 				false,
-				"(real name)",
+				"(prefix/real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
@@ -999,7 +1013,10 @@ public class UtilText {
 				}
 				
 				if(arguments!=null) {
-					return character.getName() + " is";
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return character.getNameIgnoresPlayerKnowledge()+" is";
+					}
+					return character.getName(arguments) + " is";
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you are";
@@ -1016,7 +1033,7 @@ public class UtilText {
 				Util.newArrayListOfValues("nameHas"),
 				true,
 				false,
-				"(real name)",
+				"(prefix/real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
 				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
 			@Override
@@ -1024,9 +1041,12 @@ public class UtilText {
 				if(!speechTarget.equals("")) {
 					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
 				}
-				
+
 				if(arguments!=null) {
-					return character.getName() + "'s";
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return character.getNameIgnoresPlayerKnowledge()+"'s";
+					}
+					return character.getName(arguments) + "'s";
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you've";
@@ -1043,21 +1063,28 @@ public class UtilText {
 				Util.newArrayListOfValues("nameHasFull"),
 				true,
 				false,
-				"",
+				"(prefix/real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter, followed by 'has' or 'have'.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if(!speechTarget.equals("")) {
 					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+" has";
 				}
-				
-				if(target.startsWith("npc") && character.isPlayer()) {
-					return "you have";
+
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return character.getNameIgnoresPlayerKnowledge()+" has";
+					}
+					return character.getName(arguments) + " has";
+				} else {
+					if(target.startsWith("npc") && character.isPlayer()) {
+						return "you have";
+					}
+					if(character.isPlayerKnowsName()) {
+						return character.getName() + " has";
+					}
+					return character.getName("the") + " has";
 				}
-				if(character.isPlayerKnowsName()) {
-					return character.getName() + " has";
-				}
-				return character.getName("the") + " has";
 			}
 		});
 		
@@ -4318,6 +4345,23 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"breastCrotchPair",
+						"crotchBoobPair",
+						"crotchBoobsPair",
+						"udderSet"),
+				true,
+				true,
+				"",
+				"Returns 'pair', or 'set', based on whether the character's crotch boobs are udders or not",
+				BodyPartType.BREAST){//TODO
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				return character.getBreastCrotchShape()==BreastShape.UDDERS?"set":"pair";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"udderSize",
 						"uddersSize",
 						"crotchBreastSize",
@@ -5987,6 +6031,9 @@ public class UtilText {
 		}
 		for(Subspecies subspecies : Subspecies.values()) {
 			engine.put("SUBSPECIES_"+subspecies.toString(), subspecies);
+		}
+		for(LegConfiguration legConf : LegConfiguration.values()) {
+			engine.put("LEG_CONFIGURATION_"+legConf.toString(), legConf);
 		}
 		for(Fetish f : Fetish.values()) {
 			engine.put(f.toString(), f);

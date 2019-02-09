@@ -479,7 +479,7 @@ public class Clitoris implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Clitoris.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Clitoris.class) && getType().getRace().isBestialPartsAvailable();
 	}
 	
 }

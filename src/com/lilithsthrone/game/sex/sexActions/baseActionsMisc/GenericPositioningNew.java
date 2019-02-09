@@ -341,7 +341,7 @@ public class GenericPositioningNew {
 				
 			} else { // Taur body:
 				if(generatePerformerOralData(Sex.getCharacterPerformingAction()).get(0)==SexSlotOther.PERFORMING_ORAL) {
-					return "Wanting [npc2.name] to perform oral on [npc.herHim], [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] presenting the underside of [npc.her] lower [npc2.legRace]'s body to [npc2.herHim]."
+					return "Wanting [npc2.name] to perform oral on [npc.herHim], [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] presenting the underside of [npc.her] lower [npc.legRace]'s body to [npc2.herHim]."
 							+ " Gazing into [npc2.her] [npc2.eyes+], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, I want you to use your mouth!)]";
 				} else {
@@ -581,11 +581,11 @@ public class GenericPositioningNew {
 			} else { // Taur body:
 				if(generatePerformerOralData(Sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotOther.PERFORMING_ORAL) {
 					if(SexSlotOther.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
-						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing beneath [npc.her] lower [npc.legRace]'s body."
+						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing beneath [npc2.her] lower [npc2.legRace]'s body."
 								+ " Running [npc.a_hand] up one of [npc2.her] rear [npc2.legs], [npc.she] [npc.moansVerb],"
 								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
 					} else {
-						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around and [npc.verb(kneel)] down beneath [npc.her] lower [npc.legRace]'s body."
+						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around and [npc.verb(kneel)] down beneath [npc2.her] lower [npc2.legRace]'s body."
 								+ " Running [npc.a_hand] up one of [npc2.her] rear [npc2.legs], [npc.she] [npc.moansVerb],"
 								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
 					}
@@ -831,11 +831,11 @@ public class GenericPositioningNew {
 				
 			} else { // Taur body:
 				if(SexSlotOther.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
-					return "Wanting to perform oral on the underside of [npc2.namePos] lower [npc.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing beneath [npc2.herHim]."
+					return "Wanting to perform oral on the underside of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing beneath [npc2.herHim]."
 							+ " Placing [npc.a_hand] on one of [npc2.her] rear [npc2.legs], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, let me put my mouth to use!)]";
 				} else {
-					return "Wanting to perform oral on the underside of [npc2.namePos] lower [npc.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] and [npc.verb(drop)] down onto [npc.her] knees beneath [npc2.herHim]."
+					return "Wanting to perform oral on the underside of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] and [npc.verb(drop)] down onto [npc.her] knees beneath [npc2.herHim]."
 							+ " Placing [npc.a_hand] on one of [npc2.her] rear [npc2.legs], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, let me put my mouth to use!)]";
 				}

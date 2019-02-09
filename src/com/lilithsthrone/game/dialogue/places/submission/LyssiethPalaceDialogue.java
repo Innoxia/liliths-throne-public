@@ -214,7 +214,9 @@ public class LyssiethPalaceDialogue {
 			} else if(index==6
 					&& Main.game.getNpc(Lilaya.class).getRaceStage()==RaceStage.GREATER
 					&& Main.game.getNpc(DarkSiren.class).getRaceStage()!=RaceStage.GREATER) {
-				return new Response("Demon", "Tell Meraxis that she should go through with the process of becoming a full demon.<br/>[style.italicsDemon(This will permanently transform Meraxis into a full demon!)]", MERAXIS_DEMON_TF_START) {
+				return new Response("Demon",
+						"Tell Meraxis that she should go through with the process of becoming a full demon.<br/>[style.italicsDemon(This will permanently transform Meraxis into a full demon!)]",
+						MERAXIS_DEMON_TF_START) {
 					@Override
 					public Colour getHighlightColour() {
 						return Colour.RACE_DEMON;
@@ -235,6 +237,9 @@ public class LyssiethPalaceDialogue {
 								companion.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, false);
 							}
 						}
+
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).addFetish(Fetish.FETISH_INCEST, true));
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lyssieth.class), 75));
 					}
 				};
 				
@@ -935,6 +940,8 @@ public class LyssiethPalaceDialogue {
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.TWO_NEUTRAL, true));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).addFetish(Fetish.FETISH_INCEST, true));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).addFetish(Fetish.FETISH_INCEST, true));
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).setAffection(Main.game.getNpc(Lyssieth.class), 75));
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lyssieth.class), 75));
 					}
 				};
 				
@@ -949,6 +956,7 @@ public class LyssiethPalaceDialogue {
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "LILAYA_DEMON_TF_SOLO_SEX_CHOICE"));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.TWO_NEUTRAL, true));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).addFetish(Fetish.FETISH_INCEST, true));
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).setAffection(Main.game.getNpc(Lyssieth.class), 75));
 					}
 				};
 			}

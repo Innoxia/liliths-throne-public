@@ -73,16 +73,16 @@ public class Properties {
 	public int multiBreasts = 1;
 	public static String[] multiBreastsLabels = new String[] {"Off", "Furry-only", "On"};
 	public static String[] multiBreastsDescriptions = new String[] {
-			"Randomly-generated NPCs will never spawn in with multiple rows of breasts.",
-			"Randomly-generated NPCs will only spawn in with multiple rows of breasts if they have furry skin. (Default setting.)",
-			"Randomly-generated NPCs will spawn in with multiple rows of breasts if their breast type is furry (starts at 'Minor morph' level)."};
+			"Randomly-generated NPCs will never have multiple rows of breasts.",
+			"Randomly-generated NPCs will only have multiple rows of breasts if they have furry skin. (Default setting.)",
+			"Randomly-generated NPCs will have multiple rows of breasts if their breast type is furry (starts at 'Minor morph' level)."};
 	
 	public int udders = 1;
 	public static String[] uddersLabels = new String[] {"Off", "Taur-only", "On"};
 	public static String[] uddersDescriptions = new String[] {
-			"Randomly-generated taurs nor anthro-morphs will ever spawn in with udders or crotch-boobs.",
-			"Randomly-generated NPCs will only ever spawn in with udders or crotch-boobs if they have a non-bipedal body. (Default setting.)",
-			"Randomly-generated greater-anthro-morphs, as well as taurs, will spawn in with udders and crotch boobs."};
+			"Neither randomly-generated taurs nor anthro-morphs will ever have udders or crotch-boobs.",
+			"Randomly-generated NPCs will only have udders or crotch-boobs if they have a non-bipedal body. (Default setting.)",
+			"Randomly-generated greater-anthro-morphs, as well as taurs, will have udders and crotch boobs."};
 	
 	public int forcedTFPercentage = 40;
 	public int forcedFetishPercentage = 0;

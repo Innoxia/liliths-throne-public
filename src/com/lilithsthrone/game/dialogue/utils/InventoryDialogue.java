@@ -50,7 +50,8 @@ public class InventoryDialogue {
 	
 	// Welcome to a slightly cleaned-up hell!
 	
-	private static final int IDENTIFICATION_PRICE = 10;
+	private static final int IDENTIFICATION_PRICE = 400;
+	private static final int IDENTIFICATION_ESSENCE_PRICE = 3;
 	
 	private static AbstractItem item;
 	private static AbstractClothing clothing;
@@ -173,7 +174,7 @@ public class InventoryDialogue {
 								|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.ANUS)
 								|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.PENIS)
 								|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.VAGINA)
-								|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType() == LegType.HUMAN)) {
+								|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType().equals(LegType.HUMAN))) {
 							return new Response("To the stage", "You need to be wearing clothing that covers your body, as well as a pair of shoes.", null);
 							
 						} else {
@@ -2767,29 +2768,44 @@ public class InventoryDialogue {
 						if(clothing.isCondom()) {
 							return getCondomSabotageResponse(clothing);
 						}
-						if(clothing.getEnchantmentItemType(null)==null) {
-							return new Response("Enchant", "This clothing cannot be enchanted!", null);
-							
-						} else if(!clothing.isEnchantmentKnown()) {
-							return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
-							
-						} else if(Main.game.isDebugMode()) {
+						if(Main.game.isDebugMode()
+								|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
+							if(clothing.getEnchantmentItemType(null)==null) {
+								return new Response("Enchant", "This clothing cannot be enchanted!", null);
+								
+							} else if(!clothing.isEnchantmentKnown()) {
+								if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= IDENTIFICATION_ESSENCE_PRICE) {
+									return new Response("Identify ([style.italicsArcane("+IDENTIFICATION_ESSENCE_PRICE+" Essences)])",
+											"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself,"
+													+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.",
+											CLOTHING_INVENTORY) {
+										@Override
+										public void effects() {
+											Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+											Main.game.getTextEndStringBuilder().append(
+													"<p>"
+														+ "You channel the power of "+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+" of your arcane essences into the "+clothing.getName()
+															+", and as it emits a faint purple glow, you find yourself able to detect what sort of enchantment it has!"
+													+ "</p>"
+													+ clothing.setEnchantmentKnown(true)
+													+ "<p style='text-align:center;'>"
+														+ "Identifying the "+clothing.getName()+" has cost you [style.boldBad("+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+")] [style.boldArcane(Arcane Essences)]!"
+													+ "</p>");
+											RenderingEngine.setPage(Main.game.getPlayer(), clothing);
+										}
+									};
+								} else {
+									return new Response("Identify (<i>"+IDENTIFICATION_ESSENCE_PRICE+" Essences</i>)",
+											"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself ([style.italicsBad(which you don't have)]),"
+													+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.", null);
+								}
+							}
 							return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
 								public DialogueNode getNextDialogue() {
 									return EnchantmentDialogue.getEnchantmentMenu(clothing);
 								}
 							};
-							
-						} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-							if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-								return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-									@Override
-									public DialogueNode getNextDialogue() {
-										return EnchantmentDialogue.getEnchantmentMenu(clothing);
-									}
-								};
-							}
 						}
 						
 						return null;
@@ -2945,29 +2961,44 @@ public class InventoryDialogue {
 								if(clothing.isCondom()) {
 									return getCondomSabotageResponse(clothing);
 								}
-								if(clothing.getEnchantmentItemType(null)==null) {
-									return new Response("Enchant", "This clothing cannot be enchanted!", null);
-									
-								} else if(!clothing.isEnchantmentKnown()) {
-									return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
-									
-								}  else if(Main.game.isDebugMode()) {
+								if(Main.game.isDebugMode()
+										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
+									if(clothing.getEnchantmentItemType(null)==null) {
+										return new Response("Enchant", "This clothing cannot be enchanted!", null);
+										
+									} else if(!clothing.isEnchantmentKnown()) {
+										if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= IDENTIFICATION_ESSENCE_PRICE) {
+											return new Response("Identify ([style.italicsArcane("+IDENTIFICATION_ESSENCE_PRICE+" Essences)])",
+													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself,"
+															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.",
+													CLOTHING_INVENTORY) {
+												@Override
+												public void effects() {
+													Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+													Main.game.getTextEndStringBuilder().append(
+															"<p>"
+																+ "You channel the power of "+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+" of your arcane essences into the "+clothing.getName()
+																	+", and as it emits a faint purple glow, you find yourself able to detect what sort of enchantment it has!"
+															+ "</p>"
+															+ clothing.setEnchantmentKnown(true)
+															+ "<p style='text-align:center;'>"
+																+ "Identifying the "+clothing.getName()+" has cost you [style.boldBad("+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+")] [style.boldArcane(Arcane Essences)]!"
+															+ "</p>");
+													RenderingEngine.setPage(Main.game.getPlayer(), clothing);
+												}
+											};
+										} else {
+											return new Response("Identify (<i>"+IDENTIFICATION_ESSENCE_PRICE+" Essences</i>)",
+													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself ([style.italicsBad(which you don't have)]),"
+															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.", null);
+										}
+									}
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
-									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-											@Override
-											public DialogueNode getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(clothing);
-											}
-										};
-									}
 								}
 								
 								return null;
@@ -3206,29 +3237,44 @@ public class InventoryDialogue {
 								if(clothing.isCondom()) {
 									return getCondomSabotageResponse(clothing);
 								}
-								if(clothing.getEnchantmentItemType(null)==null) {
-									return new Response("Enchant", "This clothing cannot be enchanted!", null);
-									
-								} else if(!clothing.isEnchantmentKnown()) {
-									return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
-									
-								}  else if(Main.game.isDebugMode()) {
+								if(Main.game.isDebugMode()
+										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
+									if(clothing.getEnchantmentItemType(null)==null) {
+										return new Response("Enchant", "This clothing cannot be enchanted!", null);
+										
+									} else if(!clothing.isEnchantmentKnown()) {
+										if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= IDENTIFICATION_ESSENCE_PRICE) {
+											return new Response("Identify ([style.italicsArcane("+IDENTIFICATION_ESSENCE_PRICE+" Essences)])",
+													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself,"
+															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.",
+													CLOTHING_INVENTORY) {
+												@Override
+												public void effects() {
+													Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+													Main.game.getTextEndStringBuilder().append(
+															"<p>"
+																+ "You channel the power of "+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+" of your arcane essences into the "+clothing.getName()
+																	+", and as it emits a faint purple glow, you find yourself able to detect what sort of enchantment it has!"
+															+ "</p>"
+															+ clothing.setEnchantmentKnown(true)
+															+ "<p style='text-align:center;'>"
+																+ "Identifying the "+clothing.getName()+" has cost you [style.boldBad("+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+")] [style.boldArcane(Arcane Essences)]!"
+															+ "</p>");
+													RenderingEngine.setPage(Main.game.getPlayer(), clothing);
+												}
+											};
+										} else {
+											return new Response("Identify (<i>"+IDENTIFICATION_ESSENCE_PRICE+" Essences</i>)",
+													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself ([style.italicsBad(which you don't have)]),"
+															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.", null);
+										}
+									}
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
-									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-											@Override
-											public DialogueNode getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(clothing);
-											}
-										};
-									}
 								}
 								
 								return null;
@@ -3264,18 +3310,21 @@ public class InventoryDialogue {
 									
 								}else {
 									return new Response("Identify (" + UtilText.formatAsMoney(IDENTIFICATION_PRICE, "span") + ")",
-												"Have the " + clothing.getName() + " identified for " + UtilText.formatAsMoney(IDENTIFICATION_PRICE, "span") + ".", INVENTORY_MENU){
+												"Have the " + clothing.getName() + " identified for " + UtilText.formatAsMoney(IDENTIFICATION_PRICE, "span") + ".", CLOTHING_INVENTORY){
 										@Override
 										public void effects(){
 											Main.game.getPlayer().removeClothing(clothing);
 											Main.game.getTextEndStringBuilder().append(
-													"<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(IDENTIFICATION_PRICE) + " to "
-															+inventoryNPC.getName("the")+", who promptly identifies your "+clothing.getName()+"."
+													"<p style='text-align:center;'>"
+														+ UtilText.parse(inventoryNPC,
+																"You hand over " + UtilText.formatAsMoney(IDENTIFICATION_PRICE) + " to [npc.name],"
+																		+ " who promptly feeds several bottles of arcane essence into a specialist identification device, before using it to reveal the enchantment on your "+clothing.getName()+".")
 													+ "</p>"
 													+clothing.setEnchantmentKnown(true));
 											
 											Main.game.getPlayer().addClothing(clothing, false);
 											Main.game.getPlayer().incrementMoney(-IDENTIFICATION_PRICE);
+											RenderingEngine.setPage(Main.game.getPlayer(), clothing);
 										}
 									};
 								}
@@ -3297,7 +3346,7 @@ public class InventoryDialogue {
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.ANUS)
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.PENIS)
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.VAGINA)
-									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType() == LegType.HUMAN)) {
+									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType().equals(LegType.HUMAN))) {
 								return new Response("To the stage", "You need to be wearing clothing that covers your body, as well as a pair of shoes.", null);
 								
 							} else {
@@ -4570,7 +4619,7 @@ public class InventoryDialogue {
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.ANUS)
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.PENIS)
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.VAGINA)
-									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType() == LegType.HUMAN)) {
+									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType().equals(LegType.HUMAN))) {
 								return new Response("To the stage", "You need to be wearing clothing that covers your body, as well as a pair of shoes.", null);
 								
 							} else {

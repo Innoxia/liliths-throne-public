@@ -273,7 +273,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Deep throat";
+			return "Deepthroat";
 		}
 
 		@Override

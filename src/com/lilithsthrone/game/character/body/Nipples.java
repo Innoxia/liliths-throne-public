@@ -58,6 +58,7 @@ public class Nipples implements BodyPartInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter owner) {
+		// I commented this out as I felt that the crotch names (defined in type) were a little unwieldy
 //		if(crotchNipples) {
 //			return type.getNameCrotchSingular(owner);
 //		} else {
@@ -67,6 +68,7 @@ public class Nipples implements BodyPartInterface {
 
 	@Override
 	public String getNamePlural(GameCharacter owner) {
+		// I commented this out as I felt that the crotch names (defined in type) were a little unwieldy
 //		if(crotchNipples) {
 //			return type.getNameCrotchPlural(owner);
 //		} else {
@@ -82,19 +84,38 @@ public class Nipples implements BodyPartInterface {
 			descriptorList.add(om.getName());
 		}
 		
-		if(owner.isBreastFuckableNipplePenetration()) {
-			switch(owner.getBreastMilkStorage().getAssociatedWetness()) {
-				case ONE_SLIGHTLY_MOIST:
-				case TWO_MOIST:
-				case THREE_WET:
-				case FOUR_SLIMY:
-				case FIVE_SLOPPY:
-				case SIX_SOPPING_WET:
-				case SEVEN_DROOLING:
-					descriptorList.add(owner.getBreastMilkStorage().getAssociatedWetness().getDescriptor());
-					break;
-				default:
-					break;
+		if(isCrotchNipples()) {
+			if(owner.isBreastCrotchFuckableNipplePenetration()) {
+				switch(owner.getBreastCrotchMilkStorage().getAssociatedWetness()) {
+					case ONE_SLIGHTLY_MOIST:
+					case TWO_MOIST:
+					case THREE_WET:
+					case FOUR_SLIMY:
+					case FIVE_SLOPPY:
+					case SIX_SOPPING_WET:
+					case SEVEN_DROOLING:
+						descriptorList.add(owner.getBreastCrotchMilkStorage().getAssociatedWetness().getDescriptor());
+						break;
+					default:
+						break;
+				}
+			}
+			
+		} else {
+			if(owner.isBreastFuckableNipplePenetration()) {
+				switch(owner.getBreastMilkStorage().getAssociatedWetness()) {
+					case ONE_SLIGHTLY_MOIST:
+					case TWO_MOIST:
+					case THREE_WET:
+					case FOUR_SLIMY:
+					case FIVE_SLOPPY:
+					case SIX_SOPPING_WET:
+					case SEVEN_DROOLING:
+						descriptorList.add(owner.getBreastMilkStorage().getAssociatedWetness().getDescriptor());
+						break;
+					default:
+						break;
+				}
 			}
 		}
 		
@@ -401,8 +422,8 @@ public class Nipples implements BodyPartInterface {
 			return false;
 		}
 		if(this.isCrotchNipples()) {
-			return owner.getLegConfiguration().getBestialParts().contains(BreastCrotch.class);
+			return owner.getLegConfiguration().getBestialParts().contains(BreastCrotch.class) && getType().getRace().isBestialPartsAvailable();
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Breast.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Breast.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

@@ -1813,15 +1813,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		//Breasts:
-		if(Main.getProperties().multiBreasts==0) {
-			body.getBreast().setRows(null, 1);
-			
-		} else if(Main.getProperties().multiBreasts==1) {
-			if(stage != RaceStage.GREATER) {
-				body.getBreast().setRows(null, 1);
-			}
-		}
-
 		if(hasFetish(Fetish.FETISH_BREASTS_OTHERS) && preferredGender.isFeminine()) {
 			body.getBreast().setSize(null, CupSize.DD.getMeasurement() + (Util.random.nextInt(5)));
 		}
@@ -2857,7 +2848,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		this.mainSexPreference.put(target, mainSexPreference);
 	}
 	
-	private void addSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request, Map<SexType, Integer> map, float multiplier) {
+	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request) {
 		int weight = 0;
 		
 		List<Fetish> fetishes = type.getRelatedFetishes(this, target, true, false);
@@ -2929,14 +2920,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			weight-=50;
 		}
 		
-		map.put(type, (int) (weight*multiplier));
-	}
-
-	public void generateSexChoices(GameCharacter target) {
-		generateSexChoices(target, null);
+		return weight;
 	}
 	
-	public void generateSexChoices(GameCharacter target, List<SexType> request) {
+	private void addSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request, Map<SexType, Integer> map, float multiplier) {
+		map.put(type, (int) (calculateSexTypeWeighting(type, target, request)*multiplier));
+	}
+
+	public void generateSexChoices(boolean resetPositioning, GameCharacter target) {
+		generateSexChoices(resetPositioning, target, null);
+	}
+	
+	public void generateSexChoices(boolean resetPositioningBan, GameCharacter target, List<SexType> request) {
 		Map<SexType, Integer> foreplaySexTypes = new HashMap<>();
 		Map<SexType, Integer> mainSexTypes = new HashMap<>();
 		
@@ -3184,7 +3179,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				System.out.println("Main: "+mainSexPreference.get(target).getPerformingSexArea().toString()+" "+mainSexPreference.get(target).getTargetedSexArea().toString());
 		}
 		// After generating choices, unblock positioning:
-		if(Main.game.isInSex()) {
+		if(Main.game.isInSex() && resetPositioningBan) {
 			Sex.removeCharacterBannedFromPositioning(this);
 		}
 	}

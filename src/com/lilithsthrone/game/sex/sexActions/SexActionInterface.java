@@ -90,6 +90,16 @@ public interface SexActionInterface {
 		return list;
 	}
 	
+	public default List<SexAreaInterface> getPerformingCharacterAreas() {
+		List<SexAreaInterface> list = new ArrayList<>();
+		for(SexAreaInterface sArea : getSexAreaInteractions().keySet()) {
+			if(sArea!=null) {
+				list.add(sArea);
+			}
+		}
+		return list;
+	}
+	
 	public default List<SexAreaOrifice> getTargetedCharacterOrifices() {
 		List<SexAreaOrifice> list = new ArrayList<>();
 		for(SexAreaInterface sArea : getSexAreaInteractions().values()) {
@@ -105,6 +115,16 @@ public interface SexActionInterface {
 		for(SexAreaInterface sArea : getSexAreaInteractions().values()) {
 			if(sArea!=null && sArea.isPenetration()) {
 				list.add((SexAreaPenetration)sArea);
+			}
+		}
+		return list;
+	}
+	
+	public default List<SexAreaInterface> getTargetedCharacterAreas() {
+		List<SexAreaInterface> list = new ArrayList<>();
+		for(SexAreaInterface sArea : getSexAreaInteractions().values()) {
+			if(sArea!=null) {
+				list.add(sArea);
 			}
 		}
 		return list;
@@ -482,6 +502,11 @@ public interface SexActionInterface {
 								return null;
 							}
 							break;
+						case NIPPLE_CROTCH:
+							if(!Sex.getCharacterPerformingAction().isBreastCrotchFuckableNipplePenetration()) {
+								return null;
+							}
+							break;
 						default:
 							break;
 					}
@@ -500,6 +525,11 @@ public interface SexActionInterface {
 					switch(sArea){
 						case NIPPLE:
 							if(!Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
+								return null;
+							}
+							break;
+						case NIPPLE_CROTCH:
+							if(!Sex.getCharacterTargetedForSexAction(this).isBreastCrotchFuckableNipplePenetration()) {
 								return null;
 							}
 							break;
@@ -1147,5 +1177,12 @@ public interface SexActionInterface {
 		} else {
 			return associatedFetishesPartner;
 		}
+	}
+	
+	/**
+	 * @return A SexType object which is representative of this SexAction. Will only represent the first area found in both performing and targeted areas, due to SexType limitations.
+	 */
+	public default SexType getAsSexType() {
+		return new SexType(this.getParticipantType(), getPerformingCharacterAreas().isEmpty()?null:getPerformingCharacterAreas().get(0), getTargetedCharacterAreas().isEmpty()?null:getTargetedCharacterAreas().get(0));
 	}
 }

@@ -370,14 +370,16 @@ public class ScarlettsShop {
 				public void effects() {
 					
 					AbstractClothing collar = Main.game.getNpc(Scarlett.class).getClothingInSlot(InventorySlot.NECK);
-					collar.setSealed(false);
-					Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(collar, true, Main.game.getNpc(Alexa.class));
+					if(collar!=null) {
+						collar.setSealed(false);
+						Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(collar, true, Main.game.getNpc(Alexa.class));
+					}
 					
 					((Scarlett) Main.game.getNpc(Scarlett.class)).equipClothing(true, false, false, true);
 					
 					Main.game.getNpc(Scarlett.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST, true);
 					Main.game.getNpc(Scarlett.class).setObedience(ObedienceLevel.ZERO_FREE_WILLED.getMedianValue());
-					Main.game.getNpc(Scarlett.class).setAffection(Main.game.getPlayer(), AffectionLevel.ZERO_NEUTRAL.getMedianValue());
+					Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).setAffection(Main.game.getPlayer(), 35));
 					Main.game.getPlayer().removeSlave(Main.game.getNpc(Scarlett.class));
 				}
 			};

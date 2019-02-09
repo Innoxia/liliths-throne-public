@@ -944,20 +944,20 @@ public class SuccubisSecrets {
 //							:"")
 					
 					+(Main.game.isFacialHairEnabled()
-							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face." 
+							? CharacterModificationUtils.getKatesDivFacialHair(true, "Facial hair", "The body hair found on your face." 
 									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
 							:"")
 					
 					+(Main.game.isPubicHairEnabled()
-							?CharacterModificationUtils.getKatesDivPubicHair("Pubic hair", "The body hair found in the genital area; located on and around your sex organs and crotch.")
+							?CharacterModificationUtils.getKatesDivPubicHair(true, "Pubic hair", "The body hair found in the genital area; located on and around your sex organs and crotch.")
 							:"")
 					
 					+(Main.game.isBodyHairEnabled()
-							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits.")
+							?CharacterModificationUtils.getKatesDivUnderarmHair(true, "Underarm hair", "The body hair found in your armpits.")
 							:"")
 					
 					+(Main.game.isAssHairEnabled()
-							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole.")
+							?CharacterModificationUtils.getKatesDivAssHair(true, "Ass hair", "The body hair found around your asshole.")
 							:"")
 					);
 			

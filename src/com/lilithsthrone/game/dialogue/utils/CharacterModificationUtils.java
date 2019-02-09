@@ -635,8 +635,8 @@ public class CharacterModificationUtils {
 				"FEMININITY",
 				"",
 				"",
-				BodyChanging.getTarget().getFemininityValue()
-					+"<br/><span style='color:"+BodyChanging.getTarget().getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getFemininity().getName(false))+"</span>",
+				"<span style='color:"+BodyChanging.getTarget().getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getFemininity().getName(false))+"</span>"
+						+"<br/>("+BodyChanging.getTarget().getFemininityValue()+")",
 				BodyChanging.getTarget().getFemininityValue()<=0,
 				BodyChanging.getTarget().getFemininityValue()>=100);
 	}
@@ -1154,14 +1154,14 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Nipples",
 				UtilText.parse(BodyChanging.getTarget(), "Change the type of [npc.namePos] nipples.<br/><i>Affects the type of milk [npc.her] breasts produce.</i>"),
-				contentSB.toString(), false);
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformBreastCrotchChoiceDiv(List<Race> availableRaces) {
 		contentSB.setLength(0);
 		
 		for(AbstractBreastType breast : BreastType.getAllBreastTypes()) {
-			if((breast.getRace() !=null && availableRaces.contains(breast.getRace()))) {
+			if((breast.getRace()==Race.NONE || availableRaces.contains(breast.getRace()))) {
 				if(BodyChanging.getTarget().getBreastCrotchType() == breast) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
@@ -1177,9 +1177,9 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyWrapper("Nipples",
-				UtilText.parse(BodyChanging.getTarget(), "Change the type of the nipples on [npc.namePos] [npc.crotchBoobs].<br/><i>Affects the type of milk [npc.her] [npc.crotchBoobs] produce.</i>"),
-				contentSB.toString(), false);
+		return applyWrapper(Util.capitaliseSentence(getCrotchBoobName(false))+" Type",
+				UtilText.parse(BodyChanging.getTarget(), "Change the type of the nipples on [npc.namePos] "+getCrotchBoobName(true)+".<br/><i>Affects the type of milk [npc.her] "+getCrotchBoobName(true)+" produce.</i>"),
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformArmChoiceDiv(List<Race> availableRaces) {
@@ -1814,19 +1814,30 @@ public class CharacterModificationUtils {
 				"BREAST_SIZE",
 				" cup",
 				" cup",
-				Util.capitaliseSentence(BodyChanging.getTarget().getBreastSize().getCupSizeName()),
+				Util.capitaliseSentence(BodyChanging.getTarget().getBreastSize().getCupSizeName())
+					+"<br/>("+BodyChanging.getTarget().getBreastRawSizeValue()+")",
 				BodyChanging.getTarget().getBreastRawSizeValue()<=0,
 				BodyChanging.getTarget().getBreastRawSizeValue()>=CupSize.XXX_N.getMeasurement());
 	}
 	
+	// This is to stop variable-length names from being generated every time a button is clicked (i.e. stop "crotch-tits", "crotch-breasts")
+	private static String getCrotchBoobName(boolean plural) {
+		if(BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS) {
+			return plural?"udders":"udder";
+		} else {
+			return plural?"crotch-boobs":"crotch-boob";
+		}
+	}
+	
 	public static String getSelfTransformBreastCrotchSizeDiv() {
 		return applyFullVariableWrapper(
-				UtilText.parse(BodyChanging.getTarget(), "[npc.CrotchBoob] Size"),
-				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] [npc.crotchBoobs]."),
+				UtilText.parse(BodyChanging.getTarget(), Util.capitaliseSentence(getCrotchBoobName(false))+" Size"),
+				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] "+getCrotchBoobName(true)+"."),
 				"CROTCH_BOOB_SIZE",
 				" cup",
 				" cup",
-				Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchSize().getCupSizeName()),
+				Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchSize().getCupSizeName())
+					+"<br/>("+BodyChanging.getTarget().getBreastCrotchRawSizeValue()+")",
 				BodyChanging.getTarget().getBreastCrotchRawSizeValue()<=0,
 				BodyChanging.getTarget().getBreastCrotchRawSizeValue()>=CupSize.XXX_N.getMeasurement());
 	}
@@ -1877,8 +1888,8 @@ public class CharacterModificationUtils {
 		}
 
 		return applyWrapper(
-				UtilText.parse(BodyChanging.getTarget(), "[npc.CrotchBoob] Shape"),
-				UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.namePos] [npc.crotchBoobs]."),
+				UtilText.parse(BodyChanging.getTarget(), Util.capitaliseSentence(getCrotchBoobName(false))+" Shape"),
+				UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.namePos] "+getCrotchBoobName(true)+"."),
 				contentSB.toString(), true);
 	}
 
@@ -1926,8 +1937,8 @@ public class CharacterModificationUtils {
 		}
 
 		return applyWrapper(
-				UtilText.parse(BodyChanging.getTarget(), "[npc.CrotchBoob] Rows"),
-				UtilText.parse(BodyChanging.getTarget(), "Change the number of [npc.crotchBoob] rows [npc.name] [npc.has]."),
+				UtilText.parse(BodyChanging.getTarget(), Util.capitaliseSentence(getCrotchBoobName(false))+" Rows"),
+				UtilText.parse(BodyChanging.getTarget(), "Change the number of "+getCrotchBoobName(false)+" rows [npc.name] [npc.has]."),
 				contentSB.toString(), true);
 	}
 
@@ -1975,9 +1986,7 @@ public class CharacterModificationUtils {
 		}
 
 		return applyWrapper("Nipple Count",
-				(BodyChanging.getTarget().isPlayer()
-					?"Change the number of nipples you have on each [pc.crotchBoob]."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the number of nipples [npc.name] has on each [npc.crotchBoob].")),
+				UtilText.parse(BodyChanging.getTarget(), "Change the number of nipples [npc.name] [npc.has] on each "+getCrotchBoobName(false)+"."),
 				contentSB.toString(), true);
 	}
 	
@@ -2137,7 +2146,8 @@ public class CharacterModificationUtils {
 				?"Change the maximum amount of milk you produce."
 				:UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] produces.")),
 				"MILK_PRODUCTION",
-				BodyChanging.getTarget().getBreastRawMilkStorageValue()+"ml",
+				Util.capitaliseSentence(BodyChanging.getTarget().getBreastMilkStorage().getName())
+					+"<br/>("+BodyChanging.getTarget().getBreastRawMilkStorageValue()+"ml)",
 				BodyChanging.getTarget().getBreastRawMilkStorageValue()<=0,
 				BodyChanging.getTarget().getBreastRawMilkStorageValue()>=Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue());
 	}
@@ -2148,7 +2158,8 @@ public class CharacterModificationUtils {
 				?"Change the maximum amount of milk you produce."
 				:UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] produces.")),
 				"MILK_CROTCH_PRODUCTION",
-				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()+"ml",
+				Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchMilkStorage().getName())
+					+"<br/>("+BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()+"ml)",
 				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()<=0,
 				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()>=Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue());
 	}
@@ -2672,7 +2683,9 @@ public class CharacterModificationUtils {
 			"PENIS_SIZE",
 			" inch",
 			" inches",
-			Util.inchesToFeetAndInches(BodyChanging.getTarget().getPenisRawSizeValue())+"<br/>("+Util.conversionInchesToCentimetres(BodyChanging.getTarget().getPenisRawSizeValue())+"cm)",
+			Util.capitaliseSentence(BodyChanging.getTarget().getPenisSize().getDescriptor())
+				+"<br/>("+Util.inchesToFeetAndInches(BodyChanging.getTarget().getPenisRawSizeValue())+")"
+				+"<br/>("+Util.conversionInchesToCentimetres(BodyChanging.getTarget().getPenisRawSizeValue())+"cm)",
 			BodyChanging.getTarget().getPenisRawSizeValue()<=0,
 			BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
 	}
@@ -2813,7 +2826,8 @@ public class CharacterModificationUtils {
 			?"Change your maximum cum storage."
 			:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] maximum cum storage.")),
 			"CUM_PRODUCTION",
-			BodyChanging.getTarget().getPenisRawCumStorageValue()+"ml",
+			Util.capitaliseSentence(BodyChanging.getTarget().getPenisCumStorage().getName())
+				+"<br/>("+BodyChanging.getTarget().getPenisRawCumStorageValue()+"ml)",
 			BodyChanging.getTarget().getPenisRawCumStorageValue()<=0,
 			BodyChanging.getTarget().getPenisRawCumStorageValue()>=CumProduction.SEVEN_MONSTROUS.getMaximumValue());
 	}
@@ -3460,13 +3474,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getPenisRawSizeValue() == size) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+size+"&quot;</span>"
+							+ "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+size+UtilText.INCH_SYMBOL+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='PENIS_SIZE_"+size+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.GENERIC_GOOD.getShades()[0]+";'>"+size+"&quot;</span>"
+							+ "<span style='color:"+Colour.GENERIC_GOOD.getShades()[0]+";'>"+size+UtilText.INCH_SYMBOL+"</span>"
 						+ "</div>");
 			}
 		}
@@ -3765,26 +3779,26 @@ public class CharacterModificationUtils {
 		return contentSB.toString();
 	}
 	
-	public static String getKatesDivAssHair(String title, String description) {
-		return getKatesDivGenericBodyHair(title, description, BodyChanging.getTarget().getAssHair(), "ASS_HAIR_", false);
+	public static String getKatesDivAssHair(boolean withCost, String title, String description) {
+		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getAssHair(), "ASS_HAIR_", false);
 	}
 	
-	public static String getKatesDivUnderarmHair(String title, String description) {
-		return getKatesDivGenericBodyHair(title, description, BodyChanging.getTarget().getUnderarmHair(), "UNDERARM_HAIR_", false);
+	public static String getKatesDivUnderarmHair(boolean withCost, String title, String description) {
+		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getUnderarmHair(), "UNDERARM_HAIR_", false);
 	}
 	
-	public static String getKatesDivFacialHair(String title, String description) {
-		return getKatesDivGenericBodyHair(title, description, BodyChanging.getTarget().getFacialHair(), "FACIAL_HAIR_", BodyChanging.getTarget().isFeminine() && !Main.game.isFemaleFacialHairEnabled());
+	public static String getKatesDivFacialHair(boolean withCost, String title, String description) {
+		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getFacialHair(), "FACIAL_HAIR_", BodyChanging.getTarget().isFeminine() && !Main.game.isFemaleFacialHairEnabled());
 	}
 	
-	public static String getKatesDivPubicHair(String title, String description) {
-		return getKatesDivGenericBodyHair(title, description, BodyChanging.getTarget().getPubicHair(), "PUBIC_HAIR_", false);
+	public static String getKatesDivPubicHair(boolean withCost, String title, String description) {
+		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getPubicHair(), "PUBIC_HAIR_", false);
 	}
 	
-	private static String getKatesDivGenericBodyHair(String title, String description, BodyHair activeHair, String id, boolean blockAllButNoneOptions) {
+	private static String getKatesDivGenericBodyHair(boolean withCost, String title, String description, BodyHair activeHair, String id, boolean blockAllButNoneOptions) {
 		contentSB.setLength(0);
 
-		boolean noCost = !Main.game.isInNewWorld();
+		boolean noCost = !withCost;
 		
 		contentSB.append(
 				"<div class='container-full-width'>"

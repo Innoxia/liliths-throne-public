@@ -85,11 +85,8 @@ public class GenericPositioning {
 				&& data.getPosition().getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 				&& Sex.getTotalParticipantCount(false)<=(data.getPerformerSlots().size()+data.getPartnerSlots().size())
 				&& (request
-						?Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL
+						?Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL
 						:Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL)
-				&& (request
-						?Sex.getCharacterPerformingAction().isPlayer()
-						:true)
 				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
 						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.game.getPlayer())
 						:true);

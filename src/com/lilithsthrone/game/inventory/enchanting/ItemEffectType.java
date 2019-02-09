@@ -337,7 +337,7 @@ public class ItemEffectType {
 					}
 				}
 				for(GameCharacter father : fathers) {
-					target.getPotentialPartnersAsFather().removeIf((pp) -> pp.getMotherId().equals(target.getId()) && target.getPregnantLitter().getFather() != (father));
+					father.getPotentialPartnersAsFather().removeIf((pp) -> pp.getMotherId().equals(target.getId()) && target.getPregnantLitter().getFather() != (father));
 				}
 				
 				target.getPotentialPartnersAsMother().removeIf((pp) -> !pp.getFatherId().equals(target.getPregnantLitter().getFatherId()));

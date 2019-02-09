@@ -229,7 +229,7 @@ public class SupplierPartner extends NPC {
 	}
 
 	public List<AbstractCoreItem> getLootItems() {
-		return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY));
+		return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH));
 	}
 	
 }

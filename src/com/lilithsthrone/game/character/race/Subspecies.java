@@ -211,7 +211,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(Math.random()<0.25f) {
-				if(body.getLeg().getType()==LegType.DEMON_COMMON) {
+				if(body.getLeg().getType().equals(LegType.DEMON_COMMON)) {
 					body.getLeg().setType(null, LegType.DEMON_HOOFED);
 				}
 			}
@@ -1201,10 +1201,13 @@ public enum Subspecies {
 			Colour primaryColor = Colour.COVERING_ORANGE;
 			Colour secondaryColor = Colour.COVERING_BLACK;
 			double rand = Math.random();
-			if(rand<0.05f) {
-				primaryColor = Colour.COVERING_BLACK;
-			}
-			else if(rand<0.10f) {
+			if(rand<0.02f) {
+				primaryColor = Colour.COVERING_TAN;
+			} else if(rand<0.4f) {
+				primaryColor = Colour.COVERING_AUBURN;
+			} else if(rand<0.6f) {
+				primaryColor = Colour.COVERING_AMBER;
+			} else if(rand<0.16f) {
 				primaryColor = Colour.COVERING_WHITE;
 			}
 			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.STRIPED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));

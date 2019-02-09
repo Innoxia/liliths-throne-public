@@ -479,7 +479,7 @@ public class SexPositionBipeds {
 			}
 			if(Sex.getCharacterInPosition(SexSlotBipeds.COWGIRL_RECEIVING_ORAL)!=null) {
 				sb.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.COWGIRL_ON_BACK), Sex.getCharacterInPosition(SexSlotBipeds.COWGIRL_RECEIVING_ORAL),
-						" [npc2.name] [npc.is] kneeling to one side of [npc.name], ready to put [npc.her] mouth to use."));
+						" [npc2.Name] [npc2.is] kneeling to one side of [npc.name], ready to put [npc.her] mouth to use."));
 			}
 			
 			return sb.toString();
@@ -1600,16 +1600,16 @@ public class SexPositionBipeds {
 				} else if(performers.size()>1) {
 					descriptionSB.append(" are");
 				} else {
-					descriptionSB.append(" [npc.is]");
+					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), " [npc.is]"));
 				}
 				try {
 					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL),
-							" kneeling on the floor in front of [npc.name]; "
-									+(playerSub
-											?"your"
-											:(performers.size()>1
-												?"their faces"
-												:UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), "[npc.her] [npc.face]")))
+							" kneeling on the floor in front of [npc.name], with "
+									+((performers.size()>1
+											?(playerSub
+												?"your faces"
+												:"their faces")
+											:UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), "[npc.her] [npc.face]")))
 									+" just inches away from [npc.her] groin..."));
 				} catch(Exception ex) {
 					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL), "kneeling on the floor in front of [npc.name]."));
@@ -1661,7 +1661,7 @@ public class SexPositionBipeds {
 				} else if(performers.size()>1) {
 					descriptionSB.append(" are");
 				} else {
-					descriptionSB.append(" [npc.is]");
+					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), " [npc.is]"));
 				}
 				descriptionSB.append(" kneeling on the floor in front of ");
 				
@@ -1713,7 +1713,7 @@ public class SexPositionBipeds {
 				} else if(performers.size()>1) {
 					descriptionSB.append(" are");
 				} else {
-					descriptionSB.append(" [npc.is]");
+					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL_SECOND), " [npc.is]"));
 				}
 				descriptionSB.append(" similarly kneeling on the floor in front of ");
 				

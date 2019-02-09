@@ -33,7 +33,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
@@ -56,7 +56,14 @@ public class NPCOffspring extends NPC {
 				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 
-		if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
+
+		if(mother.getSubspecies()==Subspecies.LILIN || mother.getSubspecies()==Subspecies.ELDER_LILIN) {
+			this.setSurname(mother.getName()+"martuilani");
+			
+		} else if(father.getSubspecies()==Subspecies.LILIN || father.getSubspecies()==Subspecies.ELDER_LILIN) {
+			this.setSurname(father.getName()+"martuilani");
+				
+		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
 			this.setSurname(mother.getSurname());
 		}
 		

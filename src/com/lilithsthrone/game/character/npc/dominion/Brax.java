@@ -876,9 +876,7 @@ public class Brax extends NPC {
 								Main.game.getPlayer().setArmType(ArmType.WOLF_MORPH);
 								Main.game.getPlayer().setLegType(LegType.WOLF_MORPH);
 								
-								if(Main.getProperties().multiBreasts!=0) {
-									Main.game.getPlayer().setBreastRows(3);
-								}
+								Main.game.getPlayer().setBreastRows(3);
 								break;
 								
 							case NORMAL: case MAXIMUM:
@@ -901,9 +899,7 @@ public class Brax extends NPC {
 								Main.game.getPlayer().setSkinType(SkinType.LYCAN);
 								Main.game.getPlayer().setFaceType(FaceType.LYCAN);
 								
-								if(Main.getProperties().multiBreasts!=0) {
-									Main.game.getPlayer().setBreastRows(3);
-								}
+								Main.game.getPlayer().setBreastRows(3);
 								break;
 						}
 						

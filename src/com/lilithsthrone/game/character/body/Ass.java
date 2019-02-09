@@ -241,7 +241,7 @@ public class Ass implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Ass.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Ass.class) && getType().getRace().isBestialPartsAvailable();
 	}
 	
 }

@@ -198,7 +198,7 @@ public class Mouth implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Mouth.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Mouth.class) && getType().getRace().isBestialPartsAvailable();
 	}
 	
 }

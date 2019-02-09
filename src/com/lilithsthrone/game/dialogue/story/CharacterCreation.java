@@ -1294,9 +1294,9 @@ public class CharacterCreation {
 			
 			if(Main.game.isFacialHairEnabled()) {
 				if (Main.game.isFemaleFacialHairEnabled()) {
-					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face."));
+					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivFacialHair(false, "Facial hair", "The body hair found on your face."));
 				} else {
-					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face. Feminine characters cannot grow facial hair."));
+					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivFacialHair(false, "Facial hair", "The body hair found on your face. Feminine characters cannot grow facial hair."));
 				}
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
@@ -1304,7 +1304,7 @@ public class CharacterCreation {
 			}
 			
 			if(Main.game.isPubicHairEnabled()) {
-				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivPubicHair("Pubic hair", "The body hair found in the genital area; located on and around your sex organs and crotch."));
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivPubicHair(false, "Pubic hair", "The body hair found in the genital area; located on and around your sex organs and crotch."));
 				
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
@@ -1313,7 +1313,7 @@ public class CharacterCreation {
 			
 			if(Main.game.isBodyHairEnabled()) {
 				UtilText.nodeContentSB.append(
-						CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits."));
+						CharacterModificationUtils.getKatesDivUnderarmHair(false, "Underarm hair", "The body hair found in your armpits."));
 				
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
@@ -1321,7 +1321,7 @@ public class CharacterCreation {
 			}
 			
 			if(Main.game.isAssHairEnabled()) {
-				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole."));
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivAssHair(false, "Ass hair", "The body hair found around your asshole."));
 				
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(

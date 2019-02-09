@@ -109,6 +109,7 @@ import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
@@ -951,6 +952,16 @@ public class Game implements XMLSaving {
 						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
 						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
 						((DarkSiren)Main.game.getNpc(DarkSiren.class)).postDefeatReset();
+					}
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.0.6")) { // For affection/incest gains that I missed in v0.3 & v0.3.0.5:
+					if(Main.game.getNpc(Lilaya.class).getRaceStage()==RaceStage.GREATER) {
+						Main.game.getNpc(Lilaya.class).setAffection(Main.game.getNpc(Lyssieth.class), 75);
+						Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 50);
+					}
+					if(Main.game.getNpc(DarkSiren.class).getRaceStage()==RaceStage.GREATER) {
+						Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lyssieth.class), 75);
+						Main.game.getNpc(DarkSiren.class).addFetish(Fetish.FETISH_INCEST);
 					}
 				}
 				

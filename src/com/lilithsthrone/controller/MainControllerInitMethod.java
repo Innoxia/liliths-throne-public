@@ -780,8 +780,8 @@ public class MainControllerInitMethod {
 			id = "LIMIT_DECREASE_LARGE";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				if(EnchantmentDialogue.getLimit()>0) {
-					int decrement = Math.min(-1, (EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())/10));
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.getLimit()-decrement));
+					int decrement = Math.min(-1, -(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())/10));
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.getLimit()+decrement));
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
@@ -4880,18 +4880,6 @@ public class MainControllerInitMethod {
 			}
 			
 			
-			// Multi-breast options:
-			for(int i=0; i<3; i++) {
-				id = "MULTI_BREAST_PREFERENCE_"+i;
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					setMultiBreastPreference(id, i);
-				}
-				id = "UDDER_PREFERENCE_"+i;
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					setUdderPreference(id, i);
-				}
-			}
-			
 			// Race preferences:
 			if (((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")) != null) {
 				((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")).addEventListener("click", e -> {
@@ -5085,6 +5073,18 @@ public class MainControllerInitMethod {
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
+				}
+			}
+
+			// Multi-breast options:
+			for(int i=0; i<3; i++) {
+				id = "MULTI_BREAST_PREFERENCE_"+i;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					setMultiBreastPreference(id, i);
+				}
+				id = "UDDER_PREFERENCE_"+i;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					setUdderPreference(id, i);
 				}
 			}
 			

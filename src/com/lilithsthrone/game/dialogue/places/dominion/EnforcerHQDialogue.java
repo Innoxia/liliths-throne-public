@@ -917,9 +917,7 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).setFemininity(75);
 						Main.game.getNpc(Brax.class).setBreastSize(CupSize.C.getMeasurement());
 						
-						if(Main.getProperties().multiBreasts!=0) {
-							Main.game.getNpc(Brax.class).setBreastRows(3);
-						}
+						Main.game.getNpc(Brax.class).setBreastRows(3);
 						
 						Main.game.getNpc(Brax.class).setHipSize(HipSize.THREE_GIRLY.getValue());
 						Main.game.getNpc(Brax.class).setAssSize(AssSize.FOUR_LARGE.getValue());

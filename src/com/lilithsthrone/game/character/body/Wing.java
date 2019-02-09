@@ -239,6 +239,6 @@ public class Wing implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Wing.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Wing.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

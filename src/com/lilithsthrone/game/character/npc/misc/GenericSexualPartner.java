@@ -181,12 +181,12 @@ public class GenericSexualPartner extends NPC {
 	private boolean playerRequested = false;
 	
 	@Override
-	public void generateSexChoices(GameCharacter target, List<SexType> request) {
+	public void generateSexChoices(boolean resetPositioningBan, GameCharacter target, List<SexType> request) {
 		if(this.getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_TOILETS && Sex.getTurn()>1) {
 			playerRequested = true;
 		}
 		
-		super.generateSexChoices(target, request);
+		super.generateSexChoices(resetPositioningBan, target, request);
 	}
 	
 	@Override

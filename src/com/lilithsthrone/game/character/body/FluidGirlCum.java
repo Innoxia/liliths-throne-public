@@ -482,6 +482,6 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(FluidGirlCum.class);
+		return owner.getLegConfiguration().getBestialParts().contains(FluidGirlCum.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

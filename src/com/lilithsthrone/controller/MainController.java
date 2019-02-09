@@ -36,6 +36,7 @@ import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEv
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipMoveEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseDescriptionEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseMoveEventListener;
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
@@ -78,6 +79,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -111,6 +113,7 @@ import javafx.concurrent.Worker.State;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
@@ -177,7 +180,9 @@ public class MainController implements Initializable {
 		webviewTooltip.setMaxWidth(400);
 		webviewTooltip.setMaxHeight(400);
 		webviewTooltip.getEngine().getHistory().setMaxSize(0);
-
+		Scene scene = new Scene(webviewTooltip);
+        scene.setFill(null);
+		
 		tooltip = new Tooltip();
 		tooltip.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 		tooltip.setGraphic(webviewTooltip);
@@ -443,7 +448,11 @@ public class MainController implements Initializable {
 //							 for(KeyboardAction action : KeyboardAction.values()) {
 //								 System.out.println(action.getPrimaryDefault().getFullName()+(action.getSecondaryDefault()!=null?" | "+action.getSecondaryDefault().getFullName():"")+": "+action.getName());
 //							 }
-							 
+							 try {
+								OutfitType.getAllOutfits().get(0).applyOutfit(Main.game.getPlayer(), true);
+							} catch (XMLLoadException e) {
+								e.printStackTrace();
+							}
 							 
 //							 System.out.println(Main.game.isInSex());
 						 }

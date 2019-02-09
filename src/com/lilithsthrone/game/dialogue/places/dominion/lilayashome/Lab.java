@@ -35,6 +35,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
@@ -118,11 +119,13 @@ public class Lab {
 	
 	private static void setEntryFlags() {
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.roseToldOnYou, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, false);
-		if(Main.game.getNpc(Lilaya.class).isPregnant()) {
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaBirthNews, true);
-		} else {
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaBirthNews, false);
+		if(Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, false);
+			if(Main.game.getNpc(Lilaya.class).isPregnant()) {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaBirthNews, true);
+			} else {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaBirthNews, false);
+			}
 		}
 		if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 			Main.game.getNpc(Lilaya.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
@@ -304,42 +307,51 @@ public class Lab {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ARTHUR"));
 				
 			} else {
-				if(Main.game.getPlayer().getRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
-					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaBirthNews)) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION_PREGNANCY_RESOLVED"));
+				if(Main.game.getNpc(Lilaya.class).getRaceStage()==RaceStage.GREATER) { // Lilaya a full demon:
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ROSE_TOLD_ON_YOU"));
 					} else {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION_NO_PREGNANCY"));
-					}
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION"));
-					
-				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
-					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_PREGNANT"));
-						
-					} else {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_NOT_PREGNANT"));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE_END"));
 					}
 					
-				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaBirthNews)) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_PREGNANCY_RESOLVED"));
-					
-				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE"));
-
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_NAUGHTY_ROSE"));
-					
-					if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ROSE_TOLD_ON_YOU_DEMON"));
+				} else { // Lilaya is not a full demon:
+					if(Main.game.getPlayer().getRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaBirthNews)) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION_PREGNANCY_RESOLVED"));
 						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE_END_DEMON"));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION_NO_PREGNANCY"));
+						}
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION"));
+						
+					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
+						if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_PREGNANT"));
+							
+						} else {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_NOT_PREGNANT"));
 						}
 						
+					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaBirthNews)) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_PREGNANCY_RESOLVED"));
+						
 					} else {
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ROSE_TOLD_ON_YOU"));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE"));
+	
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_NAUGHTY_ROSE"));
+						
+						if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ROSE_TOLD_ON_YOU_DEMON"));
+							} else {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE_END_DEMON"));
+							}
+							
 						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE_END"));
+							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ROSE_TOLD_ON_YOU"));
+							} else {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_BASE_END"));
+							}
 						}
 					}
 				}
@@ -364,6 +376,7 @@ public class Lab {
 							setEntryFlags();
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon, true);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_DEMON_TF_AGREE"));
+							Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 50));
 						}
 					};
 					
@@ -392,7 +405,9 @@ public class Lab {
 				}
 				return null;
 				
-			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults) && Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults)
+					&& Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
+					&& Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
 				if(index==0) {
 					return new Response("Thrown out", "Lilaya is clearly not interested in talking to you until her pregnancy has been resolved...", LAB_EXIT_THROWN_OUT) {
 						@Override
@@ -432,6 +447,7 @@ public class Lab {
 							public void effects() {
 								setEntryFlags();
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_DEMON_TF_AGREE_AFTER_REPEAT"));
+								Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 50));
 							}
 						};
 						
@@ -521,7 +537,11 @@ public class Lab {
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX_CREAMPIE");
 			} else {
-				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX");
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
+					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX_NO_ORGASM");
+				} else {
+					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX");
+				}
 			}
 		}
 		
@@ -879,7 +899,11 @@ public class Lab {
 				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA_CREAMPIE");
 				
 			} else {
-				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_CREAMPIE");
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
+					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA_NO_ORGASM");
+				} else {
+					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA");
+				}
 			}
 		}
 		
@@ -1063,7 +1087,7 @@ public class Lab {
 						|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.essencePostCombatDiscovered)) {
 					UtilText.nodeContentSB.append(
 							"<p>"
-								+ "[pc.speech(Well, you see, I recently had this weird experience, where I saw someone's arcane aura."
+								+ "[pc.speech(I wanted to ask you about this weird experience I recently had, where I saw someone's arcane aura."
 									+ " A piece of it broke off and shot <i>into</i> me, and I'm not sure if it needs to be removed or anything...)]"
 								+ " your voice trails off as you see an extremely concerned look flash across Lilaya's face."
 							+ "</p>"
@@ -1287,7 +1311,7 @@ public class Lab {
 			UtilText.nodeContentSB.append("<p>"
 					+ "[lilaya.speech(Ok, so, first thing to know is that these essences are no longer part of the person that they originally came from."
 							+ " It's not as though you're trapping a part of their soul into enchanted items or anything like that!)]"
-					+ " Lilaya starts explaining."
+					+ " Lilaya starts explaining,"
 					+ " [lilaya.speech(So don't have any qualms about using these essences to enchant or unjinx anything!)]"
 				+ "</p>"
 				+ "<p>"
@@ -1320,18 +1344,19 @@ public class Lab {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims,"
-							+ " [lilaya.speech(Oh! And this is also how that jinxed clothing of yours needs to be removed!"
-								+ " All you need to do is channel some of your absorbed essences into it, and it should come off."
-								+ " Jinxed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the jinx for them, but for you and I, jinxes are no more than a minor inconvenience.)]"
+							+ " [lilaya.speech(Oh, and this is also how items can be identified, as well as how that sealed clothing of yours needs to be removed!"
+								+ " All you need to do is channel some of your absorbed essences into an unidentified item to discover the enchantment, or into sealed clothing to allow you to remove it."
+								+ " Sealed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the seal for them, but for you and I, sealed clothing is no more than a minor inconvenience.)]"
 						+ "</p>");
 				
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Just as you're about to thank her for explaining about essences, Lilaya suddenly exclaims,"
-							+ " [lilaya.speech(Oh! And this is also how jinxed clothing is removed!"
-								+ " If you ever find yourself putting on some clothing, and then it just won't come off, all you need to do is channel some of your absorbed essences into it."
-								+ " Jinxed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the jinx for them, but for you and I, jinxes are no more than a minor inconvenience.)]"
+							+ " [lilaya.speech(Oh, and this is also how items can be identified, as well as how sealed clothing is removed!"
+								+ " All you need to do is channel some of your absorbed essences into an unidentified item to discover the enchantment."
+								+ " Also, if you ever find yourself putting on some clothing, and then it just won't come off, you need to do the same thing, and channel some of your absorbed essences into it to break the seal."
+								+ " Sealed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the seal for them, but for you and I, sealed clothing is no more than a minor inconvenience.)]"
 						+ "</p>");
 			}
 			
@@ -1810,7 +1835,12 @@ public class Lab {
 						true, true,
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))) {
+							@Override
+							public boolean isPositionChangingAllowed(GameCharacter character) {
+								return character.isPlayer();
+							}
+						},
 						null,
 						null,
 						LILAYA_END_SEX,
@@ -2058,7 +2088,12 @@ public class Lab {
 						true, true,
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))) {
+							@Override
+							public boolean isPositionChangingAllowed(GameCharacter character) {
+								return character.isPlayer();
+							}
+						},
 						null,
 						null,
 						LILAYA_END_SEX,

@@ -12998,8 +12998,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public float getArousal() {
 		return getAttributeValue(Attribute.AROUSAL);
 	}
-	
-	public void setArousal(float arousal) {
+
+	/**
+	 * @param arousal The arousal value to set.
+	 * @param overridePlayerSexArousalRestriction true if you want the player's arousal to not reset to 99 this turn. (It resets to 99 if the partner orgasms, so as to give them a chance to react.)
+	 */
+	public void setArousal(float arousal, boolean overridePlayerSexArousalRestriction) {
 		if (arousal < 0) {
 			setAttribute(Attribute.AROUSAL, 0, false);
 			
@@ -13009,8 +13013,16 @@ public abstract class GameCharacter implements XMLSaving {
 		} else {
 			setAttribute(Attribute.AROUSAL, arousal, false);
 		}
-
+		
+		if(Main.game.isInSex()) {
+			Sex.setPlayerArousalRestriction(!overridePlayerSexArousalRestriction);
+		}
+		
 		updateAttributeListeners();
+	}
+	
+	public void setArousal(float arousal) {
+		setArousal(arousal, false);
 	}
 	
 	public void incrementArousal(float increment) {
@@ -16291,7 +16303,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		
 		body.calculateRace(this);
 		calculateSpecialAttacks();
 
@@ -17766,6 +17777,14 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Breast rows:
 	public int getBreastRows() {
+		if(Main.getProperties().multiBreasts==0) {
+			return 1;
+			
+		} else if(Main.getProperties().multiBreasts==1) {
+			if(this.getSkinType()==SkinType.HUMAN) {
+				return 1;
+			}
+		}
 		return body.getBreast().getRows();
 	}
 	public String setBreastRows(int rows) {
@@ -18025,6 +18044,11 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// Misc:
 	public boolean hasBreastsCrotch() {
+		if(Main.getProperties().udders==0
+				|| (this.getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().udders==1)
+				|| (this.getLegConfiguration()==LegConfiguration.BIPEDAL && this.getRaceStage()!=RaceStage.GREATER)) {
+			return false;
+		}
 		return body.getBreastCrotch().getType()!=BreastType.NONE;
 	}
 	public boolean isBreastsCrotchVisibleThroughClothing() {
@@ -19820,8 +19844,37 @@ public abstract class GameCharacter implements XMLSaving {
 				case HAIR_REINDEER_FUR:
 				case HAIR_SCALES_ALLIGATOR:
 				case HAIR_SQUIRREL_FUR:
+				case AIR_HAIR:
+				case HAIR_BAT_FUR:
+				case HAIR_FOX_FUR:
+				case HAIR_RABBIT_FUR:
+				case HAIR_RAT_FUR:
+				case ICE_HAIR:
+				case RUBBER_HAIR:
+				case STONE_HAIR:
+				case WATER_HAIR:
 				case SLIME_HAIR:
 					return body.getCoverings().get(BodyCoveringType.SLIME_HAIR);
+
+				case BODY_HAIR_ANGEL:
+				case BODY_HAIR_BAT_FUR:
+				case BODY_HAIR_BOVINE_FUR:
+				case BODY_HAIR_CANINE_FUR:
+				case BODY_HAIR_DEMON:
+				case BODY_HAIR_FELINE_FUR:
+				case BODY_HAIR_FOX_FUR:
+				case BODY_HAIR_HARPY:
+				case BODY_HAIR_HORSE_HAIR:
+				case BODY_HAIR_HUMAN:
+				case BODY_HAIR_LYCAN_FUR:
+				case BODY_HAIR_RABBIT_FUR:
+				case BODY_HAIR_RAT_FUR:
+				case BODY_HAIR_REINDEER_HAIR:
+				case BODY_HAIR_SCALES_ALLIGATOR:
+				case BODY_HAIR_SQUIRREL_FUR:
+				case SLIME_BODY_HAIR:
+					return body.getCoverings().get(BodyCoveringType.SLIME_BODY_HAIR);
+					
 				case ANUS:
 				case SLIME_ANUS:
 					return body.getCoverings().get(BodyCoveringType.SLIME_ANUS);
@@ -19840,7 +19893,45 @@ public abstract class GameCharacter implements XMLSaving {
 				case PENIS:
 				case SLIME_PENIS:
 					return body.getCoverings().get(BodyCoveringType.SLIME_PENIS);
-				default:
+					
+				case AIR:
+				case ALLIGATOR_SCALES:
+				case ANGEL:
+				case ANGEL_FEATHER:
+				case ANTLER_REINDEER:
+				case ARCANE:
+				case ARCANE_HAIR:
+				case BAT_FUR:
+				case BAT_SKIN:
+				case BOVINE_FUR:
+				case CANINE_FUR:
+				case CUM:
+				case DEMON_COMMON:
+				case DEMON_FEATHER:
+				case DILDO:
+				case EYE_FOX_MORPH:
+				case FEATHERS:
+				case FELINE_FUR:
+				case FIRE:
+				case FIRE_HAIR:
+				case FOX_FUR:
+				case GIRL_CUM:
+				case HORN:
+				case HUMAN:
+				case HORSE_HAIR:
+				case ICE:
+				case LYCAN_FUR:
+				case MILK:
+				case RABBIT_FUR:
+				case RAT_FUR:
+				case RAT_SKIN:
+				case REINDEER_FUR:
+				case RUBBER:
+				case SLIME:
+				case SQUIRREL_FUR:
+				case STONE:
+				case TONGUE:
+				case WATER:
 					return body.getCoverings().get(BodyCoveringType.SLIME);
 			}
 		}

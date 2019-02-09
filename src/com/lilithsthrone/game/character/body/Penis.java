@@ -1076,6 +1076,6 @@ public class Penis implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Penis.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Penis.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

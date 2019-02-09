@@ -220,7 +220,7 @@ public class Anus implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Anus.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Anus.class) && getType().getRace().isBestialPartsAvailable();
 	}
 
 }

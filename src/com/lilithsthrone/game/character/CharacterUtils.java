@@ -949,9 +949,7 @@ public class CharacterUtils {
 				Util.randomItemFrom(demonBody.getBreastShapes()),
 				(startingGender.getGenderName().isHasBreasts()? demonBody.getBreastSize() : demonBody.getNoBreastSize()),
 				(startingGender.isFeminine() ? demonBody.getFemaleLactationRate() : demonBody.getMaleLactationRate()),
-				(Main.getProperties().multiBreasts==2
-						?(startingGender.isFeminine() ? demonBody.getBreastCountFemale() : demonBody.getBreastCountMale())
-						:1),
+				(startingGender.isFeminine() ? demonBody.getBreastCountFemale() : demonBody.getBreastCountMale()),
 				(startingGender.isFeminine() ? demonBody.getFemaleNippleSize() : demonBody.getMaleNippleSize()),
 				(startingGender.isFeminine() ? demonBody.getFemaleNippleShape() : demonBody.getMaleNippleShape()),
 				(startingGender.isFeminine() ? demonBody.getFemaleAreolaeSize() : demonBody.getMaleAreolaeSize()),
@@ -962,8 +960,8 @@ public class CharacterUtils {
 				true));
 		
 		body.setBreastCrotch(
-				new BreastCrotch(((demonBody.getLegConfiguration()!=LegConfiguration.BIPEDAL && Main.getProperties().udders>=1) || (stage==RaceStage.GREATER && Main.getProperties().udders==2)) && startingGender.isFeminine()
-					?demonBody.getBreastType()
+				new BreastCrotch(startingGender.isFeminine()
+					?demonBody.getBreastCrotchType()
 					:BreastType.NONE,
 				Util.randomItemFrom(demonBody.getBreastCrotchShapes()),
 				demonBody.getBreastCrotchSize(),
@@ -1152,9 +1150,7 @@ public class CharacterUtils {
 						Util.randomItemFrom(startingBodyType.getBreastShapes()),
 						(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
-						((stage.isSkinFurry() && Main.getProperties().multiBreasts>=1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
-								?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
-								:1),
+						(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleShape() : startingBodyType.getMaleNippleShape()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleAreolaeSize() : startingBodyType.getMaleAreolaeSize()),
@@ -1207,8 +1203,8 @@ public class CharacterUtils {
 				.wing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
 				.breastCrotch(
 					new BreastCrotch(
-							((startingBodyType.getLegConfiguration()!=LegConfiguration.BIPEDAL && Main.getProperties().udders>=1) || (stage==RaceStage.GREATER && Main.getProperties().udders==2)) && startingGender.isFeminine()
-								?startingBodyType.getBreastType()
+							startingGender.isFeminine()
+								?startingBodyType.getBreastCrotchType()
 								:BreastType.NONE,
 							Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
 							startingBodyType.getBreastCrotchSize(),
@@ -1270,9 +1266,7 @@ public class CharacterUtils {
 				Util.randomItemFrom(startingBodyType.getBreastShapes()),
 				(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
-				((stage.isSkinFurry() && Main.getProperties().multiBreasts>=1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
-						?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
-						:1),
+				(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleNippleShape() : startingBodyType.getMaleNippleShape()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleAreolaeSize() : startingBodyType.getMaleAreolaeSize()),
@@ -1283,21 +1277,22 @@ public class CharacterUtils {
 				true));
 
 		body.setBreastCrotch(
-				new BreastCrotch(((startingBodyType.getLegConfiguration()!=LegConfiguration.BIPEDAL && Main.getProperties().udders>=1) || (stage==RaceStage.GREATER && Main.getProperties().udders==2)) && startingGender.isFeminine()
-					?startingBodyType.getBreastType()
-					:BreastType.NONE,
-				Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
-				startingBodyType.getBreastCrotchSize(),
-				startingBodyType.getBreastCrotchLactationRate(),
-				startingBodyType.getBreastCrotchCount(),
-				startingBodyType.getBreastCrotchNippleSize(),
-				startingBodyType.getBreastCrotchNippleShape(),
-				startingBodyType.getBreastCrotchAreolaeSize(),
-				startingBodyType.getNippleCountPerBreastCrotch(),
-				startingBodyType.getBreastCrotchCapacity(),
-				startingBodyType.getBreastCrotchElasticity(),
-				startingBodyType.getBreastCrotchPlasticity(), 
-				true));
+				new BreastCrotch(
+					startingGender.isFeminine()
+						?startingBodyType.getBreastCrotchType()
+						:BreastType.NONE,
+					Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
+					startingBodyType.getBreastCrotchSize(),
+					startingBodyType.getBreastCrotchLactationRate(),
+					startingBodyType.getBreastCrotchCount(),
+					startingBodyType.getBreastCrotchNippleSize(),
+					startingBodyType.getBreastCrotchNippleShape(),
+					startingBodyType.getBreastCrotchAreolaeSize(),
+					startingBodyType.getNippleCountPerBreastCrotch(),
+					startingBodyType.getBreastCrotchCapacity(),
+					startingBodyType.getBreastCrotchElasticity(),
+					startingBodyType.getBreastCrotchPlasticity(), 
+					true));
 		
 		body.setFace(new Face((stage.isFaceFurry()?startingBodyType.getFaceType():FaceType.HUMAN),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleLipSize() : startingBodyType.getMaleLipSize())));
@@ -1531,15 +1526,6 @@ public class CharacterUtils {
 		}
 		
 		//Breasts:
-		if(Main.getProperties().multiBreasts==0) {
-			character.setBreastRows(1);
-			
-		} else if(Main.getProperties().multiBreasts==1) {
-			if(character.getSkinType() == SkinType.HUMAN) {
-				character.setBreastRows(1);
-			}
-		}
-		
 		if(character.hasBreasts()) {
 			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 + Util.random.nextInt(5))); // Random size between -2 and +2 of base value.
 			if(Math.random()<=0.015f || character.hasFetish(Fetish.FETISH_LACTATION_SELF)) {

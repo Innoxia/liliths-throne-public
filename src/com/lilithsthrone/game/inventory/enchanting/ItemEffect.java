@@ -172,23 +172,25 @@ public class ItemEffect implements XMLSaving {
 	
 	public String applyEffect(GameCharacter user, GameCharacter target, int secondsPassed) {
 		this.timer.incrementSecondsPassed(secondsPassed);
-		if(target.getRace()==Race.DEMON
-				&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
-						|| getSecondaryModifier()==TFModifier.TF_TYPE_2
-						|| getSecondaryModifier()==TFModifier.TF_TYPE_3
-						|| getSecondaryModifier()==TFModifier.TF_TYPE_4
-						|| getSecondaryModifier()==TFModifier.TF_TYPE_5
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_ARACHNID
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR
-						|| getSecondaryModifier()==TFModifier.REMOVAL)) {
-			return UtilText.parse(target,
-					"<p style='text-align:center;'>"
-						+ "As [npc.nameIsFull] [style.boldDemon([npc.a_race])], the transformation has [style.boldBad(no effect)]!"
-					+ "</p>");
+		if(target!=null) {
+			if(target.getRace()==Race.DEMON
+					&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_2
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_3
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_4
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_5
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_ARACHNID
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR
+							|| getSecondaryModifier()==TFModifier.REMOVAL)) {
+				return UtilText.parse(target,
+						"<p style='text-align:center;'>"
+							+ "As [npc.nameIsFull] [style.boldDemon([npc.a_race])], the transformation has [style.boldBad(no effect)]!"
+						+ "</p>");
+			}
 		}
 		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target, this.timer);
 	}
