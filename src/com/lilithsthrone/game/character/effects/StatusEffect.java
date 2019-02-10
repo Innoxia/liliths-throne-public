@@ -3830,7 +3830,7 @@ public enum StatusEffect {
 			int minutes = (int) (1/recoveryModifier)/60;
 			int hours = minutes /60;
 			
-			return "Tightens 1"+UtilText.INCH_SYMBOL+" every "+(hours>=1
+			return "Tightens "+Units.size(1)+" every "+(hours>=1
 						?(hours)+" hour"+(hours==1?"":"s")+(minutes%60>0?" and "+(minutes%60)+" minute"+(minutes==1?"":"s"):"")
 						:(minutes )+" minute"+(minutes==1?"":"s"));
 		}
@@ -3842,64 +3842,64 @@ public enum StatusEffect {
 			if(Main.game.isInSex()) {
 				if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
 					recoveringEffects.add("[style.boldPink(Vagina stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+target.getVaginaRawCapacityValue()+""+UtilText.INCH_SYMBOL+")] to [style.boldBad("+Units.round(target.getVaginaStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldGood("+Units.size(target.getVaginaRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getVaginaStretchedCapacity())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
 					recoveringEffects.add("[style.boldPinkDeep(Asshole stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+target.getAssRawCapacityValue()+""+UtilText.INCH_SYMBOL+")] to [style.boldBad("+Units.round(target.getAssStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldGood("+Units.size(target.getAssRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getAssStretchedCapacity())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getAssPlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
 					recoveringEffects.add("[style.boldPinkLight(Nipples stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+target.getNippleRawCapacityValue()+""+UtilText.INCH_SYMBOL+")] to [style.boldBad("+Units.round(target.getNippleStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldGood("+Units.size(target.getNippleRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getNippleStretchedCapacity())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNipplePlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.hasBreastsCrotch() && target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 					recoveringEffects.add("[style.boldPurple(Crotch nipples stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+target.getNippleCrotchRawCapacityValue()+""+UtilText.INCH_SYMBOL+")] to [style.boldBad("+Units.round(target.getNippleCrotchStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldGood("+Units.size(target.getNippleCrotchRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getNippleCrotchStretchedCapacity())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNippleCrotchPlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
 					recoveringEffects.add("[style.boldViolet(Penile Urethra stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+target.getPenisRawCapacityValue()+""+UtilText.INCH_SYMBOL+")] to [style.boldBad("+Units.round(target.getPenisStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldGood("+Units.size(target.getPenisRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getPenisStretchedCapacity())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getUrethraPlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
 					recoveringEffects.add("[style.boldPurpleLight(Vaginal Urethra stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+target.getVaginaUrethraRawCapacityValue()+""+UtilText.INCH_SYMBOL+")] to [style.boldBad("+Units.round(target.getVaginaUrethraStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldGood("+Units.size(target.getVaginaUrethraRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getVaginaUrethraStretchedCapacity())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaUrethraPlasticity().getRecoveryModifier())+")]");
 				}
 				
 			} else {
 				if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
 					recoveringEffects.add("[style.boldPink(Vagina recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.round(target.getVaginaStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] to [style.boldGood("+target.getVaginaRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldBad("+Units.size(target.getVaginaStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getVaginaRawCapacityValue())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
 					recoveringEffects.add("[style.boldPinkDeep(Asshole recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.round(target.getAssStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] to [style.boldGood("+target.getAssRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldBad("+Units.size(target.getAssStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getAssRawCapacityValue())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getAssPlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
 					recoveringEffects.add("[style.boldPinkLight(Nipples recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.round(target.getNippleStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] to [style.boldGood("+target.getNippleRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldBad("+Units.size(target.getNippleStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getNippleRawCapacityValue())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNipplePlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.hasBreastsCrotch() && target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 					recoveringEffects.add("[style.boldPurple(Crotch nipples recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.round(target.getNippleCrotchStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] to [style.boldGood("+target.getNippleCrotchRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldBad("+Units.size(target.getNippleCrotchStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getNippleCrotchRawCapacityValue())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNippleCrotchPlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
 					recoveringEffects.add("[style.boldViolet(Penile Urethra recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.round(target.getPenisStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] to [style.boldGood("+target.getPenisRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldBad("+Units.size(target.getPenisStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getPenisRawCapacityValue())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getUrethraPlasticity().getRecoveryModifier())+")]");
 				}
 				if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
 					recoveringEffects.add("[style.boldPurpleLight(Vaginal Urethra recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.round(target.getVaginaUrethraStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] to [style.boldGood("+target.getVaginaUrethraRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+					recoveringEffects.add("From [style.boldBad("+Units.size(target.getVaginaUrethraStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getVaginaUrethraRawCapacityValue())+")]");
 					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaUrethraPlasticity().getRecoveryModifier())+")]");
 				}
 			}

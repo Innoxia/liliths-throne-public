@@ -62,9 +62,6 @@ import java.util.*;
  */
 public class UtilText {
 
-	public static final String FOOT_SYMBOL = "&#8242;"; // prime
-	public static final String INCH_SYMBOL = "&#8243;"; // double prime
-
 	private static String modifiedSentence;
 	public static StringBuilder transformationContentSB = new StringBuilder(4096);
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
