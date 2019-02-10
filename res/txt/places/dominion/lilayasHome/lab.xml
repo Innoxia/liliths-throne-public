@@ -120,8 +120,8 @@
 	<p>
 		[lilaya.speech(Yes, that's right!)] she angrily shouts, before marching over towards you.
 		#IF lilaya.isCondomBroke()
-		#THEN [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]
-		#ELSE [lilaya.speech(You ended up getting me pregnant! This is all your fault for using such cheap, crappy condoms! Why couldn't you have just pulled out instead?!)]
+		#THEN [lilaya.speech(You ended up getting me pregnant! This is all your fault for using such cheap, crappy condoms! Why couldn't you have just pulled out instead?!)]
+		#ELSE [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]		
 		#ENDIF
 	</p>
 	<p>
