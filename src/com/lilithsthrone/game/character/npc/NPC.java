@@ -245,10 +245,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * <b>-</b> Scars.<br/>
 	 * <b>-</b> Piercings.<br/>
 	 * <b>-</b> Clothing (remember underwear and accessories).<br/>
-	 * @param addAccessories TODO
 	 */
 	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, addAccessories);
+		CharacterUtils.equipClothingFromOutfit(this, null, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
 	}
 	
 	protected void resetBodyAfterVersion_2_10_5() {

@@ -25,6 +25,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.body.Antenna;
@@ -106,9 +107,11 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.AbstractOutfit;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -1968,7 +1971,45 @@ public class CharacterUtils {
 		}
 	}
 	
-	public static void equipClothing(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
+
+	public static void equipClothingFromOutfitFolderId(GameCharacter character, OutfitType outfitType, String folderId, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		equipClothingFromOutfits(character, OutfitType.getOutfitsFromIdStart(folderId), outfitType, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	}
+
+	public static void equipClothingFromOutfitType(GameCharacter character, OutfitType outfitType, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		equipClothingFromOutfits(character, OutfitType.getAllOutfits(), outfitType, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	}
+
+	private static void equipClothingFromOutfits(GameCharacter character, List<AbstractOutfit> availableOutfits, OutfitType outfitType, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		Map<AbstractOutfit, Integer> weightedOutfits = new HashMap<>();
+		
+		for(AbstractOutfit outfit : availableOutfits) {
+			if(outfit.isAvailableForCharacter(outfitType, character)) {
+				weightedOutfits.put(outfit, outfit.getWeight());
+			}
+		}
+		
+		if(weightedOutfits.isEmpty()) {
+			equipClothingFromOutfit(character, null, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+		} else {
+			equipClothingFromOutfit(character, Util.getRandomObjectFromWeightedMap(weightedOutfits), replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+		}
+	}
+
+	public static void equipClothingFromOutfitId(GameCharacter character, String outfitId, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		equipClothingFromOutfit(character, OutfitType.getOutfitTypeFromId(outfitId), replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	}
+	
+	public static void equipClothingFromOutfit(GameCharacter character, AbstractOutfit outfit, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		if(outfit!=null) {
+			try {
+				outfit.applyOutfit(character, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+				return;
+			} catch (XMLLoadException e) {
+				System.err.println("Outfit '"+outfit.getName()+"' could not be applied in CharacterUtils equipClothing(). Proceeding to randomly generate outfit...");
+			}
+		}
+		
 		Colour primaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
 				secondaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
 				lingerieColour = ColourListPresets.LINGERIE.getPresetColourList().get(Util.random.nextInt(ColourListPresets.LINGERIE.getPresetColourList().size()));
@@ -1998,11 +2039,10 @@ public class CharacterUtils {
 					}
 				}
 				
-				if((!slot.isCoreClothing() && onlyAddCoreClothing)
-						|| (slot==InventorySlot.LEG
+				if(slot==InventorySlot.LEG
 							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null
-							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getItemTags().contains(ItemTag.DRESS))) {
-					// Don't add clothing if not core
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getItemTags().contains(ItemTag.DRESS)) {
+					// Don't add leg clothing if dress has been added
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
 						if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty()) {
@@ -2056,11 +2096,11 @@ public class CharacterUtils {
 					}
 				}
 				
-				if((!slot.isCoreClothing() && onlyAddCoreClothing)
-						|| (slot==InventorySlot.LEG
+				if(slot==InventorySlot.LEG
 							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null
-							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType().toString().contains("DRESS"))) {//TODO please don't do this //BE QUIET
-					// Don't add clothing if not core
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType().toString().contains("DRESS")) {//TODO please don't do this //BE QUIET
+					// Don't add leg clothing if dress has been added
+					
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
 						if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty()) {

@@ -668,7 +668,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		Colour c2 = secondaryColour;
 		Colour c3 = tertiaryColour;
 
-		if (clothingType.getAllAvailablePrimaryColours() != null) {
+		if (primaryColour == null) {
+			if(clothingType.getAvailablePrimaryColours().isEmpty()) {
+				c1 = Colour.CLOTHING_BLACK;
+			} else {
+				c1 = clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size()));
+			}
+		} else if (clothingType.getAllAvailablePrimaryColours() != null) {
 			if (!clothingType.getAllAvailablePrimaryColours().contains(primaryColour)) {
 				c1 = clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size()));
 			}
@@ -1322,6 +1328,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public boolean isCanBeEquipped(GameCharacter clothingOwner) {
 		// This might not be the most efficient way of making this method, but I found it to be easily-readable:
+		BodyPartClothingBlock block = this.getSlot().getBodyPartClothingBlock(clothingOwner);
+		if (block != null && Collections.disjoint(block.getRequiredTags(), this.getItemTags())) {
+			return false;
+		}
 		if(getItemTags().contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
 			return false;
 		}
@@ -1365,6 +1375,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}	
 
 	public String getCannotBeEquippedText(GameCharacter clothingOwner) { // ...
+		BodyPartClothingBlock block = this.getSlot().getBodyPartClothingBlock(clothingOwner);
+		if (block != null && Collections.disjoint(block.getRequiredTags(), this.getItemTags())) {
+			return UtilText.parse("[style.colourBad(" + block.getDescription() + ")]");
+		}
 		if(getItemTags().contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
 			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arachnid bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
 		}
@@ -1549,7 +1563,16 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public boolean isConcealsSlot(GameCharacter character, InventorySlot slot) {
 		for(BlockedParts blockedPart : this.getBlockedPartsList(character)) {
-			if(blockedPart.concealedSlots.contains(slot)) {
+			if(blockedPart.concealedSlots.contains(slot) && !this.getItemTags().contains(ItemTag.TRANSPARENT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isConcealsCoverableArea(GameCharacter character, CoverableArea area) {
+		for(BlockedParts blockedPart : this.getBlockedPartsList(character)) {
+			if(blockedPart.blockedBodyParts.contains(area) && !this.getItemTags().contains(ItemTag.TRANSPARENT)) {
 				return true;
 			}
 		}

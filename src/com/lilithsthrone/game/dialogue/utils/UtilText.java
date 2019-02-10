@@ -55,7 +55,9 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
@@ -85,6 +87,8 @@ public class UtilText {
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
 	private static StringBuilder descriptionSB = new StringBuilder();
 	private static List<ParserTag> parserTags;
+	
+	private static AbstractClothingType clothingTypeForParsing;
 	
 	private static List<GameCharacter> specialNPCList = new ArrayList<>();
 	private static boolean parseCapitalise;
@@ -6005,6 +6009,7 @@ public class UtilText {
 		engine = null;
 	}
 	
+	
 	private static void initScriptEngine() {
 		
 		NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
@@ -6023,6 +6028,8 @@ public class UtilText {
 		}
 		engine.put("game", Main.game);
 		engine.put("properties", Main.getProperties());
+		
+		// Enums:
 		for(Race race : Race.values()) {
 			engine.put("RACE_"+race.toString(), race);
 		}
@@ -6052,6 +6059,9 @@ public class UtilText {
 		}
 		for(InventorySlot is : InventorySlot.values()) {
 			engine.put("IS_"+is.toString(), is);
+		}
+		for(ItemTag it : ItemTag.values()) {
+			engine.put("ITEM_TAG_"+it.toString(), it);
 		}
 		for(Weather w : Weather.values()) {
 			engine.put("WEATHER_"+w.toString(), w);
@@ -6584,6 +6594,15 @@ public class UtilText {
 			}
 		}
 		return sb.toString();
+	}
+
+	public static AbstractClothingType getClothingTypeForParsing() {
+		return clothingTypeForParsing;
+	}
+
+	public static void setClothingTypeForParsing(AbstractClothingType clothingTypeForParsing) {
+		UtilText.clothingTypeForParsing = clothingTypeForParsing;
+		engine.put("clothing", getClothingTypeForParsing());
 	}
 	
 }

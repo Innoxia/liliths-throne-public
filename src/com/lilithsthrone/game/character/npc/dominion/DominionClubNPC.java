@@ -114,7 +114,7 @@ public class DominionClubNPC extends NPC {
 
 	@Override
 	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
+		super.equipClothing(replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories); //TODO - add unique outfit type
 	}
 	
 	@Override

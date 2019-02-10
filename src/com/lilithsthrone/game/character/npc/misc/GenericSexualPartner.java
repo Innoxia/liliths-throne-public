@@ -130,8 +130,8 @@ public class GenericSexualPartner extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-	
-			CharacterUtils.equipClothing(this, true, false);
+
+			this.equipClothing(true, true, true, true);
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
@@ -156,7 +156,7 @@ public class GenericSexualPartner extends NPC {
 
 	@Override
 	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		// Not needed
+		super.equipClothing(replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories); //TODO - add unique outfit type
 	}
 	
 	@Override

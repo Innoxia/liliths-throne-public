@@ -449,7 +449,7 @@ public class MainController implements Initializable {
 //								 System.out.println(action.getPrimaryDefault().getFullName()+(action.getSecondaryDefault()!=null?" | "+action.getSecondaryDefault().getFullName():"")+": "+action.getName());
 //							 }
 							 try {
-								OutfitType.getAllOutfits().get(0).applyOutfit(Main.game.getPlayer(), true);
+								OutfitType.getAllOutfits().get(0).applyOutfit(Main.game.getPlayer(), true, true, true, true);
 							} catch (XMLLoadException e) {
 								e.printStackTrace();
 							}

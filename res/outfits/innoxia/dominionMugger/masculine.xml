@@ -2,9 +2,9 @@
 <!-- Look in the mods folder for a commented version of this. -->
 <outfit>
 	<coreAttributes>
-		<name><![CDATA[masculine mugger]]></name>
+		<name><![CDATA[dominion mugger (masculine)]]></name>
 		
-		<description><![CDATA[Dark, concealing clothing, with the possibility of a weapon or two...]]></description>
+		<description><![CDATA[Simple clothing, with the possibility of a weapon or two...]]></description>
 		
 		<femininity>MASCULINE</femininity>
 		
@@ -24,6 +24,7 @@
 		<clothingConditional2><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional2>
 		<clothingConditional3><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional3>
 		
+		
 		<presetColourGroup1>
 			<randomColour>CLOTHING_BLACK</randomColour>
 			<randomColour>CLOTHING_GREEN_DRAB</randomColour>
@@ -40,13 +41,19 @@
 			<randomColour>CLOTHING_BLUE_LIGHT</randomColour>
 		</presetColourGroup3>
 		
+		
         <mainWeapons>
 			<weapon>
-				<conditional><![CDATA[clothingConditional2]]></conditional>
+				<conditional><![CDATA[RND.​nextInt(100)<=25]]></conditional>
 				<type>innoxia_pipe_pipe</type>
-				<damageTypes>
-					<damage>PHYSICAL</damage>
-				</damageTypes>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[RND.​nextInt(100)<=25]]></conditional>
+				<type>innoxia_knuckleDusters_knuckle_dusters</type>
+				<damageTypes/>
 				<primaryColours/>
 				<secondaryColours/>
 			</weapon>
@@ -86,10 +93,9 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional/>
+			<conditional><![CDATA[RND.​nextInt(100)<=60]]></conditional>
 			<types>
 				<type>TORSO_OVER_HOODIE</type>
-				<type>TORSO_SHORT_SLEEVE_SHIRT</type>
 			</types>
 			<primaryColours>
 				<colour>presetColourGroup1</colour>
@@ -116,9 +122,7 @@
 			<types>
 				<type>MOUTH_BANDANA</type>
 			</types>
-			<primaryColours>
-				<colour>presetColourGroup1</colour>
-			</primaryColours>
+			<primaryColours/>
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
@@ -151,15 +155,6 @@
 			<conditional/>
 			<types>
 				<type>FOOT_WORK_BOOTS</type>
-			</types>
-			<primaryColours/>
-			<secondaryColours/>
-			<tertiaryColours/>
-		</clothingType>
-		
-		<clothingType>
-			<conditional/>
-			<types>
 				<type>FOOT_TRAINERS</type>
 			</types>
 			<primaryColours/>
