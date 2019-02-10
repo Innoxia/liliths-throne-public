@@ -1,0 +1,3 @@
+If you're looking for an example of how to create a weapon mod, navigate to the 'res/weapons/innoxia/dagger' folder.
+
+The .xml and .svg files in there are the exact same format as weapon mods. Make sure you place your mods in the 'res/mods/(yourName)/items/weapons' directory, though! (You'll need to create that directory yourself.)
