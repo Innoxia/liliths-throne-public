@@ -24,6 +24,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.3.1
@@ -37,6 +38,7 @@ public abstract class AbstractOutfit {
 	private String filePath;
 	private String name;
 	private String description;
+	private List<WorldType> worldTypes;
 	private Femininity femininity;
 	private List<OutfitType> outfitTypes;
 	private List<LegConfiguration> acceptableLegConfigurations;
@@ -60,6 +62,16 @@ public abstract class AbstractOutfit {
 			this.femininity = 	Femininity.valueOf(coreAttributes.getMandatoryFirstOf("femininity").getTextContent());
 			this.conditional = 	coreAttributes.getMandatoryFirstOf("conditional").getTextContent();
 			this.weight = 		Integer.valueOf(coreAttributes.getMandatoryFirstOf("weight").getTextContent());
+			
+			if(coreAttributes.getOptionalFirstOf("worldType").isPresent()) {
+				this.worldTypes = coreAttributes
+					.getMandatoryFirstOf("worldType") 
+					.getAllOf("world") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
+					.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
+					.map( e -> WorldType.valueOf(e.getTextContent())) // Take every element and do something with them, return a Stream of results after this action. Here we load outfit types and get Stream<OutfitType>
+					.filter(Objects::nonNull) // Ensure that we only add non-null effects
+					.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<OutfitType> we need! 
+			}
 			
 			this.outfitTypes = coreAttributes
 				.getMandatoryFirstOf("outfitTypes") 
@@ -92,7 +104,7 @@ public abstract class AbstractOutfit {
 	}
 	
 	public boolean isAvailableForCharacter(OutfitType type, GameCharacter character) {
-		switch(femininity) {
+		switch(this.getFemininity()) {
 			case FEMININE:
 			case FEMININE_STRONG:
 				if(!character.isFeminine()) {
@@ -107,6 +119,10 @@ public abstract class AbstractOutfit {
 					return false;
 				}
 				break;
+		}
+		
+		if(this.getWorldTypes()!=null && !this.getWorldTypes().contains(character.getWorldLocation())) {
+			return false;
 		}
 		
 		if(!this.getOutfitTypes().contains(type)) {
@@ -152,7 +168,11 @@ public abstract class AbstractOutfit {
 				try {
 					for(int i=1; i<20; i++) {
 						Element innerConditional = generationAttributes.getMandatoryFirstOf("clothingConditional"+i);
-						innerConditionals.add(innerConditional.getTextContent());
+						if(Boolean.valueOf(innerConditional.getAttribute("constant"))) {
+							innerConditionals.add(String.valueOf(evalConditional(character, innerConditional.getTextContent())));
+						} else {
+							innerConditionals.add(innerConditional.getTextContent());
+						}
 					}
 				} catch(Exception ex) {
 					// Just catch and continue when there are no more clothingConditional elements.
@@ -342,7 +362,8 @@ public abstract class AbstractOutfit {
 
 						// Check femininity:
 						try {
-							if(genericClothingType.getOptionalFirstOf("acceptableFemininities").isPresent()) {
+							if(genericClothingType.getOptionalFirstOf("acceptableFemininities").isPresent()
+									&& genericClothingType.getMandatoryFirstOf("acceptableFemininities").getOptionalFirstOf("femininity").isPresent()) {
 								anyConditionalsFound = true;
 
 								List<Femininity> femininities = genericClothingType.getMandatoryFirstOf("acceptableFemininities")
@@ -389,7 +410,8 @@ public abstract class AbstractOutfit {
 
 						// Check slot:
 						try {
-							if(genericClothingType.getOptionalFirstOf("slot").isPresent()) {
+							if(genericClothingType.getOptionalFirstOf("slot").isPresent()
+									&& !genericClothingType.getMandatoryFirstOf("slot").getTextContent().isEmpty()) {
 								anyConditionalsFound = true;
 								
 								InventorySlot slot = InventorySlot.valueOf(genericClothingType.getMandatoryFirstOf("slot").getTextContent());
@@ -682,6 +704,10 @@ public abstract class AbstractOutfit {
 
 	public Femininity getFemininity() {
 		return femininity;
+	}
+
+	public List<WorldType> getWorldTypes() {
+		return worldTypes;
 	}
 
 	public List<OutfitType> getOutfitTypes() {

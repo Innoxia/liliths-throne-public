@@ -29,6 +29,9 @@ public enum OutfitType {
 	/** To be used for formal business. Suits and such. */
 	BUSINESS,
 
+	/** To be used when performing manual labour. */
+	MANUAL_LABOUR,
+
 	/** To be used when going clubbing. */
 	CLUBBING,
 	

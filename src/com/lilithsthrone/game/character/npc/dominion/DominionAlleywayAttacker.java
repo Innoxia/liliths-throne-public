@@ -183,10 +183,11 @@ public class DominionAlleywayAttacker extends NPC {
 
 	@Override
 	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		if(this.getHistory()!=Occupation.NPC_PROSTITUTE) {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
+			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
 		} else {
-			super.equipClothing(replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+//			super.equipClothing(replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
 		}
 	}
 	

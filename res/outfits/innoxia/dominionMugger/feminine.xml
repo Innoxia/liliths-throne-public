@@ -8,6 +8,10 @@
 		
 		<femininity>FEMININE</femininity>
 		
+		<worldTypes>
+			<world>DOMINION</world>
+		</worldTypes>
+		
 		<outfitTypes>
 		  <type>MUGGER</type>
 		</outfitTypes>
@@ -20,10 +24,11 @@
 	</coreAttributes>
 	
 	<generationAttributes>
-		<clothingConditional1><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional1>
-		<clothingConditional2><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional2>
-		<clothingConditional3><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional3>
-		<clothingConditional4><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional4> <!-- For legwear femininity -->
+		<clothingConditional1 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional1>
+		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional2> <!-- knuckle dusters or pipe -->
+		<clothingConditional3 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional3>
+		<clothingConditional4 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional4> <!-- For legwear femininity -->
+		<clothingConditional5 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional5> <!-- weapons -->
 		
 		<presetColourGroup1>
 			<randomColour>CLOTHING_BLACK</randomColour>
@@ -43,14 +48,14 @@
 		
         <mainWeapons>
 			<weapon>
-				<conditional><![CDATA[clothingConditional2]]></conditional>
+				<conditional><![CDATA[clothingConditional5 && !clothingConditional2]]></conditional>
 				<type>innoxia_pipe_pipe</type>
 				<damageTypes/>
 				<primaryColours/>
 				<secondaryColours/>
 			</weapon>
 			<weapon>
-				<conditional><![CDATA[RND.​nextInt(100)<=25]]></conditional>
+				<conditional><![CDATA[clothingConditional5 && clothingConditional2]]></conditional>
 				<type>innoxia_knuckleDusters_knuckle_dusters</type>
 				<damageTypes/>
 				<primaryColours/>
@@ -58,9 +63,37 @@
 			</weapon>
         </mainWeapons>
 		
+        <offhandWeapons>
+			<weapon>
+				<conditional><![CDATA[clothingConditional5 && clothingConditional2 && RND.​nextInt(100)<=50]]></conditional>
+				<type>innoxia_knuckleDusters_knuckle_dusters</type>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+        </offhandWeapons>
+		
         <offhandWeapons/>
 		
+		
 		<guaranteedClothingEquips/>
+		
+		
+		<genericClothingType> <!-- Generic jewellery. -->
+			<itemTags/>
+			<acceptableFemininities>
+				<femininity>FEMININE</femininity>
+				<femininity>ANDROGYNOUS</femininity>
+			</acceptableFemininities>
+			<slot/>
+			<rarity>COMMON</rarity>
+			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=25 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional>
+			<primaryColours>
+				<colour>presetColourGroup2</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</genericClothingType>
 		
 		<genericClothingType>
 			<itemTags/>
@@ -182,11 +215,11 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[clothingConditional2]]></conditional>
+			<conditional><![CDATA[RND.​nextInt(100)<=50]]></conditional>
 			<types>
 				<type>MOUTH_BANDANA</type>
 			</types>
-			<primaryColours/>
+			<primaryColours values="DARK_SHADES"/>
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>

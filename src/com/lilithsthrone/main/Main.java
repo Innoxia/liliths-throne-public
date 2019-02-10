@@ -251,6 +251,7 @@ public class Main extends Application {
 			+ "<ul><b>Added:</b> Outfit generation framework, which enables the game to apply a preset list of clothing rules to characters of various sorts. At the moment, it's only applied to muggers, but I will add all other NPCs to it soon. The outfit generation is defined in xml files, so you can make mods for outfits. The 'mods/innoxia/outfits/casualDress/dress_toys.xml' file is annotated to explain how it works.</ul>"
 			+ "<ul>Changed & added colours, altered icons, and moved out to res/clothing/innoxia the follow clothing items: 'suit jacket', 'anklet', 'shin guards', 'elbow-length gloves'.</ul>"
 			+ "<ul>Added metallic effect to metal colours in clothing & weapon dye screens.</ul>"
+			+ "<ul>'Heart barbells' are now considered feminine.</ul>"
 			
 			+ "<li>Other:</li>"
 			+ "<ul>Moved multi-breast and udder settings from furry preferences to content options. Both of these options now disable/enable all relevant descriptions & interactions if you set them to off/on, instead of preventing/allowing NPCs to spawn with them.</ul>"
