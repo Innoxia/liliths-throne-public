@@ -20,8 +20,8 @@ public class ShoppingArcadeDialogue {
 	public static final DialogueNode OUTSIDE = new DialogueNode("Shopping arcade", "-", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -73,8 +73,8 @@ public class ShoppingArcadeDialogue {
 	public static final DialogueNode ENTRY = new DialogueNode("Entrance to the arcade", "-", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -159,12 +159,11 @@ public class ShoppingArcadeDialogue {
 		
 	};
 	
-	//TODO
 	public static final DialogueNode ARCADE = new DialogueNode("Shopping arcade", "-", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -202,8 +201,8 @@ public class ShoppingArcadeDialogue {
 	public static final DialogueNode GENERIC_SHOP = new DialogueNode("Shop", "-", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override

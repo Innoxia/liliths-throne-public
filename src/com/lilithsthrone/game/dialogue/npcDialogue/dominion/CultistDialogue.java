@@ -170,7 +170,7 @@ public class CultistDialogue {
 						+ (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
 								?"<p>"
 									+ "You look up to see her happy smile turn into a puzzled frown as she realises that you're not able to get access to your mouth."
-									+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
+									+ " Reaching down to your sealed clothing, she focuses her arcane energy into removing the seal."
 									+ " [npc.speech(There you go! Now you can suck cock to your heart's content!)]"
 								+ "</p>"
 								:"")
@@ -219,7 +219,7 @@ public class CultistDialogue {
 							+ (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
 									?"<p>"
 										+ "You look up to see her happy smile turn into a puzzled frown as she realises that she's not able to get access to your pussy."
-										+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
+										+ " Reaching down to your seal clothing, she focuses her arcane energy into removing the seal."
 										+ " [npc.speech(There we go! Now it's time for your special gift!)]"
 									+ "</p>"
 									:"")) {
@@ -269,7 +269,7 @@ public class CultistDialogue {
 						+ (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 								?"<p>"
 									+ "You look up to see her happy smile turn into a puzzled frown as she realises that she's not able to get access to your asshole."
-									+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
+									+ " Reaching down to your sealed clothing, she focuses her arcane energy into removing the seal."
 									+ " [npc.speech(There we go! Now it's time for your special gift!)]"
 								+ "</p>"
 								:"")) {
@@ -545,7 +545,7 @@ public class CultistDialogue {
 						null, ENCOUNTER_CHAPEL_POST_ORAL_SEX, (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 							?"<p>"
 								+ "You look up to see [npc.namePos] grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
-								+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
+								+ " Reaching down to your sealed clothing, she focuses her arcane energy into removing the seal."
 								+ " [npc.speech(There we go! Now let's both find out how much you love being my fuck-toy!)]"
 							+ "</p>"
 							:"")) {

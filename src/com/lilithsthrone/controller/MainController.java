@@ -1,6 +1,7 @@
 package com.lilithsthrone.controller;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,13 +19,7 @@ import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
-import com.lilithsthrone.controller.eventListeners.InventoryTooltipEventListener;
 import com.lilithsthrone.controller.eventListeners.SetContentEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipHideEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipInformationEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipMoveEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipResponseDescriptionEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipResponseMoveEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonCharactersEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonCopyDialogueEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonInventoryEventHandler;
@@ -35,7 +30,13 @@ import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveNorthEventL
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveSouthEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveWestEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonZoomEventListener;
-import com.lilithsthrone.controller.eventListeners.information.CopyInfoEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipCopyInfoEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipHideEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipMoveEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseDescriptionEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseMoveEventListener;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
@@ -62,6 +63,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -91,8 +93,8 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.ImageCache;
@@ -110,6 +112,7 @@ import javafx.concurrent.Worker.State;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
@@ -176,7 +179,9 @@ public class MainController implements Initializable {
 		webviewTooltip.setMaxWidth(400);
 		webviewTooltip.setMaxHeight(400);
 		webviewTooltip.getEngine().getHistory().setMaxSize(0);
-
+		Scene scene = new Scene(webviewTooltip);
+        scene.setFill(null);
+		
 		tooltip = new Tooltip();
 		tooltip.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 		tooltip.setGraphic(webviewTooltip);
@@ -442,7 +447,13 @@ public class MainController implements Initializable {
 //							 for(KeyboardAction action : KeyboardAction.values()) {
 //								 System.out.println(action.getPrimaryDefault().getFullName()+(action.getSecondaryDefault()!=null?" | "+action.getSecondaryDefault().getFullName():"")+": "+action.getName());
 //							 }
-							 
+//							 try {
+//								OutfitType.getAllOutfits().get(0).applyOutfit(Main.game.getPlayer(), true, true, true, true);
+//							} catch (XMLLoadException e) {
+//								e.printStackTrace();
+//							}
+							System.out.println(UtilText.generateSingularDeterminer("unicorn"));
+							System.out.println(UtilText.generateSingularDeterminer("Unicorn"));
 							 
 //							 System.out.println(Main.game.isInSex());
 						 }
@@ -869,7 +880,7 @@ public class MainController implements Initializable {
 	private ButtonMoveWestEventListener moveWestListener = new ButtonMoveWestEventListener();
 	
 	// Information:
-	static CopyInfoEventListener copyInfoListener = new CopyInfoEventListener();
+	static TooltipCopyInfoEventListener copyInfoListener = new TooltipCopyInfoEventListener();
 	
 	// Responses:
 	static TooltipResponseMoveEventListener responseTooltipListener = new TooltipResponseMoveEventListener();
@@ -1305,7 +1316,7 @@ public class MainController implements Initializable {
 					}
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
 					addEventListener(documentAttributes, id, "mouseenter", el2, false);
 				}
 			} else {
@@ -1314,7 +1325,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "click", el, false);
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
 					addEventListener(documentAttributes, id, "mouseenter", el2, false);
 				}
 			}
@@ -1371,7 +1382,12 @@ public class MainController implements Initializable {
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Time Display",
-					"Toggle the display of time between a 24 and 12-hour clock.");
+					"Toggle the display of time between a 24 and 12-hour clock.<br/>"
+					+ "<i>The time is currently "
+							+(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
+							?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH))
+							:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mm:ssa", Locale.ENGLISH)))
+					+"</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
@@ -1379,7 +1395,7 @@ public class MainController implements Initializable {
 			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mouseleave", hideTooltipListener, false);
 			
-			InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setEssence(TFEssence.ARCANE);
+			TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setEssence(TFEssence.ARCANE);
 			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mouseenter", el2, false);
 		}
 		
@@ -1646,7 +1662,7 @@ public class MainController implements Initializable {
 						
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
 						addEventListener(documentRight, id, "mouseenter", el2, false);
 					}
 				}
@@ -1658,7 +1674,7 @@ public class MainController implements Initializable {
 					
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
 					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}
@@ -1691,7 +1707,7 @@ public class MainController implements Initializable {
 					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null, false);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setWeapon(entry.getKey(), null, false);
 					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}
@@ -1706,7 +1722,7 @@ public class MainController implements Initializable {
 					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), null, null);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setClothing(entry.getKey(), null, null);
 					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}
@@ -1721,7 +1737,7 @@ public class MainController implements Initializable {
 					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), null, null);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setItem(entry.getKey(), null, null);
 					addEventListener(documentRight, id, "mouseenter", el2, false);	
 				}
 			}
@@ -2223,9 +2239,14 @@ public class MainController implements Initializable {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
-				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1));
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn));
+				
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1));
+						Main.game.setContent(new Response("", "", Main.game.getPlayer().getLocationPlace().getDialogue(true)));
+					}
+				});
 			}
 		}
 	}
@@ -2239,9 +2260,14 @@ public class MainController implements Initializable {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
-				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1));
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn));
+				
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1));
+						Main.game.setContent(new Response("", "", Main.game.getPlayer().getLocationPlace().getDialogue(true)));
+					}
+				});
 			}
 		}
 	}
@@ -2255,9 +2281,14 @@ public class MainController implements Initializable {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
-				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()));
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn));
+				
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()));
+						Main.game.setContent(new Response("", "", Main.game.getPlayer().getLocationPlace().getDialogue(true)));
+					}
+				});
 			}
 		}
 	}
@@ -2271,9 +2302,14 @@ public class MainController implements Initializable {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
-				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()));
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn));
+				
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()));
+						Main.game.setContent(new Response("", "", Main.game.getPlayer().getLocationPlace().getDialogue(true)));
+					}
+				});
 			}
 		}
 	}

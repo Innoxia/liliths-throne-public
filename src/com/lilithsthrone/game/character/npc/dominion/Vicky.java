@@ -4,7 +4,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -72,6 +71,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
@@ -459,12 +459,8 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public Set<SexSlot> getSexPositionPreferences(GameCharacter target) {
-		sexPositionPreferences.clear();
-		
-		sexPositionPreferences.add(SexSlotBipeds.MISSIONARY_DESK_DOM);
-		
-		return sexPositionPreferences;
+	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
+		return slot==SexSlotBipeds.MISSIONARY_DESK_DOM;
 	}
 
 	@Override

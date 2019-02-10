@@ -69,7 +69,7 @@ public enum SlaveEvent {
 		return description;
 	}
 	
+	// For use in overriding.
 	public void applyEffects(GameCharacter character) {
-		// :3
 	}
 }

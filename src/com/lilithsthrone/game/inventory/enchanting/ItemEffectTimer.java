@@ -3,33 +3,31 @@ package com.lilithsthrone.game.inventory.enchanting;
 import com.lilithsthrone.main.Main;
 
 /**
- * I am tired and don't know what I'm doing. I hope this isn't too stupid.
- * 
  * @since 0.2.0
- * @version 0.2.6
+ * @version 0.3.1
  * @author Innoxia
  */
 public class ItemEffectTimer {
-	private int timePassed;
+	private int secondsPassed;
 	
 	public ItemEffectTimer() {
 		if(Main.game!=null) {
-			timePassed = (int) (Main.game.getMinutesPassed()%60); // To synchronise all TFs on the hour.
+			secondsPassed = (int) (Main.game.getSecondsPassed()%(60*60)); // To synchronise all TFs on the hour.
 		} else {
-			timePassed = 0;
+			secondsPassed = 0;
 		}
 	}
 	
-	public int getTimePassed() {
-		return timePassed;
+	public int getSecondsPassed() {
+		return secondsPassed;
 	}
 
-	public void setTimePassed(int timePassed) {
-		this.timePassed = timePassed;
+	public void setSecondsPassed(int secondsPassed) {
+		this.secondsPassed = secondsPassed;
 	}
 	
-	public void incrementTimePassed(int increment) {
-		setTimePassed(getTimePassed() + increment);
+	public void incrementSecondsPassed(int increment) {
+		setSecondsPassed(getSecondsPassed() + increment);
 	}
 
 }

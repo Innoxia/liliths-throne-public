@@ -474,8 +474,8 @@ public class ReindeerOverseerDialogue {
 	public static final DialogueNode ENCOUNTER_WORK_FINISHED = new DialogueNode("Reindeer Overseer", "", true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 60 * 4;
+		public int getSecondsPassed() {
+			return 60 * 4*60;
 		}
 		
 		@Override

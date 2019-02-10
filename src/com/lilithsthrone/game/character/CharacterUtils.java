@@ -25,6 +25,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.body.Antenna;
@@ -106,9 +107,11 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.AbstractOutfit;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -881,9 +884,7 @@ public class CharacterUtils {
 				Util.randomItemFrom(demonBody.getBreastShapes()),
 				(startingGender.getGenderName().isHasBreasts()? demonBody.getBreastSize() : demonBody.getNoBreastSize()),
 				(startingGender.isFeminine() ? demonBody.getFemaleLactationRate() : demonBody.getMaleLactationRate()),
-				(Main.getProperties().multiBreasts==2
-						?(startingGender.isFeminine() ? demonBody.getBreastCountFemale() : demonBody.getBreastCountMale())
-						:1),
+				(startingGender.isFeminine() ? demonBody.getBreastCountFemale() : demonBody.getBreastCountMale()),
 				(startingGender.isFeminine() ? demonBody.getFemaleNippleSize() : demonBody.getMaleNippleSize()),
 				(startingGender.isFeminine() ? demonBody.getFemaleNippleShape() : demonBody.getMaleNippleShape()),
 				(startingGender.isFeminine() ? demonBody.getFemaleAreolaeSize() : demonBody.getMaleAreolaeSize()),
@@ -894,8 +895,8 @@ public class CharacterUtils {
 				true));
 		
 		body.setBreastCrotch(
-				new BreastCrotch(((demonBody.getLegConfiguration()!=LegConfiguration.BIPEDAL && Main.getProperties().udders>=1) || (stage==RaceStage.GREATER && Main.getProperties().udders==2)) && startingGender.isFeminine()
-					?demonBody.getBreastType()
+				new BreastCrotch(startingGender.isFeminine()
+					?demonBody.getBreastCrotchType()
 					:BreastType.NONE,
 				Util.randomItemFrom(demonBody.getBreastCrotchShapes()),
 				demonBody.getBreastCrotchSize(),
@@ -1084,9 +1085,7 @@ public class CharacterUtils {
 						Util.randomItemFrom(startingBodyType.getBreastShapes()),
 						(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
-						((stage.isSkinFurry() && Main.getProperties().multiBreasts>=1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
-								?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
-								:1),
+						(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleShape() : startingBodyType.getMaleNippleShape()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleAreolaeSize() : startingBodyType.getMaleAreolaeSize()),
@@ -1139,8 +1138,8 @@ public class CharacterUtils {
 				.wing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
 				.breastCrotch(
 					new BreastCrotch(
-							((startingBodyType.getLegConfiguration()!=LegConfiguration.BIPEDAL && Main.getProperties().udders>=1) || (stage==RaceStage.GREATER && Main.getProperties().udders==2)) && startingGender.isFeminine()
-								?startingBodyType.getBreastType()
+							startingGender.isFeminine()
+								?startingBodyType.getBreastCrotchType()
 								:BreastType.NONE,
 							Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
 							startingBodyType.getBreastCrotchSize(),
@@ -1202,9 +1201,7 @@ public class CharacterUtils {
 				Util.randomItemFrom(startingBodyType.getBreastShapes()),
 				(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
-				((stage.isSkinFurry() && Main.getProperties().multiBreasts>=1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
-						?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
-						:1),
+				(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleNippleShape() : startingBodyType.getMaleNippleShape()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleAreolaeSize() : startingBodyType.getMaleAreolaeSize()),
@@ -1215,21 +1212,22 @@ public class CharacterUtils {
 				true));
 
 		body.setBreastCrotch(
-				new BreastCrotch(((startingBodyType.getLegConfiguration()!=LegConfiguration.BIPEDAL && Main.getProperties().udders>=1) || (stage==RaceStage.GREATER && Main.getProperties().udders==2)) && startingGender.isFeminine()
-					?startingBodyType.getBreastType()
-					:BreastType.NONE,
-				Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
-				startingBodyType.getBreastCrotchSize(),
-				startingBodyType.getBreastCrotchLactationRate(),
-				startingBodyType.getBreastCrotchCount(),
-				startingBodyType.getBreastCrotchNippleSize(),
-				startingBodyType.getBreastCrotchNippleShape(),
-				startingBodyType.getBreastCrotchAreolaeSize(),
-				startingBodyType.getNippleCountPerBreastCrotch(),
-				startingBodyType.getBreastCrotchCapacity(),
-				startingBodyType.getBreastCrotchElasticity(),
-				startingBodyType.getBreastCrotchPlasticity(), 
-				true));
+				new BreastCrotch(
+					startingGender.isFeminine()
+						?startingBodyType.getBreastCrotchType()
+						:BreastType.NONE,
+					Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
+					startingBodyType.getBreastCrotchSize(),
+					startingBodyType.getBreastCrotchLactationRate(),
+					startingBodyType.getBreastCrotchCount(),
+					startingBodyType.getBreastCrotchNippleSize(),
+					startingBodyType.getBreastCrotchNippleShape(),
+					startingBodyType.getBreastCrotchAreolaeSize(),
+					startingBodyType.getNippleCountPerBreastCrotch(),
+					startingBodyType.getBreastCrotchCapacity(),
+					startingBodyType.getBreastCrotchElasticity(),
+					startingBodyType.getBreastCrotchPlasticity(), 
+					true));
 		
 		body.setFace(new Face((stage.isFaceFurry()?startingBodyType.getFaceType():FaceType.HUMAN),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleLipSize() : startingBodyType.getMaleLipSize())));
@@ -1320,13 +1318,18 @@ public class CharacterUtils {
 		return body;
 	}
 	
+	
+
+	public static String setGenericName(GameCharacter character, List<String> exclusiveAdjectives) {
+		return setGenericName(character, null, exclusiveAdjectives);
+	}
 	/**
 	 * Generates and sets a generic name for this character, based on their personality.
 	 * @param character The character to set a generic name for.
 	 * @param exclusiveAdjectives A list of adjectives to exclude from the random assignment.
 	 * @return The adjective that was chosen to describe the character.
 	 */
-	public static String setGenericName(GameCharacter character, List<String> exclusiveAdjectives) {
+	public static String setGenericName(GameCharacter character, String baseName, List<String> exclusiveAdjectives) {
 
 		List<String> characterAdjectives = new ArrayList<>();
 
@@ -1388,7 +1391,11 @@ public class CharacterUtils {
 		
 		String adjective = Util.randomItemFrom(characterAdjectives);
 		
-		character.setGenericName(adjective+" "+character.getSubspecies().getName(character));
+		if(baseName==null || baseName.isEmpty()) {
+			character.setGenericName(adjective+" "+character.getSubspecies().getName(character));
+		} else {
+			character.setGenericName(adjective+" "+baseName);
+		}
 		
 		return adjective;
 	}
@@ -1454,15 +1461,6 @@ public class CharacterUtils {
 		}
 		
 		//Breasts:
-		if(Main.getProperties().multiBreasts==0) {
-			character.setBreastRows(1);
-			
-		} else if(Main.getProperties().multiBreasts==1) {
-			if(character.getSkinType() == SkinType.HUMAN) {
-				character.setBreastRows(1);
-			}
-		}
-		
 		if(character.hasBreasts()) {
 			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 + Util.random.nextInt(5))); // Random size between -2 and +2 of base value.
 			if(Math.random()<=0.015f || character.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
@@ -1905,7 +1903,45 @@ public class CharacterUtils {
 		}
 	}
 	
-	public static void equipClothing(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
+
+	public static void equipClothingFromOutfitFolderId(GameCharacter character, OutfitType outfitType, String folderId, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		equipClothingFromOutfits(character, OutfitType.getOutfitsFromIdStart(folderId), outfitType, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	}
+
+	public static void equipClothingFromOutfitType(GameCharacter character, OutfitType outfitType, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		equipClothingFromOutfits(character, OutfitType.getAllOutfits(), outfitType, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	}
+
+	private static void equipClothingFromOutfits(GameCharacter character, List<AbstractOutfit> availableOutfits, OutfitType outfitType, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		Map<AbstractOutfit, Integer> weightedOutfits = new HashMap<>();
+		
+		for(AbstractOutfit outfit : availableOutfits) {
+			if(outfit.isAvailableForCharacter(outfitType, character)) {
+				weightedOutfits.put(outfit, outfit.getWeight());
+			}
+		}
+		
+		if(weightedOutfits.isEmpty()) {
+			equipClothingFromOutfit(character, null, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+		} else {
+			equipClothingFromOutfit(character, Util.getRandomObjectFromWeightedMap(weightedOutfits), replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+		}
+	}
+
+	public static void equipClothingFromOutfitId(GameCharacter character, String outfitId, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		equipClothingFromOutfit(character, OutfitType.getOutfitTypeFromId(outfitId), replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	}
+	
+	public static void equipClothingFromOutfit(GameCharacter character, AbstractOutfit outfit, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		if(outfit!=null) {
+			try {
+				outfit.applyOutfit(character, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+				return;
+			} catch (XMLLoadException e) {
+				System.err.println("Outfit '"+outfit.getName()+"' could not be applied in CharacterUtils equipClothing(). Proceeding to randomly generate outfit...");
+			}
+		}
+		
 		Colour primaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
 				secondaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
 				lingerieColour = ColourListPresets.LINGERIE.getPresetColourList().get(Util.random.nextInt(ColourListPresets.LINGERIE.getPresetColourList().size()));
@@ -1935,11 +1971,10 @@ public class CharacterUtils {
 					}
 				}
 				
-				if((!slot.isCoreClothing() && onlyAddCoreClothing)
-						|| (slot==InventorySlot.LEG
+				if(slot==InventorySlot.LEG
 							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null
-							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getItemTags().contains(ItemTag.DRESS))) {
-					// Don't add clothing if not core
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getItemTags().contains(ItemTag.DRESS)) {
+					// Don't add leg clothing if dress has been added
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
 						if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty()) {
@@ -1993,11 +2028,11 @@ public class CharacterUtils {
 					}
 				}
 				
-				if((!slot.isCoreClothing() && onlyAddCoreClothing)
-						|| (slot==InventorySlot.LEG
+				if(slot==InventorySlot.LEG
 							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null
-							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType().toString().contains("DRESS"))) {//TODO please don't do this //BE QUIET
-					// Don't add clothing if not core
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType().toString().contains("DRESS")) {//TODO please don't do this //BE QUIET
+					// Don't add leg clothing if dress has been added
+					
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
 						if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty()) {
@@ -2186,7 +2221,7 @@ public class CharacterUtils {
 	static {
 		suitableFeminineClothing.put(Occupation.NPC_PROSTITUTE,
 				Util.newArrayListOfValues(
-						ClothingType.ANKLE_BRACELET,
+						ClothingType.getClothingTypeFromId("innoxia_ankle_anklet"),
 						ClothingType.CHEST_LACY_PLUNGE_BRA,
 						ClothingType.CHEST_OPEN_CUP_BRA,
 						ClothingType.CHEST_PLUNGE_BRA,
@@ -2202,7 +2237,7 @@ public class CharacterUtils {
 						ClothingType.GROIN_LACY_PANTIES,
 						ClothingType.GROIN_THONG,
 						ClothingType.GROIN_VSTRING,
-						ClothingType.HAND_ELBOWLENGTH_GLOVES,
+						ClothingType.getClothingTypeFromId("innoxia_hand_elbow_length_gloves"),
 						ClothingType.HEAD_HEADBAND,
 						ClothingType.HEAD_HEADBAND_BOW,
 						ClothingType.LEG_CROTCHLESS_CHAPS,

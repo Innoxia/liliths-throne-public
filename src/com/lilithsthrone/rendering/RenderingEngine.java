@@ -410,7 +410,7 @@ public enum RenderingEngine {
 						boolean disabled = false;
 						switch(invSlot){
 							case HORNS:
-								disabled = charactersInventoryToRender.getHornType()==HornType.NONE;
+								disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
 								break;
 							case PENIS:
 								disabled = !charactersInventoryToRender.hasPenisIgnoreDildo();
@@ -465,7 +465,7 @@ public enum RenderingEngine {
 						boolean disabled = false;
 						switch(invSlot){
 							case HORNS:
-								disabled = charactersInventoryToRender.getHornType()==HornType.NONE;
+								disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
 								break;
 							case PENIS:
 								disabled = !charactersInventoryToRender.hasPenisIgnoreDildo();
@@ -973,42 +973,49 @@ public enum RenderingEngine {
 
 		uiAttributeSB.append("</div>");
 		
-		uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
-					+ "<div class='full-width-container' style='text-align:center; margin-left:4px;'>"
-					+"<div class='item-inline' style='float:left;'><div class='overlay' id='DATE_DISPLAY_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()+"</div></div>"
-							+ "<p style='color:"+Colour.TEXT.getShades(8)[3]+"; float:left; width:50%;'>"
-								+ (Main.getProperties().hasValue(PropertyValue.calendarDisplay)
-									? Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
-										+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
-										+ " "
-										+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
-									:"Day "+Main.game.getDayNumber())
-							+ "</p>"
-							+ "<p style='float:right; margin-right:8px;'>");
+		uiAttributeSB.append(
+				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
+					+ "<div class='half-width-container' style='text-align:center; float:left; width:60%'>"
+						+ "<div class='overlay-alt' id='DATE_DISPLAY_TOGGLE'>"
+							+"<div class='item-inline' style='float:left;'>"
+								+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()
+							+ "</div>"
+							+ (Main.getProperties().hasValue(PropertyValue.calendarDisplay)
+								? Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
+									+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
+									+ " "
+									+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
+								:"Day "+Main.game.getDayNumber())
+						+ "</div>"	
+					+"</div>"
+					+ "<div class='half-width-container' style='text-align:center; float:left; width:40%'>"
+						+ "<div class='overlay-alt' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"
+					);
 		
 		if(Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST)!=null
 				&& (Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_WOMENS_WATCH)
 						|| Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_MENS_WATCH))) {
-			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"
-						+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString(Main.game.getPlayer())+"</div></div>");
+			uiAttributeSB.append(
+							"<div class='item-inline' style='float:left;'>"
+									+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString(Main.game.getPlayer())
+							+ "</div>");
 			
 		} else {
-			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()+"</div></div>");
+			uiAttributeSB.append(
+					"<div class='item-inline' style='float:left;'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
+					+ "</div>");
 		}
 		
 		uiAttributeSB.append((Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
 								?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH))
 								:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mma", Locale.ENGLISH)))
-							+"</p>"
+							+"</div>"
 					+ "</div>"
-				+ "</div>"
-				);
+				+ "</div>");
 		
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
-
-			//TODO
 			uiAttributeSB.append(getInventoryEquippedPanel(Main.game.getPlayer()));
-			
 		} else {
 			uiAttributeSB.append("<div>" + renderedHTMLMap() + "</div>");
 		}
@@ -1194,7 +1201,7 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
-			if(charactersPresent.isEmpty() && place.getPopulation()==null) {
+			if(charactersPresent.isEmpty() && (place.getPopulation()==null || place.getPopulation().getSpecies().isEmpty())) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");
 				
 			} else {
@@ -1234,7 +1241,7 @@ public enum RenderingEngine {
 				}
 				
 				Population pop = place.getPopulation();
-				if(pop!=null) {
+				if(pop!=null && !pop.getSpecies().isEmpty()) {
 					uiAttributeSB.append(
 								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
 									+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
@@ -2077,7 +2084,7 @@ public enum RenderingEngine {
 			// Timed:
 			for (StatusEffect se : character.getStatusEffects()) {
 				if (!se.isCombatEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
-					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
+					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*60*6f))*100);
 	
 					Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
 					
@@ -2128,7 +2135,7 @@ public enum RenderingEngine {
 			// Timed:
 			for (StatusEffect se : character.getStatusEffects()) {
 				if (character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel() && se.isCombatEffect()) {
-					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
+					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*60*6f))*100);
 
 					Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
 					
@@ -2333,7 +2340,7 @@ public enum RenderingEngine {
 			// Timed:
 			for (StatusEffect se : character.getStatusEffects()) {
 				if (se.isSexEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
-					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
+					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*60*6f))*100);
 	
 					Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
 					

@@ -77,10 +77,10 @@ public class Element {
 	 * @param name String name of the attribute to return value of
 	 *
 	 * @return Attribute as String, for example:
-	 * {@code <element attribute = "value"></element>} returns "value".
+	 * {@code <element attribute = "value"></element>} returns "value". Returns an empty String if no such attribute was present.
 	 */
 	public String getAttribute(String name) {
-	return innerElement.getAttribute(name);
+		return innerElement.getAttribute(name);
 	}
 
 	/**

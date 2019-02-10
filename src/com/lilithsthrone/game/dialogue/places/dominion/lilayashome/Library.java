@@ -434,7 +434,7 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "As you slide the history book out from the bookshelf and flip through the pages, you see that there's not much content in it, and most of the pages are filled with large illustrations."
+						+ "As you slide the history book out from the bookshelf and flip through the pages, you see that there's not much content in it, and most of the pages are taken up by large illustrations."
 						+ " Looking at the front cover again, you see that the title is in fact 'A horse-morph's guide to Dominion's history'."
 						+ " Tutting at the author's apparent assumption about the intelligence of horse-morphs, you nevertheless have a quick read through the book's pages."
 					+ "</p>"

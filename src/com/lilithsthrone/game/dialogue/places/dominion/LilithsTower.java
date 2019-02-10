@@ -16,8 +16,8 @@ public class LilithsTower {
 	public static final DialogueNode OUTSIDE = new DialogueNode("Lilith's Tower", "Lilith's tower.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override

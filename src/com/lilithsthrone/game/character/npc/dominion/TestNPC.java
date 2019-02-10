@@ -211,8 +211,8 @@ public class TestNPC extends NPC {
 	public static final DialogueNode TEST_DIALOGUE = new DialogueNode("Shopping arcade", ".", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -254,8 +254,8 @@ public class TestNPC extends NPC {
 	public static final DialogueNode TEST_DIALOGUE_ENTER = new DialogueNode("A cozy room", ".", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override

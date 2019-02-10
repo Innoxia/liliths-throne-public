@@ -539,6 +539,6 @@ public class Face implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Face.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Face.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

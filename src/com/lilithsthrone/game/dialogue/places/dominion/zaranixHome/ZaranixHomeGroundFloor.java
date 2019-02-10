@@ -773,8 +773,11 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode ENTRANCE = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			if(Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+				return 60;
+			}
+			return 20;
 		}
 
 		@Override
@@ -846,8 +849,8 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode STAIRS = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -887,8 +890,8 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode CORRIDOR = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -920,8 +923,8 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode GARDEN_ENTRY = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -976,8 +979,8 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode GARDEN = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -999,8 +1002,8 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode GARDEN_ROOM = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -1032,8 +1035,11 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode CORRIDOR_MAID = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+				return 30;
+			}
+			return 60;
 		}
 
 		@Override
@@ -1115,8 +1121,8 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode ROOM = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -1138,8 +1144,8 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode LOUNGE = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override

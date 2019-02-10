@@ -314,8 +314,8 @@ public class TunnelSlimeDialogue {
 	public static final DialogueNode AFTER_SLIME_SEX_AS_SUB = new DialogueNode("Used", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override
@@ -351,8 +351,8 @@ public class TunnelSlimeDialogue {
 	public static final DialogueNode TRANSFORMED = new DialogueNode("", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -423,8 +423,8 @@ public class TunnelSlimeDialogue {
 	public static final DialogueNode RESIST_TRANSFORMED = new DialogueNode("", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -527,8 +527,8 @@ public class TunnelSlimeDialogue {
 	public static final DialogueNode OFFER_MONEY = new DialogueNode("", "", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override

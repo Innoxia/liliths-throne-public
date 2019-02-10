@@ -449,7 +449,7 @@ public class Ear implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Ear.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Ear.class) && getType().getRace().isBestialPartsAvailable();
 	}
 
 }

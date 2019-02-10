@@ -3,6 +3,8 @@ package com.lilithsthrone.game.character.body.valueEnums;
 import com.lilithsthrone.utils.Colour;
 
 /**
+ * The amount of fluid that gets replenished every minute
+ * 
  * @since 0.2.1
  * @version 0.2.1
  * @author Innoxia

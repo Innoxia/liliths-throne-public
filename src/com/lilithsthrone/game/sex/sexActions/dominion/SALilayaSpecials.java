@@ -52,7 +52,7 @@ public class SALilayaSpecials {
 		public boolean isBaseRequirementsMet() {
 			return (Main.game.getPlayer().getArousal() >= ArousalLevel.THREE_HEATED.getMinimumValue()
 					|| Sex.getActivePartner().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue())
-					&& !SexFlags.partnerRequestedPullOut
+					&& !SexFlags.characterRequestedPullOut
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 					&& !Sex.getCharacterPerformingAction().isPlayer();
@@ -76,7 +76,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.partnerRequestedPullOut = true;
+			SexFlags.characterRequestedPullOut = true;
 		}
 	};
 	
@@ -177,7 +177,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.partnerRequestedPullOut = true;
+			SexFlags.characterRequestedPullOut = true;
 		}
 	};
 	

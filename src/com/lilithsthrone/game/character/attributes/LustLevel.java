@@ -237,10 +237,10 @@ public enum LustLevel {
 							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, but [npc.is] still able to concentrate on taking things slow and gentle.");
 							break;
 						case THREE_LUSTFUL:
-							sb.append("[npc.NameIsFull] currently filled with lust, but [npc.is] still able to concentrate on taking things slow and gentle.");
+							sb.append("[npc.NameIsFull] currently burning with lust, but [npc.is] still able to concentrate on taking things slow and gentle.");
 							break;
 						case FOUR_IMPASSIONED:
-							sb.append("[npc.NameIsFull] completely filled with lust, but [npc.is] still able to concentrate on taking things slow and gentle.");
+							sb.append("[npc.NameIsFull] completely burning with lust, but [npc.is] still able to concentrate on taking things slow and gentle.");
 							break;
 						case FIVE_BURNING:
 							sb.append("[npc.NameIsFull] completely overwhelmed with lust, but, somehow, [npc.is] still able to concentrate on taking things slow and gentle.");
@@ -260,10 +260,10 @@ public enum LustLevel {
 							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, and [npc.is] very happy to be having sex right at this moment.");
 							break;
 						case THREE_LUSTFUL:
-							sb.append("[npc.NameIsFull] currently filled with lust, and [npc.is] ecstatic to be having sex right at this moment.");
+							sb.append("[npc.NameIsFull] currently burning with lust, and [npc.is] ecstatic to be having sex right at this moment.");
 							break;
 						case FOUR_IMPASSIONED:
-							sb.append("[npc.NameIsFull] completely filled with lust, but [npc.is] still able to prevent [npc.herself] from getting too carried away with things.");
+							sb.append("[npc.NameIsFull] completely burning with lust, but [npc.is] still able to prevent [npc.herself] from getting too carried away with things.");
 							break;
 						case FIVE_BURNING:
 							sb.append("[npc.NameIsFull] completely overwhelmed with lust, but, somehow, [npc.is] still able to prevent [npc.herself] from getting too carried away with things.");
@@ -283,10 +283,10 @@ public enum LustLevel {
 							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, and [npc.is] very happy to be having sex right at this moment.");
 							break;
 						case THREE_LUSTFUL:
-							sb.append("[npc.NameIsFull] currently filled with lust, and [npc.is] ecstatic to be having sex right at this moment.");
+							sb.append("[npc.NameIsFull] currently burning with lust, and [npc.is] ecstatic to be having sex right at this moment.");
 							break;
 						case FOUR_IMPASSIONED:
-							sb.append("[npc.NameIsFull] completely filled with lust, and [npc.is] really starting to get carried away with things.");
+							sb.append("[npc.NameIsFull] completely burning with lust, and [npc.is] really starting to get carried away with things.");
 							break;
 						case FIVE_BURNING:
 							sb.append("[npc.NameIsFull] completely overwhelmed with lust, and [npc.has] totally lost [npc.herself] to the pleasure of having sex.");
@@ -305,10 +305,10 @@ public enum LustLevel {
 							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
 							break;
 						case THREE_LUSTFUL:
-							sb.append("[npc.NameIsFull] currently filled with lust, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
+							sb.append("[npc.NameIsFull] currently burning with lust, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
 							break;
 						case FOUR_IMPASSIONED:
-							sb.append("[npc.NameIsFull] completely filled with lust, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
+							sb.append("[npc.NameIsFull] completely burning with lust, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
 							break;
 						case FIVE_BURNING:
 							sb.append("[npc.NameIsFull] completely overwhelmed with lust, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
@@ -329,10 +329,10 @@ public enum LustLevel {
 					sb.append("[npc.NameIsFull] currently feeling more than a little lustful, and [npc.is] thinking about sex quite a lot.");
 					break;
 				case THREE_LUSTFUL:
-					sb.append("[npc.NameIsFull] currently filled with lust, and [npc.is] struggling to think of anything other than sex.");
+					sb.append("[npc.NameIsFull] currently burning with lust, and [npc.is] struggling to think of anything other than sex.");
 					break;
 				case FOUR_IMPASSIONED:
-					sb.append("[npc.NameIsFull] completely filled with lust, and [npc.is] struggling to think of anything other than sex.");
+					sb.append("[npc.NameIsFull] completely burning with lust, and [npc.is] struggling to think of anything other than sex.");
 					break;
 				case FIVE_BURNING:
 					sb.append("[npc.NameIsFull] completely overwhelmed with lust, and [npc.is] incapable of thinking of anything but sex.");

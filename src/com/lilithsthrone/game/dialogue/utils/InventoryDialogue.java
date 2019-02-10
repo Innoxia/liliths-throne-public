@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -26,8 +23,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.BlockedParts;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -42,7 +37,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
@@ -56,7 +50,8 @@ public class InventoryDialogue {
 	
 	// Welcome to a slightly cleaned-up hell!
 	
-	private static final int IDENTIFICATION_PRICE = 10;
+	private static final int IDENTIFICATION_PRICE = 400;
+	private static final int IDENTIFICATION_ESSENCE_PRICE = 3;
 	
 	private static AbstractItem item;
 	private static AbstractClothing clothing;
@@ -67,7 +62,6 @@ public class InventoryDialogue {
 	private static InventoryInteraction interactionType;
 
 	private static StringBuilder inventorySB = new StringBuilder();
-	private static StringBuilder responseSB = new StringBuilder();
 
 	private static boolean buyback;
 
@@ -171,380 +165,24 @@ public class InventoryDialogue {
 
 			switch(interactionType) {
 				case COMBAT:
-					if(index == 1) {
-						return new Response("Take all", "You can't do this during combat!", null);
-						
-					} else if (index == 2) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
-							
-						} else {
-							return new Response("Displace all", "Displace as much of your clothing as possible.", Combat.ENEMY_ATTACK){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-									
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(Main.game.getPlayer())) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
-											}
-										}
-									}
-									Combat.appendTurnText(Main.game.getPlayer(), "Clothing Displacement", responseSB.toString());
-									Combat.endCombatTurn();
-									Combat.setPreviousAction(Attack.NONE);
-									Main.mainController.openInventory();
-								}
-							};
-						}
-						
-					} else if (index == 3) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Replace all", "You aren't wearing any clothing, so there's nothing to replace!", null);
-							
-						} else {
-							return new Response("Replace all", "Replace as much of your clothing as possible.", Combat.ENEMY_ATTACK){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-									
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									
-									for(AbstractClothing c : zlayerClothing) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(Main.game.getPlayer())) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												Main.game.getPlayer().isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
-											}
-										}
-									}
-
-									Combat.appendTurnText(Main.game.getPlayer(), "Clothing Replacement", responseSB.toString());
-									Combat.endCombatTurn();
-									Combat.setPreviousAction(Attack.NONE);
-									Main.mainController.openInventory();
-								}
-							};
-						}
-						
-					} else if (index == 4) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
-							
-						} else {
-							return new Response("Unequip all", "Remove as much of your clothing as possible.", Combat.ENEMY_ATTACK){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-									
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-									
-									for(AbstractClothing c : zlayerClothing) { 
-										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-									}
-
-									Combat.appendTurnText(Main.game.getPlayer(), "Clothing Removal", responseSB.toString());
-									Combat.endCombatTurn();
-									Combat.setPreviousAction(Attack.NONE);
-									Main.mainController.openInventory();
-								}
-							};
-						}
-						
-					} else if (index == 5) {
-						if(Main.game.getPlayer().getAllClothingInInventory().isEmpty()) {
-							return new Response("Equip all", "You don't have any clothing, so there's nothing to equip!", null);
-							
-						} else {
-							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", Combat.ENEMY_ATTACK){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-									
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									Set<InventorySlot> slotsTaken = new HashSet<>();
-									
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										slotsTaken.add(c.getClothingType().getSlot());
-									}
-									
-									for(AbstractClothing c : zlayerClothing) {
-										if(!slotsTaken.contains(c.getClothingType().getSlot())) {
-											responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
-											slotsTaken.add(c.getClothingType().getSlot());
-										}
-									}
-
-									Combat.appendTurnText(Main.game.getPlayer(), "Wearing Clothing", responseSB.toString());
-									Combat.endCombatTurn();
-									Combat.setPreviousAction(Attack.NONE);
-									Main.mainController.openInventory();
-								}
-							};
-						}
-						
-					} else {
-						return null;
-					}
-					
+					return null;
 				case FULL_MANAGEMENT:
-					if (index == 1) {
-						if(inventoryNPC == null ) {
-							if((Main.game.getPlayerCell().getInventory().getInventorySlotsTaken()==0 && !Main.game.getPlayerCell().getInventory().isAnyQuestItemPresent())
-									|| Main.game.isInCombat()
-									|| Main.game.isInSex()) {
-								return new Response("Take all", "Pick up everything on the ground.", null);
-								
-							} else {
-								return new Response("Take all", "Pick up everything on the ground.", INVENTORY_MENU){
-									@Override
-									public void effects(){
-										//TODO if this starts printing it will complain about the player's inventory being full
-										//TODO optimize (what if someone stores a thousand panties somewhere?)
-										int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
-										while(i > 0) {
-											Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true, true);
-											i--;
-										}
-										
-										i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
-										while(i > 0) {
-											Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
-											i--;
-										}
-										
-										i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
-										while(i > 0) {
-											Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
-											i--;
-										}
-									}
-								};
-							}
-							
-						} else {
-							if(inventoryNPC.getInventorySlotsTaken()==0 || Main.game.isInCombat() || Main.game.isInSex()) {
-								return new Response("Take all", UtilText.parse(inventoryNPC, "Take everything from [npc.namePos] inventory."), null);
-								
-							} else {
-								return new Response("Take all", UtilText.parse(inventoryNPC, "Take everything from [npc.namePos] inventory."), INVENTORY_MENU){
-									@Override
-									public void effects(){
-										//TODO if this starts printing it will complain about the player's inventory being full
-										//TODO optimize (what if someone stores a thousand panties somewhere?)
-										int i = inventoryNPC.getAllItemsInInventory().size();
-										while(i > 0) {
-											if(!Main.game.getPlayer().isInventoryFull()
-													|| Main.game.getPlayer().hasItem(inventoryNPC.getAllItemsInInventory().get(i-1))
-													|| inventoryNPC.getAllItemsInInventory().get(i-1).getRarity()==Rarity.QUEST) {
-												Main.game.getPlayer().addItem(inventoryNPC.getAllItemsInInventory().get(i-1), false, true);
-												inventoryNPC.removeItem(inventoryNPC.getAllItemsInInventory().get(i-1));
-											}
-											i--;
-										}
-										
-										i = inventoryNPC.getAllClothingInInventory().size();
-										while(i > 0) {
-											if(!Main.game.getPlayer().isInventoryFull()
-													|| Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))
-													|| inventoryNPC.getAllClothingInInventory().get(i-1).getRarity()==Rarity.QUEST) {
-												Main.game.getPlayer().addClothing(inventoryNPC.getAllClothingInInventory().get(i-1), true);
-												inventoryNPC.removeClothing(inventoryNPC.getAllClothingInInventory().get(i-1));
-											}
-											i--;
-										}
-										
-										i = inventoryNPC.getAllWeaponsInInventory().size();
-										while(i > 0) {
-											if(!Main.game.getPlayer().isInventoryFull()
-													|| Main.game.getPlayer().hasWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1))
-													|| inventoryNPC.getAllWeaponsInInventory().get(i-1).getRarity()==Rarity.QUEST) {
-												Main.game.getPlayer().addWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1), true);
-												inventoryNPC.removeWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1));
-											}
-											i--;
-										}
-									}
-								};
-							}
-						}
-						
-					} else if (index == 2) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
-							
-						} else {
-							return new Response("Displace all", "Displace as much of your clothing as possible.", INVENTORY_MENU){
-								@Override
-								public void effects(){
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(Main.game.getPlayer())) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
-											}
-										}
-									}
-								}
-							};
-						}
-						
-					} else if (index == 3) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Replace all", "You aren't wearing any clothing, so there's nothing to replace!", null);
-							
-						} else {
-							return new Response("Replace all", "Replace as much of your clothing as possible.", INVENTORY_MENU){
-								@Override
-								public void effects(){
-									
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									
-									for(AbstractClothing c : zlayerClothing) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(Main.game.getPlayer())) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												Main.game.getPlayer().isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
-											}
-										}
-									}
-								}
-							};
-						}
-						
-					} else if (index == 4) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
-							
-						} else {
-							return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
-								@Override
-								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-									
-									for(AbstractClothing c : zlayerClothing) { 
-										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-									}
-								}
-							};
-						}
-						
-					} else if (index == 5) {
-						if(Main.game.getPlayer().getAllClothingInInventory().isEmpty()) {
-							return new Response("Equip all", "You don't have any clothing, so there's nothing to equip!", null);
-							
-						} else {
-							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", INVENTORY_MENU){
-								@Override
-								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									Set<InventorySlot> slotsTaken = new HashSet<>();
-									
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										slotsTaken.add(c.getClothingType().getSlot());
-									}
-									
-									for(AbstractClothing c : zlayerClothing) {
-										if(!slotsTaken.contains(c.getClothingType().getSlot())) {
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
-											slotsTaken.add(c.getClothingType().getSlot());
-										}
-									}
-								}
-							};
-						}
-						
-					} else if (index == 6 && inventoryNPC != null) {
-						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to displace!"), null);
-							
-						} else {
-							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.namePos] clothing as possible."), INVENTORY_MENU){
-								@Override
-								public void effects(){
-									for(AbstractClothing c : inventoryNPC.getClothingCurrentlyEquipped()) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(inventoryNPC)) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												inventoryNPC.isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getDisplaceDescription()+"</p>");
-											}
-										}
-									}
-								}
-							};
-						}
-						
-					} else if (index == 7 && inventoryNPC != null) {
-						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Replace all (them)",  UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to replace!"), null);
-							
-						} else {
-							return new Response("Replace all (them)", UtilText.parse(inventoryNPC, "Replace as much of [npc.namePos] clothing as possible."), INVENTORY_MENU){
-								@Override
-								public void effects(){
-									
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(inventoryNPC.getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									
-									for(AbstractClothing c : zlayerClothing) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(inventoryNPC)) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												inventoryNPC.isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getReplaceDescription()+"</p>");
-											}
-										}
-									}
-								}
-							};
-						}
-						
-					} else if (index == 8 && inventoryNPC != null) {
-						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to remove!"), null);
-							
-						} else {
-							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.namePos] clothing as possible."), INVENTORY_MENU){
-								@Override
-								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(inventoryNPC.getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-									
-									for(AbstractClothing c : zlayerClothing) { 
-										inventoryNPC.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getUnequipDescription()+"</p>");
-									}
-								}
-							};
-						}
-						
-					} else if (index == 10 && !Main.game.isInSex() && !Main.game.isInCombat()) {
-						return getQuickTradeResponse();
-						
-					} else {
-						return null;
-					}
-					
+					return null;
 				case CHARACTER_CREATION:
 					if (index == 1) {
 						if(Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.NIPPLES)
 								|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.ANUS)
 								|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.PENIS)
 								|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.VAGINA)
-								|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType() == LegType.HUMAN)) {
+								|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType().equals(LegType.HUMAN))) {
 							return new Response("To the stage", "You need to be wearing clothing that covers your body, as well as a pair of shoes.", null);
 							
 						} else {
 							return new Response("To the stage", "You're ready to approach the stage now.", CharacterCreation.CHOOSE_BACKGROUND) {
+								@Override
+								public int getSecondsPassed() {
+									return CharacterCreation.TIME_TO_BACKGROUND;
+								}
 								@Override
 								public void effects() {
 									CharacterCreation.moveNPCIntoPlayerTile();
@@ -557,268 +195,9 @@ public class InventoryDialogue {
 					}
 					
 				case TRADING:
-					if (index == 1) {
-						if(inventoryNPC != null ||Main.game.getPlayerCell().getInventory().getInventorySlotsTaken()==0 || Main.game.isInCombat() || Main.game.isInSex()) {
-							return new Response("Take all", "Pick up everything on the ground.", null);
-							
-						} else {
-							return new Response("Take all", "Pick up everything on the ground.", INVENTORY_MENU){
-								@Override
-								public void effects(){
-									//TODO if this starts printing it will complain about the player's inventory being full
-									//TODO optimize (what if someone stores a thousand panties somewhere?)
-									int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
-									while(i > 0) {
-										Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true, true);
-										i--;
-									}
-									
-									i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
-									while(i > 0) {
-										Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
-										i--;
-									}
-									
-									i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
-									while(i > 0) {
-										Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
-										i--;
-									}
-								}
-							};
-						}
-						
-					} else if (index == 2) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
-							
-						} else {
-							return new Response("Displace all", "Displace as much of your clothing as possible.", INVENTORY_MENU){
-								@Override
-								public void effects(){
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(Main.game.getPlayer())) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
-											}
-										}
-									}
-								}
-							};
-						}
-						
-					} else if (index == 3) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Replace all", "You aren't wearing any clothing, so there's nothing to replace!", null);
-							
-						} else {
-							return new Response("Replace all", "Replace as much of your clothing as possible.", INVENTORY_MENU){
-								@Override
-								public void effects(){
-									
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									
-									for(AbstractClothing c : zlayerClothing) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(Main.game.getPlayer())) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												Main.game.getPlayer().isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
-											}
-										}
-									}
-								}
-							};
-						}
-						
-					} else if (index == 4) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
-							
-						} else {
-							return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
-								@Override
-								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-									
-									for(AbstractClothing c : zlayerClothing) { 
-										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-									}
-								}
-							};
-						}
-						
-					} else if (index == 5) {
-						if(Main.game.getPlayer().getAllClothingInInventory().isEmpty()) {
-							return new Response("Equip all", "You don't have any clothing, so there's nothing to equip!", null);
-							
-						} else {
-							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", INVENTORY_MENU){
-								@Override
-								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									Set<InventorySlot> slotsTaken = new HashSet<>();
-									
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										slotsTaken.add(c.getClothingType().getSlot());
-									}
-									
-									for(AbstractClothing c : zlayerClothing) {
-										if(!slotsTaken.contains(c.getClothingType().getSlot())) {
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
-											slotsTaken.add(c.getClothingType().getSlot());
-										}
-									}
-								}
-							};
-						}
-						
-					} else if (index == 9 && inventoryNPC!=null) {
-						return getBuybackResponse();
-						
-					} else if (index == 10 && !Main.game.isInSex() && !Main.game.isInCombat()) {
-						return getQuickTradeResponse();
-						
-					} else {
-						return null;
-					}
-					
+					return null;
 				case SEX:
-					if(index == 1) {
-						return new Response("Take all", "Pick up everything on the ground.", null);
-						
-					} else if (index == 2) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
-							
-						} else {
-							return new Response("Displace all", "Displace as much of your clothing as possible.", Sex.SEX_DIALOGUE){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-									
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(Main.game.getPlayer())) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
-											}
-										}
-									}
-									
-									Sex.setUnequipClothingText(responseSB.toString());
-									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
-								}
-							};
-						}
-						
-					} else if (index == 3) {
-						return new Response("Replace all", "You can't replace clothing in sex!", null);
-						
-					} else if (index == 4) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
-							
-						} else {
-							return new Response("Unequip all", "Remove as much of your clothing as possible.", Sex.SEX_DIALOGUE){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-									
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-									
-									for(AbstractClothing c : zlayerClothing) { 
-										if(!c.getClothingType().getSlot().isJewellery()) {
-											Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-											responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-										}
-									}
-									
-									Sex.setUnequipClothingText(responseSB.toString());
-									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
-								}
-							};
-						}
-						
-					} else if (index == 5) {
-						return new Response("Equip all", "You can't equip clothing in sex!", null);
-							
-					} else if (index == 6 && inventoryNPC != null) {
-						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
-							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "You can't displace [npc.namePos] clothing in this sex scene!"), null);
-							
-						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to displace!"), null);
-							
-						} else {
-							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.namePos] clothing as possible."), Sex.SEX_DIALOGUE){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-									
-									for(AbstractClothing c : inventoryNPC.getClothingCurrentlyEquipped()) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsList(inventoryNPC)) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												inventoryNPC.isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												responseSB.append("<p style='text-align:center;'>"+inventoryNPC.getDisplaceDescription()+"</p>");
-											}
-										}
-									}
-									
-									Sex.setUnequipClothingText(responseSB.toString());
-									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
-								}
-							};
-						}
-						
-					} else if (index == 7 && inventoryNPC != null) {
-						return new Response("Replace all (them)", "You can't replace clothing in sex!", null);
-						
-					} else if (index == 8 && inventoryNPC != null) {
-						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
-							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "You can't unequip [npc.namePos] clothing in this sex scene!"), null);
-							
-						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to remove!"), null);
-							
-						} else {
-							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.namePos] clothing as possible."), Sex.SEX_DIALOGUE){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-									
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(inventoryNPC.getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-									
-									for(AbstractClothing c : zlayerClothing) { 
-										if(!c.getClothingType().getSlot().isJewellery()) {
-											inventoryNPC.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-											responseSB.append("<p style='text-align:center;'>"+inventoryNPC.getUnequipDescription()+"</p>");
-										}
-									}
-									
-									Sex.setUnequipClothingText(responseSB.toString());
-									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
-								}
-							};
-						}
-						
-					} else {
-						return null;
-					}
+					return null;
 			}
 			
 			return null;
@@ -3389,29 +2768,44 @@ public class InventoryDialogue {
 						if(clothing.isCondom()) {
 							return getCondomSabotageResponse(clothing);
 						}
-						if(clothing.getEnchantmentItemType(null)==null) {
-							return new Response("Enchant", "This clothing cannot be enchanted!", null);
-							
-						} else if(!clothing.isEnchantmentKnown()) {
-							return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
-							
-						} else if(Main.game.isDebugMode()) {
+						if(Main.game.isDebugMode()
+								|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
+							if(clothing.getEnchantmentItemType(null)==null) {
+								return new Response("Enchant", "This clothing cannot be enchanted!", null);
+								
+							} else if(!clothing.isEnchantmentKnown()) {
+								if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= IDENTIFICATION_ESSENCE_PRICE) {
+									return new Response("Identify ([style.italicsArcane("+IDENTIFICATION_ESSENCE_PRICE+" Essences)])",
+											"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself,"
+													+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.",
+											CLOTHING_INVENTORY) {
+										@Override
+										public void effects() {
+											Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+											Main.game.getTextEndStringBuilder().append(
+													"<p>"
+														+ "You channel the power of "+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+" of your arcane essences into the "+clothing.getName()
+															+", and as it emits a faint purple glow, you find yourself able to detect what sort of enchantment it has!"
+													+ "</p>"
+													+ clothing.setEnchantmentKnown(true)
+													+ "<p style='text-align:center;'>"
+														+ "Identifying the "+clothing.getName()+" has cost you [style.boldBad("+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+")] [style.boldArcane(Arcane Essences)]!"
+													+ "</p>");
+											RenderingEngine.setPage(Main.game.getPlayer(), clothing);
+										}
+									};
+								} else {
+									return new Response("Identify (<i>"+IDENTIFICATION_ESSENCE_PRICE+" Essences</i>)",
+											"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself ([style.italicsBad(which you don't have)]),"
+													+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.", null);
+								}
+							}
 							return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
 								public DialogueNode getNextDialogue() {
 									return EnchantmentDialogue.getEnchantmentMenu(clothing);
 								}
 							};
-							
-						} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-							if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-								return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-									@Override
-									public DialogueNode getNextDialogue() {
-										return EnchantmentDialogue.getEnchantmentMenu(clothing);
-									}
-								};
-							}
 						}
 						
 						return null;
@@ -3567,29 +2961,44 @@ public class InventoryDialogue {
 								if(clothing.isCondom()) {
 									return getCondomSabotageResponse(clothing);
 								}
-								if(clothing.getEnchantmentItemType(null)==null) {
-									return new Response("Enchant", "This clothing cannot be enchanted!", null);
-									
-								} else if(!clothing.isEnchantmentKnown()) {
-									return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
-									
-								}  else if(Main.game.isDebugMode()) {
+								if(Main.game.isDebugMode()
+										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
+									if(clothing.getEnchantmentItemType(null)==null) {
+										return new Response("Enchant", "This clothing cannot be enchanted!", null);
+										
+									} else if(!clothing.isEnchantmentKnown()) {
+										if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= IDENTIFICATION_ESSENCE_PRICE) {
+											return new Response("Identify ([style.italicsArcane("+IDENTIFICATION_ESSENCE_PRICE+" Essences)])",
+													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself,"
+															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.",
+													CLOTHING_INVENTORY) {
+												@Override
+												public void effects() {
+													Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+													Main.game.getTextEndStringBuilder().append(
+															"<p>"
+																+ "You channel the power of "+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+" of your arcane essences into the "+clothing.getName()
+																	+", and as it emits a faint purple glow, you find yourself able to detect what sort of enchantment it has!"
+															+ "</p>"
+															+ clothing.setEnchantmentKnown(true)
+															+ "<p style='text-align:center;'>"
+																+ "Identifying the "+clothing.getName()+" has cost you [style.boldBad("+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+")] [style.boldArcane(Arcane Essences)]!"
+															+ "</p>");
+													RenderingEngine.setPage(Main.game.getPlayer(), clothing);
+												}
+											};
+										} else {
+											return new Response("Identify (<i>"+IDENTIFICATION_ESSENCE_PRICE+" Essences</i>)",
+													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself ([style.italicsBad(which you don't have)]),"
+															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.", null);
+										}
+									}
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
-									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-											@Override
-											public DialogueNode getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(clothing);
-											}
-										};
-									}
 								}
 								
 								return null;
@@ -3828,29 +3237,44 @@ public class InventoryDialogue {
 								if(clothing.isCondom()) {
 									return getCondomSabotageResponse(clothing);
 								}
-								if(clothing.getEnchantmentItemType(null)==null) {
-									return new Response("Enchant", "This clothing cannot be enchanted!", null);
-									
-								} else if(!clothing.isEnchantmentKnown()) {
-									return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
-									
-								}  else if(Main.game.isDebugMode()) {
+								if(Main.game.isDebugMode()
+										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
+									if(clothing.getEnchantmentItemType(null)==null) {
+										return new Response("Enchant", "This clothing cannot be enchanted!", null);
+										
+									} else if(!clothing.isEnchantmentKnown()) {
+										if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= IDENTIFICATION_ESSENCE_PRICE) {
+											return new Response("Identify ([style.italicsArcane("+IDENTIFICATION_ESSENCE_PRICE+" Essences)])",
+													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself,"
+															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.",
+													CLOTHING_INVENTORY) {
+												@Override
+												public void effects() {
+													Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+													Main.game.getTextEndStringBuilder().append(
+															"<p>"
+																+ "You channel the power of "+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+" of your arcane essences into the "+clothing.getName()
+																	+", and as it emits a faint purple glow, you find yourself able to detect what sort of enchantment it has!"
+															+ "</p>"
+															+ clothing.setEnchantmentKnown(true)
+															+ "<p style='text-align:center;'>"
+																+ "Identifying the "+clothing.getName()+" has cost you [style.boldBad("+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+")] [style.boldArcane(Arcane Essences)]!"
+															+ "</p>");
+													RenderingEngine.setPage(Main.game.getPlayer(), clothing);
+												}
+											};
+										} else {
+											return new Response("Identify (<i>"+IDENTIFICATION_ESSENCE_PRICE+" Essences</i>)",
+													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself ([style.italicsBad(which you don't have)]),"
+															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.", null);
+										}
+									}
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNode getNextDialogue() {
 											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
-									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-											@Override
-											public DialogueNode getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(clothing);
-											}
-										};
-									}
 								}
 								
 								return null;
@@ -3886,18 +3310,21 @@ public class InventoryDialogue {
 									
 								}else {
 									return new Response("Identify (" + UtilText.formatAsMoney(IDENTIFICATION_PRICE, "span") + ")",
-												"Have the " + clothing.getName() + " identified for " + UtilText.formatAsMoney(IDENTIFICATION_PRICE, "span") + ".", INVENTORY_MENU){
+												"Have the " + clothing.getName() + " identified for " + UtilText.formatAsMoney(IDENTIFICATION_PRICE, "span") + ".", CLOTHING_INVENTORY){
 										@Override
 										public void effects(){
 											Main.game.getPlayer().removeClothing(clothing);
 											Main.game.getTextEndStringBuilder().append(
-													"<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(IDENTIFICATION_PRICE) + " to "
-															+inventoryNPC.getName("the")+", who promptly identifies your "+clothing.getName()+"."
+													"<p style='text-align:center;'>"
+														+ UtilText.parse(inventoryNPC,
+																"You hand over " + UtilText.formatAsMoney(IDENTIFICATION_PRICE) + " to [npc.name],"
+																		+ " who promptly feeds several bottles of arcane essence into a specialist identification device, before using it to reveal the enchantment on your "+clothing.getName()+".")
 													+ "</p>"
 													+clothing.setEnchantmentKnown(true));
 											
 											Main.game.getPlayer().addClothing(clothing, false);
 											Main.game.getPlayer().incrementMoney(-IDENTIFICATION_PRICE);
+											RenderingEngine.setPage(Main.game.getPlayer(), clothing);
 										}
 									};
 								}
@@ -3919,7 +3346,7 @@ public class InventoryDialogue {
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.ANUS)
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.PENIS)
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.VAGINA)
-									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType() == LegType.HUMAN)) {
+									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType().equals(LegType.HUMAN))) {
 								return new Response("To the stage", "You need to be wearing clothing that covers your body, as well as a pair of shoes.", null);
 								
 							} else {
@@ -5192,7 +4619,7 @@ public class InventoryDialogue {
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.ANUS)
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.PENIS)
 									|| Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.VAGINA)
-									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType() == LegType.HUMAN)) {
+									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType().equals(LegType.HUMAN))) {
 								return new Response("To the stage", "You need to be wearing clothing that covers your body, as well as a pair of shoes.", null);
 								
 							} else {
@@ -5867,7 +5294,11 @@ public class InventoryDialogue {
 		for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
 			inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-								+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "<div class='phone-item-colour' style='"
+									+ (c.isMetallic()
+											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+											:"background-color:" + c.toWebHexString() + ";")
+									+ "'></div>"
 							+ "</div>");
 		}
 		
@@ -5879,7 +5310,11 @@ public class InventoryDialogue {
 			for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-						+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "<div class='phone-item-colour' style='"
+									+ (c.isMetallic()
+											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+											:"background-color:" + c.toWebHexString() + ";")
+									+ "'></div>"
 					+ "</div>");
 			}
 			inventorySB.append("</div>");
@@ -5891,7 +5326,11 @@ public class InventoryDialogue {
 			for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-						+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "<div class='phone-item-colour' style='"
+									+ (c.isMetallic()
+											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+											:"background-color:" + c.toWebHexString() + ";")
+									+ "'></div>"
 					+ "</div>");
 			}
 			inventorySB.append("</div>");
@@ -5925,7 +5364,11 @@ public class InventoryDialogue {
 				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+									+ "<div class='phone-item-colour' style='"
+										+ (c.isMetallic()
+												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+												:"background-color:" + c.toWebHexString() + ";")
+										+ "'></div>"
 						+ "</div>");
 				}
 				inventorySB.append("</div>");
@@ -5937,7 +5380,11 @@ public class InventoryDialogue {
 				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+									+ "<div class='phone-item-colour' style='"
+										+ (c.isMetallic()
+												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+												:"background-color:" + c.toWebHexString() + ";")
+										+ "'></div>"
 						+ "</div>");
 				}
 				inventorySB.append("</div>");
@@ -5949,7 +5396,11 @@ public class InventoryDialogue {
 				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+									+ "<div class='phone-item-colour' style='"
+										+ (c.isMetallic()
+												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+												:"background-color:" + c.toWebHexString() + ";")
+										+ "'></div>"
 						+ "</div>");
 				}
 				inventorySB.append("</div>");
@@ -6004,7 +5455,11 @@ public class InventoryDialogue {
 			for (Colour c : weapon.getWeaponType().getAllAvailablePrimaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+									+ "<div class='phone-item-colour' style='"
+										+ (c.isMetallic()
+												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+												:"background-color:" + c.toWebHexString() + ";")
+										+ "'></div>"
 								+ "</div>");
 			}
 			
@@ -6018,7 +5473,11 @@ public class InventoryDialogue {
 			for (Colour c : weapon.getWeaponType().getAllAvailableSecondaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-						+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "<div class='phone-item-colour' style='"
+									+ (c.isMetallic()
+											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+											:"background-color:" + c.toWebHexString() + ";")
+									+ "'></div>"
 					+ "</div>");
 			}
 			inventorySB.append("</div>");
@@ -6462,6 +5921,10 @@ public class InventoryDialogue {
 	private static Response getCloseInventoryResponse() {
 		if(interactionType == InventoryInteraction.CHARACTER_CREATION) {
 			return new Response("Back", "Return to looking in the mirror at your appearance.", CharacterCreation.CHOOSE_ADVANCED_APPEARANCE){
+				@Override
+				public int getSecondsPassed() {
+					return -CharacterCreation.TIME_TO_CLOTHING;
+				}
 				@Override
 				public void effects(){
 					item = null;

@@ -670,6 +670,6 @@ public class Tail implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Tail.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Tail.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

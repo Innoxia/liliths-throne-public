@@ -273,7 +273,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Deep throat";
+			return "Deepthroat";
 		}
 
 		@Override
@@ -1890,7 +1890,7 @@ public class RalphOral {
 				} else {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into your stomach, and as you feel the hot seed filling you up, you let out a very muffled moan."
 							+ " The huge, black equine shaft continues to pump and twitch a few more times as it deposits its seed deep down your facial fuck hole."
-							+ " Only once your stomach is completely filled with sticky white horse-jizz, does Ralph finally come to the end of his orgasm."
+							+ " Only once your stomach is completely full of sticky white horse-jizz, does Ralph finally come to the end of his orgasm."
 							+ "<br/><br/>"
 							+ "As his balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used throat."
 							+ " A thick, slimy strand of cummy saliva drools down to form a little stream beneath your mouth, and you shuffle forwards, wiping yourself clean as you playfully smile up at Ralph."

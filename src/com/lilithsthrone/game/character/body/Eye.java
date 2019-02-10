@@ -478,6 +478,6 @@ public class Eye implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Eye.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Eye.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

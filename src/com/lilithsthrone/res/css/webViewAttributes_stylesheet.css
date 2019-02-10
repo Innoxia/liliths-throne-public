@@ -220,6 +220,19 @@ h6{
 	opacity:0.20;
 	border-radius:5px;
 }
+.overlay-alt {
+	width: 100%;
+	height: auto;
+	position: relative;
+	top: 0;
+	left: 0;
+	-webkit-user-select: none;
+	cursor: pointer;
+}
+.overlay-alt:hover{
+	background-color:#555;
+	border-radius:5px;
+}
 
 
 /***********************************************************/

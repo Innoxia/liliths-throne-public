@@ -1,7 +1,9 @@
+
 package com.lilithsthrone.utils;
 
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
@@ -15,19 +17,21 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+
 /**
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Util {
+	
 	public static Random random = new Random();
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
@@ -325,8 +329,8 @@ public class Util {
 	    }
 	}
 	
-	public static float getRoundedFloat(float input, int significantFigures) {
-		return (float) (((int)(input*Math.pow(10, significantFigures)))/Math.pow(10, significantFigures));
+	public static String getRoundedFloat(float input, int decimalPlaces) {
+		return String.format(Locale.ENGLISH,"%."+decimalPlaces+"f", input);
 	}
 	
 	private static String[] numbersLessThanTwenty = {
@@ -578,7 +582,9 @@ public class Util {
 	}
 
 	public static String inchesToFeetAndInches(int inches) {
-		return ((((inches) / 12) == 0 ? "" : (inches) / 12) + (((inches) / 12) > 0 ? "'" : "") + (((inches) % 12) == 0 ? "" : " ") + (((inches) % 12) != 0 ? ((inches) % 12) + "&quot;" : ""));
+		return inches==0
+					?"0"+UtilText.INCH_SYMBOL
+					:((((inches) / 12) == 0 ? "" : (inches) / 12) + (((inches) / 12) > 0 ? UtilText.FOOT_SYMBOL : "") + (((inches) % 12) == 0 ? "" : " ") + (((inches) % 12) != 0 ? ((inches) % 12) + UtilText.INCH_SYMBOL : ""));
 	}
 
 	public static int conversionKilogramsToPounds(int kg) {
@@ -686,8 +692,8 @@ public class Util {
 					continue;
 				}
 
-				// Add a full stop to the insert, creating its own sentence
-				insert += ".";
+//				// Add a full stop to the insert, creating its own sentence
+//				insert += ".";
 			}
 
 			int len = splitSentence[offset].length();
@@ -872,6 +878,7 @@ public class Util {
 			}
 		} catch(NoSuchElementException ex) {
 			System.err.println("Util.toStringList() error - NoSuchElementException! (It's probably nothing to worry about...)");
+			ex.printStackTrace();
 		}
 		return utilitiesStringBuilder.toString();
 	}

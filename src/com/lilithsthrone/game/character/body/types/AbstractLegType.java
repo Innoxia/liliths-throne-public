@@ -407,8 +407,11 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		// Ass:
 		partsList.add(bestialRaceNameWithDeterminer+"'s ass");
 		// Crotch boobs:
-		if(body.getBreastCrotch().getType()!=BreastType.NONE && !legConfiguration.isBipedalPositionedCrotchBoobs()) {
-			partsList.add("animal-like "+body.getBreastCrotch().getName(null));
+		if(Main.getProperties().udders>0
+				&& (legConfiguration!=LegConfiguration.BIPEDAL || (Main.getProperties().udders==2 && body.getRaceStage()==RaceStage.GREATER))) {
+			if(body.getBreastCrotch().getType()!=BreastType.NONE && !legConfiguration.isBipedalPositionedCrotchBoobs()) {
+				partsList.add("animal-like "+body.getBreastCrotch().getName(null));
+			}
 		}
 		bestialStringBuilder.append(Util.stringsToStringList(partsList, false)+".");
 		
@@ -481,7 +484,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		}
 		if(legConfiguration.getBestialParts().contains(BreastCrotch.class)) { // Crotch-boobs:
 			body.setBreastCrotch(
-					new BreastCrotch(body.isFeminine() && Main.getProperties().udders!=0
+					new BreastCrotch(body.isFeminine()
 						?startingBodyType.getBreastType()
 						:BreastType.NONE,
 					Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
