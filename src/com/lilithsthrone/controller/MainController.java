@@ -29,14 +29,13 @@ import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveNorthEventL
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveSouthEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveWestEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonZoomEventListener;
-import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipCopyInfoEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipHideEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipMoveEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseDescriptionEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseMoveEventListener;
-import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
@@ -79,7 +78,6 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -94,8 +92,8 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.ImageCache;
@@ -448,11 +446,13 @@ public class MainController implements Initializable {
 //							 for(KeyboardAction action : KeyboardAction.values()) {
 //								 System.out.println(action.getPrimaryDefault().getFullName()+(action.getSecondaryDefault()!=null?" | "+action.getSecondaryDefault().getFullName():"")+": "+action.getName());
 //							 }
-							 try {
-								OutfitType.getAllOutfits().get(0).applyOutfit(Main.game.getPlayer(), true, true, true, true);
-							} catch (XMLLoadException e) {
-								e.printStackTrace();
-							}
+//							 try {
+//								OutfitType.getAllOutfits().get(0).applyOutfit(Main.game.getPlayer(), true, true, true, true);
+//							} catch (XMLLoadException e) {
+//								e.printStackTrace();
+//							}
+							System.out.println(UtilText.generateSingularDeterminer("unicorn"));
+							System.out.println(UtilText.generateSingularDeterminer("Unicorn"));
 							 
 //							 System.out.println(Main.game.isInSex());
 						 }

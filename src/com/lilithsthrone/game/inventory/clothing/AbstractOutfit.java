@@ -63,9 +63,9 @@ public abstract class AbstractOutfit {
 			this.conditional = 	coreAttributes.getMandatoryFirstOf("conditional").getTextContent();
 			this.weight = 		Integer.valueOf(coreAttributes.getMandatoryFirstOf("weight").getTextContent());
 			
-			if(coreAttributes.getOptionalFirstOf("worldType").isPresent()) {
+			if(coreAttributes.getOptionalFirstOf("worldTypes").isPresent()) {
 				this.worldTypes = coreAttributes
-					.getMandatoryFirstOf("worldType") 
+					.getMandatoryFirstOf("worldTypes") 
 					.getAllOf("world") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
 					.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
 					.map( e -> WorldType.valueOf(e.getTextContent())) // Take every element and do something with them, return a Stream of results after this action. Here we load outfit types and get Stream<OutfitType>

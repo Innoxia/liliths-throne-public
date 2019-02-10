@@ -518,7 +518,7 @@ public class UtilText {
 		if(word.isEmpty()) {
 			return "";
 		}
-		if (isVowel(word.charAt(0)) || word.charAt(0)=='x' || word.charAt(0)=='X') {
+		if ((isVowel(word.charAt(0)) || word.charAt(0)=='x' || word.charAt(0)=='X') && !word.startsWith("Unicorn") && !word.startsWith("unicorn")) {
 			return "an";
 		} else {
 			return "a";
