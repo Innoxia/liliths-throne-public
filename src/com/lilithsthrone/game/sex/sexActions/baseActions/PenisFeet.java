@@ -51,8 +51,8 @@ public class PenisFeet {
 			
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getCharacterTargetedForSexAction(this).getLegType().getFootType()==FootType.HUMANOID
-				|| Sex.getCharacterTargetedForSexAction(this).getLegType().getFootType()==FootType.PAWS) {
+			if(Sex.getCharacterTargetedForSexAction(this).getLegType().getFootType().equals(FootType.HUMANOID)
+				|| Sex.getCharacterTargetedForSexAction(this).getLegType().getFootType().equals(FootType.PAWS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"[npc.Eagerly(pushing)] [npc2.namePos] [npc2.feet+] together, [npc.name] [npc.verb(press)] the [npc.cockHead+] of [npc.her] [npc.cock+] up against [npc2.namePos] soles,"
 										+ " before [npc.eagerly] thrusting [npc.her] [npc.hips] forwards and starting to fuck the crevice that's formed.",
@@ -79,7 +79,7 @@ public class PenisFeet {
 				}
 			}
 
-			if(Sex.getCharacterTargetedForSexAction(this).getLegType().getFootType()==FootType.HOOFS) {
+			if(Sex.getCharacterTargetedForSexAction(this).getLegType().getFootType().equals(FootType.HOOFS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"[npc.Eagerly(bringing)] [npc2.namePos] hard hoofs up to the sides of [npc.her] [npc.cock+], [npc.name] carefully [npc.verb(press)] the soles up against [npc.her] genitals,"
 										+ " before thrusting [npc.her] [npc.hips] forwards and starting to receive a hoofjob.",
@@ -106,7 +106,7 @@ public class PenisFeet {
 				}
 			}
 
-			if(Sex.getCharacterTargetedForSexAction(this).getLegType().getFootType()==FootType.TALONS) {
+			if(Sex.getCharacterTargetedForSexAction(this).getLegType().getFootType().equals(FootType.TALONS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"[npc.Eagerly(curling)] [npc2.namePos] bird-like feet around [npc.her] [npc.cock+], [npc.name] makes sure that [npc2.her] sharp talons are pointing away from [npc.her] genitals,"
 										+ " before thrusting [npc.her] [npc.hips] forwards and starting to receive a [npc2.footjob].",
@@ -180,8 +180,8 @@ public class PenisFeet {
 						" [npc2.Moaning] in delight, [npc2.name] softly [npc2.verb(slide)] [npc2.her] [npc2.feet+] up and down around [npc.namePos] [npc.cock+] as [npc2.she] [npc2.verb(deliver)] a gentle [npc2.footjob]."));
 				break;
 			case DOM_ROUGH:
-				if(Sex.getCharacterTargetedForSexAction(action).getLegType().getFootType()==FootType.HUMANOID
-					|| Sex.getCharacterTargetedForSexAction(action).getLegType().getFootType()==FootType.PAWS) {
+				if(Sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.HUMANOID)
+					|| Sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.PAWS)) {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(start)] roughly sliding [npc2.her] [npc2.feet+] up and down around [npc.namePos] [npc.cock+] in response,"
 									+ " letting out [npc2.a_moan+] as [npc2.she] [npc2.verb(give)] [npc.herHim] a forceful [npc2.footjob].",
@@ -190,7 +190,7 @@ public class PenisFeet {
 		
 						" [npc2.Moaning] in delight, [npc2.name] violently [npc2.verb(rub)] [npc2.her] [npc2.feet+] up and down around [npc.namePos] [npc.cock+] as [npc2.she] [npc2.verb(deliver)] a forceful [npc2.footjob]."));
 				}
-				if(Sex.getCharacterTargetedForSexAction(action).getLegType().getFootType()==FootType.HOOFS) {
+				if(Sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.HOOFS)) {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(start)] roughly sliding [npc2.her] [npc2.feet] up and down around [npc.namePos] [npc.cock+] in response,"
 									+ " not caring about the fact that using [npc2.her] hard hoofs in such a violent manner is extremely uncomfortable for [npc.herHim].",
@@ -201,7 +201,7 @@ public class PenisFeet {
 							" [npc2.Moaning] in delight, [npc2.name] violently [npc2.verb(rub)] [npc2.her] hard hoofs up and down around [npc.namePos] [npc.cock+],"
 									+ " laughing derisively at [npc.herHim] as [npc2.she] [npc2.verb(administer)] the uncomfortable, forceful [npc2.footjob]."));
 				}
-				if(Sex.getCharacterTargetedForSexAction(action).getLegType().getFootType()==FootType.TALONS) {
+				if(Sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.TALONS)) {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(start)] roughly sliding [npc2.her] [npc2.feet] up and down around [npc.namePos] [npc.cock+] in response,"
 									+ " not caring about the fact that [npc2.her] sharp talons keep on coming dangerously close to cutting [npc.herHim].",
@@ -616,8 +616,8 @@ public class PenisFeet {
 			
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getCharacterPerformingAction().getLegType().getFootType()==FootType.HUMANOID
-				|| Sex.getCharacterPerformingAction().getLegType().getFootType()==FootType.PAWS) {
+			if(Sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.HUMANOID)
+				|| Sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.PAWS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(slide)] [npc2.namePos] [npc2.cock+] over the soles of [npc.her] [npc.feet+],"
 								+ " before [npc.eagerly] pressing them together around [npc2.her] [npc2.cock] and starting to give [npc2.herHim] [npc.a_footjob].",
@@ -642,7 +642,7 @@ public class PenisFeet {
 				}
 			}
 
-			if(Sex.getCharacterPerformingAction().getLegType().getFootType()==FootType.HOOFS) {
+			if(Sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.HOOFS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(slide)] [npc2.namePos] [npc2.cock+] over [npc.her] hard hoofs,"
 								+ " before carefully pressing them against the sides of [npc2.her] [npc2.cock] and starting to give [npc2.herHim] [npc.a_footjob].",
@@ -667,7 +667,7 @@ public class PenisFeet {
 				}
 			}
 
-			if(Sex.getCharacterPerformingAction().getLegType().getFootType()==FootType.TALONS) {
+			if(Sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.TALONS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(slide)] [npc2.namePos] [npc2.cock+] over the soles of [npc.her] bird-like claws,"
 								+ " before carefully wrapping them around [npc2.her] [npc2.cock] and starting to give [npc2.herHim] [npc.a_footjob].",

@@ -30,8 +30,8 @@ public class HarpyNestBimbo {
 	public static final DialogueNode HARPY_NEST_BIMBO = new DialogueNode("Harpy nest", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override

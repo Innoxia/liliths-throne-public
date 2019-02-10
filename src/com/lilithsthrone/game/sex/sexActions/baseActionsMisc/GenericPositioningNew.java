@@ -89,12 +89,15 @@ public class GenericPositioningNew {
 						?Sex.getCharacterPerformingAction().isPlayer()
 						:true)
 				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
-						?(((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getTargetedPartner(Sex.getCharacterPerformingAction())).contains(data.getPerformerSlots().get(0))
-								|| ((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterPerformingAction()).isEmpty())
+						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.game.getPlayer())
 						:true);
 	}
 
 	private static void setNewSexManager(PositioningData data, boolean requestAccepted) {
+//		for(SexSlot slot : ((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))) {
+//			System.out.println(slot.getName(Sex.getCharacterPerformingAction()));
+//		}
+		
 		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
 		Map<GameCharacter, SexSlot> submissives = new HashMap<>();
 		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants().keySet());
@@ -338,7 +341,7 @@ public class GenericPositioningNew {
 				
 			} else { // Taur body:
 				if(generatePerformerOralData(Sex.getCharacterPerformingAction()).get(0)==SexSlotOther.PERFORMING_ORAL) {
-					return "Wanting [npc2.name] to perform oral on [npc.herHim], [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] presenting the underside of [npc.her] lower [npc2.legRace]'s body to [npc2.herHim]."
+					return "Wanting [npc2.name] to perform oral on [npc.herHim], [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] presenting the underside of [npc.her] lower [npc.legRace]'s body to [npc2.herHim]."
 							+ " Gazing into [npc2.her] [npc2.eyes+], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, I want you to use your mouth!)]";
 				} else {
@@ -545,9 +548,9 @@ public class GenericPositioningNew {
 		@Override
 		public String getActionDescription() {
 			if(Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()) {
-				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between [npc.her] front and back.";
+				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between [npc2.her] front and back.";
 			} else {
-				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between kneeling beneath or behind [npc.her] animalistic body.";
+				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between kneeling beneath or behind [npc2.her] animalistic body.";
 			}
 		}
 		@Override
@@ -578,11 +581,11 @@ public class GenericPositioningNew {
 			} else { // Taur body:
 				if(generatePerformerOralData(Sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotOther.PERFORMING_ORAL) {
 					if(SexSlotOther.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
-						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing beneath [npc.her] lower [npc.legRace]'s body."
+						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing beneath [npc2.her] lower [npc2.legRace]'s body."
 								+ " Running [npc.a_hand] up one of [npc2.her] rear [npc2.legs], [npc.she] [npc.moansVerb],"
 								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
 					} else {
-						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around and [npc.verb(kneel)] down beneath [npc.her] lower [npc.legRace]'s body."
+						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around and [npc.verb(kneel)] down beneath [npc2.her] lower [npc2.legRace]'s body."
 								+ " Running [npc.a_hand] up one of [npc2.her] rear [npc2.legs], [npc.she] [npc.moansVerb],"
 								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
 					}
@@ -828,11 +831,11 @@ public class GenericPositioningNew {
 				
 			} else { // Taur body:
 				if(SexSlotOther.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
-					return "Wanting to perform oral on the underside of [npc2.namePos] lower [npc.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing beneath [npc2.herHim]."
+					return "Wanting to perform oral on the underside of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing beneath [npc2.herHim]."
 							+ " Placing [npc.a_hand] on one of [npc2.her] rear [npc2.legs], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, let me put my mouth to use!)]";
 				} else {
-					return "Wanting to perform oral on the underside of [npc2.namePos] lower [npc.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] and [npc.verb(drop)] down onto [npc.her] knees beneath [npc2.herHim]."
+					return "Wanting to perform oral on the underside of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] and [npc.verb(drop)] down onto [npc.her] knees beneath [npc2.herHim]."
 							+ " Placing [npc.a_hand] on one of [npc2.her] rear [npc2.legs], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, let me put my mouth to use!)]";
 				}
@@ -957,12 +960,12 @@ public class GenericPositioningNew {
 		public String getActionDescription() {
 			if(Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()) {
 				if(Sex.getCharacterTargetedForSexAction(this).getLegConfiguration().isBipedalPositionedGenitals()) {
-					return "Drop down onto all fours so that [npc.name] can fuck you, doggy-style.";
+					return "Drop down onto all fours so that [npc2.name] can fuck you, doggy-style.";
 				} else {
-					return "Drop down onto all fours so that [npc.name] can mount and rut you.";
+					return "Drop down onto all fours so that [npc2.name] can mount and rut you.";
 				}
 			} else {
-				return "Present your hindquarters to [npc2.name] and get [npc.herHim] to mount your animalistic body.";
+				return "Present your hindquarters to [npc2.name] and get [npc2.herHim] to mount your animalistic body.";
 			}
 		}
 		@Override

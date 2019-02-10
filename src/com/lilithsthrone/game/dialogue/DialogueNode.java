@@ -5,7 +5,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public abstract class DialogueNode {
@@ -29,9 +29,12 @@ public abstract class DialogueNode {
 	}
 	
 	/**
-	 * @return The number of minutes that pass when entering into this dialogue node.
+	 * If this DialogueNode is accessed through a Response, then this method may be overwritten by the Response's own getSecondsPassed method.
+	 *  Due to this, it cannot be guaranteed that this method is used when determining how much time passes in a scene.
+	 * 
+	 * @return The number of seconds that pass when entering into this dialogue node.
 	 */
-	public int getMinutesPassed(){
+	public int getSecondsPassed() {
 		return 0;
 	}
 

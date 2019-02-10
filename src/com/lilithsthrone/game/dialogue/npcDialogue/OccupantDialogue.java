@@ -577,8 +577,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_TALK_LIFE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -612,8 +612,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_TALK_JOB = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -651,8 +651,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_TALK_LILAYA = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -686,8 +686,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_TALK_SLAVES = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -777,8 +777,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_MOVE_OUT = new DialogueNode("Moving out", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override
@@ -822,8 +822,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_MOVE_OUT_APARTMENT = new DialogueNode("Moving out", "", true, true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -966,9 +966,9 @@ public class OccupantDialogue {
 							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 							Main.game.getPlayer().setLust(0);
 							if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
-								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8 * 60) + sleepTimer);
+								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer);
 							} else {
-								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6 * 60) + sleepTimer);
+								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6*60*60) + sleepTimer);
 							}
 						}
 					};
@@ -1264,8 +1264,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_APARTMENT_TALK_LIFE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -1298,8 +1298,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_APARTMENT_TALK_JOB = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -1332,8 +1332,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_APARTMENT_SLEEP_OVER = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return sleepTimer;
+		public int getSecondsPassed() {
+			return sleepTimer*60;
 		}
 		
 		@Override

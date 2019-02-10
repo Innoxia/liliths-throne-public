@@ -206,17 +206,17 @@ public class ConChairTop {
 					UtilText.returnStringAtRandom(
 					"You reach down and start to eagerly pinch and rub at [npc.name(The)]'s [npc.nipples+], quickly causing [npc.herHim] to start squealing and moaning in delight as [npc.she] begs you not to stop.",
 					
-					(Sex.getActivePartner().getBreastType()==BreastType.DEMON_COMMON
-					?"[npc.name(The)]'s [npc.nipples] look exactly like cute little pussies, and you can't resist reaching down to tug and pinch at their outer folds."
-							+ " The lewd screams and moans that suddenly erupt from [npc.her] mouth tell you that [npc.she] likes this sort of treatment."
-					:"[npc.name(The)]'s [npc.nipples+] are fully on display, and you can't resist reaching down to tug and pinch at them."
-							+ " The [npc.moans+] that suddenly erupt from [npc.her] mouth tell you that [npc.she] likes this sort of treatment."),
+					(Sex.getActivePartner().getBreastType().equals(BreastType.DEMON_COMMON)
+						?"[npc.name(The)]'s [npc.nipples] look exactly like cute little pussies, and you can't resist reaching down to tug and pinch at their outer folds."
+								+ " The lewd screams and moans that suddenly erupt from [npc.her] mouth tell you that [npc.she] likes this sort of treatment."
+						:"[npc.name(The)]'s [npc.nipples+] are fully on display, and you can't resist reaching down to tug and pinch at them."
+								+ " The [npc.moans+] that suddenly erupt from [npc.her] mouth tell you that [npc.she] likes this sort of treatment."),
 							
-					(Sex.getActivePartner().getBreastType()==BreastType.DEMON_COMMON
-					?"You tease your fingers around each of [npc.namePos] demonic little nipple-cunts. Not satisfied with the intensity of the resulting [npc.moans], you decide to start pinching and tugging at them instead,"
-							+ " which, much to your delight, causes [npc.herHim] to let out a desperate scream of ecstasy."
-					:"You tease your fingers around each of [npc.namePos] [npc.nipples]. Not satisfied with the intensity of the resulting [npc.moans], you decide to start pinching and tugging at them instead,"
-						+ " which, much to your delight, causes [npc.herHim] to let out a desperate scream of ecstasy."),
+					(Sex.getActivePartner().getBreastType().equals(BreastType.DEMON_COMMON)
+						?"You tease your fingers around each of [npc.namePos] demonic little nipple-cunts. Not satisfied with the intensity of the resulting [npc.moans], you decide to start pinching and tugging at them instead,"
+								+ " which, much to your delight, causes [npc.herHim] to let out a desperate scream of ecstasy."
+						:"You tease your fingers around each of [npc.namePos] [npc.nipples]. Not satisfied with the intensity of the resulting [npc.moans], you decide to start pinching and tugging at them instead,"
+							+ " which, much to your delight, causes [npc.herHim] to let out a desperate scream of ecstasy."),
 							
 					"[npc.name(The)]'s [npc.breastRows] [npc.breasts+] are fully exposed, and before you know what you're doing, you're pinching and squeezing [npc.her] [npc.nipples+] as [npc.she] moans beneath you."));
 			

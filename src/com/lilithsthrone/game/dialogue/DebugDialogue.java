@@ -401,8 +401,7 @@ public class DebugDialogue {
 					return new Response("Centaur", "A wild centaur appears! (Please only use this on a completely neutral tile, as it will probably break things otherwise.)", CENTAUR_SEX){
 						@Override
 						public void effects(){
-							NPC target = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false,  false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-							CharacterUtils.reassignBody(target, target.getBody(), target.getGender(), Subspecies.CENTAUR, RaceStage.PARTIAL);
+							NPC target = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false,  false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s!=Subspecies.CENTAUR);
 							try {
 								Main.game.addNPC(target, false);
 								Main.game.setActiveNPC(target);

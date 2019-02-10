@@ -433,6 +433,6 @@ public class Testicle implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Testicle.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Testicle.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

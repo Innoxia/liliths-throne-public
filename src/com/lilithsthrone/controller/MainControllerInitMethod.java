@@ -2,8 +2,8 @@ package com.lilithsthrone.controller;
 
 import com.lilithsthrone.controller.eventListeners.EnchantmentEventListener;
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
-import com.lilithsthrone.controller.eventListeners.InventoryTooltipEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipInformationEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.Properties;
 import com.lilithsthrone.game.PropertyValue;
@@ -260,7 +260,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 					
-					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setGenericClothing(clothingType, clothingType.getAvailablePrimaryColours().get(0));
+					TooltipInventoryEventListener el = new TooltipInventoryEventListener().setGenericClothing(clothingType, clothingType.getAvailablePrimaryColours().get(0));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
 			}
@@ -276,7 +276,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 					
-					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setGenericWeapon(weaponType, weaponType.getAvailableDamageTypes().get(0));
+					TooltipInventoryEventListener el = new TooltipInventoryEventListener().setGenericWeapon(weaponType, weaponType.getAvailableDamageTypes().get(0));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
 			}
@@ -292,7 +292,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 					
-					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setGenericItem(itemType);
+					TooltipInventoryEventListener el = new TooltipInventoryEventListener().setGenericItem(itemType);
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
 			}
@@ -385,7 +385,7 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -405,7 +405,7 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), Main.game.getPlayer(), null);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setItem(entry.getKey(), Main.game.getPlayer(), null);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -425,7 +425,7 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), Main.game.getPlayer(), null);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setClothing(entry.getKey(), Main.game.getPlayer(), null);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -448,7 +448,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setWeapon(entry.getKey(), Main.game.getPlayer(), false);
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
@@ -459,7 +459,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), Main.game.getPlayer(), null);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setItem(entry.getKey(), Main.game.getPlayer(), null);
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
@@ -470,7 +470,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), Main.game.getPlayer(), null);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setClothing(entry.getKey(), Main.game.getPlayer(), null);
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
@@ -485,7 +485,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC(), false);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC(), false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -497,7 +497,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setClothing(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -509,7 +509,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setItem(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -524,7 +524,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null, false);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setWeapon(entry.getKey(), null, false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -537,7 +537,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), null, null);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setClothing(entry.getKey(), null, null);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -550,7 +550,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "click", el, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), null, null);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setItem(entry.getKey(), null, null);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);	
 					}
 				}
@@ -566,7 +566,7 @@ public class MainControllerInitMethod {
 							((EventTarget) MainController.document.getElementById("WEAPON_" + i)).addEventListener("click",el, false);
 							MainController.addEventListener(MainController.document, "WEAPON_" + i, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, "WEAPON_" + i, "mouseleave", MainController.hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), false);
+							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setWeapon((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), false);
 							((EventTarget) MainController.document.getElementById("WEAPON_" + i)).addEventListener("mouseenter",el2, false);
 						}
 						
@@ -575,7 +575,7 @@ public class MainControllerInitMethod {
 							MainController.addEventListener(MainController.document, "CLOTHING_" + i, "click", el, false);
 							MainController.addEventListener(MainController.document, "CLOTHING_" + i, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, "CLOTHING_" + i, "mouseleave", MainController.hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), null);
+							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setClothing((AbstractClothing) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), null);
 							MainController.addEventListener(MainController.document, "CLOTHING_" + i, "mouseenter", el2, false);
 						}
 						
@@ -584,7 +584,7 @@ public class MainControllerInitMethod {
 							MainController.addEventListener(MainController.document, "ITEM_" + i, "click", el, false);
 							MainController.addEventListener(MainController.document, "ITEM_" + i, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, "ITEM_" + i, "mouseleave", MainController.hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem((AbstractItem) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), null);
+							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setItem((AbstractItem) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), null);
 							MainController.addEventListener(MainController.document, "ITEM_" + i, "mouseenter", el2, false);
 						}
 					}
@@ -596,14 +596,14 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, "ESSENCE_" + essence.hashCode(), "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, "ESSENCE_" + essence.hashCode(), "mouseleave", MainController.hideTooltipListener, false);
 					
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setEssence(essence);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setEssence(essence);
 					MainController.addEventListener(MainController.document, "ESSENCE_" + essence.hashCode(), "mouseenter", el2, false);
 				}
 				if (((EventTarget) MainController.document.getElementById("ESSENCE_COST_" + essence.hashCode())) != null) {
 					MainController.addEventListener(MainController.document, "ESSENCE_COST_" + essence.hashCode(), "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, "ESSENCE_COST_" + essence.hashCode(), "mouseleave", MainController.hideTooltipListener, false);
 					
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setEssence(essence);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setEssence(essence);
 					MainController.addEventListener(MainController.document, "ESSENCE_COST_" + essence.hashCode(), "mouseenter", el2, false);
 				}
 			}
@@ -621,7 +621,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
 
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.getPrimaryMod());
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setTFModifier(EnchantmentDialogue.getPrimaryMod());
 					MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mouseenter", el2, false);
 				}
 				if (((EventTarget) MainController.document.getElementById("MOD_SECONDARY_ENCHANTING")) != null) {
@@ -632,7 +632,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
 
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.getSecondaryMod());
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setTFModifier(EnchantmentDialogue.getSecondaryMod());
 					MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mouseenter", el2, false);
 				}
 
@@ -686,8 +686,8 @@ public class MainControllerInitMethod {
 				id = "LIMIT_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					if(currentLimit > 0) {
-                        int decrement = Math.min(-1, (EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())/10));
-                        EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.getLimit()-decrement));
+						int decrement = Math.min(-1, -(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())/10));
+						EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.getLimit()+decrement));
                         MainController.addEventListener(MainController.document, id, "click", el, false);
 					}
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
@@ -803,18 +803,18 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
 
-					InventoryTooltipEventListener el2 = null;
+					TooltipInventoryEventListener el2 = null;
 					if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
-						el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
+						el2 = new TooltipInventoryEventListener().setItem((AbstractItem) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
 
 					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
-						el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
+						el2 = new TooltipInventoryEventListener().setClothing((AbstractClothing) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
 
 					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
-						el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), false);
+						el2 = new TooltipInventoryEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), false);
 
 					}  else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
-						el2 = new InventoryTooltipEventListener().setTattoo(EnchantmentDialogue.getTattooSlot(), (Tattoo) EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getTattooBearer(), EnchantmentDialogue.getTattooBearer());
+						el2 = new TooltipInventoryEventListener().setTattoo(EnchantmentDialogue.getTattooSlot(), (Tattoo) EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getTattooBearer(), EnchantmentDialogue.getTattooBearer());
 					}
 
 					MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseenter", el2, false);
@@ -899,8 +899,8 @@ public class MainControllerInitMethod {
 
 						MainController.addEventListener(MainController.document, "MOD_PRIMARY_" + tfMod.hashCode(), "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, "MOD_PRIMARY_" + tfMod.hashCode(), "mouseleave", MainController.hideTooltipListener, false);
-
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(tfMod);
+	
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setTFModifier(tfMod);
 						MainController.addEventListener(MainController.document, "MOD_PRIMARY_" + tfMod.hashCode(), "mouseenter", el2, false);
 					}
 				}
@@ -913,8 +913,8 @@ public class MainControllerInitMethod {
 
 						MainController.addEventListener(MainController.document, "MOD_SECONDARY_" + tfMod.hashCode(), "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, "MOD_SECONDARY_" + tfMod.hashCode(), "mouseleave", MainController.hideTooltipListener, false);
-
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(tfMod);
+	
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setTFModifier(tfMod);
 						MainController.addEventListener(MainController.document, "MOD_SECONDARY_" + tfMod.hashCode(), "mouseenter", el2, false);
 					}
 				}
@@ -3851,7 +3851,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						
 						if(BodyChanging.getTarget().getTattooInSlot(invSlot)!=null) {
-							InventoryTooltipEventListener el = new InventoryTooltipEventListener().setTattoo(invSlot, BodyChanging.getTarget().getTattooInSlot(invSlot), BodyChanging.getTarget(), BodyChanging.getTarget());
+							TooltipInventoryEventListener el = new TooltipInventoryEventListener().setTattoo(invSlot, BodyChanging.getTarget().getTattooInSlot(invSlot), BodyChanging.getTarget(), BodyChanging.getTarget());
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
 							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(invSlot.getTattooSlotName()), "");
@@ -3932,7 +3932,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 					
-					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo, BodyChanging.getTarget(), BodyChanging.getTarget());
+					TooltipInventoryEventListener el = new TooltipInventoryEventListener().setTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo, BodyChanging.getTarget(), BodyChanging.getTarget());
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
 				
@@ -4171,7 +4171,7 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingPrimary(InventoryDialogue.getClothing(), c);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingPrimary(InventoryDialogue.getClothing(), c);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -4186,7 +4186,7 @@ public class MainControllerInitMethod {
 							
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingSecondary(InventoryDialogue.getClothing(), c);
+							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingSecondary(InventoryDialogue.getClothing(), c);
 							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 						}
 					}
@@ -4202,7 +4202,7 @@ public class MainControllerInitMethod {
 							
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingTertiary(InventoryDialogue.getClothing(), c);
+							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingTertiary(InventoryDialogue.getClothing(), c);
 							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 						}
 					}
@@ -4277,7 +4277,7 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeWeaponPrimary(InventoryDialogue.getWeapon(), c);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeWeaponPrimary(InventoryDialogue.getWeapon(), c);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -4291,7 +4291,7 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeWeaponSecondary(InventoryDialogue.getWeapon(), c);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeWeaponSecondary(InventoryDialogue.getWeapon(), c);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
@@ -4302,7 +4302,7 @@ public class MainControllerInitMethod {
 					if ((EventTarget) MainController.document.getElementById(clothing.hashCode() + "_" + colour.toString()) != null) {
 						MainController.addEventListener(MainController.document, clothing.hashCode() + "_" + colour.toString(), "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, clothing.hashCode() + "_" + colour.toString(), "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setGenericClothing(clothing, colour);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setGenericClothing(clothing, colour);
 						MainController.addEventListener(MainController.document, clothing.hashCode() + "_" + colour.toString(), "mouseenter", el2, false);
 					}
 				}
@@ -4313,7 +4313,7 @@ public class MainControllerInitMethod {
 				if ((EventTarget) MainController.document.getElementById(id) != null) {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setGenericItem(item);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setGenericItem(item);
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
@@ -4323,7 +4323,7 @@ public class MainControllerInitMethod {
 					if ((EventTarget) MainController.document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {
 						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setGenericWeapon(weapon, dt);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setGenericWeapon(weapon, dt);
 						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mouseenter", el2, false);
 					}
 				}
@@ -4458,6 +4458,7 @@ public class MainControllerInitMethod {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=f.getCost()) {
 								if(!Main.game.getPlayer().hasFetish(f)) {
+									Main.game.getPlayer().addFetish(f);
 									Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -f.getCost(), false);
 									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 								}
@@ -4483,6 +4484,7 @@ public class MainControllerInitMethod {
 								if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=FetishDesire.getCostToChange()) {
 									if(Main.game.getPlayer().getFetishDesire(f)!=desire) {
 										Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -FetishDesire.getCostToChange(), false);
+										Main.game.getPlayer().setFetishDesire(f, desire);
 										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 									}
 								}
@@ -4780,18 +4782,6 @@ public class MainControllerInitMethod {
 			}
 			
 			
-			// Multi-breast options:
-			for(int i=0; i<3; i++) {
-				id = "MULTI_BREAST_PREFERENCE_"+i;
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					setMultiBreastPreference(id, i);
-				}
-				id = "UDDER_PREFERENCE_"+i;
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					setUdderPreference(id, i);
-				}
-			}
-			
 			// Race preferences:
 			if (((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")) != null) {
 				((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")).addEventListener("click", e -> {
@@ -4985,6 +4975,18 @@ public class MainControllerInitMethod {
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
+				}
+			}
+
+			// Multi-breast options:
+			for(int i=0; i<3; i++) {
+				id = "MULTI_BREAST_PREFERENCE_"+i;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					setMultiBreastPreference(id, i);
+				}
+				id = "UDDER_PREFERENCE_"+i;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					setUdderPreference(id, i);
 				}
 			}
 			
@@ -5674,7 +5676,7 @@ public class MainControllerInitMethod {
 		for(Entry<CoverableArea, SexAreaOrifice> area : areas.entrySet()) {
 			String id = idModifier+"_"+area.getKey()+"_"+fluid.getFluid().hashCode();
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				int milkAmount = Math.min(fluid.getMillilitres(), MilkingRoom.INGESTION_AMOUNT);
+				float milkAmount = Math.min(fluid.getMillilitres(), MilkingRoom.INGESTION_AMOUNT);
 				boolean canIngest = room.isAbleToIngestThroughArea(Main.game.getPlayer(), area.getKey(), milkAmount);
 				
 				String fluidOwnerName = fluid.getFluidCharacter()==null?"the":UtilText.parse(fluid.getFluidCharacter(), "[npc.namePos]");

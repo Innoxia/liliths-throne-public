@@ -2073,10 +2073,10 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_REFUSE_RUM"><![CDATA[
 	<p>
-		[pc.speech(Hey, wait!)] yuo call out, stopping [npc.name] before [npc.she] can place [npc.her] order. [pc.speech(I don't want to get drunk, ok?)]
+		[pc.speech(Hey, wait!)] you call out, stopping [npc.name] before [npc.she] can place [npc.her] order. [pc.speech(I don't want to get drunk, ok?)]
 	</p>
 	<p>
-		[npc.speech(Eugh, you ungrateful [pc.bitch]!)] [npc.name] snaps, before turning towards the barmaid that stepped forwards to take [npc.her] order. [npc.speech(Forget it, I'm not ordering anything. Go sever someone else.)]
+		[npc.speech(Eugh, you ungrateful [pc.bitch]!)] [npc.name] snaps, before turning towards the barmaid who stepped forwards to take [npc.her] order. [npc.speech(Forget it, I'm not ordering anything. Go serve someone else.)]
 	</p>
 	<p>
 		You step back from [npc.name], frowning at [npc.herHim] in response to [npc.her] uncalled-for insult. Before you can say anything regarding the matter, [npc.she] moves back up beside you and apologises, [npc.speech(Sorry, [pc.babe]. I shouldn't have said that. Anyway, no harm done, right?)]

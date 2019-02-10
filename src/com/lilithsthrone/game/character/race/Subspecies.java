@@ -211,7 +211,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(Math.random()<0.25f) {
-				if(body.getLeg().getType()==LegType.DEMON_COMMON) {
+				if(body.getLeg().getType().equals(LegType.DEMON_COMMON)) {
 					body.getLeg().setType(null, LegType.DEMON_HOOFED);
 				}
 			}
@@ -1201,10 +1201,13 @@ public enum Subspecies {
 			Colour primaryColor = Colour.COVERING_ORANGE;
 			Colour secondaryColor = Colour.COVERING_BLACK;
 			double rand = Math.random();
-			if(rand<0.05f) {
-				primaryColor = Colour.COVERING_BLACK;
-			}
-			else if(rand<0.10f) {
+			if(rand<0.02f) {
+				primaryColor = Colour.COVERING_TAN;
+			} else if(rand<0.4f) {
+				primaryColor = Colour.COVERING_AUBURN;
+			} else if(rand<0.6f) {
+				primaryColor = Colour.COVERING_AMBER;
+			} else if(rand<0.16f) {
 				primaryColor = Colour.COVERING_WHITE;
 			}
 			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.STRIPED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
@@ -2459,7 +2462,7 @@ public enum Subspecies {
 				worldSpecies.get(type.getKey()).put(species, type.getValue());
 				
 				try {
-					if(type == WorldType.DOMINION && RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(Attribute.MAJOR_ARCANE).getMinimum()>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
+					if(type.getKey()==WorldType.DOMINION && RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(Attribute.MAJOR_ARCANE).getMinimum()>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
 						dominionStormImmuneSpecies.put(species, type.getValue());
 					}
 				} catch(Exception ex) {	
@@ -2771,7 +2774,7 @@ public enum Subspecies {
 				break;
 			case TAUR:
 				if(body.getLeg().getType().getRace()==Race.HORSE_MORPH) {
-					if(body.getHorn().getType()==HornType.HORSE_STRAIGHT && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
+					if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
 						if(body.getWing().getType()!=WingType.NONE) {
 							return Subspecies.ALITAUR;
 						}
@@ -2924,12 +2927,12 @@ public enum Subspecies {
 				subspecies = Subspecies.HORSE_MORPH;
 				
 				if(body.getWing().getType()==WingType.PEGASUS) {
-					if(body.getHorn().getType()==HornType.HORSE_STRAIGHT && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
+					if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
 						return Subspecies.HORSE_MORPH_ALICORN;
 					}
 					return Subspecies.HORSE_MORPH_PEGASUS;
 				}
-				if(body.getHorn().getType()==HornType.HORSE_STRAIGHT && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
+				if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
 					return Subspecies.HORSE_MORPH_UNICORN;
 				}
 				if(((body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getPrimaryColour()==Colour.COVERING_BLACK

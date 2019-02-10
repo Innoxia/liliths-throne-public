@@ -228,7 +228,7 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
 			
-			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24);
+			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24*60);
 			
 			if(target.isPlayer()) {
 				return "<p>"
@@ -281,7 +281,7 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
 			
-			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24);
+			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24*60);
 			
 			if(target.isPlayer()) {
 				return "<p>"
@@ -338,7 +338,7 @@ public class ItemEffectType {
 					}
 				}
 				for(GameCharacter father : fathers) {
-					target.getPotentialPartnersAsFather().removeIf((pp) -> pp.getMotherId().equals(target.getId()) && target.getPregnantLitter().getFather() != (father));
+					father.getPotentialPartnersAsFather().removeIf((pp) -> pp.getMotherId().equals(target.getId()) && target.getPregnantLitter().getFather() != (father));
 				}
 				
 				target.getPotentialPartnersAsMother().removeIf((pp) -> !pp.getFatherId().equals(target.getPregnantLitter().getFatherId()));
@@ -382,10 +382,10 @@ public class ItemEffectType {
 								+ "</p>";
 					} else {
 						if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
-							target.incrementStatusEffectDuration(StatusEffect.PREGNANT_1, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_1)-60));
+							target.incrementStatusEffectDuration(StatusEffect.PREGNANT_1, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_1)-(5*60)));
 							
 						} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
-								target.incrementStatusEffectDuration(StatusEffect.PREGNANT_2, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_2)-60));
+								target.incrementStatusEffectDuration(StatusEffect.PREGNANT_2, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_2)-(5*60)));
 						}
 						
 						return "<p>"
@@ -396,7 +396,7 @@ public class ItemEffectType {
 					
 				} else {
 					if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
-						target.incrementStatusEffectDuration(StatusEffect.PREGNANT_0, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_0)-60));
+						target.incrementStatusEffectDuration(StatusEffect.PREGNANT_0, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_0)-(5*60)));
 						
 						return "<p>"
 									+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
@@ -420,10 +420,10 @@ public class ItemEffectType {
 								+ "</p>");
 					} else {
 						if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
-							target.incrementStatusEffectDuration(StatusEffect.PREGNANT_1, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_1)-60));
+							target.incrementStatusEffectDuration(StatusEffect.PREGNANT_1, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_1)-(5*60)));
 							
 						} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
-								target.incrementStatusEffectDuration(StatusEffect.PREGNANT_2, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_2)-60));
+								target.incrementStatusEffectDuration(StatusEffect.PREGNANT_2, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_2)-(5*60)));
 						}
 						return UtilText.parse(target,
 								"<p>"
@@ -434,7 +434,7 @@ public class ItemEffectType {
 					
 				} else {
 					if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
-						target.incrementStatusEffectDuration(StatusEffect.PREGNANT_0, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_0)-60));
+						target.incrementStatusEffectDuration(StatusEffect.PREGNANT_0, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_0)-(5*60)));
 
 						return UtilText.parse(target,
 								"<p>"
@@ -530,7 +530,7 @@ public class ItemEffectType {
 	public static AbstractItemEffectType STR_SWAMP_WATER = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'",
-			"[style.boldMinorBad(Adds)] 50% to [style.boldAlcohol(intoxication level)]"),
+			"[style.boldMinorBad(Adds)] 75% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
@@ -541,7 +541,7 @@ public class ItemEffectType {
 					+"A powerful wave of arcane energy washes over you..."
 					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ target.incrementAlcoholLevel(0.5f);
+					+ target.incrementAlcoholLevel(0.75f);
 		}
 	};
 	
@@ -956,7 +956,7 @@ public class ItemEffectType {
 				}
 			sb.append("</p>");
 
-			target.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
+			target.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60*60);
 
 			sb.append("<p>");
 				if(target.isPlayer()) {
@@ -1495,7 +1495,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_CAT_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_CAT_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldCat(cat-morphs)]!";
 		}
 	};
@@ -1509,7 +1509,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_COW_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_COW_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldCow(cow-morphs)]!";
 		}
 	};
@@ -1523,7 +1523,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_SQUIRREL_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_SQUIRREL_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldSquirrel(squirrel-morphs)]!";
 		}
 	};
@@ -1537,7 +1537,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_RAT_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_RAT_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldRat(rat-morphs)]!";
 		}
 	};
@@ -1551,7 +1551,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_RABBIT_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_RABBIT_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldRabbit(rabbit-morphs)]!";
 		}
 	};
@@ -1565,7 +1565,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_BAT_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_BAT_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldBat(bat-morphs)]!";
 		}
 	};
@@ -1579,7 +1579,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_ALLIGATOR_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_ALLIGATOR_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldAlligator(alligator-morphs)]!";
 		}
 	};
@@ -1593,7 +1593,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_DEMON, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_DEMON, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldDemon(demons)]!";
 		}
 	};
@@ -1607,7 +1607,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_IMP, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_IMP, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldImp(imps)]!";
 		}
 	};
@@ -1621,7 +1621,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_DOG_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_DOG_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldDog(dog-morphs)]!";
 		}
 	};
@@ -1635,7 +1635,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HARPY, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HARPY, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHarpy(harpies)]!";
 		}
 	};
@@ -1649,7 +1649,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HORSE_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HORSE_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHorse(horse-morphs)]!";
 		}
 	};
@@ -1663,7 +1663,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_REINDEER_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_REINDEER_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldReindeer(reindeer-morphs)]!";
 		}
 	};
@@ -1677,7 +1677,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HUMAN, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HUMAN, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHuman(humans)]!";
 		}
 	};
@@ -1691,7 +1691,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_WOLF_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_WOLF_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldWolf(wolf-morphs)]!";
 		}
 	};
@@ -1705,7 +1705,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_FOX_MORPH, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_FOX_MORPH, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldFox(fox-morphs)]!";
 		}
 	};
@@ -1719,7 +1719,7 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
-			target.addStatusEffect(StatusEffect.COMBAT_BONUS_SLIME, 60*4);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_SLIME, 60*4*60);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldSlime(slimes)]!";
 		}
 	};

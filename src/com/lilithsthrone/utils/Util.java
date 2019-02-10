@@ -2,6 +2,7 @@ package com.lilithsthrone.utils;
 
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
@@ -16,8 +17,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.time.Instant;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -26,10 +27,11 @@ import java.util.regex.Pattern;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Util {
+	
 	public static Random random = new Random();
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
@@ -641,8 +643,8 @@ public class Util {
 					continue;
 				}
 
-				// Add a full stop to the insert, creating its own sentence
-				insert += ".";
+//				// Add a full stop to the insert, creating its own sentence
+//				insert += ".";
 			}
 
 			int len = splitSentence[offset].length();
@@ -827,6 +829,7 @@ public class Util {
 			}
 		} catch(NoSuchElementException ex) {
 			System.err.println("Util.toStringList() error - NoSuchElementException! (It's probably nothing to worry about...)");
+			ex.printStackTrace();
 		}
 		return utilitiesStringBuilder.toString();
 	}

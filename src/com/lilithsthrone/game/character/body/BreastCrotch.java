@@ -379,7 +379,7 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] an alarming bubbling and churning taking place deep within [npc.her] [npc.crotchBoobs], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.crotchMilk] suddenly leak"
-							+ " from [npc.her] [npc.nipples]; clear evidence that that [npc.her] [npc.crotchMilk] regeneration has [style.boldGrow(increased)].<br/>"
+							+ " from [npc.her] [npc.crotchNipples]; clear evidence that that [npc.her] [npc.crotchMilk] regeneration has [style.boldGrow(increased)].<br/>"
 						+ "[npc.NamePos] rate of [npc.crotchMilk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
 					+ "</p>");
 			
@@ -413,38 +413,56 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The number of breast rows [npc.name] has doesn't change...)]</p>");
 		}
 		
-		String transformation = "";
+		StringBuilder sb = new StringBuilder();
 		
 		int rowsDifference = Math.abs(rows - getRows());
 		
 		if (rows < getRows()) {
-				transformation = UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] [npc.verb(let)] out a worried gasp as [npc.she] [npc.verb(feel)] a strange tightening sensation just above [npc.her] groin, and before [npc.sheHasFull] time to react, [npc.her] "
-								+ (rowsDifference==1
-									?"highest pair of [npc.crotchBoobs]"
-									:"highest "+Util.intToString(rowsDifference)+" pairs of [npc.crotchBoobs]")
-								+ " rapidly shrink away and [style.boldShrink(disappear)] into the [npc.skin] of [npc.her] stomach.<br/>"
-								+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of [npc.crotchBoobs])]!" 
-							+ "</p>");
+			sb.append("<p>"
+							+ "[npc.Name] [npc.verb(let)] out a worried gasp as [npc.she] [npc.verb(feel)] a strange tightening sensation just above [npc.her] groin, and before [npc.sheHasFull] time to react, [npc.her] ");
+			
+			if(this.getShape()==BreastShape.UDDERS) {
+				sb.append((rowsDifference==1
+						?"highest pair of [npc.crotchNipples]"
+						:"highest "+Util.intToString(rowsDifference)+" pairs of [npc.crotchNipples]"));
+				sb.append(" rapidly shrink away and [style.boldShrink(disappear)] into [npc.her] udders.<br/>");
+			} else {
+				sb.append((rowsDifference==1
+						?"highest pair of [npc.crotchBoobs]"
+						:"highest "+Util.intToString(rowsDifference)+" pairs of [npc.crotchBoobs]"));
+				sb.append(" rapidly shrink away and [style.boldShrink(disappear)] into the [npc.skin] of [npc.her] stomach.<br/>");
+			}
+			
 			
 			
 		} else if (rows > getRows()) {
-				transformation = UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] a strange swelling sensation just above [npc.her] groin, and before [npc.sheHasFull] time to react, "
-								+ (rowsDifference==1
-									?"an extra pair of [npc.crotchBoobs]"
-									:Util.intToString(rowsDifference)+" extra pairs of [npc.crotchBoobs]")
-								+ " rapidly [style.boldGrow(grow)] out of the [npc.skin] of [npc.her] stomach.<br/>"
-								+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of [npc.crotchBoobs])]!" 
-							+ "</p>");
+			sb.append("<p>"
+						+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] a strange swelling sensation just above [npc.her] groin, and before [npc.sheHasFull] time to react, ");
 			
+			if(this.getShape()==BreastShape.UDDERS) {
+				sb.append((rowsDifference==1
+						?"an extra pair of [npc.crotchNipples]"
+						:Util.intToString(rowsDifference)+" extra pairs of [npc.crotchNipples]"));
+				sb.append(" rapidly [style.boldGrow(grow)] out at the top [npc.her] udders.<br/>");
+			} else {
+				sb.append((rowsDifference==1
+						?"an extra pair of [npc.crotchBoobs]"
+						:"extra pairs of [npc.crotchBoobs]"));
+				sb.append(" rapidly [style.boldGrow(grow)] out of the [npc.skin] of [npc.her] stomach.<br/>");
+			}
+		}
+
+		if(this.getShape()==BreastShape.UDDERS) {
+			sb.append("[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+(rows > 1 ? "s" : "")+" of [npc.crotchNipples])] on [npc.her] udders!" 
+				+ "</p>");
+		} else {
+			sb.append("[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of [npc.crotchBoobs])]!" 
+					+ "</p>");
 		}
 
 		this.rows = rows;
 
-		return transformation;
+		return UtilText.parse(owner,sb.toString());
 	}
 
 	public boolean isFuckable() {
@@ -468,7 +486,7 @@ public class BreastCrotch implements BodyPartInterface {
 		}
 		
 		if (this.nippleCountPerBreast == nippleCountPerBreast) {
-			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The number of [npc.nipples] [npc.nameHasFull] doesn't change...)]</p>");
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The number of [npc.crotchNipples] [npc.nameHasFull] doesn't change...)]</p>");
 		}
 		
 		String transformation = "";
@@ -476,20 +494,20 @@ public class BreastCrotch implements BodyPartInterface {
 		if (nippleCountPerBreast < getNippleCountPerBreast()) {
 				transformation = UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] [npc.verb(feel)] a strange tingling sensation running just beneath the surface of the [npc.breastSkin] that covers [npc.her] [npc.crotchBoobs]."
-							+ " A shocked gasp bursts from [npc.her] mouth as the force shoots up into [npc.her] [npc.nipples],"
+							+ "[npc.Name] [npc.verb(feel)] a strange tingling sensation running just beneath the surface of the [npc.breastCrotchSkin] that covers [npc.her] [npc.crotchBoobs]."
+							+ " A shocked gasp bursts from [npc.her] mouth as the force shoots up into [npc.her] [npc.crotchNipples],"
 								+ " and [npc.she] [npc.verb(continue)] [npc.moaning] as some of them [style.boldShrink(shrink)] into the flesh of [npc.her] [npc.crotchBoobs].<br/>"
-							+ "[npc.Name] now has [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.nipples]" : "[npc.nipple]") + " on each of [npc.her] [npc.crotchBoobs])]!" 
+							+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.crotchNipples]" : "[npc.crotchNipple]") + " on each of [npc.her] [npc.crotchBoobs])]!" 
 						+ "</p>");
 			
 			
 		} else if (nippleCountPerBreast > getNippleCountPerBreast()) {
 				transformation = UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] [npc.verb(feel)] a strange tingling sensation running just beneath the surface of the [npc.breastSkin] that covers [npc.her] [npc.crotchBoobs]."
-							+ " A shocked gasp bursts from [npc.her] mouth as the force shoots up into [npc.her] [npc.nipples],"
+							+ "[npc.Name] [npc.verb(feel)] a strange tingling sensation running just beneath the surface of the [npc.breastCrotchSkin] that covers [npc.her] [npc.crotchBoobs]."
+							+ " A shocked gasp bursts from [npc.her] mouth as the force shoots up into [npc.her] [npc.crotchNipples],"
 								+ " and [npc.she] [npc.verb(continue)] [npc.moaning] as [npc.she] feels new ones [style.boldGrow(growing)] out of the flesh of [npc.her] [npc.crotchBoobs].<br/>"
-							+ "[npc.Name] now has [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.nipples]" : "[npc.nipple]") + " on each of [npc.her] [npc.crotchBoobs])]!" 
+							+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.crotchNipples]" : "[npc.crotchNipple]") + " on each of [npc.her] [npc.crotchBoobs])]!" 
 						+ "</p>");
 			
 		}
@@ -504,7 +522,7 @@ public class BreastCrotch implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(BreastCrotch.class);
+		return owner.getLegConfiguration().getBestialParts().contains(BreastCrotch.class) && getType().getRace().isBestialPartsAvailable();
 	}
 
 }

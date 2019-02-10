@@ -49,7 +49,12 @@ public class PrologueDialogue {
 	}
 	
 	public static final DialogueNode INTRO = new DialogueNode("In the Museum", "", true) {
-
+		
+		@Override
+		public int getSecondsPassed() {
+			return 90;
+		}
+		
 		@Override
 		public String getContent() {
 			if(femalePrologueNPC()) {
@@ -91,6 +96,11 @@ public class PrologueDialogue {
 	
 	public static final DialogueNode INTRO_EMPTY_ROOM = new DialogueNode("In the Museum", "", true, true) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 90;
+		}
+		
 		@Override
 		public String getContent() {
 			if(femalePrologueNPC()) {
@@ -212,6 +222,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_SECOND_THOUGHTS = new DialogueNode("In the Museum", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		
+		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
@@ -244,6 +259,11 @@ public class PrologueDialogue {
 	
 	public static final DialogueNode INTRO_NO = new DialogueNode("In the Museum", "", true, true) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -278,6 +298,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_2 = new DialogueNode("In the Museum", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60*10;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_2");
 		}
@@ -297,6 +322,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_3A = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_3A");
 		}
@@ -313,6 +343,11 @@ public class PrologueDialogue {
 
 	public static final DialogueNode INTRO_3B = new DialogueNode("", "", true, true) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_3B");
@@ -331,6 +366,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_4 = new DialogueNode("The horror!", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_4");
 		}
@@ -348,6 +388,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_5 = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_5");
 		}
@@ -359,7 +404,7 @@ public class PrologueDialogue {
 					@Override
 					public void effects() {
 						
-						Main.game.setWeather(Weather.MAGIC_STORM, 300);
+						Main.game.setWeatherInSeconds(Weather.MAGIC_STORM, 5*60*60);
 
 						Main.game.setRenderMap(true);
 						
@@ -376,6 +421,11 @@ public class PrologueDialogue {
 
 	public static final DialogueNode INTRO_NEW_WORLD_1 = new DialogueNode("A new world", "", true, false) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_1");
@@ -426,6 +476,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_1_STRUGGLE = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		
+		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_1_STRUGGLE"));
@@ -450,6 +505,11 @@ public class PrologueDialogue {
 	};
 	
 	public static final DialogueNode INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -479,6 +539,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		
+		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES"));
@@ -506,6 +571,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_2 = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_2");
 		}
@@ -522,6 +592,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_2_A = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -547,6 +622,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_3 = new DialogueNode("Lilaya's Home", "", true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60*5;
+		}
 		
 		@Override
 		public String getContent() {
@@ -572,6 +652,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_4 = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -601,6 +686,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_5 = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -639,6 +729,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_6 = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_6");
 		}
@@ -665,6 +760,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_7 = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_7");
 		}
@@ -687,6 +787,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_8 = new DialogueNode("Your room", "You follow Rose as she leads you up to your new room.", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -716,6 +821,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_9 = new DialogueNode("Knocking", "Rose said she'd be back in about half an hour, so that must be her knocking at your door.", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60*30;
+		}
+
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_9");
 		}
@@ -726,7 +836,6 @@ public class PrologueDialogue {
 				return new Response("Freedom!", "Decide what you want to do next.", RoomPlayer.ROOM){
 					@Override
 					public void effects() {
-						Main.game.setPrologueFinished(true);
 						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
 					}

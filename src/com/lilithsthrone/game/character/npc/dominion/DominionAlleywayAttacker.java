@@ -30,6 +30,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayProstituteDi
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -156,8 +157,8 @@ public class DominionAlleywayAttacker extends NPC {
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
-	
-			CharacterUtils.equipClothing(this, true, false);
+			
+			this.equipClothing(true, true, true, true);
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
@@ -182,7 +183,12 @@ public class DominionAlleywayAttacker extends NPC {
 
 	@Override
 	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
+		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
+			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+		} else {
+			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+//			super.equipClothing(replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+		}
 	}
 	
 	@Override

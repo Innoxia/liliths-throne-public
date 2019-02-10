@@ -23,7 +23,6 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public class Breast implements BodyPartInterface {
-
 	
 	public static final int MAXIMUM_BREAST_ROWS = 5;
 	public static final int MAXIMUM_NIPPLES_PER_BREAST = 4;
@@ -480,7 +479,7 @@ public class Breast implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Breast.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Breast.class) && getType().getRace().isBestialPartsAvailable();
 	}
 
 }

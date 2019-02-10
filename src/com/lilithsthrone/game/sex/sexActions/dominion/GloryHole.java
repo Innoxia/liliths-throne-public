@@ -8,19 +8,20 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.SMGloryHole;
 import com.lilithsthrone.game.sex.managers.dominion.SMGloryHoleSex;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -45,8 +46,7 @@ public class GloryHole {
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotBipeds.GLORY_HOLE_KNEELING
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.GLORY_HOLE_FUCKED
 					&& (Sex.getCharacterPerformingAction().isPlayer()
-							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexSlotBipeds.GLORY_HOLE_KNEELING)
-									|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()));
+							|| ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE, SexSlotBipeds.GLORY_HOLE_KNEELING, Main.game.getPlayer()));
 		}
 		
 		@Override
@@ -111,8 +111,8 @@ public class GloryHole {
 						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.GLORY_HOLE_KNEELING)
 					&& Sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 					&& (Sex.getCharacterPerformingAction().isPlayer()
-							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexSlotBipeds.GLORY_HOLE_FUCKED)
-								&& ((NPC) Sex.getCharacterPerformingAction()).getMainSexPreference(Sex.getCharacterTargetedForSexAction(this)).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS))));
+							|| (!Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isNegative()
+									&& ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotBipeds.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
 		}
 		
 		@Override
@@ -213,8 +213,8 @@ public class GloryHole {
 					&& Sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
 					&& Sex.getCharacterPerformingAction().hasVagina()
 					&& (Sex.getCharacterPerformingAction().isPlayer()
-							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexSlotBipeds.GLORY_HOLE_FUCKED)
-								&& ((NPC) Sex.getCharacterPerformingAction()).getMainSexPreference(Sex.getCharacterTargetedForSexAction(this)).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS))));
+							|| (!Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()
+									&& ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotBipeds.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
 		}
 		
 		@Override

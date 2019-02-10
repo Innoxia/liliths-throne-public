@@ -273,6 +273,6 @@ public class Arm implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Arm.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Arm.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

@@ -131,10 +131,13 @@ public class BlockedParts implements XMLSaving {
 		
 		String errorCode = "Unknown Clothing";
 		Element clothingElement = ((Element) doc.getElementsByTagName("clothing").item(0));
-		if(clothingElement.getElementsByTagName("coreAtributes").getLength()>0) {
-			errorCode = ((Element) clothingElement.getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Support for old versions
-		} else {
-			errorCode = ((Element) clothingElement.getElementsByTagName("coreAttributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Fix typo
+		try { // try, as when loaded when not embedded in clothing, the "clothing" element will not be found.
+			if(clothingElement.getElementsByTagName("coreAtributes").getLength()>0) {
+				errorCode = ((Element) clothingElement.getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Support for old versions
+			} else {
+				errorCode = ((Element) clothingElement.getElementsByTagName("coreAttributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Fix typo
+			}
+		} catch(Exception ex) {
 		}
 		
 		List<ClothingAccess> loadedClothingAccessRequired = new ArrayList<>();

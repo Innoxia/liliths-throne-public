@@ -219,6 +219,7 @@ public class Jules extends NPC {
 	@Override
 	public void endSex() {
 		setPendingClothingDressing(true);
+		Main.game.getPlayer().setNearestLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_MAIN_AREA, false);
 	}
 	
 	@Override

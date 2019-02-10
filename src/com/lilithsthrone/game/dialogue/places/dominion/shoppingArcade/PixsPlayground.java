@@ -315,8 +315,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_CARDIO = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 
 		@Override
@@ -351,8 +351,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_WEIGHTS = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 
 		@Override
@@ -387,8 +387,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_PIX_TRAINING = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 20;
+		public int getSecondsPassed() {
+			return 20*60;
 		}
 
 		@Override
@@ -455,8 +455,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_PIX_TRAINING_CARDIO = new DialogueNode("Pix's Playground", "-", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 
 		@Override
@@ -512,8 +512,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_PIX_TRAINING_FINISH = new DialogueNode("Pix's Playground", "-", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 
 		@Override
@@ -673,8 +673,8 @@ public class PixsPlayground {
 	public static final DialogueNode PIX_POST_SEX_TABLES_TURNED = new DialogueNode("Changing Rooms", "Carry Pix out to the changing rooms.", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 
 		@Override
@@ -695,8 +695,8 @@ public class PixsPlayground {
 	public static final DialogueNode PIX_POST_SEX = new DialogueNode("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 
 		@Override
@@ -768,8 +768,8 @@ public class PixsPlayground {
 	public static final DialogueNode PIX_POST_SEX_CONSENSUAL = new DialogueNode("Pix dresses you", "Pix helps you to get dressed.", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 
 		@Override

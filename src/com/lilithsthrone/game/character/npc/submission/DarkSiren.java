@@ -74,7 +74,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.11
- * @version 0.2.12
+ * @version 0.3.1
  * @author Innoxia
  */
 public class DarkSiren extends NPC {
@@ -91,42 +91,37 @@ public class DarkSiren extends NPC {
 				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
 
 		if(!isImported) {
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.5")) {
-				this.setPlayerKnowsName(false);
-				this.setGenericName("dark siren");
-			}
-
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
-				this.addTrait(Perk.CHUUNI);
-				this.setEssenceCount(TFEssence.ARCANE, 10000);
-				
-				this.addSpell(Spell.FIREBALL);
-				this.addSpellUpgrade(SpellUpgrade.FIREBALL_1);
-				this.addSpellUpgrade(SpellUpgrade.FIREBALL_2);
-				
-				this.addSpell(Spell.CLOAK_OF_FLAMES);
-				this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1);
-				
-				this.addSpell(Spell.ICE_SHARD);
-				this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
-				this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
-				
-				this.addSpell(Spell.POISON_VAPOURS);
-				this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1);
-				this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_2);
-				
-				this.addSpell(Spell.VACUUM);
-				this.addSpellUpgrade(SpellUpgrade.VACUUM_1);
-				
-				this.addSpell(Spell.SLAM);
-				this.addSpellUpgrade(SpellUpgrade.SLAM_1);
-				this.addSpellUpgrade(SpellUpgrade.SLAM_2);
-				this.addSpellUpgrade(SpellUpgrade.SLAM_3);
-				
-				this.addSpell(Spell.TELEKENETIC_SHOWER);
-				this.addSpellUpgrade(SpellUpgrade.TELEKENETIC_SHOWER_1);
-			}
+			this.setPlayerKnowsName(false);
+			this.setGenericName("dark siren");
 			
+			this.addTrait(Perk.CHUUNI);
+			this.setEssenceCount(TFEssence.ARCANE, 10000);
+			
+			this.addSpell(Spell.FIREBALL);
+			this.addSpellUpgrade(SpellUpgrade.FIREBALL_1);
+			this.addSpellUpgrade(SpellUpgrade.FIREBALL_2);
+			
+			this.addSpell(Spell.CLOAK_OF_FLAMES);
+			this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1);
+			
+			this.addSpell(Spell.ICE_SHARD);
+			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
+			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
+			
+			this.addSpell(Spell.POISON_VAPOURS);
+			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1);
+			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_2);
+			
+			this.addSpell(Spell.VACUUM);
+			this.addSpellUpgrade(SpellUpgrade.VACUUM_1);
+			
+			this.addSpell(Spell.SLAM);
+			this.addSpellUpgrade(SpellUpgrade.SLAM_1);
+			this.addSpellUpgrade(SpellUpgrade.SLAM_2);
+			this.addSpellUpgrade(SpellUpgrade.SLAM_3);
+			
+			this.addSpell(Spell.TELEKENETIC_SHOWER);
+			this.addSpellUpgrade(SpellUpgrade.TELEKENETIC_SHOWER_1);
 		}
 	}
 
@@ -144,6 +139,38 @@ public class DarkSiren extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6")) {
 			equipClothing(true, true, true, true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) {
+			this.setGenericName("dark siren");
+			
+			this.addTrait(Perk.CHUUNI);
+			this.setEssenceCount(TFEssence.ARCANE, 10000);
+			
+			this.addSpell(Spell.FIREBALL);
+			this.addSpellUpgrade(SpellUpgrade.FIREBALL_1);
+			this.addSpellUpgrade(SpellUpgrade.FIREBALL_2);
+			
+			this.addSpell(Spell.CLOAK_OF_FLAMES);
+			this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1);
+			
+			this.addSpell(Spell.ICE_SHARD);
+			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
+			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
+			
+			this.addSpell(Spell.POISON_VAPOURS);
+			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1);
+			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_2);
+			
+			this.addSpell(Spell.VACUUM);
+			this.addSpellUpgrade(SpellUpgrade.VACUUM_1);
+			
+			this.addSpell(Spell.SLAM);
+			this.addSpellUpgrade(SpellUpgrade.SLAM_1);
+			this.addSpellUpgrade(SpellUpgrade.SLAM_2);
+			this.addSpellUpgrade(SpellUpgrade.SLAM_3);
+			
+			this.addSpell(Spell.TELEKENETIC_SHOWER);
+			this.addSpellUpgrade(SpellUpgrade.TELEKENETIC_SHOWER_1);
 		}
 		setName(new NameTriplet("Meraxis"));
 	}

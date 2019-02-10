@@ -167,8 +167,8 @@ public class LumiDialogue {
 		}
 		
 		@Override
-		public int getMinutesPassed() {
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override

@@ -244,7 +244,7 @@ public class Roxy extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_TONGUE_BAR, Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_VAGINA_BARBELL_RING, Colour.CLOTHING_GOLD, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_ankle_anklet", Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
 
@@ -297,8 +297,10 @@ public class Roxy extends NPC {
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing!=null
-					&& clothing.getRarity()==Rarity.COMMON
-					&& (clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH) || clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN))) {
+					&& (clothing.getRarity()==Rarity.COMMON || clothing.isCondom())
+					&& (clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)
+							|| clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
+							|| clothing.getItemTags().contains(ItemTag.SOLD_BY_RALPH))) {
 				if(clothing.isCondom()) {
 					Colour condomColour = Util.randomItemFrom(clothing.getAvailablePrimaryColours());
 					Colour condomColourSec = Colour.CLOTHING_BLACK;

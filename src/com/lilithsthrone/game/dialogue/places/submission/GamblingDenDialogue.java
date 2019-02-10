@@ -213,8 +213,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode CORRIDOR = new DialogueNode("Gambling Den", "", false) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -499,8 +499,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode AFTER_ROXY_SEX = new DialogueNode("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -570,8 +570,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode AFTER_ROXY_SEX_ITEM_OBTAINED = new DialogueNode("Roxy's Fun Box", "", false, true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -588,8 +588,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode AFTER_ROXY_SEX_ADDICT = new DialogueNode("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -863,7 +863,7 @@ public class GamblingDenDialogue {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
 						
 					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
-						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is filled with cum!", null);
+						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is full of cum!", null);
 						
 					} else if(!Main.game.getPlayer().hasVagina()) {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You don't have a vagina, so you can't sign up to be the mother!", null);
@@ -906,7 +906,7 @@ public class GamblingDenDialogue {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
 						
 					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
-						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is filled with cum!", null);
+						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is full of cum!", null);
 						
 					} else if(!Main.game.getPlayer().hasVagina()) {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You don't have a vagina, so you can't sign up to be the mother!", null);
@@ -1387,8 +1387,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_FINISHED = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 		
 		@Override
@@ -1497,7 +1497,7 @@ public class GamblingDenDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "Epona rolls the dice, and you watch as it clatters to a halt on the number "+Util.intToString(roll)+"."
-						+ " [epona.speech(Alright, [pc.name], that means you're going "+Util.intToPosition(roll)+"! Now, erm, I'll keep rolling for the rest of you!)]"
+						+ " [epona.speech(Alright, [pc.name], that means you're going "+Util.intToPosition(roll)+"! Now I'll keep rolling for the rest of you!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You all then have to wait while Epona rolls for each of the other breeders."
@@ -1536,7 +1536,9 @@ public class GamblingDenDialogue {
 							}
 						},
 						null,
-						null, PREGNANCY_ROULETTE_BREEDER_POST_SEX, roll==1
+						null,
+						PREGNANCY_ROULETTE_BREEDER_POST_SEX,
+						roll==1
 							?UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FIRST", Util.newArrayListOfValues(mother))
 							:UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_MIDDLE", Util.newArrayListOfValues(mother))){
 					@Override
@@ -1581,8 +1583,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 		
 		@Override
@@ -1606,7 +1608,6 @@ public class GamblingDenDialogue {
 									Main.game.banishNPC(npc);
 								}
 								Main.game.banishNPC(mother);
-								
 							}
 						};
 						

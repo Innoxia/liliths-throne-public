@@ -44,7 +44,12 @@ public enum Race {
 			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			false),
+			false) {
+		@Override
+		public boolean isBestialPartsAvailable() {
+			return false;
+		}
+	},
 
 	// ANGEL:
 	ANGEL("angel",
@@ -1237,6 +1242,10 @@ public enum Race {
 		this.affectedByFurryPreference = affectedByFurryPreference;
 	}
 
+	public boolean isBestialPartsAvailable() {
+		return true;
+	}
+	
 	public String getName(boolean bestial) {
 		if(bestial) {
 			return nameBestial;

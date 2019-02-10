@@ -81,8 +81,12 @@ public class SupplierDepot {
 	public static final DialogueNode SUPPLIER_DEPOT_RECEPTION = new DialogueNode("Reception Area", "-", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
+				return 60;
+			} else {
+				return 30;
+			}
 		}
 		
 		@Override
@@ -187,8 +191,8 @@ public class SupplierDepot {
 	public static final DialogueNode SUPPLIER_DEPOT_CORRIDOR = new DialogueNode("Corridor", "-", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 		
 		@Override
@@ -205,8 +209,8 @@ public class SupplierDepot {
 	public static final DialogueNode SUPPLIER_DEPOT_STORAGE_ROOM = new DialogueNode("Storage Room", "-", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 		
 		@Override
@@ -255,8 +259,8 @@ public class SupplierDepot {
 	public static final DialogueNode SUPPLIER_DEPOT_STORAGE_ROOM_SEARCH = new DialogueNode("Storage Room", "-", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override

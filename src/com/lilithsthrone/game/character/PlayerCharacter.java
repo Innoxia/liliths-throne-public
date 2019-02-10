@@ -471,7 +471,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			this.getWorldsVisited().add(worldLocation);
 		}
 		
-		if(this.getWorldLocation()!=worldLocation && !this.getLocation().equals(location)) {
+		if(this.getWorldLocation()!=worldLocation || !this.getLocation().equals(location)) {
 			Main.game.setPlayerMovedLocation(true);
 		}
 		
@@ -678,7 +678,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public boolean isQuestProgressGreaterThan(QuestLine questLine, Quest quest) {
 		if(!hasQuest(questLine)) {
-			System.err.println("Player does not have Quest: "+quest.toString());
+			System.err.println("Player does not have Quest: "+questLine.toString()+", "+quest.toString());
 			return false;
 		}
 		

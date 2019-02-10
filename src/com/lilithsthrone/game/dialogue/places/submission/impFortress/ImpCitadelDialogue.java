@@ -366,8 +366,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode ENTRANCE = new DialogueNode("Gateway", "", false) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -410,8 +410,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode LEAVE_FORTRESS = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -428,8 +428,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode IMP_CHALLENGE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -452,8 +452,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode IMP_CHALLENGE_CONTINUE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1036,8 +1036,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode IMP_AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override
@@ -1088,8 +1088,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode COURTYARD = new DialogueNode("Courtyard", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -1124,8 +1124,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode WELL = new DialogueNode("Well", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -1161,8 +1161,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode LABORATORY = new DialogueNode("Laboratory", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1234,8 +1234,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode LABORATORY_SEARCH = new DialogueNode("", "", false, true) {
 	
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 	
 		@Override
@@ -1252,8 +1252,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode LABORATORY_ARCANIST = new DialogueNode("", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1695,8 +1695,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode TREASURY = new DialogueNode("Treasury", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1750,8 +1750,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode TREASURY_SEARCH = new DialogueNode("", "", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 
 		@Override
@@ -1768,8 +1768,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode KEEP = new DialogueNode("Keep", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -1818,8 +1818,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode KEEP_ENTRY = new DialogueNode("Keep", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1916,8 +1916,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode KEEP_CHALLENGE_RING_TRICK = new DialogueNode("Keep", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1952,8 +1952,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode KEEP_COLLAPSE_ESCAPE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -1998,8 +1998,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode KEEP_COLLAPSE_ESCAPE_END = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -2262,8 +2262,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode THROWN_OUT = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -2355,8 +2355,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode PRISONER_INITIAL_SCENE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -2408,8 +2408,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode PRISONER_INITIAL_SCENE_COMPANION_STRIP = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -2453,8 +2453,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode PRISONER_STRIPPED = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -2571,8 +2571,8 @@ public class ImpCitadelDialogue {
 	public static final DialogueNode CELLS = new DialogueNode("Cells", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return cellTimePassed;
+		public int getSecondsPassed() {
+			return cellTimePassed*60;
 		}
 
 		@Override

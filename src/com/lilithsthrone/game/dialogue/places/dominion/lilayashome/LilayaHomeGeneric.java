@@ -58,8 +58,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode OUTSIDE = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -111,8 +111,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode CORRIDOR = new DialogueNode("Corridor", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -712,8 +712,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode MILKED = new DialogueNode("Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -749,8 +749,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode ROOM_WINDOW = new DialogueNode("Room", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 		
 		@Override
@@ -776,8 +776,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode ROOM_GARDEN_GROUND_FLOOR = new DialogueNode("Garden-view room", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 		
 		@Override
@@ -802,8 +802,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode ROOM_GARDEN = new DialogueNode("Garden-view room", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 		
 		@Override
@@ -829,8 +829,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode ROOM_ARTHUR_INSTALLATION = new DialogueNode("Arthur's Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 
 		@Override
@@ -993,15 +993,15 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode ROOM_ARTHUR = new DialogueNode("Arthur's Room", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
 		public String getContent() {
 			return "<p>"
 						+ "You find yourself standing in Arthur's Room, which, due to the occupant's need to carry out any experiments assigned to him, looks like a miniature version of Lilaya's lab."
-						+ " The walls are lined with cluttered tables, stacked bookcases, and cupboards filled with all manner of scientific-looking apparatus."
+						+ " The walls are lined with cluttered tables, stacked bookcases, and cupboards full of all manner of scientific-looking apparatus."
 						+ " A solitary bed is positioned in one corner, but aside from that, there's no other indication that this room doubles as Arthur's sleeping quarters."
 					+ "</p>"
 					+ "<p>"
@@ -1550,8 +1550,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode BIRTHING_ROOM = new DialogueNode("Birthing room", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -1579,8 +1579,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode KITCHEN = new DialogueNode("Kitchen", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -1677,8 +1677,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode ROOM_ROSE = new DialogueNode("Rose's Room", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -1730,8 +1730,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode GARDEN = new DialogueNode("Garden courtyard", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -1751,8 +1751,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode FOUNTAIN = new DialogueNode("Water fountain", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -1772,8 +1772,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode ENTRANCE_HALL = new DialogueNode("Entrance hall", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -1826,8 +1826,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode STAIRCASE_UP = new DialogueNode("Staircase up", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -1867,8 +1867,8 @@ public class LilayaHomeGeneric {
 	public static final DialogueNode STAIRCASE_DOWN = new DialogueNode("Staircase down", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override

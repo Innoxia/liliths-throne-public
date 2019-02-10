@@ -53,9 +53,9 @@ public class RoomPlayer {
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					Main.game.getPlayer().setLust(0);
 					if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
-						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8 * 60) + 240);
+						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + 240);
 					} else {
-						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6 * 60) + 240);
+						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6*60*60) + 240);
 					}
 				}
 			};
@@ -72,9 +72,9 @@ public class RoomPlayer {
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					Main.game.getPlayer().setLust(0);
 					if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
-						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8 * 60) + sleepTimer);
+						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer);
 					} else {
-						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6 * 60) + sleepTimer);
+						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6*60*60) + sleepTimer);
 					}
 				}
 			};
@@ -279,8 +279,8 @@ public class RoomPlayer {
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNode("Your Room", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 240;
+		public int getSecondsPassed() {
+			return 240*60;
 		}
 
 		@Override
@@ -316,8 +316,8 @@ public class RoomPlayer {
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG = new DialogueNode("Your Room", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return sleepTimer;
+		public int getSecondsPassed() {
+			return sleepTimer*60;
 		}
 
 		@Override
@@ -354,8 +354,8 @@ public class RoomPlayer {
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_WASH = new DialogueNode("Your Room", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 20;
+		public int getSecondsPassed() {
+			return 20*60;
 		}
 
 		@Override
@@ -578,8 +578,8 @@ public class RoomPlayer {
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME = new DialogueNode("Your Room", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 
 		@Override
@@ -641,8 +641,8 @@ public class RoomPlayer {
 	public static final DialogueNode BACK_HOME_AFTER_CLUBBER_SEX = new DialogueNode("Your Room", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override
@@ -697,8 +697,8 @@ public class RoomPlayer {
 	public static final DialogueNode BACK_HOME_AFTER_SEX = new DialogueNode("Your Room", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -715,8 +715,8 @@ public class RoomPlayer {
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME = new DialogueNode("Your Room", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override

@@ -277,6 +277,6 @@ public class Tongue implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Tongue.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Tongue.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }
