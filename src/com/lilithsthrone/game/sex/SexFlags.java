@@ -14,10 +14,8 @@ public class SexFlags {
 
 	public static boolean selfActionsBlockedPlayer;
 	public static boolean selfActionsBlockedPartner;
-	public static boolean playerRequestedPullOut;
-	public static boolean playerRequestedCreampie;
-	public static boolean partnerRequestedPullOut;
-	public static boolean partnerRequestedCreampie;
+	public static boolean characterRequestedPullOut;
+	public static boolean characterRequestedCreampie;
 	
 	// Generic:
 	public static boolean mutualOrgasmsAllowed;
@@ -47,10 +45,8 @@ public class SexFlags {
 		selfActionsBlockedPlayer = false;
 		selfActionsBlockedPartner = false;
 		
-		playerRequestedPullOut = false;
-		playerRequestedCreampie = false;
-		partnerRequestedPullOut = false;
-		partnerRequestedCreampie = false;
+		characterRequestedPullOut = false;
+		characterRequestedCreampie = false;
 		
 		mutualOrgasmsAllowed = true;
 		playerPreparedForCharactersOrgasm = new ArrayList<>();

@@ -50,10 +50,12 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -63,7 +65,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.3
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Rose extends NPC {
@@ -229,12 +231,27 @@ public class Rose extends NPC {
 	}
 
 	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
+		if(Sex.getSexManager() instanceof SMRoseHands) {
+			return null;
+		}
+		return super.getForeplayPreference(target);
+	}
+	
+	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+		if(Sex.getSexManager() instanceof SMRoseHands) {
+			return null;
+		}
+		
+		if(target.hasVagina() && target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-		} else {
+			
+		} else if(target.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 		}
+		
+		return super.getMainSexPreference(target);
 	}
 	
 	@Override

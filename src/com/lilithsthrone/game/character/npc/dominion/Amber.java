@@ -2,7 +2,6 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
 import java.util.List;
-import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -75,6 +74,7 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
@@ -255,7 +255,7 @@ public class Amber extends NPC {
 	}
 
 	@Override
-	public String getName() {
+	public String getName(boolean applynameAlteringEffects) {
 		if(!playerKnowsName) {
 			return "Fiery Maid";
 			
@@ -610,12 +610,8 @@ public class Amber extends NPC {
 	}
 
 	@Override
-	public Set<SexSlot> getSexPositionPreferences(GameCharacter target) {
-		sexPositionPreferences.clear();
-		
-		sexPositionPreferences.add(SexSlotBipeds.DOGGY_BEHIND);
-		
-		return sexPositionPreferences;
+	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
+		return slot==SexSlotBipeds.DOGGY_BEHIND;
 	}
 	
 	@Override

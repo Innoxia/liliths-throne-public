@@ -38,7 +38,8 @@ public enum LegConfiguration {
 			false,
 			2,
 			0,
-			"The most common type of lower body; the character's legs and groin are in the same configuration as that of a regular human.", "Above [npc.her] groin, occupying the lower region of [npc.her] abdomen,") {
+			"The most common type of lower body; the character's legs and groin are in the same configuration as that of a regular human.",
+			"Above [npc.her] groin, occupying the lower region of [npc.her] abdomen,") {
 		@Override
 		public boolean isGenitalConfigurationTransformable() {
 			return true;
@@ -66,7 +67,8 @@ public enum LegConfiguration {
 			4,
 			0,
 			"A configuration in which the character's legs and groin are replaced by the quadrupedal, bestial body of the associated animal-morph, with their genitals shifting to be found in the same place as their animal equivalent."
-				+ " The most common example of this is the 'centaur', in which the character's legs and groin are replaced by the body and genitals of a horse.", "Down beneath the groin on [npc.her] animal body,") {
+				+ " The most common example of this is the 'centaur', in which the character's legs and groin are replaced by the body and genitals of a horse.",
+			"Down beneath the groin on [npc.her] animal body,") {
 
 			@Override
 			public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -120,7 +122,8 @@ public enum LegConfiguration {
 			0,
 			0,
 			"A configuration in which the character's legs and groin are replaced by an extremely long tail of the associated animal-morph, with their genitals shifting to be located within a cloaca."
-				+ " The most common example of this is the 'lamia', in which the character's legs and groin are replaced by the body and genitals of a snake.", "Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
+				+ " The most common example of this is the 'lamia', in which the character's legs and groin are replaced by the body and genitals of a snake.",
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -149,7 +152,8 @@ public enum LegConfiguration {
 			0, 
 			0,
 			"A configuration in which the character's legs and groin are replaced by a tail of the associated animal-morph, with their genitals shifting to be located within a cloaca."
-					+ " The most common example of this is the 'mermaid', in which the character's legs and groin are replaced by the body and genitals of a fish.", "Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
+					+ " The most common example of this is the 'mermaid', in which the character's legs and groin are replaced by the body and genitals of a fish.",
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -178,7 +182,8 @@ public enum LegConfiguration {
 			8,
 			0,
 			"A configuration in which the character's legs and groin are replaced by the eight-legged, bestial body of the associated arachnid-morph, with their genitals shifting to be found in the same place as their animal equivalent."
-					+ " The most common example of this is the 'arachne', in which the character's legs and groin are replaced by the body and genitals of a spider.", "Occupying the lower region of [npc.her] humanoid abdomen,") {
+					+ " The most common example of this is the 'arachne', in which the character's legs and groin are replaced by the body and genitals of a spider.",
+			"Occupying the lower region of [npc.her] humanoid abdomen,") {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -229,7 +234,8 @@ public enum LegConfiguration {
 			8,
 			// I believe that "tentacled" is technically incorrect as a catch-all term for cephalopods, as octopuses have eight 'arms', while squids have eight arms plus two tentacles. Oh well.
 			"A configuration in which the character's legs and groin are replaced by the tentacled, bestial body of the associated cephalopod-morph, with their genitals shifting to be found in the same place as their animal equivalent."
-					+ " The most common example of this is the 'kraken', in which the character's legs and groin are replaced by the body and genitals of a squid.", "Nestled up in between her mass of tentacles,") {
+					+ " The most common example of this is the 'kraken', in which the character's legs and groin are replaced by the body and genitals of a squid.",
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {

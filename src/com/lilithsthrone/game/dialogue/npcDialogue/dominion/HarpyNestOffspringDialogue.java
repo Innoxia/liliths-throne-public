@@ -448,7 +448,7 @@ public class HarpyNestOffspringDialogue {
 										"<p>"
 											+ "You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you greet your [npc.daughter],"
 											+ " [pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure "
-												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName():"your mother")+" told you, but I'm-)]"
+												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName(true):"your mother")+" told you, but I'm-)]"
 										+ "</p>"
 										+ "<p>"
 											+ "[npc.speech([pc.Name], yeah, "+(offspring().getMother().isPlayer()?"Lilaya":"mom")+" told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]"
@@ -482,7 +482,7 @@ public class HarpyNestOffspringDialogue {
 											+ " [npc.She] returns your embrace, hugging you close to [npc.her] warm body as you both share a happy moment, before breaking away from each other."
 											+ " Looking into [npc.her] [npc.eyes+], you greet your [npc.daughter] for the first time,"
 											+ " [pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure "
-												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName():"your mother")+" told you, but I'm-)]"
+												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName(true):"your mother")+" told you, but I'm-)]"
 										+ "</p>"
 										+ "<p>"
 											+ "[npc.speech([pc.Name], yeah, "+(offspring().getMother().isPlayer()?"Lilaya":"mom")+" told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]"
@@ -520,7 +520,7 @@ public class HarpyNestOffspringDialogue {
 											+ " [npc.She] returns your embrace, hugging you close to [npc.her] warm body as you both share a happy moment, before breaking away from each other."
 											+ " Looking into [npc.her] [npc.eyes+], you greet your [npc.daughter] for the first time,"
 											+ " [pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure "
-												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName():"your mother")+" told you, but I'm-)]"
+												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName(true):"your mother")+" told you, but I'm-)]"
 										+ "</p>"
 										+ "<p>"
 											+ "[npc.speech([pc.Name], yeah, "+(offspring().getMother().isPlayer()?"Lilaya":"mom")+" told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]"
@@ -2850,8 +2850,8 @@ public class HarpyNestOffspringDialogue {
 	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override

@@ -24,7 +24,6 @@ import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -1372,7 +1371,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasSnowedThisWinter)) {
 				Main.game.getDialogueFlags().values.add(DialogueFlagValue.hasSnowedThisWinter);
 				
@@ -1505,7 +1504,7 @@ public enum StatusEffect {
 					"[style.boldExcellent(Double)] all <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
@@ -1563,7 +1562,7 @@ public enum StatusEffect {
 					"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
@@ -1617,7 +1616,7 @@ public enum StatusEffect {
 					+ ";'>Enhanced libido</b>")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
@@ -1899,7 +1898,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
@@ -1939,7 +1938,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
@@ -1980,7 +1979,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			List<InventorySlot> slotsToClean = new ArrayList<>();
 			StringBuilder sb = new StringBuilder();
 			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
@@ -2049,8 +2048,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return StatusEffect.BODY_CUM.applyEffect(target, minutesPassed);
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return StatusEffect.BODY_CUM.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -2082,7 +2081,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer()) {
 				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.jinxedClothingDiscovered)) {
 					Main.game.getDialogueFlags().values.add(DialogueFlagValue.jinxedClothingDiscovered);
@@ -2287,8 +2286,8 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("Open to <b style='color: " + Colour.PSYCHOACTIVE.toWebHexString() + ";'>Hypnotic Suggestion</b>")) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.isPlayer() && Math.random()<=Util.getModifiedDropoffValue(minutesPassed*0.0075f, 0.5f)) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(target.isPlayer() && Math.random()<=Util.getModifiedDropoffValue((secondsPassed/60)*0.0075f, 0.5f)) {
 				
 				if(target.getPsychoactiveFluidsIngested().isEmpty()) {
 					return "<p>"
@@ -2424,8 +2423,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60f*6)))); // alcohol level will completely go after 6 hours
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			target.incrementAlcoholLevel(-((secondsPassed/60)*(1f/(60f*6)))); // alcohol level will completely go after 6 hours
 			return "";
 		}
 
@@ -2465,9 +2464,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
-			return "";
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return DRUNK_1.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -2505,9 +2503,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
-			return "";
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return DRUNK_1.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -2546,9 +2543,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
-			return "";
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return DRUNK_1.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -2587,9 +2583,8 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
-			return "";
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return DRUNK_1.applyEffect(target, secondsPassed);
 		}
 
 		@Override
@@ -3035,7 +3030,7 @@ public enum StatusEffect {
 					}
 				}
 				
-				target.addStatusEffect(PREGNANT_1, 60 * (72 + Util.random.nextInt(13)));
+				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
 				
 				if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
@@ -3214,7 +3209,7 @@ public enum StatusEffect {
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 
-			target.addStatusEffect(PREGNANT_2, 60 * (72 + Util.random.nextInt(13)));
+			target.addStatusEffect(PREGNANT_2, 60 * 60 * (72 + Util.random.nextInt(13)));
 			
 			boolean breastGrowth = false;
 			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
@@ -3311,7 +3306,7 @@ public enum StatusEffect {
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 
-			target.setTimeProgressedToFinalPregnancyStage(Main.game.getMinutesPassed());
+			target.setTimeProgressedToFinalPregnancyStage(Main.game.getSecondsPassed());
 
 			boolean lactationIncrease = false;
 			if(Main.getProperties().pregnancyLactationIncrease>0 && target.getBreastRawMilkStorageValue()<Main.getProperties().pregnancyLactationLimit) {
@@ -3495,14 +3490,14 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementPenisStoredCum(minutesPassed * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			target.incrementPenisStoredCum(secondsPassed * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float cumRegenRate = Util.getRoundedFloat(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue(), 4);
+			String cumRegenRate = Util.getRoundedFloat(target.getPenisCumProductionRegeneration().getPercentageRegen() * 60 * target.getPenisRawCumStorageValue(), 2);
 			
 			return UtilText.parse(target, "[npc.NamePos] balls are currently producing more [npc.cum], at a rate of "+cumRegenRate+"ml/minute."
 					+ " They have stored "+Util.getRoundedFloat(target.getPenisRawStoredCumValue(), 2)+"ml, out of a maximum of "+Util.getRoundedFloat(target.getPenisRawCumStorageValue(), 2)+"ml.");
@@ -3534,15 +3529,15 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float cumRegenRate = Util.getRoundedFloat(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue(), 4);
+			String cumRegenRate = Util.getRoundedFloat(target.getPenisCumProductionRegeneration().getPercentageRegen() * 60 * target.getPenisRawCumStorageValue(), 2);
 			
-			return UtilText.parse(target, "[npc.NamePos] balls are completely filled with [npc.cum] ("+target.getPenisRawCumStorageValue()+"ml),"
+			return UtilText.parse(target, "[npc.NamePos] balls are completely full of [npc.cum] ("+target.getPenisRawCumStorageValue()+"ml),"
 					+ " and [npc.she] can't wait until the next time [npc.sheIs] able to empty them."
 					+ " [npc.She] will ejaculate "+target.getPenisRawOrgasmCumQuantity()+"ml upon orgasm, and will then regenerate [npc.cum] at a rate of "+cumRegenRate+"ml/minute.");
 		}
@@ -3572,14 +3567,14 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementBreastStoredMilk(minutesPassed * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			target.incrementBreastStoredMilk(secondsPassed * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float milkRegenRate = Util.getRoundedFloat(target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue(), 4);
+			String milkRegenRate = Util.getRoundedFloat(target.getBreastLactationRegeneration().getPercentageRegen() * 60 * target.getBreastRawMilkStorageValue(), 2);
 			
 			return UtilText.parse(target,
 					"[npc.NamePos] breasts are currently producing more [npc.milk], at a rate of "+milkRegenRate+"ml/minute."
@@ -3608,16 +3603,16 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float milkRegenRate = Util.getRoundedFloat(target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue(), 4);
+			String milkRegenRate = Util.getRoundedFloat(target.getBreastLactationRegeneration().getPercentageRegen() * 60 * target.getBreastRawMilkStorageValue(), 2);
 		
 			return UtilText.parse(target,
-					"[npc.NamePos] [npc.breasts] are completely filled with [npc.milk] ("+target.getBreastRawMilkStorageValue()+"ml), and [npc.her] engorged [npc.nipples] are just begging for some attention..."
+					"[npc.NamePos] [npc.breasts] are completely full of [npc.milk] ("+target.getBreastRawMilkStorageValue()+"ml), and [npc.her] engorged [npc.nipples] are just begging for some attention..."
 							+ " Once milked, they will produce more [npc.milk] at a rate of "+milkRegenRate+"ml/minute.");
 		}
 
@@ -3651,14 +3646,14 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementBreastCrotchStoredMilk(minutesPassed * target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue());
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			target.incrementBreastCrotchStoredMilk(secondsPassed * target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue());
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float milkRegenRate = Util.getRoundedFloat(target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue(), 4);
+			String milkRegenRate = Util.getRoundedFloat(target.getBreastCrotchLactationRegeneration().getPercentageRegen() * 60 * target.getBreastCrotchRawMilkStorageValue(), 2);
 			
 			return UtilText.parse(target,
 					"[npc.NamePos] [npc.crotchBoobs] are currently producing more [npc.crotchMilk], at a rate of "+milkRegenRate+"ml/minute."
@@ -3697,16 +3692,16 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float milkRegenRate = Util.getRoundedFloat(target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue(), 4);
+			String milkRegenRate = Util.getRoundedFloat(target.getBreastCrotchLactationRegeneration().getPercentageRegen() * 60 * target.getBreastCrotchRawMilkStorageValue(), 2);
 		
 			return UtilText.parse(target,
-					"[npc.NamePos] [npc.crotchBoobs] are completely filled with [npc.crotchMilk] ("+target.getBreastCrotchRawMilkStorageValue()+"ml), and [npc.her] engorged [npc.crotchNipples] are just begging for some attention..."
+					"[npc.NamePos] [npc.crotchBoobs] are completely full of [npc.crotchMilk] ("+target.getBreastCrotchRawMilkStorageValue()+"ml), and [npc.her] engorged [npc.crotchNipples] are just begging for some attention..."
 							+ " Once milked, they will produce more [npc.crotchMilk] at a rate of "+milkRegenRate+"ml/minute.");
 		}
 
@@ -3735,252 +3730,219 @@ public enum StatusEffect {
 		@Override
 		public String getName(GameCharacter target) {
 			int i=0;
-			String s="";
+			StringBuilder sb = new StringBuilder();
 			
-			// Vagina:
-			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				s = "Recovering Vagina";
+			if(Main.game.isInSex()) {
+				sb.append("Stretched");
+			} else {
+				sb.append("Recovering");
+			}
+			
+			if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
+				sb.append(" Vagina");
 				i++;
-				
-			// Ass:
 			}
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-				s = "Recovering Anus";
+				sb.append(" Anus");
 				i++;
-				
-			// Nipples:
 			}
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-				s = "Recovering Nipples";
+				sb.append(" Nipples");
 				i++;
-				
-			// Urethra:
 			}
-			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				s = "Recovering Urethra";
+			if (target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
+				sb.append(" Crotch Nipples");
+				i++;
+			}
+			if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
+				sb.append(" Penile Urethra");
+				i++;
+			}
+			if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
+				sb.append(" Vaginal Urethra");
 				i++;
 			}
 			
-			if(i>1)
-				return "Recovering Orifices";
-			else
-				return s;
+			if(i>1) {
+				if(Main.game.isInSex()) {
+					return "Stretched Orifices";
+				} else {
+					return "Recovering Orifices";
+				}
+			} else {
+				return sb.toString();
+			}
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			
-			// Vagina:
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(Main.game.isInSex()) {
+				return "";
+			}
 			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				switch(target.getVaginaElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
-					case ZERO_UNYIELDING:
-						target.incrementVaginaStretchedCapacity(-(1/6f) * (minutesPassed/60f));
-						break;
-					//Takes 4 hours to recover each inch of capacity:
-					case ONE_RIGID:
-						target.incrementVaginaStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
-						target.incrementVaginaStretchedCapacity(-(1/2f) * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case THREE_FLEXIBLE:
-						target.incrementVaginaStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementVaginaStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
-						target.incrementVaginaStretchedCapacity(-2 * (minutesPassed/60f));
-						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
-						target.incrementVaginaStretchedCapacity(-4 * (minutesPassed/60f));
-						break;
-					//Should have been instant after sex, this is just a backup:
-					case SEVEN_ELASTIC:
-						target.incrementVaginaStretchedCapacity(-100);
-						break;
-					default:
-						break;
-				}
-			
+				target.incrementVaginaStretchedCapacity(-target.getVaginaPlasticity().getRecoveryModifier()*secondsPassed);
+				
 				if(target.getVaginaStretchedCapacity()<target.getVaginaRawCapacityValue()) {
 					target.setVaginaStretchedCapacity(target.getVaginaRawCapacityValue());
 				}
 			}
-			
-			// Ass:
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-				switch(target.getAssElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
-					case ZERO_UNYIELDING:
-						target.incrementAssStretchedCapacity(-(1/6f) * (minutesPassed/60f));
-						break;
-					//Takes 4 hours to recover each inch of capacity:
-					case ONE_RIGID:
-						target.incrementAssStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
-						target.incrementAssStretchedCapacity(-(1/2f) * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case THREE_FLEXIBLE:
-						target.incrementAssStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementAssStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
-						target.incrementAssStretchedCapacity(-2 * (minutesPassed/60f));
-						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
-						target.incrementAssStretchedCapacity(-4 * (minutesPassed/60f));
-						break;
-					//Should have been instant after sex, this is just a backup:
-					case SEVEN_ELASTIC:
-						target.incrementAssStretchedCapacity(-100);
-						break;
-					default:
-						break;
-				}
+				target.incrementAssStretchedCapacity(-target.getAssPlasticity().getRecoveryModifier()*secondsPassed);
 				
-				if(target.getAssStretchedCapacity()<target.getAssRawCapacityValue())
+				if(target.getAssStretchedCapacity()<target.getAssRawCapacityValue()) {
 					target.setAssStretchedCapacity(target.getAssRawCapacityValue());
+				}
 			}
-			
-			// Nipples:
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-				switch(target.getNippleElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
-					case ZERO_UNYIELDING:
-						target.incrementNippleStretchedCapacity(-(1/6f) * (minutesPassed/60f));
-						break;
-					//Takes 4 hours to recover each inch of capacity:
-					case ONE_RIGID:
-						target.incrementNippleStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
-						target.incrementNippleStretchedCapacity(-(1/2f) * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case THREE_FLEXIBLE:
-						target.incrementNippleStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementNippleStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
-						target.incrementNippleStretchedCapacity(-2 * (minutesPassed/60f));
-						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
-						target.incrementNippleStretchedCapacity(-4 * (minutesPassed/60f));
-						break;
-					//Should have been instant after sex, this is just a backup:
-					case SEVEN_ELASTIC:
-						target.incrementNippleStretchedCapacity(-100);
-						break;
-					default:
-						break;
-				}
+				target.incrementNippleStretchedCapacity(-target.getNipplePlasticity().getRecoveryModifier()*secondsPassed);
 				
-				if(target.getNippleStretchedCapacity()<target.getNippleRawCapacityValue())
+				if(target.getNippleStretchedCapacity()<target.getNippleRawCapacityValue()) {
 					target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
-			}
-			
-			// Urethra:
-			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				switch(target.getUrethraElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
-					case ZERO_UNYIELDING:
-						target.incrementPenisStretchedCapacity(-(1/6f) * (minutesPassed/60f));
-						break;
-					//Takes 4 hours to recover each inch of capacity:
-					case ONE_RIGID:
-						target.incrementPenisStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
-						target.incrementPenisStretchedCapacity(-(1/2f) * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case THREE_FLEXIBLE:
-						target.incrementPenisStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementPenisStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
-						target.incrementPenisStretchedCapacity(-2 * (minutesPassed/60f));
-						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
-						target.incrementPenisStretchedCapacity(-4 * (minutesPassed/60f));
-						break;
-					//Should have been instant after sex, this is just a backup:
-					case SEVEN_ELASTIC:
-						target.incrementPenisStretchedCapacity(-100);
-						break;
-					default:
-						break;
 				}
+			}
+			if (target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
+				target.incrementNippleCrotchStretchedCapacity(-target.getNippleCrotchPlasticity().getRecoveryModifier()*secondsPassed);
 				
-				if(target.getPenisStretchedCapacity()<target.getPenisRawCapacityValue())
+				if(target.getNippleCrotchStretchedCapacity()<target.getNippleCrotchRawCapacityValue()) {
+					target.setNippleCrotchStretchedCapacity(target.getNippleCrotchRawCapacityValue());
+				}
+			}
+			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
+				target.incrementPenisStretchedCapacity(-target.getUrethraPlasticity().getRecoveryModifier()*secondsPassed);
+				
+				if(target.getPenisStretchedCapacity()<target.getPenisRawCapacityValue()) {
 					target.setPenisStretchedCapacity(target.getPenisRawCapacityValue());
+				}
+			}
+			if (target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
+				target.incrementVaginaUrethraStretchedCapacity(-target.getVaginaUrethraPlasticity().getRecoveryModifier()*secondsPassed);
+				
+				if(target.getVaginaUrethraStretchedCapacity()<target.getVaginaUrethraRawCapacityValue()) {
+					target.setVaginaUrethraStretchedCapacity(target.getVaginaUrethraRawCapacityValue());
+				}
 			}
 			
 			return "";
 		}
-
+		
+		private String getRecoveryText(float recoveryModifier) {
+			int minutes = (int) (1/recoveryModifier)/60;
+			int hours = minutes /60;
+			
+			return "Tightens 1"+UtilText.INCH_SYMBOL+" every "+(hours>=1
+						?(hours)+" hour"+(hours==1?"":"s")+(minutes%60>0?" and "+(minutes%60)+" minute"+(minutes==1?"":"s"):"")
+						:(minutes )+" minute"+(minutes==1?"":"s"));
+		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			List<String> recoveringEffects = new ArrayList<>();
+			
+			String recoveringText = "recovering";
+			String from1 = "From";
+			String from2 = "to";
+			
+			if(Main.game.isInSex()) {
+				recoveringText = "stretched";
+				from1 = "To";
+				from2 = "from";
+			}
+			
+			if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
+				recoveringEffects.add("[style.boldVagina(Vagina recovering:)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Util.getRoundedFloat(target.getVaginaStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] "+from2+" [style.boldGood("+target.getVaginaRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
+				recoveringEffects.add("[style.boldAsshole(Asshole "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Util.getRoundedFloat(target.getAssStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] "+from2+" [style.boldGood("+target.getAssRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getAssPlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
+				recoveringEffects.add("[style.boldNipples(Nipples "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Util.getRoundedFloat(target.getNippleStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] "+from2+" [style.boldGood("+target.getNippleRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNipplePlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.hasBreastsCrotch() && target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
+				recoveringEffects.add("[style.boldNipplesCrotch(Crotch nipples "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Util.getRoundedFloat(target.getNippleCrotchStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] "+from2+" [style.boldGood("+target.getNippleCrotchRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNippleCrotchPlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
+				recoveringEffects.add("[style.boldPenisUrethra(Penile Urethra "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Util.getRoundedFloat(target.getPenisStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] "+from2+" [style.boldGood("+target.getPenisRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getUrethraPlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
+				recoveringEffects.add("[style.boldVaginaUrethra(Vaginal Urethra "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Util.getRoundedFloat(target.getVaginaUrethraStretchedCapacity(), 2)+""+UtilText.INCH_SYMBOL+")] "+from2+" [style.boldGood("+target.getVaginaUrethraRawCapacityValue()+""+UtilText.INCH_SYMBOL+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaUrethraPlasticity().getRecoveryModifier())+")]");
+			}
+			
+			
+			return recoveringEffects;
+		}
+		
 		@Override
 		public String getDescription(GameCharacter target) {
 			
-			descriptionSB = new StringBuilder("The following orifices are recovering:");
+			descriptionSB = new StringBuilder("After being forced to accommodate");
 			
-			// Vagina:
-			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				descriptionSB.append("<br/><b>Vagina:</b> From "+Capacity.getCapacityFromValue(target.getVaginaStretchedCapacity()).getDescriptor()+" to "+target.getVaginaCapacity().getDescriptor()+".");
-				
-			// Ass:
+			List<String> orificesRecovering = new ArrayList<>();
+			boolean plural = false;
+			if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
+				orificesRecovering.add("[style.boldPink(vagina)]");
 			}
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-				descriptionSB.append("<br/><b>Anus:</b> From "+Capacity.getCapacityFromValue(target.getAssStretchedCapacity()).getDescriptor()+" to "+target.getAssCapacity().getDescriptor()+".");
-				
-			// Nipples:
+				orificesRecovering.add("[style.boldPinkDeep(asshole)]");
 			}
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-				descriptionSB.append("<br/><b>Nipples:</b> From "+Capacity.getCapacityFromValue(target.getNippleStretchedCapacity()).getDescriptor()+" to "+target.getNippleCapacity().getDescriptor()+".");
-				
-			// Urethra:
+				orificesRecovering.add("[style.boldPinkLight(nipples)]");
+				plural = true;
 			}
-			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				descriptionSB.append("<br/><b>Urethra:</b> From "+Capacity.getCapacityFromValue(target.getPenisStretchedCapacity()).getDescriptor()+" to "+target.getPenisCapacity().getDescriptor()+".");
+			if (target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
+				orificesRecovering.add("[style.boldPurple(crotch nipples)]");
+				plural = true;
+			}
+			if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
+				orificesRecovering.add("[style.boldViolet(penile urethra)]");
+			}
+			if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
+				orificesRecovering.add("[style.boldPurpleLight(vaginal urethra)]");
+			}
+			if(orificesRecovering.size()==1) {
+				descriptionSB.append(" a phallic object that was far too big for "+(plural?"them":"it")+", [npc.namePos] "+orificesRecovering.get(0)+" "+(plural?"have":"has")
+						+" been stretched out, and "+(plural?"need":"needs")+" some time in which to recover all of "+(plural?"their":"its")+" natural tightness.");
+			} else {
+				descriptionSB.append(" phallic objects that were far too big for them, [npc.namePos] "+Util.stringsToStringList(orificesRecovering, false)
+						+" have been stretched out, and need some time in which to recover all of their natural tightness.");
+			}
+
+			if(Main.game.isInSex()) {
+				descriptionSB.append(" [style.italicsBad(Orifices do not recover during sex scenes!)]");
 			}
 			
-			return descriptionSB.toString();
+			return UtilText.parse(target, descriptionSB.toString());
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return !Main.game.isInSex() &&
-					((target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity())
+			return ((target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity())
 					|| (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity())
 					|| (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity())
-					|| (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()));
+					|| (target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity())
+					|| (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity())
+					|| (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()));
+		}
+
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getRecoveringOrificeStatus(owner, super.getSVGString(owner));
 		}
 	},
 	
@@ -4019,8 +3981,11 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target)*minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(Main.game.isInSex()) {
+				return "";
+			}
+			float cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerSecond(target)*secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4044,29 +4009,30 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target);
+			String cumLost = Util.getRoundedFloat(SexAreaOrifice.VAGINA.getCharactersCumLossPerSecond(target)*60, 2);
+			String cumInArea = Util.getRoundedFloat(target.getTotalFluidInArea(SexAreaOrifice.VAGINA), 2);
 			
 			if(target.isOrificePlugged(SexAreaOrifice.VAGINA)) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used pussy.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.pussy] has recently been filled with cum.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -4126,8 +4092,11 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(Main.game.isInSex()) {
+				return "";
+			}
+			float cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4151,16 +4120,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target);
+			String cumLost = Util.getRoundedFloat(SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerSecond(target)*60, 2);
+			String cumInArea = Util.getRoundedFloat(target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA), 2);
 			
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your pussy's recently-used urethra.<br/>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]<br/>"
+						+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 						+ "(-"+cumLost+"ml/minute)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.NamePos] pussy's urethra has recently been filled with cum.<br/>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]<br/>"
+						+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 						+ "(-"+cumLost+"ml/minute)");
 			}
 		}
@@ -4219,8 +4189,11 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(Main.game.isInSex()) {
+				return "";
+			}
+			float cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4244,16 +4217,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target);
+			String cumLost = Util.getRoundedFloat(SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerSecond(target)*60, 2);
+			String cumInArea = Util.getRoundedFloat(target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS), 2);
 			
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your cock's recently-used urethra.<br/>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]<br/>"
+						+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 						+ "(-"+cumLost+"ml/minute)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.NamePos] cock's urethra has recently been filled with cum.<br/>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]<br/>"
+						+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 						+ "(-"+cumLost+"ml/minute)");
 			}
 		}
@@ -4312,8 +4286,11 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(Main.game.isInSex()) {
+				return "";
+			}
+			float cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4337,29 +4314,30 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target);
+			String cumLost = Util.getRoundedFloat(SexAreaOrifice.ANUS.getCharactersCumLossPerSecond(target)*60, 2);
+			String cumInArea = Util.getRoundedFloat(target.getTotalFluidInArea(SexAreaOrifice.ANUS), 2);
 
 			if(target.isOrificePlugged(SexAreaOrifice.ANUS)) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used asshole.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel cum drooling out of your recently-used asshole.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.asshole] has recently been filled with cum.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -4419,8 +4397,11 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(Main.game.isInSex()) {
+				return "";
+			}
+			float cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4444,29 +4425,30 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target);
+			String cumLost = Util.getRoundedFloat(SexAreaOrifice.NIPPLE.getCharactersCumLossPerSecond(target)*60, 2);
+			String cumInArea = Util.getRoundedFloat(target.getTotalFluidInArea(SexAreaOrifice.NIPPLE), 2);
 			
 			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE)) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used nipples.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.nipples] have recently been filled with cum, before being plugged.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel cum drooling out of your recently-used nipples.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.nipples] have recently been filled with cum.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -4535,8 +4517,11 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(Main.game.isInSex()) {
+				return "";
+			}
+			float cumLost = SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4560,29 +4545,30 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerMinute(target);
+			String cumLost = Util.getRoundedFloat(SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerSecond(target)*60, 2);
+			String cumInArea = Util.getRoundedFloat(target.getTotalFluidInArea(SexAreaOrifice.NIPPLE_CROTCH), 2);
 			
 			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE_CROTCH)) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used nipples.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE_CROTCH)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.nipples] have recently been filled with cum, before being plugged.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE_CROTCH)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel cum drooling out of your recently-used nipples.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE_CROTCH)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.nipples] have recently been filled with cum.<br/>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE_CROTCH)+"ml)]<br/>"
+							+ "Current creampie: [style.colourSex("+cumInArea+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -4650,8 +4636,11 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.MOUTH.getCharactersCumLossPerMinute(target) * minutesPassed;
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			if(Main.game.isInSex()) {
+				return "";
+			}
+			float cumLost = SexAreaOrifice.MOUTH.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			target.drainTotalFluidsStored(SexAreaOrifice.MOUTH, cumLost);
 			
@@ -4660,16 +4649,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int lossPerMinute = SexAreaOrifice.MOUTH.getCharactersCumLossPerMinute(target);
+			String cumLost = Util.getRoundedFloat(SexAreaOrifice.MOUTH.getCharactersCumLossPerSecond(target)*60, 2);
+			String cumInArea = Util.getRoundedFloat(target.getTotalFluidInArea(SexAreaOrifice.MOUTH), 2);
 			
 			return UtilText.parse(target, 
 					target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
 					?"[npc.NameHasFull] recently swallowed a load of cum.<br/>"
-						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
-						+ "(-"+lossPerMinute+"ml/minute)"
+						+ "Current cum in stomach: [style.colourSex("+cumInArea+"ml)]<br/>"
+						+ "(-"+cumLost+"ml/minute)"
 					:"[npc.NameHasFull] recently swallowed some sexual fluids.<br/>"
-						+ "Current fluids in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
-						+ "(-"+lossPerMinute+"ml/minute)");
+						+ "Current fluids in stomach: [style.colourSex("+cumInArea+"ml)]<br/>"
+						+ "(-"+cumLost+"ml/minute)");
 		}
 		
 		@Override
@@ -4721,7 +4711,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
+			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
@@ -4761,7 +4751,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
+			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
@@ -4801,7 +4791,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
+			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
@@ -4840,7 +4830,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
+			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
@@ -4880,7 +4870,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
+			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
@@ -4920,7 +4910,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
+			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
@@ -5608,7 +5598,7 @@ public enum StatusEffect {
 				if(target.isPlayer()) {
 					return "By wearing the entire Milk Maid's outfit, you're filled with the energy you need in order to perform all of your milking duties!";
 				} else {
-					return UtilText.parse(target, "By wearing the entire Milk Maid's outfit, [npc.name] is filled with the energy [npc.she] needs in order to perform all of [npc.her] milking duties.");
+					return UtilText.parse(target, "By wearing the entire Milk Maid'full ofnpc.name] is filled with the energy [npc.she] needs in order to perform all of [npc.her] milking duties.");
 				}
 				
 			} else {
@@ -5843,13 +5833,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				if(target.isPlayer()) {
-					return "You are wearing a kitsune's ceremonial outfit, which closely resembles traditional Japanese clothing.";
-					
-				} else {
-					return UtilText.parse(target, "[npc.Name] is wearing a kitsune's ceremonial outfit, which closely resembles traditional Japanese clothing.");
-					
-				}
+				return UtilText.parse(target, "[npc.NameIs] wearing a youko's ceremonial outfit, which closely resembles traditional Japanese clothing.");
 			} else {
 				return "";
 			}
@@ -5965,7 +5949,7 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			return "-";
 		}
 
@@ -6652,7 +6636,7 @@ public enum StatusEffect {
 		null,
 		null) {
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if (target.isPlayer()) {
 				return "The <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Witch's Seal</b> is preventing you from making a move!";
 				
@@ -6690,7 +6674,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
 			null) {
 			@Override
-			public String applyEffect(GameCharacter target, int minutesPassed) {
+			public String applyEffect(GameCharacter target, int secondsPassed) {
 				if (target.isPlayer()) {
 					return "The <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making you appear irresistibly attractive!";
 					
@@ -6736,7 +6720,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(25 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -6807,7 +6791,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>5</b> [style.boldFire(Fire Damage)] per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_FIRE), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -6852,7 +6836,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if (target.isPlayer()) {
 				return "You are [style.boldTerrible(stunned)] from the blinding flash!";
 				
@@ -7259,7 +7243,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if (target.isPlayer()) {
 				return "You are [style.boldTerrible(stunned)] from freezing fog's detonation!";
 				
@@ -7689,7 +7673,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -7736,7 +7720,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 				
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -7785,7 +7769,7 @@ public enum StatusEffect {
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
 				
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -7839,7 +7823,7 @@ public enum StatusEffect {
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
 				
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -7956,7 +7940,7 @@ public enum StatusEffect {
 					"<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(Math.random()<(target.isPlayer()?0.1f:0.166f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -8014,7 +7998,7 @@ public enum StatusEffect {
 					"<b>25%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(Math.random()<(target.isPlayer()?0.25f:0.33f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -8440,7 +8424,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -8487,7 +8471,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -8534,7 +8518,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>20</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(20 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -9184,7 +9168,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -9224,7 +9208,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			int damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
 			if (damage < 1) {
 				damage = 1;
@@ -9264,7 +9248,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("[style.boldTerrible(All party members)] take <b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			StringBuilder sb = new StringBuilder();
 			if(Combat.getEnemies().contains(target)) {
 				for(NPC combatant : Combat.getEnemies()) {
@@ -9628,7 +9612,7 @@ public enum StatusEffect {
 			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn to a random enemy")) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
+		public String applyEffect(GameCharacter target, int secondsPassed) {
 			GameCharacter randomEnemy = Main.game.getPlayer();
 			
 			if(Combat.getEnemies().contains(target)) {
@@ -9809,7 +9793,7 @@ public enum StatusEffect {
 				return "Anyone with a strong arcane aura, such as yours, doesn't suffer from any sort of refractory period after orgasming...";
 			} else {
 				return UtilText.parse(target, "Anyone in the presence of a strong arcane aura, such as yours, doesn't suffer from any sort of refractory period after orgasming...<br/>"
-						+ "[npc.Name] needs to orgasm "+Util.intToCount(target.getOrgasmsBeforeSatisfied())+" before [npc.sheIs] satisfied.");
+						+ "[npc.Name] needs to orgasm [style.boldSex("+Util.intToCount(target.getOrgasmsBeforeSatisfied())+")] before [npc.sheIs] satisfied.");
 			}
 		}
 		
@@ -9818,12 +9802,31 @@ public enum StatusEffect {
 			List<String> modList = new ArrayList<>();
 
 			Colour orgasmColour = Colour.GENERIC_ARCANE;
-			if(Sex.getNumberOfOrgasms(target)<RenderingEngine.orgasmColours.length) {
-				orgasmColour = RenderingEngine.orgasmColours[Sex.getNumberOfOrgasms(target)];
+			int orgasms = Sex.getNumberOfOrgasms(target);
+			if(orgasms<RenderingEngine.orgasmColours.length) {
+				orgasmColour = RenderingEngine.orgasmColours[orgasms];
 			}
 			
-			modList.add("<b style='color:"+orgasmColour.toWebHexString()+";'>"+Sex.getNumberOfOrgasms(target)+"</b> Orgasm"+(Sex.getNumberOfOrgasms(target)>1?"s":""));
-			
+			modList.add("<b style='color:"+orgasmColour.toWebHexString()+";'>"+orgasms+"</b> Orgasm"+(orgasms==1?"":"s"));
+
+			int essences = Sex.getEssenceGeneration(target);
+			if(target.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
+				modList.add("Will produce [style.boldBad(0 essences)]");
+				modList.add("Caused by [style.boldBad('"+RECOVERING_AURA.getName(target)+"')] effect");
+				
+			} else {
+				if(target.hasTrait(Perk.NYMPHOMANIAC, true)) {
+					modList.add("Generates [style.boldArcane("+(essences)+" essences)] after sex");
+					modList.add("[style.boldExcellent(Doubled)] from [style.colourTrait("+Perk.NYMPHOMANIAC.getName(target)+" trait)]");
+					
+				} else {
+					modList.add("Will produce [style.boldArcane("+(essences)+" essences)]");
+				}
+				
+				if(orgasms>=5) {
+					modList.add("[style.boldBad(Maximum essences reached)]");
+				}
+			}
 			return modList;
 		}
 		
@@ -9963,6 +9966,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target)
 					&& Sex.getOngoingActionsMap(target)!=null
 					&& !Sex.getContactingSexAreas(target, SexAreaPenetration.PENIS).isEmpty()
 					&& !Collections.disjoint(
@@ -10098,7 +10102,8 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex();
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target);
 		}
 		
 		@Override
@@ -10230,7 +10235,8 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex();
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target);
 		}
 		
 		@Override
@@ -10370,7 +10376,8 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex();
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target);
 		}
 		
 		@Override
@@ -10515,7 +10522,8 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex();
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target);
 		}
 		
 		@Override
@@ -10647,7 +10655,10 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.isBreastFuckableNipplePenetration() && Main.getProperties().hasValue(PropertyValue.nipplePenContent);
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target)
+					&& target.isBreastFuckableNipplePenetration()
+					&& Main.getProperties().hasValue(PropertyValue.nipplePenContent);
 		}
 		
 		@Override
@@ -10792,7 +10803,9 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.hasBreastsCrotch();
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target)
+					&& target.hasBreastsCrotch();
 		}
 		
 		@Override
@@ -10936,7 +10949,11 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.hasBreastsCrotch() && target.isBreastFuckableNipplePenetration() && Main.getProperties().hasValue(PropertyValue.nipplePenContent);
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target)
+					&& target.hasBreastsCrotch()
+					&& target.isBreastCrotchFuckableNipplePenetration()
+					&& Main.getProperties().hasValue(PropertyValue.nipplePenContent);
 		}
 		
 		@Override
@@ -11067,7 +11084,10 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.isUrethraFuckable() && Main.getProperties().hasValue(PropertyValue.urethralContent);
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target)
+					&& target.isUrethraFuckable()
+					&& Main.getProperties().hasValue(PropertyValue.urethralContent);
 		}
 		
 		@Override
@@ -11198,7 +11218,10 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.isVaginaUrethraFuckable() && Main.getProperties().hasValue(PropertyValue.urethralContent);
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target)
+					&& target.isVaginaUrethraFuckable()
+					&& Main.getProperties().hasValue(PropertyValue.urethralContent);
 		}
 		
 		@Override
@@ -11329,12 +11352,9 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(Main.game.isInSex()) {
-				return target.hasVagina();
-				
-			} else {
-				return false;
-			}
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target)
+					&& target.hasVagina();
 		}
 		
 		@Override
@@ -11465,7 +11485,8 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex();
+			return Main.game.isInSex()
+					&& Sex.getAllParticipants(true).contains(target);
 		}
 		
 		@Override
@@ -11567,7 +11588,7 @@ public enum StatusEffect {
 		return attributeModifiersList;
 	}
 	
-	public String applyEffect(GameCharacter target, int minutesPassed) {
+	public String applyEffect(GameCharacter target, int secondsPassed) {
 		return "";
 	}
 
@@ -11682,28 +11703,26 @@ public enum StatusEffect {
 	
 	public List<String> getPenetrationModifiersAsStringList(GameCharacter target, SexAreaPenetration penetration) {
 		modifiersList.clear();
-		
-		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.namePos]");
 
 		if(!Sex.getContactingSexAreas(target, penetration).isEmpty()
 				&& !Collections.disjoint(Sex.getContactingSexAreas(target, penetration).get(Sex.getCharacterContactingSexArea(target, penetration).get(0)), Util.newArrayListOfValues(SexAreaPenetration.values()))) {
-			
-			modifiersList.add("+"+penetration.getBaseArousalWhenPenetrating()
-				+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+
+			modifiersList.add("[style.boldSex(Arousal/turn:)]");
+
+			String targetName = target.isPlayer()?"You":UtilText.parse(target, "[npc.Name]");
+			modifiersList.add("+"+penetration.getBaseArousalWhenPenetrating()+" <b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>("+targetName+"</b> - [style.boldSex(Sex)])");
 			
 			if(!Sex.hasLubricationTypeFromAnyone(target, penetration)) {
-				modifiersList.add(penetration.getArousalChangePenetratingDry()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+				modifiersList.add(penetration.getArousalChangePenetratingDry()+ " <b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>("+targetName+"</b> - [style.boldBad(Dry)])");
 			}
 			
-			for(GameCharacter penetrator : Sex.getContactingSexAreas(target, penetration).keySet()) {
-				String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.namePos]");
-				
-				if(!Sex.getContactingSexAreas(target, penetration).isEmpty()) {
-					modifiersList.add(
-							"+0 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-				}
-			}
+//			for(GameCharacter penetrator : Sex.getContactingSexAreas(target, penetration).keySet()) {
+//				String penetratorName = penetrator.isPlayer()?"You":UtilText.parse(penetrator, "[npc.Name]");
+//				
+//				if(!Sex.getContactingSexAreas(target, penetration).isEmpty()) {
+//					modifiersList.add("+0 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+"</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+//				}
+//			}
 			
 		} else {
 			modifiersList.add("[style.colourDisabled(No bonuses)]");
@@ -11760,43 +11779,43 @@ public enum StatusEffect {
 	public List<String> getOrificeModifiersAsStringList(GameCharacter target, SexAreaOrifice orifice) {
 		modifiersList.clear();
 		
-		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.namePos]");
+		modifiersList.add("[style.boldSex(Arousal/turn:)]");
 
+		String targetName = target.isPlayer()?"You":UtilText.parse(target, "[npc.Name]");
+		
 		if(!Sex.getContactingSexAreas(target, orifice).isEmpty()) {
-			modifiersList.add("+"+orifice.getBaseArousalWhenPenetrated()
-				+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+			modifiersList.add("+"+orifice.getBaseArousalWhenPenetrated()+" (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldSex(Sex)])");
 			
 			if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
-				modifiersList.add((orifice.getArousalChangePenetratedStretching()>0?"+":"")+orifice.getArousalChangePenetratedStretching()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
+				modifiersList.add((orifice.getArousalChangePenetratedStretching()>0?"+":"")
+						+orifice.getArousalChangePenetratedStretching()+" (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldBad(Stretching)])");
 			}
 			if(Sex.getAreasTooLoose(target).contains(orifice)) {
-				modifiersList.add((orifice.getArousalChangePenetratedTooLoose()>0?"+":"")+orifice.getArousalChangePenetratedTooLoose()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
+				modifiersList.add((orifice.getArousalChangePenetratedTooLoose()>0?"+":"")
+						+orifice.getArousalChangePenetratedTooLoose()+" (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldBad(Too loose)])");
 			}
 			if(!Sex.hasLubricationTypeFromAnyone(target, orifice)) {
-				modifiersList.add((orifice.getArousalChangePenetratedDry()>0?"+":"")+orifice.getArousalChangePenetratedDry()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+				modifiersList.add((orifice.getArousalChangePenetratedDry()>0?"+":"")
+						+orifice.getArousalChangePenetratedDry()+" (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldBad(Dry)])");
 			}
 			
 			for(GameCharacter penetrator : Sex.getContactingSexAreas(target, orifice).keySet()) {
-				String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.namePos]");
+				String penetratorName = penetrator.isPlayer()?"You":UtilText.parse(penetrator, "[npc.Name]");
 				
 				if(!Sex.getContactingSexAreas(target, orifice).isEmpty()) {
-					modifiersList.add("+"+getOrificeArousalPerTurnPartner(target, penetrator, orifice)
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+getOrificeArousalPerTurnPartner(target, penetrator, orifice)+" (<b style='color:"+penetrator.getFemininity().getColour().toWebHexString()+";'>"+penetratorName+"</b> - [style.boldSex(Sex)])");
 					
 					if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
-						modifiersList.add((orifice.getArousalChangePenetratingStretching()>0?"+":"")+orifice.getArousalChangePenetratingStretching()
-								+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
+						modifiersList.add((orifice.getArousalChangePenetratingStretching()>0?"+":"")
+								+orifice.getArousalChangePenetratingStretching()+" (<b style='color:"+penetrator.getFemininity().getColour().toWebHexString()+";'>"+penetratorName+"</b> - [style.boldGood(Tight)])");
 					}
 					if(Sex.getAreasTooLoose(target).contains(orifice)) {
-						modifiersList.add((orifice.getArousalChangePenetratingTooLoose()>0?"+":"")+orifice.getArousalChangePenetratingTooLoose()
-								+ "<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
+						modifiersList.add((orifice.getArousalChangePenetratingTooLoose()>0?"+":"")
+								+orifice.getArousalChangePenetratingTooLoose()+" (<b style='color:"+penetrator.getFemininity().getColour().toWebHexString()+";'>"+penetratorName+"</b> - [style.boldBad(Too loose)])");
 					}
 					if(!Sex.hasLubricationTypeFromAnyone(target, orifice)) {
-						modifiersList.add((orifice.getArousalChangePenetratingDry()>0?"+":"")+orifice.getArousalChangePenetratingDry()
-								+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+						modifiersList.add((orifice.getArousalChangePenetratingDry()>0?"+":"")
+								+orifice.getArousalChangePenetratingDry()+" (<b style='color:"+penetrator.getFemininity().getColour().toWebHexString()+";'>"+penetratorName+"</b> - [style.boldBad(Dry)])");
 					}
 				}
 			}
@@ -12139,4 +12158,51 @@ public enum StatusEffect {
 		
 		return SVGImageSB.toString();
 	}
+	
+	public static String getRecoveringOrificeStatus(GameCharacter owner, String baseSVG) {
+		SVGImageSB = new StringBuilder();
+		
+		SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;top:25%;'>"+baseSVG+"</div>");
+
+		boolean vaginaRecovering = owner.hasVagina() && owner.getVaginaRawCapacityValue()!=owner.getVaginaStretchedCapacity();
+		boolean anusRecovering = owner.getAssRawCapacityValue()!=owner.getAssStretchedCapacity();
+		boolean nipplesRecovering = owner.getNippleRawCapacityValue()!=owner.getNippleStretchedCapacity();
+		boolean nipplesCrotchRecovering = owner.hasBreastsCrotch() && owner.getNippleCrotchRawCapacityValue()!=owner.getNippleCrotchStretchedCapacity();
+		boolean penileUrethraRecovering = owner.hasPenis() && owner.getPenisRawCapacityValue()!=owner.getPenisStretchedCapacity();
+		boolean vaginalUrethraRecovering = owner.hasVagina() && owner.getVaginaUrethraRawCapacityValue()!=owner.getVaginaUrethraStretchedCapacity();
+		
+		int exposedAreas = (vaginaRecovering?1:0) + (anusRecovering?1:0) + (nipplesRecovering?1:0) + (nipplesCrotchRecovering?1:0) + (penileUrethraRecovering?1:0) + (vaginalUrethraRecovering?1:0);
+		
+		int size = Math.min(50, (100/exposedAreas+1));
+		int marginTop = (100-(exposedAreas*size))/2;
+		int marginLeft = (50-size)/2;
+
+		if(vaginaRecovering) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina()+"</div>");
+			marginTop+=size;
+		}
+		if(anusRecovering) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div>");
+			marginTop+=size;
+		}
+		if(nipplesRecovering) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple()+"</div>");
+			marginTop+=size;
+		}
+		if(nipplesCrotchRecovering) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNippleCrotch()+"</div>");
+			marginTop+=size;
+		}
+		if(penileUrethraRecovering) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraPenis()+"</div>");
+			marginTop+=size;
+		}
+		if(vaginalUrethraRecovering) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraVagina()+"</div>");
+			marginTop+=size;
+		}
+		
+		return SVGImageSB.toString();
+	}
+	
 }

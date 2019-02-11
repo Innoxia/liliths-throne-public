@@ -68,7 +68,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.3.0.5";
+	public static final String VERSION_NUMBER = "0.3.0.7";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -89,17 +89,18 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "First of all, I must apologise for how long this preview took to get released."
-			+ " Everything was going well enough up until the point where I started adding taurs, and then everything slowed to a crawl as I had to work my way though a lot of refactoring and supporting code additions."
-			+ " All of the code support for taurs (including framework for future additions of lamia, mermaids, arachnae, and cepholopods) is now complete, including sex position support."
-			+ " I have implemented this sex support to most generic sex scenes, but all of the unique ones still need going over so that I can add handling of taurs and other body types."
-			+ " I also need to go over sex actions and make sure they are correctly support body types of aprticipants (some of them make reference to things like grabbing gentials of the person behind them, which is impossible for taurs)."
+			+ "<i>0.3.0.7:</i> This was meant to be a small hotfix, released earlier this week, but I got a little carried away,"
+				+ " and ended up making improvements to the sex AI, adding an outfit system (after encountering muggers with ridiculous clothing several times in a row), as well as doing a lot of other minor fixes and improvements."
+		+ "</p>"
+				
+		+ "<p>"
+			+ "<i>0.3.0.7:</i> There were a few major issues in v0.3.0.6 which I wanted to fix, namely NPC pregnancies never finishing, identifying clothing using essences breaking the inventory menu, and the overview tab in the inventory not working."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I'll get as much stuff finished and polished for the full release of 0.3.1 as I possibly can, which will be out in a much speedier time than this preview."
-			+ " There are also several outstanding bugs that need to be fixed, but they shouldn't be too critical, so please bear with them until the full release! ^^"
+			+ "The full, public release of v0.3.1 will be out roughly in next week's Friday-Sunday time period."
 		+ "</p>"
+			
 		+ "<br/>"
 			
 		+ "<p>"
@@ -233,6 +234,150 @@ public class Main extends Application {
 			+"<ul>Fixed 'submit' in combat going back to the combat dialogue for one turn before defeat.</ul>"
 			+"<ul>Fixed some odd lust tooltip descriptions (such as saying you aren't interested at all in having sex when at 100 lust).</ul>"
 			+"<ul>The sadist fetish now correctly applies lust damage to the attacker, not the target.</ul>"
+		+ "</list>"
+			
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.0.5</h6>"
+			+ "<li>Gameplay:</li>"
+			+ "<ul>You can now spend 3 arcane essences to identify clothing in your possession.</ul>"
+			+ "<ul>The cost for having a vendor identify your clothing has increased from 10 to 400.</ul>"
+			
+			+ "<li>Contributors:</li>"
+			+ "<ul>Added clothing: 'Bunny Headband' (head slot, androgynous, sold by Nyan). (created by dsg)</ul>"
+			+ "<ul>Fixed bug where adding fetishes/changing desires from phone fetish menu would not work. (PR#1034 by BDPMP)</ul>"
+			+ "<ul>Fixed bug in the main quest, where purchasing Scarlett from Alexa would not work. (PR#1038 by BDPMP)</ul>"
+			+ "<ul>Fixed a Lilaya Condom Breaking reaction then/else error. (PR#1039 by EPSIL0N)</ul>"
+			+ "<ul>Correction from previous patch notes: GynoidDoesGames was the author of PR#989 (the increase in name variety).</ul>"
+			
+			+ "<li>Clothing:</li>"
+			+ "<ul><b>Added:</b> Outfit generation framework, which enables the game to apply a preset list of clothing rules to characters of various sorts. At the moment, it's only applied to muggers, but I will add all other NPCs to it soon. The outfit generation is defined in xml files, so you can make mods for outfits. The 'mods/innoxia/outfits/casualDress/dress_toys.xml' file is annotated to explain how it works.</ul>"
+			+ "<ul>Changed & added colours, altered icons, and moved out to res/clothing/innoxia the follow clothing items: 'suit jacket', 'anklet', 'shin guards', 'elbow-length gloves'.</ul>"
+			+ "<ul>Added metallic effect to metal colours in clothing & weapon dye screens.</ul>"
+			+ "<ul>'Heart barbells' are now considered feminine.</ul>"
+			
+			+ "<li>Other:</li>"
+			+ "<ul>Moved multi-breast and udder settings from furry preferences to content options. Both of these options now disable/enable all relevant descriptions & interactions if you set them to off/on, instead of preventing/allowing NPCs to spawn with them.</ul>"
+			+ "<ul>The game now starts at 20:34, so that by the time you get to your room (after 21:00), you can sleep until morning in one button press (instead of sleeping until 21:00 and then again until morning). Time now also passes in the character creation scenes.</ul>"
+			+ "<ul>Improved formatting of the post-sex descriptions for orifices being stretched.</ul>"
+			+ "<ul>Changed smallest time-unit that the game was tracking from minutes to seconds. Travel through some tiles now takes less than a minute (such as moving in Lilaya's home now taking 10 seconds per tile, and sex actions taking 20 seconds instead of 60).</ul>"
+			+ "<ul>After waiting in the queue or giving Jules a blowjob at the nightclub, you will now be moved one tile north, into the club itself, instead of remaining on the entrance tile. </ul>"
+			+ "<ul>Made the calendar and time button-areas larger (above the minimap), and added more information to the time tooltip (to include seconds).</ul>"
+			+ "<ul>Creampies no longer drain during sex scenes.</ul>"
+			+ "<ul>Reduced Brax's Physique, increased his corruption, stopped him from using 'Savage attack' in combat, and fixed issue where he would have just a single chaos feather as a weapon.</ul>"
+			+ "<ul>Gave Alexa 15 base arcane, as well as the Slam spell, to explain how she's able to use arcane force in her punishment scenes.</ul>"
+			+ "<ul>Improved 'recovering orifice' status effect description and icon.</ul>"
+			+ "<ul>Improved status effect 'time remaining' tooltip display.</ul>"
+			+ "<ul>Glory hole participants are now almost completely hidden from view - the only information available about them is their genitals and status effects.</ul>"
+			+ "<ul>Increased 'Swamp Water' intoxication effect from +50% to +75% intoxication.</ul>"
+			+ "<ul>The stretched orifices status effect is now shown in sex, so you can easily see how much everything is stretched by via the tooltip.</ul>"
+			+ "<ul>Added auburn as a possible colour for fur and feathers.</ul>"
+			+ "<ul>Added slime body hair as a new covering, so it can now have a separate colour to the rest of the body's slime.</ul>"
+			+ "<ul>Added a short alternate ending to Lilaya's sex scenes for if you didn't get her to orgasm.</ul>"
+			
+			+ "<li>Sex (bugs and improvements):</li>"
+			+ "<ul>Added handling of unusual scenario (which I couldn't replicate) where an NPC would have no available actions from which to select during sex.</ul>"
+			+ "<ul>Fixed issue with NPCs performing redundant displacements (such as pulling down trousers, then unzipping them).</ul>"
+			+ "<ul>Fixed issue where NPCs would continuously switch position in sex. They can still switch position if they have 'full' control (usually when they are the dom or if it's fully consensual sex), but will now only do it once in foreplay and once in main sex.</ul>"
+			+ "<ul>Improved NPC preference generation methods, so NPCs' sex action preferences should now be a little more reasonable. (i.e. They will still take their fetishes into account, but are now more likely to want to perform actual penetration in sex.)</ul>"
+			+ "<ul>Fixed issue with the 'request/offer oral' actions, where any form of tongue action was not being registered as being a viable oral option for the NPC to perform.</ul>"
+			+ "<ul>You now earn essences for the first five orgasms each character has in sex, at a rate of 2/2/2/1/1 (4/4/4/2/2 with the Nymphomaniac trait). 0 essences are earned if the character has the 'recovering aura' effect. Updated orgasm tooltip to show this.</ul>"
+			+ "<ul>Added 'cowgirl (bottom)' positioning action.</ul>"
+			+ "<ul>Added more indication that positioning actions are requests when you are not the dom or a full-control sub.</ul>"
+			+ "<ul>NPCs who do not dislike the 'cum stud' fetish now prefer to cum on body parts where available, instead of the floor.</ul>"
+			+ "<ul>NPCs will now refuse your requests (offering/requesting body parts) if they are being rough, you are the sub, and you don't have full control in the scene.</ul>"
+			+ "<ul>Improved the sex AI to reduce the instances of NPCs doing the annoying 'start/stop' action cycle. (After doing this, I saw no more instances of this annoying cycling of actions, but I can't be sure that it's been fixed entirely.)</ul>"
+			+ "<ul>Fixed NPCs not using positioning actions in taur sex scenes.</ul>"
+			+ "<ul>NPCs now take into account more than one fetish at a time when deciding upon what actions they want to perform, so now, for example, if they have oral+anal fetishes, anilingus is far more likely to be chosen than it was in previous versions.</ul>"
+			+ "<ul>Added 'none' option to self-transform menu for crotch-boobs, and slightly improved the formatting of the breasts & crotch-boobs windows.</ul>"
+			+ "<ul>NPCs' ability to perform actions based on their fetishes/desires has been improved.</ul>"
+			
+			+ "<li>Bugs:</li>"
+			+ "<ul>Fixed major bug where walking in Dominion's boulevard tiles during an arcane storm would cause a game-breaking background bug. (Related to the tile's population not being generated correctly.)</ul>"
+			+ "<ul>Fixed post-sex oral experience gain description for NPCs referencing your ability to perform oral, not theirs.</ul>"
+			+ "<ul>Vaginal urethra and crotch nipples are now tracked correctly in the 'recovering orifices' status effect, and thus they now actually return to their natural capacity over time.</ul>"
+			+ "<ul>Fixed background issue where orifices' post-stretched recover rate was being based on their elasticity, not plasticity.</ul>"
+			+ "<ul>Fixed issue where taur land speed movement reduction (-50% time) wasn't being applied.</ul>"
+			+ "<ul>Fixed decimal formatting in creampie status effects.</ul>"
+			+ "<ul>Typo & parsing fixes.</ul>"
+			+ "<ul>Fixed post-sex scene in the nightclub's toilets appending dialogue as though you were back out in the streets of Dominion.</ul>"
+			+ "<ul>Fixed background error related to NPCs not having a body preference set when loading into this version from an old save.</ul>"
+			+ "<ul>Randomly generated capacity descriptors (tight, loose, etc.) are now correctly generated based on the orifice's current capacity, taking into account any stretching.</ul>"
+			+ "<ul>Intercrural is no longer available in the mating press position.</ul>"
+			+ "<ul>Body parts' appearances affected by psychedelic fluids no longer always say that they are virgin.</ul>"
+			+ "<ul>Glory hole users will no longer spawn in as taurs (as it would be quite difficult using the stalls, let alone the holes themselves, as a taur).</ul>"
+			+ "<ul>Fixed glory hole user's full inventory being visible when they switched to fucking you.</ul>"
+			+ "<ul>Fixed the 'too loose' sex status effect persisting after the penetration was removed.</ul>"
+			+ "<ul>Fixed parsing errors in the taur positioning action tooltips, as well as some incorrect descriptions related to the starting scene text.</ul>"
+			+ "<ul>Fixed issue with alitaur, unitaur, alicorn-morph, and unicorn-morph not being detected correctly (they were always detected as a pegataur or pegasus-morph).</ul>"
+			+ "<ul>Fixed issues with some dialogues returning incorrect text in sex and transformations.</ul>"
+			+ "<ul>Fixed udders being described as 'a pair'. Also fixed transformation text related to this issue.</ul>"
+			+ "<ul>Fixed crotch-boob transformation screen from generating random names (crotch-boobs, crotch-tits, crotch-breasts, etc.) each time you selected an option, which was causing the screen's elements to resize.</ul>"
+			+ "<ul>Fixed broken horn transformation text.</ul>"
+			+ "<ul>Fixed issue where all races, including demons and humans, were spawning with crotch-boobs. Now only furry races will spawn with them. All crotch boobs on bipeds will be reset to default values when you load into this version.</ul>"
+			+ "<ul>Races that do not normally have crotch boobs are no longer described as not having any in the appearance screen (as that is to be assumed).</ul>"
+			+ "<ul>Fixed incorrect crotch nipple descriptors being generated (that were being based on breasts, not crotch-boobs).</ul>"
+			+ "<ul>Fixed cases where crotch-boobs were being incorrectly treated as though they had penetrable nipples, both in descriptions and sex actions.</ul>"
+			+ "<ul>Stopped excessive lube information (including slime parts and urethra info) from being displayed at the start of sex.</ul>"
+			+ "<ul>Removed duplicate 'deepthroat' orgasm action from the kneeling oral position.</ul>"
+			+ "<ul>Fixed post-sex scene in Lilaya's geisha scene returning an error.</ul>"
+			+ "<ul>Fixed the 'Limit--' button in enchantment screen not working correctly.</ul>"
+			+ "<ul>Wolfgang and Karl now correctly drop dog-related items after beating them, instead of wolf-related ones.</ul>"
+			+ "<ul>Fixed issue where tigers could spawn as 'black with black stripes'. They now have a small chance to have their primary colour as auburn, amber, or tan instead of orange.</ul>"
+			+ "<ul>Human parts are no longer ever described as being animal-like (for if you TF parts on a taur body to human).</ul>"
+			+ "<ul>Lilaya and Meraxis now gain a significant amount of affection towards Lyssieth as part of their demon transformation. Lilaya now also gains a lot of affection towards you for agreeing to help her. This is all applied retroactively to your save when you load into this version. </ul>"
+			+ "<ul>Fixed the body hair (beard, underarm, pubic, ass) options in the self-transformation menu showing a cost, even though it's free to change.</ul>"
+			+ "<ul>Fixed pubic hair options in the self-transformation menu being locked out by having 'ass hair' disabled, instead of 'pubic hair'.</ul>"
+			+ "<ul>Fixed debug menu's self-transform menu not having eye colours as an option.</ul>"
+			+ "<ul>Fixed penetration/orifice type status effects (the 'ass status', 'vagina status', etc. ones) being applied to characters not in sex, which was sometimes causing a background error to be thrown.</ul>"
+			+ "<ul>Fixed several issues with Lilaya's pregnancy-related dialogue after she's become a full demon.</ul>"
+			+ "<ul>Blocked Lilaya from switching her position in her 'testing' chair sex scene, as she was being a little too aggressive with it.</ul>"
+			+ "<ul>Fixed partner's lust dropping to 0 during the last turn of sex. (It is now correctly set to 0 after sex, so long as they orgasmed at least once.)</ul>"
+			+ "<ul>Fixed the 'Arcane Pregnancy Tester' item not removing you as a potential father from the pregnancy stats page (so long as you were not the father). This was most notable after losing the pregnancy roulette game, where in the pregnancy stats screen, it would still show you as a potential father.</ul>"
+			+ "<ul>Fixed bug where Roxy would not stock condoms.</ul>"
+			+ "<ul>Fixed regular chastity cage being called 'ornate chastity cage'.</ul>"
+			+ "<ul>Fixed lilin offspring not being generated with the correct surname.</ul>"
+			+ "<ul>Fixed issue where dying clothing would sometimes not work and throw a background error.</ul>"
+			+ "<ul>Fixed potential cause of an issue where slime colourings would sometimes reset.</ul>"
+			+ "<ul>Added handling of game-breaking error that could sometimes occur when displacing clothing that was accidentally configured to block one anotehr's displacements.</ul>"
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.0.7</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>There is now a small chance for unidentified clothing to have a stronger sealing enchantment. (Chances for unidentified clothing are now: 50% it's a good item, 30% it's bad with a 5 essence removal cost, 12% bad with 25 cost, 6% bad with 100 cost, and 2% bad with 500 cost.)</ul>"
+			+"<ul>When crotch-boobs are set to 'off' in the content settings, you will no longer see the crotch boob button in the self-TF menu, nor 'crotch-boob' or 'crotch-boob milk' TF modifiers in the enchantment menu when enchanting a food item.</ul>"
+			+"<ul>Added 'remove' secondary modifier to crotch-boob transformation potions.</ul>"
+
+			+"<li>Other:</li>"
+			+"<ul>Standardised the positioning of the 'stretched from' and 'stretched to' values in the 'recovering orifices' status effect tooltip. (They were being reversed in sex, which was a little confusing.)</ul>"
+
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed issue with the game's turn taking longer than usual when passing over midnight.</ul>"
+			+"<ul>Fixed stretched orifices continuously expanding over time, instead of contracting.</ul>"
+			+"<ul>Fixed the overview tab in the inventory not working.</ul>"
+			+"<ul>Fixed issue where NPCs would never give birth.</ul>"
+			+"<ul>Fixed the identify clothing action breaking inventory management.</ul>"
+			+"<ul>Fixed incorrect fluid regeneration rate values (for milk and cum) being shown in your stats menu.</ul>"
+			+"<ul>Fluids should now regenerate during sex (probably by a very small amount, considering it's only 10 seconds per sex action, unless you have boosted your regen).</ul>"
+			+"<ul>Corrected some instances of 'kitsune' to 'youko', and changed the plural form from 'youkos' to 'youko'.</ul>"
+			+"<ul>Fixed instances of youko's names not being displayed correctly (as they use their surname as a first name).</ul>"
+			+"<ul>Fixed issue where random NPCs were spawning with jewellery for body slots they don't have pierced in their inventory.</ul>"
+			+"<ul>You can now set your base desire for a fetish to 'love' even while you have that fetish.</ul>"
+			+"<ul>Restored the 'black-with-black-stripes' colour for tiger-morphs (as a rare variation).</ul>"
+			+"<ul>Fixed incorrect breast & crotch-boob type transformation descriptions.</ul>"
+			+"<ul>Fixed being able to change a biped's crotch-boob type when you had that setting turned off.</ul>"
+			+"<ul>Fixed bug where you sometimes couldn't teleport back to Lilaya's lab when she was pregnant as a full demon.</ul>"
+			+"<ul>Fixed the 'Step outside' button not working when transforming Meraxis into a full demon.</ul>"
+			+"<ul>Fixed NPCs using non-penis-related 'giving anal' options, even if they did not like the 'giving anal' fetish. (This was most noticeably resulting in NPCs suddenly fingering or tail-fucking your ass...)</ul>"
+			+"<ul>Fixed Rose's sex preferences bugging out in her dominant scene (where she punished you in Lilaya's room).</ul>"
+			+"<ul>Fixed issue where interacting with a friend in their apartment during an arcane storm would start spawning random NPCs on the tile, which you'd then start interacting with.</ul>"
+			+"<ul>Lilaya should no longer lock out all of her options when starting a game with an imported demonic character. (Her dialogue will not react to you being a demon until after meeting Lyssieth.)</ul>"
+			+"<ul>Fixed a potential cause of clothing not being stocked in some shops. (Although I think this will still keep on happening - this bug is very hard to track down.)</ul>"
 		+ "</list>"
 	;
 	
@@ -771,13 +916,13 @@ public class Main extends Application {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
-			Main.getProperties().lastQuickSaveName = "QuickSave_"+Main.game.getPlayer().getName();
-			saveGame("QuickSave_"+Main.game.getPlayer().getName(), true);
+			Main.getProperties().lastQuickSaveName = "QuickSave_"+Main.game.getPlayer().getName(false);
+			saveGame("QuickSave_"+Main.game.getPlayer().getName(false), true);
 		}
 	}
 
 	public static void quickLoadGame() {
-		String name = "QuickSave_"+Main.game.getPlayer().getName();
+		String name = "QuickSave_"+Main.game.getPlayer().getName(false);
 		
 //		if(new File("data/saves/"+name+".lts").exists()) {
 			loadGame(name);
@@ -809,7 +954,7 @@ public class Main extends Application {
 		try {
 			properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
 			properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininityValue()).getColour().toWebHexString();
-			properties.name = game.getPlayer().getName();
+			properties.name = game.getPlayer().getName(false);
 			properties.level = game.getPlayer().getLevel();
 			properties.money = game.getPlayer().getMoney();
 			properties.arcaneEssences = game.getPlayer().getEssenceCount(TFEssence.ARCANE);

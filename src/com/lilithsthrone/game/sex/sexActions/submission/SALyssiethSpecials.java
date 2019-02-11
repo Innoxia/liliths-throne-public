@@ -221,6 +221,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 				Main.game.getPlayer().setPenisSize(3);
 				Main.game.getPlayer().setTesticleSize(TesticleSize.ONE_TINY);
+				Main.game.getPlayer().fillCumToMaxStorage();
 			}
 			if(Main.game.getPlayer().hasVagina()) {
 				playerGrowDemonicVagina();
@@ -317,7 +318,7 @@ public class SALyssiethSpecials {
 							SexPositionBipeds.MISSIONARY_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_DOM)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_SUB))));
-			
+
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
 	};
@@ -522,6 +523,7 @@ public class SALyssiethSpecials {
 					Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 					Main.game.getPlayer().setPenisSize(1);
 					Main.game.getPlayer().setTesticleSize(TesticleSize.ZERO_VESTIGIAL);
+					Main.game.getPlayer().fillCumToMaxStorage();
 				}
 				if(Main.game.getPlayer().hasVagina()) {
 					// Add anal-only vagina sticker:

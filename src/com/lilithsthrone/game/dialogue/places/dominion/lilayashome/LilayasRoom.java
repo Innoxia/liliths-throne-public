@@ -42,8 +42,8 @@ public class LilayasRoom {
 	public static final DialogueNode ROOM_LILAYA = new DialogueNode("Lilaya's Room", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -65,8 +65,8 @@ public class LilayasRoom {
 	public static final DialogueNode ROOM_LILAYA_INSIDE = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -104,8 +104,8 @@ public class LilayasRoom {
 	public static final DialogueNode PANTIES = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -170,8 +170,8 @@ public class LilayasRoom {
 	public static final DialogueNode HIDE = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -193,8 +193,8 @@ public class LilayasRoom {
 	public static final DialogueNode FLEE = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -222,8 +222,8 @@ public class LilayasRoom {
 	public static final DialogueNode CAUGHT = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -270,8 +270,8 @@ public class LilayasRoom {
 	public static final DialogueNode APOLOGY = new DialogueNode("Lilaya's Room", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -310,8 +310,8 @@ public class LilayasRoom {
 	public static final DialogueNode BEG = new DialogueNode("Lilaya's Room", ".", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -391,8 +391,8 @@ public class LilayasRoom {
 	public static final DialogueNode THREATEN = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -478,8 +478,8 @@ public class LilayasRoom {
 	public static final DialogueNode EXPLAIN = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -526,8 +526,8 @@ public class LilayasRoom {
 	public static final DialogueNode AFTER_ROSE_AND_LILAYA_AS_SUBS = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 20;
+		public int getSecondsPassed() {
+			return 20*60;
 		}
 
 		@Override

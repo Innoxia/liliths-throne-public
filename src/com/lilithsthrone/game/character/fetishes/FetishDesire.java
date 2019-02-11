@@ -31,7 +31,8 @@ public enum FetishDesire {
 	private String name;
 	private String nameAsPlayerVerb;
 	private String nameAsVerb;
-	private String SVGImage, SVGImageDesaturated;
+	private String SVGImage;
+	private String SVGImageDesaturated;
 	private float lustIncrement;
 	private Colour colour;
 	private List<String> modifiersList;

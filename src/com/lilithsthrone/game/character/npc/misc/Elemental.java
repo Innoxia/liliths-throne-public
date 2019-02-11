@@ -146,7 +146,7 @@ public class Elemental extends NPC {
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
 		this.setLegType(LegType.DEMON_COMMON);
-		if(summoner.getHornType()==HornType.NONE || summoner.getHornType().getRace()==Race.DEMON) {
+		if(summoner.getHornType().equals(HornType.NONE) || summoner.getHornType().getRace()==Race.DEMON) {
 			this.setHornType(summoner.getHornType());
 		} else if(this.isFeminine()) {
 			this.setHornType(HornType.SWEPT_BACK);
@@ -277,7 +277,7 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public String rollForPregnancy(GameCharacter partner, int cum) {
+	public String rollForPregnancy(GameCharacter partner, float cum) {
 		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
 				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 	}

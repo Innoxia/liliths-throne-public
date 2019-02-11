@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -216,29 +218,43 @@ public class Finch extends NPC {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, false), false);
 		}
 		
+		List<AbstractClothing> clothingToSell = new ArrayList<>();
+		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			try {
-				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
-					for(int i = 0; i<Util.random.nextInt(3)+1; i++) {
-						this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
-					}
-					if(clothing.getRarity()==Rarity.COMMON) {
-						for(int i = 0; i<Util.random.nextInt(2); i++) {
-							if(Math.random()<0.66f) {
-								this.addClothing(AbstractClothingType.generateRareClothing(clothing), false);
-							} else {
-								this.addClothing(AbstractClothingType.generateClothingWithEnchantment(clothing), false);
-							}
-						}
-					}
-				}
-			} catch(Exception ex) {
-				ex.printStackTrace();
+			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+				clothingToSell.add(AbstractClothingType.generateClothing(clothing, false));
 			}
 		}
 		
-		for(AbstractClothing clothing : this.getAllClothingInInventory()) {
-			clothing.setEnchantmentKnown(true);
+		addEnchantedClothing(clothingToSell);
+		
+		for(AbstractClothing c : clothingToSell) {
+			this.addClothing(c, false);
+		}
+	}
+	
+
+	/**
+	 * Adds four uncommon clothing items to the list, and two rare items.
+	 */
+	private void addEnchantedClothing(List<AbstractClothing> clothingList) {
+		List<AbstractClothing> generatedClothing = new ArrayList<>();
+
+		for(AbstractClothing clothing : clothingList) {
+			if(clothing.getRarity()==Rarity.COMMON) {
+				for(int i = 0; i<Util.random.nextInt(2); i++) {
+					if(Math.random()<0.66f) {
+						generatedClothing.add(AbstractClothingType.generateRareClothing(clothing.getClothingType()));
+					} else {
+						generatedClothing.add(AbstractClothingType.generateClothingWithEnchantment(clothing.getClothingType()));
+					}
+				}
+			}
+		}
+
+		for(AbstractClothing c : generatedClothing) {
+			c.setEnchantmentKnown(this, true);
+			clothingList.add(c);
 		}
 	}
 	

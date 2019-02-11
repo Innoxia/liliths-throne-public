@@ -180,6 +180,6 @@ public class Tentacle implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Tentacle.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Tentacle.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

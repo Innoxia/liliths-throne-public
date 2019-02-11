@@ -166,7 +166,7 @@ public class MilkingRoom implements XMLSaving {
 	}
 
 	public static int getActualMilkPerHour(GameCharacter character) {
-		return (int) Math.min(getMaximumMilkPerHour(character), (character.getBreastLactationRegeneration().getPercentageRegen()*character.getBreastRawMilkStorageValue()*60));
+		return (int) Math.min(getMaximumMilkPerHour(character), (character.getBreastLactationRegeneration().getPercentageRegen() * character.getBreastRawMilkStorageValue() * 60 * 60));
 	}
 	
 	public static int getMaximumCumPerHour(GameCharacter character) {
@@ -195,7 +195,7 @@ public class MilkingRoom implements XMLSaving {
 		if(!character.hasPenisIgnoreDildo()) {
 			return 0;
 		}
-		return (int) Math.min(getMaximumCumPerHour(character), (character.getPenisCumProductionRegeneration().getPercentageRegen()*character.getPenisRawCumStorageValue()*60));
+		return (int) Math.min(getMaximumCumPerHour(character), (character.getPenisCumProductionRegeneration().getPercentageRegen() * character.getPenisRawCumStorageValue() * 60 * 60));
 	}
 	
 	public static int getMaximumGirlcumPerHour(GameCharacter character) {
@@ -349,7 +349,7 @@ public class MilkingRoom implements XMLSaving {
 				
 					milkyMilknessSB.append(
 							"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-								+ "[style.colourExcellent("+fluid.getMillilitres()+"ml)]"
+								+ "[style.colourExcellent("+Util.getRoundedFloat(fluid.getMillilitres(), 2)+"ml)]"
 							+ "</div>");
 				
 					milkyMilknessSB.append(
@@ -423,11 +423,11 @@ public class MilkingRoom implements XMLSaving {
 		return milkyMilknessSB.toString();
 	}
 	
-	public boolean isAbleToIngestThroughArea(GameCharacter ingestingCharacter, CoverableArea area, int millilitres) {
+	public boolean isAbleToIngestThroughArea(GameCharacter ingestingCharacter, CoverableArea area, float millilitres) {
 		return getAreaIngestionBlockedDescription(ingestingCharacter, area, millilitres).isEmpty();
 	}
 	
-	public String getAreaIngestionBlockedDescription(GameCharacter ingestingCharacter, CoverableArea area, int millilitres) {
+	public String getAreaIngestionBlockedDescription(GameCharacter ingestingCharacter, CoverableArea area, float millilitres) {
 		StringBuilder sb = new StringBuilder();
 		
 		if(millilitres<=0) {

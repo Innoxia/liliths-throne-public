@@ -92,7 +92,7 @@ public class ItemEffect implements XMLSaving {
 		CharacterUtils.addAttribute(doc, effect, "secondaryModifier", (getSecondaryModifier()==null?"null":getSecondaryModifier().toString()));
 		CharacterUtils.addAttribute(doc, effect, "potency", (getPotency()==null?"null":getPotency().toString()));
 		CharacterUtils.addAttribute(doc, effect, "limit", String.valueOf(getLimit()));
-		CharacterUtils.addAttribute(doc, effect, "timer", String.valueOf(getTimer().getTimePassed()));
+		CharacterUtils.addAttribute(doc, effect, "timer", String.valueOf(getTimer().getSecondsPassed()));
 		
 		return effect;
 	}
@@ -151,11 +151,17 @@ public class ItemEffect implements XMLSaving {
 		}
 		
 		try {
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.5")) {
-				int timer = Integer.valueOf(parentElement.getAttribute("timer"))/60;
-				ie.getTimer().setTimePassed((timer*60) + (int)(Main.game.getMinutesPassed()%60));
+			int time = Integer.valueOf(parentElement.getAttribute("timer"));
+			
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.5")) {// I think this was to align effects to all be on the hour:
+				int timer = time/60;
+				ie.getTimer().setSecondsPassed(((timer*60) + (int)(Main.game.getMinutesPassed()%60)));
+				
+			} else if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) {
+				ie.getTimer().setSecondsPassed(time*60);
+				
 			} else {
-				ie.getTimer().setTimePassed(Integer.valueOf(parentElement.getAttribute("timer")));
+				ie.getTimer().setSecondsPassed(time);
 			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
@@ -164,25 +170,27 @@ public class ItemEffect implements XMLSaving {
 		return ie;
 	}
 	
-	public String applyEffect(GameCharacter user, GameCharacter target, long timePassed) {
-		this.timer.incrementTimePassed((int)timePassed);
-		if(target.getRace()==Race.DEMON
-				&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
-						|| getSecondaryModifier()==TFModifier.TF_TYPE_2
-						|| getSecondaryModifier()==TFModifier.TF_TYPE_3
-						|| getSecondaryModifier()==TFModifier.TF_TYPE_4
-						|| getSecondaryModifier()==TFModifier.TF_TYPE_5
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_ARACHNID
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG
-						|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR
-						|| getSecondaryModifier()==TFModifier.REMOVAL)) {
-			return UtilText.parse(target,
-					"<p style='text-align:center;'>"
-						+ "As [npc.nameIsFull] [style.boldDemon([npc.a_race])], the transformation has [style.boldBad(no effect)]!"
-					+ "</p>");
+	public String applyEffect(GameCharacter user, GameCharacter target, int secondsPassed) {
+		this.timer.incrementSecondsPassed(secondsPassed);
+		if(target!=null) {
+			if(target.getRace()==Race.DEMON
+					&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_2
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_3
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_4
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_5
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_ARACHNID
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR
+							|| getSecondaryModifier()==TFModifier.REMOVAL)) {
+				return UtilText.parse(target,
+						"<p style='text-align:center;'>"
+							+ "As [npc.nameIsFull] [style.boldDemon([npc.a_race])], the transformation has [style.boldBad(no effect)]!"
+						+ "</p>");
+			}
 		}
 		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target, this.timer);
 	}

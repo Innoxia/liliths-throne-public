@@ -1928,70 +1928,6 @@ public class ClothingType {
 					null, null, null);
 		}
 	};
-
-	public static AbstractClothingType TORSO_OVER_SUIT_JACKET = new AbstractClothingType(800,
-			"a",
-			false,
-			"suit jacket",
-			"suit jackets",
-			"A smart suit jacket, which looks best when worn with a shirt and tie.",
-			1,
-			Femininity.MASCULINE,
-			InventorySlot.TORSO_OVER,
-			Rarity.COMMON,
-			null,
-			"clothing/torso_over_suit_jacket",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
-							Util.newArrayListOfValues(CoverableArea.BACK),
-							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
-							null
-							),
-					new BlockedParts(
-							DisplacementType.UNBUTTONS,
-							null,
-							Util.newArrayListOfValues(
-									CoverableArea.BREASTS,
-									CoverableArea.NIPPLES,
-									CoverableArea.STOMACH),
-							Util.newArrayListOfValues(
-									ClothingAccess.CHEST,
-									ClothingAccess.WAIST),
-							PresetConcealmentLists.CONCEALED_PARTIAL_TORSO.getPresetInventorySlotList())),
-			null,
-			ColourListPresets.ALL.getPresetColourList(),
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull on the suit jacket.",
-					"You guide [npc.namePos] [npc.arms] through the suit jacket's sleeves as you pull it on [npc.herHim].",
-					null,
-					"[npc.Name] pulls on the suit jacket.",
-					"[npc.Name] guides your [pc.arms] through the suit jacket's sleeves as [npc.she] pulls it on you.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your suit jacket.",
-					"You pull off [npc.namePos] suit jacket.",
-					null,
-					"[npc.Name] takes [npc.her] suit jacket off.",
-					"[npc.Name] pulls your suit jacket off.",
-					null, null, null);
-		}
-	};
 	
 	public static AbstractClothingType TORSO_OVER_COAT_DRESS = new AbstractClothingType(2500,
 			"a",
@@ -4730,59 +4666,6 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType HAND_ELBOWLENGTH_GLOVES = new AbstractClothingType(200,
-			"a pair of",
-			true,
-			"elbow-length glove",
-			"elbow-length gloves",
-			"A pair of elbow-length gloves, they're made from a thin, soft fabric.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.HAND,
-			Rarity.COMMON,
-			null,
-			"clothing/hand_elbowlength_gloves",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FINGERS,
-									ClothingAccess.WRISTS),
-							null,
-							null,
-							Util.newArrayListOfValues(InventorySlot.FINGER))),
-			null,
-			ColourListPresets.ALL.getPresetColourList(),
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull on the gloves and give your fingers an experimental wiggle.";
-			else
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] pulls on " + clothing.getName(true) + " and gives [npc.her] fingers an experimental wiggle.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off your gloves.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls off [npc.her] gloves.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls your gloves off.";
-				else
-					return UtilText.parse(clothingOwner, "You pull [npc.namePos] gloves off.");
-			}
-		}
-	};
 
 	public static AbstractClothingType HAND_WRAPS = new AbstractClothingType(200,
 			"a pair of",
@@ -6506,10 +6389,10 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
-							null, null),
+							null,
+							null),
 					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
 									ClothingAccess.GROIN),
@@ -6569,8 +6452,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null),
@@ -6633,9 +6515,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null, null, null),
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
@@ -6763,8 +6643,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null),
@@ -6829,8 +6708,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null),
@@ -6895,8 +6773,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null),
@@ -6960,8 +6837,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null, null, null),
 					new BlockedParts(DisplacementType.UNBUTTONS,
 							Util.newArrayListOfValues(
@@ -7178,8 +7054,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null)),
@@ -7236,8 +7111,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null)),
@@ -7292,9 +7166,10 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
-							null, null, null),
+									ClothingAccess.GROIN),
+							null,
+							null,
+							null),
 					new BlockedParts(
 							DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(
@@ -7890,114 +7765,6 @@ public class ClothingType {
 					return "[npc.Name] pulls off your fishnet stockings.";
 				else
 					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] fishnet stockings.");
-			}
-		}
-	};
-
-	// ANKLE
-
-	public static AbstractClothingType ANKLE_BRACELET = new AbstractClothingType(300,
-			"an",
-			false,
-			"anklet",
-			"anklets",
-			"A delicate ankle bracelet, it consists of a series of metallic orbs threaded onto a fine metal wire.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.ANKLE,
-			Rarity.COMMON,
-			null,
-			"clothing/ankle_bracelet",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.CALVES),
-							null,
-							Util.newArrayListOfValues(ClothingAccess.CALVES),
-							null)),
-			null,
-			ColourListPresets.ALL_METAL.getPresetColourList(),
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You fasten the anklet around your ankle.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] fastens " + clothing.getName(true) + " around [npc.her] ankle.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You unfasten and remove your anklet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] unfastens and removes [npc.her] anklet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] unfastens and removes your anklet.";
-				else
-					return UtilText.parse(clothingOwner, "You unfasten and remove [npc.namePos] anklet.");
-			}
-		}
-	};
-
-	public static AbstractClothingType ANKLE_SHIN_GUARDS = new AbstractClothingType(250,
-			"a pair of",
-			true,
-			"shin guards",
-			"shin guards",
-			"A pair of protective shin guards, designed to protect the lower half of the wearer's legs from physical blows.",
-			2,
-			null,
-			InventorySlot.ANKLE,
-			Rarity.COMMON,
-			null,
-			"clothing/ankle_shin_guards",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.CALVES),
-							null,
-							Util.newArrayListOfValues(ClothingAccess.CALVES),
-							null)),
-			null,
-			ColourListPresets.ALL.getPresetColourList(),
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You fasten the shin guards around your ankles.";
-			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] fastens " + clothing.getName(true) + " around [npc.her] ankles.");
-			}
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You unfasten and remove your shin guards.";
-			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-				return UtilText.parse(clothingOwner, "[npc.Name] unfastens [npc.her] shin guards.");
-			} else {
-				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] unfastens and removes your shin guards.");
-				} else {
-					return UtilText.parse(clothingOwner, "You unfasten and remove [npc.namePos] shin guards.");
-				}
 			}
 		}
 	};
@@ -10270,7 +10037,7 @@ public class ClothingType {
 			false,
 			"kimono",
 			"kimonos",
-			"Primarily worn by the reclusive kitsunes, these full-length robes are identical to their traditional Japanese namesake.",
+			"Primarily worn by the reclusive youko, these full-length robes are identical to their traditional Japanese namesake.",
 			1,
 			Femininity.FEMININE,
 			InventorySlot.TORSO_UNDER,
@@ -10411,7 +10178,7 @@ public class ClothingType {
 			false,
 			"men's kimono",
 			"men's kimonos",
-			"Primarily worn by the reclusive kitsunes, these full-length robes are identical to their traditional Japanese namesake.",
+			"Primarily worn by the reclusive youko, these full-length robes are identical to their traditional Japanese namesake.",
 			1,
 			Femininity.MASCULINE,
 			InventorySlot.TORSO_UNDER,
@@ -11640,6 +11407,20 @@ public class ClothingType {
 		if(id.equals("PENIS_CONDOM")) {
 			id = "innoxia_penis_condom";
 		}
+		if(id.equals("TORSO_OVER_SUIT_JACKET")) {
+			id = "innoxia_torsoOver_suit_jacket";
+		}
+		if(id.equals("ANKLE_BRACELET")) {
+			id = "innoxia_ankle_anklet";
+		}
+		if(id.equals("ANKLE_SHIN_GUARDS")) {
+			id = "innoxia_ankle_shin_guards";
+		}
+		if(id.equals("HAND_ELBOWLENGTH_GLOVES")) {
+			id = "innoxia_hand_elbow_length_gloves";
+		}
+		
+		
 		
 		if(id.equals("WITCH_HAT")) {
 			id = "innoxia_witch_witch_hat";

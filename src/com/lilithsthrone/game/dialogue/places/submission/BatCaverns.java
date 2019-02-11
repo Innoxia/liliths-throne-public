@@ -20,8 +20,8 @@ public class BatCaverns {
 	public static final DialogueNode STAIRCASE = new DialogueNode("Winding Staircase", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -53,8 +53,8 @@ public class BatCaverns {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -89,8 +89,8 @@ public class BatCaverns {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -120,8 +120,8 @@ public class BatCaverns {
 	public static final DialogueNode RIVER = new DialogueNode("Underground River", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -151,8 +151,8 @@ public class BatCaverns {
 	public static final DialogueNode RIVER_BRIDGE = new DialogueNode("Mushroom Bridge", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -182,8 +182,8 @@ public class BatCaverns {
 	public static final DialogueNode RIVER_END = new DialogueNode("Underground River", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -213,8 +213,8 @@ public class BatCaverns {
 	public static final DialogueNode SLIME_LAKE = new DialogueNode("Slime Lake", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -289,8 +289,8 @@ public class BatCaverns {
 	public static final DialogueNode SLIME_LAKE_ISLAND = new DialogueNode("Slime Lake", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override

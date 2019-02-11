@@ -26,6 +26,7 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -119,7 +120,8 @@ public class ReindeerOverseer extends NPC {
 
 	@Override
 	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MANUAL_LABOUR, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+//		super.equipClothing(replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
 	}
 	
 	@Override
@@ -183,7 +185,7 @@ public class ReindeerOverseer extends NPC {
 					+ "[npc.speech(I'm not really interested in buying anything from you,)]"
 					+ " [npc.name] explains, leading you over to a nearby cart which is stacked high with boxes,"
 					+ " [npc.speech(but everything here is for sale."
-						+ " We passed through the Kitsune's forest on our way to Dominion this year, so I've got some of their traditional clothes here too!)]"
+						+ " We passed through the Shinrin highlands on our way to Dominion this year, so I've got some of the youko's traditional clothing on offer!)]"
 				+ "</p>");
 	}
 

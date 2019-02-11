@@ -102,8 +102,6 @@ public class CultistSexActions {
 						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))));
 				
 			}
-			
-			Sex.addCharacterBannedFromPositioning(Sex.getActivePartner());
 		}
 	};
 	
@@ -152,8 +150,6 @@ public class CultistSexActions {
 						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotBipeds.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS)),
 						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))));
 			}
-
-			Sex.addCharacterBannedFromPositioning(Sex.getActivePartner());
 		}
 	};
 	

@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -68,7 +70,7 @@ public class SlaverAlleyDialogue {
 		// Female stall:
 		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
 		for(int i=0; i<genders.length; i++) {
-			NPC slave = new DominionAlleywayAttacker(genders[i]);
+			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -91,7 +93,7 @@ public class SlaverAlleyDialogue {
 		// Male stall:
 		genders = new Gender[] {Gender.M_P_MALE, Gender.M_P_MALE, Gender.M_P_MALE};
 		for(int i=0; i<genders.length; i++) {
-			NPC slave = new DominionAlleywayAttacker(genders[i]);
+			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -112,7 +114,7 @@ public class SlaverAlleyDialogue {
 
 		// Anal stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -145,7 +147,7 @@ public class SlaverAlleyDialogue {
 
 		// Vaginal stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -169,7 +171,7 @@ public class SlaverAlleyDialogue {
 
 		// Oral stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -203,8 +205,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode OUTSIDE = new DialogueNode("Slaver Alley", "-", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -284,8 +286,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode ALLEYWAY = new DialogueNode("Alleyway", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -337,8 +339,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_FEMALE = new DialogueNode("A Woman's Touch", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -366,8 +368,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_MALE = new DialogueNode("Iron & Steel", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -395,8 +397,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_ANAL = new DialogueNode("The Rear Entrance", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -424,8 +426,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_VAGINAL = new DialogueNode("White Lilies", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -453,8 +455,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_ORAL = new DialogueNode("Viva Voce", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -482,8 +484,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_STATUE = new DialogueNode("Statue of the Fallen Angel", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -504,8 +506,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_EXCLUSIVE = new DialogueNode("Zaibatsu Exchange", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -522,8 +524,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_BULK = new DialogueNode("Royal Dominion Company", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -540,8 +542,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL_CAFE = new DialogueNode("", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -558,8 +560,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode MARKET_STALL = new DialogueNode("", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -588,8 +590,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode AUCTION_BLOCK = new DialogueNode("Auctioning block", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -663,7 +665,7 @@ public class SlaverAlleyDialogue {
 			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
 			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
-			charactersPresent.sort(Comparator.comparing(NPC::getName));
+			Collections.sort(charactersPresent, (e1, e2) -> e1.getName(true).compareTo(e2.getName(true)));
 			
 			if(charactersPresent.isEmpty()) {
 				UtilText.nodeContentSB.append(
@@ -679,7 +681,7 @@ public class SlaverAlleyDialogue {
 					UtilText.nodeContentSB.append(UtilText.parse(slave,
 							"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 								+ "<div style='width:40%; float:left; margin:0; padding:0; text-align:center;'>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b> - "
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName(true)+"</b> - "
 									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span> "
 									+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"
 										+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName(slave):slave.getSubspecies().getSingularMaleName(slave)))
@@ -931,8 +933,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode PUBLIC_STOCKS = new DialogueNode("Public Stocks", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -993,7 +995,7 @@ public class SlaverAlleyDialogue {
 				
 			} else if(index <= charactersPresent.size()) {
 				return new ResponseSex(
-						"Use "+charactersPresent.get(index-1).getName(),
+						"Use "+charactersPresent.get(index-1).getName(true),
 						UtilText.parse(charactersPresent.get(index-1), "Walk up to [npc.name] and have some fun..."),
 						false, false,
 						new SMStocks(
@@ -1041,8 +1043,8 @@ public class SlaverAlleyDialogue {
 	public static final DialogueNode SLAVERY_ADMINISTRATION_EXTERIOR = new DialogueNode("Slavery Administration", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override

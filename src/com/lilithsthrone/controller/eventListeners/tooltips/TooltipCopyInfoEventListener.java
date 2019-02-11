@@ -1,4 +1,4 @@
-package com.lilithsthrone.controller.eventListeners.information;
+package com.lilithsthrone.controller.eventListeners.tooltips;
 
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
@@ -9,10 +9,10 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.69.9
+ * @version 0.3.1
  * @author Innoxia
  */
-public class CopyInfoEventListener implements EventListener {
+public class TooltipCopyInfoEventListener implements EventListener {
 
 	@Override
 	public void handleEvent(Event event) {

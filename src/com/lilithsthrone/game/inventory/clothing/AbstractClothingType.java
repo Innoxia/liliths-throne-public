@@ -28,6 +28,9 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FootType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -668,9 +671,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		Colour c2 = secondaryColour;
 		Colour c3 = tertiaryColour;
 
-		if (clothingType.getAllAvailablePrimaryColours() != null) {
+		if (primaryColour == null) {
+			if(clothingType.getAvailablePrimaryColours().isEmpty()) {
+				c1 = Colour.CLOTHING_BLACK;
+			} else {
+				c1 = Util.randomItemFrom(clothingType.getAvailablePrimaryColours());
+			}
+		} else if (clothingType.getAllAvailablePrimaryColours() != null) {
 			if (!clothingType.getAllAvailablePrimaryColours().contains(primaryColour)) {
-				c1 = clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size()));
+				c1 = Util.randomItemFrom(clothingType.getAllAvailablePrimaryColours());
 			}
 		}
 		
@@ -678,13 +687,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
 				c2 = Colour.CLOTHING_BLACK;
 			} else {
-				c2 = clothingType.getAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAvailableSecondaryColours().size()));
+				c2 = Util.randomItemFrom(clothingType.getAvailableSecondaryColours());
 			}
 		} else if(!clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
 			if(clothingType.getAllAvailableSecondaryColours().isEmpty()) {
 				c2 = Colour.CLOTHING_BLACK;
 			} else {
-				c2 = clothingType.getAllAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAllAvailableSecondaryColours().size()));
+				c2 = Util.randomItemFrom(clothingType.getAllAvailableSecondaryColours());
 			}
 		}
 		
@@ -692,14 +701,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
 				c3 = Colour.CLOTHING_BLACK;
 			} else {
-				c3 = clothingType.getAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAvailableTertiaryColours().size()));
+				c3 = Util.randomItemFrom(clothingType.getAvailableTertiaryColours());
 			}
 			
 		} else if(!clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
 			if(clothingType.getAllAvailableTertiaryColours().isEmpty()) {
 				c3 = Colour.CLOTHING_BLACK;
 			} else {
-				c3 = clothingType.getAllAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAllAvailableTertiaryColours().size()));
+				c3 = Util.randomItemFrom(clothingType.getAllAvailableTertiaryColours());
 			}
 		}
 		
@@ -1322,6 +1331,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public boolean isCanBeEquipped(GameCharacter clothingOwner) {
 		// This might not be the most efficient way of making this method, but I found it to be easily-readable:
+		BodyPartClothingBlock block = this.getSlot().getBodyPartClothingBlock(clothingOwner);
+		if (block != null && Collections.disjoint(block.getRequiredTags(), this.getItemTags())) {
+			return false;
+		}
 		if(getItemTags().contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
 			return false;
 		}
@@ -1361,10 +1374,56 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(!clothingOwner.isBreastFuckableNipplePenetration() && this.getItemTags().contains(ItemTag.REQUIRES_FUCKABLE_NIPPLES)) {
 			return false;
 		}
+		if(clothingOwner.getBody().getBodyMaterial().isRequiresPiercing()) {
+			if(this.getSlot()==InventorySlot.PIERCING_EAR && !clothingOwner.isPiercedEar()){
+				return false;
+		
+			} else if(this.getSlot()==InventorySlot.PIERCING_LIP && !clothingOwner.isPiercedLip()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_NIPPLE && !clothingOwner.isPiercedNipple()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_NOSE && !clothingOwner.isPiercedNose()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_PENIS && !clothingOwner.isPiercedPenis()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_STOMACH && !clothingOwner.isPiercedNavel()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_TONGUE && !clothingOwner.isPiercedTongue()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_VAGINA && !clothingOwner.isPiercedVagina()){
+				return false;
+			}
+		}
+		if(this.getSlot()==InventorySlot.PIERCING_PENIS && !clothingOwner.hasPenisIgnoreDildo()){
+			return false;
+			
+		} else if(this.getSlot()==InventorySlot.PIERCING_VAGINA && !clothingOwner.hasVagina()){
+			return false;
+		}
+		
+		if (this.getSlot() == InventorySlot.WINGS && clothingOwner.getWingType()==WingType.NONE) {
+			return false;
+		}
+		if (this.getSlot() == InventorySlot.HORNS && clothingOwner.getHornType().equals(HornType.NONE)) {
+			return false;
+		}
+		if (this.getSlot() == InventorySlot.TAIL && clothingOwner.getTailType()==TailType.NONE) {
+			return false;
+		}
 		return true;
 	}	
 
 	public String getCannotBeEquippedText(GameCharacter clothingOwner) { // ...
+		BodyPartClothingBlock block = this.getSlot().getBodyPartClothingBlock(clothingOwner);
+		if (block != null && Collections.disjoint(block.getRequiredTags(), this.getItemTags())) {
+			return UtilText.parse("[style.colourBad(" + block.getDescription() + ")]");
+		}
 		if(getItemTags().contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
 			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arachnid bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
 		}
@@ -1404,7 +1463,48 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(!clothingOwner.isBreastFuckableNipplePenetration() && this.getItemTags().contains(ItemTag.REQUIRES_FUCKABLE_NIPPLES)) {
 			return UtilText.parse(clothingOwner, "[npc.NamePos] nipples are not fuckable, so [npc.she] can't wear the "+this.getName()+"!");
 		}
+		if(clothingOwner.getBody().getBodyMaterial().isRequiresPiercing()) {
+			if(this.getSlot()==InventorySlot.PIERCING_EAR && !clothingOwner.isPiercedEar()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] ears are not pierced, so [npc.she] can't wear the "+this.getName()+"!");
 		
+			} else if(this.getSlot()==InventorySlot.PIERCING_LIP && !clothingOwner.isPiercedLip()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] lips are not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_NIPPLE && !clothingOwner.isPiercedNipple()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] nipples are not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_NOSE && !clothingOwner.isPiercedNose()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] nose is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_PENIS && !clothingOwner.isPiercedPenis()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] penis is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_STOMACH && !clothingOwner.isPiercedNavel()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] navel is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_TONGUE && !clothingOwner.isPiercedTongue()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] tongue is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_VAGINA && !clothingOwner.isPiercedVagina()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] vagina is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+			}
+		}
+		if(this.getSlot()==InventorySlot.PIERCING_PENIS && !clothingOwner.hasPenisIgnoreDildo()){
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a penis, so [npc.she] can't wear the "+this.getName()+"!");
+			
+		} else if(this.getSlot()==InventorySlot.PIERCING_VAGINA && !clothingOwner.hasVagina()){
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a vagina, so [npc.she] can't wear the "+this.getName()+"!");
+		}
+		
+		if (this.getSlot() == InventorySlot.WINGS && clothingOwner.getWingType()==WingType.NONE) {
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have any wings, so [npc.she] can't wear the "+this.getName()+"!");
+		}
+		if (this.getSlot() == InventorySlot.HORNS && clothingOwner.getHornType().equals(HornType.NONE)) {
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have any horns, so [npc.she] can't wear the "+this.getName()+"!");
+		}
+		if (this.getSlot() == InventorySlot.TAIL && clothingOwner.getTailType()==TailType.NONE) {
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a tail, so [npc.she] can't wear the "+this.getName()+"!");
+		}
 		return UtilText.parse(clothingOwner, "[npc.Name] cannot wear the "+this.getName()+"!");
 	}
 	
@@ -1549,7 +1649,16 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public boolean isConcealsSlot(GameCharacter character, InventorySlot slot) {
 		for(BlockedParts blockedPart : this.getBlockedPartsList(character)) {
-			if(blockedPart.concealedSlots.contains(slot)) {
+			if(blockedPart.concealedSlots.contains(slot) && !this.getItemTags().contains(ItemTag.TRANSPARENT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isConcealsCoverableArea(GameCharacter character, CoverableArea area) {
+		for(BlockedParts blockedPart : this.getBlockedPartsList(character)) {
+			if(blockedPart.blockedBodyParts.contains(area) && !this.getItemTags().contains(ItemTag.TRANSPARENT)) {
 				return true;
 			}
 		}

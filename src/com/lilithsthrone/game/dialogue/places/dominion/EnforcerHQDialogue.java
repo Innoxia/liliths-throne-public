@@ -55,8 +55,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode EXTERIOR = new DialogueNode("Enforcer HQ", "Enforcer HQ", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -87,8 +87,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode CORRIDOR = new DialogueNode("Corridor", "-", false) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 		
 		@Override
@@ -108,8 +108,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode ENTRANCE = new DialogueNode("Entrance hall", "-", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 		
 		@Override
@@ -140,8 +140,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode WAITING_AREA = new DialogueNode("Waiting area", "-", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 30;
 		}
 		
 		@Override
@@ -187,8 +187,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode GUARDED_DOOR = new DialogueNode("Guarded door", "-", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 		
 		@Override
@@ -256,8 +256,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode RECEPTION_DESK = new DialogueNode("Reception desk", "-", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -917,9 +917,7 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).setFemininity(75);
 						Main.game.getNpc(Brax.class).setBreastSize(CupSize.C.getMeasurement());
 						
-						if(Main.getProperties().multiBreasts!=0) {
-							Main.game.getNpc(Brax.class).setBreastRows(3);
-						}
+						Main.game.getNpc(Brax.class).setBreastRows(3);
 						
 						Main.game.getNpc(Brax.class).setHipSize(HipSize.THREE_GIRLY.getValue());
 						Main.game.getNpc(Brax.class).setAssSize(AssSize.FOUR_LARGE.getValue());
@@ -1280,8 +1278,8 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode INTERIOR_BRAX = new DialogueNode("[brax.namePos] Office", "-", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -1418,7 +1416,7 @@ public class EnforcerHQDialogue {
 		public String getContent() {
 			return "<p>"
 					+ "As you take a closer look at [brax.namePos] office, you notice that the scantily-clad model in every single poster is a wolf-girl."
-					+ " Looking past [brax.namePos] desk, your eyes are drawn to a glass display cabinet sitting just behind him, and you see that it's filled with little, half-naked, models of wolf-girls."
+					+ " Looking past [brax.namePos] desk, your eyes are drawn to a glass display cabinet sitting just behind him, and you see that it's full of little, half-naked, models of wolf-girls."
 					+ " From your observations of [brax.namePos] office, it's safe to assume that he has a fetish for females of the same race as him."
 					+ "</p>"
 					+ "<p>"

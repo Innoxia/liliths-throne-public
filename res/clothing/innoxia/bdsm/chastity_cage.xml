@@ -3,9 +3,9 @@
 <clothing>
   <coreAttributes>
     <value>250</value>
-    <determiner><![CDATA[an]]></determiner>
-    <name><![CDATA[ornate chastity cage]]></name>
-    <namePlural pluralByDefault="false"><![CDATA[ornate chastity cages]]></namePlural>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[chastity cage]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[chastity cages]]></namePlural>
     <description><![CDATA[A basic penis-shaped cage, complete with lock, that's designed to imprison the wearer's cock. When worn, it will physically prevent an erection from occurring.]]></description>
 
     <physicalResistance>0</physicalResistance>

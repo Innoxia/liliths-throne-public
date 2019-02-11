@@ -471,7 +471,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			this.getWorldsVisited().add(worldLocation);
 		}
 		
-		if(this.getWorldLocation()!=worldLocation && !this.getLocation().equals(location)) {
+		if(this.getWorldLocation()!=worldLocation || !this.getLocation().equals(location)) {
 			Main.game.setPlayerMovedLocation(true);
 		}
 		
@@ -678,7 +678,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public boolean isQuestProgressGreaterThan(QuestLine questLine, Quest quest) {
 		if(!hasQuest(questLine)) {
-			System.err.println("Player does not have Quest: "+quest.toString());
+			System.err.println("Player does not have Quest: "+questLine.toString()+", "+quest.toString());
 			return false;
 		}
 		
@@ -759,11 +759,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		npcsEncountered.sort((npc1, npc2) -> npc1 instanceof NPCOffspring
 				?(npc2 instanceof NPCOffspring
-					?npc1.getName().compareTo(npc2.getName())
+					?npc1.getName(true).compareTo(npc2.getName(true))
 					:1)
 				:(npc2 instanceof NPCOffspring
 						?-1
-						:npc1.getName().compareTo(npc2.getName())));
+						:npc1.getName(true).compareTo(npc2.getName(true))));
 		List<String> sortedIDs = new ArrayList<>();
 		for(GameCharacter character : npcsEncountered) {
 			sortedIDs.add(character.getId());

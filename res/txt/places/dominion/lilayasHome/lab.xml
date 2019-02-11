@@ -120,8 +120,8 @@
 	<p>
 		[lilaya.speech(Yes, that's right!)] she angrily shouts, before marching over towards you.
 		#IF lilaya.isCondomBroke()
-		#THEN [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]
-		#ELSE [lilaya.speech(You ended up getting me pregnant! This is all your fault for using such cheap, crappy condoms! Why couldn't you have just pulled out instead?!)]
+		#THEN [lilaya.speech(You ended up getting me pregnant! This is all your fault for using such cheap, crappy condoms! Why couldn't you have just pulled out instead?!)]
+		#ELSE [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]		
 		#ENDIF
 	</p>
 	<p>
@@ -310,7 +310,12 @@
 			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], mommy got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. But anyway, it's a good job that you came here to see me, [pc.name]. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
 		#ENDIF
 	#ELSE
-		Brushing down her skirt, Lilaya blushes a little and clears her throat, [lilaya.speech(~Ahem!~ Well, it's a good job that you came here to see me, [pc.name]. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
+		#IF !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
+		#THEN
+			As Lilaya brushes down her skirt, you can't help but notice that she's still got a very visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], I'm still pregnant... But anyway, it's a good job that you came here to see me. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
+		#ELSE
+			Brushing down her skirt, Lilaya blushes a little and clears her throat, [lilaya.speech(~Ahem!~ Well, it's a good job that you came here to see me, [pc.name]. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
+		#ENDIF
 	#ENDIF
 	</p>
 	<p>
@@ -348,7 +353,12 @@
 			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], mommy got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
 		#ENDIF
 	#ELSE
-		Brushing down her skirt, Lilaya clears her throat, [lilaya.speech(~Ahem!~ So, what is it you need, [pc.name]?)]
+		#IF !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
+		#THEN
+			As Lilaya brushes down her skirt, you can't help but notice that she's still got a very visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, I'm still pregnant... So, what is it you need, [pc.name]?)]
+		#ELSE
+			Brushing down her skirt, Lilaya clears her throat, [lilaya.speech(~Ahem!~ So, what is it you need, [pc.name]?)]
+		#ENDIF
 	#ENDIF
 	</p>
 	]]>
@@ -545,6 +555,16 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="LAB_END_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		As you disentangle yourself from her clutches, Lilaya lets out a very frustrated sigh. Stepping back, she gives her demonic wings an impatient flutter, before striding back over to her workplace and making several loud tutting sounds. Before you can say anything, she shouts out over her shoulder, [lilaya.speech(I <i>really</i> don't see the point in offering these tests to you, if all you're going to do is <i>that</i>! I didn't even get to cum...)]
+	</p>
+	<p>
+		Ignoring your excuses, Lilaya buries herself in preparing yet another of her experiments. Quickly sorting yourself out, you leave her to carry on with her work, knowing that she won't stay angry for long.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="LAB_END_SEX"><![CDATA[
 	<p>
 		Disentangling herself from your clutches, Lilaya lets out a very satisfied sigh as she stands up and stretches her arms up high. You see her demonic wings and tail following suit, and as she stretches, she turns back to face you. With one last smile and a quick kiss on your cheek, she then rushes back over to her workplace.
@@ -605,6 +625,16 @@
 	</p>
 	<p>
 		Continuing to shout and curse, she grabs you by the [pc.arm] and marches you over to her bedroom door. With one last angry cry, she throws you out, before slamming the door behind you. You start to wonder if perhaps you made a mistake, but surely she'll have calmed down in a couple of hours...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_END_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		Lilaya collapses face-first onto her bed, giving her demonic wings an impatient flutter as she sighs in annoyance, [lilaya.speech(As grateful as I am for this outfit, I <i>really</i> don't appreciate being treated like that! You didn't even get me to cum once!)]
+	</p>
+	<p>
+		Lilaya buries her face in her pillows, ignoring your excuses as she waits for you to leave. Quickly sorting yourself out, you head out of her bedroom, knowing that she won't stay angry for long.
 	</p>
 	]]>
 	</htmlContent>

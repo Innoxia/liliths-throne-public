@@ -194,7 +194,7 @@ public class Leg implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Leg.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Leg.class) && getType().getRace().isBestialPartsAvailable();
 	}
 
 }

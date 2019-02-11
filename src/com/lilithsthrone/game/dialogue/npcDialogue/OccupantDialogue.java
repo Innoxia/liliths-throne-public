@@ -330,7 +330,7 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							applyReactionReset();
@@ -468,7 +468,7 @@ public class OccupantDialogue {
 					}
 				
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "LEAVING", occupant()));
@@ -556,7 +556,7 @@ public class OccupantDialogue {
 						return new Response("Pet name", "Ask [npc.name] to call you by a different name.", OCCUPANT_CHOOSE_NAME);
 						
 					case 0:
-						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -577,8 +577,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_TALK_LIFE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -612,8 +612,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_TALK_JOB = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -651,8 +651,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_TALK_LILAYA = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -686,8 +686,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_TALK_SLAVES = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -748,7 +748,7 @@ public class OccupantDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogue()) {
+				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "LEAVE_AFTER_SEX", occupant()));
@@ -770,15 +770,15 @@ public class OccupantDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogue().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
 		}
 	};
 	
 	public static final DialogueNode OCCUPANT_MOVE_OUT = new DialogueNode("Moving out", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override
@@ -822,8 +822,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_MOVE_OUT_APARTMENT = new DialogueNode("Moving out", "", true, true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -907,7 +907,7 @@ public class OccupantDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!occupant().isAtHome()) {
 				if (index == 1) {
-					return new Response("Leave", "As [npc.name] is not at home right now, there's nothing left to do but head back out into Dominion.", Main.game.getDefaultDialogue());
+					return new Response("Leave", "As [npc.name] is not at home right now, there's nothing left to do but head back out into Dominion.", Main.game.getDefaultDialogueNoEncounter());
 					
 				} else {
 					return null;
@@ -966,9 +966,9 @@ public class OccupantDialogue {
 							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 							Main.game.getPlayer().setLust(0);
 							if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
-								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8 * 60) + sleepTimer);
+								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer);
 							} else {
-								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6 * 60) + sleepTimer);
+								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6*60*60) + sleepTimer);
 							}
 						}
 					};
@@ -1024,7 +1024,7 @@ public class OccupantDialogue {
 					};
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							applyReactionReset();
@@ -1159,7 +1159,7 @@ public class OccupantDialogue {
 					}
 				
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "APARTMENT_LEAVING", occupant()));
@@ -1243,7 +1243,7 @@ public class OccupantDialogue {
 						}
 						
 					case 0:
-						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -1264,8 +1264,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_APARTMENT_TALK_LIFE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -1298,8 +1298,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_APARTMENT_TALK_JOB = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -1332,8 +1332,8 @@ public class OccupantDialogue {
 	public static final DialogueNode OCCUPANT_APARTMENT_SLEEP_OVER = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return sleepTimer;
+		public int getSecondsPassed() {
+			return sleepTimer*60;
 		}
 		
 		@Override
@@ -1395,7 +1395,7 @@ public class OccupantDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!occupant().isAtHome()) {
 				if (index == 1) {
-					return new Response("Outside", "You find yourself back outside in the streets of Dominion.", Main.game.getDefaultDialogue());
+					return new Response("Outside", "You find yourself back outside in the streets of Dominion.", Main.game.getDefaultDialogueNoEncounter());
 					
 				} else {
 					return null;
@@ -1415,7 +1415,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogue().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
 		}
 	};
 	
@@ -1442,7 +1442,7 @@ public class OccupantDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogue()) {
+				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "APARTMENT_LEAVE_AFTER_SEX", occupant()));

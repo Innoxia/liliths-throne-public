@@ -137,6 +137,6 @@ public class Antenna implements BodyPartInterface {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Antenna.class);
+		return owner.getLegConfiguration().getBestialParts().contains(Antenna.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

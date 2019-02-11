@@ -135,15 +135,15 @@ public enum Encounter {
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
-				Main.game.setActiveNPC(new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false)));
-	
+				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(npc, false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+				Main.game.setActiveNPC(npc);
 				return Main.game.getActiveNPC().getEncounterDialogue();
+				
 				
 			} else if(node == EncounterType.SPECIAL_DOMINION_CULTIST
 					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM
@@ -163,7 +163,7 @@ public enum Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
 			} else if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
-					&& Main.game.getPlayer().getName().equalsIgnoreCase("Kinariu")
+					&& Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu")
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.foundHappiness, true);
 				return DominionEncounterDialogue.DOMINION_STREET_FIND_HAPPINESS;
@@ -275,12 +275,13 @@ public enum Encounter {
 					}
 				}
 				
-				Main.game.setActiveNPC(new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false)));
+				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(npc, false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				Main.game.setActiveNPC(npc);
 				return Main.game.getActiveNPC().getEncounterDialogue();
 					
 

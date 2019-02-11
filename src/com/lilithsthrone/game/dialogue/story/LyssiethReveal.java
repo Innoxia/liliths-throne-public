@@ -37,8 +37,8 @@ public class LyssiethReveal {
 	public static final DialogueNode ENTRANCE_WITH_ELIZABETH = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -64,8 +64,8 @@ public class LyssiethReveal {
 	public static final DialogueNode FORWARDS_1 = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -91,8 +91,8 @@ public class LyssiethReveal {
 	public static final DialogueNode FORWARDS_2 = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -119,8 +119,8 @@ public class LyssiethReveal {
 	public static final DialogueNode FORWARDS_3 = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -146,8 +146,8 @@ public class LyssiethReveal {
 	public static final DialogueNode OFFICE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -167,8 +167,8 @@ public class LyssiethReveal {
 	public static final DialogueNode OFFICE_REACTION = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -201,8 +201,8 @@ public class LyssiethReveal {
 	public static final DialogueNode OFFICE_REACTION_BETRAYAL = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -222,8 +222,8 @@ public class LyssiethReveal {
 	public static final DialogueNode OFFICE_REACTION_END = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -243,8 +243,8 @@ public class LyssiethReveal {
 	public static final DialogueNode OFFICE_TELEPORT = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -273,8 +273,8 @@ public class LyssiethReveal {
 	public static final DialogueNode OFFICE_TELEPORT_ARRIVE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -294,8 +294,8 @@ public class LyssiethReveal {
 	public static final DialogueNode LAB_ARTHUR_THEORY = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -315,8 +315,8 @@ public class LyssiethReveal {
 	public static final DialogueNode LAB_WORLD_REVEAL = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -336,8 +336,8 @@ public class LyssiethReveal {
 	public static final DialogueNode LAB_LILAYA_ANGERY = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -357,8 +357,8 @@ public class LyssiethReveal {
 	public static final DialogueNode LAB_LILAYA_CALMED_DOWN = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -453,8 +453,8 @@ public class LyssiethReveal {
 	public static final DialogueNode LAB_QUESTION = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -471,8 +471,8 @@ public class LyssiethReveal {
 	public static final DialogueNode LAB_QUESTION_END = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -538,8 +538,8 @@ public class LyssiethReveal {
 	public static final DialogueNode LAB_ENDING = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -558,8 +558,8 @@ public class LyssiethReveal {
 	
 	public static final DialogueNode LAB_ENDING_SIREN_HELP = new DialogueNode("", "", true, true) {
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -587,8 +587,8 @@ public class LyssiethReveal {
 	public static final DialogueNode LAB_ENDING_RETURN = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -677,8 +677,8 @@ public class LyssiethReveal {
 	public static final DialogueNode LAB_ENDING_RETURN_DECLINE_SEX = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -724,8 +724,8 @@ public class LyssiethReveal {
 	public static final DialogueNode POWER_EXPLANATION = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override
@@ -758,8 +758,8 @@ public class LyssiethReveal {
 	public static final DialogueNode POWER_EXPLANATION_CONTINUE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -788,8 +788,8 @@ public class LyssiethReveal {
 	public static final DialogueNode END_SIREN = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override

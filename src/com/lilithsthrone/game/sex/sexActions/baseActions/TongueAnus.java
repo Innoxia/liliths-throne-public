@@ -535,7 +535,7 @@ public class TongueAnus {
 
 		@Override
 		public String getActionDescription() {
-			return "Get [npc2.name] to start licking [npc.namePos] [npc.asshole+].";
+			return "Get [npc2.name] to start licking your [npc.asshole+].";
 		}
 
 		@Override

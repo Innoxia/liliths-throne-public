@@ -173,8 +173,8 @@ public class CityPlaces {
 	public static final DialogueNode STREET = new DialogueNode("Dominion Streets", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -217,7 +217,7 @@ public class CityPlaces {
 					}
 					
 					UtilText.nodeContentSB.append("<p>"
-								+ "The streets are very busy at this time of day, and are filled with people hurrying to and fro."
+								+ "The streets are very busy at this time of day, and are packed with people hurrying to and fro."
 								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
 								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
 								+ " all the other sorts that you'd find in any old city."
@@ -396,8 +396,8 @@ public class CityPlaces {
 	public static final DialogueNode BACK_ALLEYS = new DialogueNode("Back Alleys", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -437,8 +437,8 @@ public class CityPlaces {
 	public static final DialogueNode DARK_ALLEYS = new DialogueNode("Dark Alleyways", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -478,8 +478,8 @@ public class CityPlaces {
 	public static final DialogueNode BACK_ALLEYS_CANAL = new DialogueNode("Canal Crossing", ".", false) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -515,8 +515,8 @@ public class CityPlaces {
 	public static final DialogueNode BOULEVARD = new DialogueNode("Dominion Boulevard", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -596,8 +596,8 @@ public class CityPlaces {
 	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 
 		@Override
@@ -694,8 +694,8 @@ public class CityPlaces {
 	public static final DialogueNode DOMINION_PLAZA_NEWS = new DialogueNode("Lilith's Plaza", ".", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -723,8 +723,8 @@ public class CityPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -767,8 +767,8 @@ public class CityPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -804,8 +804,8 @@ public class CityPlaces {
 	public static final DialogueNode STREET_SHADED = new DialogueNode("Dominion Streets (Shaded)", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -836,8 +836,8 @@ public class CityPlaces {
 	public static final DialogueNode CANAL = new DialogueNode("Dominion Canals", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -882,8 +882,8 @@ public class CityPlaces {
 	public static final DialogueNode CANAL_END = new DialogueNode("Dominion Canals", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -919,8 +919,8 @@ public class CityPlaces {
 	public static final DialogueNode CITY_EXIT_SEWERS = new DialogueNode("Submission Entrance", "Enter the undercity of Submission.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -953,8 +953,8 @@ public class CityPlaces {
 	public static final DialogueNode CITY_EXIT_SEWERS_ENTERING_SUBMISSION = new DialogueNode("Enforcer Checkpoint", "Enter the undercity of Submission.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -994,8 +994,8 @@ public class CityPlaces {
 	public static final DialogueNode CITY_EXIT = new DialogueNode("Dominion Exit", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override

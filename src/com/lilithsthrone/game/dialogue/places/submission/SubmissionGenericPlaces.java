@@ -47,8 +47,8 @@ public class SubmissionGenericPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -73,8 +73,8 @@ public class SubmissionGenericPlaces {
 		}
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -136,8 +136,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode BAT_CAVERNS = new DialogueNode("Bat Caverns", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -165,8 +165,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode RAT_WARREN = new DialogueNode("The Rat Warren", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -188,8 +188,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode GAMBLING_DEN = new DialogueNode("Gambling Den", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -234,8 +234,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode LILIN_PALACE_CAVERN = new DialogueNode("Cavern", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -267,8 +267,8 @@ public class SubmissionGenericPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -450,8 +450,8 @@ public class SubmissionGenericPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -468,8 +468,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode LILIN_PALACE = new DialogueNode("Lyssieth's Palace", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -527,8 +527,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode IMP_FORTRESS_ALPHA = new DialogueNode("Crude Fortress", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -608,8 +608,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode IMP_FORTRESS_FEMALES = new DialogueNode("Crude Fortress", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -690,8 +690,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode IMP_FORTRESS_MALES = new DialogueNode("Crude Fortress", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -772,8 +772,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode IMP_FORTRESS_DEMON = new DialogueNode("Stone Citadel", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -868,8 +868,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode SEWER_ENTRANCE = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -930,8 +930,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_REPORT_BACK = new DialogueNode("Enforcer Checkpoint", "", true, true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -953,8 +953,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK = new DialogueNode("Enforcer Checkpoint", "", true, true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -980,8 +980,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_SUBMISSION_SOCIETY = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -1001,8 +1001,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_LYSSIETH = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -1022,8 +1022,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_TELEPORTATION = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override

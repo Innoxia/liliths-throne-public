@@ -213,8 +213,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode CORRIDOR = new DialogueNode("Gambling Den", "", false) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -499,8 +499,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode AFTER_ROXY_SEX = new DialogueNode("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -570,8 +570,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode AFTER_ROXY_SEX_ITEM_OBTAINED = new DialogueNode("Roxy's Fun Box", "", false, true) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -588,8 +588,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode AFTER_ROXY_SEX_ADDICT = new DialogueNode("Roxy stands up", "Roxy is finished, and, not caring whether you've had any fun or not, starts to stand up.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -636,8 +636,8 @@ public class GamblingDenDialogue {
 					}
 					int buyIn = table.getInitialBet()+table.getRaiseAmount();
 					if(Main.game.getPlayer().getMoney()>=buyIn) {
-						return new ResponseEffectsOnly("<span style='color:"+table.getColour().toWebHexString()+";'>"+gambler.getName()+"</span> ("+UtilText.formatAsMoney(buyIn, "span")+")",
-								"Start playing dice poker with "+gambler.getName()+". The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
+						return new ResponseEffectsOnly("<span style='color:"+table.getColour().toWebHexString()+";'>"+gambler.getName(true)+"</span> ("+UtilText.formatAsMoney(buyIn, "span")+")",
+								"Start playing dice poker with "+gambler.getName(true)+". The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
 									+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises.") {
 							@Override
 							public void effects() {
@@ -646,7 +646,7 @@ public class GamblingDenDialogue {
 						};
 						
 					} else {
-						return new Response("<span style='color:"+table.getColour().toWebHexString()+";'>"+gambler.getName()+"</span> ("+UtilText.formatAsMoney(buyIn, "span")+")",
+						return new Response("<span style='color:"+table.getColour().toWebHexString()+";'>"+gambler.getName(true)+"</span> ("+UtilText.formatAsMoney(buyIn, "span")+")",
 								"The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
 								+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises. As a result, you don't have enough money to play at this table!",
 								null);
@@ -863,7 +863,7 @@ public class GamblingDenDialogue {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
 						
 					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
-						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is filled with cum!", null);
+						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is full of cum!", null);
 						
 					} else if(!Main.game.getPlayer().hasVagina()) {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You don't have a vagina, so you can't sign up to be the mother!", null);
@@ -906,7 +906,7 @@ public class GamblingDenDialogue {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
 						
 					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
-						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is filled with cum!", null);
+						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is full of cum!", null);
 						
 					} else if(!Main.game.getPlayer().hasVagina()) {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You don't have a vagina, so you can't sign up to be the mother!", null);
@@ -1172,7 +1172,7 @@ public class GamblingDenDialogue {
 				
 			} else if(index<=breeders.size()) {
 				NPC breeder = breeders.get(index-1);
-				return new Response(breeder.getName(), "Tell Epona that you think "+breeder.getName()+" will get you pregnant.", PREGNANCY_ROULETTE_MOTHER_START) {
+				return new Response(breeder.getName(true), "Tell Epona that you think "+breeder.getName(true)+" will get you pregnant.", PREGNANCY_ROULETTE_MOTHER_START) {
 					@Override
 					public void effects() {
 						selectedBreeder=breeder;
@@ -1198,7 +1198,7 @@ public class GamblingDenDialogue {
 			if(index==1) {
 				NPC breeder = breeders.get(breederIndex);
 				
-				return new ResponseSex("Front "+breeder.getName(), "Lie on your front, where "+breeder.getName()+" will be the first to move up to fuck you.",
+				return new ResponseSex("Front "+breeder.getName(true), "Lie on your front, where "+breeder.getName(true)+" will be the first to move up to fuck you.",
 						null, null, null, null, null, null,
 						true, false,
 						new SMBreedingStallFront(true, false, false,
@@ -1235,7 +1235,7 @@ public class GamblingDenDialogue {
 			} else if(index==2) {
 				NPC breeder = breeders.get(breederIndex);
 				
-				return new ResponseSex("Back "+breeder.getName(), "Lie on your back, where "+breeder.getName()+" will be the first to move up to fuck you.",
+				return new ResponseSex("Back "+breeder.getName(true), "Lie on your back, where "+breeder.getName(true)+" will be the first to move up to fuck you.",
 						null, null, null, null, null, null,
 						true, false,
 						new SMBreedingStallBack(true, false, false,
@@ -1279,7 +1279,7 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getLabel() {
-			return breeders.get(breederIndex-1).getName()+" is done";
+			return breeders.get(breederIndex-1).getName(true)+" is done";
 		}
 		
 		@Override
@@ -1294,7 +1294,7 @@ public class GamblingDenDialogue {
 				if(index==1) {
 					NPC breeder = breeders.get(breederIndex);
 					
-					return new ResponseSex("Front "+breeder.getName(), "Position yourself so that you're lying on your front, where "+breeder.getName()+" will be the next breeder to move up to fuck you.",
+					return new ResponseSex("Front "+breeder.getName(true), "Position yourself so that you're lying on your front, where "+breeder.getName(true)+" will be the next breeder to move up to fuck you.",
 							null, null, null, null, null, null,
 							true, false,
 							new SMBreedingStallFront(true, false, false,
@@ -1331,7 +1331,7 @@ public class GamblingDenDialogue {
 				} else if(index==2) {
 					NPC breeder = breeders.get(breederIndex);
 					
-					return new ResponseSex("Back "+breeder.getName(), "Position yourself so that you're lying on your back, where "+breeder.getName()+" will be the next breeder to move up to fuck you.",
+					return new ResponseSex("Back "+breeder.getName(true), "Position yourself so that you're lying on your back, where "+breeder.getName(true)+" will be the next breeder to move up to fuck you.",
 							null, null, null, null, null, null,
 							true, false,
 							new SMBreedingStallBack(true, false, false,
@@ -1387,8 +1387,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode PREGNANCY_ROULETTE_MOTHER_FINISHED = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 		
 		@Override
@@ -1401,7 +1401,7 @@ public class GamblingDenDialogue {
 			if(index==1) {
 				if(Main.game.getPlayer().isPregnant()) {
 					if(Main.game.getPlayer().getPregnantLitter().getFather().equals(selectedBreeder)) {
-						return new Response("Winner!", "You correctly guessed that "+selectedBreeder.getName()+" would be the father!", PREGNANCY_ROULETTE_MOTHER_WINNER) {
+						return new Response("Winner!", "You correctly guessed that "+selectedBreeder.getName(true)+" would be the father!", PREGNANCY_ROULETTE_MOTHER_WINNER) {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
@@ -1414,7 +1414,7 @@ public class GamblingDenDialogue {
 						};
 						
 					} else {
-						return new Response("Loser", "You incorrectly guessed that "+selectedBreeder.getName()+" would be the father, so lost your bet...", PREGNANCY_ROULETTE_MOTHER_LOSER){
+						return new Response("Loser", "You incorrectly guessed that "+selectedBreeder.getName(true)+" would be the father, so lost your bet...", PREGNANCY_ROULETTE_MOTHER_LOSER){
 							@Override
 							public void effects() {
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
@@ -1497,7 +1497,7 @@ public class GamblingDenDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "Epona rolls the dice, and you watch as it clatters to a halt on the number "+Util.intToString(roll)+"."
-						+ " [epona.speech(Alright, [pc.name], that means you're going "+Util.intToPosition(roll)+"! Now, erm, I'll keep rolling for the rest of you!)]"
+						+ " [epona.speech(Alright, [pc.name], that means you're going "+Util.intToPosition(roll)+"! Now I'll keep rolling for the rest of you!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You all then have to wait while Epona rolls for each of the other breeders."
@@ -1536,7 +1536,9 @@ public class GamblingDenDialogue {
 							}
 						},
 						null,
-						null, PREGNANCY_ROULETTE_BREEDER_POST_SEX, roll==1
+						null,
+						PREGNANCY_ROULETTE_BREEDER_POST_SEX,
+						roll==1
 							?UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FIRST", Util.newArrayListOfValues(mother))
 							:UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_MIDDLE", Util.newArrayListOfValues(mother))){
 					@Override
@@ -1581,8 +1583,8 @@ public class GamblingDenDialogue {
 	public static final DialogueNode PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNode("", "", true, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 		
 		@Override
@@ -1596,7 +1598,7 @@ public class GamblingDenDialogue {
 			if(index==1) {
 				if(mother.isPregnant()) {
 					if(mother.getPregnantLitter().getFather().isPlayer()) {
-						return new Response("Winner!", "You got "+mother.getName()+" pregnant!", PREGNANCY_ROULETTE_BREEDER_WINNER) {
+						return new Response("Winner!", "You got "+mother.getName(true)+" pregnant!", PREGNANCY_ROULETTE_BREEDER_WINNER) {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
@@ -1606,12 +1608,11 @@ public class GamblingDenDialogue {
 									Main.game.banishNPC(npc);
 								}
 								Main.game.banishNPC(mother);
-								
 							}
 						};
 						
 					} else {
-						return new Response("Loser", "You didn't get "+mother.getName()+" pregnant, so lost your bet...", PREGNANCY_ROULETTE_BREEDER_LOSER){
+						return new Response("Loser", "You didn't get "+mother.getName(true)+" pregnant, so lost your bet...", PREGNANCY_ROULETTE_BREEDER_LOSER){
 							@Override
 							public void effects() {
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
@@ -1625,7 +1626,7 @@ public class GamblingDenDialogue {
 					}
 						
 				} else {
-					return new Response("Loser", "Nobody got "+mother.getName()+" pregnant, so everyone loses their bets...", PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY){
+					return new Response("Loser", "Nobody got "+mother.getName(true)+" pregnant, so everyone loses their bets...", PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);

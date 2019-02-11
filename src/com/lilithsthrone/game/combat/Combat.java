@@ -292,8 +292,9 @@ public enum Combat {
 			for(Entry<AbstractCoreItem, Integer> entry : lootedItemsMap.entrySet()) {
 				itemsLooted.add("<b style='color:"+entry.getKey().getRarity().getColour().toWebHexString()+";'>"+entry.getKey().getName()+"</b>"+(entry.getValue()>1?" <b>(x"+entry.getValue()+")</b>":""));
 			}
-			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] " + Util.stringsToStringList(itemsLooted, false) +"!</div>");
-
+			if(!itemsLooted.isEmpty()) {
+				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] " + Util.stringsToStringList(itemsLooted, false) +"!</div>");
+			}
 			// Apply essence drops:
 			boolean essenceDropFound = false;
 			Map<TFEssence, Integer> essences = new HashMap<>();
@@ -944,10 +945,10 @@ public enum Combat {
 				
 			} else if(index>11 && index - 11 <= allCombatants.size()) {
 				if(targetedCombatant.equals(allCombatants.get(index-12))) {
-					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName()), "You are already targeting "+allCombatants.get(index-12).getName()+"!", null);
+					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName(true)), "You are already targeting "+allCombatants.get(index-12).getName(true)+"!", null);
 				} else {
-					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName()),
-							"Switch your target to "+allCombatants.get(index-12).getName()+" (You can also do this by clicking on their name in the side bar.).",
+					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName(true)),
+							"Switch your target to "+allCombatants.get(index-12).getName(true)+" (You can also do this by clicking on their name in the side bar.).",
 							ENEMY_ATTACK){
 						@Override
 						public void effects() {
@@ -1595,7 +1596,7 @@ public enum Combat {
 					endTurnStatusEffectText.append("<p><b style='color: " + se.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(se.getName(character)) + ":</b> " + effectString+ "</p>");
 				}
 //				if (!se.isBeneficial()) {
-					character.setStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
+					character.setCombatStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
 //				}
 				if (character.getStatusEffectDuration(se) <= 0) {
 					effectsToRemove.add(se);

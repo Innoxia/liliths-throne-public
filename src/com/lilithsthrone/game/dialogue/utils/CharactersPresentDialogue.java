@@ -39,7 +39,7 @@ public class CharactersPresentDialogue {
 		} else {
 			CharactersPresentDialogue.characterViewed = characterViewed;
 		}
-		menuTitle = "Characters Present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName())+")";
+		menuTitle = "Characters Present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName(true))+")";
 		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen();
 	}
 	
@@ -137,7 +137,7 @@ public class CharactersPresentDialogue {
 						@Override
 						public void effects() {
 							characterViewed = charactersPresent.get(index-1);
-							menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(index - 1).getName())+")";
+							menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(index - 1).getName(true))+")";
 							menuContent = ((NPC) charactersPresent.get(index - 1)).getCharacterInformationScreen();
 						}
 					};
@@ -410,7 +410,7 @@ public class CharactersPresentDialogue {
 									Main.game.setResponseTab(0);
 									characterViewed = charactersPresent.get(0);
 									//no need for character conceal check since its for follower
-									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName())+")";
+									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName(true))+")";
 									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen();
 								}
 							};

@@ -199,7 +199,7 @@ public class SlaveryEventLogEntry implements XMLSaving {
 	public String getSlaveName() {
 		try {
 			GameCharacter slave = Main.game.getNPCById(slaveID);
-			return "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b>";
+			return "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName(true)+"</b>";
 		
 		} catch (Exception e) {
 			Util.logGetNpcByIdError("SlaveryEventLogEntry.getSlaveName()", slaveID);

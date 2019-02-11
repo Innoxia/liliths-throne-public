@@ -61,21 +61,21 @@ public class DebugDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "As you finish speaking the magic word, you suddenly hear a little thudding noise close behind you."
-					+ " Spinning around, you see a small metallic device lying on the floor, which sort of resembles a t.v. remote from back in your old world."
+						+ "As you finish speaking the magic word, you suddenly hear a little thudding noise close behind you."
+						+ " Spinning around, you see a small metallic device lying on the floor, which sort of resembles a t.v. remote from back in your old world."
 					+ "</p>"
 
 					+ "<p>"
-					+ "You lean down and pick it up, and as you turn it over in your hands, you see a little label stuck to the back."
-					+ " Someone's written a message on it, and you read the following:" 
+						+ "You lean down and pick it up, and as you turn it over in your hands, you see a little label stuck to the back."
+						+ " Someone's written a message on it, and you read the following:" 
 					+ "</p>"
 
 					+ "<p style='text-align:center;'><i>"
-					+ "Hi " + Main.game.getPlayer().getName() + "!<br/>"
-					+ "It looks like you know about the magic debug code! Just to give you a warning, all the options here are really buggy!"
-					+ " If you spawn in any clothing or items, just be aware that some of them aren't officially in the game just yet, so they may not work exactly as expected."
-					+ " Thanks for playing!<br/><br/>"
-					+ "~Innoxia~<br/></i>"
+						+ "Hi [pc.name]!<br/>"
+						+ "It looks like you know about the magic debug code! Just to give you a warning, all the options here are really buggy!"
+						+ " If you spawn in any clothing or items, just be aware that some of them aren't officially in the game just yet, so they may not work exactly as expected."
+						+ " Thanks for playing!<br/><br/>"
+						+ "~Innoxia~<br/></i>"
 					+ "</p>";
 		}
 
@@ -401,8 +401,7 @@ public class DebugDialogue {
 					return new Response("Centaur", "A wild centaur appears! (Please only use this on a completely neutral tile, as it will probably break things otherwise.)", CENTAUR_SEX){
 						@Override
 						public void effects(){
-							NPC target = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false,  false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-							CharacterUtils.reassignBody(target, target.getBody(), target.getGender(), Subspecies.CENTAUR, RaceStage.PARTIAL);
+							NPC target = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false,  false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s!=Subspecies.CENTAUR);
 							try {
 								Main.game.addNPC(target, false);
 								Main.game.setActiveNPC(target);
@@ -446,9 +445,9 @@ public class DebugDialogue {
 			
 			for(NPC npc : Main.game.getOffspring()) {
 				if(npc.isFeminine()) {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getMother().getName()+"'s daughter ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
+					UtilText.nodeContentSB.append(npc.getName(true)+" "+npc.getMother().getName(true)+"'s daughter ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName(true)+" Mother:"+npc.getMother().getName(true)+"<br/>");
 				} else {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getFather().getName()+"'s son ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
+					UtilText.nodeContentSB.append(npc.getName(true)+" "+npc.getFather().getName(true)+"'s son ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName(true)+" Mother:"+npc.getMother().getName(true)+"<br/>");
 				}
 			}
 			if(activeOffspring!=null) {
@@ -469,7 +468,7 @@ public class DebugDialogue {
 				return new Response("Back", "", DEBUG_MENU);
 				
 			} else if(index-1 < Main.game.getOffspring().size()) {
-				return new Response(Main.game.getOffspring().get(index-1).getName(), "View the character page for this offspring.", OFFSPRING) {
+				return new Response(Main.game.getOffspring().get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
 					@Override
 					public void effects() {
 						activeOffspring = Main.game.getOffspring().get(index-1);

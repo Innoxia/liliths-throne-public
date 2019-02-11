@@ -660,32 +660,32 @@ public abstract class AbstractItemEffectType {
 		int labiaSizeIncrement = (potency.isNegative()?-1:1);
 		
 		int TFCount = 0;
-		int minutesRequired = 60;
+		int secondsRequired = 60*60;
 		
 		switch(potency) {
 			case MINOR_BOOST:
-				minutesRequired = 7 * 24 * 60;
+				secondsRequired = 7 * 24 * 60 * 60;
 				break;
 			case BOOST:
-				minutesRequired = 24 * 60;
+				secondsRequired = 24 * 60 * 60;
 				break;
 			case MAJOR_BOOST:
-				minutesRequired = 60;
+				secondsRequired = 60 * 60;
 				break;
 			case MINOR_DRAIN:
-				minutesRequired = 7 * 24 * 60;
+				secondsRequired = 7 * 24 * 60 * 60;
 				break;
 			case DRAIN:
-				minutesRequired = 24 * 60;
+				secondsRequired = 24 * 60 * 60;
 				break;
 			case MAJOR_DRAIN:
-				minutesRequired = 60;
+				secondsRequired = 60 * 60;
 				break;
 		}
 		
-		TFCount = timer.getTimePassed()/minutesRequired;
+		TFCount = timer.getSecondsPassed()/secondsRequired;
 		if(TFCount>=1) {
-			timer.setTimePassed(timer.getTimePassed()%minutesRequired);
+			timer.setSecondsPassed(timer.getSecondsPassed()%secondsRequired);
 		}
 //		System.out.println(timer.getTimePassed() + ", " + minutesRequired + ": " +TFCount);
 		
@@ -1692,6 +1692,10 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
 				
+				if(primaryModifier==TFModifier.TF_BREASTS_CROTCH) {
+					secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				}
+				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT_SECONDARY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
@@ -2541,7 +2545,12 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(4).getTransformName())+" crotch-boob transformation.",
 								0, "") {
 							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.getBreastTypes(race).get(4)); } };
-						
+
+					case REMOVAL:
+						return new RacialEffectUtil("Removes crotch-boobs.",
+								0, "") {
+							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.NONE); } };
+							
 					case TF_MOD_COUNT:
 						switch(potency) {
 							case MINOR_DRAIN:
@@ -3173,7 +3182,7 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default://TODO
 								return new RacialEffectUtil("Adds an extra pair of horns.", singleBoost, " pair of horns") { @Override public String applyEffect() {
 									List<AbstractHornType> hornTypesSuitableForTransformation = RacialBody.valueOfRace(race).getHornTypes(true);
-									if(target.getHornType()==HornType.NONE && !hornTypesSuitableForTransformation.isEmpty()) {
+									if(target.getHornType().equals(HornType.NONE) && !hornTypesSuitableForTransformation.isEmpty()) {
 										return target.setHornType(hornTypesSuitableForTransformation.get(0));
 									} else {
 										return target.incrementHornRows(singleBoost);
@@ -3217,7 +3226,7 @@ public abstract class AbstractItemEffectType {
 					default:
 						List<AbstractHornType> hornTypes = RacialBody.valueOfRace(race).getHornTypes(true);
 						AbstractHornType hornType = hornTypes.isEmpty()?HornType.NONE:Util.randomItemFrom(hornTypes);
-						return new RacialEffectUtil(hornType==HornType.NONE?"Removes horns.":Util.capitaliseSentence(race.getName(false))+" horn transformation.", 0, "") {
+						return new RacialEffectUtil(hornType.equals(HornType.NONE)?"Removes horns.":Util.capitaliseSentence(race.getName(false))+" horn transformation.", 0, "") {
 							@Override public String applyEffect() { return target.setHornType(hornType); } };
 				}
 				

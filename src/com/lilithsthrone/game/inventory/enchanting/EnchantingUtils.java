@@ -72,7 +72,7 @@ public class EnchantingUtils {
 		
 		craftedClothing.setName(EnchantmentDialogue.getOutputName());
 		
-		craftedClothing.setEnchantmentKnown(true);
+		craftedClothing.setEnchantmentKnown(null, true);
 		
 		return craftedClothing;
 	}
@@ -127,14 +127,12 @@ public class EnchantingUtils {
 		String potionName = ((AbstractItemType) ingredient.getEnchantmentItemType(effects)).getName(false);
 		String potionDescriptor = "";
 		String potionSuffix = "";
-		String potionPreSuffix = ""; // it was either PreSuffix or PrefixSuffix...
+		String potionPreSuffix = "";
 		
 		if(ingredient!=null) {
 			try {
 				potionDescriptor = ingredient.getEffects().get(0).getItemEffectType().getPotionDescriptor();
 			} catch(Exception ex) {
-				// :3
-				// Cat-face comments aren't helpful damn it!
 				System.err.println("EnchantingUtils: getPotionName() error 1."); 
 			}
 		}

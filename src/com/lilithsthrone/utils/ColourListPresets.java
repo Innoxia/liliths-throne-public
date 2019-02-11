@@ -64,6 +64,14 @@ public enum ColourListPresets {
 			Colour.CLOTHING_BLACK,
 			Colour.CLOTHING_WHITE)),
 	
+	DARK_SHADES(Util.newArrayListOfValues(
+			Colour.CLOTHING_BLACK,
+			Colour.CLOTHING_GREY,
+			Colour.CLOTHING_BROWN_VERY_DARK,
+			Colour.CLOTHING_RED_VERY_DARK,
+			Colour.CLOTHING_GREEN_VERY_DARK,
+			Colour.CLOTHING_BLUE_VERY_DARK)),
+	
 	DENIM(Util.newArrayListOfValues(
 			Colour.CLOTHING_BLUE_LIGHT,
 			Colour.CLOTHING_BLUE,
