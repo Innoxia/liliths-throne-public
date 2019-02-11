@@ -3,20 +3,25 @@ package com.lilithsthrone.game.character.body.valueEnums;
 import com.lilithsthrone.utils.Colour;
 
 /**
- * The amount of fluid that gets replenished every minute
+ * The amount of fluid that gets replenished every second.
  * 
  * @since 0.2.1
- * @version 0.2.1
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum FluidRegeneration {
 
 	// I named these wrong...
-	ZERO_MINIMUM(0, 0.0005f, "slow", "slowly", Colour.GENERIC_SIZE_ONE),
-	ONE_AVERAGE(1, 0.0025f, "average", "", Colour.GENERIC_SIZE_TWO),
-	TWO_FULL(2, 0.0075f, "fast", "quickly", Colour.GENERIC_SIZE_THREE),
-	THREE_PLUMP(3, 0.015f, "rapid", "rapidly", Colour.GENERIC_SIZE_FOUR),
-	FOUR_MAXIMUM(4, 0.05f, "very rapid", "very rapidly", Colour.GENERIC_SIZE_FIVE);
+	
+	ZERO_MINIMUM(0, 0.0005f/60f, "slow", "slowly", Colour.GENERIC_SIZE_ONE),
+	
+	ONE_AVERAGE(1, 0.0025f/60f, "average", "", Colour.GENERIC_SIZE_TWO),
+	
+	TWO_FULL(2, 0.0075f/60f, "fast", "quickly", Colour.GENERIC_SIZE_THREE),
+	
+	THREE_PLUMP(3, 0.015f/60f, "rapid", "rapidly", Colour.GENERIC_SIZE_FOUR),
+	
+	FOUR_MAXIMUM(4, 0.05f/60f, "very rapid", "very rapidly", Colour.GENERIC_SIZE_FIVE);
 	
 	
 	private int value;
@@ -49,9 +54,9 @@ public enum FluidRegeneration {
 		return verb;
 	}
 	
-	public static FluidRegeneration getFluidRegenerationFromInt(int inches) {
+	public static FluidRegeneration getFluidRegenerationFromInt(int value) {
 		for(FluidRegeneration ls : FluidRegeneration.values()) {
-			if(inches == ls.getValue()) {
+			if(value == ls.getValue()) {
 				return ls;
 			}
 		}

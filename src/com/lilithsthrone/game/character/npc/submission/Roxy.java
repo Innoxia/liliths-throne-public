@@ -326,17 +326,17 @@ public class Roxy extends NPC {
 		
 		for(int i=0; i<6; i++) {
 			AbstractClothing clothing = AbstractClothingType.generateClothingWithNegativeEnchantment(Util.randomItemFrom(clothingToAdd));
+			clothing.setEnchantmentKnown(this, false);
 			this.addClothing(clothing, false);
-			clothing.setEnchantmentKnown(false);
 		}
 		for(int i=0; i<3; i++) {
 			AbstractClothing clothing = AbstractClothingType.generateClothingWithEnchantment(Util.randomItemFrom(clothingToAdd));
+			clothing.setEnchantmentKnown(this, false);
 			this.addClothing(clothing, false);
-			clothing.setEnchantmentKnown(false);
 		}
 		AbstractClothing clothing = AbstractClothingType.generateRareClothing(Util.randomItemFrom(clothingToAdd));
+		clothing.setEnchantmentKnown(this, false);
 		this.addClothing(clothing, false);
-		clothing.setEnchantmentKnown(false);
 		
 	}
 	

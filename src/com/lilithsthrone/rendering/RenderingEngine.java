@@ -1963,10 +1963,10 @@ public enum RenderingEngine {
 						+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;float:left;width:86%;'>"
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
-									+ (character.getName().length() == 0
+									+ (character.getName(true).length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
 											: (character.isPlayer()
-													?character.getName()
+													?character.getName(true)
 													:UtilText.parse(character, "[npc.Name]")))
 								+"</b>"
 								+ " - Level "+ character.getLevel()
@@ -2218,7 +2218,7 @@ public enum RenderingEngine {
 						+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;float:left;width:86%;'>"
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
-									+ (character.getName().length() == 0
+									+ (character.getName(true).length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
 											: UtilText.parse(character, "[npc.Name]"))
 								+"</b>"

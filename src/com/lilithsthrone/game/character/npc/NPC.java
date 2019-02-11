@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -128,10 +129,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			CharacterInventory inventory,
 			WorldType worldLocation,
 			PlaceType startingPlace,
-			boolean addedToContacts) {
+			boolean addedToContacts,
+			NPCGenerationFlag... generationFlags) {
 		super(nameTriplet, surname, description, level,
 				LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0),
 				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
+		
+		List<NPCGenerationFlag> flags = Arrays.asList(generationFlags);
 		
 		this.addedToContacts = addedToContacts;
 		
@@ -144,7 +148,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(!isImported) {
 			setStartingBody(true);
-			equipClothing(true, true, true, true);
+			if(!flags.contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
+				equipClothing(true, true, true, true);
+			}
 		}
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
@@ -2874,10 +2880,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		}
 		
+		boolean isRequest = false;
 		if(request!=null) {
 			for(SexType st : request) {
 				if((st.getTargetedSexArea()==type.getTargetedSexArea() || st.getPerformingSexArea()==type.getPerformingSexArea())) {
 					weight += 50;
+					isRequest = true;
 				}
 			}
 		}
@@ -2901,11 +2909,19 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 
 		// Anal actions are not available unless the person likes anal.
-		if(fetishes.contains(Fetish.FETISH_ANAL_RECEIVING)) {
+		if(fetishes.contains(Fetish.FETISH_ANAL_RECEIVING) && !isRequest) {
 			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
 				weight-=100000; // ban self-anal actions unless the character likes anal
 			}
 			if(!fetishes.contains(Fetish.FETISH_PENIS_RECEIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
+			}
+		}
+		if(fetishes.contains(Fetish.FETISH_ANAL_GIVING) && !isRequest) {
+			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+				weight-=100000; // ban self-anal actions unless the character likes anal
+			}
+			if(!fetishes.contains(Fetish.FETISH_PENIS_GIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
 				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
 			}
 		}

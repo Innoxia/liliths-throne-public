@@ -33,6 +33,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -235,7 +236,7 @@ public class Alexa extends NPC {
 			this.removeAllSlaves();
 			
 			for(int i=0; i<3; i++) {
-				NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+				NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 				try {
 					Main.game.addNPC(newSlave, false);
 				} catch (Exception e) {

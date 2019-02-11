@@ -58,10 +58,10 @@ public class NPCOffspring extends NPC {
 
 
 		if(mother.getSubspecies()==Subspecies.LILIN || mother.getSubspecies()==Subspecies.ELDER_LILIN) {
-			this.setSurname(mother.getName()+"martuilani");
+			this.setSurname(mother.getName(false)+"martuilani");
 			
 		} else if(father.getSubspecies()==Subspecies.LILIN || father.getSubspecies()==Subspecies.ELDER_LILIN) {
-			this.setSurname(father.getName()+"martuilani");
+			this.setSurname(father.getName(false)+"martuilani");
 				
 		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
 			this.setSurname(mother.getSurname());
@@ -150,6 +150,11 @@ public class NPCOffspring extends NPC {
 	@Override
 	public boolean isUnique() {
 		return false;
+	}
+	
+	@Override
+	public boolean isPlayerOnFirstNameTerms() {
+		return true;
 	}
 	
 	@Override

@@ -748,7 +748,7 @@ public enum Subspecies {
 	FOX_ASCENDANT("statusEffects/race/raceFoxMorph",
 			"statusEffects/race/raceBackground",
 			"youko",
-			"youkos",
+			"youko",
 			"youko-boy",
 			"youko-girl",
 			"youko-boys",
@@ -1201,14 +1201,12 @@ public enum Subspecies {
 			Colour primaryColor = Colour.COVERING_ORANGE;
 			Colour secondaryColor = Colour.COVERING_BLACK;
 			double rand = Math.random();
-			if(rand<0.02f) {
-				primaryColor = Colour.COVERING_TAN;
-			} else if(rand<0.4f) {
-				primaryColor = Colour.COVERING_AUBURN;
-			} else if(rand<0.6f) {
-				primaryColor = Colour.COVERING_AMBER;
-			} else if(rand<0.16f) {
+			if(rand<0.6f) {
+				primaryColor = Util.randomItemFrom(Util.newArrayListOfValues(Colour.COVERING_TAN, Colour.COVERING_AUBURN, Colour.COVERING_AMBER));
+			} else if(rand<0.12f) {
 				primaryColor = Colour.COVERING_WHITE;
+			} else if(rand<0.16f) {
+				primaryColor = Colour.COVERING_BLACK;
 			}
 			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.STRIPED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
 			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));

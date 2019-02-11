@@ -945,10 +945,10 @@ public enum Combat {
 				
 			} else if(index>11 && index - 11 <= allCombatants.size()) {
 				if(targetedCombatant.equals(allCombatants.get(index-12))) {
-					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName()), "You are already targeting "+allCombatants.get(index-12).getName()+"!", null);
+					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName(true)), "You are already targeting "+allCombatants.get(index-12).getName(true)+"!", null);
 				} else {
-					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName()),
-							"Switch your target to "+allCombatants.get(index-12).getName()+" (You can also do this by clicking on their name in the side bar.).",
+					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName(true)),
+							"Switch your target to "+allCombatants.get(index-12).getName(true)+" (You can also do this by clicking on their name in the side bar.).",
 							ENEMY_ATTACK){
 						@Override
 						public void effects() {

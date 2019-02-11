@@ -363,7 +363,7 @@ public class Lyssieth extends NPC {
 		Main.game.getNpc(daughterClass).setSubspeciesOverride(Subspecies.DEMON);
 		Main.game.getNpc(Lilaya.class).setArousal(100);
 		Main.game.getPlayer().setArousal(100, true);
-		if(Sex.getAllParticipants().contains(Main.game.getNpc(DarkSiren.class))) {
+		if(Main.game.isInSex() && Sex.getAllParticipants().contains(Main.game.getNpc(DarkSiren.class))) {
 			Main.game.getNpc(DarkSiren.class).setArousal(100);
 		}
 	}

@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -68,7 +70,7 @@ public class SlaverAlleyDialogue {
 		// Female stall:
 		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
 		for(int i=0; i<genders.length; i++) {
-			NPC slave = new DominionAlleywayAttacker(genders[i]);
+			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -91,7 +93,7 @@ public class SlaverAlleyDialogue {
 		// Male stall:
 		genders = new Gender[] {Gender.M_P_MALE, Gender.M_P_MALE, Gender.M_P_MALE};
 		for(int i=0; i<genders.length; i++) {
-			NPC slave = new DominionAlleywayAttacker(genders[i]);
+			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -112,7 +114,7 @@ public class SlaverAlleyDialogue {
 
 		// Anal stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -145,7 +147,7 @@ public class SlaverAlleyDialogue {
 
 		// Vaginal stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -169,7 +171,7 @@ public class SlaverAlleyDialogue {
 
 		// Oral stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -663,7 +665,7 @@ public class SlaverAlleyDialogue {
 			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
 			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
-			charactersPresent.sort(Comparator.comparing(NPC::getName));
+			Collections.sort(charactersPresent, (e1, e2) -> e1.getName(true).compareTo(e2.getName(true)));
 			
 			if(charactersPresent.isEmpty()) {
 				UtilText.nodeContentSB.append(
@@ -679,7 +681,7 @@ public class SlaverAlleyDialogue {
 					UtilText.nodeContentSB.append(UtilText.parse(slave,
 							"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 								+ "<div style='width:40%; float:left; margin:0; padding:0; text-align:center;'>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b> - "
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName(true)+"</b> - "
 									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span> "
 									+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"
 										+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName(slave):slave.getSubspecies().getSingularMaleName(slave)))
@@ -993,7 +995,7 @@ public class SlaverAlleyDialogue {
 				
 			} else if(index <= charactersPresent.size()) {
 				return new ResponseSex(
-						"Use "+charactersPresent.get(index-1).getName(),
+						"Use "+charactersPresent.get(index-1).getName(true),
 						UtilText.parse(charactersPresent.get(index-1), "Walk up to [npc.name] and have some fun..."),
 						false, false,
 						new SMStocks(

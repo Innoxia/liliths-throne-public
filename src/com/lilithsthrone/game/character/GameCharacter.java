@@ -103,6 +103,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected String surname;
 	protected String genericName;
 	protected boolean playerKnowsName;
+	protected boolean playerOnFirstNameTerms;
 	protected boolean raceConcealed;
 	protected Map<String, String> petNameMap;
 	protected String description;
@@ -266,6 +267,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		genericName = "";
 		playerKnowsName = true;
+		playerOnFirstNameTerms = false;
 		raceConcealed = false;
 		this.description = description;
 		this.level = level;
@@ -493,6 +495,7 @@ public abstract class GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "genericName", this.getGenericName());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerOnFirstNameTerms", String.valueOf(this.isPlayerOnFirstNameTerms()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "raceConcealed", String.valueOf(this.isRaceConcealed()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getTrueLevel()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "ageAppearanceDifference", String.valueOf(this.getAgeAppearanceDifference()));
@@ -1213,6 +1216,12 @@ public abstract class GameCharacter implements XMLSaving {
 			character.setPlayerKnowsName(Boolean.valueOf(((Element)element.getElementsByTagName("playerKnowsName").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "<br/>Set playerKnowsName: "+character.isPlayerKnowsName());
 		}
+
+		if(element.getElementsByTagName("playerOnFirstNameTerms").getLength()!=0) {
+			character.setPlayerOnFirstNameTerms(Boolean.valueOf(((Element)element.getElementsByTagName("playerOnFirstNameTerms").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "<br/>Set playerOnFirstNameTerms: "+character.isPlayerOnFirstNameTerms());
+		}
+		
 		if(element.getElementsByTagName("raceConcealed").getLength()!=0) {
 			character.setRaceConcealed(Boolean.valueOf(((Element)element.getElementsByTagName("raceConcealed").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "<br/>Set raceConcealed: "+character.isRaceConcealed());
@@ -2564,7 +2573,7 @@ public abstract class GameCharacter implements XMLSaving {
 				"<h6>"
 					+Util.capitaliseSentence(this.isPlayerKnowsName()
 						?this.getNameIgnoresPlayerKnowledge() + " " + this.getSurname()
-						:this.getName())
+						:this.getName(true))
 //					+UtilText.parse(this,
 ////							"[npc.Name]")
 //						this.isPlayerKnowsName()
@@ -2722,11 +2731,11 @@ public abstract class GameCharacter implements XMLSaving {
 		return UtilText.parseThought(text, this);
 	}
 	public String getName(String determiner) {
-		if (Character.isUpperCase(getName().charAt(0)) || determiner.isEmpty()) { //|| getName().equals(this.getGenericName())
+		if (Character.isUpperCase(getName(true).charAt(0)) || determiner.isEmpty()) { //|| getName().equals(this.getGenericName())
 			if(determiner!=null && !determiner.isEmpty() && Character.isUpperCase(determiner.charAt(0))) {
-				return Util.capitaliseSentence(getName());
+				return Util.capitaliseSentence(getName(true));
 			}
-			return getName();
+			return getName(true);
 			
 		} else {
 			if(this.isUnique()) {
@@ -2734,20 +2743,29 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			return (determiner.equalsIgnoreCase("a") || determiner.equalsIgnoreCase("an")
 						?(Character.isUpperCase(determiner.charAt(0))
-								?Util.capitaliseSentence(UtilText.generateSingularDeterminer(getName()))
-								:UtilText.generateSingularDeterminer(getName()))
+								?Util.capitaliseSentence(UtilText.generateSingularDeterminer(getName(true)))
+								:UtilText.generateSingularDeterminer(getName(true)))
 						:determiner)
-					+ " " + getName();
+					+ " " + getName(true);
 		}
 	}
 
 	public boolean isPlayerKnowsName() {
 		return playerKnowsName;
 	}
-
+	
 	public void setPlayerKnowsName(boolean playerKnowsName) {
 		this.playerKnowsName = playerKnowsName;
 	}
+
+	public boolean isPlayerOnFirstNameTerms() {
+		return playerOnFirstNameTerms;
+	}
+	
+	public void setPlayerOnFirstNameTerms(boolean playerOnFirstNameTerms) {
+		this.playerOnFirstNameTerms = playerOnFirstNameTerms;
+	}
+	
 
 	/**
 	 * @param area
@@ -3000,7 +3018,11 @@ public abstract class GameCharacter implements XMLSaving {
 		this.genderIdentity = genderIdentity;
 	}
 
-	public String getName() {
+	/**
+	 * @param applynameAlteringEffects true if you want special effects to be applied. This mainly affects youko, as their special name effect is using their surname instead of their first name when their full name is not known.
+	 * @return This character's name.
+	 */
+	public String getName(boolean applynameAlteringEffects) {
 		if(this.isSlave()) {
 			if(Main.game.isStarted() && ((this.getOwner() != null && this.getOwner().isPlayer()))) {
 				this.setPlayerKnowsName(true);
@@ -3019,7 +3041,7 @@ public abstract class GameCharacter implements XMLSaving {
 					return "awoo-girl";
 				} else if(getSubspecies()==Subspecies.HUMAN){
 					return "woman";
-				} else{
+				} else {
 					return getSubspecies().getSingularFemaleName(this);
 				}
 				
@@ -3028,13 +3050,17 @@ public abstract class GameCharacter implements XMLSaving {
 					return "awoo-boy";
 				} else if(getSubspecies()==Subspecies.HUMAN){
 					return "man";
-				} else{
+				} else {
 					return getSubspecies().getSingularMaleName(this);
 				}
 			}
 			
 		} else {
-			return getNameIgnoresPlayerKnowledge();
+			if(applynameAlteringEffects && !this.isPlayer() && !isPlayerOnFirstNameTerms() && (this.getSubspecies()==Subspecies.FOX_ASCENDANT || this.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
+				return this.getSurname();
+			} else {
+				return getNameIgnoresPlayerKnowledge();
+			}
 		}
 	}
 	
@@ -3087,7 +3113,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(petNameMap.containsKey(target.getId())) {
 			return petNameMap.get(target.getId());
 		}
-		return target.getName();
+		return target.getName(true);
 	}
 	
 	public void setPetName(String targetId, String petName) {
@@ -3354,12 +3380,12 @@ public abstract class GameCharacter implements XMLSaving {
 		return UtilText.parse(this,
 				"<p style='text-align:center'>"
 						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!<br/>"
-						+ "[npc.She] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)].<br/>"
+						+ "[npc.She] now [npc.has] <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)].<br/>"
 						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
 					+ "</p>"
 					+ (teacherPerkGain
 						?"<p style='text-align:center'>"
-							+ "<i>Obedience gain was [style.colourExcellent(tripled)], as "+(this.getOwner().isPlayer()?"you have":this.getOwner().getName()+" has ")+" the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>"
+							+ UtilText.parse(this.getOwner(), "<i>Obedience gain was [style.colourExcellent(tripled)], as [npc.nameHas] the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>")
 						+ "</p>"
 						:""));
 	}
@@ -4031,7 +4057,7 @@ public abstract class GameCharacter implements XMLSaving {
 					+ "</p>");
 		}
 		
-		return this.getName()+" leaves your party for unknown reasons.";
+		return this.getName(true)+" leaves your party for unknown reasons.";
 	}
 	
 	public final boolean isCompanionAvailableForSex(boolean companionIsSub) {
@@ -5009,7 +5035,9 @@ public abstract class GameCharacter implements XMLSaving {
 					+ (shortDescription
 							?UtilText.parse(this, "[npc.Name] now <b style='color:"+desire.getColour().toWebHexString()+";'>"+desire.getNameAsVerb()+"</b> [style.boldLust("+fetish.getShortDescriptor()+")]!")
 							:UtilText.parse(this, "A warm wave of arcane energy rises up within [npc.name], and as [npc.she] [npc.verb(feel)] its influential power seeping into [npc.her] mind,"
-								+ " [npc.she] [npc.verb(realise)] that [npc.she] now <b style='color:"+desire.getColour().toWebHexString()+";'>"+desire.getNameAsVerb()+"</b> [style.boldLust("+fetish.getShortDescriptor()+")]!"))
+								+ " [npc.she] [npc.verb(realise)] that [npc.she] now <b style='color:"+desire.getColour().toWebHexString()+";'>"+
+									(this.isPlayer()?desire.getNameAsPlayerVerb():desire.getNameAsVerb())
+								+"</b> [style.boldLust("+fetish.getShortDescriptor()+")]!"))
 				+"</p>";
 			
 		} else {
@@ -5124,7 +5152,7 @@ public abstract class GameCharacter implements XMLSaving {
 				String tattooEffectDescription = ie.applyEffect(this, this, secondsPassed);
 				if (this.isPlayer() && !tattooEffectDescription.isEmpty()) {
 					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "")
-							+ "<p style='margin:0 auto;padding:0 auto;'><b>"+ Util.capitaliseSentence(tattoo.getName())+":</b></p>"
+							+ "<p style='margin:0 auto;padding:0 auto;'><b>"+ Util.capitaliseSentence(tattoo.getName())+" tattoo:</b></p>"
 							+ tattooEffectDescription);
 				}
 			}
@@ -13993,6 +14021,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getItem(index);
 	}
 
+	public boolean addItem(AbstractItem item, int count) {
+		return inventory.addItem(item, count);
+	}
+	
 	public String addItem(AbstractItem item, boolean removingFromFloor) {
 		return addItem(item, removingFromFloor, false);
 	}
@@ -14348,6 +14380,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getAllClothingInInventory();
 	}
 	
+	public void recalculateMapOfDuplicateClothing() {
+		inventory.recalculateMapOfDuplicateClothing();
+	}
+	
 	public AbstractClothing getClothing(int index) {
 		return inventory.getClothing(index);
 	}
@@ -14598,7 +14634,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			fromCharactersInventory.removeClothing(newClothing);
 
-			newClothing.setEnchantmentKnown(true);
+			newClothing.setEnchantmentKnown(this, true);
 
 			updateInventoryListeners();
 
@@ -14645,23 +14681,23 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public String equipClothingFromNowhere(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
-
+		
 		// If this item was able to be equipped, and it was equipped, apply it's
 		// attribute bonuses:
 		if (wasAbleToEquip) {
 			applyEquipClothingEffects(newClothing);
 			
-			newClothing.setEnchantmentKnown(true);
-
+			newClothing.setEnchantmentKnown(this, true);
+			
 			updateInventoryListeners();
-
+			
 			if (isPlayer() && Main.game.isInNewWorld()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}
-
+		
 		return inventory.getEquipDescription();
 	}
 
@@ -14676,7 +14712,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
 
-			newClothing.setEnchantmentKnown(true);
+			newClothing.setEnchantmentKnown(this, true);
 
 			updateInventoryListeners();
 

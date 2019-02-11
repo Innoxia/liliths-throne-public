@@ -72,7 +72,7 @@ public class EnchantingUtils {
 		
 		craftedClothing.setName(EnchantmentDialogue.getOutputName());
 		
-		craftedClothing.setEnchantmentKnown(true);
+		craftedClothing.setEnchantmentKnown(null, true);
 		
 		return craftedClothing;
 	}

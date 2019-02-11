@@ -98,9 +98,9 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 				nippleType,
 				fluidType,
 				null, null, null, null, null, null,
-				breastsCrotchBodyDescription,
-				breastsCrotchBodyDescription,
-				breastsCrotchBodyDescription,
+				breastsTransformationDescription,
+				breastsBodyDescription,
+				breastsCrotchTransformationDescription,
 				breastsCrotchBodyDescription);
 	}
 	

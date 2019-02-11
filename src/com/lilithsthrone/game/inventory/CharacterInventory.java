@@ -19,9 +19,6 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -702,7 +699,7 @@ public class CharacterInventory implements XMLSaving {
 		return clothingDuplicates;
 	}
 	
-	private void recalculateMapOfDuplicateClothing() {
+	public void recalculateMapOfDuplicateClothing() {
 		clothingDuplicates.clear();
 
 		clothingInInventory.sort(new InventoryClothingComparator());
@@ -915,51 +912,6 @@ public class CharacterInventory implements XMLSaving {
 			} else if (!c.isCanBeEquipped(character)) {
 				transformationIncompatible(character, c, clothingToRemove, c.getCannotBeEquippedText(character));
 			}
-
-			// Piercings:
-			if(character.getBody().getBodyMaterial().isRequiresPiercing()) {
-				if(c.getClothingType().getSlot()==InventorySlot.PIERCING_EAR && !character.isPiercedEar()){
-				transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] ears are no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
-			
-				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_LIP && !character.isPiercedLip()){
-					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] lips are no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
-					
-				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_NIPPLE && !character.isPiercedNipple()){
-					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] nipples are no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
-					
-				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_NOSE && !character.isPiercedNose()){
-					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] nose is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
-					
-				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_PENIS && !character.isPiercedPenis()){
-					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] penis is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
-					
-				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_STOMACH && !character.isPiercedNavel()){
-					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] navel is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
-					
-				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_TONGUE && !character.isPiercedTongue()){
-					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] tongue is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
-					
-				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_VAGINA && !character.isPiercedVagina()){
-					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] vagina is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
-				}
-			}
-			if(c.getClothingType().getSlot()==InventorySlot.PIERCING_PENIS && !character.hasPenisIgnoreDildo()){
-				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] a penis, so [npc.she] can't wear the "+c.getName()+"!");
-				
-			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_VAGINA && !character.hasVagina()){
-				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] a vagina, so [npc.she] can't wear the "+c.getName()+"!");
-			}
-			
-			if (c.getClothingType().getSlot() == InventorySlot.WINGS && character.getWingType()==WingType.NONE) {
-				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] any wings, so [npc.she] can't wear the "+c.getName()+"!");
-			}
-			if (c.getClothingType().getSlot() == InventorySlot.HORNS && character.getHornType().equals(HornType.NONE)) {
-				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] any horns, so [npc.she] can't wear the "+c.getName()+"!");
-			}
-			if (c.getClothingType().getSlot() == InventorySlot.TAIL && character.getTailType()==TailType.NONE) {
-				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] a tail, so [npc.she] can't wear the "+c.getName()+"!");
-			}
-			
 		}
 		clothingCurrentlyEquipped.removeAll(clothingToRemove);
 
@@ -1028,102 +980,6 @@ public class CharacterInventory implements XMLSaving {
 				}
 				return false;
 			}
-		}
-		
-		// Can't equip piercings if that body part isn't pierced:
-		if(characterClothingOwner.getBody().getBodyMaterial().isRequiresPiercing()) { // Slimes and some elementals don't care about non-cock piercings:
-			if (!characterClothingOwner.isPiercedEar() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_EAR) {
-				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"Your ears need to be pierced before you can wear the "+newClothing.getName()+"!"
-						:UtilText.parse(characterClothingOwner,"[npc.NamePos] [npc.ears] need to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
-				return false;
-			}
-			if (!characterClothingOwner.isPiercedNose() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_NOSE) {
-				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"Your nose needs to be pierced before you can wear the "+newClothing.getName()+"!"
-						:UtilText.parse(characterClothingOwner,"[npc.NamePos] nose needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
-				return false;
-			}
-			if (!characterClothingOwner.isPiercedLip() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_LIP) {
-				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"Your [pc.lips] need to be pierced before you can wear the "+newClothing.getName()+"!"
-						:UtilText.parse(characterClothingOwner,"[npc.NamePos] [npc.lips] need to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
-				return false;
-			}
-			if (!characterClothingOwner.isPiercedTongue() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_TONGUE) {
-				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"Your [pc.tongue] needs to be pierced before you can wear the "+newClothing.getName()+"!"
-						:UtilText.parse(characterClothingOwner,"[npc.NamePos] [npc.tongue] needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
-				return false;
-			}
-			if (!characterClothingOwner.isPiercedNavel() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_STOMACH) {
-				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"Your navel needs to be pierced before you can wear the "+newClothing.getName()+"!"
-						:UtilText.parse(characterClothingOwner,"[npc.NamePos] navel needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
-				return false;
-			}
-			if (!characterClothingOwner.isPiercedNipple() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_NIPPLE) {
-				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"Your [pc.nipples] need to be pierced before you can wear the "+newClothing.getName()+"!"
-						:UtilText.parse(characterClothingOwner,"[npc.NamePos] [npc.nipples] need to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
-				return false;
-			}
-			if (!characterClothingOwner.isPiercedVagina() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_VAGINA) {
-				if (!characterClothingOwner.hasVagina()) {
-					equipTextSB.append(characterClothingOwner.isPlayer()
-							?"You don't have a vagina, so you can't wear the "+newClothing.getName()+"!"
-							:UtilText.parse(characterClothingOwner,"[npc.Name] doesn't have a vagina, so [npc.she] can't wear the "+newClothing.getName()+"!"));
-					return false;
-				}
-				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"Your [pc.clit] needs to be pierced before you can wear the "+newClothing.getName()+"!"
-						:UtilText.parse(characterClothingOwner,"[npc.NamePos] [npc.clit] needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
-				return false;
-			}
-			if(newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_PENIS) {
-				if (!characterClothingOwner.hasPenis()) {
-					equipTextSB.append(characterClothingOwner.isPlayer()
-							?"You don't have a penis, so you can't wear the "+newClothing.getName()+"!"
-							:UtilText.parse(characterClothingOwner,"[npc.Name] doesn't have a penis, so [npc.she] can't wear the "+newClothing.getName()+"!"));
-					return false;
-				}
-				if (!characterClothingOwner.isPiercedPenis()) {
-					equipTextSB.append(characterClothingOwner.isPlayer()
-							?"Your [pc.cock] needs to be pierced before you can wear the "+newClothing.getName()+"!"
-							:UtilText.parse(characterClothingOwner,"[npc.NamePos] [npc.cock] needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
-					return false;
-				}
-			}
-		}
-		if (!characterClothingOwner.isPiercedVagina() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_VAGINA) {
-			if (!characterClothingOwner.hasVagina()) {
-				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"You don't have a vagina, so you can't wear the "+newClothing.getName()+"!"
-						:UtilText.parse(characterClothingOwner,"[npc.Name] doesn't have a vagina, so [npc.she] can't wear the "+newClothing.getName()+"!"));
-				return false;
-			}
-		}
-		if(newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_PENIS) {
-			if (!characterClothingOwner.hasPenis()) {
-				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"You don't have a penis, so you can't wear the "+newClothing.getName()+"!"
-						:UtilText.parse(characterClothingOwner,"[npc.Name] doesn't have a penis, so [npc.she] can't wear the "+newClothing.getName()+"!"));
-				return false;
-			}
-		}
-		
-		// Check for impossible equipping:
-		if (newClothing.getClothingType().getSlot() == InventorySlot.WINGS && characterClothingOwner.getWingType()==WingType.NONE) {
-			equipTextSB.append(UtilText.parse(characterClothingOwner, "[npc.Name] [npc.does]n't have any wings, so [npc.she] can't wear the "+newClothing.getName()+"!"));
-			return false;
-		}
-		if (newClothing.getClothingType().getSlot() == InventorySlot.HORNS && characterClothingOwner.getHornType().equals(HornType.NONE)) {
-			equipTextSB.append(UtilText.parse(characterClothingOwner, "[npc.Name] [npc.does]n't have any horns, so [npc.she] can't wear the "+newClothing.getName()+"!"));
-			return false;
-		}
-		if (newClothing.getClothingType().getSlot() == InventorySlot.TAIL && characterClothingOwner.getTailType()==TailType.NONE) {
-			equipTextSB.append(UtilText.parse(characterClothingOwner, "[npc.Name] [npc.does]n't have a tail, so [npc.she] can't wear the "+newClothing.getName()+"!"));
-			return false;
 		}
 		
 		// Check to see if any equipped clothing is incompatible with newClothing:
@@ -1711,7 +1567,7 @@ public class CharacterInventory implements XMLSaving {
 			replaceClothingList.remove(clothing);
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
 			if (!replaceClothingList.isEmpty()) {
-				unableToDisplaceText.append("<br/>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
+				unableToDisplaceText.append(UtilText.parse(characterClothingOwner, "<br/>You replace [npc.namePos] ") + Util.clothesToStringList(replaceClothingList, false) + ".");
 			}
 			
 			return true;
@@ -1822,7 +1678,7 @@ public class CharacterInventory implements XMLSaving {
 			replaceClothingList.addAll(clothingToRemove.keySet());
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
 			if (!replaceClothingList.isEmpty()) {
-				unableToReplaceText.append("<br/>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
+				unableToReplaceText.append(UtilText.parse(characterClothingOwner, "<br/>You replace [npc.namePos] ") + Util.clothesToStringList(replaceClothingList, false) + ".");
 			}
 			
 			return true;

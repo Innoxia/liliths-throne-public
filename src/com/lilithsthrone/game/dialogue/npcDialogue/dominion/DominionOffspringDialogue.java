@@ -494,7 +494,7 @@ public class DominionOffspringDialogue {
 										"<p>"
 											+ "You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you greet your [npc.daughter],"
 											+ " [pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure "
-												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName():"your mother")+" told you, but I'm-)]"
+												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName(true):"your mother")+" told you, but I'm-)]"
 										+ "</p>"
 										+ "<p>"
 											+ (offspring().getMother().isPlayer()
@@ -534,7 +534,7 @@ public class DominionOffspringDialogue {
 											+ " [npc.She] returns your embrace, hugging you close to [npc.her] warm body as you both share a happy moment, before breaking away from each other."
 											+ " Looking into [npc.her] [npc.eyes+], you greet your [npc.daughter] for the first time,"
 											+ " [pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure "
-												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName():"your mother")+" told you, but I'm-)]"
+												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName(true):"your mother")+" told you, but I'm-)]"
 										+ "</p>"
 										+ "<p>"
 										+ (offspring().getMother().isPlayer()
@@ -578,7 +578,7 @@ public class DominionOffspringDialogue {
 											+ " [npc.She] returns your embrace, hugging you close to [npc.her] warm body as you both share a happy moment, before breaking away from each other."
 											+ " Looking into [npc.her] [npc.eyes+], you greet your [npc.daughter] for the first time,"
 											+ " [pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure "
-												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName():"your mother")+" told you, but I'm-)]"
+												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName(true):"your mother")+" told you, but I'm-)]"
 										+ "</p>"
 										+ "<p>"
 											+ (offspring().getMother().isPlayer()

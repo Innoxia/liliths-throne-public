@@ -1053,7 +1053,7 @@ public class NightlifeDistrict {
 			int count = 1;
 			for(GameCharacter character : getSavedClubbers(true)) {
 				if(count==index) {
-					return new Response(character.getName(),
+					return new Response(character.getName(true),
 							UtilText.parse(character, "Look for [npc.name] in amongst the crowds of revellers. ([npc.She] is [npc.a_fullRace(true)].)"),
 							WATERING_HOLE_FIND_CONTACT) {
 						@Override
@@ -3900,7 +3900,7 @@ public class NightlifeDistrict {
 			int count = 1;
 			for(GameCharacter character : getSavedClubbers(false)) {
 				if(count==index) {
-					return new Response(character.getName(),
+					return new Response(character.getName(true),
 							UtilText.parse(character, "Look for [npc.name] in amongst the crowds of revellers. ([npc.She] is [npc.a_fullRace(true)].)"),
 							WATERING_HOLE_FIND_CONTACT_DOM) {
 						@Override

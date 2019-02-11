@@ -6389,10 +6389,10 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
-							null, null),
+							null,
+							null),
 					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
 									ClothingAccess.GROIN),
@@ -6452,8 +6452,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null),
@@ -6516,9 +6515,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null, null, null),
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
@@ -6646,8 +6643,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null),
@@ -6712,8 +6708,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null),
@@ -6778,8 +6773,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null),
@@ -6843,8 +6837,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null, null, null),
 					new BlockedParts(DisplacementType.UNBUTTONS,
 							Util.newArrayListOfValues(
@@ -7061,8 +7054,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null)),
@@ -7119,8 +7111,7 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							null,
 							null,
 							null)),
@@ -7175,9 +7166,10 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
-							null, null, null),
+									ClothingAccess.GROIN),
+							null,
+							null,
+							null),
 					new BlockedParts(
 							DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(
@@ -10045,7 +10037,7 @@ public class ClothingType {
 			false,
 			"kimono",
 			"kimonos",
-			"Primarily worn by the reclusive kitsunes, these full-length robes are identical to their traditional Japanese namesake.",
+			"Primarily worn by the reclusive youko, these full-length robes are identical to their traditional Japanese namesake.",
 			1,
 			Femininity.FEMININE,
 			InventorySlot.TORSO_UNDER,
@@ -10186,7 +10178,7 @@ public class ClothingType {
 			false,
 			"men's kimono",
 			"men's kimonos",
-			"Primarily worn by the reclusive kitsunes, these full-length robes are identical to their traditional Japanese namesake.",
+			"Primarily worn by the reclusive youko, these full-length robes are identical to their traditional Japanese namesake.",
 			1,
 			Femininity.MASCULINE,
 			InventorySlot.TORSO_UNDER,

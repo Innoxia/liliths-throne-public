@@ -12,7 +12,7 @@
 		<!-- The femininity needed for someone to generate this outfit. MASCULINE, ANDROGYNOUS, and FEMININE are the three acceptable values. ANDROGYNOUS means anyone can use this outfit, while the other two are self-explanatory.-->
 		<femininity>FEMININE</femininity>
 		
-		<!-- The worlds in which this outfit may be used for randomly geerated characters. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldType.java -->
+		<!-- The worlds in which this outfit may be used for randomly generated characters. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldType.java -->
 		<worldTypes>
 			<world>DOMINION</world>
 			<world>SUBMISSION</world>
@@ -70,7 +70,7 @@
 		<!-- Weapons can be added in a similar (although more limited) manner to clothing. This file doesn't use any weapons. Look at res/outfits/innoxia/mugger_masculine.xml for a weapon example. -->
 		<mainWeapons/>
 		
-        <offhandWeapons/>
+		<offhandWeapons/>
 		
 		<!-- For all of the "conditional" elements from this point onwards, you can use the tag "clothing" to access the clothing type being handled.-->
 		

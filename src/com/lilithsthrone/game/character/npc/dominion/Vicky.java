@@ -322,22 +322,17 @@ public class Vicky extends NPC {
 		for(AbstractWeaponType wt : WeaponType.getAllweapons()) {
 			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
 				types.add(wt);
-//				for(int i=0; i<1+Util.random.nextInt(3); i++){
-//					this.addWeapon(AbstractWeaponType.generateWeapon(wt), false);
-//				}
 			}
 		}
 		for(AbstractItemType item : ItemType.getAllItems()) {
 			if(item.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
 				types.add(item);
-//				this.addItem(AbstractItemType.generateItem(item), false);
 			}
 		}
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			try {
 				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
 					types.add(clothing);
-//					this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
 				} 
 			} catch(Exception ex) {
 				ex.printStackTrace();
@@ -362,7 +357,6 @@ public class Vicky extends NPC {
 				break;
 			}
 		}
-//		System.out.println(availableIngredients.length);
 		
 		AbstractItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
@@ -385,16 +379,12 @@ public class Vicky extends NPC {
 		}
 		
 		for(SpellSchool school : SpellSchool.values()) {
-			for(int i=0; i<10+Util.random.nextInt(20); i++) {
-				this.addItem(AbstractItemType.generateItem(ItemType.getSpellScrollType(school)), false);
-			}
+			this.addItem(AbstractItemType.generateItem(ItemType.getSpellScrollType(school)), 10+Util.random.nextInt(20));
 		}
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			for(AbstractItemType itemType : ItemType.getEssences()) {
-				for(int i=0;i<20+Util.random.nextInt(11);i++) {
-					this.addItem(AbstractItemType.generateItem(itemType), false);
-				}
+				this.addItem(AbstractItemType.generateItem(itemType), 20+Util.random.nextInt(11));
 			}
 		}
 	}
