@@ -28,6 +28,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import javafx.scene.SubScene;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -3125,8 +3126,12 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			if(isFeminine()) {
-				if(getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
+				if(getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
 					return "awoo-girl";
+				} else if(getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
+					return "catte-girl";
+				} else if(getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
+					return "birb";
 				} else if(getSubspecies()==Subspecies.HUMAN){
 					return "woman";
 				} else {
@@ -3134,8 +3139,12 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				
 			} else {
-				if(getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-					return "awoo-boy";
+				if(getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
+					return "awoo-boi";
+				} else if(getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
+					return "catte-boi";
+				} else if(getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
+					return "birb";
 				} else if(getSubspecies()==Subspecies.HUMAN){
 					return "man";
 				} else {

@@ -10,6 +10,8 @@ public enum PopulationType {
 	PEOPLE("people", true),
 	
 	HARPIES("harpies", true),
+
+	HARPIES_SILLY("birbs", true),
 	
 	CROWD("crowd", false),
 	
