@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
@@ -1548,6 +1550,9 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getTFRacialBodyPartsList() {
+		if(Main.getProperties().udders==0) {
+			return TFRacialBodyPartsList.stream().filter(mod -> mod!=TFModifier.TF_BREASTS_CROTCH && mod!=TFModifier.TF_MILK_CROTCH).collect(Collectors.toList());
+		}
 		return TFRacialBodyPartsList;
 	}
 

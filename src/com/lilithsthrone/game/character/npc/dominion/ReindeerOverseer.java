@@ -185,7 +185,7 @@ public class ReindeerOverseer extends NPC {
 					+ "[npc.speech(I'm not really interested in buying anything from you,)]"
 					+ " [npc.name] explains, leading you over to a nearby cart which is stacked high with boxes,"
 					+ " [npc.speech(but everything here is for sale."
-						+ " We passed through the Kitsune's forest on our way to Dominion this year, so I've got some of their traditional clothes here too!)]"
+						+ " We passed through the Shinrin highlands on our way to Dominion this year, so I've got some of the youko's traditional clothing on offer!)]"
 				+ "</p>");
 	}
 

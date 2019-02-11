@@ -53,6 +53,12 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Lab {
 	
+	private static boolean isLilayaAngryAtPlayerDemonTF() {
+		return Main.game.getPlayer().getSubspeciesOverride()!=null
+				&& Main.game.getPlayer().getSubspeciesOverride().getRace()==Race.DEMON
+				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
+	}
+	
 	public static final DialogueNode LAB = new DialogueNode("Lilaya's Laboratory", "", false) {
 
 		@Override
@@ -126,6 +132,9 @@ public class Lab {
 			} else {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaBirthNews, false);
 			}
+		} else {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, false);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaBirthNews, false);
 		}
 		if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 			Main.game.getNpc(Lilaya.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
@@ -231,7 +240,7 @@ public class Lab {
 		}
 		
 		if(Main.game.getPlayer().hasItemType(ItemType.PRESENT) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent3)) {
-			if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+			if(isLilayaAngryAtPlayerDemonTF() && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
 				generatedResponses.add(new Response("Give Present", "Although you have a present in your inventory, Lilaya is not interested in receiving it, due to her resentment towards you for being a full demon, while she is not.", null));
 				
 			} else {
@@ -256,7 +265,7 @@ public class Lab {
 		}
 		
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent3)) {
-			if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+			if(isLilayaAngryAtPlayerDemonTF() && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
 				generatedResponses.add(new Response("Geisha Lilaya", "Lilaya is not interested in showing off her kimono, nor having sex with you, until she's a full demon as well.", null));
 				
 			} else {
@@ -315,7 +324,7 @@ public class Lab {
 					}
 					
 				} else { // Lilaya is not a full demon:
-					if(Main.game.getPlayer().getRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
+					if(isLilayaAngryAtPlayerDemonTF() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaBirthNews)) {
 							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_DEMON_REACTION_PREGNANCY_RESOLVED"));
 						} else {
@@ -339,7 +348,7 @@ public class Lab {
 	
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_NAUGHTY_ROSE"));
 						
-						if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+						if(isLilayaAngryAtPlayerDemonTF() && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
 							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
 								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ROSE_TOLD_ON_YOU_DEMON"));
 							} else {
@@ -362,7 +371,7 @@ public class Lab {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().getRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
+			if(isLilayaAngryAtPlayerDemonTF() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
 				if(index == 1) {
 					return new Response("Agree",
 							"Tell Lilaya that you'll help her convince Lyssieth to turn her into a full demon.<br/>[style.italicsDemon(This will end with Lilaya being permanently transformed into a demon!)]",
@@ -435,7 +444,7 @@ public class Lab {
 					};
 					
 				} else if (index == 1) {
-					if(Main.game.getPlayer().getRace()==Race.DEMON && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+					if(isLilayaAngryAtPlayerDemonTF() && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
 						return new Response("Full demon",
 								"Tell Lilaya that you'll help her convince her mother to turn her into a full demon.<br/>[style.italicsDemon(This will end with Lilaya being permanently transformed into a full demon!)]",
 								LAB_DEMON_TF_AGREE) {
@@ -3141,16 +3150,16 @@ public class Lab {
 						+ "You put down the piece of paper and see the picture lying where Lilaya said it would be."
 						+ " Picking it up, you feel tears welling up in your eyes as you see the result of your pregnancy smiling back at you."
 					+ "</p>"
-					+ "<p>"
+					+ "<p style='text-align:center;'>"
 					+ "In the picture you see:");
 			
 			for(String id : Main.game.getPlayer().getLastLitterBirthed().getOffspring()) {
 				try {
 					GameCharacter offspring = Main.game.getNPCById(id);
 					String descriptor = getOffspringDescriptor(offspring);
-					litterSB.append("<br/><b>"
-							+ UtilText.parse(offspring, UtilText.generateSingularDeterminer(descriptor)+" "+descriptor+" [npc.race]")
-							+ "</b>");
+					litterSB.append("<br/><i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"
+							+ UtilText.parse(offspring, Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor+" [npc.race]")
+							+ "</i>");
 				} catch(Exception ex) {
 				}
 			}

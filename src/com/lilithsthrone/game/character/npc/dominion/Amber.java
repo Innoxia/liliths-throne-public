@@ -255,7 +255,7 @@ public class Amber extends NPC {
 	}
 
 	@Override
-	public String getName() {
+	public String getName(boolean applynameAlteringEffects) {
 		if(!playerKnowsName) {
 			return "Fiery Maid";
 			

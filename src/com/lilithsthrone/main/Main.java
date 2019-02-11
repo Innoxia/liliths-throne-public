@@ -68,7 +68,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.3.0.6";
+	public static final String VERSION_NUMBER = "0.3.0.7";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -89,13 +89,18 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "This was meant to be a small hotfix, released earlier this week, but I got a little carried away,"
+			+ "<i>0.3.0.7:</i> This was meant to be a small hotfix, released earlier this week, but I got a little carried away,"
 				+ " and ended up making improvements to the sex AI, adding an outfit system (after encountering muggers with ridiculous clothing several times in a row), as well as doing a lot of other minor fixes and improvements."
+		+ "</p>"
+				
+		+ "<p>"
+			+ "<i>0.3.0.7:</i> There were a few major issues in v0.3.0.6 which I wanted to fix, namely NPC pregnancies never finishing, identifying clothing using essences breaking the inventory menu, and the overview tab in the inventory not working."
 		+ "</p>"
 			
 		+ "<p>"
 			+ "The full, public release of v0.3.1 will be out roughly in next week's Friday-Sunday time period."
 		+ "</p>"
+			
 		+ "<br/>"
 			
 		+ "<p>"
@@ -338,7 +343,42 @@ public class Main extends Application {
 			+ "<ul>Fixed potential cause of an issue where slime colourings would sometimes reset.</ul>"
 			+ "<ul>Added handling of game-breaking error that could sometimes occur when displacing clothing that was accidentally configured to block one anotehr's displacements.</ul>"
 		+ "</list>"
-	
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.0.7</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>There is now a small chance for unidentified clothing to have a stronger sealing enchantment. (Chances for unidentified clothing are now: 50% it's a good item, 30% it's bad with a 5 essence removal cost, 12% bad with 25 cost, 6% bad with 100 cost, and 2% bad with 500 cost.)</ul>"
+			+"<ul>When crotch-boobs are set to 'off' in the content settings, you will no longer see the crotch boob button in the self-TF menu, nor 'crotch-boob' or 'crotch-boob milk' TF modifiers in the enchantment menu when enchanting a food item.</ul>"
+			+"<ul>Added 'remove' secondary modifier to crotch-boob transformation potions.</ul>"
+
+			+"<li>Other:</li>"
+			+"<ul>Standardised the positioning of the 'stretched from' and 'stretched to' values in the 'recovering orifices' status effect tooltip. (They were being reversed in sex, which was a little confusing.)</ul>"
+
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed issue with the game's turn taking longer than usual when passing over midnight.</ul>"
+			+"<ul>Fixed stretched orifices continuously expanding over time, instead of contracting.</ul>"
+			+"<ul>Fixed the overview tab in the inventory not working.</ul>"
+			+"<ul>Fixed issue where NPCs would never give birth.</ul>"
+			+"<ul>Fixed the identify clothing action breaking inventory management.</ul>"
+			+"<ul>Fixed incorrect fluid regeneration rate values (for milk and cum) being shown in your stats menu.</ul>"
+			+"<ul>Fluids should now regenerate during sex (probably by a very small amount, considering it's only 10 seconds per sex action, unless you have boosted your regen).</ul>"
+			+"<ul>Corrected some instances of 'kitsune' to 'youko', and changed the plural form from 'youkos' to 'youko'.</ul>"
+			+"<ul>Fixed instances of youko's names not being displayed correctly (as they use their surname as a first name).</ul>"
+			+"<ul>Fixed issue where random NPCs were spawning with jewellery for body slots they don't have pierced in their inventory.</ul>"
+			+"<ul>You can now set your base desire for a fetish to 'love' even while you have that fetish.</ul>"
+			+"<ul>Restored the 'black-with-black-stripes' colour for tiger-morphs (as a rare variation).</ul>"
+			+"<ul>Fixed incorrect breast & crotch-boob type transformation descriptions.</ul>"
+			+"<ul>Fixed being able to change a biped's crotch-boob type when you had that setting turned off.</ul>"
+			+"<ul>Fixed bug where you sometimes couldn't teleport back to Lilaya's lab when she was pregnant as a full demon.</ul>"
+			+"<ul>Fixed the 'Step outside' button not working when transforming Meraxis into a full demon.</ul>"
+			+"<ul>Fixed NPCs using non-penis-related 'giving anal' options, even if they did not like the 'giving anal' fetish. (This was most noticeably resulting in NPCs suddenly fingering or tail-fucking your ass...)</ul>"
+			+"<ul>Fixed Rose's sex preferences bugging out in her dominant scene (where she punished you in Lilaya's room).</ul>"
+			+"<ul>Fixed issue where interacting with a friend in their apartment during an arcane storm would start spawning random NPCs on the tile, which you'd then start interacting with.</ul>"
+			+"<ul>Lilaya should no longer lock out all of her options when starting a game with an imported demonic character. (Her dialogue will not react to you being a demon until after meeting Lyssieth.)</ul>"
+			+"<ul>Fixed a potential cause of clothing not being stocked in some shops. (Although I think this will still keep on happening - this bug is very hard to track down.)</ul>"
+		+ "</list>"
 	;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
@@ -876,13 +916,13 @@ public class Main extends Application {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
-			Main.getProperties().lastQuickSaveName = "QuickSave_"+Main.game.getPlayer().getName();
-			saveGame("QuickSave_"+Main.game.getPlayer().getName(), true);
+			Main.getProperties().lastQuickSaveName = "QuickSave_"+Main.game.getPlayer().getName(false);
+			saveGame("QuickSave_"+Main.game.getPlayer().getName(false), true);
 		}
 	}
 
 	public static void quickLoadGame() {
-		String name = "QuickSave_"+Main.game.getPlayer().getName();
+		String name = "QuickSave_"+Main.game.getPlayer().getName(false);
 		
 //		if(new File("data/saves/"+name+".lts").exists()) {
 			loadGame(name);
@@ -914,7 +954,7 @@ public class Main extends Application {
 		try {
 			properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
 			properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininityValue()).getColour().toWebHexString();
-			properties.name = game.getPlayer().getName();
+			properties.name = game.getPlayer().getName(false);
 			properties.level = game.getPlayer().getLevel();
 			properties.money = game.getPlayer().getMoney();
 			properties.arcaneEssences = game.getPlayer().getEssenceCount(TFEssence.ARCANE);

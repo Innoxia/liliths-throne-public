@@ -835,7 +835,7 @@ public class ImpCitadelDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!Main.game.isNonConEnabled()) {
 				if(index==1) {
-					return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogue()) {
+					return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							banishImps();
@@ -1069,7 +1069,7 @@ public class ImpCitadelDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(index==1) {
-					return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogue()) {
+					return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							banishImps();

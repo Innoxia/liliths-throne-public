@@ -1648,7 +1648,7 @@ public class MainControllerInitMethod {
 
 					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
 							UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"<br/>"
-									+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName()+" will buy [npc.herHim] for "
+									+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName(true)+" will buy [npc.herHim] for "
 										+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)+"."));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
@@ -1891,7 +1891,7 @@ public class MainControllerInitMethod {
 	
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Buy Slave",
 								UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"<br/>"
-										+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName()+" will sell [npc.herHim] for "
+										+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName(true)+" will sell [npc.herHim] for "
 											+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE)+"."));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
@@ -4580,7 +4580,7 @@ public class MainControllerInitMethod {
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 								if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=FetishDesire.getCostToChange()) {
-									if(Main.game.getPlayer().getFetishDesire(f)!=desire) {
+									if(Main.game.getPlayer().getBaseFetishDesire(f)!=desire) {
 										Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -FetishDesire.getCostToChange(), false);
 										Main.game.getPlayer().setFetishDesire(f, desire);
 										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));

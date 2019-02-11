@@ -759,11 +759,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		npcsEncountered.sort((npc1, npc2) -> npc1 instanceof NPCOffspring
 				?(npc2 instanceof NPCOffspring
-					?npc1.getName().compareTo(npc2.getName())
+					?npc1.getName(true).compareTo(npc2.getName(true))
 					:1)
 				:(npc2 instanceof NPCOffspring
 						?-1
-						:npc1.getName().compareTo(npc2.getName())));
+						:npc1.getName(true).compareTo(npc2.getName(true))));
 		List<String> sortedIDs = new ArrayList<>();
 		for(GameCharacter character : npcsEncountered) {
 			sortedIDs.add(character.getId());

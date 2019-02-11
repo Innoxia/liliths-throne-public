@@ -361,7 +361,9 @@ public class Litter implements XMLSaving {
 						+"</b>");
 		}
 
-		birthedDescription = Util.stringsToStringList(entries, false);
+		if(!entries.isEmpty()) {
+			birthedDescription = Util.stringsToStringList(entries, false);
+		}
 	}
 	
 	//TODO Add this to the generateBirthedDescription() method above.
@@ -403,7 +405,7 @@ public class Litter implements XMLSaving {
 				if(getFather().isPlayer()) {
 					descriptionSB.append("your ");
 				} else {
-					descriptionSB.append(getFather().getName() + "'s ");
+					descriptionSB.append(getFather().getName(true) + "'s ");
 				}
 				descriptionSB.append(GameCharacter.getRelationshipStr(relFather, childrenPronoun));
 				if(!relMother.isEmpty() || !relPlayer.isEmpty()) {
@@ -415,7 +417,7 @@ public class Litter implements XMLSaving {
 				if(getMother().isPlayer()) {
 					descriptionSB.append("your ");
 				} else {
-					descriptionSB.append(getMother().getName() + "'s ");
+					descriptionSB.append(getMother().getName(true) + "'s ");
 				}
 				descriptionSB.append(GameCharacter.getRelationshipStr(relMother, childrenPronoun));
 				if(!relPlayer.isEmpty())
@@ -432,7 +434,7 @@ public class Litter implements XMLSaving {
 	}
 
 	public String getBirthedDescription() {
-		if(birthedDescription.isEmpty()) {
+		if(birthedDescription==null || birthedDescription.isEmpty()) {
 			generateBirthedDescription();
 		}
 		return birthedDescription;

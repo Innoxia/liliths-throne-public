@@ -921,19 +921,13 @@ public class UtilText {
 					}
 				}
 				if(arguments!=null) {
-					if(!character.isPlayer() && (character.getSubspecies()==Subspecies.FOX_ASCENDANT || character.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
-						return character.getSurname();
-					}
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge();
 					}
 					return character.getName(arguments);
 				} else {
 					if(character.isPlayerKnowsName() || character.isPlayer()) {
-						if(!character.isPlayer() && (character.getSubspecies()==Subspecies.FOX_ASCENDANT || character.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
-							return character.getSurname();
-						}
-						return character.getName();
+						return character.getName(true);
 					}
 					return character.getName("the");
 				}
@@ -967,7 +961,7 @@ public class UtilText {
 						}
 					}
 					if(character.isPlayerKnowsName()) {
-						return character.getName() + "'s";
+						return character.getName(true) + "'s";
 					}
 					return character.getName("the") + "'s";
 				}
@@ -997,7 +991,7 @@ public class UtilText {
 						return "you're";
 					}
 					if(character.isPlayerKnowsName()) {
-						return character.getName() + "'s";
+						return character.getName(true) + "'s";
 					}
 					return character.getName("the") + "'s";
 				}
@@ -1026,7 +1020,7 @@ public class UtilText {
 						return "you are";
 					}
 					if(character.isPlayerKnowsName()) {
-						return character.getName() + " is";
+						return character.getName(true) + " is";
 					}
 					return character.getName("the") + " is";
 				}
@@ -1056,7 +1050,7 @@ public class UtilText {
 						return "you've";
 					}
 					if(character.isPlayerKnowsName()) {
-						return character.getName() + "'s";
+						return character.getName(true) + "'s";
 					}
 					return character.getName("the") + "'s";
 				}
@@ -1085,7 +1079,7 @@ public class UtilText {
 						return "you have";
 					}
 					if(character.isPlayerKnowsName()) {
-						return character.getName() + " has";
+						return character.getName(true) + " has";
 					}
 					return character.getName("the") + " has";
 				}
@@ -1149,10 +1143,7 @@ public class UtilText {
 				if(arguments!=null) {
 					return character.getName(arguments)+(character.getSurname().isEmpty()?"":" "+character.getSurname());
 				} else {
-					if(character.isPlayerKnowsName() || character.isPlayer()) {
-						return character.getName()+(character.getSurname().isEmpty()?"":" "+character.getSurname());
-					}
-					return character.getName("the")+(character.getSurname().isEmpty()?"":" "+character.getSurname());
+					return character.getName(false)+(character.getSurname().isEmpty()?"":" "+character.getSurname());
 				}
 			}
 		});
@@ -3175,7 +3166,7 @@ public class UtilText {
 					return "yours";
 				} else {
 					if(character.isPlayerKnowsName()) {
-						return character.getName() + "'s";
+						return character.getName(true) + "'s";
 					}
 					return character.getName("the") + "'s";
 				}

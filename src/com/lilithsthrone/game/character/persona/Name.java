@@ -667,7 +667,7 @@ public class Name {
 			}
 			if(mother.getSubspecies()==Subspecies.LILIN
 					|| mother.getSubspecies()== Subspecies.ELDER_LILIN) {
-				surname = mother.getName();
+				surname = mother.getName(false);
 				List<GameCharacter> offspring = mother.getAllCharactersOfRelationType(Relationship.Parent);
 				if(offspring.contains(gc)) {
 					offspring.sort((c1, c2) -> c1.getAgeValue()-c2.getAgeValue());

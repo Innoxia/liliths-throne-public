@@ -157,7 +157,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				
 			} else {
 				if(availableActions.isEmpty()) {
-					System.err.println(partner.getName()+" has no orgasm actions!!!");
+					System.err.println(partner.getName(true)+" has no orgasm actions!!!");
 					return GenericOrgasms.PARTNER_GENERIC_ORGASM;
 				}
 				return availableActions.get(Util.random.nextInt(availableActions.size()));
@@ -416,7 +416,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	private SexAction performForeplayAction(SexActionInterface sexActionPlayer) {
 		boolean debug = false;
 		
-		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
+		List<SexActionInterface> availableActions = new ArrayList<>(Sex.getAvailableSexActionsPartner());
 		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions() && !si.isAbleToAccessParts(Sex.getActivePartner()));
 		
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
@@ -439,7 +439,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// If the NPC has a preference, they are more likely to choose actions related to that:
 		SexType foreplayPreference = Sex.getForeplayPreference(character, targetedCharacter);
 		if(debug) {
-			System.out.println(Sex.getActivePartner().getName()+" wants to use: "+foreplayPreference.toString());
+			System.out.println(Sex.getActivePartner().getName(true)+" wants to use: "+foreplayPreference.toString());
 		}
 		if(foreplayPreference!=null) {
 			for(SexActionInterface action : availableActions) {
@@ -452,7 +452,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					highPriorityList.add(action);
 					if(action.getActionType() == SexActionType.START_ONGOING) { // If a penetrative action is in the list, always return that first.
 						if(debug) {
-							System.out.println(Sex.getActivePartner().getName()+" performs "+action.getActionTitle()+" on "+targetedCharacter.getName());
+							System.out.println(Sex.getActivePartner().getName(true)+" performs "+action.getActionTitle()+" on "+targetedCharacter.getName(true));
 						}
 						return (SexAction) action;
 					}
@@ -508,11 +508,11 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 
 		if(debug) {
 			System.out.println();
-			System.out.println("Character: "+performingCharacter.getName());
-			System.out.println("Target: "+targetedCharacter.getName());
+			System.out.println("Character: "+performingCharacter.getName(true));
+			System.out.println("Target: "+targetedCharacter.getName(true));
 		}
 		
-		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
+		List<SexActionInterface> availableActions = new ArrayList<>(Sex.getAvailableSexActionsPartner());
 		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions() && !si.isAbleToAccessParts(performingCharacter));
 		
 		if(sexActionPlayer.getActionType()==SexActionType.STOP_ONGOING
@@ -528,7 +528,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		boolean isSexPenetrationPossible = false;
 		actionLoop:
-		for(SexActionInterface action : Sex.getActionsAvailablePartner(performingCharacter, targetedCharacter)) {
+//		for(SexActionInterface action : Sex.getActionsAvailablePartner(performingCharacter, targetedCharacter)) {
+		for(SexActionInterface action : availableActions) {
 			boolean penetrationAction = false;
 			boolean sexOrifice = false;
 			if(action.getParticipantType()!=SexParticipantType.SELF
@@ -586,7 +587,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 									&& (sai!=SexAreaOrifice.ASS || !targetedCharacter.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)))) {
 						isOngoingSexPenetration = true;
 						if(debug) {
-							System.out.println(performingCharacter.getName()+" isOngoingSexPenetration found 1");
+							System.out.println(performingCharacter.getName(true)+" isOngoingSexPenetration found 1");
 						}
 						break outerloop;
 					}
@@ -600,7 +601,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 									&& (sai!=SexAreaOrifice.ASS || !targetedCharacter.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)))) {
 						isOngoingSexPenetration = true;
 						if(debug) {
-							System.out.println(performingCharacter.getName()+" isOngoingSexPenetration found 2");
+							System.out.println(performingCharacter.getName(true)+" isOngoingSexPenetration found 2");
 						}
 						break outerloop;
 					}

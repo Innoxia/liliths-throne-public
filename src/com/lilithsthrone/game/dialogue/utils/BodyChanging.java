@@ -37,6 +37,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -117,7 +118,38 @@ public class BodyChanging {
 						:UtilText.parse(getTarget(), "Change aspects of [npc.namePos] penis."),
 						BODY_CHANGING_PENIS);
 			
-		} else if(index==7) {
+		} else if(index==7 && (Main.getProperties().udders!=0 || debugMenu)) {
+			if(debugMenu) {
+				if(Main.getProperties().udders==0) {
+					return new Response(
+							BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs",
+							UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."
+									+ "<br/>[style.italicsBad(Crotch-boobs are disabled in the content settings! You cannot access these options outside of this debug menu!)]"),
+							BODY_CHANGING_BREASTS_CROTCH) {
+						@Override
+						public Colour getHighlightColour() {
+							return Colour.GENERIC_BAD;
+						}
+					};
+				}
+				if(Main.getProperties().udders==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
+					return new Response(
+							BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs",
+							UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."
+									+ "<br/>[style.italicsMinorBad(Crotch-boobs are disabled for non-taur characters in the content settings! As a result of this, you cannot access these options outside of this debug menu!)]"),
+							BODY_CHANGING_BREASTS_CROTCH) {
+						@Override
+						public Colour getHighlightColour() {
+							return Colour.GENERIC_MINOR_BAD;
+						}
+					};
+				}
+			}
+			
+			if(Main.getProperties().udders==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
+				return new Response("Crotch-boobs", "As you have crotch-boobs disabled for non-taur characters, you cannot access this menu!", null);
+			}
+			
 			return new Response(
 					BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs",
 					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."),
