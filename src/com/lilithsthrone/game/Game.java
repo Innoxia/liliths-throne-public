@@ -235,14 +235,14 @@ public class Game implements XMLSaving {
 			dirCharacter.mkdir();
 			
 			int saveNumber = 0;
-			String saveLocation = "data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+".xml";
-			if(new File("data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+".xml").exists()) {
-				saveLocation = "data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
+			String saveLocation = "data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+".xml";
+			if(new File("data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+".xml").exists()) {
+				saveLocation = "data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
 			}
 			
-			while(new File("data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml").exists()) {
+			while(new File("data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml").exists()) {
 				saveNumber++;
-				saveLocation = "data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
+				saveLocation = "data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
 			}
 			StreamResult result = new StreamResult(saveLocation);
 			
@@ -803,7 +803,8 @@ public class Game implements XMLSaving {
 					Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2));
 					Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
 				}
-				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6") || (!Main.game.getNpc(DarkSiren.class).isSlave() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated))) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6")
+						|| (Main.isVersionOlderThan(loadingVersion, "0.3.0.5") && !Main.game.getNpc(DarkSiren.class).isSlave() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated))) {
 					if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
 					}
@@ -1208,6 +1209,8 @@ public class Game implements XMLSaving {
 	private List<NPC> npcsToAdd = new ArrayList<>();
 	
 	public void endTurn(int secondsPassedThisTurn, boolean advanceTime) {
+
+		boolean loopDebug = false;
 		
 //		long tStart = System.nanoTime();
 		
@@ -1217,7 +1220,11 @@ public class Game implements XMLSaving {
 			secondsPassed += secondsPassedThisTurn;
 			updateResponses();
 		}
-		
+
+		if(loopDebug) {
+			System.out.println();
+			System.out.println("debug end turn start");
+		}
 		// Reset imp tunnels after 5 days if DS is defeated:
 		if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
 			boolean alphaReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressAlphaDefeatedTime) > 60*24*5);
@@ -1238,6 +1245,9 @@ public class Game implements XMLSaving {
 //				ImpCitadelDialogue.resetFortress();
 //			}
 		}
+		if(loopDebug) {
+			System.out.println("imp tunnels reset");
+		}
 		
 		// Do the player's companion check before anything else, as if a companion leaves, then the follow-up check to send to work needs to be performed.
 		List<GameCharacter> companions = new ArrayList<>(Main.game.getPlayer().getCompanions());
@@ -1251,12 +1261,21 @@ public class Game implements XMLSaving {
 		for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
 			character.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		}
+
+		if(loopDebug) {
+			System.out.println("companions done");
+		}
 		
 		// Occupancy:
 		int hoursPassed = (int) (getHour() - startHour);
 		int hourStartTo24 = (int) (startHour%24);
 		for(int i=1; i <= hoursPassed; i++) {
 			occupancyUtil.performHourlyUpdate(this.getDayNumber(startHour*60 + i*60), (hourStartTo24+i)%24);
+		}
+
+
+		if(loopDebug) {
+			System.out.println("occupancy done");
 		}
 		
 		// If the time has passed midnight on this turn:
@@ -1274,9 +1293,15 @@ public class Game implements XMLSaving {
 					Util.logGetNpcByIdError("endTurn()", id);
 				}
 			}
-			
+			if(loopDebug) {
+				System.out.println("starting slaver alley reset");
+			}
 			// Slaver alley reset:
 			SlaverAlleyDialogue.dailyReset();
+		}
+
+		if(loopDebug) {
+			System.out.println("slaver alley done");
 		}
 		
 		if(pendingSlaveInStocksReset && Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
@@ -1306,28 +1331,20 @@ public class Game implements XMLSaving {
 			
 			pendingSlaveInStocksReset = false;
 		}
+		if(loopDebug) {
+			System.out.println("Stocks reset end");
+		}
 		
 		handleAtmosphericConditions(secondsPassedThisTurn);
 
 		
 		// Apply status effects and update all NPCs:
 		isInNPCUpdateLoop = true;
-
+		long tLoopStart = System.nanoTime();
+		if(loopDebug) {
+			System.out.println("NPC loop start");
+		}
 		for(NPC npc : NPCMap.values()) {
-			// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
-			// I moved this into their dialogue scenes (in v0.3.0.6). I left it here in case I need to quickly revert it. If you're reading this, it's probably ok to delete this section. 
-//			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
-//					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL
-//					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL_END
-//					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
-//					&& npc.getWorldLocation() == WorldType.DOMINION
-//					&& npc instanceof DominionAlleywayAttacker
-//					&& !npc.isSlave()
-//					&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())
-//					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
-//						banishNPC(npc);
-//					}
-			
 			// Non-slave NPCs clean clothes:
 			if((!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer())) && !Main.game.getCharactersPresent().contains(npc)) {
 				npc.cleanAllClothing();
@@ -1369,16 +1386,19 @@ public class Game implements XMLSaving {
 						npc.setPendingClothingDressing(false);
 						
 					} else if(!npc.isSlave() && !npc.isUnique()
+							&& !npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 							&& (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))) {
 						// Try to replace clothing to cover themselves up:
-						if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-							npc.replaceAllClothing();
-						}
+						npc.replaceAllClothing();
+						
 						npc.calculateStatusEffects(0);
 						// If still exposed after this, get new clothes:
 						if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
 							npc.equipClothing(true, true, false, false);
-//							System.out.println(npc.getName()+" "+npc.getClass().getName()+" got dressed");
+
+							if(loopDebug) {
+								System.out.println(npc.getName(true)+" "+npc.getClass().getName()+" got dressed");
+							}
 						}
 						npc.setPendingClothingDressing(false);
 					}
@@ -1421,7 +1441,7 @@ public class Game implements XMLSaving {
 				npc.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), npc, false);
 			}
 			
-			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3) && (secondsPassedThisTurn - npc.getTimeProgressedToFinalPregnancyStage())>(12*60*60)) {
+			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3) && (Main.game.getSecondsPassed() - npc.getTimeProgressedToFinalPregnancyStage())>(12*60*60)) {
 				if(npc instanceof Lilaya) {
 					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
 						// Lilaya will only end pregnancy after you've seen it.
@@ -1452,11 +1472,19 @@ public class Game implements XMLSaving {
 			}
 			
 			if(newDay) {
+				long tL = System.nanoTime();
+				if(loopDebug && npc.isUnique()) {
+					System.out.print(npc.getName(true)+" daily reset loop: ");
+				}
 				npc.resetDaysOrgasmCount();
 				try {
 					npc.dailyReset();
 				} catch(Exception ex) {
 					System.err.println("Issue in method: dailyReset(), for character ID: "+npc.getId()+"\n"+ex.getMessage());
+					ex.printStackTrace();
+				}
+				if(loopDebug && npc.isUnique()) {
+					System.out.println((System.nanoTime()-tL)/1000000000f+"s");
 				}
 			}
 			
@@ -1472,6 +1500,9 @@ public class Game implements XMLSaving {
 			
 			npc.turnUpdate();
 		}
+		if(loopDebug) {
+			System.out.println("NPC loop end: "+(System.nanoTime()-tLoopStart)/1000000000f+"s. Starting removal handling.");
+		}
 		isInNPCUpdateLoop = false;
 		for(NPC npc : npcsToRemove) {
 			NPCMap.remove(npc.getId());
@@ -1481,6 +1512,9 @@ public class Game implements XMLSaving {
 		}
 		npcsToRemove.clear();
 		npcsToAdd.clear();
+		if(loopDebug) {
+			System.out.println("Removal handling ended");
+		}
 		
 		if(secondsPassedThisTurn>=0) {
 			if (!isInCombat() && !isInSex() && !currentDialogueNode.isRegenerationDisabled() && Main.game.isPrologueFinished()) {// If not in combat, sex, prologue, or regen-disabled scene, handle resources values:
@@ -1777,7 +1811,7 @@ public class Game implements XMLSaving {
 						&& Main.game.isStarted()
 						&& Main.game.isRequestAutosave()
 						&& (Main.game.getCurrentDialogueNode()!=null && !Main.game.getCurrentDialogueNode().isTravelDisabled())) {
-					Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
+					Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true);
 					Main.game.setRequestAutosave(false);
 				}
 				
@@ -1987,7 +2021,7 @@ public class Game implements XMLSaving {
 				&& Main.game.isStarted()
 				&& Main.game.isRequestAutosave()
 				&& (Main.game.getCurrentDialogueNode()!=null && !Main.game.getCurrentDialogueNode().isTravelDisabled())) {
-			Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
+			Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true);
 			Main.game.setRequestAutosave(false);
 		}
 
@@ -2710,7 +2744,7 @@ public class Game implements XMLSaving {
 
 		charactersHome.sort((c1, c2) ->
 				(c2.getLevel()-c1.getLevel())==0
-					?c2.getName().compareTo(c1.getName())
+					?c2.getName(true).compareTo(c1.getName(true))
 					:(c2.getLevel()-c1.getLevel()));
 		
 		return charactersHome;
@@ -2756,7 +2790,7 @@ public class Game implements XMLSaving {
 		try {
 			charactersPresent.sort((c1, c2) ->
 					(c2.getLevel()-c1.getLevel())==0
-						?c2.getName().compareTo(c1.getName())
+						?c2.getName(true).compareTo(c1.getName(true))
 						:(c2.getLevel()-c1.getLevel()));
 		} catch(Exception ex) {
 		}
@@ -3423,9 +3457,10 @@ public class Game implements XMLSaving {
 		return occupancyUtil;
 	}
 	
-	public DialogueNode getDefaultDialogue() {
-		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-	}
+	// Should probably never be used, so I commented it out.
+//	public DialogueNode getDefaultDialogue() {
+//		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+//	}
 
 	public DialogueNode getDefaultDialogueNoEncounter() {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);

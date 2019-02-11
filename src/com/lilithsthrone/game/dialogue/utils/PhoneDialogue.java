@@ -751,7 +751,7 @@ public class PhoneDialogue {
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastMilkStorage().getDescriptor()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration (%/minute)",
-						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(Math.round((character.getBreastLactationRegeneration().getPercentageRegen()*100)*100)/100f),
+						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(Math.round((character.getBreastLactationRegeneration().getPercentageRegen()*60*100)*100)/100f),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
@@ -788,7 +788,7 @@ public class PhoneDialogue {
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchMilkStorage().getDescriptor()),
 									false)
 							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration (%/minute)",
-									Colour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(Math.round((character.getBreastCrotchLactationRegeneration().getPercentageRegen()*100)*100)/100f),
+									Colour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(Math.round((character.getBreastCrotchLactationRegeneration().getPercentageRegen()*60*100)*100)/100f),
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchLactationRegeneration().getName()),
 									false)
 							+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
@@ -825,7 +825,7 @@ public class PhoneDialogue {
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":"N/A",
 						true)
 				+ (Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) ? statRow(Colour.TRANSFORMATION_GENERIC, "Cum Regeneration (%/minute)",
-						Colour.TEXT, !knowsPenis?"Unknown":String.valueOf(Math.round((character.getPenisCumProductionRegeneration().getPercentageRegen()*100)*100)/100f),
+						Colour.TEXT, !knowsPenis?"Unknown":String.valueOf(Math.round((character.getPenisCumProductionRegeneration().getPercentageRegen()*60*100)*100)/100f),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":Util.capitaliseSentence(character.getPenisCumProductionRegeneration().getName()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Expulsion (% of stored cum)",
@@ -1063,13 +1063,13 @@ public class PhoneDialogue {
 		private void OffspringTableLine(StringBuilder output, NPC npc) {
 			boolean female = npc.isFeminine();
 			String color = female ? Colour.FEMININE.toWebHexString() : Colour.MASCULINE.toWebHexString();
-			String child_name = ChildMet(npc) ? npc.getName() : "Unknown";
+			String child_name = ChildMet(npc) ? npc.getName(true) : "Unknown";
 			String race_color = npc.getRace().getColour().toWebHexString();
 			String species_name = female
 								? npc.getSubspecies().getSingularFemaleName(npc)
 								: npc.getSubspecies().getSingularMaleName(npc);
-			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : npc.getMother().getName());
-			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : npc.getFather().getName());
+			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : npc.getMother().getName(true));
+			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : npc.getFather().getName(true));
 			String extraRelationships = Main.game.getPlayer().getRelationshipStrTo(npc, Relationship.Parent);
 
 			output.append("<tr>");
@@ -1573,7 +1573,7 @@ public class PhoneDialogue {
 
 		@Override
 		public String getLabel() {
-			return CharactersPresentDialogue.characterViewed.getName();
+			return CharactersPresentDialogue.characterViewed.getName(true);
 		}
 
 		@Override
@@ -1589,7 +1589,7 @@ public class PhoneDialogue {
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
 				try {
 					GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
-					return new Response(Util.capitaliseSentence(npc.getName()),
+					return new Response(Util.capitaliseSentence(npc.getName(true)),
 							"Take a detailed look at what " + npc.getName("the") + " looks like.",
 							CONTACTS_CHARACTER){
 						@Override

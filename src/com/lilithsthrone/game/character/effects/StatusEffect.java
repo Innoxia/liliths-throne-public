@@ -3492,13 +3492,13 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			target.incrementPenisStoredCum((secondsPassed/60) * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
+			target.incrementPenisStoredCum(secondsPassed * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float cumRegenRate = target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue();
+			float cumRegenRate = target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue() * 60;
 			
 			return UtilText.parse(target, "[npc.NamePos] balls are currently producing more [npc.cum], at a rate of "+Units.fluid(cumRegenRate)+"/minute."
 					+ " They have stored "+Units.fluid(target.getPenisRawStoredCumValue())+", out of a maximum of "+Units.fluid(target.getPenisRawCumStorageValue())+".");
@@ -3536,7 +3536,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float cumRegenRate = target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue();
+			float cumRegenRate = target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue() * 60;
 			
 			return UtilText.parse(target, "[npc.NamePos] balls are completely filled with [npc.cum] ("+Units.fluid(target.getPenisRawCumStorageValue())+"),"
 					+ " and [npc.she] can't wait until the next time [npc.sheIs] able to empty them."
@@ -3569,13 +3569,13 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			target.incrementBreastStoredMilk((secondsPassed/60) * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
+			target.incrementBreastStoredMilk(secondsPassed * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float milkRegenRate = target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue();
+			float milkRegenRate = target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue() * 60;
 
 			return UtilText.parse(target,
 					"[npc.NamePos] breasts are currently producing more [npc.milk], at a rate of "+Units.fluid(milkRegenRate)+"/minute."
@@ -3610,7 +3610,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float milkRegenRate = target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue();
+			float milkRegenRate = target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue() * 60;
 		
 			return UtilText.parse(target,
 					"[npc.NamePos] [npc.breasts] are completely filled with [npc.milk] ("+Units.fluid(target.getBreastRawMilkStorageValue())+"), and [npc.her] engorged [npc.nipples] are just begging for some attention..."
@@ -3648,13 +3648,13 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			target.incrementBreastCrotchStoredMilk((secondsPassed/60f) * target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue());
+			target.incrementBreastCrotchStoredMilk((secondsPassed) * target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue());
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float milkRegenRate = target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue();
+			float milkRegenRate = target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue() * 60;
 			
 			return UtilText.parse(target,
 					"[npc.NamePos] [npc.crotchBoobs] are currently producing more [npc.crotchMilk], at a rate of "+Units.fluid(milkRegenRate)+"/minute."
@@ -3699,7 +3699,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			float milkRegenRate = target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue();
+			float milkRegenRate = target.getBreastCrotchLactationRegeneration().getPercentageRegen() * target.getBreastCrotchRawMilkStorageValue() * 60;
 		
 			return UtilText.parse(target,
 					"[npc.NamePos] [npc.crotchBoobs] are completely filled with [npc.crotchMilk] ("+Units.fluid(target.getBreastCrotchRawMilkStorageValue())+"), and [npc.her] engorged [npc.crotchNipples] are just begging for some attention..."
@@ -3781,42 +3781,42 @@ public enum StatusEffect {
 				return "";
 			}
 			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				target.incrementVaginaStretchedCapacity(target.getVaginaPlasticity().getRecoveryModifier()*secondsPassed);
+				target.incrementVaginaStretchedCapacity(-target.getVaginaPlasticity().getRecoveryModifier()*secondsPassed);
 
 				if(target.getVaginaStretchedCapacity()<target.getVaginaRawCapacityValue()) {
 					target.setVaginaStretchedCapacity(target.getVaginaRawCapacityValue());
 				}
 			}
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-				target.incrementAssStretchedCapacity(target.getAssPlasticity().getRecoveryModifier()*secondsPassed);
+				target.incrementAssStretchedCapacity(-target.getAssPlasticity().getRecoveryModifier()*secondsPassed);
 				
 				if(target.getAssStretchedCapacity()<target.getAssRawCapacityValue()) {
 					target.setAssStretchedCapacity(target.getAssRawCapacityValue());
 				}
 			}
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-				target.incrementNippleStretchedCapacity(target.getNipplePlasticity().getRecoveryModifier()*secondsPassed);
+				target.incrementNippleStretchedCapacity(-target.getNipplePlasticity().getRecoveryModifier()*secondsPassed);
 
 				if(target.getNippleStretchedCapacity()<target.getNippleRawCapacityValue()) {
 					target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
 				}
 			}
 			if (target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
-				target.incrementNippleCrotchStretchedCapacity(target.getNippleCrotchPlasticity().getRecoveryModifier()*secondsPassed);
+				target.incrementNippleCrotchStretchedCapacity(-target.getNippleCrotchPlasticity().getRecoveryModifier()*secondsPassed);
 				
 				if(target.getNippleCrotchStretchedCapacity()<target.getNippleCrotchRawCapacityValue()) {
 					target.setNippleCrotchStretchedCapacity(target.getNippleCrotchRawCapacityValue());
 				}
 			}
 			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				target.incrementPenisStretchedCapacity(target.getUrethraPlasticity().getRecoveryModifier()*secondsPassed);
+				target.incrementPenisStretchedCapacity(-target.getUrethraPlasticity().getRecoveryModifier()*secondsPassed);
 				
 				if(target.getPenisStretchedCapacity()<target.getPenisRawCapacityValue()) {
 					target.setPenisStretchedCapacity(target.getPenisRawCapacityValue());
 				}
 			}
 			if (target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
-				target.incrementVaginaUrethraStretchedCapacity(target.getVaginaUrethraPlasticity().getRecoveryModifier()*secondsPassed);
+				target.incrementVaginaUrethraStretchedCapacity(-target.getVaginaUrethraPlasticity().getRecoveryModifier()*secondsPassed);
 				
 				if(target.getVaginaUrethraStretchedCapacity()<target.getVaginaUrethraRawCapacityValue()) {
 					target.setVaginaUrethraStretchedCapacity(target.getVaginaUrethraRawCapacityValue());
@@ -3838,71 +3838,48 @@ public enum StatusEffect {
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
 			List<String> recoveringEffects = new ArrayList<>();
-
+			
+			String recoveringText = "recovering";
+			String from1 = "From";
+			String from2 = "to";
+			
 			if(Main.game.isInSex()) {
-				if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-					recoveringEffects.add("[style.boldPink(Vagina stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+Units.size(target.getVaginaRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getVaginaStretchedCapacity())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-					recoveringEffects.add("[style.boldPinkDeep(Asshole stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+Units.size(target.getAssRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getAssStretchedCapacity())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getAssPlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-					recoveringEffects.add("[style.boldPinkLight(Nipples stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+Units.size(target.getNippleRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getNippleStretchedCapacity())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNipplePlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.hasBreastsCrotch() && target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
-					recoveringEffects.add("[style.boldPurple(Crotch nipples stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+Units.size(target.getNippleCrotchRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getNippleCrotchStretchedCapacity())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNippleCrotchPlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-					recoveringEffects.add("[style.boldViolet(Penile Urethra stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+Units.size(target.getPenisRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getPenisStretchedCapacity())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getUrethraPlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
-					recoveringEffects.add("[style.boldPurpleLight(Vaginal Urethra stretched:)]");
-					recoveringEffects.add("From [style.boldGood("+Units.size(target.getVaginaUrethraRawCapacityValue())+")] to [style.boldBad("+Units.size(target.getVaginaUrethraStretchedCapacity())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaUrethraPlasticity().getRecoveryModifier())+")]");
-				}
-				
-			} else {
-				if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-					recoveringEffects.add("[style.boldPink(Vagina recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.size(target.getVaginaStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getVaginaRawCapacityValue())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-					recoveringEffects.add("[style.boldPinkDeep(Asshole recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.size(target.getAssStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getAssRawCapacityValue())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getAssPlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-					recoveringEffects.add("[style.boldPinkLight(Nipples recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.size(target.getNippleStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getNippleRawCapacityValue())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNipplePlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.hasBreastsCrotch() && target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
-					recoveringEffects.add("[style.boldPurple(Crotch nipples recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.size(target.getNippleCrotchStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getNippleCrotchRawCapacityValue())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNippleCrotchPlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-					recoveringEffects.add("[style.boldViolet(Penile Urethra recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.size(target.getPenisStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getPenisRawCapacityValue())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getUrethraPlasticity().getRecoveryModifier())+")]");
-				}
-				if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
-					recoveringEffects.add("[style.boldPurpleLight(Vaginal Urethra recovering:)]");
-					recoveringEffects.add("From [style.boldBad("+Units.size(target.getVaginaUrethraStretchedCapacity())+")] to [style.boldGood("+Units.size(target.getVaginaUrethraRawCapacityValue())+")]");
-					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaUrethraPlasticity().getRecoveryModifier())+")]");
-				}
+				recoveringText = "stretched";
+				from1 = "To";
+				from2 = "from";
 			}
+			
+			if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
+				recoveringEffects.add("[style.boldVagina(Vagina recovering:)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getVaginaStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getVaginaRawCapacityValue())+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
+				recoveringEffects.add("[style.boldAsshole(Asshole "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getAssStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getAssRawCapacityValue())+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getAssPlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
+				recoveringEffects.add("[style.boldNipples(Nipples "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getNippleStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getNippleRawCapacityValue())+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNipplePlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.hasBreastsCrotch() && target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
+				recoveringEffects.add("[style.boldNipplesCrotch(Crotch nipples "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getNippleCrotchStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getNippleCrotchRawCapacityValue())+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNippleCrotchPlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
+				recoveringEffects.add("[style.boldPenisUrethra(Penile Urethra "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getPenisStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getPenisRawCapacityValue())+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getUrethraPlasticity().getRecoveryModifier())+")]");
+			}
+			if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
+				recoveringEffects.add("[style.boldVaginaUrethra(Vaginal Urethra "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getVaginaUrethraStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getVaginaUrethraRawCapacityValue())+")]");
+				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaUrethraPlasticity().getRecoveryModifier())+")]");
+			}
+			
 			
 			return recoveringEffects;
 		}
@@ -5857,13 +5834,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				if(target.isPlayer()) {
-					return "You are wearing a kitsune's ceremonial outfit, which closely resembles traditional Japanese clothing.";
-					
-				} else {
-					return UtilText.parse(target, "[npc.Name] is wearing a kitsune's ceremonial outfit, which closely resembles traditional Japanese clothing.");
-					
-				}
+				return UtilText.parse(target, "[npc.NameIs] wearing a youko's ceremonial outfit, which closely resembles traditional Japanese clothing.");
 			} else {
 				return "";
 			}

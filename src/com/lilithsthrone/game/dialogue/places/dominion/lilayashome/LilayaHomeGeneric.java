@@ -1144,7 +1144,7 @@ public class LilayaHomeGeneric {
 		public String getContent() {
 			return "<p>"
 						+ "The sight of the numerous arcane instruments and beakers of bubbling, brightly-coloured liquid that are scattered over every surface fills you with curiosity, and you can't help but ask,"
-						+ " [pc.speech(What sort of experiments are you working on?"+((Main.game.getPlayer().getName().equals("Eru") && Main.game.getPlayer().getSurname().equals("Chitanda"))?" Watashi ki ni narimasu!":"")+")]"
+						+ " [pc.speech(What sort of experiments are you working on?"+((Main.game.getPlayer().getName(false).equals("Eru") && Main.game.getPlayer().getSurname().equals("Chitanda"))?" Watashi ki ni narimasu!":"")+")]"
 					+ "</p>"
 					+ "<p>"
 						+ "[arthur.speech(Nothing too interesting, really;"

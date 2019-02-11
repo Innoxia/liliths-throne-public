@@ -147,7 +147,7 @@ public class ReindeerOverseerDialogue {
 				if(Main.game.getDialogueFlags().hasEncounteredAnyReindeers()) {
 					UtilText.nodeContentSB.append("<p>"
 							+ "Feeling happy now that you've found the overseer for this particular group, you reply,"
-							+ " [pc.speech(What sort of goods do you have? I've spoken with another overseer already, and they mostly had Yuletide-related clothing, food and drink, as well as some clothing from the Kitsune forest.)]"
+							+ " [pc.speech(What sort of goods do you have? I've spoken with another overseer already, and they mostly had Yuletide-related clothing, food and drink, as well as some clothing from the youko.)]"
 						+ "</p>"
 						+ "<p>"
 							+ "The [npc.race] smiles."
@@ -165,7 +165,7 @@ public class ReindeerOverseerDialogue {
 							+ " [npc.speech(We travel here from our homeland out in the frozen tundra every winter."
 								+ " We stay here to work until the end of February, which is when it stops snowing, and then we migrate back to the tundra for the rest of the year, which is why you haven't seen us before."
 								+ " As to what goods I can offer, we've brought plenty of the food, drink, and clothing that we make in our homeland."
-								+ " We travelled through the Kitsune's forest this year, so I also have some of their traditional clothing which we traded for.)]"
+								+ " We travelled through the Shinrin highlands this year, so I also have some of the youko's traditional clothing which we traded for.)]"
 						+ "</p>");
 				}
 			}

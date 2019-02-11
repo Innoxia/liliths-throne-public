@@ -163,7 +163,7 @@ public enum Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
 			} else if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
-					&& Main.game.getPlayer().getName().equalsIgnoreCase("Kinariu")
+					&& Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu")
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.foundHappiness, true);
 				return DominionEncounterDialogue.DOMINION_STREET_FIND_HAPPINESS;

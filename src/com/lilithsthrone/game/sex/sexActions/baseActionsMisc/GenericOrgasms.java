@@ -3466,7 +3466,7 @@ public class GenericOrgasms {
 				
 			} else {
 				boolean petName = false;
-				if(!Sex.getCharacterPerformingAction().getPetName(Sex.getCharacterTargetedForSexAction(this)).equals(Sex.getCharacterTargetedForSexAction(this).getName())) {
+				if(!Sex.getCharacterPerformingAction().getPetName(Sex.getCharacterTargetedForSexAction(this)).equals(Sex.getCharacterTargetedForSexAction(this).getName(true))) {
 					petName = true;
 				}
 				

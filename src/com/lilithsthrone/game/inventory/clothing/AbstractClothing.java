@@ -61,7 +61,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		super(clothingType.getName(),
 				clothingType.getNamePlural(),
 				clothingType.getPathName(),
-				clothingType.getAllAvailablePrimaryColours().contains(colour) ? colour : clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size())),
+				clothingType.getAllAvailablePrimaryColours().contains(colour) ? colour : Util.randomItemFrom(clothingType.getAllAvailablePrimaryColours()),
 				clothingType.getRarity(),
 				null);
 
@@ -97,7 +97,16 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			
 			if (chance <= 25) { // Jinxed:
 				
-				effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0));
+				if (chance <= 1) {
+					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0));
+				} else if (chance <= 4) {
+					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.DRAIN, 0));
+				} else if (chance <= 10) {
+					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0));
+				} else {
+					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0));
+				}
+				
 				effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.getRandomWeightedNegativePotency(), 0));
 				if(chance <10) {
 					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.getRandomWeightedNegativePotency(), 0));
@@ -309,7 +318,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				clothing.setSealed(Boolean.valueOf(parentElement.getAttribute("sealed")));
 			}
 			clothing.setDirty(Boolean.valueOf(parentElement.getAttribute("isDirty")));
-			clothing.setEnchantmentKnown(Boolean.valueOf(parentElement.getAttribute("enchantmentKnown")));
+			clothing.setEnchantmentKnown(null, Boolean.valueOf(parentElement.getAttribute("enchantmentKnown")));
 		} catch(Exception ex) {
 		}
 		
@@ -380,7 +389,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				}
 			}
 		} else {
-			clothing.setEnchantmentKnown(true);
+			clothing.setEnchantmentKnown(null, true);
 		}
 		
 		// Try to load displacements:
@@ -1136,9 +1145,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	private StringBuilder pointlessSB = new StringBuilder();
-	public String setEnchantmentKnown(boolean enchantmentKnown) {
+	public String setEnchantmentKnown(GameCharacter owner, boolean enchantmentKnown) {
 		pointlessSB.setLength(0);
 		this.enchantmentKnown = enchantmentKnown;
+		
+		if(owner!=null) {
+			owner.recalculateMapOfDuplicateClothing();
+		}
 		
 		if(enchantmentKnown && !attributeModifiers.isEmpty()){
 			if (isBadEnchantment()) {

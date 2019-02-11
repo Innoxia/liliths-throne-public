@@ -163,7 +163,7 @@ public class MilkingRoom implements XMLSaving {
 	}
 
 	public static int getActualMilkPerHour(GameCharacter character) {
-		return (int) Math.min(getMaximumMilkPerHour(character), (character.getBreastLactationRegeneration().getPercentageRegen()*character.getBreastRawMilkStorageValue()*60));
+		return (int) Math.min(getMaximumMilkPerHour(character), (character.getBreastLactationRegeneration().getPercentageRegen() * character.getBreastRawMilkStorageValue() * 60 * 60));
 	}
 	
 	public static int getMaximumCumPerHour(GameCharacter character) {
@@ -192,7 +192,7 @@ public class MilkingRoom implements XMLSaving {
 		if(!character.hasPenisIgnoreDildo()) {
 			return 0;
 		}
-		return (int) Math.min(getMaximumCumPerHour(character), (character.getPenisCumProductionRegeneration().getPercentageRegen()*character.getPenisRawCumStorageValue()*60));
+		return (int) Math.min(getMaximumCumPerHour(character), (character.getPenisCumProductionRegeneration().getPercentageRegen() * character.getPenisRawCumStorageValue() * 60 * 60));
 	}
 	
 	public static int getMaximumGirlcumPerHour(GameCharacter character) {
