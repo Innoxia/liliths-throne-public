@@ -11,6 +11,7 @@ import java.text.NumberFormat;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 import java.util.List;
@@ -71,8 +72,7 @@ public enum Units {
         shortDate = (autoLocale ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MM/dd/yy" : "dd.MM.yy"))
                 .withZone(ZoneId.systemDefault());
-        longDate = (autoLocale ? DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
-                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MMMM d, yyyy" : "d. MMMM yyyy"))
+        longDate = DateTimeFormatter.ofPattern("d'%o %m' yyyy")
                 .withZone(ZoneId.systemDefault());
     }
 
@@ -185,7 +185,9 @@ public enum Units {
     public static String date(TemporalAccessor timePoint, DateType type) {
         if (type == DateType.SHORT)
             return FORMATTER.shortDate.format(timePoint);
-        return FORMATTER.longDate.format(timePoint);
+        return FORMATTER.longDate.format(timePoint)
+                .replaceFirst("%o", getOrdinal(timePoint.get(ChronoField.DAY_OF_MONTH)))
+                .replaceFirst("%m", getMonthName(timePoint.get(ChronoField.MONTH_OF_YEAR)));
     }
 
     /**
@@ -518,6 +520,41 @@ public enum Units {
             case 7: return "&frac78;";
             default: return "";
         }
+    }
+
+    private final static String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+    /**
+     * Selects the correct ordinal for a given value. Only the ordinal itself is returned.
+     * @param value The number to select an ordinal for
+     * @return A string containing the ordinal
+     */
+    public static String getOrdinal(int value) {
+        switch (value % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return "th";
+            default:
+                return suffixes[value % 10];
+        }
+    }
+
+    public static String getMonthName(int month) {
+        switch (month) {
+            case 1: return "January";
+            case 2: return "February";
+            case 3: return "March";
+            case 4: return "April";
+            case 5: return "May";
+            case 6: return "June";
+            case 7: return "July";
+            case 8: return "August";
+            case 9: return "September";
+            case 10: return "October";
+            case 11: return "November";
+            case 12: return "December";
+        }
+        return "";
     }
 
     /**
