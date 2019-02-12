@@ -384,7 +384,7 @@ public enum Units {
      */
     public static String fluidAsMetric(double ml, ValueType vType, UnitType uType) {
         double l = ml / 1000;
-        return valueWithUnit(ml, "mL", "millilitre", l, "L", "litre", vType, uType, false);
+        return valueWithUnit(ml, "ml", "millilitre", l, "l", "litre", vType, uType, false);
     }
 
     /**

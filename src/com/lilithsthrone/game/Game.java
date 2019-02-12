@@ -2929,8 +2929,8 @@ public class Game implements XMLSaving {
 	}
 
 	public String getDisplayDate() {
-		if (isInNewWorld()) {
-			if (getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
+		if(isInNewWorld()) {
+			if(getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
 				return Units.date(getDateNow(), Units.DateType.LONG);
 			}
 			return "Unknown";
