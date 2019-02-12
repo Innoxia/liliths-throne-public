@@ -427,8 +427,8 @@ public class MilkingRoom implements XMLSaving {
 	public String getAreaIngestionBlockedDescription(GameCharacter ingestingCharacter, CoverableArea area, float millilitres) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(millilitres<500) {
-			sb.append("There needs to be at least "+Units.fluid(500)+" of fluid for [npc.name] to ingest it!<br/>");
+		if(millilitres<5) {
+			sb.append("There needs to be at least ").append(Units.fluid(5)).append(" of fluid for [npc.name] to ingest it!<br/>");
 		}
 		
 		switch(area) {
