@@ -1,42 +1,27 @@
 package com.lilithsthrone.utils;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.NoSuchElementException;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.function.Function;
-import java.util.regex.Pattern;
-
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.time.Instant;
+import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 
 /**
  * This is just a big mess of utility classes that I wanted to throw somewhere.
@@ -236,10 +221,15 @@ public class Util {
 			}
 		}
 	}
-	
-	public static String getFileTime(File file) throws IOException {
-	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy - hh:mm");
-	    return dateFormat.format(file.lastModified());
+
+	public static String getFileTime(File file) {
+		try {
+			Instant fileTime = Files.getLastModifiedTime(file.toPath()).toInstant();
+			return Units.dateTime(fileTime);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "Unknown";
 	}
 	
 	@SafeVarargs
@@ -336,22 +326,6 @@ public class Util {
 
 		return null;
 	}
-
-	public static String getDayOfMonthSuffix(int n) {
-		if (n >= 11 && n <= 13) {
-	    	return "th";
-	    }
-	    switch (n % 10) {
-	    	case 1:  return "st";
-	    	case 2:  return "nd";
-	    	case 3:  return "rd";
-	    	default: return "th";
-	    }
-	}
-	
-	public static String getRoundedFloat(float input, int decimalPlaces) {
-		return String.format(Locale.ENGLISH,"%."+decimalPlaces+"f", input);
-	}
 	
 	private static String[] numbersLessThanTwenty = {
 			"zero",
@@ -409,22 +383,6 @@ public class Util {
 			"eighty",
 			"ninety"
 	};
-
-	public static String intToDate(int integer) {
-		if(integer%10==1 && (integer%100<10 || integer%100>20)) {
-			return integer+"st";
-		} else if(integer%10==2 && (integer%100<10 || integer%100>20)) {
-			return integer+"nd";
-		} else if(integer%10==3 && (integer%100<10 || integer%100>20)) {
-			return integer+"rd";
-		} else {
-			return integer+"th";
-		}
-	}
-	
-	public static String getStringOfLocalDateTime(LocalDateTime date) {
-		return intToDate(date.getDayOfMonth())+" "+date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+", "+date.getYear();
-	}
 	
 	/**
 	 * Only works for values -99,999 to 99,999.
@@ -586,33 +544,6 @@ public class Util {
 	public static String getKeyCodeCharacter(KeyCode code) {
 		String name = KEY_NAMES.get(code);
 		return name != null? name : code.getName();
-	}
-
-	public static int conversionCentimetresToInches(int cm) {
-		// System.out.println(cm + " -> "+(int)(cm/2.54f));
-		return Math.round(cm / 2.54f);
-	}
-
-	public static int conversionInchesToCentimetres(int inches) {
-		return Math.round(inches * 2.54f);
-	}
-
-	public static String centimetresToMetresAndCentimetres(int cm) {
-		return ((cm / 100) + ((cm % 100) != 0 ? ("." + cm % 100) + "m." : "m"));
-	}
-
-	public static String inchesToFeetAndInches(int inches) {
-		return inches==0
-					?"0"+UtilText.INCH_SYMBOL
-					:((((inches) / 12) == 0 ? "" : (inches) / 12) + (((inches) / 12) > 0 ? UtilText.FOOT_SYMBOL : "") + (((inches) % 12) == 0 ? "" : " ") + (((inches) % 12) != 0 ? ((inches) % 12) + UtilText.INCH_SYMBOL : ""));
-	}
-
-	public static int conversionKilogramsToPounds(int kg) {
-		return Math.round(kg * 2.20462268f);
-	}
-
-	public static String poundsToStoneAndPounds(int pounds) {
-		return ((((pounds) / 14) == 0 ? "" : (pounds) / 14) + (((pounds) / 12) > 0 ? "st." : "") + (((pounds) % 14) == 0 ? "" : " ") + (((pounds) % 14) != 0 ? ((pounds) % 14) + "lb" : ""));
 	}
 
 	public static String capitaliseSentence(String sentence) {

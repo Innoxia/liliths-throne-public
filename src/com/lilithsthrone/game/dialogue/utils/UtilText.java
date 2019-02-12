@@ -1,25 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.io.File;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -29,15 +10,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
-import com.lilithsthrone.game.character.body.valueEnums.HornLength;
-import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -68,9 +41,19 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
-
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.time.format.TextStyle;
+import java.util.*;
 
 /**
  * @since 0.1.0
@@ -78,9 +61,6 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
  * @author Innoxia, Pimvgd, AlacoGit
  */
 public class UtilText {
-
-	public static final String FOOT_SYMBOL = "&#8242;"; // prime
-	public static final String INCH_SYMBOL = "&#8243;"; // double prime
 
 	private static String modifiedSentence;
 	public static StringBuilder transformationContentSB = new StringBuilder(4096);
@@ -416,21 +396,18 @@ public class UtilText {
 	}
 	
 	public static String formatAsEssencesUncoloured(int amount, String tag, boolean withOverlay) {
-		String essenceString = formatter.format(amount);
 		return "<div class='item-inline'>"
 					+ TFEssence.ARCANE.getSVGStringUncoloured() + (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
 				+"</div>"
-				+ " <"+tag+" style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+essenceString+"</"+tag+">";
+				+ " <"+tag+" style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Units.number(amount)+"</"+tag+">";
 	}
 	
 	
 	public static String formatAsEssences(int amount, String tag, boolean withOverlay) {
-		String essenceString = formatter.format(amount);
-		
 		return "<div class='item-inline'>"
 					+ TFEssence.ARCANE.getSVGString() + (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
 				+"</div>"
-				+ " <"+tag+" style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+essenceString+"</"+tag+">";
+				+ " <"+tag+" style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Units.number(amount)+"</"+tag+">";
 	}
 	
 	public static String formatAsMoney(int money, String tag) {
@@ -449,19 +426,11 @@ public class UtilText {
 		return "<span style='color:"+colour.toWebHexString()+"; text-shadow: 0px 0px 4px "+colour.getShades()[4]+";'>"+input+"</span>";
 	}
 	
-	private static NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
-	private static DecimalFormat formatter;
-	static{
-		formatter = (DecimalFormat)nf;
-		formatter.applyPattern("#,###,###");
-	}
-	
 	public static String formatAsMoney(int money, String tag, Colour amountColour) {
 		String tagColour;
 //		int copper = Math.abs(money%100);
 //		int silver = Math.abs((money%10000)/100);
 //		int gold = Math.abs(money/10000);
-		String moneyString = formatter.format(money);
 		
 		if(amountColour==null) {
 			tagColour = Colour.TEXT.getShades(8)[3];
@@ -472,7 +441,7 @@ public class UtilText {
 //		return (money<0?"<b style='color:" + tagColour + ";'>-</b>":"")
 //				+(gold!=0
 //					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-//						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">"
+//						+ "<" + tag + " style='color:" + tagColour + ";'>" + Units.number(moneyString) + "</" + tag + ">"
 //					:"")
 //				+(silver!=0
 //					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_SILVER.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
@@ -484,7 +453,7 @@ public class UtilText {
 //					:"");
 		
 		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
+					+ "<" + tag + " style='color:" + tagColour + ";'>" + Units.number(money) + "</" + tag + ">";
 	}
 	
 	public static String formatAsMoneyUncoloured(int money, String tag) {
@@ -2290,43 +2259,15 @@ public class UtilText {
 				return character.getHeight().getDescriptor();
 			}
 		});
-		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"heightCm"),
+				Util.newArrayListOfValues("heightValue"),
 				false,
 				false,
-				"",//TODO
-				"Description of method"){//TODO
+				"",
+				"Returns the character's height in the long, localized format.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return String.valueOf(character.getHeightValue());
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"heightInches"),
-				false,
-				false,
-				"",//TODO
-				"Description of method"){//TODO
-			@Override
-			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return String.valueOf(Util.conversionCentimetresToInches(character.getHeightValue()));
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"heightFeetInches"),
-				false,
-				false,
-				"",//TODO
-				"Description of method"){//TODO
-			@Override
-			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(character.getHeightValue()));
+				return Units.size(character.getHeightValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
@@ -2335,11 +2276,11 @@ public class UtilText {
 						"weight"),
 				false,
 				false,
-				"",//TODO
-				"Description of method"){//TODO
+				"",
+				"Returns the character's weight in the long, localized format.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return String.valueOf(character.getWeight());
+				return Units.weight(character.getWeight() / 1000.0, Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
@@ -3603,6 +3544,79 @@ public class UtilText {
 			}
 		}
 
+
+		// Units
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"size"),
+				true,
+				false,
+				"(cm to convert)",
+				"Returns the converted size in the localized, singular form. " +
+						"If no argument is given, returns the small singular length unit.") {
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				if (arguments == null || arguments.isEmpty()) {
+					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inch" : "centimetre";
+				}
+				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"sizes",
+						"sizePlural"),
+				true,
+				false,
+				"(cm to convert)",
+				"Returns the converted size in the long, localized form. " +
+						"If no argument is given, returns the small plural length unit.") {
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				if (arguments == null || arguments.isEmpty()) {
+					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inches" : "centimetres";
+				}
+				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"lSize",
+						"largeSize"),
+				true,
+				false,
+				"(cm to convert)",
+				"Returns the converted size in the localized, singular text form. " +
+						"If no argument is given, returns the large singular length unit.") {
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				if (arguments == null || arguments.isEmpty()) {
+					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "foot" : "metre";
+				}
+				return Units.size(Double.valueOf(arguments), Units.ValueType.TEXT, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"lSizes",
+						"largeSizePlural"),
+				true,
+				false,
+				"(cm to convert)",
+				"Returns the converted size in the localized text form. " +
+						"If no argument is given, returns the large plural length unit.") {
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				if (arguments == null || arguments.isEmpty()) {
+					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "feet" : "metres";
+				}
+				return Units.size(Double.valueOf(arguments), Units.ValueType.TEXT, Units.UnitType.LONG);
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -5205,32 +5219,17 @@ public class UtilText {
 				return character.getPenisGirth().getName();
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"penisCm"),
+				Util.newArrayListOfValues("penisValue"),
 				false,
 				false,
 				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
+				"Returns the localized, formatted size of the penis with long singular units.",
+				BodyPartType.PENIS) {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return String.valueOf(Util.conversionInchesToCentimetres(character.getPenisRawSizeValue()));
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"penisInches"),
-				false,
-				false,
-				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
-			@Override
-			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return String.valueOf(character.getPenisRawSizeValue());
+				return Units.size(character.getPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 		
@@ -5312,34 +5311,19 @@ public class UtilText {
 				return character.getSecondPenisSize().getDescriptor();
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"secondPenisCm",
-						"penis2Cm"),
+						"secondPenisValue",
+						"penis2Value"),
 				false,
 				false,
 				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
+				"Returns the localized, formatted size of the second penis with long units.",
+				BodyPartType.PENIS) {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return String.valueOf(Util.conversionInchesToCentimetres(character.getSecondPenisRawSizeValue()));
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"secondPenisInches",
-						"penis2Inches"),
-				false,
-				false,
-				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
-			@Override
-			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return String.valueOf(character.getSecondPenisRawSizeValue());
+				return Units.size(character.getSecondPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
@@ -5519,19 +5503,19 @@ public class UtilText {
 				return character.getVaginaClitorisSize().getDescriptor();
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"clitSizeInches",
-						"clitorisSizeInches"),
+						"clitSizeValue",
+						"clitorisSizeValue"),
 				true,
 				true,
 				"",
-				"Description of method",
+				"Returns the localized, formatted size of the clitoris with long units.",
 				BodyPartType.VAGINA){//TODO
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return String.valueOf(character.getVaginaRawClitorisSizeValue());
+				return Units.size(character.getVaginaRawClitorisSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
@@ -6011,7 +5995,7 @@ public class UtilText {
 //		engine = manager.getEngineByName("javascript");
 		
 		for(ParserTarget target : ParserTarget.values()) {
-			if(target!=ParserTarget.STYLE && target!=ParserTarget.NPC) {
+			if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC) {
 				for(String tag : target.getTags()) {
 					engine.put(tag, target.getCharacter(tag));
 				}

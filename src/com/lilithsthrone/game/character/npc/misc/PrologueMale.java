@@ -172,7 +172,7 @@ public class PrologueMale extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(6);
+		this.setPenisSize(15);
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		// Leave cum as normal value
 		

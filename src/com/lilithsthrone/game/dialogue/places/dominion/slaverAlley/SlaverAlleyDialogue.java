@@ -599,7 +599,7 @@ public class SlaverAlleyDialogue {
 			return "<p>" // captured or slaves for public sale (seized assets)
 						+ "As you walk towards Slaver Alley's central courtyard, the excited buzz of hundreds of voices grows louder and louder."
 						+ " The source of this incessant din is hard to miss, and takes the form a huge, bustling crowd, which has surrounded a raised wooden platform."
-						+ " Several noticeboards, elevated above the heads of the energetic mob by means of several-metre-high poles, declare this area to be for 'Public Auctions'."
+						+ " Several noticeboards, elevated above the heads of the energetic mob by means of several-[unit.lSize]-high poles, declare this area to be for 'Public Auctions'."
 					+ "</p>"
 					+ "<p>"
 						+ (Main.game.getPlayer().isHasSlaverLicense()

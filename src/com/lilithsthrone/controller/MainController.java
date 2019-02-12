@@ -1,42 +1,9 @@
 package com.lilithsthrone.controller;
 
-import java.net.URL;
-import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.ResourceBundle;
-import java.util.Set;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.events.EventListener;
-import org.w3c.dom.events.EventTarget;
-
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
 import com.lilithsthrone.controller.eventListeners.SetContentEventListener;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonCharactersEventListener;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonCopyDialogueEventListener;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonInventoryEventHandler;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonJournalEventListener;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonMainMenuEventListener;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveEastEventListener;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveNorthEventListener;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveSouthEventListener;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveWestEventListener;
-import com.lilithsthrone.controller.eventListeners.buttons.ButtonZoomEventListener;
-import com.lilithsthrone.controller.eventListeners.tooltips.TooltipCopyInfoEventListener;
-import com.lilithsthrone.controller.eventListeners.tooltips.TooltipHideEventListener;
-import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
-import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
-import com.lilithsthrone.controller.eventListeners.tooltips.TooltipMoveEventListener;
-import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseDescriptionEventListener;
-import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseMoveEventListener;
-import com.lilithsthrone.game.Game;
+import com.lilithsthrone.controller.eventListeners.buttons.*;
+import com.lilithsthrone.controller.eventListeners.tooltips.*;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -54,7 +21,6 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
@@ -65,15 +31,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
-import com.lilithsthrone.game.dialogue.utils.BodyChanging;
-import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
-import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
-import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
-import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
-import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
-import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
-import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.dialogue.utils.*;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -83,14 +41,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
-import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
@@ -99,13 +50,13 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
-
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.event.EventHandler;
@@ -121,6 +72,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import org.w3c.dom.Document;
+import org.w3c.dom.events.EventListener;
+import org.w3c.dom.events.EventTarget;
+
+import java.net.URL;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @since 0.1.0
@@ -1362,12 +1320,7 @@ public class MainController implements Initializable {
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
 					"Toggle the date's display between a calendar and day count.<br/>"
 						+ "The current date is: <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
-						+Main.game.getDateNow().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
-						+", "+Main.game.getDateNow().getDayOfMonth()+Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())+" "+Main.game.getDateNow().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
-						+", "
-						+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)||!Main.game.isInNewWorld()
-								?(!Main.game.isInNewWorld()?Main.game.getDateNow().getYear()-Game.TIME_SKIP_YEARS:Main.game.getDateNow().getYear())
-								:"????")
+						+ Main.game.getDisplayDate()
 						+"</b><br/>"
 						+ "You've been in this new world for: <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
@@ -1385,10 +1338,7 @@ public class MainController implements Initializable {
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Time Display",
 					"Toggle the display of time between a 24 and 12-hour clock.<br/>"
-					+ "<i>The time is currently "
-							+(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
-							?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH))
-							:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mm:ssa", Locale.ENGLISH)))
+					+ "<i>The time is currently " + Units.date(Main.game.getDateNow())
 					+"</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}

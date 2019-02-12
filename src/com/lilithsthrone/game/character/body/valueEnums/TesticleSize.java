@@ -49,9 +49,9 @@ public enum TesticleSize {
 		return value;
 	}
 
-	public static TesticleSize getTesticleSizeFromInt(int inches) {
+	public static TesticleSize getTesticleSizeFromInt(int index) {
 		for(TesticleSize ts : TesticleSize.values()) {
-			if(inches == ts.getValue()) {
+			if(index == ts.getValue()) {
 				return ts;
 			}
 		}
