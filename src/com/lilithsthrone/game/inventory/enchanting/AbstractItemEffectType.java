@@ -4351,6 +4351,8 @@ public abstract class AbstractItemEffectType {
 						}
 				}
 				break;
+			default:
+				break;
 		}
 
 		return new RacialEffectUtil("Random non-racial transformation") {
