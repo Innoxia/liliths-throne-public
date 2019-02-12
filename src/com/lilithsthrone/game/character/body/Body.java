@@ -1454,7 +1454,7 @@ public class Body implements XMLSaving {
 		}
 
 
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) { // FIXME update version after merging
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1")) {
 			// Convert all sizes from inch to cm
 			importedHair.length *= 2.54;
 			importedHorn.length *= 2.54;
@@ -1592,7 +1592,7 @@ public class Body implements XMLSaving {
 
 
 		if(importedCrotchBreast!=null) {
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) { // FIXME update version after merging
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1")) {
 				importedCrotchBreast.nipples.orificeNipples.capacity *= 2.54;
 				importedCrotchBreast.nipples.orificeNipples.stretchedCapacity *= 2.54;
 			}

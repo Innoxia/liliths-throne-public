@@ -2928,14 +2928,25 @@ public class Game implements XMLSaving {
 		return getStartingDate().plusSeconds(Main.game.getSecondsPassed());
 	}
 
-	public String getDisplayDate() {
+	public String getDisplayDate(boolean withYear) {
 		if(isInNewWorld()) {
 			if(getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
-				return Units.date(getDateNow(), Units.DateType.LONG);
+				if(withYear) {
+					return Units.date(getDateNow(), Units.DateType.LONG);
+				} else {
+					String date = Units.date(getDateNow(), Units.DateType.LONG);
+					return date.substring(0, date.length()-5);
+				}
 			}
 			return "Unknown";
 		}
-		return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+		
+		if(withYear) {
+			return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+		} else {
+			String date = Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+			return date.substring(0, date.length()-5);
+		}
 	}
 	
 	public int getYear() {

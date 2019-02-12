@@ -126,11 +126,41 @@
 	Contributors:
 		Localised all units in the game, and added toggles for 12/24 hour clock and imperial/metric measurements in the options menu. (PR#931 by DJ Addi)
 	
+	Bugs:
+		If you lack the body part on which a clothing transformation is trying to be applied, the game's dialogue will no longer be interrupted with a 'you lack a X, so nothing happens' message.
 	
 	
+	
+	
+	
+	
+	1. Add world map travel system.
+	    - Keyboard movement.
+	    - Mouse click path movement.
+	2. Add unique dialogue for offspring moving in to live with you.
+	    - Initial encounter scene variation.
+	    - Moving in variation.
+	    - Unique talk scenes.
+	    - Their apartment scenes.
+	3. Add orgasm denial scenes.
+	    - Add NPC behaviour for denial.
+	    - Add sex action(s).
+	    - Add variations for if chastity belt/cage is being worn.
+	4. Add a centaur field exploration encounter. (Will be cut if I run out of time.)
+	    - Tidy up encounter code.
+	    - Enable movement over field tiles.
+	    - Add dialogue framework.
+	    - Write dialogue.
+	    - Test.
+	5. Fix bugs and polish.
+
 	credits
 	
-	PR#931
+	
+	
+	
+	
+	
 	
 	stop sex is appearing after switching positions
 	
@@ -167,8 +197,6 @@
 	Separate the oral fetishes as such that kissing is separate from the other oral fetishes.
 	
 	NPC wants anal and yet didn't start it?
-	
-	Need to stop "lack a vagina, so nothing happens..." from clothing effects, along with all other no-effect ones
 	
 	need to make a more unified NPC class
 	

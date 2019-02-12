@@ -918,109 +918,111 @@ public abstract class AbstractItemEffectType {
 					}
 					break;
 				case TF_BREASTS_CROTCH:
-					switch(secondaryModifier) {
-						case TF_MOD_SIZE:
-							if(isWithinLimits(breastSizeIncrement, target.getBreastCrotchRawSizeValue(), limit)) {
-								sb.append(target.incrementBreastCrotchSize(breastSizeIncrement));
-							} else if(isSetToLimit(breastSizeIncrement, target.getBreastCrotchRawSizeValue(), limit)) {
-								sb.append(target.setBreastCrotchSize(limit));
-							}
-							break;
-						case TF_MOD_SIZE_SECONDARY:
-							if(isWithinLimits(nippleSizeIncrement, target.getNippleCrotchSize().getValue(), limit)) {
-								sb.append(target.incrementNippleCrotchSize(nippleSizeIncrement));
-							} else if(isSetToLimit(nippleSizeIncrement, target.getNippleCrotchSize().getValue(), limit)) {
-								sb.append(target.incrementNippleCrotchSize(limit));
-							}
-							break;
-						case TF_MOD_SIZE_TERTIARY:
-							if(isWithinLimits(areolaeSizeIncrement, target.getAreolaeCrotchSize().getValue(), limit)) {
-								sb.append(target.incrementAreolaeCrotchSize(areolaeSizeIncrement));
-							} else if(isSetToLimit(areolaeSizeIncrement, target.getAreolaeCrotchSize().getValue(), limit)) {
-								sb.append(target.incrementAreolaeCrotchSize(limit));
-							}
-							break;
-						case TF_MOD_CAPACITY:
-							if(isWithinLimits(capacityIncrement, target.getNippleCrotchRawCapacityValue(), limit)) {
-								sb.append(target.incrementNippleCrotchCapacity(capacityIncrement, true));
-							} else if(isSetToLimit(capacityIncrement, target.getNippleCrotchRawCapacityValue(), limit)) {
-								sb.append(target.setNippleCrotchCapacity(limit, true));
-							}
-							break;
-						case TF_MOD_ELASTICITY:
-							if(isWithinLimits(elasticityIncrement, target.getNippleCrotchElasticity().getValue(), limit)) {
-								sb.append(target.incrementNippleCrotchElasticity(elasticityIncrement));
-							} else if(isSetToLimit(elasticityIncrement, target.getNippleCrotchElasticity().getValue(), limit)) {
-								sb.append(target.setNippleCrotchElasticity(limit));
-							}
-							break;
-						case TF_MOD_PLASTICITY:
-							if(isWithinLimits(plasticityIncrement, target.getNippleCrotchPlasticity().getValue(), limit)) {
-								sb.append(target.incrementNippleCrotchPlasticity(plasticityIncrement));
-							} else if(isSetToLimit(plasticityIncrement, target.getNippleCrotchPlasticity().getValue(), limit)) {
-								sb.append(target.setNippleCrotchPlasticity(limit));
-							}
-							break;
-						case TF_MOD_WETNESS:
-							if(isWithinLimits(lactationIncrement, target.getBreastCrotchRawMilkStorageValue(), limit)) {
-								sb.append(target.incrementBreastCrotchMilkStorage(lactationIncrement));
-							} else if(isSetToLimit(lactationIncrement, target.getBreastCrotchRawMilkStorageValue(), limit)) {
-								sb.append(target.setBreastCrotchMilkStorage(limit));
-							}
-							break;
-						case TF_MOD_REGENERATION:
-							if(isWithinLimits(fluidRegenerationIncrement, target.getBreastCrotchRawLactationRegenerationValue(), limit)) {
-								sb.append(target.incrementBreastCrotchLactationRegeneration(fluidRegenerationIncrement));
-							} else if(isSetToLimit(fluidRegenerationIncrement, target.getBreastCrotchRawLactationRegenerationValue(), limit)) {
-								sb.append(target.setBreastCrotchLactationRegeneration(limit));
-							}
-							break;
-						case TF_MOD_ORIFICE_PUFFY:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
-									sb.append(target.addNippleCrotchOrificeModifier(OrificeModifier.PUFFY));
+					if(target.hasBreastsCrotch()) {
+						switch(secondaryModifier) {
+							case TF_MOD_SIZE:
+								if(isWithinLimits(breastSizeIncrement, target.getBreastCrotchRawSizeValue(), limit)) {
+									sb.append(target.incrementBreastCrotchSize(breastSizeIncrement));
+								} else if(isSetToLimit(breastSizeIncrement, target.getBreastCrotchRawSizeValue(), limit)) {
+									sb.append(target.setBreastCrotchSize(limit));
 								}
-							} else {
-								if(target.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
-									sb.append(target.removeNippleCrotchOrificeModifier(OrificeModifier.PUFFY));
+								break;
+							case TF_MOD_SIZE_SECONDARY:
+								if(isWithinLimits(nippleSizeIncrement, target.getNippleCrotchSize().getValue(), limit)) {
+									sb.append(target.incrementNippleCrotchSize(nippleSizeIncrement));
+								} else if(isSetToLimit(nippleSizeIncrement, target.getNippleCrotchSize().getValue(), limit)) {
+									sb.append(target.incrementNippleCrotchSize(limit));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_RIBBED:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.RIBBED)) {
-									sb.append(target.addNippleCrotchOrificeModifier(OrificeModifier.RIBBED));
+								break;
+							case TF_MOD_SIZE_TERTIARY:
+								if(isWithinLimits(areolaeSizeIncrement, target.getAreolaeCrotchSize().getValue(), limit)) {
+									sb.append(target.incrementAreolaeCrotchSize(areolaeSizeIncrement));
+								} else if(isSetToLimit(areolaeSizeIncrement, target.getAreolaeCrotchSize().getValue(), limit)) {
+									sb.append(target.incrementAreolaeCrotchSize(limit));
 								}
-							} else {
-								if(target.hasNippleCrotchOrificeModifier(OrificeModifier.RIBBED)) {
-									sb.append(target.removeNippleCrotchOrificeModifier(OrificeModifier.RIBBED));
+								break;
+							case TF_MOD_CAPACITY:
+								if(isWithinLimits(capacityIncrement, target.getNippleCrotchRawCapacityValue(), limit)) {
+									sb.append(target.incrementNippleCrotchCapacity(capacityIncrement, true));
+								} else if(isSetToLimit(capacityIncrement, target.getNippleCrotchRawCapacityValue(), limit)) {
+									sb.append(target.setNippleCrotchCapacity(limit, true));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_MUSCLED:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
-									sb.append(target.addNippleCrotchOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								break;
+							case TF_MOD_ELASTICITY:
+								if(isWithinLimits(elasticityIncrement, target.getNippleCrotchElasticity().getValue(), limit)) {
+									sb.append(target.incrementNippleCrotchElasticity(elasticityIncrement));
+								} else if(isSetToLimit(elasticityIncrement, target.getNippleCrotchElasticity().getValue(), limit)) {
+									sb.append(target.setNippleCrotchElasticity(limit));
 								}
-							} else {
-								if(target.hasNippleCrotchOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
-									sb.append(target.removeNippleCrotchOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								break;
+							case TF_MOD_PLASTICITY:
+								if(isWithinLimits(plasticityIncrement, target.getNippleCrotchPlasticity().getValue(), limit)) {
+									sb.append(target.incrementNippleCrotchPlasticity(plasticityIncrement));
+								} else if(isSetToLimit(plasticityIncrement, target.getNippleCrotchPlasticity().getValue(), limit)) {
+									sb.append(target.setNippleCrotchPlasticity(limit));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_TENTACLED:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.TENTACLED)) {
-									sb.append(target.addNippleCrotchOrificeModifier(OrificeModifier.TENTACLED));
+								break;
+							case TF_MOD_WETNESS:
+								if(isWithinLimits(lactationIncrement, target.getBreastCrotchRawMilkStorageValue(), limit)) {
+									sb.append(target.incrementBreastCrotchMilkStorage(lactationIncrement));
+								} else if(isSetToLimit(lactationIncrement, target.getBreastCrotchRawMilkStorageValue(), limit)) {
+									sb.append(target.setBreastCrotchMilkStorage(limit));
 								}
-							} else {
-								if(target.hasNippleCrotchOrificeModifier(OrificeModifier.TENTACLED)) {
-									sb.append(target.removeNippleCrotchOrificeModifier(OrificeModifier.TENTACLED));
+								break;
+							case TF_MOD_REGENERATION:
+								if(isWithinLimits(fluidRegenerationIncrement, target.getBreastCrotchRawLactationRegenerationValue(), limit)) {
+									sb.append(target.incrementBreastCrotchLactationRegeneration(fluidRegenerationIncrement));
+								} else if(isSetToLimit(fluidRegenerationIncrement, target.getBreastCrotchRawLactationRegenerationValue(), limit)) {
+									sb.append(target.setBreastCrotchLactationRegeneration(limit));
 								}
-							}
-							break;
-						default:
-							break;
+								break;
+							case TF_MOD_ORIFICE_PUFFY:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
+										sb.append(target.addNippleCrotchOrificeModifier(OrificeModifier.PUFFY));
+									}
+								} else {
+									if(target.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
+										sb.append(target.removeNippleCrotchOrificeModifier(OrificeModifier.PUFFY));
+									}
+								}
+								break;
+							case TF_MOD_ORIFICE_RIBBED:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.RIBBED)) {
+										sb.append(target.addNippleCrotchOrificeModifier(OrificeModifier.RIBBED));
+									}
+								} else {
+									if(target.hasNippleCrotchOrificeModifier(OrificeModifier.RIBBED)) {
+										sb.append(target.removeNippleCrotchOrificeModifier(OrificeModifier.RIBBED));
+									}
+								}
+								break;
+							case TF_MOD_ORIFICE_MUSCLED:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+										sb.append(target.addNippleCrotchOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+									}
+								} else {
+									if(target.hasNippleCrotchOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+										sb.append(target.removeNippleCrotchOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+									}
+								}
+								break;
+							case TF_MOD_ORIFICE_TENTACLED:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.TENTACLED)) {
+										sb.append(target.addNippleCrotchOrificeModifier(OrificeModifier.TENTACLED));
+									}
+								} else {
+									if(target.hasNippleCrotchOrificeModifier(OrificeModifier.TENTACLED)) {
+										sb.append(target.removeNippleCrotchOrificeModifier(OrificeModifier.TENTACLED));
+									}
+								}
+								break;
+							default:
+								break;
+						}
 					}
 					break;
 				case TF_CORE:
@@ -1135,266 +1137,270 @@ public abstract class AbstractItemEffectType {
 					}
 					break;
 				case TF_PENIS:
-					switch(secondaryModifier) {
-						case TF_MOD_SIZE:
-							if(isWithinLimits(penisSizeIncrement, target.getPenisRawSizeValue(), limit)) {
-								sb.append(target.incrementPenisSize(penisSizeIncrement));
-							} else if(isSetToLimit(penisSizeIncrement, target.getPenisRawSizeValue(), limit)) {
-								sb.append(target.setPenisSize(limit));
-							}
-							break;
-						case TF_MOD_SIZE_SECONDARY:
-							if(isWithinLimits(testicleSizeIncrement, target.getTesticleSize().getValue(), limit)) {
-								sb.append(target.incrementTesticleSize(testicleSizeIncrement));
-							} else if(isSetToLimit(testicleSizeIncrement, target.getTesticleSize().getValue(), limit)) {
-								sb.append(target.setTesticleSize(limit));
-							}
-							break;
-						case TF_MOD_CAPACITY:
-							if(isWithinLimits(capacityIncrement, target.getPenisRawCapacityValue(), limit)) {
-								sb.append(target.incrementPenisCapacity(capacityIncrement, true));
-							} else if(isSetToLimit(capacityIncrement, target.getPenisRawCapacityValue(), limit)) {
-								sb.append(target.setPenisCapacity(limit, true));
-							}
-							break;
-						case TF_MOD_ELASTICITY:
-							if(isWithinLimits(elasticityIncrement, target.getUrethraElasticity().getValue(), limit)) {
-								sb.append(target.incrementUrethraElasticity(elasticityIncrement));
-							} else if(isSetToLimit(elasticityIncrement, target.getUrethraElasticity().getValue(), limit)) {
-								sb.append(target.setUrethraElasticity(limit));
-							}
-							break;
-						case TF_MOD_PLASTICITY:
-							if(isWithinLimits(plasticityIncrement, target.getUrethraPlasticity().getValue(), limit)) {
-								sb.append(target.incrementUrethraPlasticity(plasticityIncrement));
-							} else if(isSetToLimit(plasticityIncrement, target.getUrethraPlasticity().getValue(), limit)) {
-								sb.append(target.setUrethraPlasticity(limit));
-							}
-							break;
-						case TF_MOD_WETNESS:
-							if(isWithinLimits(cumStorageIncrement, target.getPenisRawCumStorageValue(), limit)) {
-								sb.append(target.incrementPenisCumStorage(cumStorageIncrement));
-							} else if(isSetToLimit(cumStorageIncrement, target.getPenisRawCumStorageValue(), limit)) {
-								sb.append(target.setPenisCumStorage(limit));
-							}
-							break;
-						case TF_MOD_REGENERATION:
-							if(isWithinLimits(fluidRegenerationIncrement, target.getPenisRawCumProductionRegenerationValue(), limit)) {
-								sb.append(target.incrementPenisCumProductionRegeneration(fluidRegenerationIncrement));
-							} else if(isSetToLimit(fluidRegenerationIncrement, target.getPenisRawCumProductionRegenerationValue(), limit)) {
-								sb.append(target.setPenisCumProductionRegeneration(limit));
-							}
-							break;
-						case TF_MOD_CUM_EXPULSION:
-							if(isWithinLimits(cumExpulsionIncrement, target.getPenisRawCumExpulsionValue(), limit)) {
-								sb.append(target.incrementPenisCumExpulsion(cumExpulsionIncrement));
-							} else if(isSetToLimit(cumExpulsionIncrement, target.getPenisRawCumExpulsionValue(), limit)) {
-								sb.append(target.setPenisCumExpulsion(limit));
-							}
-							break;
-						case TF_MOD_ORIFICE_PUFFY:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasUrethraOrificeModifier(OrificeModifier.PUFFY)) {
-									sb.append(target.addUrethraOrificeModifier(OrificeModifier.PUFFY));
+					if(target.hasPenis()) {
+						switch(secondaryModifier) {
+							case TF_MOD_SIZE:
+								if(isWithinLimits(penisSizeIncrement, target.getPenisRawSizeValue(), limit)) {
+									sb.append(target.incrementPenisSize(penisSizeIncrement));
+								} else if(isSetToLimit(penisSizeIncrement, target.getPenisRawSizeValue(), limit)) {
+									sb.append(target.setPenisSize(limit));
 								}
-							} else {
-								if(target.hasUrethraOrificeModifier(OrificeModifier.PUFFY)) {
-									sb.append(target.removeUrethraOrificeModifier(OrificeModifier.PUFFY));
+								break;
+							case TF_MOD_SIZE_SECONDARY:
+								if(isWithinLimits(testicleSizeIncrement, target.getTesticleSize().getValue(), limit)) {
+									sb.append(target.incrementTesticleSize(testicleSizeIncrement));
+								} else if(isSetToLimit(testicleSizeIncrement, target.getTesticleSize().getValue(), limit)) {
+									sb.append(target.setTesticleSize(limit));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_RIBBED:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasUrethraOrificeModifier(OrificeModifier.RIBBED)) {
-									sb.append(target.addUrethraOrificeModifier(OrificeModifier.RIBBED));
+								break;
+							case TF_MOD_CAPACITY:
+								if(isWithinLimits(capacityIncrement, target.getPenisRawCapacityValue(), limit)) {
+									sb.append(target.incrementPenisCapacity(capacityIncrement, true));
+								} else if(isSetToLimit(capacityIncrement, target.getPenisRawCapacityValue(), limit)) {
+									sb.append(target.setPenisCapacity(limit, true));
 								}
-							} else {
-								if(target.hasUrethraOrificeModifier(OrificeModifier.RIBBED)) {
-									sb.append(target.removeUrethraOrificeModifier(OrificeModifier.RIBBED));
+								break;
+							case TF_MOD_ELASTICITY:
+								if(isWithinLimits(elasticityIncrement, target.getUrethraElasticity().getValue(), limit)) {
+									sb.append(target.incrementUrethraElasticity(elasticityIncrement));
+								} else if(isSetToLimit(elasticityIncrement, target.getUrethraElasticity().getValue(), limit)) {
+									sb.append(target.setUrethraElasticity(limit));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_MUSCLED:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
-									sb.append(target.addUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								break;
+							case TF_MOD_PLASTICITY:
+								if(isWithinLimits(plasticityIncrement, target.getUrethraPlasticity().getValue(), limit)) {
+									sb.append(target.incrementUrethraPlasticity(plasticityIncrement));
+								} else if(isSetToLimit(plasticityIncrement, target.getUrethraPlasticity().getValue(), limit)) {
+									sb.append(target.setUrethraPlasticity(limit));
 								}
-							} else {
-								if(target.hasUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
-									sb.append(target.removeUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								break;
+							case TF_MOD_WETNESS:
+								if(isWithinLimits(cumStorageIncrement, target.getPenisRawCumStorageValue(), limit)) {
+									sb.append(target.incrementPenisCumStorage(cumStorageIncrement));
+								} else if(isSetToLimit(cumStorageIncrement, target.getPenisRawCumStorageValue(), limit)) {
+									sb.append(target.setPenisCumStorage(limit));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_TENTACLED:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
-									sb.append(target.addUrethraOrificeModifier(OrificeModifier.TENTACLED));
+								break;
+							case TF_MOD_REGENERATION:
+								if(isWithinLimits(fluidRegenerationIncrement, target.getPenisRawCumProductionRegenerationValue(), limit)) {
+									sb.append(target.incrementPenisCumProductionRegeneration(fluidRegenerationIncrement));
+								} else if(isSetToLimit(fluidRegenerationIncrement, target.getPenisRawCumProductionRegenerationValue(), limit)) {
+									sb.append(target.setPenisCumProductionRegeneration(limit));
 								}
-							} else {
-								if(target.hasUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
-									sb.append(target.removeUrethraOrificeModifier(OrificeModifier.TENTACLED));
+								break;
+							case TF_MOD_CUM_EXPULSION:
+								if(isWithinLimits(cumExpulsionIncrement, target.getPenisRawCumExpulsionValue(), limit)) {
+									sb.append(target.incrementPenisCumExpulsion(cumExpulsionIncrement));
+								} else if(isSetToLimit(cumExpulsionIncrement, target.getPenisRawCumExpulsionValue(), limit)) {
+									sb.append(target.setPenisCumExpulsion(limit));
 								}
-							}
-							break;
-						default:
-							break;
+								break;
+							case TF_MOD_ORIFICE_PUFFY:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasUrethraOrificeModifier(OrificeModifier.PUFFY)) {
+										sb.append(target.addUrethraOrificeModifier(OrificeModifier.PUFFY));
+									}
+								} else {
+									if(target.hasUrethraOrificeModifier(OrificeModifier.PUFFY)) {
+										sb.append(target.removeUrethraOrificeModifier(OrificeModifier.PUFFY));
+									}
+								}
+								break;
+							case TF_MOD_ORIFICE_RIBBED:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasUrethraOrificeModifier(OrificeModifier.RIBBED)) {
+										sb.append(target.addUrethraOrificeModifier(OrificeModifier.RIBBED));
+									}
+								} else {
+									if(target.hasUrethraOrificeModifier(OrificeModifier.RIBBED)) {
+										sb.append(target.removeUrethraOrificeModifier(OrificeModifier.RIBBED));
+									}
+								}
+								break;
+							case TF_MOD_ORIFICE_MUSCLED:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+										sb.append(target.addUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+									}
+								} else {
+									if(target.hasUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+										sb.append(target.removeUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+									}
+								}
+								break;
+							case TF_MOD_ORIFICE_TENTACLED:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
+										sb.append(target.addUrethraOrificeModifier(OrificeModifier.TENTACLED));
+									}
+								} else {
+									if(target.hasUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
+										sb.append(target.removeUrethraOrificeModifier(OrificeModifier.TENTACLED));
+									}
+								}
+								break;
+							default:
+								break;
+						}
 					}
 					break;
 				case TF_VAGINA:
-					switch(secondaryModifier) {
-						case TF_MOD_SIZE:
-							if(isWithinLimits(clitorisSizeIncrement, target.getVaginaRawClitorisSizeValue(), limit)) {
-								sb.append(target.incrementVaginaClitorisSize(clitorisSizeIncrement));
-							} else if(isSetToLimit(clitorisSizeIncrement, target.getVaginaRawClitorisSizeValue(), limit)) {
-								sb.append(target.setVaginaClitorisSize(limit));
-							}
-							break;
-						case TF_MOD_SIZE_SECONDARY:
-							if(isWithinLimits(labiaSizeIncrement, target.getVaginaRawLabiaSizeValue(), limit)) {
-								sb.append(target.incrementVaginaLabiaSize(labiaSizeIncrement));
-							} else if(isSetToLimit(labiaSizeIncrement, target.getVaginaRawLabiaSizeValue(), limit)) {
-								sb.append(target.setVaginaLabiaSize(limit));
-							}
-							break;
-						case TF_MOD_CAPACITY:
-							if(isWithinLimits(capacityIncrement, target.getVaginaRawCapacityValue(), limit)) {
-								sb.append(target.incrementVaginaCapacity(capacityIncrement, true));
-							} else if(isSetToLimit(capacityIncrement, target.getVaginaRawCapacityValue(), limit)) {
-								sb.append(target.setVaginaCapacity(limit, true));
-							}
-							break;
-						case TF_MOD_ELASTICITY:
-							if(isWithinLimits(elasticityIncrement, target.getVaginaElasticity().getValue(), limit)) {
-								sb.append(target.incrementVaginaElasticity(elasticityIncrement));
-							} else if(isSetToLimit(elasticityIncrement, target.getVaginaElasticity().getValue(), limit)) {
-								sb.append(target.setVaginaElasticity(limit));
-							}
-							break;
-						case TF_MOD_PLASTICITY:
-							if(isWithinLimits(plasticityIncrement, target.getVaginaPlasticity().getValue(), limit)) {
-								sb.append(target.incrementVaginaPlasticity(plasticityIncrement));
-							} else if(isSetToLimit(plasticityIncrement, target.getVaginaPlasticity().getValue(), limit)) {
-								sb.append(target.setVaginaPlasticity(limit));
-							}
-							break;
-						case TF_MOD_WETNESS:
-							if(isWithinLimits(wetnessIncrement, target.getVaginaWetness().getValue(), limit)) {
-								sb.append(target.incrementVaginaWetness(wetnessIncrement));
-							} else if(isSetToLimit(wetnessIncrement, target.getVaginaWetness().getValue(), limit)) {
-								sb.append(target.setVaginaWetness(limit));
-							}
-							break;
-						case TF_MOD_ORIFICE_PUFFY:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasVaginaOrificeModifier(OrificeModifier.PUFFY)) {
-									sb.append(target.addVaginaOrificeModifier(OrificeModifier.PUFFY));
+					if(target.hasVagina()) {
+						switch(secondaryModifier) {
+							case TF_MOD_SIZE:
+								if(isWithinLimits(clitorisSizeIncrement, target.getVaginaRawClitorisSizeValue(), limit)) {
+									sb.append(target.incrementVaginaClitorisSize(clitorisSizeIncrement));
+								} else if(isSetToLimit(clitorisSizeIncrement, target.getVaginaRawClitorisSizeValue(), limit)) {
+									sb.append(target.setVaginaClitorisSize(limit));
 								}
-							} else {
-								if(target.hasVaginaOrificeModifier(OrificeModifier.PUFFY)) {
-									sb.append(target.removeVaginaOrificeModifier(OrificeModifier.PUFFY));
+								break;
+							case TF_MOD_SIZE_SECONDARY:
+								if(isWithinLimits(labiaSizeIncrement, target.getVaginaRawLabiaSizeValue(), limit)) {
+									sb.append(target.incrementVaginaLabiaSize(labiaSizeIncrement));
+								} else if(isSetToLimit(labiaSizeIncrement, target.getVaginaRawLabiaSizeValue(), limit)) {
+									sb.append(target.setVaginaLabiaSize(limit));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_RIBBED:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasVaginaOrificeModifier(OrificeModifier.RIBBED)) {
-									sb.append(target.addVaginaOrificeModifier(OrificeModifier.RIBBED));
+								break;
+							case TF_MOD_CAPACITY:
+								if(isWithinLimits(capacityIncrement, target.getVaginaRawCapacityValue(), limit)) {
+									sb.append(target.incrementVaginaCapacity(capacityIncrement, true));
+								} else if(isSetToLimit(capacityIncrement, target.getVaginaRawCapacityValue(), limit)) {
+									sb.append(target.setVaginaCapacity(limit, true));
 								}
-							} else {
-								if(target.hasVaginaOrificeModifier(OrificeModifier.RIBBED)) {
-									sb.append(target.removeVaginaOrificeModifier(OrificeModifier.RIBBED));
+								break;
+							case TF_MOD_ELASTICITY:
+								if(isWithinLimits(elasticityIncrement, target.getVaginaElasticity().getValue(), limit)) {
+									sb.append(target.incrementVaginaElasticity(elasticityIncrement));
+								} else if(isSetToLimit(elasticityIncrement, target.getVaginaElasticity().getValue(), limit)) {
+									sb.append(target.setVaginaElasticity(limit));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_MUSCLED:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
-									sb.append(target.addVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								break;
+							case TF_MOD_PLASTICITY:
+								if(isWithinLimits(plasticityIncrement, target.getVaginaPlasticity().getValue(), limit)) {
+									sb.append(target.incrementVaginaPlasticity(plasticityIncrement));
+								} else if(isSetToLimit(plasticityIncrement, target.getVaginaPlasticity().getValue(), limit)) {
+									sb.append(target.setVaginaPlasticity(limit));
 								}
-							} else {
-								if(target.hasVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
-									sb.append(target.removeVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								break;
+							case TF_MOD_WETNESS:
+								if(isWithinLimits(wetnessIncrement, target.getVaginaWetness().getValue(), limit)) {
+									sb.append(target.incrementVaginaWetness(wetnessIncrement));
+								} else if(isSetToLimit(wetnessIncrement, target.getVaginaWetness().getValue(), limit)) {
+									sb.append(target.setVaginaWetness(limit));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_TENTACLED:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasVaginaOrificeModifier(OrificeModifier.TENTACLED)) {
-									sb.append(target.addVaginaOrificeModifier(OrificeModifier.TENTACLED));
+								break;
+							case TF_MOD_ORIFICE_PUFFY:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaOrificeModifier(OrificeModifier.PUFFY)) {
+										sb.append(target.addVaginaOrificeModifier(OrificeModifier.PUFFY));
+									}
+								} else {
+									if(target.hasVaginaOrificeModifier(OrificeModifier.PUFFY)) {
+										sb.append(target.removeVaginaOrificeModifier(OrificeModifier.PUFFY));
+									}
 								}
-							} else {
-								if(target.hasVaginaOrificeModifier(OrificeModifier.TENTACLED)) {
-									sb.append(target.removeVaginaOrificeModifier(OrificeModifier.TENTACLED));
+								break;
+							case TF_MOD_ORIFICE_RIBBED:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaOrificeModifier(OrificeModifier.RIBBED)) {
+										sb.append(target.addVaginaOrificeModifier(OrificeModifier.RIBBED));
+									}
+								} else {
+									if(target.hasVaginaOrificeModifier(OrificeModifier.RIBBED)) {
+										sb.append(target.removeVaginaOrificeModifier(OrificeModifier.RIBBED));
+									}
 								}
-							}
-							break;
-						case TF_MOD_CAPACITY_2:
-							if(isWithinLimits(capacityIncrement, target.getVaginaUrethraRawCapacityValue(), limit)) {
-								sb.append(target.incrementVaginaUrethraCapacity(capacityIncrement, true));
-							} else if(isSetToLimit(capacityIncrement, target.getVaginaUrethraRawCapacityValue(), limit)) {
-								sb.append(target.setVaginaUrethraCapacity(limit, true));
-							}
-							break;
-						case TF_MOD_ELASTICITY_2:
-							if(isWithinLimits(elasticityIncrement, target.getVaginaUrethraElasticity().getValue(), limit)) {
-								sb.append(target.incrementVaginaUrethraElasticity(elasticityIncrement));
-							} else if(isSetToLimit(elasticityIncrement, target.getVaginaUrethraElasticity().getValue(), limit)) {
-								sb.append(target.setVaginaUrethraElasticity(limit));
-							}
-							break;
-						case TF_MOD_PLASTICITY_2:
-							if(isWithinLimits(plasticityIncrement, target.getVaginaUrethraPlasticity().getValue(), limit)) {
-								sb.append(target.incrementVaginaUrethraPlasticity(plasticityIncrement));
-							} else if(isSetToLimit(plasticityIncrement, target.getVaginaUrethraPlasticity().getValue(), limit)) {
-								sb.append(target.setVaginaUrethraPlasticity(limit));
-							}
-							break;
-						case TF_MOD_ORIFICE_PUFFY_2:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.PUFFY)) {
-									sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.PUFFY));
+								break;
+							case TF_MOD_ORIFICE_MUSCLED:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+										sb.append(target.addVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+									}
+								} else {
+									if(target.hasVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+										sb.append(target.removeVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+									}
 								}
-							} else {
-								if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.PUFFY)) {
-									sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.PUFFY));
+								break;
+							case TF_MOD_ORIFICE_TENTACLED:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaOrificeModifier(OrificeModifier.TENTACLED)) {
+										sb.append(target.addVaginaOrificeModifier(OrificeModifier.TENTACLED));
+									}
+								} else {
+									if(target.hasVaginaOrificeModifier(OrificeModifier.TENTACLED)) {
+										sb.append(target.removeVaginaOrificeModifier(OrificeModifier.TENTACLED));
+									}
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_RIBBED_2:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.RIBBED)) {
-									sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.RIBBED));
+								break;
+							case TF_MOD_CAPACITY_2:
+								if(isWithinLimits(capacityIncrement, target.getVaginaUrethraRawCapacityValue(), limit)) {
+									sb.append(target.incrementVaginaUrethraCapacity(capacityIncrement, true));
+								} else if(isSetToLimit(capacityIncrement, target.getVaginaUrethraRawCapacityValue(), limit)) {
+									sb.append(target.setVaginaUrethraCapacity(limit, true));
 								}
-							} else {
-								if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.RIBBED)) {
-									sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.RIBBED));
+								break;
+							case TF_MOD_ELASTICITY_2:
+								if(isWithinLimits(elasticityIncrement, target.getVaginaUrethraElasticity().getValue(), limit)) {
+									sb.append(target.incrementVaginaUrethraElasticity(elasticityIncrement));
+								} else if(isSetToLimit(elasticityIncrement, target.getVaginaUrethraElasticity().getValue(), limit)) {
+									sb.append(target.setVaginaUrethraElasticity(limit));
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_MUSCLED_2:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
-									sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								break;
+							case TF_MOD_PLASTICITY_2:
+								if(isWithinLimits(plasticityIncrement, target.getVaginaUrethraPlasticity().getValue(), limit)) {
+									sb.append(target.incrementVaginaUrethraPlasticity(plasticityIncrement));
+								} else if(isSetToLimit(plasticityIncrement, target.getVaginaUrethraPlasticity().getValue(), limit)) {
+									sb.append(target.setVaginaUrethraPlasticity(limit));
 								}
-							} else {
-								if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
-									sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								break;
+							case TF_MOD_ORIFICE_PUFFY_2:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.PUFFY)) {
+										sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.PUFFY));
+									}
+								} else {
+									if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.PUFFY)) {
+										sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.PUFFY));
+									}
 								}
-							}
-							break;
-						case TF_MOD_ORIFICE_TENTACLED_2:
-							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
-								if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
-									sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED));
+								break;
+							case TF_MOD_ORIFICE_RIBBED_2:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.RIBBED)) {
+										sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.RIBBED));
+									}
+								} else {
+									if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.RIBBED)) {
+										sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.RIBBED));
+									}
 								}
-							} else {
-								if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
-									sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED));
+								break;
+							case TF_MOD_ORIFICE_MUSCLED_2:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+										sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+									}
+								} else {
+									if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+										sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+									}
 								}
-							}
-							break;
-						default:
-							break;
+								break;
+							case TF_MOD_ORIFICE_TENTACLED_2:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
+										sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED));
+									}
+								} else {
+									if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
+										sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED));
+									}
+								}
+								break;
+							default:
+								break;
+						}
 					}
 					break;
 				default:

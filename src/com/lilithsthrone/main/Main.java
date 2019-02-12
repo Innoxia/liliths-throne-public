@@ -68,7 +68,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.3.0.7";
+	public static final String VERSION_NUMBER = "0.3.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**

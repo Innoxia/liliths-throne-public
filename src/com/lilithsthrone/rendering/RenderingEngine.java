@@ -980,7 +980,7 @@ public enum RenderingEngine {
 								+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()
 							+ "</div>"
 							+ (Main.getProperties().hasValue(PropertyValue.calendarDisplay)
-								? Main.game.getDisplayDate()
+								? Main.game.getDisplayDate(false)
 								:"Day "+Main.game.getDayNumber())
 						+ "</div>"	
 					+"</div>"
