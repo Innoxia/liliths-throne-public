@@ -123,13 +123,16 @@
 	
 	Patch notes:
 	
-	
+	Contributors:
+		Localised all units in the game, and added toggles for 12/24 hour clock and imperial/metric measurements in the options menu. (PR#931 by DJ Addi)
 	
 	
 	
 	credits
 	
 	PR#931
+	
+	stop sex is appearing after switching positions
 	
 	meraxis gives birth to half-succubi
 	

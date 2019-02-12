@@ -66,7 +66,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.69.9
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum ParserTarget {
@@ -80,6 +80,16 @@ public enum ParserTarget {
 					return Main.game.getPlayer();
 				}
 			},
+
+	UNIT(Util.newArrayListOfValues(
+			"unit",
+			"game"),
+			"Returns the same as 'pc', but should be used for unit methods such as unit.size.") {
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getPlayer();
+		}
+	},
 	
 	PC(Util.newArrayListOfValues(
 			"pc",
