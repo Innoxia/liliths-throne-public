@@ -1329,17 +1329,18 @@ public class MainController implements Initializable {
 		id = "TWENTY_FOUR_HOUR_TIME_TOGGLE";
 		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-				Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
-				Main.saveProperties();
+			    if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
+			    	// Disable auto locale as it would prevent the override
+			        Main.getProperties().setValue(PropertyValue.autoLocale, false);
+                }
+				toggleTimeFormat();
 				MainController.updateUI();
 			}, false);
 			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Time Display",
-					"Toggle the display of time between a 24 and 12-hour clock.<br/>"
-					+ "<i>The time is currently " + Units.date(Main.game.getDateNow())
-					+"</i>");
+					"Toggle the time format between 24 hour and 12 hour (AM/PM) display.");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
@@ -1569,7 +1570,13 @@ public class MainController implements Initializable {
 		}
 		
 	}
-	
+
+	public static void toggleTimeFormat() {
+		Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
+		Main.saveProperties();
+		Units.FORMATTER.updateTimeFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
+	}
+
 	private static void setStatusEffectSexTargetChangeListener(Document document, String id, GameCharacter character, SexAreaInterface si) {
 		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 			GameCharacter target = Sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()
