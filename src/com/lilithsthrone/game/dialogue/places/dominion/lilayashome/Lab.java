@@ -3040,9 +3040,9 @@ public class Lab {
 				} else {
 					UtilText.nodeContentSB.append(
 							" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
-									+offspring.getSubspecies().getSingularFemaleName(offspring)
+									+offspring.getSubspecies().getSingularMaleName(offspring)
 								+" crawling out."
-							+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
+							+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
 				}
 				
 			} catch(Exception ex) {
