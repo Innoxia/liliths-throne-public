@@ -4,6 +4,7 @@ import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
+import com.lilithsthrone.utils.Units;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -212,7 +213,7 @@ public class NPCOffspring extends NPC {
 								: getMatingDescription(getFather(), getMother(), "fathered")
 						)+"."
 						+ getRelationshipFromPlayer()
-						+ " [npc.She] was conceived on "+Util.getStringOfLocalDateTime(this.getConceptionDate())+", and "
+						+ " [npc.She] was conceived on "+Units.date(this.getConceptionDate(), Units.DateType.LONG)+", and "
 						+(daysToBirth==0
 							?"later that same day"
 							:daysToBirth>1?Util.intToString(daysToBirth)+" days later":Util.intToString(daysToBirth)+" day later")

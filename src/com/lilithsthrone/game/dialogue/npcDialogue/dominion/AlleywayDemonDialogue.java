@@ -945,7 +945,7 @@ public class AlleywayDemonDialogue {
 				
 			} else if (index == 2) {
 				return new Response("Tiny cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have a tiny little 1-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have a tiny little [unit.size(3)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -956,7 +956,7 @@ public class AlleywayDemonDialogue {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.ONE_THIN);
-						Main.game.getActiveNPC().setPenisSize(1);
+						Main.game.getActiveNPC().setPenisSize(PenisSize.ZERO_MICROSCOPIC.getMedianValue());
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.ONE_TRICKLE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.ONE_TRICKLE.getMaximumValue());
@@ -966,7 +966,7 @@ public class AlleywayDemonDialogue {
 				
 			} else if (index == 3) {
 				return new Response("Average-sized cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have an average, 6-inch, cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have an average, [unit.size(15)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -977,7 +977,7 @@ public class AlleywayDemonDialogue {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.TWO_AVERAGE);
-						Main.game.getActiveNPC().setPenisSize(6);
+						Main.game.getActiveNPC().setPenisSize(PenisSize.TWO_AVERAGE.getMedianValue());
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.THREE_AVERAGE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.THREE_AVERAGE.getMaximumValue());
@@ -987,7 +987,7 @@ public class AlleywayDemonDialogue {
 				
 			} if (index == 4) {
 				return new Response("Large cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have a large, 11-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have a large, [unit.size(30)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -998,7 +998,7 @@ public class AlleywayDemonDialogue {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.THREE_THICK);
-						Main.game.getActiveNPC().setPenisSize(11);
+						Main.game.getActiveNPC().setPenisSize(PenisSize.THREE_LARGE.getMaximumValue());
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
@@ -1008,7 +1008,7 @@ public class AlleywayDemonDialogue {
 				
 			} if (index == 5) {
 				return new Response("Enormous cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have a massive 19-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have a massive [unit.size(50)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
