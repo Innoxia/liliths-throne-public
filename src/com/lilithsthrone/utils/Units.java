@@ -22,7 +22,7 @@ import java.util.Locale;
  *
  * @since 0.2.11
  * @version 0.2.11
- * @author Addi
+ * @author Addi, ChillaChris
  */
 public enum Units {
     FORMATTER;
@@ -221,43 +221,40 @@ public enum Units {
     /**
      * Shortcut for {@link Units#size(double, ValueType, UnitType)} with numeric value and short unit.
      */
-    public static String size(double cm) {
-        return size(cm, ValueType.NUMERIC, UnitType.SHORT);
+    public static String size(double in) {
+        return size(in, ValueType.NUMERIC, UnitType.SHORT);
     }
 
     /**
      * Shortcut for {@link Units#size(double, ValueType, UnitType)} with numeric value.
      */
-    public static String size(double cm, UnitType uType) {
-        return size(cm, ValueType.NUMERIC, uType);
+    public static String size(double in, UnitType uType) {
+        return size(in, ValueType.NUMERIC, uType);
     }
 
     /**
      * Formats a size, given in centimetres, with the current number formatter and units depending on the imperial unit
      * setting as well as the given type.
-     * @param cm Amount of centimetres to convert
+     * @param in Amount of inches to convert
      * @param vType The format of the value, see {@link ValueType}
      * @param uType The format of the units, see {@link UnitType}
      * @return A string containing the localized, wrapped, converted size and its associated unit
      */
-    public static String size(double cm, ValueType vType, UnitType uType) {
+    public static String size(double in, ValueType vType, UnitType uType) {
         if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
-            return sizeAsImperial(cm, vType, uType);
+            return sizeAsImperial(in, vType, uType);
         else
-            return sizeAsMetric(cm, vType, uType);
+            return sizeAsMetric(in, vType, uType);
     }
 
     /**
      * Converts a size, given in centimetres, to the imperial form.
-     * @param cm Amount of centimetres to format
+     * @param inches Amount of inches to format
      * @param vType The format of the value, see {@link ValueType}
      * @param uType The format of the units, see {@link UnitType}
      * @return A string containing the imperial, formatted size, including unit
      */
-    public static String sizeAsImperial(double cm, ValueType vType, UnitType uType) {
-        // Convert centimetres to inches
-        double inches = cm / 2.54;
-
+    public static String sizeAsImperial(double inches, ValueType vType, UnitType uType) {
         // Wrap inches to feet
         long feet = (long) (inches / 12);
         double remainingInches = inches % 12;
@@ -323,13 +320,14 @@ public enum Units {
 
     /**
      * Formats a size, given in centimetres, to the metric form.
-     * @param cm Amount of centimetres to convert
+     * @param in Amount of inches to convert
      * @param vType The format of the value, see {@link ValueType}
      * @param uType The format of the units, see {@link UnitType}
      * @return A string containing the metric, formatted size, including unit
      */
-    public static String sizeAsMetric(double cm, ValueType vType, UnitType uType) {
-        double m = cm / 100;
+    public static String sizeAsMetric(double in, ValueType vType, UnitType uType) {
+        double cm = in * 2.54;
+    	double m = cm / 100;
         return valueWithUnit(cm, "cm", "centimetre", m, "m", "metre", vType, uType, false);
     }
 
