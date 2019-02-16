@@ -81,7 +81,7 @@ public class RacialBody {
 			LegType.HUMAN, LegConfiguration.BIPEDAL,
 			SkinType.HUMAN,
 			BodyMaterial.FLESH, HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.HUMAN, 6,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.HUMAN, 15,
 			PenisGirth.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, 2,
 			CumProduction.THREE_AVERAGE, Util.newArrayListOfValues(TailType.NONE), TentacleType.NONE,
 			VaginaType.HUMAN,
@@ -114,7 +114,7 @@ public class RacialBody {
 			SkinType.ANGEL,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.ANGEL, 5,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.ANGEL, 13,
 			PenisGirth.TWO_AVERAGE, TesticleSize.FOUR_HUGE, 2,
 			CumProduction.SEVEN_MONSTROUS, Util.newArrayListOfValues(TailType.NONE), TentacleType.NONE,
 			VaginaType.ANGEL,
@@ -162,7 +162,7 @@ public class RacialBody {
 			SkinType.DEMON_COMMON,
 			BodyMaterial.FLESH,
 			HornLength.ONE_SMALL, HornLength.TWO_LONG,
-			Util.newArrayListOfValues(HornType.CURLED, HornType.SPIRAL, HornType.SWEPT_BACK, HornType.CURVED, HornType.STRAIGHT), PenisType.DEMON_COMMON, 10,
+			Util.newArrayListOfValues(HornType.CURLED, HornType.SPIRAL, HornType.SWEPT_BACK, HornType.CURVED, HornType.STRAIGHT), PenisType.DEMON_COMMON, 25,
 			PenisGirth.THREE_THICK, TesticleSize.FOUR_HUGE, 4,
 			CumProduction.SIX_EXTREME,
 			Util.newArrayListOfValues(TailType.DEMON_COMMON, TailType.DEMON_HAIR_TIP, TailType.DEMON_HORSE), 
@@ -212,7 +212,7 @@ public class RacialBody {
 			SkinType.COW_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.TWO_LONG, HornLength.ONE_SMALL,
-			Util.newArrayListOfValues(HornType.BOVINE_CURVED, HornType.BOVINE_STRAIGHT), PenisType.BOVINE, 7,
+			Util.newArrayListOfValues(HornType.BOVINE_CURVED, HornType.BOVINE_STRAIGHT), PenisType.BOVINE, 18,
 			PenisGirth.THREE_THICK, TesticleSize.THREE_LARGE, 2,
 			CumProduction.FOUR_LARGE, Util.newArrayListOfValues(TailType.COW_MORPH), TentacleType.NONE,
 			VaginaType.COW_MORPH,
@@ -245,7 +245,7 @@ public class RacialBody {
 			SkinType.DOG_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.CANINE, 6,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.CANINE, 15,
 			PenisGirth.TWO_AVERAGE, TesticleSize.THREE_LARGE, 2,
 			CumProduction.FOUR_LARGE, Util.newArrayListOfValues(TailType.DOG_MORPH), TentacleType.NONE,
 			VaginaType.DOG_MORPH,
@@ -288,7 +288,7 @@ public class RacialBody {
 			SkinType.FOX_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.VULPINE, 6,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.VULPINE, 15,
 			PenisGirth.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, 2,
 			CumProduction.FOUR_LARGE, Util.newArrayListOfValues(TailType.FOX_MORPH), TentacleType.NONE,
 			VaginaType.FOX_MORPH,
@@ -321,7 +321,7 @@ public class RacialBody {
 			SkinType.LYCAN,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.LUPINE, 7,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.LUPINE, 18,
 			PenisGirth.THREE_THICK, TesticleSize.THREE_LARGE, 2,
 			CumProduction.FIVE_HUGE, Util.newArrayListOfValues(TailType.LYCAN), TentacleType.NONE,
 			VaginaType.WOLF_MORPH,
@@ -354,7 +354,7 @@ public class RacialBody {
 			SkinType.CAT_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.FELINE, 5,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.FELINE, 13,
 			PenisGirth.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, 2,
 			CumProduction.THREE_AVERAGE, Util.newArrayListOfValues(TailType.CAT_MORPH), TentacleType.NONE,
 			VaginaType.CAT_MORPH,
@@ -388,7 +388,7 @@ public class RacialBody {
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
 			Util.newArrayListOfValues(HornType.NONE, HornType.HORSE_STRAIGHT),
-			PenisType.EQUINE, 9, PenisGirth.FOUR_FAT, TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
+			PenisType.EQUINE, 23, PenisGirth.FOUR_FAT, TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
 			Util.newArrayListOfValues(TailType.HORSE_MORPH),
 			TentacleType.NONE,
 			VaginaType.HORSE_MORPH,
@@ -420,7 +420,7 @@ public class RacialBody {
 			SkinType.REINDEER_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.THREE_HUGE, HornLength.TWO_LONG,
-			Util.newArrayListOfValues(HornType.REINDEER_RACK), PenisType.REINDEER_MORPH, 8,
+			Util.newArrayListOfValues(HornType.REINDEER_RACK), PenisType.REINDEER_MORPH, 20,
 			PenisGirth.THREE_THICK, TesticleSize.THREE_LARGE, 2,
 			CumProduction.THREE_AVERAGE, Util.newArrayListOfValues(TailType.REINDEER_MORPH), TentacleType.NONE,
 			VaginaType.REINDEER_MORPH,
@@ -452,7 +452,7 @@ public class RacialBody {
 		    SkinType.ALLIGATOR_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-		    Util.newArrayListOfValues(HornType.NONE), PenisType.ALLIGATOR_MORPH, 7,
+		    Util.newArrayListOfValues(HornType.NONE), PenisType.ALLIGATOR_MORPH, 18,
 		    PenisGirth.THREE_THICK, TesticleSize.FOUR_HUGE, 2,
 		    CumProduction.FIVE_HUGE, Util.newArrayListOfValues(TailType.ALLIGATOR_MORPH), TentacleType.NONE,
 			VaginaType.ALLIGATOR_MORPH,
@@ -489,7 +489,7 @@ public class RacialBody {
 			SkinType.SQUIRREL_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.SQUIRREL, 8,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.SQUIRREL, 20,
 			PenisGirth.THREE_THICK, TesticleSize.THREE_LARGE, 2,
 			CumProduction.THREE_AVERAGE, Util.newArrayListOfValues(TailType.SQUIRREL_MORPH), TentacleType.NONE,
 			VaginaType.SQUIRREL_MORPH,
@@ -521,7 +521,7 @@ public class RacialBody {
 			SkinType.RAT_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.RAT_MORPH, 6,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.RAT_MORPH, 15,
 			PenisGirth.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, 2,
 			CumProduction.THREE_AVERAGE, Util.newArrayListOfValues(TailType.RAT_MORPH), TentacleType.NONE,
 			VaginaType.RAT_MORPH,
@@ -563,7 +563,7 @@ public class RacialBody {
 			SkinType.RABBIT_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.RABBIT_MORPH, 7,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.RABBIT_MORPH, 18,
 			PenisGirth.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, 2,
 			CumProduction.THREE_AVERAGE, Util.newArrayListOfValues(TailType.RABBIT_MORPH), TentacleType.NONE,
 			VaginaType.RABBIT_MORPH,
@@ -595,7 +595,7 @@ public class RacialBody {
 			SkinType.BAT_MORPH,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.BAT_MORPH, 5,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.BAT_MORPH, 13,
 			PenisGirth.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, 2,
 			CumProduction.THREE_AVERAGE, Util.newArrayListOfValues(TailType.NONE), TentacleType.NONE,
 			VaginaType.BAT_MORPH,
@@ -637,7 +637,7 @@ public class RacialBody {
 			SkinType.HARPY,
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.AVIAN, 2,
+			Util.newArrayListOfValues(HornType.NONE), PenisType.AVIAN, 5,
 			PenisGirth.ONE_THIN, TesticleSize.ZERO_VESTIGIAL, 2,
 			CumProduction.ONE_TRICKLE, Util.newArrayListOfValues(TailType.HARPY), TentacleType.NONE,
 			VaginaType.HARPY,
@@ -645,22 +645,6 @@ public class RacialBody {
 			Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.CLOACA) {
-
-		@Override
-		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-			return Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
-		}
-		
-		@Override
-		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(95, 5, 0);
-		}
-	};
 	
 	public static AbstractRacialBody valueOfRace(Race race) {
 		switch (race) {
