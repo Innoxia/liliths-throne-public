@@ -1,12 +1,10 @@
 package com.lilithsthrone.rendering;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -58,6 +56,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
@@ -972,7 +971,7 @@ public enum RenderingEngine {
 		}
 
 		uiAttributeSB.append("</div>");
-		
+
 		uiAttributeSB.append(
 				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
 					+ "<div class='half-width-container' style='text-align:center; float:left; width:60%'>"
@@ -981,10 +980,7 @@ public enum RenderingEngine {
 								+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()
 							+ "</div>"
 							+ (Main.getProperties().hasValue(PropertyValue.calendarDisplay)
-								? Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
-									+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
-									+ " "
-									+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
+								? Main.game.getDisplayDate(false)
 								:"Day "+Main.game.getDayNumber())
 						+ "</div>"	
 					+"</div>"
@@ -1006,11 +1002,8 @@ public enum RenderingEngine {
 							+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
 					+ "</div>");
 		}
-		
-		uiAttributeSB.append((Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
-								?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH))
-								:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mma", Locale.ENGLISH)))
-							+"</div>"
+
+		uiAttributeSB.append(Units.time(Main.game.getDateNow()) + "</div>"
 					+ "</div>"
 				+ "</div>");
 		

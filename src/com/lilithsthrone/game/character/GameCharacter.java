@@ -27,8 +27,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
-
 import javafx.scene.SubScene;
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -160,10 +160,6 @@ import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.CachedImage;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
@@ -16757,7 +16753,7 @@ public abstract class GameCharacter implements XMLSaving {
 						? "<p class='center'>"
 							+ "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
 							+ "<br/>"
-							+ "You are now <b>" + getHeightValue() + "cm</b> tall."
+							+ "You are now <b>" + Units.size(getHeightValue(), Units.UnitType.LONG) + "</b> tall."
 						+ "</p>"
 						: UtilText.parse(this,
 							"<p class='center'>"
@@ -16771,7 +16767,7 @@ public abstract class GameCharacter implements XMLSaving {
 						? "<p class='center'>"
 							+ "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>become shorter</b>."
 							+ "<br/>"
-							+ "You are now <b>" + getHeightValue() + "cm</b> tall."
+							+ "You are now <b>" + Units.size(getHeightValue(), Units.UnitType.LONG) + "</b> tall."
 						+ "</p>"
 						: UtilText.parse(this,
 							"<p class='center'>"

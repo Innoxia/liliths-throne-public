@@ -123,36 +123,38 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		There is now a small chance for unidentified clothing to have a stronger sealing enchantment. (Chances for unidentified clothing are now: 50% it's a good item, 30% it's bad with a 5 essence removal cost, 12% bad with 25 cost, 6% bad with 100 cost, and 2% bad with 500 cost.)
-		When crotch-boobs are set to 'off' in the content settings, you will no longer see the crotch boob button in the self-TF menu, nor 'crotch-boob' or 'crotch-boob milk' TF modifiers in the enchantment menu when enchanting a food item.
-		Added 'remove' secondary modifier to crotch-boob transformation potions.
-		
-	Other:
-		Standardised the positioning of the 'stretched from' and 'stretched to' values in the 'recovering orifices' status effect tooltip. (They were being reversed in sex, which was a little confusing.)
-		
+	Contributors:
+		Localised all units in the game, and added toggles for 12/24 hour clock and imperial/metric measurements in the options menu. (PR#931 by DJ Addi)
+	
 	Bugs:
-		Fixed issue with the game's turn taking longer than usual when passing over midnight.
-		Fixed stretched orifices continuously expanding over time, instead of contracting.
-		Fixed the overview tab in the inventory not working.
-		Fixed issue where NPCs would never give birth.
-		Fixed the identify clothing action breaking inventory management.
-		Fixed incorrect fluid regeneration rate values (for milk and cum) being shown in your stats menu.
-		Fluids should now regenerate during sex (probably by a very small amount, considering it's only 10 seconds per sex action, unless you have boosted your regen).
-		Corrected some instances of 'kitsune' to 'youko', and changed the plural form from 'youkos' to 'youko'.
-		Fixed instances of youko's names not being displayed correctly (as they use their surname as a first name).
-		Fixed issue where random NPCs were spawning with jewellery for body slots they don't have pierced in their inventory.
-		You can now set your base desire for a fetish to 'love' even while you have that fetish.
-		Restored the 'black-with-black-stripes' colour for tiger-morphs (as a rare variation).
-		Fixed incorrect breast & crotch-boob type transformation descriptions.
-		Fixed being able to change a biped's crotch-boob type when you had that setting turned off.
-		Fixed bug where you sometimes couldn't teleport back to Lilaya's lab when she was pregnant as a full demon.
-		Fixed the 'Step outside' button not working when transforming Meraxis into a full demon.
-		Fixed NPCs using non-penis-related 'giving anal' options, even if they did not like the 'giving anal' fetish. (This was most noticeably resulting in NPCs suddenly fingering or tail-fucking your ass...)
-		Fixed Rose's sex preferences bugging out in her dominant scene (where she punished you in Lilaya's room).
-		Fixed issue where interacting with a friend in their apartment during an arcane storm would start spawning random NPCs on the tile, which you'd then start interacting with.
-		Lilaya should no longer lock out all of her options when starting a game with an imported demonic character. (Her dialogue will not react to you being a demon until after meeting Lyssieth.) 
-		Fixed a potential cause of clothing not being stocked in some shops. (Although I think this will still keep on happening - this bug is very hard to track down.)
+		If you lack the body part on which a clothing transformation is trying to be applied, the game's dialogue will no longer be interrupted with a 'you lack a X, so nothing happens' message.
+	
+	
+	
+	
+	
+	
+	1. Add world map travel system.
+	    - Keyboard movement.
+	    - Mouse click path movement.
+	2. Add unique dialogue for offspring moving in to live with you.
+	    - Initial encounter scene variation.
+	    - Moving in variation.
+	    - Unique talk scenes.
+	    - Their apartment scenes.
+	3. Add orgasm denial scenes.
+	    - Add NPC behaviour for denial.
+	    - Add sex action(s).
+	    - Add variations for if chastity belt/cage is being worn.
+	4. Add a centaur field exploration encounter. (Will be cut if I run out of time.)
+	    - Tidy up encounter code.
+	    - Enable movement over field tiles.
+	    - Add dialogue framework.
+	    - Write dialogue.
+	    - Test.
+	5. Fix bugs and polish.
+
+	credits
 	
 	
 	
@@ -160,13 +162,41 @@
 	
 	
 	
-	PR#931
+	stop sex is appearing after switching positions
 	
+	meraxis gives birth to half-succubi
 	
+	It was the doggy-style position, I was on all fours and he was kneeling behind me... giving me a footjob.
+	
+	taur force cum inside checks for non-taurs in their positions
+	
+	Lipstick essentially it is purely cosmetic in general but if you have lipstick on your lips during sex you can choose to give a big long kiss to a certain body part leaving a lipstick kiss mark. It can be washed off, enchanted to grant bonuses to those who have it and provide a buff to exhibitionists (since it shows you have been having fun with someone). 
+	
+	If you enter the imp fortress and fight the two guard imps, and enslave one of them; you'll fight the remaining one again but the text code appears informing you of the other missing imp. 
+	
+	Nother bug. Most of the time, not always, offering/letting your companion take someone after a fight results in the initial scene not progressing, you can remove clothing, but this doesn't seem to change anything.
+	 Occasionally it'll trigger a second glitch that puts you in as a sub, and the scene works normally again.
+	
+	started a new game. In the introduction scenes, after editing my physical characteristics and picking through clothing, I can neither select an article of clothing, nor continue on to the next.
+
+	Bug(?). Everyone's testicles are internal. Tried using a enchantment to make my character's external only for them to automatically revert back to being internal.                                                                                                             
+    Update: Discovered that disabling "Futanari testicles" in content options renders testicles of all characters, futa or not, internal. 
+
+	Also, giving your partner as a submissive, after they change positions, you become involved in the scene, though some options are still missing.
+
+	When beating someone and choosing non-con {rough} instead of entering the scene with rough stance you are in normal stance.
+	
+	But with the jockstrap and jeans combo when the partner climaxed the description was as if they were going commando. as in instead of climaxing into the jockstrap it read as climaxing into the jeans. Yet the jockstrap had the dirty status.
+		Also it was back to normal once the jeans were pulled down.
+	
+	Add TF feeding to Karl and WOlfgang
+	
+	Both in self description and stat description when moving around. I have lactation enchantments on tattoos for them and they show the enchantment working on my crotch tits.
+		But the tool tip ref is not showing for them lactating.
 	
 	Separate the oral fetishes as such that kissing is separate from the other oral fetishes.
 	
-	Need to stop "lack a vagina, so nothing happens..." from clothing effects, along with all other no-effect ones
+	NPC wants anal and yet didn't start it?
 	
 	need to make a more unified NPC class
 	

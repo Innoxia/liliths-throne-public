@@ -5,7 +5,7 @@
 	<p>
 		As you travel down the gloomy, twisting tunnels of Submission, the sounds of dripping water and slowly creaking pipes echo off the stone walls to either side of you.
 		 Due to this continuous background noise, the quiet splashing of a slime's footsteps as [npc.she] sneaks up on you are all but completely concealed.
-		 It isn't until the slime is within ten metres that you suddenly become aware of [npc.herHis] presence, and you quickly spin around to find yourself looking at [npc.a_fullRace(true)]!
+		 It isn't until the slime is within [unit.lSizes(1000)] that you suddenly become aware of [npc.herHis] presence, and you quickly spin around to find yourself looking at [npc.a_fullRace(true)]!
 	</p>
 	]]>
 	</htmlContent>
@@ -318,7 +318,7 @@
 		[pc.speech(Ok, I'll become a slime...)] you say, eyeing the canister of pink liquid in [npc.name]'s hand.
 	</p>
 	<p>
-		Grinning, [npc.name] steps forwards, before reaching out to grab your [pc.arm]. Sliding up against you, [npc.she] brings [npc.her] face to within inches of yours, and sneers,
+		Grinning, [npc.name] steps forwards, before reaching out to grab your [pc.arm]. Sliding up against you, [npc.she] brings [npc.her] face to within [unit.sizes] of yours, and sneers,
 		 [npc.speech(Then you'd better drink all of this down without kicking up a fuss, understood?)]
 	</p>
 	<p>

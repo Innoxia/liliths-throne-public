@@ -34,9 +34,9 @@ public enum NippleSize {
 		return descriptor;
 	}
 	
-	public static NippleSize getNippleSizeFromInt(int inches) {
+	public static NippleSize getNippleSizeFromInt(int index) {
 		for(NippleSize as : NippleSize.values()) {
-			if(inches == as.getValue()) {
+			if(index == as.getValue()) {
 				return as;
 			}
 		}

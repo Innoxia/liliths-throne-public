@@ -201,7 +201,7 @@ public class Lilaya extends NPC {
 		// For when she grows one:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-		this.setPenisSize(6);
+		this.setPenisSize(15);
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();

@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
 /**
- * Sizes in inches.
+ * Sizes in cm.
  * 
  * @since 0.1.89
  * @version 0.1.89
@@ -9,15 +9,15 @@ package com.lilithsthrone.game.character.body.valueEnums;
  */
 public enum HornLength {
 	
-	ZERO_TINY("tiny", 0, 2),
+	ZERO_TINY("tiny", 0, 5),
 
-	ONE_SMALL("small", 2, 6),
+	ONE_SMALL("small", 5, 15),
 
-	TWO_LONG("long", 6, 12),
+	TWO_LONG("long", 15, 30),
 
-	THREE_HUGE("huge", 12, 20),
+	THREE_HUGE("huge", 30, 50),
 
-	FOUR_MASSIVE("massive", 20, 30);
+	FOUR_MASSIVE("massive", 50, 75);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;
@@ -40,9 +40,9 @@ public enum HornLength {
 		return minimumValue + ((maximumValue - minimumValue) / 2);
 	}
 
-	public static HornLength getHornLengthFromInt(int inches) {
+	public static HornLength getHornLengthFromInt(int cm) {
 		for(HornLength ps : HornLength.values()) {
-			if(inches>=ps.getMinimumValue() && inches<ps.getMaximumValue()) {
+			if(cm>=ps.getMinimumValue() && cm<ps.getMaximumValue()) {
 				return ps;
 			}
 		}

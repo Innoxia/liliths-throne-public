@@ -1,37 +1,5 @@
 package com.lilithsthrone.game;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.CharacterImportSetting;
@@ -47,65 +15,9 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Alexa;
-import com.lilithsthrone.game.character.npc.dominion.Amber;
-import com.lilithsthrone.game.character.npc.dominion.Angel;
-import com.lilithsthrone.game.character.npc.dominion.Arthur;
-import com.lilithsthrone.game.character.npc.dominion.Ashley;
-import com.lilithsthrone.game.character.npc.dominion.Brax;
-import com.lilithsthrone.game.character.npc.dominion.Bunny;
-import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
-import com.lilithsthrone.game.character.npc.dominion.Cultist;
-import com.lilithsthrone.game.character.npc.dominion.Finch;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
-import com.lilithsthrone.game.character.npc.dominion.Jules;
-import com.lilithsthrone.game.character.npc.dominion.Kalahari;
-import com.lilithsthrone.game.character.npc.dominion.Kate;
-import com.lilithsthrone.game.character.npc.dominion.Kruger;
-import com.lilithsthrone.game.character.npc.dominion.Lilaya;
-import com.lilithsthrone.game.character.npc.dominion.Loppy;
-import com.lilithsthrone.game.character.npc.dominion.Lumi;
-import com.lilithsthrone.game.character.npc.dominion.Nyan;
-import com.lilithsthrone.game.character.npc.dominion.Pazu;
-import com.lilithsthrone.game.character.npc.dominion.Pix;
-import com.lilithsthrone.game.character.npc.dominion.Ralph;
-import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
-import com.lilithsthrone.game.character.npc.dominion.Rose;
-import com.lilithsthrone.game.character.npc.dominion.Scarlett;
-import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
-import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
-import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
-import com.lilithsthrone.game.character.npc.dominion.TestNPC;
-import com.lilithsthrone.game.character.npc.dominion.Vicky;
-import com.lilithsthrone.game.character.npc.dominion.Zaranix;
-import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
-import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
-import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
-import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
-import com.lilithsthrone.game.character.npc.misc.PrologueMale;
-import com.lilithsthrone.game.character.npc.misc.SlaveImport;
-import com.lilithsthrone.game.character.npc.submission.Axel;
-import com.lilithsthrone.game.character.npc.submission.Claire;
-import com.lilithsthrone.game.character.npc.submission.DarkSiren;
-import com.lilithsthrone.game.character.npc.submission.Elizabeth;
-import com.lilithsthrone.game.character.npc.submission.Epona;
-import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
-import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
-import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
-import com.lilithsthrone.game.character.npc.submission.Lyssieth;
-import com.lilithsthrone.game.character.npc.submission.Roxy;
-import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
-import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
-import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
-import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
-import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
+import com.lilithsthrone.game.character.npc.dominion.*;
+import com.lilithsthrone.game.character.npc.misc.*;
+import com.lilithsthrone.game.character.npc.submission.*;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -113,11 +25,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueFlags;
-import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.DialogueNodeType;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.*;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
@@ -125,17 +33,8 @@ import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDi
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
-import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
-import com.lilithsthrone.game.dialogue.responses.ResponseSex;
-import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
-import com.lilithsthrone.game.dialogue.utils.BodyChanging;
-import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
-import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
-import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.dialogue.responses.*;
+import com.lilithsthrone.game.dialogue.utils.*;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -150,16 +49,36 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.*;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.StringWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 /**
  * @since 0.1.0
@@ -195,7 +114,6 @@ public class Game implements XMLSaving {
 	private boolean renderMap;
 	private boolean inCombat;
 	private boolean inSex;
-	private boolean imperialMeasurements;
 	private boolean requestAutosave;
 	private boolean playerMovedLocation;
 	
@@ -249,7 +167,6 @@ public class Game implements XMLSaving {
 		inSex = false;
 		renderAttributesSection = false;
 		renderMap = false;
-		imperialMeasurements = false;
 
 		dialogueFlags = new DialogueFlags();
 
@@ -420,7 +337,6 @@ public class Game implements XMLSaving {
 				game.appendChild(informationNode);
 				CharacterUtils.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
 				CharacterUtils.addAttribute(doc, informationNode, "secondsPassed", String.valueOf(Main.game.secondsPassed));
-				CharacterUtils.addAttribute(doc, informationNode, "imperialMeasurements", String.valueOf(Main.game.imperialMeasurements));
 				CharacterUtils.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
 				CharacterUtils.addAttribute(doc, informationNode, "nextStormTimeInSeconds", String.valueOf(Main.game.nextStormTimeInSeconds));
 				CharacterUtils.addAttribute(doc, informationNode, "gatheringStormDurationInSeconds", String.valueOf(Main.game.gatheringStormDurationInSeconds));
@@ -582,7 +498,7 @@ public class Game implements XMLSaving {
 				Element informationNode = (Element) gameElement.getElementsByTagName("coreInfo").item(0);
 				
 				loadingVersion = informationNode.getAttribute("version");
-				
+
 				if(!informationNode.getAttribute("minutesPassed").isEmpty()) { // Support for before time was converted from minutes to seconds:
 					Main.game.secondsPassed = Long.valueOf(informationNode.getAttribute("minutesPassed"))*60;
 					Main.game.nextStormTimeInSeconds = Long.valueOf(informationNode.getAttribute("nextStormTime"))*60;
@@ -601,8 +517,6 @@ public class Game implements XMLSaving {
 					}
 					Main.game.weatherTimeRemainingInSeconds = Integer.valueOf(informationNode.getAttribute("weatherTimeRemainingInSeconds"));
 				}
-				
-				Main.game.imperialMeasurements = Boolean.valueOf(informationNode.getAttribute("imperialMeasurements"));
 				Main.game.currentWeather = Weather.valueOf(informationNode.getAttribute("weather"));
 
 				try {
@@ -3013,6 +2927,27 @@ public class Game implements XMLSaving {
 	public LocalDateTime getDateNow() {
 		return getStartingDate().plusSeconds(Main.game.getSecondsPassed());
 	}
+
+	public String getDisplayDate(boolean withYear) {
+		if(isInNewWorld()) {
+			if(getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
+				if(withYear) {
+					return Units.date(getDateNow(), Units.DateType.LONG);
+				} else {
+					String date = Units.date(getDateNow(), Units.DateType.LONG);
+					return date.substring(0, date.length()-5);
+				}
+			}
+			return "Unknown";
+		}
+		
+		if(withYear) {
+			return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+		} else {
+			String date = Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+			return date.substring(0, date.length()-5);
+		}
+	}
 	
 	public int getYear() {
 		return Main.game.getDateNow().getYear();
@@ -3078,14 +3013,6 @@ public class Game implements XMLSaving {
 
 	public void setInSex(boolean inSex) {
 		this.inSex = inSex;
-	}
-
-	public boolean isImperialMeasurements() {
-		return imperialMeasurements;
-	}
-
-	public void setImperialMeasurements(boolean imperialMeasurements) {
-		this.imperialMeasurements = imperialMeasurements;
 	}
 
 	public Encounter getCurrentEncounter() {

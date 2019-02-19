@@ -3,7 +3,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 import com.lilithsthrone.utils.Colour;
 
 /**
- * Measured in inches.
+ * Measured in cm.
  * 
  * @since 0.1.0
  * @version 0.1.83
@@ -13,19 +13,19 @@ public enum HairLength {
 	/** Bald */
 	ZERO_BALD("bald", 0, 1, Colour.GENERIC_SIZE_ONE),
 	/** Very short */
-	ONE_VERY_SHORT("very short", 1, 3, Colour.GENERIC_SIZE_TWO),
+	ONE_VERY_SHORT("very short", 1, 8, Colour.GENERIC_SIZE_TWO),
 	/** Short */
-	TWO_SHORT("short", 3, 6, Colour.GENERIC_SIZE_THREE),
+	TWO_SHORT("short", 8, 15, Colour.GENERIC_SIZE_THREE),
 	/** above the shoulders */
-	THREE_SHOULDER_LENGTH("shoulder-length", 6, 12, Colour.GENERIC_SIZE_FOUR),
+	THREE_SHOULDER_LENGTH("shoulder-length", 15, 30, Colour.GENERIC_SIZE_FOUR),
 	/** Reaching down to mid-back */
-	FOUR_MID_BACK("long", 12, 25, Colour.GENERIC_SIZE_FIVE),
+	FOUR_MID_BACK("long", 30, 60, Colour.GENERIC_SIZE_FIVE),
 	/** Reaching down to just above the ass */
-	FIVE_ABOVE_ASS("very long", 25, 40, Colour.GENERIC_SIZE_SIX),
+	FIVE_ABOVE_ASS("very long", 60, 100, Colour.GENERIC_SIZE_SIX),
 	/** Reaching down to below the ass */
-	SIX_BELOW_ASS("incredibly long", 40, 70, Colour.GENERIC_SIZE_SEVEN),
+	SIX_BELOW_ASS("incredibly long", 100, 180, Colour.GENERIC_SIZE_SEVEN),
 	/** Hair so long that it reaches the floor */
-	SEVEN_TO_FLOOR("floor-length", 70, 140, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_TO_FLOOR("floor-length", 180, 350, Colour.GENERIC_SIZE_EIGHT);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;

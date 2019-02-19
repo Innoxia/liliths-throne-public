@@ -1104,7 +1104,7 @@ public class GamblingDenDialogue {
 		
 		sb.append("<div class='container-half-width'>"
 				+ "[npc.Name] - [npc.FullRace(true)]<br/>"
-				+ "[npc.CockGirth], [npc.penisInches]-inch, [npc.cockColour(true)] [npc.cockRace] [npc.cock], with [npc.ballSize] balls."
+				+ "[npc.CockGirth], [npc.penisValue], [npc.cockColour(true)] [npc.cockRace] [npc.cock], with [npc.ballSize] balls."
 				+ "</div>");
 		
 		return UtilText.parse(breeder, sb.toString());

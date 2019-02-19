@@ -84,6 +84,7 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Builder;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -1200,7 +1201,7 @@ public class Body implements XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Leg: "
 				+ "<br/>type: "+importedLeg.getType());
-		
+
 		
 		// **************** Penis **************** //
 		
@@ -1295,9 +1296,6 @@ public class Body implements XMLSaving {
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Cum:");
 		
 		importedPenis.testicle.cum = FluidCum.loadFromXML(parentElement, doc, importedPenis.getType().getTesticleType().getFluidType());
-		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
-			importedPenis.testicle.cum.type = importedPenis.getType().getTesticleType().getFluidType();
-		}
 
 		
 		// **************** Skin **************** //
@@ -1433,9 +1431,6 @@ public class Body implements XMLSaving {
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Girlcum:");
 		
 		importedVagina.girlcum = FluidGirlCum.loadFromXML(parentElement, doc, importedVagina.getType().getFluidType());
-		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
-			importedVagina.girlcum.type = importedVagina.getType().getFluidType();
-		}
 		
 		// **************** Wing **************** //
 		
@@ -1448,6 +1443,39 @@ public class Body implements XMLSaving {
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Wing: "
 				+ "<br/>type: "+importedWing.getType()+"<br/>"
 				+ "<br/>size: "+importedWing.getSizeValue()+"<br/>");
+
+
+		// ************** Version Overrides **************//
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.5.1")) {
+			importedVagina.girlcum.type = importedVagina.getType().getFluidType();
+			importedPenis.testicle.cum.type = importedPenis.getType().getTesticleType().getFluidType();
+			importedBreast.milk.type = importedBreast.getType().getFluidType();
+		}
+
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1")) {
+			// Convert all sizes from inch to cm
+			importedHair.length *= 2.54;
+			importedHorn.length *= 2.54;
+			importedFace.tongue.tongueLength *= 2.54;
+			importedPenis.size *= 2.54;
+			importedVagina.clitoris.clitSize *= 2.54;
+
+			// Convert all capacities from inch to cm
+			importedFace.mouth.orificeMouth.capacity *= 2.54;
+			importedFace.mouth.orificeMouth.stretchedCapacity *= 2.54;
+			importedPenis.orificeUrethra.capacity *= 2.54;
+			importedPenis.orificeUrethra.stretchedCapacity *= 2.54;
+			importedVagina.orificeVagina.capacity *= 2.54;
+			importedVagina.orificeVagina.stretchedCapacity *= 2.54;
+			importedVagina.orificeUrethra.capacity *= 2.54;
+			importedVagina.orificeUrethra.stretchedCapacity *= 2.54;
+			importedAss.anus.orificeAnus.capacity *= 2.54;
+			importedAss.anus.orificeAnus.stretchedCapacity *= 2.54;
+			importedBreast.nipples.orificeNipples.capacity *= 2.54;
+			importedBreast.nipples.orificeNipples.stretchedCapacity *= 2.54;
+		}
 		
 		
 		Body body = new Body.BodyBuilder(
@@ -1473,21 +1501,21 @@ public class Body implements XMLSaving {
 						.tail(importedTail)
 						.wing(importedWing)
 						.build();
-		
+
 
 		// **************** Crotch Breasts **************** //
-		
+
 		breasts = (Element)parentElement.getElementsByTagName("breastsCrotch").item(0);
 		nipples = (Element)parentElement.getElementsByTagName("nipplesCrotch").item(0);
 		BreastCrotch importedCrotchBreast = null;
-		
+
 		if(breasts!=null) {
 			breastShape = BreastShape.ROUND;
 			try {
 				breastShape = BreastShape.valueOf(breasts.getAttribute("shape"));
 			} catch(Exception e) {
 			}
-			
+
 			milkStorage = 0;
 			try {
 				if(!breasts.getAttribute("lactation").isEmpty()) {
@@ -1497,7 +1525,7 @@ public class Body implements XMLSaving {
 				}
 			} catch(Exception ex) {
 			}
-			
+
 			AbstractBreastType crotchBoobType = BreastType.getBreastTypeFromId(breasts.getAttribute("type"));
 			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")
 					&& importedLeg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) { // Reset crotch-boob type as I accidentally applied crotch-boobs to demons
@@ -1516,7 +1544,7 @@ public class Body implements XMLSaving {
 					Integer.valueOf(nipples.getAttribute("elasticity")),
 					Integer.valueOf(nipples.getAttribute("plasticity")),
 					Boolean.valueOf(nipples.getAttribute("virgin")));
-	
+
 			try {
 				importedCrotchBreast.milkStored = Float.valueOf(breasts.getAttribute("storedMilk"));
 				importedCrotchBreast.milkRegeneration = Integer.valueOf(breasts.getAttribute("milkRegeneration"));
@@ -1527,14 +1555,14 @@ public class Body implements XMLSaving {
 			importedCrotchBreast.nipples.orificeNipples.stretchedCapacity = (Float.valueOf(nipples.getAttribute("stretchedCapacity")));
 			importedCrotchBreast.nipples.pierced = (Boolean.valueOf(nipples.getAttribute("pierced")));
 			importedCrotchBreast.nipples.areolaeShape = (AreolaeShape.valueOf(nipples.getAttribute("areolaeShape")));
-			
+
 			CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Crotch Breasts:"
 					+ "<br/>type: "+importedCrotchBreast.getType()
 					+ "<br/>size: "+importedCrotchBreast.getSize()
 					+ "<br/>rows: "+importedCrotchBreast.getRows()
 					+ "<br/>lactation: "+importedCrotchBreast.getRawMilkStorageValue()
 					+ "<br/>nippleCountPer: "+importedCrotchBreast.getNippleCountPerBreast()
-					
+
 					+ "<br/><br/>Nipples:"
 					+ "<br/>elasticity: "+importedCrotchBreast.nipples.orificeNipples.getElasticity()
 					+ "<br/>plasticity: "+importedCrotchBreast.nipples.orificeNipples.getPlasticity()
@@ -1547,23 +1575,28 @@ public class Body implements XMLSaving {
 					+ "<br/>areolaeSize: "+importedCrotchBreast.nipples.getAreolaeSize()
 					+ "<br/>areolaeShape: "+importedCrotchBreast.nipples.getAreolaeShape()
 					+"<br/>Modifiers:");
-			
+
 			nippleModifiersElement = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
-			
+
 			nippleOrificeModifiers = importedCrotchBreast.nipples.orificeNipples.orificeModifiers;
 			nippleOrificeModifiers.clear();
 			handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
-			
+
 			CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
-			
+
 			importedCrotchBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedCrotchBreast.getType().getFluidType());
 			if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
 				importedCrotchBreast.milk.type = importedCrotchBreast.getType().getFluidType();
 			}
 		}
-		
-		
+
+
 		if(importedCrotchBreast!=null) {
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1")) {
+				importedCrotchBreast.nipples.orificeNipples.capacity *= 2.54;
+				importedCrotchBreast.nipples.orificeNipples.stretchedCapacity *= 2.54;
+			}
+
 			body.setBreastCrotch(importedCrotchBreast);
 		}
 		
@@ -1698,8 +1731,7 @@ public class Body implements XMLSaving {
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[pc.a_femininity]</span> [pc.gender(true)] [style.colourHuman(human)]. "
 								:"[pc.a_fullRace(true)] [pc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm).");
-			
+						+" Standing at full height, you measure [pc.heightValue].");
 		} else {
 			if(owner.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
 				sb.append("<p>"
@@ -1708,18 +1740,18 @@ public class Body implements XMLSaving {
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]. "
 								:"[npc.a_fullRace(true)] [npc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
+						+ " Standing at full height, [npc.she] measures [npc.heightValue].");
 			} else {
 				if(Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
 					sb.append("<p>"
 							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription(true)
-							+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
+							+ " Standing at full height, [npc.she] measures [npc.heightValue].");
 				} else {
 					sb.append("<p>"
 								+ "[npc.Name] is a [npc.a_fullRace(true)]. "
 								+ owner.getAppearsAsGenderDescription(true)
-								+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
+								+ " Standing at full height, [npc.she] measures [npc.heightValue].");
 				}
 			}
 		}
@@ -4078,10 +4110,11 @@ public class Body implements XMLSaving {
 				} else {
 					descriptionSB.append(" [style.colourGood([npc.Name] [npc.has] retained [npc.her] [npc.crotchNipple] virginity.)]");
 				}
-				
+
 				if (viewedBreastCrotch.getRawMilkStorageValue() > 0) {
-					descriptionSB.append("<br/>[npc.SheIsFull] currently producing "+ viewedBreastCrotch.getRawMilkStorageValue() + "ml of [npc.crotchMilkPrimaryColour(true)] [npc.crotchMilk]"
-							+ " ("+ viewedBreastCrotch.getRawStoredMilkValue() + "ml currently stored) at [npc.a_crotchMilkRegen] rate.");
+					descriptionSB.append("<br/>[npc.SheIsFull] currently producing "
+							+ Units.fluid(viewedBreastCrotch.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.crotchMilkPrimaryColour(true)] [npc.crotchMilk] ("
+							+ Units.fluid(viewedBreastCrotch.getRawStoredMilkValue(), Units.UnitType.LONG) + " currently stored) at [npc.a_crotchMilkRegen] rate.");
 					
 					switch(viewedBreastCrotch.getMilk().getFlavour()) {
 						case CHOCOLATE:
@@ -4210,7 +4243,8 @@ public class Body implements XMLSaving {
 		}
 
 		descriptionSB.append(UtilText.generateSingularDeterminer(viewedPenis.getSize().getDescriptor())+" "+viewedPenis.getSize().getDescriptor()
-				+", "+(viewedPenis.getGirth()==PenisGirth.TWO_AVERAGE?"":viewedPenis.getGirth().getName()+", ")+(viewedPenis.getRawSizeValue()>=1?viewedPenis.getRawSizeValue()+"-inch":"sub-1-inch"));
+				+", "+(viewedPenis.getGirth()==PenisGirth.TWO_AVERAGE?"":viewedPenis.getGirth().getName()
+				+", ")+Units.size(viewedPenis.getRawSizeValue(), Units.UnitType.LONG_SINGULAR));
 		
 		switch (viewedPenis.getType()) {
 			case HUMAN:
@@ -4895,22 +4929,12 @@ public class Body implements XMLSaving {
 		}
 		
 		if (isPlayer) {
-			if(owner.getVaginaRawClitorisSizeValue()==0) {
-				descriptionSB.append(" You have [pc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
-						+" clit, which measures less than one inch in length.");
-			} else {
-				descriptionSB.append(" You have [pc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
-						+" clit, which measures [pc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
-			}
+			descriptionSB.append(" You have [pc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
+					+" clit, which measures [pc.clitSizeValue] in length.");
 			
 		} else {
-			if(owner.getVaginaRawClitorisSizeValue()==0) {
-				descriptionSB.append(" [npc.She] has [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
-						+" clit, which measures less than one inch in length.");
-			} else {
-				descriptionSB.append(" [npc.She] has [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
-						+" clit, which measures [npc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
-			}
+			descriptionSB.append(" [npc.She] has [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
+					+" clit, which measures [npc.clitSizeValue] in length.");
 		}
 		
 		for(PenetrationModifier pm : PenetrationModifier.values()) {
@@ -5389,16 +5413,16 @@ public class Body implements XMLSaving {
 			for(Litter litter : owner.getLittersBirthed()) {
 				
 				if(litter.getFather() == null) {
-					descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
-							+", [npc.she] was impregnated, and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
+							+", [npc.she] was impregnated, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] gave birth to ");
 					
 				} else if(litter.getFather().isPlayer()) {
-					descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
-							+", you impregnated [npc.herHim], and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
+							+", you impregnated [npc.herHim], and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] gave birth to ");
 					
 				} else {
-					descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())+", "+litter.getFather().getName(true)
-							+" impregnated [npc.herHim], and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)+", "+litter.getFather().getName(true)
+							+" impregnated [npc.herHim], and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] gave birth to ");
 				}
 				
 				descriptionSB.append(litter.getBirthedDescription());
@@ -5438,8 +5462,8 @@ public class Body implements XMLSaving {
 				
 				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
 					if(litter.getFather()!=null && litter.getFather().equals(owner)){
-						descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
-								+", [npc.she] impregnated you, and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", you gave birth to "+litter.getBirthedDescription()+".");
+						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
+								+", [npc.she] impregnated you, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", you gave birth to "+litter.getBirthedDescription()+".");
 					}
 				}
 				

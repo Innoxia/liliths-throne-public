@@ -52,12 +52,7 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.ClothingRarityComparator;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ItemRarityComparator;
-import com.lilithsthrone.utils.TreeNode;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.WeaponRarityComparator;
+import com.lilithsthrone.utils.*;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -504,12 +499,12 @@ public class PhoneDialogue {
 					+ "<p style='text-align:center;padding:margin:0;'>"
 						+ "All derived stats start to have diminishing returns past the half-way point!<br/>"
 						+ "<b>For example:</b><br/>"
-						+ "<b>25</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(25, 100)+"% damage</i><br/>"
-						+ "<b>50</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(50, 100)+"% damage</i><br/>"
+						+ "<b>25</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(25, 100))+"% damage</i><br/>"
+						+ "<b>50</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(50, 100))+"% damage</i><br/>"
 						+ "<i>Past this point, there are diminishing returns.</i><br/>"
-						+ "<b>60</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(60, 100)+"% damage</i><br/>"
-						+ "<b>80</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(80, 100)+"% damage</i><br/>"
-						+ "<b>100</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(100, 100)+"% damage</i><br/>"
+						+ "<b>60</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(60, 100))+"% damage</i><br/>"
+						+ "<b>80</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(80, 100))+"% damage</i><br/>"
+						+ "<b>100</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(100, 100))+"% damage</i><br/>"
 					+ "</p>"
 				+ "</details>"
 					
@@ -525,13 +520,13 @@ public class PhoneDialogue {
 					+ "<h4 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Misc. Attributes</h4>"
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.FERTILITY,
 							"Pregnancy Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())+"%</b>")
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit()))+"%</b>")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.VIRILITY,
 							"Impregnation Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())+"%</b>")
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit()))+"%</b>")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER,
 							"Spell Cost:<br/>"
-							+ "<b>-"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit())+"%</b>")
+							+ "<b>-"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit()))+"%</b>")
 
 					+ "<div class='container-full-width' style='text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
 						+ "<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Pregnancy calculation:</b> <i>"+GameCharacter.PREGNANCY_CALCULATION+"</i>"
@@ -543,85 +538,85 @@ public class PhoneDialogue {
 					+ "<h4 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Combat Attributes</h4>"
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE,
 							"Critical Hit Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_CHANCE), Attribute.CRITICAL_CHANCE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_CHANCE), Attribute.CRITICAL_CHANCE.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE,
 							"Critical Hit Damage:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DODGE_CHANCE,
 							"Dodge Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DODGE_CHANCE), Attribute.DODGE_CHANCE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DODGE_CHANCE), Attribute.DODGE_CHANCE.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.MISS_CHANCE,
 							"Miss Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.MISS_CHANCE), Attribute.MISS_CHANCE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.MISS_CHANCE), Attribute.MISS_CHANCE.getUpperLimit()))+"%</b>",
 							true)
 					
 
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_UNARMED,
 							"Unarmed Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
 							"Spell Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit())))+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_MELEE_WEAPON,
 							"Melee Weapon Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_RANGED_WEAPON,
 							"Ranged Weapon Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), Attribute.DAMAGE_RANGED_WEAPON.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), Attribute.DAMAGE_RANGED_WEAPON.getUpperLimit())))+"%</b>",
 							true)
 					
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL,
 							"Physical Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_PHYSICAL), Attribute.DAMAGE_PHYSICAL.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_PHYSICAL), Attribute.DAMAGE_PHYSICAL.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_PHYSICAL,
 							"Physical Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL), Attribute.RESISTANCE_PHYSICAL.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL), Attribute.RESISTANCE_PHYSICAL.getUpperLimit()))+"%</b>",
 							true)
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_FIRE,
 							"Fire Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_FIRE), Attribute.DAMAGE_FIRE.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_FIRE), Attribute.DAMAGE_FIRE.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_FIRE,
 							"Fire Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_FIRE), Attribute.RESISTANCE_FIRE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_FIRE), Attribute.RESISTANCE_FIRE.getUpperLimit()))+"%</b>",
 							true)
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_ICE,
 							"Ice Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ICE), Attribute.DAMAGE_ICE.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ICE), Attribute.DAMAGE_ICE.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_ICE,
 							"Ice Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_ICE), Attribute.RESISTANCE_ICE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_ICE), Attribute.RESISTANCE_ICE.getUpperLimit()))+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_POISON,
 							"Poison Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_POISON), Attribute.DAMAGE_POISON.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_POISON), Attribute.DAMAGE_POISON.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_POISON,
 							"Poison Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_POISON), Attribute.RESISTANCE_POISON.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_POISON), Attribute.RESISTANCE_POISON.getUpperLimit()))+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_LUST,
 							"Lust Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST), Attribute.DAMAGE_LUST.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST), Attribute.DAMAGE_LUST.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_LUST,
 							"Lust Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), Attribute.RESISTANCE_LUST.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), Attribute.RESISTANCE_LUST.getUpperLimit()))+"%</b>",
 							true)
 
 				+"</div>"
@@ -636,11 +631,11 @@ public class PhoneDialogue {
 					UtilText.nodeContentSB.append(
 							getAttributeBox(Main.game.getPlayer(), damageModifier,
 									Util.capitaliseSentence(damageModifier.getName())+":<br/>"
-									+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(damageModifier), damageModifier.getUpperLimit()))+"%</b>",
+									+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(damageModifier), damageModifier.getUpperLimit())))+"%</b>",
 									true)
 							+ getAttributeBox(Main.game.getPlayer(), resistanceModifier,
 									Util.capitaliseSentence(resistanceModifier.getName())+":<br/>"
-									+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(resistanceModifier), resistanceModifier.getUpperLimit())+"%</b>",
+									+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(resistanceModifier), resistanceModifier.getUpperLimit()))+"%</b>",
 									true));
 					encounteredAttributes.add(damageModifier);
 				}
@@ -693,8 +688,8 @@ public class PhoneDialogue {
 						Colour.TEXT, String.valueOf(character.getFemininityValue()),
 						character.getFemininity().getColour(), Util.capitaliseSentence(character.getFemininity().getName(false)),
 						true)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Height (cm)",
-						Colour.TEXT, String.valueOf(character.getHeightValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Height",
+						Colour.TEXT, Units.size(character.getHeightValue()),
 						character.getHeight().getColour(), Util.capitaliseSentence(character.getHeight().getDescriptor()),
 						false)
 				+ statRow(Colour.MUSCLE_THREE, "Muscle Definition",
@@ -715,20 +710,20 @@ public class PhoneDialogue {
 				+ "<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_GREATER.toWebHexString()+"; text-align:center;'>Head & Throat Attributes</h6>"
 //				+ statHeader()
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Hair Length (inches)",
-						Colour.TEXT, String.valueOf(character.getHairRawLengthValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Hair Length",
+						Colour.TEXT, Units.size(character.getHairRawLengthValue()),
 						character.getHairLength().getColour(), Util.capitaliseSentence(character.getHairLength().getDescriptor()),
 						true)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Tongue length (inches)",
-						Colour.TEXT, String.valueOf(character.getTongueLengthValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Tongue length",
+						Colour.TEXT, Units.size(character.getTongueLengthValue()),
 						Colour.TRANSFORMATION_GENERIC, Util.capitaliseSentence(character.getTongueLength().getDescriptor()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Wetness",
 						Colour.TEXT, String.valueOf(character.getFaceWetness().getValue()),
 						Colour.GENERIC_SEX, Util.capitaliseSentence(character.getFaceWetness().getDescriptor()),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Capacity (inches)",
-						Colour.TEXT, String.valueOf(character.getFaceRawCapacityValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Capacity",
+						Colour.TEXT, Units.size(character.getFaceRawCapacityValue()),
 						Colour.GENERIC_SEX, Util.capitaliseSentence(character.getFaceCapacity().getDescriptor()),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Elasticity",
@@ -751,16 +746,16 @@ public class PhoneDialogue {
 						Colour.TEXT, String.valueOf(character.getBreastRows()),
 						Colour.GENERIC_SEX, Util.capitaliseSentence(Util.capitaliseSentence(Util.intToString(character.getBreastRows()))+" pair"+(character.getBreastRows()==1?"":"s")),
 						true)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Storage (mL)",
-						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(character.getBreastRawMilkStorageValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Storage",
+						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getBreastRawMilkStorageValue()),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastMilkStorage().getDescriptor()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration (%/minute)",
 						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(Math.round((character.getBreastLactationRegeneration().getPercentageRegen()*60*100)*100)/100f),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
-						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(character.getNippleRawCapacityValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
+						Colour.TEXT, !knowsNipples?"Unknown":Units.size(character.getNippleRawCapacityValue()),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getNippleCapacity().getDescriptor()),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Elasticity",
@@ -813,16 +808,16 @@ public class PhoneDialogue {
 				+ "<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Penis Attributes</h6>"
 //				+ statHeader()
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Penis Size (inches)",
-						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawSizeValue())),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Penis Size",
+						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Units.size(character.getPenisRawSizeValue())),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getPenisSize().getDescriptor())),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Testicle Size",
 						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getTesticleSize().getValue())),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getTesticleSize().getDescriptor())),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Storage (mL)",
-						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawCumStorageValue())),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Storage",
+						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Units.fluid(character.getPenisRawCumStorageValue())),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getPenisCumStorage().getDescriptor())),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Production Pregnancy Modifier",
@@ -841,16 +836,16 @@ public class PhoneDialogue {
 				+ "<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Vagina Attributes</h6>"
 //				+ statHeader()
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Clitoris Size (inches)",
-						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawClitorisSizeValue())),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Clitoris Size",
+						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Units.size(character.getVaginaRawClitorisSizeValue())),
 						Colour.GENERIC_SEX, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(character.getVaginaClitorisSize().getDescriptor())),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Wetness",
 						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaWetness().getValue())),
 						Colour.GENERIC_SEX, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(character.getVaginaWetness().getDescriptor())),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
-						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawCapacityValue())),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
+						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Units.size(character.getVaginaRawCapacityValue())),
 						Colour.GENERIC_SEX, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(character.getVaginaCapacity().getDescriptor())),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Elasticity",
@@ -869,8 +864,8 @@ public class PhoneDialogue {
 						Colour.TEXT, !knowsAnus?"Unknown":String.valueOf(character.getAssWetness().getValue()),
 						Colour.GENERIC_SEX, !knowsAnus?"Unknown":Util.capitaliseSentence(character.getAssWetness().getDescriptor()),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
-						Colour.TEXT, !knowsAnus?"Unknown":String.valueOf(character.getAssRawCapacityValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
+						Colour.TEXT, !knowsAnus?"Unknown":Units.size(character.getAssRawCapacityValue()),
 						Colour.GENERIC_SEX, !knowsAnus?"Unknown":Util.capitaliseSentence(character.getAssCapacity().getDescriptor()),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Elasticity",
@@ -1293,7 +1288,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
+								+ "Conceived with [npc.name(a)] on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>"));
@@ -1302,7 +1297,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
+								+ "Conceived with someone you can't remember on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>");
@@ -1379,7 +1374,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
+								+ "Conceived with [npc.name(a)] on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
 								+ "[npc.She] gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>"));
@@ -1389,7 +1384,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
+								+ "Conceived with someone you can't remember on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
 								+ "They gave birth to "+ litter.getBirthedDescription()+ "."
 							+ "</div>");
@@ -1471,7 +1466,7 @@ public class PhoneDialogue {
 						+ "<b style='color:" + att.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(att.getName())+"</b>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:33.3%;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+";text-align:center;'>"
-						+ "<b style='color:"+colour.toWebHexString()+";'>"+owner.getAttributeValue(att)+"</b>"
+						+ "<b style='color:"+colour.toWebHexString()+";'>"+Units.number(owner.getAttributeValue(att), 1, 1)+"</b>"
 					+ "</div>"
 					+ "<div class='container-full-width' style='height:6px;padding:0;border-radius: 2px;'>"
 						+ "<div class='container-full-width' style='width:" + width + "%; padding:0;"
@@ -1489,7 +1484,7 @@ public class PhoneDialogue {
 										: (owner.getBaseAttributeValue(att) < 0
 												? "<b style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
 												: "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))+"'>"
-												+owner.getBaseAttributeValue(att)
+												+Units.number(owner.getBaseAttributeValue(att), 1, 1)
 												+"</b>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; padding:0; text-align:center;'>"
@@ -1499,7 +1494,7 @@ public class PhoneDialogue {
 											: (owner.getBonusAttributeValue(att) < 0
 													? "<b style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
 													: "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))+"'>"
-													+owner.getBonusAttributeValue(att)
+													+Units.number(owner.getBonusAttributeValue(att), 1, 1)
 													+"</b>"
 					+ "</div>"
 					+ (effect.length()>0
@@ -1972,9 +1967,9 @@ public class PhoneDialogue {
 							+ "Average stats</p>"
 					+ "<table align='center'>"
 						+ "<tr>"
-							+ "<td>Height (cm)</td>"
-							+ "<td>"+femaleBody.getHeightValue()+"</td>"
-							+ "<td>"+maleBody.getHeightValue()+"</td>"
+							+ "<td>Height</td>"
+							+ "<td>"+Units.size(femaleBody.getHeightValue())+"</td>"
+							+ "<td>"+Units.size(maleBody.getHeightValue())+"</td>"
 						+ "</tr>"
 						+ "<tr>"
 							+ "<td>Femininity</td>"
@@ -1991,9 +1986,9 @@ public class PhoneDialogue {
 										:maleBody.getBreast().getSize().getCupSizeName()+"-cup")+"</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td>Penis size (inches)</td>"
+							+ "<td>Penis size</td>"
 							+ "<td>-</td>"
-							+ "<td>"+maleBody.getPenis().getRawSizeValue()+"</td>"
+							+ "<td>"+Units.size(maleBody.getPenis().getRawSizeValue())+"</td>"
 						+ "</tr>"
 						+ "<tr>"
 							+ "<td>Vagina capacity</td>"

@@ -30,6 +30,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -3439,7 +3440,7 @@ public class ItemType {
 			false,
 			"Moo Milker",
 			"Moo Milkers",
-			"A manual cow-themed breast pump, capable of holding up to 1000ml of liquid in the attached plastic beaker.",
+			"A manual cow-themed breast pump, capable of holding up to "+Units.fluid(1000)+" of liquid in the attached plastic beaker.",
 			"breastPump",
 			Colour.BASE_PURPLE_LIGHT,
 			null,
@@ -3474,7 +3475,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true) && target.getBreastRawMilkStorageValue()>0;
+			return target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true) && target.getBreastRawMilkStorageValue()>=5;
 		}
 
 		@Override
@@ -3483,14 +3484,14 @@ public class ItemType {
 				if(!target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 					return "You need to be able to access your nipples in order to use this!";
 				} else {
-					return "You need to have at least 1ml of milk stored in your breasts in order to use this!";
+					return "You need to have at least "+Units.fluid(5)+" of milk stored in your breasts in order to use this!";
 				}
 				
 			} else {
 				if(!target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 					return UtilText.parse(target, "You need to be able to access [npc.namePos] nipples in order to use this!");
 				} else {
-					return UtilText.parse(target, "[npc.Name] needs to have at least 1ml of milk stored in [npc.her] breasts in order to use this!");
+					return UtilText.parse(target, "[npc.Name] needs to have at least "+Units.fluid(5)+" of milk stored in [npc.her] breasts in order to use this!");
 				}
 			}
 		}

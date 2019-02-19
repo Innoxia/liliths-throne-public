@@ -20,6 +20,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -430,7 +431,7 @@ public class WeaponType {
 			"Buckler",
 			"Bucklers",
 			"Bash",
-			"A small metal shield, measuring 45cm in diameter, and gripped in one hand by means of a handle positioned behind the boss."
+			"A small metal shield, measuring "+ Units.size(45, Units.UnitType.LONG) +" in diameter, and gripped in one hand by means of a handle positioned behind the boss."
 					+ " Shields such as this one are typically enchanted to help the wielder resist a certain type of arcane damage.",
 			"buckler",
 			"buckler",
