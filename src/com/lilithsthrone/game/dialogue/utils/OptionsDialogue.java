@@ -219,6 +219,8 @@ public class OptionsDialogue {
 								
 							}
 						};
+					} else if ( "".equals(Main.getProperties().lastSaveLocation) ) {
+						return new Response("Resume", "There is no previously saved game to resume.", null);
 					} else {
 						return new Response("Resume", "Previously saved game (by the title '"+Main.getProperties().lastSaveLocation+"') not found in 'data/saves' folder.", null);
 					}
