@@ -116,13 +116,19 @@ public class HarpyAttackerDialogue {
 		return UtilText.parse(getHarpy(), sb.toString());
 	}
 	
-	public static final DialogueNode HARPY_ATTACKS = new DialogueNode("Assaulted!", "An angry harpy swoops down on you!", true) {
+	public static final DialogueNode HARPY_ATTACKS = new DialogueNode("Assaulted!", "An" + (Main.game.isSillyModeEnabled() ? "angery birb" : "angry harpy") + "swoops down on you!", true) {
 		
 		@Override
 		public String getLabel(){
 			if(Main.game.getActiveNPC().isVisiblyPregnant()) {
+				if(Main.game.isSillyModeEnabled()){
+					return "Pregnant birb";
+				}
 				return "Pregnant harpy";
 			} else {
+				if(Main.game.isSillyModeEnabled()){
+					return "Angery birb";
+				}
 				return "Angry harpy";
 			}
 		}

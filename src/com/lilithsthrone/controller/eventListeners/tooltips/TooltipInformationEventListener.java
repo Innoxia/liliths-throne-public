@@ -1062,6 +1062,12 @@ public class TooltipInformationEventListener implements EventListener {
 		if(raceName.equals("wolf-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
 			raceName = "awoo-morph";
 		}
+		if(raceName.equals("cat-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+			raceName = "catte-morph";
+		}
+		if(raceName.equals("harpy") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+			raceName = "birb";
+		}
 		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
 					+ name
 					+ ": "+ (bestial?"[style.colourBestial(Feral )]":"")+"<span style='color:" + race.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(raceName) + "</span> - "
