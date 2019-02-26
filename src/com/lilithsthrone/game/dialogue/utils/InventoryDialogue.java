@@ -568,8 +568,8 @@ public class InventoryDialogue {
 									zlayerClothing.sort(new ClothingZLayerComparator());
 
 									for(AbstractClothing c : zlayerClothing){
-										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+										Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
 									}
 								}
 							};
@@ -4032,8 +4032,8 @@ public class InventoryDialogue {
 										zlayerClothing.sort(new ClothingZLayerComparator());
 
 										for(AbstractClothing c : zlayerClothing){
-											Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-											responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+											Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
 										}
 									}
 								};
@@ -5319,8 +5319,8 @@ public class InventoryDialogue {
 										zlayerClothing.sort(new ClothingZLayerComparator());
 
 										for(AbstractClothing c : zlayerClothing){
-											Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-											responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+											Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
 										}
 									}
 								};

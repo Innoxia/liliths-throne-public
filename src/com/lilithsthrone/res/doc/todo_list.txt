@@ -147,6 +147,7 @@
 		Added .gif support for character artwork. (PR#1032 by DJ Addi) (Innoxia's note: The maximum size is 10MB, although on my system anything larger than ~1MB was incredibly slow to load. This might be due to my older version of Java/JavaFX, which I will get updated soon.)
 		Added UtilText parsing for player career/background perks. (PR#104 by GynoidDoesGames)
 		Added some new subspecies names to the silly mode content. (PR#1052 by Nnxx)
+		Added option to unequip all clothes during character creation. (PR#1054 by Nnxx)
 	
 	Sex:
 		Fixed issue in sex where NPCs would sometimes not move onto full penetrative actions, and get stuck in foreplay actions (such as continuing to perform hotdogging when they wanted to penetrate the target's ass).
@@ -198,10 +199,10 @@
 	
 	
 	
-	Jam
+	
+	
 	
 	PRs
-	
 	
 	make it so forbidding NPCs from performing sex action blocks their positioning actions as well
 	
