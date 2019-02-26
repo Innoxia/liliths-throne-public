@@ -148,6 +148,8 @@
 		Added UtilText parsing for player career/background perks. (PR#104 by GynoidDoesGames)
 		Added some new subspecies names to the silly mode content. (PR#1052 by Nnxx)
 		Added option to unequip all clothes during character creation. (PR#1054 by Nnxx)
+		Fixed some reference errors. (PR#1057 by EPSIL0N)
+		Added penis and breast size display to the character body tooltip. (PR#1060 by ChillaChris) (Innoxia's note: I am aware that these tooltip descriptions go 'out of bounds' when characters have long race/colour names. I will fix this soon.)
 	
 	Sex:
 		Fixed issue in sex where NPCs would sometimes not move onto full penetrative actions, and get stuck in foreplay actions (such as continuing to perform hotdogging when they wanted to penetrate the target's ass).
@@ -203,6 +205,8 @@
 	
 	
 	PRs
+	
+	tooltip descriptions go 'out of bounds' when characters have long race/colour names
 	
 	make it so forbidding NPCs from performing sex action blocks their positioning actions as well
 	

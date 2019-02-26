@@ -742,7 +742,7 @@ public class TooltipInformationEventListener implements EventListener {
 						tooltipSB.append(getEmptyBodyPartDiv("Penis", "Unknown!"));
 					} else {
 						if (owner.hasPenis()) {
-							tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), owner.getPenisRawSizeValue() + " inches"));
+							tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizes(" + owner.getPenisRawSizeValue()+ ")]"));
 						} else {
 							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
 						}
@@ -755,13 +755,27 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 
 					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer())) {
-						tooltipSB.append(getEmptyBodyPartDiv("Nipples", "Unknown!"));
+						tooltipSB.append(getEmptyBodyPartDiv("Nipples", "Unknown!", owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup breasts"):null));
 					} else {
-						tooltipSB.append(getBodyPartDiv("Nipples", owner.getBreastRace(), owner.getBreastType().getNippleType().getBodyCoveringType(owner), owner.isNippleBestial(), owner.getBreastSize() + "-cup"));
+						tooltipSB.append(getBodyPartDiv("Nipples",
+								owner.getBreastRace(),
+								owner.getBreastType().getNippleType().getBodyCoveringType(owner),
+								owner.isNippleBestial(),
+								owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup breasts"):null));
 					}
 
 					if(crotchBreasts) {
-						tooltipSB.append(getBodyPartDiv("Nipples ("+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs")+")", owner.getBreastCrotchRace(), owner.getNippleCrotchCovering(), owner.isNippleCrotchBestial(), owner.getBreastCrotchSize() + "-cup"));
+						if(!owner.isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer())) {
+							tooltipSB.append(getEmptyBodyPartDiv("Nipples",
+									"Unknown!",
+									(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
+						} else {
+							tooltipSB.append(getBodyPartDiv("Nipples",
+									owner.getBreastCrotchRace(),
+									owner.getNippleCrotchCovering(),
+									owner.isNippleCrotchBestial(),
+									(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
+						}
 					}
 					
 					if (displayImage) {
@@ -1054,8 +1068,12 @@ public class TooltipInformationEventListener implements EventListener {
 
 		TooltipUpdateThread.updateToolTip(-1,-1);
 	}
-	
+
 	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering, boolean bestial) {
+		return getBodyPartDiv(name, race, covering, bestial, null);
+	}
+	
+	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering, boolean bestial, String size) {
 		String raceName;
 		raceName = race.getName(bestial);
 
@@ -1068,32 +1086,23 @@ public class TooltipInformationEventListener implements EventListener {
 		if(raceName.equals("harpy") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
 			raceName = "birb";
 		}
+		
 		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
-					+ name
-					+ ": "+ (bestial?"[style.colourBestial(Feral )]":"")+"<span style='color:" + race.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(raceName) + "</span> - "
+					+ name +(size!=null?" ("+size+"): ":": ")
+					+ (bestial?"[style.colourBestial(Feral )]":"")+"<span style='color:" + race.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(raceName) + "</span> - "
 					+ owner.getCovering(covering).getColourDescriptor(owner, true, true) + " " + owner.getCovering(covering).getName(owner)
 				+"</div>";
 	}
 	
-	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering, boolean bestial, String size) {
-		String raceName;
-		raceName = race.getName(bestial);
-
-		if(raceName.equals("wolf-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "awoo-morph";
-		}
-		
-		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
-					+ name
-					+ ": "+ (bestial?"[style.colourBestial(Feral )]":"")+"<span style='color:" + race.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(raceName) + "</span> - "
-					+ owner.getCovering(covering).getColourDescriptor(owner, true, true) + " " + owner.getCovering(covering).getName(owner) + ", " + size
-				+"</div>";
-	}
-	
 	private String getEmptyBodyPartDiv(String name, String description) {
-		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"+ name + ": <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>"+description+"</span></div>";
+		return getEmptyBodyPartDiv(name, description, null);
 	}
-	
+
+	private String getEmptyBodyPartDiv(String name, String description, String size) {
+		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
+					+ name +(size!=null?" ("+size+"): ":": ")+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>"+description+"</span>"
+			+ "</div>";
+	}
 
 	private String extraAttributeTableRow(GameCharacter owner, String type, Attribute damage, Attribute resist) {
 		return "<div class='subTitle-third combatValue'>" + "<span style='color:" + damage.getColour().toWebHexString() + ";'>" + type + "</span>" + "</div>" + "<div class='subTitle-third combatValue'>"
