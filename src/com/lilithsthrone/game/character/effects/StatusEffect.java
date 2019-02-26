@@ -4020,7 +4020,7 @@ public enum StatusEffect {
 							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.NamePos] [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
+							"[npc.NamePos] [npc.pussy] has recently been filled with cum, before being plugged.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
 							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!");
 				}
