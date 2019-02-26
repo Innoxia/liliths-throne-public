@@ -144,6 +144,7 @@
 	
 	Contributors:
 		Localised all units in the game, and added toggles for 12/24 hour clock and imperial/metric measurements in the options menu. (PR#931 by DJ Addi)
+		Added .gif support for character artwork. (PR#1032 by DJ Addi) (Innoxia's note: The maximum size is 10MB, although on my system anything larger than ~1MB was incredibly slow to load. This might be due to my older version of Java/JavaFX, which I will get updated soon.)
 	
 	Sex:
 		Fixed issue in sex where NPCs would sometimes not move onto full penetrative actions, and get stuck in foreplay actions (such as continuing to perform hotdogging when they wanted to penetrate the target's ass).
