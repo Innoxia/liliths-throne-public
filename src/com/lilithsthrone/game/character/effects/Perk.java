@@ -23,7 +23,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum Perk {
@@ -283,7 +283,7 @@ public enum Perk {
 					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.name] [npc.is] the perfect example of a hard-working and composed butler, and while wearing a complete set of butler's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
+			return UtilText.parse(owner, "[npc.name] [npc.is] the perfect example of a hard-working butler, and while wearing a complete set of butler's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
 					+ " [npc.She] also [npc.verb(know)] how to train maids and other butlers to be exceptional at their jobs.");
 		}
 	},
