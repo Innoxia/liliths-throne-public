@@ -742,7 +742,7 @@ public class TooltipInformationEventListener implements EventListener {
 						tooltipSB.append(getEmptyBodyPartDiv("Penis", "Unknown!"));
 					} else {
 						if (owner.hasPenis()) {
-							tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial()));
+							tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), owner.getPenisRawSizeValue() + " inches"));
 						} else {
 							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
 						}
@@ -757,11 +757,11 @@ public class TooltipInformationEventListener implements EventListener {
 					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer())) {
 						tooltipSB.append(getEmptyBodyPartDiv("Nipples", "Unknown!"));
 					} else {
-						tooltipSB.append(getBodyPartDiv("Nipples", owner.getBreastRace(), owner.getBreastType().getNippleType().getBodyCoveringType(owner), owner.isNippleBestial()));
+						tooltipSB.append(getBodyPartDiv("Nipples", owner.getBreastRace(), owner.getBreastType().getNippleType().getBodyCoveringType(owner), owner.isNippleBestial(), owner.getBreastSize() + "-cup"));
 					}
 
 					if(crotchBreasts) {
-						tooltipSB.append(getBodyPartDiv("Nipples ("+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs")+")", owner.getBreastCrotchRace(), owner.getNippleCrotchCovering(), owner.isNippleCrotchBestial()));
+						tooltipSB.append(getBodyPartDiv("Nipples ("+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs")+")", owner.getBreastCrotchRace(), owner.getNippleCrotchCovering(), owner.isNippleCrotchBestial(), owner.getBreastCrotchSize() + "-cup"));
 					}
 					
 					if (displayImage) {
@@ -1072,6 +1072,21 @@ public class TooltipInformationEventListener implements EventListener {
 					+ name
 					+ ": "+ (bestial?"[style.colourBestial(Feral )]":"")+"<span style='color:" + race.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(raceName) + "</span> - "
 					+ owner.getCovering(covering).getColourDescriptor(owner, true, true) + " " + owner.getCovering(covering).getName(owner)
+				+"</div>";
+	}
+	
+	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering, boolean bestial, String size) {
+		String raceName;
+		raceName = race.getName(bestial);
+
+		if(raceName.equals("wolf-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+			raceName = "awoo-morph";
+		}
+		
+		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
+					+ name
+					+ ": "+ (bestial?"[style.colourBestial(Feral )]":"")+"<span style='color:" + race.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(raceName) + "</span> - "
+					+ owner.getCovering(covering).getColourDescriptor(owner, true, true) + " " + owner.getCovering(covering).getName(owner) + ", " + size
 				+"</div>";
 	}
 	
