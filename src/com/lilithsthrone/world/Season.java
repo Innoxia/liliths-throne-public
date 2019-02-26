@@ -1,4 +1,4 @@
-package com.lilithsthrone.game;
+package com.lilithsthrone.world;
 
 import java.time.Month;
 

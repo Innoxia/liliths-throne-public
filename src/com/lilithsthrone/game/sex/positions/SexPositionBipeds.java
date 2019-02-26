@@ -2679,7 +2679,7 @@ public class SexPositionBipeds {
 														OrgasmCumTarget.LEGS))))))) {
 		@Override
 		public String getDescription() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_VICKYS_SHOP) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_VICKYS_SHOP)) {
 				return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
 						+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
 			}

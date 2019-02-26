@@ -423,7 +423,7 @@ public class OccupantManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:4px; margin-top:4px; "+(!occupants.isEmpty()?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:15%; float:left; margin:0; padding:0;'>"
-							+ "<span style='color:"+place.getColour().toWebHexString()+";'>"+place.getName()+"</span><br/>"
+							+ "<span style='color:"+place.getColourString()+";'>"+place.getName()+"</span><br/>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>");
 		
@@ -482,8 +482,8 @@ public class OccupantManagementDialogue {
 				Cell[][] cellGrid = Main.game.getWorlds().get(wt).getCellGrid();
 				for(int i = 0; i< cellGrid.length; i++) {
 					for(int j = 0; j < cellGrid[0].length; j++) {
-						if(cellGrid[i][j].getPlace().getPlaceType()!=PlaceType.LILAYA_HOME_CORRIDOR
-								&& cellGrid[i][j].getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+						if(!cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_CORRIDOR)
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)) {
 							importantCells.add(cellGrid[i][j]);
 						}
 					}
@@ -1347,7 +1347,7 @@ public class OccupantManagementDialogue {
 							+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+slave.getLocationPlace().getColour().toWebHexString()+";'>"+slave.getLocationPlace().getName()+"</b>"
+							+ "<b style='color:"+slave.getLocationPlace().getColourString()+";'>"+slave.getLocationPlace().getName()+"</b>"
 							+",<br/>"
 							+ "<span style='color:"+slave.getWorldLocation().getColour().toWebHexString()+";'>"+slave.getWorldLocation().getName()+"</span>"
 						+ "</div>"
@@ -1445,7 +1445,7 @@ public class OccupantManagementDialogue {
 								?"<b style='color:"+Colour.BASE_GREY.toWebHexString()+";'>At Work</b>"
 										+",<br/>"
 										+ "<span style='color:"+WorldType.DOMINION.getColour().toWebHexString()+";'>"+WorldType.DOMINION.getName()+"</span>"
-								:"<b style='color:"+occupant.getLocationPlace().getColour().toWebHexString()+";'>"+occupant.getLocationPlace().getName()+"</b>"
+								:"<b style='color:"+occupant.getLocationPlace().getColourString()+";'>"+occupant.getLocationPlace().getName()+"</b>"
 									+",<br/>"
 									+ "<span style='color:"+occupant.getWorldLocation().getColour().toWebHexString()+";'>"+occupant.getWorldLocation().getName()+"</span>")
 						+ "</div>"
@@ -1558,7 +1558,7 @@ public class OccupantManagementDialogue {
 					+ "</div>"
 					+"<div class='container-full-width'>"
 						+"<div style='width:30%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+character.getLocationPlace().getColour().toWebHexString()+";'>"+character.getLocationPlace().getName()+"</b>"
+							+ "<b style='color:"+character.getLocationPlace().getColourString()+";'>"+character.getLocationPlace().getName()+"</b>"
 							+",<br/>"
 							+ "<span style='color:"+character.getWorldLocation().getColour().toWebHexString()+";'>"+character.getWorldLocation().getName()+"</span>"
 						+ "</div>"
@@ -1805,7 +1805,7 @@ public class OccupantManagementDialogue {
 				// Job Settings:
 				if(isCurrentJob) {
 					for(SlaveJobSetting setting : job.getMutualSettings()) {
-						boolean settingActive = character.getSlaveJobSettings().contains(setting);
+						boolean settingActive = character.hasSlaveJobSetting(setting);
 						
 						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
 														+"<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
@@ -1831,7 +1831,7 @@ public class OccupantManagementDialogue {
 														+"</b></div>");
 						
 						for(SlaveJobSetting setting : entry.getValue()) {
-							boolean settingActive = character.getSlaveJobSettings().contains(setting);
+							boolean settingActive = character.hasSlaveJobSetting(setting);
 							
 							UtilText.nodeContentSB.append("<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
 																+ setting.getName()

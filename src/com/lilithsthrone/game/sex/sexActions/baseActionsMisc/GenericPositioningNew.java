@@ -13,9 +13,9 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexSlotOther;
-import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotOther;
 import com.lilithsthrone.game.sex.sexActions.PositioningData;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -89,19 +89,17 @@ public class GenericPositioningNew {
 						?Sex.getCharacterPerformingAction().isPlayer()
 						:true)
 				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
-						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.game.getPlayer())
+						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))
 						:true);
 	}
 
-	private static void setNewSexManager(PositioningData data, boolean requestAccepted) {
-//		for(SexSlot slot : ((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))) {
-//			System.out.println(slot.getName(Sex.getCharacterPerformingAction()));
-//		}
-		
+	public static void setNewSexManager(PositioningData data, boolean requestAccepted) {
 		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
 		Map<GameCharacter, SexSlot> submissives = new HashMap<>();
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants().keySet());
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants().keySet());
+		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(true).keySet());
+		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(true).keySet());
+		List<GameCharacter> dominantSpectators = new ArrayList<>();
+		List<GameCharacter> submissiveSpectators = new ArrayList<>();
 		
 		GameCharacter performer = Sex.getCharacterPerformingAction();
 		GameCharacter target = Sex.getTargetedPartner(performer);
@@ -114,30 +112,48 @@ public class GenericPositioningNew {
 			doms.remove(performer);
 			dominants.put(performer, data.getPerformerSlots().get(0));
 			for(int i=0; i<doms.size(); i++) {
-				dominants.put(doms.get(i), data.getPerformerSlots().get(i+1));
+				if(data.getPerformerSlots().size()<i+1) {
+					dominants.put(doms.get(i), data.getPerformerSlots().get(i+1));
+				} else {
+					dominantSpectators.add(doms.get(i));
+				}
 			}
 			subs.remove(target);
 			submissives.put(target, data.getPartnerSlots().get(0));
 			for(int i=0; i<subs.size(); i++) {
-				submissives.put(subs.get(i), data.getPartnerSlots().get(i+1));
+				if(data.getPartnerSlots().size()<i+1) {
+					submissives.put(subs.get(i), data.getPartnerSlots().get(i+1));
+				} else {
+					submissiveSpectators.add(subs.get(i));
+				}
 			}
 		} else {
 			doms.remove(target);
 			dominants.put(target, data.getPartnerSlots().get(0));
 			for(int i=0; i<doms.size(); i++) {
-				dominants.put(doms.get(i), data.getPartnerSlots().get(i+1));
+				if(data.getPartnerSlots().size()<i+1) {
+					dominants.put(doms.get(i), data.getPartnerSlots().get(i+1));
+				} else {
+					dominantSpectators.add(doms.get(i));
+				}
 			}
 			subs.remove(performer);
 			submissives.put(performer, data.getPerformerSlots().get(0));
 			for(int i=0; i<subs.size(); i++) {
-				submissives.put(subs.get(i), data.getPerformerSlots().get(i+1));
+				if(data.getPerformerSlots().size()<i+1) {
+					submissives.put(subs.get(i), data.getPerformerSlots().get(i+1));
+				} else {
+					submissiveSpectators.add(subs.get(i));
+				}
 			}
 		}
 		Sex.setSexManager(new SexManagerDefault(
-				data.getPosition(),
-				dominants,
-				submissives){
-		});
+						data.getPosition(),
+						dominants,
+						submissives){
+				},
+				dominantSpectators,
+				submissiveSpectators);
 		Sex.setPositionRequest(null);
 	}
 
@@ -147,9 +163,9 @@ public class GenericPositioningNew {
 	//--------------- ORAL ---------------//
 	
 	private static List<SexSlot> generatePerformerOralData(GameCharacter receiver) {
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants().keySet());
+		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
 		doms.remove(receiver);
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants().keySet());
+		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
 		subs.remove(receiver);
 
 		boolean bipedalOral1 = receiver.getLegConfiguration().isBipedalPositionedGenitals();
@@ -422,8 +438,8 @@ public class GenericPositioningNew {
 				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotOther.PERFORMING_ORAL_BEHIND));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants());
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants());
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
 			
 			if(Sex.isDom(target)) {
 				dominants.put(target, SexSlotOther.PERFORMING_ORAL_BEHIND);
@@ -512,8 +528,8 @@ public class GenericPositioningNew {
 				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotOther.PERFORMING_ORAL));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants());
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants());
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
 			
 			if(Sex.isDom(target)) {
 				dominants.put(target, SexSlotOther.PERFORMING_ORAL);
@@ -758,8 +774,8 @@ public class GenericPositioningNew {
 				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotOther.PERFORMING_ORAL_BEHIND));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants());
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants());
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
 			
 			if(Sex.isDom(target)) {
 				dominants.put(target, SexSlotOther.PERFORMING_ORAL_BEHIND);
@@ -848,8 +864,8 @@ public class GenericPositioningNew {
 				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotOther.PERFORMING_ORAL));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants());
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants());
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
 			
 			if(Sex.isDom(target)) {
 				dominants.put(target, SexSlotOther.PERFORMING_ORAL);
@@ -871,9 +887,9 @@ public class GenericPositioningNew {
 	//--------------- ALL FOURS ---------------//
 	
 	private static List<SexSlot> generatePerformerAllFoursData(GameCharacter receiver) {
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants().keySet());
+		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
 		doms.remove(receiver);
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants().keySet());
+		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
 		subs.remove(receiver);
 
 		boolean doubleReceiving = false;

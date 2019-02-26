@@ -110,7 +110,7 @@ public class JunglePlaces {
 				return new Response("Dominion", "Travel to Dominion. (This will be added later!)", null){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_EXIT_TO_JUNGLE, true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_EXIT_NORTH, true);
 					}
 				};
 

@@ -3,7 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.Weather;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -21,11 +21,13 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -41,7 +43,8 @@ public class RedLightDistrict {
 		
 		for(int i=0; i<grid.length; i++) {
 			for(int j=0; j<grid[0].length; j++) {
-				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM) && Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j)).isEmpty()) {
+				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)
+						&& Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j)).isEmpty()) {
 					return true;
 				}
 			}
@@ -321,7 +324,16 @@ public class RedLightDistrict {
 												Util.newArrayListOfValues(Main.game.getPlayer()),
 												Util.newArrayListOfValues(npc),
 										null,
-										null), AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
+										null) {
+											public SexPace getStartingSexPaceModifier(GameCharacter character) {
+												if(!character.isPlayer()) {
+													return SexPace.SUB_NORMAL;
+												}
+												return super.getStartingSexPaceModifier(character);
+											}
+										},
+										AFTER_SEX_PROSTITUTE,
+										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
 							
 						} else if (index == 2) {
 								return new ResponseSex("Submissive Sex",
@@ -331,7 +343,16 @@ public class RedLightDistrict {
 												Util.newArrayListOfValues(npc),
 												Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
-										null), AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
+										null){
+											public SexPace getStartingSexPaceModifier(GameCharacter character) {
+												if(!character.isPlayer()) {
+													return SexPace.DOM_NORMAL;
+												}
+												return super.getStartingSexPaceModifier(character);
+											}
+										},
+										AFTER_SEX_PROSTITUTE,
+										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
 							
 						}
 						
@@ -350,7 +371,16 @@ public class RedLightDistrict {
 												Util.newArrayListOfValues(Main.game.getPlayer()),
 												Util.newArrayListOfValues(npc),
 										null,
-										null), AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
+										null){
+											public SexPace getStartingSexPaceModifier(GameCharacter character) {
+												if(!character.isPlayer()) {
+													return SexPace.SUB_NORMAL;
+												}
+												return super.getStartingSexPaceModifier(character);
+											}
+										},
+										AFTER_SEX_PROSTITUTE,
+										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
 									@Override
 									public void effects() {
 										Main.game.getPlayer().incrementMoney(-cost);
@@ -371,7 +401,16 @@ public class RedLightDistrict {
 												Util.newArrayListOfValues(npc),
 												Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
-										null), AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
+										null){
+											public SexPace getStartingSexPaceModifier(GameCharacter character) {
+												if(!character.isPlayer()) {
+													return SexPace.DOM_NORMAL;
+												}
+												return super.getStartingSexPaceModifier(character);
+											}
+										},
+										AFTER_SEX_PROSTITUTE,
+										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
 									@Override
 									public void effects() {
 										Main.game.getPlayer().incrementMoney(-cost);
@@ -488,7 +527,9 @@ public class RedLightDistrict {
 								Util.newArrayListOfValues(Main.game.getActiveNPC()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null), AFTER_SEX_SELL_SELF_SUB, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_START")) {
+						null),
+						AFTER_SEX_SELL_SELF_SUB,
+						UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_START")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(payment);

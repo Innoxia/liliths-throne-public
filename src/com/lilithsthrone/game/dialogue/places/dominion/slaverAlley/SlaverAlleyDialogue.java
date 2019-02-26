@@ -18,6 +18,9 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
+import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
+import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -33,6 +36,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
@@ -55,7 +60,7 @@ public class SlaverAlleyDialogue {
 //		List<String> ids = Main.game.getNpc(Finch.class).getSlavesOwned();
 //		for(String id : ids) {
 //			NPC slaveToRemove = (NPC) Main.game.getNPCById(id);
-//			if(slaveToRemove.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK) {
+//			if(!slaveToRemove.getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK)) {
 //				Main.game.getNpc(Finch.class).removeSlave(slaveToRemove);
 //				Main.game.banishNPC(slaveToRemove);
 //			}
@@ -162,7 +167,7 @@ public class SlaverAlleyDialogue {
 			
 			slave.setVaginaWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
 			slave.setVaginaCapacity(Util.random.nextInt(Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue()), true);
-			slave.setVaginaVirgin(false);
+			slave.setVaginaVirgin(true);
 			
 			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			slave.addFetish(Fetish.FETISH_VAGINAL_GIVING);
@@ -199,7 +204,33 @@ public class SlaverAlleyDialogue {
 		}
 	}
 	
-	
+	public static void stocksReset(){
+		List<NPC> npcsToBanish = new ArrayList<>();
+		for(NPC npc : Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY).getCell(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))) {
+			if(npc instanceof SlaveInStocks) {
+				npcsToBanish.add(npc);
+			}
+		}
+		for(NPC npc : npcsToBanish) {
+			Main.game.banishNPC(npc);
+		}
+		
+		for(int i=0; i<4; i++) {
+			SlaveInStocks slave = new SlaveInStocks(Gender.getGenderFromUserPreferences(false, false));
+			try {
+				Main.game.addNPC(slave, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(Math.random()>0.5f) {
+				Main.game.getNpc(GenericFemaleNPC.class).addSlave(slave);
+			} else {
+				Main.game.getNpc(GenericMaleNPC.class).addSlave(slave);	
+			}
+			slave.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
+			slave.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
+		}
+	}
 	
 	
 	public static final DialogueNode OUTSIDE = new DialogueNode("Slaver Alley", "-", false) {
@@ -963,13 +994,13 @@ public class SlaverAlleyDialogue {
 									+ " <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
 				
 				sexAvailability.clear();
-				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>oral</b>");
 				}
-				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK.toWebHexString()+";'>vaginal</b>");
 				}
-				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_DEEP.toWebHexString()+";'>anal</b>");
 				}
 				
@@ -999,9 +1030,9 @@ public class SlaverAlleyDialogue {
 						UtilText.parse(charactersPresent.get(index-1), "Walk up to [npc.name] and have some fun..."),
 						false, false,
 						new SMStocks(
-								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
-								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
-								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL),
+								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL),
+								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL),
+								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STOCKS_FUCKING)),
 								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS))),
 						null,

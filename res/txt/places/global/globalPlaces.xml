@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="DOMINION_EXTERIOR"><![CDATA[
+	<p>
+		You find yourself travelling through the suburbs of Dominion, which, being comprised mainly of low-density residential structures, offers nothing to hold your attention for long. The only real thing that's remarkable about these outskirts is how limited they are in size; at their furthest extent, they stretch out from the edge of the city centre by only a few miles.
+	</p>
+	<p>
+		As is the case for the vast majority of the Foloi Fields, the huge, black obelisk of Lilith's tower is quite clearly visible from any point in the suburbs, and serves as a constant reminder of who's in charge to those who call this place home.
+	</p>
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			Just like those who dwell in the city centre, the suburban residents of Dominion are made up of many different races, but due to the ongoing arcane storm, all but demons are taking shelter in their homes. The regular Enforcer patrols, too, have switched to an entirely-demon composition, and there are far fewer of them about than normal.
+		</p>
+	#ELSE
+		<p>
+			Just like those who dwell in the city centre, the suburban residents of Dominion seem to be made up of many different races, and you don't have to travel for long before having seen humans, demons, and almost every type of animal-morph there is. The regular Enforcer patrols, too, seem to be made up of several different races, although you notice that they're primarily demons or predatory animal-morphs.
+		</p>
+		#IF(game.getCurrentWeather()==WEATHER_RAIN)
+			<p>
+				Due to the ongoing rain, there are significantly less people on the streets than usual, and those that you do see are typically wrapped up in waterproof clothing.
+			</p>
+		#ENDIF
+	#ENDIF
+	#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+		<p>
+			[Style.boldBlueLight(Snow:)]<br/>
+			Thanks to the snow which
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				 has not only blanketed the land, but which is also currently falling in big flurries
+			#ELSE
+				 has blanketed the land
+			#ENDIF
+			, Dominion's suburbs are hosting the same reindeer-morph workers that can be found in the city centre. Not only do they keep the public roads clear of the white powder, but they also get paid by the local residents to keep their paths shovelled and gritted.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="FOLOI_FIELDS"><![CDATA[
+	<p>
+		The vast expanse of cultivated land around Dominion, known as the 'Foloi Fields', consists primarily of countless fenced-off fields,
+		#IF(game.getSeason()==SEASON_SPRING)
+			 in which potatoes, rhubarb, cauliflower, and many other types of seasonal crops are currently being grown. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which, at this time of year, are filled with beautifully-blossoming trees.
+		#ELSEIF(game.getSeason()==SEASON_SUMMER)
+			 in which corn, hops, wheat, and many other types of seasonal crops are currently being grown. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which, at this time of year, are filled with leafy green trees already showing signs of the fruit they'll bear come autumn.
+		#ELSEIF(game.getSeason()==SEASON_AUTUMN)
+			 in which beetroot, artichoke, pumpkins, and many other types of seasonal crops are currently being grown. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which, at this time of year, are either heavily-laden with fruit, or have already been picked clean of their produce.
+		#ELSE
+			 which have been ploughed and slurried in preparation for the coming year. Although not as common as these currently-barren crop fields, there's also a significant amount of land dedicated to fruit orchards, which, at this time of year, are filled with leafless trees.
+		#ENDIF
+		 As you walk down the many roads that snake around and divide these fields from one another, you note that the landscape is also dotted with small patches of woodland or the odd pond, and you don't ever have to walk far in order to find small streams which happily bubble away as they run steadily downhill towards the river Hubur.
+	</p>
+	<p>
+		Despite the rural setting, you find that there's almost always at least one or two other people ambling down same the paths which you find yourself taking. While most of them appear to be farmhands or residents of nearby villages, you can't help but notice that you don't ever go more than thirty minutes without seeing an Enforcer or two.
+	</p>
+	<p>
+		While most of the fields you see are dedicated to growing crops, there are also a considerable number that have been left for grazing,
+		#IF(game.getSeason()==SEASON_WINTER)
+			 but due to the time of year, all the sheep and cows are currently being kept indoors. Any animal-morph overseers of these herds have similarly retreated to the comfort of their farmsteads for the winter, where they're no doubt performing yearly maintenance on their tools and outbuildings.
+		#ELSE
+			 and you see many herds of sheep and cows, and sometimes even spot the odd field of horses. Either due to a fear of rustlers, or out of a desire to stay close to their animals, you find that it's a very regular occurrence to see one type of animal-morph or another watching over these fields. Curiously enough, you note that the type of animals set out to graze are almost always the same as their overseer's morph type, and you often see sheep-morph shepherds, cow-morph cowherds, and other similarly-matching pairs.
+		#ENDIF
+	</p>
+	<p>
+		Scattered here and there amongst the arable and pastoral land which comprises the vast majority of the Foloi Fields, there are numerous villages, hamlets, and farmsteads. Although the residential areas have nothing to offer that would hold your attention for long, the farmsteads seem to be of some interest, as you see the occasional <i>'Help wanted'</i> sign hanging on the gates at the end of their long driveways. You wonder if you should take one of these farms up on their offer, and apply to do some work for them...
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+		<p>
+			[Style.boldBlueLight(Snow:)]<br/>
+			Thanks to the snow which
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				 has not only covered the land, but which is also currently falling in big flurries
+			#ELSE
+				 has covered the land
+			#ENDIF
+			, the roads of the Foloi Fields are having to be shovelled and kept free of ice by the same reindeer workers which can be found in Dominion.
+		</p>
+	#ENDIF
+	//TODO If Lunette centaur herd is close, all farms locked up
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="FOLOI_FOREST"><![CDATA[
+	<p>
+		In stark contrast to the relatively high development of the Foloi Fields, the expansive, deciduous forest which you find yourself walking through is entirely wild and untamed. Small, narrow paths run past twisted trunks and over quietly-murmuring streams, but upon closer inspection, they turn out to be nothing more than animal tracks, and criss-cross haphazardly through their creator's territory with no clear beginning or end.
+	</p>
+	<p>
+		#IF(game.isDayTime())
+			#IF(game.getSeason()==SEASON_SPRING)
+				Although definitely not a safe place to be travelling through, you can't help but notice how pleasant the forest is at this time of year. Small, leafy shoots are mixed in amongst the many trees' blossoms, and in the light of day, the forest has an almost enchanted feel to it. The tweeting of birds and gentle rustle of the wind in the branches is soothing to your [pc.ears], and you can't help but smile as you find yourself being put at ease by nature's calm ambience.
+			#ELSEIF(game.getSeason()==SEASON_SUMMER)
+				Although definitely not a safe place to be travelling through, you can't help but notice how pleasant the forest is at this time of year. Large, semi-translucent leaves cast the light of day into a mottled green covering overhead, giving the forest an almost enchanted feel to it. The tweeting of birds and the soft whisper of wind in the branches is soothing to your [pc.ears], and you can't help but smile as you find yourself being put at ease by nature's calm ambience.
+			#ELSEIF(game.getSeason()==SEASON_AUTUMN)
+				Although definitely not a safe place to be travelling through, you can't help but notice how pleasant the forest is at this time of year. Autumnal leaves cast the light of day into a mottled orange, brown, and red covering overhead, and with the faint smell of mulch, as well as the slight chill in the air, you can definitely feel that winter is not too far away. The tweeting of birds and the gentle rustle of wind in the branches is soothing to your [pc.ears], and you can't help but smile as you find yourself being put at ease by nature's calm ambience.
+			#ELSE
+				The fact that this is not a safe place to be travelling through is accentuated by how dreary and lifeless the forest appears to be at this time of year. With the trees having shed all of their leaves for the winter, the cool light of day shines down unobstructed onto the muddy brown floor of the forest, offering almost no warmth to take the chill out of the air. The occasional tweet of a non-migratory bird, or the sudden, rustling gust of wind in the barren branches keeps you on edge, and you find yourself ruing the inconsistency of nature's winter ambience.
+			#ENDIF
+		#ELSE
+			#IF(game.getSeason()!=SEASON_WINTER)
+				Although pleasant enough in daylight hours at this time of year, the forest feels particularly ominous at night. With the forest floor being transformed into a mat of inky blackness, and oddly-shaped shadows offering places from which to spring an ambush behind every tree, you can't help but feel as though you're in serious danger of being attacked. An odd owl's hoot or distant wolf's howl leaves you wondering if a wild animal or animal-morph is close by, and every time there's a gentle rustle of wind in the branches, you have to stop and listen to make sure that any would-be attacker isn't making use of nature's ambience to conceal their approach.
+			#ELSE
+				Although dreary and depressing enough in daylight hours at this time of year, the winter forest feels particularly ominous at night. With the forest floor being transformed into a twisted mass of shadows from the bare branches overhead, and the inky-blackness behind each tree offering places from which to spring an ambush, you can't help but feel as though you're in serious danger of being attacked. An odd owl's hoot or distant wolf's howl leaves you wondering if a wild animal or animal-morph is close by, and every time there's a sudden, rustling gust of wind in the branches, you have to stop and listen to make sure that any would-be attacker isn't making use of nature's ambience to conceal their approach.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Knowing that a habitat such as this is sure to be home to many dangerous types of animals and animal-morphs, you make sure not to let your guard down as you make your way ever onwards...
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+		<p>
+			[Style.boldBlueLight(Snow:)]<br/>
+			Thanks to the snow which
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				 has not only covered the land, but which is also currently falling in big flurries
+			#ELSE
+				 has covered the land
+			#ENDIF
+			, the forest floor is transformed into a clean, white blanket, which crunches loudly underfoot.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="GRASSLAND_WILDERNESS"><![CDATA[
+	<p>
+		Separating the Foloi Forest's many wooded areas from one another, there exists vast swathes of untamed grassland wilderness. Wide-open spaces, rolling hills, and shallow valleys with little streams running through them are the typical fare for this particular area, and even though there are not many trees to be seen, there's a considerable amount of foliage in the form of long grasses, scattered shrubs, and dense, bramble-packed thickets.
+	</p>
+	<p>
+		#IF(game.isDayTime())
+			#IF(game.getSeason()!=SEASON_WINTER)
+				As you travel ever onward, you can't help but notice how charming the wild, flower-filled meadows and rolling, green grasslands are. Off in the distance, you occasionally spot a herd of deer, or sometimes even a solitary centaur cantering along on their way to whatever destination they have in mind. These sights of fauna, combined with the gentle, rhythmic swaying of the surrounding flora in the breeze, help to calm your mind, and although you remain vigilant for any sign of trouble, you allow yourself to relax a little as you continue on your way...
+			#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+				[Style.boldBlueLight(Snow:)]<br/>
+				As you travel ever onward, you can't help but notice how amazing the meadows and smooth, rolling hills look when covered in snow. Off in the distance, you occasionally spot a herd of deer, or sometimes even a solitary centaur cantering through the winter wonderland on their way to whatever destination they have in mind. These sights of fauna, in amongst the pristine white landscape, help to calm your mind, and although you remain vigilant for any sign of trouble, you allow yourself to relax as you brace yourself against the cold and continue on your way...
+			#ELSE
+				As you travel ever onward, you can't help but notice how desolate the brown meadows and muddy grasslands are at this time of year. Off in the distance, you occasionally spot a herd of deer, or sometimes even a solitary centaur cantering along on their way to whatever destination they have in mind. Although pleasant to see at any other time of year, these sights of fauna currently only serve to remind you of how hard it is for the inhabitants of this place at this time of year. Bracing yourself against the chill winter wind, you try to put such depressive thoughts out of your mind as you continue on your way...
+			#ENDIF
+		#ELSE
+			#IF(game.getSeason()!=SEASON_WINTER)
+				While travel through the grasslands during daylight hours can be pleasant enough, at night there exists only an atmosphere of extreme danger. The long grasses and dips in elevation are completely shrouded in shadow, offering unlimited opportunities for a predator to spring the perfect ambush upon you. An odd owl's hoot or distant wolf's howl leaves you wondering if a wild animal or animal-morph is close by, and every time there's a gentle rustle of wind over the low-lying foliage, you have to stop and listen to make sure that any would-be attacker isn't making use of nature's ambience to conceal their approach.
+			#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+				[Style.boldBlueLight(Snow:)]<br/>
+				While travel through the snowy grasslands during daylight hours can be pleasant enough, at night there exists only an atmosphere of extreme danger. The icy grasses and dips in elevation are completely shrouded in shadow, offering unlimited opportunities for a predator to spring the perfect ambush upon you. An odd owl's hoot or distant wolf's howl leaves you wondering if a wild animal or animal-morph is close by, and every time there's a sudden, loud gust of wind, you have to stop and listen to make sure that any would-be attacker isn't making use of nature's ambience to conceal their approach.
+			#ELSE
+				Winter's brown, muddy grasslands are particularly desolate and dangerous at night, with what little foliage there is at this time of year being completely shrouded in shadow and therefore offering excellent opportunities for a predator to spring the perfect ambush upon you. An odd owl's hoot or distant wolf's howl leaves you wondering if a wild animal or animal-morph is close by, and every time there's a sudden, loud gust of wind, you have to stop and listen to make sure that any would-be attacker isn't making use of nature's ambience to conceal their approach.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="RIVER_HUBUR"><![CDATA[
+	<p>
+		Flowing down from the mountains in the west, the river Hubur cuts its path eastwards, passing through Dominion before flowing out to sea. Where it cuts through the Foloi Fields, there are many well-maintained roads running alongside it, and it's down one of these that you currently find yourself travelling.
+	</p>
+	<p>
+		There's never any need to go far in order to cross this large body of water, as the farmers who own fields on both sides of the river's banks have constructed bridges, marked out fords, and provided wooden ferries for public use all along its length.
+		#IF(game.isDayTime())
+			 Although not a busy area by any stretch of the imagination, it's not an uncommon sight to see farmhands or local residents making use of these crossings, and every now and then, you're even able to spot a brief flash of colour beneath the surface as a freshwater mermaid darts by on business of her own.
+		#ELSE
+			 Although it's not an uncommon sight to see farmhands or local residents making use of these crossings during the day, the riverside road is almost completely deserted at night. Every now and then, however, you're able to spot a brief flash of colour beneath the water's dark surface as a freshwater mermaid darts by on some urgent business of her own.
+		#ENDIF
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+		<p>
+			[Style.boldBlueLight(Snow:)]<br/>
+			Thanks to the snow which
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				 has not only covered the land, but which is also currently falling in big flurries
+			#ELSE
+				 has covered the land
+			#ENDIF
+			, the edges of the river are currently frozen over in thick sheets of ice, with the very centre still running freely.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ELIS"><![CDATA[
+	<p>
+		The fortified town of Elis is both one of the largest and heavily-defended settlements in all of the Foloi Fields, and it's within sight of its high stone walls that you currently find yourself standing. Although guarded by pairs of particularly tall, muscular cow-girls, the gates leading into the town are left wide open at all hours of day and night, and the most a traveller has to do to gain entry is answer the occasional question regarding their business within.
+	</p>
+	<p>
+		You wonder if you should approach the town and seek to gain entry now, or come back at another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

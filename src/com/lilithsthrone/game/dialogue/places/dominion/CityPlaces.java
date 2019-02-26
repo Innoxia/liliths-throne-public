@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.lilithsthrone.game.Season;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
@@ -29,15 +27,16 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class CityPlaces {
@@ -174,7 +173,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 2*60;
 		}
 
 		@Override
@@ -397,7 +396,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 
 		@Override
@@ -438,7 +437,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 
 		@Override
@@ -479,7 +478,7 @@ public class CityPlaces {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -516,7 +515,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 90;
 		}
 
 		@Override
@@ -597,7 +596,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 10*60;
+			return 3*60;
 		}
 
 		@Override
@@ -695,7 +694,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 2*60;
 		}
 
 		@Override
@@ -724,7 +723,7 @@ public class CityPlaces {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 
 		@Override
@@ -768,7 +767,7 @@ public class CityPlaces {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 1*60;
 		}
 
 		@Override
@@ -805,7 +804,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 2*60;
 		}
 
 		@Override
@@ -837,7 +836,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 
 		@Override
@@ -883,7 +882,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 2*60;
 		}
 
 		@Override
@@ -920,7 +919,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 2*60;
 		}
 
 		@Override
@@ -954,7 +953,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -995,7 +994,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 2*60;
 		}
 
 		@Override
@@ -1021,31 +1020,18 @@ public class CityPlaces {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().isDiscoveredWorldMap()) {
-					return new Response("World travel", "Take a look at your world map and decide where you want to travel to.", WORLD_MAP);
+					return new ResponseEffectsOnly("World travel", "Exit Dominion and head out into the wide world...") {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.WORLD_MAP, Main.game.getPlayer().getGlobalLocation(), false);
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+						}
+					};
 					
 				} else {
 					return new Response("World travel", "You don't know what the rest of the world looks like, and, for now, your business is within the city.", null);
 				}
 
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNode WORLD_MAP = new DialogueNode("World Map", "", true) {
-
-		@Override
-		public String getContent() {
-			return RenderingEngine.ENGINE.getFullWorldMap();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			// Rock island line
-			if (index == 0) {
-				return new Response("Back", "Decide against travelling anywhere right now, and head back into Dominion..", CITY_EXIT);
-			
 			} else {
 				return null;
 			}

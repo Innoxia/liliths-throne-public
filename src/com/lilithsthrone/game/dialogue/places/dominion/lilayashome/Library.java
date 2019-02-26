@@ -191,7 +191,7 @@ public class Library {
 					return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 						@Override
 						public void effects() {
-							Main.game.setActiveNPC(character);
+							SlaveDialogue.initDialogue(character);
 						}
 					};
 				}
@@ -485,7 +485,7 @@ public class Library {
 					+ "<p>"
 						+ "The second alarming fact contained within these pages is related to the development of children."
 						+ " It only takes a few minutes for new-borns to develop and mature into adults, and will inherit all of the common knowledge held by their parents."
-						+ " This doesn't include specific memories, so, for example, if a child's mother knows how to read and write, they will too, but they won't have the memory of their mother learning this information."
+						+ " This doesn't include specific memories, so for example, if a child's mother knows how to read and write, they will too, but they won't have the memory of their mother learning this information."
 					+ "</p>"
 					+ "<p>"
 						+ "After reaching full maturity within a matter of hours, the vast majority of children will immediately leave their parents in order to strike out for themselves and become fully independent."
@@ -517,7 +517,7 @@ public class Library {
 					+ "<p style='text-align:center;'>"
 						+ "[style.italicsExcellent(Dominion Map fully revealed!)]"
 					+ "</p>"
-					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION, false));
+					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION, false, false));
 			
 			return UtilText.nodeContentSB.toString();
 		}

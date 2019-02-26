@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.*;
 import com.lilithsthrone.game.character.npc.misc.*;
@@ -52,8 +51,11 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.*;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Generation;
+import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 import org.w3c.dom.Document;
@@ -115,7 +117,6 @@ public class Game implements XMLSaving {
 	private boolean inCombat;
 	private boolean inSex;
 	private boolean requestAutosave;
-	private boolean playerMovedLocation;
 	
 	private Weather currentWeather;
 	private long nextStormTimeInSeconds;
@@ -397,9 +398,9 @@ public class Game implements XMLSaving {
 				Element mapNode = doc.createElement("maps");
 				game.appendChild(mapNode);
 				for(World world : Main.game.getWorlds().values()) {
-					if(world!=null && world.getWorldType()!=WorldType.WORLD_MAP) { // Do not save world map, as it is for all intents and purposes immutable.
+//					if(world!=null && world.getWorldType()!=WorldType.WORLD_MAP) { // Do not save world map, as it is for all intents and purposes immutable.
 						world.saveAsXML(mapNode, doc);
-					}
+//					}
 				}
 			} catch(Exception ex) {
 				System.err.println("maps saving failed!");
@@ -585,7 +586,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("BAT_CAVERNS") || !Main.isVersionOlderThan(loadingVersion, "0.2.3.5"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.10"))
 							&& (!worldType.equals("LYSSIETH_PALACE") || !Main.isVersionOlderThan(loadingVersion, "0.3"))
-							&& !worldType.equals("WORLD_MAP") // Extra check to make sure world map is not loaded, as it is treated as being immutable
+							&& !worldType.equals("JUNGLE")
 							) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);
@@ -853,8 +854,8 @@ public class Game implements XMLSaving {
 					}
 					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
 						Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL);
-						if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_LILIN_PALACE
-								|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_LILIN_PALACE_GATE){
+						if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_LILIN_PALACE)
+								|| Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE)){
 							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_CAVERN);
 						}
 					}
@@ -1193,14 +1194,16 @@ public class Game implements XMLSaving {
 		if(dialogue!=null) {
 			seconds = dialogue.getSecondsPassed();
 		}
-		if(response.getSecondsPassed()!=Response.DEFAULT_TIME_PASSED_VALUE) {
+		if(response!=null && response.getSecondsPassed()!=Response.DEFAULT_TIME_PASSED_VALUE) {
 			seconds = response.getSecondsPassed();
 		}
-		if(isPlayerMovedLocation()) {
-			Main.game.endTurn(getModifierTravelTime(Main.game.getPlayer().getLocationPlace().getPlaceType().isLand(), seconds), true);
-		} else {
+//		if(isPlayerMovedLocation()) {
+//			System.out.println(":1");
+//			Main.game.endTurn(getModifierTravelTime(Main.game.getPlayer().getLocationPlace().getPlaceType().isLand(), seconds), true);
+//		} else {
+//			System.out.println(":2");
 			Main.game.endTurn(seconds, true);
-		}
+//		}
 	}
 	
 	private boolean isInNPCUpdateLoop = false;
@@ -1299,40 +1302,14 @@ public class Game implements XMLSaving {
 			// Slaver alley reset:
 			SlaverAlleyDialogue.dailyReset();
 		}
-
-		if(loopDebug) {
-			System.out.println("slaver alley done");
-		}
 		
-		if(pendingSlaveInStocksReset && Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
-			List<NPC> npcsToBanish = new ArrayList<>();
-			for(NPC npc : Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY).getCell(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))) {
-				if(npc instanceof SlaveInStocks) {
-					npcsToBanish.add(npc);
-				}
-			}
-			for(NPC npc : npcsToBanish) {
-				Main.game.banishNPC(npc);
-			}
-			
-			for(int i=0; i<4; i++) {
-				SlaveInStocks slave = new SlaveInStocks(Gender.getGenderFromUserPreferences(false, false));
-				if(Math.random()>0.5f) {
-					Main.game.getNpc(GenericFemaleNPC.class).addSlave(slave);
-				} else {
-					Main.game.getNpc(GenericMaleNPC.class).addSlave(slave);	
-				}
-				try {
-					Main.game.addNPC(slave, false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
+		if(pendingSlaveInStocksReset && !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS)) {
+			SlaverAlleyDialogue.stocksReset();
 			pendingSlaveInStocksReset = false;
 		}
+		
 		if(loopDebug) {
-			System.out.println("Stocks reset end");
+			System.out.println("Slaver alley end");
 		}
 		
 		handleAtmosphericConditions(secondsPassedThisTurn);
@@ -1346,9 +1323,13 @@ public class Game implements XMLSaving {
 		}
 		for(NPC npc : NPCMap.values()) {
 			// Non-slave NPCs clean clothes:
-			if((!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer())) && !Main.game.getCharactersPresent().contains(npc)) {
-				npc.cleanAllClothing();
-				npc.cleanAllDirtySlots();
+			if(!Main.game.getCharactersPresent().contains(npc) && (!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer()))) {
+				if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
+					npc.cleanAllClothing();
+				}
+				if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)) {
+					npc.cleanAllDirtySlots();
+				}
 			}
 			
 			// Set NPC resource values:
@@ -1375,7 +1356,9 @@ public class Game implements XMLSaving {
 			}
 			// Replace clothing if not in player's tile:
 			if(hoursPassed > 0) {
-				if(!Main.game.isInCombat() && !Main.game.isInSex()
+				if(!Main.game.isInCombat()
+						&& !Main.game.isInSex()
+						&& !npc.isAllowingPlayerToManageInventory()
 						&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 								|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
 					if(npc.isPendingClothingDressing()) {
@@ -1466,7 +1449,7 @@ public class Game implements XMLSaving {
 			
 			for(int i=1; i <= hoursPassed; i++) {
 				npc.hourlyUpdate();
-				if(npc.getLocationPlace().getPlaceType()!=PlaceType.GENERIC_EMPTY_TILE) { // Don't bother with banished NPCs:
+				if(!npc.getLocationPlace().getPlaceType().equals(PlaceType.GENERIC_EMPTY_TILE)) { // Don't bother with banished NPCs:
 					npc.performHourlyFluidsCheck();
 				}
 			}
@@ -1505,7 +1488,7 @@ public class Game implements XMLSaving {
 		}
 		isInNPCUpdateLoop = false;
 		for(NPC npc : npcsToRemove) {
-			NPCMap.remove(npc.getId());
+			removeNPC(npc);
 		}
 		for(NPC npc : npcsToAdd) {
 			NPCMap.put(npc.getId(), npc);
@@ -1689,7 +1672,6 @@ public class Game implements XMLSaving {
 			
 			String chosenResponse = response.getTitle();
 			DialogueNode node = response.getNextDialogue();
-			setPlayerMovedLocation(false);
 			response.applyEffects();
 			
 			if(response instanceof ResponseCombat) {
@@ -1881,7 +1863,8 @@ public class Game implements XMLSaving {
 				
 				textEndStringBuilder.setLength(0);
 				textStartStringBuilder.setLength(0);
-				
+
+				Main.mainController.getWebEngine().executeScript("var timer;");
 				if(started) {
 					Main.game.endTurn(response, node);
 				}
@@ -1895,7 +1878,6 @@ public class Game implements XMLSaving {
 	public void setContent(Response response, boolean allowTimeProgress, Colour flashMessageColour, String flashMessageText){
 		
 		DialogueNode node = response.getNextDialogue();
-		setPlayerMovedLocation(false);
 		response.applyEffects();
 		
 		if(response instanceof ResponseCombat) {
@@ -2098,6 +2080,7 @@ public class Game implements XMLSaving {
 		textEndStringBuilder.setLength(0);
 		textStartStringBuilder.setLength(0);
 
+		Main.mainController.getWebEngine().executeScript("var timer;");
 		//-------------------- MEMORY LEAK PROBLEM
 		if(started) {
 			if(allowTimeProgress) {
@@ -2589,14 +2572,16 @@ public class Game implements XMLSaving {
 	 * @param text Content of the message.
 	 */
 	public void flashMessage(Colour colour, String text){
-//		Main.game.addEvent(new EventLogEntry(minutesPassed, "", "<span style='color:"+colour.toWebHexString()+";'>"+text+"</span>"), false);
-//		Main.mainController.updateUIRightPanel();
 		Main.mainController.getWebEngine().executeScript(
 				"document.getElementById('bottom-text').innerHTML=\"<span style='color:"+colour.toWebHexString()+";'>"+text+"</span>\";"
-				+ "document.getElementById('bottom-text').classList.add('demo');"
-				+ "setTimeout(function(){"
-				+ "document.getElementById('bottom-text').classList.remove('demo');"
-				+ "}, 2000);");
+				+ "if(!timer) {"
+					+ "document.getElementById('bottom-text').classList.add('demo');"
+					+ "timer = true;"
+					+ "timer = setTimeout(function(){"
+						+ "document.getElementById('bottom-text').classList.remove('demo');"
+						+ "timer = false;"
+					+ "}, 2000);"
+				+ "}");
 	}
 
 	public void restoreSavedContent(boolean regenerateSceneDialogue) {
@@ -2690,6 +2675,7 @@ public class Game implements XMLSaving {
 	
 	private List<NPC> charactersPresent = new ArrayList<>();
 	private List<NPC> charactersHome = new ArrayList<>();
+	
 	public List<NPC> getCharactersPresent() {
 		if(player==null) {
 			charactersPresent.clear();
@@ -2725,9 +2711,11 @@ public class Game implements XMLSaving {
 						charactersHome.add((NPC) character);
 					}
 				} catch (Exception e) {
-					System.err.println("Failed to load character present home: "+id);
-					cell.removeCharacterHomeId(id);
-					e.printStackTrace();
+					if(Main.game.isStarted()) { // Only check once game has started, otherwise initialisation methods (such as equipClothing) may end up breaking this:
+						System.err.println("Failed to load character present home: "+id);
+						cell.removeCharacterHomeId(id);
+					}
+//					e.printStackTrace();
 				}
 			}
 		}
@@ -2750,7 +2738,7 @@ public class Game implements XMLSaving {
 		return charactersHome;
 	}
 	
-	public List<NPC> getCharactersPresent(WorldType worldType, PlaceType placeType) {
+	public List<NPC> getCharactersPresent(WorldType worldType, AbstractPlaceType placeType) {
 		Cell cell = worlds.get(worldType).getCell(placeType);
 		
 		return getCharactersPresent(cell);
@@ -2798,7 +2786,7 @@ public class Game implements XMLSaving {
 		return charactersPresent;
 	}
 	
-	private static int getModifierTravelTime(boolean onLand, int time) {
+	public int getModifierTravelTime(boolean onLand, int time) {
 		int maxTime = 0;
 		
 		for(GameCharacter character : Main.game.getPlayer().getParty()) {
@@ -2886,7 +2874,7 @@ public class Game implements XMLSaving {
 		}
 	}
 	
-	public void setActiveWorld(World world, PlaceType placeType, boolean setDefaultDialogue) {
+	public void setActiveWorld(World world, AbstractPlaceType placeType, boolean setDefaultDialogue) {
 		setActiveWorld(
 				world,
 				world.getClosestCell(Main.game.getPlayer().getLocation(), placeType).getLocation(),
@@ -3208,10 +3196,11 @@ public class Game implements XMLSaving {
 	}
 
 	public void removeNPC(String id) {
-		if(isInNPCUpdateLoop) {
-			npcsToRemove.add(NPCMap.get(id));
-		} else {
-			NPCMap.remove(id);
+		try {
+			removeNPC((NPC)Main.game.getNPCById(id));
+		} catch (Exception e) {
+			System.err.println("Trying to remove an NPC that doesn't exist?");
+			e.printStackTrace();
 		}
 	}
 	
@@ -3235,7 +3224,7 @@ public class Game implements XMLSaving {
 	public int getNumberOfWitches() {
 		int i = 0;
 		for(NPC npc : NPCMap.values()) {
-			if(npc instanceof Cultist && npc.getLocationPlace().getPlaceType()!=PlaceType.GENERIC_EMPTY_TILE) {
+			if(npc instanceof Cultist && !npc.getLocationPlace().getPlaceType().equals(PlaceType.GENERIC_EMPTY_TILE)) {
 				i++;
 			}
 		}
@@ -3361,6 +3350,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.debugMode);
 	}
 	
+	public String runXmlTest(String pathName) {
+		return UtilText.runXmlTest(pathName);
+	}
+	
 	public boolean isMapReveal() {
 		return Main.getProperties().hasValue(PropertyValue.mapReveal);
 	}
@@ -3433,6 +3426,10 @@ public class Game implements XMLSaving {
 	public void setRenderMap(boolean renderMap) {
 		this.renderMap = renderMap;
 	}
+	
+	public boolean isInGlobalMap() {
+		return this.getPlayer().getLocationPlace().getPlaceType().isGlobalMapTile();
+	}
 
 	public List<EventLogEntry> getEventLog() {
 		return eventLog;
@@ -3483,14 +3480,6 @@ public class Game implements XMLSaving {
 
 	public void setRequestAutosave(boolean requestAutosave) {
 		this.requestAutosave = requestAutosave;
-	}
-
-	public boolean isPlayerMovedLocation() {
-		return playerMovedLocation;
-	}
-
-	public void setPlayerMovedLocation(boolean playerMovedLocation) {
-		this.playerMovedLocation = playerMovedLocation;
 	}
 	
 }

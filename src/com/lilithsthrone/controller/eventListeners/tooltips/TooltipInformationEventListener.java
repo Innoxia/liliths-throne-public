@@ -15,9 +15,11 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.combat.*;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -30,11 +32,16 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.WorldType;
+
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -66,6 +73,9 @@ public class TooltipInformationEventListener implements EventListener {
 	private Attribute attribute;
 	private InventorySlot concealedSlot;
 	private LoadedEnchantment loadedEnchantment;
+	
+	private Cell cell;
+	
 	private static StringBuilder tooltipSB  = new StringBuilder();
 	
 	private int descriptionHeightOverride;
@@ -973,6 +983,53 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 			
 			
+		} else if(cell!=null) {
+
+			Set<NPC> charactersPresent = new HashSet<>(Main.game.getCharactersPresent(cell));
+			if(!cell.equals(Main.game.getWorlds().get(WorldType.DOMINION).getCell(0, 0))) { // Override as NPCs had their home placed here... Add a version catch?
+				charactersPresent.addAll(Main.game.getCharactersTreatingCellAsHome(cell));
+			}
+
+			int yIncrease = 0;
+			
+			StringBuilder charactersPresentDescription = new StringBuilder();
+			
+			if(Main.game.getCurrentDialogueNode() != Library.DOMINION_MAP) {
+				if(!charactersPresent.isEmpty()) {
+					for(NPC character : charactersPresent) {
+						yIncrease++;
+						charactersPresentDescription.append(
+								(Main.game.getCharactersPresent(cell).contains(character)
+										?character.getName("The")
+										:"[style.colourDisabled("+character.getName("The")+")]")
+								+": "+(character.isRaceConcealed()?"[style.colourDisabled(Unknown race!)]":UtilText.parse(character, "[npc.FullRace(true)]"))
+								+"<br/>");
+					}
+					
+				}
+//				else {
+//					charactersPresentDescription.append("No characters present...");
+//				}
+			}
+
+			Main.mainController.setTooltipSize(360, 175+(yIncrease>0?32:0)+(yIncrease * LINE_HEIGHT));
+			
+			String tooltipDesc = cell.getPlace().getPlaceType().getTooltipDescription();
+			
+			Main.mainController.setTooltipContent(UtilText.parse(
+					"<div class='title'>"+Util.capitaliseSentence(cell.getPlaceName())+"</div>"
+					+ "<div class='description'>"
+						+ (tooltipDesc==null || tooltipDesc.isEmpty()
+							?""
+							:tooltipDesc+"<br/>")
+						+(cell.getPlace().getPlaceType().isDangerous()
+							?"This is a [style.italicsBad(dangerous)] area!"
+							:"This is a [style.italicsGood(safe)] area.")
+					+ "</div>"
+					+ (yIncrease>0
+							?"<div class='description' style='height:"+(24 + yIncrease * LINE_HEIGHT)+"px;'>"+charactersPresentDescription.toString()+"</div>"
+							:"")));
+			
 		} else { // Standard information:
 			if(description==null || description.isEmpty()) {
 				Main.mainController.setTooltipSize(360, 64);
@@ -1179,6 +1236,13 @@ public class TooltipInformationEventListener implements EventListener {
 
 		return this;
 	}
+
+	public TooltipInformationEventListener setCell(Cell cell) {
+		resetFields();
+		this.cell = cell;
+
+		return this;
+	}
 	
 	private void resetFields() {
 		extraAttributes = false;
@@ -1200,5 +1264,6 @@ public class TooltipInformationEventListener implements EventListener {
 		concealedSlot=null;
 		loadedEnchantment=null;
 		descriptionHeightOverride = 0;
+		cell = null;
 	}
 }

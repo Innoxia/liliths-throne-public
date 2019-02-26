@@ -966,7 +966,7 @@ public class LyssiethPalaceDialogue {
 	};
 	
 	private static boolean isMeraxisBeingTransformed() {
-		return Main.game.getNpc(DarkSiren.class).getLocationPlace().getPlaceType()==PlaceType.LYSSIETH_PALACE_OFFICE;
+		return Main.game.getNpc(DarkSiren.class).getLocationPlace().getPlaceType().equals(PlaceType.LYSSIETH_PALACE_OFFICE);
 	}
 	
 	private static void returnCompanionsToLab() {

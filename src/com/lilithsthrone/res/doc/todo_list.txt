@@ -123,52 +123,146 @@
 	
 	Patch notes:
 	
+	Engine:
+		Added support for setting local variables in dialogue parsing.
+		Added support for parsing conditional statements wrapped in curly brackets, instead of having to close each one with an #ELSE tag.
+		Added support for #ELSEIF statements in conditional parsing.
+		Added xml testing functionality in the debug menu's parser. (This is just for dialogue, not mods.)
+		Added fullscreen toggle functionality (F11 is the default hotkey).
+	
+	Gameplay:
+		Added: Fast travel functionality to the phone's map screen. You can choose between 'Walk (safest)' and 'Walk (fastest)' as path-based travel, and 'Fly' and 'Teleport' as non-path-based travel.
+		Added descriptions for the world map's Dominion, fields, river, forests, grassland, and Elis tiles, although you can't do anything to interact with them yet. (I'll add encounters and exploration for v0.3.4.)
+		Removed the map from the default phone homepage, and added a dedicated map hotkey (default 'M') to bring up the map screen instead. If using an older properties file, you'll have to manually set your map hotkey in options - > keybinds.
+		Added ability to invite harpy offspring back home.
+		Added unique dialogue for your offspring when you invite them to come and live with you.
+		Added some more group sex options to the occupant & slave sex action menus, and filled in all of the sex's starting scene descriptions for them.
+		There is now a 2.5% chance for any Dominion mugger or prostitute to be a half-demon.
+		
+	Artwork:
+		Added Lilaya artwork from FriendlyAlienFriend. She has four skin-tone variations, and a clothed, underwear, and naked image for each of these.
+	
 	Contributors:
 		Localised all units in the game, and added toggles for 12/24 hour clock and imperial/metric measurements in the options menu. (PR#931 by DJ Addi)
 	
+	Sex:
+		Fixed issue in sex where NPCs would sometimes not move onto full penetrative actions, and get stuck in foreplay actions (such as continuing to perform hotdogging when they wanted to penetrate the target's ass).
+		If an NPC's affection towards their submissive sex partner is less than -30, and they do not dislike the sadist fetish, then they will prefer using the rough pace in sex (to represent hate-fucking).
+		Fixed some minor positioning errors in the 'Mounting' taur sex position.
+		Fixed issue where any sex scene with spectators in it would bug out and cause NPCs to never change position from the starting one.
+		Fixed issue with sex AI wanting to use illogical positioning whenever spectators were present.
+		Fixed incorrect character targeting for exposed descriptions during sex.
+		The decision for an AI to willingly have their virginity taken during sex is now based on lust instead of arousal. (Once over 75 lust, they will be happy to lose their virginity, unless it's a 'pure virgin' fetishist's vaginal virginity.)
+		'Pure virgin' post-sex experience gains are now instead applied to the 'Lusty maiden' fetish. (You need to have a vagina, satisfy all of the people in the sex scene, and not lose your vaginal virginity to gain the experience.)
+	
+	Other:
+		Reduced tile travel times in Dominion. (From 5 minutes per tile to 2 for street tiles, 1.5 for boulevard tiles, and 3 for back alley tiles.)
+		Slightly altered the dangerous background colour patterning for map tiles, and altered some of the world map colours and added some icons.
+		Added map tooltip descriptions for all tiles on every map.
+		The slaves sold in the store 'White Lillies' in Slaver Alley are now virgins.
+		The 'Suck cock' scene to gain entry to the nightclub now starts with you sucking Jules's cock, instead of awkwardly doing nothign for one turn and waiting for him to start.
+		Made the light pink colouring of sex action text slightly darker/redder if you are the dominant partner.
+		Slaves found in the stocks in slaver alley now have a chance every hour (certainty at midday, trailing off to 0% towards midnight) to have been used by someone, resulting in cum being found in their public-use orifices.
+		Your slaves assigned to the stocks will now end up having cum on them, in areas dependent on which of their areas you set to be used.
+		Fixed some issues with the AI in sex not choosing appropriate actions. (This will still occur in some scenarios, as I have to convert old sex position formats to a fixed version.)
+		Occupants who are willing to let you manage their inventory will no longer have to be forced into drinking transformative potions in the resulting description of their consumption.
+		Optimised save files a little, which should cut down large saves' file size by about 10%.
+	
 	Bugs:
 		If you lack the body part on which a clothing transformation is trying to be applied, the game's dialogue will no longer be interrupted with a 'you lack a X, so nothing happens' message.
+		Fixed bug where random NPCs could sometimes spawn in your slave's room when they were assigned to be a prostitute or to service the stocks.
+		Fixed issue with taur travel time reduction over land not being applied.
+		Dropped items will now correctly be cleared when you move off the tile in Zaranix's home, Angel's kiss, Lyssieth's palace, and the imp fortress courtyards.
+		You can no longer stop sex after offering yourself to alley attackers.
+		Grammatical and typo fixes.
+		Fixed issue when paying a prostitute for sex, they would start off resisting.
+		Fixed issue where friendly occupants would be ok with starting a threesome if you brought along someone who was attracted to you, even if they were not.
+		You can no longer get your slaves to work as dairy cows/bulls while stationed in the cells at Slavery Administration.
+		Fixed issue with stored fluids (i.e. cum in condoms or inside of people) changing their 'bestial' (i.e. centaur cum) and 'virility' values as the original owner's corresponding values were changed. (So now once a fluid is expelled, it should retain all relevant qualities properly.)
+		Fixed issue with Alexa's slaves not being cleared properly each day.
+		Fixed some incorrect sex position slot descriptions.
+		Fixed issue with some items having incorrect determiners (e.g 'A Ambiphilic hypno-watch').
+		The hypno-watch now correctly retains its colouring upon loading a game.
+		Fixed incorrect starting description for the oral sex position.
+		Fixed issue where you would end up fighting Meraxis one-on-one after beating her demon lieutenants.
+		Fixed background error being thrown when turning slimes into half-demons (using the debug Innoxia's Gift potion), and then back into flesh.
+		'Lusty maiden' fetish experience no longer takes into account whether spectators are satisfied or not, and also is not applied if you lack a vagina, your vagina is not virginal, or you lose your virginity during the sex. 
+		NPCs will no longer take spectators into account when deciding if they've satisfied everyone (and thus wanting to stop sex).
+		The 'kiss breasts' sex action is now correctly named 'kiss chest' if the target has a flat chest.
+		Fixed the 'Transform' action not showing up in post-combat victory scenes for slimes in Dominion.
+		Removed ability to change position without requesting it when offering your body to avoid a fight.
+		Your companions will no longer change their clothing in order to cover themselves up, provided they're happy enough to let you manage their inventory.
 	
 	
 	
+	Jam
+	
+	PRs
 	
 	
+	make it so forbidding NPCs from performing sex action blocks their positioning actions as well
 	
-	1. Add world map travel system.
-	    - Keyboard movement.
-	    - Mouse click path movement.
-	2. Add unique dialogue for offspring moving in to live with you.
-	    - Initial encounter scene variation.
-	    - Moving in variation.
-	    - Unique talk scenes.
-	    - Their apartment scenes.
 	3. Add orgasm denial scenes.
 	    - Add NPC behaviour for denial.
 	    - Add sex action(s).
+	    	Need variations for ongoing penetration or not
+	    	BDSM set effect - cannot perform any sex actions when a sub
 	    - Add variations for if chastity belt/cage is being worn.
-	4. Add a centaur field exploration encounter. (Will be cut if I run out of time.)
+	
+	
+	
+	need to convert sex positions to new format
+	need oral(behind) in new positioning actions
+	
+	Fix status effect text wrap!
+	
+	offspring slave variants
+	offspring talk variations
+	
+	Need incest checks in offspring and occupant dialogue
+		make it so offspring encounters are enabled with incest off, but all incest-related actions are hidden
+	
+	 
+	4. Add a centaur field exploration encounter.
 	    - Tidy up encounter code.
+	need a 'rampaging Lunette' status effect
 	    - Enable movement over field tiles.
 	    - Add dialogue framework.
 	    - Write dialogue.
 	    - Test.
+	    
 	5. Fix bugs and polish.
-
-	credits
 	
 	
+	regarding taurs (no intentional groping or suckling of crotchboobs, and pregnancy scenes not reflecting that they are a taur
+	
+	anyone tested if you can find tauric children in Dominion? i tested with just a random centaur (breeding game) but had no encounter
+		makes sense for actual centaur to be out in fields where rest of centaurs are, but questioning non-horse
+		also, a bit sad that being taur and setting demon lover/slave to taur doesn't result in halfdemon taurs
+		 at least with the bare minimum testing i did
+	I think as of last time I asked: taur kids can't spawn yet. Currently only centaurs and variants can be born (even if you can't encounter yet),
+	 if you breed a cat-taur you'll just get regular cat-folk and so on. Also only NPCs that spawn tauric are slimes. Who also birth regular slimes.
 	
 	
+	creampie impregnation text references wrong person (was saying: came in player, but chance they will get pregnant)
 	
+	reduce suckling amount in sex action
 	
+	wet -> milky 
 	
-	stop sex is appearing after switching positions
+	drips is 177ml?
+	
+	Maybe it's just me but every time you try to have sex with anyone on the bottom row of the harpy nests, the game bugs out.
+	 The game doesn't move into a sex scene and trying to leave forces your inventory on top of the map. You can still move around but you'll be walking blind
 	
 	meraxis gives birth to half-succubi
 	
 	It was the doggy-style position, I was on all fours and he was kneeling behind me... giving me a footjob.
 	
 	taur force cum inside checks for non-taurs in their positions
+	
+	really odd continually seeing my companion changing what clothes they are wearing...
+		they keep adding random items
 	
 	Lipstick essentially it is purely cosmetic in general but if you have lipstick on your lips during sex you can choose to give a big long kiss to a certain body part leaving a lipstick kiss mark. It can be washed off, enchanted to grant bonuses to those who have it and provide a buff to exhibitionists (since it shows you have been having fun with someone). 
 	
@@ -189,7 +283,12 @@
 	But with the jockstrap and jeans combo when the partner climaxed the description was as if they were going commando. as in instead of climaxing into the jockstrap it read as climaxing into the jeans. Yet the jockstrap had the dirty status.
 		Also it was back to normal once the jeans were pulled down.
 	
+	need sex slot tags like "lying down", "submissive", "dominant", so position switching can take this into account
+		make it so NPCs will not choose sub positioning when dom, or lying down when in dirty area
+		
 	Add TF feeding to Karl and WOlfgang
+	
+	need to add generic sex NPCS to NPC list (for stocks slaves and in slave jobs)
 	
 	Both in self description and stat description when moving around. I have lactation enchantments on tattoos for them and they show the enchantment working on my crotch tits.
 		But the tool tip ref is not showing for them lactating.
@@ -201,6 +300,8 @@
 	need to make a more unified NPC class
 	
 	refine clothing presets
+	
+	need 'convincing requests' perk
 	
 	insertable dildo needs to stretch
 	
@@ -214,8 +315,6 @@
 	
 	orifice rejuvination item
 	aphrodesiac item
-	
-	The option to TF a alley/sewer slime has been gone for a while
 	
 	fly to tile quick travel
 	
@@ -255,9 +354,6 @@
 	player demon half-subspecies not showing?
 	
 	can pull up t-shirts beneath over-torso clothing
-	
-	Send out thank you messages
-	Jam
 	
 	Breast Size setting
 	
@@ -385,12 +481,8 @@
 	
 	fix arcane stat descriptions and attribute maximums (no maximum, remove permanent gains from potions)
 	
-	
 	check slave shops overstocking
 	
-	Exit dominion
-		World map, with locations (as tiles) either hidden or explored.
-		Click to go to that area map
 	
 	Fields
 		Central farmland and town
@@ -531,8 +623,6 @@
 	>After getting raped
 	>Make potion to remove the othe one's effects
 	>"Heh, nice try, but do you really expect me to drink a random potion?"
-	
-	Buttplugs shouldn't count as preserving your modesty in terms of exhibitionism
 	
 	Need to be able to appendage interact with kneeling oral beside you
 	

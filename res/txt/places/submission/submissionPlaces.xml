@@ -331,7 +331,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="TUNNEL_IMP_CONTROL"><![CDATA[
-	<p style='color:[#pc.getLocationPlace().getPlaceType().getColour().toWebHexString()];'>
+	<p style='color:[#pc.getLocationPlace().getPlaceType().getColourString()];'>
 		<i>This tunnel is part of a network that's currently being controlled by an imp fortress! Until the fortress is cleared, anyone who calls these tunnels home is sure to remain in hiding...</i>
 	</p>
 	]]>
@@ -379,7 +379,7 @@
 		 A pair of heavy oaken doors, firmly shut tight, fill the opening, leaving you to wonder what could possibly be on the other side.
 	</p>
 	<p>
-		Stepping forwards to take a closer look, you see that the name 'Rengar' has been crudely carved into the wood.
+		Stepping forwards to take a closer look, you see that the name 'Vengar' has been crudely carved into the wood.
 		 Pressing your [pc.ear] against the surface, you can hear the distinct sounds of life within, and you wonder if you should give the doors a knock, or simply carry on your way...
 	</p>
 	]]>

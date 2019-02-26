@@ -130,18 +130,24 @@ public enum LustLevel {
 	public SexPace getSexPace(boolean consensual, GameCharacter character) {
 		SexPace pace;
 		if(Sex.isDom(character)) {
+			pace = getSexPaceDominant();
+			
 			if((character.hasFetish(Fetish.FETISH_SUBMISSIVE) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_DOMINANT))
 					|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE) {
 				pace = SexPace.DOM_GENTLE;
 				
-			} else if(character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE) {
+			} else if(character.getFetishDesire(Fetish.FETISH_SADIST).isNegative()) {
 				pace = SexPace.DOM_NORMAL;
 				
 			} else if(character.hasFetish(Fetish.FETISH_SADIST)) {
-				pace = SexPace.DOM_ROUGH;
+				return SexPace.DOM_ROUGH;
 				
-			} else {
-				pace = getSexPaceDominant();
+			} else { // Hate sex:
+				for(GameCharacter target : Sex.getAllParticipants()) {
+					if(!Sex.isDom(target) && character.getAffection(target)<AffectionLevel.NEGATIVE_TWO_DISLIKE.getMaximumValue()) {
+						return SexPace.DOM_ROUGH;
+					}
+				}
 			}
 			
 		} else {
@@ -157,8 +163,7 @@ public enum LustLevel {
 		
 		if(pace==SexPace.DOM_ROUGH
 				&& ((!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_NON_CON_DOM))
-						|| (character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE
-							|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE))) {
+						|| (character.getFetishDesire(Fetish.FETISH_SADIST).isNegative()))) {
 			pace = SexPace.DOM_NORMAL;
 		}
 		

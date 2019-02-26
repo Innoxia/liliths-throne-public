@@ -28,12 +28,22 @@ public class SMGeneric extends SexManagerDefault {
 	List<GameCharacter> dominantSpectators;
 	List<GameCharacter> submissiveSpectators;
 	
+
 	public SMGeneric(
 			List<GameCharacter> dominants,
 			List<GameCharacter> submissives,
 			List<GameCharacter> dominantSpectators,
 			List<GameCharacter> submissiveSpectators,
 			ResponseTag... tags) {
+		this(dominants, submissives, dominantSpectators, submissiveSpectators, Arrays.asList(tags));
+	}
+	
+	public SMGeneric(
+			List<GameCharacter> dominants,
+			List<GameCharacter> submissives,
+			List<GameCharacter> dominantSpectators,
+			List<GameCharacter> submissiveSpectators,
+			List<ResponseTag> tags) {
 		super(null, null, null);
 		
 		this.dominantSpectators = new ArrayList<>();
@@ -67,7 +77,7 @@ public class SMGeneric extends SexManagerDefault {
 		SexSlot[] slotsDominant;
 		SexSlot[] slotsSubmissive;
 		if(nonBiped) { // This scene contains characters who are non-bipedal, so use the SexPositionOther classes:
-			if(Arrays.asList(tags).contains(ResponseTag.PREFER_DOGGY)) {
+			if(tags.contains(ResponseTag.PREFER_DOGGY)) {
 				this.position = SexPositionOther.ALL_FOURS;
 				if(submissives.size()==1) {
 					slotsDominant = new SexSlot[] {SexSlotOther.ALL_FOURS_MOUNTING, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET};
@@ -83,7 +93,7 @@ public class SMGeneric extends SexManagerDefault {
 			}
 			
 		} else {
-			if(Arrays.asList(tags).contains(ResponseTag.PREFER_DOGGY)) {
+			if(tags.contains(ResponseTag.PREFER_DOGGY)) {
 				this.position = SexPositionBipeds.DOGGY_STYLE;
 				if(submissives.size()==1) {
 					slotsDominant = new SexSlot[] {SexSlotBipeds.DOGGY_BEHIND, SexSlotBipeds.DOGGY_INFRONT, SexSlotBipeds.DOGGY_INFRONT_TWO, SexSlotBipeds.DOGGY_FEET};

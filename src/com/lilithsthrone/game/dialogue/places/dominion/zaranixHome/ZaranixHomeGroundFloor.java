@@ -774,7 +774,7 @@ public class ZaranixHomeGroundFloor {
 
 		@Override
 		public int getSecondsPassed() {
-			if(Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+			if(Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_ENTRANCE)) {
 				return 60;
 			}
 			return 20;
@@ -791,7 +791,7 @@ public class ZaranixHomeGroundFloor {
 
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE"));
 			
-			if(Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+			if(Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_ENTRANCE)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_PRESENT"));
 			}
 			
@@ -809,7 +809,7 @@ public class ZaranixHomeGroundFloor {
 					}
 				};
 
-			} else if(index==2 && Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+			} else if(index==2 && Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_ENTRANCE)) {
 				return new ResponseSex("Use Amber", "Have some fun with this fiery maid.",
 						true, false,
 						new SMGeneric(
@@ -818,7 +818,7 @@ public class ZaranixHomeGroundFloor {
 						null,
 						null), Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX"));
 				
-			} else if(index==3 && Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+			} else if(index==3 && Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_ENTRANCE)) {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
@@ -829,7 +829,7 @@ public class ZaranixHomeGroundFloor {
 						null,
 						null), Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX_SUBMIT"));
 				
-			} else if (index == 4 && Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+			} else if (index == 4 && Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_ENTRANCE)) {
 				return new Response("Transformations",
 						"Get Amber to use [amber.her] demonic powers to transform [amber.herself]...",
 						BodyChanging.BODY_CHANGING_CORE){
@@ -906,7 +906,7 @@ public class ZaranixHomeGroundFloor {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR"));
 			
 			if(Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1) != null
-					&& Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1).getPlace().getPlaceType()==PlaceType.ZARANIX_GF_MAID
+					&& Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1).getPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_MAID)
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_KATHERINE_NOT_SUBDUED"));
 			}
@@ -1018,7 +1018,7 @@ public class ZaranixHomeGroundFloor {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "GARDEN_ROOM"));
 			
 			if(Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX()-1, Main.game.getPlayer().getLocation().getY()) != null
-					&& Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX()-1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType()==PlaceType.ZARANIX_GF_MAID
+					&& Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX()-1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_MAID)
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "GARDEN_ROOM_KATHERINE_NOT_SUBDUED"));
 			}
@@ -1155,7 +1155,7 @@ public class ZaranixHomeGroundFloor {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType()!=PlaceType.ZARANIX_GF_LOUNGE) {
+			if(!Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_LOUNGE)) {
 				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "LOUNGE_EMPTY");
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixAmberSubdued)) {
@@ -1181,7 +1181,7 @@ public class ZaranixHomeGroundFloor {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType()!=PlaceType.ZARANIX_GF_LOUNGE) {
+			if(!Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_LOUNGE)) {
 				return null;
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixAmberSubdued)) {

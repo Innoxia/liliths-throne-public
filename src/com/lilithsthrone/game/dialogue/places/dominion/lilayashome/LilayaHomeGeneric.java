@@ -193,7 +193,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(charactersPresent.get(index-1));
+						SlaveDialogue.initDialogue(charactersPresent.get(index-1));
 					}
 				};
 					
@@ -637,7 +637,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC((NPC) character);
+						SlaveDialogue.initDialogue((NPC) character);
 					}
 				};
 				
@@ -646,10 +646,19 @@ public class LilayaHomeGeneric {
 		} else if(index-3<slavesAssignedToRoom.size()) {
 			NPC character = slavesAssignedToRoom.get(index-3);
 			if(charactersPresent.contains(character)) {
-				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), character.isSlave()?SlaveDialogue.SLAVE_START:OccupantDialogue.OCCUPANT_START) {
+				return new Response(
+						UtilText.parse(character, "[npc.Name]"),
+						UtilText.parse(character, "Interact with [npc.name]."),
+						character.isSlave()
+							?SlaveDialogue.SLAVE_START
+							:OccupantDialogue.OCCUPANT_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(character);
+						if(character.isSlave()) {
+							SlaveDialogue.initDialogue(character);
+						} else {
+							OccupantDialogue.initDialogue(character);
+						}
 					}
 				};
 				
@@ -1664,7 +1673,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(charactersPresent.get(index-1));
+						SlaveDialogue.initDialogue(charactersPresent.get(index-1));
 					}
 				};
 					

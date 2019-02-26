@@ -36,8 +36,8 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -72,8 +72,8 @@ public class GenericOrgasms {
 	
 	private static boolean isActiveNPCObeyingPlayer() {
 		if(Sex.isMasturbation()
-				|| Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.MISC_WATCHING
-				|| Sex.getSexPositionSlot(Sex.getActivePartner())==SexSlotBipeds.MISC_WATCHING) {
+				|| Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotGeneric.MISC_WATCHING
+				|| Sex.getSexPositionSlot(Sex.getActivePartner())==SexSlotGeneric.MISC_WATCHING) {
 			return false;
 		}
 		
@@ -84,7 +84,7 @@ public class GenericOrgasms {
 
 	private static boolean isCumTargetRequirementsMet(OrgasmCumTarget cumTarget) {
 		if(!Sex.getAvailableCumTargets(Sex.getCharacterPerformingAction()).contains(cumTarget)
-				|| (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.MISC_WATCHING && cumTarget.isRequiresPartner())
+				|| (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotGeneric.MISC_WATCHING && cumTarget.isRequiresPartner())
 				|| !Sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
 				|| !Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)
 				|| Sex.getCharacterPerformingAction().isWearingCondom()
@@ -2078,8 +2078,8 @@ public class GenericOrgasms {
 		@Override
 		public SexActionPriority getPriority() {
 			if(!Sex.getCharacterPerformingAction().isPlayer()
-					&& ((Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
-							|| Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_PREGNANCY)
+					&& ((Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)
+							|| Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_PREGNANCY))
 						|| (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
 							&& Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_IMPREGNATION)))) {
 				return SexActionPriority.UNIQUE_MAX;
@@ -2387,8 +2387,8 @@ public class GenericOrgasms {
 		@Override
 		public boolean endsSex() {
 			return  Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.INSIDE, true).isEndsSex()
-					|| Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
-					|| Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_PREGNANCY;
+					|| Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)
+					|| Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_PREGNANCY);
 		}
 	};
 	
@@ -4532,8 +4532,8 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			if(Sex.getCharacterPerformingAction().isPlayer()) {
 				return isTakingCock(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
-						&& Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
-						&& Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_PREGNANCY;
+						&& !Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)
+						&& !Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_PREGNANCY);
 				
 			} else {
 				return isTakingCock(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))

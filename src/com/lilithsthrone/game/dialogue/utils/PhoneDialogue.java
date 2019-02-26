@@ -57,7 +57,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
@@ -69,15 +69,25 @@ public class PhoneDialogue {
 
 		@Override
 		public String getContent() {
-			return RenderingEngine.ENGINE.getFullMap(Main.game.getPlayer().getWorldLocation(), true)
-					+"<p>You pull out your phone and tap in the unlock code.</p>"
-					+ (Main.game.isInNewWorld()
-							?"<p>"
-								+"Using your powerful aura, you've managed to figure out a way to channel the arcane into charging the battery of your phone, although considering that it's the only one in this world,"
-									+ " it's not much use for calling anyone."
-								+ " Instead, you're using it as a way to store information about things you've discovered in this strange new world."
-							+ "</p>"
-							:"");
+			UtilText.nodeContentSB.setLength(0);
+			
+//			if(Main.game.isInGlobalMap()) {
+//				UtilText.nodeContentSB.append(RenderingEngine.ENGINE.getFullWorldMap());
+//			} else {
+//				UtilText.nodeContentSB.append(RenderingEngine.ENGINE.getFullMap(Main.game.getPlayer().getWorldLocation(), true));
+//			}
+			
+			UtilText.nodeContentSB.append("<p>You pull out your phone and tap in the unlock code.</p>");
+			
+			if(Main.game.isInNewWorld()) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+"Using your powerful aura, you've managed to figure out a way to channel the arcane into charging the battery of your phone, although considering that it's the only one in this world, it's not much use for calling anyone."
+							+ " Instead, you're using it as a way to store information about things you've discovered in this strange new world."
+						+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -2834,14 +2844,20 @@ public class PhoneDialogue {
 	}
 	
 	public static WorldType worldTypeMap = WorldType.DOMINION;
-	public static final DialogueNode MAP = new DialogueNode("Maps", "", true) {
 
+	public static final DialogueNode MAP = new DialogueNode("Maps", "", true) {
+		@Override
+		public String getLabel() {
+			return "Map: "+Util.capitaliseSentence(worldTypeMap.getName());
+		}
+		
 		@Override
 		public String getContent() {
 			if(worldTypeMap==WorldType.WORLD_MAP) {
-				return RenderingEngine.ENGINE.getFullWorldMap();
+//				return RenderingEngine.ENGINE.getFullWorldMap();
+				return RenderingEngine.ENGINE.getFullMap(worldTypeMap, true, false);
 			} else {
-				return RenderingEngine.ENGINE.getFullMap(worldTypeMap, true);
+				return RenderingEngine.ENGINE.getFullMap(worldTypeMap, true, true);
 			}
 		}
 
@@ -2854,13 +2870,22 @@ public class PhoneDialogue {
 						&& world != WorldType.MUSEUM
 						&& world != WorldType.MUSEUM_LOST) {
 					if(index==i) {
+						boolean playerPresent = Main.game.getPlayer().getWorldLocation()==world;
 						if(worldTypeMap==world) {
-							return new Response(Util.capitaliseSentence(world.getName()), "You are already viewing the map of "+world.getName()+".", null);
+							return new Response(Util.capitaliseSentence(world.getName()), "You are already viewing the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
 							
 						} else if(Main.game.getPlayer().getWorldsVisited().contains(world)) { 
-							return new Response(Util.capitaliseSentence(world.getName()), "View the map of "+world.getName()+".", MAP) {
+							return new Response(Util.capitaliseSentence(world.getName()), "View the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
+								@Override
+								public Colour getHighlightColour() {
+									if(playerPresent) {
+										return Colour.GENERIC_GOOD;
+									}
+									return super.getHighlightColour();
+								}
 								@Override
 								public void effects() {
+									Pathing.initPathingVariables();
 									worldTypeMap = world;
 								}
 							};
@@ -2873,13 +2898,22 @@ public class PhoneDialogue {
 				}
 			}
 			if (index == 1) {
+				boolean playerPresent = Main.game.getPlayer().getWorldLocation()==WorldType.WORLD_MAP;
 				if(worldTypeMap==WorldType.WORLD_MAP) {
-					return new Response("World map", "You are already viewing the world map.", null);
+					return new Response("World map", "You are already viewing the world map."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
 					
 				} else if(Main.game.getPlayer().isDiscoveredWorldMap()) {
-					return new Response("World map", "Take a look at the world map.", MAP) {
+					return new Response("World map", "Take a look at the world map."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
+						@Override
+						public Colour getHighlightColour() {
+							if(playerPresent) {
+								return Colour.GENERIC_GOOD;
+							}
+							return super.getHighlightColour();
+						}
 						@Override
 						public void effects() {
+							Pathing.initPathingVariables();
 							worldTypeMap = WorldType.WORLD_MAP;
 						}
 					};

@@ -756,6 +756,7 @@ public class OptionsDialogue {
 					+ getKeybindTableRow(KeyboardAction.MENU_SELECT)
 					+ getKeybindTableRow(KeyboardAction.INVENTORY)
 					+ getKeybindTableRow(KeyboardAction.JOURNAL)
+					+ getKeybindTableRow(KeyboardAction.MAP)
 					+ getKeybindTableRow(KeyboardAction.CHARACTERS)
 					+ getKeybindTableRow(KeyboardAction.ZOOM)
 					+ "<tr style='height:8px;'></tr>"

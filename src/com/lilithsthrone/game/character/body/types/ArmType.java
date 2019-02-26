@@ -449,6 +449,7 @@ public class ArmType {
 	}
 	
 	private static Map<Race, List<AbstractArmType>> typesMap = new HashMap<>();
+	
 	public static List<AbstractArmType> getArmTypes(Race r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
