@@ -645,6 +645,22 @@ public class RacialBody {
 			Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.CLOACA) {
+
+		@Override
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+		}
+		
+		@Override
+		public SexualOrientation getSexualOrientation(Gender gender) {
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(95, 5, 0);
+		}
+	};
 	
 	public static AbstractRacialBody valueOfRace(Race race) {
 		switch (race) {
