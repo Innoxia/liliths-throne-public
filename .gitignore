@@ -8,6 +8,7 @@ target/
 *.class
 *.log
 *.iml
+*.jar
 
 # Ignore all generic character images
 res/images/characters/generic/
