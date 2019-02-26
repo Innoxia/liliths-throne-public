@@ -88,7 +88,7 @@ public enum ImageCache {
 	public CachedImage getImage(File f) {
 		CachedImage image = cache.get(f);
 		if (image == null) {
-			image = new CachedImage();
+			image = f.getName().endsWith(".gif") ? new CachedGif() : new CachedImage();
 			if (image.load(f)) cache.put(f, image);
 			else return null;
 		}

@@ -247,7 +247,7 @@ public class MainControllerInitMethod {
 					// Create file chooser for .jpg and .png images in the most recently used directory
 					FileChooser chooser = new FileChooser();
 					chooser.setTitle("Add Images");
-					chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png"));
+					chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.gif"));
 					if (lastOpened != null)
 						chooser.setInitialDirectory(lastOpened);
 
@@ -265,7 +265,7 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
-						"Add custom artwork","Browse your own images and add them to the character."),false);
+						"Add custom artwork","Browse your own images and add them to the character. Large files such as long GIF animations may slow down the game."),false);
 			}
 
 			if (character.hasArtwork()) {
