@@ -456,7 +456,7 @@ public class MainController implements Initializable {
 //							}
 							
 							
-//							 System.out.println(Main.game.isInSex());
+//							 System.out.println(Main.isVersionOlderThan("0.1.3", "0.1.3.01"));
 						 }
 						 
 
