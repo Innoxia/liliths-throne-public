@@ -24,7 +24,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Cell implements XMLSaving {
@@ -35,14 +35,8 @@ public class Cell implements XMLSaving {
 
 	private Vector2i location;
 
-	private String name;
 	private boolean discovered;
 	private boolean travelledTo;
-	private boolean northAccess;
-	private boolean southAccess;
-	private boolean eastAccess;
-	private boolean westAccess;
-	private boolean blocked;
 	private GenericPlace place;
 	private CharacterInventory inventory;
 	private Set<String> charactersPresentIds;
@@ -53,18 +47,11 @@ public class Cell implements XMLSaving {
 		this.type = type;
 		this.location = location;
 		
-		name = "";
 		discovered = false;
 		travelledTo = false;
 		place = new GenericPlace(type.getStandardPlace());
 		
 		inventory = new CharacterInventory(0, CELL_MAXIMUM_INVENTORY_SPACE);
-		
-		northAccess = false;
-		southAccess = false;
-		eastAccess = false;
-		westAccess = false;
-		blocked = false;
 	}
 
 	@Override
@@ -79,17 +66,11 @@ public class Cell implements XMLSaving {
 		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
 		CharacterUtils.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
 		
-		CharacterUtils.addAttribute(doc, element, "name", this.getName());
-		
 		CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.discovered));
 		CharacterUtils.addAttribute(doc, element, "travelledTo", String.valueOf(this.travelledTo));
-		CharacterUtils.addAttribute(doc, element, "northAccess", String.valueOf(this.northAccess));
-		CharacterUtils.addAttribute(doc, element, "southAccess", String.valueOf(this.southAccess));
-		CharacterUtils.addAttribute(doc, element, "eastAccess", String.valueOf(this.eastAccess));
-		CharacterUtils.addAttribute(doc, element, "westAccess", String.valueOf(this.westAccess));
-		CharacterUtils.addAttribute(doc, element, "blocked", String.valueOf(this.blocked));
 		
 		place.saveAsXML(element, doc);
+		
 		if(!inventory.isEmpty()) {
 			inventory.saveAsXML(element, doc);
 		}
@@ -125,11 +106,8 @@ public class Cell implements XMLSaving {
 			} catch(Exception ex) {	
 			}
 		}
-		cell.setNorthAccess(Boolean.valueOf(parentElement.getAttribute("northAccess")));
-		cell.setSouthAccess(Boolean.valueOf(parentElement.getAttribute("southAccess")));
-		cell.setEastAccess(Boolean.valueOf(parentElement.getAttribute("eastAccess")));
-		cell.setWestAccess(Boolean.valueOf(parentElement.getAttribute("westAccess")));
-		cell.setBlocked(Boolean.valueOf(parentElement.getAttribute("blocked")));
+		
+		
 		
 		cell.setPlace(GenericPlace.loadFromXML(((Element)parentElement.getElementsByTagName("place").item(0)), doc, cell), false);
 		
@@ -148,7 +126,7 @@ public class Cell implements XMLSaving {
 	
 	@Override
 	public String toString() {
-		return "Name: " + name;
+		return "Cell ("+this.getLocation().toString()+"): Place: "+this.getPlace().getPlaceType().getName();
 	}
 	
 	public String getId() {
@@ -161,14 +139,6 @@ public class Cell implements XMLSaving {
 
 	public void setType(WorldType type) {
 		this.type = type;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	public String getPlaceName() {
@@ -216,46 +186,6 @@ public class Cell implements XMLSaving {
 
 	public void setLocation(Vector2i location) {
 		this.location = location;
-	}
-
-	public boolean isNorthAccess() {
-		return northAccess;
-	}
-
-	public void setNorthAccess(boolean northAccess) {
-		this.northAccess = northAccess;
-	}
-
-	public boolean isSouthAccess() {
-		return southAccess;
-	}
-
-	public void setSouthAccess(boolean southAccess) {
-		this.southAccess = southAccess;
-	}
-
-	public boolean isEastAccess() {
-		return eastAccess;
-	}
-
-	public void setEastAccess(boolean eastAccess) {
-		this.eastAccess = eastAccess;
-	}
-
-	public boolean isWestAccess() {
-		return westAccess;
-	}
-
-	public void setWestAccess(boolean westAccess) {
-		this.westAccess = westAccess;
-	}
-
-	public boolean isBlocked() {
-		return blocked;
-	}
-
-	public void setBlocked(boolean blocked) {
-		this.blocked = blocked;
 	}
 
 	public void resetInventory(){

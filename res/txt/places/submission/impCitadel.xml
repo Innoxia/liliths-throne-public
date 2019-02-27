@@ -941,10 +941,21 @@
 	
 	<!-- KEEP_CHALLENGE_RING_TRICK -->
 	
-	<htmlContent tag="KEEP_CHALLENGE_RING_TRICK"><![CDATA[
+	<htmlContent tag="KEEP_CHALLENGE_POST_FIGHT_RING_TRICK"><![CDATA[
+	<p>
+		[pc.speech(That was easier than I expected,)] you say, [pc.speech(It really is pointless for you to try and best me. After all, I have the blessing of Lyssieth herself! That's right, your mother has lent me her power in order to defeat you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE_DUEL_RING_TRICK"><![CDATA[
 	<p>
 		[pc.speech(I knew you wouldn't back down from the challenge,)] you say, [pc.speech(but it really is pointless for you to try and best me. After all, I have the blessing of Lyssieth herself! That's right, your mother has lent me her power in order to defeat you!)]
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE_RING_TRICK"><![CDATA[
 	<p>
 		Producing the signet ring that Elizabeth, the captain of Lyssieth's guard, gave to you, you hold it up to the light to show to [siren.name]. As she sees what it is you're holding, her defiant expression suddenly breaks, and it almost looks and sounds as though she's about to burst into tears as she screams, [siren.speech(Give that back! M-Mother would never give that to someone like you! Y-You've stolen it! <i>Give it back!</i>)]
 	</p>
@@ -1196,7 +1207,7 @@
 	
 	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT_HERO_END"><![CDATA[
 	<p>
-		Realising that you have no choice but to do as the officer says, you carefully let [npc.name] down to stand on her own two feet. Immediately, four of Lyssieth's guards step forwards, and, looping their arms under [siren.namePos], they march off in the direction of her mother's palace.
+		Realising that you have no choice but to do as the officer says, you carefully let [siren.name] down to stand on her own two feet. Immediately, four of Lyssieth's guards step forwards, and, looping their arms under [siren.namePos], they march off in the direction of her mother's palace.
 	</p>
 	<p>
 		[genericFemale.speech(Now, you can explain to us exactly what's going on!)] the officer says, impatiently tapping her foot as she waits for your response.

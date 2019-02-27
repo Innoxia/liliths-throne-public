@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -314,9 +315,10 @@ public class Breast implements BodyPartInterface {
 			return UtilText.parse(owner,
 					"<p style='text-align:center;'><i style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
 							+ UtilText.returnStringAtRandom(
-									lactationChange+"ml of [npc.namePos] [npc.milk] squirts out of [npc.her] [npc.nipples+].",
-									lactationChange+"ml of [npc.milk+] leaks out of [npc.namePos] [npc.nipples+].",
-									lactationChange+"ml of [npc.milk+] drips out of [npc.namePos] [npc.nipples+].")
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.namePos] [npc.milk] squirts out of [npc.her] [npc.nipples+].",
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.milk+] squirts out of [npc.namePos] [npc.nipples+].",
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.namePos] [npc.milk] leaks out of [npc.her] [npc.nipples+].",
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.milk+] leaks out of [npc.namePos] [npc.nipples+].")
 					+ "</i>"
 					+ (this.milkStored==0
 						?"<br/><i>[npc.Name] now [npc.has] no more [npc.milk] stored in [npc.her] breasts!</i>"

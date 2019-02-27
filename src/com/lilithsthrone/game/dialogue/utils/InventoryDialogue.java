@@ -556,6 +556,25 @@ public class InventoryDialogue {
 							};
 						}
 						
+					} else if(index == 2){
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()){
+							return new Response("Unequip all", "You're currently naked, there's nothing to be unequipped.", null);
+						}
+						else{
+							return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator());
+
+									for(AbstractClothing c : zlayerClothing){
+										Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+									}
+								}
+							};
+						}
+
 					} else {
 						return null;
 					}
@@ -4001,6 +4020,24 @@ public class InventoryDialogue {
 									resetClothingDyeColours();
 								}
 							};
+						} else if(index == 4){
+							if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()){
+								return new Response("Unequip all", "You're currently naked, there's nothing to be unequipped.", null);
+							}
+							else{
+								return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
+									@Override
+									public void effects(){
+										List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+										zlayerClothing.sort(new ClothingZLayerComparator());
+
+										for(AbstractClothing c : zlayerClothing){
+											Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+										}
+									}
+								};
+							}
 						} else {
 							return null;
 						}
@@ -5270,6 +5307,24 @@ public class InventoryDialogue {
 									resetClothingDyeColours();
 								}
 							};
+						} else if(index == 4){
+							if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()){
+								return new Response("Unequip all", "You're currently naked, there's nothing to be unequipped.", null);
+							}
+							else{
+								return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
+									@Override
+									public void effects(){
+										List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+										zlayerClothing.sort(new ClothingZLayerComparator());
+
+										for(AbstractClothing c : zlayerClothing){
+											Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+										}
+									}
+								};
+							}
 						} else {
 							return null;
 						}

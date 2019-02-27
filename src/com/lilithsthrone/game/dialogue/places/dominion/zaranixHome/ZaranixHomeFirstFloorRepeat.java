@@ -262,7 +262,7 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_FF_STAIRS) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_FF_STAIRS)) {
 				if(index==1) {
 					return new Response("Downstairs", "Head downstairs to the ground floor of Zaranix's house.", PlaceType.ZARANIX_GF_STAIRS.getDialogue(false)) {
 						@Override
@@ -298,7 +298,7 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_FF_STAIRS) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_FF_STAIRS)) {
 				if(index==1) {
 					return new Response("Downstairs", "Head downstairs to the ground floor of Zaranix's house.", PlaceType.ZARANIX_GF_STAIRS.getDialogue(false)) {
 						@Override

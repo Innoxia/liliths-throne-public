@@ -34,6 +34,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SizedStack;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -192,7 +193,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(charactersPresent.get(index-1));
+						SlaveDialogue.initDialogue(charactersPresent.get(index-1));
 					}
 				};
 					
@@ -382,7 +383,7 @@ public class LilayaHomeGeneric {
 									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up."
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
-										+ milked+"ml of [pc.milk] added to this room's storage!"
+										+ Units.fluid(milked)+" of [pc.milk] added to this room's storage!"
 								+ "</p>");
 						}
 					};
@@ -463,7 +464,7 @@ public class LilayaHomeGeneric {
 									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up on shaking [pc.legs]."
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.CUM.toWebHexString()+";'>"
-										+ milked+"ml of [pc.cum] added to this room's storage!"
+										+ Units.fluid(milked)+" of [pc.cum] added to this room's storage!"
 								+ "</p>");
 						}
 					};
@@ -544,7 +545,7 @@ public class LilayaHomeGeneric {
 									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up on your still-quivering [pc.legs]."
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.GIRLCUM.toWebHexString()+";'>"
-									+ milked+"ml of [pc.girlcum] added to this room's storage!"
+									+ Units.fluid(milked)+" of [pc.girlcum] added to this room's storage!"
 								+ "</p>");
 						}
 					};
@@ -636,7 +637,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC((NPC) character);
+						SlaveDialogue.initDialogue((NPC) character);
 					}
 				};
 				
@@ -645,10 +646,19 @@ public class LilayaHomeGeneric {
 		} else if(index-3<slavesAssignedToRoom.size()) {
 			NPC character = slavesAssignedToRoom.get(index-3);
 			if(charactersPresent.contains(character)) {
-				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), character.isSlave()?SlaveDialogue.SLAVE_START:OccupantDialogue.OCCUPANT_START) {
+				return new Response(
+						UtilText.parse(character, "[npc.Name]"),
+						UtilText.parse(character, "Interact with [npc.name]."),
+						character.isSlave()
+							?SlaveDialogue.SLAVE_START
+							:OccupantDialogue.OCCUPANT_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(character);
+						if(character.isSlave()) {
+							SlaveDialogue.initDialogue(character);
+						} else {
+							OccupantDialogue.initDialogue(character);
+						}
 					}
 				};
 				
@@ -1663,7 +1673,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(charactersPresent.get(index-1));
+						SlaveDialogue.initDialogue(charactersPresent.get(index-1));
 					}
 				};
 					

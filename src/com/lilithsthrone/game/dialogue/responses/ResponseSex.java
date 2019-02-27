@@ -23,10 +23,12 @@ import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotGeneric;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -401,8 +403,21 @@ public class ResponseSex extends Response {
 	}
 	
 	@Override
+	public Colour getHighlightColour() {
+		if(isPlayerDom()) {
+			return Colour.GENERIC_SEX_AS_DOM;
+		} else {
+			return Colour.GENERIC_SEX;
+		}
+	}
+	
+	@Override
 	public boolean disabledOnNullDialogue(){
 		return false;
+	}
+	
+	public boolean isPlayerDom() {
+		return sexManager!=null && sexManager.isPlayerDom();
 	}
 	
 	/**
@@ -525,8 +540,8 @@ public class ResponseSex extends Response {
 			domSlots.add(SexSlotBipeds.MISSIONARY_FACE_SITTING);
 			domSlots.add(SexSlotBipeds.MISSIONARY_KNEELING_BESIDE);
 			domSlots.add(SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO);
-			domSlots.add(SexSlotBipeds.MISC_WATCHING);
-			domSlots.add(SexSlotBipeds.MISC_WATCHING);
+			domSlots.add(SexSlotGeneric.MISC_WATCHING);
+			domSlots.add(SexSlotGeneric.MISC_WATCHING);
 			
 
 			List<SexSlot> addedSDSlots = new ArrayList<>();
@@ -678,7 +693,7 @@ public class ResponseSex extends Response {
 			domSlots.add(SexSlotBipeds.DOGGY_INFRONT_TWO);
 			domSlots.add(SexSlotBipeds.DOGGY_FEET);
 			domSlots.add(SexSlotBipeds.DOGGY_FEET_SECOND);
-			domSlots.add(SexSlotBipeds.MISC_WATCHING);
+			domSlots.add(SexSlotGeneric.MISC_WATCHING);
 
 			List<SexSlot> addedSDSlots = new ArrayList<>();
 			

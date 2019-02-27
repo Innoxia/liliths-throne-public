@@ -1,4 +1,4 @@
-package com.lilithsthrone.utils;
+package com.lilithsthrone.world;
 
 /**
  * @since 0.1.0

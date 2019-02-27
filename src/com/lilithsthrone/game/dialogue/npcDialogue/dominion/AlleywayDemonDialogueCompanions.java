@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -34,6 +33,7 @@ import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -259,8 +259,11 @@ public class AlleywayDemonDialogueCompanions {
 										null,
 										Util.newArrayListOfValues(getMainCompanion())) {
 									@Override
-									public boolean isPlayerAbleToStopSex() {
-										return false;
+									public SexControl getSexControl(GameCharacter character) {
+										if(character.isPlayer()) {
+											return SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS;
+										}
+										return super.getSexControl(character);
 									}
 								},
 								AFTER_SEX_DEFEAT,
@@ -769,8 +772,11 @@ public class AlleywayDemonDialogueCompanions {
 								null,
 								Util.newArrayListOfValues(getMainCompanion())) {
 							@Override
-							public boolean isPlayerAbleToStopSex() {
-								return false;
+							public SexControl getSexControl(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS;
+								}
+								return super.getSexControl(character);
 							}
 						},
 						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "STORM_ATTACK_OFFER_BODY", getDemon(), getMainCompanion()));
@@ -1358,7 +1364,7 @@ public class AlleywayDemonDialogueCompanions {
 				
 			} else if (index == 2) {
 				return new Response("Tiny cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have a tiny little 1-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have a tiny little [unit.size(3)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -1369,7 +1375,7 @@ public class AlleywayDemonDialogueCompanions {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.ONE_THIN);
-						Main.game.getActiveNPC().setPenisSize(1);
+						Main.game.getActiveNPC().setPenisSize(3);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.ONE_TRICKLE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.ONE_TRICKLE.getMaximumValue());
@@ -1379,7 +1385,7 @@ public class AlleywayDemonDialogueCompanions {
 				
 			} else if (index == 3) {
 				return new Response("Average-sized cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have an average, 6-inch, cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have an average, [unit.size(15)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -1390,7 +1396,7 @@ public class AlleywayDemonDialogueCompanions {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.TWO_AVERAGE);
-						Main.game.getActiveNPC().setPenisSize(6);
+						Main.game.getActiveNPC().setPenisSize(15);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.THREE_AVERAGE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.THREE_AVERAGE.getMaximumValue());
@@ -1400,7 +1406,7 @@ public class AlleywayDemonDialogueCompanions {
 				
 			} if (index == 4) {
 				return new Response("Large cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have a large, 11-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have a large, [unit.size(30)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -1411,7 +1417,7 @@ public class AlleywayDemonDialogueCompanions {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.THREE_THICK);
-						Main.game.getActiveNPC().setPenisSize(11);
+						Main.game.getActiveNPC().setPenisSize(30);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
@@ -1421,7 +1427,7 @@ public class AlleywayDemonDialogueCompanions {
 				
 			} if (index == 5) {
 				return new Response("Enormous cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have a massive 19-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have a massive [unit.size(50)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -1432,7 +1438,7 @@ public class AlleywayDemonDialogueCompanions {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.FOUR_FAT);
-						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+						Main.game.getActiveNPC().setPenisSize(50);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMaximumValue());

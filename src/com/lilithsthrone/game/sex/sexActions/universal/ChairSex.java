@@ -1,25 +1,18 @@
 package com.lilithsthrone.game.sex.sexActions.universal;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.PositioningData;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioningNew;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -31,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 public class ChairSex {
 
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
-		return !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+		return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 				&& !(Sex.getPosition() == data.getPosition() && Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0))
 				&& data.getPosition().getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 				&& Sex.getTotalParticipantCount(false)==(data.getPerformerSlots().size()+data.getPartnerSlots().size())
@@ -42,52 +35,8 @@ public class ChairSex {
 						?Sex.getCharacterPerformingAction().isPlayer()
 						:true)
 				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
-						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.game.getPlayer())
+						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))
 						:true);
-	}
-
-	private static void setNewSexManager(PositioningData data, boolean requestAccepted) {
-		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
-		Map<GameCharacter, SexSlot> submissives = new HashMap<>();
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants().keySet());
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants().keySet());
-		
-		GameCharacter performer = Sex.getCharacterPerformingAction();
-		GameCharacter target = Sex.getTargetedPartner(performer);
-		if(requestAccepted) {
-			target = Sex.getCharacterPerformingAction();
-			performer = Sex.getTargetedPartner(target);
-		}
-		
-		if(Sex.isDom(performer)) {
-			doms.remove(performer);
-			dominants.put(performer, data.getPerformerSlots().get(0));
-			for(int i=0; i<doms.size(); i++) {
-				dominants.put(doms.get(i), data.getPerformerSlots().get(i+1));
-			}
-			subs.remove(target);
-			submissives.put(target, data.getPartnerSlots().get(0));
-			for(int i=0; i<subs.size(); i++) {
-				submissives.put(subs.get(i), data.getPartnerSlots().get(i+1));
-			}
-		} else {
-			doms.remove(target);
-			dominants.put(target, data.getPartnerSlots().get(0));
-			for(int i=0; i<doms.size(); i++) {
-				dominants.put(doms.get(i), data.getPartnerSlots().get(i+1));
-			}
-			subs.remove(performer);
-			submissives.put(performer, data.getPerformerSlots().get(0));
-			for(int i=0; i<subs.size(); i++) {
-				submissives.put(subs.get(i), data.getPerformerSlots().get(i+1));
-			}
-		}
-		Sex.setSexManager(new SexManagerDefault(
-				data.getPosition(),
-				dominants,
-				submissives){
-		});
-		Sex.setPositionRequest(null);
 	}
 	
 	public static final SexAction SWITCH_TO_GIVING_ORAL = new SexAction(
@@ -123,7 +72,7 @@ public class ChairSex {
 		}
 		@Override
 		public void applyEffects() {
-			setNewSexManager(data, false);
+			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
 	
@@ -195,7 +144,7 @@ public class ChairSex {
 		}
 		@Override
 		public void applyEffects() {
-			setNewSexManager(data, false);
+			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
 	
@@ -267,7 +216,7 @@ public class ChairSex {
 		}
 		@Override
 		public void applyEffects() {
-			setNewSexManager(data, false);
+			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
 	
@@ -339,7 +288,7 @@ public class ChairSex {
 		}
 		@Override
 		public void applyEffects() {
-			setNewSexManager(data, false);
+			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
 	
@@ -494,7 +443,7 @@ public class ChairSex {
 				
 				|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_KNEELING
 						&& ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX_ORAL, SexSlotBipeds.CHAIR_KNEELING, Main.game.getPlayer()))) {
-				setNewSexManager(Sex.getPositionRequest(), true);
+				GenericPositioningNew.setNewSexManager(Sex.getPositionRequest(), true);
 			}
 			
 			Sex.setPositionRequest(null);

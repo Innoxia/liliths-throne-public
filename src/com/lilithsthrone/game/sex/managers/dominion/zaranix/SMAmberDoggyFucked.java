@@ -30,6 +30,6 @@ public class SMAmberDoggyFucked extends SexManagerDefault {
 
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Sex.getNumberOfOrgasms(Main.game.getNpc(Amber.class))>0;
+		return Sex.getNumberOfOrgasms(Main.game.getNpc(Amber.class))>=1;
 	}
 }

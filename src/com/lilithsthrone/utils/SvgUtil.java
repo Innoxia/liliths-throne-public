@@ -127,5 +127,28 @@ public class SvgUtil {
 		
 		return s;
 	}
+
+
+	public static String colourReplacement(String gradientReplacementID, String colour, String inputString) {
+		String s = inputString;
+	
+		if(gradientReplacementID!=null) {
+			s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
+					gradientReplacementID + colour.toString() + "$0");
+		}
+		
+		// Fixes issue of SVG icons overflowing:
+		s = s.replaceFirst("width=\"100%\"\\R   height=\"100%\"", "");
+		
+		if(colour!=null) {
+			s = s.replaceAll("#ff2a2a", colour);
+			s = s.replaceAll("#ff5555|#f55(?!\\d)", colour);
+			s = s.replaceAll("#ff8080", colour);
+			s = s.replaceAll("#ffaaaa|#faa(?!\\d)", colour);
+			s = s.replaceAll("#ffd5d5", colour);
+		}
+		
+		return s;
+	}
 	
 }

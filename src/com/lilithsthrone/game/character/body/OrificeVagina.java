@@ -245,6 +245,9 @@ public class OrificeVagina implements OrificeInterface {
 		if(owner==null) {
 			return "";
 		}
+		if(!owner.hasVagina()) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Nothing happens, as [npc.name] [npc.verb(lack)] a vagina...)]</p>");
+		}
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
@@ -299,7 +302,7 @@ public class OrificeVagina implements OrificeInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before [npc.her] labia [style.boldGrow(puffs up)] into big, swollen pussy lips.<br/>"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before [npc.her] labia [style.boldGrow(puff up)] into big, swollen pussy lips.<br/>"
 								+ "[style.boldSex([npc.NamePos] labia are now extremely swollen and puffy!)]"
 							+ "</p>";
 				}

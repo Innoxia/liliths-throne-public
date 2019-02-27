@@ -23,6 +23,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -9175,7 +9176,7 @@ public class ClothingType {
 			false,
 			"strap-on",
 			"strap-ons",
-			"This 10-inch dildo is made of self-cleaning, arcane-cured silicone."
+			"This " + Units.size(25, Units.UnitType.LONG_SINGULAR) + " dildo is made of self-cleaning, arcane-cured silicone."
 						+ " It is firmly held in place at the wearer's groin by means of a comfortable leather harness."
 						+ " The harness's straps are cleverly positioned so as to keep the wearer's vagina and anus exposed.",
 			1,

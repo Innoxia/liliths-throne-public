@@ -7,12 +7,12 @@ import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -29,8 +29,15 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -128,20 +135,30 @@ public class SlaveInStocks extends NPC {
 			equipClothing(true, true, true, true);
 			
 			CharacterUtils.applyMakeup(this, true);
+
+
+			if(Math.random()<0.8f) {
+				this.addSlaveJobSettings(SlaveJobSetting.SEX_ORAL);
+				this.setFaceVirgin(false);
+			}
 			
-			this.addSlaveJobSettings(SlaveJobSetting.SEX_ORAL);
-			
-			if(Math.random()>0.4f) {
+			if(Math.random()<0.6f) {
 				this.addSlaveJobSettings(SlaveJobSetting.SEX_ANAL);
+				this.setAssVirgin(false);
 			}
 			
 			if(!this.hasVagina()) {
 				this.addSlaveJobSettings(SlaveJobSetting.SEX_ANAL);
+				this.setAssVirgin(false);
 			} else {
-				if(Math.random()>0.4f) {
+				if(Math.random()<0.6f) {
 					this.addSlaveJobSettings(SlaveJobSetting.SEX_VAGINAL);
+					this.setVaginaVirgin(false);
 				}
 			}
+			
+			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
+			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
 			
 			this.setPlayerKnowsName(true);
 			
@@ -209,5 +226,41 @@ public class SlaveInStocks extends NPC {
 	@Override
 	public DialogueNode getEncounterDialogue() {
 		return null; //TODO
+	}
+	
+	@Override
+	public void hourlyUpdate() {
+		if(Main.game.isStarted() && !Main.game.getCharactersPresent().contains(this)) {
+			float chanceToBeUsed = (12 - Main.game.getHourOfDay()%12)/12f;
+			if(Math.random()<chanceToBeUsed) {
+//				System.out.println("generated!");
+				GenericSexualPartner stocksPartner;
+				if(Math.random()<0.25f) {
+					stocksPartner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
+				} else {
+					stocksPartner = new GenericSexualPartner(Gender.M_P_MALE, this.getWorldLocation(), this.getLocation(), false);
+				}
+//				try {
+//					Main.game.addNPC(stocksPartner, false);
+//				} catch (Exception e1) {
+//					e1.printStackTrace();
+//				}
+				
+				if(!Main.game.getCharactersPresent().contains(this)) {
+					if(this.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL)) {
+						this.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS));
+					}
+					if(this.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL)) {
+						this.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS));
+					}
+					if(this.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL)) {
+						this.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
+					}
+				}
+				
+//				System.out.println("hmm  " + Main.game.banishNPC(stocksPartner));
+				
+			}
+		}
 	}
 }

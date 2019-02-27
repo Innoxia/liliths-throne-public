@@ -45,13 +45,13 @@ public class CharactersPresentDialogue {
 	
 	private static boolean isCompanionSexPublic() {
 		return Main.game.getPlayer().getLocationPlace().isPopulated()
-				&& Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_SEATING_AREA
-				&& Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS;
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_SEATING_AREA)
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS);
 	}
 
 	private static boolean isSittingSex() {
-		return Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_SEATING_AREA
-				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_VIP_AREA;
+		return Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_SEATING_AREA)
+				|| Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_VIP_AREA);
 	}
 	
 	

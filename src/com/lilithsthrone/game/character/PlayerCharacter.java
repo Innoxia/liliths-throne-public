@@ -76,6 +76,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -104,7 +105,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private List<WorldType> worldsVisited;
 	
-	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, WorldType startingWorld, PlaceType startingPlace) {
+	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, WorldType startingWorld, AbstractPlaceType startingPlace) {
 		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -471,10 +472,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			this.getWorldsVisited().add(worldLocation);
 		}
 		
-		if(this.getWorldLocation()!=worldLocation || !this.getLocation().equals(location)) {
-			Main.game.setPlayerMovedLocation(true);
-		}
-		
 		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
 			List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 			clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
@@ -495,8 +492,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		} else if(this.getWorldLocation()==WorldType.SUBMISSION) {
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 			
-			PlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
-			if(place==PlaceType.SUBMISSION_LILIN_PALACE_GATE || place==PlaceType.SUBMISSION_LILIN_PALACE) {
+			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
+			if(place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE)) {
 				Main.game.getNpc(Elizabeth.class).setLocation(this, false);
 			}
 			

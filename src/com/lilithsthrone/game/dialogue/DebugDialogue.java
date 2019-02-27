@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -47,6 +46,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -323,7 +323,7 @@ public class DebugDialogue {
 						};
 						
 				}  else if (index == 5) {
-					if(Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.DOMINION_BACK_ALLEYS) {
+					if(!Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
 						return new Response("Lumi test", "Lumi can only be spawned in alleyway tiles.", null);
 						
 					} else if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
@@ -836,7 +836,9 @@ public class DebugDialogue {
 		return clothingCollageSB.toString();
 	}
 
-	private static String parsedText = "", rawText = "";
+	private static String parsedText = "";
+	private static String rawText = "";
+	private static String xmlFileText = "res/txt/ENTER_PATH.xml";
 	public static final DialogueNode PARSER = new DialogueNode("Parser", "", true) {
 
 		@Override
@@ -844,11 +846,23 @@ public class DebugDialogue {
 			return ("<p>"
 					+ "<b>Please</b> at least skim over the help page before viewing the 'commands' pages! (The number of commands could be off-putting if you're not aware of how simple they really are.)"
 					+ "</p>"
+					
+
+					+ "<div class='container-full-width' style='text-align:center;'>"
+						+ "<div style='position:relative; display:inline-block; padding-bottom:0; margin 0 auto; vertical-align:middle; width:100%; text-align:center;'>"
+							+ "<p style='display:inline-block; padding:0; margin:0; width:100%;'>XML test (enter full path, including .xml): </p>"
+							+ "<br/>"
+							+ "<form style='display:inline-block; width:100%; padding:0; margin:0; text-align:center;'><input type='text' id='xmlTest' style='width:50%;' placeholder='res/txt/...' value='"+xmlFileText+"'></form>"
+						+ "</div>"
+					+ "</div>"
+					
 					+ "<p>"
-					+ "<b>This parser accepts html formatting.</b>"
+						+ "<b>This parser accepts html formatting.</b>"
 					+ "</p>"
 
-					+ "<p style='padding:0;margin:0;text-align:center;'>Parse:</p>"
+					+ "<p style='padding:0;margin:0;text-align:center;'>"
+						+ "Parse:"
+					+ "</p>"
 					+ "<form style='padding:0;margin:0;text-align:center;'>"
 					+ "<textarea id='parseInput' name='Text1' style='width:760px;height:200px;'>"+rawText+"</textarea>"
 					+ "</form>");
@@ -903,6 +917,17 @@ public class DebugDialogue {
 					@Override
 					public void effects() {
 						rawText = "[brax.name] paces back and forth in [brax.herHis] office, growling softly to [brax.himself], [brax.speech(Hrmph... My new poster still hasn't arrived...)]";
+					}
+				};
+				
+			} else if (index == 11) {
+				return new Response("Xml test",
+						"Parse every dialogue entry in the file whose path you've specified in order to check for errors. Lilaya, Brax, Rose, Ralph, Nyan, and Zaranix, are passed in as parser targets.",
+						PARSER){
+					@Override
+					public void effects() {
+						xmlFileText = ((String) Main.mainController.getWebEngine().executeScript("document.getElementById('xmlTest').value")).replaceAll("\u200b", "");
+						parsedText = Main.game.runXmlTest(xmlFileText);
 					}
 				};
 				
@@ -1337,10 +1362,10 @@ public class DebugDialogue {
 		@Override
 		public String getContent() {
 			if(Sex.isDom(Main.game.getPlayer())) {
-				GameCharacter target = Sex.getSubmissiveParticipants().entrySet().iterator().next().getKey();
+				GameCharacter target = Sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA", target);
 			} else {
-				GameCharacter target = Sex.getDominantParticipants().entrySet().iterator().next().getKey();
+				GameCharacter target = Sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA_AS_SUB", target);
 			}
 		}
@@ -1419,10 +1444,10 @@ public class DebugDialogue {
 		@Override
 		public String getContent() {
 			if(Sex.isDom(Main.game.getPlayer())) {
-				GameCharacter target = Sex.getSubmissiveParticipants().entrySet().iterator().next().getKey();
+				GameCharacter target = Sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR", target);
 			} else {
-				GameCharacter target = Sex.getDominantParticipants().entrySet().iterator().next().getKey();
+				GameCharacter target = Sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR_AS_SUB", target);
 			}
 		}

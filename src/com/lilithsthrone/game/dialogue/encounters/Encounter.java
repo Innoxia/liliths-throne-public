@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -52,6 +51,7 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -150,7 +150,7 @@ public enum Encounter {
 					&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
 					&& Main.game.getNonCompanionCharactersPresent().isEmpty()
 					&& Main.game.getNumberOfWitches()<4
-					&& Main.game.getPlayerCell().getPlace().getPlaceType() == PlaceType.DOMINION_STREET) {
+					&& Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET)) {
 				
 				Main.game.setActiveNPC(new Cultist());
 				
@@ -592,7 +592,7 @@ public enum Encounter {
 
 				List<String> impAdjectives = new ArrayList<>();
 				// If non-pacified imp tunnel, imp attack:
-				if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA
+				if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)
 						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
 					
 					// Alpha imps: Encounters are 2 imp alphas + 2 imps
@@ -640,7 +640,7 @@ public enum Encounter {
 					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
-				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON
+				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)
 						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
 					
 					// Demon-led imps: Encounters are 3 imps with an arcane imp leader
@@ -690,7 +690,7 @@ public enum Encounter {
 					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
-				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES
+				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)
 						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
 					
 					// Imp seducers: Encounters are 4 female imps
@@ -736,7 +736,7 @@ public enum Encounter {
 					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
-				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_MALES
+				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)
 						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
 					
 					// Imp brawlers: Encounters are 4 male imps

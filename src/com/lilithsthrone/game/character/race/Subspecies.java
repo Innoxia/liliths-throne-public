@@ -356,7 +356,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue() - Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue()));
-			body.getPenis().setPenisSize(null, 3+Util.random.nextInt(3)); // 3-5 inches
+			body.getPenis().setPenisSize(null, 8+Util.random.nextInt(8)); // 3-7 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
 		}
 		@Override
@@ -405,7 +405,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setHeight(Height.NEGATIVE_ONE_TINY.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_ONE_TINY.getMaximumValue() - Height.NEGATIVE_ONE_TINY.getMinimumValue()));
-			body.getPenis().setPenisSize(null, 3+Util.random.nextInt(4)); // 3-6 inches
+			body.getPenis().setPenisSize(null, 8+Util.random.nextInt(12)); // 3-8 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
 		}
 		@Override
@@ -3180,8 +3180,8 @@ public enum Subspecies {
 	}
 	
 	/**
-	 * @param The character whose subspecies's name is to be returned. Can pass in null.
-	 * @return The singular name of this character's subspecies.
+	 * @param   The character whose subspecies's name is to be returned. Can pass in null.
+	 * @return  The singular name of this character's subspecies.
 	 */
 	public String getName(GameCharacter character) {
 		if(!isNonBiped() && character!=null) {
@@ -3204,8 +3204,8 @@ public enum Subspecies {
 	}
 
 	/**
-	 * @param The character whose subspecies's pluralised name is to be returned. Can pass in null.
-	 * @return The plural name of this character's subspecies.
+	 * @param   The character whose subspecies's pluralised name is to be returned. Can pass in null.
+	 * @return  The plural name of this character's subspecies.
 	 */
 	public String getNamePlural(GameCharacter character) {
 		if(!isNonBiped() && character!=null) {
@@ -3228,8 +3228,8 @@ public enum Subspecies {
 	}
 	
 	/**
-	 * @param The character whose male subspecies name is to be returned. Can pass in null.
-	 * @return The singular male name of this character's subspecies.
+	 * @param   The character whose male subspecies name is to be returned. Can pass in null.
+	 * @return  The singular male name of this character's subspecies.
 	 */
 	public String getSingularMaleName(GameCharacter character) {
 		if(!isNonBiped() && character!=null) {
@@ -3248,18 +3248,22 @@ public enum Subspecies {
 					return feralName+getTaurEnding();
 			}
 		}
-		
-		if(getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-			return "awoo-boy";
-			
-		} else{
-			return singularMaleName;
+
+		if(Main.game.isSillyModeEnabled() && character!=null) {
+			if(character.getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
+				return "awoo-boi";
+			} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
+				return "catte-boi";
+			} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
+				return "birb";
+			}
 		}
+		return singularMaleName;
 	}
 
 	/**
-	 * @param The character whose female subspecies name is to be returned. Can pass in null.
-	 * @return The singular female name of this character's subspecies.
+	 * @param   The character whose female subspecies name is to be returned. Can pass in null.
+	 * @return  The singular female name of this character's subspecies.
 	 */
 	public String getSingularFemaleName(GameCharacter character) {
 		if(!isNonBiped() && character!=null) {
@@ -3279,17 +3283,22 @@ public enum Subspecies {
 			}
 		}
 		
-		if(getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-			return "awoo-girl";
-			
-		} else{
-			return singularFemaleName;
+		if(Main.game.isSillyModeEnabled() && character!=null) {
+			if(character.getSubspecies() == Subspecies.WOLF_MORPH){
+				return "awoo-girl";
+			} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
+				return "catte-girl";
+			} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
+				return "birb";
+			}
 		}
+		
+		return singularFemaleName;
 	}
 
 	/**
-	 * @param The character whose male subspecies's pluralised name is to be returned. Can pass in null.
-	 * @return The plural male name of this character's subspecies.
+	 * @param   The character whose male subspecies's pluralised name is to be returned. Can pass in null.
+	 * @return  The plural male name of this character's subspecies.
 	 */
 	public String getPluralMaleName(GameCharacter character) {
 		if(!isNonBiped() && character!=null) {
@@ -3312,8 +3321,8 @@ public enum Subspecies {
 	}
 
 	/**
-	 * @param The character whose female subspecies's pluralised name is to be returned. Can pass in null.
-	 * @return The plural female name of this character's subspecies.
+	 * @param   The character whose female subspecies's pluralised name is to be returned. Can pass in null.
+	 * @return  The plural female name of this character's subspecies.
 	 */
 	public String getPluralFemaleName(GameCharacter character) {
 		if(!isNonBiped() && character!=null) {

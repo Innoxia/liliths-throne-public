@@ -136,7 +136,7 @@ public class Jules extends NPC {
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, CoveringPattern.STRIPED, Colour.COVERING_BLACK, false, Colour.COVERING_WHITE, false), false);
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.STRIPED, Colour.COVERING_BLACK, false, Colour.COVERING_WHITE, false), false);
-		this.setHairLength(3);
+		this.setHairLength(7);
 		this.setHairStyle(HairStyle.MOHAWK);
 
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
@@ -183,7 +183,7 @@ public class Jules extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.THREE_THICK);
-		this.setPenisSize(10);
+		this.setPenisSize(25);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(40);
 		this.fillCumToMaxStorage();

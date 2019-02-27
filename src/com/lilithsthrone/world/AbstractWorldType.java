@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 
 /**
  * @since 0.2.12
@@ -23,23 +23,23 @@ public abstract class AbstractWorldType {
 	
 	private int tileSetRowNumber;
 	private int moveCost;
-	private PlaceType standardPlace;
-	private PlaceType cutOffZone;
-	private List<PlaceType> places;
-	private List<PlaceType> dangerousPlaces;
+	private AbstractPlaceType standardPlace;
+	private AbstractPlaceType cutOffZone;
+	private List<AbstractPlaceType> places;
+	private List<AbstractPlaceType> dangerousPlaces;
 	
 	private boolean usesFile;
-	private Map<Color, PlaceType> placesMap;
+	private Map<Color, AbstractPlaceType> placesMap;
 	
 	@Deprecated
 	AbstractWorldType(int worldSize,
 			String name,
 			Colour colour,
 			int timeToTransition,
-			PlaceType standardPlace,
-			PlaceType cutOffZone,
-			List<PlaceType> places,
-			List<PlaceType> dangerousPlaces) {
+			AbstractPlaceType standardPlace,
+			AbstractPlaceType cutOffZone,
+			List<AbstractPlaceType> places,
+			List<AbstractPlaceType> dangerousPlaces) {
 		this.worldSize=worldSize;
 		
 		this.name = name;
@@ -61,7 +61,7 @@ public abstract class AbstractWorldType {
 			Colour colour,
 			int timeToTransition,
 			String fileLocation,
-			Map<Color, PlaceType> placesMap) {
+			Map<Color, AbstractPlaceType> placesMap) {
 		this.name = name;
 		this.colour = colour;
 		this.timeToTransition=timeToTransition;
@@ -131,19 +131,19 @@ public abstract class AbstractWorldType {
 		return false;
 	}
 
-	public PlaceType getStandardPlace() {
+	public AbstractPlaceType getStandardPlace() {
 		return standardPlace;
 	}
 
-	public PlaceType getCutOffZone() {
+	public AbstractPlaceType getCutOffZone() {
 		return cutOffZone;
 	}
 
-	public List<PlaceType> getPlaces() {
+	public List<AbstractPlaceType> getPlaces() {
 		return places;
 	}
 
-	public List<PlaceType> getDangerousPlaces() {
+	public List<AbstractPlaceType> getDangerousPlaces() {
 		return dangerousPlaces;
 	}
 
@@ -155,7 +155,7 @@ public abstract class AbstractWorldType {
 		return usesFile;
 	}
 
-	public Map<Color, PlaceType> getPlacesMap() {
+	public Map<Color, AbstractPlaceType> getPlacesMap() {
 		return placesMap;
 	}
 

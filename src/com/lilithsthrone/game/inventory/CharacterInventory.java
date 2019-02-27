@@ -162,26 +162,32 @@ public class CharacterInventory implements XMLSaving {
 		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
 			clothing.saveAsXML(clothingEquipped, doc);
 		}
-		
-		Element itemsInInventory = doc.createElement("itemsInInventory");
-		characterInventory.appendChild(itemsInInventory);
-		for(Entry<AbstractItem, Integer> item : this.getMapOfDuplicateItems().entrySet()) {
-			Element e = item.getKey().saveAsXML(itemsInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+
+		if(!this.getMapOfDuplicateItems().isEmpty()) {
+			Element itemsInInventory = doc.createElement("itemsInInventory");
+			characterInventory.appendChild(itemsInInventory);
+			for(Entry<AbstractItem, Integer> item : this.getMapOfDuplicateItems().entrySet()) {
+				Element e = item.getKey().saveAsXML(itemsInInventory, doc);
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+			}
 		}
 		
-		Element clothingInInventory = doc.createElement("clothingInInventory");
-		characterInventory.appendChild(clothingInInventory);
-		for(Entry<AbstractClothing, Integer> clothing : this.getMapOfDuplicateClothing().entrySet()) {
-			Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+		if(!this.getMapOfDuplicateClothing().isEmpty()) {
+			Element clothingInInventory = doc.createElement("clothingInInventory");
+			characterInventory.appendChild(clothingInInventory);
+			for(Entry<AbstractClothing, Integer> clothing : this.getMapOfDuplicateClothing().entrySet()) {
+				Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+			}
 		}
 		
-		Element weaponsInInventory = doc.createElement("weaponsInInventory");
-		characterInventory.appendChild(weaponsInInventory);
-		for(Entry<AbstractWeapon, Integer> weapon : this.getMapOfDuplicateWeapons().entrySet()) {
-			Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+		if(!this.getMapOfDuplicateWeapons().isEmpty()) {
+			Element weaponsInInventory = doc.createElement("weaponsInInventory");
+			characterInventory.appendChild(weaponsInInventory);
+			for(Entry<AbstractWeapon, Integer> weapon : this.getMapOfDuplicateWeapons().entrySet()) {
+				Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+			}
 		}
 		
 		return characterInventory;
@@ -217,15 +223,17 @@ public class CharacterInventory implements XMLSaving {
 			}
 		}
 		
-		if(parentElement.getElementsByTagName("mainWeapon").item(0)!=null) {
-			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)parentElement.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0), doc);
+		nodes = parentElement.getElementsByTagName("mainWeapon");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
 			if(weapon!=null) {
 				inventory.equipMainWeapon(weapon);
 			}
 		}
 
-		if(parentElement.getElementsByTagName("offhandWeapon").item(0)!=null) {
-			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)parentElement.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0), doc);
+		nodes = parentElement.getElementsByTagName("offhandWeapon");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
 			if(weapon!=null) {
 				inventory.equipOffhandWeapon(weapon);
 			}
@@ -241,50 +249,59 @@ public class CharacterInventory implements XMLSaving {
 			}
 		}
 		
-		NodeList itemsInInventory = ((Element) parentElement.getElementsByTagName("itemsInInventory").item(0)).getElementsByTagName("item");
-		Map<AbstractItem, Integer> itemMapToAdd = new HashMap<>();
-		for(int i=0; i<itemsInInventory.getLength(); i++){
-			Element e = ((Element)itemsInInventory.item(i));
-			
-			int count = Integer.parseInt(e.getAttribute("count"));
-			String id = e.getAttribute("id");
-			if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
-				itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
+		nodes = parentElement.getElementsByTagName("itemsInInventory");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			NodeList itemsInInventory = ((Element) nodes.item(0)).getElementsByTagName("item");
+			Map<AbstractItem, Integer> itemMapToAdd = new HashMap<>();
+			for(int i=0; i<itemsInInventory.getLength(); i++){
+				Element e = ((Element)itemsInInventory.item(i));
 				
-			} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.MOO_MILKER_FULL))) {
-				itemMapToAdd.put(AbstractFilledBreastPump.loadFromXML(e, doc), count);
-				
-			} else {
-				AbstractItem itemLoadedFromXML = AbstractItem.loadFromXML(e, doc);
-				if (itemLoadedFromXML != null) {
-					itemMapToAdd.put(itemLoadedFromXML, count);
+				int count = Integer.parseInt(e.getAttribute("count"));
+				String id = e.getAttribute("id");
+				if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
+					itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
+					
+				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.MOO_MILKER_FULL))) {
+					itemMapToAdd.put(AbstractFilledBreastPump.loadFromXML(e, doc), count);
+					
+				} else {
+					AbstractItem itemLoadedFromXML = AbstractItem.loadFromXML(e, doc);
+					if (itemLoadedFromXML != null) {
+						itemMapToAdd.put(itemLoadedFromXML, count);
+					}
+				}
+			}
+			inventory.addItems(itemMapToAdd);
+		}
+
+		nodes = parentElement.getElementsByTagName("clothingInInventory");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			Element clothingInInventory = (Element) nodes.item(0);
+			NodeList clothingElements = clothingInInventory.getElementsByTagName("clothing");
+			for(int i=0; i<clothingElements.getLength(); i++){
+				Element e = ((Element)clothingElements.item(i));
+	
+				for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
+					AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
+					if(clothing!=null) {
+						inventory.addClothing(clothing);
+					}
 				}
 			}
 		}
-		inventory.addItems(itemMapToAdd);
-		
-		Element clothingInInventory = (Element) parentElement.getElementsByTagName("clothingInInventory").item(0);
-		NodeList clothingElements = clothingInInventory.getElementsByTagName("clothing");
-		for(int i=0; i<clothingElements.getLength(); i++){
-			Element e = ((Element)clothingElements.item(i));
 
-			for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
-				AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
-				if(clothing!=null) {
-					inventory.addClothing(clothing);
-				}
-			}
-		}
-		
-		Element weaponsInInventory = (Element) parentElement.getElementsByTagName("weaponsInInventory").item(0);
-		NodeList weaponElements = weaponsInInventory.getElementsByTagName("weapon");
-		for(int i=0; i<weaponElements.getLength(); i++){
-			Element e = ((Element)weaponElements.item(i));
-
-			for(int weaponCount = 0; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
-				AbstractWeapon weapon = AbstractWeapon.loadFromXML(e, doc);
-				if(weapon!=null) {
-					inventory.addWeapon(weapon);
+		nodes = parentElement.getElementsByTagName("weaponsInInventory");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			Element weaponsInInventory = (Element) nodes.item(0);
+			NodeList weaponElements = weaponsInInventory.getElementsByTagName("weapon");
+			for(int i=0; i<weaponElements.getLength(); i++){
+				Element e = ((Element)weaponElements.item(i));
+	
+				for(int weaponCount = 0; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
+					AbstractWeapon weapon = AbstractWeapon.loadFromXML(e, doc);
+					if(weapon!=null) {
+						inventory.addWeapon(weapon);
+					}
 				}
 			}
 		}

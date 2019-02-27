@@ -336,8 +336,8 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
 						+ CharacterModificationUtils.getSelfTransformLegConfigurationChoiceDiv()
+						+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
@@ -409,8 +409,8 @@ public class BodyChanging {
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
 							+ CharacterModificationUtils.getSelfTransformLegConfigurationChoiceDiv()
+							+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
 						+"</div>"
 
 						+"<div style='clear:left;'>"
@@ -489,8 +489,8 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
 						+ CharacterModificationUtils.getSelfTransformLegConfigurationChoiceDiv()
+						+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"

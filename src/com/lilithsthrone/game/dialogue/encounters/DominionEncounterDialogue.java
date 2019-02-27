@@ -1,11 +1,11 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.0
@@ -165,7 +165,7 @@ public class DominionEncounterDialogue {
 							+ " The bright flash of purple-hued arcane lightning occasionally illuminates your surroundings, and it's just as one of these happens to strike that you spot something strange up ahead."
 						+ "</p>"
 						+ "<p>"
-							+ "About fifty metres in front of you, standing alone in the middle of the road, is a small, silver-furred fox."
+							+ "About [unit.lSizes(5000)] in front of you, standing alone in the middle of the road, is a small, silver-furred fox."
 							+ " It appears to have spotted you at the exact same moment that you saw it, and, raising its head, it turns to face in your direction."
 						+ "</p>"
 						+ "<p>"
@@ -199,7 +199,7 @@ public class DominionEncounterDialogue {
 						+ " Weaving your way through the throngs of shoppers and passersby, you suddenly spot something strange through a gap in the crowds up ahead."
 					+ "</p>"
 					+ "<p>"
-						+ "About fifty metres in front of you, standing alone in the middle of the road, is a small, silver-furred fox."
+						+ "About [unit.lSizes(5000)] in front of you, standing alone in the middle of the road, is a small, silver-furred fox."
 						+ " It appears to have spotted you at the exact same moment that you saw it, and, raising its head, it turns to face in your direction."
 					+ "</p>"
 					+ "<p>"

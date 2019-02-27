@@ -275,7 +275,7 @@
 	#IF pc.hasPenis()
 	#THEN
 		<p>
-			You let out a shocked gasp as you look down to see that your penis has transformed into a small, 3-inch demonic one
+			You let out a shocked gasp as you look down to see that your penis has transformed into a small, [unit.size(8)] demonic one
 			#IF!pc.isInternalTesticles()
 			#THEN, complete with similarly-tiny balls
 			#ENDIF
@@ -357,11 +357,11 @@
 	#IF !pc.isFeminine()
 	#THEN
 		<p>
-			Looking down at your body, you see that you're now far more masculine than you were a moment ago. Your body seems to have gotten bulkier, and your muscles are now far more defined than they ever have been. In her attempt to transform you into her ideal male partner, Lyssieth has also modified your height. While you didn't notice it while wrapped in her wing-cocoon, it's now very obvious that you're standing at almost seven feet tall, making you several inches taller than Lyssieth.
+			Looking down at your body, you see that you're now far more masculine than you were a moment ago. Your body seems to have gotten bulkier, and your muscles are now far more defined than they ever have been. In her attempt to transform you into her ideal male partner, Lyssieth has also modified your height. While you didn't notice it while wrapped in her wing-cocoon, it's now very obvious that you're standing at almost seven feet tall, making you several [unit.sizes] taller than Lyssieth.
 		</p>
 	#ENDIF
 	<p>
-		Looking down between your legs, you see that you now have a huge, 12-inch demonic cock,
+		Looking down between your legs, you see that you now have a huge, [unit.size(20)] demonic cock,
 		#IF!pc.isInternalTesticles()
 		#THEN, complete with large, cum-filled balls.
 		#ELSE which is already fully-hard and standing to attention.
@@ -594,7 +594,7 @@
 	#IF !pc.hasPenis()
 	#THEN
 		<p>
-			[lyssieth.speechNoEffects(First, you're going to need a nice big demonic cock,)] she sighs in return, pressing herself up against you and running her hand down between your legs. You take a sharp gasp as you suddenly feel an intense tingling feeling at the point where Lyssieth's fingers touch, and, looking down, you see a huge, 12-inch demonic cock rapidly grow out from your groin.
+			[lyssieth.speechNoEffects(First, you're going to need a nice big demonic cock,)] she sighs in return, pressing herself up against you and running her hand down between your legs. You take a sharp gasp as you suddenly feel an intense tingling feeling at the point where Lyssieth's fingers touch, and, looking down, you see a huge, [unit.size(20)] demonic cock rapidly grow out from your groin.
 			#IF game.isFutanariTesticlesEnabled() || !pc.hasVagina()
 			#THEN [pc.A_balls] drop down beneath them, and you can't help but let out a desperate [pc.moan] as you feel how large and full of cum they are.
 			#ENDIF
@@ -764,7 +764,7 @@
 				Turning your head back, you let out a surprised moan as you see the elder lilin step away from you and move around behind her desk. Opening one of her drawers, she smiles to herself as she quickly finds what it is she's looking for, and, with a couple of objects now in hand, she quickly hurries over to drop down on to her knees behind you. Reaching down between your legs, she takes hold of your little cock and starts stroking it. [lyssieth.speechNoEffects(This is far too big for a horny sissy buttslut like you! Let's get it down to a more appropriate size, shall we?)] 
 			</p>
 			<p>
-				As Lyssieth continues stroking your small cock, you gasp as you feel it shrink down to an even more diminutive size. Looking down and back between your legs, you see that it's now only an inch in length, but even more surprisingly, the elder lilin is moving to fasten a bright pink chastity cage around it. Realising that this was one of the objects she just retrieved from her desk, you let out a startled cry as she fastens it in place around your tiny cock, before straightening back up and softly laughing,
+				As Lyssieth continues stroking your small cock, you gasp as you feel it shrink down to an even more diminutive size. Looking down and back between your legs, you see that it's now only [unit.size(3)] in length, but even more surprisingly, the elder lilin is moving to fasten a bright pink chastity cage around it. Realising that this was one of the objects she just retrieved from her desk, you let out a startled cry as she fastens it in place around your tiny cock, before straightening back up and softly laughing,
 				#IF pc.hasFetish(FETISH_INCEST)
 				#THEN [lyssieth.speechNoEffects(That's mommy's good little sissy! This will tell everyone that you don't like your clitty-dick used, and prefer taking real cocks up your slutty butt instead!)]
 				#ELSE [lyssieth.speechNoEffects(That's a good little sissy! This will tell everyone that you don't like your clitty-dick used, and prefer taking real cocks up your slutty butt instead!)]
@@ -782,7 +782,7 @@
 				Turning your head back, you let out a surprised moan as you see the elder lilin step away from you and move around behind her desk. Opening one of her drawers, she smiles to herself as she quickly finds what it is she's looking for, and, with a small object now in hand, she quickly hurries over to drop down on to her knees behind you. Reaching down between your legs, she takes hold of your little cock and starts stroking it. [lyssieth.speechNoEffects(This is far too big for a horny sissy buttslut like you! Let's get it down to a more appropriate size, shall we?)] 
 			</p>
 			<p>
-				As Lyssieth continues stroking your small cock, you gasp as you feel it shrink down to an even more diminutive size. Looking down and back between your legs, you see that it's now only an inch in length, but even more surprisingly, the elder lilin is moving to fasten a bright pink chastity cage around it. Realising that this was the object she just retrieved from her desk, you let out a startled cry as she fastens it in place around your tiny cock, before straightening back up and softly laughing,
+				As Lyssieth continues stroking your small cock, you gasp as you feel it shrink down to an even more diminutive size. Looking down and back between your legs, you see that it's now only [unit.size(3)] in length, but even more surprisingly, the elder lilin is moving to fasten a bright pink chastity cage around it. Realising that this was the object she just retrieved from her desk, you let out a startled cry as she fastens it in place around your tiny cock, before straightening back up and softly laughing,
 				#IF pc.hasFetish(FETISH_INCEST)
 				#THEN [lyssieth.speechNoEffects(That's mommy's good little sissy! This will tell everyone that you don't like your clitty-dick used, and prefer taking real cocks up your slutty butt instead!)]
 				#ELSE [lyssieth.speechNoEffects(That's a good little sissy! This will tell everyone that you don't like your clitty-dick used, and prefer taking real cocks up your slutty butt instead!)]
@@ -966,7 +966,7 @@
 		As she says this, her fat, demonic cock shrinks down and disappears into the skin above her pussy, leaving her as a purely female succubus.
 		#IF!pc.isFeminine()
 		#THEN
-			 Gazing up into your eyes, she sends another hot wave of corruptive energy into your body, and you feel your body becoming more muscular and masculine than any you ever imagine. As you bulk out to gain a buff body shape, you feel your cock grow another few inches, and your balls expand and fill with a huge amount of cum.
+			 Gazing up into your eyes, she sends another hot wave of corruptive energy into your body, and you feel your body becoming more muscular and masculine than any you ever imagine. As you bulk out to gain a buff body shape, you feel your cock grow another few [unit.sizes], and your balls expand and fill with a huge amount of cum.
 			#IFpc.hasVagina()
 			#THEN Finally, your pussy closes up and vanishes, leaving you as Lyssieth's perfect incubus partner.
 			#ELSE letting out a deep groan, you realise that you're now Lyssieth's perfect incubus partner.
@@ -1278,7 +1278,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Doing as she asks, Lyssieth continues pumping her daughter's pussy full of corruptive demonic cum. As she does this, Meraxis starts to undergo an identical transformation as to that of the one her elder sister just went through. Starting with her arms and legs, her skin turns scarlet as her limbs transform into their demonic counterparts. Spreading up from the area around her pussy, the rest of her body soon follows suit, with the demonic transformation not stopping until every last inch of her torso and face is that of a full demon.
+		Doing as she asks, Lyssieth continues pumping her daughter's pussy full of corruptive demonic cum. As she does this, Meraxis starts to undergo an identical transformation as to that of the one her elder sister just went through. Starting with her arms and legs, her skin turns scarlet as her limbs transform into their demonic counterparts. Spreading up from the area around her pussy, the rest of her body soon follows suit, with the demonic transformation not stopping until every last [unit.size] of her torso and face is that of a full demon.
 	</p>
 	<p>
 		With one last huge pump of cum, which causes her seed to leak out around her fat shaft, Lyssieth lets out a delighted moan,
@@ -1304,7 +1304,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Doing as she asks, Lyssieth continues pumping her daughter's rear entrance full of corruptive demonic cum. As she does this, Meraxis starts to undergo an identical transformation as to that of the one her elder sister just went through. Starting with her arms and legs, her skin turns scarlet as her limbs transform into their demonic counterparts. Spreading up from the area around her ass, the rest of her body soon follows suit, with the demonic transformation not stopping until every last inch of her torso and face is that of a full demon.
+		Doing as she asks, Lyssieth continues pumping her daughter's rear entrance full of corruptive demonic cum. As she does this, Meraxis starts to undergo an identical transformation as to that of the one her elder sister just went through. Starting with her arms and legs, her skin turns scarlet as her limbs transform into their demonic counterparts. Spreading up from the area around her ass, the rest of her body soon follows suit, with the demonic transformation not stopping until every last [unit.size] of her torso and face is that of a full demon.
 	</p>
 	<p>
 		With one last huge pump of cum, which causes her seed to leak out around her fat shaft, Lyssieth lets out a delighted moan,

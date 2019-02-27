@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -14,6 +15,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -126,8 +128,11 @@ public class BatCavernSlimeAttackerDialogue {
 									null,
 									null) {
 								@Override
-								public boolean isPlayerAbleToStopSex() {
-									return false;
+								public SexControl getSexControl(GameCharacter character) {
+									if(character.isPlayer()) {
+										return SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS;
+									}
+									return super.getSexControl(character);
 								}
 							},
 							AFTER_SEX_DEFEAT,

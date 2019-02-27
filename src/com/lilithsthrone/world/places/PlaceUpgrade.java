@@ -698,7 +698,7 @@ public enum PlaceUpgrade {
 	private float obedienceGain;
 	
 	private List<PlaceUpgrade> prerequisites;
-
+	
 	private PlaceUpgrade(boolean isCoreRoomUpgrade,
 			Colour colour,
 			String name,

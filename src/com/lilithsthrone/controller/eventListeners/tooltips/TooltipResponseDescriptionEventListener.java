@@ -7,6 +7,7 @@ import org.w3c.dom.events.MouseEvent;
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -96,8 +97,12 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				
 				if(!response.hasRequirements()) {
 					
-					if(response.isSexHighlight()) {
-						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span></div>");
+					if(response instanceof ResponseSex) {
+						if(((ResponseSex)response).isPlayerDom()) {
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span></div>");
+						} else {
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span></div>");
+						}
 						boxHeight+=44;
 					} else if(response.isCombatHighlight()) {
 						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span></div>");
@@ -109,12 +114,17 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				} else {
 					
 					if(response.isAvailable()) {
-						if(response.isSexHighlight())
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
-						else if(response.isCombatHighlight())
+						if(response instanceof ResponseSex) {
+							if(((ResponseSex)response).isPlayerDom()) {
+								tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span> (<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
+							} else {
+								tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span> (<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
+							}
+						} else if(response.isCombatHighlight()) {
 							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
-						else
+						} else {
 							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span></div>");
+						}
 						boxHeight+=44;
 						
 						if(response.getSexPace()!=null) {
@@ -126,12 +136,19 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 						tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
 						
 					} else if(response.isAbleToBypass()) {
-						if(response.isSexHighlight())
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
-						else if(response.isCombatHighlight())
+						if(response instanceof ResponseSex) {
+							if(((ResponseSex)response).isPlayerDom()) {
+								tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span>"
+										+ " (<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
+							} else {
+								tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span>"
+										+ " (<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
+							}
+						} else if(response.isCombatHighlight()) {
 							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
-						else
+						} else {
 							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span></div>");
+						}
 						boxHeight+=44;
 						
 						if(response.getSexPace()!=null) {
@@ -143,12 +160,19 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 						tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
 						
 					} else {
-						if(response.isSexHighlight())
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
-						else if(response.isCombatHighlight())
+						if(response instanceof ResponseSex) {
+							if(((ResponseSex)response).isPlayerDom()) {
+								tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span>"
+										+ " (<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
+							} else {
+								tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span>"
+										+ " (<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
+							}
+						} else if(response.isCombatHighlight()) {
 							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
-						else
+						} else {
 							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span></div>");
+						}
 						boxHeight+=44;
 						
 						if(response.getSexPace()!=null) {

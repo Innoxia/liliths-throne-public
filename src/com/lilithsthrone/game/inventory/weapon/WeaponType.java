@@ -20,6 +20,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -430,7 +431,7 @@ public class WeaponType {
 			"Buckler",
 			"Bucklers",
 			"Bash",
-			"A small metal shield, measuring 45cm in diameter, and gripped in one hand by means of a handle positioned behind the boss."
+			"A small metal shield, measuring "+ Units.size(45, Units.UnitType.LONG) +" in diameter, and gripped in one hand by means of a handle positioned behind the boss."
 					+ " Shields such as this one are typically enchanted to help the wielder resist a certain type of arcane damage.",
 			"buckler",
 			"buckler",
@@ -897,7 +898,7 @@ public class WeaponType {
 		@Override
 
 		public String getDescription() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP)) {
 				return "A short-handled feather duster, ideal for keeping a house clean, but not much use in combat..."
 						+ " [Ashley.speech(A feather duster: the epitome of romance, at least for those who don't know anything about their lover, other than that they're the person who keeps the house clean.)]";
 //						+ " Surely, that's all that's going on with their lives, right?)]";
