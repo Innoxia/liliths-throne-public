@@ -18196,8 +18196,7 @@ public abstract class GameCharacter implements XMLSaving {
 	// Misc:
 	public boolean hasBreastsCrotch() {
 		if(Main.getProperties().udders==0
-			/*	|| (this.getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().udders==1)
-				|| (this.getLegConfiguration()==LegConfiguration.BIPEDAL && this.getRaceStage()!=RaceStage.GREATER)*/) {
+				|| (this.getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().udders==1)) {
 			return false;
 		}
 		return body.getBreastCrotch().getType()!=BreastType.NONE;
