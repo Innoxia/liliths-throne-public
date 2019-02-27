@@ -547,17 +547,11 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Walking down one of the aisles, you find yourself surrounded by heavy wooden shelves, fastened together by prominent beams of iron and steel."
-						+ " A lot of the books here seem to be about local history of Dominion's many districts, and, while fascinating for a historian, they don't offer much use to you."
+						+ "Walking down one of the aisles, you find yourself surrounded by shelving that's been carved out of dark purple stone, and as you pass, the polished surface glistens and sparkles as it reflects the light from the overhead lamps."
+						+ " You're alarmed to discover that as you touch this strange material, a sexual thrill runs through your body."
 					+ "</p>"
 					+ "<p>"
-						+ "You notice that a couple of the shelves look a little different from the others."
-						+ " The top-most shelf seems to be decorated to make it look as though it's crafted from the essence of purity and light."
-						+ " The shelf nearest to the floor has a very odd surface, almost like the wood as been crafted from lust itself."
-						+ " It looks like it would be arousing to the touch."
-					+ "</p>"
-					+ "<p>"
-						+ "Despite most of these books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
+						+ "It looks as though the books in this particular section are concerned with demonic history and trivia, and while most of them wouldn't really be worth your time, there are a few that catch your attention..."
 					+ "</p>";
 		}
 
