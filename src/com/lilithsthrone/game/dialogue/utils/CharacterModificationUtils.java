@@ -664,7 +664,7 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(5)+")]":"[style.boldGoodMinor(+"+Units.fluid(5)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(10)+")]":"[style.boldGoodMinor(+"+Units.fluid(10)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
 								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(50)+")]":"[style.boldGood(+"+Units.fluid(50)+")]")

@@ -297,8 +297,8 @@ public enum Units {
                             output.append(number(Math.round(remainingInches))).append("&quot;");
                         break;
                     case PRECISE:
-                        if (remainingInches >= 0.0625)
-                            output.append(withEighths(remainingInches)).append("&quot;");
+                        if (remainingInches >= 0.125)
+                            output.append(withQuarters(remainingInches)).append("&quot;");
                         break;
                     case TEXT:
                         if (remainingInches >= 0.5)
@@ -307,7 +307,7 @@ public enum Units {
             }
         } else {
             // Only wrap when the value is flat or for text values
-            boolean wrap = feet != 0 && (roundTo(remainingInches, 0.125) == 0 || vType == ValueType.TEXT);
+            boolean wrap = feet != 0 && (roundTo(remainingInches, 0.25) == 0 || vType == ValueType.TEXT);
             double usedValue = wrap ? feet : inches;
 
             // Append value
@@ -468,12 +468,12 @@ public enum Units {
     private static String value(double value, ValueType vType, boolean useEighths) {
         switch (vType) {
             case PRECISE:
-                if (useEighths) return withEighths(value);
+                if (useEighths) return withQuarters(value);
                 return number(value);
             case TEXT:
                 return Util.intToString((int) aggressiveRound(value));
             default:
-                if (useEighths) return Math.abs(value) < 1 ? withEighths(value) : number(Math.round(value));
+                if (useEighths) return Math.abs(value) < 1 ? withQuarters(value) : number(Math.round(value));
                 return number(adaptiveRound(value));
         }
     }
@@ -518,26 +518,22 @@ public enum Units {
      * @param value The number to format
      * @return A string containing the formatted number with an optional eighth symbol
      */
-    public static String withEighths(double value) {
+    public static String withQuarters(double value) {
         boolean negative = value < 0;
-        value = roundTo(Math.abs(value), 0.125);
+        value = roundTo(Math.abs(value), 0.25);
         double floor = Math.floor(value);
 
         if (value == floor) return number(floor);
 
-        int eights = (int) Math.round((value - floor) / 0.125);
-        return (negative ? '-' : "") + (floor == 0 ? "" : number(floor)) + getEighthSymbol(eights);
+        int quarters = (int) Math.round((value - floor) / 0.25);
+        return (negative ? '-' : "") + (floor == 0 ? "" : number(floor)) + getQuarterSymbol(quarters);
     }
 
-    private static String getEighthSymbol(int eighths) {
-        switch (eighths) {
-            case 1: return "&frac18;";
-            case 2: return "&frac14;";
-            case 3: return "&frac38;";
-            case 4: return "&frac12;";
-            case 5: return "&frac58;";
-            case 6: return "&frac34;";
-            case 7: return "&frac78;";
+    private static String getQuarterSymbol(int quarters) {
+        switch (quarters) {
+            case 1: return "&frac14;";
+            case 2: return "&frac12;";
+            case 3: return "&frac34;";
             default: return "";
         }
     }
