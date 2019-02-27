@@ -146,7 +146,7 @@ public class ImpCitadelDialogue {
 		
 		// Move NPCs out of hiding:
 		for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
-			if(character.getHomeLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON) {
+			if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)) {
 				character.returnToHome();
 			}
 		}
@@ -265,7 +265,7 @@ public class ImpCitadelDialogue {
 		for(int i=0; i< cells.length;i++) {
 			for(int j=0; j< cells[i].length;j++) {
 				Cell cell = cells[j][i];
-				if(cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON) {
+				if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)) {
 					for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
 						if(!Main.game.getPlayer().getCompanions().contains(character)) {
 							character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
@@ -318,7 +318,7 @@ public class ImpCitadelDialogue {
 			allCharacters.add(getMainCompanion());
 		}
 		
-		if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_DEMON_KEEP) {
+		if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_DEMON_KEEP)) {
 			allCharacters.add(getBoss());
 			allCharacters.add(Main.game.getNpc(FortressMalesLeader.class));
 			allCharacters.add(Main.game.getNpc(FortressAlphaLeader.class));
@@ -818,13 +818,13 @@ public class ImpCitadelDialogue {
 		@Override
 		public String getContent() {
 			if(Main.game.isNonConEnabled()) {
-				if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.FORTRESS_LAB) {
+				if(Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.FORTRESS_LAB)) {
 					return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_DEFEAT_IN_LAB", getAllCharacters());
 				}
 				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_DEFEAT", getAllCharacters());
 				
 			} else {
-				if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.FORTRESS_LAB) {
+				if(Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.FORTRESS_LAB)) {
 					return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_DEFEAT_IN_LAB_NO_NON_CON", getAllCharacters());
 				}
 				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_DEFEAT_NO_NON_CON", getAllCharacters());
@@ -846,7 +846,7 @@ public class ImpCitadelDialogue {
 				return null;
 			}
 			
-			if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.FORTRESS_LAB
+			if(Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.FORTRESS_LAB)
 					&& (Main.game.getPlayer().isFeminine() || (isCompanionDialogue() && getMainCompanion().isFeminine() && Main.getProperties().hasValue(PropertyValue.involuntaryNTR)))) {
 				
 				Map<GameCharacter, SexSlot> subSlots;
@@ -1867,13 +1867,21 @@ public class ImpCitadelDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_DEMONS_DEFEATED", getAllCharacters());
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_DEMONS_DEFEATED", getAllCharacters()));
+			
+			if(Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING", getAllCharacters()));
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Duel", UtilText.parse(getBoss(), "Accept [npc.namePos] offer, and fight [npc.herHim] one-on-one!"), null, (NPC) getBoss(), Util.newArrayListOfValues(getBoss()), null);
+				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Now that [npc.her] demon companions have been defeated, it's time fight [npc.name]!"), (NPC) getBoss(), Util.newArrayListOfValues(getBoss()), null);
 
 			} else if(index==2 && Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
 				return new Response("Use ring",
@@ -1882,6 +1890,8 @@ public class ImpCitadelDialogue {
 						KEEP_CHALLENGE_RING_TRICK) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_POST_FIGHT_RING_TRICK", getAllCharacters()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK", getAllCharacters()));
 						Main.game.getTextEndStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
 						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
 						clearFortress();
@@ -1909,7 +1919,26 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return KEEP_DEMONS_DEFEATED.getResponse(responseTab, index);
+			if (index == 1) {
+				return new ResponseCombat("Duel", UtilText.parse(getBoss(), "Accept [npc.namePos] offer, and fight [npc.herHim] one-on-one!"), null, (NPC) getBoss(), Util.newArrayListOfValues(getBoss()), null);
+
+			} else if(index==2 && Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
+				return new Response("Use ring",
+						UtilText.parse(getBoss(), "Show [npc.name] that you have [npc.her] mother's ring, and trick her into taking it from you and putting it on!<br/>"
+								+ "[style.italicsExcellent(You can tell that [npc.she] will instantly put it on, thus enslaving [npc.herHim] without having to fight!)]"),
+						KEEP_CHALLENGE_RING_TRICK) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_DUEL_RING_TRICK", getAllCharacters()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK", getAllCharacters()));
+						Main.game.getTextEndStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
+						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
+						clearFortress();
+					}
+				};
+				
+			}
+			return null;
 		}
 	};
 
@@ -1922,9 +1951,7 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK", getAllCharacters()));
-			return UtilText.nodeContentSB.toString();
+			return "";
 		}
 
 		@Override

@@ -27,7 +27,7 @@
 		Meeting with Alexa by appointment only.</i>
 	</p>
 	<p>
-		#IF pc.getQuest(QuestLine.MAIN) == QUEST_MAIN_1_E_REPORT_TO_ALEXA
+		#IF pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_ALEXA
 		#THEN
 			Stepping back, you wonder if you should call over one of the nearby harpies. After all, you do have business with Alexa, and you're sure that she'd want to hear about Scarlett as soon as possible.
 		#ELSE
@@ -54,7 +54,7 @@
 		Meeting with Alexa by appointment only.</i>
 	</p>
 	<p>
-		#IF pc.getQuest(QuestLine.MAIN) == QUEST_MAIN_1_E_REPORT_TO_ALEXA
+		#IF pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_ALEXA
 		#THEN
 			You do have business with Alexa, and you're sure that she'd want to hear about Scarlett as soon as possible, but you'll have to come back after the ongoing storm has passed.
 		#ELSE

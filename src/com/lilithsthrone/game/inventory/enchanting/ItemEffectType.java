@@ -2399,7 +2399,7 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisbaled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			Subspecies sub = target.getSubspecies();
+			Subspecies sub = Subspecies.getFleshSubspecies(target);
 			if(sub.getRace()!=Race.DEMON) {
 				target.setBody(CharacterUtils.generateHalfDemonBody(target, sub));
 				return UtilText.parse(target, "<p style='text-align:center; color:"+Colour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");

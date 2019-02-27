@@ -9,7 +9,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.Cell;
 
@@ -699,7 +698,7 @@ public enum PlaceUpgrade {
 	private float obedienceGain;
 	
 	private List<PlaceUpgrade> prerequisites;
-
+	
 	private PlaceUpgrade(boolean isCoreRoomUpgrade,
 			Colour colour,
 			String name,

@@ -258,6 +258,10 @@ public class Lilaya extends NPC {
 
 	@Override
 	public String getArtworkFolderName() {
+		if(this.getRaceStage()==RaceStage.GREATER) {
+			return "LilayaDemon";
+		}
+		
 		switch(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()) {
 			case SKIN_PORCELAIN:
 			case SKIN_PALE:

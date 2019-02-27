@@ -212,8 +212,10 @@ public class OccupancyUtil implements XMLSaving {
 			slave.incrementAffection(slave.getOwner(), slave.getHourlyAffectionChange(hour));
 			slave.incrementObedience(slave.getHourlyObedienceChange(hour), false);
 			
+			boolean isAtWork = slave.getWorkHours()[hour];
+			
 			// If at work:
-			if(slave.getWorkHours()[hour]) {
+			if(isAtWork) {
 				// Get paid for hour's work:
 				if(slave.getSlaveJob()!=SlaveJob.MILKING) {
 					int income = slave.getSlaveJob().getFinalHourlyIncomeAfterModifiers(slave);
@@ -235,7 +237,7 @@ public class OccupancyUtil implements XMLSaving {
 			
 			// Washing body:
 			if(slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)
-					&& !slave.getWorkHours()[hour]
+					&& !isAtWork
 					&& !slave.getDirtySlots().isEmpty()
 					&& !Main.game.getCharactersPresent().contains(slave)) {
 				SlaveryEventLogEntry entry = new SlaveryEventLogEntry(hour,
@@ -259,7 +261,7 @@ public class OccupancyUtil implements XMLSaving {
 			
 			// Washing clothes:
 			if((slave.hasStatusEffect(StatusEffect.CLOTHING_CUM) || !slave.getDirtySlots().isEmpty())
-					&& !slave.getWorkHours()[hour]
+					&& !isAtWork
 					&& slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)
 					&& !Main.game.getCharactersPresent().contains(slave)) {
 				Main.game.addSlaveryEvent(day, slave, new SlaveryEventLogEntry(hour,
@@ -305,7 +307,6 @@ public class OccupancyUtil implements XMLSaving {
 			}
 			
 			if(hour%24==0) { // At the start of a new day:
-				
 				SlaveryEventLogEntry dailyEntry = new SlaveryEventLogEntry(hour,
 						slave,
 						SlaveEvent.DAILY_UPDATE,
@@ -387,7 +388,7 @@ public class OccupancyUtil implements XMLSaving {
 		
 		List<SlaveryEventLogEntry> events = new ArrayList<>();
 		
-		if(slave.getWorkHours()[hour] && job != SlaveJob.IDLE) { // Slave is working:
+		if(slave.getWorkHours()[hour] && slavesAtJob.get(job).contains(slave) && job != SlaveJob.IDLE) { // Slave is working:
 			switch (job) { //TODO
 				case CLEANING:
 					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_CLEANING, true));
@@ -411,7 +412,7 @@ public class OccupancyUtil implements XMLSaving {
 					Cell c = MilkingRoom.getMilkingCell(slave, false);
 					MilkingRoom room = this.getMilkingRoom(c.getType(), c.getLocation());
 					
-					if(slave.getBreastRawStoredMilkValue()>0 && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_DISABLE)) {
+					if(slave.getBreastRawStoredMilkValue()>0 && !slave.hasSlaveJobSetting(SlaveJobSetting.MILKING_MILK_DISABLE)) {
 						float milked = MilkingRoom.getActualMilkPerHour(slave);
 						if(milked < slave.getBreastRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(slave)) {
 							milked = Math.min(slave.getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(slave));
@@ -442,7 +443,7 @@ public class OccupancyUtil implements XMLSaving {
 							}
 						}
 					}
-					if(slave.hasBreastsCrotch() && slave.getBreastCrotchRawStoredMilkValue()>0 && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)) {
+					if(slave.hasBreastsCrotch() && slave.getBreastCrotchRawStoredMilkValue()>0 && !slave.hasSlaveJobSetting(SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)) {
 						float milked = MilkingRoom.getActualMilkPerHour(slave);
 						if(milked < slave.getBreastCrotchRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(slave)) {
 							milked = Math.min(slave.getBreastCrotchRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(slave));
@@ -473,7 +474,7 @@ public class OccupancyUtil implements XMLSaving {
 							}
 						}
 					}
-					if(slave.hasPenisIgnoreDildo() && slave.getPenisRawStoredCumValue()>0 && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
+					if(slave.hasPenisIgnoreDildo() && slave.getPenisRawStoredCumValue()>0 && !slave.hasSlaveJobSetting(SlaveJobSetting.MILKING_CUM_DISABLE)) {
 						int milked = MilkingRoom.getActualCumPerHour(slave);
 
 						if(milked>0) {
@@ -500,7 +501,7 @@ public class OccupancyUtil implements XMLSaving {
 							}
 						}
 					}
-					if(slave.hasVagina() && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
+					if(slave.hasVagina() && !slave.hasSlaveJobSetting(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
 						int milked = MilkingRoom.getActualGirlcumPerHour(slave);
 						
 						if(milked>0) {
@@ -578,7 +579,7 @@ public class OccupancyUtil implements XMLSaving {
 
 								String tf = "";
 								SlaveEventTag tag = SlaveEventTag.JOB_LILAYA_FEMININE_TF;
-								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)) {
+								if(slave.hasSlaveJobSetting(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)) {
 									tf = getTestSubjectFutanariTransformation(slave);
 									tag = SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING;
 								} else {
@@ -610,7 +611,7 @@ public class OccupancyUtil implements XMLSaving {
 								
 								String tf2 = "";
 								SlaveEventTag mascTag = SlaveEventTag.JOB_LILAYA_MASCULINE_TF;
-								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE)) {
+								if(slave.hasSlaveJobSetting(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE)) {
 									tf2 = getTestSubjectFutanariTransformation(slave);
 									mascTag = SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING;
 								} else {
@@ -638,12 +639,16 @@ public class OccupancyUtil implements XMLSaving {
 					settingsEnabled = getSexSettingsEnabled(slave);
 					
 					GenericSexualPartner stocksPartner;
-					
 					if(Math.random()<0.25f) {
 						stocksPartner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, slave.getWorldLocation(), slave.getLocation(), false);
 					} else {
 						stocksPartner = new GenericSexualPartner(Gender.M_P_MALE, slave.getWorldLocation(), slave.getLocation(), false);
 					}
+//					try {
+//						Main.game.addNPC(stocksPartner, false);
+//					} catch (Exception e1) {
+//						e1.printStackTrace();
+//					}
 					
 					// If no settings are able to be used, or if a random roll is greater than 0.8, just add a groping event:
 					if(settingsEnabled.isEmpty() || Math.random()>0.8f) {
@@ -742,6 +747,9 @@ public class OccupancyUtil implements XMLSaving {
 									SlaveEventTag.JOB_STOCKS_USED),
 							effects,
 							true));
+
+//					Main.game.banishNPC(stocksPartner);
+					
 					return events;
 					
 				case PROSTITUTE:
@@ -877,16 +885,16 @@ public class OccupancyUtil implements XMLSaving {
 	
 	private List<SlaveJobSetting> getSexSettingsEnabled(NPC slave) {
 		List<SlaveJobSetting> settingsEnabled = new ArrayList<>();
-		if(slave.hasVagina() && slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL) && slave.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+		if(slave.hasVagina() && slave.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL) && slave.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 			settingsEnabled.add(SlaveJobSetting.SEX_VAGINAL);
 		}
-		if(slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL) && slave.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+		if(slave.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL) && slave.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 			settingsEnabled.add(SlaveJobSetting.SEX_ANAL);
 		}
-		if(slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL) && slave.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+		if(slave.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL) && slave.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 			settingsEnabled.add(SlaveJobSetting.SEX_ORAL);
 		}
-		if(slave.isBreastFuckableNipplePenetration() && slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_NIPPLES) && slave.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
+		if(slave.isBreastFuckableNipplePenetration() && slave.hasSlaveJobSetting(SlaveJobSetting.SEX_NIPPLES) && slave.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 			settingsEnabled.add(SlaveJobSetting.SEX_NIPPLES);
 		}
 		return settingsEnabled;

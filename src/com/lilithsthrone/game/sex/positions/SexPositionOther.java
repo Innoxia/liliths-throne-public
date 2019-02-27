@@ -16,6 +16,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -36,14 +37,14 @@ public class SexPositionOther {
 		@Override
 		public String getDescription() {
 			StringBuilder sb = new StringBuilder();
-			if(Sex.getSubmissiveParticipants().size()==2) {
+			if(Sex.getSubmissiveParticipants(false).size()==2) {
 				sb.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotOther.STANDING_SUBMISSIVE), Sex.getCharacterInPosition(SexSlotOther.STANDING_SUBMISSIVE_TWO),
 					"[npc.Name] and [npc2.name] are standing side-by-side, facing"));
 			} else {
 				sb.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotOther.STANDING_SUBMISSIVE),
 						"[npc.NameIsFull] standing face-to-face with"));
 			}
-			if(Sex.getDominantParticipants().size()==2) {
+			if(Sex.getDominantParticipants(false).size()==2) {
 				sb.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotOther.STANDING_DOMINANT), Sex.getCharacterInPosition(SexSlotOther.STANDING_DOMINANT_TWO),
 						" [npc.name] and [npc2.name]."));
 			} else {
@@ -83,9 +84,9 @@ public class SexPositionOther {
 			boolean receivingDom = Sex.isDom(Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL));
 			Set<GameCharacter> performers;
 			if(receivingDom) {
-				performers = Sex.getSubmissiveParticipants().keySet();
+				performers = Sex.getSubmissiveParticipants(false).keySet();
 			} else {
-				performers = Sex.getDominantParticipants().keySet();
+				performers = Sex.getDominantParticipants(false).keySet();
 			}
 			GameCharacter receiving1 = Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL);
 			GameCharacter receiving2 = Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL_TWO);
@@ -115,7 +116,11 @@ public class SexPositionOther {
 				}
 				sb.append(Util.stringsToStringList(names, false)
 					+UtilText.parse(receiving1,", and [npc.is] ready to receive oral from ")
-					+(performers.size()==1?UtilText.parse(performers.iterator().next(), "[npc.herHim]"):"them")+".");
+					+(performers.size()==1
+						?UtilText.parse(performers.iterator().next(), "[npc.herHim].")
+						:(performers.contains(Main.game.getPlayer())
+								?"the two of you."
+								:"them.")));
 			}
 			
 			if(performing1!=null) {
@@ -151,7 +156,7 @@ public class SexPositionOther {
 		private String getPositionDescription(SexSlot performingSlot, GameCharacter performer, GameCharacter receiver) {
 			return UtilText.parse(performer, receiver,
 					receiver.getLegConfiguration().isBipedalPositionedGenitals()
-						?" [npc.NameIsFull] "+(performingSlot.isStanding(performer)?"standing":"kneeling")+" in front [npc2.name], ready to put [npc.her] mouth to use on [npc.her] genitals."
+						?" [npc.NameIsFull] "+(performingSlot.isStanding(performer)?"standing":"kneeling")+" in front [npc2.name], ready to put [npc.her] mouth to use on [npc2.her] genitals."
 						:" [npc.NameIsFull] "+(performingSlot.isStanding(performer)?"standing":"kneeling")+" beneath [npc2.namePos] feral [npc2.legRace] body, ready to put [npc.her] mouth to use"
 						+(receiver.hasPenis()
 								?" and suck [npc2.her] [npc2.cock]."
@@ -162,7 +167,7 @@ public class SexPositionOther {
 		private String getPositionBehindDescription(SexSlot performingSlot, GameCharacter performer, GameCharacter receiver) {
 			return UtilText.parse(performer, receiver,
 					receiver.getLegConfiguration().isBipedalPositionedGenitals()
-						?" [npc.NameIsFull] "+(performingSlot.isStanding(performer)?"standing":"kneeling")+" behind [npc2.name], ready to put [npc.her] mouth to use on [npc.her] [npc.ass]."
+						?" [npc.NameIsFull] "+(performingSlot.isStanding(performer)?"standing":"kneeling")+" behind [npc2.name], ready to put [npc.her] mouth to use on [npc2.her] [npc2.ass]."
 						:" [npc.NameIsFull] "+(performingSlot.isStanding(performer)?"standing":"kneeling")+" behind [npc2.namePos] feral [npc2.legRace] body, ready to put [npc.her] mouth to use"
 							+(receiver.hasVagina()
 									?" and lick [npc2.her] [npc2.pussy]."

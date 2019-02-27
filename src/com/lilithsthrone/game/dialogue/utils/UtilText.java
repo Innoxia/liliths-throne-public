@@ -1,10 +1,13 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
+import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.ObedienceLevel;
+import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -14,9 +17,17 @@ import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.npc.dominion.Brax;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.Nyan;
+import com.lilithsthrone.game.character.npc.dominion.Ralph;
+import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -43,6 +54,9 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.Weather;
+
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -54,6 +68,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.time.format.TextStyle;
 import java.util.*;
+import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @since 0.1.0
@@ -67,6 +84,7 @@ public class UtilText {
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
 	private static StringBuilder descriptionSB = new StringBuilder();
 	private static List<ParserTag> parserTags;
+	private static List<String> parserVariableCalls;
 	
 	private static AbstractClothingType clothingTypeForParsing;
 	
@@ -571,6 +589,57 @@ public class UtilText {
 		}
 	}
 	
+	public static String runXmlTest(String pathName) {
+		return runXmlTest(pathName, Util.newArrayListOfValues(
+				Main.game.getNpc(Lilaya.class),
+				Main.game.getNpc(Brax.class),
+				Main.game.getNpc(Rose.class),
+				Main.game.getNpc(Ralph.class),
+				Main.game.getNpc(Nyan.class),
+				Main.game.getNpc(Zaranix.class)));
+	}
+	
+	public static String runXmlTest(String pathName, List<GameCharacter> specialNPC) {
+		File file = new File(pathName);
+
+		Map<String, String> strings = new HashMap<>();
+		
+		if (file.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(file);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				for(int i=0; i<((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").getLength(); i++){
+					Element e = (Element) ((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").item(i);
+					
+					strings.put(e.getAttribute("tag"), e.getTextContent().replaceFirst("<!\\[CDATA\\[", "").replaceAll("\\]\\]>", ""));
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(strings.isEmpty()) {
+			return "<p><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>No dialogues found! (Make sure that the 'res' folder is in the same directory as the .jar or .exe.)</span></p>";
+
+		} else {
+			StringBuilder sb = new StringBuilder();
+			for(Entry<String, String> s : strings.entrySet()) {
+				sb.append("<p>"
+							+ "<b>Dialogue tag: "+s.getKey()+"</b>"
+						+ "</p>");
+				sb.append(parse(specialNPC, s.getValue())
+						+"<br/><br/>");
+			}
+			return sb.toString();
+		}
+	}
+	
 	public static String parse(String input, ParserTag... tags) {
 		return parse(new ArrayList<>(), input, tags);
 	}
@@ -584,10 +653,15 @@ public class UtilText {
 	}
 	
 	private static String speechTarget = "";
+
+	public static String parse(List<GameCharacter> specialNPC, String input, ParserTag... tags) {
+		return parse(specialNPC, input, true, tags);
+	}
+	
 	/**
 	 * Parses supplied text.
 	 */
-	public static String parse(List<GameCharacter> specialNPC, String input, ParserTag... tags) {
+	public static String parse(List<GameCharacter> specialNPC, String input, boolean initialCall, ParserTag... tags) {
 		
 		parserTags = Arrays.asList(tags);
 		
@@ -596,7 +670,15 @@ public class UtilText {
 		}
 		input = input.replaceAll("", "");
 		
-		// [pc.speech([npc.Name]?! I didn't read '[npc.name]' on the list!)]
+		if(initialCall) { // Set variables to be parsed on each conditional:
+			parserVariableCalls = new ArrayList<>();
+			Matcher matcherVAR = Pattern.compile("(?s)#VAR(.*?)#ENDVAR").matcher(input);
+			while(matcherVAR.find()) {
+				parserVariableCalls.add(matcherVAR.group().replaceAll("#VAR", "").replaceAll("#ENDVAR", ""));
+			}
+			input = input.replaceAll("(?s)#VAR(.*?)#ENDVAR", "");
+			input = input.replaceAll("\\/\\/(.*?)\n", "\n"); // Replace comments
+		}
 		
 		try {
 			StringBuilder resultBuilder = new StringBuilder();
@@ -605,7 +687,7 @@ public class UtilText {
 			int closeBrackets = 0;
 			int openArg = 0;
 			int closeArg = 0;
-			int conditionalThens = 0;
+//			int conditionalThens = 0;
 			int startIndex = 0;
 			int endIndex = 0;
 			
@@ -613,9 +695,13 @@ public class UtilText {
 			String command = null;
 			String arguments = null;
 			String conditionalStatement = null;
-			String conditionalTrue = null;
-			String conditionalFalse = null;
+//			String conditionalTrue = null;
+//			String conditionalFalse = null;
+			boolean usingConditionalBrackets = false;
+			int conditionalOpenBrackets = 0;
+			int conditionalCloseBrackets = 0;
 			
+			Map<String, String> conditionals = null;
 			
 			boolean conditionalElseFound = false;
 			ParseMode currentParseMode = ParseMode.UNKNOWN;
@@ -625,46 +711,130 @@ public class UtilText {
 			for (int i = 0; i < input.length(); i++) {
 				char c = input.charAt(i);
 				
+				if(usingConditionalBrackets) {
+					if(input.charAt(i)=='(') {
+						conditionalOpenBrackets++;
+						
+					} else if(input.charAt(i)==')') {
+						conditionalCloseBrackets++;
+					}
+//					System.out.println("o: " +conditionalOpenBrackets);
+//					System.out.println("c: " +conditionalCloseBrackets);
+				}
+				
 				if (currentParseMode != ParseMode.REGULAR && currentParseMode != ParseMode.REGULAR_SCRIPT) {
 					if (c == 'F' && substringMatchesInReverseAtIndex(input, "#IF", i)) {
 						if (openBrackets == 0) {
+							conditionals = new LinkedHashMap<>(); //TODO
 							currentParseMode = ParseMode.CONDITIONAL;
 							startIndex = i-2;
+							
+							for(int j=i+1;j<input.length();j++) {
+								if(!Character.isWhitespace(input.charAt(j))) {
+									usingConditionalBrackets = input.charAt(j)=='(';
+//									System.out.println("usingConditionalBrackets: "+usingConditionalBrackets);
+									break;
+								}
+							}
 						}
 						
 						openBrackets++;
 						
 					} else if (currentParseMode == ParseMode.CONDITIONAL) {
-						if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
-							conditionalThens++;
-							
-							if (conditionalThens == 1){
-								if (conditionalStatement == null) {
-									conditionalStatement = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
-									conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
-									conditionalStatement = conditionalStatement.trim();
-								}
+						if(usingConditionalBrackets) {
+							//TODO
+							if(conditionalOpenBrackets>0 && conditionalOpenBrackets==conditionalCloseBrackets && openBrackets-1==closeBrackets) {
+								conditionalStatement = sb.toString().substring(1, sb.length())+")";
+								conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
+								conditionalStatement = conditionalStatement.trim();
+								
+//								System.out.println("statement: " +conditionalStatement);
+								
+								usingConditionalBrackets = false;
+								conditionalOpenBrackets = 0;
+								conditionalCloseBrackets = 0;
+								
 								sb.setLength(0);
+								
+							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets && conditionalStatement!=null) {
+								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
+								
+								for(int j=i+1;j<input.length();j++) {
+									if(!Character.isWhitespace(input.charAt(j))) {
+										usingConditionalBrackets = input.charAt(j)=='(';
+										break;
+									}
+								}
+								
+								sb.setLength(0);
+								
+							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i) && (i+1==input.length()||input.charAt(i+1)!='I') && openBrackets-1==closeBrackets && conditionalStatement!=null) {
+								conditionalElseFound = true;
+								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
+								sb.setLength(0);
+								
+							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
+								closeBrackets++;
+								
+								if (openBrackets == closeBrackets) {
+									if (conditionalElseFound) {
+										conditionals.put("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
+									} else {
+										conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
+									}
+				
+									endIndex = i;
+								}
 							}
 							
-						} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i) && openBrackets-1==closeBrackets) {
-							conditionalElseFound = true;
-							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the start.
-							sb.setLength(0);
-							
-						} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
-							closeBrackets++;
-							
-							if (openBrackets == closeBrackets) {
+						} else {
+							if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
+//								conditionalThens++;
 								
-								if (conditionalElseFound) {
-									conditionalFalse = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
-								} else {
-									conditionalTrue = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
-									conditionalFalse = "";
+								if (openBrackets-1==closeBrackets) {//conditionalThens == 1){
+	//								if (conditionalStatement == null) {
+										conditionalStatement = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the end of the conditional statement.
+										conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
+										conditionalStatement = conditionalStatement.trim();
+	//								}
+									sb.setLength(0);
 								}
-			
-								endIndex = i;
+								
+							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets) { //TODO
+								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
+
+								for(int j=i+1;j<input.length();j++) {
+									if(!Character.isWhitespace(input.charAt(j))) {
+										usingConditionalBrackets = input.charAt(j)=='(';
+										break;
+									}
+								}
+								
+								sb.setLength(0);
+								
+							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i) && (i+1==input.length()||input.charAt(i+1)!='I') && openBrackets-1==closeBrackets) {
+								conditionalElseFound = true;
+	//							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the end of this section.
+								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
+								sb.setLength(0);
+								
+							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
+								closeBrackets++;
+								
+								if (openBrackets == closeBrackets) {
+									
+									if (conditionalElseFound) {
+										// conditionalTrue has already been set in the #ELSE catch
+	//									conditionalFalse = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the end.
+										conditionals.put("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
+									} else {
+	//									conditionalTrue = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the end.
+	//									conditionalFalse = "";
+										conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
+									}
+				
+									endIndex = i;
+								}
 							}
 						}
 					}
@@ -754,10 +924,11 @@ public class UtilText {
 //					}
 					// resetParsingEngine();
 					String subResult = currentParseMode == ParseMode.CONDITIONAL
-							? parseConditionalSyntaxNew(conditionalStatement, conditionalTrue, conditionalFalse)
+							? parseConditionalSyntaxNew(conditionals)
+//									parseConditionalSyntaxNew(conditionalStatement, conditionalTrue, conditionalFalse)
 							: parseSyntaxNew(target, command, arguments, currentParseMode);
 					if (openBrackets > 1) {
-						subResult = parse(new ArrayList<>(specialNPC), subResult);
+						subResult = parse(new ArrayList<>(specialNPC), subResult, false);
 					}
 					if(command!=null
 							&& (command.equals("speech") || command.equals("speechNoEffects"))) {
@@ -773,16 +944,19 @@ public class UtilText {
 					closeBrackets = 0;
 					openArg = 0;
 					closeArg = 0;
-					conditionalThens = 0;
+//					conditionalThens = 0;
 					startIndex = 0;
 					endIndex = 0;
 					
 					target = null;
 					command = null;
 					arguments = null;
-					conditionalTrue = null;
-					conditionalFalse = null;
+//					conditionalTrue = null;
+//					conditionalFalse = null;
 					conditionalStatement = null;
+					conditionals = null;
+					conditionalOpenBrackets = 0;
+					conditionalCloseBrackets = 0;
 					
 					conditionalElseFound = false;
 					currentParseMode = ParseMode.UNKNOWN;
@@ -878,10 +1052,6 @@ public class UtilText {
 				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR);
-				}
-				
 				if(target.startsWith("npc") && character.isPlayer()) {
 					if(command.startsWith("N")) {
 						return "You";
@@ -894,6 +1064,10 @@ public class UtilText {
 						return character.getNameIgnoresPlayerKnowledge();
 					}
 					return character.getName(arguments);
+					
+				} else if(!speechTarget.equals("")) {
+					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR);
+					
 				} else {
 					if(character.isPlayerKnowsName() || character.isPlayer()) {
 						return character.getName(true);
@@ -912,15 +1086,16 @@ public class UtilText {
 				+ " If you need the actual name (for player third-person reference, or to ignore knowledge of name), pass either ' ' or 'true' as an argument.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
-				}
 				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+"'s";
 					}
 					return character.getName(arguments) + "'s";
+					
+				} else if(!speechTarget.equals("")) {
+					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
+					
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						if(command.startsWith("N")) {
@@ -946,15 +1121,16 @@ public class UtilText {
 				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
-				}
 				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+"'s";
 					}
 					return character.getName(arguments) + "'s";
+					
+				} else if(!speechTarget.equals("")) {
+					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
+					
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you're";
@@ -975,15 +1151,14 @@ public class UtilText {
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+" is";
-				}
 				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+" is";
 					}
 					return character.getName(arguments) + " is";
+				} else if(!speechTarget.equals("")) {
+					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+" is";
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you are";
@@ -1005,15 +1180,16 @@ public class UtilText {
 				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
-				}
-
+				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+"'s";
 					}
 					return character.getName(arguments) + "'s";
+					
+				} else if(!speechTarget.equals("")) {
+					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
+					
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you've";
@@ -1034,15 +1210,16 @@ public class UtilText {
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter, followed by 'has' or 'have'.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+" has";
-				}
-
+				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+" has";
 					}
 					return character.getName(arguments) + " has";
+					
+				} else if(!speechTarget.equals("")) {
+					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+" has";
+					
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you have";
@@ -3413,7 +3590,32 @@ public class UtilText {
 		});
 		
 		
-		// Styles:
+		// Styles & non-character parsing:
+		
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"evening",
+						"morning"),
+				true,
+				true,
+				"",
+				"Returns 'morning' in the morning, 'afternoon' in the afternoon, or 'evening' in the evening, and night."){//TODO
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				int hour = Main.game.getHourOfDay();
+				
+				if(hour<4) {
+					return "evening";
+				} else if(hour<12) {
+					return "morning";
+				}else if(hour<17) {
+					return "afternoon";
+				}
+				
+				return "evening";
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -6002,6 +6204,7 @@ public class UtilText {
 			}
 		}
 		engine.put("game", Main.game);
+		engine.put("sex", Main.sexEngine);
 		engine.put("properties", Main.getProperties());
 		
 		// Enums:
@@ -6019,6 +6222,9 @@ public class UtilText {
 		}
 		for(Fetish f : Fetish.values()) {
 			engine.put(f.toString(), f);
+		}
+		for(FetishDesire fetishDesire : FetishDesire.values()) {
+			engine.put("FETISH_DESIRE_"+fetishDesire.toString(), fetishDesire);
 		}
 		for(Perk p : Perk.values()) {
 			engine.put("PERK_"+p.toString(), p);
@@ -6038,11 +6244,17 @@ public class UtilText {
 		for(ItemTag it : ItemTag.values()) {
 			engine.put("ITEM_TAG_"+it.toString(), it);
 		}
+		for(Season season : Season.values()) {
+			engine.put("SEASON_"+season.toString(), season);
+		}
 		for(Weather w : Weather.values()) {
 			engine.put("WEATHER_"+w.toString(), w);
 		}
 		for(DialogueFlagValue flag : DialogueFlagValue.values()) {
 			engine.put("FLAG_"+flag.toString(), flag);
+		}
+		for(NPCFlagValue flag : NPCFlagValue.values()) {
+			engine.put("NPC_FLAG_"+flag.toString(), flag);
 		}
 		for(Occupation occupation : Occupation.values()) {
 			engine.put("OCCUPATION_"+occupation.toString(), occupation);
@@ -6058,6 +6270,21 @@ public class UtilText {
 		}
 		for(Femininity femininity : Femininity.values()) {
 			engine.put("FEMININITY_"+femininity.toString(), femininity);
+		}
+		for(AffectionLevel affectionLevel : AffectionLevel.values()) {
+			engine.put("AFFECTION_"+affectionLevel.toString(), affectionLevel);
+		}
+		for(AffectionLevelBasic affectionLevelBasic : AffectionLevelBasic.values()) {
+			engine.put("AFFECTION_BASIC_"+affectionLevelBasic.toString(), affectionLevelBasic);
+		}
+		for(ObedienceLevel obedienceLevel : ObedienceLevel.values()) {
+			engine.put("OBEDIENCE_"+obedienceLevel.toString(), obedienceLevel);
+		}
+		for(ObedienceLevelBasic obedienceLevelBasic : ObedienceLevelBasic.values()) {
+			engine.put("OBEDIENCE_BASIC_"+obedienceLevelBasic.toString(), obedienceLevelBasic);
+		}
+		for(Relationship relationship : Relationship.values()) {
+			engine.put("RELATIONSHIP_"+relationship.toString(), relationship);
 		}
 		for(FurryPreference furryPreference : FurryPreference.values()) {
 			engine.put("FURRY_PREF_"+furryPreference.toString(), furryPreference);
@@ -6093,10 +6320,65 @@ public class UtilText {
 //		System.out.println(sb.toString());
 	}
 	
-	private static String parseConditionalSyntaxNew(String conditionalStatement, String conditionalTrue, String conditionalFalse) {
+//	private static String parseConditionalSyntaxNew(String conditionalStatement, String conditionalTrue, String conditionalFalse) {
+//		if(engine==null) {
+//			initScriptEngine();
+//		}
+//		
+//		if(!specialNPCList.isEmpty()) {
+////			System.out.println("List size: "+specialNPCList.size());
+//			for(int i = 0; i<specialNPCList.size(); i++) {
+//				if(i==0) {
+//					engine.put("npc", specialNPCList.get(i));
+//				}
+//				engine.put("npc"+(i+1), specialNPCList.get(i));
+////				System.out.println("Added: npc"+(i+1));
+//			}
+//		} else {
+//			try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
+//				engine.put("npc", ParserTarget.NPC.getCharacter("npc"));
+////				System.out.println("specialNPCList is empty");
+//			} catch(Exception ex) {
+////				System.err.println("Parsing error 2: Could not initialise npc");
+//			}
+//		}
+//		
+//		StringBuilder sb = new StringBuilder();
+//		
+//		for(String s : parserVariableCalls) {
+//			sb.append(s+";");
+//		}
+//		sb.append(conditionalStatement);
+//		
+//		conditionalStatement = sb.toString();
+//		
+//		try {
+//			if(Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) { //TODO what
+//				if((boolean) engine.eval(conditionalStatement)) {
+////					return conditionalTrue;
+//					return UtilText.parse(specialNPCList, conditionalTrue, false);
+//				}
+//			} else if((boolean) engine.eval(conditionalStatement)){
+////				return conditionalTrue;
+//				return UtilText.parse(specialNPCList, conditionalTrue, false);
+//			}
+//			
+////			return conditionalFalse;
+//			return UtilText.parse(specialNPCList, conditionalFalse, false);
+//			
+//		} catch (ScriptException e) {
+//			System.err.println("Conditional parsing error: "+conditionalStatement);
+//			System.err.println(e.getMessage());
+////			e.printStackTrace();
+//			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
+//		}
+//	}
+	
+	private static String parseConditionalSyntaxNew(Map<String, String> conditionals) {
 		if(engine==null) {
 			initScriptEngine();
 		}
+		
 		if(!specialNPCList.isEmpty()) {
 //			System.out.println("List size: "+specialNPCList.size());
 			for(int i = 0; i<specialNPCList.size(); i++) {
@@ -6115,25 +6397,31 @@ public class UtilText {
 			}
 		}
 		
-		try {
-			if(Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) {
-				if((boolean) engine.eval(conditionalStatement)) {
-//					return conditionalTrue;
-					return UtilText.parse(specialNPCList, conditionalTrue);
-				}
-			} else if((boolean) engine.eval(conditionalStatement)){
-//				return conditionalTrue;
-				return UtilText.parse(specialNPCList, conditionalTrue);
+		StringBuilder sb = new StringBuilder();
+		
+		for(Entry<String, String> entry : conditionals.entrySet()) {
+			sb.setLength(0);
+
+			for(String s : parserVariableCalls) {
+				sb.append(s+";");
 			}
-//			return conditionalFalse;
-			return UtilText.parse(specialNPCList, conditionalFalse);
+			sb.append(entry.getKey());
 			
-		} catch (ScriptException e) {
-			System.err.println("Conditional parsing error: "+conditionalStatement);
-			System.err.println(e.getMessage());
-//			e.printStackTrace();
-			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
+			String conditionalStatement = sb.toString();
+			
+			try {
+				if((boolean) engine.eval(conditionalStatement)){
+					return UtilText.parse(specialNPCList, entry.getValue(), false);
+				}
+				
+			} catch (ScriptException e) {
+				System.err.println("Conditional parsing (from Map) error: "+conditionalStatement);
+				System.err.println(e.getMessage());
+				return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
+			}
 		}
+		
+		return "";
 	}
 	
 	

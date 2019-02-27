@@ -966,7 +966,7 @@ public class LyssiethPalaceDialogue {
 	};
 	
 	private static boolean isMeraxisBeingTransformed() {
-		return Main.game.getNpc(DarkSiren.class).getLocationPlace().getPlaceType()==PlaceType.LYSSIETH_PALACE_OFFICE;
+		return Main.game.getNpc(DarkSiren.class).getLocationPlace().getPlaceType().equals(PlaceType.LYSSIETH_PALACE_OFFICE);
 	}
 	
 	private static void returnCompanionsToLab() {
@@ -1063,7 +1063,7 @@ public class LyssiethPalaceDialogue {
 					public void effects() {
 						if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 							Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-							Main.game.getPlayer().setPenisSize(8);
+							Main.game.getPlayer().setPenisSize(20);
 							Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK);
 						}
 					}
@@ -1113,7 +1113,7 @@ public class LyssiethPalaceDialogue {
 					public void effects() {
 						if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 							Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-							Main.game.getPlayer().setPenisSize(8);
+							Main.game.getPlayer().setPenisSize(20);
 							Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK);
 						}
 					}
@@ -1200,7 +1200,7 @@ public class LyssiethPalaceDialogue {
 					public void effects() {
 						if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 							Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
-							Main.game.getNpc(Lilaya.class).setPenisSize(8);
+							Main.game.getNpc(Lilaya.class).setPenisSize(20);
 							Main.game.getNpc(Lilaya.class).setPenisGirth(PenisGirth.THREE_THICK);
 							Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 						}
@@ -1350,7 +1350,7 @@ public class LyssiethPalaceDialogue {
 						public void effects() {
 							if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 								Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-								Main.game.getPlayer().setPenisSize(8);
+								Main.game.getPlayer().setPenisSize(20);
 								Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK);
 							}
 							Main.game.getNpc(Lilaya.class).setPenisType(PenisType.NONE);
@@ -1406,7 +1406,7 @@ public class LyssiethPalaceDialogue {
 						public void effects() {
 							if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 								Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-								Main.game.getPlayer().setPenisSize(8);
+								Main.game.getPlayer().setPenisSize(20);
 								Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK);
 							}
 							Main.game.getNpc(Lilaya.class).setPenisType(PenisType.NONE);
@@ -1465,7 +1465,7 @@ public class LyssiethPalaceDialogue {
 							}
 							if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 								Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
-								Main.game.getNpc(Lilaya.class).setPenisSize(8);
+								Main.game.getNpc(Lilaya.class).setPenisSize(20);
 								Main.game.getNpc(Lilaya.class).setPenisGirth(PenisGirth.THREE_THICK);
 								Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 							}
@@ -1521,12 +1521,12 @@ public class LyssiethPalaceDialogue {
 						public void effects() {
 							if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 								Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-								Main.game.getPlayer().setPenisSize(8);
+								Main.game.getPlayer().setPenisSize(20);
 								Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK);
 							}
 							if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 								Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
-								Main.game.getNpc(Lilaya.class).setPenisSize(8);
+								Main.game.getNpc(Lilaya.class).setPenisSize(20);
 								Main.game.getNpc(Lilaya.class).setPenisGirth(PenisGirth.THREE_THICK);
 								Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 							}
@@ -1578,7 +1578,7 @@ public class LyssiethPalaceDialogue {
 						public void effects() {
 							if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 								Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
-								Main.game.getNpc(Lilaya.class).setPenisSize(8);
+								Main.game.getNpc(Lilaya.class).setPenisSize(20);
 								Main.game.getNpc(Lilaya.class).setPenisGirth(PenisGirth.THREE_THICK);
 								Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 							}

@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.lilithsthrone.game.Game;
-import com.lilithsthrone.utils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -84,6 +82,11 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Builder;
+import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
@@ -478,13 +481,13 @@ public class Body implements XMLSaving {
 				CharacterUtils.addAttribute(doc, element, "type", bct.toString());
 				CharacterUtils.addAttribute(doc, element, "pattern", this.coverings.get(bct).getPattern().toString());
 				CharacterUtils.addAttribute(doc, element, "modifier", this.coverings.get(bct).getModifier().toString());
-				CharacterUtils.addAttribute(doc, element, "colourPrimary", this.coverings.get(bct).getPrimaryColour().toString());
+				CharacterUtils.addAttribute(doc, element, "c1", this.coverings.get(bct).getPrimaryColour().toString());
 				if(this.coverings.get(bct).isPrimaryGlowing()) {
-					CharacterUtils.addAttribute(doc, element, "glowPrimary", String.valueOf(this.coverings.get(bct).isPrimaryGlowing()));
+					CharacterUtils.addAttribute(doc, element, "g1", String.valueOf(this.coverings.get(bct).isPrimaryGlowing()));
 				}
-				CharacterUtils.addAttribute(doc, element, "colourSecondary", this.coverings.get(bct).getSecondaryColour().toString());
+				CharacterUtils.addAttribute(doc, element, "c2", this.coverings.get(bct).getSecondaryColour().toString());
 				if(this.coverings.get(bct).isSecondaryGlowing()) {
-					CharacterUtils.addAttribute(doc, element, "glowSecondary", String.valueOf(this.coverings.get(bct).isSecondaryGlowing()));
+					CharacterUtils.addAttribute(doc, element, "g2", String.valueOf(this.coverings.get(bct).isSecondaryGlowing()));
 				}
 				if(this.getBodyCoveringTypesDiscovered().contains(bct)) {
 					CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.getBodyCoveringTypesDiscovered().contains(bct)));
@@ -1451,7 +1454,7 @@ public class Body implements XMLSaving {
 		}
 
 
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) { // FIXME update version after merging
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.8")) {
 			// Convert all sizes from inch to cm
 			importedHair.length *= 2.54;
 			importedHorn.length *= 2.54;
@@ -1524,9 +1527,12 @@ public class Body implements XMLSaving {
 			}
 
 			AbstractBreastType crotchBoobType = BreastType.getBreastTypeFromId(breasts.getAttribute("type"));
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")
-					&& importedLeg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) { // Reset crotch-boob type as I accidentally applied crotch-boobs to demons
-				crotchBoobType = RacialBody.valueOfRace(body.getRace()).getBreastCrotchType();
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6") && importedLeg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) { // Reset crotch-boob type as I accidentally applied crotch-boobs to demons
+				if(body.isFeminine()) {
+					crotchBoobType = RacialBody.valueOfRace(body.getRace()).getBreastCrotchType();
+				} else {
+					crotchBoobType = BreastType.NONE;
+				}
 			}
 			importedCrotchBreast = new BreastCrotch(crotchBoobType,
 					breastShape,
@@ -1589,7 +1595,7 @@ public class Body implements XMLSaving {
 
 
 		if(importedCrotchBreast!=null) {
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) { // FIXME update version after merging
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.8")) {
 				importedCrotchBreast.nipples.orificeNipples.capacity *= 2.54;
 				importedCrotchBreast.nipples.orificeNipples.stretchedCapacity *= 2.54;
 			}
@@ -1630,8 +1636,15 @@ public class Body implements XMLSaving {
 				type = "HORN";
 			}
 			try {
+				
 				String colourPrimary = e.getAttribute("colourPrimary");
+				if(colourPrimary.isEmpty()) {
+					colourPrimary = e.getAttribute("c1");
+				}
 				String colourSecondary = e.getAttribute("colourSecondary");
+				if(colourSecondary.isEmpty()) {
+					colourSecondary = e.getAttribute("c2");
+				}
 				
 				if(type.startsWith("HAIR_")) {
 					if(colourPrimary.equals("COVERING_TAN")) {

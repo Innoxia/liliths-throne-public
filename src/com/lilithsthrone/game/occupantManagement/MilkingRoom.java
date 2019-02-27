@@ -11,6 +11,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
@@ -113,17 +114,17 @@ public class MilkingRoom implements XMLSaving {
 			
 			int charactersPresent = Main.game.getCharactersPresent(c).size();
 			
-			if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_INDUSTRIAL)
+			if(character.hasSlaveJobSetting(SlaveJobSetting.MILKING_INDUSTRIAL)
 					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
 					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
 				
-			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_ARTISAN)
+			} else if(character.hasSlaveJobSetting(SlaveJobSetting.MILKING_ARTISAN)
 					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
 					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
 				
-			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_REGULAR)
+			} else if(character.hasSlaveJobSetting(SlaveJobSetting.MILKING_REGULAR)
 					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
 					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
 					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
@@ -280,8 +281,18 @@ public class MilkingRoom implements XMLSaving {
 	
 	public void incrementFluidStored(GameCharacter character, FluidInterface fluidToStore, float quantity) {
 		boolean fluidIncremented = false;
+		
+		FluidStored newFluid;
+		if(fluidToStore instanceof FluidCum) {
+			newFluid = new FluidStored(character, ((FluidCum) fluidToStore), quantity);
+		} else if(fluidToStore instanceof FluidMilk) {
+			newFluid = new FluidStored(character.getId(), ((FluidMilk)fluidToStore), quantity);
+		} else {
+			newFluid = new FluidStored(character.getId(), ((FluidGirlCum)fluidToStore), quantity);
+		}
+		
 		for(FluidStored fluid : getFluidsStored()) {
-			if(fluid.getCharactersFluidID().equals(character.getId()) && fluid.getFluid().equals(fluidToStore)) {
+			if(fluid.getCharactersFluidID().equals(character.getId()) && fluid.equals(newFluid)) {
 				fluid.incrementMillilitres((int) quantity);
 				fluidIncremented = true;
 				break;
@@ -346,17 +357,24 @@ public class MilkingRoom implements XMLSaving {
 				
 					milkyMilknessSB.append(
 							"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-								+ "[style.colourExcellent("+Units.fluid(fluid.getMillilitres())+")]"
-							+ "</div>");
+								+ "[style.colourExcellent("+Units.fluid(fluid.getMillilitres())+")]");
+					if(fluid.isCum()) {
+						milkyMilknessSB.append("<br/><span style='color:"+Attribute.VIRILITY.getColour().toWebHexString()+";'>Virility:</span> "+Units.adaptiveRound(fluid.getVirility()));
+					}
+					milkyMilknessSB.append("</div>");
 				
-					milkyMilknessSB.append(
-							"<div class='container-half-width' style='margin:0; padding:2px; width:25%; background:transparent;'>"
-								+ (fluid.getFluidCharacter()==null
-									?"[style.colourDisabled(Unknown's)]"
-									:UtilText.parse(fluid.getFluidCharacter(), "<span style='color:"+fluid.getFluidCharacter().getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</span>"))
-								+ "<br/>"
+					milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:25%; background:transparent;'>");
+					GameCharacter fluidOwner = null;
+					try {
+						fluidOwner = fluid.getFluidCharacter();
+						milkyMilknessSB.append(UtilText.parse(fluidOwner, "<span style='color:"+fluidOwner.getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</span>"));
+						
+					} catch(Exception ex) {
+						milkyMilknessSB.append("[style.colourDisabled(Unknown's)]");
+					}
+					milkyMilknessSB.append("<br/>"
 								+ "<span style='color:"+type.getRace().getColour().toWebHexString()+";'>"
-									+Util.capitaliseSentence(type.getRace().getName(fluid.getFluid().isBestial(fluid.getFluidCharacter())))+" "+type.getName(fluid.getFluidCharacter()) //TODO this will change if the character ttransforms...
+									+Util.capitaliseSentence(type.getRace().getName(fluid.isBestial()))+" "+type.getName(fluidOwner)
 								+"</span>"
 							+ "</div>");
 	
@@ -385,25 +403,25 @@ public class MilkingRoom implements XMLSaving {
 							+ "</div>");
 					
 					milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
-							+ "<div id='"+idModifier+"_"+CoverableArea.MOUTH+"_"+fluid.getFluid().hashCode()+"' "
+							+ "<div id='"+idModifier+"_"+CoverableArea.MOUTH+"_"+fluid.hashCode()+"' "
 									+(isAbleToIngestThroughArea(Main.game.getPlayer(), CoverableArea.MOUTH, fluid.getMillilitres())
 											?"class='square-button big'"
 											:"class='square-button big disabled'")+">"
 									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth()+"</div></div>");
 					
-					milkyMilknessSB.append("<div id='"+idModifier+"_"+CoverableArea.VAGINA+"_"+fluid.getFluid().hashCode()+"' "
+					milkyMilknessSB.append("<div id='"+idModifier+"_"+CoverableArea.VAGINA+"_"+fluid.hashCode()+"' "
 									+(isAbleToIngestThroughArea(Main.game.getPlayer(), CoverableArea.VAGINA, fluid.getMillilitres())
 											?"class='square-button big'"
 											:"class='square-button big disabled'")+">"
 									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina()+"</div></div>");
 					
-					milkyMilknessSB.append("<div id='"+idModifier+"_"+CoverableArea.ANUS+"_"+fluid.getFluid().hashCode()+"' "
+					milkyMilknessSB.append("<div id='"+idModifier+"_"+CoverableArea.ANUS+"_"+fluid.hashCode()+"' "
 								+(isAbleToIngestThroughArea(Main.game.getPlayer(), CoverableArea.ANUS, fluid.getMillilitres())
 											?"class='square-button big'"
 											:"class='square-button big disabled'")+">"
 									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div></div>");
 					
-					milkyMilknessSB.append("<div id='"+idModifier+"_SELL_"+fluid.getFluid().hashCode()+"' class='square-button big'>"
+					milkyMilknessSB.append("<div id='"+idModifier+"_SELL_"+fluid.hashCode()+"' class='square-button big'>"
 									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
 					
 					milkyMilknessSB.append("</div>");
@@ -428,7 +446,7 @@ public class MilkingRoom implements XMLSaving {
 		StringBuilder sb = new StringBuilder();
 		
 		if(millilitres<5) {
-			sb.append("There needs to be at least ").append(Units.fluid(5)).append(" of fluid for [npc.name] to ingest it!<br/>");
+			sb.append("There needs to be at least "+Units.fluid(5)+" of fluid for [npc.name] to ingest it!<br/>");
 		}
 		
 		switch(area) {

@@ -80,9 +80,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		this.secondaryColour = secondaryColour;
 		this.tertiaryColour = tertiaryColour;
 		
-		patternColour = Colour.CLOTHING_BLACK;
-		patternSecondaryColour = Colour.CLOTHING_BLACK;
-		patternTertiaryColour = Colour.CLOTHING_BLACK;
+		patternColour = null;
+		patternSecondaryColour = null;
+		patternTertiaryColour = null;
 
 		displacedList = new ArrayList<>();
 
@@ -143,9 +143,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		this.secondaryColour = secondaryColour;
 		this.tertiaryColour = tertiaryColour;
 		
-		patternColour = Colour.CLOTHING_BLACK;
-		patternSecondaryColour = Colour.CLOTHING_BLACK;
-		patternTertiaryColour = Colour.CLOTHING_BLACK;
+		patternColour = null;
+		patternSecondaryColour = null;
+		patternTertiaryColour = null;
 		
 		displacedList = new ArrayList<>();
 		if(effects!=null) {
@@ -203,33 +203,49 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getClothingType().getId());
 		CharacterUtils.addAttribute(doc, element, "name", name);
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
-		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
-		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
+		if(this.getColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+			CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
+		}
+		if(this.getSecondaryColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+			CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
+		}
+		if(this.getTertiaryColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+			CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
+		}
 		
 		if(!this.getPattern().equals("none")) {
-			CharacterUtils.addAttribute(doc, element, "patternColour", this.getPatternColour().toString());
-			CharacterUtils.addAttribute(doc, element, "patternColourSecondary", this.getPatternSecondaryColour().toString());
-			CharacterUtils.addAttribute(doc, element, "patternColourTertiary", this.getPatternTertiaryColour().toString());
+			if(this.getPatternColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+				CharacterUtils.addAttribute(doc, element, "patternColour", this.getPatternColour().toString());
+			}
+			if(this.getPatternSecondaryColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+				CharacterUtils.addAttribute(doc, element, "patternColourSecondary", this.getPatternSecondaryColour().toString());
+			}
+			if(this.getPatternTertiaryColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+				CharacterUtils.addAttribute(doc, element, "patternColourTertiary", this.getPatternTertiaryColour().toString());
+			}
 			CharacterUtils.addAttribute(doc, element, "pattern", this.getPattern());
 		}
 		
 		CharacterUtils.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
 		CharacterUtils.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
 		
-		Element innerElement = doc.createElement("effects");
-		element.appendChild(innerElement);
-		
-		for(ItemEffect ie : this.getEffects()) {
-			ie.saveAsXML(innerElement, doc);
+		if(!this.getEffects().isEmpty()) {
+			Element innerElement = doc.createElement("effects");
+			element.appendChild(innerElement);
+			
+			for(ItemEffect ie : this.getEffects()) {
+				ie.saveAsXML(innerElement, doc);
+			}
 		}
-		
-		innerElement = doc.createElement("displacedList");
-		element.appendChild(innerElement);
-		for(DisplacementType dt : this.getDisplacedList()) {
-			Element displacementType = doc.createElement("displacementType");
-			innerElement.appendChild(displacementType);
-			CharacterUtils.addAttribute(doc, displacementType, "value", dt.toString());
+
+		if(!this.getDisplacedList().isEmpty()) {
+			Element innerElement = doc.createElement("displacedList");
+			element.appendChild(innerElement);
+			for(DisplacementType dt : this.getDisplacedList()) {
+				Element displacementType = doc.createElement("displacementType");
+				innerElement.appendChild(displacementType);
+				CharacterUtils.addAttribute(doc, displacementType, "value", dt.toString());
+			}
 		}
 		
 		return element;
@@ -266,7 +282,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			
 		} else {
 			try {
-				clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
+				if(!parentElement.getAttribute("colour").isEmpty()) {
+					clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
+				} else {
+					clothing.setColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+				}
 			} catch(Exception ex) {
 			}
 
@@ -276,18 +296,22 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					if(clothing.clothingType.getAllAvailableSecondaryColours().contains(secColour)) {
 						clothing.setSecondaryColour(secColour);
 					}
+				} else {
+					clothing.setSecondaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
 				}
 			} catch(Exception ex) {
 			}
 		}
-		if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
-			try {
+		try {
+			if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
 				Colour terColour = Colour.valueOf(parentElement.getAttribute("colourTertiary"));
 				if(clothing.clothingType.getAllAvailableTertiaryColours().contains(terColour)) {
 					clothing.setTertiaryColour(terColour);
 				}
-			} catch(Exception ex) {
+			} else {
+				clothing.setTertiaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
 			}
+		} catch(Exception ex) {
 		}
 
 		// Try to load patterns:
@@ -300,15 +324,24 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			if(!parentElement.getAttribute("patternColour").isEmpty()) {
 				Colour colour = Colour.valueOf(parentElement.getAttribute("patternColour"));
 				clothing.setPatternColour(colour);
+			} else {
+				clothing.setPatternColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
 			}
+			
 			if(!parentElement.getAttribute("patternColourSecondary").isEmpty()) {
 				Colour secColour = Colour.valueOf(parentElement.getAttribute("patternColourSecondary"));
 				clothing.setPatternSecondaryColour(secColour);
+			} else {
+				clothing.setPatternSecondaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
 			}
+			
 			if(!parentElement.getAttribute("patternColourTertiary").isEmpty()) {
 				Colour terColour = Colour.valueOf(parentElement.getAttribute("patternColourTertiary"));
 				clothing.setPatternTertiaryColour(terColour);
+			} else {
+				clothing.setPatternTertiaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
 			}
+			
 		} catch(Exception ex) {
 		}
 
@@ -422,6 +455,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 	
 	public Colour getSecondaryColour() {
+		if(secondaryColour==null) {
+			return AbstractClothingType.DEFAULT_COLOUR_VALUE;
+		}
 		return secondaryColour;
 	}
 
@@ -430,6 +466,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public Colour getTertiaryColour() {
+		if(tertiaryColour==null) {
+			return AbstractClothingType.DEFAULT_COLOUR_VALUE;
+		}
 		return tertiaryColour;
 	}
 
@@ -457,14 +496,23 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public Colour getPatternColour() {
+		if(patternColour==null) {
+			return AbstractClothingType.DEFAULT_COLOUR_VALUE;
+		}
 		return patternColour;
 	}
 
 	public Colour getPatternSecondaryColour() {
+		if(patternSecondaryColour==null) {
+			return AbstractClothingType.DEFAULT_COLOUR_VALUE;
+		}
 		return patternSecondaryColour;
 	}
 
 	public Colour getPatternTertiaryColour() {
+		if(patternTertiaryColour==null) {
+			return AbstractClothingType.DEFAULT_COLOUR_VALUE;
+		}
 		return patternTertiaryColour;
 	}
 
@@ -722,11 +770,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 
 	@Override
 	public String getSVGString() {
-		return getClothingType().getSVGImage(colourShade, secondaryColour, tertiaryColour, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
+		return getClothingType().getSVGImage(getColour(), getSecondaryColour(), getTertiaryColour(), pattern, getPatternColour(), getPatternSecondaryColour(), getPatternTertiaryColour());
 	}
 	
 	public String getSVGEquippedString(GameCharacter character) {
-		return getClothingType().getSVGEquippedImage(character, colourShade, secondaryColour, tertiaryColour, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
+		return getClothingType().getSVGEquippedImage(character, getColour(), getSecondaryColour(), getTertiaryColour(), pattern, getPatternColour(), getPatternSecondaryColour(), getPatternTertiaryColour());
 	}
 
 	/**

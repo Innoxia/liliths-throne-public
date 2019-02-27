@@ -1,10 +1,5 @@
 package com.lilithsthrone.utils;
 
-import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.effects.StatusEffect;
-import com.lilithsthrone.main.Main;
-import javafx.application.Platform;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
@@ -17,11 +12,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.main.Main;
+
+import javafx.application.Platform;
+
 /**
  * Collection of utility functions for date, time and number format conversion.
  *
  * @since 0.2.11
- * @version 0.2.11
+ * @version 0.3.1
  * @author Addi
  */
 public enum Units {
@@ -36,6 +37,7 @@ public enum Units {
     DateTimeFormatter shortDate;
     DateTimeFormatter longDate;
     DateTimeFormatter time;
+    DateTimeFormatter timeWithSeconds;
     NumberFormat number;
 
     Locale defaultLocale;
@@ -83,6 +85,17 @@ public enum Units {
     public void updateTimeFormat(boolean autoLocale) {
         time = (autoLocale ? DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime) ? "HH:mm" : "hh:mm a"))
+                .withZone(ZoneId.systemDefault());
+        updateTimeWithSecondsFormat(autoLocale);
+    }
+    
+    /**
+     * Resets the time formatter depending on the system locale (if automatic) or the 24 hour time flag (if manual).
+     * @param autoLocale Determines if automatic or manual detection is used
+     */
+    public void updateTimeWithSecondsFormat(boolean autoLocale) {
+        timeWithSeconds = (autoLocale ? DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime) ? "HH:mm:ss" : "hh:mm:ss a"))
                 .withZone(ZoneId.systemDefault());
     }
 
@@ -195,6 +208,13 @@ public enum Units {
      */
     public static String time(TemporalAccessor timePoint) {
         return FORMATTER.time.format(timePoint);
+    }
+    
+    /**
+     * Similar to {@link Units#dateTime(TemporalAccessor)}, except that this function only outputs the time, with seconds appended to the end.
+     */
+    public static String timeWithSeconds(TemporalAccessor timePoint) {
+        return FORMATTER.timeWithSeconds.format(timePoint);
     }
 
     /**
@@ -386,7 +406,7 @@ public enum Units {
      */
     public static String fluidAsMetric(double ml, ValueType vType, UnitType uType) {
         double l = ml / 1000;
-        return valueWithUnit(ml, "mL", "millilitre", l, "L", "litre", vType, uType, false);
+        return valueWithUnit(ml, "mL", "millilitre", l, "L", "litre", vType, uType, false); // Innoxa's note: I usually prefer the lowercase l for ml and l, but LT's font makes it look bad.
     }
 
     /**

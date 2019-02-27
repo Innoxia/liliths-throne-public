@@ -316,8 +316,9 @@ public class Breast implements BodyPartInterface {
 					"<p style='text-align:center;'><i style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
 							+ UtilText.returnStringAtRandom(
 									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.namePos] [npc.milk] squirts out of [npc.her] [npc.nipples+].",
-									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.milk+] leaks out of [npc.namePos] [npc.nipples+].",
-									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.milk+] drips out of [npc.namePos] [npc.nipples+].")
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.milk+] squirts out of [npc.namePos] [npc.nipples+].",
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.namePos] [npc.milk] leaks out of [npc.her] [npc.nipples+].",
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.milk+] leaks out of [npc.namePos] [npc.nipples+].")
 					+ "</i>"
 					+ (this.milkStored==0
 						?"<br/><i>[npc.Name] now [npc.has] no more [npc.milk] stored in [npc.her] breasts!</i>"

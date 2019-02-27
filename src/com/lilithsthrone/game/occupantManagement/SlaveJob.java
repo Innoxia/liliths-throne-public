@@ -16,6 +16,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -56,7 +57,7 @@ public enum SlaveJob {
 		
 		@Override
 		public void sendToWorkLocation(GameCharacter slave) {
-			if(slave.getLocationPlace().getPlaceType() == PlaceType.LILAYA_HOME_CORRIDOR) {
+			if(slave.getLocationPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_CORRIDOR)) {
 				slave.moveToAdjacentMatchingCellType(false);
 			
 			} else {
@@ -171,7 +172,7 @@ public enum SlaveJob {
 			} else if(character.getOwner().getSlavesWorkingJob(this)>=this.getSlaveLimit()) {
 				return "You have already assigned the maximum number of slaves to this job!";
 				
-			} else if(character.getHomeLocationPlace().getPlaceType() == PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
+			} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
 				return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
 				
 			} else {
@@ -221,6 +222,10 @@ public enum SlaveJob {
 		public String getAvailabilityText(GameCharacter character) {
 			if(!isAvailable(character)) {
 				return "Not enough space in milking rooms!";
+				
+			} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
+				return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
+				
 			}
 			
 			return super.getAvailabilityText(character);
@@ -236,7 +241,7 @@ public enum SlaveJob {
 		}
 		
 		@Override
-		public PlaceType getPlaceLocation(GameCharacter character) {
+		public AbstractPlaceType getPlaceLocation(GameCharacter character) {
 			Cell c = MilkingRoom.getMilkingCell(character, false);
 			if(c==null) {
 				return null;
@@ -271,7 +276,7 @@ public enum SlaveJob {
 	private Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings;
 	private List<SlaveJobSetting> defaultMutuallyExclusiveSettings;
 	private WorldType worldLocation;
-	private PlaceType placeLocation;
+	private AbstractPlaceType placeLocation;
 	
 	private SlaveJob(int slaveLimit,
 			String nameFeminine,
@@ -286,7 +291,7 @@ public enum SlaveJob {
 			Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings,
 			List<SlaveJobSetting> defaultMutuallyExclusiveSettings,
 			WorldType worldLocation,
-			PlaceType placeLocation) {
+			AbstractPlaceType placeLocation) {
 		
 		this.slaveLimit = slaveLimit;
 		this.nameFeminine = nameFeminine;
@@ -361,19 +366,19 @@ public enum SlaveJob {
 		
 		if(this==SlaveJob.MILKING) {
 			value = 0;
-			if(character.getBreastRawStoredMilkValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_DISABLE)) {
+			if(character.getBreastRawStoredMilkValue()>0  && !character.hasSlaveJobSetting(SlaveJobSetting.MILKING_MILK_DISABLE)) {
 				int milked = MilkingRoom.getActualMilkPerHour(character);
 				value += (milked * character.getMilk().getValuePerMl());
 			}
-			if(character.hasBreastsCrotch() && character.getBreastCrotchRawStoredMilkValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)) {
+			if(character.hasBreastsCrotch() && character.getBreastCrotchRawStoredMilkValue()>0  && !character.hasSlaveJobSetting(SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)) {
 				int milked = MilkingRoom.getActualMilkPerHour(character);
 				value += (milked * character.getMilkCrotch().getValuePerMl());
 			}
-			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
+			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0  && !character.hasSlaveJobSetting(SlaveJobSetting.MILKING_CUM_DISABLE)) {
 				int milked = MilkingRoom.getActualCumPerHour(character);
 				value += (milked * character.getCum().getValuePerMl());
 			}
-			if(character.hasVagina() && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
+			if(character.hasVagina() && !character.hasSlaveJobSetting(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
 				int milked = MilkingRoom.getActualGirlcumPerHour(character);
 				value += (milked * character.getGirlcum().getValuePerMl());
 			}
@@ -395,19 +400,19 @@ public enum SlaveJob {
 		
 		if(this==SlaveJob.MILKING) {
 			value = 0;
-			if(character.getBreastRawStoredMilkValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_DISABLE)) {
+			if(character.getBreastRawStoredMilkValue()>0  && !character.hasSlaveJobSetting(SlaveJobSetting.MILKING_MILK_DISABLE)) {
 				int milked = MilkingRoom.getActualMilkPerHour(character);
 				value += (milked * character.getMilk().getValuePerMl());
 			}
-			if(character.hasBreastsCrotch() && character.getBreastCrotchRawStoredMilkValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)) {
+			if(character.hasBreastsCrotch() && character.getBreastCrotchRawStoredMilkValue()>0  && !character.hasSlaveJobSetting(SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)) {
 				int milked = MilkingRoom.getActualMilkPerHour(character);
 				value += (milked * character.getMilkCrotch().getValuePerMl());
 			}
-			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
+			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0  && !character.hasSlaveJobSetting(SlaveJobSetting.MILKING_CUM_DISABLE)) {
 				int milked = MilkingRoom.getActualCumPerHour(character);
 				value += (milked * character.getCum().getValuePerMl());
 			}
-			if(character.hasVagina() && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
+			if(character.hasVagina() && !character.hasSlaveJobSetting(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
 				int milked = MilkingRoom.getActualGirlcumPerHour(character);
 				value += (milked * character.getGirlcum().getValuePerMl());
 			}
@@ -449,7 +454,7 @@ public enum SlaveJob {
 		return worldLocation;
 	}
 
-	public PlaceType getPlaceLocation(GameCharacter character) {
+	public AbstractPlaceType getPlaceLocation(GameCharacter character) {
 		return placeLocation;
 	}
 	
@@ -462,14 +467,14 @@ public enum SlaveJob {
 	}
 	
 	public boolean isAvailable(GameCharacter character) {
-		return character.getSlaveJob()==this || (character.getHomeLocationPlace().getPlaceType() != PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION && character.getOwner().getSlavesWorkingJob(this)<this.getSlaveLimit());
+		return character.getSlaveJob()==this || (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && character.getOwner().getSlavesWorkingJob(this)<this.getSlaveLimit());
 	}
 	
 	public String getAvailabilityText(GameCharacter character) {
 		if(character.getOwner().getSlavesWorkingJob(this)>=this.getSlaveLimit()) {
 			return "You have already assigned the maximum number of slaves to this job!";
 			
-		} else if(character.getHomeLocationPlace().getPlaceType() == PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
+		} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
 			return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
 			
 		} else {

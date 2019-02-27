@@ -26,7 +26,8 @@ public class ItemEffect implements XMLSaving {
 	public static final int SEALED_COST_MAJOR_DRAIN = 500;
 	
 	private AbstractItemEffectType itemEffectType;
-	private TFModifier primaryModifier, secondaryModifier;
+	private TFModifier primaryModifier;
+	private TFModifier secondaryModifier;
 	private TFPotency potency;
 	private int limit;
 	private ItemEffectTimer timer;
@@ -169,6 +170,17 @@ public class ItemEffect implements XMLSaving {
 		
 		return ie;
 	}
+	
+	//TODO
+//	public static List<ItemEffect> groupEffects(List<ItemEffect> effects) {
+//		List<ItemEffect> groupedEffects = new ArrayList<>();
+//		
+//		for(ItemEffect ie : effects) {
+//			
+//		}
+//		
+//		return groupedEffects;
+//	}
 	
 	public String applyEffect(GameCharacter user, GameCharacter target, int secondsPassed) {
 		this.timer.incrementSecondsPassed(secondsPassed);

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -14,10 +15,12 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -32,10 +35,10 @@ public class AlleywayProstituteDialogue {
 	}
 	
 	private static boolean isCanal() {
-		PlaceType pt = Main.game.getActiveNPC().getLocationPlace().getPlaceType();
-		return (pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
-				|| pt == PlaceType.DOMINION_CANAL
-				|| pt == PlaceType.DOMINION_CANAL_END);
+		AbstractPlaceType pt = Main.game.getActiveNPC().getLocationPlace().getPlaceType();
+		return pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
+				|| pt.equals(PlaceType.DOMINION_CANAL)
+				|| pt.equals(PlaceType.DOMINION_CANAL_END);
 	}
 	
 	public static final DialogueNode ALLEY_PROSTITUTE = new DialogueNode("Prostitute", "You run into someone who's selling their body.", true) {
@@ -258,7 +261,16 @@ public class AlleywayProstituteDialogue {
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(Main.game.getActiveNPC()),
 							null,
-							null), AFTER_SEX_PAID, "<p>"
+							null) {
+								public SexPace getStartingSexPaceModifier(GameCharacter character) {
+									if(!character.isPlayer()) {
+										return SexPace.SUB_NORMAL;
+									}
+									return super.getStartingSexPaceModifier(character);
+								}
+							},
+							AFTER_SEX_PAID,
+							"<p>"
 									+ "[pc.speech(Sure, I could do with having a good time,)]"
 									+ " you reply, handing over "+cost+" flames to the [npc.race]."
 								+ "</p>"
@@ -307,7 +319,16 @@ public class AlleywayProstituteDialogue {
 									Util.newArrayListOfValues(Main.game.getActiveNPC()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null), AFTER_SEX_PAID, "<p>"
+							null) {
+								public SexPace getStartingSexPaceModifier(GameCharacter character) {
+									if(!character.isPlayer()) {
+										return SexPace.DOM_NORMAL;
+									}
+									return super.getStartingSexPaceModifier(character);
+								}
+							},
+							AFTER_SEX_PAID,
+							"<p>"
 								+ "[pc.speech(Sure, I could do with having a good time,)]"
 								+ " you reply,"
 								+ " [pc.speech(but only if you're on top...)]"

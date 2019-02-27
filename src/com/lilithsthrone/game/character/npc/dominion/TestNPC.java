@@ -49,7 +49,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * Test class that I'm using to try out some methods and stuff. It might end up as a bit of a mess, but don't remove it.
  * 
  * @since 0.1.83
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class TestNPC extends NPC {
@@ -63,7 +63,7 @@ public class TestNPC extends NPC {
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
 				28, Month.JUNE, 1,
 				1, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 
 		this.setPersonality(Util.newHashMapOfValues(
 				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),

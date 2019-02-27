@@ -470,7 +470,7 @@ public class Lab {
 							};
 							
 						} else {
-							if(Main.game.getNpc(Arthur.class).getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LAB) {
+							if(Main.game.getNpc(Arthur.class).getLocationPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_LAB)) {
 								return new Response("\"Tests\"", "Lilaya can't run any \"tests\" on you while Arthur is still present in her lab. Find him a suitable room first.", null);
 								
 							} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hadSexWithLilaya)) {
@@ -1845,10 +1845,10 @@ public class Lab {
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))) {
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return character.isPlayer();
-							}
+//							@Override
+//							public boolean isPositionChangingAllowed(GameCharacter character) {
+//								return character.isPlayer();
+//							}
 						},
 						null,
 						null,
@@ -2098,10 +2098,10 @@ public class Lab {
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))) {
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return character.isPlayer();
-							}
+//							@Override
+//							public boolean isPositionChangingAllowed(GameCharacter character) {
+//								return character.isPlayer();
+//							}
 						},
 						null,
 						null,
@@ -3040,9 +3040,9 @@ public class Lab {
 				} else {
 					UtilText.nodeContentSB.append(
 							" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
-									+offspring.getSubspecies().getSingularFemaleName(offspring)
+									+offspring.getSubspecies().getSingularMaleName(offspring)
 								+" crawling out."
-							+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
+							+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
 				}
 				
 			} catch(Exception ex) {

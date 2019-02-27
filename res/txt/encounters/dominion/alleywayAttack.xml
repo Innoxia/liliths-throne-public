@@ -511,14 +511,14 @@
 	
 	<htmlContent tag="ALLEY_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION"><![CDATA[
 	<p style='text-align:center;'>
-		[style.italicsGood(You feel as though you've got to know [npc.name] well enough to feel comfortable with inviting [npc.herHim] to come and live with you. You'd need to get Lilaya's permission first, however...)]
+		[style.italicsGood(You know [npc.name] well enough now to feel comfortable with inviting [npc.herHim] to come and live with you. You'd need to get Lilaya's permission first, however...)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_PEACEFUL_CAN_INVITE_HOME"><![CDATA[
 	<p style='text-align:center;'>
-		[style.italicsExcellent(You feel as though you've got to know [npc.name] well enough to feel comfortable with inviting [npc.herHim] to come and live with you.)]
+		[style.italicsExcellent(You know [npc.name] well enough now to feel comfortable with inviting [npc.herHim] to come and live with you.)]
 	</p>
 	]]>
 	</htmlContent>

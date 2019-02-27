@@ -63,6 +63,8 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
 	
+	public static final Colour DEFAULT_COLOUR_VALUE = Colour.CLOTHING_BLACK;
+	
 	private String determiner;
 	private String name;
 	private String namePlural;
@@ -492,7 +494,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		this.availablePrimaryColours = new ArrayList<>();
 		if (availablePrimaryColours == null) {
-			this.availablePrimaryColours.add(Colour.CLOTHING_BLACK);
+			this.availablePrimaryColours.add(DEFAULT_COLOUR_VALUE);
 		} else {
 			this.availablePrimaryColours.addAll(availablePrimaryColours);
 		}
@@ -673,7 +675,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 		if (primaryColour == null) {
 			if(clothingType.getAvailablePrimaryColours().isEmpty()) {
-				c1 = Colour.CLOTHING_BLACK;
+				c1 = DEFAULT_COLOUR_VALUE;
 			} else {
 				c1 = Util.randomItemFrom(clothingType.getAvailablePrimaryColours());
 			}
@@ -685,13 +687,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		if (secondaryColour == null) {
 			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
-				c2 = Colour.CLOTHING_BLACK;
+				c2 = DEFAULT_COLOUR_VALUE;
 			} else {
 				c2 = Util.randomItemFrom(clothingType.getAvailableSecondaryColours());
 			}
 		} else if(!clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
 			if(clothingType.getAllAvailableSecondaryColours().isEmpty()) {
-				c2 = Colour.CLOTHING_BLACK;
+				c2 = DEFAULT_COLOUR_VALUE;
 			} else {
 				c2 = Util.randomItemFrom(clothingType.getAllAvailableSecondaryColours());
 			}
@@ -699,14 +701,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		if (tertiaryColour == null) {
 			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
-				c3 = Colour.CLOTHING_BLACK;
+				c3 = DEFAULT_COLOUR_VALUE;
 			} else {
 				c3 = Util.randomItemFrom(clothingType.getAvailableTertiaryColours());
 			}
 			
 		} else if(!clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
 			if(clothingType.getAllAvailableTertiaryColours().isEmpty()) {
-				c3 = Colour.CLOTHING_BLACK;
+				c3 = DEFAULT_COLOUR_VALUE;
 			} else {
 				c3 = Util.randomItemFrom(clothingType.getAllAvailableTertiaryColours());
 			}
@@ -754,17 +756,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		if (secondaryColour == null || !clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
+		if (secondaryColour != null && !clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
 			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
-				c2 = Colour.CLOTHING_BLACK;
+				c2 = null;
 			} else {
 				c2 = clothingType.getAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAvailableSecondaryColours().size()));
 			}
 		}
 		
-		if (tertiaryColour == null || !clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
+		if (tertiaryColour != null && !clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
 			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
-				c3 = Colour.CLOTHING_BLACK;
+				c3 = null;
 			} else {
 				c3 = clothingType.getAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAvailableTertiaryColours().size()));
 			}
@@ -1894,15 +1896,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public String getSVGImage() {
-		Colour pColour = Colour.CLOTHING_BLACK;
+		Colour pColour = DEFAULT_COLOUR_VALUE;
 		if(this.getAllAvailablePrimaryColours()!=null && !this.getAllAvailablePrimaryColours().isEmpty()) {
 			pColour = this.getAllAvailablePrimaryColours().get(0);
 		}
-		Colour sColour = Colour.CLOTHING_BLACK;
+		Colour sColour = DEFAULT_COLOUR_VALUE;
 		if(this.getAllAvailableSecondaryColours()!=null && !this.getAllAvailableSecondaryColours().isEmpty()) {
 			sColour = this.getAllAvailableSecondaryColours().get(0);
 		}
-		Colour tColour = Colour.CLOTHING_BLACK;
+		Colour tColour = DEFAULT_COLOUR_VALUE;
 		if(this.getAllAvailableTertiaryColours()!=null && !this.getAllAvailableTertiaryColours().isEmpty()) {
 			tColour = this.getAllAvailableTertiaryColours().get(0);
 		}
