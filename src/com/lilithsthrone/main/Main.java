@@ -414,6 +414,7 @@ public class Main extends Application {
 			+"<ul>Fixed '(Error in conditional parsing!)' seen in Alexa's nest. (PR#1061 by arpie-steele)</ul>"
 			+"<ul>For first time run, enhanced tooltip on Resume button. (PR#1070 by arpie-steele)</ul>"
 			+"<ul>Fix ConcurrentModificationException while iterating over Properties.values. (PR#1071 by arpie-steele)</ul>"
+			+"<ul>Added demon lore books to Lilaya's library. Improved some map names to make it clearer which one is being viewed. (PR#1002 by rfpnj)</ul>"
 			
 			+"<li>Sex:</li>"
 			+"<ul>Fixed issue in sex where NPCs would sometimes not move onto full penetrative actions, and get stuck in foreplay actions (such as continuing to perform hotdogging when they wanted to penetrate the target's ass).</ul>"
