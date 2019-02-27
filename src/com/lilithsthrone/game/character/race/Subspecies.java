@@ -3248,16 +3248,17 @@ public enum Subspecies {
 					return feralName+getTaurEnding();
 			}
 		}
-		
-		if(character.getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-			return "awoo-boi";
-		} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-			return "catte-boi";
-		} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-			return "birb";
-		} else{
-			return singularMaleName;
+
+		if(Main.game.isSillyModeEnabled() && character!=null) {
+			if(character.getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
+				return "awoo-boi";
+			} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
+				return "catte-boi";
+			} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
+				return "birb";
+			}
 		}
+		return singularMaleName;
 	}
 
 	/**
@@ -3282,15 +3283,17 @@ public enum Subspecies {
 			}
 		}
 		
-		if(character.getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-			return "awoo-girl";
-		} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-			return "catte-girl";
-		} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-			return "birb";
-		} else{
-			return singularFemaleName;
+		if(Main.game.isSillyModeEnabled() && character!=null) {
+			if(character.getSubspecies() == Subspecies.WOLF_MORPH){
+				return "awoo-girl";
+			} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
+				return "catte-girl";
+			} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
+				return "birb";
+			}
 		}
+		
+		return singularFemaleName;
 	}
 
 	/**

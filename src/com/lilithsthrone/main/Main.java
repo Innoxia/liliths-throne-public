@@ -68,7 +68,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.3.1";
+	public static final String VERSION_NUMBER = "0.3.1.01";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -96,6 +96,10 @@ public class Main extends Application {
 		+ "<p>"
 			+ "I apologise for the lack of communication over this past week, and I will try to do better going forwards."
 			+ " I will also look into changing my release schedule, as this current routine I'm trying out is clearly not the best."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "<i>v0.3.01:</i> This mini hotfixed version was released shortly after 0.3.1 to fix a bug where you would be unable to orgasm during sex."
 		+ "</p>"
 			
 		+ "<br/>"

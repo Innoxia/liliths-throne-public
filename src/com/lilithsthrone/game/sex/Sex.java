@@ -1823,8 +1823,6 @@ public class Sex {
 			initialPaces.put(participant, Sex.getSexPace(participant));
 		}
 		
-		float startArousal = activeCharacter.getArousal();
-		
 		// Increment arousal and lust:
 		Map<GameCharacter, Float> arousalIncrements = new HashMap<>();
 		Map<GameCharacter, Float> lustIncrements = new HashMap<>();
@@ -1917,12 +1915,15 @@ public class Sex {
 		if(!Sex.isMasturbation() && sexAction.getArousalGainTarget().getArousalIncreaseValue()<0) {
 			arousalIncrements.put(targetCharacter, sexAction.getArousalGainTarget().getArousalIncreaseValue());
 		}
+
+		float startArousal = Main.game.getPlayer().getArousal();
 		
 		// Modify arousal value based on lust:
 		for(Entry<GameCharacter, Float> entry : arousalIncrements.entrySet()) {
 			if(Sex.getSexPositionSlot(activeCharacter)!=SexSlotGeneric.MISC_WATCHING || entry.getKey().equals(activeCharacter)) { // Spectators only influence themselves.
 				boolean foreplay = Sex.isInForeplay(entry.getKey());
 				float arousal = entry.getValue();
+				
 				if(Sex.isMasturbation()) {
 					arousal*=2;
 				}
