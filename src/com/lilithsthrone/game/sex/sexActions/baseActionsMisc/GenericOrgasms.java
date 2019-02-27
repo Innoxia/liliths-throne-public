@@ -4713,7 +4713,7 @@ public class GenericOrgasms {
 		}
 	};
 	
-	public static final SexAction PLAYER_PREPARE_DENY = new SexAction( //TODO
+	public static final SexAction GENERIC_PREPARATION_DENIAL = new SexAction(
 			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.NEGATIVE_MAJOR,
@@ -4723,8 +4723,24 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer())
-					&& Sex.getCharacterPerformingAction().isPlayer();
+			if(Sex.isDom(Sex.getCharacterPerformingAction()) && !Sex.isCharacterDeniedOrgasm(Sex.getCharacterTargetedForSexAction(this))) {
+				if(Sex.getCharacterPerformingAction().isPlayer()) {
+					return true;
+					
+				} else {
+					return !Sex.isDom(Sex.getCharacterTargetedForSexAction(this)) // Doms will not deny other doms.
+							&& Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_DENIAL).isPositive();
+				}
+			}
+			return false;
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			if(Sex.getCharacterPerformingAction().isPlayer() || !Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DENIAL)) {
+				return SexActionPriority.LOW;
+			}
+			return SexActionPriority.HIGH;
 		}
 		
 		@Override
@@ -4738,27 +4754,92 @@ public class GenericOrgasms {
 		}
 
 		@Override
-		public String getDescription() {
+		public String getDescription() {//TODO fetishes and player-specific descriptions
+			UtilText.nodeContentSB.setLength(0);
+			
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
-					return UtilText.returnStringAtRandom(
-							"[npc2.Name] starts desperately whining and panting, before blurting out, [npc2.speech(N-No! Y-You're going to make me cum!)]"
-							+ "<br/>"
-							+ "Upon hearing this, you quickly grab hold of [npc2.her] [npc2.arms], and, keeping [npc2.herHim] held in place, prevent [npc2.herHim] from stimulating [npc2.herself]."
-							+ " [npc2.Name] seems a little relieved that you're not going to force [npc2.herHim] to orgasm, and,"
-								+ " ignoring [npc2.her] continued pleas for you to leave [npc2.herHim] alone, you wait until [npc2.sheHas] calmed down before finally loosening your grip.");
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"[npc2.Name] [npc2.verb(start)] desperately whining and panting, before blurting out, [npc2.speechNoEffects(~Aah!~ N-No! Y-You're going to make me cum!)]",
+							"[npc2.Name] [npc2.verb(let)] out a particularly lewd whine, before shuddering and crying out, [npc2.speechNoEffects(No! ~Ooh!~ I-I'm going to cum! ~Aah!~ No!)]",
+							"Letting out a surprisingly erotic scream, [npc2.name] [npc2.verb(exclaim)], [npc2.speechNoEffects(S-Stop it! No! ~Aah!~ I'm going to... ~Aah!~ ...going to cum!)]"));
+					break;
 				default:
-					return UtilText.returnStringAtRandom(
-							"[npc2.Name] starts desperately panting and [npc2.moaning], before blurting out, [npc2.speech(Yes! I'm going to cum!)]"
-							+ "<br/>"
-							+ "Upon hearing this, you quickly grab hold of [npc2.her] [npc2.arms], and, keeping [npc2.herHim] held in place, prevent [npc2.herHim] from stimulating [npc2.herself]."
-							+ " Ignoring [npc2.her] protests and cries for you to let [npc2.herHim] orgasm, you continue holding [npc2.herHim] quite still, only loosening your grip once [npc2.sheHas] calmed down.");
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"[npc2.Name] [npc2.verb(start)] desperately panting and [npc2.moaning], before blurting out, [npc2.speechNoEffects(~Aah!~ Yes! You're going to make me cum!)]",
+							"[npc2.Name] [npc2.verb(let)] out a particularly erotic [npc2.moan], before excitedly exclaiming, [npc2.speechNoEffects(Yes! ~Ooh!~ I'm going to cum! ~Aah!~ Yes, give it to me!)]",
+							"Letting out an incredibly erotic [npc2.moan], [npc2.name] [npc2.verb(exclaim)], [npc2.speechNoEffects(Just like that! Yes! ~Aah!~ I'm going to... ~Aah!~ ...going to cum!)]"));
+					break;
 			}
+			
+			UtilText.nodeContentSB.append("<br/><br/>");
+			
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				case DOM_GENTLE:
+				case DOM_NORMAL:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Upon hearing this, [npc.name] quickly [npc.verb(take)] a firm grip of [npc2.namePos] [npc2.arms], before holding [npc2.herHim] in place and preventing [npc2.herHim] from stimulating [npc2.herself].",
+							"As [npc.she] [npc.verb(hear)] this, [npc.name] quickly [npc.verb(grab)] hold of [npc2.namePos] [npc2.arms],"
+									+ " before using [npc.her] leverage to hold [npc2.herHim] still and stop [npc2.herHim] from reaching [npc2.her] climax.",
+							"Hearing that [npc2.sheIs] about to orgasm, [npc.name] quickly [npc.verb(grab)] hold of [npc2.namePos] [npc2.arms], before holding [npc2.herHim] still and preventing [npc2.herHim] from reaching [npc2.her] climax."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Upon hearing this, [npc.name] quickly [npc.verb(take)] a forceful grip of [npc2.namePos] [npc2.arms], before roughly holding [npc2.herHim] in place and preventing [npc2.herHim] from stimulating [npc2.herself].",
+							"As [npc.she] [npc.verb(hear)] this, [npc.name] roughly [npc.verb(grab)] hold of [npc2.namePos] [npc2.arms],"
+									+ " before using [npc.her] leverage to force [npc2.herHim] to stay still in order to stop [npc2.herHim] from reaching [npc2.her] climax.",
+							"Hearing that [npc2.sheIs] about to orgasm, [npc.name] forcefully [npc.verb(grab)] hold of [npc2.namePos] [npc2.arms], before roughly holding [npc2.herHim] still and preventing [npc2.herHim] from reaching [npc2.her] climax."));
+					break;
+				default:
+					break;
+			}
+
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				case SUB_RESISTING:
+					if(Sex.getCharacterTargetedForSexAction(this).isPlayer()) {
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You find yourself feeling a little relieved as you realise that you're not going be forced into orgasming,"
+										+ " and simply continue to sob and plead to be left alone as [npc.name] [npc.verb(force)] you to calm down."));
+						
+					} else {
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(seem)] a little relieved that [npc2.sheIs] not going be forced into orgasming,"
+										+ " and simply [npc2.verb(continue)] to sob and plead to be left alone as [npc.name] [npc.verb(force)] [npc2.herHim] to calm down."));
+					}
+					break;
+				default:
+					if(Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive()) {
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" Being enamoured with the concept of being denied so close to [npc2.her] climax, [npc2.name] [npc2.verb(let)] out a lewd cry as [npc2.sheIs] forced to calm down,"
+										+ " and as [npc2.she] [npc2.verb(withdraw)] from the edge of [npc2.her] orgasm, [npc2.she] [npc2.moansVerb], "));
+
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"[npc2.speech(Oh yes... That feels good... I'll only cum when you allow me to, [npc.name]...)]",
+								"[npc2.speech(Yes... I'm yours to deny as you wish, [npc.name]...)]"));
+						
+					} else {
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" Feeling incredibly frustrated at being denied when so close to [npc2.her] climax, [npc2.name] [npc2.verb(let)] out a frantic cry as [npc2.sheIs] forced to calm down, "));
+
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"[npc2.speech(No! I was so close! Let me cum already!)]",
+								"[npc2.speech(Let me cum! No! I was so close!)]"));
+					}
+					break;
+			}
+			
+			UtilText.nodeContentSB.append("<p style='text-align:center'>"
+						+ "<i>[npc2.NamePos] orgasm was [style.boldBad(denied)]!</i>"
+					+ "</p>");
+			
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
 		public void applyEffects() {
-			SexFlags.playerDeniedPartner = true;
+			Sex.addCharacterDeniedOrgasm(Sex.getCharacterTargetedForSexAction(this));
+			
+			Sex.incrementNumberOfDeniedOrgasms(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), 1);
 		}
 		
 		@Override
@@ -4823,7 +4904,7 @@ public class GenericOrgasms {
 		}
 	};
 	
-	public static final SexAction PARTNER_GENERIC_ORGASM_DENIED = new SexAction(
+	public static final SexAction GENERIC_ORGASM_DENIED = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.NEGATIVE_MAJOR,
 			ArousalIncrease.TWO_LOW,
@@ -4833,8 +4914,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return SexFlags.playerDeniedPartner
-					&& !Sex.getCharacterPerformingAction().isPlayer();
+			return Sex.isCharacterDeniedOrgasm(Sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -4853,18 +4933,19 @@ public class GenericOrgasms {
 		}
 		
 		@Override
-		public String getDescription() {
+		public String getDescription() {//TODO improve and take into account fetishes
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case SUB_RESISTING:
-					return UtilText.returnStringAtRandom("[npc.speech(You've had your fun! Now leave me alone!)] [npc.name] screams as you release [npc.herHim]. [npc.speech(D-Don't make me go through that again!)]");
+					return UtilText.returnStringAtRandom("[npc.speech(You've had your fun! Now leave me alone!)] [npc.name] [npc.verb(scream)] as [npc2.name] [npc2.verb(release)] [npc.herHim]. [npc.speech(D-Don't make me go through that again!)]");
 				default:
-					return UtilText.returnStringAtRandom("[npc.speech(No! I was so close!)] [npc.name] wails in dismay as you release [npc.herHim]. [npc.speech(Let me cum next time!)]");
+					return UtilText.returnStringAtRandom("[npc.speech(No! I was so close!)] [npc.name] [npc.verb(wail)] in dismay as [npc2.name] [npc2.verb(release)] [npc.herHim]. [npc.speech(Let me cum next time!)]");
 			}
 		}
 		
 		@Override
 		public void applyEffects() {
-			SexFlags.playerDeniedPartner = false;
+			Sex.removeCharacterDeniedOrgasm(Sex.getCharacterPerformingAction());
+			
 			SexFlags.playerPreparedForCharactersOrgasm.remove(Sex.getCharacterPerformingAction());
 		}
 		

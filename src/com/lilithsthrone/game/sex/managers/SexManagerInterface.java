@@ -128,6 +128,7 @@ public interface SexManagerInterface {
 		boolean subsSatisfied = true;
 		boolean domsSatisfied = true;
 		boolean subsResisting = true;
+		boolean subsDenied = true;
 		
 		if(Sex.getLastUsedPlayerAction().getActionType().isOrgasmOption()
 				|| Sex.getLastUsedPlayerAction().getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM) {
@@ -147,9 +148,12 @@ public interface SexManagerInterface {
 			if(Sex.getNumberOfOrgasms(character)<character.getOrgasmsBeforeSatisfied() && Sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
 				subsSatisfied = false;
 			}
+			if(Sex.getNumberOfDeniedOrgasms(character)==0) {
+				subsDenied = false;
+			}
 		}
 		
-		if(Sex.isDom(partner) && (!Sex.isConsensual() || subsResisting || !Sex.isSubHasEqualControl())) {
+		if(Sex.isDom(partner) && (!Sex.isConsensual() || subsResisting || !Sex.isSubHasEqualControl() || (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
 			return domsSatisfied;
 			
 		} else if(Sex.getSexControl(partner)!=SexControl.FULL) {

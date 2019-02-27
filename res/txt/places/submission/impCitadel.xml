@@ -1207,7 +1207,7 @@
 	
 	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT_HERO_END"><![CDATA[
 	<p>
-		Realising that you have no choice but to do as the officer says, you carefully let [npc.name] down to stand on her own two feet. Immediately, four of Lyssieth's guards step forwards, and, looping their arms under [siren.namePos], they march off in the direction of her mother's palace.
+		Realising that you have no choice but to do as the officer says, you carefully let [siren.name] down to stand on her own two feet. Immediately, four of Lyssieth's guards step forwards, and, looping their arms under [siren.namePos], they march off in the direction of her mother's palace.
 	</p>
 	<p>
 		[genericFemale.speech(Now, you can explain to us exactly what's going on!)] the officer says, impatiently tapping her foot as she waits for your response.

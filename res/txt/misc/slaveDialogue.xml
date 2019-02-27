@@ -432,7 +432,7 @@
 				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner by your slave. [pc.speech(I'll be a good-)]
 			</p>
 			<p>
-				Your words are interrupted as [npc.name] releases [npc.her] grip on your neck, before suddenly delivering a stinging slap to your face. Through clenched teeth, [npc.she] snarls, [npc.speech(Shut your fucking mouth! Oh, I've wanted to do this to you for a long time...)]
+				Your words are interrupted as [npc.name] releases [npc.her] grip on your neck, before suddenly delivering a stinging slap to your face. Through clenched teeth, [npc.she] snarls, [npc.speech(Shut your fucking mouth, you worthless [pc.bitch]!)]
 			</p>
 		#ELSE
 			<p>
@@ -445,18 +445,18 @@
 				[pc.speech(Oh, yes, give it to me!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a manner by your slave.
 			</p>
 			<p>
-				Leaning forwards and pressing [npc.her] [npc.lips+] against yours, [npc.name] gives you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc.speech(Oh, I've wanted to do this to you for a long time...)]
+				Leaning forwards and pressing [npc.her] [npc.lips+] against yours, [npc.name] gives you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc.speech(I've wanted to do this to you for a long time...)]
 			</p>
 		#ENDIF
 	#ELSE
 		<p>
-			[npc.speech(Oh, you'd like a little role-reversal, would you?)] [npc.name] asks, staring lustfully into your [pc.eyes] as you bite your [pc.lip] and bat your eyelids at [npc.herHim]. [npc.speech(You like the idea of a slave fucking their [pc.mistress]?)]
+			[npc.speech(Oh, you'd like a little role-reversal, would you?)] [npc.name] asks, staring lustfully into your [pc.eyes] as you bite your [pc.lip] and bat your eyelids at [npc.herHim]. [npc.speech(You like the idea of a lowly slave fucking [npc.her] [pc.mistress]?)]
 		</p>
 		<p>
 			[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> for it as well, so why don't you show me what you can do?)]
 		</p>
 		<p>
-			Needing no further encouragement, [npc.name] leans forwards and presses [npc.her] [npc.lips+] against yours, delivering a long, passionate kiss, before pulling back and [npc.moaning], [npc.speech(Oh, I've wanted to do this to you for a long time...)]
+			Needing no further encouragement, [npc.name] leans forwards and presses [npc.her] [npc.lips+] against yours, delivering a long, passionate kiss, before pulling back and [npc.moaning], [npc.speech(That's a good [pc.girl], now submit to your slave...)]
 		</p>
 	#ENDIF
 	<p>
@@ -484,7 +484,7 @@
 				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner by your slave. [pc.speech(I'll be a good-)]
 			</p>
 			<p>
-				Your words are interrupted as [npc2.name] steps forwards and suddenly delivers a stinging slap to your face. Through clenched teeth, [npc2.she] snarls, [npc2.speech(Shut your fucking mouth! Oh, I've wanted to do this to you for a long time...)]
+				Your words are interrupted as [npc2.name] steps forwards and suddenly delivers a stinging slap to your face. Through clenched teeth, [npc2.she] snarls, [npc2.speech(Shut your fucking mouth, you worthless [pc.bitch]!)]
 			</p>
 		#ELSE
 			<p>
@@ -502,7 +502,7 @@
 				#ENDIF
 			</p>
 			<p>
-				Reaching up to grab your chin and turn your head to one side, [npc2.name] presses [npc2.her] [npc2.lips+] against yours, giving you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc2.speech(Oh, I've wanted to do this to you for a long time...)]
+				Reaching up to grab your chin and turn your head to one side, [npc2.name] presses [npc2.her] [npc2.lips+] against yours, giving you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc2.speech(...)]
 			</p>
 		#ENDIF
 	#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
@@ -523,7 +523,7 @@
 				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner#IF(npc.isSlave()) by your slave#ENDIF. [pc.speech(I'll be a good-)]
 			</p>
 			<p>
-				Your words are interrupted as [npc.name] releases your neck, before suddenly delivering a stinging slap to your face. Through clenched teeth, [npc.she] snarls, [npc.speech(Shut your fucking mouth! Oh, I've wanted to do this to you for a long time...)]
+				Your words are interrupted as [npc.name] releases your neck, before suddenly delivering a stinging slap to your face. Through clenched teeth, [npc.she] snarls, [npc.speech(Shut your fucking mouth, you worthless [pc.bitch]!)]
 			</p>
 		#ELSE
 			<p>
@@ -541,7 +541,7 @@
 				#ENDIF
 			</p>
 			<p>
-				Reaching up to grab your chin and turn your head to one side, [npc.name] presses [npc.her] [npc.lips+] against yours, giving you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc.speech(Oh, I've wanted to do this to you for a long time...)]
+				Reaching up to grab your chin and turn your head to one side, [npc.name] presses [npc.her] [npc.lips+] against yours, giving you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc.speech(I've wanted to do this to you for a long time...)]
 			</p>
 		#ENDIF
 	#ELSEIF(npc2.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
@@ -562,7 +562,7 @@
 				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner#IF(npc2.isSlave()) by your slave#ENDIF. [pc.speech(I'll be a good-)]
 			</p>
 			<p>
-				Your words are interrupted as [npc2.name] releases your neck, before suddenly delivering a stinging slap to your face. Through clenched teeth, [npc2.she] snarls, [npc2.speech(Shut your fucking mouth! Oh, I've wanted to do this to you for a long time...)]
+				Your words are interrupted as [npc2.name] releases your neck, before suddenly delivering a stinging slap to your face. Through clenched teeth, [npc2.she] snarls, [npc2.speech(Shut your fucking mouth, you worthless [pc.bitch]!)]
 			</p>
 		#ELSE
 			<p>
@@ -580,7 +580,7 @@
 				#ENDIF
 			</p>
 			<p>
-				Reaching up to grab your chin and turn your head to one side, [npc2.name] presses [npc2.her] [npc2.lips+] against yours, giving you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc2.speech(Oh, I've wanted to do this to you for a long time...)]
+				Reaching up to grab your chin and turn your head to one side, [npc2.name] presses [npc2.her] [npc2.lips+] against yours, giving you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc2.speech(I've wanted to do this to you for a long time...)]
 			</p>
 		#ENDIF
 	#ELSE
@@ -643,7 +643,7 @@
 				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner#IF(npc.isSlave()) by your slave#ENDIF. [pc.speech(I'll be a good-)]
 			</p>
 			<p>
-				Your words are interrupted as [npc.name] suddenly delivers a stinging slap to your face, before wasting no time in grabbing both you and [npc2.name] by the shoulders and pushing the two of you down onto all fours, side-by-side. Through clenched teeth, [npc.she] snarls, [npc.speech(You keep your fucking mouth shut, unless it's to beg for me to fuck you! Oh, I've wanted to do this to you for a long time...)]
+				Your words are interrupted as [npc.name] suddenly delivers a stinging slap to your face, before wasting no time in grabbing both you and [npc2.name] by the shoulders and pushing the two of you down onto all fours, side-by-side. Through clenched teeth, [npc.she] snarls, [npc.speech(You keep your fucking mouth shut, [pc.bitch], unless it's to beg for me to fuck you!)]
 			</p>
 		#ELSE
 			<p>
@@ -661,7 +661,7 @@
 				#ENDIF
 			</p>
 			<p>
-				Grabbing both you and [npc2.name] by the shoulders, [npc.name] pushes the two of you down onto all fours, side-by-side, before snarling through clenched teeth, [npc2.speech(Oh, I've wanted to do this to you for a long time...)]
+				Grabbing both you and [npc2.name] by the shoulders, [npc.name] pushes the two of you down onto all fours, side-by-side, before snarling through clenched teeth, [npc2.speech(I've wanted to do this to you for a long time...)]
 			</p>
 		#ENDIF
 		<p>

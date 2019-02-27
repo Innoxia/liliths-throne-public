@@ -144,12 +144,18 @@
 	
 	Contributors:
 		Localised all units in the game, and added toggles for 12/24 hour clock and imperial/metric measurements in the options menu. (PR#931 by DJ Addi)
-		Added .gif support for character artwork. (PR#1032 by DJ Addi) (Innoxia's note: The maximum size is 10MB, although on my system anything larger than ~1MB was incredibly slow to load. This might be due to my older version of Java/JavaFX, which I will get updated soon.)
+		Added .gif support for character artwork. (PR#1032 by DJ Addi) (Innoxia's note: The maximum size allowed is 10MB, and on some systems there is an issue with gifs larger than ~1MB causing the game to freeze for a few seconds.)
 		Added UtilText parsing for player career/background perks. (PR#104 by GynoidDoesGames)
 		Added some new subspecies names to the silly mode content. (PR#1052 by Nnxx)
 		Added option to unequip all clothes during character creation. (PR#1054 by Nnxx)
 		Fixed some reference errors. (PR#1057 by EPSIL0N)
-		Added penis and breast size display to the character body tooltip. (PR#1060 by ChillaChris) (Innoxia's note: I am aware that these tooltip descriptions go 'out of bounds' when characters have long race/colour names. I will fix this soon.)
+		Added penis and breast size display to the character body tooltip. (PR#1060 by ChillaChris) (Innoxia's note: Due to some edits I made, these tooltip descriptions go 'out of bounds' when characters have long race/colour names. I will fix this soon.)
+		Fixed incorrect penis sizes by converting all the base sizes from imperial to metric. (PR#1063 by ChillaChris)
+		Updated pattern colours to use the pattern-specific colours. (PR#1064 by CognitiveMist)
+		Fix for potential division-by-zero error that breaks elements of the 0.3.1 GUI. (PR#1068 by arpie-steele)
+		Fixed '(Error in conditional parsing!)' seen in Alexa's nest. (PR#1061 by arpie-steele)
+		For first time run, enhanced tooltip on Resume button. (PR#1070 by arpie-steele)
+		Fix ConcurrentModificationException while iterating over Properties.values. (PR#1071 by arpie-steele)
 	
 	Sex:
 		Fixed issue in sex where NPCs would sometimes not move onto full penetrative actions, and get stuck in foreplay actions (such as continuing to perform hotdogging when they wanted to penetrate the target's ass).
@@ -160,6 +166,17 @@
 		Fixed incorrect character targeting for exposed descriptions during sex.
 		The decision for an AI to willingly have their virginity taken during sex is now based on lust instead of arousal. (Once over 75 lust, they will be happy to lose their virginity, unless it's a 'pure virgin' fetishist's vaginal virginity.)
 		'Pure virgin' post-sex experience gains are now instead applied to the 'Lusty maiden' fetish. (You need to have a vagina, satisfy all of the people in the sex scene, and not lose your vaginal virginity to gain the experience.)
+		Reduced maximum amount of milk that could be suckled from breasts and crotch-boobs/udders in a single sex action to 100ml, and increased minimum to 5ml.
+		You can now forbid/permit self-actions and clothing management for NPCs in all sex scenes in which you are the dom.
+		Added forbid/permit positioning actions to the 'Misc.' sex actions category. This is only available if you are the dom and are in full control.
+		Lilaya can now switch positions in her chair sex scene. (You can use the 'forbid positioning' action to stop her from switching if you want to.)
+		The 'grow cock' action is now available for slimes as well as demons.
+		NPCs will now use the 'Lustful suggestion' action if their partner has ingested psychoactive fluids and has less than 25 lust.
+		Fixed issue where NPCs would sometimes not react to your impending orgasm.
+		During sex, NPCs in the dominant role who also have a positive desire towards the denial fetish will now use the 'deny' action on submissive participants whose arousal is over 50.
+		Dominant NPCs who have a positive desire towards the denial fetish will now deny submissive partners at the moment of their orgasm. NPCs who have the denial fetish will only choose not to deny their partners if they have another orgasm action they also like, while those who just like or love the fetish (without actually having it) will randomly choose whether to deny or not.
+		Dominant NPCs willing to deny their partners will choose to end sex once they've both orgasmed and denied their partners' orgasms at least once.
+		Expanded the generic 'deny' action description, as well as the 'deny' action used when reacting to an incoming orgasm.
 	
 	Other:
 		Reduced tile travel times in Dominion. (From 5 minutes per tile to 2 for street tiles, 1.5 for boulevard tiles, and 3 for back alley tiles.)
@@ -173,6 +190,7 @@
 		Fixed some issues with the AI in sex not choosing appropriate actions. (This will still occur in some scenarios, as I have to convert old sex position formats to a fixed version.)
 		Occupants who are willing to let you manage their inventory will no longer have to be forced into drinking transformative potions in the resulting description of their consumption.
 		Optimised save files a little, which should cut down large saves' file size by about 10%.
+		Slightly altered the self-denial fetish's attribute modifiers.
 	
 	Bugs:
 		If you lack the body part on which a clothing transformation is trying to be applied, the game's dialogue will no longer be interrupted with a 'you lack a X, so nothing happens' message.
@@ -181,6 +199,7 @@
 		Dropped items will now correctly be cleared when you move off the tile in Zaranix's home, Angel's kiss, Lyssieth's palace, and the imp fortress courtyards.
 		You can no longer stop sex after offering yourself to alley attackers.
 		Grammatical and typo fixes.
+		Fixed parsing errors.
 		Fixed issue when paying a prostitute for sex, they would start off resisting.
 		Fixed issue where friendly occupants would be ok with starting a threesome if you brought along someone who was attracted to you, even if they were not.
 		You can no longer get your slaves to work as dairy cows/bulls while stationed in the cells at Slavery Administration.
@@ -198,31 +217,27 @@
 		Fixed the 'Transform' action not showing up in post-combat victory scenes for slimes in Dominion.
 		Removed ability to change position without requesting it when offering your body to avoid a fight.
 		Your companions will no longer change their clothing in order to cover themselves up, provided they're happy enough to let you manage their inventory.
+		Fixed the 'orgasm denial' fetish saying that it unlocked the deny action in sex, when that action is in fact always available to everyone.
+		Fixed some incorrect descriptors for lactation.
+		Fixed some incorrect penis sizes and unit references.
 	
 	
 	
 	
-	
-	
-	PRs
-	
-	tooltip descriptions go 'out of bounds' when characters have long race/colour names
-	
-	make it so forbidding NPCs from performing sex action blocks their positioning actions as well
-	
-	3. Add orgasm denial scenes.
-	    - Add NPC behaviour for denial.
+	Finish orgasm denial scenes.
 	    - Add sex action(s).
 	    	Need variations for ongoing penetration or not
 	    	BDSM set effect - cannot perform any sex actions when a sub
 	    - Add variations for if chastity belt/cage is being worn.
 	
+	Meraxis TF reverts?
 	
+	tooltip descriptions go 'out of bounds' when characters have long race/colour names
+	
+	Fix status effect text wrap
 	
 	need to convert sex positions to new format
 	need oral(behind) in new positioning actions
-	
-	Fix status effect text wrap!
 	
 	offspring slave variants
 	offspring talk variations
@@ -251,15 +266,6 @@
 	I think as of last time I asked: taur kids can't spawn yet. Currently only centaurs and variants can be born (even if you can't encounter yet),
 	 if you breed a cat-taur you'll just get regular cat-folk and so on. Also only NPCs that spawn tauric are slimes. Who also birth regular slimes.
 	
-	
-	creampie impregnation text references wrong person (was saying: came in player, but chance they will get pregnant)
-	
-	reduce suckling amount in sex action
-	
-	wet -> milky 
-	
-	drips is 177ml?
-	
 	Maybe it's just me but every time you try to have sex with anyone on the bottom row of the harpy nests, the game bugs out.
 	 The game doesn't move into a sex scene and trying to leave forces your inventory on top of the map. You can still move around but you'll be walking blind
 	
@@ -287,6 +293,8 @@
 	Also, giving your partner as a submissive, after they change positions, you become involved in the scene, though some options are still missing.
 
 	When beating someone and choosing non-con {rough} instead of entering the scene with rough stance you are in normal stance.
+	
+	Need to completely go over the alleyway demon attack dialogue, especially the companion variations - no cock is being grown, and is too generic.
 	
 	But with the jockstrap and jeans combo when the partner climaxed the description was as if they were going commando. as in instead of climaxing into the jockstrap it read as climaxing into the jeans. Yet the jockstrap had the dirty status.
 		Also it was back to normal once the jeans were pulled down.

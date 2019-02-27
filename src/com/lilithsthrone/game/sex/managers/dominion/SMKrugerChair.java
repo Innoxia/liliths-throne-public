@@ -97,6 +97,6 @@ public class SMKrugerChair extends SexManagerDefault {
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		return Sex.getNumberOfOrgasms(Main.game.getNpc(Kruger.class))>=2
-				&& Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
+				&& (Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1 || Sex.getNumberOfOrgasms(Main.game.getNpc(Kruger.class))>=5);
 	}
 }

@@ -5140,7 +5140,7 @@ public enum StatusEffect {
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
-			if ( ! target.hasBreasts() ) {
+			if (! target.hasBreasts()) {
 				return "exposed nipples";
 			} else {
 				return super.getName(target);
@@ -12139,7 +12139,7 @@ public enum StatusEffect {
 		
 		if(owner.hasBreasts() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES)) {
 			names.add("breasts");
-		} else if ( owner.isFeminine() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES)) {
+		} else if (owner.isFeminine() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES)) {
 			names.add("nipples");
 		}
 		if(owner.hasBreastsCrotch() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH)) {
@@ -12192,7 +12192,7 @@ public enum StatusEffect {
 		if(breastsExposed) {
 			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts()+"</div>");
 			marginTop+=size;
-		} else if ( nipplesExposed ) {
+		} else if (nipplesExposed) {
 			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat()+"</div>");
 			marginTop+=size;
 		}

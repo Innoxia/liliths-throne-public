@@ -53,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Main extends Application {
@@ -68,7 +68,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.3.0.8";
+	public static final String VERSION_NUMBER = "0.3.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -89,16 +89,13 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "<i>0.3.0.7:</i> This was meant to be a small hotfix, released earlier this week, but I got a little carried away,"
-				+ " and ended up making improvements to the sex AI, adding an outfit system (after encountering muggers with ridiculous clothing several times in a row), as well as doing a lot of other minor fixes and improvements."
+			+ "I got as much done as I could for v0.3.1 over these past two weeks since v0.3.0.7's release, and while I managed to get the world map movement, offspring dialogue variations,"
+			+ " and NPC denial behaviour done (along with many bug fixes and other things), I didn't manage to get the centaur encounter done."
+			+ " That will be finished for the next release."
 		+ "</p>"
-				
 		+ "<p>"
-			+ "<i>0.3.0.7:</i> There were a few major issues in v0.3.0.6 which I wanted to fix, namely NPC pregnancies never finishing, identifying clothing using essences breaking the inventory menu, and the overview tab in the inventory not working."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "The full, public release of v0.3.1 will be out roughly in next week's Friday-Sunday time period."
+			+ "I apologise for the lack of communication over this past week, and I will try to do better going forwards."
+			+ " I will also look into changing my release schedule, as this current routine I'm trying out is clearly not the best."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -240,7 +237,7 @@ public class Main extends Application {
 		+ "<br/>"
 
 		+ "<list>"
-			+ "<h6>v0.3.0.5</h6>"
+			+ "<h6>v0.3.0.6</h6>"
 			+ "<li>Gameplay:</li>"
 			+ "<ul>You can now spend 3 arcane essences to identify clothing in your possession.</ul>"
 			+ "<ul>The cost for having a vendor identify your clothing has increased from 10 to 400.</ul>"
@@ -379,6 +376,109 @@ public class Main extends Application {
 			+"<ul>Lilaya should no longer lock out all of her options when starting a game with an imported demonic character. (Her dialogue will not react to you being a demon until after meeting Lyssieth.)</ul>"
 			+"<ul>Fixed a potential cause of clothing not being stocked in some shops. (Although I think this will still keep on happening - this bug is very hard to track down.)</ul>"
 		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.1</h6>"
+			+"<li>Engine:</li>"
+			+"<ul>Added support for setting local variables in dialogue parsing.</ul>"
+			+"<ul>Added support for parsing conditional statements wrapped in curly brackets, instead of having to close each one with an #ELSE tag.</ul>"
+			+"<ul>Added support for #ELSEIF statements in conditional parsing.</ul>"
+			+"<ul>Added xml testing functionality in the debug menu's parser. (This is just for dialogue, not mods.)</ul>"
+			+"<ul>Added fullscreen toggle functionality (F11 is the default hotkey).</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added: Fast travel functionality to the phone's map screen. You can choose between 'Walk (safest)' and 'Walk (fastest)' as path-based travel, and 'Fly' and 'Teleport' as non-path-based travel.</ul>"
+			+"<ul>Added descriptions for the world map's Dominion, fields, river, forests, grassland, and Elis tiles, although you can't do anything to interact with them yet. (I'll add encounters and exploration for v0.3.4.)</ul>"
+			+"<ul>Removed the map from the default phone homepage, and added a dedicated map hotkey (default 'M') to bring up the map screen instead. If using an older properties file, you'll have to manually set your map hotkey in options - > keybinds.</ul>"
+			+"<ul>Added ability to invite harpy offspring back home.</ul>"
+			+"<ul>Added unique dialogue for your offspring when you invite them to come and live with you.</ul>"
+			+"<ul>Added some more group sex options to the occupant & slave sex action menus, and filled in all of the sex's starting scene descriptions for them.</ul>"
+			+"<ul>There is now a 2.5% chance for any Dominion mugger or prostitute to be a half-demon.</ul>"
+			
+			+"<li>Artwork:</li>"
+			+"<ul>Added Lilaya artwork from FriendlyAlienFriend. She has four skin-tone variations, and a clothed, underwear, and naked image for each of these.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Localised all units in the game, and added toggles for 12/24 hour clock and imperial/metric measurements in the options menu. (PR#931 by DJ Addi)</ul>"
+			+"<ul>Added .gif support for character artwork. (PR#1032 by DJ Addi) (Innoxia's note: The maximum size allowed is 10MB, and on some systems there is an issue with gifs larger than ~1MB causing the game to freeze for a few seconds.)</ul>"
+			+"<ul>Added UtilText parsing for player career/background perks. (PR#104 by GynoidDoesGames)</ul>"
+			+"<ul>Added some new subspecies names to the silly mode content. (PR#1052 by Nnxx)</ul>"
+			+"<ul>Added option to unequip all clothes during character creation. (PR#1054 by Nnxx)</ul>"
+			+"<ul>Fixed some reference errors. (PR#1057 by EPSIL0N)</ul>"
+			+"<ul>Added penis and breast size display to the character body tooltip. (PR#1060 by ChillaChris) (Innoxia's note: Due to some edits I made, these tooltip descriptions go 'out of bounds' when characters have long race/colour names. I will fix this soon.)</ul>"
+			+"<ul>Fixed incorrect penis sizes by converting all the base sizes from imperial to metric. (PR#1063 by ChillaChris)</ul>"
+			+"<ul>Updated pattern colours to use the pattern-specific colours. (PR#1064 by CognitiveMist)</ul>"
+			+"<ul>Fix for potential division-by-zero error that breaks elements of the 0.3.1 GUI. (PR#1068 by arpie-steele)</ul>"
+			+"<ul>Fixed '(Error in conditional parsing!)' seen in Alexa's nest. (PR#1061 by arpie-steele)</ul>"
+			+"<ul>For first time run, enhanced tooltip on Resume button. (PR#1070 by arpie-steele)</ul>"
+			+"<ul>Fix ConcurrentModificationException while iterating over Properties.values. (PR#1071 by arpie-steele)</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Fixed issue in sex where NPCs would sometimes not move onto full penetrative actions, and get stuck in foreplay actions (such as continuing to perform hotdogging when they wanted to penetrate the target's ass).</ul>"
+			+"<ul>If an NPC's affection towards their submissive sex partner is less than -30, and they do not dislike the sadist fetish, then they will prefer using the rough pace in sex (to represent hate-fucking).</ul>"
+			+"<ul>Fixed some minor positioning errors in the 'Mounting' taur sex position.</ul>"
+			+"<ul>Fixed issue where any sex scene with spectators in it would bug out and cause NPCs to never change position from the starting one.</ul>"
+			+"<ul>Fixed issue with sex AI wanting to use illogical positioning whenever spectators were present.</ul>"
+			+"<ul>Fixed incorrect character targeting for exposed descriptions during sex.</ul>"
+			+"<ul>The decision for an AI to willingly have their virginity taken during sex is now based on lust instead of arousal. (Once over 75 lust, they will be happy to lose their virginity, unless it's a 'pure virgin' fetishist's vaginal virginity.)</ul>"
+			+"<ul>'Pure virgin' post-sex experience gains are now instead applied to the 'Lusty maiden' fetish. (You need to have a vagina, satisfy all of the people in the sex scene, and not lose your vaginal virginity to gain the experience.)</ul>"
+			+"<ul>Reduced maximum amount of milk that could be suckled from breasts and crotch-boobs/udders in a single sex action to 100ml, and increased minimum to 5ml.</ul>"
+			+"<ul>You can now forbid/permit self-actions and clothing management for NPCs in all sex scenes in which you are the dom.</ul>"
+			+"<ul>Added forbid/permit positioning actions to the 'Misc.' sex actions category. This is only available if you are the dom and are in full control.</ul>"
+			+"<ul>Lilaya can now switch positions in her chair sex scene. (You can use the 'forbid positioning' action to stop her from switching if you want to.)</ul>"
+			+"<ul>The 'grow cock' action is now available for slimes as well as demons.</ul>"
+			+"<ul>NPCs will now use the 'Lustful suggestion' action if their partner has ingested psychoactive fluids and has less than 25 lust.</ul>"
+			+"<ul>Fixed issue where NPCs would sometimes not react to your impending orgasm.</ul>"
+			+"<ul>During sex, NPCs in the dominant role who also have a positive desire towards the denial fetish will now use the 'deny' action on submissive participants whose arousal is over 50.</ul>"
+			+"<ul>Dominant NPCs who have a positive desire towards the denial fetish will now deny submissive partners at the moment of their orgasm. NPCs who have the denial fetish will only choose not to deny their partners if they have another orgasm action they also like, while those who just like or love the fetish (without actually having it) will randomly choose whether to deny or not.</ul>"
+			+"<ul>Dominant NPCs willing to deny their partners will choose to end sex once they've both orgasmed and denied their partners' orgasms at least once.</ul>"
+			+"<ul>Expanded the generic 'deny' action description, as well as the 'deny' action used when reacting to an incoming orgasm.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Reduced tile travel times in Dominion. (From 5 minutes per tile to 2 for street tiles, 1.5 for boulevard tiles, and 3 for back alley tiles.)</ul>"
+			+"<ul>Slightly altered the dangerous background colour patterning for map tiles, and altered some of the world map colours and added some icons.</ul>"
+			+"<ul>Added map tooltip descriptions for all tiles on every map.</ul>"
+			+"<ul>The slaves sold in the store 'White Lillies' in Slaver Alley are now virgins.</ul>"
+			+"<ul>The 'Suck cock' scene to gain entry to the nightclub now starts with you sucking Jules's cock, instead of awkwardly doing nothign for one turn and waiting for him to start.</ul>"
+			+"<ul>Made the light pink colouring of sex action text slightly darker/redder if you are the dominant partner.</ul>"
+			+"<ul>Slaves found in the stocks in slaver alley now have a chance every hour (certainty at midday, trailing off to 0% towards midnight) to have been used by someone, resulting in cum being found in their public-use orifices.</ul>"
+			+"<ul>Your slaves assigned to the stocks will now end up having cum on them, in areas dependent on which of their areas you set to be used.</ul>"
+			+"<ul>Fixed some issues with the AI in sex not choosing appropriate actions. (This will still occur in some scenarios, as I have to convert old sex position formats to a fixed version.)</ul>"
+			+"<ul>Occupants who are willing to let you manage their inventory will no longer have to be forced into drinking transformative potions in the resulting description of their consumption.</ul>"
+			+"<ul>Optimised save files a little, which should cut down large saves' file size by about 10%.</ul>"
+			+"<ul>Slightly altered the self-denial fetish's attribute modifiers.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>If you lack the body part on which a clothing transformation is trying to be applied, the game's dialogue will no longer be interrupted with a 'you lack a X, so nothing happens' message.</ul>"
+			+"<ul>Fixed bug where random NPCs could sometimes spawn in your slave's room when they were assigned to be a prostitute or to service the stocks.</ul>"
+			+"<ul>Fixed issue with taur travel time reduction over land not being applied.</ul>"
+			+"<ul>Dropped items will now correctly be cleared when you move off the tile in Zaranix's home, Angel's kiss, Lyssieth's palace, and the imp fortress courtyards.</ul>"
+			+"<ul>You can no longer stop sex after offering yourself to alley attackers.</ul>"
+			+"<ul>Grammatical and typo fixes.</ul>"
+			+"<ul>Fixed parsing errors.</ul>"
+			+"<ul>Fixed issue when paying a prostitute for sex, they would start off resisting.</ul>"
+			+"<ul>Fixed issue where friendly occupants would be ok with starting a threesome if you brought along someone who was attracted to you, even if they were not.</ul>"
+			+"<ul>You can no longer get your slaves to work as dairy cows/bulls while stationed in the cells at Slavery Administration.</ul>"
+			+"<ul>Fixed issue with stored fluids (i.e. cum in condoms or inside of people) changing their 'bestial' (i.e. centaur cum) and 'virility' values as the original owner's corresponding values were changed. (So now once a fluid is expelled, it should retain all relevant qualities properly.)</ul>"
+			+"<ul>Fixed issue with Alexa's slaves not being cleared properly each day.</ul>"
+			+"<ul>Fixed some incorrect sex position slot descriptions.</ul>"
+			+"<ul>Fixed issue with some items having incorrect determiners (e.g 'A Ambiphilic hypno-watch').</ul>"
+			+"<ul>The hypno-watch now correctly retains its colouring upon loading a game.</ul>"
+			+"<ul>Fixed incorrect starting description for the oral sex position.</ul>"
+			+"<ul>Fixed issue where you would end up fighting Meraxis one-on-one after beating her demon lieutenants.</ul>"
+			+"<ul>Fixed background error being thrown when turning slimes into half-demons (using the debug Innoxia's Gift potion), and then back into flesh.</ul>"
+			+"<ul>'Lusty maiden' fetish experience no longer takes into account whether spectators are satisfied or not, and also is not applied if you lack a vagina, your vagina is not virginal, or you lose your virginity during the sex. </ul>"
+			+"<ul>NPCs will no longer take spectators into account when deciding if they've satisfied everyone (and thus wanting to stop sex).</ul>"
+			+"<ul>The 'kiss breasts' sex action is now correctly named 'kiss chest' if the target has a flat chest.</ul>"
+			+"<ul>Fixed the 'Transform' action not showing up in post-combat victory scenes for slimes in Dominion.</ul>"
+			+"<ul>Removed ability to change position without requesting it when offering your body to avoid a fight.</ul>"
+			+"<ul>Your companions will no longer change their clothing in order to cover themselves up, provided they're happy enough to let you manage their inventory.</ul>"
+			+"<ul>Fixed the 'orgasm denial' fetish saying that it unlocked the deny action in sex, when that action is in fact always available to everyone.</ul>"
+			+"<ul>Fixed some incorrect descriptors for lactation.</ul>"
+			+"<ul>Fixed some incorrect penis sizes and unit references.</ul>"
+		+ "</list>"
 	;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
@@ -515,6 +615,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("no1skill", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Bocaj91", "", 0, 0, 0, 13));
 		credits.add(new CreditsSlot("Krejil", "", 0, 0, 13, 0));
+		credits.add(new CreditsSlot("Joeybear", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Eushully", "", 0, 0, 0, 10));
 		credits.add(new CreditsSlot("suka", "", 0, 0, 17, 0));
 		credits.add(new CreditsSlot("EnigmaticYoshi", "", 0, 0, 17, 0));

@@ -27,7 +27,6 @@ import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
@@ -980,15 +979,6 @@ public class SlaveDialogue {
 					} else if (index == 6) {
 						
 						if(!targetedCharacterForSex.isAttractedTo(Main.game.getPlayer())) {
-							if(!nonSexTargetedCharacter().isAttractedTo(Main.game.getPlayer())) {
-								return new Response("Submissive sex",
-										UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(),
-												"Neither [npc.name] nor [npc2.name] are attracted to you,"
-												+ (Main.game.isNonConEnabled() && nonSexTargetedCharacter().isSlave()
-														?" so if you wanted to have sex with them, you'd need to rape them as the dominant partner."
-														:" so you can't have submissive sex with them.")),
-										null);
-							}
 							return new Response("Submissive sex",
 									UtilText.parse(targetedCharacterForSex, 
 										"[npc.Name] is not attracted to you,"
@@ -996,61 +986,27 @@ public class SlaveDialogue {
 												?" so if you wanted to have sex with [npc.herHim], you'd need to rape [npc.herHim] as the dominant partner."
 												:" so you can't have submissive sex with [npc.herHim].")),
 									null);
-						
-						} else if(!nonSexTargetedCharacter().isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Submissive sex",
-									UtilText.parse(nonSexTargetedCharacter(), 
-										"[npc.Name] is not attracted to you,"
-										+ (Main.game.isNonConEnabled() && nonSexTargetedCharacter().isSlave()
-												?" so if you wanted to have sex with [npc.herHim], you'd need to rape [npc.herHim] as the dominant partner."
-												:" so you can't have submissive sex with [npc.herHim].")),
-									null);
 							
 						} else {
-							if(Main.game.getActiveNPC().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
-								return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
-										true, false,
-										new SMDoggy(
-												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.DOGGY_BEHIND)),
-												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
-										null,
-										null, AFTER_SEX, "<p>"
-											+ "As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply dropping down onto all fours in front of [npc.herHim], presenting your [pc.ass+] as you [pc.moanVerb],"
-											+ " [pc.speech(~Mmm!~ Take me!)]"
-										+ "</p>"
-										+"<p>"
-											+ "Pushing [npc.herself] up onto [npc.her] knees, [npc.name] reaches forwards and grabs your [pc.hips+]."
-											+ " [npc.speech(Looking for some fun, hmm?)]"
-									+ "</p>") {
-									@Override
-									public void effects() {
-										applyReactionReset();
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-									}
-								};
-								
-							} else {
-								return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
-										Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-										true, true,
-										new SMGeneric(
-												Util.newArrayListOfValues(Main.game.getActiveNPC()),
-												Util.newArrayListOfValues(Main.game.getPlayer()),
-										null,
-										null,
-										(slave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
-												?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-												:new ArrayList<>())),
-											AFTER_SEX,
-											UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START", slave())) {
-									@Override
-									public void effects() {
-										applyReactionReset();
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-									}
-								};
-							}
-							
+							return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
+									Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+									true, true,
+									new SMGeneric(
+											Util.newArrayListOfValues(Main.game.getActiveNPC()),
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									(slave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+											:new ArrayList<>())),
+										AFTER_SEX,
+										UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", slave())) {
+								@Override
+								public void effects() {
+									applyReactionReset();
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+								}
+							};
 						}
 						
 					} else if (index == 7) {
@@ -1251,7 +1207,7 @@ public class SlaveDialogue {
 							
 						} else {
 							return new Response(
-									UtilText.parse(targetedCharacterForSex, "Target: <b style='color:"+targetedCharacterForSex.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"),
+									UtilText.parse(targetedCharacterForSex, "Target: <b>[npc.Name]</b>"),
 									"Cycle the targeted character for group sex.<br/>[style.italicsBad(You'd need to have a companion with you for this action to be unlocked!)]",
 									null); 
 						}
@@ -3039,7 +2995,7 @@ public class SlaveDialogue {
 								+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech([npc.pcName]! I'm still horny!)]"
+								+ "[npc.speech([npc.pcName]! I'm still horny!)] [npc.she] cries."
 							+ "</p>");
 				}
 			}

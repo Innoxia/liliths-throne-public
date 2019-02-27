@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -1376,7 +1375,7 @@ public class AlleywayDemonDialogueCompanions {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.ONE_THIN);
-						Main.game.getActiveNPC().setPenisSize(PenisSize.ZERO_MICROSCOPIC.getMedianValue());
+						Main.game.getActiveNPC().setPenisSize(3);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.ONE_TRICKLE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.ONE_TRICKLE.getMaximumValue());
@@ -1397,7 +1396,7 @@ public class AlleywayDemonDialogueCompanions {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.TWO_AVERAGE);
-						Main.game.getActiveNPC().setPenisSize(PenisSize.TWO_AVERAGE.getMedianValue());
+						Main.game.getActiveNPC().setPenisSize(15);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.THREE_AVERAGE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.THREE_AVERAGE.getMaximumValue());
@@ -1418,7 +1417,7 @@ public class AlleywayDemonDialogueCompanions {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.THREE_THICK);
-						Main.game.getActiveNPC().setPenisSize(PenisSize.THREE_LARGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisSize(30);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
@@ -1439,7 +1438,7 @@ public class AlleywayDemonDialogueCompanions {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.FOUR_FAT);
-						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+						Main.game.getActiveNPC().setPenisSize(50);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMaximumValue());

@@ -254,7 +254,7 @@ public class AlleywayDemonDialogue {
 							@Override
 							public void effects() {
 								Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
-								Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+								Main.game.getActiveNPC().setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
 								Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 								Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 								Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
@@ -643,7 +643,7 @@ public class AlleywayDemonDialogue {
 						@Override
 						public void effects() {
 							getDemon().setPenisType(PenisType.DEMON_COMMON);
-							getDemon().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+							getDemon().setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
 							getDemon().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 							getDemon().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 							getDemon().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
@@ -956,7 +956,7 @@ public class AlleywayDemonDialogue {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.ONE_THIN);
-						Main.game.getActiveNPC().setPenisSize(PenisSize.ZERO_MICROSCOPIC.getMedianValue());
+						Main.game.getActiveNPC().setPenisSize(3);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.ONE_TRICKLE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.ONE_TRICKLE.getMaximumValue());
@@ -977,7 +977,7 @@ public class AlleywayDemonDialogue {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.TWO_AVERAGE);
-						Main.game.getActiveNPC().setPenisSize(PenisSize.TWO_AVERAGE.getMedianValue());
+						Main.game.getActiveNPC().setPenisSize(15);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.THREE_AVERAGE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.THREE_AVERAGE.getMaximumValue());
@@ -998,7 +998,7 @@ public class AlleywayDemonDialogue {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.THREE_THICK);
-						Main.game.getActiveNPC().setPenisSize(PenisSize.THREE_LARGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisSize(30);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
@@ -1019,7 +1019,7 @@ public class AlleywayDemonDialogue {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setPenisType(RacialBody.valueOfRace(getDemon().getBody().getRaceFromPartWeighting()).getPenisType());
 						Main.game.getActiveNPC().setPenisGirth(PenisGirth.FOUR_FAT);
-						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+						Main.game.getActiveNPC().setPenisSize(50);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMaximumValue());
@@ -1223,7 +1223,7 @@ public class AlleywayDemonDialogue {
 						@Override
 						public void effects() {
 							Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
-							Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+							Main.game.getActiveNPC().setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
 							Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 							Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 							Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
@@ -1244,7 +1244,7 @@ public class AlleywayDemonDialogue {
 						@Override
 						public void effects() {
 							Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
-							Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+							Main.game.getActiveNPC().setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
 							Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 							Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 							Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
@@ -1265,7 +1265,7 @@ public class AlleywayDemonDialogue {
 						@Override
 						public void effects() {
 							Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
-							Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+							Main.game.getActiveNPC().setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
 							Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 							Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 							Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());

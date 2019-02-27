@@ -94,7 +94,8 @@ public class Nipples implements BodyPartInterface {
 					case FIVE_SLOPPY:
 					case SIX_SOPPING_WET:
 					case SEVEN_DROOLING:
-						descriptorList.add(owner.getBreastCrotchMilkStorage().getAssociatedWetness().getDescriptor());
+//						descriptorList.add(owner.getBreastCrotchMilkStorage().getAssociatedWetness().getDescriptor());
+						descriptorList.add("milky");
 						break;
 					default:
 						break;
@@ -111,7 +112,8 @@ public class Nipples implements BodyPartInterface {
 					case FIVE_SLOPPY:
 					case SIX_SOPPING_WET:
 					case SEVEN_DROOLING:
-						descriptorList.add(owner.getBreastMilkStorage().getAssociatedWetness().getDescriptor());
+//						descriptorList.add(owner.getBreastMilkStorage().getAssociatedWetness().getDescriptor());
+						descriptorList.add("milky");
 						break;
 					default:
 						break;

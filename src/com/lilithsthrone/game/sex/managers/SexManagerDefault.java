@@ -201,8 +201,11 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 						&& Sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING
 						&& partner.isHappyToBeInSlot(Sex.getPosition(), Sex.getSexPositionSlot(partner), character)
 						&& highPriorityActions.isEmpty()) {
+//					System.out.println("Happy in slot");
 					suitablePosition = true;
 					break;
+				} else {
+//					System.out.println("Not happy in slot");
 				}
 			}
 			

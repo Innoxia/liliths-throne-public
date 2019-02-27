@@ -1845,10 +1845,10 @@ public class Lab {
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))) {
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return character.isPlayer();
-							}
+//							@Override
+//							public boolean isPositionChangingAllowed(GameCharacter character) {
+//								return character.isPlayer();
+//							}
 						},
 						null,
 						null,
@@ -2098,10 +2098,10 @@ public class Lab {
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))) {
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return character.isPlayer();
-							}
+//							@Override
+//							public boolean isPositionChangingAllowed(GameCharacter character) {
+//								return character.isPlayer();
+//							}
 						},
 						null,
 						null,

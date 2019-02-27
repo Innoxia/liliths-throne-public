@@ -655,7 +655,7 @@ public class OccupantDialogue {
 						
 					} else {
 						return new Response(
-								UtilText.parse(targetedCharacterForSex, "Target: <b style='color:"+targetedCharacterForSex.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"),
+								UtilText.parse(targetedCharacterForSex, "Target: <b>[npc.Name]</b>"),
 								"Cycle the targeted character for group sex.<br/>[style.italicsBad(You'd need to have a companion with you for this action to be unlocked!)]",
 								null); 
 					}

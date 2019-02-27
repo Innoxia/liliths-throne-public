@@ -37,7 +37,7 @@ public class ToiletStall {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
@@ -66,7 +66,7 @@ public class ToiletStall {
 	};
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
-		return !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+		return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 				&& !(Sex.getPosition() == data.getPosition() && Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0))
 				&& data.getPosition().getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 				&& Sex.getTotalParticipantCount(false)==(data.getPerformerSlots().size()+data.getPartnerSlots().size())

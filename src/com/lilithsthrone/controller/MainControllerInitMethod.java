@@ -265,7 +265,10 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
-						"Add custom artwork","Browse your own images and add them to the character. Large files such as long GIF animations may slow down the game."),false);
+						"Add custom artwork",
+						"Browse your own images and add them to the character."
+								+ " Please note that GIF animation files are limited to a <b>maximum of 10MB</b> in size, and if over 1MB, <b>may</b> cause [style.italicsBad(significant lag)], depending on your system."),
+						false);
 			}
 
 			if (character.hasArtwork()) {

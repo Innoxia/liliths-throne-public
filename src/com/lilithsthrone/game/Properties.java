@@ -220,8 +220,9 @@ public class Properties {
 			Element valuesElement = doc.createElement("propertyValues");
 			properties.appendChild(valuesElement);
 			for(PropertyValue value : PropertyValue.values()) {
-				if(! values.contains(value)) continue;
-				CharacterUtils.createXMLElementWithValue(doc, valuesElement, "propertyValue", value.toString());
+				if(values.contains(value)) {
+					CharacterUtils.createXMLElementWithValue(doc, valuesElement, "propertyValue", value.toString());
+				}
 			}
 			
 			// Game settings:

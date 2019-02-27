@@ -67,7 +67,7 @@ public class SALyssiethSpecials {
 
 	public static final void playerGrowDemonicPenis() {
 		Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-		Main.game.getPlayer().setPenisSize(10);
+		Main.game.getPlayer().setPenisSize(20);
 		Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK.getValue());
 		Main.game.getPlayer().setTesticleSize(TesticleSize.THREE_LARGE);
 		Main.game.getPlayer().setPenisCumStorage(750);
@@ -219,7 +219,7 @@ public class SALyssiethSpecials {
 			
 			if(Main.game.getPlayer().hasPenis()) {
 				Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-				Main.game.getPlayer().setPenisSize(3);
+				Main.game.getPlayer().setPenisSize(8);
 				Main.game.getPlayer().setTesticleSize(TesticleSize.ONE_TINY);
 				Main.game.getPlayer().fillCumToMaxStorage();
 			}
@@ -521,7 +521,7 @@ public class SALyssiethSpecials {
 			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
 				if(Main.game.getPlayer().hasPenis()) {
 					Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-					Main.game.getPlayer().setPenisSize(1);
+					Main.game.getPlayer().setPenisSize(3);
 					Main.game.getPlayer().setTesticleSize(TesticleSize.ZERO_VESTIGIAL);
 					Main.game.getPlayer().fillCumToMaxStorage();
 				}
@@ -771,7 +771,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setFemininity(0);
 				Main.game.getPlayer().setMuscle(100);
 				Main.game.getPlayer().setBodySize(BodySize.THREE_LARGE.getMedianValue());
-				Main.game.getPlayer().setPenisSize(14);
+				Main.game.getPlayer().setPenisSize(35);
 				Main.game.getPlayer().setTesticleSize(TesticleSize.FOUR_HUGE);
 				Main.game.getPlayer().setPenisCumStorage(2000);
 			}

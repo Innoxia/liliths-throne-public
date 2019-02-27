@@ -13148,8 +13148,8 @@ public abstract class GameCharacter implements XMLSaving {
 			setAttribute(Attribute.AROUSAL, arousal, false);
 		}
 		
-		if(Main.game.isInSex()) {
-			Sex.setPlayerArousalRestriction(!overridePlayerSexArousalRestriction);
+		if(Main.game.isInSex() && overridePlayerSexArousalRestriction) {
+			Sex.setOverridePlayerArousalRestriction(true);
 		}
 		
 		updateAttributeListeners();
@@ -13340,7 +13340,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String rollForPregnancy(GameCharacter partner, float cumQuantity) {
 		if(partner instanceof Elemental) {
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
-					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
+					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals later on!)]</p>";
 		}
 		
 		if(isVisiblyPregnant()) {
@@ -13881,25 +13881,29 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public int getLevel() {
-		if(this.isPlayer()
-				|| !Main.getProperties().difficultyLevel.isNPCLevelScaling()
-				|| (this.isSlave() && this.getOwner().isPlayer())
-				|| Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
-				|| (this.getPartyLeader()!=null && this.getPartyLeader().isPlayer())) {
-			return level;
-			
-		} else {
-			if(Main.getProperties().difficultyLevel == DifficultyLevel.HELL) {
-				if(level < Main.game.getPlayer().getLevel() * 2) {
-					return Main.game.getPlayer().getLevel() * 2;
+		try { // There was a NullPointerException being thrown somewhere in here during NPC load from XML.
+			if(this.isPlayer()
+					|| !Main.getProperties().difficultyLevel.isNPCLevelScaling()
+					|| (this.isSlave() && this.getOwner().isPlayer())
+					|| Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
+					|| (this.getPartyLeader()!=null && this.getPartyLeader().isPlayer())) {
+				return level;
+				
+			} else {
+				if(Main.getProperties().difficultyLevel == DifficultyLevel.HELL) {
+					if(level < Main.game.getPlayer().getLevel() * 2) {
+						return Main.game.getPlayer().getLevel() * 2;
+					} else {
+						return level;
+					}
+				} else if(level < Main.game.getPlayer().getLevel()) {
+					return Main.game.getPlayer().getLevel();
 				} else {
 					return level;
 				}
-			} else if(level < Main.game.getPlayer().getLevel()) {
-				return Main.game.getPlayer().getLevel();
-			} else {
-				return level;
 			}
+		} catch(Exception ex) {
+			return level;
 		}
 	}
 

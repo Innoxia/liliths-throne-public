@@ -48,7 +48,7 @@ public class GenericPositioningNew {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().getLegConfiguration()==Sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
 					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
@@ -78,7 +78,7 @@ public class GenericPositioningNew {
 	};
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
-		return !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+		return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 				&& !(Sex.getPosition() == data.getPosition() && Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0))
 				&& data.getPosition().getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 				&& Sex.getTotalParticipantCount(false)<=(data.getPerformerSlots().size()+data.getPartnerSlots().size())
@@ -390,7 +390,7 @@ public class GenericPositioningNew {
 					&& (Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL_TWO)!=null
 						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotOther.PERFORMING_ORAL_BEHIND_TWO)
 					
-					&& !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -472,7 +472,7 @@ public class GenericPositioningNew {
 					&& (Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL_TWO)!=null
 							|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotOther.PERFORMING_ORAL_TWO)
 					
-					&& !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -726,7 +726,7 @@ public class GenericPositioningNew {
 					&& (Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL_TWO)!=null
 						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotOther.PERFORMING_ORAL_BEHIND_TWO)
 					
-					&& !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -808,7 +808,7 @@ public class GenericPositioningNew {
 					&& (Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL_TWO)!=null
 							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotOther.PERFORMING_ORAL_TWO)
 					
-					&& !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}

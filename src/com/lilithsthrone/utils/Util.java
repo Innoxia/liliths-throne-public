@@ -762,7 +762,7 @@ public class Util {
 		return insertIntoSentences(sentence, frequency, muffledSounds);
 	}
 
-	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~" };
+	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", "~Ooh!~" };
 	/**
 	 * Turns a normal sentence into a sexy sentence.<br/>
 	 * Example:<br/>

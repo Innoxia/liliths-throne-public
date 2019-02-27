@@ -1527,9 +1527,12 @@ public class Body implements XMLSaving {
 			}
 
 			AbstractBreastType crotchBoobType = BreastType.getBreastTypeFromId(breasts.getAttribute("type"));
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")
-					&& importedLeg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) { // Reset crotch-boob type as I accidentally applied crotch-boobs to demons
-				crotchBoobType = RacialBody.valueOfRace(body.getRace()).getBreastCrotchType();
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6") && importedLeg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) { // Reset crotch-boob type as I accidentally applied crotch-boobs to demons
+				if(body.isFeminine()) {
+					crotchBoobType = RacialBody.valueOfRace(body.getRace()).getBreastCrotchType();
+				} else {
+					crotchBoobType = BreastType.NONE;
+				}
 			}
 			importedCrotchBreast = new BreastCrotch(crotchBoobType,
 					breastShape,
