@@ -220,18 +220,21 @@ public class Library {
 				
 			} else if(responseTab==2) {
 				if (index == 1) {
-					return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
+					return new Response("Ancient Ones", "A section of the library dedicated to books concerning the elder races.", ELDER_RACES);
 
 				} else if (index == 2) {
-					return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
+					return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
 
 				} else if (index == 3) {
-					return new Response("Endless Sea", "A section of the library dedicated to books on the area known as the Endless Sea. (Not yet implemented.)", null);
+					return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
 
 				} else if (index == 4) {
-					return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle. (Not yet implemented.)", null);
+					return new Response("Endless Sea", "A section of the library dedicated to books on the area known as the Endless Sea. (Not yet implemented.)", null);
 
 				} else if (index == 5) {
+					return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle. (Not yet implemented.)", null);
+
+				} else if (index == 6) {
 					return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert. (Not yet implemented.)", null);
 				}
 			}
@@ -534,6 +537,67 @@ public class Library {
 		
 	};
 	
+	public static final DialogueNode ELDER_RACES = new DialogueNode("", "", false) {
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Walking down one of the aisles, you find yourself surrounded by heavy wooden shelves, fastened together by prominent beams of iron and steel."
+						+ " A lot of the books here seem to be about local history of Dominion's many districts, and, while fascinating for a historian, they don't offer much use to you."
+					+ "</p>"
+					+ "<p>"
+						+ "You notice that a couple of the shelves look a little different from the others."
+						+ " The top-most shelf seems to be decorated to make it look as though it's crafted from the essence of purity and light."
+						+ " The shelf nearest to the floor has a very odd surface, almost like the wood as been crafted from lust itself."
+						+ " It looks like it would be arousing to the touch."
+					+ "</p>"
+					+ "<p>"
+						+ "Despite most of these books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
+					+ "</p>";
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==2) {
+				if (index == 1) {
+					return bookResponse(Subspecies.ANGEL);
+	
+				} else if (index == 2) {
+					return bookResponse(Subspecies.ELDER_LILIN);
+	
+				} else if (index == 3) {
+					return bookResponse(Subspecies.LILIN);
+	
+				} else if (index == 4) {
+					return bookResponse(Subspecies.DEMON);
+	
+				} else if (index == 5) {
+					return bookResponse(Subspecies.HALF_DEMON);
+	
+				} else if (index == 0) {
+					return new Response("Back", "Return to the race index.", LIBRARY);
+					
+				} else {
+					return null;
+				}
+				
+			} else {
+				return LIBRARY.getResponse(responseTab, index);
+			}
+		}
+	
+	};
+	
 	public static final DialogueNode DOMINION_RACES = new DialogueNode("", "", false) {
 
 		@Override
@@ -570,36 +634,33 @@ public class Library {
 					return bookResponse(Subspecies.HARPY);
 	
 				} else if (index == 2) {
-					return bookResponse(Subspecies.DEMON);
-	
-				} else if (index == 3) {
 					return bookResponse(Subspecies.DOG_MORPH);
 	
-				} else if (index == 4) {
+				} else if (index == 3) {
 					return bookResponse(Subspecies.CAT_MORPH);
 	
-				} else if (index == 5) {
+				} else if (index == 4) {
 					return bookResponse(Subspecies.HORSE_MORPH);
 	
-				} else if (index == 6) {
+				} else if (index == 5) {
 					return bookResponse(Subspecies.WOLF_MORPH);
 	
-				} else if (index == 7) {
+				} else if (index == 6) {
 					return bookResponse(Subspecies.HUMAN);
 	
-				} else if (index == 8) {
+				} else if (index == 7) {
 					return bookResponse(Subspecies.ALLIGATOR_MORPH);
 	
-				} else if (index == 9) {
+				} else if (index == 8) {
 					return bookResponse(Subspecies.BAT_MORPH);
 	
-				} else if (index == 10) {
+				} else if (index == 9) {
 					return bookResponse(Subspecies.IMP);
 	
-				} else if (index == 11) {
+				} else if (index == 10) {
 					return bookResponse(Subspecies.SLIME);
 	
-				} else if (index == 12) {
+				} else if (index == 11) {
 					return bookResponse(Subspecies.RAT_MORPH);
 	
 				} else if (index == 0) {
