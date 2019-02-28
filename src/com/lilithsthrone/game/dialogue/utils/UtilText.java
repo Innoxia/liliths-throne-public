@@ -3760,7 +3760,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if (arguments == null || arguments.isEmpty()) {
-					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inch" : "centimetre";
+					return Main.getProperties().hasValue(PropertyValue.metricSizes) ? "centimetre" : "inch";
 				}
 				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
@@ -3778,7 +3778,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if (arguments == null || arguments.isEmpty()) {
-					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inches" : "centimetres";
+					return Main.getProperties().hasValue(PropertyValue.metricSizes) ? "centimetres" : "inches";
 				}
 				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
@@ -3796,7 +3796,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if (arguments == null || arguments.isEmpty()) {
-					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "foot" : "metre";
+					return Main.getProperties().hasValue(PropertyValue.metricSizes) ? "metre" : "foot";
 				}
 				return Units.size(Double.valueOf(arguments), Units.ValueType.TEXT, Units.UnitType.LONG_SINGULAR);
 			}
@@ -3814,7 +3814,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if (arguments == null || arguments.isEmpty()) {
-					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "feet" : "metres";
+					return Main.getProperties().hasValue(PropertyValue.metricSizes) ? "metres" : "feet";
 				}
 				return Units.size(Double.valueOf(arguments), Units.ValueType.TEXT, Units.UnitType.LONG);
 			}

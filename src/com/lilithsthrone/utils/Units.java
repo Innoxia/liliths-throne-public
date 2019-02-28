@@ -37,7 +37,6 @@ public enum Units {
     DateTimeFormatter shortDate;
     DateTimeFormatter longDate;
     DateTimeFormatter time;
-    DateTimeFormatter timeWithSeconds;
     NumberFormat number;
 
     Locale defaultLocale;
@@ -60,8 +59,13 @@ public enum Units {
     public void updateSettings() {
         if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
             String countryCode = defaultLocale.getCountry().toUpperCase();
-            Main.getProperties().setValue(PropertyValue.imperialSystem, imperialCountries.contains(countryCode));
+            boolean isMetric = !imperialCountries.contains(countryCode);
+            Main.getProperties().setValue(PropertyValue.metricSizes, isMetric);
+            Main.getProperties().setValue(PropertyValue.metricFluids, isMetric);
+            Main.getProperties().setValue(PropertyValue.metricWeights, isMetric);
+            Main.getProperties().setValue(PropertyValue.metricWeights, isMetric);
             Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !twelveHourCountries.contains(countryCode));
+            Main.getProperties().setValue(PropertyValue.internationalDate, isMetric);
         }
     }
 
@@ -72,7 +76,7 @@ public enum Units {
     public void updateDateFormat(boolean autoLocale) {
         Locale.setDefault(autoLocale ? defaultLocale : Locale.ENGLISH);
         shortDate = (autoLocale ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
-                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MM/dd/yy" : "dd.MM.yy"))
+                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.internationalDate) ? "MM/dd/yy" : "dd.MM.yy"))
                 .withZone(ZoneId.systemDefault());
         longDate = DateTimeFormatter.ofPattern("d'%o %m' yyyy")
                 .withZone(ZoneId.systemDefault());
@@ -243,10 +247,10 @@ public enum Units {
      * @return A string containing the localized, wrapped, converted size and its associated unit
      */
     public static String size(double cm, ValueType vType, UnitType uType) {
-        if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
-            return sizeAsImperial(cm, vType, uType);
-        else
+        if (Main.getProperties().hasValue(PropertyValue.metricSizes))
             return sizeAsMetric(cm, vType, uType);
+        else
+            return sizeAsImperial(cm, vType, uType);
     }
 
     private final static String INCH_SYMBOL = "&quot;";
@@ -348,10 +352,10 @@ public enum Units {
      * @return A string containing the localized, wrapped, converted volume and its associated unit
      */
     public static String fluid(double ml, ValueType vType, UnitType uType) {
-        if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
-            return fluidAsImperial(ml, vType, uType);
-        else
+        if (Main.getProperties().hasValue(PropertyValue.metricFluids))
             return fluidAsMetric(ml, vType, uType);
+        else
+            return fluidAsImperial(ml, vType, uType);
     }
 
     /**
@@ -404,10 +408,10 @@ public enum Units {
      * @return A string containing the localized, wrapped, converted weight and its associated unit
      */
     public static String weight(double grams, ValueType vType, UnitType uType) {
-        if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
-            return weightAsImperial(grams, vType, uType);
-        else
+        if (Main.getProperties().hasValue(PropertyValue.metricWeights))
             return weightAsMetric(grams, vType, uType);
+        else
+            return weightAsImperial(grams, vType, uType);
     }
 
     /**
