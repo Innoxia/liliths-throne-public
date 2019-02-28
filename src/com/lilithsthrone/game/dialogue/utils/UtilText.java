@@ -406,7 +406,7 @@ public class UtilText {
 
 	public static String getCurrencySymbol() {
 //		return "&#9679;"; // Circle
-		return "&#164"; // 'Generic' currency symbol
+		return "&#164;"; // 'Generic' currency symbol
 	}
 	
 	public static String getPentagramSymbol() {
@@ -677,7 +677,7 @@ public class UtilText {
 				parserVariableCalls.add(matcherVAR.group().replaceAll("#VAR", "").replaceAll("#ENDVAR", ""));
 			}
 			input = input.replaceAll("(?s)#VAR(.*?)#ENDVAR", "");
-			input = input.replaceAll("\\/\\/(.*?)\n", "\n"); // Replace comments
+			input = input.replaceAll("(?<!:)//(.*?)\n", "\n"); // Replace comments (but not URLs, like http://)
 		}
 		
 		try {
