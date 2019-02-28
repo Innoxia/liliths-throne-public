@@ -267,6 +267,8 @@ public enum Units {
             return sizeAsMetric(cm, vType, uType);
     }
 
+    private final static String INCH_SYMBOL = "&quot;";
+    private final static String FOOT_SYMBOL = "&#39;";
     /**
      * Converts a size, given in centimetres, to the imperial form.
      * @param cm Amount of centimetres to format
@@ -280,61 +282,49 @@ public enum Units {
 
         // Wrap inches to feet
         long feet = (long) (inches / 12);
-        double remainingInches = inches % 12;
+        double remainingInches = roundTo(inches % 12, 0.25);
 
         StringBuilder output = new StringBuilder();
 
-        if (uType == UnitType.SHORT && feet != 0) {
-            // Append feet
-            output.append(vType == ValueType.TEXT ? Util.intToString((int) feet) : number(feet)).append("&#39;");
+        boolean both = (uType == UnitType.SHORT || uType == UnitType.LONG) && feet != 0 && remainingInches != 0;
+        boolean wrap = both || vType == ValueType.TEXT || (feet != 0 && remainingInches == 0);
+        double usedValue = wrap ? feet : inches;
 
-            remainingInches = Math.abs(remainingInches);
-            if (remainingInches > 0) {
-                // Append inches
-                switch (vType) {
-                    case NUMERIC:
-                        if (remainingInches >= 0.5)
-                            output.append(number(Math.round(remainingInches))).append("&quot;");
-                        break;
-                    case PRECISE:
-                        if (remainingInches >= 0.125)
-                            output.append(withQuarters(remainingInches)).append("&quot;");
-                        break;
-                    case TEXT:
-                        if (remainingInches >= 0.5)
-                            output.append(Util.intToString((int) Math.round(remainingInches))).append("&quot;");
+        // Append first unit, which may be either feet or inches
+        output.append(value(usedValue, vType, true));
+        switch (uType) {
+            case NONE:
+                break;
+            case SHORT:
+                output.append(wrap ? FOOT_SYMBOL : INCH_SYMBOL);
+                break;
+            case LONG:
+                if (Math.floor(inches) == 0 && vType != ValueType.PRECISE) {
+                    output.setLength(0);
+                    return output.append("less than ")
+                            .append(vType == ValueType.TEXT ? "one" : "1")
+                            .append(" inch").toString();
                 }
-            }
-        } else {
-            // Only wrap when the value is flat or for text values
-            boolean wrap = feet != 0 && (roundTo(remainingInches, 0.25) == 0 || vType == ValueType.TEXT);
-            double usedValue = wrap ? feet : inches;
 
-            // Append value
-            output.append(value(usedValue, vType, true));
+                output.append(" ");
+                if (usedValue > 1) output.append(wrap ? "feet" : "inches");
+                else output.append(wrap ? "foot" : "inch");
+                break;
+            case LONG_SINGULAR:
+                output.append("-").append(wrap ? "foot" : "inch");
+        }
 
-            // Append unit
+        // Append second unit for long or short notation and if neither value is 0
+        if (both) {
+            if (uType == UnitType.LONG) output.append(" and ");
+            output.append(value(remainingInches, vType, true));
             switch (uType) {
-                case NONE:
-                    break;
                 case SHORT:
-                    // Short format wrapping is handled separately
-                    output.append("&quot;");
+                    output.append(INCH_SYMBOL);
                     break;
                 case LONG:
-                    if (Math.floor(inches) == 0 && vType != ValueType.PRECISE) {
-                        output.setLength(0);
-                        return output.append("less than ")
-                                .append(vType == ValueType.TEXT ? "one " : "1 ")
-                                .append("inch").toString();
-                    }
-
-                    output.append(" ");
-                    if (usedValue > 1) output.append(wrap ? "feet" : "inches");
-                    else output.append(wrap ? "foot" : "inch");
+                    output.append(" ").append(remainingInches > 1 ? "inches" : "inch");
                     break;
-                case LONG_SINGULAR:
-                    output.append("-").append(wrap ? "foot" : "inch");
             }
         }
 
@@ -465,28 +455,28 @@ public enum Units {
         return valueWithUnit(grams, "g", "gram", kg, "kg", "kilogram", vType, uType, false);
     }
 
-    private static String value(double value, ValueType vType, boolean useEighths) {
+    private static String value(double value, ValueType vType, boolean useQuarters) {
         switch (vType) {
             case PRECISE:
-                if (useEighths) return withQuarters(value);
+                if (useQuarters) return withQuarters(value);
                 return number(value);
             case TEXT:
                 return Util.intToString((int) aggressiveRound(value));
             default:
-                if (useEighths) return Math.abs(value) < 1 ? withQuarters(value) : number(Math.round(value));
+                if (useQuarters) return Math.abs(value) < 0.875 ? withQuarters(value) : number(Math.round(value));
                 return number(adaptiveRound(value));
         }
     }
 
     private static String valueWithUnit(double value, String shortUnit, String unit,
                                         double wrappedValue, String shortWrappedUnit, String wrappedUnit,
-                                        ValueType vType, UnitType uType, boolean useEighths) {
+                                        ValueType vType, UnitType uType, boolean useQuarters) {
         StringBuilder output = new StringBuilder();
         boolean wrap = Math.abs(wrappedValue) >= 1 && vType != ValueType.PRECISE;
         double usedValue = wrap ? wrappedValue : value;
 
         // Append value with increased precision if it is wrapped and numeric
-        output.append(value(usedValue, wrap && vType == ValueType.NUMERIC ? ValueType.PRECISE : vType, useEighths));
+        output.append(value(usedValue, wrap && vType == ValueType.NUMERIC ? ValueType.PRECISE : vType, useQuarters));
 
         // Append unit
         switch (uType) {
