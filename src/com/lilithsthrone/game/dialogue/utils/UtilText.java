@@ -406,7 +406,7 @@ public class UtilText {
 
 	public static String getCurrencySymbol() {
 //		return "&#9679;"; // Circle
-		return "&#164"; // 'Generic' currency symbol
+		return "&#164;"; // 'Generic' currency symbol
 	}
 	
 	public static String getPentagramSymbol() {
