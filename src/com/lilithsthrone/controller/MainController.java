@@ -1438,7 +1438,7 @@ public class MainController implements Initializable {
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Time Display",
 					"Toggle the time format between 24 hour and 12 hour (AM/PM) display.<br/>"
-					+ "The current time is: "+Units.timeWithSeconds(Main.game.getDateNow()));
+					+ "The current time is: "+Units.time(Main.game.getDateNow()));
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		

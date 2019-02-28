@@ -86,17 +86,6 @@ public enum Units {
         time = (autoLocale ? DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime) ? "HH:mm" : "hh:mm a"))
                 .withZone(ZoneId.systemDefault());
-        updateTimeWithSecondsFormat(autoLocale);
-    }
-    
-    /**
-     * Resets the time formatter depending on the system locale (if automatic) or the 24 hour time flag (if manual).
-     * @param autoLocale Determines if automatic or manual detection is used
-     */
-    public void updateTimeWithSecondsFormat(boolean autoLocale) {
-        timeWithSeconds = (autoLocale ? DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime) ? "HH:mm:ss" : "hh:mm:ss a"))
-                .withZone(ZoneId.systemDefault());
     }
 
     /**
@@ -208,13 +197,6 @@ public enum Units {
      */
     public static String time(TemporalAccessor timePoint) {
         return FORMATTER.time.format(timePoint);
-    }
-    
-    /**
-     * Similar to {@link Units#dateTime(TemporalAccessor)}, except that this function only outputs the time, with seconds appended to the end.
-     */
-    public static String timeWithSeconds(TemporalAccessor timePoint) {
-        return FORMATTER.timeWithSeconds.format(timePoint);
     }
 
     /**
