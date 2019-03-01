@@ -37,7 +37,6 @@ public enum Units {
     DateTimeFormatter shortDate;
     DateTimeFormatter longDate;
     DateTimeFormatter time;
-    DateTimeFormatter timeWithSeconds;
     NumberFormat number;
 
     Locale defaultLocale;
@@ -60,8 +59,13 @@ public enum Units {
     public void updateSettings() {
         if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
             String countryCode = defaultLocale.getCountry().toUpperCase();
-            Main.getProperties().setValue(PropertyValue.imperialSystem, imperialCountries.contains(countryCode));
+            boolean isMetric = !imperialCountries.contains(countryCode);
+            Main.getProperties().setValue(PropertyValue.metricSizes, isMetric);
+            Main.getProperties().setValue(PropertyValue.metricFluids, isMetric);
+            Main.getProperties().setValue(PropertyValue.metricWeights, isMetric);
+            Main.getProperties().setValue(PropertyValue.metricWeights, isMetric);
             Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !twelveHourCountries.contains(countryCode));
+            Main.getProperties().setValue(PropertyValue.internationalDate, isMetric);
         }
     }
 
@@ -72,7 +76,7 @@ public enum Units {
     public void updateDateFormat(boolean autoLocale) {
         Locale.setDefault(autoLocale ? defaultLocale : Locale.ENGLISH);
         shortDate = (autoLocale ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
-                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MM/dd/yy" : "dd.MM.yy"))
+                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.internationalDate) ? "MM/dd/yy" : "dd.MM.yy"))
                 .withZone(ZoneId.systemDefault());
         longDate = DateTimeFormatter.ofPattern("d'%o %m' yyyy")
                 .withZone(ZoneId.systemDefault());
@@ -85,17 +89,6 @@ public enum Units {
     public void updateTimeFormat(boolean autoLocale) {
         time = (autoLocale ? DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime) ? "HH:mm" : "hh:mm a"))
-                .withZone(ZoneId.systemDefault());
-        updateTimeWithSecondsFormat(autoLocale);
-    }
-    
-    /**
-     * Resets the time formatter depending on the system locale (if automatic) or the 24 hour time flag (if manual).
-     * @param autoLocale Determines if automatic or manual detection is used
-     */
-    public void updateTimeWithSecondsFormat(boolean autoLocale) {
-        timeWithSeconds = (autoLocale ? DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime) ? "HH:mm:ss" : "hh:mm:ss a"))
                 .withZone(ZoneId.systemDefault());
     }
 
@@ -209,13 +202,6 @@ public enum Units {
     public static String time(TemporalAccessor timePoint) {
         return FORMATTER.time.format(timePoint);
     }
-    
-    /**
-     * Similar to {@link Units#dateTime(TemporalAccessor)}, except that this function only outputs the time, with seconds appended to the end.
-     */
-    public static String timeWithSeconds(TemporalAccessor timePoint) {
-        return FORMATTER.timeWithSeconds.format(timePoint);
-    }
 
     /**
      * Specifies the display of values, where NUMERIC is a rounded number, PRECISE is a number rounded to at most 2
@@ -261,12 +247,14 @@ public enum Units {
      * @return A string containing the localized, wrapped, converted size and its associated unit
      */
     public static String size(double cm, ValueType vType, UnitType uType) {
-        if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
-            return sizeAsImperial(cm, vType, uType);
-        else
+        if (Main.getProperties().hasValue(PropertyValue.metricSizes))
             return sizeAsMetric(cm, vType, uType);
+        else
+            return sizeAsImperial(cm, vType, uType);
     }
 
+    private final static String INCH_SYMBOL = "&quot;";
+    private final static String FOOT_SYMBOL = "&#39;";
     /**
      * Converts a size, given in centimetres, to the imperial form.
      * @param cm Amount of centimetres to format
@@ -280,61 +268,54 @@ public enum Units {
 
         // Wrap inches to feet
         long feet = (long) (inches / 12);
-        double remainingInches = inches % 12;
+        double remainingInches = roundTo(inches % 12, 0.25);
 
         StringBuilder output = new StringBuilder();
 
-        if (uType == UnitType.SHORT && feet != 0) {
-            // Append feet
-            output.append(vType == ValueType.TEXT ? Util.intToString((int) feet) : number(feet)).append("&#39;");
+        boolean both = (uType == UnitType.SHORT || uType == UnitType.LONG) && feet != 0 && remainingInches != 0;
+        boolean wrap = both || vType == ValueType.TEXT || (feet != 0 && remainingInches == 0);
+        double usedValue = wrap ? feet : inches;
 
-            remainingInches = Math.abs(remainingInches);
-            if (remainingInches > 0) {
-                // Append inches
-                switch (vType) {
-                    case NUMERIC:
-                        if (remainingInches >= 0.5)
-                            output.append(number(Math.round(remainingInches))).append("&quot;");
-                        break;
-                    case PRECISE:
-                        if (remainingInches >= 0.0625)
-                            output.append(withEighths(remainingInches)).append("&quot;");
-                        break;
-                    case TEXT:
-                        if (remainingInches >= 0.5)
-                            output.append(Util.intToString((int) Math.round(remainingInches))).append("&quot;");
+        // Append first unit, which may be either feet or inches
+        output.append(value(usedValue, vType, true));
+        switch (uType) {
+            case NONE:
+                break;
+            case SHORT:
+                output.append(wrap ? FOOT_SYMBOL : INCH_SYMBOL);
+                break;
+            case LONG:
+                if (Math.floor(inches) == 0 && vType != ValueType.PRECISE) {
+                    output.setLength(0);
+                    return output.append("less than ")
+                            .append(vType == ValueType.TEXT ? "one" : "1")
+                            .append(" inch").toString();
                 }
-            }
-        } else {
-            // Only wrap when the value is flat or for text values
-            boolean wrap = feet != 0 && (roundTo(remainingInches, 0.125) == 0 || vType == ValueType.TEXT);
-            double usedValue = wrap ? feet : inches;
 
-            // Append value
-            output.append(value(usedValue, vType, true));
+                output.append(" ");
+                if (usedValue > 1) output.append(wrap ? "feet" : "inches");
+                else output.append(wrap ? "foot" : "inch");
+                break;
+            case LONG_SINGULAR:
+                output.append("-").append(wrap ? "foot" : "inch");
+        }
 
-            // Append unit
+        // Append second unit for long or short notation and if neither value is 0
+        if (both) {
+            if (uType == UnitType.LONG) output.append(" and ");
+            output.append(value(remainingInches, vType, true));
             switch (uType) {
-                case NONE:
-                    break;
                 case SHORT:
-                    // Short format wrapping is handled separately
-                    output.append("&quot;");
+                    output.append(INCH_SYMBOL);
                     break;
                 case LONG:
-                    if (Math.floor(inches) == 0 && vType != ValueType.PRECISE) {
-                        output.setLength(0);
-                        return output.append("less than ")
-                                .append(vType == ValueType.TEXT ? "one " : "1 ")
-                                .append("inch").toString();
-                    }
-
-                    output.append(" ");
-                    if (usedValue > 1) output.append(wrap ? "feet" : "inches");
-                    else output.append(wrap ? "foot" : "inch");
+                    output.append(" ").append(remainingInches > 1 ? "inches" : "inch");
                     break;
-                case LONG_SINGULAR:
-                    output.append("-").append(wrap ? "foot" : "inch");
+				case LONG_SINGULAR: // Innoxia: I added these two case labels to remove the warning of this switch statement requiring them. I assume they're not used, but just in case, I copied over what is found in LONG:
+                    output.append(" ").append(remainingInches > 1 ? "inches" : "inch");
+					break;
+				case NONE:
+					break;
             }
         }
 
@@ -376,10 +357,10 @@ public enum Units {
      * @return A string containing the localized, wrapped, converted volume and its associated unit
      */
     public static String fluid(double ml, ValueType vType, UnitType uType) {
-        if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
-            return fluidAsImperial(ml, vType, uType);
-        else
+        if (Main.getProperties().hasValue(PropertyValue.metricFluids))
             return fluidAsMetric(ml, vType, uType);
+        else
+            return fluidAsImperial(ml, vType, uType);
     }
 
     /**
@@ -432,10 +413,10 @@ public enum Units {
      * @return A string containing the localized, wrapped, converted weight and its associated unit
      */
     public static String weight(double grams, ValueType vType, UnitType uType) {
-        if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
-            return weightAsImperial(grams, vType, uType);
-        else
+        if (Main.getProperties().hasValue(PropertyValue.metricWeights))
             return weightAsMetric(grams, vType, uType);
+        else
+            return weightAsImperial(grams, vType, uType);
     }
 
     /**
@@ -465,28 +446,28 @@ public enum Units {
         return valueWithUnit(grams, "g", "gram", kg, "kg", "kilogram", vType, uType, false);
     }
 
-    private static String value(double value, ValueType vType, boolean useEighths) {
+    private static String value(double value, ValueType vType, boolean useQuarters) {
         switch (vType) {
             case PRECISE:
-                if (useEighths) return withEighths(value);
+                if (useQuarters) return withQuarters(value);
                 return number(value);
             case TEXT:
                 return Util.intToString((int) aggressiveRound(value));
             default:
-                if (useEighths) return Math.abs(value) < 1 ? withEighths(value) : number(Math.round(value));
+                if (useQuarters) return Math.abs(value) < 0.875 ? withQuarters(value) : number(Math.round(value));
                 return number(adaptiveRound(value));
         }
     }
 
     private static String valueWithUnit(double value, String shortUnit, String unit,
                                         double wrappedValue, String shortWrappedUnit, String wrappedUnit,
-                                        ValueType vType, UnitType uType, boolean useEighths) {
+                                        ValueType vType, UnitType uType, boolean useQuarters) {
         StringBuilder output = new StringBuilder();
         boolean wrap = Math.abs(wrappedValue) >= 1 && vType != ValueType.PRECISE;
         double usedValue = wrap ? wrappedValue : value;
 
         // Append value with increased precision if it is wrapped and numeric
-        output.append(value(usedValue, wrap && vType == ValueType.NUMERIC ? ValueType.PRECISE : vType, useEighths));
+        output.append(value(usedValue, wrap && vType == ValueType.NUMERIC ? ValueType.PRECISE : vType, useQuarters));
 
         // Append unit
         switch (uType) {
@@ -518,26 +499,22 @@ public enum Units {
      * @param value The number to format
      * @return A string containing the formatted number with an optional eighth symbol
      */
-    public static String withEighths(double value) {
+    public static String withQuarters(double value) {
         boolean negative = value < 0;
-        value = roundTo(Math.abs(value), 0.125);
+        value = roundTo(Math.abs(value), 0.25);
         double floor = Math.floor(value);
 
         if (value == floor) return number(floor);
 
-        int eights = (int) Math.round((value - floor) / 0.125);
-        return (negative ? '-' : "") + (floor == 0 ? "" : number(floor)) + getEighthSymbol(eights);
+        int quarters = (int) Math.round((value - floor) / 0.25);
+        return (negative ? '-' : "") + (floor == 0 ? "" : number(floor)) + getQuarterSymbol(quarters);
     }
 
-    private static String getEighthSymbol(int eighths) {
-        switch (eighths) {
-            case 1: return "&frac18;";
-            case 2: return "&frac14;";
-            case 3: return "&frac38;";
-            case 4: return "&frac12;";
-            case 5: return "&frac58;";
-            case 6: return "&frac34;";
-            case 7: return "&frac78;";
+    private static String getQuarterSymbol(int quarters) {
+        switch (quarters) {
+            case 1: return "&frac14;";
+            case 2: return "&frac12;";
+            case 3: return "&frac34;";
             default: return "";
         }
     }

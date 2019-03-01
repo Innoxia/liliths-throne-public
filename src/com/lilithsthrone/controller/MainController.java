@@ -1431,11 +1431,10 @@ public class MainController implements Initializable {
 		id = "TWENTY_FOUR_HOUR_TIME_TOGGLE";
 		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-			    if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
-			    	// Disable auto locale as it would prevent the override
-			        Main.getProperties().setValue(PropertyValue.autoLocale, false);
-                }
-				toggleTimeFormat();
+			    overrideAutoLocale();
+				Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
+				Main.saveProperties();
+				Units.FORMATTER.updateTimeFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
 				MainController.updateUI();
 			}, false);
 			
@@ -1443,7 +1442,7 @@ public class MainController implements Initializable {
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Time Display",
 					"Toggle the time format between 24 hour and 12 hour (AM/PM) display.<br/>"
-					+ "The current time is: "+Units.timeWithSeconds(Main.game.getDateNow()));
+					+ "The current time is: "+Units.time(Main.game.getDateNow()));
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
@@ -1674,10 +1673,11 @@ public class MainController implements Initializable {
 		
 	}
 
-	public static void toggleTimeFormat() {
-		Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
-		Main.saveProperties();
-		Units.FORMATTER.updateTimeFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
+	public static void overrideAutoLocale() {
+		if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
+			Main.getProperties().setValue(PropertyValue.autoLocale, false);
+			Units.FORMATTER.updateNumberFormat(false);
+		}
 	}
 
 	private static void setStatusEffectSexTargetChangeListener(Document document, String id, GameCharacter character, SexAreaInterface si) {

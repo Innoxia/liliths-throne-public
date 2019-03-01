@@ -127,6 +127,7 @@
 	
 	Contributors:
 		Fixed issues with the game's rendering, both in the main menu, and in the inventory, which some people were experiencing. (PR#1077 by CognitiveMist)
+		Added separate imperial/metric options (in 'Options' -> 'Unit preferences') for lengths, fluids, and weights, as well as 12/24 hour and international date settings. Fixed some issues with the metric/imperial units code. (PR#1082 by DJ Addi)
 	
 	Other:
 		Set 'fury'/'furies' as the half-demon name variant for harpies.
@@ -159,8 +160,6 @@
 	
 	
 	
-	
-	DJ PR
 	
 	
 	add slave multiple sex if another slave present, not just companion

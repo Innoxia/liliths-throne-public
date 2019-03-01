@@ -38,12 +38,16 @@ import java.util.*;
 
 /**
  * @since 0.1.7?
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class CharacterModificationUtils {
 
 	private static StringBuilder contentSB = new StringBuilder();
+
+	public static final int FLUID_INCREMENT_SMALL = 5;
+	public static final int FLUID_INCREMENT_AVERAGE = 50;
+	public static final int FLUID_INCREMENT_LARGE = 500;
 	
 	public static String getStartDateDiv() {
 		contentSB.setLength(0);
@@ -650,13 +654,13 @@ public class CharacterModificationUtils {
 					+ "<div class='container-half-width'>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-5)+")]":"[style.boldBadMinor("+Units.fluid(-5)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-FLUID_INCREMENT_SMALL)+")]":"[style.boldBadMinor("+Units.fluid(-FLUID_INCREMENT_SMALL)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-50)+")]":"[style.boldBad("+Units.fluid(-50)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-FLUID_INCREMENT_AVERAGE)+")]":"[style.boldBad("+Units.fluid(-FLUID_INCREMENT_AVERAGE)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_HUGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-500)+")]":"[style.boldBad("+Units.fluid(-500)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-FLUID_INCREMENT_LARGE)+")]":"[style.boldBad("+Units.fluid(-FLUID_INCREMENT_LARGE)+")]")
 							+ "</div>"
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
@@ -664,13 +668,13 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(5)+")]":"[style.boldGoodMinor(+"+Units.fluid(5)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(FLUID_INCREMENT_SMALL)+")]":"[style.boldGoodMinor(+"+Units.fluid(FLUID_INCREMENT_SMALL)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(50)+")]":"[style.boldGood(+"+Units.fluid(50)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(FLUID_INCREMENT_AVERAGE)+")]":"[style.boldGood(+"+Units.fluid(FLUID_INCREMENT_AVERAGE)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_HUGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(500)+")]":"[style.boldGood(+"+Units.fluid(500)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(FLUID_INCREMENT_LARGE)+")]":"[style.boldGood(+"+Units.fluid(FLUID_INCREMENT_LARGE)+")]")
 							+ "</div>"
 						+ "</div>"
 					+ "</div>"

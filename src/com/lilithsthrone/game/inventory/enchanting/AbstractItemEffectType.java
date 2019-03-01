@@ -117,7 +117,7 @@ public abstract class AbstractItemEffectType {
 				&& (EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS
 				|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_PENIS)) {
 			// Increase small change for fluids
-			return 5;
+			return 10;
 		}
 		return 1;
 	}

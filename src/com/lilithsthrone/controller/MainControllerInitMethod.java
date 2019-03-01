@@ -750,9 +750,6 @@ public class MainControllerInitMethod {
 
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-
-//					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFPotency(potency);
-//					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
 				for(int effectCount=0; effectCount<EnchantmentDialogue.getEffects().size(); effectCount++) {
@@ -783,23 +780,16 @@ public class MainControllerInitMethod {
 					}
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-
-//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Minimum"), "");
-//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 
 				id = "LIMIT_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					if(currentLimit > 0) {
-						int decrement = Math.min(-1, -(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())/10));
-						EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.getLimit()+decrement));
+                        EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.getLimit() - effect.getLargeLimitChange()));
                         MainController.addEventListener(MainController.document, id, "click", el, false);
 					}
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-
-//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Large Limit Decrease"), "");
-//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 
 				id = "LIMIT_DECREASE";
@@ -810,9 +800,6 @@ public class MainControllerInitMethod {
 					}
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-
-//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Decrease"), "");
-//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 
 				id = "LIMIT_INCREASE";
@@ -823,29 +810,16 @@ public class MainControllerInitMethod {
 					}
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-
-//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-//						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
-//								?"Limit Increase"
-//								:"Maximum Limit Reached"), "");
-//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 
 				id = "LIMIT_INCREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					if(currentLimit < maxLimit) {
-                        int increment = Math.max(1, (currentLimit/10));
-                        EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.min(maxLimit, EnchantmentDialogue.getLimit()+increment));
+                        EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.min(maxLimit, EnchantmentDialogue.getLimit() + effect.getLargeLimitChange()));
                         MainController.addEventListener(MainController.document, id, "click", el, false);
 					}
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-
-//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-//						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
-//								?"Large Limit Increase"
-//								:"Maximum Limit Reached"), "");
-//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 
 				id = "LIMIT_MAXIMUM";
@@ -856,14 +830,9 @@ public class MainControllerInitMethod {
 					}
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-
-//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-//						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
-//								?"Set Limit To Maximum"
-//								:"Maximum Limit Reached"), "");
-//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 
+				
 				// Ingredient icon:
 				if (((EventTarget) MainController.document.getElementById("INGREDIENT_ENCHANTING")) != null) {
 
@@ -3365,42 +3334,42 @@ public class MainControllerInitMethod {
 				id = "CUM_PRODUCTION_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementPenisCumStorage(5);
+						BodyChanging.getTarget().incrementPenisCumStorage(CharacterModificationUtils.FLUID_INCREMENT_SMALL);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "CUM_PRODUCTION_INCREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementPenisCumStorage(50);
+						BodyChanging.getTarget().incrementPenisCumStorage(CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "CUM_PRODUCTION_INCREASE_HUGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementPenisCumStorage(500);
+						BodyChanging.getTarget().incrementPenisCumStorage(CharacterModificationUtils.FLUID_INCREMENT_LARGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "CUM_PRODUCTION_DECREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementPenisCumStorage(-5);
+						BodyChanging.getTarget().incrementPenisCumStorage(-CharacterModificationUtils.FLUID_INCREMENT_SMALL);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "CUM_PRODUCTION_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementPenisCumStorage(-50);
+						BodyChanging.getTarget().incrementPenisCumStorage(-CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "CUM_PRODUCTION_DECREASE_HUGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementPenisCumStorage(-500);
+						BodyChanging.getTarget().incrementPenisCumStorage(-CharacterModificationUtils.FLUID_INCREMENT_LARGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -3409,42 +3378,42 @@ public class MainControllerInitMethod {
 				id = "MILK_PRODUCTION_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastMilkStorage(5);
+						BodyChanging.getTarget().incrementBreastMilkStorage(CharacterModificationUtils.FLUID_INCREMENT_SMALL);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_PRODUCTION_INCREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastMilkStorage(50);
+						BodyChanging.getTarget().incrementBreastMilkStorage(CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_PRODUCTION_INCREASE_HUGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastMilkStorage(500);
+						BodyChanging.getTarget().incrementBreastMilkStorage(CharacterModificationUtils.FLUID_INCREMENT_LARGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_PRODUCTION_DECREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastMilkStorage(-5);
+						BodyChanging.getTarget().incrementBreastMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_SMALL);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_PRODUCTION_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastMilkStorage(-50);
+						BodyChanging.getTarget().incrementBreastMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_PRODUCTION_DECREASE_HUGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastMilkStorage(-500);
+						BodyChanging.getTarget().incrementBreastMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_LARGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -3453,42 +3422,42 @@ public class MainControllerInitMethod {
 				id = "MILK_CROTCH_PRODUCTION_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(5);
+						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(CharacterModificationUtils.FLUID_INCREMENT_SMALL);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_PRODUCTION_INCREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(50);
+						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_PRODUCTION_INCREASE_HUGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(500);
+						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(CharacterModificationUtils.FLUID_INCREMENT_LARGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_PRODUCTION_DECREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-5);
+						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_SMALL);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_PRODUCTION_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-50);
+						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_PRODUCTION_DECREASE_HUGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-500);
+						BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_LARGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -5046,61 +5015,49 @@ public class MainControllerInitMethod {
 //				}
 //			}
 //		}
+
+		// Unit preferences:
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.UNIT_PREFERENCE) {
+			createToggleListener("AUTO_LOCALE_ON", PropertyValue.autoLocale, true, () -> {
+				Units.FORMATTER.updateSettings();
+				Units.FORMATTER.updateFormats(true);
+			});
+			createToggleListener("AUTO_LOCALE_OFF", PropertyValue.autoLocale, false, () -> {
+				Units.FORMATTER.updateSettings();
+				Units.FORMATTER.updateFormats(false);
+
+			});
+			createToggleListener("METRIC_SIZES_ON", PropertyValue.metricSizes, true, MainController::overrideAutoLocale);
+			createToggleListener("METRIC_SIZES_OFF", PropertyValue.metricSizes, false, MainController::overrideAutoLocale);
+			createToggleListener("METRIC_FLUIDS_ON", PropertyValue.metricFluids, true, MainController::overrideAutoLocale);
+			createToggleListener("METRIC_FLUIDS_OFF", PropertyValue.metricFluids, false, MainController::overrideAutoLocale);
+			createToggleListener("METRIC_WEIGHTS_ON", PropertyValue.metricWeights, true, MainController::overrideAutoLocale);
+			createToggleListener("METRIC_WEIGHTS_OFF", PropertyValue.metricWeights, false, MainController::overrideAutoLocale);
+
+			Runnable updater = () -> {
+				MainController.overrideAutoLocale();
+				Units.FORMATTER.updateTimeFormat(false);
+			};
+			createToggleListener("TWENTYFOUR_HOUR_TIME_ON", PropertyValue.twentyFourHourTime, true, updater);
+			createToggleListener("TWENTYFOUR_HOUR_TIME_OFF", PropertyValue.twentyFourHourTime, false, updater);
+
+			updater = () -> {
+				MainController.overrideAutoLocale();
+				Units.FORMATTER.updateDateFormat(false);
+			};
+			createToggleListener("INTERNATIONAL_DATE_ON", PropertyValue.internationalDate, true, updater);
+			createToggleListener("INTERNATIONAL_DATE_OFF", PropertyValue.internationalDate, false, updater);
+		}
 		
 		// Content preferences:
 
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.CONTENT_PREFERENCE || Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCES) {
-			id = "ARTWORK_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.artwork, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "ARTWORK_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.artwork, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-
-			id = "SILLY_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.sillyMode, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-
-			id = "SILLY_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.sillyMode, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-
-			id = "THUMBNAIL_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.thumbnail, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "THUMBNAIL_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.thumbnail, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
+			createToggleListener("ARTWORK_ON", PropertyValue.artwork, true);
+			createToggleListener("ARTWORK_OFF", PropertyValue.artwork, false);
+			createToggleListener("SILLY_ON", PropertyValue.sillyMode, true);
+			createToggleListener("SILLY_OFF", PropertyValue.sillyMode, false);
+			createToggleListener("THUMBNAIL_ON", PropertyValue.thumbnail, true);
+			createToggleListener("THUMBNAIL_OFF", PropertyValue.thumbnail, false);
 
 			for(Artist artist : Artwork.allArtists) {
 				id = "ARTIST_"+artist.getFolderName();
@@ -5149,22 +5106,8 @@ public class MainControllerInitMethod {
 					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent));
 			
 			for(Entry<String, PropertyValue> entry : settingsMap.entrySet()) {
-				id = entry.getKey()+"_ON";
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().setValue(entry.getValue(), true);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-				}
-				id = entry.getKey()+"_OFF";
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().setValue(entry.getValue(), false);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-				}
+				createToggleListener(entry.getKey()+"_ON", entry.getValue(), true);
+				createToggleListener(entry.getKey()+"_OFF", entry.getValue(), false);
 			}
 			
 
@@ -5747,7 +5690,22 @@ public class MainControllerInitMethod {
 		MainController.setResponseEventListeners();
 	
 	}
-	
+
+	private static void createToggleListener(String id, PropertyValue option, boolean value) {
+		createToggleListener(id, option, value, null);
+	}
+
+	private static void createToggleListener(String id, PropertyValue option, boolean value, Runnable action) {
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+				Main.getProperties().setValue(option, value);
+				if (action != null) action.run();
+				Main.saveProperties();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+
 	static void setDiceHandler(int i) {
 		String id = "DICE_PLAYER_"+i;
 		if (((EventTarget) MainController.document.getElementById(id)) != null) {

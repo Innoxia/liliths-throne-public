@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -662,6 +661,9 @@ public class OptionsDialogue {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 
 			} else if (index == 11) {
+				return new Response("Unit preferences", "Set your preferred measurement units.", UNIT_PREFERENCE);
+
+			} else if (index == 12) {
 				return new Response("Difficulty: "+Main.getProperties().difficultyLevel.getName(), "Cycle the game's difficulty.", OPTIONS){
 					@Override
 					public void effects() {
@@ -694,39 +696,6 @@ public class OptionsDialogue {
 					}
 				};
 
-			} else if (index == 12) {
-				return new Response("Locale: " + (Main.getProperties().hasValue(PropertyValue.autoLocale)
-						? "Auto" : "Manual"), "Toggle the method to determine date, time and number formats. When set to automatic, the system locale is used. Otherwise, the two following options may be used to set the desired formats.", OPTIONS) {
-					@Override
-					public void effects() {
-						// Toggle automatic locale
-						Main.getProperties().setValue(PropertyValue.autoLocale, !Main.getProperties().hasValue(PropertyValue.autoLocale));
-						Units.FORMATTER.updateSettings();
-						Main.saveProperties();
-
-						Units.FORMATTER.updateFormats(Main.getProperties().hasValue(PropertyValue.autoLocale));
-					}
-				};
-			} else if (index == 13) {
-				// Button is disabled when auto locale is set
-				return new Response("Time: " + (Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
-						? "24 hours" : "12 hours"), "Toggle the time format between 24 hour and 12 hour (AM/PM) display.", Main.getProperties().hasValue(PropertyValue.autoLocale) ? null : OPTIONS) {
-					@Override
-					public void effects() {
-						MainController.toggleTimeFormat();
-					}
-				};
-			} else if (index == 14) {
-				// Button is disabled when auto locale is set
-				return new Response("Numbers: " + (Main.getProperties().hasValue(PropertyValue.imperialSystem)
-						? "Imperial" : "Metric"), "Toggle the number format between imperial and metric system.", Main.getProperties().hasValue(PropertyValue.autoLocale) ? null : OPTIONS) {
-					@Override
-					public void effects() {
-						Main.getProperties().setValue(PropertyValue.imperialSystem, !Main.getProperties().hasValue(PropertyValue.imperialSystem));
-						Main.saveProperties();
-						Units.FORMATTER.updateDateFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
-					}
-				};
 			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
 
@@ -1701,6 +1670,82 @@ public class OptionsDialogue {
 		sb.append("</div>");
 		
 		return sb.toString();
+	}
+
+	public static final DialogueNode UNIT_PREFERENCE = new DialogueNode("Unit preferences", "", true) {
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width'>"
+							+ "These options determine the units used throughout the game."
+							+ " Using auto detect will attempt to identify the correct settings for your system language."
+							+ " <br/><b>Overriding any option disables auto detect.</b>"
+							+ "</div>"
+
+							+ "<span style='height:16px;width:800px;float:left;'></span>");
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"AUTO_LOCALE",
+					Colour.BASE_BLUE_LIGHT,
+					"Automatic",
+					"When enabled, the system locale is used. Otherwise, the following options are applied.",
+					Main.getProperties().hasValue(PropertyValue.autoLocale)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"METRIC_SIZES",
+					Colour.BASE_BLUE_STEEL,
+					"Metric sizes",
+					"The game will use metres and centimetres instead of feet and inches.",
+					Main.getProperties().hasValue(PropertyValue.metricSizes)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"METRIC_FLUIDS",
+					Colour.BASE_BLUE_STEEL,
+					"Metric fluids",
+					"The game will use litres and millilitres instead of gallons and ounces.",
+					Main.getProperties().hasValue(PropertyValue.metricFluids)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"METRIC_WEIGHTS",
+					Colour.BASE_BLUE_STEEL,
+					"Metric weights",
+					"The game will use kilograms and grams instead of pounds and ounces.",
+					Main.getProperties().hasValue(PropertyValue.metricWeights)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"TWENTYFOUR_HOUR_TIME",
+					Colour.BASE_LILAC_LIGHT,
+					"24 hour time",
+					"The time will be displayed as 24 hours instead of AM/PM.",
+					Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"INTERNATIONAL_DATE",
+					Colour.BASE_LILAC_LIGHT,
+					"International date",
+					"The abbreviated date will be displayed as day.month.year instead of month/day/year.",
+					Main.getProperties().hasValue(PropertyValue.internationalDate)));
+
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Go back to the options menu.", OPTIONS);
+
+			} else {
+				return null;
+			}
+		}
 	};
 	
 	
