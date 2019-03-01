@@ -108,7 +108,9 @@ public class Nyan extends NPC {
 		commonAndrogynousLingerie = new ArrayList<>();
 		commonAndrogynousAccessories = new ArrayList<>();
 		specials = new ArrayList<>();
-		dailyReset();
+		if(!isImported) {
+			dailyReset();
+		}
 	}
 	
 	private Map<String, List<AbstractClothing>> getAllClothingListsMap() {

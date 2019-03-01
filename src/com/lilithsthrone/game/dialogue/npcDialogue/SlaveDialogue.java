@@ -2995,7 +2995,7 @@ public class SlaveDialogue {
 								+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech([npc.pcName]! I'm still horny!)] [npc.she] cries."
+								+ "[npc.speech([pc.Name]! I'm still horny!)] [npc.she] cries."
 							+ "</p>");
 				}
 			}

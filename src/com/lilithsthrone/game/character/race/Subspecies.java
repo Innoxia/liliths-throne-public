@@ -2148,7 +2148,18 @@ public enum Subspecies {
 			"An anthropomorphic, bipedal bird. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON))),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON))) {
+		@Override
+		protected String[] getHalfDemonName(GameCharacter character) {
+			return new String[] {
+					"fury",
+					"furies",
+					"fury",
+					"fury",
+					"furies",
+					"furies"};
+		}
+	},
 	
 	HARPY_RAVEN("statusEffects/race/raceHarpy",
 			"statusEffects/race/raceBackground",
@@ -2177,6 +2188,16 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false));
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false));
+		}
+		@Override
+		protected String[] getHalfDemonName(GameCharacter character) {
+			return new String[] {
+					"fury",
+					"furies",
+					"fury",
+					"fury",
+					"furies",
+					"furies"};
 		}
 	},
 
@@ -2208,6 +2229,16 @@ public enum Subspecies {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.COVERING_BROWN_DARK, false, Colour.COVERING_BROWN_DARK, false));
 			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_BROWN_DARK, false, Colour.COVERING_BROWN_DARK, false));
+		}
+		@Override
+		protected String[] getHalfDemonName(GameCharacter character) {
+			return new String[] {
+					"fury",
+					"furies",
+					"fury",
+					"fury",
+					"furies",
+					"furies"};
 		}
 	},
 	
@@ -3499,13 +3530,24 @@ public enum Subspecies {
 		}
 		
 		if(names==null) {
-			names = new String[] {
-				"demonic-"+this.getName(character),
-				"demonic-"+this.getNamePlural(character),
-				"demonic-"+this.getSingularMaleName(character),
-				"demonic-"+this.getSingularFemaleName(character),
-				"demonic-"+this.getPluralMaleName(character),
-				"demonic-"+this.getPluralFemaleName(character)};
+			if(character==null) {
+				names = new String[] {
+						"demonic-"+name,
+						"demonic-"+namePlural,
+						"demonic-"+singularMaleName,
+						"demonic-"+singularFemaleName,
+						"demonic-"+pluralMaleName,
+						"demonic-"+pluralFemaleName};
+				
+			} else {
+				names = new String[] {
+						"demonic-"+this.getName(character),
+						"demonic-"+this.getNamePlural(character),
+						"demonic-"+this.getSingularMaleName(character),
+						"demonic-"+this.getSingularFemaleName(character),
+						"demonic-"+this.getPluralMaleName(character),
+						"demonic-"+this.getPluralFemaleName(character)};
+			}
 		}
 		
 		return names;

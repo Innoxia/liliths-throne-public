@@ -523,7 +523,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 11) {
-					if(offspring().isAllowingPlayerToManageInventory()) {
+					if(!offspring().isAllowingPlayerToManageInventory()) {
 						return new Response("Inventory", "[npc.Name] doesn't like you enough to allow you to choose what [npc.she] wears, or what [npc.she] eats and drinks.", null);
 					} else {
 						return new ResponseEffectsOnly("Inventory", "Manage [npc.namePos] inventory.") {

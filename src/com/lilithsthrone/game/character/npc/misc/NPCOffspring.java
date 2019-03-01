@@ -149,30 +149,6 @@ public class NPCOffspring extends NPC {
 		return true;
 	}
 	
-//	@Override
-//	public String getPetName(GameCharacter character) {
-//		if(character.isPlayer()) {
-//			String playerPetName = getPetNameMap().get(Main.game.getPlayer().getId());
-//			if(playerPetName==null || playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
-//				if(Main.game.getPlayer().isFeminine()) {
-//					return "Mom";
-//				} else {
-//					return "Dad";
-//				}
-//				
-//			} else if (playerPetName.equalsIgnoreCase("Mommy") || playerPetName.equalsIgnoreCase("Daddy")) {
-//				if(Main.game.getPlayer().isFeminine()) {
-//					return "Mommy";
-//				} else {
-//					return "Daddy";
-//				}
-//			} else {
-//				return playerPetName;
-//			}
-//		}
-//		return super.getPetName(character);
-//	}
-	
 	private String getRelationshipFromPlayer() {
 		Set<Relationship> rel = Main.game.getPlayer().getRelationshipsTo(this);
 		if(rel.isEmpty())

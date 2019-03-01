@@ -835,7 +835,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					if(currentLimit < maxLimit) {
                         int increment = Math.max(1, (currentLimit/10));
-                        EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.min(currentLimit, EnchantmentDialogue.getLimit()+increment));
+                        EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.min(maxLimit, EnchantmentDialogue.getLimit()+increment));
                         MainController.addEventListener(MainController.document, id, "click", el, false);
 					}
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);

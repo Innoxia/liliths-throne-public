@@ -1121,7 +1121,7 @@ public class SexSlotBipeds {
 	public static final SexSlot MATING_PRESS_BOTTOM = new SexSlot(
 			"On back",
 			"mating pressed",
-			"[npc1.Name] [npc1.verb(thrust)] [npc.her] [npc.hips] against the glory hole and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			"As [npc.sheIs] being pinned to the floor beneath [npc2.name], all [npc.name] can do is look up into [npc2.her] [npc2.eyes] and let out [npc.a_moan+] as [npc.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
 			false);
 	
 	public static final SexSlot MATING_PRESS_TOP = new SexSlot(

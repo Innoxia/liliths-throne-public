@@ -281,13 +281,8 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public DialogueNode getEncounterDialogue() {
-		AbstractPlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
 		
-		if(pt.equals(PlaceType.DOMINION_BACK_ALLEYS)
-				|| pt.equals(PlaceType.DOMINION_CANAL)
-				|| pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
-				|| pt.equals(PlaceType.DOMINION_CANAL_END)) {
-			
+		if(!isStormAttacker()) {
 			if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 				this.setPlayerKnowsName(true);
 				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
@@ -307,6 +302,13 @@ public class DominionAlleywayAttacker extends NPC {
 
 	// Combat:
 
+	@Override
+	public void applyEscapeCombatEffects() {
+		if(isStormAttacker()) {
+			Main.game.banishNPC(this);
+		}
+	}
+	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
@@ -330,5 +332,15 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 			}
 		}
+	}
+	
+	public boolean isStormAttacker() {
+		AbstractPlaceType pt = this.getLocationPlace().getPlaceType();
+		return (!pt.equals(PlaceType.DOMINION_BACK_ALLEYS)
+				&& !pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
+				&& !pt.equals(PlaceType.DOMINION_CANAL)
+				&& !pt.equals(PlaceType.DOMINION_CANAL_END)
+				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
+				&& (!this.isSlave() || !this.getOwner().isPlayer()));
 	}
 }
