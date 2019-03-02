@@ -1871,7 +1871,9 @@ public class ZaranixHomeGroundFloorRepeat {
 									}
 								},
 								null,
-								null, WALKIES_PET_FUCKS_POST_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START", Util.newArrayListOfValues(owner, pet))
+								null,
+								WALKIES_PET_FUCKS_POST_SEX,
+								UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START", Util.newArrayListOfValues(owner, pet))
 								+ (Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.ANUS) || (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isCoverableAreaVisible(CoverableArea.VAGINA))
 										?UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START_EXPOSED", Util.newArrayListOfValues(owner, pet))
 										:UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START_CLOTHING", Util.newArrayListOfValues(owner, pet)))

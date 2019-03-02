@@ -201,7 +201,7 @@ public class UtilText {
 	public static String parseSpeech(String text, GameCharacter target) {
 		modifiedSentence = text;
 		
-		modifiedSentence.replaceAll("\\[([^\\[]*?)\\.(name|Name)\\]", ":3");
+//		modifiedSentence.replaceAll("\\[([^\\[]*?)\\.(name|Name)\\]", ":3");
 		
 		String[] splitOnConditional = modifiedSentence.split("#THEN");
 		
@@ -406,7 +406,7 @@ public class UtilText {
 
 	public static String getCurrencySymbol() {
 //		return "&#9679;"; // Circle
-		return "&#164"; // 'Generic' currency symbol
+		return "&#164;"; // 'Generic' currency symbol
 	}
 	
 	public static String getPentagramSymbol() {
@@ -677,7 +677,8 @@ public class UtilText {
 				parserVariableCalls.add(matcherVAR.group().replaceAll("#VAR", "").replaceAll("#ENDVAR", ""));
 			}
 			input = input.replaceAll("(?s)#VAR(.*?)#ENDVAR", "");
-			input = input.replaceAll("\\/\\/(.*?)\n", "\n"); // Replace comments
+			//  This was removed as it was causing issues with the UI rendering:
+//			input = input.replaceAll("(?<!:)//(.*?)\n", "\n"); // Replace comments (but not URLs, like http://)
 		}
 		
 		try {
@@ -1066,7 +1067,7 @@ public class UtilText {
 					return character.getName(arguments);
 					
 				} else if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR);
+					return parseSyntaxNew(speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR);
 					
 				} else {
 					if(character.isPlayerKnowsName() || character.isPlayer()) {
@@ -1094,7 +1095,7 @@ public class UtilText {
 					return character.getName(arguments) + "'s";
 					
 				} else if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
+					return parseSyntaxNew(speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
@@ -1129,7 +1130,7 @@ public class UtilText {
 					return character.getName(arguments) + "'s";
 					
 				} else if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
+					return parseSyntaxNew(speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
@@ -1158,7 +1159,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + " is";
 				} else if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+" is";
+					return parseSyntaxNew(speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" is";
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you are";
@@ -1188,7 +1189,7 @@ public class UtilText {
 					return character.getName(arguments) + "'s";
 					
 				} else if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+"'s";
+					return parseSyntaxNew(speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
@@ -1218,7 +1219,7 @@ public class UtilText {
 					return character.getName(arguments) + " has";
 					
 				} else if(!speechTarget.equals("")) {
-					return parseSyntaxNew(speechTarget, "petName", target, ParseMode.REGULAR)+" has";
+					return parseSyntaxNew(speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" has";
 					
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
@@ -1323,9 +1324,16 @@ public class UtilText {
 					return "petName INVALID_TARGET_NAME("+arguments+")";
 				}
 				try {
-					GameCharacter characterTarget = parserTarget.getCharacter(arguments.toLowerCase());
-					return character.getPetName(characterTarget);
+					GameCharacter characterTarget = parserTarget.getCharacter(arguments);
+					
+					if(parseCapitalise) {
+						return Util.capitaliseSentence(character.getPetName(characterTarget));
+					} else {
+						return character.getPetName(characterTarget);
+					}
 				} catch(Exception ex) {
+					System.err.println("PetName parsing failed on "+arguments);
+					ex.printStackTrace();
 				}
 				return "";
 			}
@@ -2882,9 +2890,9 @@ public class UtilText {
 						
 					} else if(Sex.getSexPace(character)==SexPace.DOM_GENTLE) {
 						if(character.isFeminine()) {
-							return returnStringAtRandom("softly", "gently", "quietly") + " " + returnStringAtRandom("moans", "sighs", "gasps");
+							return returnStringAtRandom("soft", "gentle", "quiet") + " " + returnStringAtRandom("moans", "sighs", "gasps");
 						} else {
-							return returnStringAtRandom("softly", "gently", "quietly") + " " + returnStringAtRandom("groans", "grunts");
+							return returnStringAtRandom("soft", "gentle", "quiet") + " " + returnStringAtRandom("groans", "grunts");
 						}
 					}
 				}
@@ -3572,7 +3580,7 @@ public class UtilText {
 						return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_"+area+"</i>";
 					} else {
 						try {
-							return character.getHighestZLayerCoverableArea(area).getName();
+							return character.getLowestZLayerCoverableArea(area).getName();
 						} catch(Exception ex) {
 							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
 						}
@@ -3760,7 +3768,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if (arguments == null || arguments.isEmpty()) {
-					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inch" : "centimetre";
+					return Main.getProperties().hasValue(PropertyValue.metricSizes) ? "centimetre" : "inch";
 				}
 				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
@@ -3778,7 +3786,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if (arguments == null || arguments.isEmpty()) {
-					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inches" : "centimetres";
+					return Main.getProperties().hasValue(PropertyValue.metricSizes) ? "centimetres" : "inches";
 				}
 				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
@@ -3796,7 +3804,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if (arguments == null || arguments.isEmpty()) {
-					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "foot" : "metre";
+					return Main.getProperties().hasValue(PropertyValue.metricSizes) ? "metre" : "foot";
 				}
 				return Units.size(Double.valueOf(arguments), Units.ValueType.TEXT, Units.UnitType.LONG_SINGULAR);
 			}
@@ -3814,7 +3822,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if (arguments == null || arguments.isEmpty()) {
-					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "feet" : "metres";
+					return Main.getProperties().hasValue(PropertyValue.metricSizes) ? "metres" : "feet";
 				}
 				return Units.size(Double.valueOf(arguments), Units.ValueType.TEXT, Units.UnitType.LONG);
 			}

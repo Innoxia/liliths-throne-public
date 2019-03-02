@@ -60,6 +60,7 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Units.ValueType;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Weather;
@@ -3626,7 +3627,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getBreastRawMilkStorageValue()>0 && target.getBreastRawStoredMilkValue()!=target.getBreastRawMilkStorageValue();
+			return target.getBreastRawMilkStorageValue()>0 && target.getBreastRawStoredMilkValue()<target.getBreastRawMilkStorageValue();
 		}
 		
 		@Override
@@ -4054,29 +4055,30 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			float cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerSecond(target) * 60;
 			float cumInArea = target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
+			float absorption = SexAreaOrifice.VAGINA.getCumAbsorptionPerSecond() * 60;
 			
 			if(target.isOrificePlugged(SexAreaOrifice.VAGINA)) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used pussy.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!";
+							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.pussy] has recently been filled with cum, before being plugged.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!");
+							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.<br/>"
+					return "As you walk, you can feel cum drooling out of your recently-used pussy.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "(-"+Units.fluid(cumLost)+"/minute)";
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.pussy] has recently been filled with cum.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "(-"+Units.fluid(cumLost)+"/minute)");
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)");
 				}
 			}
 		}
@@ -4165,16 +4167,31 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			float cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerSecond(target) * 60;
 			float cumInArea = target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA);
+			float absorption = SexAreaOrifice.URETHRA_VAGINA.getCumAbsorptionPerSecond() * 60;
 			
-			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your pussy's recently-used urethra.<br/>"
-						+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-						+ "(-"+Units.fluid(cumLost)+"/minute)";
+			if(target.isOrificePlugged(SexAreaOrifice.URETHRA_VAGINA)) {
+				if(target.isPlayer()) {
+					return "As you walk, you can feel the cum trapped within your pussy's urethra.<br/>"
+							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+							+ "[style.boldTerrible(Plugged Urethra:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] vaginal urethra has recently been filled with cum, before being plugged.<br/>"
+							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+							+ "[style.boldTerrible(Plugged Urethra:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!");
+				}
+				
 			} else {
-				return UtilText.parse(target, 
-						"[npc.NamePos] pussy's urethra has recently been filled with cum.<br/>"
-						+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-						+ "(-"+Units.fluid(cumLost)+"/minute)");
+				if(target.isPlayer()) {
+					return "As you walk, you can feel cum drooling out of your pussy's urethra.<br/>"
+							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] vaginal urethra has recently been filled with cum.<br/>"
+							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)");
+				}
 			}
 		}
 		
@@ -4262,16 +4279,31 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			float cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerSecond(target) * 60;
 			float cumInArea = target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS);
+			float absorption = SexAreaOrifice.URETHRA_PENIS.getCumAbsorptionPerSecond() * 60;
 			
-			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your cock's recently-used urethra.<br/>"
-						+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-						+ "(-"+Units.fluid(cumLost)+"/minute)";
+			if(target.isOrificePlugged(SexAreaOrifice.URETHRA_PENIS)) {
+				if(target.isPlayer()) {
+					return "As you walk, you can feel the cum trapped within your cock's urethra.<br/>"
+							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+							+ "[style.boldTerrible(Plugged Urethra:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] penile urethra has recently been filled with cum, before being plugged.<br/>"
+							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+							+ "[style.boldTerrible(Plugged Urethra:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!");
+				}
+				
 			} else {
-				return UtilText.parse(target, 
-						"[npc.NamePos] cock's urethra has recently been filled with cum.<br/>"
-						+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-						+ "(-"+Units.fluid(cumLost)+"/minute)");
+				if(target.isPlayer()) {
+					return "As you walk, you can feel cum drooling out of your cock's urethra.<br/>"
+							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] penile urethra has recently been filled with cum.<br/>"
+							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)");
+				}
 			}
 		}
 		
@@ -4359,29 +4391,30 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			float cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerSecond(target) * 60;
 			float cumInArea = target.getTotalFluidInArea(SexAreaOrifice.ANUS);
-
+			float absorption = SexAreaOrifice.ANUS.getCumAbsorptionPerSecond() * 60;
+			
 			if(target.isOrificePlugged(SexAreaOrifice.ANUS)) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used asshole.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!";
+							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.NamePos] [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
+							"[npc.NamePos] asshole has recently been filled with cum, before being plugged.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!");
+							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel cum drooling out of your recently-used asshole.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "(-"+Units.fluid(cumLost)+"/minute)";
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.NamePos] [npc.asshole] has recently been filled with cum.<br/>"
+							"[npc.NamePos] asshole has recently been filled with cum.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "(-"+Units.fluid(cumLost)+"/minute)");
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)");
 				}
 			}
 		}
@@ -4470,29 +4503,30 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			float cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerSecond(target) * 60;
 			float cumInArea = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
+			float absorption = SexAreaOrifice.NIPPLE.getCumAbsorptionPerSecond() * 60;
 			
 			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE)) {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel the cum trapped within your recently-used nipples.<br/>"
+					return "As you walk, you can feel the cum trapped within your recently-used [pc.nipples].<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!";
+							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.nipples] have recently been filled with cum, before being plugged.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!");
+							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel cum drooling out of your recently-used nipples.<br/>"
+					return "As you walk, you can feel cum drooling out of your recently-used [pc.nipples].<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "(-"+Units.fluid(cumLost)+"/minute)";
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.nipples] have recently been filled with cum.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "(-"+Units.fluid(cumLost)+"/minute)");
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)");
 				}
 			}
 		}
@@ -4590,29 +4624,30 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			float cumLost = SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerSecond(target) * 60;
 			float cumInArea = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE_CROTCH);
+			float absorption = SexAreaOrifice.NIPPLE_CROTCH.getCumAbsorptionPerSecond() * 60;
 			
 			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE_CROTCH)) {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel the cum trapped within your recently-used nipples.<br/>"
+					return "As you walk, you can feel the cum trapped within your recently-used [pc.crotchNipples].<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!";
+							+ "[style.boldTerrible(Plugged Crotch-nipples:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.NamePos] [npc.nipples] have recently been filled with cum, before being plugged.<br/>"
+							"[npc.NamePos] [npc.crotchNipples] have recently been filled with cum, before being plugged.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!");
+							+ "[style.boldTerrible(Plugged Crotch-nipples:)] No cum is leaking out, although it is still being absorbed at a rate of -"+Units.fluid(absorption, ValueType.PRECISE)+"/minute!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel cum drooling out of your recently-used nipples.<br/>"
+					return "As you walk, you can feel cum drooling out of your recently-used [pc.crotchNipples].<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "(-"+Units.fluid(cumLost)+"/minute)";
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.NamePos] [npc.nipples] have recently been filled with cum.<br/>"
+							"[npc.NamePos] [npc.crotchNipples] have recently been filled with cum.<br/>"
 							+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
-							+ "(-"+Units.fluid(cumLost)+"/minute)");
+							+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)");
 				}
 			}
 		}

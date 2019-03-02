@@ -3879,8 +3879,8 @@ public class Body implements XMLSaving {
 				}
 				
 				if (viewedBreast.getRawMilkStorageValue() > 0) {
-					descriptionSB.append("<br/>[npc.SheIsFull] currently producing "+ viewedBreast.getRawMilkStorageValue() + "ml of [npc.milkPrimaryColour(true)] [npc.milk]"
-							+ " ("+ viewedBreast.getRawStoredMilkValue() + "ml currently stored) at [npc.a_milkRegen] rate.");
+					descriptionSB.append("<br/>[npc.SheIsFull] currently producing "+ Units.fluid(viewedBreast.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.milkPrimaryColour(true)] [npc.milk]"
+							+ " ("+ Units.fluid(viewedBreast.getRawStoredMilkValue()) + " currently stored) at [npc.a_milkRegen] rate.");
 					
 					switch(viewedBreast.getMilk().getFlavour()) {
 						case CHOCOLATE:

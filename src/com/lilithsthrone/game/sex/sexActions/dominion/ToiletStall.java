@@ -72,7 +72,10 @@ public class ToiletStall {
 				&& Sex.getTotalParticipantCount(false)==(data.getPerformerSlots().size()+data.getPartnerSlots().size())
 				&& (request
 						?Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL
-						:Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL)
+						:(Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL)
+						|| !Sex.isCharacterForbiddenByOthersFromPositioning(Sex.getCharacterPerformingAction())
+						//Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
+					)
 				&& (request
 						?Sex.getCharacterPerformingAction().isPlayer()
 						:true)

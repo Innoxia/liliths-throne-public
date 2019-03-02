@@ -883,7 +883,7 @@ public class TailAnus {
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] enters [npc.herHim],"
 									+ " gently pushing [npc2.her] [npc2.tail] forwards as [npc2.she] [npc2.verb(start)] to tail-fuck [npc.namePos] [npc.asshole+].",
 
-							" With a soft [npc2.moan], [npc2.name] gently [npc.verb(thrust)] [npc2.her] [npc2.tail] forwards,"
+							" With a soft [npc2.moan], [npc2.name] gently [npc2.verb(thrust)] [npc2.her] [npc2.tail] forwards,"
 									+ " sinking it deep into [npc.namePos] [npc.asshole+] as [npc2.she] [npc2.verb(start)] tail-pegging [npc.herHim]."));
 					break;
 				case DOM_NORMAL:
@@ -892,7 +892,7 @@ public class TailAnus {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] enters [npc.herHim],"
 									+ " eagerly pushing [npc2.her] [npc2.tail] forwards as [npc2.she] [npc2.verb(start)] enthusiastically tail-fucking [npc.namePos] [npc.asshole+].",
 
-							" With [npc2.a_moan+], [npc2.name] eagerly [npc.verb(thrust)] [npc2.her] [npc2.tail] forwards,"
+							" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(thrust)] [npc2.her] [npc2.tail] forwards,"
 									+ " sinking it deep into [npc.namePos] [npc.asshole+] as [npc2.she] [npc2.verb(start)] energetically tail-pegging [npc.herHim]."));
 					break;
 				case DOM_ROUGH:
@@ -900,7 +900,7 @@ public class TailAnus {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] enters [npc.herHim],"
 									+ " and, seeking to remind [npc.name] who's in charge, [npc2.she] roughly slams [npc2.her] [npc2.tail] forwards and [npc2.verb(start)] to ruthlessly tail-fuck [npc.her] [npc.asshole+].",
 
-							" With [npc2.a_moan+], [npc2.name] roughly slams [npc2.her] [npc2.tail] forwards,"
+							" With [npc2.a_moan+], [npc2.name] roughly [npc2.verb(slam)] [npc2.her] [npc2.tail] forwards,"
 									+ " seeking to remind [npc.name] who's in charge as [npc2.she] [npc2.verb(start)] ruthlessly tail-fucking [npc.namePos] [npc.asshole+]."));
 					break;
 				case SUB_NORMAL:

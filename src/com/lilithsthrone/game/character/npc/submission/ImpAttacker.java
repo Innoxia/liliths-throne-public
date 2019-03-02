@@ -35,6 +35,7 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelImpsDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
@@ -125,10 +126,6 @@ public class ImpAttacker extends NPC {
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-		}
-		
-		if(this.getWorldLocation()==WorldType.SUBMISSION) { //TODO handle enslavement in fortresses
-			this.setEnslavementDialogue(TunnelImpsDialogue.IMP_ENSLAVEMENT_DIALOGUE);
 		}
 	}
 	
@@ -237,7 +234,20 @@ public class ImpAttacker extends NPC {
 	public DialogueNode getEncounterDialogue() {
 		return TunnelImpsDialogue.IMP_ATTACK;
 	}
-
+	
+	@Override
+	public DialogueNode getEnslavementDialogue(AbstractClothing enslavementClothing) {
+		SlaveDialogue.setEnslavementTarget(this);
+		this.enslavementClothing = enslavementClothing;
+		
+		if(this.getWorldLocation()==WorldType.SUBMISSION) { //TODO handle enslavement in fortresses
+			if(Main.game.getCharactersPresent(this.getCell()).stream().filter((character) -> character instanceof ImpAttacker).count()<=1) { //TODO Add support for enslavement of imp groups
+				return TunnelImpsDialogue.IMP_ENSLAVEMENT_DIALOGUE;
+			}
+		}
+		return null;
+	}
+	
 	// Combat:
 	
 	@Override
@@ -248,6 +258,7 @@ public class ImpAttacker extends NPC {
 		return super.getEscapeChance();
 	}
 	
+	@Override
 	public Attack attackType() {
 		
 		// If can cast spells, then do that:

@@ -258,7 +258,7 @@ public class SexType implements XMLSaving {
 		}
 		
 		// Check for masturbation:
-		if(!fetishes.contains(Fetish.FETISH_MASTURBATION) && characterPerforming.equals(characterTargeted)) {
+		if(!fetishes.contains(Fetish.FETISH_MASTURBATION) && (characterPerforming.equals(characterTargeted) || this.asParticipant==SexParticipantType.SELF)) {
 			fetishes.add(Fetish.FETISH_MASTURBATION);
 		}
 		

@@ -9,6 +9,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.positions.SexPositionOther;
@@ -27,8 +28,8 @@ public class SMGeneric extends SexManagerDefault {
 
 	List<GameCharacter> dominantSpectators;
 	List<GameCharacter> submissiveSpectators;
+	List<ResponseTag> tags;
 	
-
 	public SMGeneric(
 			List<GameCharacter> dominants,
 			List<GameCharacter> submissives,
@@ -73,6 +74,8 @@ public class SMGeneric extends SexManagerDefault {
 				}
 			}
 		}
+		
+		this.tags = tags;
 		
 		SexSlot[] slotsDominant;
 		SexSlot[] slotsSubmissive;
@@ -147,6 +150,39 @@ public class SMGeneric extends SexManagerDefault {
 
 	public List<GameCharacter> getSubmissiveSpectators() {
 		return submissiveSpectators;
+	}
+	
+	@Override
+	public SexPace getForcedSexPace(GameCharacter character) {
+		for(ResponseTag tag : tags) {
+			switch(tag) {
+				case PREFER_DOGGY:
+				case PREFER_MISSIONARY:
+				case PREFER_ORAL:
+					break;
+				case START_PACE_PLAYER_DOM_GENTLE:
+					if(character.isPlayer()) {
+						return SexPace.DOM_GENTLE;
+					}
+					break;
+				case START_PACE_PLAYER_DOM_ROUGH:
+					if(character.isPlayer()) {
+						return SexPace.DOM_ROUGH;
+					}
+					break;
+				case START_PACE_PLAYER_SUB_EAGER:
+					if(character.isPlayer()) {
+						return SexPace.SUB_EAGER;
+					}
+					break;
+				case START_PACE_PLAYER_SUB_RESISTING:
+					if(character.isPlayer()) {
+						return SexPace.SUB_RESISTING;
+					}
+					break;
+			}
+		}
+		return super.getForcedSexPace(character);
 	}
 	
 }

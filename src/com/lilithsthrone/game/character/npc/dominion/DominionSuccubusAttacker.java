@@ -106,7 +106,7 @@ public class DominionSuccubusAttacker extends NPC {
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, false);
 	}
 	
 	@Override

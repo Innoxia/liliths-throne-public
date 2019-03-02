@@ -1712,11 +1712,12 @@ public class LyssiethPalaceDialogue {
 					return new Response("Meraxis's office", "You and Meraxis head back out into the office-cum-waiting room.", LILAYA_DEMON_TF_END) {
 							@Override
 							public void effects() {
-								// Reset offspring to full demons: TODO test
+								// Reset offspring to full demons:
 								if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
 									for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
 										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather());
 									}
+									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
 								}
 								Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 								Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
@@ -1727,18 +1728,20 @@ public class LyssiethPalaceDialogue {
 				return new Response("Lilaya's Lab", "You and Lilaya are returned to her lab.", LILAYA_DEMON_TF_END) {
 						@Override
 						public void effects() {
-							// Reset offspring to full demons: TODO test
+							// Reset offspring to full demons:
 							if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
 								for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
 									offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather());
 								}
+								Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
 							}
 
-							// Reset offspring to full demons: TODO test
+							// Reset offspring to full demons:
 							if(Main.game.getNpc(Lilaya.class).isPregnant()) {
 								for(GameCharacter offspring : Main.game.getNpc(Lilaya.class).getPregnantLitter().getOffspringCharacters()) {
 									offspring.setBody(offspring.getGender(), Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getPregnantLitter().getFather());
 								}
+								Main.game.getNpc(Lilaya.class).getPregnantLitter().generateBirthedDescription();
 							}
 							
 							Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);

@@ -118,13 +118,14 @@ public class CityPlaces {
 			if(npc instanceof RentalMommy) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					mommyResponses.add(new Response("Mommy", "'Mommy' is not sitting on her usual bench, and you suppose that she's waiting out the current storm inside her house.", null));
+				} else {
+					mommyResponses.add(new Response("Mommy", "You see 'Mommy' sitting on the wooden bench outside her house. Walk up to her and say hello.", RentalMommyDialogue.ENCOUNTER) {
+						@Override
+						public void effects() {
+							Main.game.setActiveNPC(npc);	
+						}
+					});
 				}
-				mommyResponses.add(new Response("Mommy", "You see 'Mommy' sitting on the wooden bench outside her house. Walk up to her and say hello.", RentalMommyDialogue.ENCOUNTER) {
-					@Override
-					public void effects() {
-						Main.game.setActiveNPC(npc);	
-					}
-				});
 			}
 			
 			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {

@@ -880,7 +880,7 @@ public class PenisAss {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], gently bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] to fuck [npc.her] ass cheeks.",
 
-							" With a soft [npc2.moan], [npc2.name] gently [npc.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(sink)] [npc2.her] [npc2.cock+] between the cheeks of [npc.namePos] [npc.ass+]."));
+							" With a soft [npc2.moan], [npc2.name] gently [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(sink)] [npc2.her] [npc2.cock+] between the cheeks of [npc.namePos] [npc.ass+]."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:

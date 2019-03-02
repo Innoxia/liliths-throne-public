@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -168,9 +169,14 @@ public class ClothingEmporium {
 						}
 						
 					} else if(index==3) {
-						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<40) {
-							return new Response("Flirt", "You can tell that attempting to flirt with Nyan would end in disaster."
-									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 40 (currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+").)])", null);
+						int requiredAffection = AffectionLevel.POSITIVE_TWO_LIKE.getMinimumValue();
+						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<requiredAffection) {
+							return new Response(
+									"Flirt",
+									"You can tell that attempting to flirt with Nyan would end in disaster."
+										+ " You should work on getting to know her a little better first."
+										+ " ([style.italicsBad(Requires Nyan's affection to be at least "+requiredAffection+", and is currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+".)])",
+									null);
 							
 						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanFlirtedWith)) {
 							return new Response("Flirt", "You've already flirted with Nyan today. You can repeat this action tomorrow.", null);
@@ -189,9 +195,14 @@ public class ClothingEmporium {
 						}
 						
 					} else if(index==4) {
-						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<60) {
-							return new Response("Kiss", "You can tell that attempting to kiss Nyan would end in disaster."
-									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 60 (currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+").)])", null);
+						int requiredAffection = AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue();
+						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<requiredAffection) {
+							return new Response(
+									"Kiss",
+									"You can tell that attempting to kiss Nyan would end in disaster."
+										+ " You should work on getting to know her a little better first."
+										+ " ([style.italicsBad(Requires Nyan's affection to be at least "+requiredAffection+", and is currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+".)])",
+									null);
 							
 						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanKissed)) {
 							return new Response("Kiss", "You've already kissed Nyan today. You can repeat this action tomorrow.", null);
@@ -210,9 +221,14 @@ public class ClothingEmporium {
 						}
 						
 					} else if(index==5) {
-						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<80) {
-							return new Response("Make Out", "You can tell that attempting to make out with Nyan would end in disaster."
-									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 80 (currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+").)])", null);
+						int requiredAffection = AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue();
+						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<requiredAffection) {
+							return new Response(
+									"Make Out",
+									"You can tell that attempting to make out with Nyan would end in disaster."
+										+ " You should work on getting to know her a little better first."
+										+ " ([style.italicsBad(Requires Nyan's affection to be at least "+requiredAffection+", and is currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+".)])",
+									null);
 							
 						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanMakeOut)) {
 							return new Response("Make Out", "You've already made out with Nyan today. You can repeat this action tomorrow.", null);
@@ -241,6 +257,7 @@ public class ClothingEmporium {
 								}
 								@Override
 								public void effects() {
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanGift, true);
 									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
 										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
@@ -249,9 +266,16 @@ public class ClothingEmporium {
 						}
 						
 					} else if(index==10) {
-						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<95) {
-							return new Response("Sex", "You can tell that propositioning Nyan for sex would end in disaster."
-									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be maxxed out at 100 (currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+").)])", null);
+						int requiredAffection = AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue();
+						
+						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<requiredAffection) {
+							return new Response(
+									"Sex",
+									"You can tell that propositioning Nyan for sex would end in disaster."
+										+ " You should work on getting to know her a little better first."
+										+ " ([style.italicsBad(Requires Nyan's affection to be at least "+requiredAffection+", and is currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+".)])",
+									null);
+							
 						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanSex)) {
 							return new Response("Sex", "You've already had sex with Nyan today. You can repeat this action tomorrow.", null);
 							
@@ -264,9 +288,12 @@ public class ClothingEmporium {
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Nyan.class), SexSlotBipeds.MISSIONARY_ON_BACK))),
 									null,
-									null, END_SEX, UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
+									null,
+									END_SEX,
+									UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
 								@Override
 								public void effects() {
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanSex, true);
 									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
 										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}

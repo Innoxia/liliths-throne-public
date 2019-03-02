@@ -58,7 +58,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.getCharacterPerformingAction().isPlayer()
-					|| (!Sex.isDom(Main.game.getPlayer()) && !Sex.isConsensual());
+					|| (!Sex.isDom(Sex.getCharacterPerformingAction()) && !Sex.isConsensual());
 		}
 		
 		@Override
@@ -802,11 +802,14 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			
 			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& (Sex.getSexControl(Sex.getCharacterTargetedForSexAction(this))!=SexControl.FULL || !Sex.isDom(Sex.getCharacterTargetedForSexAction(this)))
+					&& (Sex.getSexControl(target)!=SexControl.FULL || !Sex.isDom(target))
 					&& !Sex.isMasturbation()
-					&& Sex.isCharacterForbiddenByPlayerFromPositioning(Sex.getCharacterTargetedForSexAction(this))
-					&& Sex.getCharacterPerformingAction().isPlayer();
+					&& !Sex.isCharacterForbiddenByOthersFromPositioning(target)
+					&& Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getInitialSexManager().isPositionChangingAllowed(target);
 		}
 
 		@Override
@@ -823,7 +826,7 @@ public class GenericActions {
 		public void applyEffects() {
 			Sex.stopAllOngoingActions(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterTargetedForSexAction(this));
 			
-			Sex.addCharacterForbiddenByPlayerFromPositioning(Sex.getCharacterTargetedForSexAction(this));
+			Sex.addCharacterForbiddenByOthersFromPositioning(Sex.getCharacterTargetedForSexAction(this));
 		}
 	};
 	
@@ -847,11 +850,14 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			
 			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& (Sex.getSexControl(Sex.getCharacterTargetedForSexAction(this))!=SexControl.FULL || !Sex.isDom(Sex.getCharacterTargetedForSexAction(this)))
+					&& (Sex.getSexControl(target)!=SexControl.FULL || !Sex.isDom(target))
 					&& !Sex.isMasturbation()
-					&& !Sex.isCharacterForbiddenByPlayerFromPositioning(Sex.getCharacterTargetedForSexAction(this))
-					&& Sex.getCharacterPerformingAction().isPlayer();
+					&& Sex.isCharacterForbiddenByOthersFromPositioning(target)
+					&& Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getInitialSexManager().isPositionChangingAllowed(target);
 		}
 
 		@Override
@@ -862,7 +868,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.removeCharacterForbiddenByPlayerFromPositioning(Sex.getCharacterTargetedForSexAction(this));
+			Sex.removeCharacterForbiddenByOthersFromPositioning(Sex.getCharacterTargetedForSexAction(this));
 		}
 	};
 	
@@ -1281,7 +1287,7 @@ public class GenericActions {
 		
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "End sex";
 		}
 
 		@Override
@@ -1293,7 +1299,7 @@ public class GenericActions {
 		public boolean isBaseRequirementsMet() {
 			return !Sex.getCharacterPerformingAction().isPlayer()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getSexPace(Sex.getCharacterPerformingAction()) == SexPace.SUB_RESISTING
+					&& Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
 					&& !Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB);
 			
 		}
