@@ -273,6 +273,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	
 	// Slavery:
+	protected boolean ableToBeEnslaved;
 	protected List<String> slavesOwned;
 	protected String owner;
 	protected DialogueNode enslavementDialogue;
@@ -407,6 +408,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		obedience = 0;
 		
+		ableToBeEnslaved = false;
 		slavesOwned = new ArrayList<>();
 		owner = "";
 		enslavementDialogue = null;
@@ -922,6 +924,10 @@ public abstract class GameCharacter implements XMLSaving {
 		Element slaveryElement = doc.createElement("slavery");
 		properties.appendChild(slaveryElement);
 		
+		if(this.isAbleToBeEnslaved()) {
+			CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "ableToBeEnslaved", String.valueOf(this.isAbleToBeEnslaved()));
+		}
+		
 		Element slavesOwned = doc.createElement("slavesOwned");
 		slaveryElement.appendChild(slavesOwned);
 		for(String slave : this.getSlavesOwned()) {
@@ -1400,6 +1406,9 @@ public abstract class GameCharacter implements XMLSaving {
 			nodes = parentElement.getElementsByTagName("attributes");
 			Element attElement = (Element) nodes.item(0);
 			NodeList attributeList = attElement.getElementsByTagName("attribute");
+			for(Attribute att : Attribute.values()) {
+				character.setAttribute(att, att.getBaseValue(), false);
+			}
 			for(int i=0; i<attributeList.getLength(); i++){
 				Element e = ((Element)attributeList.item(i));
 				
@@ -1444,17 +1453,18 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.appendToImportLog(log, "<br/>Old character version. Extra LevelUpPoints set to: "+(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")) * 5));
 		}
 		
+		
 		//Have to set health and mana after setting attributes, as otherwise they will either overflow or be adjusted based on percentage when attributes are increased.
 		float newHealth = 100;
 		float newMana = 100;
 		
 		if(element.getElementsByTagName("health").getLength()!=0) {
 			newHealth = Float.valueOf(((Element)element.getElementsByTagName("health").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "<br/>Set health: "+character.getHealth());
+			CharacterUtils.appendToImportLog(log, "<br/>Loaded health: "+character.getHealth());
 		}
 		if(element.getElementsByTagName("mana").getLength()!=0) {
 			newMana = Float.valueOf(((Element)element.getElementsByTagName("mana").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "<br/>Set mana: "+character.getMana());
+			CharacterUtils.appendToImportLog(log, "<br/>Loaded mana: "+character.getMana());
 		}
 
 		// Knows area map:
@@ -2073,6 +2083,11 @@ public abstract class GameCharacter implements XMLSaving {
 			Element slaveryElement = (Element) nodes.item(0);
 			if(slaveryElement!=null) {
 				
+				try {
+					character.setAbleToBeEnslaved(Boolean.parseBoolean(((Element)slaveryElement.getElementsByTagName("ableToBeEnslaved").item(0)).getAttribute("value")));
+				} catch(Exception ex) {
+				}
+				
 				for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavesOwned").item(0)).getElementsByTagName("slave").getLength(); i++){
 					Element e = ((Element)slaveryElement.getElementsByTagName("slave").item(i));
 					
@@ -2507,6 +2522,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
+		character.calculateStatusEffects(0);
 		character.setHealth(newHealth);
 		character.setMana(newMana);
 	}
@@ -3245,14 +3261,19 @@ public abstract class GameCharacter implements XMLSaving {
 			} else if (petName.equalsIgnoreCase("Mommy") || petName.equalsIgnoreCase("Daddy")) {
 				return target.isFeminine()?"mommy":"daddy";
 			}
+			return petName;
 		}
-		if(this.isRelatedTo(target))
+		
+		if(this.isRelatedTo(target) //TODO Issue with this catching Lyssieth<->PC relation, as I think it's because the player is set to be related to Lilaya, but getRelationshipsTo is empty.
+				&& !target.getRelationshipsTo(this).isEmpty()) { // Added an isEmpty() catch for now (v0.3.1.1), but better come back and fix this properly (may need an NPC to act as PC's mother)
 			switch(target.getRelationshipsTo(this).iterator().next()) {
 				case Child:
 				case Cousin:
 				case GrandChild:
 				case GrandGrandChild:
 				case Nibling:
+				case HalfSibling:
+				case Sibling:
 					break;
 				case GrandGrandParent:
 				case GrandParent:
@@ -3262,9 +3283,7 @@ public abstract class GameCharacter implements XMLSaving {
 				case GrandPibling:
 				case Pibling:
 					return target.isFeminine()?"auntie":"uncle";
-				case HalfSibling:
-				case Sibling:
-					return target.isFeminine()?"sis'":"bro'";
+			}
 		}
 		
 		return target.getName(true);
@@ -3773,8 +3792,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return enslavementDialogue;
 	}
 	
-	public void setEnslavementDialogue(DialogueNode enslavementDialogue) {
+	/**
+	 * @param enslavementDialogue The dialogue that is to be returned when attempting to enslave this character.
+	 * @param ableToEnslave True if this character is able to be enslaved, false if not.
+	 */
+	public void setEnslavementDialogue(DialogueNode enslavementDialogue, boolean ableToEnslave) {
 		this.enslavementDialogue = enslavementDialogue;
+		this.setAbleToBeEnslaved(ableToEnslave);
 	}
 	
 	public AbstractClothing getEnslavementClothing() {
@@ -3793,7 +3817,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isAbleToBeEnslaved() {
-		return getEnslavementDialogue(enslavementClothing)!=null;// && this.getSubspecies()!=Subspecies.DEMON; TODO
+		return ableToBeEnslaved;
+	}
+
+	public void setAbleToBeEnslaved(boolean ableToBeEnslaved) {
+		this.ableToBeEnslaved = ableToBeEnslaved;
 	}
 	
 	public List<String> getSlavesOwned() {
@@ -3898,7 +3926,8 @@ public abstract class GameCharacter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(owner);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("getOwner()", owner);
+			// Don't print to error.log, as this method is always checked for nulls (it will throw obvious errors otherwise).
+//			Util.logGetNpcByIdError("getOwner()", owner);
 			return null;
 		}
 	}
@@ -13040,7 +13069,7 @@ public abstract class GameCharacter implements XMLSaving {
 				return (UtilText.parse(this,
 						"<p>"
 							+ "Due to [npc.namePos] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 25%, but in turn, [npc.she] [npc.verb(take)]"
-							+ " <b>"+(manaLoss)+"</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(struggle)] to control [npc.her] arousal!"
+							+ " <b>"+Units.adaptiveRound(manaLoss)+"</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(struggle)] to control [npc.her] arousal!"
 						+ "</p>"))
 						+incrementLust(manaLoss, false);
 				
@@ -13060,7 +13089,7 @@ public abstract class GameCharacter implements XMLSaving {
 				return (UtilText.parse(attacker,
 						"<p>"
 							+ "Due to [npc.her] [style.boldFetish(sadist fetish)], [npc.name] [npc.verb(take)]"
-							+ " <b>"+(manaLoss)+"</b>"+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(get)] aroused by inflicting damage!"
+							+ " <b>"+Units.adaptiveRound(manaLoss)+"</b>"+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(get)] aroused by inflicting damage!"
 						+ "</p>"))
 						+attacker.incrementLust(manaLoss, false);
 				
@@ -14986,17 +15015,17 @@ public abstract class GameCharacter implements XMLSaving {
 				+(this.isPlayer() || Main.game.isInSex()
 						?""
 						:((unknownBreasts && this.isCoverableAreaVisible(CoverableArea.BREASTS)
-									?"<p>"
-									+ UtilText.parse(this, this.getBreastDescription())
-								+ "</p>"
-								+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-								:"")
-						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
 								?"<p>"
-								+ UtilText.parse(this, this.getBreastCrotchDescription())
-							+ "</p>"
-							+ characterClothingUnequipper.getBreastsCrotchRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
-							:"")
+										+ UtilText.parse(this, this.getBreastDescription())
+									+ "</p>"
+									+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								:"")
+						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH) && this.hasBreastsCrotch()
+								?"<p>"
+										+ UtilText.parse(this, this.getBreastCrotchDescription())
+									+ "</p>"
+									+ characterClothingUnequipper.getBreastsCrotchRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
+								:"")
 						+ (unknownAss && this.isCoverableAreaVisible(CoverableArea.ANUS)
 								?"<p>"
 									+ UtilText.parse(this, this.getAssDescription(true))
@@ -15078,7 +15107,7 @@ public abstract class GameCharacter implements XMLSaving {
 								+ "</p>"
 								+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 								:"")
-						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
+						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH) && this.hasBreastsCrotch()
 								?"<p>"
 									+ UtilText.parse(this, this.getBreastCrotchDescription())
 								+ "</p>"
@@ -15165,7 +15194,7 @@ public abstract class GameCharacter implements XMLSaving {
 									+ "</p>"
 									+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 									:"")
-						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
+						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH) && this.hasBreastsCrotch()
 							?"<p>"
 								+ UtilText.parse(this, this.getBreastCrotchDescription())
 							+ "</p>"
@@ -15248,7 +15277,7 @@ public abstract class GameCharacter implements XMLSaving {
 								+ "</p>"
 								+ characterClothingUnequipper.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 								:"")
-						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
+						+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH) && this.hasBreastsCrotch()
 								?"<p>"
 									+ UtilText.parse(this, this.getBreastCrotchDescription())
 								+ "</p>"
@@ -15331,7 +15360,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "</p>"
 							+ characterClothingDisplacer.getBreastsRevealDescription(this, Util.newArrayListOfValues(characterClothingDisplacer))
 							:"")
-					+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)
+					+ (unknownBreastsCrotch && this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH) && this.hasBreastsCrotch()
 							?"<p>"
 								+ UtilText.parse(this, this.getBreastCrotchDescription())
 							+ "</p>"
@@ -15404,10 +15433,14 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getNextClothingToRemoveForCoverableAreaAccess(this, coverableArea);
 	}
 	
+	/**
+	 * <b>Warning:</b> All clothing displace gets deleted. Should only ever be used in the SexManager's exposeAtStartOfSexMap() method.
+	 * @param coverableArea
+	 */
 	public void displaceClothingForAccess(CoverableArea coverableArea) {
 		if(isAbleToAccessCoverableArea(coverableArea, true)) {
 			SimpleEntry<AbstractClothing, DisplacementType> entry = getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
-			while(entry != null) {
+			while(entry != null && entry.getKey()!=null) {
 				this.isAbleToBeDisplaced(entry.getKey(), entry.getValue(), true, true, this);
 				entry = getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
 			}
@@ -15510,14 +15543,16 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public boolean isOrificePlugged(SexAreaOrifice ot) {
-		HashMap<SexAreaOrifice, ItemTag> plugMap = new HashMap<>();
-		plugMap.put(SexAreaOrifice.ANUS, ItemTag.PLUGS_ANUS);
-		plugMap.put(SexAreaOrifice.VAGINA, ItemTag.PLUGS_VAGINA);
-		plugMap.put(SexAreaOrifice.NIPPLE, ItemTag.PLUGS_NIPPLES);
-		ItemTag lookingFor = plugMap.get(ot);
+		HashMap<SexAreaOrifice, List<ItemTag>> plugMap = new HashMap<>();
 		
-		return lookingFor != null 
-				&& getClothingCurrentlyEquipped().stream().anyMatch(c -> c.getItemTags().contains(lookingFor));
+		plugMap.put(SexAreaOrifice.ANUS, Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.SEALS_ANUS));
+		plugMap.put(SexAreaOrifice.VAGINA, Util.newArrayListOfValues(ItemTag.PLUGS_VAGINA, ItemTag.SEALS_VAGINA));
+		plugMap.put(SexAreaOrifice.URETHRA_VAGINA, Util.newArrayListOfValues(ItemTag.SEALS_VAGINA));
+		plugMap.put(SexAreaOrifice.NIPPLE, Util.newArrayListOfValues(ItemTag.PLUGS_NIPPLES, ItemTag.SEALS_NIPPLES));
+		
+		List<ItemTag> lookingFor = plugMap.get(ot);
+		
+		return lookingFor!=null && getClothingCurrentlyEquipped().stream().anyMatch(c -> !Collections.disjoint(lookingFor, c.getItemTags()));
 	}
 	
 	public int getClothingAverageFemininity() {
@@ -17964,6 +17999,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return setBreastMilkStorage(getBreastRawMilkStorageValue() + increment);
 	}
 	// Current milk:
+	public void fillMilkToMaxStorage() {
+		setBreastStoredMilk(getBreastRawMilkStorageValue());
+	}
 	public Lactation getBreastStoredMilk() {
 		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
 			return Lactation.ZERO_NONE;
@@ -17973,6 +18011,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public float getBreastRawStoredMilkValue() {
 		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
 			return 0;
+		}
+		if(body.getBreast().getRawMilkStorageValue()<body.getBreast().getRawStoredMilkValue()) {
+			this.setBreastStoredMilk(body.getBreast().getRawMilkStorageValue());
 		}
 		return body.getBreast().getRawStoredMilkValue();
 	}
@@ -18285,7 +18326,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementBreastCrotchMilkStorage(int increment) {
 		return setBreastCrotchMilkStorage(getBreastCrotchRawMilkStorageValue() + increment);
 	}
-	// Current milk:
+	// Current crotch milk:
+	public void fillMilkCrotchToMaxStorage() {
+		setBreastCrotchStoredMilk(getBreastCrotchRawMilkStorageValue());
+	}
 	public Lactation getBreastCrotchStoredMilk() {
 		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
 			return Lactation.ZERO_NONE;
@@ -18295,6 +18339,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public float getBreastCrotchRawStoredMilkValue() {
 		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
 			return 0;
+		}
+		if(body.getBreastCrotch().getRawMilkStorageValue()<body.getBreastCrotch().getRawStoredMilkValue()) {
+			this.setBreastCrotchStoredMilk(body.getBreastCrotch().getRawMilkStorageValue());
 		}
 		return body.getBreastCrotch().getRawStoredMilkValue();
 	}

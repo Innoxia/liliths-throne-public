@@ -1072,15 +1072,10 @@ public class CharacterUtils {
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
-		boolean isSlime = false;
-		boolean isHalfDemon = false;
+		boolean isSlime = species == Subspecies.SLIME;
+		boolean isHalfDemon = species == Subspecies.HALF_DEMON;
 		
-		if(species == Subspecies.SLIME || species == Subspecies.HALF_DEMON) {
-			if(species == Subspecies.SLIME) {
-				isSlime = true;
-			} else {
-				isHalfDemon = true;
-			}
+		if(isSlime || isHalfDemon) {
 			if(linkedCharacter==null || !linkedCharacter.isUnique()) {
 				List<Subspecies> slimeSubspecies = new ArrayList<>();
 				for(Subspecies subspecies : Subspecies.values()) {

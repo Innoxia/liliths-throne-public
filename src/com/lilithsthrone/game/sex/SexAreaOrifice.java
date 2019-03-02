@@ -2,12 +2,10 @@ package com.lilithsthrone.game.sex;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.78
- * @version 0.2.7
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum SexAreaOrifice implements SexAreaInterface {
@@ -339,11 +337,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	public float getCharactersCumLossPerSecond(GameCharacter target) {
 		float cumLost = this.getCumAbsorptionPerSecond();
+		float fluidInArea = target.getTotalFluidInArea(this);
+		// The rate obviously decreases as the fluid drains out, but assuming if the drain was applied all at once, it would take about 5.5 hours to all drain out (not factoring in absorption or natural loss):
+		float secondPercentageLoss = fluidInArea/20_000;
 		
 		if(!target.isOrificePlugged(this)) {
-			cumLost += this.getCumLossPerSecond() * (1 + 0.06*Util.getModifiedDropoffValue(target.getTotalFluidInArea(this), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue());
+			cumLost += this.getCumLossPerSecond() + secondPercentageLoss;
 		}
-//		System.out.println(target.getName()+" "+cumLost);
 		return cumLost;
 	}
 	

@@ -3374,6 +3374,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.nipplePenContent);
 	}
 	
+	public boolean isUrethraEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.urethralContent);
+	}
+	
 	public boolean isIncestEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.incestContent);
 	}

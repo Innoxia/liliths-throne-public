@@ -2405,7 +2405,14 @@ public enum Spell {
 										"Concentrating on the immense arcane power within [npc.her] scythe, [npc.name] smites down into the ground beneath [npc2.namePos] [npc2.feet], splitting the earth and summoning forth poison fumes!")
 								+"</p>");
 
-			descriptionSB.append(getDamageDescription(caster, target, damage, true, isCritical));
+			descriptionSB.append(getDamageDescription(caster, target, damage, isHit, isCritical));
+			
+			// If attack hits, apply damage. Status effect always applies.:
+			if (isHit) {
+				if(damage>0) {
+					descriptionSB.append(applyDamage(caster, target, damage));
+				}
+			}
 			
 			if(Combat.getEnemies().contains(target)) {
 				for(NPC combatant : Combat.getEnemies()) {
@@ -2682,7 +2689,7 @@ public enum Spell {
 					} else {
 						if(damage>0) {
 							damageCostDescriptionSB.append(UtilText.parse(target,
-									"You [style.boldExcellent(critically)] hit [npc.name] for " + damage + " " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
+									"You [style.boldExcellent(critically)] hit [npc.name] for <b>" + damage + "</b> " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
 						}
 						if(appliesEffects) {
 							damageCostDescriptionSB.append(" You [style.boldExcellent(critically)] cast the spell, doubling its duration!");
@@ -2694,7 +2701,7 @@ public enum Spell {
 					} else {
 						if(damage>0) {
 							damageCostDescriptionSB.append(UtilText.parse(target,
-									"You hit [npc.name] for " + damage + " " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
+									"You hit [npc.name] for <b>" + damage + "</b> " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
 						}
 					}
 				}
@@ -2706,7 +2713,7 @@ public enum Spell {
 					} else {
 						if(damage>0) {
 							damageCostDescriptionSB.append(UtilText.parse(caster, target,
-									"[npc1.Name] [style.boldExcellent(critically)] hits " + (target.isPlayer()?"you":"[npc2.name]")+" for " + damage + " " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
+									"[npc1.Name] [style.boldExcellent(critically)] hits " + (target.isPlayer()?"you":"[npc2.name]")+" for <b>" + damage + "</b> " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
 						}
 						if(appliesEffects) {
 							damageCostDescriptionSB.append(UtilText.parse(caster, " [npc.Name] [style.boldExcellent(critically)] casts the spell, doubling its duration!"));
@@ -2718,7 +2725,7 @@ public enum Spell {
 					} else {
 						if(damage>0) {
 							damageCostDescriptionSB.append(UtilText.parse(caster, target,
-									"[npc1.Name] hits " + (target.isPlayer()?"you":"[npc2.name]")+" for " + damage + " " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
+									"[npc1.Name] hits " + (target.isPlayer()?"you":"[npc2.name]")+" for <b>" + damage + "</b> " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
 						}
 					}
 				}

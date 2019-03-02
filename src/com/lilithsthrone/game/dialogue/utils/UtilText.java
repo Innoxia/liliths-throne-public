@@ -201,7 +201,7 @@ public class UtilText {
 	public static String parseSpeech(String text, GameCharacter target) {
 		modifiedSentence = text;
 		
-		modifiedSentence.replaceAll("\\[([^\\[]*?)\\.(name|Name)\\]", ":3");
+//		modifiedSentence.replaceAll("\\[([^\\[]*?)\\.(name|Name)\\]", ":3");
 		
 		String[] splitOnConditional = modifiedSentence.split("#THEN");
 		
@@ -1324,13 +1324,16 @@ public class UtilText {
 					return "petName INVALID_TARGET_NAME("+arguments+")";
 				}
 				try {
-					GameCharacter characterTarget = parserTarget.getCharacter(arguments.toLowerCase());
+					GameCharacter characterTarget = parserTarget.getCharacter(arguments);
+					
 					if(parseCapitalise) {
 						return Util.capitaliseSentence(character.getPetName(characterTarget));
 					} else {
 						return character.getPetName(characterTarget);
 					}
 				} catch(Exception ex) {
+					System.err.println("PetName parsing failed on "+arguments);
+					ex.printStackTrace();
 				}
 				return "";
 			}

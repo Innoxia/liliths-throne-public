@@ -1360,7 +1360,7 @@ public class CharacterInventory implements XMLSaving {
 				}
 		}
 
-		if (continuingIsAbleToEquip) {
+		if (continuingIsAbleToEquip && !unequipIfAble) {
 			return true;
 		}
 		
@@ -1386,8 +1386,7 @@ public class CharacterInventory implements XMLSaving {
 
 		// If you want to unequip this clothing now:
 		if (unequipIfAble) {
-			// Sort clothing to remove in zLayer order(so you take off your
-			// shirt before removing bra etc.):
+			// Sort clothing to remove in zLayer order(so you take off your shirt before removing bra etc.):
 			List<AbstractClothing> tempClothingList = new ArrayList<>();
 			tempClothingList.addAll(clothingToRemove.keySet());
 			tempClothingList.sort(new ClothingZLayerComparator());
@@ -1429,7 +1428,6 @@ public class CharacterInventory implements XMLSaving {
 			}
 			
 			clothingCurrentlyEquipped.sort(new AbstractClothingRarityComparator());
-
 		}
 
 		return true;

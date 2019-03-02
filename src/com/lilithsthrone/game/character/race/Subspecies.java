@@ -1377,7 +1377,9 @@ public enum Subspecies {
 			Colour.RACE_UNICORN,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has a single magical horn growing from their forehead.",
-			Util.newHashMapOfValues()) {//TODO add somewhere
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
@@ -1419,7 +1421,9 @@ public enum Subspecies {
 			Colour.RACE_PEGASUS,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has a pair of feathered wings growing from their back.",
-			Util.newHashMapOfValues()) {//TODO add somewhere
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
@@ -1460,7 +1464,9 @@ public enum Subspecies {
 			Colour.RACE_ALICORN,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has both a pair of feathered wings growing from their back, as well as a single magical horn growing from their forehead.",
-			Util.newHashMapOfValues()) {//TODO add somewhere
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);

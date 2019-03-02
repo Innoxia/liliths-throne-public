@@ -68,7 +68,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.3.1.02";
+	public static final String VERSION_NUMBER = "0.3.1.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -483,6 +483,85 @@ public class Main extends Application {
 			+"<ul>Fixed the 'orgasm denial' fetish saying that it unlocked the deny action in sex, when that action is in fact always available to everyone.</ul>"
 			+"<ul>Fixed some incorrect descriptors for lactation.</ul>"
 			+"<ul>Fixed some incorrect penis sizes and unit references.</ul>"
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.1.01</h6>"
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed a bug where you wouldn't be able to orgasm in sex.</ul>"
+			+"<ul>Fixed a bug that was causing the 'News' action in Lilith's Plaza, as well as a few other pieces of dialogue, to break.</ul>"
+		+ "</list>"
+		
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.1.1</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>You can no longer enslave demons found in dark alleyways. (This was meant to have been implemented alongside references in the lore to demons being almost never enslaved, but I didn't have time to add it until now.)</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed issues with the game's rendering, both in the main menu, and in the inventory, which some people were experiencing. (PR#1077 by CognitiveMist)</ul>"
+			+"<ul>Added separate imperial/metric options (in 'Options' -> 'Unit preferences') for lengths, fluids, and weights, as well as 12/24 hour and international date settings. Fixed some issues with the metric/imperial units code. (PR#1082 by DJ Addi)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Set 'fury'/'furies' as the half-demon name variant for harpies.</ul>"
+			+"<ul>Submissive participants in sex now start off as being unable to change position unless you give them permission.</ul>"
+			+"<ul>Added colour highlighting to orifice plasticity text in the character view screens.</ul>"
+			+"<ul>Sex actions that start an ongoing action are now coloured in light or reddish pink to denote it being a 'submissive' action (i.e. using an orifice), or a 'dominant' action (i.e. using a penetration type).</ul>"
+			+"<ul>Increased starting wing size for elementals to 'large'.</ul>"
+			+"<ul>Added post-combat victory transform action to Submission tunnel slime encounters, as well as to bat cavern slime encounters.</ul>"
+			+"<ul>Altered character creation's cum/milk production choices to use the incremental changing UI instead of a fixed one.</ul>"
+			+"<ul>Fluids now drain out of orifices at a rate based on the total amount of fluid within that orifice, at a rate per second of: (1/20,000) * (total fluid)</ul>"
+			+"<ul>Added indication of the rate of absorption of fluids in the tootips for creampied areas.</ul>"
+			+"<ul>Siblings will now call each other by their names in speech, instead of 'bro'' and 'sis'.</ul>"
+			+"<ul>Added crotch-nipple recolouring options to Kate's shop.</ul>"
+			+"<ul>Crotch-boob tansformations will now set the shape to the associated race's default type. (i.e. Applying a 'bovine crotch boob' transformation to someone will now give them udders.)</ul>"
+			+"<ul>Added unicorn, pegasus, and alicorn morphs as encounters, both in the nightclub, and in Dominion's alleyways. (In the alleyways they are rare to find, with alicorns being extremely rare.)</ul>"
+			+"<ul>Added an 'All items' view to the debug menu (action 5), from which you can see all item's ids, as well as spawn them in by clicking on them.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed the 'Limit++' button in enchantment menu not working.</ul>"
+			+"<ul>Fixed issue where clothing would sometimes be duplicating when managing your inventory or enchanting items.</ul>"
+			+"<ul>Fixed numerous grammatical and parsing errors in sex descriptions.</ul>"
+			+"<ul>Fixed incorrect orgasm description in the mating press (bottom) sex position.</ul>"
+			+"<ul>You can no longer manage inventories while about to orgasm or preparing for a partner's orgasm, as doing so was causing some issues with the AI.</ul>"
+			+"<ul>Fixed issue with offspring's willingness to allow you to manage their inventory being reversed (they would allow you manage it at all affection levels other than the maximum one).</ul>"
+			+"<ul>NPCs who appear to attack you on the streets of DOminion during an arcane storm will now correctly be removed from the tile if you escape from combat with them.</ul>"
+			+"<ul>Fixed description of starting sex with a slave saying that they'd been ordered to crawl when they hadn't, and not crawling when they had.</ul>"
+			+"<ul>Fixed slaves in stocks being able to perform 'self' actions in sex, such as fingering.</ul>"
+			+"<ul>Fixed issue related to half-demon names where the game could bug out, resulting in UI elements breaking.</ul>"
+			+"<ul>Slightly lowered values at which you can use certain actions when talking to Nyan so that they're correctly associated with the game's affection levels.</ul>"
+			+"<ul>Fixed bug in sex AI where it was not possible for NPCs to generate a preference for receiving vaginal sex if they had other preferences that can compete with it. (This is what was causing Nyan to want to always receive anal sex.)</ul>"
+			+"<ul>Nyan is now correctly limited to receiving one gift per day, as well as only having sex once per day (as she is busy running her shop).</ul>"
+			+"<ul>The tracking of Nyan's dialogue limitations (i.e. one action per day) is now correctly preserved upon saving/loading.</ul>"
+			+"<ul>Fixed the 'restrict/permit positioning' actions in sex not working.</ul>"
+			+"<ul>Fixed orifice recovery times being a lot slower than intended. (The rate of recovery at all levels has been doubled.)</ul>"
+			+"<ul>NPCs will now correctly end sex if they aren't enjoying it. (Provided they have the necessary level of control.)</ul>"
+			+"<ul>Fixed inconsistent and incorrect capitalisation of 'mom' and 'dad' when used in your offspring's speech.</ul>"
+			+"<ul>Fixed parsing errors related to clothing blocking crotch boobs, as well as clothing rubbing against body parts being identified as your highest layer of clothing, instead of lowest.</ul>"
+			+"<ul>Fixed masculine characters' toes using feminine descriptors.</ul>"
+			+"<ul>Fixed slavery overview's event log tracking all events as though they were occurring on day 1.</ul>"
+			+"<ul>The spell 'siren's call' now correctly applies the initial physical component of its spell damage. (It was only applying damage from the resulting status effect before.)</ul>"
+			+"<ul>Lust damage taken from masochist/sadist fetishes during combat is now displayed as a rounded decimal.</ul>"
+			+"<ul>Sex scenes now correctly start with you in the pace that was chosen.</ul>"
+			+"<ul>Rental Mommy interaction is now correctly disabled during an arcane storm.</ul>"
+			+"<ul>Fixed issue upon loading a game where energy, aura, and lust would be altered from the values at which they were saved.</ul>"
+			+"<ul>You can no longer have more milk or cum stored in your breasts/testicles than their maximum storage values.</ul>"
+			+"<ul>All 'seals X body part' tagged clothing (such as the 'anal-only pastie') now correctly seals the related body part in order to stop fluids leaking out. The 'seals vagina' tag now also seals the vaginal urethra.</ul>"
+			+"<ul>Fixed offspring created during Lilaya's or Meraxis's demon TF not being marked as demons in the phone's pregnancy stats screen. (This fix will unfortunately not retroactively apply to your save.)</ul>"
+			+"<ul>Fixed issue with descriptions of crotch boobs being displayed in certain cases (such as when removing an NPC's clothing), even if you had that option turned off.</ul>"
+			+"<ul>Fixed issue where setting a name for your slaves to call you by wasn't working.</ul>"
+			+"<ul>Fixed issue where Lyssieth's name would sometimes not be displayed when the player was using it within speech.</ul>"
+			+"<ul>Fixed the 'pet' character in Amber's walking scene being able to kiss you while mounting.</ul>"
+			+"<ul>Fixed issues in the 'pet' sex in Amber's walking scene, the start of pregnancy roulette scenes, and several scenes in the imp fortress, where starting sex would cause the game to hang and eventually crash.</ul>"
+			+"<ul>Fixed issue where characters would not be identified as unicorn-mophs or alicorn-morphs (and their taur variants) if the number of horns was the last transformation they underwent.</ul>"
+			+"<ul>Imps in Submission's fortresses and associated tunnels can no longer be enslaved, as it was causing issues with the resulting dialogue. I will come back and add support for this later, but I didn't have time for anything other than this quick fix for this version.</ul>"
+			+"<ul>Fixed issue where upon loading a saved game, some attributes might end up being randomised. (Most noticeable when setting an NPC's corruption to 0, and upon loading the game, they would have a random, non-0 corruption value.)</ul>"
+			+"<ul>Fixed isssue with the threesome scenes in slave rooms only working if you had a companion with you. It now works if there are two slaves in the room.</ul>"
+			+"<ul>The demon rulers of the imp fortresses will stop dropping keys after you've gained access to the siren's citadel. This should also result in their alternate dialogues being seen after beating them.</ul>"
+			+"<ul>Fixed issue with NPCs who hated the masturbation fetish still choosing to perform self actions during sex. (Which was resulting in them quickly hating the sex.)</ul>"
 		+ "</list>"
 	;
 	

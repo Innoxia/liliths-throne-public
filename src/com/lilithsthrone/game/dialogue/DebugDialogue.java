@@ -149,10 +149,10 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==5 && Main.DEBUG) {
-					return new Response("All items", "View icons of all the clothing, weapon, and items in the game. <i>Warning: Very sluggish and slow to load.</i>", ALL_ITEMS_VIEW);
+				} else if(index==5) {
+					return new Response("All items", "View icons and ids of all the clothing, weapon, and items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>", ALL_ITEMS_VIEW);
 					
-				}  else if (index == 6) {
+				} else if (index == 6) {
 					return new Response("Spawn Menu", "View the clothing, weapon, and item spawn menu.", SPAWN_MENU);
 					
 				} else if (index == 7) {
@@ -619,20 +619,17 @@ public class DebugDialogue {
 	public static final DialogueNode ALL_ITEMS_VIEW = new DialogueNode("", "", false) {
 
 		@Override
-		public String getHeaderContent() {
+		public String getContent() {
 			inventorySB.setLength(0);
 			
-			inventorySB.append(
-					"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
-						+ (activeSlot==null ?
-								"<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
-								:(activeSlot == InventorySlot.WEAPON_MAIN || activeSlot == InventorySlot.WEAPON_OFFHAND
-									? "<b style='color:"+Colour.BASE_RED_LIGHT.toWebHexString()+";'>Spawn Weapon</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"
-									: "<b style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>Spawn Clothing</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"))
-					+"</p>");
+			int width = 33;
+			if(Main.primaryStage.getWidth()>=1900) {
+				width = 25;
+			}
+			int imgWidth = 15;
 			
 			int count=0;
-			inventorySB.append("<div class='inventory-not-equipped'>");
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>");
 			for(AbstractItemType itemType : itemsTotal) {
 				if((itemTag==null
 						&& (!itemType.getItemTags().contains(ItemTag.BOOK)
@@ -642,29 +639,41 @@ public class DebugDialogue {
 						|| (itemTag!=null
 							&& (itemType.getItemTags().contains(itemTag)
 									|| (itemTag==ItemTag.SPELL_BOOK && itemType.getItemTags().contains(ItemTag.SPELL_SCROLL))))) {
-					inventorySB.append("<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "' style='width:5%'>"
-											+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
-											+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+											+ "<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+												+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+												+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+											+ "</div>"
+											+ ItemType.getItemToIdMap().get(itemType)
 										+ "</div>");
 				}
 				count++;
 			}
-			
+			inventorySB.append("</div>");
+
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Weapons: "+weaponsTotal.size()+" items</h5>");
 			for(AbstractWeaponType weaponType : weaponsTotal) {
-				inventorySB.append("<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "' style='width:5%'>"
-										+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
-												weaponType.getAvailableDamageTypes().get(0),
-												weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
-												weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
-										+"</div>"
-										+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+										+ "<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+											+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
+													weaponType.getAvailableDamageTypes().get(0),
+													weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
+													weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
+											+"</div>"
+											+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+										+ "</div>"
+										+ WeaponType.getIdFromWeaponType(weaponType)
 									+ "</div>");
 				count++;
 			}
-			
-			System.out.println(clothingTotal.size());
+			inventorySB.append("</div>");
+
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Clothing: "+clothingTotal.size()+" items</h5>");
 			for(AbstractClothingType clothingType : clothingTotal) {
-				inventorySB.append("<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:5%'>"
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+									+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
 										+ "<div class='inventory-icon-content'>"
 											+clothingType.getSVGImage(
 												Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
@@ -673,7 +682,9 @@ public class DebugDialogue {
 												null, null, null, null)
 										+"</div>"
 										+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
-									+ "</div>");
+									+ "</div>"
+									+ ClothingType.getIdFromClothingType(clothingType)
+								+ "</div>");
 				count++;
 			}
 			
@@ -685,11 +696,6 @@ public class DebugDialogue {
 			
 			
 			return inventorySB.toString();
-		}
-
-		@Override
-		public String getContent() {
-			return "";
 		}
 
 		@Override

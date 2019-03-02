@@ -349,6 +349,13 @@ public enum Units {
     }
 
     /**
+     * Shortcut for {@link Units#fluid(double, ValueType, UnitType)} with short units.
+     */
+    public static String fluid(double ml, ValueType vType) {
+        return fluid(ml, vType, UnitType.SHORT);
+    }
+    
+    /**
      * Formats a fluid volume, given in millilitres, with the current number formatter and units depending on the
      * imperial unit setting as well as the given type.
      * @param ml Amount of millilitres to convert

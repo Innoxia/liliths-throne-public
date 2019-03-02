@@ -818,7 +818,6 @@ public class AlleywayAttackerDialogue {
 			} else {
 				return null;
 			}
-			
 		}
 	};
 	
