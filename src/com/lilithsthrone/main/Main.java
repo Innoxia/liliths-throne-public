@@ -93,14 +93,6 @@ public class Main extends Application {
 			+ " and NPC denial behaviour done (along with many bug fixes and other things), I didn't manage to get the centaur encounter done."
 			+ " That will be finished for the next release."
 		+ "</p>"
-		+ "<p>"
-			+ "I apologise for the lack of communication over this past week, and I will try to do better going forwards."
-			+ " I will also look into changing my release schedule, as this current routine I'm trying out is clearly not the best."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "<i>v0.3.01:</i> This mini hotfixed version was released shortly after 0.3.1 to fix a bug where you would be unable to orgasm during sex."
-		+ "</p>"
 			
 		+ "<br/>"
 			
