@@ -507,7 +507,7 @@ public enum Units {
         value = roundTo(Math.abs(value), 0.25);
         double floor = Math.floor(value);
 
-        if (value == floor) return number(floor);
+        if (value == floor) return (negative ? '-' : "") + number(floor);
 
         int quarters = (int) Math.round((value - floor) / 0.25);
         return (negative ? '-' : "") + (floor == 0 ? "" : number(floor)) + getQuarterSymbol(quarters);
