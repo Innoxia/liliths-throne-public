@@ -22,10 +22,12 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -46,8 +48,6 @@ public class NPCOffspring extends NPC {
 		super(isImported, null, null, "",
 				18, Month.JUNE, 15,
 				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-		
-		this.setEnslavementDialogue(GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 	}
 	
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
@@ -108,8 +108,6 @@ public class NPCOffspring extends NPC {
 		
 		CharacterUtils.applyMakeup(this, true);
 
-		this.setEnslavementDialogue(GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE);
-		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 	}
@@ -119,7 +117,6 @@ public class NPCOffspring extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		this.setEnslavementDialogue(GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 		
 		if(this.getConceptionDate().isAfter(this.getBirthday())) {
 			this.setBirthday(this.getConceptionDate().plusMonths(2));
@@ -129,6 +126,19 @@ public class NPCOffspring extends NPC {
 		}
 	}
 
+	@Override
+	public DialogueNode getEnslavementDialogue(AbstractClothing enslavementClothing) {
+		SlaveDialogue.setEnslavementTarget(this);
+		this.enslavementClothing = enslavementClothing;
+		
+		return GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE;
+	}
+	
+	@Override
+	public boolean isAbleToBeEnslaved() {
+		return this.getSubspecies()!=Subspecies.DEMON;
+	}
+	
 	@Override
 	public void setStartingBody(boolean setPersona) {
 		// Not needed
@@ -148,30 +158,6 @@ public class NPCOffspring extends NPC {
 	public boolean isPlayerOnFirstNameTerms() {
 		return true;
 	}
-	
-//	@Override
-//	public String getPetName(GameCharacter character) {
-//		if(character.isPlayer()) {
-//			String playerPetName = getPetNameMap().get(Main.game.getPlayer().getId());
-//			if(playerPetName==null || playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
-//				if(Main.game.getPlayer().isFeminine()) {
-//					return "Mom";
-//				} else {
-//					return "Dad";
-//				}
-//				
-//			} else if (playerPetName.equalsIgnoreCase("Mommy") || playerPetName.equalsIgnoreCase("Daddy")) {
-//				if(Main.game.getPlayer().isFeminine()) {
-//					return "Mommy";
-//				} else {
-//					return "Daddy";
-//				}
-//			} else {
-//				return playerPetName;
-//			}
-//		}
-//		return super.getPetName(character);
-//	}
 	
 	private String getRelationshipFromPlayer() {
 		Set<Relationship> rel = Main.game.getPlayer().getRelationshipsTo(this);

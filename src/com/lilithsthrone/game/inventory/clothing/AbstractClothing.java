@@ -162,12 +162,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(super.equals(o)){
 			if(o instanceof AbstractClothing){
 				if(((AbstractClothing)o).getClothingType().equals(getClothingType())
-						&& ((AbstractClothing)o).getSecondaryColour()==secondaryColour
-						&& ((AbstractClothing)o).getTertiaryColour()==tertiaryColour
+						&& ((AbstractClothing)o).getSecondaryColour()==getSecondaryColour()
+						&& ((AbstractClothing)o).getTertiaryColour()==getTertiaryColour()
 						&& ((AbstractClothing)o).getPattern().equals(getPattern())
 						&& ((AbstractClothing)o).isSealed()==this.isSealed()
-						&& ((AbstractClothing)o).isDirty()==cummedIn
-						&& ((AbstractClothing)o).isEnchantmentKnown()==enchantmentKnown
+						&& ((AbstractClothing)o).isDirty()==this.isDirty()
+						&& ((AbstractClothing)o).isEnchantmentKnown()==this.isEnchantmentKnown()
 						&& ((AbstractClothing)o).isBadEnchantment()==this.isBadEnchantment()
 						&& ((AbstractClothing)o).getEffects().equals(this.getEffects())
 						){
@@ -190,8 +190,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		}
 		result = 31 * result + getPattern().hashCode();
 		result = 31 * result + (this.isSealed() ? 1 : 0);
-		result = 31 * result + (cummedIn ? 1 : 0);
-		result = 31 * result + (enchantmentKnown ? 1 : 0);
+		result = 31 * result + (this.isDirty() ? 1 : 0);
+		result = 31 * result + (this.isEnchantmentKnown() ? 1 : 0);
 		result = 31 * result + (this.isBadEnchantment() ? 1 : 0);
 		result = 31 * result + this.getEffects().hashCode();
 		return result;

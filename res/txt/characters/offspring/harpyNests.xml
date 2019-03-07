@@ -319,7 +319,7 @@
 				You continue with this for some time, and as you press your [npc.daughter] back against the wall, your [pc.hands] start to move down over [npc.her] body, eagerly groping, stroking, and squeezing every [unit.size] of [npc.her] body that's within your reach. Eventually, you feel as though you should give [npc.herHim] a chance to say something, and after planting one last wet kiss on [npc.her] [npc.lips+], you pull back, smiling.
 			</p>
 			<p>
-				[npc.speech([npc.pcName]... That was...)] [npc.she] pants, wiping the excess saliva from [npc.her] mouth. [npc.speech(Wow...)]
+				[npc.speech([pc.Name]... That was...)] [npc.she] pants, wiping the excess saliva from [npc.her] mouth. [npc.speech(Wow...)]
 			</p>
 			<p>
 				You can't help but laugh at [npc.namePos] stunned reaction, [pc.speech(Haha, you like that sort of greeting then?)]
@@ -338,7 +338,7 @@
 				As the initial shock wears off, [npc.name] starts to struggle, and desperately pushes you away from [npc.herHim]. Taking the opportunity to plant one last wet kiss on [npc.her] [npc.lips+], you then allow yourself to be pushed away, and let out a little laugh as you see the startled expression on your [npc.daughter]'s face.
 			</p>
 			<p>
-				[npc.speech([npc.pcName]! What was that?!)] [npc.she] pants, wiping the excess saliva from [npc.her] mouth. [npc.speech(Y-You can't greet your [npc.daughter] like that!)]
+				[npc.speech([pc.Name]! What was that?!)] [npc.she] pants, wiping the excess saliva from [npc.her] mouth. [npc.speech(Y-You can't greet your [npc.daughter] like that!)]
 			</p>
 			<p>
 				You can't help but continue to smile at [npc.namePos] reaction. [pc.speech(Aw, sorry [npc.name], I just wanted to show you how much I love you!)]
@@ -381,7 +381,7 @@
 				As the initial shock wears off, [npc.name] starts to struggle, and desperately pushes you away from [npc.herHim]. Taking the opportunity to plant one last wet kiss on [npc.her] [npc.lips+], you then allow yourself to be pushed away, and let out a little laugh as you see the startled expression on your [npc.daughter]'s face.
 			</p>
 			<p>
-				[npc.speech([npc.pcName]! What was that?!)] [npc.she] pants, wiping the excess saliva from [npc.her] mouth. [npc.speech(Y-You can't greet your [npc.daughter] like that!)]
+				[npc.speech([pc.Name]! What was that?!)] [npc.she] pants, wiping the excess saliva from [npc.her] mouth. [npc.speech(Y-You can't greet your [npc.daughter] like that!)]
 			</p>
 			<p>
 				You can't help but continue to smile at [npc.namePos] reaction. [pc.speech(Aw, sorry [npc.name], I just wanted to show you how much I love you!)]
@@ -482,29 +482,28 @@
 		You don't really have time to stop and talk with [npc.name] at the moment, and you tell [npc.herHim] as much, [pc.speech(This isn't the best time for me right now, I'll come back later.)]
 	</p>
 
-	// Taking into account player not apologised for attack/rape:
 	#IF(npc.hasFlag(NPC_FLAG_flagOffspringFightApologyNeeded) || npc.hasFlag(NPC_FLAG_flagOffspringRapeApologyNeeded))
 		<p>
 			#IF(affection<AFFECTION_NEGATIVE_THREE_STRONG_DISLIKE.getMaximumValue())
 				Letting out an angry snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,
 				#IF(npc.isExtroverted() || npc.isNeurotic())
-					[npc.speech(Fine, fuck off then! See if I care! Don't bother coming back unless you're gonna apologise!)]
+					 [npc.speech(Fine, fuck off then! See if I care! Don't bother coming back unless you're gonna apologise!)]
 				#ELSE
-					[npc.speech(Eugh, fine! See if I care! Oh, and don't bother coming back unless you're gonna apologise!)]
+					 [npc.speech(Eugh, fine! See if I care! Oh, and don't bother coming back unless you're gonna apologise!)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_NEGATIVE_ONE_ANNOYED.getMaximumValue())
 				Letting out a dismissive snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,
 				#IF(npc.isExtroverted() || npc.isNeurotic())
-					[npc.speech(Fine, see you later! And you'd better be ready to apologise by then!)]
+					 [npc.speech(Fine, see you later! And you'd better be ready to apologise by then!)]
 				#ELSE
-					[npc.speech(Fine, see you later! I'm expecting an apology when you return!)])
+					 [npc.speech(Fine, see you later! I'm expecting an apology when you return!)])
 				#ENDIF
 			#ELSE
 				Letting out a disappointed whine, your [npc.daughter] reluctantly accepts your excuse to leave.
 				#IF(npc.isExtroverted() || npc.isNeurotic())
-					[npc.speech(Ok then... I'll see you later!)]
+					 [npc.speech(Ok then... I'll see you later!)]
 				#ELSE
-					[npc.speech(Ok then... I'll see you later I guess...)])
+					 [npc.speech(Ok then... I'll see you later I guess...)])
 				#ENDIF
 			#ENDIF
 		</p>
@@ -644,7 +643,7 @@
 			#IF(npc.isExtroverted())
 				[npc.speech(Thanks, [npc.pcName]!)]
 			#ELSE
-				[npc.speech([npc.pcName]... You're embarrassing me...)]
+				[npc.speech([pc.Name]... You're embarrassing me...)]
 			#ENDIF
 			 [npc.name] replies, locking the door after you and motioning for you to take a seat, before heading over to the kitchen to make you a drink. After just a moment [npc.she] returns, and sits down on the sofa next to you. [npc.speech(So, what do you want to talk about? I only have a little while before I need to get back to... erm... 'work', but let's make the most of our time together!)]
 		</p>			
@@ -665,7 +664,7 @@
 			#IF(npc.isExtroverted())
 				[npc.speech(Thanks, [npc.pcName], I'm doing my best!)]
 			#ELSE
-				[npc.speech([npc.pcName]... You're embarrassing me again...)]
+				[npc.speech([pc.Name]... You're embarrassing me again...)]
 			#ENDIF
 			 [npc.name] replies, locking the door after you and motioning for you to take your usual seat, before heading over to the kitchen to fetch some refreshments. After just a moment [npc.she] returns, and sits down on the sofa next to you. [npc.speech(So, what do you want to talk about? I only have a little while before I need to get back to... erm... 'work', but let's make the most of our time together!)]
 		</p>
@@ -794,24 +793,23 @@
 	<p>
 		#IF(affection<AFFECTION_ZERO_NEUTRAL.getMaximumValue())
 			After a short while, [npc.she] offers you another drink, and after happily accepting, you sit with your [npc.daughter] on the sofa in [npc.her] apartment, talking away as though you've known each other forever.
-		// TODO improve the following:
 		#ELSEIF (affection<AFFECTION_POSITIVE_ONE_FRIENDLY.getMaximumValue())
 			#IF(npc.isExtroverted())
-				After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down right beside you on the sofa, smiling in a friendly manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
+				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down right beside you on the sofa, smiling in a friendly manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ELSE
-				After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down beside you on the sofa, smiling in a friendly manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
+				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down beside you on the sofa, smiling in a friendly manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ENDIF
 		#ELSEIF (affection<AFFECTION_POSITIVE_THREE_CARING.getMaximumValue())
 			#IF(npc.isExtroverted())
-				After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down right beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
+				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down right beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ELSE
-				After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
+				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ENDIF
 		#ELSE
 			#IF(npc.isExtroverted())
-				After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down right beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
+				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down right beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ELSE
-				After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
+				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ENDIF
 		#ENDIF
 	</p>
@@ -876,7 +874,7 @@
 		</p>
 	#ELSE
 		<p>
-			[npc.Name] backs away from you with a very worried look on [npc.her] face. [npc.speech([npc.pcName]?! What the hell?! I'm not going to have sex with my own [pc.mother]!)]
+			[npc.Name] backs away from you with a very worried look on [npc.her] face. [npc.speech([pc.Name]?! What the hell?! I'm not going to have sex with my own [pc.mother]!)]
 		</p>
 		<p>
 			#IF(pc.isFeminine())You pout#ELSEYou frown#ENDIF at your [npc.daughter], upset that [npc.sheIs] not interested in what you had in mind, [pc.speech(Well, the offer's out there, if you ever change your mind.)]
@@ -920,7 +918,7 @@
 		Deciding that it would be nice to give your [npc.daughter] a present this Yuletide, you hold out the gift towards [npc.herHim]. [pc.speech(This is for you, [npc.name]. Happy Yuletide!)]
 	</p>
 	<p>
-		[npc.Name] lets out a little gasp as you give [npc.herHim] the present, and, looking up into your [pc.eyes], [npc.she] cries out, [npc.speech([npc.pcName]! Thank you so much! I-I don't know what to say!)]
+		[npc.Name] lets out a little gasp as you give [npc.herHim] the present, and, looking up into your [pc.eyes], [npc.she] cries out, [npc.speech([pc.Name]! Thank you so much! I-I don't know what to say!)]
 	</p>
 	<p>
 		Choosing to express [npc.her] gratitude in a more physical form, [npc.name] places the present to one side, before moving up next to you and pulling you into a loving hug. You return your [npc.daughter]'s warm embrace, and spend a few moments pressing your body against [npc.hers] as you both share in a loving moment together.
@@ -995,7 +993,7 @@
 		Reaching down, you grab [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace.
 	</p>
 	<p>
-		[npc.speech([npc.pcName]! No! Please!)]
+		[npc.speech([pc.Name]! No! Please!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1015,7 +1013,7 @@
 		Reaching down, you take hold of [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace.
 	</p>
 	<p>
-		[npc.speech([npc.pcName]! No! Please!)]
+		[npc.speech([pc.Name]! No! Please!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1035,7 +1033,7 @@
 		Reaching down, you grab [npc.namePos] [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace.
 	</p>
 	<p>
-		[npc.speech([npc.pcName]! No! Please!)]
+		[npc.speech([pc.Name]! No! Please!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1195,7 +1193,7 @@
 				As you step back from [npc.name], [npc.she] grabs on to the edge of the sofa and sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
 			</p>
 			<p>
-				[npc.speech([npc.pcName]! I'm still horny!)] [npc.she] whines.
+				[npc.speech([pc.Name]! I'm still horny!)] [npc.she] whines.
 			</p>
 		#ENDIF
 	#ELSE
@@ -1215,7 +1213,7 @@
 				As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
 			</p>
 			<p>
-				[npc.speech([npc.pcName]! I'm still horny!)] [npc.she] whines.
+				[npc.speech([pc.Name]! I'm still horny!)] [npc.she] whines.
 			</p>
 		#ENDIF
 	#ENDIF
@@ -1309,7 +1307,7 @@
 	<p>
 		You can't bear to let any [npc.relation(pc)] of yours continue to live in such squalid conditions, and so you say, [pc.speech([npc.Name], I really don't think living here is good for you. I want you to move in with me, so that you can live in comfort until you get your life back on track.)]
 	</p>
-	<p>// Their reaction, based on affection & if they were born in Lilaya's home:
+	<p>
 		#IF(affection<AFFECTION_NEGATIVE_ONE_ANNOYED.getMaximumValue())
 			[npc.speech(Really? After how you've treated me?)] [npc.name] asks, crossing [npc.her] [npc.arms] and letting out an exasperated sigh,
 			#IF(npc.getMother()!=null && npc.getMother().isPlayer())

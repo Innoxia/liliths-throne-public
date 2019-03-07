@@ -2,6 +2,7 @@ package com.lilithsthrone.game.inventory;
 
 import java.util.List;
 
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -169,7 +170,16 @@ public enum ItemTag {
 	SEALS_VAGINA( // Counts as sealing, but not inserted into, the wearer's vagina. E.g. Tape
 			Util.newArrayListOfValues(
 					"[style.colourSex(Seals pussy)]"),
-			true),
+			true) {
+		@Override
+		public List<String> getClothingTooltipAdditions() {
+			if(Main.game.isUrethraEnabled()) {
+				return Util.newArrayListOfValues("[style.colourSex(Seals pussy (including urethra))]");
+			} else {
+				return Util.newArrayListOfValues("[style.colourSex(Seals pussy)]");
+			}
+		}
+	},
 	
 	PLUGS_NIPPLES( // Counts as being inserted into the wearer's nipples. E.g. insertable nipple-dildos
 			Util.newArrayListOfValues(

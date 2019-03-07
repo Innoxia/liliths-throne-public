@@ -15,55 +15,55 @@ public enum OrificePlasticity {
 
 	/**Instantly returns to starting value after sex.*/
 	ZERO_RUBBERY("rubbery",
-			"instantly returns to its original capacity",
-			"instantly return to their original capacity",
+			"[style.colourPlasticity(instantly recovers all of its original capacity)]",
+			"[style.colourPlasticity(instantly return to their original capacity)]",
 			0, 0, 100, Colour.GENERIC_SIZE_ONE),
 
-	/**Quickly returns to starting value after sex, at a rate of 1 inch per 30 minutes.*/
+	/**Quickly returns to starting value after sex, at a rate of 2 cm per 30 minutes.*/
 	ONE_SPRINGY("springy",
-			"recovers its original capacity at a very rapid rate",
-			"recover their original capacity at a very rapid rate",
-			1, 0, 1/(60*30f), Colour.GENERIC_SIZE_TWO),
+			"[style.colourPlasticity(very rapidly recovers all of its original capacity)]",
+			"[style.colourPlasticity(very rapidly recover all of their original capacity)]",
+			1, 0, 2/(60*30f), Colour.GENERIC_SIZE_TWO),
 
-	/**Returns to starting value after sex, at a rate of 1 inch per hour.*/
+	/**Returns to starting value after sex, at a rate of 2 cm per hour.*/
 	TWO_TENSILE("tensile",
-			"recovers its original capacity at a modest rate",
-			"recover their original capacity at a modest rate",
-			2, 0, 1/(60*60f), Colour.GENERIC_SIZE_THREE),
+			"[style.colourPlasticity(recovers all of its original capacity at a modest rate)]",
+			"[style.colourPlasticity(recover all of their original capacity at a modest rate)]",
+			2, 0, 2/(60*60f), Colour.GENERIC_SIZE_THREE),
 
 	/*-------NORMAL:---------*/
 
-	/**Normal value, along with FOUR_ACCOMMODATING. Will slowly return to starting value after sex, at a rate of 1 inch per 3 hours.*/
+	/**Normal value, along with FOUR_ACCOMMODATING. Will slowly return to starting value after sex, at a rate of 2 cm per 3 hours.*/
 	THREE_RESILIENT("resilient",
-			"slowly recovers all of its original capacity",
-			"slowly recover all of their original capacity",
-			3, 0, 1/(60*60f*4), Colour.GENERIC_SIZE_FOUR),
+			"[style.colourPlasticity(slowly recovers all of its original capacity)]",
+			"[style.colourPlasticity(slowly recover all of their original capacity)]",
+			3, 0, 2/(60*60f*4), Colour.GENERIC_SIZE_FOUR),
 
-	/**Normal value, along with THREE_RESILIENT. Will very slowly return to starting value after sex, at a rate of 1 inch per 12 hours.*/
+	/**Normal value, along with THREE_RESILIENT. Will very slowly return to starting value after sex, at a rate of 2 cm per 12 hours.*/
 	FOUR_ACCOMMODATING("accommodating",
-			"very slowly recovers all of its original capacity",
-			"very slowly recover all of their original capacity",
-			4, 0, 1/(60*60f*12), Colour.GENERIC_SIZE_FIVE),
+			"[style.colourPlasticity(very slowly recovers all of its original capacity)]",
+			"[style.colourPlasticity(very slowly recover all of their original capacity)]",
+			4, 0, 2/(60*60f*12), Colour.GENERIC_SIZE_FIVE),
 
 	/*-------STRETCHY:---------*/
 
-	/**Will recover about 80% of its original size after sex, at a rate of 1 inch per 24 hours.*/
+	/**Will recover about 80% of its original size after sex, at a rate of 2 cm per 24 hours.*/
 	FIVE_YIELDING("yielding",
-			"very slowly recovers [style.italicsMinorBad(most, not all)], of its original capacity",
-			"very slowly recover [style.italicsMinorBad(most, not all)], of their original capacity",
-			5, 0.2f, 1/(60*60f*24), Colour.GENERIC_SIZE_SIX),
+			"[style.colourPlasticity(very slowly recovers [style.italicsMinorBad(most, not all)], of its original capacity)]",
+			"[style.colourPlasticity(very slowly recover [style.italicsMinorBad(most, not all)], of their original capacity)]",
+			5, 0.2f, 2/(60*60f*24), Colour.GENERIC_SIZE_SIX),
 
-	/**Will only recover about 40% of its original size after sex, at a rate of 1 inch per 24 hours.*/
+	/**Will only recover about 40% of its original size after sex, at a rate of 2 cm per 24 hours.*/
 	SIX_MALLEABLE("malleable",
-			"very slowly recovers [style.italicsBad(only a fraction)] of its original capacity",
-			"very slowly recover [style.italicsBad(only a fraction)] of their original capacity",
-			6, 0.6f, 1/(60*60f*24), Colour.GENERIC_SIZE_SEVEN),
+			"[style.colourPlasticity(very slowly recovers [style.italicsBad(only a fraction)] of its original capacity)]",
+			"[style.colourPlasticity(very slowly recover [style.italicsBad(only a fraction)] of their original capacity)]",
+			6, 0.6f, 2/(60*60f*24), Colour.GENERIC_SIZE_SEVEN),
 
 	/**Will recover none of its original size after sex.*/
 	SEVEN_MOULDABLE("mouldable",
-			"remains [style.italicsTerrible(permanently stretched)] and recovers none of its original capacity",
-			"remains [style.italicsTerrible(permanently stretched)] and recovers none of their original capacity",
-			7, 1, 1/(60*60f*24), Colour.GENERIC_SIZE_EIGHT);
+			"remains [style.italicsTerrible(permanently stretched)] [style.colourPlasticity(and recovers none of its original capacity)]",
+			"remains [style.italicsTerrible(permanently stretched)] [style.colourPlasticity(and recovers none of their original capacity)]",
+			7, 1, 2/(60*60f*24), Colour.GENERIC_SIZE_EIGHT);
 
 	
 	private String descriptor;

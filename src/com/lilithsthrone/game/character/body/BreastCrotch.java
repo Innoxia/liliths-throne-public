@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
+import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -155,6 +156,8 @@ public class BreastCrotch implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractBreastType type) {
+		this.shape = Util.randomItemFrom(RacialBody.valueOfRace(type.getRace()).getBreastCrotchShapes());
+		
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
 			nipples.setType(owner, type.getNippleType());

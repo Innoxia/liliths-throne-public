@@ -1360,7 +1360,7 @@ public class CharacterInventory implements XMLSaving {
 				}
 		}
 
-		if (continuingIsAbleToEquip) {
+		if (continuingIsAbleToEquip && !unequipIfAble) {
 			return true;
 		}
 		
@@ -1386,8 +1386,7 @@ public class CharacterInventory implements XMLSaving {
 
 		// If you want to unequip this clothing now:
 		if (unequipIfAble) {
-			// Sort clothing to remove in zLayer order(so you take off your
-			// shirt before removing bra etc.):
+			// Sort clothing to remove in zLayer order(so you take off your shirt before removing bra etc.):
 			List<AbstractClothing> tempClothingList = new ArrayList<>();
 			tempClothingList.addAll(clothingToRemove.keySet());
 			tempClothingList.sort(new ClothingZLayerComparator());
@@ -1429,7 +1428,6 @@ public class CharacterInventory implements XMLSaving {
 			}
 			
 			clothingCurrentlyEquipped.sort(new AbstractClothingRarityComparator());
-
 		}
 
 		return true;
@@ -1862,7 +1860,8 @@ public class CharacterInventory implements XMLSaving {
 				case CEPHALOPOD:
 				case TAIL:
 				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
-					return isAbleToAccessCoverableArea(character, CoverableArea.STOMACH, false);
+//					return isAbleToAccessCoverableArea(character, CoverableArea.STOMACH, false);
+					return isCoverableAreaExposed(character, CoverableArea.STOMACH, justVisible);
 				case TAUR:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
 					// Should only account for taur-specific clothing:
 					List<AbstractClothing> clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.THIGHS, false);
@@ -1911,26 +1910,34 @@ public class CharacterInventory implements XMLSaving {
 	 */
 	public AbstractClothing getLowestZLayerCoverableArea(GameCharacter character, CoverableArea area) {
 		AbstractClothing c = null;
-
-		for (AbstractClothing clothing : getBlockingCoverableAreaClothingList(character, area, false)) {
+		
+		List<AbstractClothing> clothingBlocking = null;
+		
+		if(area==CoverableArea.BREASTS_CROTCH || area==CoverableArea.NIPPLES_CROTCH) {
+			switch(character.getLegConfiguration()) {
+				case ARACHNID:
+				case BIPEDAL:
+				case CEPHALOPOD:
+				case TAIL:
+				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
+					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
+					break;
+				case TAUR:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
+					// Should only account for taur-specific clothing:
+					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.THIGHS, false);
+					clothingBlocking.removeIf(clothing -> !clothing.getItemTags().contains(ItemTag.FITS_TAUR_BODY) || clothing.getItemTags().contains(ItemTag.TRANSPARENT));
+					break;
+			}
+		} else {
+			clothingBlocking = getBlockingCoverableAreaClothingList(character, area, false);
+		}
+		
+		for (AbstractClothing clothing : clothingBlocking) {
 			if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer()) {
 				c = clothing;
 			}
+//			System.out.println(clothing.getName() + ": "+clothing.getClothingType().getzLayer() +", "+ c.getClothingType().getzLayer());
 		}
-		
-//		// Iterate through currently worn clothing:
-//		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-//			// If this clothing is blocking the slot you are trying to access:
-//			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList(character)) {
-//				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-//					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-//						// Replace if ZLayer is lower than previous found clothing:
-//						if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
-//							c = clothing;
-//					}
-//				}
-//			}
-//		}
 
 		return c;
 	}
@@ -1943,25 +1950,32 @@ public class CharacterInventory implements XMLSaving {
 	public AbstractClothing getHighestZLayerCoverableArea(GameCharacter character, CoverableArea area) {
 		AbstractClothing c = null;
 
-		for (AbstractClothing clothing : getBlockingCoverableAreaClothingList(character, area, false)) {
+		List<AbstractClothing> clothingBlocking = null;
+		
+		if(area==CoverableArea.BREASTS_CROTCH || area==CoverableArea.NIPPLES_CROTCH) {
+			switch(character.getLegConfiguration()) {
+				case ARACHNID:
+				case BIPEDAL:
+				case CEPHALOPOD:
+				case TAIL:
+				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
+					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
+					break;
+				case TAUR:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
+					// Should only account for taur-specific clothing:
+					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.THIGHS, false);
+					clothingBlocking.removeIf(clothing -> !clothing.getItemTags().contains(ItemTag.FITS_TAUR_BODY) || clothing.getItemTags().contains(ItemTag.TRANSPARENT));
+					break;
+			}
+		} else {
+			clothingBlocking = getBlockingCoverableAreaClothingList(character, area, false);
+		}
+		
+		for (AbstractClothing clothing : clothingBlocking) {
 			if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer()) {
 				c = clothing;
 			}
 		}
-		
-//		// Iterate through currently worn clothing:
-//		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-//			// If this clothing is blocking the slot you are trying to access:
-//			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList(character)) {
-//				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-//					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-//						// Replace if ZLayer is higher than previous found clothing:
-//						if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
-//							c = clothing;
-//					}
-//				}
-//			}
-//		}
 		
 		return c;
 	}

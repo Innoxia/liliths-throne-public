@@ -144,7 +144,7 @@ public class Elemental extends NPC {
 		this.setAgeAppearanceDifferenceToAppearAsAge(summoner.getAppearsAsAgeValue());
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setLegType(LegType.DEMON_COMMON);
 		if(summoner.getHornType().equals(HornType.NONE) || summoner.getHornType().getRace()==Race.DEMON) {
 			this.setHornType(summoner.getHornType());

@@ -536,17 +536,17 @@ public class FingerBreastsCrotch {
 						UtilText.nodeContentSB.append(" A trickle of [npc.crotchMilk] runs out into [npc.namePos] [npc.lowClothing(NIPPLES_CROTCH)] as [npc2.name] squeezes down on [npc.her] [npc.crotchNipples+].");
 						break;
 					case FOUR_LARGE_AMOUNT:
-						UtilText.nodeContentSB.append(" [npc.namePos] [npc.crotchMilk] starts to flow out into [npc.her] [npc.lowClothing(NIPPLES_CROTCH)],"
+						UtilText.nodeContentSB.append(" [npc.NamePos] [npc.crotchMilk] starts to flow out into [npc.her] [npc.lowClothing(NIPPLES_CROTCH)],"
 								+ " and [npc.she] [npc.moanVerb] as [npc.she] [npc.verb(feel)] it running down over [npc.her] [npc.crotchBoobs+].");
 						break;
 					case FIVE_VERY_LARGE_DROOLING:
-						UtilText.nodeContentSB.append(" [npc.namePos] [npc.crotchMilk] starts drooling out in a little stream into [npc.her] [npc.lowClothing(NIPPLES_CROTCH)] as [npc2.name] squeezes down on [npc.her] [npc.crotchNipples+].");
+						UtilText.nodeContentSB.append(" [npc.NamePos] [npc.crotchMilk] starts drooling out in a little stream into [npc.her] [npc.lowClothing(NIPPLES_CROTCH)] as [npc2.name] squeezes down on [npc.her] [npc.crotchNipples+].");
 						break;
 					case SIX_EXTREME_AMOUNT_DRIPPING:
-						UtilText.nodeContentSB.append(" [npc.namePos] [npc.crotchMilk] starts pouring out in a constant stream, quickly soaking [npc.her] [npc.lowClothing(NIPPLES_CROTCH)].");
+						UtilText.nodeContentSB.append(" [npc.NamePos] [npc.crotchMilk] starts pouring out in a constant stream, quickly soaking [npc.her] [npc.lowClothing(NIPPLES_CROTCH)].");
 						break;
 					case SEVEN_MONSTROUS_AMOUNT_POURING:
-						UtilText.nodeContentSB.append(" [npc.namePos] [npc.crotchMilk] starts pouring out in a heavy flow, quickly soaking [npc.her] [npc.lowClothing(NIPPLES_CROTCH)].");
+						UtilText.nodeContentSB.append(" [npc.NamePos] [npc.crotchMilk] starts pouring out in a heavy flow, quickly soaking [npc.her] [npc.lowClothing(NIPPLES_CROTCH)].");
 						break;
 					default:
 						break;

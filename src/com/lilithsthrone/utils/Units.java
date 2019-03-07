@@ -311,6 +311,11 @@ public enum Units {
                 case LONG:
                     output.append(" ").append(remainingInches > 1 ? "inches" : "inch");
                     break;
+				case LONG_SINGULAR: // Innoxia: I added these two case labels to remove the warning of this switch statement requiring them. I assume they're not used, but just in case, I copied over what is found in LONG:
+                    output.append(" ").append(remainingInches > 1 ? "inches" : "inch");
+					break;
+				case NONE:
+					break;
             }
         }
 
@@ -343,6 +348,13 @@ public enum Units {
         return fluid(ml, ValueType.NUMERIC, uType);
     }
 
+    /**
+     * Shortcut for {@link Units#fluid(double, ValueType, UnitType)} with short units.
+     */
+    public static String fluid(double ml, ValueType vType) {
+        return fluid(ml, vType, UnitType.SHORT);
+    }
+    
     /**
      * Formats a fluid volume, given in millilitres, with the current number formatter and units depending on the
      * imperial unit setting as well as the given type.

@@ -19,6 +19,7 @@ import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -3669,11 +3670,11 @@ public class InventoryDialogue {
 											null);
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC)) {
-									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing()) {
+									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing() && (!inventoryNPC.isSlave() || !inventoryNPC.getOwner().isPlayer())) {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 											@Override
 											public DialogueNode getNextDialogue() {
-												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+												if(inventoryNPC.getEnslavementDialogue(clothing)!=null) {//inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 													return inventoryNPC.getEnslavementDialogue(clothing);
 													
 												} else {
@@ -3682,12 +3683,13 @@ public class InventoryDialogue {
 											}
 											@Override
 											public void effects(){
-												if(!inventoryNPC.isAbleToBeEnslaved()) {
+												SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getSavedDialogueNode());
+												if(inventoryNPC.getEnslavementDialogue(clothing)==null) {
 													Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 												} else {
-													if(inventoryNPC.isSlave()) {
-														Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
-													}
+//													if(inventoryNPC.isSlave()) {
+//														Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
+//													}
 													equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
 												}
 											}
@@ -4267,11 +4269,11 @@ public class InventoryDialogue {
 											null);
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC)) {
-									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing()) {
+									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing() && (!inventoryNPC.isSlave() || !inventoryNPC.getOwner().isPlayer())) {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 											@Override
 											public DialogueNode getNextDialogue() {
-												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+												if(inventoryNPC.getEnslavementDialogue(clothing)!=null) {//inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 													return inventoryNPC.getEnslavementDialogue(clothing);
 													
 												} else {
@@ -4280,12 +4282,13 @@ public class InventoryDialogue {
 											}
 											@Override
 											public void effects(){
-												if(!inventoryNPC.isAbleToBeEnslaved()) {
+												SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getSavedDialogueNode());
+												if(inventoryNPC.getEnslavementDialogue(clothing)==null) {
 													Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 												} else {
-													if(inventoryNPC.isSlave()) {
-														Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
-													}
+//													if(inventoryNPC.isSlave()) {
+//														Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
+//													}
 													equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
 												}
 											}

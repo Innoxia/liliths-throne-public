@@ -1790,7 +1790,7 @@ public class ConChairTop {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[npc.Name] wraps [npc.her] [npc.tail+] around one of your [pc.legs], squeezing down tightly against your [pc.legSkin+] as [npc.she] smiles up at you.",
+					"[npc.Name] [npc.verb(wrap)] [npc.her] [npc.tail+] around one of your [pc.legs], squeezing down tightly against your [pc.legSkin+] as [npc.she] smiles up at you.",
 					
 					"[npc.NamePos] [npc.tail+] snakes its way around one of your [pc.legs], and as it squeezes down around your thigh, [npc.she] lets out a little [npc.moan].",
 					
@@ -1948,7 +1948,7 @@ public class ConChairTop {
 			descriptionSB.setLength(0);
 			
 
-			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly wraps [npc.her] [npc.legs+] around your lower back."
+			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly [npc.verb(wrap)] [npc.her] [npc.legs+] around your lower back."
 					+ " Letting out [npc.a_moan+], [npc.she] looks up into your [pc.eyes], [npc.speech(Come on, fuck me!)]"
 					+ "<br/><br/>"
 					+ "Before you can react, [npc.she] uses [npc.her] [npc.legs] to pull you forwards, letting out a delighted [npc.moan] as the [pc.cockHead+] of your [pc.cock+] slips inside [npc.her] [npc.pussy+].");
@@ -2012,7 +2012,7 @@ public class ConChairTop {
 			descriptionSB.setLength(0);
 			
 
-			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly wraps [npc.her] [npc.legs+] around your lower back."
+			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly [npc.verb(wrap)] [npc.her] [npc.legs+] around your lower back."
 					+ " Letting out [npc.a_moan+], [npc.she] looks up into your [pc.eyes], [npc.speech(Come on, fuck my cute little ass!)]"
 					+ "<br/><br/>"
 					+ "Before you can react, [npc.she] uses [npc.her] [npc.legs] to pull you forwards, letting out a delighted [npc.moan] as [npc.she] forces the [pc.cockHead+] of your [pc.cock+] into [npc.her] [npc.asshole+].");
@@ -2128,15 +2128,15 @@ public class ConChairTop {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Without any warning, [npc.name] suddenly wraps [npc.her] [npc.legs] around your lower back and pulls forwards, forcing you to bury your [pc.cock+] deep into [npc.her] [npc.pussy+]."
+					"Without any warning, [npc.name] suddenly [npc.verb(wrap)] [npc.her] [npc.legs] around your lower back and pulls forwards, forcing you to bury your [pc.cock+] deep into [npc.her] [npc.pussy+]."
 							+(Sex.getActivePartner().getVaginaType()==VaginaType.DEMON_COMMON?" [npc.She] giggles and holds you there for a moment, massaging your [pc.cock] with [npc.her] [npc.pussy]'s little tentacles, before finally releasing you.":""),
 					
 					"[npc.NamePos] [npc.legs+] suddenly reach up and wrap themselves around you."
 							+ " With one forceful pull, [npc.she] slams your [pc.cock+] deep into her needy [npc.pussy], letting out [npc.a_moan+] as [npc.she] leg-locks you for a few seconds before releasing you.",
 					
-					"[npc.Name] wraps [npc.her] [npc.legs] around you, pulling you playfully forwards as [npc.she] forces you to sink yourself deep into [npc.her] hungry [npc.pussy].",
+					"[npc.Name] [npc.verb(wrap)] [npc.her] [npc.legs] around you, pulling you playfully forwards as [npc.she] forces you to sink yourself deep into [npc.her] hungry [npc.pussy].",
 					
-					"[npc.Name] suddenly wraps [npc.her] [npc.legs+] around your lower back, before slowly, but firmly, pulling you forwards, forcing you to bury your [pc.cock+] deep in [npc.her] [npc.pussy+].");
+					"[npc.Name] suddenly [npc.verb(wrap)] [npc.her] [npc.legs+] around your lower back, before slowly, but firmly, pulling you forwards, forcing you to bury your [pc.cock+] deep in [npc.her] [npc.pussy+].");
 		}
 		
 	};

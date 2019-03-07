@@ -3169,8 +3169,7 @@ public class SexPositionBipeds {
 													SexActionPresets.tailToAllAreas,
 													SexActionPresets.tentacleToAllAreas,
 													SexActionPresets.vaginaToPenis,
-													SexActionPresets.assToPenis,
-													SexActionPresets.kissing),
+													SexActionPresets.assToPenis),
 											DOGGY_STYLE.getSexInteractions(SexSlotBipeds.DOGGY_ON_ALL_FOURS, SexSlotBipeds.DOGGY_BEHIND).getAvailableCumTargets())))),
 					new Value<>(
 							SexSlotBipeds.PET_MOUNTING_HUMPING,

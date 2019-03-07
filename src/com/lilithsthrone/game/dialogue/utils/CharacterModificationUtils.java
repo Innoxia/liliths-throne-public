@@ -1,5 +1,16 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Arm;
@@ -10,10 +21,73 @@ import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Horn;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Testicle;
-import com.lilithsthrone.game.character.body.types.*;
-import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.body.types.AbstractArmType;
+import com.lilithsthrone.game.character.body.types.AbstractAssType;
+import com.lilithsthrone.game.character.body.types.AbstractBreastType;
+import com.lilithsthrone.game.character.body.types.AbstractHornType;
+import com.lilithsthrone.game.character.body.types.AbstractLegType;
+import com.lilithsthrone.game.character.body.types.AntennaType;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.FootStructure;
+import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.Lactation;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
-import com.lilithsthrone.game.character.markings.*;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCountType;
+import com.lilithsthrone.game.character.markings.TattooCounter;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
+import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -30,20 +104,21 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Units.ValueType;
 import com.lilithsthrone.utils.Util;
-
-import java.time.Month;
-import java.time.format.TextStyle;
-import java.util.*;
 
 /**
  * @since 0.1.7?
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class CharacterModificationUtils {
 
 	private static StringBuilder contentSB = new StringBuilder();
+
+	public static final int FLUID_INCREMENT_SMALL = 5;
+	public static final int FLUID_INCREMENT_AVERAGE = 50;
+	public static final int FLUID_INCREMENT_LARGE = 500;
 	
 	public static String getStartDateDiv() {
 		contentSB.setLength(0);
@@ -650,13 +725,13 @@ public class CharacterModificationUtils {
 					+ "<div class='container-half-width'>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-5)+")]":"[style.boldBadMinor("+Units.fluid(-5)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-FLUID_INCREMENT_SMALL)+")]":"[style.boldBadMinor("+Units.fluid(-FLUID_INCREMENT_SMALL)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-50)+")]":"[style.boldBad("+Units.fluid(-50)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-FLUID_INCREMENT_AVERAGE)+")]":"[style.boldBad("+Units.fluid(-FLUID_INCREMENT_AVERAGE)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_HUGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-500)+")]":"[style.boldBad("+Units.fluid(-500)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-FLUID_INCREMENT_LARGE)+")]":"[style.boldBad("+Units.fluid(-FLUID_INCREMENT_LARGE)+")]")
 							+ "</div>"
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
@@ -664,13 +739,13 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(10)+")]":"[style.boldGoodMinor(+"+Units.fluid(10)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(FLUID_INCREMENT_SMALL)+")]":"[style.boldGoodMinor(+"+Units.fluid(FLUID_INCREMENT_SMALL)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(50)+")]":"[style.boldGood(+"+Units.fluid(50)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(FLUID_INCREMENT_AVERAGE)+")]":"[style.boldGood(+"+Units.fluid(FLUID_INCREMENT_AVERAGE)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_HUGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(500)+")]":"[style.boldGood(+"+Units.fluid(500)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(FLUID_INCREMENT_LARGE)+")]":"[style.boldGood(+"+Units.fluid(FLUID_INCREMENT_LARGE)+")]")
 							+ "</div>"
 						+ "</div>"
 					+ "</div>"
@@ -2073,6 +2148,14 @@ public class CharacterModificationUtils {
 				contentSB.toString(), true);
 	}
 	
+	public static int getLactationUpperLimit() {
+		if(Main.game.isInNewWorld()) {
+			return Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue();
+		} else {
+			return 150;
+		}
+	}
+	
 	public static String getSelfTransformLactationDiv() {
 		return applyFullVariableWrapperFluids("Lactation",
 				(BodyChanging.getTarget().isPlayer()
@@ -2080,9 +2163,13 @@ public class CharacterModificationUtils {
 				:UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] produces.")),
 				"MILK_PRODUCTION",
 				Util.capitaliseSentence(BodyChanging.getTarget().getBreastMilkStorage().getName())
-					+"<br/>("+BodyChanging.getTarget().getBreastRawMilkStorageValue()+"ml)",
+					+"<br/>("+Units.fluid(BodyChanging.getTarget().getBreastRawMilkStorageValue(), ValueType.PRECISE)+")",
 				BodyChanging.getTarget().getBreastRawMilkStorageValue()<=0,
-				BodyChanging.getTarget().getBreastRawMilkStorageValue()>=Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue());
+				BodyChanging.getTarget().getBreastRawMilkStorageValue()>=getLactationUpperLimit());
+	}
+	
+	public static int getLactationCrotchUpperLimit() {
+		return Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue();
 	}
 	
 	public static String getSelfTransformLactationCrotchDiv() {
@@ -2092,9 +2179,9 @@ public class CharacterModificationUtils {
 				:UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] produces.")),
 				"MILK_CROTCH_PRODUCTION",
 				Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchMilkStorage().getName())
-					+"<br/>("+BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()+"ml)",
+					+"<br/>("+Units.fluid(BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue(), ValueType.PRECISE)+")",
 				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()<=0,
-				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()>=Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue());
+				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()>=getLactationCrotchUpperLimit());
 	}
 
 	public static String getSelfTransformNippleElasticityDiv() {
@@ -2749,16 +2836,24 @@ public class CharacterModificationUtils {
 				contentSB.toString(), true);
 	}
 	
+	public static int getCumUpperLimit() {
+		if(Main.game.isInNewWorld()) {
+			return CumProduction.SEVEN_MONSTROUS.getMaximumValue();
+		} else {
+			return 30;
+		}
+	}
+	
 	public static String getSelfTransformCumProductionDiv() {
 		return applyFullVariableWrapperFluids("Cum Storage",
 				(BodyChanging.getTarget().isPlayer()
-			?"Change your maximum cum storage."
-			:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] maximum cum storage.")),
-			"CUM_PRODUCTION",
-			Util.capitaliseSentence(BodyChanging.getTarget().getPenisCumStorage().getName())
-				+"<br/>("+Units.fluid(BodyChanging.getTarget().getPenisRawCumStorageValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT)+")",
-			BodyChanging.getTarget().getPenisRawCumStorageValue()<=0,
-			BodyChanging.getTarget().getPenisRawCumStorageValue()>=CumProduction.SEVEN_MONSTROUS.getMaximumValue());
+					?"Change your maximum cum storage."
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] maximum cum storage.")),
+				"CUM_PRODUCTION",
+				Util.capitaliseSentence(BodyChanging.getTarget().getPenisCumStorage().getName())
+					+"<br/>("+Units.fluid(BodyChanging.getTarget().getPenisRawCumStorageValue(), ValueType.PRECISE)+")",
+				BodyChanging.getTarget().getPenisRawCumStorageValue()<=0,
+				BodyChanging.getTarget().getPenisRawCumStorageValue()>=getCumUpperLimit());
 	}
 	
 	public static String getSelfTransformUrethraElasticityDiv() {
@@ -3203,51 +3298,6 @@ public class CharacterModificationUtils {
 		return contentSB.toString();
 	}
 	
-	public static int[] getLactationQuantitiesAvailable() {
-		if(BodyChanging.getTarget().hasPenis()) {
-			return new int[] {0};
-		} else {
-			return new int[] {0, 5, 10, 15, 30, 50, 75, 100, 150};
-		}
-	}
-	
-	public static String getLactationDiv() {
-		contentSB.setLength(0);
-		
-		contentSB.append(
-				"<div class='container-full-width'>"
-					+"<div class='cosmetics-inner-container left'>"
-						+ "<h5 style='text-align:center;'>"
-							+"Natural Lactation"
-						+"</h5>"
-						+ "<p style='text-align:center;'>"
-							+ "Choose how much you're currently lactating."
-						+ "</p>"
-						+ "</div>"
-						+ "<div class='cosmetics-inner-container right'>");
-		
-		int[] sizesAvailable = getLactationQuantitiesAvailable();
-		
-		for(int i : sizesAvailable) {
-			if(BodyChanging.getTarget().getBreastRawMilkStorageValue() == i) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+Units.fluid(i)+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='LACTATION_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.GENERIC_GOOD.getShades()[0]+";'>"+Units.fluid(i)+"</span>"
-						+ "</div>");
-			}
-		}
-		
-		contentSB.append("</div></div>");
-		
-		return contentSB.toString();
-	}
-	
 	public static AssSize[] getAssSizesAvailable() {
 		if(BodyChanging.getTarget().hasPenis()) {
 			return new AssSize[] {AssSize.ZERO_FLAT, AssSize.ONE_TINY, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, AssSize.FOUR_LARGE};
@@ -3451,45 +3501,6 @@ public class CharacterModificationUtils {
 				contentSB.append(
 						"<div id='TESTICLE_SIZE_"+size+"' class='cosmetics-button'>"
 							+ "<span style='color:"+Colour.GENERIC_GOOD.getShades()[0]+";'>"+Util.capitaliseSentence(size.getDescriptor())+"</span>"
-						+ "</div>");
-			}
-		}
-		
-		contentSB.append("</div></div>");
-		
-		return contentSB.toString();
-	}
-	
-	public static CumProduction[] getCumProductionAvailable() {
-		return new CumProduction[] {CumProduction.ZERO_NONE, CumProduction.ONE_TRICKLE, CumProduction.TWO_SMALL_AMOUNT, CumProduction.THREE_AVERAGE, CumProduction.FOUR_LARGE};
-	}
-	
-	public static String getCumProductionDiv() {
-		contentSB.setLength(0);
-		
-		contentSB.append(
-				"<div class='container-full-width'>"
-					+"<div class='cosmetics-inner-container left'>"
-						+ "<h5 style='text-align:center;'>"
-							+"Cum Storage"
-						+"</h5>"
-						+ "<p style='text-align:center;'>"
-							+ "Choose how much cum your balls are able to hold."
-						+ "</p>"
-						+ "</div>"
-						+ "<div class='cosmetics-inner-container right'>");
-		
-		for(CumProduction value : getCumProductionAvailable()) {
-			if(BodyChanging.getTarget().getPenisCumStorage() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Units.fluid(value.getMedianValue())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='CUM_PRODUCTION_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Units.fluid(value.getMaximumValue())+"</span>"
 						+ "</div>");
 			}
 		}

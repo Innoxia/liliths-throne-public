@@ -323,7 +323,7 @@ public class Litter implements XMLSaving {
 		return fatherRace;
 	}
 	
-	private void generateBirthedDescription() {
+	public void generateBirthedDescription() {
 		Map<String, Integer> sons = new HashMap<>();
 		Map<String, Integer> daughters = new HashMap<>();
 		

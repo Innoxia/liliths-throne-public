@@ -62,6 +62,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
@@ -205,7 +206,7 @@ public class Sex {
 	private static Map<GameCharacter, List<SexType>> requestsBlocked;
 	private static PositioningData positionRequest;
 	private static Set<GameCharacter> charactersBannedFromPositioning;
-	private static Set<GameCharacter> charactersForbiddenByPlayerFromPositioning;
+	private static Set<GameCharacter> charactersForbiddenByOthersFromPositioning;
 	private static Set<GameCharacter> charactersSelfActionsBlocked;
 	private static Set<GameCharacter> charactersDeniedOrgasm;
 
@@ -360,7 +361,15 @@ public class Sex {
 		
 		positionRequest = null;
 		charactersBannedFromPositioning = new HashSet<>();
-		charactersForbiddenByPlayerFromPositioning = new HashSet<>();
+		
+		charactersForbiddenByOthersFromPositioning = new HashSet<>();
+		for(GameCharacter character : Sex.getAllParticipants()) {
+			if(!character.isPlayer() && (Sex.getSexControl(character)!=SexControl.FULL || !Sex.isDom(character))) {
+				charactersForbiddenByOthersFromPositioning.add(character);
+			}
+		}
+		
+		
 		charactersSelfActionsBlocked = new HashSet<>();
 		charactersDeniedOrgasm = new HashSet<>();
 
@@ -1291,6 +1300,12 @@ public class Sex {
 		
 		@Override
 		public boolean isInventoryDisabled() {
+			if (sexFinished
+					|| isReadyToOrgasm(Main.game.getPlayer())
+					|| Sex.isCharacterDeniedOrgasm(Main.game.getPlayer())
+					|| (Sex.getActivePartner()!=null && isReadyToOrgasm(Sex.getActivePartner()))) {
+					return true;
+			}
 			return false;
 		}
 	};
@@ -1735,9 +1750,9 @@ public class Sex {
 						&& getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
 						&& ((sexAction.getSexPace()!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING)
 								|| sexAction.getParticipantType()==SexParticipantType.SELF
-								|| (sexAction.getSexPace()==null && sexAction!=PartnerTalk.PARTNER_DIRTY_TALK)))
+								|| (sexAction.getSexPace()==null && sexAction!=PartnerTalk.PARTNER_DIRTY_TALK && !sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)))) // TODO This is a little terrible
 							|| (sexAction.getSexPace()!=null && sexAction.getSexPace()!=getSexPace(Sex.getCharacterPerformingAction()))) {
-//						System.out.println(Sex.getCharacterPerformingAction().getName() + sexAction.getActionTitle());
+//						System.out.println(Sex.getCharacterPerformingAction().getNameIgnoresPlayerKnowledge() +": "+ sexAction.getActionTitle());
 						
 					} else {
 						// Add action as normal:
@@ -1755,7 +1770,7 @@ public class Sex {
 //						}
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
-						if(weight<0) {
+						if(weight<0 && !sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)) {
 							lowPriority.add(sexAction);
 							dislikedAction = true;
 						}
@@ -3104,7 +3119,7 @@ public class Sex {
 	}
 	
 	public static boolean isPositionChangingAllowed(GameCharacter characterWantingToChangePosition) {
-		if(isCharacterBannedFromPositioning(characterWantingToChangePosition) || Sex.isCharacterForbiddenByPlayerFromPositioning(characterWantingToChangePosition)) {
+		if(isCharacterBannedFromPositioning(characterWantingToChangePosition) || Sex.isCharacterForbiddenByOthersFromPositioning(characterWantingToChangePosition)) {
 			return false;
 		}
 		
@@ -4385,20 +4400,20 @@ public class Sex {
 		return getCharactersBannedFromPositioning().remove(character);
 	}
 	
-	public static Set<GameCharacter> getCharactersForbiddenByPlayerFromPositioning() {
-		return charactersForbiddenByPlayerFromPositioning;
+	public static Set<GameCharacter> getCharactersForbiddenByOthersFromPositioning() {
+		return charactersForbiddenByOthersFromPositioning;
 	}
 	
-	public static boolean isCharacterForbiddenByPlayerFromPositioning(GameCharacter character) {
-		return getCharactersForbiddenByPlayerFromPositioning().contains(character);
+	public static boolean isCharacterForbiddenByOthersFromPositioning(GameCharacter character) {
+		return getCharactersForbiddenByOthersFromPositioning().contains(character);
 	}
 	
-	public static boolean addCharacterForbiddenByPlayerFromPositioning(GameCharacter character) {
-		return getCharactersForbiddenByPlayerFromPositioning().add(character);
+	public static boolean addCharacterForbiddenByOthersFromPositioning(GameCharacter character) {
+		return getCharactersForbiddenByOthersFromPositioning().add(character);
 	}
 
-	public static boolean removeCharacterForbiddenByPlayerFromPositioning(GameCharacter character) {
-		return getCharactersForbiddenByPlayerFromPositioning().remove(character);
+	public static boolean removeCharacterForbiddenByOthersFromPositioning(GameCharacter character) {
+		return getCharactersForbiddenByOthersFromPositioning().remove(character);
 	}
 
 	public static Value<GameCharacter, Class<? extends BodyPartInterface>> getCreampieLockedBy() {

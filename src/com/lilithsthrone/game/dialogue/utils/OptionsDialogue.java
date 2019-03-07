@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;

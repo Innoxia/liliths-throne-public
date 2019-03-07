@@ -268,7 +268,9 @@ public class MainController implements Initializable {
 	}
 
 	public boolean isInventoryDisabled() {
-		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
+		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY
+				|| Main.game.isInCombat()
+				/*|| Main.game.isInSex()*/) {
 			return false;
 			
 		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OPTIONS || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE) {
@@ -294,6 +296,9 @@ public class MainController implements Initializable {
 			}
 			
 		} else if(Main.game.isInSex()) {
+			if(isInventoryDisabled()) {
+				return;
+			}
 			openInventory((NPC) Sex.getActivePartner(), InventoryInteraction.SEX);
 			
 		} else if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() != null) {

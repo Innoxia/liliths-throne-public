@@ -177,7 +177,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		if (gc.isFeminine()) {
 			return Util.randomItemFrom(Util.mergeLists(this.getFootType().getFootDescriptorsFeminine(), footDescriptorsFeminine));
 		} else {
-			return Util.randomItemFrom(Util.mergeLists(this.getFootType().getFootDescriptorsFeminine(), footDescriptorsMasculine));
+			return Util.randomItemFrom(Util.mergeLists(this.getFootType().getFootDescriptorsMasculine(), footDescriptorsMasculine));
 		}
 	}
 	
@@ -194,7 +194,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		if (gc.isFeminine()) {
 			return Util.randomItemFrom(Util.mergeLists(this.getFootType().getToeDescriptorsFeminine(), toeDescriptorsFeminine));
 		} else {
-			return Util.randomItemFrom(Util.mergeLists(this.getFootType().getToeDescriptorsFeminine(), toeDescriptorsMasculine));
+			return Util.randomItemFrom(Util.mergeLists(this.getFootType().getToeDescriptorsMasculine(), toeDescriptorsMasculine));
 		}
 	}
 	
