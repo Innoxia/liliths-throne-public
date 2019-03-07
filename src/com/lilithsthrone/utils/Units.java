@@ -268,13 +268,17 @@ public enum Units {
         double inches = cm / 2.54;
 
         // Wrap inches to feet
-        long feet = (long) (inches / 12);
-        double remainingInches = roundTo(inches % 12, 0.25);
+        double roundingFactor = (vType == ValueType.PRECISE || Math.abs(inches) < 1) ? 0.25 : 1;
+        long feet = (long) (roundTo(inches, roundingFactor) / 12);
+        double remainingInches = roundTo(inches, roundingFactor) % 12;
+
 
         StringBuilder output = new StringBuilder();
 
-        boolean both = (uType == UnitType.SHORT || uType == UnitType.LONG) && feet != 0 && remainingInches != 0;
-        boolean wrap = both || vType == ValueType.TEXT || (feet != 0 && remainingInches == 0);
+        boolean both = (uType == UnitType.SHORT || uType == UnitType.LONG) && vType != ValueType.TEXT
+                && feet != 0 && remainingInches != 0;
+        boolean wrap = (vType == ValueType.TEXT && Math.abs(inches) >= 11.5)
+                || both || (feet != 0 && remainingInches == 0);
         double usedValue = wrap ? feet : inches;
 
         // Append first unit, which may be either feet or inches
@@ -286,7 +290,7 @@ public enum Units {
                 output.append(wrap ? FOOT_SYMBOL : INCH_SYMBOL);
                 break;
             case LONG:
-                if (Math.floor(inches) == 0 && vType != ValueType.PRECISE) {
+                if (Math.floor(Math.abs(inches)) == 0 && vType != ValueType.PRECISE) {
                     output.setLength(0);
                     return output.append("less than ")
                             .append(vType == ValueType.TEXT ? "one" : "1")
@@ -294,7 +298,7 @@ public enum Units {
                 }
 
                 output.append(" ");
-                if (usedValue > 1) output.append(wrap ? "feet" : "inches");
+                if (Math.abs(usedValue) >= 1 + roundingFactor / 2) output.append(wrap ? "feet" : "inches");
                 else output.append(wrap ? "foot" : "inch");
                 break;
             case LONG_SINGULAR:
@@ -304,13 +308,14 @@ public enum Units {
         // Append second unit for long or short notation and if neither value is 0
         if (both) {
             if (uType == UnitType.LONG) output.append(" and ");
+            remainingInches = Math.abs(roundTo(remainingInches, roundingFactor));
             output.append(value(remainingInches, vType, true));
             switch (uType) {
                 case SHORT:
                     output.append(INCH_SYMBOL);
                     break;
                 case LONG:
-                    output.append(" ").append(remainingInches > 1 ? "inches" : "inch");
+                    output.append(" ").append(remainingInches >= 1 + roundingFactor / 2 ? "inches" : "inch");
                     break;
             }
         }
