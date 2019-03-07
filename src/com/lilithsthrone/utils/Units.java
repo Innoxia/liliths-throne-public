@@ -262,6 +262,7 @@ public enum Units {
      * @param uType The format of the units, see {@link UnitType}
      * @return A string containing the imperial, formatted size, including unit
      */
+    @SuppressWarnings("incomplete-switch")
     public static String sizeAsImperial(double cm, ValueType vType, UnitType uType) {
         // Convert centimetres to inches
         double inches = cm / 2.54;
@@ -311,11 +312,6 @@ public enum Units {
                 case LONG:
                     output.append(" ").append(remainingInches > 1 ? "inches" : "inch");
                     break;
-				case LONG_SINGULAR: // Innoxia: I added these two case labels to remove the warning of this switch statement requiring them. I assume they're not used, but just in case, I copied over what is found in LONG:
-                    output.append(" ").append(remainingInches > 1 ? "inches" : "inch");
-					break;
-				case NONE:
-					break;
             }
         }
 
