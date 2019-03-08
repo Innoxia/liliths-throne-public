@@ -169,44 +169,6 @@ public class ColourListPresets {
 			Colour.CLOTHING_GOLD,
 			Colour.CLOTHING_PLATINUM);
 			
-			
-	public static ArrayList<Colour> NOT_WHITE = Util.newArrayListOfValues(
-			Colour.CLOTHING_GREY,
-			Colour.CLOTHING_BLACK,
-			Colour.CLOTHING_BLACK_JET,
-			Colour.CLOTHING_RED_VERY_DARK,
-			Colour.CLOTHING_RED_DARK,
-			Colour.CLOTHING_RED,
-			Colour.CLOTHING_RED_BRIGHT,
-			Colour.CLOTHING_ORANGE,
-			Colour.CLOTHING_ORANGE_BRIGHT,
-			Colour.CLOTHING_ORANGE_DARK,
-			Colour.CLOTHING_BROWN,
-			Colour.CLOTHING_BROWN_DARK,
-			Colour.CLOTHING_BROWN_VERY_DARK,
-			Colour.CLOTHING_TAN,
-			Colour.CLOTHING_OLIVE,
-			Colour.CLOTHING_YELLOW,
-			Colour.CLOTHING_YELLOW_DARK,
-			Colour.CLOTHING_GREEN_LIME,
-			Colour.CLOTHING_GREEN,
-			Colour.CLOTHING_GREEN_DRAB,
-			Colour.CLOTHING_GREEN_DARK,
-			Colour.CLOTHING_GREEN_VERY_DARK,
-			Colour.CLOTHING_TURQUOISE,
-			Colour.CLOTHING_BLUE_LIGHT,
-			Colour.CLOTHING_BLUE,
-			Colour.CLOTHING_BLUE_DARK,
-			Colour.CLOTHING_BLUE_VERY_DARK,
-			Colour.CLOTHING_PURPLE_VERY_DARK,
-			Colour.CLOTHING_PURPLE_DARK,
-			Colour.CLOTHING_PURPLE,
-			Colour.CLOTHING_PURPLE_LIGHT,
-			Colour.CLOTHING_PERIWINKLE,
-			Colour.CLOTHING_PINK_LIGHT,
-			Colour.CLOTHING_PINK,
-			Colour.CLOTHING_PINK_HOT,
-			Colour.CLOTHING_PINK_DARK);
 	
 	public static ArrayList<Colour> ALL = Util.newArrayListOfValues(
 			Colour.CLOTHING_WHITE,
@@ -294,6 +256,15 @@ public class ColourListPresets {
 			Colour.CLOTHING_GOLD,
 			Colour.CLOTHING_PLATINUM);
 	
+	public static ArrayList<Colour> NOT_WHITE = new ArrayList<>(ALL);
+	
+	public static ArrayList<Colour> NOT_BLACK = new ArrayList<>(ALL);
+	
+	static {
+		NOT_WHITE.remove(Colour.CLOTHING_WHITE);
+		NOT_BLACK.remove(Colour.CLOTHING_BLACK);
+		NOT_BLACK.remove(Colour.CLOTHING_BLACK_JET);
+	}
 
 	private static Map<String, ArrayList<Colour>> idToColourListMap = new HashMap<>();
 	

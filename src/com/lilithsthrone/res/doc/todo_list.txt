@@ -136,6 +136,13 @@
 		Half-demon harpies (furies) can now spawn in the harpy nests, and Submission attackers can also now be half-demons. Both are at a chance of 5% per encounter, and the chance for Dominion half-demon attackers has similarly been increased to 5% (from 2.5%).
 		By default, half-demons now need two orgasms to be satisfied in sex, while demons, lilin, and elder lilin need 3.
 	
+	Contributors:
+		Added: 'Polka dots' pattern for clothing, in sizes 'tiny', 'small', and 'big'. (PR#1097 by Phlarx)
+		Added: 'Ballgown' (feminine, torso slot, sold by Nyan). (PR#1097 by Phlarx)
+		Added: 'Evening gown' (feminine, torso slot, sold by Nyan). (PR#1097 by Phlarx)
+		Added: 'Rockabilly dress' (feminine, torso slot, sold by Nyan). (PR#1097 by Phlarx)
+		Added: 'Vintage dress' (feminine, torso slot, sold by Nyan). (PR#1097 by Phlarx)
+	
 	Clothing:
 		Moved all shoe clothing into the external res folder, tidied up some of the svg files, and added more colouring options to those which only had one.
 		Added 'jet black' as an available clothing colour.
@@ -145,6 +152,7 @@
 		Slaves given permission to wash their bodies will now clean all fluids out of their orifices.
 		Improved orgasm's targeted cum area detections and descriptions, so, for example, cumming on someone's stomach will now dirty not only their stomach, but also clothing in their torso and over-torso slots.
 		Split up Vicky's trade action into weapons, items, and clothing. Due to this change, <b>Vicky's shop inventory will be reset</b> once you load into this version.
+		Newly spawned clothing now treats colours and pattern colours for different primary, secondary, and tertiary areas as mutually-exclusive, where possible.
 		
 	Sex:
 		Changed 'Twintail pull'/'Twin braids pull' from being exclusive to the kneeling-oral position, to any position in which the character receiving a blowjob has at least two hands free.
@@ -180,9 +188,7 @@
 	
 	
 	
-	merge the dresses
-		add patterns
-		add author
+	
 	
 	
 	I think half-demon is still high enough to prevent enslavement
@@ -206,8 +212,6 @@
 	github issues
 	
 	discord bugs
-	
-	
 	
 	
 	

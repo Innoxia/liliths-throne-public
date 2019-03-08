@@ -764,13 +764,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
 				c2 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c2 = Util.randomItemFrom(clothingType.getAvailableSecondaryColours());
+				List<Colour> secondariesExclusive = new ArrayList<>(clothingType.getAvailableSecondaryColours());
+				if(secondariesExclusive.size()>1) {
+					secondariesExclusive.remove(c1);
+				}
+				c2 = Util.randomItemFrom(secondariesExclusive);
 			}
 		} else if(!clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
 			if(clothingType.getAllAvailableSecondaryColours().isEmpty()) {
 				c2 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c2 = Util.randomItemFrom(clothingType.getAllAvailableSecondaryColours());
+				List<Colour> secondariesExclusive = new ArrayList<>(clothingType.getAllAvailableSecondaryColours());
+				if(secondariesExclusive.size()>1) {
+					secondariesExclusive.remove(c1);
+				}
+				c2 = Util.randomItemFrom(secondariesExclusive);
 			}
 		}
 		
@@ -778,14 +786,24 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
 				c3 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c3 = Util.randomItemFrom(clothingType.getAvailableTertiaryColours());
+				List<Colour> tertiariesExclusive = new ArrayList<>(clothingType.getAvailableTertiaryColours());
+				if(tertiariesExclusive.size()>2) {
+					tertiariesExclusive.remove(c1);
+					tertiariesExclusive.remove(c2);
+				}
+				c3 = Util.randomItemFrom(tertiariesExclusive);
 			}
 			
 		} else if(!clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
 			if(clothingType.getAllAvailableTertiaryColours().isEmpty()) {
 				c3 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c3 = Util.randomItemFrom(clothingType.getAllAvailableTertiaryColours());
+				List<Colour> tertiariesExclusive = new ArrayList<>(clothingType.getAllAvailableTertiaryColours());
+				if(tertiariesExclusive.size()>2) {
+					tertiariesExclusive.remove(c1);
+					tertiariesExclusive.remove(c2);
+				}
+				c3 = Util.randomItemFrom(tertiariesExclusive);
 			}
 		}
 		
@@ -825,25 +843,62 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		Colour c2 = secondaryColour;
 		Colour c3 = tertiaryColour;
 
-		if (clothingType.getAllAvailablePrimaryColours() != null) {
+		if (primaryColour == null) {
+			if(clothingType.getAvailablePrimaryColours().isEmpty()) {
+				c1 = DEFAULT_COLOUR_VALUE;
+			} else {
+				c1 = Util.randomItemFrom(clothingType.getAvailablePrimaryColours());
+			}
+		} else if (clothingType.getAllAvailablePrimaryColours() != null) {
 			if (!clothingType.getAllAvailablePrimaryColours().contains(primaryColour)) {
-				c1 = clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size()));
+				c1 = Util.randomItemFrom(clothingType.getAllAvailablePrimaryColours());
 			}
 		}
 		
-		if (secondaryColour != null && !clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
+		if (secondaryColour == null) {
 			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
-				c2 = null;
+				c2 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c2 = clothingType.getAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAvailableSecondaryColours().size()));
+				List<Colour> secondariesExclusive = new ArrayList<>(clothingType.getAvailableSecondaryColours());
+				if(secondariesExclusive.size()>1) {
+					secondariesExclusive.remove(c1);
+				}
+				c2 = Util.randomItemFrom(secondariesExclusive);
+			}
+		} else if(!clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
+			if(clothingType.getAllAvailableSecondaryColours().isEmpty()) {
+				c2 = DEFAULT_COLOUR_VALUE;
+			} else {
+				List<Colour> secondariesExclusive = new ArrayList<>(clothingType.getAllAvailableSecondaryColours());
+				if(secondariesExclusive.size()>1) {
+					secondariesExclusive.remove(c1);
+				}
+				c2 = Util.randomItemFrom(secondariesExclusive);
 			}
 		}
 		
-		if (tertiaryColour != null && !clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
+		if (tertiaryColour == null) {
 			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
-				c3 = null;
+				c3 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c3 = clothingType.getAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAvailableTertiaryColours().size()));
+				List<Colour> tertiariesExclusive = new ArrayList<>(clothingType.getAvailableTertiaryColours());
+				if(tertiariesExclusive.size()>2) {
+					tertiariesExclusive.remove(c1);
+					tertiariesExclusive.remove(c2);
+				}
+				c3 = Util.randomItemFrom(tertiariesExclusive);
+			}
+			
+		} else if(!clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
+			if(clothingType.getAllAvailableTertiaryColours().isEmpty()) {
+				c3 = DEFAULT_COLOUR_VALUE;
+			} else {
+				List<Colour> tertiariesExclusive = new ArrayList<>(clothingType.getAllAvailableTertiaryColours());
+				if(tertiariesExclusive.size()>2) {
+					tertiariesExclusive.remove(c1);
+					tertiariesExclusive.remove(c2);
+				}
+				c3 = Util.randomItemFrom(tertiariesExclusive);
 			}
 		}
 		
