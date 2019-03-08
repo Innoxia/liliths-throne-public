@@ -157,8 +157,19 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(Math.random()<clothingType.getPatternChance()) {
 			pattern = Util.randomItemFrom(clothingType.getDefaultPatterns()).getName();
 			patternColour = Util.randomItemFrom(clothingType.getAvailablePatternPrimaryColours());
-			patternSecondaryColour = Util.randomItemFrom(clothingType.getAvailablePatternSecondaryColours());
-			patternTertiaryColour = Util.randomItemFrom(clothingType.getAvailablePatternTertiaryColours());
+			
+			List<Colour> secondariesExclusive = new ArrayList<>(clothingType.getAvailablePatternSecondaryColours());
+			if(secondariesExclusive.size()>1) {
+				secondariesExclusive.remove(patternColour);
+			}
+			patternSecondaryColour = Util.randomItemFrom(secondariesExclusive);
+
+			List<Colour> tertiariesExclusive = new ArrayList<>(clothingType.getAvailablePatternTertiaryColours());
+			if(secondariesExclusive.size()>2) {
+				secondariesExclusive.remove(patternColour);
+				secondariesExclusive.remove(patternSecondaryColour);
+			}
+			patternTertiaryColour = Util.randomItemFrom(tertiariesExclusive);
 			
 		} else {
 			pattern = "none";
