@@ -1893,7 +1893,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 			
 			// Chance for race to be random:
-			if(Math.random()>0.85f) {
+			if(Math.random() =< Main.getProperties().getRandomRacePercentage()) {
 				List<Subspecies> availableRaces = new ArrayList<>();
 				availableRaces.add(Subspecies.CAT_MORPH);
 				availableRaces.add(Subspecies.DOG_MORPH);
