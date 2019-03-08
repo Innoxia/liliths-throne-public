@@ -213,7 +213,7 @@
 	
 	discord bugs
 	
-	
+	need to incorporate outfit logic into clothing types
 	
 	Wild encounters need to react to player being a predator or prey race
 	
