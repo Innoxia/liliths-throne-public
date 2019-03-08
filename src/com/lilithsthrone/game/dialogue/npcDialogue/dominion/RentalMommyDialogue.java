@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -20,6 +21,10 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public class RentalMommyDialogue {
+
+	private static NPC getMommy() {
+		return Main.game.getActiveNPC();
+	}
 	
 	public static final DialogueNode ENCOUNTER = new DialogueNode("Rental Mommy", "", true) {
 		
@@ -88,7 +93,7 @@ public class RentalMommyDialogue {
 				return new ResponseSex("Submissive Sex "+UtilText.formatAsMoney(1000, "span"), "Follow Mommy into her house, before letting her take the dominant role in having sex with you.",
 						true, true,
 						new SMGeneric(
-								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(getMommy()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
 						null) {
@@ -115,7 +120,7 @@ public class RentalMommyDialogue {
 						true, true,
 						new SMGeneric(
 								Util.newArrayListOfValues(Main.game.getPlayer()),
-								Util.newArrayListOfValues(Main.game.getActiveNPC()),
+								Util.newArrayListOfValues(getMommy()),
 						null,
 						null) {
 							@Override
@@ -144,9 +149,9 @@ public class RentalMommyDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(-500);
-						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
-						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
-						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilk(), SexAreaOrifice.MOUTH, 500);
+						getMommy().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+						getMommy().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
+						Main.game.getPlayer().ingestFluid(getMommy(), getMommy().getMilk(), SexAreaOrifice.MOUTH, 500);
 					}
 				};
 				
@@ -161,11 +166,11 @@ public class RentalMommyDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(-1000);
-						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
-						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
+						getMommy().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+						getMommy().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
 						Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_LACTATION_OTHERS, 25);
 						Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_EXHIBITIONIST, 10);
-						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilk(), SexAreaOrifice.MOUTH, 500);
+						Main.game.getPlayer().ingestFluid(getMommy(), getMommy().getMilk(), SexAreaOrifice.MOUTH, 500);
 					}
 				};
 				
@@ -248,7 +253,7 @@ public class RentalMommyDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_ORGASMED"));
 				
 			} else {
@@ -280,8 +285,8 @@ public class RentalMommyDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+
+			if(Sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_ORGASMED"));
 				
 			} else {

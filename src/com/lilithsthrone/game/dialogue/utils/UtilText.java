@@ -6228,6 +6228,9 @@ public class UtilText {
 		for(LegConfiguration legConf : LegConfiguration.values()) {
 			engine.put("LEG_CONFIGURATION_"+legConf.toString(), legConf);
 		}
+		for(BodyMaterial material : BodyMaterial.values()) {
+			engine.put("BODY_MATERIAL_"+material.toString(), material);
+		}
 		for(Fetish f : Fetish.values()) {
 			engine.put(f.toString(), f);
 		}

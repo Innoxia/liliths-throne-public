@@ -288,10 +288,10 @@ public class WeaponType {
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
 			null,
-			ColourListPresets.JUST_BLACK.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_BLACK,
+			ColourListPresets.ALL,
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_VICKY,
 					ItemTag.WEAPON_BLADE)) {
@@ -369,10 +369,10 @@ public class WeaponType {
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
 			null,
-			ColourListPresets.JUST_BLACK.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_BLACK,
+			ColourListPresets.ALL,
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_VICKY,
 					ItemTag.WEAPON_BLADE)) {
@@ -452,10 +452,10 @@ public class WeaponType {
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
 			null,
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 
 		@Override
@@ -1067,10 +1067,9 @@ public class WeaponType {
 								if (innerDirectoryListing != null) {
 									for (File innerChild : innerDirectoryListing) {
 										try {
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild) {};
-											moddedWeapons.add(ct);
 											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-//													System.out.println(id);
+											AbstractWeaponType ct = new AbstractWeaponType(innerChild, modAuthorDirectory.getName()) {};
+											moddedWeapons.add(ct);
 											weaponToIdMap.put(ct, id);
 											idToWeaponMap.put(id, ct);
 										} catch(Exception ex) {
@@ -1103,10 +1102,9 @@ public class WeaponType {
 								if (innerDirectoryListing != null) {
 									for (File innerChild : innerDirectoryListing) {
 										try {
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild) {};
-											allweapons.add(ct);
 											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-		//											System.out.println(id);
+											AbstractWeaponType ct = new AbstractWeaponType(innerChild, authorDirectory.getName()) {};
+											allweapons.add(ct);
 											weaponToIdMap.put(ct, id);
 											idToWeaponMap.put(id, ct);
 										} catch(Exception ex) {

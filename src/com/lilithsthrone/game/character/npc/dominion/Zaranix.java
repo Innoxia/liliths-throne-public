@@ -195,7 +195,7 @@ public class Zaranix extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_GREY, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_mens_smart_shoes", Colour.CLOTHING_BLACK, false), true, this);
 
 	}
 	
@@ -397,7 +397,7 @@ public class Zaranix extends NPC {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Zaranix.class)) >= Main.game.getNpc(Zaranix.class).getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[npc.Name] steps back and sinks down into a nearby chair, a happy smile on [npc.her] face as [npc.she] gazes up at you,"
@@ -408,7 +408,7 @@ public class Zaranix extends NPC {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[npc.Name] steps back and sinks down to the floor, letting out [npc.a_moan+] as [npc.her] hands drop down between [npc.her] legs,"
-							+ " [npc.speech(Ah! I didn't even get to orgasm...)]"
+							+ " [npc.speech(Ah! You didn't even satisfy me...)]"
 						+ "</p>");
 			}
 			

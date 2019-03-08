@@ -285,7 +285,7 @@
 		Thinking that these imps look particularly cowardly, you think that simply summoning your elemental would be enough to intimidate them. Grinning down at the leader, you declare, [pc.speech(You really think you stand a chance against me?! Perhaps if you can defeat my elemental, you'll have earned the right to challenge me!)]
 	</p>
 	<p>
-		The colour instantly drains from [npc3.namePos] cheeks, and [npc3.she] hisses to [npc3.her] superior, [npc3.speech('Ey! A-An elemental?! Ain't that one o' those arcane thingies?! W-We can't fight that!)]
+		The colour instantly drains from [npc2.namePos] cheeks, and [npc2.she] hisses to [npc2.her] superior, [npc2.speech('Ey! A-An elemental?! Ain't that one o' those arcane thingies?! W-We can't fight that!)]
 	</p>
 	]]>
 	</htmlContent>

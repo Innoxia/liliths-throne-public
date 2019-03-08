@@ -13,13 +13,13 @@ public enum AlcoholLevel {
 	
 	ONE_TIPSY("tipsy", 0, 0.01f, 0.2f, Colour.ALCOHOL_LEVEL_ONE),
 	
-	TWO_MERRY("merry", 12, 0.2f, 0.4f, Colour.ALCOHOL_LEVEL_TWO),
+	TWO_MERRY("merry", 25, 0.2f, 0.4f, Colour.ALCOHOL_LEVEL_TWO),
 	
-	THREE_DRUNK("drunk", 8, 0.4f, 0.6f, Colour.ALCOHOL_LEVEL_THREE),
+	THREE_DRUNK("drunk", 20, 0.4f, 0.6f, Colour.ALCOHOL_LEVEL_THREE),
 	
-	FOUR_HAMMERED("hammered", 6, 0.6f, 0.8f, Colour.ALCOHOL_LEVEL_FOUR),
+	FOUR_HAMMERED("hammered", 15, 0.6f, 0.8f, Colour.ALCOHOL_LEVEL_FOUR),
 	
-	FIVE_WASTED("wasted", 4, 0.8f, 1, Colour.ALCOHOL_LEVEL_FIVE);
+	FIVE_WASTED("wasted", 10, 0.8f, 1, Colour.ALCOHOL_LEVEL_FIVE);
 	
 	private String name;
 	private float minimumValue;

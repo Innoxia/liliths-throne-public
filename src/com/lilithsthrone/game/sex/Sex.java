@@ -214,8 +214,8 @@ public class Sex {
 	
 	// Clothes:
 
-	private static Set<GameCharacter> charactersAbleToRemoveSelfClothing;
-	private static Set<GameCharacter> charactersAbleToRemoveOthersClothing;
+	private static Set<GameCharacter> charactersBannedFromRemovingSelfClothing;
+	private static Set<GameCharacter> charactersBannedFromRemovingOthersClothing;
 	
 	private static AbstractClothing clothingBeingRemoved;
 	
@@ -508,8 +508,8 @@ public class Sex {
 		
 		sexSB.append(calculateWetAreas(true));
 		
-		charactersAbleToRemoveSelfClothing = new HashSet<>();
-		charactersAbleToRemoveOthersClothing = new HashSet<>();
+		charactersBannedFromRemovingSelfClothing = new HashSet<>();
+		charactersBannedFromRemovingOthersClothing = new HashSet<>();
 		
 		// Store status of all clothes for both partners (so they can be restored afterwards):
 		clothingPreSexMap = new HashMap<>();
@@ -633,14 +633,14 @@ public class Sex {
 				boolean satisfiedPartners = false;
 				if(Sex.isDom(participant)) {
 					for(GameCharacter sub : Sex.getSubmissiveParticipants(false).keySet()) {
-						if(Sex.getNumberOfOrgasms(sub)>0) {
+						if(Sex.getNumberOfOrgasms(sub)>=sub.getOrgasmsBeforeSatisfied()) {
 							satisfiedPartners = true;
 							break;
 						}
 					}
 				} else {
 					for(GameCharacter dom : Sex.getDominantParticipants(false).keySet()) {
-						if(Sex.getNumberOfOrgasms(dom)>0) {
+						if(Sex.getNumberOfOrgasms(dom)>=dom.getOrgasmsBeforeSatisfied()) {
 							satisfiedPartners = true;
 							break;
 						}
@@ -2011,101 +2011,19 @@ public class Sex {
 				}
 
 				List<CoverableArea> cummedOnAreas = sexAction.getAreasCummedOn(cumProvider, cumTarget);
-				if (cummedOnAreas == null)
+				if (cummedOnAreas == null) {
 					continue;
-
+				}
 				for(CoverableArea area : cummedOnAreas) {
-
-					InventorySlot invSlot = InventorySlot.MOUTH;
-					switch(area) {
-						case NONE:
-							continue;
-	
-						case MOUTH: // Facial:
-							if(cumTarget.getClothingInSlot(InventorySlot.EYES)!=null) {
-								cumTarget.getClothingInSlot(InventorySlot.EYES).setDirty(true);
-							} else {
-								cumTarget.addDirtySlot(InventorySlot.EYES);
+					for(InventorySlot slot : area.getAssociatedInventorySlots(cumTarget)) {
+						List<AbstractClothing> dirtyClothing = cumTarget.getVisibleClothingConcealingSlot(slot);
+						if(!dirtyClothing.isEmpty()) {
+							for(AbstractClothing c : dirtyClothing) {
+								c.setDirty(true);
 							}
-							if(cumTarget.getClothingInSlot(InventorySlot.NECK)!=null) {
-								cumTarget.getClothingInSlot(InventorySlot.NECK).setDirty(true);
-							} else {
-								cumTarget.addDirtySlot(InventorySlot.NECK);
-							}
-							// invSlot = InventorySlot.MOUTH;
-							break;
-	
-						case FEET:
-							if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.FEET)==null) {
-								cumTarget.addDirtySlot(InventorySlot.ANKLE);
-								invSlot = InventorySlot.FOOT;
-							}
-							break;
-	
-						case HAIR:
-							invSlot = InventorySlot.HAIR;
-							break;
-	
-						case HANDS:
-							invSlot = InventorySlot.HAND;
-							break;
-	
-						case STOMACH:
-							invSlot = InventorySlot.STOMACH;
-							break;
-	
-						case BACK:
-							invSlot = InventorySlot.TORSO_OVER;
-							break;
-	
-						case ASS: case ANUS:
-							invSlot = InventorySlot.ANUS;
-							break;
-	
-						case NIPPLES:
-							area = CoverableArea.BREASTS;
-							invSlot = InventorySlot.CHEST;
-							break;
-						case BREASTS:
-							invSlot = InventorySlot.CHEST;
-							break;
-	
-						case NIPPLES_CROTCH:
-							area = CoverableArea.LEGS;
-							invSlot = InventorySlot.GROIN;
-							break;
-						case BREASTS_CROTCH:
-							invSlot = InventorySlot.GROIN;
-							break;
-	
-						case TESTICLES:
-							area = CoverableArea.PENIS;
-							invSlot = InventorySlot.GROIN;
-							break;
-						case PENIS:
-							invSlot = InventorySlot.GROIN;
-							break;
-	
-						case MOUND:
-							area = CoverableArea.VAGINA;
-							invSlot = InventorySlot.GROIN;
-							break;
-						case VAGINA:
-							invSlot = InventorySlot.GROIN;
-							break;
-	
-						case THIGHS:
-							area = CoverableArea.LEGS;
-							invSlot = InventorySlot.LEG;
-							break;
-						case LEGS:
-							invSlot = InventorySlot.LEG;
-							break;
-					}
-					if (cumTarget.getHighestZLayerCoverableArea(area)!=null) {
-						cumTarget.getHighestZLayerCoverableArea(area).setDirty(true);
-					} else {
-						cumTarget.addDirtySlot(invSlot);
+						} else if(slot!=InventorySlot.TORSO_OVER) { // Do not dirty over-torso slot, as it doesn't really make much sense...
+							cumTarget.addDirtySlot(slot);
+						}
 					}
 				}
 			}
@@ -4272,32 +4190,32 @@ public class Sex {
 	}
 
 	public static boolean isCanRemoveSelfClothing(GameCharacter character) {
-		if(charactersAbleToRemoveSelfClothing.contains(character)) {
-			return true;
+		if(charactersBannedFromRemovingSelfClothing.contains(character)) {
+			return false;
 		}
 		return initialSexManager.isAbleToRemoveSelfClothing(character);
 	}
 
 	public static void setCanRemoveSelfClothing(GameCharacter character, boolean canRemoveSelfClothing) {
 		if(canRemoveSelfClothing) {
-			charactersAbleToRemoveSelfClothing.add(character);
+			charactersBannedFromRemovingSelfClothing.remove(character);
 		} else {
-			charactersAbleToRemoveSelfClothing.remove(character);
+			charactersBannedFromRemovingSelfClothing.add(character);
 		}
 	}
 	
 	public static boolean isCanRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-		if(charactersAbleToRemoveOthersClothing.contains(character)) {
-			return true;
+		if(charactersBannedFromRemovingOthersClothing.contains(character)) {
+			return false;
 		}
 		return initialSexManager.isAbleToRemoveOthersClothing(character, clothing);
 	}
 
 	public static void setCanRemoveOthersClothing(GameCharacter character, boolean canRemoveOthersClothing) {
 		if(canRemoveOthersClothing) {
-			charactersAbleToRemoveOthersClothing.add(character);
+			charactersBannedFromRemovingOthersClothing.remove(character);
 		} else {
-			charactersAbleToRemoveOthersClothing.remove(character);
+			charactersBannedFromRemovingOthersClothing.add(character);
 		}
 	}
 	

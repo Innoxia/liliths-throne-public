@@ -117,7 +117,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
@@ -126,7 +125,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.67
- * @version 0.2.8
+ * @version 0.3.2
  * @author Innoxia, tukaima
  */
 public class CharacterUtils {
@@ -1034,8 +1033,10 @@ public class CharacterUtils {
 			}
 		}
 		
-		body.setWing(new Wing(demonBody.getRandomWingType(false),
-				(startingGender.isFeminine() ? demonBody.getFemaleWingSize() : demonBody.getMaleWingSize())));
+		if(!body.getArm().getType().allowsFlight()) { // Do not give back wings to characters who have arm wings.
+			body.setWing(new Wing(demonBody.getRandomWingType(false),
+					(startingGender.isFeminine() ? demonBody.getFemaleWingSize() : demonBody.getMaleWingSize())));
+		}
 		
 //		startingBodyType.getBodyMaterial(),
 //		startingBodyType.getGenitalArrangement(),
@@ -2005,9 +2006,9 @@ public class CharacterUtils {
 			}
 		}
 		
-		Colour primaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
-				secondaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
-				lingerieColour = ColourListPresets.LINGERIE.getPresetColourList().get(Util.random.nextInt(ColourListPresets.LINGERIE.getPresetColourList().size()));
+		Colour primaryColour = ColourListPresets.ALL.get(Util.random.nextInt(ColourListPresets.ALL.size())),
+				secondaryColour = ColourListPresets.ALL.get(Util.random.nextInt(ColourListPresets.ALL.size())),
+				lingerieColour = ColourListPresets.LINGERIE.get(Util.random.nextInt(ColourListPresets.LINGERIE.size()));
 		
 		// Remove exposing underwear if replaceUnsuitableClothing and is exposed:
 		if(replaceUnsuitableClothing
@@ -2070,9 +2071,6 @@ public class CharacterUtils {
 															?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 															:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 											false);
-									if(ct.isPatternAvailable() && Math.random() >= 0.8f) {
-										clothingToAdd.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllPatterns().values())).getName());
-									}
 									character.equipClothingFromNowhere(clothingToAdd, true, character);
 								}
 							}
@@ -2124,10 +2122,6 @@ public class CharacterUtils {
 																	?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 																	:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 											false);
-									if(ct.isPatternAvailable() && Math.random() >= 0.8f) {
-										clothingToAdd.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllPatterns().values())).getName());
-									}
-									
 									character.equipClothingFromNowhere(clothingToAdd, true, character);
 								}
 							}
@@ -2290,10 +2284,10 @@ public class CharacterUtils {
 						ClothingType.CHEST_PLUNGE_BRA,
 						ClothingType.EYES_AVIATORS,
 						ClothingType.FINGER_RING,
-						ClothingType.FOOT_ANKLE_BOOTS,
-						ClothingType.FOOT_HEELS,
-						ClothingType.FOOT_THIGH_HIGH_BOOTS,
-						ClothingType.FOOT_STILETTO_HEELS,
+						ClothingType.getClothingTypeFromId("innoxia_foot_ankle_boots"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_heels"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_thigh_high_boots"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_stiletto_heels"),
 						ClothingType.GROIN_BACKLESS_PANTIES,
 						ClothingType.GROIN_CROTCHLESS_PANTIES,
 						ClothingType.GROIN_CROTCHLESS_THONG,

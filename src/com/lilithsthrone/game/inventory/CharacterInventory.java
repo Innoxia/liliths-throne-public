@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -867,13 +868,32 @@ public class CharacterInventory implements XMLSaving {
 				concealedMap.get(slot).add(c);
 			}
 		}
+		
 		for(AbstractClothing c : getClothingCurrentlyEquipped()) {
+			InventorySlot clothingSlot = c.getClothingType().getSlot();
+
+			// Do not count clothing as being concealed if it is only partially covered:
 			for(InventorySlot is : c.getClothingType().getIncompatibleSlots(character)) {
-				if(concealedMap.containsKey(c.getClothingType().getSlot()) && !concealedMap.containsKey(is)) {
-					concealedMap.remove(c.getClothingType().getSlot());
+				if(concealedMap.containsKey(clothingSlot) && !concealedMap.containsKey(is)) {
+					concealedMap.remove(clothingSlot);
+				}
+			}
+
+			// Remove concealed clothing if it is the only clothing which is concealing another slot:
+			if(concealedMap.containsKey(clothingSlot)) {
+				boolean remove = false;
+				for(Entry<InventorySlot, List<AbstractClothing>> entry : concealedMap.entrySet()) {
+					if(entry.getValue().contains(c) && entry.getValue().size()==1) {
+						remove = true;
+						break;
+					}
+				}
+				if(remove) {
+					concealedMap.remove(clothingSlot);
 				}
 			}
 		}
+		
 
 		if(this.getExtraBlockedParts()!=null) {
 			for(InventorySlot slot :this.getExtraBlockedParts().concealedSlots) {
@@ -885,6 +905,40 @@ public class CharacterInventory implements XMLSaving {
 		
 		return concealedMap;
 	}
+	
+
+	public List<AbstractClothing> getVisibleClothingConcealingSlot(GameCharacter character, InventorySlot slot) {
+		List<AbstractClothing> visibleClothing = new ArrayList<>();
+		
+		if(getClothingInSlot(slot)!=null) {
+			visibleClothing.add(getClothingInSlot(slot));
+		}
+		
+		if(getInventorySlotsConcealed(character).get(slot)!=null) {
+			visibleClothing.addAll(getInventorySlotsConcealed(character).get(slot));
+		}
+		
+		if(!visibleClothing.isEmpty()) {
+			List<InventorySlot> slotsToCheck = visibleClothing.stream().map(c -> c.getClothingType().getSlot()).collect(Collectors.toList());
+			
+			while(!slotsToCheck.isEmpty()) {
+				for(InventorySlot checkSlot : new ArrayList<>(slotsToCheck)) {
+					List<AbstractClothing> checkClothingSlot = getInventorySlotsConcealed(character).get(checkSlot);
+					if(checkClothingSlot!=null && !checkClothingSlot.isEmpty()) {
+						visibleClothing = visibleClothing.stream().filter(cl -> cl.getClothingType().getSlot()!=checkSlot).collect(Collectors.toList()); // Remove clothing which is concealed
+						for(AbstractClothing c : checkClothingSlot) {
+							visibleClothing.add(c);
+							slotsToCheck.add(c.getClothingType().getSlot());
+						}
+					}
+					slotsToCheck.remove(checkSlot);
+				}
+			}
+		}
+		
+		return new ArrayList<>(new HashSet<>(visibleClothing)); // Remove duplicates
+	}
+	
 	
 	/**
 	 * @return clothing in the slot specified. Returns null if no clothing in
@@ -1941,7 +1995,7 @@ public class CharacterInventory implements XMLSaving {
 
 		return c;
 	}
-	
+
 	/**
 	 * The highest piece of clothing that is blocking this slot.<br/>
 	 * <b>Note:</b> This takes into account displacement, so, for example, if your yoga pants are displaced, and are revealing your panties,

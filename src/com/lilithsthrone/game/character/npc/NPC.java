@@ -3118,11 +3118,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					case TWO_NEUTRAL:
 						weight+=1;
 						break;
+					// They really should never want to perform actions they dislike or hate:
 					case ONE_DISLIKE:
-						weight-=4;
+						weight-=100;
 						break;
 					case ZERO_HATE:
-						weight-=8;
+						weight-=200;
 						break;
 				}
 			}

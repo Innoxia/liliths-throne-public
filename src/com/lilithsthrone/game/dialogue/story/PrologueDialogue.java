@@ -181,7 +181,7 @@ public class PrologueDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(femalePrologueNPC()) {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueFemale.class))>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueFemale.class))>=Main.game.getNpc(PrologueFemale.class).getOrgasmsBeforeSatisfied()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_FEMALE_SATISFIED"));
 					
 				} else {
@@ -189,7 +189,7 @@ public class PrologueDialogue {
 				}
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueMale.class))>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueMale.class))>=Main.game.getNpc(PrologueMale.class).getOrgasmsBeforeSatisfied()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_MALE_SATISFIED"));
 					
 				} else {

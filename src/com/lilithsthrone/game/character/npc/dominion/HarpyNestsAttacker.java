@@ -73,7 +73,11 @@ public class HarpyNestsAttacker extends NPC {
 					setBody(Gender.F_V_FEMALE, Subspecies.HARPY, RaceStage.LESSER);
 				}
 			}
-	
+
+			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
+				this.setBody(CharacterUtils.generateHalfDemonBody(this, Subspecies.getFleshSubspecies(this)));
+			}
+			
 			setName(Name.getRandomTriplet(Race.HARPY));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,

@@ -79,10 +79,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		this.secondaryColour = secondaryColour;
 		this.tertiaryColour = tertiaryColour;
-		
-		patternColour = null;
-		patternSecondaryColour = null;
-		patternTertiaryColour = null;
+
+		handlePatternCreation();
 
 		displacedList = new ArrayList<>();
 
@@ -143,9 +141,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		this.secondaryColour = secondaryColour;
 		this.tertiaryColour = tertiaryColour;
 		
-		patternColour = null;
-		patternSecondaryColour = null;
-		patternTertiaryColour = null;
+		handlePatternCreation();
 		
 		displacedList = new ArrayList<>();
 		if(effects!=null) {
@@ -155,6 +151,21 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		}
 
 		enchantmentKnown = false;
+	}
+	
+	private void handlePatternCreation() {
+		if(Math.random()<clothingType.getPatternChance()) {
+			pattern = Util.randomItemFrom(clothingType.getDefaultPatterns()).getName();
+			patternColour = Util.randomItemFrom(clothingType.getAvailablePatternPrimaryColours());
+			patternSecondaryColour = Util.randomItemFrom(clothingType.getAvailablePatternSecondaryColours());
+			patternTertiaryColour = Util.randomItemFrom(clothingType.getAvailablePatternTertiaryColours());
+			
+		} else {
+			pattern = "none";
+			patternColour = null;
+			patternSecondaryColour = null;
+			patternTertiaryColour = null;
+		}
 	}
 	
 	@Override
@@ -270,13 +281,25 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(!parentElement.getAttribute("name").isEmpty()) {
 			clothing.setName(parentElement.getAttribute("name"));
 		}
-		
+
 		// Try to load colours:
 		if((clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("BDSM_CHOKER")) && Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6"))
-				|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_ankle_shin_guards")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6"))) {
+				|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_ankle_shin_guards")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6"))
+				|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("FOOT_TRAINERS")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.2"))) {
 			try {
 				clothing.setColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
 				clothing.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colour")));
+			} catch(Exception ex) {
+			}
+			
+		} else if(clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("FOOT_LOW_TOP_SKATER_SHOES")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.2")){
+			try {
+				clothing.setSecondaryColour(Colour.CLOTHING_WHITE);
+				if(!parentElement.getAttribute("colour").isEmpty()) {
+					clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
+				} else {
+					clothing.setColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+				}
 			} catch(Exception ex) {
 			}
 			

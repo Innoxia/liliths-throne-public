@@ -132,16 +132,9 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 			}
 			
-//			int count=0;
-//			for(Entry<Subspecies, Integer> entry : availableRaces.entrySet()) {
-//				System.out.println(entry.getKey()+", "+entry.getValue());
-//				count+=entry.getValue();
-//			}
-//			System.out.println("Toatl: "+count);
-			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
-			if(Math.random()<0.025) { //2.5% chance for the NPC to be a half-demon
+			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
 				this.setBody(CharacterUtils.generateHalfDemonBody(this, Subspecies.getFleshSubspecies(this)));
 			}
 			

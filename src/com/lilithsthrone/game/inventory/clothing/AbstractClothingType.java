@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -58,7 +59,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord), Pimgd
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
@@ -71,7 +72,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private String description;
 	private String pathName;
 	private String pathNameEquipped;
-
+	private String authorDescription;
+	
 	private boolean plural;
 	private boolean isMod;
 	private int baseValue;
@@ -92,6 +94,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	// Pattern data:
 	private boolean isPatternAvailable;
+	private boolean isPatternAvalableInitCompleted;
 	
 	// Access and block stuff:
 	private List<BlockedParts> blockedPartsList;
@@ -110,6 +113,12 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private List<Colour> availableTertiaryColours;
 	private List<Colour> availableTertiaryDyeColours;
 	private List<Colour> allAvailableTertiaryColours;
+
+	private float patternChance;
+	private List<Pattern> defaultPatterns;
+	private List<Colour> availablePatternPrimaryColours;
+	private List<Colour> availablePatternSecondaryColours;
+	private List<Colour> availablePatternTertiaryColours;
 
 	private List<DisplacementType> displacementTypesAvailableWithoutNONE;
 	
@@ -219,6 +228,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.pathNameEquipped = pathNameEquipped;
 		
 		this.isPatternAvailable = false;
+		this.isPatternAvalableInitCompleted = false;
 
 		enchantmentLimit = -1;
 		
@@ -254,25 +264,33 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				availableSecondaryDyeColours,
 				availableTertiaryColours,
 				availableTertiaryDyeColours);
+		
+		patternChance = 0;
+		defaultPatterns = new ArrayList<>(Pattern.getAllDefaultPatterns().values());
+		availablePatternPrimaryColours = new ArrayList<>(ColourListPresets.ALL);
+		availablePatternSecondaryColours = new ArrayList<>(ColourListPresets.ALL);
+		availablePatternTertiaryColours = new ArrayList<>(ColourListPresets.ALL);
 
 		this.itemTags = new ArrayList<>();
 		if(itemTags!=null) {
 			this.itemTags = itemTags;
 		}
+		
+		this.authorDescription = ""; // Do not give attribution to Innoxia's items.
 
 		finalSetUp();
 	}
 	
 
 	@SuppressWarnings("deprecation")
-	public AbstractClothingType(File clothingXMLFile) throws XMLLoadException { // Be sure to catch this exception correctly - if it's thrown mod is invalid and should not be continued to load
+	public AbstractClothingType(File clothingXMLFile, String author) throws XMLLoadException { // Be sure to catch this exception correctly - if it's thrown mod is invalid and should not be continued to load
 		boolean debug = false;//clothingXMLFile.getName().contains("distressed");
 		
 		try{
 			Element clothingElement = Element.getDocumentRootElement(clothingXMLFile); // Loads the document and returns the root element - in clothing mods it's <clothing>
 			Element coreAttributes = null;
 			try {
-				coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes"); // Assuming this element appears just once, get an element by tag. If there's no such element, throw exception and halt loading this mod - it is invalid and continuing may/will cause severe bugs
+				coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes");
 			} catch (XMLMissingTagException ex) {
 				coreAttributes = clothingElement.getMandatoryFirstOf("coreAttributes");
 			}
@@ -373,7 +391,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.namePlural =  coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
 			this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
 			this.determiner =  coreAttributes.getMandatoryFirstOf("determiner").getTextContent();
-
+			
 			if(debug) {
 				System.out.println("4");
 			}
@@ -384,6 +402,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.slot =       		  InventorySlot.valueOf(coreAttributes.getMandatoryFirstOf("slot").getTextContent());
 			this.rarity =             Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
 
+			if(coreAttributes.getOptionalFirstOf("clothingAuthorTag").isPresent()) {
+				this.authorDescription = coreAttributes.getMandatoryFirstOf("clothingAuthorTag").getTextContent();
+			} else if(!author.equalsIgnoreCase("innoxia")){
+				this.authorDescription = "A tag discreetly attached to the "+(plural?namePlural:name)+" informs you that "+(plural?"they were":"it was")+" made by a certain '"+Util.capitaliseSentence(author)+"'.";
+			} else {
+				this.authorDescription = "";
+			}
+			
 			this.femininityRestriction = Femininity.valueOf(coreAttributes.getMandatoryFirstOf("femininity").getTextContent());
 			setUpFemininity(this.femininityRestriction);
 
@@ -416,14 +442,12 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
 				String values = colorsElement.getAttribute("values");
 				try {
-					if (values.isEmpty()){
+					if(values.isEmpty()) {
 						return colorsElement.getAllOf("colour").stream()
 								.map(Element::getTextContent).map(Colour::valueOf)
 								.collect(Collectors.toList());
-					}
-					else{
-						return ColourListPresets.valueOf(values)
-								.getPresetColourList();
+					} else {
+						return ColourListPresets.getColourListFromId(values);
 					}
 				} catch (Exception e) {
 					printHelpfulErrorForEnumValueMismatches(e);
@@ -458,7 +482,58 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				importedTertiaryColours,
 				importedTertiaryColoursDye
 			);
+			
+			 if(coreAttributes.getOptionalFirstOf("defaultPatterns").isPresent()) {
+				 patternChance = Float.valueOf(coreAttributes.getMandatoryFirstOf("defaultPatterns").getAttribute("patternChance"));
+			 } else {
+				 patternChance = 0;
+			 }
+			
+			Function<Element, List<Pattern> > getPatternsFromElement = (patternsElement) -> { //Helper function to get the patterns
+				try {
+					return patternsElement.getAllOf("pattern").stream()
+							.map(Element::getTextContent).map(Pattern.getAllPatterns()::get)
+							.collect(Collectors.toList());
+				} catch (Exception e) {
+					printHelpfulErrorForEnumValueMismatches(e);
+					throw new IllegalStateException("Pattern tag reading failure: "+patternsElement.getTagName()+" " + e.getMessage(), e);
+				}
+			};
 
+			Function<Element, List<Colour> > getPatternColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
+				String values = colorsElement.getAttribute("values");
+				try {
+					if(values.isEmpty()) {
+						if(colorsElement.getOptionalFirstOf("colour").isPresent()) {
+							return colorsElement.getAllOf("colour").stream()
+									.map(Element::getTextContent).map(Colour::valueOf)
+									.collect(Collectors.toList());
+						} else {
+							return new ArrayList<>(ColourListPresets.ALL);
+						}
+					} else {
+						return new ArrayList<>(ColourListPresets.ALL);
+					}
+				} catch (Exception e) {
+					printHelpfulErrorForEnumValueMismatches(e);
+					throw new IllegalStateException("Colour tag reading failure: "+colorsElement.getTagName()+" " + e.getMessage(), e);
+				}
+			};
+			
+			defaultPatterns = coreAttributes.getOptionalFirstOf("defaultPatterns")
+					.map(getPatternsFromElement::apply)
+					.orElse(new ArrayList<>(Pattern.getAllDefaultPatterns().values()));
+					
+			availablePatternPrimaryColours = coreAttributes.getOptionalFirstOf("patternPrimaryColours")
+					.map(getPatternColoursFromElement::apply)
+					.orElse(new ArrayList<>(ColourListPresets.ALL));
+			availablePatternSecondaryColours = coreAttributes.getOptionalFirstOf("patternSecondaryColours")
+					.map(getPatternColoursFromElement::apply)
+					.orElse(new ArrayList<>(ColourListPresets.ALL));
+			availablePatternTertiaryColours = coreAttributes.getOptionalFirstOf("patternTertiaryColours")
+					.map(getPatternColoursFromElement::apply)
+					.orElse(new ArrayList<>(ColourListPresets.ALL));
+			
 			finalSetUp();
 		}
 		catch(XMLMissingTagException ex){
@@ -560,11 +635,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	@SuppressWarnings("rawtypes")
 	private static void printHelpfulErrorForEnumValueMismatches(Exception ex) {
-		Map<Class, Object[]> possibleEnumValues = new HashMap<>();
-		possibleEnumValues.put(ColourListPresets.class, ColourListPresets.values());
+		Map<Class, Set<String>> possibleEnumValues = new HashMap<>();
+		possibleEnumValues.put(ColourListPresets.class, ColourListPresets.getIdToColourListMap().keySet());
 		String exMessage = ex.getMessage();
-		if (exMessage.startsWith("No enum constant")){
-			for (Map.Entry<Class, Object[]> possibleMatch : possibleEnumValues.entrySet()) {
+		if (exMessage.startsWith("No ColourListPreset constant")){
+			for (Entry<Class, Set<String>> possibleMatch : possibleEnumValues.entrySet()) {
 				if (exMessage.contains(possibleMatch.getKey().getCanonicalName())) {
 					StringJoiner valueLister = new StringJoiner(",");
 					Arrays.asList(possibleMatch.getValue()).forEach(enumValue -> valueLister.add(enumValue.toString()));
@@ -1343,10 +1418,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(getItemTags().contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
 			return false;
 		}
-		if(getItemTags().contains(ItemTag.FITS_HARPY_WINGS) && clothingOwner.getArmType()!=ArmType.HARPY) {
+		if(getItemTags().contains(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE) && clothingOwner.getArmType()!=ArmType.HARPY) {
 			return false;
 		}
-		if(getItemTags().contains(ItemTag.FITS_HOOFS) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
+		if(getItemTags().contains(ItemTag.FITS_HOOFS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
 			return false;
 		}
 		if(getItemTags().contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
@@ -1355,7 +1430,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(getItemTags().contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
 			return false;
 		}
-		if(getItemTags().contains(ItemTag.FITS_TALONS) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
+		if(getItemTags().contains(ItemTag.FITS_TALONS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
 			return false;
 		}
 		if(getItemTags().contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
@@ -1424,7 +1499,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public String getCannotBeEquippedText(GameCharacter clothingOwner) { // ...
 		BodyPartClothingBlock block = this.getSlot().getBodyPartClothingBlock(clothingOwner);
 		if (block != null && Collections.disjoint(block.getRequiredTags(), this.getItemTags())) {
-			return UtilText.parse("[style.colourBad(" + block.getDescription() + ")]");
+			return UtilText.parse("[style.colourBad(" + UtilText.parse(clothingOwner, block.getDescription()) + ")]");
 		}
 		if(getItemTags().contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
 			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arachnid bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
@@ -1432,10 +1507,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(getItemTags().contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
 			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for cephalopod bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
 		}
-		if(getItemTags().contains(ItemTag.FITS_HARPY_WINGS) && clothingOwner.getArmType()!=ArmType.HARPY) {
+		if(getItemTags().contains(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE) && clothingOwner.getArmType()!=ArmType.HARPY) {
 			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
 		}
-		if(getItemTags().contains(ItemTag.FITS_HOOFS) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
+		if(getItemTags().contains(ItemTag.FITS_HOOFS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
 			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for hoofs, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
 		}
 		if(getItemTags().contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
@@ -1444,7 +1519,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(getItemTags().contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
 			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for tailed bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
 		}
-		if(getItemTags().contains(ItemTag.FITS_TALONS) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
+		if(getItemTags().contains(ItemTag.FITS_TALONS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
 			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for talons, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
 		}
 		if(getItemTags().contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
@@ -1553,6 +1628,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	public String getDescription() {
 		return description;
+	}
+
+	public String getAuthorDescription() {
+		return authorDescription;
 	}
 
 	public int getFemininityMinimum() {
@@ -2106,6 +2185,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	private String getSVGWithHandledPattern(String s, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
+		isPatternAvalableInitCompleted = true;
 		if(!s.contains("patternLayer")) { // Making sure that the pattern layer exists.
 			return s;
 		}
@@ -2212,7 +2292,31 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public boolean isPatternAvailable() {
+		if(!isPatternAvailable && !isPatternAvalableInitCompleted) {
+			isPatternAvailable = this.getSVGImage().contains("patternLayer");
+			isPatternAvalableInitCompleted = true;
+		}
 		return this.isPatternAvailable;
+	}
+
+	public float getPatternChance() {
+		return patternChance;
+	}
+
+	public List<Pattern> getDefaultPatterns() {
+		return defaultPatterns;
+	}
+
+	public List<Colour> getAvailablePatternPrimaryColours() {
+		return availablePatternPrimaryColours;
+	}
+
+	public List<Colour> getAvailablePatternSecondaryColours() {
+		return availablePatternSecondaryColours;
+	}
+
+	public List<Colour> getAvailablePatternTertiaryColours() {
+		return availablePatternTertiaryColours;
 	}
 
 	public Rarity getRarity() {

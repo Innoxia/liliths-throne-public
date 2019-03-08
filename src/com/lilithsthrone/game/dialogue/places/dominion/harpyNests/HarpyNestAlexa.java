@@ -100,7 +100,7 @@ public class HarpyNestAlexa {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/harpyNests/alexa", "ALEXAS_NEST");
+			return UtilText.parseFromXMLFile("places/dominion/harpyNests/alexa", "ALEXAS_NEST_SCARLETT");
 		}
 
 		@Override

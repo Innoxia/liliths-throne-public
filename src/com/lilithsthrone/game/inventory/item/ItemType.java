@@ -3343,6 +3343,15 @@ public class ItemType {
 		}
 		
 		@Override
+		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
+			if(user.equals(target)) {
+				return "Use the " + getName(false) + " to hypnotise yourself.";
+			} else {
+				return UtilText.parse(target, "Use the " + getName(false) + " to hypnotise [npc.name].");
+			}
+		}
+		
+		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Taking hold of the delicate chain, you start slowly swinging the Hypno-Watch back and forth, fixating your gaze on the swirling face as you allow the item's arcane power to seep into your mind...",

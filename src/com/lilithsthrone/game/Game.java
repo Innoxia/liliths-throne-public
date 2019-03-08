@@ -848,6 +848,7 @@ public class Game implements XMLSaving {
 						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
 					}
 				}
+				
 				if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
 						Main.game.getNpc(SubmissionCitadelArcanist.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
@@ -861,6 +862,7 @@ public class Game implements XMLSaving {
 					}
 					Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_LIBRARY).getInventory().addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HALF_DEMON)));
 				}
+				
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.0.5")) {
 					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
 						ImpCitadelDialogue.clearFortress();
@@ -870,7 +872,9 @@ public class Game implements XMLSaving {
 						((DarkSiren)Main.game.getNpc(DarkSiren.class)).postDefeatReset();
 					}
 				}
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.0.6")) { // For affection/incest gains that I missed in v0.3 & v0.3.0.5:
+				
+				// For affection/incest gains that I missed in v0.3 & v0.3.0.5:
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.0.6")) {
 					if(Main.game.getNpc(Lilaya.class).getRaceStage()==RaceStage.GREATER) {
 						Main.game.getNpc(Lilaya.class).setAffection(Main.game.getNpc(Lyssieth.class), 75);
 						Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 50);
@@ -878,6 +882,22 @@ public class Game implements XMLSaving {
 					if(Main.game.getNpc(DarkSiren.class).getRaceStage()==RaceStage.GREATER) {
 						Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lyssieth.class), 75);
 						Main.game.getNpc(DarkSiren.class).addFetish(Fetish.FETISH_INCEST);
+					}
+				}
+				
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.1.2")
+						&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)
+						&& !Main.game.getNpc(Brax.class).getLocationPlace().getPlaceType().equals(PlaceType.ENFORCER_HQ_RECEPTION_DESK)) {
+					// Move Brax to reception desk if he was incorrectly reset to his office (after fixing the bug where NPCs were disappearing):
+					Main.game.getNpc(Brax.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK);
+					
+					// Remove all NPC offspring who are not related to the player:
+					for(NPC npc : new HashSet<>(Main.game.getNPCMap().values())) {
+						if(npc instanceof NPCOffspring) {
+							if(!npc.isRelatedTo(Main.game.getPlayer())) {
+								Main.game.banishNPC(npc);
+							}
+						}
 					}
 				}
 				
@@ -1426,8 +1446,8 @@ public class Game implements XMLSaving {
 			
 			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3) && (Main.game.getSecondsPassed() - npc.getTimeProgressedToFinalPregnancyStage())>(12*60*60)) {
 				if(npc instanceof Lilaya) {
-					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
-						// Lilaya will only end pregnancy after you've seen it.
+					// Lilaya will only end pregnancy after you've seen it, or if she's a full demon:
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaBirthNews) || npc.getRaceStage()==RaceStage.GREATER) {
 						npc.endPregnancy(true);
 					}
 					
@@ -2383,7 +2403,7 @@ public class Game implements XMLSaving {
 								: "")
 					+ "</div>"
 				+ "</div>"
-				+"<p style='text-align:center;font-size:0.6em;color:#777;'>Dialogue written by "+currentDialogueNode.getAuthor()+" for <i>Lilith's Throne v"+Main.VERSION_NUMBER+"</i></p>"
+				+"<p style='text-align:center;font-size:0.6em;color:#777;'>Dialogue written by "+currentDialogueNode.getAuthor()+" for <i>"+Main.GAME_NAME+" v"+Main.VERSION_NUMBER+"</i></p>"
 				+ "</body>";
 	}
 
@@ -3026,7 +3046,7 @@ public class Game implements XMLSaving {
 		for(NPC npc : NPCMap.values()) {
 			if((npc.getMother()!=null && npc.getMother().isPlayer()) || (npc.getFather()!=null && npc.getFather().isPlayer())) {
 				if(npc.getMother()!=null) {
-					if(!(npc.getMother().getPregnantLitter() != null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId()))) {
+					if(npc.getMother().getPregnantLitter() == null || !npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 						offspring.add(npc);
 					}
 				} else {

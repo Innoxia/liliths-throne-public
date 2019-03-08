@@ -566,7 +566,7 @@ public class Lab {
 							if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, true);
 							}
-							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 							Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 							
 							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
@@ -579,7 +579,7 @@ public class Lab {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
-							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 							
 							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
@@ -929,7 +929,7 @@ public class Lab {
 							if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, true);
 							}
-							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 
 							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
@@ -941,7 +941,7 @@ public class Lab {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
-							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 							
 							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);

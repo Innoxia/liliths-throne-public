@@ -1515,6 +1515,7 @@ public class SexPositionBipeds {
 									SexSlotBipeds.KNEELING_PERFORMING_ORAL,
 									new SexActionInteractions(
 										Util.mergeMaps(
+											SexActionPresets.fingerToMouth,
 											SexActionPresets.tailToUpperTorso,
 											SexActionPresets.tentacleToUpperTorso,
 											SexActionPresets.groinToMouth,

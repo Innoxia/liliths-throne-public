@@ -45,12 +45,11 @@ import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -1038,8 +1037,10 @@ public class InventoryDialogue {
 						} else if (!item.isAbleToBeUsed(Main.game.getPlayer())) {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 						} else {
-							return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
-									Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
+							return new Response(
+									Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+									item.getItemType().getUseTooltipDescription(owner, owner),
+									INVENTORY_MENU){
 								@Override
 								public void effects(){
 									Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
@@ -1056,8 +1057,11 @@ public class InventoryDialogue {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 							
 						} else {
-							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in your inventory.", INVENTORY_MENU){
+							return new Response(
+									Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
+									item.getItemType().getUseTooltipDescription(owner, owner)
+										+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]",
+									INVENTORY_MENU){
 								@Override
 								public void effects(){
 									int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1112,7 +1116,10 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Combat.ENEMY_ATTACK){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+											item.getItemType().getUseTooltipDescription(owner, owner),
+											Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
 											Combat.appendTurnText(Main.game.getPlayer(), Util.capitaliseSentence(item.getItemType().getUseName())+" "+item.getName(), Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false));
@@ -1142,7 +1149,8 @@ public class InventoryDialogue {
 
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Combat.ENEMY_ATTACK,
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
+											Combat.ENEMY_ATTACK,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
@@ -1158,8 +1166,10 @@ public class InventoryDialogue {
 										}
 									};
 								} else if(item.getItemType().isTransformative()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Combat.ENEMY_ATTACK,
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
+											Combat.ENEMY_ATTACK,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
@@ -1176,8 +1186,10 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Combat.ENEMY_ATTACK){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
+											Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
 											Combat.appendTurnText(Main.game.getPlayer(), Util.capitaliseSentence(item.getItemType().getUseName())+" "+item.getName(), Main.game.getPlayer().useItem(item, inventoryNPC, false));
@@ -1273,9 +1285,12 @@ public class InventoryDialogue {
 									
 								} else if (!item.isAbleToBeUsed(Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
+									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+											item.getItemType().getUseTooltipDescription(owner, owner),
+											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
@@ -1292,8 +1307,11 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in your inventory.", INVENTORY_MENU){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
+											item.getItemType().getUseTooltipDescription(owner, owner)
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]",
+											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1317,7 +1335,7 @@ public class InventoryDialogue {
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
@@ -1332,7 +1350,7 @@ public class InventoryDialogue {
 									};
 								} else if(item.getItemType().isTransformative()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
@@ -1348,7 +1366,7 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -1366,7 +1384,8 @@ public class InventoryDialogue {
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " all of the " + item.getNamePlural() + " in your inventory.",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC)
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]",
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
@@ -1384,7 +1403,8 @@ public class InventoryDialogue {
 									};
 								} else if(item.getItemType().isTransformative()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " all of the " + item.getNamePlural() + " in your inventory.",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC)
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]",
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
@@ -1403,7 +1423,8 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " all of the " + item.getNamePlural() + " in your inventory.",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC)
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]",
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -1444,8 +1465,10 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+											item.getItemType().getUseTooltipDescription(owner, owner),
+											Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
 											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), Main.game.getPlayer()));
@@ -1474,8 +1497,10 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)", item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
 								} else if(item.getItemType().isFetishGiving()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE,
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
+											Sex.SEX_DIALOGUE,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
@@ -1492,8 +1517,10 @@ public class InventoryDialogue {
 									};
 									
 								} else if(item.getItemType().isTransformative()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE,
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
+											Sex.SEX_DIALOGUE,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
@@ -1510,8 +1537,10 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
+											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
+											Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
 											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
@@ -1619,7 +1648,8 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
+											item.getItemType().getUseTooltipDescription(owner, owner),
+											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
@@ -1636,8 +1666,11 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in your inventory.", INVENTORY_MENU){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
+											item.getItemType().getUseTooltipDescription(owner, owner)
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]",
+											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1722,8 +1755,10 @@ public class InventoryDialogue {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 							
 						} else {
-							return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
-									Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
+							return new Response(
+									Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+									item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), Main.game.getPlayer()),
+									INVENTORY_MENU){
 								@Override
 								public void effects(){
 									Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true) + "</p>");
@@ -1740,8 +1775,11 @@ public class InventoryDialogue {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 							
 						} else {
-							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in this area.", INVENTORY_MENU){
+							return new Response(
+									Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
+									item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), Main.game.getPlayer())
+									+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in this area.)]",
+									INVENTORY_MENU){
 								@Override
 								public void effects(){
 									int itemCount = Main.game.getPlayerCell().getInventory().getItemCount(item);
@@ -1847,8 +1885,10 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+											item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), Main.game.getPlayer()),
+											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, Main.game.getPlayer(), false) + "</p>");
@@ -1865,8 +1905,11 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.namePos] inventory."), INVENTORY_MENU){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
+											item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), Main.game.getPlayer())
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in [npc.namePos] inventory.)]",
+											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
@@ -1889,8 +1932,9 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
 								} else if(item.getItemType().isFetishGiving()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
+											item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), inventoryNPC),
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
@@ -1904,8 +1948,9 @@ public class InventoryDialogue {
 										}
 									};
 								} else if(item.getItemType().isTransformative()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
+											item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), inventoryNPC),
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
@@ -1920,8 +1965,10 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", INVENTORY_MENU){
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
+											item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), inventoryNPC),
+											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
@@ -1938,8 +1985,10 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
 								} else if(item.getItemType().isFetishGiving()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.her] inventory."),
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
+											item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), inventoryNPC)
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in [npc.namePos] inventory.)]",
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
@@ -1955,9 +2004,12 @@ public class InventoryDialogue {
 											resetPostAction();
 										}
 									};
+									
 								} else if(item.getItemType().isTransformative()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.her] inventory."),
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
+											item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), inventoryNPC)
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in [npc.namePos] inventory.)]",
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
@@ -1975,8 +2027,10 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.her] inventory."),
+									return new Response(
+											Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
+											item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), inventoryNPC)
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in [npc.namePos] inventory.)]",
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -2008,6 +2062,7 @@ public class InventoryDialogue {
 								
 							} else if(index == 6) {
 								return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", "You can't use your partner's items during sex!", null);
+								//TODO
 //								if (!item.isAbleToBeUsedInSex()) {
 //									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", "This cannot be used during sex!", null);
 //									
@@ -2039,6 +2094,7 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 								return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (partner)", "You can't use your partner's items during sex!", null);
+								//TODO
 //								if (!item.isAbleToBeUsedInSex()) {
 //									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (partner)", "This cannot be used during sex!", null);
 //									
@@ -6043,7 +6099,7 @@ public class InventoryDialogue {
 			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isPrimaryRecolourAvailable()) {
 				inventorySB.append("<div class='container-full-width'>"
 						+ "Pattern Primary Colour:<br/>");
-				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+				for (Colour c : clothing.getClothingType().getAvailablePatternPrimaryColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"
@@ -6059,7 +6115,7 @@ public class InventoryDialogue {
 			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isSecondaryRecolourAvailable()) {
 				inventorySB.append("<div class='container-full-width'>"
 						+ "Pattern Secondary Colour:<br/>");
-				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+				for (Colour c : clothing.getClothingType().getAvailablePatternSecondaryColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"
@@ -6075,7 +6131,7 @@ public class InventoryDialogue {
 			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isTertiaryRecolourAvailable()) {
 				inventorySB.append("<div class='container-full-width'>"
 						+ "Pattern Tertiary Colour:<br/>");
-				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+				for (Colour c : clothing.getClothingType().getAvailablePatternTertiaryColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"

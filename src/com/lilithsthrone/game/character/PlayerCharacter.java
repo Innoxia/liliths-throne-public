@@ -731,7 +731,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public List<GameCharacter> getCharactersEncounteredAsGameCharacters() {
+	/**
+	 * @param expansiveSearch True if you want every possible character that the player has have encountered, including ones that are not usually added to the contacts list. (This will include random NPCs the player has had sex with.)
+	 * @return
+	 */
+	public List<GameCharacter> getCharactersEncounteredAsGameCharacters(boolean expansiveSearch) {
 		List<GameCharacter> npcsEncountered = new ArrayList<>();
 		for(String characterId : charactersEncountered) {
 			try {
@@ -741,6 +745,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				Util.logGetNpcByIdError("getCharactersEncounteredAsGameCharacters()", characterId);
 			}
 		}
+		
+		if(expansiveSearch) {
+			for(String id : this.getSexPartners().keySet()) {
+				try {
+					GameCharacter npc = Main.game.getNPCById(id);
+					npcsEncountered.add(npc);
+				} catch(Exception ex) {
+				}
+			}
+		}
+		
 		return npcsEncountered;
 	}
 	

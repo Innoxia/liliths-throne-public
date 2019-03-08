@@ -554,7 +554,7 @@ public class HarpyAttackerDialogue {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getHarpy())>0) {
+			if(Sex.getNumberOfOrgasms(getHarpy())>=getHarpy().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", "AFTER_SEX_PEACEFUL", getHarpy());
 			} else {
 				return UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", "AFTER_SEX_PEACEFUL_NO_ORGASM", getHarpy());
@@ -1185,7 +1185,7 @@ public class HarpyAttackerDialogue {
 		public String getContent() {
 			if((getHarpy().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+				if(Sex.getNumberOfOrgasms(getHarpy()) >= getHarpy().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", "AFTER_SEX_VICTORY", getHarpy());
 				} else {
 					return UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", "AFTER_SEX_VICTORY_NO_ORGASM", getHarpy());

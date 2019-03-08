@@ -136,7 +136,7 @@ public class PhoneDialogue {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().sortCharactersEncountered();
-							charactersEncountered = Main.game.getPlayer().getCharactersEncounteredAsGameCharacters();
+							charactersEncountered = Main.game.getPlayer().getCharactersEncounteredAsGameCharacters(false);
 						}
 					};
 				}

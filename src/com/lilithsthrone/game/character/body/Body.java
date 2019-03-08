@@ -600,7 +600,7 @@ public class Body implements XMLSaving {
 		// Ear:
 		Element bodyEar = doc.createElement("ear");
 		parentElement.appendChild(bodyEar);
-			CharacterUtils.addAttribute(doc, bodyEar, "type", this.ear.type.toString());
+			CharacterUtils.addAttribute(doc, bodyEar, "type", EarType.getIdFromEarType(this.ear.type));
 			CharacterUtils.addAttribute(doc, bodyEar, "pierced", String.valueOf(this.ear.pierced));
 
 		// Eye:
@@ -986,7 +986,7 @@ public class Body implements XMLSaving {
 		
 		Element ear = (Element)parentElement.getElementsByTagName("ear").item(0);
 
-		Ear importedEar = new Ear(EarType.getTypeFromString(ear.getAttribute("type")));
+		Ear importedEar = new Ear(EarType.getEarTypeFromId(ear.getAttribute("type")));
 		
 		importedEar.pierced = (Boolean.valueOf(ear.getAttribute("pierced")));
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Ear:"
@@ -1290,7 +1290,7 @@ public class Body implements XMLSaving {
 				+ "<br/>cumProduction: "+importedPenis.testicle.getCumStorage()
 				+ "<br/>numberOfTesticles: "+importedPenis.testicle.getTesticleCount()
 				+ "<br/>testicleSize: "+importedPenis.testicle.getTesticleSize()
-				+ "<br/>internal: "+importedPenis.testicle.isInternal());
+				+ "<br/>internal: "+importedPenis.testicle.internal);
 		
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Cum:");
@@ -1659,9 +1659,9 @@ public class Body implements XMLSaving {
 					body.setBodyCoveringForXMLImport(BodyCoveringType.getTypeFromString(type),
 							CoveringPattern.valueOf(e.getAttribute("pattern")),
 							Colour.valueOf(colourPrimary),
-							!e.getAttribute("glowPrimary").isEmpty()?Boolean.valueOf(e.getAttribute("glowPrimary")):false,
+							!e.getAttribute("g1").isEmpty()?Boolean.valueOf(e.getAttribute("g1")):false,
 							Colour.valueOf(colourSecondary),
-							!e.getAttribute("glowSecondary").isEmpty()?Boolean.valueOf(e.getAttribute("glowSecondary")):false);
+							!e.getAttribute("g2").isEmpty()?Boolean.valueOf(e.getAttribute("g2")):false);
 					
 				} else { //TODO
 					BodyCoveringType coveringType = BodyCoveringType.getTypeFromString(type);
@@ -1671,9 +1671,9 @@ public class Body implements XMLSaving {
 							CoveringPattern.valueOf(e.getAttribute("pattern")),
 							coveringType.getNaturalModifiers().contains(modifier) || coveringType.getExtraModifiers().contains(modifier) ? modifier : coveringType.getNaturalModifiers().get(0),
 							Colour.valueOf(colourPrimary),
-							!e.getAttribute("glowPrimary").isEmpty()?Boolean.valueOf(e.getAttribute("glowPrimary")):false,
+							!e.getAttribute("g1").isEmpty()?Boolean.valueOf(e.getAttribute("g1")):false,
 							Colour.valueOf(colourSecondary),
-							!e.getAttribute("glowSecondary").isEmpty()?Boolean.valueOf(e.getAttribute("glowSecondary")):false);
+							!e.getAttribute("g2").isEmpty()?Boolean.valueOf(e.getAttribute("g2")):false);
 				}
 				
 				if(!e.getAttribute("discovered").isEmpty() && Boolean.valueOf(e.getAttribute("discovered"))) {
@@ -2194,91 +2194,7 @@ public class Body implements XMLSaving {
 		}
 		
 		// Ear:
-		switch (ear.getType()) {
-			case ANGEL:
-				sb.append(" [npc.She] [npc.has] a pair of perfectly-formed angelic ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
-				break;
-			case HUMAN:
-				sb.append(" [npc.She] [npc.has] a pair of normal, human ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
-				break;
-			case DEMON_COMMON:
-				if(!owner.isShortStature()) {
-					sb.append(" [npc.She] [npc.has] a pair of pointed, demonic ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
-				} else {
-					sb.append(" [npc.She] [npc.has] a pair of pointed, impish ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
-				}
-				break;
-			case DOG_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of floppy, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case DOG_MORPH_POINTED:
-				sb.append(" [npc.She] [npc.has] a pair of pointed, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case DOG_MORPH_FOLDED:
-				sb.append(" [npc.She] [npc.has] a pair of folded, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case FOX_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, fox-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case FOX_MORPH_BIG:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, fox-like ears,"
-						+ " which are nearly as large as the rest of [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;	
-			case LYCAN:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case CAT_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case CAT_MORPH_TUFTED:
-				sb.append(" [npc.She] [npc.has] a pair of tufted "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case COW_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of oval-shaped, cow-like ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
-				break;
-			case ALLIGATOR_MORPH:
-				sb.append(" [npc.Her] ears are an internal part of [npc.her] head, and are covered by a fan of <span style='color:[npc.earColourHex];'>[npc.earColour] scales</span>."
-							+ (ear.isPierced()?" They have been cleverly pierced so as to allow [npc.herHim] to wear ear-specific jewellery.":""));
-				break;
-			case SQUIRREL_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case RAT_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, rat-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case RABBIT_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, rabbit-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case RABBIT_MORPH_FLOPPY:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"floppy, rabbit-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case BAT_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"triangular, bat-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case HORSE_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears,"
-						+ " which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].");
-				break;
-			case REINDEER_MORPH:
-				sb.append(" [npc.She] [npc.has] a pair of oval-shaped, reindeer-like ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
-				break;
-			case HARPY:
-				sb.append(" [npc.Her] ears are an internal part of [npc.her] head, and are covered by a fan of [npc.earFullDescription(true)]."
-							+ (ear.isPierced()?" They have been cleverly pierced so as to allow [npc.herHim] to wear ear-specific jewellery.":""));
-				break;
-		}
+		sb.append(ear.getType().getBodyDescription(owner));
 		
 		sb.append("</p>"
 				+ "<p>");

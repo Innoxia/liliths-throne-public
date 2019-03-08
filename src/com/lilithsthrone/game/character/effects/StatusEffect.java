@@ -2029,13 +2029,22 @@ public enum StatusEffect {
 			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
 				if(target.getDirtySlots().contains(clothing.getClothingType().getSlot())) {
 					slotsToClean.add(clothing.getClothingType().getSlot());
-					if(!clothing.isDirty()) {
-						clothing.setDirty(true);
-						if(sb.length()>0) {
-							sb.append("<br/>");
-						}
+					
+					if(clothing.getClothingType().getSlot()==InventorySlot.ANUS && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_ANUS) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_ANUS))
+							|| clothing.getClothingType().getSlot()==InventorySlot.VAGINA && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_VAGINA) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_VAGINA))
+							|| clothing.getClothingType().getSlot()==InventorySlot.NIPPLE && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_NIPPLES) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_NIPPLES))) {
 						sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
-								+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+								+" as you insert "+(clothing.getClothingType().isPlural()?"them into your orifices":"it into your orifice")+".");
+						
+					} else {
+						if(!clothing.isDirty()) {
+							clothing.setDirty(true);
+							if(sb.length()>0) {
+								sb.append("<br/>");
+							}
+							sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+									+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+						}
 					}
 					
 				} else {
@@ -3455,8 +3464,6 @@ public enum StatusEffect {
 		
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			target.resetAllPregnancyReactions();
-			
 			return "";
 		}
 
@@ -4032,18 +4039,24 @@ public enum StatusEffect {
 			float cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerSecond(target)*secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
+
+			AbstractClothing clothingBlocking = target.getLowestZLayerCoverableArea(CoverableArea.VAGINA);
+			boolean dirtyArea = clothingBlocking==null;
 			
-			if(target.getLowestZLayerCoverableArea(CoverableArea.VAGINA)!=null){
-				if(!target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).isDirty()) {
-					target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
+			if(clothingBlocking!=null && !clothingBlocking.getItemTags().contains(ItemTag.PLUGS_VAGINA) && !clothingBlocking.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
+				if(!clothingBlocking.isDirty()) {
+					clothingBlocking.setDirty(true);
 					sb.append("<p>"
 								+ "The cum from your creampied pussy quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
 				}
+				dirtyArea = true;
 			}
 			
-			if(!target.getDirtySlots().contains(InventorySlot.VAGINA)) {
-				target.addDirtySlot(InventorySlot.VAGINA);
+			if(dirtyArea) {
+				if(!target.getDirtySlots().contains(InventorySlot.VAGINA)) {
+					target.addDirtySlot(InventorySlot.VAGINA);
+				}
 			}
 			
 			target.drainTotalFluidsStored(SexAreaOrifice.VAGINA, cumLost);
@@ -4144,18 +4157,24 @@ public enum StatusEffect {
 			float cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
+
+			AbstractClothing clothingBlocking = target.getLowestZLayerCoverableArea(CoverableArea.VAGINA);
+			boolean dirtyArea = clothingBlocking==null;
 			
-			if(target.getLowestZLayerCoverableArea(CoverableArea.VAGINA)!=null){
-				if(!target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).isDirty()) {
-					target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
+			if(clothingBlocking!=null && !clothingBlocking.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
+				if(!clothingBlocking.isDirty()) {
+					clothingBlocking.setDirty(true);
 					sb.append("<p>"
 								+ "Cum leaks out of your pussy's creampied urethra, quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
 				}
+				dirtyArea = true;
 			}
 			
-			if(!target.getDirtySlots().contains(InventorySlot.VAGINA)) {
-				target.addDirtySlot(InventorySlot.VAGINA);
+			if(dirtyArea) {
+				if(!target.getDirtySlots().contains(InventorySlot.VAGINA)) {
+					target.addDirtySlot(InventorySlot.VAGINA);
+				}
 			}
 			
 			target.drainTotalFluidsStored(SexAreaOrifice.URETHRA_VAGINA, cumLost);
@@ -4369,17 +4388,23 @@ public enum StatusEffect {
 			
 			StringBuilder sb = new StringBuilder();
 			
-			if(target.getLowestZLayerCoverableArea(CoverableArea.ANUS)!=null){
-				if(!target.getLowestZLayerCoverableArea(CoverableArea.ANUS).isDirty()) {
-					target.getLowestZLayerCoverableArea(CoverableArea.ANUS).setDirty(true);
+			AbstractClothing clothingBlocking = target.getLowestZLayerCoverableArea(CoverableArea.ANUS);
+			boolean dirtyArea = clothingBlocking==null;
+			
+			if(clothingBlocking!=null && !clothingBlocking.getItemTags().contains(ItemTag.PLUGS_ANUS) && !clothingBlocking.getItemTags().contains(ItemTag.SEALS_ANUS)) {
+				if(!clothingBlocking.isDirty()) {
+					clothingBlocking.setDirty(true);
 					sb.append("<p>"
 								+ "The cum from your creampied asshole quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
 							+ "</p>");
 				}
+				dirtyArea = true;
 			}
 			
-			if(!target.getDirtySlots().contains(InventorySlot.ANUS)) {
-				target.addDirtySlot(InventorySlot.ANUS);
+			if(dirtyArea) {
+				if(!target.getDirtySlots().contains(InventorySlot.ANUS)) {
+					target.addDirtySlot(InventorySlot.ANUS);
+				}
 			}
 			
 			target.drainTotalFluidsStored(SexAreaOrifice.ANUS, cumLost);
@@ -4480,18 +4505,24 @@ public enum StatusEffect {
 			float cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
+
+			AbstractClothing clothingBlocking = target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES);
+			boolean dirtyArea = clothingBlocking==null;
 			
-			if(target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES)!=null){
-				if(!target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).isDirty()) {
-					target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
+			if(clothingBlocking!=null && !clothingBlocking.getItemTags().contains(ItemTag.PLUGS_NIPPLES) && !clothingBlocking.getItemTags().contains(ItemTag.SEALS_NIPPLES)) {
+				if(!clothingBlocking.isDirty()) {
+					clothingBlocking.setDirty(true);
 					sb.append("<p>"
 								+ "The cum from your creampied nipples quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
 							+ "</p>");
 				}
+				dirtyArea = true;
 			}
 			
-			if(!target.getDirtySlots().contains(InventorySlot.NIPPLE)) {
-				target.addDirtySlot(InventorySlot.NIPPLE);
+			if(dirtyArea) {
+				if(!target.getDirtySlots().contains(InventorySlot.NIPPLE)) {
+					target.addDirtySlot(InventorySlot.NIPPLE);
+				}
 			}
 			
 			target.drainTotalFluidsStored(SexAreaOrifice.NIPPLE, cumLost);

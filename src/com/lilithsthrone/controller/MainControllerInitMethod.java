@@ -31,6 +31,7 @@ import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.types.AbstractArmType;
 import com.lilithsthrone.game.character.body.types.AbstractAssType;
 import com.lilithsthrone.game.character.body.types.AbstractBreastType;
+import com.lilithsthrone.game.character.body.types.AbstractEarType;
 import com.lilithsthrone.game.character.body.types.AbstractHornType;
 import com.lilithsthrone.game.character.body.types.AbstractLegType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -2673,8 +2674,8 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for(EarType earType: EarType.values()) {
-					id = "CHANGE_EAR_"+earType;
+				for(AbstractEarType earType: EarType.getAllEarTypes()) {
+					id = "CHANGE_EAR_"+EarType.getIdFromEarType(earType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setEarType(earType);
@@ -4280,7 +4281,7 @@ public class MainControllerInitMethod {
 					}
 				}
 				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isPrimaryRecolourAvailable()) {
-					for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					for (Colour c : ColourListPresets.ALL) {
 						id = "PATTERN_PRIMARY_"+clothing.hashCode() + "_" + c.toString();
 						if ((EventTarget) MainController.document.getElementById(id) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -4291,7 +4292,7 @@ public class MainControllerInitMethod {
 					}
 				}
 				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isSecondaryRecolourAvailable()) {
-					for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					for (Colour c : ColourListPresets.ALL) {
 						id = "PATTERN_SECONDARY_"+clothing.hashCode() + "_" + c.toString();
 						if ((EventTarget) MainController.document.getElementById(id) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -4302,7 +4303,7 @@ public class MainControllerInitMethod {
 					}
 				}
 				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isTertiaryRecolourAvailable()) {
-					for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					for (Colour c : ColourListPresets.ALL) {
 						id = "PATTERN_TERTIARY_"+clothing.hashCode() + "_" + c.toString();
 						if ((EventTarget) MainController.document.getElementById(id) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {

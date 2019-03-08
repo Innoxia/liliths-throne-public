@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>350</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[low-top skater shoe]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[low-top skater shoes]]></namePlural>
+		<description><![CDATA[A pair of low-top skater shoes, suitable for casual wear. They are primarily constructed of stitched cotton canvas, and have toe caps and soles that are made from flexible rubber.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>FOOT</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>low_top_skater_shoes.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>FEET</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye/>
+		<secondaryColours>
+			<colour>CLOTHING_WHITE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(push)] [npc.her] [npc.feet] into the skater shoes and [npc.verb(tie)] up the laces.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(push)] [npc2.namePos] [npc2.feet] into the skater shoes and [npc.verb(tie)] up the laces.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.feet] into the skater shoes and [npc.verb(tie)] up the laces.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the laces of [npc.her] skater shoes, before slipping them off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the laces of [npc2.namePos] skater shoes, before slipping them off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(untie)] the laces of [npc2.namePos] skater shoes, before tugging them off.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>
