@@ -3271,7 +3271,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS), target, request, mainSexTypes, 0.5f);
 		
 		
-		foreplaySexTypes.entrySet().removeIf(e -> e.getValue()<=0);
+		foreplaySexTypes.entrySet().removeIf(e -> e.getValue()<=0); //TODO
 		mainSexTypes.entrySet().removeIf(e -> e.getValue()<=0);
 		
 		
@@ -3428,8 +3428,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			if(foreplayPreference.get(target)==null) {
 				foreplayPreference.put(target, Util.getRandomObjectFromWeightedMap(foreplaySexTypes));
 			}
-			if(debug)
+			if(debug) {
 				System.out.println("Foreplay: "+foreplayPreference.get(target).getPerformingSexArea().toString()+" "+foreplayPreference.get(target).getTargetedSexArea().toString());
+			}
 		}
 
 		mainSexPreference.put(target, null);

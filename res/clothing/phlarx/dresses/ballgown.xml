@@ -19,34 +19,22 @@
 		<effects/>
 		<blockedPartsList> 	
 			<blockedParts>
-			
-				
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
-				
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired>
 					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessRequired>
-				
-				
 				<blockedBodyParts> 
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>
 					<bodyPart>STOMACH</bodyPart>
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
-				
-				
 				<clothingAccessBlocked> 
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
-
-				
-				
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"> 
 				</concealedSlots>
 			</blockedParts>
-			
 			
 			<blockedParts>
 				<displacementType>PULLS_UP</displacementType>
@@ -72,8 +60,6 @@
 					<clothingAccess>CALVES</clothingAccess>
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessBlocked>
-				
-				
 				<concealedSlots values="CONCEALED_GROIN">
 				    <concealedSlot>LEG</concealedSlot>
 				    <concealedSlot>FOOT</concealedSlot>

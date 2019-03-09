@@ -1612,26 +1612,13 @@ public class Sex {
 			if(SexFlags.playerPreparedForCharactersOrgasm.contains(Sex.getCharacterPerformingAction())) {
 				for (SexActionInterface sexAction : Sex.getOrgasmActionsPartner(Sex.getCharacterPerformingAction(), targetedCharacter)) {
 					if (sexAction.isAddedToAvailableSexActions()) {
-						boolean dislikedAction = false;
-//						if(sexAction.getFetishes(Sex.getCharacterPerformingAction())!=null) {
-//							for(Fetish f : sexAction.getFetishes(Sex.getCharacterPerformingAction())) {
-//								if(f!=Fetish.FETISH_EXHIBITIONIST // Do not include exhibitionist, as otherwise NPC will never do anything in public sex.
-//										&& (Sex.getCharacterPerformingAction().getFetishDesire(f)==FetishDesire.ONE_DISLIKE
-//											|| Sex.getCharacterPerformingAction().getFetishDesire(f)==FetishDesire.ZERO_HATE)) {
-//									lowPriority.add(sexAction);
-//									dislikedAction = true;
-//									break;
-//								}
-//							}
-//						}
+						
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
 						if(weight<0) {
 							lowPriority.add(sexAction);
-							dislikedAction = true;
-						}
-						
-						if(!dislikedAction) {
+							
+						} else {
 							switch(sexAction.getPriority()){
 								case LOW:
 									lowPriority.add(sexAction);
@@ -1680,26 +1667,12 @@ public class Sex {
 			for (SexActionInterface sexAction : Sex.getActionsAvailablePartner(Sex.getCharacterPerformingAction(), targetedCharacter)) {
 				if (sexAction.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM) {
 					if (sexAction.isAddedToAvailableSexActions()) {
-						boolean dislikedAction = false;
-//						if(sexAction.getFetishes(Sex.getCharacterPerformingAction())!=null) {
-//							for(Fetish f : sexAction.getFetishes(Sex.getCharacterPerformingAction())) {
-//								if(f!=Fetish.FETISH_EXHIBITIONIST // Do not include exhibitionist, as otherwise NPC will never do anything in public sex.
-//										&& (Sex.getCharacterPerformingAction().getFetishDesire(f)==FetishDesire.ONE_DISLIKE
-//											|| Sex.getCharacterPerformingAction().getFetishDesire(f)==FetishDesire.ZERO_HATE)) {
-//									lowPriority.add(sexAction);
-//									dislikedAction = true;
-//									break;
-//								}
-//							}
-//						}
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
 						if(weight<0) {
 							lowPriority.add(sexAction);
-							dislikedAction = true;
-						}
-						
-						if(!dislikedAction) {
+							
+						} else {
 							switch(sexAction.getPriority()){
 								case LOW:
 									lowPriority.add(sexAction);
@@ -1756,26 +1729,13 @@ public class Sex {
 						
 					} else {
 						// Add action as normal:
-						boolean dislikedAction = false;
-//						if(sexAction.getFetishes(Sex.getCharacterPerformingAction())!=null) {
-//							for(Fetish f : sexAction.getFetishes(Sex.getCharacterPerformingAction())) {
-//								if(f!=Fetish.FETISH_NON_CON_SUB
-//										&& f!=Fetish.FETISH_EXHIBITIONIST // Do not include exhibitionist, as otherwise NPC will never do anything in public sex.
-//										&& (Sex.getCharacterPerformingAction().getFetishDesire(f)==FetishDesire.ONE_DISLIKE
-//											|| Sex.getCharacterPerformingAction().getFetishDesire(f)==FetishDesire.ZERO_HATE)) {
-//									dislikedAction = true;
-//									break;
-//								}
-//							}
-//						}
+						
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
 						if(weight<0 && !sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)) {
 							lowPriority.add(sexAction);
-							dislikedAction = true;
-						}
-						
-						if(!dislikedAction) {
+							
+						} else {
 							switch(sexAction.getPriority()){
 								case LOW:
 									lowPriority.add(sexAction);
@@ -1811,7 +1771,6 @@ public class Sex {
 				availableSexActionsPartner.addAll(normalPriority);
 
 			} else if(!lowPriority.isEmpty()) {
-				System.out.println("low priority added");
 				availableSexActionsPartner.addAll(lowPriority);
 			}
 			

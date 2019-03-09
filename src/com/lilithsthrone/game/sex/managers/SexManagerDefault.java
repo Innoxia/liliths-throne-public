@@ -535,14 +535,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 //		for(SexActionInterface action : availableActions) { //TODO need to check this
 			boolean penetrationAction = false;
 			boolean sexOrifice = false;
-			if(debug) {
-				System.out.print("action: "+action.getActionTitle());
-			}
 			if(action.getParticipantType()!=SexParticipantType.SELF
 					&& action.getActionType()==SexActionType.START_ONGOING
+					&& performingCharacter.calculateSexTypeWeighting(action.getAsSexType(), targetedCharacter, null)>0
 					&& (action.isAddedToAvailableSexActions() || action.isAbleToAccessParts(performingCharacter))) {
 				if(debug) {
-					System.out.println(" available");
+					System.out.println("A ");
 				}
 				for(SexAreaPenetration pen : action.getPerformingCharacterPenetrations()) {
 					if(pen.isTakesVirginity()) {
@@ -572,8 +570,11 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 			} else {
 				if(debug) {
-					System.out.println(" unavailable");
+					System.out.print("U ");
 				}
+			}
+			if(debug) {
+				System.out.print("action: "+action.getActionTitle()+"\n");
 			}
 		}
 		if(isSexPenetrationPossible) {

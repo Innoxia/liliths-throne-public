@@ -148,6 +148,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Alvinsimon", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("dragonouv2019", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("Aklev", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("AndroidSam", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("48days", "", 0, 0, 2, 16));
 		credits.add(new CreditsSlot("Spaghetti Code", "", 0, 0, 2, 3));
 		credits.add(new CreditsSlot("Anonymous_Platypus", "", 0, 0, 4, 0));
@@ -211,6 +212,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("John Scarlet", "", 0, 0, 0, 4));
 		credits.add(new CreditsSlot("Desgax", "", 0, 0, 7, 0));
 		credits.add(new CreditsSlot("Destont", "", 0, 0, 15, 0));
+		credits.add(new CreditsSlot("Di", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("rinoskin", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("Alatar", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Elmsdor", "", 0, 0, 0, 18));
@@ -233,6 +235,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("glocknar", "", 0, 0, 11, 0));
 		credits.add(new CreditsSlot("Goldmember", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Grakcnar", "", 0, 0, 9, 0));
+		credits.add(new CreditsSlot("Grave Indignation", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("WodashGSJ", "", 0, 0, 14, 0));
 		credits.add(new CreditsSlot("Aceofspades", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Assiyalos", "", 0, 0, 8, 0));
@@ -271,7 +274,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("loveless", "", 0, 0, 0, 18));
 		credits.add(new CreditsSlot("Vaddex", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Kitsune Lyn", "", 0, 0, 0, 9));
-		credits.add(new CreditsSlot("Manwho", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Manwhore", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Beldamon", "", 0, 0, 0, 9));
 		credits.add(new CreditsSlot("KingofKings", "", 0, 0, 0, 18));
 		credits.add(new CreditsSlot("matchsticks", "", 0, 0, 9, 0));
@@ -290,6 +293,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("NeonRaven94", "", 0, 0, 0, 8));
 		credits.add(new CreditsSlot("Neon Swaglord Chen", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("Nexusman", "", 0, 0, 10, 0));
+		credits.add(new CreditsSlot("SisterFister420", "", 0, 0, 0, 9));
 		credits.add(new CreditsSlot("Nick LaBlue", "", 0, 0, 16, 0));
 		credits.add(new CreditsSlot("Kvernik", "", 0, 0, 6, 0));
 		credits.add(new CreditsSlot("Niko", "", 0, 0, 16, 0));
@@ -298,6 +302,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Seo Leifthrasir", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Odd8Ball", "", 0, 0, 0, 17));
 		credits.add(new CreditsSlot("Party Commissar", "", 0, 0, 4, 12));
+		credits.add(new CreditsSlot("Patrik Gr&#246;nlund", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Rohsie", "", 0, 0, 0, 10));
 		credits.add(new CreditsSlot("P.", "", 0, 0, 0, 4));
 		credits.add(new CreditsSlot("BLKCandy", "", 0, 0, 12, 0));
@@ -308,6 +313,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("awrfyu_", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 8, 0));
 		credits.add(new CreditsSlot("R.W", "", 0, 3, 10, 0));
+		credits.add(new CreditsSlot("Raruke", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("The Void Prince", "", 0, 0, 12, 0));
 		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 18));
 		credits.add(new CreditsSlot("Reila Oda", "", 0, 0, 0, 9));

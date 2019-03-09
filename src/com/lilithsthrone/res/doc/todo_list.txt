@@ -157,6 +157,10 @@
 	Sex:
 		Changed 'Twintail pull'/'Twin braids pull' from being exclusive to the kneeling-oral position, to any position in which the character receiving a blowjob has at least two hands free.
 		Both types of rabbit ears, as well as floppy dog ears, can now be used in an 'ear pull' action in sex, which is functionally similar to the 'Twintail pull' action when receiving a blowjob from the targeted character, and similar to the 'Pull hair' action when fucking the character doggy-style. (Both require at least two hands to be free.)
+		Did some more improvements to sex AI, removing yet more instances where NPCs would start/stop actions in sex.
+		Fixed crotch nipples being incorrectly treated as penetrable in some instances.
+		Fixed nipple penetration content setting not applying to crotch nipples.
+		Rose will no longer penetrate herself on your cock in her dominant scene.
 	
 	Bugs:
 		Fixed issue with Brax not being at the reception desk after defeating him.
@@ -185,29 +189,29 @@
 		Fixed some incorrect descriptions related to ear transformations.
 		The 'Pull hair' sex action for the doggy-style position is now correctly only available if the target has hair (of at least 8cm in length).
 		Fixed bug where setting futanari testicles to off would end up making all characters have internal testicles. This fix should retroactively apply to any of your saved games that were affected.
+		Fixed incorrect size being shown for crotch-boobs in the character overview tooltip.
+		Crotch-boob milk with the modifier 'mineral oil' will now correctly melt condoms.
+		Fixed issue with parsing engine crashing when using a combination of IF with brackets and THEN statements.
 	
 	
 	
 	
 	
 	
-	I think half-demon is still high enough to prevent enslavement
-		Make half of alleyway attackers not wanted
-			Description of enslavement is the clothing's enchantment makes it impossible to equip
-			Add report functionality to Enforcer HQ (via Candi) to enable enslavement of them
-				Refuse to stamp off on demons unless the player is a demon themselves
+	
+	Feb credits
 	
 	Also will not switch out of doggy to receive anal fucking when in doggy oral
 	need sex slot tags like "lying down", "submissive", "dominant", so position switching can take this into account
 		make it so NPCs will not choose sub positioning when dom, or lying down when in dirty area
 	
-	Rose chooses to get penetrated?
-		May need weighting modifier in sex manager
+	need missionary oral position
+	
+	Add report functionality to Enforcer HQ (via Candi) to enable enslavement of demons
+		Refuse to stamp off on demons unless the player is a demon themselves
 	
 	really need dialogue indication of what NPCs want
 		Upon position change, or when generating preferences?
-	
-	need missionary oral position
 	
 	github issues
 	
@@ -215,15 +219,11 @@
 	
 	need to incorporate outfit logic into clothing types
 	
-	Wild encounters need to react to player being a predator or prey race
-	
 	Finish orgasm denial scenes.
 	    - Add sex action(s).
 	    	Need variations for ongoing penetration or not
 	    	BDSM set effect - cannot perform any sex actions when a sub
 	    - Add variations for if chastity belt/cage is being worn.
-	
-	Meraxis TF reverts?
 	
 	tooltip descriptions go 'out of bounds' when characters have long race/colour names
 	
@@ -246,10 +246,13 @@
 	    - Add dialogue framework.
 	    - Write dialogue.
 	    - Test.
+	Wild encounters need to react to player being a predator or prey race
+	
+	The NPCs are meant to change preferences from the 'foreplay' bracket to the 'main sex' bracket, but this is indeed happening a little too fast. I'll see if I can tweak the arousal gain values for the next release.
+	
+	Suggestion: make tail (and maybe extra thicc butt too) conceal anus under normal circumstances.
+	   
 	    
-	5. Fix bugs and polish.
-	
-	
 	optimise endturn iterations over NPCs
 	
 	regarding taurs (no intentional groping or suckling of crotchboobs, and pregnancy scenes not reflecting that they are a taur
@@ -265,8 +268,6 @@
 	 The game doesn't move into a sex scene and trying to leave forces your inventory on top of the map. You can still move around but you'll be walking blind
 	
 	It was the doggy-style position, I was on all fours and he was kneeling behind me... giving me a footjob.
-	
-	add rare subspecies spawn support to submission and other places
 	
 	taur force cum inside checks for non-taurs in their positions
 	
@@ -435,6 +436,7 @@
 				Ask about romance
 					Take virginity (she acts like she's binding you into a contract to forever ensure her power is greater than yours, but you can tell that she's nervous)
 				
+	So if someone is in the PC's vagina the Pussy status icon will be light up perhaps yellow instead of black background (not sure what colour works best, but you get the idea I hope).  The 2nd part of my idea would be you can click the icon and the popup info will remain on screen that way you can keep seeing the flavor text as different actions are selected.
 		
 	Sex action improvements:
 	need ongoing breastfeeding
@@ -540,6 +542,8 @@
 	"Deep throat" orgasm doesn't react to condoms being used
 	
 	Need mineral oil TF effect
+	
+	One thought that might be fun would be to have dates at the club able to give/receive transformation items in dom/sub dating scenes
 	
 	track cum
 	inseminate action

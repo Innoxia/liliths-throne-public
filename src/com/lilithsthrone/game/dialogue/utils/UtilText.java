@@ -699,6 +699,7 @@ public class UtilText {
 //			String conditionalTrue = null;
 //			String conditionalFalse = null;
 			boolean usingConditionalBrackets = false;
+			boolean lastConditionalUsedBrackets = false;
 			int conditionalOpenBrackets = 0;
 			int conditionalCloseBrackets = 0;
 			
@@ -733,10 +734,13 @@ public class UtilText {
 							for(int j=i+1;j<input.length();j++) {
 								if(!Character.isWhitespace(input.charAt(j))) {
 									usingConditionalBrackets = input.charAt(j)=='(';
+									lastConditionalUsedBrackets = usingConditionalBrackets;
 //									System.out.println("usingConditionalBrackets: "+usingConditionalBrackets);
 									break;
 								}
 							}
+						} else {
+							lastConditionalUsedBrackets = false;
 						}
 						
 						openBrackets++;
@@ -790,14 +794,17 @@ public class UtilText {
 							
 						} else {
 							if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
-//								conditionalThens++;
-								
-								if (openBrackets-1==closeBrackets) {//conditionalThens == 1){
-	//								if (conditionalStatement == null) {
-										conditionalStatement = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the end of the conditional statement.
-										conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
-										conditionalStatement = conditionalStatement.trim();
-	//								}
+//								#IF(pc.​​​​​​isFeminine())#THEN#IF!pc.​​​​​​isFeminine()#THEN:3#ELSE>:(#ENDIF#ELSE:(#ENDIF
+								// If last conditional was brackets, remove the THEN
+								if(lastConditionalUsedBrackets) {
+									sb.replace(sb.length()-4, sb.length(), ""); // Reset StringBuilder to exclude #THEN
+									i++;
+									c = input.charAt(i);
+									
+								} else if (openBrackets-1==closeBrackets) {
+									conditionalStatement = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the end of the conditional statement.
+									conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
+									conditionalStatement = conditionalStatement.trim();
 									sb.setLength(0);
 								}
 								
