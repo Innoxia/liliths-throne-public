@@ -290,7 +290,7 @@ public enum Units {
                 output.append(wrap ? FOOT_SYMBOL : INCH_SYMBOL);
                 break;
             case LONG:
-                if (Math.floor(Math.abs(inches)) == 0 && vType != ValueType.PRECISE) {
+                if (Math.floor(inches) == 0 && vType != ValueType.PRECISE) {
                     output.setLength(0);
                     return output.append("less than ")
                             .append(vType == ValueType.TEXT ? "one" : "1")
@@ -298,7 +298,7 @@ public enum Units {
                 }
 
                 output.append(" ");
-                if (Math.abs(usedValue) >= 1 + roundingFactor / 2) output.append(wrap ? "feet" : "inches");
+                if (Math.abs(usedValue) >= 1 + roundingFactor / 2 || usedValue == 0.0) output.append(wrap ? "feet" : "inches");
                 else output.append(wrap ? "foot" : "inch");
                 break;
             case LONG_SINGULAR:
@@ -473,6 +473,7 @@ public enum Units {
         StringBuilder output = new StringBuilder();
         boolean wrap = Math.abs(wrappedValue) >= 1 && vType != ValueType.PRECISE;
         double usedValue = wrap ? wrappedValue : value;
+        if (useQuarters) usedValue = roundTo(usedValue, 0.25);
 
         // Append value with increased precision if it is wrapped and numeric
         output.append(value(usedValue, wrap && vType == ValueType.NUMERIC ? ValueType.PRECISE : vType, useQuarters));
@@ -493,7 +494,7 @@ public enum Units {
                 }
 
                 output.append(" ").append(wrap ? wrappedUnit : unit);
-                if (Math.abs(usedValue) > 1) output.append("s");
+                if (Math.abs(usedValue) > 1 || usedValue == 0.0) output.append("s");
                 break;
             case LONG_SINGULAR:
                 output.append("-").append((wrap ? wrappedUnit : unit));
