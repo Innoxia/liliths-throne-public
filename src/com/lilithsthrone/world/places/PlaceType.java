@@ -1613,7 +1613,7 @@ public class PlaceType {
 			
 	public static final AbstractPlaceType SHOPPING_ARCADE_SERVANTS_HALL = new AbstractPlaceType(
 			"Servants' Hall", 
-			"A small slave rental shop"
+			"A small slave rental shop",
 			"dominion/slaverAlley/slaveryAdministration",
 			BaseColour.BLUE,
 			ServantsHall.EXTERIOR,
@@ -1637,7 +1637,6 @@ public class PlaceType {
 				return BaseColour.CRIMSON.toWebHexString();
 			}
 		}
-	},
 		@Override
 		public String getTooltipDescription() {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
