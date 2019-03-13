@@ -35,6 +35,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ClothingEm
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.DreamLover;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.PixsPlayground;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ServantsHall;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ShoppingArcadeDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDepot;
@@ -1608,6 +1609,16 @@ public class PlaceType {
 			DreamLover.EXTERIOR,
 			null,
 			"in their store"
+			).initWeatherImmune();
+			
+	public static final AbstractPlaceType SHOPPING_ARCADE_SERVANTS_HALL = new AbstractPlaceType(
+			"Servants' Hall", 
+			"A small slave rental shop",
+			"dominion/slaverAlley/slaveryAdministration",
+			BaseColour.BLUE,
+			ServantsHall.EXTERIOR,
+			null,
+			"in his hall"
 			).initWeatherImmune();
 	
 	public static final AbstractPlaceType SHOPPING_ARCADE_SUPPLIER_DEPOT = new AbstractPlaceType(

@@ -11,7 +11,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.2.11
  * @author Innoxia
  */
 public class ShoppingArcadeDialogue {
@@ -152,6 +152,13 @@ public class ShoppingArcadeDialogue {
 					}
 				};
 
+			} else if (index == 12) {
+				return new ResponseEffectsOnly("Servants' Hall", "Fast travel to the Servants' Hall."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_SERVANTS_HALL, true);
+					}
+				};	
 			} else {
 				return null;
 			}

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	<htmlContent tag="SERVANTS_HALL_EXTERIOR"><![CDATA[
+		<p>
+			You find yourself in front of a classic-looking shop, without any big difference from the other shops in the Arcade. The sole noteworthy difference is what caught your eye : Where other shops chose a classic signboard, this one obviously chose to be extravagant. Huge bright red letters, indicating "Servants' Hall", on a shining golden background, all hanged on an enormous sign, so big it doesn't even fit on the wall.
+		</p>
+	]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_ENTRY"><![CDATA[
+		<p>
+			You're kinda disappointed to see that all this shop contains is... Two doors on the back, one on the right wall, and a counter. Another detail catches your attention, you notice there is a little platform on the corner on your left, slightly elevated from ground level. Chains like those you could find on middle-age dungeons are hanged on the wall over it. 
+		</p>
+		<p>
+			You notice someone, probably the shopkeeper, a black-furred wolf-morph with a slender body (well, slender for a wolf-morph), chatting with a buff alligator-morph.
+		</p>
+		<p>
+			[recht.speech(Alright, enough chit-chat. Give me the usual.)], said the latter. 
+		</p>
+		<p>
+			[wallace.speech(Of course, of course... As usual, hardest one I have... There you go!)], answered the wolf-morph.
+		</p>
+		<p>
+			He held out a piece of paper to his interlocutor. He read it rapidly, visibly unsatisfied.
+		</p>
+		<p>
+			[recht.speech(What, that's the hardest you have?)]
+		</p>
+		<p>
+			[wallace.speech(Let's say that thanks to your repeated efforts, my customers find even their most complex tastes quite easily these days, so they have no need to request any... And anyway, I don't have to fear for you searching for harder elsewhere, I know that no matter what happens, you'll end up working for me, one way, or another.)]
+		</p>
+		<p>
+			You can't help but think there is some sort of threat hidden behind those words, but you quickly remove that thought. After all, it's just a trader and his provider, he probably means he won't be able to find better deals.
+		</p>
+		<p>
+			[recht.speech(Hey, speaking 'bout customers. You got one here.)]
+		</p>
+		<p>
+			The alligator-morph seems to have noticed you, without even looking in your direction. The shopkeeper notices you at that moment, and quickly moves towards you.
+		</p>
+		<p>
+			[wallace.speech(Oh, welcome! I've never seen you before, it's your first time here, am I right?)]
+		</p>
+		<p>
+			He looks at you from head to toe, and lifted your face with his paw, as if he was trying to assess how you taste like
+		</p>
+	]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_INTRODUCTION"><![CDATA[
+		<p>
+			[pc.speech(I was just curious as to what was sold here.)]
+		</p>
+		<p>
+			[recht.speech(HA!)], the alligator-morph exclaimed. [You mean you came here without knowing what was on the other side of the door? You're either brave or naive...]
+		</p>
+		<p>
+			[wallace.speech(Oh, but there's no problem with that... After all, everyone is welcome here! Both as client and as someone who helps me satisfy them... Allow me to explain.)]
+		</p>
+		<p>
+			With a theatral gesture, he turns away, and spreading his arm like an actor shouting to the skies, before declaiming his prose
+		</p>
+		<p>
+			[wallace.speech(WELCOME! To the Servants' Hall. A wonderful place where anybody, independently of age, race, social belonging, can taste, for a small sum, the joys of owning living beings. If you cannot find the one you want here, we will do our best to satisfy your desires in the quickest way. The name is Wallace, master of this place, to serve you.)]
+		</p>
+		<p>
+			On these final words, he makes a giant bow, under the amused look of the alligator-morph.
+		</p>
+		<p>
+			[recht.speech(To sum up, it is a shop to rent slaves)], he blantly said.
+		</p>
+		<p>
+			[wallace.speech(Recht, come on... It is quite a crude way to say it)]
+		</p>
+		<p>
+			[recht.speech(A realistic one)], he answers, shrugging
+		</p>
+		<p>
+			[pc.speech(Oh. So, you...)] You turn towards Recht. [pc.speech(You're his slave dealer, right?)]
+		</p>
+		<p>
+			[recht.speech(I'm more a hunter. My job is just asking what Wallace needs for his clients, find someone that meets the needs, enslave him, and take him here. Easy job, lot of flames.)]
+		</p>
+		<p>
+			[wallace.speech(And you're the best at it! Always taking the hardest mission, always succeding in record time, no exception so far.)]
+		</p>
+		<p>
+			[recht.speech(Pfuh. Seeing what you're giving me now, it would be kinda hard not to. Well, that's been fun and all, but I've got a hunt to do. See ya!)]
+		</p>
+		<p>
+			As he is about to leave, right before going past you, Recht suddenly stops, and stares at you right in the eyes.
+		</p>
+		<p>He stays like this for one second.</p><p>Two seconds.</p><p>Three seconds.</p>
+		<p>
+			And all of a sudden... [recht.speech(HAHAHAHAHA! You've got some spark in your eyes, [pc.boy]. It'll be fun watching you grow.)]
+		</p>
+		<p>
+			On those final words, he steps out of the door and leave.
+		</p>
+		]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_POST_WTF"><![CDATA[
+		<p>
+			[pc.speech(He's always like this...?)] you ask Wallace.
+		</p>
+		<p>
+			[wallace.speech(No... You must have caught his eye. Not sure if it's good or bad for you.)]
+		</p>
+		<p>
+			[pc.speech(So, if I understood correctly, here, you can rent slave, even to those without license, is that it? It's really legal?)]
+		</p>
+		<p>
+			[wallace.speech(Totally. Actually, all I do, is give my slaves the order to follow and obey my clients. The license is necessary to own slaves, but it isn't to use them or order them. And when the products I rent aren't mine, they have the same status as prostitute.)]
+		</p>
+		<p>
+			[pc.speech(Wait... What do you mean by "when they aren't mine"? Don't you just rent yours?)]
+		</p>
+		<p>
+			[wallace.speech(You see, I offer to anyone the possibility to put themselves at the disposal of one of my clients, to act like a slave without being one. Of course, it is a paid job, and since I know what my clients want, I am able to avoid giving my freelancers any contract they wouldn't want to do. However, if a freelancer doesn't abide by the client's demand...)]
+		</p>
+		<p>
+			An evil grin replaces the end of his sentence.
+		</p>
+		<p>
+			[wallace.speech(However)], he resumes after a short pause, [wallace.speech(If you're ever interested, you'll have to get a prostitution license. Since I know how it'll end up, it might be considered as such. And you'll have to go through a training, given by my head slave. She's usually around here... Wait, I'll call her. Eirwen!)]
+		</p>
+		<p>
+			A silver-furred fox-girl arrives through one of the doors in the back. You immediately notice her haughty poise, almost scornful, despite her status as slave.
+		</p>
+		<p>
+			[eirwen.speech(What's the matter, Master Wallace?)]
+		</p>
+		<p>
+			[wallace.speech(I wanted to introduce you... Ehm... Can you remind me your name?)]
+		</p>
+		<p>
+			[pc.speech([pc.name()])]
+		</p>
+		<p>
+			[wallace.speech(Thank you. So, [pc.name()], who just discovered our little business, and who might need help of some of your special training.)]
+		</p>
+		<p>
+			[eirwen.speech(I'm looking forward to it. Pleased to meet you, [pc.name()])]
+		</p>
+		<p>
+			[wallace.speech(Hey, come hither, you...)]
+		</p>
+		<p>
+			Wallace deftly drew near her, and suddenly began kissing her with passion. Surprised at first, you notice she kisses him back. You can't help but think that you don't have here a master and his slave, but two cute little lovebirds.
+		</p>
+		<p>
+			[eirwen.speech(W-Wallace... Not in front of the customers...)]
+		</p>
+		<p>
+			[wallace.speech(Haha, you're right.)]
+		</p>
+		<p>
+			Then, as he leans on her, you hear him whisper at her ear [wallace.speech([style.i(It's better when we're not trying to be seen...)])], provoking a chuckle from Eirwen.
+		</p>
+		<p>
+			[wallace.speech(Well)], said Wallace, right after letting his beloved one go, [wallace.speech(now that you know what's going on around here, what do you want?)]
+		</p>
+	]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_ENTRY_REPEAT"><![CDATA[
+		<p>
+			When entering the shop (as empty as usual), you spot Wallace, stuck in his chair, feet on the counter, reading a file. You also spot the fox-girl, Eirwen, standing perfectly still in one of the corners.
+		</p>
+		<p>
+			[wallace.speech(Well, well, if it isn't [pc.name()]. So, tell me, what do you want to do for me?)]
+		</p>
+	]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_HUNT_EXPLAIN"><![CDATA[
+		<p>
+			[pc.speech(I would like to give you a slave)]
+		</p>
+		<p>
+			[wallace.speech(Ah? Finally you've decided, not a minute too soon!)]
+		</p>
+		<p>
+			Wallace stands immediately and opens a drawer. He takes a copper collar from it, and thanks to your arcanic affinity, you detect it has been enchanted to enslave its wearer.
+		</p>
+		<p>
+			[pc.speech(Wait wait wait! That's not what I meant!)] you hastily correct. [pc.speech(I'd just like to hunt a slave, you know, like Recht.)]
+		</p>
+		<p>
+			[wallace.speech(Oh.)]
+		</p>
+		<p>
+			He looks quite disappointed. Because he is quite disappointed. 
+		</p>
+		<p>
+			[wallace.speech(It's... A shame. Really. Well, I appreciate that you're beggining to hunt, even though I'd prefer you makes my ranks grow another way... Oh well, might come one day.)]
+		</p>
+		<p>
+			He sighs. You see him bend down to pack the collar, and when he gets up, he has a file in his hand.
+		</p>
+		<p>
+			[wallace.speech(Alright, since this is your first time, allow me to explain how it'll go. You'll see, the concept is simple. You choose a contract from any of those in this folder. A contract is just a list of diverse criterias, from the basics, like race, height, obedience, to more specific ones, such as penis size, virginity, etc. You then need to procure yourself a slave that meets all of those criterias, then come back here. Then, I'll pay you depending on the value of said slave. Simple, right? The way you get the slave is free, and anything not in the criterias is free. Here, those are the contracts available right now.)]
+		</p>
+	]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_HUNT_REPEAT"><![CDATA[
+		<p>
+			[pc.speech(I'd like to take another hunting contract.)]
+		</p>
+		<p>
+			[wallace.speech(Ah, yes, yes. I suppose you still remember how it works, hm? Take contract, enslave someone according to the contract, come back here, get flames. Alright, here are the available contracts.)]
+		</p>
+		<p>
+			He puts a few sheets of paper on the counter, letting you examine them.
+		</p>
+	]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_HUNT_REFUSE"><![CDATA[
+		<p>
+			[pc.speech(Hm... No, there's not a single one that interests me today.)]
+		</p>
+		<p>
+			[wallace.speech(That's a real shame. You know, if you ever need money without hunting, I have an other kind of offers you know...)]
+		</p>
+		<p>
+			[pc.speech(I'll... Think about it.)]
+		</p>
+	]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_HUNT_CONTRACT"><![CDATA[
+		<p>
+			Nearing the counter, you try to remember what the specifics of your contract were...
+		<p>
+	]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_HUNT_COMPLETE"><![CDATA[
+		<p>
+			After a short while, that Wallace and you spend chatting about everything and nothing, Eirwen comes back before saying :
+		</p>
+		<p>
+			[eirwen.speech(The contract is completely fulfilled, Master Wallace.)]
+		</p>
+		<p>
+			[wallace.speech(Perfect. Send the client a message, tell him his order is ready. As for you, here are your flames. I had no doubt on your capacity to get such a nice catch.)]
+		</p>
+		<p>
+			After giving Wallace your thanks and your (ex-)slave a kind wave, you get out of the shop.
+		</p>
+	]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_HUNT_FAIL"><![CDATA[
+		<p>
+			After a short while, that Wallace and you spend chatting about everything and nothing, Eirwen comes back before saying :
+		</p>
+		<p>
+			[eirwen.speech(There's a problem, Master Wallace, the product doesn't match the contract. )]
+		</p>
+		<p>
+			[wallace.speesh(Ha. That's a shame. Even though I'm not the one with the most shame here...)]
+		</p>
+		<p>
+			He's staring right at you when saying these words, and while you he's smiling like usual, you sense in the way he looks at you you'd better make sure this situation doesn't happen too often.
+		</p>
+		<p>
+			Totally confused, you take your leave immediately without wasting any second. 
+		</p>
+		<p>
+			After your leave, the three persons still in the room look silently at each other. Eirwen is the first to break the silence. 
+		</p>
+		<p>
+			[eirwen.speech(Ehm... Is it just me, or did [pc.he] forget [pc.his] slave?)]
+		</p>
+		<p>
+			After having the confirmation it wasn't just him, Wallace bursted out laughing, before saying : 
+		</p>
+		<p>
+			[wallace.speech([pc.he] must have been really confused... Come on darling, take the product to Finch, [pc.he]'ll go fetch it there when he realizes. And you'll have a little treat when you come back...)]
+		</p>
+]]></htmlContent>
+	<htmlContent tag="SERVANTS_HALL_HUNT_CHOSEN"><![CDATA[
+		<p>
+			[pc.speech(I'll take that one.)]
+		</p>
+		<p>
+			[wallace.speech(Oh, a nice choice... Just wait a few moments for me to complete some formalities... And... Done! Good luck, and may the odds be in your favor.)]
+		</p>
+	]]></htmlContent>
+</dialogue>

@@ -1181,6 +1181,17 @@ public enum Race {
 		}
 		return name;
 	}
+	
+	public static Race getEnum(String value) {
+        if (value.equals("null")) {
+        	return null;
+        }
+        for(Race race : values())
+            if(race.name().equalsIgnoreCase(value)) {
+            	return race;
+            }
+        throw new IllegalArgumentException();
+    }
 
 	public Disposition getDisposition() {
 		return disposition;

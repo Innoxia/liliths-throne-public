@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Gender {
@@ -185,4 +185,14 @@ public enum Gender {
 		return Util.getRandomObjectFromWeightedMap(genderMap);
 	}
 	
+	public static Gender getEnum(String value) {
+        if (value.equals("null")) {
+        	return null;
+        }
+        for(Gender gender : values())
+            if(gender.name().equalsIgnoreCase(value)) {
+            	return gender;
+            }
+        throw new IllegalArgumentException();
+    }
 }

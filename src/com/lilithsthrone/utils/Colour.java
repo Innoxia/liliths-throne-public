@@ -1066,7 +1066,19 @@ public enum Colour {
 	public String getName() {
 		return name;
 	}
-
+	
+	public static Colour getEnum(String value) {
+        	if (value.equals("null")) {
+        		return null;
+        	}
+		for(Colour colour : values()) {
+			if(colour.name().equalsIgnoreCase(value)) {
+            		return colour;
+            	}
+    	}
+    	throw new IllegalArgumentException();
+	}
+	
 	/**
 	 * @return An array of length 5, with [0] being darkest, [4] being lightest.
 	 */

@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
+import com.lilithsthrone.game.character.npc.dominion.Eirwen;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
@@ -30,12 +31,14 @@ import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.Pazu;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
+import com.lilithsthrone.game.character.npc.dominion.Recht;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
 import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
+import com.lilithsthrone.game.character.npc.dominion.Wallace;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
@@ -301,6 +304,39 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag) {
 			return Main.game.getNpc(Vicky.class);
+		}
+	},
+	
+	WALLACE(Util.newArrayListOfValues("wallace"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Wallace.class).getDescription();
+		}
+		
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getNpc(Wallace.class);
+		}
+	},
+	
+	EIRWEN(Util.newArrayListOfValues("eirwen"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Eirwen.class).getDescription();
+		}
+		
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getNpc(Eirwen.class);
+		}
+	}, 
+	
+	RECHT(Util.newArrayListOfValues("recht"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Recht.class).getDescription();
+		}
+		
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getNpc(Recht.class);
 		}
 	},
 	
