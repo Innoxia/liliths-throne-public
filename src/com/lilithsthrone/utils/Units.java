@@ -275,7 +275,7 @@ public enum Units {
 
         StringBuilder output = new StringBuilder();
 
-        boolean both = (uType == UnitType.SHORT || uType == UnitType.LONG) && vType != ValueType.TEXT
+        boolean both = uType != UnitType.NONE && vType != ValueType.TEXT
                 && feet != 0 && remainingInches != 0;
         boolean wrap = (vType == ValueType.TEXT && Math.abs(inches) >= 11.5)
                 || both || (feet != 0 && remainingInches == 0);
@@ -308,6 +308,7 @@ public enum Units {
         // Append second unit for long or short notation and if neither value is 0
         if (both) {
             if (uType == UnitType.LONG) output.append(" and ");
+            if (uType == UnitType.LONG_SINGULAR) output.append("-");
             remainingInches = Math.abs(roundTo(remainingInches, roundingFactor));
             output.append(value(remainingInches, vType, true));
             switch (uType) {
@@ -316,6 +317,8 @@ public enum Units {
                     break;
                 case LONG:
                     output.append(" ").append(remainingInches >= 1 + roundingFactor / 2 ? "inches" : "inch");
+                    break;
+                case LONG_SINGULAR:
                     break;
             }
         }
