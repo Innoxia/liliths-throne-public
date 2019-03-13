@@ -79,18 +79,16 @@ public class GenericPositioningNew {
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
 		return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-				&& !(Sex.getPosition() == data.getPosition() && Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0))
+				&& !(Sex.getPosition() == data.getPosition()
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0)
+					&& Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))==data.getPartnerSlots().get(0))
 				&& data.getPosition().getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 				&& Sex.getTotalParticipantCount(false)<=(data.getPerformerSlots().size()+data.getPartnerSlots().size())
 				&& (request
-						?Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL
-						:(Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL)
-						|| !Sex.isCharacterForbiddenByOthersFromPositioning(Sex.getCharacterPerformingAction())
-						//Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					)
-				&& (request
-						?Sex.getCharacterPerformingAction().isPlayer()
-						:true)
+						?Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL
+						:(Sex.getCharacterPerformingAction().isPlayer()
+							?Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
+							:!Sex.isCharacterForbiddenByOthersFromPositioning(Sex.getCharacterPerformingAction())))
 				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
 						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))
 						:true);
@@ -1268,8 +1266,14 @@ public class GenericPositioningNew {
 
 		@Override
 		public String getDescription() {
+			boolean isHappy = ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+					Sex.getPositionRequest().getPosition(),
+					Sex.getPositionRequest().getPartnerSlots().get(0),
+					Sex.getPositionRequest().getPerformerSlots().get(0),
+					Main.game.getPlayer());
+			
 			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.PERFORMING_ORAL) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.PERFORMING_ORAL, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean standing = SexSlotOther.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction());
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -1290,7 +1294,7 @@ public class GenericPositioningNew {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.PERFORMING_ORAL_BEHIND) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.PERFORMING_ORAL_BEHIND, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean standing = SexSlotOther.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction());
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -1311,7 +1315,7 @@ public class GenericPositioningNew {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.RECEIVING_ORAL) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.RECEIVING_ORAL, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean biped = Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals();
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -1332,7 +1336,7 @@ public class GenericPositioningNew {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.ALL_FOURS_FUCKED) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ALL_FOURS, SexSlotOther.ALL_FOURS_FUCKED, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean biped = Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals();
 					boolean bipedPlayer = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
 					boolean standingPlayer = SexSlotOther.ALL_FOURS_MOUNTING.isStanding(Main.game.getPlayer());
@@ -1371,7 +1375,7 @@ public class GenericPositioningNew {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.ALL_FOURS_MOUNTING) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ALL_FOURS, SexSlotOther.ALL_FOURS_MOUNTING, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean biped = Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals();
 					boolean bipedPlayer = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
 					boolean standing = SexSlotOther.ALL_FOURS_MOUNTING.isStanding(Sex.getCharacterPerformingAction());
@@ -1417,12 +1421,12 @@ public class GenericPositioningNew {
 
 		@Override
 		public void applyEffects() {
-			if((Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.PERFORMING_ORAL && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.PERFORMING_ORAL, Main.game.getPlayer()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.PERFORMING_ORAL_BEHIND && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.PERFORMING_ORAL_BEHIND, Main.game.getPlayer()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.RECEIVING_ORAL && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.RECEIVING_ORAL, Main.game.getPlayer()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.ALL_FOURS_FUCKED && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ALL_FOURS, SexSlotOther.ALL_FOURS_FUCKED, Main.game.getPlayer()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.ALL_FOURS_MOUNTING && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ALL_FOURS, SexSlotOther.ALL_FOURS_MOUNTING, Main.game.getPlayer()))) {
-				setNewSexManager(Sex.getPositionRequest(), true);
+			if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+					Sex.getPositionRequest().getPosition(),
+					Sex.getPositionRequest().getPartnerSlots().get(0),
+					Sex.getPositionRequest().getPerformerSlots().get(0),
+					Main.game.getPlayer())) {
+				GenericPositioningNew.setNewSexManager(Sex.getPositionRequest(), true);
 			}
 			
 			Sex.setPositionRequest(null);

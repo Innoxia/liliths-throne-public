@@ -138,7 +138,9 @@ public class SlaveDialogue {
 							+ "Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:"
 						+ "</p>"
 						+ "<p style='text-align:center;'>"
-							+ "[style.italicsArcane(Slave Registered.<br/>Identification: [npc.name(true)], [npc.race].)]"
+							+ "[style.italicsArcane(Slave Registered."
+								+ "<br/>Identification: [npc.nameFull(true)]"
+								+ "<br/>Race: [npc.race])]"
 						+ "</p>");
 				
 			} else {
@@ -1254,8 +1256,8 @@ public class SlaveDialogue {
 												if(companionCharacter.equals(targetedCharacterForSex)) {
 													targetedCharacterForSex = charactersPresent.get((i+2)<charactersPresent.size()?(i+2):0);
 												}
-												break;
 											}
+											break;
 										}
 									}
 									Main.game.updateResponses();

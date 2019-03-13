@@ -125,7 +125,7 @@ public class OccupancyUtil implements XMLSaving {
 		if(!Main.game.getCharactersPresent().contains(occupant)) { // Don't give them a new job if the player is present...
 			if(!occupant.hasJob()) {
 //				System.out.println(occupant.getName());
-				if(Math.random()<0.1) {
+				if(Math.random()<0.2) {
 					occupant.assignNewJob();
 					occupant.setFlag(NPCFlagValue.occupantHasNewJob, true);
 //					System.out.println(occupant.getHistory().getName());

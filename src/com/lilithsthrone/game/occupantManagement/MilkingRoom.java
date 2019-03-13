@@ -11,6 +11,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.FluidCum;
@@ -20,6 +21,8 @@ import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -42,6 +45,8 @@ public class MilkingRoom implements XMLSaving {
 	private Vector2i location;
 	
 	private List<FluidStored> fluidsStored;
+	
+	private static GameCharacter targetedCharacter = Main.game.getPlayer();
 	
 	public static final int INGESTION_AMOUNT = 100;
 	
@@ -404,19 +409,19 @@ public class MilkingRoom implements XMLSaving {
 					
 					milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
 							+ "<div id='"+idModifier+"_"+CoverableArea.MOUTH+"_"+fluid.hashCode()+"' "
-									+(isAbleToIngestThroughArea(Main.game.getPlayer(), CoverableArea.MOUTH, fluid.getMillilitres())
+									+(isAbleToIngestThroughArea(fluid.getFluid().getType().getBaseType(), getTargetedCharacter(), CoverableArea.MOUTH, fluid.getMillilitres())
 											?"class='square-button big'"
 											:"class='square-button big disabled'")+">"
 									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth()+"</div></div>");
 					
 					milkyMilknessSB.append("<div id='"+idModifier+"_"+CoverableArea.VAGINA+"_"+fluid.hashCode()+"' "
-									+(isAbleToIngestThroughArea(Main.game.getPlayer(), CoverableArea.VAGINA, fluid.getMillilitres())
+									+(isAbleToIngestThroughArea(fluid.getFluid().getType().getBaseType(), getTargetedCharacter(), CoverableArea.VAGINA, fluid.getMillilitres())
 											?"class='square-button big'"
 											:"class='square-button big disabled'")+">"
 									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina()+"</div></div>");
 					
 					milkyMilknessSB.append("<div id='"+idModifier+"_"+CoverableArea.ANUS+"_"+fluid.hashCode()+"' "
-								+(isAbleToIngestThroughArea(Main.game.getPlayer(), CoverableArea.ANUS, fluid.getMillilitres())
+								+(isAbleToIngestThroughArea(fluid.getFluid().getType().getBaseType(), getTargetedCharacter(), CoverableArea.ANUS, fluid.getMillilitres())
 											?"class='square-button big'"
 											:"class='square-button big disabled'")+">"
 									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div></div>");
@@ -438,11 +443,11 @@ public class MilkingRoom implements XMLSaving {
 		return milkyMilknessSB.toString();
 	}
 	
-	public boolean isAbleToIngestThroughArea(GameCharacter ingestingCharacter, CoverableArea area, float millilitres) {
-		return getAreaIngestionBlockedDescription(ingestingCharacter, area, millilitres).isEmpty();
+	public boolean isAbleToIngestThroughArea(FluidTypeBase fluidType, GameCharacter ingestingCharacter, CoverableArea area, float millilitres) {
+		return getAreaIngestionBlockedDescription(fluidType, ingestingCharacter, area, millilitres).isEmpty();
 	}
 	
-	public String getAreaIngestionBlockedDescription(GameCharacter ingestingCharacter, CoverableArea area, float millilitres) {
+	public String getAreaIngestionBlockedDescription(FluidTypeBase fluidType, GameCharacter ingestingCharacter, CoverableArea area, float millilitres) {
 		StringBuilder sb = new StringBuilder();
 		
 		if(millilitres<5) {
@@ -471,10 +476,62 @@ public class MilkingRoom implements XMLSaving {
 			default:
 				break;
 		}
-		if(sb.length()==0) {
-			return "";
+		if(sb.length()>0) {
+			return UtilText.parse(ingestingCharacter, sb.toString());
 		}
-		return UtilText.parse(ingestingCharacter, sb.toString());
+		
+		if(!ingestingCharacter.isPlayer() && !ingestingCharacter.isSlave()) {
+			if(ingestingCharacter.getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
+				 sb.append(UtilText.parse(ingestingCharacter,
+							"As [npc.sheIs] not your slave, [npc.name] will only let you do this if [npc.she]"
+							+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you.<br/>"));
+				
+			} else if(fluidType==FluidTypeBase.CUM
+					&& (!ingestingCharacter.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive() || (!ingestingCharacter.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() || area!=CoverableArea.VAGINA))) {
+				 sb.append(UtilText.parse(ingestingCharacter,
+						"[npc.Name] requires a positive desire for the "+Fetish.FETISH_CUM_ADDICT.getName(ingestingCharacter)+" fetish"
+										+ (ingestingCharacter.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() && area==CoverableArea.VAGINA
+											?", and a non-negative desire for the "+Fetish.FETISH_PREGNANCY.getName(ingestingCharacter)+" fetish.<br/>"
+											:".<br/>")));
+				
+			} else if(fluidType==FluidTypeBase.MILK && !ingestingCharacter.getFetishDesire(Fetish.FETISH_LACTATION_OTHERS).isPositive()) {
+				 sb.append(UtilText.parse(ingestingCharacter,
+						"[npc.Name] requires a positive desire for the "+Fetish.FETISH_LACTATION_OTHERS.getName(ingestingCharacter)+" fetish.<br/>"));
+				
+			} else if(fluidType==FluidTypeBase.GIRLCUM && !ingestingCharacter.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isPositive()) {
+				 sb.append(UtilText.parse(ingestingCharacter,
+						"[npc.Name] requires a positive desire for the "+Fetish.FETISH_VAGINAL_GIVING.getName(ingestingCharacter)+" fetish.<br/>"));
+			}
+			switch(area) {
+				case ANUS:
+					if(!ingestingCharacter.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+						 sb.append(UtilText.parse(ingestingCharacter,
+									"[npc.Name] requires a positive desire for the "+Fetish.FETISH_ANAL_RECEIVING.getName(ingestingCharacter)+" fetish."));
+					}
+					break;
+				case VAGINA:
+					if(!ingestingCharacter.getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isPositive()) {
+						 sb.append(UtilText.parse(ingestingCharacter,
+									"[npc.Name] requires a non-negative desire for the "+Fetish.FETISH_VAGINAL_RECEIVING.getName(ingestingCharacter)+" fetish."));
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		
+		return sb.toString();
+	}
+
+	public static GameCharacter getTargetedCharacter() {
+		if(MilkingRoom.targetedCharacter==null || (!MilkingRoom.targetedCharacter.isPlayer() && !Main.game.getCharactersPresent().contains(MilkingRoom.targetedCharacter))) {
+			MilkingRoom.targetedCharacter = Main.game.getPlayer();
+		}
+		return targetedCharacter;
+	}
+
+	public static void setTargetedCharacter(GameCharacter targetedCharacter) {
+		MilkingRoom.targetedCharacter = targetedCharacter;
 	}
 	
 }

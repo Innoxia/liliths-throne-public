@@ -326,6 +326,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				
 				if(coreAttributes.getOptionalFirstOf("weaponAuthorTag").isPresent()) {
 					this.authorDescription = coreAttributes.getMandatoryFirstOf("weaponAuthorTag").getTextContent();
+				} else if(coreAttributes.getOptionalFirstOf("authorTag").isPresent()) {
+					this.authorDescription = coreAttributes.getMandatoryFirstOf("authorTag").getTextContent();
 				} else if(!author.equalsIgnoreCase("innoxia")){
 					this.authorDescription = "A discreet inscription on the surface of the "+(plural?namePlural:name)+" informs you that "+(plural?"they were":"it was")+" made by a certain '"+Util.capitaliseSentence(author)+"'.";
 				} else {
@@ -390,8 +392,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				
 				// Hit/miss descriptions:
 				
-				if(coreAttributes.getOptionalFirstOf("hitDescriptions").isPresent()) {
-					this.hitDescriptions = coreAttributes
+				if(weaponElement.getOptionalFirstOf("hitDescriptions").isPresent()) {
+					this.hitDescriptions = weaponElement
 							.getMandatoryFirstOf("hitDescriptions")
 							.getAllOf("hitText").stream()
 							.map(o -> o.getTextContent())
@@ -400,8 +402,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					this.hitDescriptions = new ArrayList<>();
 				}
 				
-				if(coreAttributes.getOptionalFirstOf("missDescriptions").isPresent()) {
-					this.missDescriptions = coreAttributes
+				if(weaponElement.getOptionalFirstOf("missDescriptions").isPresent()) {
+					this.missDescriptions = weaponElement
 							.getMandatoryFirstOf("missDescriptions")
 							.getAllOf("missText").stream()
 							.map(o -> o.getTextContent())

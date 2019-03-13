@@ -105,6 +105,10 @@ public class Lilaya extends NPC {
 			this.setStartingBody(true);
 			this.setLegType(LegType.HUMAN);
 		}
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.6")) {
+			this.setWingSize(WingSize.THREE_LARGE.getValue());
+		}
 	}
 	
 	@Override
@@ -136,10 +140,9 @@ public class Lilaya extends NPC {
 
 		// Core:
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
-		this.setHalfDemonSubspecies(Subspecies.HUMAN);
 		this.setAgeAppearanceDifferenceToAppearAsAge(32);
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);
 		this.setTailType(TailType.DEMON_COMMON);
 

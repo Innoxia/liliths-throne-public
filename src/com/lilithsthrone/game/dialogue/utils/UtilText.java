@@ -56,6 +56,7 @@ import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.w3c.dom.Document;
@@ -1295,6 +1296,9 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return character.getNameIgnoresPlayerKnowledge()+(character.getSurname().isEmpty()?"":" "+character.getSurname());
+					}
 					return character.getName(arguments)+(character.getSurname().isEmpty()?"":" "+character.getSurname());
 				} else {
 					return character.getName(false)+(character.getSurname().isEmpty()?"":" "+character.getSurname());
@@ -1504,6 +1508,26 @@ public class UtilText {
 			}
 		});
 
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"affection"),
+				true,
+				true,
+				"(target)",
+				"Prints out the name of this character's affection towards the target. e.g. lilaya.relation(pc) would print 'likes' by default"){
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
+				try {
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase());
+					return character.getAffectionLevel(targetedCharacter).getDescriptor();
+				} catch(Exception ex) {
+					ex.printStackTrace();
+					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: affection command character argument not found! ("+arguments+")</i>";
+				}
+			}
+		});
+		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"relation",
@@ -6318,6 +6342,9 @@ public class UtilText {
 		}
 		for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
 			engine.put("PENETRATION_"+penetration.toString(), penetration);
+		}
+		for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+			engine.put("PLACE_UPGRADE_"+upgrade.toString(), upgrade);
 		}
 		engine.put("RND", Util.random);
 		

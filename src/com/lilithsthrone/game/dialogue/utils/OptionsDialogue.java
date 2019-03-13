@@ -30,6 +30,8 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Units.UnitType;
+import com.lilithsthrone.utils.Units.ValueType;
 
 import java.awt.*;
 import java.io.File;
@@ -276,7 +278,10 @@ public class OptionsDialogue {
 		return sb.toString();
 	}
 
-	public static String loadConfirmationName = "", overwriteConfirmationName = "", deleteConfirmationName = "";
+	public static String loadConfirmationName = "";
+	public static String overwriteConfirmationName = "";
+	public static String deleteConfirmationName = "";
+	
 	public static final DialogueNode SAVE_LOAD = new DialogueNode("Save game files", "", true) {
 
 		@Override
@@ -288,12 +293,15 @@ public class OptionsDialogue {
 		public String getHeaderContent(){
 			StringBuilder saveLoadSB = new StringBuilder();
 
-			saveLoadSB.append("<p>"
-					+ "<b>Please Note:</b><br/>"
-					+ "1. Only standard characters (letters and numbers) will work for save file names.<br/>"
-					+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.<br/>"
-					+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (default keybind is F5).<br/>"
-					+ "<b>You cannot save during combat or sex due to some bugs that I need to fix!</b>"
+			saveLoadSB.append(
+					"<p style='text-align:center;'>"
+						+ "<b>Please Note:</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "1. Only standard characters (letters and numbers) will work for save file names.<br/>"
+						+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.<br/>"
+						+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (binding is "+Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKSAVE).getFullName()+").<br/>"
+						+ "4. You cannot save during scenes which restrict your movement, including combat and sex."
 					+ "</p>"
 					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
@@ -1853,7 +1861,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"URETHRAL",
 							Colour.BASE_PINK_DEEP,
-							"Urethral",
+							"Urethral content",
 							"This enables urethral transformations and penetrations.",
 							Main.getProperties().hasValue(PropertyValue.urethralContent)));
 				
@@ -1867,7 +1875,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"ANAL",
 							Colour.BASE_ORANGE,
-							"Anal content",
+							"Anal Content",
 							"When disabled, all non-unique NPCs will spawn in hating anal (which will make them never use anal actions in sex).",
 							Main.getProperties().hasValue(PropertyValue.analContent)));
 			
@@ -1881,7 +1889,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"CLOACA",
 							Colour.BASE_PINK_LIGHT,
-							"Bipedal cloacas",
+							"Bipedal Cloacas",
 							"When enabled, certain bipedal races (such as harpies and alligator-morphs) will have cloacas."
 									+ " When disabled, all bipeds with cloacas will be treated as having a regular genitalia configuration."
 									+ " Some special races, such as lamia, always have cloacas, and are not affected by this.",
@@ -2100,6 +2108,26 @@ public class OptionsDialogue {
 							Main.getProperties().pregnancyLactationLimit,
 							0,
 							Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
+
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+							"BREAST_SIZE_PREFERENCE",
+							Colour.NIPPLES,
+							"Cup Size Preference",
+							"Affects randomly-generated NPCs' cup sizes (will not be reduced to below AA-cup).",
+							(Main.getProperties().breastSizePreference>=0?"+":"") + Main.getProperties().breastSizePreference,
+							Main.getProperties().breastSizePreference,
+							-20,
+							20));
+
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+							"PENIS_SIZE_PREFERENCE",
+							Colour.PENIS,
+							"Penis Size Preference",
+							"Affects randomly-generated NPCs' penis sizes (will not be reduced to below "+Units.size(8)+").",
+							(Main.getProperties().penisSizePreference>=0?"+":"") + Units.size(Main.getProperties().penisSizePreference, ValueType.PRECISE, UnitType.SHORT),
+							Main.getProperties().penisSizePreference,
+							-20,
+							20));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2133,9 +2161,9 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
@@ -2147,9 +2175,9 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 		
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
@@ -2182,21 +2210,21 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
 		
 		contentSB.append(
-				"<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+				"<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
 						+ (value==maximum?"[style.boldDisabled(+)]":"[style.boldGood(+)]")
 				+ "</div>"
-				+ "<div class='container-full-width' style='text-align:center; width:calc(20%); float:right; margin:0;'>"
+				+ "<div class='container-full-width' style='text-align:center; width:calc(30%); float:right; margin:0;'>"
 					+ "<b>"+valueDisplay+"</b>"
 				+ "</div>"
-				+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+				+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
 					+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
 				+ "</div>");
 		

@@ -1295,6 +1295,9 @@ public class Game implements XMLSaving {
 		for(int i=1; i <= hoursPassed; i++) {
 			occupancyUtil.performHourlyUpdate(this.getDayNumber((startHour*60*60) + (i*60)), (hourStartTo24+i)%24);
 		}
+		if(!Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+			MilkingRoom.setTargetedCharacter(Main.game.getPlayer());
+		}
 
 
 		if(loopDebug) {

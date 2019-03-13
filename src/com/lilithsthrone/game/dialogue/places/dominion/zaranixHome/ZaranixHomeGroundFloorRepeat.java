@@ -1497,7 +1497,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
 				
@@ -1526,7 +1526,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
 				
@@ -1555,7 +1555,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
 				
@@ -1584,7 +1584,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
 				
@@ -1613,7 +1613,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
 				
@@ -1688,7 +1688,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
 				
@@ -1712,7 +1712,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
 				
@@ -1836,7 +1836,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Amber.class).returnToHome();
-							Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+							Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 							Main.game.banishNPC(owner);
 							Main.game.banishNPC(pet);
 						}
@@ -1923,7 +1923,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 						Main.game.banishNPC(owner);
 						owner.removeSlave(pet); //To stop issues with banisNPC() TODO fix this
 						Main.game.banishNPC(pet);
@@ -1950,7 +1950,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 						Main.game.banishNPC(owner);
 						owner.removeSlave(pet); //To stop issues with banishNPC() TODO fix this
 						Main.game.banishNPC(pet);
@@ -1982,7 +1982,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Amber.class).returnToHome();
-						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 						Main.game.banishNPC(owner);
 						Main.game.banishNPC(pet);
 					}
@@ -2017,7 +2017,7 @@ public class ZaranixHomeGroundFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return ENTRANCE.getResponse(responseTab, index);
+			return LOUNGE.getResponse(responseTab, index);
 		}
 	};
 	

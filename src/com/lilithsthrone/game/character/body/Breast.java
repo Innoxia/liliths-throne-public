@@ -140,7 +140,7 @@ public class Breast implements BodyPartInterface {
 	}
 
 	public boolean hasBreasts() {
-		return size>=CupSize.AA.getMeasurement();
+		return size>=CupSize.getMinimumCupSizeForBreasts().getMeasurement();
 	}
 
 	public String setType(GameCharacter owner, AbstractBreastType type) {

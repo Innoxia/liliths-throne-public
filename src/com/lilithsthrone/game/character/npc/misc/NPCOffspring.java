@@ -90,7 +90,7 @@ public class NPCOffspring extends NPC {
 		setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(getGender()));
 
 		setName(Name.getRandomTriplet(getRace()));
-
+		
 		// PERSONALITY & BACKGROUND:
 		
 		CharacterUtils.setHistoryAndPersonality(this, true);

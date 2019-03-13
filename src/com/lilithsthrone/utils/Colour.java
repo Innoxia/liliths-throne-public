@@ -106,6 +106,7 @@ public enum Colour {
 	RACE_BESTIAL(false, BaseColour.TAN, "tan", Util.newArrayListOfValues("bestial", "animal", "feral")),
 	RACE_UNKNOWN(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("unknown")),
 	RACE_HUMAN(false, BaseColour.BLUE_STEEL, "pale blue", Util.newArrayListOfValues("human")),
+	RACE_HALF_DEMON(false, BaseColour.LILAC, "lilac", Util.newArrayListOfValues("halfDemon")),
 	RACE_DEMON(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("demon")),
 	RACE_LILIN(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("lilin")),
 	RACE_IMP(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("imp")),

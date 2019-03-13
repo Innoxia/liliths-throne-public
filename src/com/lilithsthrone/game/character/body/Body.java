@@ -125,7 +125,6 @@ public class Body implements XMLSaving {
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
 	private Subspecies subspeciesOverride = null;
-	private Subspecies halfDemonSubspecies = null;
 	private int height;
 	private int femininity;
 	private int bodySize;
@@ -528,8 +527,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyAnus, "assHair", this.ass.anus.assHair.toString());
 			Element anusModifiers = doc.createElement("anusModifiers");
 			bodyAnus.appendChild(anusModifiers);
-			for(OrificeModifier om : OrificeModifier.values()) {
-				CharacterUtils.addAttribute(doc, anusModifiers, om.toString(), String.valueOf(this.ass.anus.orificeAnus.hasOrificeModifier(om)));
+			for(OrificeModifier om : this.ass.anus.orificeAnus.getOrificeModifiers()) {
+				CharacterUtils.addAttribute(doc, anusModifiers, om.toString(), "true");
 			}
 		
 		// Breasts:
@@ -558,8 +557,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyNipple, "areolaeShape", this.breast.nipples.areolaeShape.toString());
 			Element nippleModifiers = doc.createElement("nippleModifiers");
 			bodyNipple.appendChild(nippleModifiers);
-			for(OrificeModifier om : OrificeModifier.values()) {
-				CharacterUtils.addAttribute(doc, nippleModifiers, om.toString(), String.valueOf(this.breast.nipples.orificeNipples.hasOrificeModifier(om)));
+			for(OrificeModifier om : this.breast.nipples.orificeNipples.getOrificeModifiers()) {
+				CharacterUtils.addAttribute(doc, nippleModifiers, om.toString(), "true");
 			}
 			
 		this.breast.milk.saveAsXML(parentElement, doc);
@@ -590,8 +589,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyCrotchNipple, "areolaeShape", this.breastCrotch.nipples.areolaeShape.toString());
 			Element crotchNippleModifiers = doc.createElement("nippleModifiers");
 			bodyCrotchNipple.appendChild(crotchNippleModifiers);
-			for(OrificeModifier om : OrificeModifier.values()) {
-				CharacterUtils.addAttribute(doc, crotchNippleModifiers, om.toString(), String.valueOf(this.breastCrotch.nipples.orificeNipples.hasOrificeModifier(om)));
+			for(OrificeModifier om : this.breastCrotch.nipples.orificeNipples.getOrificeModifiers()) {
+				CharacterUtils.addAttribute(doc, crotchNippleModifiers, om.toString(), "true");
 			}
 			
 		this.breastCrotch.milk.saveAsXML(parentElement, doc);
@@ -630,8 +629,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyMouth, "lipSize", String.valueOf(this.face.mouth.lipSize));
 			Element mouthModifiers = doc.createElement("mouthModifiers");
 			bodyMouth.appendChild(mouthModifiers);
-			for(OrificeModifier om : OrificeModifier.values()) {
-				CharacterUtils.addAttribute(doc, mouthModifiers, om.toString(), String.valueOf(this.face.mouth.orificeMouth.hasOrificeModifier(om)));
+			for(OrificeModifier om : this.face.mouth.orificeMouth.getOrificeModifiers()) {
+				CharacterUtils.addAttribute(doc, mouthModifiers, om.toString(), "true");
 			}
 			
 		Element bodyTongue = doc.createElement("tongue");
@@ -640,8 +639,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyTongue, "tongueLength", String.valueOf(this.face.tongue.tongueLength));
 			Element tongueModifiers = doc.createElement("tongueModifiers");
 			bodyTongue.appendChild(tongueModifiers);
-			for(TongueModifier tm : TongueModifier.values()) {
-				CharacterUtils.addAttribute(doc, tongueModifiers, tm.toString(), String.valueOf(this.face.tongue.hasTongueModifier(tm)));
+			for(TongueModifier tm : this.face.tongue.tongueModifiers) {
+				CharacterUtils.addAttribute(doc, tongueModifiers, tm.toString(), "true");
 			}
 			
 		
@@ -677,8 +676,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyPenis, "virgin", String.valueOf(this.penis.virgin));
 			Element penisModifiers = doc.createElement("penisModifiers");
 			bodyPenis.appendChild(penisModifiers);
-			for(PenetrationModifier pm : PenetrationModifier.values()) {
-				CharacterUtils.addAttribute(doc, penisModifiers, pm.toString(), String.valueOf(this.penis.hasPenisModifier(pm)));
+			for(PenetrationModifier pm : this.penis.getPenisModifiers()) {
+				CharacterUtils.addAttribute(doc, penisModifiers, pm.toString(), "true");
 			}
 			CharacterUtils.addAttribute(doc, bodyPenis, "elasticity", String.valueOf(this.penis.orificeUrethra.elasticity));
 			CharacterUtils.addAttribute(doc, bodyPenis, "plasticity", String.valueOf(this.penis.orificeUrethra.plasticity));
@@ -687,8 +686,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyPenis, "urethraVirgin", String.valueOf(this.penis.orificeUrethra.virgin));
 			Element urethraModifiers = doc.createElement("urethraModifiers");
 			bodyPenis.appendChild(urethraModifiers);
-			for(OrificeModifier om : OrificeModifier.values()) {
-				CharacterUtils.addAttribute(doc, urethraModifiers, om.toString(), String.valueOf(this.penis.orificeUrethra.hasOrificeModifier(om)));
+			for(OrificeModifier om : this.penis.orificeUrethra.getOrificeModifiers()) {
+				CharacterUtils.addAttribute(doc, urethraModifiers, om.toString(), "true");
 			}
 			
 		Element bodyTesticle = doc.createElement("testicles");
@@ -730,8 +729,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyVagina, "clitGirth", String.valueOf(this.vagina.clitoris.girth));
 			Element clitModifiers = doc.createElement("clitModifiers");
 			bodyVagina.appendChild(clitModifiers);
-			for(PenetrationModifier pm : PenetrationModifier.values()) {
-				CharacterUtils.addAttribute(doc, clitModifiers, pm.toString(), String.valueOf(this.vagina.clitoris.hasClitorisModifier(pm)));
+			for(PenetrationModifier pm : this.vagina.clitoris.getClitorisModifiers()) {
+				CharacterUtils.addAttribute(doc, clitModifiers, pm.toString(), "true");
 			}
 			CharacterUtils.addAttribute(doc, bodyVagina, "pierced", String.valueOf(this.vagina.pierced));
 			
@@ -744,8 +743,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyVagina, "squirter", String.valueOf(this.vagina.orificeVagina.squirter));
 			Element vaginaModifiers = doc.createElement("vaginaModifiers");
 			bodyVagina.appendChild(vaginaModifiers);
-			for(OrificeModifier om : OrificeModifier.values()) {
-				CharacterUtils.addAttribute(doc, vaginaModifiers, om.toString(), String.valueOf(this.vagina.orificeVagina.hasOrificeModifier(om)));
+			for(OrificeModifier om : this.vagina.orificeVagina.getOrificeModifiers()) {
+				CharacterUtils.addAttribute(doc, vaginaModifiers, om.toString(), "true");
 			}
 
 			CharacterUtils.addAttribute(doc, bodyVagina, "urethraElasticity", String.valueOf(this.vagina.orificeUrethra.elasticity));
@@ -755,8 +754,8 @@ public class Body implements XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyVagina, "urethraVirgin", String.valueOf(this.vagina.orificeUrethra.virgin));
 			urethraModifiers = doc.createElement("urethraModifiers");
 			bodyVagina.appendChild(urethraModifiers);
-			for(OrificeModifier om : OrificeModifier.values()) {
-				CharacterUtils.addAttribute(doc, urethraModifiers, om.toString(), String.valueOf(this.vagina.orificeUrethra.hasOrificeModifier(om)));
+			for(OrificeModifier om : this.vagina.orificeUrethra.getOrificeModifiers()) {
+				CharacterUtils.addAttribute(doc, urethraModifiers, om.toString(), "true");
 			}
 			
 		this.vagina.girlcum.saveAsXML(parentElement, doc);
@@ -815,15 +814,6 @@ public class Body implements XMLSaving {
 			}
 		} catch(Exception ex) {	
 		}
-
-		Subspecies importedHalfDemonSubspecies = null;
-		try {
-			if(element.getAttribute("halfDemonSubspecies") != null && !element.getAttribute("halfDemonSubspecies").isEmpty()) {
-				importedHalfDemonSubspecies = Subspecies.valueOf(element.getAttribute("halfDemonSubspecies"));
-			}
-		} catch(Exception ex) {	
-		}
-		
 		
 		
 		
@@ -899,7 +889,9 @@ public class Body implements XMLSaving {
 			Element anusModifiersElement = (Element)anus.getElementsByTagName("anusModifiers").item(0);
 			Collection<OrificeModifier> anusModifiers = importedAss.anus.orificeAnus.orificeModifiers;
 			anusModifiers.clear();
-			handleLoadingOfModifiers(OrificeModifier.values(), log, anusModifiersElement, anusModifiers);
+			if(anusModifiersElement!=null) {
+				handleLoadingOfModifiers(OrificeModifier.values(), log, anusModifiersElement, anusModifiers);
+			}
 		}
 		
 
@@ -970,10 +962,11 @@ public class Body implements XMLSaving {
 				+"<br/>Modifiers:");
 		
 		Element nippleModifiersElement = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
-		
 		Collection<OrificeModifier> nippleOrificeModifiers = importedBreast.nipples.orificeNipples.orificeModifiers;
 		nippleOrificeModifiers.clear();
-		handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
+		if(nippleModifiersElement!=null) {
+			handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
+		}
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 		
@@ -1073,10 +1066,11 @@ public class Body implements XMLSaving {
 				+ "<br/>Modifiers: ");
 			
 		Element mouthModifiersElement = (Element)mouth.getElementsByTagName("mouthModifiers").item(0);
-		
 		Collection<OrificeModifier> mouthOrificeModifiers = importedFace.mouth.orificeMouth.orificeModifiers;
 		mouthOrificeModifiers.clear();
-		handleLoadingOfModifiers(OrificeModifier.values(), log, mouthModifiersElement, mouthOrificeModifiers);
+		if(mouthModifiersElement!=null) {
+			handleLoadingOfModifiers(OrificeModifier.values(), log, mouthModifiersElement, mouthOrificeModifiers);
+		}
 
 		Element tongue = (Element)parentElement.getElementsByTagName("tongue").item(0);
 			importedFace.tongue.pierced = (Boolean.valueOf(tongue.getAttribute("piercedTongue")));
@@ -1089,10 +1083,11 @@ public class Body implements XMLSaving {
 					+ "<br/>Modifiers: ");
 			
 			Element tongueModifiersElement = (Element)tongue.getElementsByTagName("tongueModifiers").item(0);
-			
 			Collection<TongueModifier> tongueModifiers = importedFace.tongue.tongueModifiers;
 			tongueModifiers.clear();
-			handleLoadingOfModifiers(TongueModifier.values(), log, tongueModifiersElement, tongueModifiers);
+			if(tongueModifiersElement!=null) {
+				handleLoadingOfModifiers(TongueModifier.values(), log, tongueModifiersElement, tongueModifiers);
+			}
 			
 			
 		// **************** Hair **************** //
@@ -1245,11 +1240,7 @@ public class Body implements XMLSaving {
 		Collection<PenetrationModifier> penisModifiers = importedPenis.penisModifiers;
 		penisModifiers.clear();
 		Element penisModifiersElement = (Element)penis.getElementsByTagName("penisModifiers").item(0);
-		if (penisModifiersElement == null) {
-			for (PenetrationModifier pm : PenetrationModifier.values()) {
-				CharacterUtils.appendToImportLog(log, "<br/>"+pm.toString()+":false");
-			}
-		} else {
+		if (penisModifiersElement != null) {
 			handleLoadingOfModifiers(PenetrationModifier.values(), log, penisModifiersElement, penisModifiers);
 		}
 		
@@ -1272,10 +1263,11 @@ public class Body implements XMLSaving {
 				+ "<br/>Urethra Modifiers:");
 		
 		Element urethraModifiersElement = (Element)penis.getElementsByTagName("urethraModifiers").item(0);
-		
 		Collection<OrificeModifier> urethraOrificeModifiers = importedPenis.orificeUrethra.orificeModifiers;
 		urethraOrificeModifiers.clear();
-		handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, urethraOrificeModifiers);
+		if (urethraModifiersElement != null) {
+			handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, urethraOrificeModifiers);
+		}
 		
 		importedPenis.testicle.internal = (Boolean.valueOf(testicles.getAttribute("internal")));
 		
@@ -1371,11 +1363,7 @@ public class Body implements XMLSaving {
 			Collection<PenetrationModifier> clitModifiers = importedVagina.clitoris.clitModifiers;
 			clitModifiers.clear();
 			Element clitModifiersElement = (Element)vagina.getElementsByTagName("clitModifiers").item(0);
-			if (clitModifiersElement == null) {
-				for (PenetrationModifier pm : PenetrationModifier.values()) {
-					CharacterUtils.appendToImportLog(log, "<br/>"+pm.toString()+":false");
-				}
-			} else {
+			if (clitModifiersElement != null) {
 				handleLoadingOfModifiers(PenetrationModifier.values(), log, clitModifiersElement, clitModifiers);
 			}
 			
@@ -1402,7 +1390,6 @@ public class Body implements XMLSaving {
 				+ "<br/>virgin: "+importedVagina.orificeVagina.isVirgin());
 		
 		Element vaginaModifiers = (Element)vagina.getElementsByTagName("vaginaModifiers").item(0);
-		
 		Collection<OrificeModifier> vaginaOrificeModifiers = importedVagina.orificeVagina.orificeModifiers;
 		vaginaOrificeModifiers.clear();
 		if(vaginaModifiers!=null) {
@@ -1421,10 +1408,11 @@ public class Body implements XMLSaving {
 			}
 			
 			urethraModifiersElement = (Element)vagina.getElementsByTagName("urethraModifiers").item(0);
-			
 			Collection<OrificeModifier> vaginaUrethraOrificeModifiers = importedVagina.orificeUrethra.orificeModifiers;
 			vaginaUrethraOrificeModifiers.clear();
-			handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, vaginaUrethraOrificeModifiers);
+			if (urethraModifiersElement != null) {
+				handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, vaginaUrethraOrificeModifiers);
+			}
 		} catch(Exception ex) {
 		}
 		
@@ -1580,10 +1568,11 @@ public class Body implements XMLSaving {
 					+"<br/>Modifiers:");
 
 			nippleModifiersElement = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
-
 			nippleOrificeModifiers = importedCrotchBreast.nipples.orificeNipples.orificeModifiers;
 			nippleOrificeModifiers.clear();
-			handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
+			if (nippleModifiersElement != null) {
+				handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
+			}
 
 			CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 
@@ -1604,7 +1593,6 @@ public class Body implements XMLSaving {
 		}
 		
 		body.setSubspeciesOverride(importedSubspeciesOverride);
-		body.setHalfDemonSubspecies(importedHalfDemonSubspecies);
 		
 		body.setPiercedStomach(Boolean.valueOf(element.getAttribute("piercedStomach")));
 		CharacterUtils.appendToImportLog(log, "<br/>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
@@ -1700,21 +1688,23 @@ public class Body implements XMLSaving {
 	static <T extends Enum<T>> void handleLoadingOfModifiers(T[] enumValues, StringBuilder log, Element modifiersElement, Collection<T> modifiers) {
 		for(T enumValue : enumValues) {
 			String attributeValue = modifiersElement.getAttribute(enumValue.toString());
-			if(Boolean.valueOf(attributeValue)) {
-				if (!modifiers.contains(enumValue)) {
-					modifiers.add(enumValue);
-				}
-				if(log!=null) {
-					CharacterUtils.appendToImportLog(log, "<br/>"+enumValue.toString()+":true");
-				}
-			} else if (!attributeValue.isEmpty()) {
-				modifiers.remove(enumValue);
-				if(log!=null) {
-					CharacterUtils.appendToImportLog(log, "<br/>"+enumValue.toString()+":false");
-				}
-			} else {
-				if(log!=null) {
-					CharacterUtils.appendToImportLog(log, "<br/>"+enumValue.toString()+":not present, defaulted to "+modifiers.contains(enumValue));
+			if(!attributeValue.isEmpty()) {
+				if(Boolean.valueOf(attributeValue)) {
+					if (!modifiers.contains(enumValue)) {
+						modifiers.add(enumValue);
+					}
+					if(log!=null) {
+						CharacterUtils.appendToImportLog(log, "<br/>"+enumValue.toString()+":true");
+					}
+				} else if (!attributeValue.isEmpty()) {
+					modifiers.remove(enumValue);
+					if(log!=null) {
+						CharacterUtils.appendToImportLog(log, "<br/>"+enumValue.toString()+":false");
+					}
+				} else {
+					if(log!=null) {
+						CharacterUtils.appendToImportLog(log, "<br/>"+enumValue.toString()+":not present, defaulted to "+modifiers.contains(enumValue));
+					}
 				}
 			}
 		}
@@ -3210,9 +3200,6 @@ public class Body implements XMLSaving {
 		
 		switch(subspecies) {
 			case HALF_DEMON:
-				if(this.getHalfDemonSubspecies()==null) {
-					this.setHalfDemonSubspecies(Subspecies.getSubspeciesFromBody(target, this, arm.getType().getRace(), true));
-				}
 				this.setSubspeciesOverride(subspecies);
 				break;
 			case IMP:
@@ -3298,11 +3285,7 @@ public class Body implements XMLSaving {
 	}
 
 	public Subspecies getHalfDemonSubspecies() {
-		return halfDemonSubspecies;
-	}
-
-	public void setHalfDemonSubspecies(Subspecies halfDemonSubspecies) {
-		this.halfDemonSubspecies = halfDemonSubspecies;
+		return Subspecies.getSubspeciesFromBody(null, this, getRaceFromPartWeighting(true), true);
 	}
 
 	public Antenna getAntenna() {

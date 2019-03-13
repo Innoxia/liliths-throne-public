@@ -404,6 +404,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 			if(coreAttributes.getOptionalFirstOf("clothingAuthorTag").isPresent()) {
 				this.authorDescription = coreAttributes.getMandatoryFirstOf("clothingAuthorTag").getTextContent();
+			} else if(coreAttributes.getOptionalFirstOf("authorTag").isPresent()) {
+				this.authorDescription = coreAttributes.getMandatoryFirstOf("authorTag").getTextContent();
 			} else if(!author.equalsIgnoreCase("innoxia")){
 				this.authorDescription = "A tag discreetly attached to the "+(plural?namePlural:name)+" informs you that "+(plural?"they were":"it was")+" made by a certain '"+Util.capitaliseSentence(author)+"'.";
 			} else {

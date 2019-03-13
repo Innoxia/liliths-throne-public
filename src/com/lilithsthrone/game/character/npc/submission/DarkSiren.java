@@ -37,6 +37,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -172,6 +173,10 @@ public class DarkSiren extends NPC {
 			this.addSpell(Spell.TELEKENETIC_SHOWER);
 			this.addSpellUpgrade(SpellUpgrade.TELEKENETIC_SHOWER_1);
 		}
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.6")) {
+			this.setWingSize(WingSize.ONE_SMALL.getValue());
+		}
 		setName(new NameTriplet("Meraxis"));
 	}
 	
@@ -205,10 +210,10 @@ public class DarkSiren extends NPC {
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
-		this.setHalfDemonSubspecies(Subspecies.HUMAN);
 		this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
+		this.setWingSize(WingSize.ONE_SMALL.getValue());
 		this.setHornType(HornType.CURLED);
 
 		// Core:

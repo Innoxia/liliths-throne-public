@@ -295,13 +295,13 @@ public class CharacterUtils {
 			if(Math.random()<=0.5) {
 				startingBodyType = motherBody;
 				stage = mother.getRaceStage();
+				
 			} else {
 				startingBodyType = fatherBody;
 				stage = father.getRaceStage();
 				raceTakesAfter = father.getSubspecies();
 				takesAfterMother = false;
 				raceFromMother = false;
-				
 			}
 			
 			switch(startingGender.isFeminine()
@@ -331,9 +331,7 @@ public class CharacterUtils {
 			}
 			
 			body = generateBody(linkedCharacter, startingGender, startingBodyType, stage);
-//			System.out.println(":3");
 		}
-//		System.out.println(body.getSubspecies().getName(linkedCharacter));
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
 		// Genetics! (Sort of...)
@@ -342,6 +340,17 @@ public class CharacterUtils {
 		if(Math.abs(mother.getFemininityValue()-body.getFemininity()) > Math.abs(father.getFemininityValue()-body.getFemininity())) {
 			takesAfterMother = false;
 			parentTakesAfter = father;
+		}
+		
+		// Non-biped parents:
+		if(takesAfterMother) {
+			if(body.getLeg().getType().isLegConfigurationAvailable(mother.getLegConfiguration())) {
+				body.getLeg().setLegConfigurationForced(body.getLeg().getType(), mother.getLegConfiguration());
+			}
+		} else {
+			if(body.getLeg().getType().isLegConfigurationAvailable(father.getLegConfiguration())) {
+				body.getLeg().setLegConfigurationForced(body.getLeg().getType(), father.getLegConfiguration());
+			}
 		}
 		
 		float takesAfterMotherChance = takesAfterMother?0.75f:0.25f;
@@ -937,7 +946,6 @@ public class CharacterUtils {
 		}
 		Body body = CharacterUtils.generateBody(linkedCharacter, startingGender, halfSubspecies, stage);
 		body.setSubspeciesOverride(Subspecies.HALF_DEMON);
-		body.setHalfDemonSubspecies(halfSubspecies);
 		
 		body.setAss(new Ass(AssType.DEMON_COMMON,
 				(startingGender.isFeminine() ? demonBody.getFemaleAssSize() : demonBody.getMaleAssSize()),
@@ -949,7 +957,9 @@ public class CharacterUtils {
 		
 		body.setBreast(new Breast(BreastType.DEMON_COMMON,
 				Util.randomItemFrom(demonBody.getBreastShapes()),
-				(startingGender.getGenderName().isHasBreasts()? demonBody.getBreastSize() : demonBody.getNoBreastSize()),
+				(startingGender.getGenderName().isHasBreasts()
+						? Math.max(CupSize.getMinimumCupSizeForBreasts().getMeasurement(), demonBody.getBreastSize()+Main.getProperties().breastSizePreference)
+						: demonBody.getNoBreastSize()),
 				(startingGender.isFeminine() ? demonBody.getFemaleLactationRate() : demonBody.getMaleLactationRate()),
 				(startingGender.isFeminine() ? demonBody.getBreastCountFemale() : demonBody.getBreastCountMale()),
 				(startingGender.isFeminine() ? demonBody.getFemaleNippleSize() : demonBody.getMaleNippleSize()),
@@ -995,7 +1005,7 @@ public class CharacterUtils {
 		
 		body.setPenis(startingGender.getGenderName().isHasPenis()
 				? new Penis(demonBody.getPenisType(),
-					demonBody.getPenisSize(),
+					Math.max(Math.min(8, demonBody.getPenisSize()), demonBody.getPenisSize()+Main.getProperties().penisSizePreference),
 					demonBody.getPenisGirth(),
 					demonBody.getTesticleSize(),
 					demonBody.getCumProduction(),
@@ -1147,7 +1157,9 @@ public class CharacterUtils {
 						true),
 				new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
 						Util.randomItemFrom(startingBodyType.getBreastShapes()),
-						(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
+						(hasBreasts
+								? Math.max(CupSize.getMinimumCupSizeForBreasts().getMeasurement(), startingBodyType.getBreastSize()+Main.getProperties().breastSizePreference)
+								: startingBodyType.getNoBreastSize()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
 						(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
@@ -1189,7 +1201,7 @@ public class CharacterUtils {
 						: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true))
 				.penis(hasPenis
 						? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
-							startingBodyType.getPenisSize(),
+							Math.max(Math.min(8, startingBodyType.getPenisSize()), startingBodyType.getPenisSize()+Main.getProperties().penisSizePreference),
 							startingBodyType.getPenisGirth(),
 							startingBodyType.getTesticleSize(),
 							startingBodyType.getCumProduction(),
@@ -1263,7 +1275,9 @@ public class CharacterUtils {
 		
 		body.setBreast(new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
 				Util.randomItemFrom(startingBodyType.getBreastShapes()),
-				(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
+				(hasBreasts
+						? Math.max(CupSize.getMinimumCupSizeForBreasts().getMeasurement(), startingBodyType.getBreastSize()+Main.getProperties().breastSizePreference)
+						: startingBodyType.getNoBreastSize()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
 				(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
@@ -1339,7 +1353,7 @@ public class CharacterUtils {
 		
 		body.setPenis(hasPenis
 				? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
-						startingBodyType.getPenisSize(),
+						Math.max(Math.min(8, startingBodyType.getPenisSize()), startingBodyType.getPenisSize()+Main.getProperties().penisSizePreference),
 						startingBodyType.getPenisGirth(),
 						startingBodyType.getTesticleSize(),
 						startingBodyType.getCumProduction(),

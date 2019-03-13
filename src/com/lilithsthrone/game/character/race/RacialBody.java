@@ -170,7 +170,7 @@ public class RacialBody {
 			VaginaType.DEMON_COMMON,
 			Wetness.SEVEN_DROOLING,
 			Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			Util.newArrayListOfValues(WingType.DEMON_COMMON, WingType.DEMON_FEATHERED), WingSize.ONE_SMALL, WingSize.ONE_SMALL,
+			Util.newArrayListOfValues(WingType.DEMON_COMMON, WingType.DEMON_FEATHERED), WingSize.THREE_LARGE, WingSize.THREE_LARGE,
 			GenitalArrangement.NORMAL) {
 
 		@Override

@@ -45,10 +45,11 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 
 		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
 		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
+		
 		Element cumModifiers = doc.createElement("girlcumModifiers");
 		element.appendChild(cumModifiers);
-		for(FluidModifier fm : FluidModifier.values()) {
-			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.hasFluidModifier(fm)));
+		for(FluidModifier fm : this.getFluidModifiers()) {
+			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), "true");
 		}
 		
 		return element;
@@ -86,8 +87,11 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 		
 
 		Element girlcumModifiersElement = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
-		Collection<FluidModifier> girlcumFluidModifiers = fluidGirlcum.fluidModifiers;
-		Body.handleLoadingOfModifiers(FluidModifier.values(), null, girlcumModifiersElement, girlcumFluidModifiers);
+		fluidGirlcum.fluidModifiers.clear();
+		if(girlcumModifiersElement!=null) {
+			Collection<FluidModifier> girlcumFluidModifiers = fluidGirlcum.fluidModifiers;
+			Body.handleLoadingOfModifiers(FluidModifier.values(), null, girlcumModifiersElement, girlcumFluidModifiers);
+		}
 		
 		return fluidGirlcum;
 	}

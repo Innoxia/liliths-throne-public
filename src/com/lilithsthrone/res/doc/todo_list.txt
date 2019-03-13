@@ -129,12 +129,19 @@
 		Added support for defining patterns in modded clothing. Reference the 'res/mods/innoxia/items/clothing/rentalMommy/rental_mommy.xml' for an example (line 179).
 		Added support for author attribution in modded clothing and weapons. As above, reference the rental_mommy.xml file to see how it works in clothing (line 11), or the 'res/weapons/innoxia/dagger/dagger.xml' for weapons (line 5).
 		Updated Weapon xml loading to use BlazingMagpie's xmlParsing Element structure.
+		Did some more optimisation of save files, cutting file size by about 10% on larger saves.
+		Added support for new clothingAuthorTag and weaponAuthorTag elements in modded clothing/weapons to be simply 'authorTag'. (Change from initial implementation in 0.3.1.2)
 		
 	Gameplay:
+		<b>Reverted:</b> You can now enslave the demons in Dominion's dark alleyway tiles again. Finch's explanation when you first get a slaver license has also been updated, as well as the lore in the 'Dominion's History' book in Lilaya's library.
 		Added a 'Thorough wash' action to your room, which cleans out all of the fluids in your orifices.
 		Clothing which plugs or seals orifices no longer gets dirty from creampies which it is keeping sealed/plugged in. (This clothing can still get dirty if someone cums on it.)
 		Half-demon harpies (furies) can now spawn in the harpy nests, and Submission attackers can also now be half-demons. Both are at a chance of 5% per encounter, and the chance for Dominion half-demon attackers has similarly been increased to 5% (from 2.5%).
 		By default, half-demons now need two orgasms to be satisfied in sex, while demons, lilin, and elder lilin need 3.
+		Added ability to use the milking room's equipment to manually milk your companions or slaves assigned to it. You can also use the 'pump' actions on them.
+		There is now a 5% chance for alleyway attackers to be a taur.
+		Offspring will now correctly be generated as a taur if the parent which they take after is a taur themselves.
+		You can now meet taur offspring in Dominion's alleyways.
 	
 	Contributors:
 		Added: 'Polka dots' pattern for clothing, in sizes 'tiny', 'small', and 'big'. (PR#1097 by Phlarx)
@@ -153,6 +160,13 @@
 		Improved orgasm's targeted cum area detections and descriptions, so, for example, cumming on someone's stomach will now dirty not only their stomach, but also clothing in their torso and over-torso slots.
 		Split up Vicky's trade action into weapons, items, and clothing. Due to this change, <b>Vicky's shop inventory will be reset</b> once you load into this version.
 		Newly spawned clothing now treats colours and pattern colours for different primary, secondary, and tertiary areas as mutually-exclusive, where possible.
+		Amber's walkies scene now ends with you being returned to the lounge, instead of the entrance hall.
+		Added separate icon colours for demons and half-demons.
+		Added variations to the 'pregnancy chance' descriptions for if characters impregnate themselves.
+		Save game info on main menu when starting up the game should now correctly display your character's race name, as based on femininity value.
+		Increased demons' default wing size from tiny to large. (Also increased Lilaya's wing size from average to large, and set Meraxis to having small wings.)
+		Added 'breast size' and 'penis size' preference modifiers to the 'Content options' screen (at the very bottom).
+		Increased chance of friendly  occupants finding a job each day from 10% to 20%.
 		
 	Sex:
 		Changed 'Twintail pull'/'Twin braids pull' from being exclusive to the kneeling-oral position, to any position in which the character receiving a blowjob has at least two hands free.
@@ -161,8 +175,13 @@
 		Fixed crotch nipples being incorrectly treated as penetrable in some instances.
 		Fixed nipple penetration content setting not applying to crotch nipples.
 		Rose will no longer penetrate herself on your cock in her dominant scene.
+		Added 'Restrict control' & 'Unrestrict control' actions in sex, for when you are the dom and you want to limit a sub's ability to start non-self penetrative actions.
+		NPCs who have foot fetishes now correctly have a weighted chance to want to prioritise using their (or others') feet in sex.
+		NPCs who have a positive desire towards the sadist fetish will no longer bother to remove their footwear before giving their partner a footjob.
+		NPCs who use their mouth/tongue in any sex actions will now have their mouth stats revealed to you. (This can be seen in their description page, in the third paragraph under 'Appearance'.)
 	
 	Bugs:
+		<b>Fixed:</b> Major issue which has been present for several versions, where clothing in all shopkeepers' inventories was disappearing at random.
 		Fixed issue with Brax not being at the reception desk after defeating him.
 		Fixed coverings which were set to 'glow' losing their glow upon loading.
 		Fixed issue where forbidding NPCs from managing clothing during sex would have no effect.
@@ -192,38 +211,63 @@
 		Fixed incorrect size being shown for crotch-boobs in the character overview tooltip.
 		Crotch-boob milk with the modifier 'mineral oil' will now correctly melt condoms.
 		Fixed issue with parsing engine crashing when using a combination of IF with brackets and THEN statements.
+		Fixed parsing error in the 'Lustful Suggestion' sex action.
+		Fixed v0.3.1.2 issue where anal options were never available.
+		Fixed v0.3.1.2 issue where dominant NPCs were treating your 'orgasms until satisfied' as though you were an NPC as well.
+		Fixed issue where NPCs would sometimes not change position when it was necessary in order to fulfill their preferences.
+		Fixed some issues with NPCs not responding to positioning requests properly.
+		Fixed issue with both all 'request position' as well as the normal 'enter position' actions being available to you as a sub in sex.
+		Fixed issue with your character always being named as a full demon, even if you transformed your parts into human ones.
+		Fixed dialogue in the imp citadel's 'ring trick' scene being missing if you had a companion with you.
+		Fixed issue with NPCs not performing their expected actions in sex. (This was occurring when their preferences in main sex were classified as 'foreplay' actions, such as oral.)
+		Fixed issue with modded weapons not displaying hit or miss descriptions.
 	
 	
 	
 	
 	
-	
-	
-	Feb credits
-	
-	Also will not switch out of doggy to receive anal fucking when in doggy oral
-	need sex slot tags like "lying down", "submissive", "dominant", so position switching can take this into account
-		make it so NPCs will not choose sub positioning when dom, or lying down when in dirty area
-	
-	need missionary oral position
-	
-	Add report functionality to Enforcer HQ (via Candi) to enable enslavement of demons
-		Refuse to stamp off on demons unless the player is a demon themselves
-	
-	really need dialogue indication of what NPCs want
-		Upon position change, or when generating preferences?
 	
 	github issues
 	
 	discord bugs
 	
-	need to incorporate outfit logic into clothing types
+	optimise endturn iterations over NPCs
+	
+	calculateSexTypeWeighting
+		Should be neutral if both like and dislike related fetishes. Adjust sex lust increments based on this as well
+	
+	need sex slot tags like "lying down", "submissive", "dominant", so position switching can take this into account
+		make it so NPCs will not choose sub positioning when dom, or lying down when in dirty area
+	
+	really need dialogue indication of what NPCs want
+		Upon position change, or when generating preferences?
 	
 	Finish orgasm denial scenes.
 	    - Add sex action(s).
 	    	Need variations for ongoing penetration or not
 	    	BDSM set effect - cannot perform any sex actions when a sub
 	    - Add variations for if chastity belt/cage is being worn.
+	
+	need missionary oral position
+	
+	4. Add a centaur field exploration encounter.
+	    - Tidy up encounter code.
+	need a 'rampaging Lunette' status effect
+	    - Enable movement over field tiles.
+	    - Add dialogue framework.
+	    - Write dialogue.
+	    - Test.
+	
+	Emails
+	
+	message K
+	
+	insertable dildo needs to stretch orifice over time
+	orifice rejuvination item
+	
+	aphrodesiac item
+	
+	need to incorporate outfit logic into clothing types
 	
 	tooltip descriptions go 'out of bounds' when characters have long race/colour names
 	
@@ -238,31 +282,13 @@
 	Need incest checks in offspring and occupant dialogue
 		make it so offspring encounters are enabled with incest off, but all incest-related actions are hidden
 	
-	 
-	4. Add a centaur field exploration encounter.
-	    - Tidy up encounter code.
-	need a 'rampaging Lunette' status effect
-	    - Enable movement over field tiles.
-	    - Add dialogue framework.
-	    - Write dialogue.
-	    - Test.
 	Wild encounters need to react to player being a predator or prey race
 	
 	The NPCs are meant to change preferences from the 'foreplay' bracket to the 'main sex' bracket, but this is indeed happening a little too fast. I'll see if I can tweak the arousal gain values for the next release.
 	
 	Suggestion: make tail (and maybe extra thicc butt too) conceal anus under normal circumstances.
 	   
-	    
-	optimise endturn iterations over NPCs
-	
 	regarding taurs (no intentional groping or suckling of crotchboobs, and pregnancy scenes not reflecting that they are a taur
-	
-	anyone tested if you can find tauric children in Dominion? i tested with just a random centaur (breeding game) but had no encounter
-		makes sense for actual centaur to be out in fields where rest of centaurs are, but questioning non-horse
-		also, a bit sad that being taur and setting demon lover/slave to taur doesn't result in halfdemon taurs
-		 at least with the bare minimum testing i did
-	I think as of last time I asked: taur kids can't spawn yet. Currently only centaurs and variants can be born (even if you can't encounter yet),
-	 if you breed a cat-taur you'll just get regular cat-folk and so on. Also only NPCs that spawn tauric are slimes. Who also birth regular slimes.
 	
 	Maybe it's just me but every time you try to have sex with anyone on the bottom row of the harpy nests, the game bugs out.
 	 The game doesn't move into a sex scene and trying to leave forces your inventory on top of the map. You can still move around but you'll be walking blind
@@ -306,8 +332,9 @@
 	
 	Separate the oral fetishes as such that kissing is separate from the other oral fetishes.
 	
-	NPC wants anal and yet didn't start it?
-	
+	wash companions option
+		Need scene in bath or shower with them
+		
 	need to make a more unified NPC class
 	
 	import characters as friendly occupants
@@ -318,18 +345,9 @@
 	
 	need 'convincing requests' perk
 	
-	insertable dildo needs to stretch
-	
 	Also, there needs to be a 'standing in front' position for taurs. So people can still breast feed and fondle and such
 	
-	the slave administration Finch inventory doesn't daily reset properly. With this, i mean, that he sels everything the first day, but after that he only sels slave collars thats properly daily resets
-	
-	people really want NPC multiple orgasms
-	
 	trader add bulk actions tab for sell everything/all clothing/all items/all weapons - cycle 5 for rarity
-	
-	orifice rejuvination item
-	aphrodesiac item
 	
 	fly to tile quick travel
 	
@@ -354,8 +372,6 @@
 	
 	Fix the issue where sometimes trying to displace/remove clothing will not work and potentially soft-lock the game!!!
 	
-	Main map movement
-	Fields centaur encounter
 	Add furry taurs toggle
 	
 	need animal parts reactions
@@ -366,21 +382,13 @@
 	
 	Issue in method: dailyReset(), for character ID: -1,Vicky (bound must be positive) - somehow available ingredients was empty or something?
 	
-	player demon half-subspecies not showing?
-	
 	can pull up t-shirts beneath over-torso clothing
 	
-	Breast Size setting
-	
 	Fetish spawn chances
-	
-	wash companions option
 	
 	Need unique Lyssieth taking virginity text
 	
 	spit on pussy/ass/cock actions
-	
-	Need pump targets
 	
 	furry fetish
 	bestial fetish
@@ -395,18 +403,8 @@
 		Need NPC self-interactions
 		Need to refactor self-interactions to be player/NPC
 		
-    Main map movement
-    	WASD
-    	Click line paths
-    	Add centaur encounter
-		Edge detection for encounters
-	
-	Collate bug reports
-	
 	Denial sex orgasm
-	
-	Offspring moving in
-		
+
 	Make NPCs throw away given condoms in non-full-control sex based on fetishes
 	
 	need cloaca sex interactions for if penis isn't erect
@@ -435,6 +433,7 @@
 			+100:
 				Ask about romance
 					Take virginity (she acts like she's binding you into a contract to forever ensure her power is greater than yours, but you can tell that she's nervous)
+			Companion
 				
 	So if someone is in the PC's vagina the Pussy status icon will be light up perhaps yellow instead of black background (not sure what colour works best, but you get the idea I hope).  The 2nd part of my idea would be you can click the icon and the popup info will remain on screen that way you can keep seeing the flavor text as different actions are selected.
 		
@@ -459,8 +458,6 @@
 	tooltip text on status effects scrolling off under image
 	
 	Sort out SexFlag requests
-	
-	why are the body types abstract?
 	
 	the game does not see giving oral to a pussy for example as losing oral virginity
 	if you make bree pregnant the police station counter gets bugged and you can't interact with either of them
@@ -492,8 +489,6 @@
 	Check NPCs prepare orgasms for other NPCs?
 	
 	Add transformations to event log
-	
-	siren as companion?
 	
 	fix arcane stat descriptions and attribute maximums (no maximum, remove permanent gains from potions)
 	

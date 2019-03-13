@@ -141,6 +141,13 @@ public enum CupSize {
 	public boolean isTrainingBraSize() {
 		return false;
 	}
+	
+	/**
+	 * @return The minimum size which is regarded as a character 'having breasts' by the game.
+	 */
+	public static CupSize getMinimumCupSizeForBreasts() {
+		return CupSize.AA;
+	}
 
 	/**
 	 * @param inches Measurement in inches from bust to underbust.

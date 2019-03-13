@@ -391,7 +391,7 @@ public class GenericActions {
 			}
 			
 			sb.append( "<p>"
-						+ "[npc.speech(That's a good [npc2.girl],)] [npc.name] [npc.verb(say)], pleased to hear that [npc2.namePos] mind is [npc.hers] to twist as [npc.she] [npc.verb(see)] fit. [np.speech(I'll give you what you want!)]"
+						+ "[npc.speech(That's a good [npc2.girl],)] [npc.name] [npc.verb(say)], pleased to hear that [npc2.namePos] mind is [npc.hers] to twist as [npc.she] [npc.verb(see)] fit. [npc.speech(I'll give you what you want!)]"
 					+ "</p>");
 			
 			return sb.toString();
@@ -779,6 +779,98 @@ public class GenericActions {
 		@Override
 		public void applyEffects() {
 			Sex.setCharacterAllowedToUseSelfActions(Sex.getCharacterTargetedForSexAction(this), true);
+		}
+	};
+
+	public static final SexAction PLAYER_FORBID_PARTNER_CONNTROL = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Restrict control";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Restrict [npc2.namePos] level of control, preventing [npc2.herHim] from initiating any non-self penetrative actions.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			
+			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
+					&& !Sex.isDom(target)
+					&& !Sex.isMasturbation()
+					&& Sex.getSexControl(target).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()
+					&& Sex.getCharacterPerformingAction().isPlayer();
+		}
+
+		@Override
+		public String getDescription() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("[npc.speech(You're not to do anything without being told,)] you order [npc2.name].<br/><br/>"
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] now has a restricted level of control, and cannot initiate any non-self penetrative actions.</i>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public void applyEffects() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			Sex.setForcedSexControl(target, SexControl.ONGOING_ONLY);
+		}
+	};
+	
+	public static final SexAction PLAYER_PERMIT_PARTNER_CONNTROL = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Unrestrict control";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Unrestrict [npc2.namePos] level of control, allowing [npc2.herHim] to initiate non-self penetrative actions.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			
+			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
+					&& !Sex.isDom(target)
+					&& !Sex.isMasturbation()
+					&& Sex.getSexControl(target).getValue()<SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()
+					&& Sex.getCharacterPerformingAction().isPlayer();
+		}
+
+		@Override
+		public String getDescription() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("[npc.speech(You can do what you like,)] you say to [npc2.name], freeing [npc2.herHim] to do as [npc2.she] pleases.<br/><br/>"
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] now has an unrestricted level of control, and can initiate non-self penetrative actions at will.</i>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public void applyEffects() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			Sex.setForcedSexControl(target, SexControl.FULL);
 		}
 	};
 	

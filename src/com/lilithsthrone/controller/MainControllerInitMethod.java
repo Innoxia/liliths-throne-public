@@ -5140,7 +5140,6 @@ public class MainControllerInitMethod {
 				}, false);
 			}
 			
-			
 			id = "PREGNANCY_LACTATION_ON";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -5174,6 +5173,43 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
+			
+			
+			id = "BREAST_SIZE_PREFERENCE_ON";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().breastSizePreference = Math.min(20, Main.getProperties().breastSizePreference+1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "BREAST_SIZE_PREFERENCE_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().breastSizePreference = Math.max(-20, Main.getProperties().breastSizePreference-1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+
+			
+			id = "PENIS_SIZE_PREFERENCE_ON";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().penisSizePreference = Math.min(20, Main.getProperties().penisSizePreference+1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PENIS_SIZE_PREFERENCE_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().penisSizePreference = Math.max(-20, Main.getProperties().penisSizePreference-1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
 			
 			
 			id = "FORCED_FETISH_ON";
@@ -5754,45 +5790,98 @@ public class MainControllerInitMethod {
 			String id = idModifier+"_"+area.getKey()+"_"+fluid.hashCode();
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				float milkAmount = Math.min(fluid.getMillilitres(), MilkingRoom.INGESTION_AMOUNT);
-				boolean canIngest = room.isAbleToIngestThroughArea(Main.game.getPlayer(), area.getKey(), milkAmount);
+				boolean canIngest = room.isAbleToIngestThroughArea(fluid.getFluid().getType().getBaseType(), MilkingRoom.getTargetedCharacter(), area.getKey(), milkAmount);
 				
-				String fluidOwnerName = fluidOwner==null?"the":UtilText.parse(fluidOwner, "[npc.namePos]");
+				String fluidOwnerName = fluidOwner==null
+						?"the"
+						:(fluidOwner.equals(MilkingRoom.getTargetedCharacter())
+							?UtilText.parse(fluidOwner, "[npc.her] own")
+							:UtilText.parse(fluidOwner, "[npc.namePos]"));
 				
-				
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.game.getTextEndStringBuilder().append("<p>");
-					if(canIngest) {
-						switch(area.getKey()) {
-							case ANUS:
-								Main.game.getTextEndStringBuilder().append(
-										"Grabbing one of the free tubes connected to the vat of "+fluidOwnerName+" "+fluidName+", you quickly remove the suction device on the end, before screwing on one of the funnel attachments."
-										+ " Guiding the end of the tube around to your [pc.ass+], you waste no time in sliding the funnel into your [pc.asshole+].<br/>"
-										+ "Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button, letting out a delighted [pc.moan] as you feel the "+fluidName+" being pumped into your [pc.asshole].");
-								break;
-							case MOUTH:
-								Main.game.getTextEndStringBuilder().append(
-										"Grabbing one of the free tubes connected to the vat of "+fluidOwnerName+" "+fluidName+", you quickly remove the suction device on the end, before screwing on one of the straw-like attachments."
-										+ " Lifting the straw up to your mouth, you waste no time in sliding it between your [pc.lips+].<br/>"
-										+ "Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button, letting out a delighted [pc.moan] as you hungrily gulp down the "+fluidName+".");
-								break;
-							case VAGINA:
-								Main.game.getTextEndStringBuilder().append(
-										"Grabbing one of the free tubes connected to the vat of "+fluidOwnerName+" "+fluidName+", you quickly remove the suction device on the end, before screwing on one of the funnel attachments."
-										+ " Guiding the end of the tube between your [pc.legs+], you waste no time in sliding the funnel into your [pc.pussy+].<br/>"
-										+ "Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button, letting out a delighted [pc.moan] as you feel the "+fluidName+" being pumped"
-											+(Main.game.getPlayer().isVisiblyPregnant()
-												?" into your [pc.pussy]."
-												:" directly into your waiting womb."));
-								break;
-							default:
-								break;
+
+				if(canIngest) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.getTextEndStringBuilder().append("<p>");
+						
+						if(MilkingRoom.getTargetedCharacter().isPlayer()) {
+							switch(area.getKey()) {
+								case ANUS:
+									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
+											"Grabbing one of the free tubes connected to the vat of "+fluidOwnerName+" "+fluidName+", you quickly remove the suction device on the end, before screwing on one of the funnel attachments."
+											+ " Guiding the end of the tube around to your [pc.ass+], you waste no time in sliding the funnel into your [pc.asshole+]."
+											+ " Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button, letting out a delighted [pc.moan] as you feel the "+fluidName+" being pumped into your [pc.asshole]."));
+									break;
+								case MOUTH:
+									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
+											"Grabbing one of the free tubes connected to the vat of "+fluidOwnerName+" "+fluidName+", you quickly remove the suction device on the end, before screwing on one of the straw-like attachments."
+											+ " Lifting the straw up to your mouth, you waste no time in sliding it between your [pc.lips+]."
+											+ " Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button, letting out a delighted [pc.moan] as you hungrily gulp down the "+fluidName+"."));
+									break;
+								case VAGINA:
+									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
+											"Grabbing one of the free tubes connected to the vat of "+fluidOwnerName+" "+fluidName+", you quickly remove the suction device on the end, before screwing on one of the funnel attachments."
+											+ " Guiding the end of the tube between your [pc.legs+], you waste no time in sliding the funnel into your [pc.pussy+]."
+											+ " Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button, letting out a delighted [pc.moan] as you feel the "+fluidName+" being pumped"
+												+(MilkingRoom.getTargetedCharacter().isVisiblyPregnant()
+													?" into your [pc.pussy]."
+													:" directly into your waiting womb.")));
+									break;
+								default:
+									break;
+							}
+						} else {
+							switch(area.getKey()) {
+								case ANUS:
+									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
+												"Wanting to pump [npc.namePos] [npc.ass+] full of "+fluidOwnerName+" "+fluidName+", you instruct [npc.herHim] to"
+													+ (MilkingRoom.getTargetedCharacter().getLegConfiguration().isBipedalPositionedGenitals() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
+															?" bend over before you."
+															:" kneel down and present [npc.herself] to you.")
+												+ " As soon as [npc.her] [npc.asshole+] is fully on display, you grab one of the free tubes connected to your selected vat of fluid,"
+													+ " before quickly removing the suction device on the end and screwing on one of the funnel attachments."
+											+ "</p>"
+											+ "<p>"
+												+ "Guiding the end of the tube up to [npc.namePos] [npc.ass+], you waste no time in sliding the funnel into [npc.her] [npc.asshole+], smiling to yourself as [npc.she] lets out [npc.a_moan+]."
+												+ " Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button,"
+													+ " causing [npc.name] to let out yet more delighted [npc.moans] as [npc.she] feels the "+fluidName+" being pumped into [npc.her] [npc.asshole]."));
+									break;
+								case MOUTH:
+									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
+											"Wanting to give [npc.namePos] a taste of "+fluidOwnerName+" "+fluidName+", you instruct [npc.herHim] to kneel down before you."
+											+ " As soon as [npc.she] complies, you grab one of the free tubes connected to your selected vat of fluid,"
+												+ " before quickly removing the suction device on the end and screwing on one of the straw-like attachments."
+										+ "</p>"
+											+ "Bringing the straw to [npc.namePos] mouth, you waste no time in sliding it between [npc.her] [npc.lips+] and telling [npc.herHim] to prepare [npc.herself] for a tasty meal."
+											+ " Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button, letting out a delighted [pc.moan] as you watch [npc.name] hungrily gulp down the "+fluidName+"."));
+									break;
+								case VAGINA:
+									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
+											"Wanting to pump [npc.namePos] [npc.pussy+] full of "+fluidOwnerName+" "+fluidName+", you instruct [npc.herHim] to"
+												+ (MilkingRoom.getTargetedCharacter().getLegConfiguration().isBipedalPositionedGenitals() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
+														?" sit down on a nearby chair and spread [npc.her] [npc.legs]."
+														:" kneel down and present [npc.herself] to you.")
+												+ " As soon as [npc.she] complies, and [npc.her] [npc.pussy+] is fully on display, you grab one of the free tubes connected to your selected vat of fluid,"
+													+ " before quickly removing the suction device on the end and screwing on one of the funnel attachments."
+											+ "</p>"
+											+ "<p>"
+												+ "Guiding the end of the tube up to [npc.namePos] [npc.labia+], you waste no time in sliding the funnel into [npc.her] [npc.pussy+], smiling to yourself as [npc.she] lets out [npc.a_moan+]."
+												+ " Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button,"
+													+ " causing [npc.name] to let out yet more delighted [npc.moans] as [npc.she] feels the "+fluidName+" being pumped"
+											+(MilkingRoom.getTargetedCharacter().isVisiblyPregnant()
+												?" into [npc.her] [npc.pussy]."
+												:" directly into [npc.her] waiting womb.")));
+									break;
+								default:
+									break;
+							}
 						}
+						
 						String ingestion;
 						try {
 							GameCharacter c = fluid.getFluidCharacter();
-							ingestion = Main.game.getPlayer().ingestFluid(c, fluid.getFluid(), area.getValue(), milkAmount);
+							ingestion = MilkingRoom.getTargetedCharacter().ingestFluid(c, fluid.getFluid(), area.getValue(), milkAmount);
 						} catch (Exception e1) {
-							ingestion = Main.game.getPlayer().ingestFluid(null, fluid.getFluid(), area.getValue(), milkAmount);
+							ingestion = MilkingRoom.getTargetedCharacter().ingestFluid(null, fluid.getFluid(), area.getValue(), milkAmount);
 						}
 						if(!ingestion.isEmpty()) {
 							Main.game.getTextEndStringBuilder().append("</p>"
@@ -5812,18 +5901,31 @@ public class MainControllerInitMethod {
 							room.incrementFluidStored(null, fluid.getFluid(), -milkAmount);
 						}
 						
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}
-				}, false);
+						Main.game.setContent(new Response("", "", LilayaHomeGeneric.MILKED));
+						
+					}, false);
+				}
 				
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				String verb = "Drink";
-				String description = "Drink "+Units.fluid(milkAmount)+" of the "+fluidName+".";
-				if(area.getKey()!=CoverableArea.MOUTH) {
-					verb = "Pump";
-					description = "Pump "+Units.fluid(milkAmount)+" of the "+fluidName+" into your "+area.getKey().getName()+".";
+				String description;
+				
+				if(MilkingRoom.getTargetedCharacter().isPlayer()) {
+					description = "Drink "+Units.fluid(milkAmount)+" of the "+fluidName+".";
+					if(area.getKey()!=CoverableArea.MOUTH) {
+						verb = "Pump";
+						description = "Pump "+Units.fluid(milkAmount)+" of the "+fluidName+" into your "+area.getKey().getName()+".";
+					}
+					
+				} else {
+					description = UtilText.parse(MilkingRoom.getTargetedCharacter(), "Get [npc.name] to drink ")+Units.fluid(milkAmount)+" of the "+fluidName+".";
+					if(area.getKey()!=CoverableArea.MOUTH) {
+						verb = "Pump";
+						description = "Pump "+Units.fluid(milkAmount)+" of the "+fluidName+" into " + UtilText.parse(MilkingRoom.getTargetedCharacter(),"[npc.namePos] ")+area.getKey().getName()+".";
+					}
 				}
+				
 				if(canIngest) {
 					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(verb+" ("+Units.fluid(milkAmount)+")",
 							description);
@@ -5831,7 +5933,7 @@ public class MainControllerInitMethod {
 					
 				} else {
 					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(verb+" ("+Units.fluid(milkAmount)+")",
-							room.getAreaIngestionBlockedDescription(Main.game.getPlayer(), area.getKey(), milkAmount));
+							room.getAreaIngestionBlockedDescription(fluid.getFluid().getType().getBaseType(), MilkingRoom.getTargetedCharacter(), area.getKey(), milkAmount));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
 			}

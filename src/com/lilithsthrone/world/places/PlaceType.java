@@ -40,6 +40,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSe
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDepot;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaveryAdministration;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloorRepeat;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
@@ -1937,7 +1938,7 @@ public class PlaceType {
 			"The main administrative hub for all matters related to the ownership of slaves.",
 			"dominion/slaverAlley/slaveryAdministration",
 			BaseColour.PURPLE,
-			SlaverAlleyDialogue.SLAVERY_ADMINISTRATION_EXTERIOR,
+			SlaveryAdministration.SLAVERY_ADMINISTRATION_EXTERIOR,
 			null,
 			"in Slaver's Alley"){
 		@Override

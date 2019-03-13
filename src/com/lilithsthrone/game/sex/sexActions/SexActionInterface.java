@@ -192,6 +192,15 @@ public interface SexActionInterface {
 						Sex.getCharacterTargetedForSexAction(this),
 						entry.getValue());
 			}
+
+			if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaOrifice.MOUTH))
+					|| SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaPenetration.TONGUE))) {
+				Sex.getCharacterPerformingAction().setAreaKnownByCharacter(CoverableArea.MOUTH, Sex.getCharacterTargetedForSexAction(SexActionInterface.this), true);
+				
+			} else if(SexActionInterface.this.getTargetedCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaOrifice.MOUTH))
+					|| SexActionInterface.this.getTargetedCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaPenetration.TONGUE))) {
+				Sex.getCharacterTargetedForSexAction(SexActionInterface.this).setAreaKnownByCharacter(CoverableArea.MOUTH, Sex.getCharacterPerformingAction(), true);
+			}
 		}
 		
 		if(getActionType()==SexActionType.POSITIONING) {
@@ -794,7 +803,6 @@ public interface SexActionInterface {
 					if(SexActionInterface.this.getSexPace()!=null) {
 						Sex.setSexPace(Sex.getCharacterPerformingAction(), (SexActionInterface.this.getSexPace()));
 					}
-					
 					Sex.setSexStarted(true);
 					Sex.endSexTurn(SexActionInterface.this);
 				}
@@ -1102,6 +1110,7 @@ public interface SexActionInterface {
 				case ANUS:
 				case ASS:
 				case MOUTH:
+					break;
 				case NIPPLE:
 					if(this.getActionType()==SexActionType.START_ONGOING && !character.isBreastFuckableNipplePenetration()) {
 						return false;

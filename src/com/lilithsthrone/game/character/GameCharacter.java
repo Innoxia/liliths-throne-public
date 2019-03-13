@@ -4557,7 +4557,7 @@ public abstract class GameCharacter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(fatherId);
 		} catch(Exception e) {
-			Util.logGetNpcByIdError("getFather()", fatherId);
+			Util.logGetNpcByIdError("GameCharacter.getFather()", fatherId);
 			return null;
 		}
 	}
@@ -5663,10 +5663,12 @@ public abstract class GameCharacter implements XMLSaving {
 	// Sex stats:
 	
 	public int getOrgasmsBeforeSatisfied() {
-		if(this.getSubspeciesOverride()!=null && this.getSubspeciesOverride().equals(Subspecies.HALF_DEMON)) {
-			return 2;
-		} else if(this.getRace().equals(Race.DEMON)) {
-			return 3;
+		if(!this.isPlayer()) {
+			if(this.getSubspeciesOverride()!=null && this.getSubspeciesOverride().equals(Subspecies.HALF_DEMON)) {
+				return 2;
+			} else if(this.getRace().equals(Race.DEMON)) {
+				return 3;
+			}
 		}
 		return 1;
 	}
@@ -15684,11 +15686,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public Subspecies getHalfDemonSubspecies() {
 		return body.getHalfDemonSubspecies();
 	}
-
-	public void setHalfDemonSubspecies(Subspecies halfDemonSubspecies) {
-		body.setHalfDemonSubspecies(halfDemonSubspecies);
-	}
-
+	
 	public boolean isTakesAfterMother() {
 		return body.isTakesAfterMother();
 	}
@@ -19313,10 +19311,29 @@ public abstract class GameCharacter implements XMLSaving {
 	public LegConfiguration getLegConfiguration() {
 		return body.getLeg().getLegConfiguration();
 	}
-	// Leg configuration needs to be set from an AbstractLegType 
-//	public String setLegConfiguration(LegConfiguration legConfiguration, boolean overrideAvailabilityCheck) {
-//		return body.getLeg().setLegConfiguration(this, legConfiguration, overrideAvailabilityCheck);
-//	}
+	public boolean isLegConfigurationAvailable(LegConfiguration legConfiguration) {
+		return this.getLegType().isLegConfigurationAvailable(legConfiguration);
+	}
+	/**
+	 * <b>If the legConfiguration is not available for the race, then this method will do nothing!</b>
+	 * @param legConfiguration The legConfiguration to be set.
+	 * @return A description of all the changes.
+	 */
+	public String setLegConfiguration(LegConfiguration legConfiguration) {
+		return setLegConfiguration(this.getLegType(), legConfiguration);
+	}
+	/**
+	 * <b>If the legConfiguration is not available for the race, then this method will do nothing!</b>
+	 * @param legType The legType whose race is to be used when setting the legConfiguration.
+	 * @param legConfiguration The legConfiguration to be set.
+	 * @return A description of all the changes.
+	 */
+	public String setLegConfiguration(AbstractLegType legType, LegConfiguration legConfiguration) {
+		if(legType.isLegConfigurationAvailable(legConfiguration)) {
+			return legType.applyLegConfigurationTransformation(this, legConfiguration, true);
+		}
+		return "";
+	}
 	// Name:
 	public String getLegName() {
 		return body.getLeg().getName(this);

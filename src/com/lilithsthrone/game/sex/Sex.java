@@ -209,6 +209,7 @@ public class Sex {
 	private static Set<GameCharacter> charactersForbiddenByOthersFromPositioning;
 	private static Set<GameCharacter> charactersSelfActionsBlocked;
 	private static Set<GameCharacter> charactersDeniedOrgasm;
+	private static Map<GameCharacter, SexControl> forcedSexControlMap;
 
 	private static Value<GameCharacter, Class<? extends BodyPartInterface>> creampieLockedBy;
 	
@@ -362,6 +363,15 @@ public class Sex {
 		positionRequest = null;
 		charactersBannedFromPositioning = new HashSet<>();
 		
+		
+		charactersSelfActionsBlocked = new HashSet<>();
+		charactersDeniedOrgasm = new HashSet<>();
+		
+		forcedSexControlMap = new HashMap<>();
+		for(GameCharacter character : Sex.getAllParticipants()) {
+			forcedSexControlMap.put(character, null);
+		}
+
 		charactersForbiddenByOthersFromPositioning = new HashSet<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			if(!character.isPlayer() && (Sex.getSexControl(character)!=SexControl.FULL || !Sex.isDom(character))) {
@@ -369,10 +379,6 @@ public class Sex {
 			}
 		}
 		
-		
-		charactersSelfActionsBlocked = new HashSet<>();
-		charactersDeniedOrgasm = new HashSet<>();
-
 		areasStretched = new HashMap<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			areasStretched.put(character, new HashSet<>());
@@ -2991,7 +2997,14 @@ public class Sex {
 		Sex.subHasEqualControl = subHasEqualControl;
 	}
 
+	public static void setForcedSexControl(GameCharacter character, SexControl sexControl) {
+		forcedSexControlMap.put(character, sexControl);
+	}
+	
 	public static SexControl getSexControl(GameCharacter character) {
+		if(forcedSexControlMap.get(character)!=null) {
+			return forcedSexControlMap.get(character);
+		}
 		return initialSexManager.getSexControl(character);
 	}
 	

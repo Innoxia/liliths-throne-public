@@ -302,7 +302,7 @@ public enum Encounter {
 					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
 					
 				} else {
-					List<AbstractClothingType> randomClothingList = ClothingType.getAllClothing();
+					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
 					randomClothingList.removeIf((clothing) ->
 							(!clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)
 							&& !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
