@@ -3683,10 +3683,10 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"You take a smell of the delicate perfume given off by the red Rose.",
-					"You take a smell of the delicate perfume given off by the red Rose.",
-					"You take a smell of the delicate perfume given off by the red Rose.",
-					"You take a smell of the delicate perfume given off by the red Rose.");
+					"You take a smell of the delicate perfume given off by the red rose.",
+					"You get [npc.name] to take a smell of the delicate perfume given off by the red rose.",
+					"[npc.Name] takes a smell of the delicate perfume given off by the red rose.",
+					"[npc.Name] gets you to take a smell of the delicate perfume given off by the red rose.");
 		}
 		
 		@Override
@@ -3732,10 +3732,10 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"You take a smell of the delicate perfume given off by the Rose bouquet.",
-					"You take a smell of the delicate perfume given off by the Rose bouquet.",
-					"You take a smell of the delicate perfume given off by the Rose bouquet.",
-					"You take a smell of the delicate perfume given off by the Rose bouquet.");
+					"You take a smell of the delicate perfume given off by the rose bouquet.",
+					"You get [npc.name] to take a smell of the delicate perfume given off by the rose bouquet.",
+					"[npc.Name] takes a smell of the delicate perfume given off by the rose bouquet.",
+					"[npc.Name] gets you to take a smell of the delicate perfume given off by the rose bouquet.");
 		}
 		
 		@Override

@@ -2244,7 +2244,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "Thank you for playing "+Main.GAME_NAME+", I hope you enjoy it just as much as I do making it!"
-						+ " Thank you so much to all of the supporters on Patreon! Thanks to you, I'm able to spend more time working on "+Main.GAME_NAME+", and I promise that I'll make this game the very best that I can!"
+						+ " Thank you so much to all of you who offer financial support! Thanks to you, I'm able to spend more time working on "+Main.GAME_NAME+", and I promise that I'll make this game the very best that I can!"
 					+ "</p>"
 					+"<p style='text-align:center;'>"
 						+ Main.GAME_NAME+" has been created by:<br/>"
@@ -2274,7 +2274,7 @@ public class OptionsDialogue {
 						+ "<b>Sensei</b>,<br/>"
 						+ "<b style='color:#fa0063;'>loveless</b>, <b style='color:#c790b2;'>Blue999</b>, and <b style='color:#ec9538;'>DesuDemona</b><br/>"
 						+ "<b style='color:#21bec4;'>Github & wiki contributors</b><br/>"
-						+ "<b style='color:#e06e5f;'>Everyone who's supported me on Patreon</b>,<br/>"
+						+ "<b style='color:#e06e5f;'>Everyone who's financially supported me</b>,<br/>"
 						+ "<b>Bug reporters</b>,<br/>"
 						+ "and<br/>"
 						+ "<b>Everyone for playing Lilith's Throne!</b>"

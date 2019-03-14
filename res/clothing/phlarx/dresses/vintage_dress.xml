@@ -73,8 +73,9 @@
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours values="BLACK_OR_WHITE"/>
 		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColoursDye/>
 		
-		<tertiaryColoursDye/><defaultPatterns patternChance="1"> 
+		<defaultPatterns patternChance="1"> 
 			<pattern>polka_dots_tiny</pattern>
 			<pattern>polka_dots_small</pattern>
 			<pattern>polka_dots_big</pattern>
@@ -93,6 +94,7 @@
 		
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>DRESS</tag>
 		</itemTags>
 	</coreAttributes>
 	

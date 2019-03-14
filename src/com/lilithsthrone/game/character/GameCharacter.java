@@ -3615,10 +3615,28 @@ public abstract class GameCharacter implements XMLSaving {
 		return i;
 	}
 	
-	public int getValueAsSlave() {
+	public int getValueAsSlave(boolean includeInventory) {
 		int value = this.getSubspecies().getBaseSlaveValue(this);
-		value += (getFetishes().size()*50);
+		
+		value *= 1+(0.05f*getFetishes().size());
+		
 		value *= (100+(getObedienceValue()/2))/100f;
+		
+		if(includeInventory) {
+			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+				value+=c.getValue();
+			}
+			for(AbstractClothing c : this.getAllClothingInInventory()) {
+				value+=c.getValue();
+			}
+			for(AbstractWeapon w : this.getAllWeaponsInInventory()) {
+				value+=w.getValue();
+			}
+			for(AbstractItem i : this.getAllItemsInInventory()) {
+				value+=i.getValue();
+			}
+		}
+		
 		return value;
 	}
 	

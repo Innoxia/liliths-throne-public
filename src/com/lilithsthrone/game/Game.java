@@ -901,6 +901,15 @@ public class Game implements XMLSaving {
 					}
 				}
 				
+				// Catch for storm atackers who were stuck on a dominion street tile:
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.1.6")) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(npc instanceof DominionAlleywayAttacker && ((DominionAlleywayAttacker) npc).isStormAttacker()) {
+							Main.game.banishNPC(npc);
+						}
+					}
+				}
+				
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				

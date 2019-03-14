@@ -719,10 +719,10 @@ public class SlaverAlleyDialogue {
 									+ "<b style='color:"+slave.getObedience().getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"
 								+"</div>"
 								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
-									+ UtilText.formatAsMoney(slave.getValueAsSlave(), "span")
+									+ UtilText.formatAsMoney(slave.getValueAsSlave(true), "span")
 								+"</div>"
 								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
-									+ UtilText.formatAsMoney((int)(slave.getValueAsSlave()*0.5f), "span")
+									+ UtilText.formatAsMoney((int)(slave.getValueAsSlave(true)*0.5f), "span")
 								+"</div>"
 								+ "<div style='float:left; width:9%; font-weight:bold; margin:0; padding:0;'>"
 									+ "<div id='"+slave.getId()+"_BID' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBid()+"</div></div>"
@@ -754,7 +754,7 @@ public class SlaverAlleyDialogue {
 	
 	public static void setupBidding(NPC slaveToBidOn) {
 		biddingNPC = slaveToBidOn;
-		biddingPrice = (int) (biddingNPC.getValueAsSlave()*0.5f);
+		biddingPrice = (int) (biddingNPC.getValueAsSlave(true)*0.5f);
 		biddingRoundsTotal = Util.random.nextInt(3)+1;
 		biddingRounds = 0;
 		playerBidLeader = false;

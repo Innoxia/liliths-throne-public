@@ -68,14 +68,19 @@
 				</concealedSlots>
 			</blockedParts>
 		</blockedPartsList>
+		
 		<incompatibleSlots/> 
+		
 		<primaryColours values="ALL"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="ALL_METAL"/>
 		<secondaryColoursDye values="ALL_WITH_METALS"/>
-		<tertiaryColours values="ALL_METAL"/><tertiaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours values="ALL_METAL"/>
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+		
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>DRESS</tag>
 		</itemTags>
 	</coreAttributes>
 

@@ -1026,20 +1026,20 @@ public class ImpFortressDialogue {
 				}
 				
 			} else if(isGuardsPacifiedBySex()) {
-				if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
+				if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_BY_SEX_DEMON", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_BY_SEX", getAllCharacters()));
 				}
 				
 			} else if(isGuardsPacified()) {
-				if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
+				if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_DEMON", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED", getAllCharacters()));
 				}
 				
-			} else if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
+			} else if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_DEMON", getAllCharacters()));
 				
 			} else if(Main.game.getPlayer().isElementalSummoned()) {
@@ -1130,7 +1130,7 @@ public class ImpFortressDialogue {
 				
 			} else {
 				if (index == 1) {
-					if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
+					if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
 						return new Response("Command",
 								"The imps seem incredibly nervous at the prospect of being confronted by a demon. Use this to your advantage and order them to step aside.",
 								ENTRANCE_DEMONIC_COMMAND) {

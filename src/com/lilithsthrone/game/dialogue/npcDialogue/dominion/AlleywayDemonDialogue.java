@@ -1203,7 +1203,12 @@ public class AlleywayDemonDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.banishNPC(getDemon());
+						}
+					};
 				}
 				return null;
 			}
@@ -1380,7 +1385,18 @@ public class AlleywayDemonDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", AFTER_SEX_DEFEAT) {
+					@Override
+					public void effects() {
+						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							Main.game.banishNPC(getDemon());
+						}
+					}
+					@Override
+					public DialogueNode getNextDialogue(){
+						return Main.game.getDefaultDialogueNoEncounter();
+					}
+				};
 				
 			} else {
 				return null;

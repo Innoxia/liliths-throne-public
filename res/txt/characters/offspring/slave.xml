@@ -594,7 +594,7 @@
 			[npc2.speech(You take [pc.her] mouth,)] [npc2.name] says to [npc.name], [npc2.speech([pc.Her] ass belongs to me.)]
 		</p>
 		<p>
-			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips+]!)]
+			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 	#ENDIF
 	<p>

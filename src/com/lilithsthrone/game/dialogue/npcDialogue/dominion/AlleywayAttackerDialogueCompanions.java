@@ -50,6 +50,11 @@ public class AlleywayAttackerDialogueCompanions {
 				|| pt.equals(PlaceType.DOMINION_CANAL_END);
 	}
 	
+	private static boolean isStorm() {
+		AbstractPlaceType pt = getMugger().getLocationPlace().getPlaceType();
+		return !pt.equals(PlaceType.DOMINION_BACK_ALLEYS) && !isCanal();
+	}
+	
 	private static GameCharacter getMainCompanion() {
 		return Main.game.getPlayer().getMainCompanion();
 	}
@@ -894,7 +899,7 @@ public class AlleywayAttackerDialogueCompanions {
 				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
-						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
 							Main.game.banishNPC(getMugger());
 						}
 					}
@@ -1201,7 +1206,12 @@ public class AlleywayAttackerDialogueCompanions {
 		public Response getResponse(int responseTab, int index) {
 			if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.banishNPC(getMugger());
+						}
+					};
 				}
 				return null;
 			}
@@ -1339,6 +1349,12 @@ public class AlleywayAttackerDialogueCompanions {
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
+						@Override
+						public void effects() {
+							if(isStorm()) {
+								Main.game.banishNPC(getMugger());
+							}
+						}
 						@Override
 						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
@@ -1515,7 +1531,7 @@ public class AlleywayAttackerDialogueCompanions {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
-						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
 							Main.game.banishNPC(getMugger());
 						}
 					}
@@ -1570,7 +1586,13 @@ public class AlleywayAttackerDialogueCompanions {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
+				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY) {
+					@Override
+					public void effects() {
+						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
+							Main.game.banishNPC(getMugger());
+						}
+					}
 					@Override
 					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();

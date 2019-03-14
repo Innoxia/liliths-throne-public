@@ -35,7 +35,6 @@ import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -1940,7 +1939,7 @@ public class LilayaHomeGeneric {
 	};
 	
 	private static String roseContent = "";
-	private static SizedStack<Integer> askedAboutDuties = new SizedStack<>(4);
+	private static boolean giftedRose = false;
 	public static final DialogueNode AUNT_HOME_ROSE = new DialogueNode("", "", true) {
 
 		@Override
@@ -1954,10 +1953,6 @@ public class LilayaHomeGeneric {
 				return new Response("Lilaya", "Ask Rose about her owner, Lilaya.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						askedAboutDuties.push(index);
-						for(Integer i : askedAboutDuties) {
-							System.out.println(i);
-						}
 						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_LILAYA");
 					}
 				};
@@ -1966,7 +1961,6 @@ public class LilayaHomeGeneric {
 				return new Response("Slavery", "Ask Rose how she became a slave.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						askedAboutDuties.push(index);
 						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_SLAVE");
 					}
 				};
@@ -1975,7 +1969,6 @@ public class LilayaHomeGeneric {
 				return new Response("World", "Ask Rose to tell you something about this world.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						askedAboutDuties.push(index);
 						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_WORLD");
 					}
 				};
@@ -1984,28 +1977,37 @@ public class LilayaHomeGeneric {
 				return new Response("Duties", "Ask Rose about what duties she's expected to perform.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						askedAboutDuties.push(index);
 						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_DUTIES");
 					}
 				};
 
-			} else if (index == 5
-					&& askedAboutDuties.size()>=4
-					&& askedAboutDuties.get(0)==3
-					&& askedAboutDuties.get(1)==1
-					&& askedAboutDuties.get(2)==4
-					&& askedAboutDuties.get(3)==2) {
-				return new Response("Rose's hands", "You've never noticed how amazing Rose's hands are before...", ROSE_HANDS){
-					@Override
-					public boolean isSexHighlight() {
-						return true;
-					}
-					@Override
-					public void effects() {
-						askedAboutDuties.clear();
-					}
-				};
-
+			} else if (index == 5) {
+				if(Main.game.getPlayer().hasItemType(ItemType.GIFT_ROSE) && !giftedRose) {
+					return new Response("Offer rose", "Offer Rose the rose you have in your inventory.", AUNT_HOME_ROSE) {
+						@Override
+						public void effects() {
+							roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_OFFER_ROSE");
+							Main.game.getPlayer().removeItemByType(ItemType.GIFT_ROSE);
+							giftedRose = true;
+						}
+					};
+					
+				} else if(giftedRose) {
+					return new Response("Rose's hands", "You've never noticed how amazing Rose's hands are before...", ROSE_HANDS) {
+						@Override
+						public boolean isSexHighlight() {
+							return true;
+						}
+						@Override
+						public void effects() {
+							giftedRose = false;
+						}
+					};
+					
+				} else {
+					return new Response("Offer rose", "You do not have a rose to offer to Rose.", null);
+				}
+				
 			} else if (index == 6
 					&& (Main.game.getNpc(Lilaya.class).isPregnant() && Main.game.getNpc(Lilaya.class).isCharacterReactedToPregnancy(Main.game.getPlayer()))) {
 
@@ -2013,7 +2015,7 @@ public class LilayaHomeGeneric {
 					return new Response("Mother's milk", "Give Rose one of the Mother's milk from your inventory, and ask her to give it to Lilaya so that her pregnancy can be over quicker.", AUNT_HOME_ROSE) {
 						@Override
 						public void effects() {
-							askedAboutDuties.clear();
+							giftedRose = false;
 							roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_MOTHERS_MILK");
 							Main.game.getPlayer().removeItemByType(ItemType.MOTHERS_MILK);
 							Main.game.getNpc(Lilaya.class).useItem(AbstractItemType.generateItem(ItemType.MOTHERS_MILK), Main.game.getNpc(Lilaya.class), false);
@@ -2028,7 +2030,7 @@ public class LilayaHomeGeneric {
 				return new Response("Dismiss", "Let Rose get back on with her work.", ROOM_ROSE) {
 					@Override
 					public void effects() {
-						askedAboutDuties.clear();
+						giftedRose = false;
 						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					}
 					
@@ -2054,17 +2056,19 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "As Rose steps forwards, you find yourself unable to look at anything but her hands... her amazing hands... "
-					+ "[pc.thought(Holy shit... Look at those hands!)]"
+						+ "As Rose places the gifted rose into a nearby vase, you find yourself unable to look at anything but her hands... her amazing hands..."
 					+ "</p>"
 					+ "<p>"
-					+ "As her cat-like tail swishes excitedly behind her, Rose holds up her perfect, angelic hands."
-					+ " Her soft, pale skin almost seems to glow as she steps closer and closer, and you subconsciously start reaching out towards her delicate fingers."
-					+ " Her nails are painted a soft shade of pink, and as your fingertips touch with hers, you feel her soft warmth radiating into your [pc.armSkin]."
+						+ "[pc.thought(Holy shit... Look at those hands!)]"
 					+ "</p>"
 					+ "<p>"
-					+ "The moment you make physical contact, Rose lets out a desperate moan, and as her cheeks somehow manage to flush an ever deeper shade of crimson, she sighs, "
-					+ "[rose.speech(~Aah!~ Yes! Lilaya never appreciates how much effort I put into keeping my hands so nice and soft! ~Yes!~ Take me! Take me now!)]"
+						+ "With her cat-like tail swishing excitedly behind her, Rose sees what it is that's caught your attention, and holds up her perfect, angelic hands for you to admire."
+						+ " Her soft, pale skin almost seems to glow as she steps up in front of you, and you subconsciously start reaching out towards her delicate fingers."
+						+ " Her nails are painted a soft shade of pink, and as your fingertips touch with hers, you feel her soft warmth radiating into your [pc.armSkin]."
+					+ "</p>"
+					+ "<p>"
+						+ "The moment you make physical contact, Rose lets out a desperate moan, and as her cheeks somehow manage to flush an ever deeper shade of crimson, she sighs,"
+						+ " [rose.speech(~Aah!~ Yes! Lilaya never appreciates how much effort I put into keeping my hands so nice and soft! ~Yes!~ Take me! Take me now!)]"
 					+ "</p>";
 		}
 

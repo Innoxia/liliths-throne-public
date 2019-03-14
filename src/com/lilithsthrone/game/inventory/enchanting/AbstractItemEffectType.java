@@ -115,7 +115,8 @@ public abstract class AbstractItemEffectType {
 	public int getSmallLimitChange() {
 		if (EnchantmentDialogue.getSecondaryMod() == TFModifier.TF_MOD_WETNESS
 				&& (EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS
-				|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_PENIS)) {
+						|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS_CROTCH
+						|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_PENIS)) {
 			// Increase small change for fluids
 			return 10;
 		}
@@ -125,11 +126,12 @@ public abstract class AbstractItemEffectType {
 	public int getLargeLimitChange() {
 		if (EnchantmentDialogue.getSecondaryMod() == TFModifier.TF_MOD_WETNESS
 				&& (EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS
-				|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_PENIS)) {
+						|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS_CROTCH
+						|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_PENIS)) {
 			// Decrease large change for fluids
 			return 500;
 		}
-		return getMaximumLimit() / 10;
+		return Math.max(5, getMaximumLimit()/10);
 	}
 
 	public int getMaximumLimit() {

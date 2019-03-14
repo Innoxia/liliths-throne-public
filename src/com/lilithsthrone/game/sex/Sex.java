@@ -48,6 +48,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexSlot;
@@ -1721,7 +1722,7 @@ public class Sex {
 			
 			// Add actions:
 			for (SexActionInterface sexAction : Sex.getActionsAvailablePartner(Sex.getCharacterPerformingAction(), targetedCharacter)) {
-				if (sexAction.isAddedToAvailableSexActions() && (Sex.isCharacterAllowedToUseSelfActions(targetedCharacter) || sexAction.getParticipantType()==SexParticipantType.NORMAL)) {
+				if (sexAction.isAddedToAvailableSexActions() && (Sex.isCharacterAllowedToUseSelfActions(Sex.getCharacterPerformingAction()) || sexAction.getParticipantType()==SexParticipantType.NORMAL)) {
 					
 					// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
 					// Do not add action if action does not correspond to the partner's preferred action pace
@@ -2015,8 +2016,11 @@ public class Sex {
 			}
 			
 			if(Sex.getCharacterPerformingAction().hasVagina() && Sex.getCharacterPerformingAction().isVaginaSquirter()) {
-				if(Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA)!=null) {
-					Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
+				AbstractClothing vaginaClothing = Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA);
+				if(vaginaClothing!=null
+						&& !vaginaClothing.getItemTags().contains(ItemTag.PLUGS_VAGINA)
+						&& !vaginaClothing.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
+					vaginaClothing.setDirty(true);
 					
 				} else {
 					Set<GameCharacter> charactersEatingOut = new HashSet<>(getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE));
@@ -2952,7 +2956,8 @@ public class Sex {
 		
 		SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = targetForManagement.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
 		if (clothingRemoval == null || clothingRemoval.getKey() == null) {
-			unequipClothingText = UtilText.parse(characterManagingClothing, targetForManagement, "[npc.Name] can't find a piece of [npc2.namePos] clothing to remove in order to access the slot '"+coverableArea+"'. (This is a bug...)");
+			Sex.setUnequipClothingText(null,
+					UtilText.parse(characterManagingClothing, targetForManagement, "[npc.Name] can't find a piece of [npc2.namePos] clothing to remove in order to access the slot '"+coverableArea+"'. (This is a bug...)"));
 			System.err.println("manageClothingToAccessCoverableArea() can't find clothing - CoverableArea."+coverableArea.toString());
 			return SexActionUtility.CLOTHING_REMOVAL;
 		}
@@ -2961,11 +2966,11 @@ public class Sex {
 
 		if (clothingRemoval.getValue() == DisplacementType.REMOVE_OR_EQUIP) {
 			targetForManagement.unequipClothingOntoFloor(clothingBeingRemoved, false, characterManagingClothing);
-			unequipClothingText = targetForManagement.getUnequipDescription();
+			Sex.setUnequipClothingText(clothingBeingRemoved, targetForManagement.getUnequipDescription());
 
 		} else {
 			targetForManagement.isAbleToBeDisplaced(clothingBeingRemoved, clothingRemoval.getValue(), true, false, characterManagingClothing);
-			unequipClothingText = targetForManagement.getDisplaceDescription();
+			Sex.setDisplaceClothingText(clothingBeingRemoved, targetForManagement.getDisplaceDescription());
 		}
 
 		return SexActionUtility.CLOTHING_REMOVAL;
@@ -3172,8 +3177,44 @@ public class Sex {
 		return unequipClothingText;
 	}
 
-	public static void setUnequipClothingText(String unequipClothingText) {
-		Sex.unequipClothingText = unequipClothingText;
+	public static void setUnequipClothingText(AbstractClothing clothing, String unequipClothingText) {
+		Sex.unequipClothingText =
+						"<p style='text-align:center;'>"
+								+ "<i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Clothing removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
+						+ "</p>"
+						+ unequipClothingText;
+	}
+
+	public static void setUnequipWeaponText(AbstractWeapon weapon, String unequipClothingText) {
+		Sex.unequipClothingText = 
+				"<p style='text-align:center;'>"
+						+ "<i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Weapon removal</i>"+(weapon==null?"":": "+Util.capitaliseSentence(weapon.getName()))
+				+ "</p>"
+				+ unequipClothingText;
+	}
+	
+	public static void setDisplaceClothingText(AbstractClothing clothing, String unequipClothingText) {
+		Sex.unequipClothingText = 
+				"<p style='text-align:center;'>"
+						+ "<i style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>Clothing displacement</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
+				+ "</p>"
+				+ unequipClothingText;
+	}
+	
+	public static void setEquipClothingText(AbstractClothing clothing, String unequipClothingText) {
+		Sex.unequipClothingText =
+				"<p style='text-align:center;'>"
+						+ "<i style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing equip</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
+				+ "</p>"
+				+ unequipClothingText;
+	}
+
+	public static void setJinxRemovalClothingText(AbstractClothing clothing, String unequipClothingText) {
+		Sex.unequipClothingText = 
+				"<p style='text-align:center;'>"
+						+ "<i style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Jinx removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
+				+ "</p>"
+				+ unequipClothingText;
 	}
 	
 	public static String getDyeClothingText() {

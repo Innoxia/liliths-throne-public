@@ -167,6 +167,10 @@
 		Increased demons' default wing size from tiny to large. (Also increased Lilaya's wing size from average to large, and set Meraxis to having small wings.)
 		Added 'breast size' and 'penis size' preference modifiers to the 'Content options' screen (at the very bottom).
 		Increased chance of friendly  occupants finding a job each day from 10% to 20%.
+		Miscellaneous code cleanup.
+		A slave's value now takes into account the clothing they are wearing, as well as all items in their inventory.
+		The value of slaves is no longer increased by a fixed amount per fetish they have, and is instead multiplicative based on number of owned fetishes (+5% value per fetish).
+		Changed Rose's special scene to be unlocked after gifting her a rose.
 		
 	Sex:
 		Changed 'Twintail pull'/'Twin braids pull' from being exclusive to the kneeling-oral position, to any position in which the character receiving a blowjob has at least two hands free.
@@ -179,6 +183,7 @@
 		NPCs who have foot fetishes now correctly have a weighted chance to want to prioritise using their (or others') feet in sex.
 		NPCs who have a positive desire towards the sadist fetish will no longer bother to remove their footwear before giving their partner a footjob.
 		NPCs who use their mouth/tongue in any sex actions will now have their mouth stats revealed to you. (This can be seen in their description page, in the third paragraph under 'Appearance'.)
+		Restricting/permitting self-actions should now be working correctly.
 	
 	Bugs:
 		<b>Fixed:</b> Major issue which has been present for several versions, where clothing in all shopkeepers' inventories was disappearing at random.
@@ -221,16 +226,38 @@
 		Fixed dialogue in the imp citadel's 'ring trick' scene being missing if you had a companion with you.
 		Fixed issue with NPCs not performing their expected actions in sex. (This was occurring when their preferences in main sex were classified as 'foreplay' actions, such as oral.)
 		Fixed issue with modded weapons not displaying hit or miss descriptions.
+		Fixed issue with random attackers during an arcane storm not disappearing after their attack if you had companions with you.
+		Fixed issue with 'betrayed' NPCs in alleyways, harpy nests, and submission not disappearing after the fight & any resulting sex with them. ('Betrayed' meaning after you increase their affection by talking to them, and then choosing to attack them once they're friendly towards you.)
+		Fixed 'arcane precision' perk having a red connecting line in the perk tree view.
+		Fixed alleyway attackers spawning wearing the new dresses contributed by Phlarx.
+		Fixed issue with the clothing enchantment screen's 'Limit--' and 'Limit++' sometimes not working.
+		Added a cleanup check for Dominion's arcane storm attackers who were stuck on tiles due to a bug in the previous version.
+		Fixed broken descriptions when getting a cultist to equip a condom.
+		Fixed description of all clothing management in sex being 'Clothing removal', even if it was a displacement, equip, or unjinxing action.
+		Fixed incorrect item use descriptions for the rose and rose bouquet.
+		Fixed issues with NPCs' self actions, where the NPC performing the action would sometimes not be described nor treated as the correct NPC.
+		Fixed incorrect reference to Jhortrax impregnating you with imps.
+		Fixed some incorrect unit references, such as penis length always being displayed in inches in the leg configuration transformation description.
+		Penis and vagina virginities are no longer reset when you change your leg configuration.
+		Squirting orgasms no longer dirties 'plugs vagina' or 'seals vagina' clothing.
+		Fixed issue where even if you had all furry subspecies disabled, slimes could still spawn as a furry subspecies.
+		Fixed the 'Command' action at the entrance to the imp fortresses not working correctly.
 	
 	
 	
 	
 	
 	
-	github issues
 	
-	discord bugs
 	
+	
+	add foot fetish toggle
+	
+	Another thing you really ought to do is make it so you don't have to "stop" one action to start another except as a sub with a rough paced dom
+	
+	Investigate further:
+		If you're reading this Inno, tigers have been broken forever. I disable furries entirely, yet those things still manage to pop up about 1% of the time. They're the only ones too.
+		
 	optimise endturn iterations over NPCs
 	
 	calculateSexTypeWeighting
@@ -258,9 +285,9 @@
 	    - Write dialogue.
 	    - Test.
 	
-	Emails
-	
 	message K
+	
+	Bug: 0.3.1.1: Sex-equip enabled items can be enchanted with "Enslave", but equipping them during sex does not enslave the wearer.
 	
 	insertable dildo needs to stretch orifice over time
 	orifice rejuvination item
@@ -563,7 +590,7 @@
 	
 	I understand you wanted to offer condoms of different colours, but right now, it's bit annoying, as you can't properly stockpile on them - could you make it so that it's possible to change colour of more than one condom at once
 	
-	As a slime, Unable to eat a used condom to become pregnant... Literally Unplayable
+	add support for "descriptors exclusive to spoken dialogue"
 	
 	NPCs to use condoms
 	Need to refuse condoms if impregnation/pregnancy fetishes
@@ -711,6 +738,22 @@
 			Fyrsia's precum and your saliva quickly lubricates Fyrsia's fingers.​
 			Fyrsia's precum and your saliva quickly lubricates Fyrsia's pussy.​
 			Fyrsia's girlcum quickly lubricates your mouth.
+	
+	-Milk Orgasms-
+		- A new additional modifier that can be added onto someone's breasts. Similar to the "squirter" modifier for vaginas.
+		- If someone who has this modifier orgasms and has their breasts has milk inside a % of that milk will be expelled and instantly dirty anything that is near or below the nipples including partners of the one squirting the milk.
+		- Maybe a "suckle" stance could be added similar to blowjob and kissing. Causes constant flow of pleasure to both partners especially if you have the associated fetishes and also causes the one suckling to ingest a bit of milk each turn.
+
+
+	-Skin absorbant modifier for body fluids-
+		- A new modifier for body fluids (Cum, Girlcum, Milk) that if said fluid makes skin-contact with someone it will trigger some things that are normally only triggered if ingested like addictive or alcoholic but not things like causing pregnancy. 
+		The person said fluid comes from are immune to this effect.
+		-If clothes or anything else prevents the fluid from touching the skin it will have no effect.
+	
+	
+	-Expand the "Squirter" modifier-
+		- Make it so it basically treats it like dick orgasms except it's girlcum and cant really be aimed anywhere. Because right now it's just some additional flavor text. Not really anything different in gameplay.
+		-Dirties body/clothes of anything close to the vagina after orgasm including partners
 	
 	Need to check all overrides for endSex()
 	

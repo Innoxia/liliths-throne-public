@@ -1760,7 +1760,7 @@ public class Body implements XMLSaving {
 			case ARACHNID:
 			case CEPHALOPOD:
 				sb.append(" [style.colourBestial([npc.Her] entire lower body, from the waist down, has transformed into that of a huge [npc.legRace]."
-						+ " [npc.Her] legs and genitals are almost completely theriomorphic, and are extremely similar to that of [npc.a_assRace]'s.)]");
+						+ " [npc.Her] legs and genitals are almost completely feral in nature, and are extremely similar to that of [npc.a_assRace]'s.)]");
 				break;
 			case BIPEDAL:
 				break;
@@ -1770,11 +1770,11 @@ public class Body implements XMLSaving {
 				break;
 			case TAIL_LONG:
 				sb.append(" [style.colourBestial([npc.Her] entire lower body, from the waist down, has transformed into the long tail of [npc.a_legRace]."
-						+ " [npc.Her] ass and genitals are completely theriomorphic, and, in a manner identical to that of [npc.a_assRace], have shifted to be located within a front-facing cloaca.)]");
+						+ " [npc.Her] ass and genitals are completely feral in nature, and, in a manner identical to that of [npc.a_assRace], have shifted to be located within a front-facing cloaca.)]");
 				break;
 			case TAUR:
 				sb.append(" [style.colourBestial([npc.Her] entire lower body, from the waist down, has transformed into that of [npc.a_legRace]."
-						+ " [npc.Her] legs, tail, ass, and genitals are completely theriomorphic, and are identical to those of [npc.a_assRace]'s.)]");
+						+ " [npc.Her] legs, tail, ass, and genitals are completely feral in nature, and are identical to those of [npc.a_assRace]'s.)]");
 				break;
 		}
 		

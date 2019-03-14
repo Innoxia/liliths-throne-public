@@ -1612,7 +1612,7 @@ public class MainControllerInitMethod {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().incrementMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()));
+								Main.game.getPlayer().incrementMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()));
 								Main.game.getDialogueFlags().getSlaveTrader().addSlave(slave);
 								slave.setLocation(Main.game.getDialogueFlags().getSlaveTrader().getWorldLocation(), Main.game.getDialogueFlags().getSlaveTrader().getLocation(), true);
 							}
@@ -1623,9 +1623,9 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 
 					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
-							UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"<br/>"
+							UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(true), "b", Colour.GENERIC_GOOD)+"<br/>"
 									+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName(true)+" will buy [npc.herHim] for "
-										+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)+"."));
+										+UtilText.formatAsMoney((int)(slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)+"."));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
 				
@@ -1856,7 +1856,7 @@ public class MainControllerInitMethod {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-(int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()));
+									Main.game.getPlayer().incrementMoney(-(int)(slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()));
 									Main.game.getPlayer().addSlave(slave);
 									slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 								}
@@ -1866,9 +1866,9 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 	
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Buy Slave",
-								UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"<br/>"
+								UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(true), "b", Colour.GENERIC_GOOD)+"<br/>"
 										+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName(true)+" will sell [npc.herHim] for "
-											+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE)+"."));
+											+UtilText.formatAsMoney((int)(slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE)+"."));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 					

@@ -332,6 +332,7 @@ public class CharacterUtils {
 			
 			body = generateBody(linkedCharacter, startingGender, startingBodyType, stage);
 		}
+		
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
 		// Genetics! (Sort of...)
@@ -1146,6 +1147,8 @@ public class CharacterUtils {
 			}
 		}
 		
+//		System.out.println(species+", "+stage);
+		
 		Body body = new Body.BodyBuilder(
 				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
 				new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
@@ -1246,7 +1249,9 @@ public class CharacterUtils {
 		body.getAss().getAnus().setAssHair(null, hair);
 
 		if(species!=null) {
-			species.applySpeciesChanges(body);
+			if(stage!=RaceStage.HUMAN) {
+				species.applySpeciesChanges(body);
+			}
 			if(isSlime) {
 				Subspecies.SLIME.applySpeciesChanges(body);
 			}
@@ -1384,7 +1389,7 @@ public class CharacterUtils {
 		body.getArm().setUnderarmHair(null, hair);
 		body.getAss().getAnus().setAssHair(null, hair);
 		
-		if(species!=null) {
+		if(species!=null && stage!=RaceStage.HUMAN) {
 			species.applySpeciesChanges(body);
 		}
 		body.calculateRace(linkedCharacter);

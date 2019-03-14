@@ -137,8 +137,8 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
 				this.setBody(CharacterUtils.generateHalfDemonBody(this, Subspecies.getFleshSubspecies(this)));
-				
 			}
+			
 			if(Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
 				this.setLegConfiguration(LegConfiguration.TAUR);
 			}

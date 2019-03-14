@@ -1636,7 +1636,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unbutton your shirt and pull it off.",
-					"You unbuttons [npc.namePos] shirt and pull it off.",
+					"You unbutton [npc.namePos] shirt and pull it off.",
 					null,
 					"[npc.Name] unbuttons [npc.her] shirt and pulls it off.",
 					"[npc.Name] unbuttons your shirt and pulls it off.",

@@ -1611,7 +1611,7 @@ public class SexPositionBipeds {
 												?"your faces"
 												:"their faces")
 											:UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), "[npc.her] [npc.face]")))
-									+" just inches away from [npc.her] groin..."));
+									+" just [unit.sizes] away from [npc.her] groin..."));
 				} catch(Exception ex) {
 					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL), "kneeling on the floor in front of [npc.name]."));
 				}
@@ -1643,7 +1643,7 @@ public class SexPositionBipeds {
 					descriptionSB.append(" are standing to either side of");
 				}
 				descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL),
-						" [npc.name] as [npc.she] [npc.verb(kneel)] on the floor before them; their groins just inches away from [npc.her] face..."));
+						" [npc.name] as [npc.she] [npc.verb(kneel)] on the floor before them; their groins just [unit.sizes] away from [npc.her] face..."));
 				
 			} else {
 				
@@ -1677,7 +1677,7 @@ public class SexPositionBipeds {
 				
 				descriptionSB.append(Util.stringsToStringList(receivers, false));
 				if(receivers.size()>1) {
-					descriptionSB.append(", who are positioning their groins just inches away from");
+					descriptionSB.append(", who are positioning their groins just [unit.sizes] away from");
 					if(performers.size()>1) {
 						descriptionSB.append(" the faces before them.");
 					} else {
@@ -1685,9 +1685,9 @@ public class SexPositionBipeds {
 					}
 				} else {
 					if(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL).isPlayer()) {
-						descriptionSB.append(", and you're positioning your groin just inches away from");
+						descriptionSB.append(", and you're positioning your groin just [unit.sizes] away from");
 					} else {
-						descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL), ", who is positioning [npc.her] groin just inches away from"));
+						descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL), ", who is positioning [npc.her] groin just [unit.sizes] away from"));
 					}
 					if(performers.size()>1) {
 						descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL), " the faces before [npc.herHim]."));
@@ -3225,7 +3225,7 @@ public class SexPositionBipeds {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.PET_ORAL_ON_ALL_FOURS), Sex.getCharacterInPosition(SexSlotBipeds.PET_ORAL_COCKED_LEG),
-					"[npc.NameIs] down on all fours, with [npc2.namePos] [npc2.leg] hooked over [npc.her] neck, leaving [npc.her] face just inches away from [npc2.namePos] [npc2.cock+].");
+					"[npc.NameIs] down on all fours, with [npc2.namePos] [npc2.leg] hooked over [npc.her] neck, leaving [npc.her] face just [unit.sizes] away from [npc2.namePos] [npc2.cock+].");
 		}
 	};
 	
@@ -3259,7 +3259,7 @@ public class SexPositionBipeds {
 											KNEELING_ORAL.getSexInteractions(SexSlotBipeds.KNEELING_PERFORMING_ORAL, SexSlotBipeds.KNEELING_RECEIVING_ORAL).getAvailableCumTargets())))))) {
 		@Override
 		public String getDescription() {
-			return "You're kneeling under Ralph's counter, with your face just inches away from his crotch.";
+			return "You're kneeling under Ralph's counter, with your face just [unit.sizes] away from his crotch.";
 		}
 
 		@Override
@@ -3483,7 +3483,7 @@ public class SexPositionBipeds {
 											KNEELING_ORAL.getSexInteractions(SexSlotBipeds.KNEELING_PERFORMING_ORAL, SexSlotBipeds.KNEELING_RECEIVING_ORAL).getAvailableCumTargets())))))) {
 		@Override
 		public String getDescription() {
-			return "You're kneeling at the feet of [npc.name], with your [pc.face+] hovering just inches away from [npc.her] groin.";
+			return "You're kneeling at the feet of [npc.name], with your [pc.face+] hovering just [unit.sizes] away from [npc.her] groin.";
 		}
 
 		@Override
@@ -4006,7 +4006,7 @@ public class SexPositionBipeds {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL),
-					"[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
+					"[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just [unit.sizes] away from [npc.her] groin.");
 		}
 
 		@Override

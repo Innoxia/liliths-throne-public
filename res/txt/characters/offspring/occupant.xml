@@ -515,7 +515,7 @@
 			[npc2.speech(I'll take [pc.her] rear,)] [npc2.name] says to [npc.name].
 		</p>
 		<p>
-			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips+]!)]
+			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
 			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
@@ -556,7 +556,7 @@
 			[npc2.speech(I'll take [pc.her] rear,)] [npc2.name] says to [npc.name].
 		</p>
 		<p>
-			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips+]!)]
+			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
 			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
@@ -589,7 +589,7 @@
 			[npc2.speech(You take [pc.her] mouth,)] [npc2.name] says to [npc.name], [npc2.speech(My [pc.relation(npc2)]'s ass belongs to me.)]
 		</p>
 		<p>
-			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips+]!)]
+			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
 			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())

@@ -732,7 +732,7 @@ public class InventoryDialogue {
 										}
 									}
 
-									Sex.setUnequipClothingText(responseSB.toString());
+									Sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
 									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 									Sex.setSexStarted(true);
@@ -763,7 +763,7 @@ public class InventoryDialogue {
 										}
 									}
 
-									Sex.setUnequipClothingText(responseSB.toString());
+									Sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
 									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 									Sex.setSexStarted(true);
@@ -796,7 +796,7 @@ public class InventoryDialogue {
 										}
 									}
 
-									Sex.setUnequipClothingText(responseSB.toString());
+									Sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
 									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 									Sex.setSexStarted(true);
@@ -830,7 +830,7 @@ public class InventoryDialogue {
 										}
 									}
 
-									Sex.setUnequipClothingText(responseSB.toString());
+									Sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
 									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 									Sex.setSexStarted(true);
@@ -3799,8 +3799,9 @@ public class InventoryDialogue {
 											return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
+													AbstractClothing c = clothing;
 													equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing);
-													Sex.setUnequipClothingText(Main.game.getPlayer().getUnequipDescription());
+													Sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
 													Main.mainController.openInventory();
 													Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 													Sex.setSexStarted(true);
@@ -3834,8 +3835,9 @@ public class InventoryDialogue {
 											return new Response("Equip ([npc.Name])", UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."), Sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
+													AbstractClothing c = clothing;
 													equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
-													Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
+													Sex.setEquipClothingText(c, inventoryNPC.getUnequipDescription());
 													Main.mainController.openInventory();
 													Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 													Sex.setSexStarted(true);
@@ -4398,8 +4400,9 @@ public class InventoryDialogue {
 											return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
+													AbstractClothing c = clothing;
 													equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing);
-													Sex.setUnequipClothingText(Main.game.getPlayer().getUnequipDescription());
+													Sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
 													Main.mainController.openInventory();
 													Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 													Sex.setSexStarted(true);
@@ -4433,8 +4436,9 @@ public class InventoryDialogue {
 											return new Response("Equip ([npc.Name])", UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."), Sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
+													AbstractClothing c = clothing;
 													equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
-													Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
+													Sex.setEquipClothingText(c, inventoryNPC.getUnequipDescription());
 													Main.mainController.openInventory();
 													Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 													Sex.setSexStarted(true);
@@ -4766,11 +4770,12 @@ public class InventoryDialogue {
 							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", Sex.SEX_DIALOGUE){
 								@Override
 								public void effects(){
-									Sex.setUnequipClothingText("<p style='text-align:center;'>"
-											+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-											?Main.game.getPlayer().unequipMainWeapon(false)
-											:Main.game.getPlayer().unequipOffhandWeapon(false))
-									+ "</p>");
+									Sex.setUnequipWeaponText(weapon,
+											"<p style='text-align:center;'>"
+												+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
+													?Main.game.getPlayer().unequipMainWeapon(false)
+													:Main.game.getPlayer().unequipOffhandWeapon(false))
+											+ "</p>");
 									resetPostAction();
 									Main.mainController.openInventory();
 									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -4790,11 +4795,12 @@ public class InventoryDialogue {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUnequipClothingText("<p style='text-align:center;'>"
-													+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-													?Main.game.getPlayer().unequipMainWeapon(true)
-													:Main.game.getPlayer().unequipOffhandWeapon(true))
-											+ "</p>");
+											Sex.setUnequipWeaponText(weapon,
+													"<p style='text-align:center;'>"
+														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
+															?Main.game.getPlayer().unequipMainWeapon(true)
+															:Main.game.getPlayer().unequipOffhandWeapon(true))
+													+ "</p>");
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -4813,11 +4819,12 @@ public class InventoryDialogue {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUnequipClothingText("<p style='text-align:center;'>"
-													+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-													?Main.game.getPlayer().unequipMainWeapon(true)
-													:Main.game.getPlayer().unequipOffhandWeapon(true))
-											+ "</p>");
+											Sex.setUnequipWeaponText(weapon,
+													"<p style='text-align:center;'>"
+														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
+															?Main.game.getPlayer().unequipMainWeapon(true)
+															:Main.game.getPlayer().unequipOffhandWeapon(true))
+													+ "</p>");
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -5407,8 +5414,9 @@ public class InventoryDialogue {
 											@Override
 											public void effects(){
 												GameCharacter unequipOwner = owner;
+												AbstractClothing c = clothing;
 												unequipClothingToFloor(Main.game.getPlayer(), clothing);
-												Sex.setUnequipClothingText(unequipOwner.getUnequipDescription());
+												Sex.setUnequipClothingText(c, unequipOwner.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 												Sex.setSexStarted(true);
@@ -5435,8 +5443,9 @@ public class InventoryDialogue {
 											@Override
 											public void effects(){
 												GameCharacter unequipOwner = owner;
+												AbstractClothing c = clothing;
 												unequipClothingToFloor(Main.game.getPlayer(), clothing);
-												Sex.setUnequipClothingText(unequipOwner.getUnequipDescription());
+												Sex.setUnequipClothingText(c, unequipOwner.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 												Sex.setSexStarted(true);
@@ -5461,7 +5470,7 @@ public class InventoryDialogue {
 											@Override
 											public void effects() {
 												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Sex.setUnequipClothingText(
+												Sex.setJinxRemovalClothingText(clothing,
 														"<p>"
 															+ "You channel the power of your arcane essences into your "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
 														+ "</p>"
@@ -5499,8 +5508,9 @@ public class InventoryDialogue {
 								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 									@Override
 									public void effects(){
+										AbstractClothing c = clothing;
 										unequipClothingToInventory(Main.game.getPlayer(), clothing);
-										Sex.setUnequipClothingText(owner.getUnequipDescription());
+										Sex.setUnequipClothingText(c, owner.getUnequipDescription());
 										Main.mainController.openInventory();
 										Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 										Sex.setSexStarted(true);
@@ -5538,7 +5548,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Main.game.getPlayer().isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11), true, true, Main.game.getPlayer());
-											Sex.setUnequipClothingText(owner.getDisplaceDescription());
+											Sex.setDisplaceClothingText(clothing, owner.getDisplaceDescription());
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 											Sex.setSexStarted(true);
@@ -5786,8 +5796,9 @@ public class InventoryDialogue {
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
+												AbstractClothing c = clothing;
 												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
-												Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
+												Sex.setUnequipClothingText(c, inventoryNPC.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 												Sex.setSexStarted(true);
@@ -5816,8 +5827,9 @@ public class InventoryDialogue {
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
+												AbstractClothing c = clothing;
 												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
-												Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
+												Sex.setUnequipClothingText(c, inventoryNPC.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 												Sex.setSexStarted(true);
@@ -5841,9 +5853,9 @@ public class InventoryDialogue {
 											@Override
 											public void effects() {
 												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Sex.setUnequipClothingText(UtilText.parse(inventoryNPC,
+												Sex.setJinxRemovalClothingText(clothing, UtilText.parse(inventoryNPC,
 														"<p>"
-																+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
+															+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
 														+ "</p>"
 														+ "<p style='text-align:center;'>"
 															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
@@ -5879,8 +5891,9 @@ public class InventoryDialogue {
 								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 									@Override
 									public void effects(){
+										AbstractClothing c = clothing;
 										unequipClothingToInventory(Main.game.getPlayer(), clothing);
-										Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
+										Sex.setUnequipClothingText(c, inventoryNPC.getUnequipDescription());
 										Main.mainController.openInventory();
 										Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 										Sex.setSexStarted(true);
@@ -5915,7 +5928,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index - 11), true, true, Main.game.getPlayer());
-											Sex.setUnequipClothingText(owner.getDisplaceDescription());
+											Sex.setDisplaceClothingText(clothing, owner.getDisplaceDescription());
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 											Sex.setSexStarted(true);

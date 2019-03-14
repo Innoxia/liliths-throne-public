@@ -122,7 +122,7 @@ public class OccupancyUtil implements XMLSaving {
 	public void dailyOccupantUpdate(NPC occupant) {
 		occupant.resetOccupantFlags();
 		
-		if(!Main.game.getCharactersPresent().contains(occupant)) { // Don't give them a new job if the player is present...
+//		if(!Main.game.getCharactersPresent().contains(occupant)) { // Don't give them a new job if the player is present...
 			if(!occupant.hasJob()) {
 //				System.out.println(occupant.getName());
 				if(Math.random()<0.2) {
@@ -131,7 +131,7 @@ public class OccupancyUtil implements XMLSaving {
 //					System.out.println(occupant.getHistory().getName());
 				}
 			}
-		}
+//		}
 	}
 	
 	public void performHourlyUpdate(int day, int hour) {
