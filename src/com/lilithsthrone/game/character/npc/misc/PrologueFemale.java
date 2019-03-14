@@ -197,7 +197,7 @@ public class PrologueFemale extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_RED, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_stiletto_heels", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_elbow_length_gloves", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_BLACK, false), true, this);

@@ -13,9 +13,9 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexSlotOther;
-import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotOther;
 import com.lilithsthrone.game.sex.sexActions.PositioningData;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -48,7 +48,7 @@ public class GenericPositioningNew {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().getLegConfiguration()==Sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
 					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
@@ -78,30 +78,29 @@ public class GenericPositioningNew {
 	};
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
-		return !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
-				&& !(Sex.getPosition() == data.getPosition() && Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0))
+		return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+				&& !(Sex.getPosition() == data.getPosition()
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0)
+					&& Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))==data.getPartnerSlots().get(0))
 				&& data.getPosition().getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 				&& Sex.getTotalParticipantCount(false)<=(data.getPerformerSlots().size()+data.getPartnerSlots().size())
 				&& (request
-						?Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL
-						:Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL)
-				&& (request
-						?Sex.getCharacterPerformingAction().isPlayer()
-						:true)
+						?Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL
+						:(Sex.getCharacterPerformingAction().isPlayer()
+							?Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
+							:!Sex.isCharacterForbiddenByOthersFromPositioning(Sex.getCharacterPerformingAction())))
 				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
-						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.game.getPlayer())
+						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))
 						:true);
 	}
 
-	private static void setNewSexManager(PositioningData data, boolean requestAccepted) {
-//		for(SexSlot slot : ((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))) {
-//			System.out.println(slot.getName(Sex.getCharacterPerformingAction()));
-//		}
-		
+	public static void setNewSexManager(PositioningData data, boolean requestAccepted) {
 		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
 		Map<GameCharacter, SexSlot> submissives = new HashMap<>();
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants().keySet());
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants().keySet());
+		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(true).keySet());
+		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(true).keySet());
+		List<GameCharacter> dominantSpectators = new ArrayList<>();
+		List<GameCharacter> submissiveSpectators = new ArrayList<>();
 		
 		GameCharacter performer = Sex.getCharacterPerformingAction();
 		GameCharacter target = Sex.getTargetedPartner(performer);
@@ -114,30 +113,48 @@ public class GenericPositioningNew {
 			doms.remove(performer);
 			dominants.put(performer, data.getPerformerSlots().get(0));
 			for(int i=0; i<doms.size(); i++) {
-				dominants.put(doms.get(i), data.getPerformerSlots().get(i+1));
+				if(data.getPerformerSlots().size()<i+1) {
+					dominants.put(doms.get(i), data.getPerformerSlots().get(i+1));
+				} else {
+					dominantSpectators.add(doms.get(i));
+				}
 			}
 			subs.remove(target);
 			submissives.put(target, data.getPartnerSlots().get(0));
 			for(int i=0; i<subs.size(); i++) {
-				submissives.put(subs.get(i), data.getPartnerSlots().get(i+1));
+				if(data.getPartnerSlots().size()<i+1) {
+					submissives.put(subs.get(i), data.getPartnerSlots().get(i+1));
+				} else {
+					submissiveSpectators.add(subs.get(i));
+				}
 			}
 		} else {
 			doms.remove(target);
 			dominants.put(target, data.getPartnerSlots().get(0));
 			for(int i=0; i<doms.size(); i++) {
-				dominants.put(doms.get(i), data.getPartnerSlots().get(i+1));
+				if(data.getPartnerSlots().size()<i+1) {
+					dominants.put(doms.get(i), data.getPartnerSlots().get(i+1));
+				} else {
+					dominantSpectators.add(doms.get(i));
+				}
 			}
 			subs.remove(performer);
 			submissives.put(performer, data.getPerformerSlots().get(0));
 			for(int i=0; i<subs.size(); i++) {
-				submissives.put(subs.get(i), data.getPerformerSlots().get(i+1));
+				if(data.getPerformerSlots().size()<i+1) {
+					submissives.put(subs.get(i), data.getPerformerSlots().get(i+1));
+				} else {
+					submissiveSpectators.add(subs.get(i));
+				}
 			}
 		}
 		Sex.setSexManager(new SexManagerDefault(
-				data.getPosition(),
-				dominants,
-				submissives){
-		});
+						data.getPosition(),
+						dominants,
+						submissives){
+				},
+				dominantSpectators,
+				submissiveSpectators);
 		Sex.setPositionRequest(null);
 	}
 
@@ -147,9 +164,9 @@ public class GenericPositioningNew {
 	//--------------- ORAL ---------------//
 	
 	private static List<SexSlot> generatePerformerOralData(GameCharacter receiver) {
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants().keySet());
+		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
 		doms.remove(receiver);
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants().keySet());
+		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
 		subs.remove(receiver);
 
 		boolean bipedalOral1 = receiver.getLegConfiguration().isBipedalPositionedGenitals();
@@ -374,7 +391,7 @@ public class GenericPositioningNew {
 					&& (Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL_TWO)!=null
 						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotOther.PERFORMING_ORAL_BEHIND_TWO)
 					
-					&& !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -422,8 +439,8 @@ public class GenericPositioningNew {
 				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotOther.PERFORMING_ORAL_BEHIND));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants());
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants());
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
 			
 			if(Sex.isDom(target)) {
 				dominants.put(target, SexSlotOther.PERFORMING_ORAL_BEHIND);
@@ -456,7 +473,7 @@ public class GenericPositioningNew {
 					&& (Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL_TWO)!=null
 							|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotOther.PERFORMING_ORAL_TWO)
 					
-					&& !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -512,8 +529,8 @@ public class GenericPositioningNew {
 				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotOther.PERFORMING_ORAL));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants());
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants());
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
 			
 			if(Sex.isDom(target)) {
 				dominants.put(target, SexSlotOther.PERFORMING_ORAL);
@@ -710,7 +727,7 @@ public class GenericPositioningNew {
 					&& (Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL_TWO)!=null
 						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotOther.PERFORMING_ORAL_BEHIND_TWO)
 					
-					&& !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -758,8 +775,8 @@ public class GenericPositioningNew {
 				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotOther.PERFORMING_ORAL_BEHIND));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants());
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants());
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
 			
 			if(Sex.isDom(target)) {
 				dominants.put(target, SexSlotOther.PERFORMING_ORAL_BEHIND);
@@ -792,7 +809,7 @@ public class GenericPositioningNew {
 					&& (Sex.getCharacterInPosition(SexSlotOther.RECEIVING_ORAL_TWO)!=null
 							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotOther.PERFORMING_ORAL_TWO)
 					
-					&& !Sex.isCharacterBannedFromPositioning(Sex.getCharacterPerformingAction())
+					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -848,8 +865,8 @@ public class GenericPositioningNew {
 				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotOther.PERFORMING_ORAL));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants());
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants());
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
 			
 			if(Sex.isDom(target)) {
 				dominants.put(target, SexSlotOther.PERFORMING_ORAL);
@@ -871,9 +888,9 @@ public class GenericPositioningNew {
 	//--------------- ALL FOURS ---------------//
 	
 	private static List<SexSlot> generatePerformerAllFoursData(GameCharacter receiver) {
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants().keySet());
+		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
 		doms.remove(receiver);
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants().keySet());
+		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
 		subs.remove(receiver);
 
 		boolean doubleReceiving = false;
@@ -1249,8 +1266,14 @@ public class GenericPositioningNew {
 
 		@Override
 		public String getDescription() {
+			boolean isHappy = ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+					Sex.getPositionRequest().getPosition(),
+					Sex.getPositionRequest().getPartnerSlots().get(0),
+					Sex.getPositionRequest().getPerformerSlots().get(0),
+					Main.game.getPlayer());
+			
 			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.PERFORMING_ORAL) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.PERFORMING_ORAL, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean standing = SexSlotOther.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction());
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -1271,7 +1294,7 @@ public class GenericPositioningNew {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.PERFORMING_ORAL_BEHIND) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.PERFORMING_ORAL_BEHIND, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean standing = SexSlotOther.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction());
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -1292,7 +1315,7 @@ public class GenericPositioningNew {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.RECEIVING_ORAL) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.RECEIVING_ORAL, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean biped = Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals();
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -1313,7 +1336,7 @@ public class GenericPositioningNew {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.ALL_FOURS_FUCKED) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ALL_FOURS, SexSlotOther.ALL_FOURS_FUCKED, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean biped = Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals();
 					boolean bipedPlayer = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
 					boolean standingPlayer = SexSlotOther.ALL_FOURS_MOUNTING.isStanding(Main.game.getPlayer());
@@ -1352,7 +1375,7 @@ public class GenericPositioningNew {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.ALL_FOURS_MOUNTING) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ALL_FOURS, SexSlotOther.ALL_FOURS_MOUNTING, Main.game.getPlayer())) {
+				if(isHappy) {
 					boolean biped = Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals();
 					boolean bipedPlayer = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
 					boolean standing = SexSlotOther.ALL_FOURS_MOUNTING.isStanding(Sex.getCharacterPerformingAction());
@@ -1398,12 +1421,12 @@ public class GenericPositioningNew {
 
 		@Override
 		public void applyEffects() {
-			if((Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.PERFORMING_ORAL && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.PERFORMING_ORAL, Main.game.getPlayer()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.PERFORMING_ORAL_BEHIND && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.PERFORMING_ORAL_BEHIND, Main.game.getPlayer()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.RECEIVING_ORAL && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ORAL, SexSlotOther.RECEIVING_ORAL, Main.game.getPlayer()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.ALL_FOURS_FUCKED && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ALL_FOURS, SexSlotOther.ALL_FOURS_FUCKED, Main.game.getPlayer()))
-					|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.ALL_FOURS_MOUNTING && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionOther.ALL_FOURS, SexSlotOther.ALL_FOURS_MOUNTING, Main.game.getPlayer()))) {
-				setNewSexManager(Sex.getPositionRequest(), true);
+			if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+					Sex.getPositionRequest().getPosition(),
+					Sex.getPositionRequest().getPartnerSlots().get(0),
+					Sex.getPositionRequest().getPerformerSlots().get(0),
+					Main.game.getPlayer())) {
+				GenericPositioningNew.setNewSexManager(Sex.getPositionRequest(), true);
 			}
 			
 			Sex.setPositionRequest(null);

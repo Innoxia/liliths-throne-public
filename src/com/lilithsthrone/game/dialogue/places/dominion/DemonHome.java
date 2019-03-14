@@ -2,8 +2,6 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 
 import java.time.Month;
 
-import com.lilithsthrone.game.Season;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -15,6 +13,8 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.0

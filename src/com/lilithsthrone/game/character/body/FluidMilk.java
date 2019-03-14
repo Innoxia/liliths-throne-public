@@ -45,10 +45,10 @@ public class FluidMilk implements FluidInterface {
 
 		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
 		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
-		Element cumModifiers = doc.createElement("milkModifiers");
-		element.appendChild(cumModifiers);
-		for(FluidModifier fm : FluidModifier.values()) {
-			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.hasFluidModifier(fm)));
+		
+		Element milkModifiers = doc.createElement("milkModifiers");
+		for(FluidModifier fm : this.getFluidModifiers()) {
+			CharacterUtils.addAttribute(doc, milkModifiers, fm.toString(), "true");
 		}
 		
 		return element;
@@ -85,8 +85,11 @@ public class FluidMilk implements FluidInterface {
 		fluidMilk.flavour = (FluidFlavour.valueOf(milk.getAttribute("flavour")));
 		
 		Element milkModifiersElement = (Element)milk.getElementsByTagName("milkModifiers").item(0);
-		Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
-		Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
+		fluidMilk.fluidModifiers.clear();
+		if(milkModifiersElement!=null) {
+			Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
+			Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
+		}
 		
 		return fluidMilk;
 	}

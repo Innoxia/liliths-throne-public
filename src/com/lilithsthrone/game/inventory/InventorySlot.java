@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.utils.Util;
 
@@ -322,7 +323,7 @@ public enum InventorySlot {
 			return new BodyPartClothingBlock(
 					Util.newArrayListOfValues(InventorySlot.HAIR),
 					character.getHairRace(),
-					"[npc.Name] [npc.do]n't have any hair, so [npc.she] can't wear any hair accessories!",
+					UtilText.parse(character, "[npc.Name] [npc.do]n't have any hair, so [npc.she] can't wear any hair accessories!"),
 					Util.newArrayListOfValues());
 		}
 		// leg configuration:

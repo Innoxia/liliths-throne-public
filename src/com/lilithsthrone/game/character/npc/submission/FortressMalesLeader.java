@@ -207,7 +207,7 @@ public class FortressMalesLeader extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.FOUR_FAT);
-		this.setPenisSize(12);
+		this.setPenisSize(30);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(1000);
 		this.setPenisCumExpulsion(FluidExpulsion.FOUR_HUGE.getMedianValue());
@@ -394,7 +394,7 @@ public class FortressMalesLeader extends NPC {
 			return new Response("", "", ImpFortressDialogue.KEEP_AFTER_COMBAT_VICTORY) {
 				@Override
 				public void effects() {
-					if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_2)) {
+					if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_2) && !Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
 						Main.game.getTextEndStringBuilder().append(
 								UtilText.parseFromXMLFile("places/submission/fortress"+ImpFortressDialogue.getDialogueEncounterId(), "KEEP_AFTER_COMBAT_VICTORY_KEY", ImpFortressDialogue.getAllCharacters()));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2), false));

@@ -678,12 +678,12 @@ public class Lyssieth extends NPC {
 		this.setPenisVirgin(false);
 		if(type.getRace()==Race.HUMAN) {
 			this.setPenisGirth(PenisGirth.THREE_THICK);
-			this.setPenisSize(8);
+			this.setPenisSize(18);
 			this.setTesticleSize(TesticleSize.THREE_LARGE);
 			this.setPenisCumStorage(500);
 		} else {
 			this.setPenisGirth(PenisGirth.FOUR_FAT);
-			this.setPenisSize(14);
+			this.setPenisSize(30);
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(2500);
 		}

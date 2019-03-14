@@ -1058,7 +1058,7 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Epona.class))>0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Epona.class))>=Main.game.getNpc(Epona.class).getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_POST_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_POST_SEX_NO_ORGASM");
@@ -1104,7 +1104,7 @@ public class GamblingDenDialogue {
 		
 		sb.append("<div class='container-half-width'>"
 				+ "[npc.Name] - [npc.FullRace(true)]<br/>"
-				+ "[npc.CockGirth], [npc.penisInches]-inch, [npc.cockColour(true)] [npc.cockRace] [npc.cock], with [npc.ballSize] balls."
+				+ "[npc.CockGirth], [npc.penisValue], [npc.cockColour(true)] [npc.cockRace] [npc.cock], with [npc.ballSize] balls."
 				+ "</div>");
 		
 		return UtilText.parse(breeder, sb.toString());
@@ -1116,7 +1116,7 @@ public class GamblingDenDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION_FUTA"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION"));
@@ -1149,7 +1149,7 @@ public class GamblingDenDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_SELECTION_FUTA"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_SELECTION"));

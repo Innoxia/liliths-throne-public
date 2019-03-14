@@ -26,7 +26,8 @@ public class ItemEffect implements XMLSaving {
 	public static final int SEALED_COST_MAJOR_DRAIN = 500;
 	
 	private AbstractItemEffectType itemEffectType;
-	private TFModifier primaryModifier, secondaryModifier;
+	private TFModifier primaryModifier;
+	private TFModifier secondaryModifier;
 	private TFPotency potency;
 	private int limit;
 	private ItemEffectTimer timer;
@@ -87,9 +88,9 @@ public class ItemEffect implements XMLSaving {
 		Element effect = doc.createElement("effect");
 		parentElement.appendChild(effect);
 
-		CharacterUtils.addAttribute(doc, effect, "itemEffectType", ItemEffectType.getIdFromItemEffectType(getItemEffectType()));
-		CharacterUtils.addAttribute(doc, effect, "primaryModifier", (getPrimaryModifier()==null?"null":getPrimaryModifier().toString()));
-		CharacterUtils.addAttribute(doc, effect, "secondaryModifier", (getSecondaryModifier()==null?"null":getSecondaryModifier().toString()));
+		CharacterUtils.addAttribute(doc, effect, "type", ItemEffectType.getIdFromItemEffectType(getItemEffectType()));
+		CharacterUtils.addAttribute(doc, effect, "mod1", (getPrimaryModifier()==null?"null":getPrimaryModifier().toString()));
+		CharacterUtils.addAttribute(doc, effect, "mod2", (getSecondaryModifier()==null?"null":getSecondaryModifier().toString()));
 		CharacterUtils.addAttribute(doc, effect, "potency", (getPotency()==null?"null":getPotency().toString()));
 		CharacterUtils.addAttribute(doc, effect, "limit", String.valueOf(getLimit()));
 		CharacterUtils.addAttribute(doc, effect, "timer", String.valueOf(getTimer().getSecondsPassed()));
@@ -98,7 +99,20 @@ public class ItemEffect implements XMLSaving {
 	}
 	
 	public static ItemEffect loadFromXML(Element parentElement, Document doc) {
-		String itemEffectType = parentElement.getAttribute("itemEffectType");
+		String itemEffectType = parentElement.getAttribute("type");
+		if(itemEffectType.isEmpty()) {
+			itemEffectType = parentElement.getAttribute("itemEffectType"); // Support for effects prior to 0.3.1.5
+		}
+
+		String primaryMod = parentElement.getAttribute("mod1");
+		if(primaryMod.isEmpty()) {
+			primaryMod = parentElement.getAttribute("primaryModifier"); // Support for effects prior to 0.3.1.5
+		}
+		
+		String secondaryMod = parentElement.getAttribute("mod2");
+		if(secondaryMod.isEmpty()) {
+			secondaryMod = parentElement.getAttribute("secondaryModifier"); // Support for effects prior to 0.3.1.5
+		}
 		
 		if(itemEffectType.equals("RACE_DEMON")) {
 			throw new NullPointerException();
@@ -113,13 +127,12 @@ public class ItemEffect implements XMLSaving {
 				itemEffectType = "ATTRIBUTE_ARCANE";
 				break;
 		}
-		switch(parentElement.getAttribute("primaryModifier")) {
+		switch(primaryMod) {
 			case "DAMAGE_ATTACK":
 			case "RESISTANCE_ATTACK":
 				return null;
 		}
-		String secondaryMod = parentElement.getAttribute("secondaryModifier");
-		switch(parentElement.getAttribute("secondaryModifier")) {
+		switch(secondaryMod) {
 			case "TF_MOD_FETISH_SEEDER":
 				secondaryMod = "TF_MOD_FETISH_IMPREGNATION";
 				break;
@@ -130,8 +143,8 @@ public class ItemEffect implements XMLSaving {
 		
 		ItemEffect ie;
 		try { // Wrap this in a try, as the TFModifier.valueof might fail, due to removing Broodmother/Seeder fetish modifiers in 0.2.7.5.
-			TFModifier primary = (parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier")));
-			TFModifier secondary = (secondaryMod.equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier")));
+			TFModifier primary = (primaryMod.equals("null") || primaryMod.isEmpty()?null:TFModifier.valueOf(primaryMod));
+			TFModifier secondary = (secondaryMod.equals("null") || secondaryMod.isEmpty()?null:TFModifier.valueOf(secondaryMod));
 			
 			if(secondary!=null && TFModifier.getWeaponMajorAttributeList().contains(secondary)) {
 				primary = TFModifier.CLOTHING_MAJOR_ATTRIBUTE;
@@ -143,9 +156,9 @@ public class ItemEffect implements XMLSaving {
 					secondary,
 					(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
 					Integer.valueOf(parentElement.getAttribute("limit")));
+			
 		} catch(Exception ex) {
-			System.err.println("Unable to import ItemEffect (" + parentElement.getAttribute("primaryModifier") +
-					", " + parentElement.getAttribute("secondaryModifier") + ") from" + doc.getDocumentURI());
+			System.err.println("Unable to import ItemEffect (" + primaryMod + ", " + secondaryMod + ") from" + doc.getDocumentURI());
 			System.err.println(ex);
 			return null;
 		}
@@ -169,6 +182,17 @@ public class ItemEffect implements XMLSaving {
 		
 		return ie;
 	}
+	
+	//TODO
+//	public static List<ItemEffect> groupEffects(List<ItemEffect> effects) {
+//		List<ItemEffect> groupedEffects = new ArrayList<>();
+//		
+//		for(ItemEffect ie : effects) {
+//			
+//		}
+//		
+//		return groupedEffects;
+//	}
 	
 	public String applyEffect(GameCharacter user, GameCharacter target, int secondsPassed) {
 		this.timer.incrementSecondsPassed(secondsPassed);

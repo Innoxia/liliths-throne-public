@@ -136,7 +136,7 @@ public class Jules extends NPC {
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, CoveringPattern.STRIPED, Colour.COVERING_BLACK, false, Colour.COVERING_WHITE, false), false);
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.STRIPED, Colour.COVERING_BLACK, false, Colour.COVERING_WHITE, false), false);
-		this.setHairLength(3);
+		this.setHairLength(7);
 		this.setHairStyle(HairStyle.MOHAWK);
 
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
@@ -183,7 +183,7 @@ public class Jules extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.THREE_THICK);
-		this.setPenisSize(10);
+		this.setPenisSize(25);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(40);
 		this.fillCumToMaxStorage();
@@ -203,7 +203,7 @@ public class Jules extends NPC {
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_work_boots", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_SILVER, false), true, this);

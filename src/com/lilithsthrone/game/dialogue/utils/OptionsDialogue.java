@@ -1,17 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.awt.Toolkit;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -19,11 +7,7 @@ import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
-import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderNames;
-import com.lilithsthrone.game.character.gender.GenderPronoun;
-import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.gender.*;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
@@ -35,21 +19,23 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
-import com.lilithsthrone.game.settings.ContentPreferenceValue;
-import com.lilithsthrone.game.settings.DifficultyLevel;
-import com.lilithsthrone.game.settings.ForcedFetishTendency;
-import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
-import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.settings.*;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.ArtistWebsite;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.CreditsSlot;
-import com.lilithsthrone.utils.FileUtils;
-import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.*;
+import com.lilithsthrone.utils.Units.UnitType;
+import com.lilithsthrone.utils.Units.ValueType;
+
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.*;
 
 /**
  * @since 0.1.0
@@ -69,8 +55,8 @@ public class OptionsDialogue {
 		
 		@Override
 		public String getContent(){
-			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>Lilith's Throne</h1>"
-					+ "<h5 class='special-text' style='text-align:center;'>Created by Innoxia</h5>"
+			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>"+Main.GAME_NAME+"</h1>"
+					+ "<h5 class='special-text' style='text-align:center;'>Created by "+Main.AUTHOR+"</h5>"
 					+ "<br/>"
 					+ "<p>"
 						+ "This game is a text-based erotic RPG, and contains a lot of graphic sexual content. You must agree to the game's disclaimer before playing this game!"
@@ -230,6 +216,8 @@ public class OptionsDialogue {
 								
 							}
 						};
+					} else if ( "".equals(Main.getProperties().lastSaveLocation) ) {
+						return new Response("Resume", "There is no previously saved game to resume.", null);
 					} else {
 						return new Response("Resume", "Previously saved game (by the title '"+Main.getProperties().lastSaveLocation+"') not found in 'data/saves' folder.", null);
 					}
@@ -286,7 +274,10 @@ public class OptionsDialogue {
 		return sb.toString();
 	}
 
-	public static String loadConfirmationName = "", overwriteConfirmationName = "", deleteConfirmationName = "";
+	public static String loadConfirmationName = "";
+	public static String overwriteConfirmationName = "";
+	public static String deleteConfirmationName = "";
+	
 	public static final DialogueNode SAVE_LOAD = new DialogueNode("Save game files", "", true) {
 
 		@Override
@@ -298,12 +289,15 @@ public class OptionsDialogue {
 		public String getHeaderContent(){
 			StringBuilder saveLoadSB = new StringBuilder();
 
-			saveLoadSB.append("<p>"
-					+ "<b>Please Note:</b><br/>"
-					+ "1. Only standard characters (letters and numbers) will work for save file names.<br/>"
-					+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.<br/>"
-					+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (default keybind is F5).<br/>"
-					+ "<b>You cannot save during combat or sex due to some bugs that I need to fix!</b>"
+			saveLoadSB.append(
+					"<p style='text-align:center;'>"
+						+ "<b>Please Note:</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "1. Only standard characters (letters and numbers) will work for save file names.<br/>"
+						+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.<br/>"
+						+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (binding is "+Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKSAVE).getFullName()+").<br/>"
+						+ "4. You cannot save during scenes which restrict your movement, including combat and sex."
 					+ "</p>"
 					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
@@ -328,7 +322,7 @@ public class OptionsDialogue {
 			Main.getSavedGames().sort(Comparator.comparingLong(File::lastModified).reversed());
 			
 			for(File f : Main.getSavedGames()){
-				saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+ FileUtils.getFileTime(f)+"</span>", f.getName(), i%2==0));
+				saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+FileUtils.getFileTime(f)+"</span>", f.getName(), i%2==0));
 				i++;
 			}
 			
@@ -410,6 +404,7 @@ public class OptionsDialogue {
 			int i = 0;
 			for(File f : Main.getCharactersForImport()){
 				saveLoadSB.append(OptionsDialogue.getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+FileUtils.getFileTime(f)+"</span>", f.getName(), i%2==0));
+				i++;
 			}
 			
 			saveLoadSB.append("<p id='hiddenPField' style='display:none;'></p>");
@@ -558,6 +553,22 @@ public class OptionsDialogue {
 					+ "<br/>This option is responsible for fading in the main part of the text each time a new scene is displayed."
 					+ " Although it makes scene transitions a little prettier, it is off by default, as it can cause some annoying lag in inventory screens."
 					+ "</p>"
+
+					+"<p>"
+					+ "<b>Locale:</b>"
+					+ "<br/>This changes the way in which your locale and therefore the date, time and number formats are determined."
+					+ " For automatic, the system locale is used. Otherwise, you may override the formats using the following settings."
+					+ "</p>"
+
+					+"<p>"
+					+ "<b>Time:</b>"
+					+ "<br/>This toggles the time format between 12 hour (AM/PM) and 24 hour display."
+					+ "</p>"
+
+					+"<p>"
+					+ "<b>Numbers:</b>"
+					+ "<br/>This toggles the units between metric and imperial. If set manually, the english number format is used."
+					+ "</p>"
 					
 					+"<p>"
 					+ "<b>Difficulty (Currently set to "+Main.getProperties().difficultyLevel.getName()+"):</b>");
@@ -629,18 +640,35 @@ public class OptionsDialogue {
 				};
 			
 			} else if (index == 5) {
-				return new Response("Fade-in: "+(Main.getProperties().hasValue(PropertyValue.fadeInText)
-								?"[style.boldGood(ON)]"
-								:"[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS){
+				return new Response("Fade-in: " + (Main.getProperties().hasValue(PropertyValue.fadeInText)
+						? "[style.boldGood(ON)]"
+						: "[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS) {
 					@Override
 					public void effects() {
 						Main.getProperties().setValue(PropertyValue.fadeInText, !Main.getProperties().hasValue(PropertyValue.fadeInText));
-
 						Main.saveProperties();
 					}
 				};
 				
 			} else if (index == 6) {
+				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
+				
+			} else if (index == 7) {
+				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
+
+			} else if (index == 8) {
+				return new Response("Orientation preferences", "Set your preferred sexual orientation encounter rates.", ORIENTATION_PREFERENCE);
+			
+			} else if (index == 9) {
+				return new Response("Age preferences", "Set your preferred age encounter rates.", AGE_PREFERENCE);
+				
+			} else if (index == 10) {
+				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
+
+			} else if (index == 11) {
+				return new Response("Unit preferences", "Set your preferred measurement units.", UNIT_PREFERENCE);
+
+			} else if (index == 12) {
 				return new Response("Difficulty: "+Main.getProperties().difficultyLevel.getName(), "Cycle the game's difficulty.", OPTIONS){
 					@Override
 					public void effects() {
@@ -672,22 +700,7 @@ public class OptionsDialogue {
 						}
 					}
 				};
-				
-			} else if (index == 7) {
-				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
-				
-			} else if (index == 8) {
-				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
-			
-			} else if (index == 9) {
-				return new Response("Age preferences", "Set your preferred age encounter rates.", AGE_PREFERENCE);
-				
-			} else if (index == 10) {
-				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 
-			} else if (index == 11) {
-				return new Response("Orientation preferences", "Set your preferred sexual orientation encounter rates.", ORIENTATION_PREFERENCE);
-			
 			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
 
@@ -719,6 +732,7 @@ public class OptionsDialogue {
 					+ getKeybindTableRow(KeyboardAction.MENU_SELECT)
 					+ getKeybindTableRow(KeyboardAction.INVENTORY)
 					+ getKeybindTableRow(KeyboardAction.JOURNAL)
+					+ getKeybindTableRow(KeyboardAction.MAP)
 					+ getKeybindTableRow(KeyboardAction.CHARACTERS)
 					+ getKeybindTableRow(KeyboardAction.ZOOM)
 					+ "<tr style='height:8px;'></tr>"
@@ -1661,6 +1675,82 @@ public class OptionsDialogue {
 		sb.append("</div>");
 		
 		return sb.toString();
+	}
+
+	public static final DialogueNode UNIT_PREFERENCE = new DialogueNode("Unit preferences", "", true) {
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width'>"
+							+ "These options determine the units used throughout the game."
+							+ " Using auto detect will attempt to identify the correct settings for your system language."
+							+ " <br/><b>Overriding any option disables auto detect.</b>"
+							+ "</div>"
+
+							+ "<span style='height:16px;width:800px;float:left;'></span>");
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"AUTO_LOCALE",
+					Colour.BASE_BLUE_LIGHT,
+					"Automatic",
+					"When enabled, the system locale is used. Otherwise, the following options are applied.",
+					Main.getProperties().hasValue(PropertyValue.autoLocale)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"METRIC_SIZES",
+					Colour.BASE_BLUE_STEEL,
+					"Metric sizes",
+					"The game will use metres and centimetres instead of feet and inches.",
+					Main.getProperties().hasValue(PropertyValue.metricSizes)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"METRIC_FLUIDS",
+					Colour.BASE_BLUE_STEEL,
+					"Metric fluids",
+					"The game will use litres and millilitres instead of gallons and ounces.",
+					Main.getProperties().hasValue(PropertyValue.metricFluids)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"METRIC_WEIGHTS",
+					Colour.BASE_BLUE_STEEL,
+					"Metric weights",
+					"The game will use kilograms and grams instead of pounds and ounces.",
+					Main.getProperties().hasValue(PropertyValue.metricWeights)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"TWENTYFOUR_HOUR_TIME",
+					Colour.BASE_LILAC_LIGHT,
+					"24 hour time",
+					"The time will be displayed as 24 hours instead of AM/PM.",
+					Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"INTERNATIONAL_DATE",
+					Colour.BASE_LILAC_LIGHT,
+					"International date",
+					"The abbreviated date will be displayed as day.month.year instead of month/day/year.",
+					Main.getProperties().hasValue(PropertyValue.internationalDate)));
+
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Go back to the options menu.", OPTIONS);
+
+			} else {
+				return null;
+			}
+		}
 	};
 	
 	
@@ -1768,7 +1858,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"URETHRAL",
 							Colour.BASE_PINK_DEEP,
-							"Urethral",
+							"Urethral content",
 							"This enables urethral transformations and penetrations.",
 							Main.getProperties().hasValue(PropertyValue.urethralContent)));
 				
@@ -1782,7 +1872,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"ANAL",
 							Colour.BASE_ORANGE,
-							"Anal content",
+							"Anal Content",
 							"When disabled, all non-unique NPCs will spawn in hating anal (which will make them never use anal actions in sex).",
 							Main.getProperties().hasValue(PropertyValue.analContent)));
 			
@@ -1790,13 +1880,13 @@ public class OptionsDialogue {
 							"FUTA_BALLS",
 							Colour.BASE_PINK,
 							"Futanari Testicles",
-							"When enabled, futanari NPCs will spawn with external testicles. When disabled, they will always be internal.",
+							"When enabled, futanari NPCs will be able to have external testicles. When disabled, they are locked to always being internal.",
 							Main.getProperties().hasValue(PropertyValue.futanariTesticles)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"CLOACA",
 							Colour.BASE_PINK_LIGHT,
-							"Bipedal cloacas",
+							"Bipedal Cloacas",
 							"When enabled, certain bipedal races (such as harpies and alligator-morphs) will have cloacas."
 									+ " When disabled, all bipeds with cloacas will be treated as having a regular genitalia configuration."
 									+ " Some special races, such as lamia, always have cloacas, and are not affected by this.",
@@ -1997,10 +2087,11 @@ public class OptionsDialogue {
 							"PREGNANCY_LACTATION",
 							Colour.BASE_YELLOW,
 							"Average Pregnancy Lactation",
-							"Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within "+Main.getProperties().pregnancyLactationIncreaseVariance+"ml of this value.",
+							"Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within "
+									+Units.fluid(Main.getProperties().pregnancyLactationIncreaseVariance)+" of this value.",
 							Main.getProperties().pregnancyLactationIncrease==0
 								?"[style.boldDisabled(Disabled)]"
-								:Main.getProperties().pregnancyLactationIncrease+"ml",
+								:Units.fluid(Main.getProperties().pregnancyLactationIncrease),
 							Main.getProperties().pregnancyLactationIncrease,
 							0,
 							1000));
@@ -2010,10 +2101,30 @@ public class OptionsDialogue {
 							Colour.BASE_YELLOW_LIGHT,
 							"Pregnancy Lactation Limit",
 							"Set the maximum limit of lactation that characters will gain from pregnancies.",
-							Main.getProperties().pregnancyLactationLimit+"ml",
+							Units.fluid(Main.getProperties().pregnancyLactationLimit, Units.ValueType.PRECISE, Units.UnitType.SHORT),
 							Main.getProperties().pregnancyLactationLimit,
 							0,
 							Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
+
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+							"BREAST_SIZE_PREFERENCE",
+							Colour.NIPPLES,
+							"Cup Size Preference",
+							"Affects randomly-generated NPCs' cup sizes (will not be reduced to below AA-cup).",
+							(Main.getProperties().breastSizePreference>=0?"+":"") + Main.getProperties().breastSizePreference,
+							Main.getProperties().breastSizePreference,
+							-20,
+							20));
+
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+							"PENIS_SIZE_PREFERENCE",
+							Colour.PENIS,
+							"Penis Size Preference",
+							"Affects randomly-generated NPCs' penis sizes (will not be reduced to below "+Units.size(8)+").",
+							(Main.getProperties().penisSizePreference>=0?"+":"") + Units.size(Main.getProperties().penisSizePreference, ValueType.PRECISE, UnitType.SHORT),
+							Main.getProperties().penisSizePreference,
+							-20,
+							20));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2047,9 +2158,9 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
@@ -2061,9 +2172,9 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 		
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
@@ -2096,21 +2207,21 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
 		
 		contentSB.append(
-				"<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+				"<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
 						+ (value==maximum?"[style.boldDisabled(+)]":"[style.boldGood(+)]")
 				+ "</div>"
-				+ "<div class='container-full-width' style='text-align:center; width:calc(20%); float:right; margin:0;'>"
+				+ "<div class='container-full-width' style='text-align:center; width:calc(30%); float:right; margin:0;'>"
 					+ "<b>"+valueDisplay+"</b>"
 				+ "</div>"
-				+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+				+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
 					+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
 				+ "</div>");
 		
@@ -2129,11 +2240,11 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "Thank you for playing Lilith's Throne, I hope you enjoy it just as much as I do making it!"
-						+ " Thank you so much to all of the supporters on Patreon! Thanks to you, I'm able to spend more time working on Lilith's Throne, and I promise that I'll make this game the very best that I can!"
+						+ "Thank you for playing "+Main.GAME_NAME+", I hope you enjoy it just as much as I do making it!"
+						+ " Thank you so much to all of you who offer financial support! Thanks to you, I'm able to spend more time working on "+Main.GAME_NAME+", and I promise that I'll make this game the very best that I can!"
 					+ "</p>"
 					+"<p style='text-align:center;'>"
-						+ "Lilith's Throne has been created by:<br/>"
+						+ Main.GAME_NAME+" has been created by:<br/>"
 						+ "<b style='color:#9b78fa;'>Innoxia</b>"
 						+ "<br/><br/>"
 						+ "Artists whose character art can be found in the game:<br/>");
@@ -2160,7 +2271,7 @@ public class OptionsDialogue {
 						+ "<b>Sensei</b>,<br/>"
 						+ "<b style='color:#fa0063;'>loveless</b>, <b style='color:#c790b2;'>Blue999</b>, and <b style='color:#ec9538;'>DesuDemona</b><br/>"
 						+ "<b style='color:#21bec4;'>Github & wiki contributors</b><br/>"
-						+ "<b style='color:#e06e5f;'>Everyone who's supported me on Patreon</b>,<br/>"
+						+ "<b style='color:#e06e5f;'>Everyone who's financially supported me</b>,<br/>"
 						+ "<b>Bug reporters</b>,<br/>"
 						+ "and<br/>"
 						+ "<b>Everyone for playing Lilith's Throne!</b>"

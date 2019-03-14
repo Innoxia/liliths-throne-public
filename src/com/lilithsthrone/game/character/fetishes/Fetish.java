@@ -937,8 +937,7 @@ public enum Fetish {
 			FetishExperience.BASE_RARE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			null,
-			Util.newArrayListOfValues(
-					"Unlocks <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Deny</span> in non-submissive sex"),
+			null,
 			null) {
 
 		@Override
@@ -966,7 +965,9 @@ public enum Fetish {
 			"fetish_denial_self",
 			FetishExperience.BASE_RARE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
 			null,
 			null) {
 

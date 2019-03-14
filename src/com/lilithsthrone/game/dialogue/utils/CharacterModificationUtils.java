@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.types.AbstractArmType;
 import com.lilithsthrone.game.character.body.types.AbstractAssType;
 import com.lilithsthrone.game.character.body.types.AbstractBreastType;
+import com.lilithsthrone.game.character.body.types.AbstractEarType;
 import com.lilithsthrone.game.character.body.types.AbstractHornType;
 import com.lilithsthrone.game.character.body.types.AbstractLegType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -103,16 +104,22 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Units.ValueType;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7?
- * @version 0.2.8
+ * @version 0.3.1
  * @author Innoxia
  */
 public class CharacterModificationUtils {
 
 	private static StringBuilder contentSB = new StringBuilder();
+
+	public static final int FLUID_INCREMENT_SMALL = 5;
+	public static final int FLUID_INCREMENT_AVERAGE = 50;
+	public static final int FLUID_INCREMENT_LARGE = 500;
 	
 	public static String getStartDateDiv() {
 		contentSB.setLength(0);
@@ -335,9 +342,7 @@ public class CharacterModificationUtils {
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ "You were born on the "
-								+Util.intToDate(Main.game.getPlayer().getBirthday().getDayOfMonth())
-								+" "+Main.game.getPlayer().getBirthday().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
-								+", "+(Main.game.getPlayer().getBirthday().getYear())+", making you "+Util.intToString(Main.game.getPlayer().getAgeValue())+" years old."
+								+Units.date(Main.game.getPlayer().getBirthday(), Units.DateType.LONG)+", making you "+Util.intToString(Main.game.getPlayer().getAgeValue())+" years old."
 						+ "</p>");
 
 			contentSB.append("<div class='container-full-width' style='margin:0;padding;0;width:100%;'>");
@@ -616,16 +621,14 @@ public class CharacterModificationUtils {
 	// Advanced:
 	
 	public static String getHeightChoiceDiv() {
-		return applyFullVariableWrapper("Height",
+		return applyFullVariableWrapperSizes("Height",
 				(BodyChanging.getTarget().isPlayer()
-			?"Change how tall you are."+(!Main.game.isInNewWorld()?" This will affect some descriptions and scenes later on in the game.":"")
-			:UtilText.parse(BodyChanging.getTarget(), "Change how tall [npc.name] is.")),
-			"HEIGHT",
-			"cm",
-			"cm",
-			BodyChanging.getTarget().getHeightValue()+"cm<br/>("+Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(BodyChanging.getTarget().getHeightValue()))+")",
-			BodyChanging.getTarget().getHeightValue()<=BodyChanging.getTarget().getMinimumHeight(),
-			BodyChanging.getTarget().getHeightValue()>=BodyChanging.getTarget().getMaximumHeight());
+						?"Change how tall you are."+(!Main.game.isInNewWorld()?" This will affect some descriptions and scenes later on in the game.":"")
+						:UtilText.parse(BodyChanging.getTarget(), "Change how tall [npc.name] is.")),
+				"HEIGHT",
+				BodyChanging.getTarget().getHeightValue(),
+				BodyChanging.getTarget().getHeightValue()<=BodyChanging.getTarget().getMinimumHeight(),
+				BodyChanging.getTarget().getHeightValue()>=BodyChanging.getTarget().getMaximumHeight());
 	}
 	
 	public static String getSelfTransformFemininityChoiceDiv() {
@@ -669,10 +672,10 @@ public class CharacterModificationUtils {
 					+ "</div>";
 		}
 	}
-	
-	private static String applyFullVariableWrapper(String title, String description, String id, String measurement, String measurementPlural, String value, boolean decreaseDisabled, boolean increaseDisabled) {
-		return "<div class='container-full-width'>"
-					+"<div class='container-half-width'>"
+
+	private static String applyFullVariableWrapper(String title, String description, String id, String minorStep, String majorStep, String value, boolean decreaseDisabled, boolean increaseDisabled) {
+			return "<div class='container-full-width'>"
+						+"<div class='container-half-width'>"
 						+ "<h5 style='text-align:center;'>"
 							+ title
 						+"</h5>"
@@ -683,10 +686,10 @@ public class CharacterModificationUtils {
 					+ "<div class='container-half-width'>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-1"+measurement+")]":"[style.boldBadMinor(-1"+measurement+")]")
+								+ (decreaseDisabled?"[style.boldDisabled(-"+minorStep+")]":"[style.boldBadMinor(-"+minorStep+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-5"+measurementPlural+")]":"[style.boldBad(-5"+measurementPlural+")]")
+								+ (decreaseDisabled?"[style.boldDisabled(-"+majorStep+")]":"[style.boldBad(-"+majorStep+")]")
 							+ "</div>"
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
@@ -694,14 +697,20 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+1"+measurement+")]":"[style.boldGoodMinor(+1"+measurement+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+minorStep+")]":"[style.boldGoodMinor(+"+minorStep+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+5"+measurementPlural+")]":"[style.boldGood(+5"+measurementPlural+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+majorStep+")]":"[style.boldGood(+"+majorStep+")]")
 							+ "</div>"
 						+ "</div>"
 					+ "</div>"
 				+ "</div>";
+	}
+
+
+	private static String applyFullVariableWrapperSizes(String title, String description, String id, double value, boolean decreaseDisabled, boolean increaseDisabled) {
+		return applyFullVariableWrapper(title, description, id, Units.size(1), Units.size(5),
+				Units.size(value, Units.ValueType.PRECISE, Units.UnitType.SHORT),decreaseDisabled, increaseDisabled);
 	}
 	
 	private static String applyFullVariableWrapperFluids(String title, String description, String id, String value, boolean decreaseDisabled, boolean increaseDisabled) {
@@ -717,13 +726,13 @@ public class CharacterModificationUtils {
 					+ "<div class='container-half-width'>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-1ml)]":"[style.boldBadMinor(-1ml)]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-FLUID_INCREMENT_SMALL)+")]":"[style.boldBadMinor("+Units.fluid(-FLUID_INCREMENT_SMALL)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-25ml)]":"[style.boldBad(-25ml)]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-FLUID_INCREMENT_AVERAGE)+")]":"[style.boldBad("+Units.fluid(-FLUID_INCREMENT_AVERAGE)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_HUGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-500ml)]":"[style.boldBad(-500ml)]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-FLUID_INCREMENT_LARGE)+")]":"[style.boldBad("+Units.fluid(-FLUID_INCREMENT_LARGE)+")]")
 							+ "</div>"
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
@@ -731,13 +740,13 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+1ml)]":"[style.boldGoodMinor(+1ml)]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(FLUID_INCREMENT_SMALL)+")]":"[style.boldGoodMinor(+"+Units.fluid(FLUID_INCREMENT_SMALL)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+25ml)]":"[style.boldGood(+25ml)]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(FLUID_INCREMENT_AVERAGE)+")]":"[style.boldGood(+"+Units.fluid(FLUID_INCREMENT_AVERAGE)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_HUGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+500ml)]":"[style.boldGood(+500ml)]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(FLUID_INCREMENT_LARGE)+")]":"[style.boldGood(+"+Units.fluid(FLUID_INCREMENT_LARGE)+")]")
 							+ "</div>"
 						+ "</div>"
 					+ "</div>"
@@ -1405,9 +1414,9 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformEarChoiceDiv(List<Race> availableRaces) {
 		contentSB.setLength(0);
 		
-		for(EarType ear : EarType.values()) {
+		for(AbstractEarType ear : EarType.getAllEarTypes()) {
 			if(availableRaces.contains(ear.getRace())) {
-				if(BodyChanging.getTarget().getEarType() == ear) {
+				if(BodyChanging.getTarget().getEarType().equals(ear)) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<span style='color:"+ear.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(ear.getTransformName())+"</span>"
@@ -1415,7 +1424,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_EAR_"+ear+"' class='cosmetics-button'>"
+							"<div id='CHANGE_EAR_"+EarType.getIdFromEarType(ear)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+ear.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(ear.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -2140,6 +2149,14 @@ public class CharacterModificationUtils {
 				contentSB.toString(), true);
 	}
 	
+	public static int getLactationUpperLimit() {
+		if(Main.game.isInNewWorld()) {
+			return Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue();
+		} else {
+			return 150;
+		}
+	}
+	
 	public static String getSelfTransformLactationDiv() {
 		return applyFullVariableWrapperFluids("Lactation",
 				(BodyChanging.getTarget().isPlayer()
@@ -2147,9 +2164,13 @@ public class CharacterModificationUtils {
 				:UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] produces.")),
 				"MILK_PRODUCTION",
 				Util.capitaliseSentence(BodyChanging.getTarget().getBreastMilkStorage().getName())
-					+"<br/>("+BodyChanging.getTarget().getBreastRawMilkStorageValue()+"ml)",
+					+"<br/>("+Units.fluid(BodyChanging.getTarget().getBreastRawMilkStorageValue(), ValueType.PRECISE)+")",
 				BodyChanging.getTarget().getBreastRawMilkStorageValue()<=0,
-				BodyChanging.getTarget().getBreastRawMilkStorageValue()>=Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue());
+				BodyChanging.getTarget().getBreastRawMilkStorageValue()>=getLactationUpperLimit());
+	}
+	
+	public static int getLactationCrotchUpperLimit() {
+		return Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue();
 	}
 	
 	public static String getSelfTransformLactationCrotchDiv() {
@@ -2159,9 +2180,9 @@ public class CharacterModificationUtils {
 				:UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] produces.")),
 				"MILK_CROTCH_PRODUCTION",
 				Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchMilkStorage().getName())
-					+"<br/>("+BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()+"ml)",
+					+"<br/>("+Units.fluid(BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue(), ValueType.PRECISE)+")",
 				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()<=0,
-				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()>=Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue());
+				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()>=getLactationCrotchUpperLimit());
 	}
 
 	public static String getSelfTransformNippleElasticityDiv() {
@@ -2676,18 +2697,14 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformPenisSizeDiv() {
-		return applyFullVariableWrapper("Penis Size",
+		return applyFullVariableWrapperSizes("Penis Size",
 				(BodyChanging.getTarget().isPlayer()
-			?"Change the size of your penis."
-			:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] penis.")),
-			"PENIS_SIZE",
-			" inch",
-			" inches",
-			Util.capitaliseSentence(BodyChanging.getTarget().getPenisSize().getDescriptor())
-				+"<br/>("+Util.inchesToFeetAndInches(BodyChanging.getTarget().getPenisRawSizeValue())+")"
-				+"<br/>("+Util.conversionInchesToCentimetres(BodyChanging.getTarget().getPenisRawSizeValue())+"cm)",
-			BodyChanging.getTarget().getPenisRawSizeValue()<=0,
-			BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
+						?"Change the size of your penis."
+						:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] penis.")),
+				"PENIS_SIZE",
+				BodyChanging.getTarget().getPenisRawSizeValue(),
+				BodyChanging.getTarget().getPenisRawSizeValue()<=0,
+				BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
 	}
 	
 	public static String getSelfTransformPenisGirthDiv() {
@@ -2820,16 +2837,24 @@ public class CharacterModificationUtils {
 				contentSB.toString(), true);
 	}
 	
+	public static int getCumUpperLimit() {
+		if(Main.game.isInNewWorld()) {
+			return CumProduction.SEVEN_MONSTROUS.getMaximumValue();
+		} else {
+			return 30;
+		}
+	}
+	
 	public static String getSelfTransformCumProductionDiv() {
 		return applyFullVariableWrapperFluids("Cum Storage",
 				(BodyChanging.getTarget().isPlayer()
-			?"Change your maximum cum storage."
-			:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] maximum cum storage.")),
-			"CUM_PRODUCTION",
-			Util.capitaliseSentence(BodyChanging.getTarget().getPenisCumStorage().getName())
-				+"<br/>("+BodyChanging.getTarget().getPenisRawCumStorageValue()+"ml)",
-			BodyChanging.getTarget().getPenisRawCumStorageValue()<=0,
-			BodyChanging.getTarget().getPenisRawCumStorageValue()>=CumProduction.SEVEN_MONSTROUS.getMaximumValue());
+					?"Change your maximum cum storage."
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] maximum cum storage.")),
+				"CUM_PRODUCTION",
+				Util.capitaliseSentence(BodyChanging.getTarget().getPenisCumStorage().getName())
+					+"<br/>("+Units.fluid(BodyChanging.getTarget().getPenisRawCumStorageValue(), ValueType.PRECISE)+")",
+				BodyChanging.getTarget().getPenisRawCumStorageValue()<=0,
+				BodyChanging.getTarget().getPenisRawCumStorageValue()>=getCumUpperLimit());
 	}
 	
 	public static String getSelfTransformUrethraElasticityDiv() {
@@ -3274,51 +3299,6 @@ public class CharacterModificationUtils {
 		return contentSB.toString();
 	}
 	
-	public static int[] getLactationQuantitiesAvailable() {
-		if(BodyChanging.getTarget().hasPenis()) {
-			return new int[] {0};
-		} else {
-			return new int[] {0, 5, 10, 15, 30, 50, 75, 100, 150};
-		}
-	}
-	
-	public static String getLactationDiv() {
-		contentSB.setLength(0);
-		
-		contentSB.append(
-				"<div class='container-full-width'>"
-					+"<div class='cosmetics-inner-container left'>"
-						+ "<h5 style='text-align:center;'>"
-							+"Natural Lactation"
-						+"</h5>"
-						+ "<p style='text-align:center;'>"
-							+ "Choose how much you're currently lactating."
-						+ "</p>"
-						+ "</div>"
-						+ "<div class='cosmetics-inner-container right'>");
-		
-		int[] sizesAvailable = getLactationQuantitiesAvailable();
-		
-		for(int i : sizesAvailable) {
-			if(BodyChanging.getTarget().getBreastRawMilkStorageValue() == i) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+i+"mL</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='LACTATION_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.GENERIC_GOOD.getShades()[0]+";'>"+i+"mL</span>"
-						+ "</div>");
-			}
-		}
-		
-		contentSB.append("</div></div>");
-		
-		return contentSB.toString();
-	}
-	
 	public static AssSize[] getAssSizesAvailable() {
 		if(BodyChanging.getTarget().hasPenis()) {
 			return new AssSize[] {AssSize.ZERO_FLAT, AssSize.ONE_TINY, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, AssSize.FOUR_LARGE};
@@ -3450,7 +3430,7 @@ public class CharacterModificationUtils {
 	}
 	
 	public static int[] getPenisSizesAvailable() {
-		return new int[] {1, 2, 3, 4, 5, 6, 7, 8};
+		return new int[] {3, 5, 8, 10, 12, 15, 18, 20};
 	}
 	
 	public static String getPenisSizeDiv() {
@@ -3474,13 +3454,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getPenisRawSizeValue() == size) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+size+UtilText.INCH_SYMBOL+"</span>"
+							+ "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+Units.size(size)+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='PENIS_SIZE_"+size+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.GENERIC_GOOD.getShades()[0]+";'>"+size+UtilText.INCH_SYMBOL+"</span>"
+							+ "<span style='color:"+Colour.GENERIC_GOOD.getShades()[0]+";'>"+Units.size(size)+"</span>"
 						+ "</div>");
 			}
 		}
@@ -3522,47 +3502,6 @@ public class CharacterModificationUtils {
 				contentSB.append(
 						"<div id='TESTICLE_SIZE_"+size+"' class='cosmetics-button'>"
 							+ "<span style='color:"+Colour.GENERIC_GOOD.getShades()[0]+";'>"+Util.capitaliseSentence(size.getDescriptor())+"</span>"
-						+ "</div>");
-			}
-		}
-		
-		contentSB.append("</div></div>");
-		
-		return contentSB.toString();
-	}
-	
-	public static CumProduction[] getCumProductionAvailable() {
-		return new CumProduction[] {CumProduction.ZERO_NONE, CumProduction.ONE_TRICKLE, CumProduction.TWO_SMALL_AMOUNT, CumProduction.THREE_AVERAGE, CumProduction.FOUR_LARGE};
-	}
-	
-	public static String getCumProductionDiv() {
-		contentSB.setLength(0);
-		
-		contentSB.append(
-				"<div class='container-full-width'>"
-					+"<div class='cosmetics-inner-container left'>"
-						+ "<h5 style='text-align:center;'>"
-							+"Cum Storage"
-						+"</h5>"
-						+ "<p style='text-align:center;'>"
-							+ "Choose how much cum your balls are able to hold."
-						+ "</p>"
-						+ "</div>"
-						+ "<div class='cosmetics-inner-container right'>");
-		
-		CumProduction[] sizesAvailable = new CumProduction[] {CumProduction.ZERO_NONE, CumProduction.ONE_TRICKLE, CumProduction.TWO_SMALL_AMOUNT, CumProduction.THREE_AVERAGE, CumProduction.FOUR_LARGE};
-		
-		for(CumProduction value : sizesAvailable) {
-			if(BodyChanging.getTarget().getPenisCumStorage() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+value.getMedianValue()+"mL</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='CUM_PRODUCTION_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+value.getMedianValue()+"mL</span>"
 						+ "</div>");
 			}
 		}

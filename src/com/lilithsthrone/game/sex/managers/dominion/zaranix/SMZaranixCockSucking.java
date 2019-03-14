@@ -35,7 +35,7 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Sex.getNumberOfOrgasms(Main.game.getNpc(Zaranix.class))>0;
+		return Sex.getNumberOfOrgasms(Main.game.getNpc(Zaranix.class))>=1;
 	}
 
 }

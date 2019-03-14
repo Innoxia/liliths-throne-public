@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -38,6 +37,7 @@ import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.SMGloryHole;
 import com.lilithsthrone.game.sex.managers.dominion.SMKrugerChair;
@@ -45,11 +45,14 @@ import com.lilithsthrone.game.sex.managers.dominion.SMStallSex;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.Population;
 
@@ -227,7 +230,7 @@ public class NightlifeDistrict {
 					+ "Having had far too much to drink, [npc.name] slumps down to the ground!"));
 			
 		} else if(!isClubOpen(minutesPassedForNextScene)) {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_VIP_AREA) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_VIP_AREA)) {
 				sb.append(UtilText.parse(getClubbersPresent(), "[style.boldTerrible(Closing time)]</br>"
 						+ "All of the lights in the club suddenly flash off and on a few times, and as the background music stops playing, Kruger growls,"
 							+ " [kruger.speech(Looks like it's time to close for the night. Go on, [pc.name]. We can do this another time.)]"));
@@ -490,6 +493,10 @@ public class NightlifeDistrict {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.passedJules, true);
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.julesIntroduced, true);
 								
+							}
+							@Override
+							public List<InitialSexActionInformation> getInitialSexActions() {
+								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Jules.class), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, true, true));
 							}
 						};
 						
@@ -1458,7 +1465,7 @@ public class NightlifeDistrict {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getPartner())>0) {
+			if(Sex.getNumberOfOrgasms(getPartner())>=getPartner().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_AFTER_SEX", getClubbersPresent());
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_AFTER_SEX_NO_ORGASM", getClubbersPresent());
@@ -2754,7 +2761,7 @@ public class NightlifeDistrict {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Kalahari.class))>0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Kalahari.class))>=Main.game.getNpc(Kalahari.class).getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX_NO_ORGASM");
@@ -3738,7 +3745,7 @@ public class NightlifeDistrict {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getPartner())>0) {
+			if(Sex.getNumberOfOrgasms(getPartner())>=getPartner().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_AFTER_SEX", getClubbersPresent())
 						+ getClubberStatus(this.getSecondsPassed());
 				
@@ -3947,7 +3954,7 @@ public class NightlifeDistrict {
 		buyingDrinks = true;
 	}
 	
-	private static PlaceType getCurrentPlaceType() {
+	private static AbstractPlaceType getCurrentPlaceType() {
 		return Main.game.getPlayer().getLocationPlace().getPlaceType();
 	}
 	
@@ -4184,16 +4191,16 @@ public class NightlifeDistrict {
 		turnsAtPlace++;
 		
 		if(currentBehaviour.getPlaceType()!=newBehaviour.getPlaceType()) {
-			if(newBehaviour.getPlaceType()==PlaceType.WATERING_HOLE_BAR) {
+			if(newBehaviour.getPlaceType().equals(PlaceType.WATERING_HOLE_BAR)) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_BAR", getClubbersPresent()));
 				
-			} else if(newBehaviour.getPlaceType()==PlaceType.WATERING_HOLE_DANCE_FLOOR) {
+			} else if(newBehaviour.getPlaceType().equals(PlaceType.WATERING_HOLE_DANCE_FLOOR)) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_DANCE_FLOOR", getClubbersPresent()));
 				
-			} else if(newBehaviour.getPlaceType()==PlaceType.WATERING_HOLE_SEATING_AREA) {
+			} else if(newBehaviour.getPlaceType().equals(PlaceType.WATERING_HOLE_SEATING_AREA)) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_SEATING_AREA", getClubbersPresent()));
 				
-			} else if(newBehaviour.getPlaceType()==PlaceType.WATERING_HOLE_TOILETS) {
+			} else if(newBehaviour.getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS)) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_TOILETS", getClubbersPresent()));
 			}
 
@@ -4412,7 +4419,7 @@ public class NightlifeDistrict {
 							public void effects() {
 								
 								for(GameCharacter clubber : getClubbersPresent()) {
-									if(clubber.getHomeLocationPlace().getPlaceType()!=PlaceType.DOMINION_BOULEVARD) {
+									if(!clubber.getHomeLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BOULEVARD)) {
 										clubber.setRandomLocation(WorldType.DOMINION, PlaceType.DOMINION_BOULEVARD, true);
 									} else {
 										clubber.returnToHome();
@@ -4641,7 +4648,7 @@ public class NightlifeDistrict {
 							public void effects() {
 								
 								for(GameCharacter clubber : getClubbersPresent()) {
-									if(clubber.getHomeLocationPlace().getPlaceType()!=PlaceType.DOMINION_BOULEVARD) {
+									if(!clubber.getHomeLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BOULEVARD)) {
 										clubber.setRandomLocation(WorldType.DOMINION, PlaceType.DOMINION_BOULEVARD, true);
 									} else {
 										clubber.returnToHome();
@@ -4972,7 +4979,7 @@ public class NightlifeDistrict {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>0) {
+			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>=NightlifeDistrict.getPartner().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX", NightlifeDistrict.getClubbersPresent());
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX_NO_ORGASM", NightlifeDistrict.getClubbersPresent());
@@ -5038,7 +5045,7 @@ public class NightlifeDistrict {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>0) {
+			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>=NightlifeDistrict.getPartner().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX", NightlifeDistrict.getClubbersPresent());
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_NO_ORGASM", NightlifeDistrict.getClubbersPresent());

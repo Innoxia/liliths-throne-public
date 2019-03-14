@@ -5,9 +5,12 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
@@ -58,5 +61,13 @@ public class SMStocks extends SexManagerDefault {
 	@Override
 	public boolean isPlayerAbleToSwapPositions() {
 		return false;
+	}
+	
+	@Override
+	public SexControl getSexControl(GameCharacter character) {
+		if(Sex.getSexPositionSlot(character)==SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS) {
+			return SexControl.NONE;
+		}
+		return super.getSexControl(character);
 	}
 }

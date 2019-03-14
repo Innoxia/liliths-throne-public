@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.controller.MainController;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
@@ -34,6 +33,7 @@ import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -181,7 +181,7 @@ public class PrologueDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(femalePrologueNPC()) {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueFemale.class))>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueFemale.class))>=Main.game.getNpc(PrologueFemale.class).getOrgasmsBeforeSatisfied()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_FEMALE_SATISFIED"));
 					
 				} else {
@@ -189,7 +189,7 @@ public class PrologueDialogue {
 				}
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueMale.class))>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueMale.class))>=Main.game.getNpc(PrologueMale.class).getOrgasmsBeforeSatisfied()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_MALE_SATISFIED"));
 					
 				} else {

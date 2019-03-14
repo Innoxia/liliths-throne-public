@@ -26,6 +26,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -253,8 +254,11 @@ public class HarpyAttackerDialogueCompanions {
 										null,
 										Util.newArrayListOfValues(getMainCompanion())) {
 									@Override
-									public boolean isPlayerAbleToStopSex() {
-										return false;
+									public SexControl getSexControl(GameCharacter character) {
+										if(character.isPlayer()) {
+											return SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS;
+										}
+										return super.getSexControl(character);
 									}
 								},
 								AFTER_SEX_DEFEAT,
@@ -671,7 +675,7 @@ public class HarpyAttackerDialogueCompanions {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getHarpy())>0) {
+			if(Sex.getNumberOfOrgasms(getHarpy())>=getHarpy().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_SEX_PEACEFUL", getAllCharacters());
 			} else {
 				return UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_SEX_PEACEFUL_NO_ORGASM", getAllCharacters());
@@ -763,8 +767,11 @@ public class HarpyAttackerDialogueCompanions {
 								null,
 								Util.newArrayListOfValues(getMainCompanion())) {
 							@Override
-							public boolean isPlayerAbleToStopSex() {
-								return false;
+							public SexControl getSexControl(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS;
+								}
+								return super.getSexControl(character);
 							}
 						},
 						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "STORM_ATTACK_OFFER_BODY", getHarpy(), getMainCompanion()));
@@ -1274,7 +1281,12 @@ public class HarpyAttackerDialogueCompanions {
 		public Response getResponse(int responseTab, int index) {
 			if(getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.banishNPC(getHarpy());
+						}
+					};
 				}
 				return null;
 			}
@@ -1567,7 +1579,7 @@ public class HarpyAttackerDialogueCompanions {
 		public String getContent() {
 			if((getHarpy().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+				if(Sex.getNumberOfOrgasms(getHarpy()) >= getHarpy().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_SEX_VICTORY", getAllCharacters());
 				} else {
 					return UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_SEX_VICTORY_NO_ORGASM", getAllCharacters());
@@ -1643,7 +1655,13 @@ public class HarpyAttackerDialogueCompanions {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
+				return new Response("Continue", "Carry on your way.", AFTER_SEX_DEFEAT) {
+					@Override
+					public void effects() {
+						if(getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							Main.game.banishNPC(getHarpy());
+						}
+					}
 					@Override
 					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();

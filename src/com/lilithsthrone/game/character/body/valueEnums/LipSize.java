@@ -34,9 +34,9 @@ public enum LipSize {
 		return descriptor;
 	}
 	
-	public static LipSize getLipSizeFromInt(int inches) {
+	public static LipSize getLipSizeFromInt(int index) {
 		for(LipSize ls : LipSize.values()) {
-			if(inches == ls.getValue()) {
+			if(index == ls.getValue()) {
 				return ls;
 			}
 		}

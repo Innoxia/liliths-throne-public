@@ -191,7 +191,7 @@ public class Library {
 					return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 						@Override
 						public void effects() {
-							Main.game.setActiveNPC(character);
+							SlaveDialogue.initDialogue(character);
 						}
 					};
 				}
@@ -220,18 +220,21 @@ public class Library {
 				
 			} else if(responseTab==2) {
 				if (index == 1) {
-					return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
+					return new Response("Ancient Ones", "A section of the library dedicated to books concerning the elder races.", ELDER_RACES);
 
 				} else if (index == 2) {
-					return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
+					return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
 
 				} else if (index == 3) {
-					return new Response("Endless Sea", "A section of the library dedicated to books on the area known as the Endless Sea. (Not yet implemented.)", null);
+					return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
 
 				} else if (index == 4) {
-					return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle. (Not yet implemented.)", null);
+					return new Response("Endless Sea", "A section of the library dedicated to books on the area known as the Endless Sea. (Not yet implemented.)", null);
 
 				} else if (index == 5) {
+					return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle. (Not yet implemented.)", null);
+
+				} else if (index == 6) {
 					return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert. (Not yet implemented.)", null);
 				}
 			}
@@ -444,8 +447,10 @@ public class Library {
 					+ "</p>"
 					+ "<p>"
 						+ " Apart from that, the only other part of the book that piques your interest is a small section justifying the practice of slavery as a necessary evil."
-						+ " The passage explains how demons and half-demons are the only races who are almost never subjected to enslavement."
-						+ " Apparently, this is due to a non-demon owning a demonic slave being considered completely unacceptable in Dominion's society."
+						+ " The passage explains how demons, not including half-demons, are the only race which are almost never seen to be enslaved."
+						+ " Apparently, this is due to a non-demon owning a demonic slave being considered completely unacceptable in Dominion's society, and requires a very hard-to-obtain license."
+						+ " It also mentions that Enforcers are very hesitant to sign off on any demon enslavement order,"
+							+ " as for all they know, the demon in question could turn out to be the favourite offspring of a lilin, who would be sure to bring their wrath down upon them..."
 					+ "</p>"
 					+ "<p>"
 						+ "Other than that snippet of trivia, the book doesn't contain anything useful."
@@ -485,7 +490,7 @@ public class Library {
 					+ "<p>"
 						+ "The second alarming fact contained within these pages is related to the development of children."
 						+ " It only takes a few minutes for new-borns to develop and mature into adults, and will inherit all of the common knowledge held by their parents."
-						+ " This doesn't include specific memories, so, for example, if a child's mother knows how to read and write, they will too, but they won't have the memory of their mother learning this information."
+						+ " This doesn't include specific memories, so for example, if a child's mother knows how to read and write, they will too, but they won't have the memory of their mother learning this information."
 					+ "</p>"
 					+ "<p>"
 						+ "After reaching full maturity within a matter of hours, the vast majority of children will immediately leave their parents in order to strike out for themselves and become fully independent."
@@ -517,7 +522,7 @@ public class Library {
 					+ "<p style='text-align:center;'>"
 						+ "[style.italicsExcellent(Dominion Map fully revealed!)]"
 					+ "</p>"
-					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION, false));
+					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION, false, false));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -532,6 +537,61 @@ public class Library {
 			return LIBRARY.getResponse(responseTab, index);
 		}
 		
+	};
+	
+	public static final DialogueNode ELDER_RACES = new DialogueNode("", "", false) {
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Walking down one of the aisles, you find yourself surrounded by shelving that's been carved out of dark purple stone, and as you pass, the polished surface glistens and sparkles as it reflects the light from the overhead lamps."
+						+ " You're alarmed to discover that as you touch this strange material, a sexual thrill runs through your body."
+					+ "</p>"
+					+ "<p>"
+						+ "It looks as though the books in this particular section are concerned with demonic history and trivia, and while most of them wouldn't really be worth your time, there are a few that catch your attention..."
+					+ "</p>";
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==2) {
+				if (index == 1) {
+					return bookResponse(Subspecies.ANGEL);
+	
+				} else if (index == 2) {
+					return bookResponse(Subspecies.ELDER_LILIN);
+	
+				} else if (index == 3) {
+					return bookResponse(Subspecies.LILIN);
+	
+				} else if (index == 4) {
+					return bookResponse(Subspecies.DEMON);
+	
+				} else if (index == 5) {
+					return bookResponse(Subspecies.HALF_DEMON);
+	
+				} else if (index == 0) {
+					return new Response("Back", "Return to the race index.", LIBRARY);
+					
+				} else {
+					return null;
+				}
+				
+			} else {
+				return LIBRARY.getResponse(responseTab, index);
+			}
+		}
+	
 	};
 	
 	public static final DialogueNode DOMINION_RACES = new DialogueNode("", "", false) {
@@ -570,36 +630,33 @@ public class Library {
 					return bookResponse(Subspecies.HARPY);
 	
 				} else if (index == 2) {
-					return bookResponse(Subspecies.DEMON);
-	
-				} else if (index == 3) {
 					return bookResponse(Subspecies.DOG_MORPH);
 	
-				} else if (index == 4) {
+				} else if (index == 3) {
 					return bookResponse(Subspecies.CAT_MORPH);
 	
-				} else if (index == 5) {
+				} else if (index == 4) {
 					return bookResponse(Subspecies.HORSE_MORPH);
 	
-				} else if (index == 6) {
+				} else if (index == 5) {
 					return bookResponse(Subspecies.WOLF_MORPH);
 	
-				} else if (index == 7) {
+				} else if (index == 6) {
 					return bookResponse(Subspecies.HUMAN);
 	
-				} else if (index == 8) {
+				} else if (index == 7) {
 					return bookResponse(Subspecies.ALLIGATOR_MORPH);
 	
-				} else if (index == 9) {
+				} else if (index == 8) {
 					return bookResponse(Subspecies.BAT_MORPH);
 	
-				} else if (index == 10) {
+				} else if (index == 9) {
 					return bookResponse(Subspecies.IMP);
 	
-				} else if (index == 11) {
+				} else if (index == 10) {
 					return bookResponse(Subspecies.SLIME);
 	
-				} else if (index == 12) {
+				} else if (index == 11) {
 					return bookResponse(Subspecies.RAT_MORPH);
 	
 				} else if (index == 0) {

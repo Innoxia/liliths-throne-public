@@ -110,7 +110,7 @@ public class TongueNippleCrotch {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" and [npc2.name] can't [npc2.verb(help)] but [npc2.verb(let)] out a soft sigh in response to the deeply satisfying feeling.",
+							" and [npc2.name] can't help but let out a soft sigh in response to the deeply satisfying feeling.",
 
 							" and, gently pulling [npc.her] head into [npc2.her] [npc2.crotchBoob+], [npc2.name] softly [npc2.verb(encourage)] [npc.herHim] to keep on suckling on [npc2.her] [npc2.crotchNipple+]."));
 					break;
@@ -118,19 +118,19 @@ public class TongueNippleCrotch {
 				case SUB_EAGER:
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" and [npc2.name] can't [npc2.verb(help)] but [npc2.verb(let)] out [npc2.a_moan+] in response to the deeply satisfying feeling.",
+							" and [npc2.name] can't help but let out [npc2.a_moan+] in response to the deeply satisfying feeling.",
 
 							" and, happily pulling [npc.her] head into [npc2.her] [npc2.crotchBoob+], [npc2.name] readily [npc2.verb(encourage)] [npc.herHim] to keep on suckling on [npc2.her] [npc2.crotchNipple+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" and [npc2.name] can't [npc2.verb(help)] but [npc2.verb(let)] out [npc2.a_moan+] in response to the deeply satisfying feeling.",
+							" and [npc2.name] can't help but let out [npc2.a_moan+] in response to the deeply satisfying feeling.",
 
 							" and, roughly forcing [npc.her] head into [npc2.her] [npc2.crotchBoob+], [npc2.name] [npc2.verb(order)] [npc.herHim] to keep on suckling on [npc2.her] [npc2.crotchNipple+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" and [npc2.name] can't [npc2.verb(help)] but [npc2.verb(let)] out [npc2.a_sob+] as [npc2.she] frantically [npc2.verb(try)] to push [npc.herHim] away from [npc2.herHim].",
+							" and [npc2.name] can't help but let out [npc2.a_sob+] as [npc2.she] frantically [npc2.verb(try)] to push [npc.herHim] away from [npc2.herHim].",
 
 							" and, desperately trying to push [npc.namePos] head away from [npc2.her] [npc2.crotchBoob+], [npc2.name] [npc2.verb(plead)] with [npc.herHim] to leave [npc2.herHim] alone."));
 					break;
@@ -141,12 +141,18 @@ public class TongueNippleCrotch {
 		
 		@Override
 		public String applyEffectsString() {
+			float suckleAmount = Math.max(5, Math.min(100, Sex.getCharacterTargetedForSexAction(this).getBreastCrotchRawMilkStorageValue()/5));
+			
+			if(suckleAmount>Sex.getCharacterTargetedForSexAction(this).getBreastCrotchRawStoredMilkValue()) {
+				suckleAmount = Sex.getCharacterTargetedForSexAction(this).getBreastCrotchRawStoredMilkValue();
+			}
+			
 			return Sex.getCharacterPerformingAction().ingestFluid(
 						Sex.getCharacterTargetedForSexAction(this),
 						Sex.getCharacterTargetedForSexAction(this).getMilk(),
 						SexAreaOrifice.MOUTH,
-						Sex.getCharacterTargetedForSexAction(this).getBreastCrotchRawMilkStorageValue()/5)
-					+ Sex.getCharacterTargetedForSexAction(this).incrementBreastCrotchStoredMilk(-Sex.getCharacterTargetedForSexAction(this).getBreastCrotchRawMilkStorageValue()/5);
+						suckleAmount)
+					+ Sex.getCharacterTargetedForSexAction(this).incrementBreastCrotchStoredMilk(-suckleAmount);
 		}
 	};
 	

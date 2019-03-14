@@ -13,9 +13,11 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
+import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -154,6 +156,8 @@ public class BreastCrotch implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractBreastType type) {
+		this.shape = Util.randomItemFrom(RacialBody.valueOfRace(type.getRace()).getBreastCrotchShapes());
+		
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
 			nipples.setType(owner, type.getNippleType());
@@ -342,9 +346,10 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner,
 					"<p style='text-align:center;'><i style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
 							+ UtilText.returnStringAtRandom(
-									lactationChange+"ml of [npc.namePos] [npc.crotchMilk] squirts out of [npc.her] [npc.nipples+].",
-									lactationChange+"ml of [npc.crotchMilk+] leaks out of [npc.namePos] [npc.nipples+].",
-									lactationChange+"ml of [npc.crotchMilk+] drips out of [npc.namePos] [npc.nipples+].")
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.namePos] [npc.crotchMilk] squirts out of [npc.her] [npc.crotchNipples+].",
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.crotchMilk+] squirts out of [npc.namePos] [npc.crotchNipples+].",
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.namePos] [npc.crotchMilk] leaks out of [npc.her] [npc.crotchNipples+].",
+									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.crotchMilk+] leaks out of [npc.namePos] [npc.crotchNipples+].")
 					+ "</i>"
 					+ (this.milkStored==0
 						?"<br/><i>[npc.Name] now [npc.has] no more [npc.crotchMilk] stored in [npc.her] [npc.crotchBoobs]!</i>"

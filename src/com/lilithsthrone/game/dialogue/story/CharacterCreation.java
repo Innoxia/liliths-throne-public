@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.AbstractMap.SimpleEntry;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
@@ -60,6 +59,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.FileUtils;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -150,6 +150,8 @@ public class CharacterCreation {
 						Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
 						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
 						Main.game.getPlayer().calculateStatusEffects(0);
+						Main.game.getPlayer().setHealthPercentage(1);
+						Main.game.getPlayer().setManaPercentage(1);
 						getDressed();
 						resetBodyAppearance();
 						
@@ -351,7 +353,7 @@ public class CharacterCreation {
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torsoOver_suit_jacket", Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, character);
-				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_mens_smart_shoes", Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, character);
 				
@@ -365,7 +367,7 @@ public class CharacterCreation {
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, character);
-				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_mens_smart_shoes", Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_SILVER, false), true, character);
 
@@ -384,7 +386,7 @@ public class CharacterCreation {
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, character);
-				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_RED, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_low_top_skater_shoes", Colour.CLOTHING_RED, false), true, character);
 				
 				if(spawnClothingOnFloor) {
 					spawnClothingInArea();
@@ -396,7 +398,7 @@ public class CharacterCreation {
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_WHITE, false), true, character);
-				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_PINK_LIGHT, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false), true, character);
@@ -411,7 +413,7 @@ public class CharacterCreation {
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLIP_DRESS, Colour.CLOTHING_RED, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false), true, character);
-				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_RED, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_stiletto_heels", Colour.CLOTHING_RED, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_BLACK, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, character);
 				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_GOLD, false), true, character);
@@ -451,9 +453,9 @@ public class CharacterCreation {
 		switch(Main.game.getPlayer().getFemininity()) {
 			case MASCULINE:
 			case MASCULINE_STRONG:
-				generateClothingOnFloor(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLUE);
-				generateClothingOnFloor(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_TAN);
-				generateClothingOnFloor(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_RED);
+				generateClothingOnFloor("innoxia_foot_trainers", Colour.CLOTHING_BLUE);
+				generateClothingOnFloor("innoxia_foot_work_boots", Colour.CLOTHING_TAN);
+				generateClothingOnFloor("innoxia_foot_low_top_skater_shoes", Colour.CLOTHING_RED);
 				generateClothingOnFloor(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE);
 				generateClothingOnFloor(ClothingType.LEG_CARGO_TROUSERS, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE);
@@ -466,7 +468,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.TORSO_RIBBED_SWEATER, Colour.CLOTHING_GREY);
 				generateClothingOnFloor(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE);
-				generateClothingOnFloor(ClothingType.TORSO_TSHIRT, Colour.CLOTHING_BLUE_LIGHT);
+				generateClothingOnFloor("innoxia_torso_tshirt", Colour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE);
 				generateClothingOnFloor(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE);
 				generateClothingOnFloor(ClothingType.NECK_TIE, Colour.CLOTHING_RED);
@@ -474,8 +476,8 @@ public class CharacterCreation {
 				break;
 				
 			case ANDROGYNOUS:
-				generateClothingOnFloor(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PURPLE);
-				generateClothingOnFloor(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_foot_trainers", Colour.CLOTHING_PURPLE);
+				generateClothingOnFloor("innoxia_foot_heels", Colour.CLOTHING_BLACK);
 				
 				generateClothingOnFloor(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_RED);
@@ -496,7 +498,7 @@ public class CharacterCreation {
 				
 				generateClothingOnFloor(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK);
 
-				generateClothingOnFloor(ClothingType.TORSO_TSHIRT, Colour.CLOTHING_BLUE_LIGHT);
+				generateClothingOnFloor("innoxia_torso_tshirt", Colour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_GREEN);
 				
@@ -528,11 +530,11 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.EYES_AVIATORS, Colour.CLOTHING_ROSE_GOLD);
 				generateClothingOnFloor(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL);
 
-				generateClothingOnFloor(ClothingType.FOOT_ANKLE_BOOTS, Colour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_PINK_LIGHT);
-				generateClothingOnFloor(ClothingType.FOOT_THIGH_HIGH_BOOTS, Colour.CLOTHING_TAN);
-				generateClothingOnFloor(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_RED);
-				generateClothingOnFloor(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_foot_ankle_boots", Colour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_foot_low_top_skater_shoes", Colour.CLOTHING_PINK_LIGHT);
+				generateClothingOnFloor("innoxia_foot_thigh_high_boots", Colour.CLOTHING_TAN);
+				generateClothingOnFloor("innoxia_foot_stiletto_heels", Colour.CLOTHING_RED);
+				generateClothingOnFloor("innoxia_foot_heels", Colour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_hand_elbow_length_gloves", Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK);
@@ -1011,7 +1013,7 @@ public class CharacterCreation {
 					
 					+ CharacterModificationUtils.getNipplePuffynessDiv()
 					
-					+ CharacterModificationUtils.getLactationDiv();
+					+ CharacterModificationUtils.getSelfTransformLactationDiv();
 		}
 		
 		@Override
@@ -1083,7 +1085,7 @@ public class CharacterCreation {
 							
 							+ CharacterModificationUtils.getTesticleSizeDiv()
 							
-							+ CharacterModificationUtils.getCumProductionDiv();
+							+ CharacterModificationUtils.getSelfTransformCumProductionDiv();
 				
 			} else {
 				return "<div class='container-full-width' style='text-align:center;'>"
@@ -1405,7 +1407,7 @@ public class CharacterCreation {
 						+ "</p>"
 						+ "<p>"
 							+ "Turning around, you see a tall, handsome-looking man, who must be only a couple of years older than you, giving you the most charming smile you've ever seen."
-							+ " Before you know what you're doing, your eyes are travelling up and down every inch of his manly, muscular body, and you only just manage to stop yourself from letting out a desperate little whine."
+							+ " Before you know what you're doing, your eyes are travelling up and down every [unit.size] of his manly, muscular body, and you only just manage to stop yourself from letting out a desperate little whine."
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.thought(Focus, [pc.name], focus!)] you think, trying to act as casual as possible as you smile back at the stranger before you."
@@ -1442,7 +1444,7 @@ public class CharacterCreation {
 						+ "</p>"
 						+ "<p>"
 							+ "Turning around, you see a beautiful woman, who looks to be about the same age as you, giving you the most stunning smile you've ever seen."
-							+ " Before you know what you're doing, your eyes are travelling up and down every inch of her curvy, womanly body, and you only just manage to stop yourself from letting out a hungry groan."
+							+ " Before you know what you're doing, your eyes are travelling up and down every [unit.size] of her curvy, womanly body, and you only just manage to stop yourself from letting out a hungry groan."
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.thought(Focus [pc.name], focus!)] you think, trying to act as casual as possible as you smile back at the stranger before you."

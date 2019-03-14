@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -84,6 +85,10 @@ public class SubmissionAttacker extends NPC {
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
+			if(Math.random()<0.05 && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { //5% chance for the NPC to be a half-demon
+				this.setBody(CharacterUtils.generateHalfDemonBody(this, Subspecies.getFleshSubspecies(this)));
+			}
+			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
@@ -125,7 +130,7 @@ public class SubmissionAttacker extends NPC {
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 		
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	@Override

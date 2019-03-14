@@ -470,7 +470,7 @@ public class Lab {
 							};
 							
 						} else {
-							if(Main.game.getNpc(Arthur.class).getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LAB) {
+							if(Main.game.getNpc(Arthur.class).getLocationPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_LAB)) {
 								return new Response("\"Tests\"", "Lilaya can't run any \"tests\" on you while Arthur is still present in her lab. Find him a suitable room first.", null);
 								
 							} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hadSexWithLilaya)) {
@@ -566,7 +566,7 @@ public class Lab {
 							if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, true);
 							}
-							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 							Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 							
 							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
@@ -579,7 +579,7 @@ public class Lab {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
-							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 							
 							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
@@ -929,7 +929,7 @@ public class Lab {
 							if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults, true);
 							}
-							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 
 							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
@@ -941,7 +941,7 @@ public class Lab {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
-							Main.game.getNpc(Lilaya.class).washAllOrifices();
+							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 							
 							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
@@ -1845,10 +1845,10 @@ public class Lab {
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))) {
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return character.isPlayer();
-							}
+//							@Override
+//							public boolean isPositionChangingAllowed(GameCharacter character) {
+//								return character.isPlayer();
+//							}
 						},
 						null,
 						null,
@@ -2098,10 +2098,10 @@ public class Lab {
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lilaya.class), SexSlotBipeds.CHAIR_TOP))) {
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return character.isPlayer();
-							}
+//							@Override
+//							public boolean isPositionChangingAllowed(GameCharacter character) {
+//								return character.isPlayer();
+//							}
 						},
 						null,
 						null,
@@ -3040,9 +3040,9 @@ public class Lab {
 				} else {
 					UtilText.nodeContentSB.append(
 							" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
-									+offspring.getSubspecies().getSingularFemaleName(offspring)
+									+offspring.getSubspecies().getSingularMaleName(offspring)
 								+" crawling out."
-							+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
+							+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
 				}
 				
 			} catch(Exception ex) {

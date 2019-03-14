@@ -50,7 +50,7 @@ public class SexType implements XMLSaving {
 	
 	@Override
 	public String toString() {
-		return "Participant: "+asParticipant.toString()+"  Performing/Target: "+performingSexArea.toString()+"/"+targetedSexArea.toString();
+		return "Participant: "+asParticipant.toString()+"  Performing/Target: "+(performingSexArea==null?"null":performingSexArea.toString())+"/"+(targetedSexArea==null?"null":targetedSexArea.toString());
 	}
 	
 	@Override
@@ -258,7 +258,7 @@ public class SexType implements XMLSaving {
 		}
 		
 		// Check for masturbation:
-		if(!fetishes.contains(Fetish.FETISH_MASTURBATION) && characterPerforming.equals(characterTargeted)) {
+		if(!fetishes.contains(Fetish.FETISH_MASTURBATION) && (characterPerforming.equals(characterTargeted) || this.asParticipant==SexParticipantType.SELF)) {
 			fetishes.add(Fetish.FETISH_MASTURBATION);
 		}
 		

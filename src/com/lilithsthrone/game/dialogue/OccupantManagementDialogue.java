@@ -423,7 +423,7 @@ public class OccupantManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:4px; margin-top:4px; "+(!occupants.isEmpty()?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:15%; float:left; margin:0; padding:0;'>"
-							+ "<span style='color:"+place.getColour().toWebHexString()+";'>"+place.getName()+"</span><br/>"
+							+ "<span style='color:"+place.getColourString()+";'>"+place.getName()+"</span><br/>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>");
 		
@@ -482,8 +482,8 @@ public class OccupantManagementDialogue {
 				Cell[][] cellGrid = Main.game.getWorlds().get(wt).getCellGrid();
 				for(int i = 0; i< cellGrid.length; i++) {
 					for(int j = 0; j < cellGrid[0].length; j++) {
-						if(cellGrid[i][j].getPlace().getPlaceType()!=PlaceType.LILAYA_HOME_CORRIDOR
-								&& cellGrid[i][j].getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+						if(!cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_CORRIDOR)
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)) {
 							importantCells.add(cellGrid[i][j]);
 						}
 					}
@@ -1347,7 +1347,7 @@ public class OccupantManagementDialogue {
 							+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+slave.getLocationPlace().getColour().toWebHexString()+";'>"+slave.getLocationPlace().getName()+"</b>"
+							+ "<b style='color:"+slave.getLocationPlace().getColourString()+";'>"+slave.getLocationPlace().getName()+"</b>"
 							+",<br/>"
 							+ "<span style='color:"+slave.getWorldLocation().getColour().toWebHexString()+";'>"+slave.getWorldLocation().getName()+"</span>"
 						+ "</div>"
@@ -1368,9 +1368,9 @@ public class OccupantManagementDialogue {
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ (Main.game.getDialogueFlags().getSlaveTrader()!=null
 								?(slaveOwned
-										?UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)
-										:UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE))
-								:UtilText.formatAsMoney(slave.getValueAsSlave()))+"<br/>"
+										?UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)
+										:UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE))
+								:UtilText.formatAsMoney(slave.getValueAsSlave(true)))+"<br/>"
 							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob().getName(slave))+"</b><br/>"
 							+ UtilText.formatAsMoney(slave.getSlaveJob().getFinalDailyIncomeAfterModifiers(slave))+"/day"
 						+"</div>");
@@ -1415,7 +1415,7 @@ public class OccupantManagementDialogue {
 						
 					+ "<div id='"+slave.getId()+"_TRADER_TRANSFER' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
 			
-			if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()))) {
+			if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()))) {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
 			} else {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
@@ -1445,7 +1445,7 @@ public class OccupantManagementDialogue {
 								?"<b style='color:"+Colour.BASE_GREY.toWebHexString()+";'>At Work</b>"
 										+",<br/>"
 										+ "<span style='color:"+WorldType.DOMINION.getColour().toWebHexString()+";'>"+WorldType.DOMINION.getName()+"</span>"
-								:"<b style='color:"+occupant.getLocationPlace().getColour().toWebHexString()+";'>"+occupant.getLocationPlace().getName()+"</b>"
+								:"<b style='color:"+occupant.getLocationPlace().getColourString()+";'>"+occupant.getLocationPlace().getName()+"</b>"
 									+",<br/>"
 									+ "<span style='color:"+occupant.getWorldLocation().getColour().toWebHexString()+";'>"+occupant.getWorldLocation().getName()+"</span>")
 						+ "</div>"
@@ -1558,7 +1558,7 @@ public class OccupantManagementDialogue {
 					+ "</div>"
 					+"<div class='container-full-width'>"
 						+"<div style='width:30%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+character.getLocationPlace().getColour().toWebHexString()+";'>"+character.getLocationPlace().getName()+"</b>"
+							+ "<b style='color:"+character.getLocationPlace().getColourString()+";'>"+character.getLocationPlace().getName()+"</b>"
 							+",<br/>"
 							+ "<span style='color:"+character.getWorldLocation().getColour().toWebHexString()+";'>"+character.getWorldLocation().getName()+"</span>"
 						+ "</div>"
@@ -1580,7 +1580,7 @@ public class OccupantManagementDialogue {
 							+ UtilText.formatAsMoney(character.getSlaveJob().getFinalDailyIncomeAfterModifiers(character))+"/day"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ UtilText.formatAsMoney(character.getValueAsSlave())
+							+ UtilText.formatAsMoney(character.getValueAsSlave(true))
 						+"</div>"
 					+ "</div>");
 
@@ -1805,7 +1805,7 @@ public class OccupantManagementDialogue {
 				// Job Settings:
 				if(isCurrentJob) {
 					for(SlaveJobSetting setting : job.getMutualSettings()) {
-						boolean settingActive = character.getSlaveJobSettings().contains(setting);
+						boolean settingActive = character.hasSlaveJobSetting(setting);
 						
 						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
 														+"<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
@@ -1831,7 +1831,7 @@ public class OccupantManagementDialogue {
 														+"</b></div>");
 						
 						for(SlaveJobSetting setting : entry.getValue()) {
-							boolean settingActive = character.getSlaveJobSettings().contains(setting);
+							boolean settingActive = character.hasSlaveJobSetting(setting);
 							
 							UtilText.nodeContentSB.append("<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
 																+ setting.getName()
@@ -2017,6 +2017,9 @@ public class OccupantManagementDialogue {
 						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
 						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
 						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
+						if(BodyChanging.getTarget().hasBreastsCrotch()) {
+							CoveringsNamesMap.put(BodyCoveringType.NIPPLES_CROTCH, Util.newArrayListOfValues("crotch nipples"));
+						}
 					}
 				}
 			};
@@ -2299,6 +2302,10 @@ public class OccupantManagementDialogue {
 				} else if(bct == BodyCoveringType.NIPPLES) {
 					title = "Nipples";
 					description = "This is the skin that's currently covering [npc.namePos] nipples and areolae. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
+					
+				} else if(bct == BodyCoveringType.NIPPLES_CROTCH) {
+					title = "Crotch Nipples";
+					description = "This is the skin that's currently covering the nipples and areolae on [npc.namePos] [npc.crotchBoobs]. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
 					
 				} else if(bct == BodyCoveringType.MOUTH) {
 					title = "Lips & Throat";

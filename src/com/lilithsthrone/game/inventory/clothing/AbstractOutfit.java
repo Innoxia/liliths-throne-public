@@ -28,7 +28,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public abstract class AbstractOutfit {
@@ -189,7 +189,7 @@ public abstract class AbstractOutfit {
 						List<Colour> randomColours = new ArrayList<>();
 
 						if(!presetColourGroup.getAttribute("values").isEmpty()) {
-							randomColours.addAll(ColourListPresets.valueOf(presetColourGroup.getAttribute("values")).getPresetColourList());
+							randomColours.addAll(ColourListPresets.getColourListFromId(presetColourGroup.getAttribute("values")));
 							
 						} else {
 							for(Element e : presetColourGroup.getAllOf("randomColour")) {
@@ -515,14 +515,24 @@ public abstract class AbstractOutfit {
 					for(AbstractClothingType ct : ot.getTypes()) {
 						if(character.getClothingInSlot(ct.getSlot())==null
 								&& (ct.getSlot().isCoreClothing() || addAccessories)) {
+							AbstractClothing clothing = AbstractClothingType.generateClothing(
+									ct,
+									ot.getPrimaryColours().isEmpty()?null:Util.randomItemFrom(ot.getPrimaryColours()),
+									ot.getSecondaryColours().isEmpty()?null:Util.randomItemFrom(ot.getSecondaryColours()),
+									ot.getTertiaryColours().isEmpty()?null:Util.randomItemFrom(ot.getTertiaryColours()), false);
+							
 							character.equipClothingOverride(
-									AbstractClothingType.generateClothing(
-										ct,
-										ot.getPrimaryColours().isEmpty()?null:Util.randomItemFrom(ot.getPrimaryColours()),
-										ot.getSecondaryColours().isEmpty()?null:Util.randomItemFrom(ot.getSecondaryColours()),
-										ot.getTertiaryColours().isEmpty()?null:Util.randomItemFrom(ot.getTertiaryColours()), false),
+									clothing,
 									false,
 									false);
+							
+							// Patterns are set when the clothing is created, so this was only used for testing. I've commented it out instead of deleting it as I may need it fo further testing use.
+//							if(clothing.getClothingType().isPatternAvailable()) {
+//								clothing.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllDefaultPatterns().values())).getName());
+//								clothing.setPatternColour(clothing.getColour());
+//								clothing.setPatternSecondaryColour(clothing.getSecondaryColour());
+//								clothing.setPatternTertiaryColour(clothing.getPatternTertiaryColour());
+//							}
 						}
 					}
 				}
@@ -554,7 +564,7 @@ public abstract class AbstractOutfit {
 		try {
 			if(baseElement.getOptionalFirstOf("primaryColours").isPresent()) {
 				if(!baseElement.getMandatoryFirstOf("primaryColours").getAttribute("values").isEmpty()) {
-					primaryColours.addAll(ColourListPresets.valueOf(baseElement.getMandatoryFirstOf("primaryColours").getAttribute("values")).getPresetColourList());
+					primaryColours.addAll(ColourListPresets.getColourListFromId(baseElement.getMandatoryFirstOf("primaryColours").getAttribute("values")));
 					
 				} else {
 					for(Element colour : baseElement.getMandatoryFirstOf("primaryColours").getAllOf("colour")) {
@@ -576,7 +586,7 @@ public abstract class AbstractOutfit {
 		try {
 			if(baseElement.getOptionalFirstOf("secondaryColours").isPresent()) {
 				if(!baseElement.getMandatoryFirstOf("secondaryColours").getAttribute("values").isEmpty()) {
-					primaryColours.addAll(ColourListPresets.valueOf(baseElement.getMandatoryFirstOf("secondaryColours").getAttribute("values")).getPresetColourList());
+					primaryColours.addAll(ColourListPresets.getColourListFromId(baseElement.getMandatoryFirstOf("secondaryColours").getAttribute("values")));
 					
 				} else {
 					for(Element colour : baseElement.getMandatoryFirstOf("secondaryColours").getAllOf("colour")) {
@@ -598,7 +608,7 @@ public abstract class AbstractOutfit {
 		try {
 			if(baseElement.getOptionalFirstOf("tertiaryColours").isPresent()) {
 				if(!baseElement.getMandatoryFirstOf("tertiaryColours").getAttribute("values").isEmpty()) {
-					primaryColours.addAll(ColourListPresets.valueOf(baseElement.getMandatoryFirstOf("tertiaryColours").getAttribute("values")).getPresetColourList());
+					primaryColours.addAll(ColourListPresets.getColourListFromId(baseElement.getMandatoryFirstOf("tertiaryColours").getAttribute("values")));
 					
 				} else {
 					for(Element colour : baseElement.getMandatoryFirstOf("tertiaryColours").getAllOf("colour")) {

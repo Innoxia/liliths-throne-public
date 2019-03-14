@@ -1,35 +1,9 @@
 package com.lilithsthrone.game;
 
-import java.io.File;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
-import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderNames;
-import com.lilithsthrone.game.character.gender.GenderPronoun;
-import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.gender.*;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -41,16 +15,28 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.settings.DifficultyLevel;
-import com.lilithsthrone.game.settings.ForcedFetishTendency;
-import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
-import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.settings.*;
 import com.lilithsthrone.main.Main;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.util.*;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class Properties {
@@ -94,6 +80,11 @@ public class Properties {
 	public int pregnancyLactationIncrease = 250;
 	public int pregnancyLactationLimit = 1000;
 	
+	public int breastSizePreference = 0;
+	public int penisSizePreference = 0;
+//	public String[] breastSizePreferenceLabels = new String[] {"Minimum", "Tiny", "Small", "Reduced", "Default", "Big", "Huge", "Massive", "Maximum"};
+//	public int[] breastSizePreferenceMultiplierLabels = new int[] {-8, -6, -4, -2, 0, 2, 4, 8, 16};
+	
 	public Set<PropertyValue> values;
 	
 	public DifficultyLevel difficultyLevel = DifficultyLevel.NORMAL;
@@ -135,6 +126,13 @@ public class Properties {
 	private Set<Subspecies> subspeciesAdvancedKnowledge;
 
 	public Properties() {
+		values = new HashSet<>();
+		for(PropertyValue value : PropertyValue.values()) {
+			if(value.getDefaultValue()) {
+				values.add(value);
+			}
+		}
+
 		hotkeyMapPrimary = new EnumMap<>(KeyboardAction.class);
 		hotkeyMapSecondary = new EnumMap<>(KeyboardAction.class);
 
@@ -196,14 +194,6 @@ public class Properties {
 		clothingDiscovered = new HashSet<>();
 		subspeciesDiscovered = new HashSet<>();
 		subspeciesAdvancedKnowledge = new HashSet<>();
-		
-		values = new HashSet<>();
-		
-		for(PropertyValue value : PropertyValue.values()) {
-			if(value.getDefaultValue()) {
-				values.add(value);
-			}
-		}
 	}
 	
 	public void savePropertiesAsXML(){
@@ -234,8 +224,10 @@ public class Properties {
 
 			Element valuesElement = doc.createElement("propertyValues");
 			properties.appendChild(valuesElement);
-			for(PropertyValue value : values) {
-				CharacterUtils.createXMLElementWithValue(doc, valuesElement, "propertyValue", value.toString());
+			for(PropertyValue value : PropertyValue.values()) {
+				if(values.contains(value)) {
+					CharacterUtils.createXMLElementWithValue(doc, valuesElement, "propertyValue", value.toString());
+				}
 			}
 			
 			// Game settings:
@@ -257,6 +249,9 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "pregnancyLactationIncreaseVariance", String.valueOf(pregnancyLactationIncreaseVariance));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationIncrease", String.valueOf(pregnancyLactationIncrease));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationLimit", String.valueOf(pregnancyLactationLimit));
+
+			createXMLElementWithValue(doc, settings, "breastSizePreference", String.valueOf(breastSizePreference));
+			createXMLElementWithValue(doc, settings, "penisSizePreference", String.valueOf(penisSizePreference));
 			
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
 
@@ -700,6 +695,9 @@ public class Properties {
 					pregnancyLactationIncreaseVariance = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncreaseVariance").item(0)).getAttribute("value"));
 					pregnancyLactationIncrease = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncrease").item(0)).getAttribute("value"));
 					pregnancyLactationLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationLimit").item(0)).getAttribute("value"));
+
+					breastSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("breastSizePreference").item(0)).getAttribute("value"));
+					penisSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("penisSizePreference").item(0)).getAttribute("value"));
 				}catch(Exception ex) {
 				}
 				

@@ -207,7 +207,7 @@ public class SlimeQueen extends NPC {
 		// For if she grows one:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.FOUR_FAT.getValue());
-		this.setPenisSize(16); // Huge due to her size
+		this.setPenisSize(40); // Huge due to her size
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
 		this.fillCumToMaxStorage();
 		this.setCumFlavour(FluidFlavour.STRAWBERRY);

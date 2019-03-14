@@ -235,9 +235,9 @@ public class RentalMommy extends NPC {
 			this.equipClothingFromNowhere(
 					AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_rentalMommy_rental_mommy"), Colour.CLOTHING_WHITE, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, false), true, this);
 		} catch(Exception ex) {
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_TSHIRT, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_tshirt", Colour.CLOTHING_WHITE, false), true, this);
 		}
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_ANKLE_BOOTS, Colour.CLOTHING_TAN, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_ankle_boots", Colour.CLOTHING_TAN, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
 
 	}

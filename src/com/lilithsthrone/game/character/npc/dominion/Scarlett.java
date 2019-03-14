@@ -170,7 +170,7 @@ public class Scarlett extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(3);
+		this.setPenisSize(8);
 		this.setTesticleSize(TesticleSize.ZERO_VESTIGIAL);
 		this.setPenisCumStorage(2);
 		this.fillCumToMaxStorage();

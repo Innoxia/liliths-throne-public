@@ -93,15 +93,15 @@ public class TunnelImpsDialogue {
 		if(isCompanionDialogue()) {
 			idSB.append("Companions");
 		}
-		if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA) {
+		if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)) {
 			// Alpha imp group encounter:
 			idSB.append("Alpha");
 			
-		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON) {
+		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)) {
 			// Demon group encounter:
 			idSB.append("Demon");
 			
-		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES) {
+		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
 			// Female imps encounter:
 			idSB.append("Females");
 			
@@ -845,7 +845,8 @@ public class TunnelImpsDialogue {
 								Main.game.getPlayer().getParty(),
 								null,
 								null,
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 					}
 					
 				} else if(responseTab == 1) {

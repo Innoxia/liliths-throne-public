@@ -220,7 +220,7 @@ public class FortressFemalesLeader extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_FISHNET_GLOVES, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_stiletto_heels", Colour.CLOTHING_PINK, false), true, this);
 		
 		if(addAccessories) {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
@@ -340,7 +340,7 @@ public class FortressFemalesLeader extends NPC {
 			return new Response("", "", ImpFortressDialogue.KEEP_AFTER_COMBAT_VICTORY) {
 				@Override
 				public void effects() {
-					if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_3)) {
+					if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_3) && !Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
 						Main.game.getTextEndStringBuilder().append(
 								UtilText.parseFromXMLFile("places/submission/fortress"+ImpFortressDialogue.getDialogueEncounterId(), "KEEP_AFTER_COMBAT_VICTORY_KEY", ImpFortressDialogue.getAllCharacters()));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3), false));

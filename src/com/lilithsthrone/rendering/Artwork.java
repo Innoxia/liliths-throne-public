@@ -92,7 +92,8 @@ public class Artwork {
 		for (File f : Objects.requireNonNull(folder.listFiles((dir, name) ->
 				name.endsWith(".jpg") || name.endsWith(".jpeg")
 				|| name.endsWith(".png")
-				|| name.endsWith(".bmp")))) {
+				|| name.endsWith(".bmp")
+				|| name.endsWith((".gif"))))) {
 			if (f.getName().startsWith("partial"))
 				partialImages.add(f.getAbsolutePath());
 			else if (f.getName().startsWith("naked"))

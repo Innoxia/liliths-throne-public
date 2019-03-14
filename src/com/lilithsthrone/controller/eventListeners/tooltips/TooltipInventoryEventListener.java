@@ -186,31 +186,38 @@ public class TooltipInventoryEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 			
 		} else if (genericClothing != null) {
-
-			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
-
+			String author = genericClothing.getAuthorDescription();
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 480+(author.isEmpty()?0:64));
+			
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title' style='color:" + genericClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(genericClothing.getName()) + "</div>"
 					
 					+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
 
-					+ "<div class='picture full' style='position:relative;'>" + genericClothing.getSVGImage(colour,
+					+ "<div class='picture' style='position:relative; width:"+(TOOLTIP_WIDTH-24)+"px; margin:8px; padding:0; height:"+(TOOLTIP_WIDTH-24)+"px;'>"
+						+ genericClothing.getSVGImage(colour,
 							genericClothing.getAvailableSecondaryColours().isEmpty()?null:genericClothing.getAvailableSecondaryColours().get(0),
 							genericClothing.getAvailableTertiaryColours().isEmpty()?null:genericClothing.getAvailableTertiaryColours().get(0),
-							null, null, null, null) + "</div>");
+							null, null, null, null)
+					+ "</div>"
+					+ (author.isEmpty()?"":"<div class='description' style='height:48px;'>" + author + "</div>"));
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (genericWeapon != null) {
 
-			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
+			String author = genericWeapon.getAuthorDescription();
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 480+(author.isEmpty()?0:64));
 
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title' style='color:" + genericWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(genericWeapon.getName()) + "</div>"
 
 					+ "<div class='subTitle'>" + Util.capitaliseSentence(dt.getName()) + "</div>"
 
-					+ "<div class='picture full'>" + genericWeapon.getSVGImage(dt, null, null) + "</div>");
+					+ "<div class='picture'style='position:relative; width:"+(TOOLTIP_WIDTH-24)+"px; margin:8px; padding:0; height:"+(TOOLTIP_WIDTH-24)+"px;'>"
+						+ genericWeapon.getSVGImage(dt, null, null)
+					+ "</div>"
+					+ (author.isEmpty()?"":"<div class='description' style='height:48px;'>" + author + "</div>"));
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -787,7 +794,11 @@ public class TooltipInventoryEventListener implements EventListener {
 		int yIncrease = 0;
 		int listIncrease = 2 + absWep.getAttributeModifiers().size();
 		listIncrease += absWep.getSpells().size();
-		
+
+		String author = absWep.getWeaponType().getAuthorDescription();
+		if(!author.isEmpty()) {
+			yIncrease+=5;
+		}
 		
 		// Title:
 		tooltipSB.setLength(0);
@@ -909,6 +920,10 @@ public class TooltipInventoryEventListener implements EventListener {
 		} else {
 			tooltipSB.append("<div class='container-full-width titular'>" + "Value: "+UtilText.formatAsMoney(absWep.getValue()) + "</div>");
 		}
+
+		if(!author.isEmpty()) {
+			tooltipSB.append("<div class='description' style='height:52px;'>" + author + "</div>");
+		}
 		
 		tooltipSB.append("</body>");
 
@@ -934,7 +949,11 @@ public class TooltipInventoryEventListener implements EventListener {
 			}
 		}
 		yIncrease += Math.max(0, listIncrease-4);
-		
+
+		String author = absClothing.getClothingType().getAuthorDescription();
+		if(!author.isEmpty()) {
+			yIncrease+=4;
+		}
 		
 		// Title:
 		tooltipSB.setLength(0);
@@ -1045,6 +1064,10 @@ public class TooltipInventoryEventListener implements EventListener {
 			}
 		} else {
 			tooltipSB.append("<div class='container-full-width titular'>Value: "+ (absClothing.isEnchantmentKnown() ? UtilText.formatAsMoney(absClothing.getValue()) : UtilText.formatAsMoney("?", "b")) + "</div>");
+		}
+
+		if(!author.isEmpty()) {
+			tooltipSB.append("<div class='description' style='height:52px;'>" + author + "</div>");
 		}
 		
 		tooltipSB.append("</body>");

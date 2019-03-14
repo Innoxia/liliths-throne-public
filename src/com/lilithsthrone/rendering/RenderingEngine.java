@@ -1,12 +1,10 @@
 package com.lilithsthrone.rendering;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -31,13 +29,13 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
+import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -55,20 +53,25 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotGeneric;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Pathing;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractGlobalPlaceType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.2.12
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -119,7 +122,7 @@ public enum RenderingEngine {
 	private StringBuilder inventorySB = new StringBuilder(), equippedPanelSB = new StringBuilder();
 	
 	public String getInventoryPanel(GameCharacter charactersInventoryToRender, boolean buyback) {
-		return "<div class='container-full-width' style=''background:#45aac1>"
+		return "<div class='container-full-width' style='background:#19191a'>"
 					+getInventoryDiv(Main.game.getPlayer(), false) + getInventoryDiv(charactersInventoryToRender, buyback)
 				+"</div>";
 	}
@@ -882,6 +885,40 @@ public enum RenderingEngine {
 
 	private DialogueNode renderedDialogueNode = null;
 	
+	private String getDefaultAttributeColumnHeader() {
+		String mainTitle = Main.game.getPlayer().getWorldLocation().getName();
+		String mainTitleColour = Main.game.getPlayer().getWorldLocation().getColour().toWebHexString();
+
+		AbstractPlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
+		
+		if(Main.game.getPlayer().getLocationPlace()!=null) {
+			place = Main.game.getPlayer().getLocationPlace().getPlaceType();
+		}
+		
+		String placeTitle = place.getName();
+		String placeColour = place.getColourString();
+		
+		if(Main.game.isInGlobalMap()) {
+			mainTitle = place.getName();
+			mainTitleColour = place.getColourString();
+			
+			placeTitle = place.isLand()?"Terrestrial":"Aquatic";
+			placeColour = place.isLand()?Colour.SPELL_SCHOOL_EARTH.toWebHexString():Colour.SPELL_SCHOOL_WATER.toWebHexString();
+		}
+		
+		
+		return "<div class='full-width-container'>"
+					+ "<p class='character-name' style='color:"+ mainTitleColour + ";'>"
+						+ Util.capitaliseSentence(mainTitle)
+					+ "</p>"
+				+ "</div>"
+				+ "<div class='full-width-container' style='margin:0;padding:0;'>"
+					+ "<p style='text-align:center;"+ (placeColour.isEmpty()?"":" color:"+placeColour+";")+ "'>"
+						+ Util.capitaliseSentence(placeTitle)
+					+"</p>"
+				+ "</div>";
+	}
+	
 	public void renderAttributesPanelLeft() {
 		uiAttributeSB.setLength(0);
 		
@@ -894,21 +931,21 @@ public enum RenderingEngine {
 				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
 					+ "<div class='full-width-container'>"
 						+ "<p class='character-name' style='color:"+ (Sex.isDom(Main.game.getPlayer())
-								?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants().size()>1?"s":"")+"</b>"
-								:Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants().size()>1?"s":"")+"</b>")
+								?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants(true).size()>1?"s":"")+"</b>"
+								:Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants(true).size()>1?"s":"")+"</b>")
 						+"</p>"
 					+ "</div>"
 				+ "</div>"
 				+ "<div class='full-width-container' style='height: calc(100% - 128vw); overflow-y: auto;'>");
 			
 			if(Sex.isDom(Main.game.getPlayer())) {
-				for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-					uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getDominantParticipants().size()>1, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
+				for(GameCharacter character : Sex.getDominantParticipants(true).keySet()) {
+					uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getDominantParticipants(true).size()>1, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
 				}
 				
 			} else {
-				for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
-					uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getSubmissiveParticipants().size()>1, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
+				for(GameCharacter character : Sex.getSubmissiveParticipants(true).keySet()) {
+					uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getSubmissiveParticipants(true).size()>1, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
 				}
 			}
 			
@@ -938,25 +975,11 @@ public enum RenderingEngine {
 			
 			
 		} else {
-			// Name box: TODO
-			PlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
-			if(Main.game.getPlayer().getLocationPlace()!=null) {
-				place = Main.game.getPlayer().getLocationPlace().getPlaceType();
-			}
-			uiAttributeSB.append(
-				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
-					+ "<div class='full-width-container'>"
-						+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
-							+ Main.game.getPlayer().getWorldLocation().getName()
-						+ "</p>"
-					+ "</div>"
-					+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-						+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
-							+ place.getName()
-						+"</p>"
-					+ "</div>"
-				+ "</div>"
-				+ "<div class='full-width-container' style='height: calc(100% - 138vw); overflow-y: auto;'>");
+			// Default place name box:
+			uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+									+ getDefaultAttributeColumnHeader()
+									+"</div>"
+							+ "<div class='full-width-container' style='height: calc(100% - 138vw); overflow-y: auto;'>");
 			
 			uiAttributeSB.append(getCharacterPanelDiv(!Main.game.getPlayer().getCompanions().isEmpty(), "PLAYER_", Main.game.getPlayer()));
 			
@@ -972,7 +995,7 @@ public enum RenderingEngine {
 		}
 
 		uiAttributeSB.append("</div>");
-		
+
 		uiAttributeSB.append(
 				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
 					+ "<div class='half-width-container' style='text-align:center; float:left; width:60%'>"
@@ -981,10 +1004,7 @@ public enum RenderingEngine {
 								+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()
 							+ "</div>"
 							+ (Main.getProperties().hasValue(PropertyValue.calendarDisplay)
-								? Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
-									+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
-									+ " "
-									+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
+								? Main.game.getDisplayDate(false)
 								:"Day "+Main.game.getDayNumber())
 						+ "</div>"	
 					+"</div>"
@@ -1006,16 +1026,14 @@ public enum RenderingEngine {
 							+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
 					+ "</div>");
 		}
-		
-		uiAttributeSB.append((Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
-								?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH))
-								:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mma", Locale.ENGLISH)))
-							+"</div>"
+
+		uiAttributeSB.append(Units.time(Main.game.getDateNow()) + "</div>"
 					+ "</div>"
 				+ "</div>");
 		
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
 			uiAttributeSB.append(getInventoryEquippedPanel(Main.game.getPlayer()));
+			
 		} else {
 			uiAttributeSB.append("<div>" + renderedHTMLMap() + "</div>");
 		}
@@ -1094,21 +1112,21 @@ public enum RenderingEngine {
 						"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
 						+ "<div class='full-width-container'>"
 							+ "<p class='character-name' style='color:"+ (!Sex.isDom(Main.game.getPlayer())
-									?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants().size()>1?"s":"")
-									:Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants().size()>1?"s":""))
+									?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants(true).size()>1?"s":"")
+									:Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants(true).size()>1?"s":""))
 							+"</p>"
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='full-width-container' style='height: calc(100% - 128vw); overflow-y: auto;'>");
 				
 				if(!Sex.isDom(Main.game.getPlayer())) {
-					for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-						uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getDominantParticipants().size()>1, "NPC_"+character.getId()+"_", character));
+					for(GameCharacter character : Sex.getDominantParticipants(true).keySet()) {
+						uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getDominantParticipants(true).size()>1, "NPC_"+character.getId()+"_", character));
 					}
 					
 				} else {
-					for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
-						uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getSubmissiveParticipants().size()>1, "NPC_"+character.getId()+"_", character));
+					for(GameCharacter character : Sex.getSubmissiveParticipants(true).keySet()) {
+						uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getSubmissiveParticipants(true).size()>1, "NPC_"+character.getId()+"_", character));
 					}
 				}
 				uiAttributeSB.append("</div>");
@@ -1136,31 +1154,18 @@ public enum RenderingEngine {
 				
 				
 			} else {
-				// Name box: TODO
-				PlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
-				if(Main.game.getPlayer().getLocationPlace()!=null) {
-					place = Main.game.getPlayer().getLocationPlace().getPlaceType();
-				}
-				uiAttributeSB.append(
-					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
-						+ "<div class='full-width-container'>"
-							+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
-								+ Main.game.getPlayer().getWorldLocation().getName()
-							+ "</p>"
-						+ "</div>"
-						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-							+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
-								+ place.getName()
-							+"</p>"
-						+ "</div>"
-					+ "</div>"
-					+ "<div class='full-width-container' style='height: calc(100% - 138vw); overflow-y: auto;'>");
+				// Default place name box:
+				uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+										+ getDefaultAttributeColumnHeader()
+									+"</div>"
+									+ "<div class='full-width-container' style='height: calc(100% - 138vw); overflow-y: auto;'>");
 				
 				uiAttributeSB.append(getCharacterPanelDiv(true, "NPC_"+getCharacterToRender().getId()+"_", getCharacterToRender()));
 				
 				uiAttributeSB.append("</div>");
 
 			}
+			
 			uiAttributeSB.append(
 					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
 							+ "<div class='full-width-container' style='text-align:center;'>"
@@ -1178,24 +1183,15 @@ public enum RenderingEngine {
 
 			uiAttributeSB.append("<div class='full'>");
 			
-			PlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
+			AbstractPlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
 			if(Main.game.getPlayer().getLocationPlace()!=null) {
 				place = Main.game.getPlayer().getLocationPlace().getPlaceType();
 			}
+			// Default place name box:
 			uiAttributeSB.append(
-							// Name box:
 					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
-					+ "<div class='full-width-container'>"
-						+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
-							+ Main.game.getPlayer().getWorldLocation().getName()
-						+ "</p>"
-					+ "</div>"
-					+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-						+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
-							+ place.getName()
-						+"</p>"
-					+ "</div>"
-				+ "</div>");
+						+ getDefaultAttributeColumnHeader()
+					+ "</div>");
 			
 			// Characters Present:
 			uiAttributeSB.append("<div class='attribute-container effects'>"
@@ -1399,135 +1395,94 @@ public enum RenderingEngine {
 			return Main.game.getPlayer().getFemininity().getColour();
 		}
 	}
-
-	public String getFullWorldMap() {
-		mapSB.setLength(0);
-		
-		if(Main.game.getPlayer().hasSpell(Spell.TELEPORT) || Main.game.isDebugMode()) {
-			mapSB.append("<div class='container-full-width'>"
-						+ "[style.italicsMinorBad(Travel across the world map hasn't been implemented yet, but the Foloi fields, forests, grassland, river, and Elis will be added soon!)]" //TODO
-					+ "</div>");
-		}
-
-		Cell[][] grid = Main.game.getWorlds().get(WorldType.WORLD_MAP).getGrid();
-		int divWidth = (Math.min(75, grid.length*10));
-		mapSB.append("<div class='container-full-width' style='width:"+divWidth+"%; margin:2% "+((100-divWidth)/2)+"%; float:left;'>");
-		
-		float width = 100f/grid.length;
-		for(int i=grid[0].length-1; i>=0; i--) {
-			for(int j=0; j<grid.length; j++) {
-				Cell c = grid[j][i];
-				
-				String background = "background-color:"+c.getPlace().getPlaceType().getColourString()+";";
-				
-				boolean playerOnTile = Main.game.getPlayer().getGlobalLocation().getX()==j && Main.game.getPlayer().getGlobalLocation().getY()==i;
-				// width:calc("+(width)+"% - 2px); margin:1px; border-radius:2px;
-				// 
-				mapSB.append("<div class='map-icon' style='width:"+(width)+"% ; margin:0; border-radius:0; border-width:1px 1px 0 0; border-style:solid; border-color:#222; "+background
-								+" cursor:pointer; opacity:"+(c.isTravelledTo() || c.getPlace().getPlaceType()==PlaceType.WORLD_MAP_DOMINION?1:0.5)+";'" //TODO 
-								+ " id='WORLD_MAP_NODE_" + i + "_" + j + "'>"
-								+(playerOnTile && (c.getPlace() == null || c.getPlace().getSVGString()==null)
-									?getPlayerIcon(false)
-									:"")
-							+(playerOnTile?"<div class='overlay map-player'></div>":""));
-				
-				mapSB.append("</div>");
-			}
-		}
-		
-		mapSB.append("</div>");
-
-		return mapSB.toString();
-	}
 	
-	public String getFullMap(WorldType world, boolean withFastTravelAndIcons) {
+	public String getFullMap(WorldType world, boolean withFastTravel, boolean withNPCIcons) {
 
 //		long t1 = System.nanoTime();
 		
 		mapSB.setLength(0);
-		
-		if(withFastTravelAndIcons) {
-			boolean isAbleToTeleport = (Main.game.getPlayer().isAbleToTeleport() || Main.game.isDebugMode())
-						&& !Main.game.getSavedDialogueNode().isTravelDisabled()
-						&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
-					;
-			
-			if(Main.game.getPlayer().hasSpell(Spell.TELEPORT) || Main.game.isDebugMode()) {
-				mapSB.append("<div class='container-full-width'>"
-						+ (isAbleToTeleport
-								?"[style.boldArcane(Teleport:)] You are currently able to teleport to locations you've previously visited!"
-										+ (Main.game.isDebugMode()
-												?" [style.italicsOrange(As debug mode is on, this costs nothing, and you can teleport you and your party anywhere.)]"
-												:" This will cost <b>"+Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())+"</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+".")
-								:"[style.boldBad(Teleport:)] Teleport is unavailable! You need to:"
-									+(!Main.game.getPlayer().getCompanions().isEmpty() && !Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPORT_2)
-										?"<br/><b>-</b> Either learn the upgrade '"+SpellUpgrade.TELEPORT_2.getName()+"', or dismiss your party members."
-										:"")
-									+(Main.game.getSavedDialogueNode().isTravelDisabled()
-										?"<br/><b>-</b> Not be in the middle of a special scene."
-										:"")
-									+(Main.game.getPlayer().getMana()<Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
-											?"<br/><b>-</b> Have at least <b>"+Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())+"</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"."
-											:""))
-						
-						+ "</div>");
-			}
-		}
 
 		Cell[][] grid = Main.game.getWorlds().get(world).getGrid();
-		int divWidth = (Math.min(75, grid.length*10));
-		mapSB.append("<div class='container-full-width' style='width:"+divWidth+"%; margin:2% "+((100-divWidth)/2)+"%; float:left;'>");
+		int divWidth = (Math.min(70, grid.length*10));
+		if(withFastTravel) {
+			mapSB.append("<div class='container-full-width' style='background:transparent; display: flex;'>"
+					+ "<div class='container-full-width' style='width:"+divWidth+"%; margin:0; padding:0; float:left;'>");
+		} else {
+			mapSB.append("<div class='container-full-width' style='width:"+divWidth+"%; margin:2% "+((100-divWidth)/2)+"%; float:left;'>");
+		}
 		
 		float width = 100f/grid.length;
 		for(int i=grid[0].length-1; i>=0; i--) {
 			for(int j=0; j<grid.length; j++) {
 				Cell c = grid[j][i];
 				
+				boolean worldMap = world==WorldType.WORLD_MAP;
 				boolean discovered = c.isDiscovered() || Main.game.isMapReveal();
+				boolean showPathing = Main.game.getPlayer().getWorldLocation().equals(world) || Pathing.getMapTravelType()==MapTravelType.TELEPORT;
+				boolean path = Pathing.getPathingCells().contains(c);
+				boolean endPath = Pathing.getEndPoint()!=null && new Vector2i(j, i).equals(Pathing.getEndPoint());
+				boolean dangerousTile = c.getPlace().getPlaceType().isDangerous();
+				AbstractPlaceType placeType = c.getPlace().getPlaceType();
 				
-				String background = c.getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE
-									?"background:transparent;"
-									:c.getPlace().getPlaceType().isDangerous() && discovered
-										?""
-										:discovered
-											?"background-color:"+c.getPlace().getPlaceType().getBackgroundColour().toWebHexString()+";"
-											:"background-color:"+Colour.MAP_BACKGROUND_UNEXPLORED.toWebHexString()+";";
+				String background;
+				if(placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
+					background = "background:transparent;";
+				} else {
+					background = dangerousTile && discovered //&& !worldMap
+							?getDangerousBackground(placeType)
+							:discovered
+								?"background-color:"+placeType.getBackgroundColourString()+";"
+								:"background-color:"+Colour.MAP_BACKGROUND_UNEXPLORED.toWebHexString()+";";
+				}
 				
-				if(!discovered || c.getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE) {
+				if(!discovered || placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
 					mapSB.append("<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+background+"'></div>");
 					
 				} else {
-					String border = c.getPlace() != null && c.getPlace().getPlaceType().getColour()!=null
-									?"border:1px solid; border-color:"+c.getPlace().getPlaceType().getColour().toWebHexString()+";"
-									:"border:1px solid; border-color:#ffffff;";
+					String border = (c.getPlace() != null && !placeType.getColourString().isEmpty()
+										?"border:1px solid; border-color:"+placeType.getColourString()+";"
+										:"border:1px solid; border-color:#ffffff;")
+									+ (grid.length>25
+											?"width:"+(width)+"%; margin:0; border-radius:0; border-width:0.5px 0.5px 0.5px 0.5px; border-style:solid; border-color:"
+//												+(dangerousTile
+//														?BaseColour.RED_DARK.toWebHexString()
+//														:Colour.GENERIC_GOOD.toWebHexString())
+													+"#222"
+												+";"
+											:"");
 					
 					boolean playerOnTile = Main.game.getPlayer().getWorldLocation()==world && Main.game.getPlayer().getLocation().getX()==j && Main.game.getPlayer().getLocation().getY()==i;
-					boolean dangerousTile = c.getPlace().getPlaceType().isDangerous();
+					if(worldMap) {
+						playerOnTile = Main.game.getPlayer().getGlobalLocation().getX()==j && Main.game.getPlayer().getGlobalLocation().getY()==i;
+					}
+					
+					boolean canTeleportToTile = !placeType.equals(PlaceType.GENERIC_IMPASSABLE)
+										&& ((Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()) && c.isTravelledTo() && Main.game.getPlayer().isAbleToTeleport()) || Main.game.isDebugMode());
+					
+//					if(path) {
+//						background = "background-color: "+(dangerousTile?Colour.GENERIC_MINOR_BAD:Colour.GENERIC_MINOR_GOOD).toWebHexString()+";";
+//					}
 					
 					mapSB.append(
-							"<div class='map-icon"+(dangerousTile?" dangerous":"")+"'"
-									+ " style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+" opacity:"+(c.isTravelledTo()?1:0.5)+"; "
-										+(c.getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE
-												&& ((Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
-														&& c.isTravelledTo()
-														&& Main.game.getPlayer().isAbleToTeleport())
-													|| Main.game.isDebugMode())
-											?"cursor:pointer;"
-											:"")
-									+"' id='MAP_NODE_" + i + "_" + j + "'>"
-								+(playerOnTile && (c.getPlace() == null || c.getPlace().getSVGString()==null)
-									?getPlayerIcon(dangerousTile)
-									:"")
+							"<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+" opacity:"+(c.isTravelledTo()||path?1:0.5)+"; "
+										+(canTeleportToTile?"cursor:pointer;":"")+"' id='MAP_NODE_" + i + "_" + j + "'>"
+								+(playerOnTile?"<div class='overlay map-player' style='background-color:"+BaseColour.AQUA.toWebHexString()+";'></div>":"")
+								+(showPathing && endPath && !playerOnTile?"<div class='overlay map-player' style='background-color:"+(dangerousTile?BaseColour.ORANGE:BaseColour.YELLOW).toWebHexString()+";'></div>":"")
+								+(showPathing && path && !endPath && !playerOnTile
+										?"<div class='overlay map-player' style='background-color:"+(dangerousTile?Colour.GENERIC_BAD:Colour.GENERIC_GOOD).toWebHexString()+";"+(worldMap?"border-radius:0;":"")+"'></div>"
+										:"")
 								+ (c.getPlace() != null && c.getPlace().getSVGString()!=null
-									? "<div class='map-icon-content' style='background-color:"+c.getPlace().getPlaceType().getColour().toWebHexString()+";"
-											+ " width:75%; height:75%; margin:12.5%; border-radius:50%;"
+									? "<div class='map-icon-content' style='background-color:"+placeType.getColourString()+"; width:75%; height:75%; margin:12.5%; border-radius:50%;"
 										+(playerOnTile?" border:2px solid "+getPlayerIconColour(dangerousTile).toWebHexString()+";":"")+"'>"
 											+c.getPlace().getSVGString()+"</div>"
 									: "")
-								+(playerOnTile?"<div class='overlay map-player'></div>":""));
+								+(playerOnTile && (c.getPlace() == null || c.getPlace().getSVGString()==null)
+										?getPlayerIcon(dangerousTile)
+										:"")
+								);
 
-					if(withFastTravelAndIcons) {
-						appendNPCIcon(Main.game.getWorlds().get(world), j, i);
+					if(withNPCIcons) {
+						appendNPCIcon(Main.game.getWorlds().get(world), j, i, width);
 					}
 //					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
 					
@@ -1535,9 +1490,107 @@ public enum RenderingEngine {
 				}
 			}
 		}
+
+		if(withFastTravel) {
+			String buttonStyle= "width:60%; min-width:0; margin:0 20% 4px 20%;";
+			mapSB.append("</div>"
+						+ "<div class='container-full-width' style='width:28%; margin:0 0 0 2%; padding:0; float:left;'>"
+							+ "<p style='text-align:center;'>[style.bold(Fast Travel)]</p>");
+			
+			for(MapTravelType type : MapTravelType.values()) {
+				if(!type.isAvailable(Main.game.getPlayer())) {
+					mapSB.append("<div id='"+type.toString()+"' class='cosmetics-button disabled' style='"+buttonStyle+"'>"
+							+Util.capitaliseSentence(type.getName())
+						+ "</div>");
+					
+				} else if(Pathing.getMapTravelType()==type){
+					mapSB.append("<div id='"+type.toString()+"' class='cosmetics-button active' style='"+buttonStyle+"'>"
+							+ "<span style='color:"+type.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(type.getName())+"</span>"
+						+ "</div>");
+					
+				} else {
+					mapSB.append("<div id='"+type.toString()+"' class='cosmetics-button' style='"+buttonStyle+"'>"
+							+ "<span style='color:"+type.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(type.getName())+"</span>"
+						+ "</div>");
+				}
+			}
+			
+			mapSB.append(
+					"<br/>"
+					+ "<p>");//style='margin-bottom:28px;'
+			
+			boolean travelDestinationSelected = !Pathing.getEndPoint().equals(Main.game.getPlayer().getLocation())
+					|| (Pathing.getMapTravelType()==MapTravelType.TELEPORT && !Main.game.getPlayer().getWorldLocation().equals(Pathing.getDestinationWorld()));
+			
+			if(!travelDestinationSelected) {
+				if(!world.equals(Main.game.getPlayer().getWorldLocation()) && Pathing.getMapTravelType()!=MapTravelType.TELEPORT) {
+					mapSB.append("[style.italicsBad(You cannot use this fast travel method to travel between different maps.)]");
+					
+				} else if(Main.game.getSavedDialogueNode()!=null && Main.game.getSavedDialogueNode().isTravelDisabled()) {
+					mapSB.append("[style.italicsBad(You cannot fast travel while in the middle of a scene!)]");
+					
+				} else if(!Pathing.getMapTravelType().isAvailable(Main.game.getPlayer())){
+					mapSB.append("[style.italicsBad("+Pathing.getMapTravelType().getUnavailablilityDescription(Main.game.getPlayer())+")]");
+					
+				} else {
+					mapSB.append(Pathing.getMapTravelType().getUseInstructions());
+				}
+				
+			} else {
+				int minutes = Pathing.getTravelTime()/60;
+				int hours = minutes/60;
+				String time =
+						hours>0
+							?Util.capitaliseSentence(Util.intToString(hours))+" hour"+(hours==1?"":"s")
+								+(minutes%60==0
+									?""
+									:", "+Util.intToString(minutes%60)+" minute"+(minutes==1?"":"s"))
+							:(minutes==0
+								?"Less than a minute"
+								:Util.capitaliseSentence(Util.intToString(minutes%60))+" minute"+(minutes==1?"":"s"));
+								
+				int dangerousTiles = Pathing.getDangerousTilesCrossed();
+				
+				switch(Pathing.getMapTravelType()) {
+					case FLYING:
+						mapSB.append("Estimated travel time:<br/>"+(hours>0?"[style.boldMinorBad(":"[style.boldMinorGood(")+time+")]"
+								+"<br/><br/>"
+								+ (dangerousTiles==0
+									?"[style.colourGood(Zero)] dangerous tiles will be encountered, as you fly over any in your way!"
+									:"[style.colourBad(One)] dangerous tile will be encountered (that being your destination)."));
+						break;
+					case TELEPORT:
+						mapSB.append("Estimated travel time:<br/>[style.boldExcellent(Five seconds)]"
+								+ "<br/><br/>"
+								+ (dangerousTiles==0
+									?"[style.colourGood(Zero)] dangerous tiles will be encountered, as you teleport past them all!"
+									:"[style.colourBad(One)] dangerous tile will be encountered (that being your destination)."));
+						break;
+					case WALK_DANGEROUS:
+					case WALK_SAFE:
+						mapSB.append("Estimated travel time:<br/>"+(hours>0?"[style.boldMinorBad(":"[style.boldMinorGood(")+time+")]"
+								+"<br/><br/>"+(dangerousTiles>0?"[style.colourBad(":"[style.colourGood(")+Util.capitaliseSentence(Util.intToString(dangerousTiles))+")] dangerous tile"+(dangerousTiles==1?"":"s")+" will be encountered!");
+						break;
+				}
+			}
+			
+			mapSB.append("</p>");
+
+//			if(travelDestinationSelected) {
+//				mapSB.append("<div id='TRAVEL_EXECUTE' class='cosmetics-button' style='"+buttonStyle+" position:absolute; bottom:0;'>"
+//						+ "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Go</span>"
+//					+ "</div>");
+//			} else {
+//				mapSB.append("<div id='TRAVEL_EXECUTE' class='cosmetics-button disabled' style='"+buttonStyle+" position:absolute; bottom:0;'>"
+//						+ "Go"
+//					+ "</div>");
+//			}
+			
+			mapSB.append("</div>");
+		}
 		
 		mapSB.append("</div>");
-
+		
 //		long t2 = System.nanoTime();
 //		System.out.println(Main.game.getAllNPCs().size()+" Full map: "+(t2-t1)/1000000000f);
 		
@@ -1560,6 +1613,31 @@ public enum RenderingEngine {
 		}
 	}
 	
+	private static String getDangerousBackground(AbstractPlaceType placeType) {
+		if(placeType instanceof AbstractGlobalPlaceType) {
+			return "background:"+placeType.getBackgroundColourString()+";";
+		}
+		
+		String backgroundColour1;
+		String backgroundColour2;
+		try {
+			backgroundColour1 = placeType.getBackgroundColour().getShades()[0];
+			backgroundColour2 = placeType.getBackgroundColour().toWebHexString();
+		} catch (Exception e) {
+			backgroundColour1 = Colour.TEXT_GREY_DARK.toWebHexString();
+			backgroundColour2 = placeType.getBackgroundColourString();
+		}
+		
+		return "background: repeating-linear-gradient("
+				+"135deg,"
+				+backgroundColour1+","
+				+backgroundColour1+" 20%,"
+				
+				+backgroundColour2+" 20%,"
+				+backgroundColour2+" 40%"
+				+");";
+	}
+	
 	public String renderedHTMLMap() {
 		
 //		long t1 = System.nanoTime();
@@ -1579,27 +1657,27 @@ public enum RenderingEngine {
 		String tileWidthStyle = "width:" + unit + "%; border-width:1%; margin:"+(zoomedIn?1:0.5)+"%;";
 
 		Vector2i playerPosition = Main.game.getPlayer().getLocation();
-
+		
 		// It looks messy, but it works...
 		for (int y = playerPosition.getY() + mapSize; y >= playerPosition.getY() - mapSize; y--) {
 			for (int x = playerPosition.getX() - mapSize; x <= playerPosition.getX() + mapSize; x++) {
 				
 				if (x < Main.game.getActiveWorld().WORLD_WIDTH && x >= 0 && y < Main.game.getActiveWorld().WORLD_HEIGHT && y >= 0) {// If within  bounds of map:
-					PlaceType placeType = Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType();
+					AbstractPlaceType placeType = Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType();
 
 					if (Main.game.getActiveWorld().getCell(x, y).isDiscovered() || Main.game.isMapReveal()) { // If the tile is discovered:
 
-						if (placeType == PlaceType.GENERIC_IMPASSABLE) {
+						if (placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
 							mapSB.append("<div class='map-tile blank' style='"+tileWidthStyle+"'></div>");
+							
 						} else {
-
 							// This is the "move North" tile:
-							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && placeType != PlaceType.GENERIC_IMPASSABLE) {
+							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && !placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='"+tileWidthStyle+"'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='"+tileWidthStyle+getDangerousBackground(placeType)+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='upButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
+									mapSB.append("<div class='map-tile movement' id='upButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColourString()+"; border-color:"+
 												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
 														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
@@ -1615,7 +1693,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH).getFullName()) + "</b>");
 								
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
@@ -1623,12 +1701,12 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move South" tile:
-							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && placeType != PlaceType.GENERIC_IMPASSABLE) {
+							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && !placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='"+tileWidthStyle+"'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='"+tileWidthStyle+getDangerousBackground(placeType)+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='downButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
+									mapSB.append("<div class='map-tile movement' id='downButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColourString()+"; border-color:"+
 												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
 														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
@@ -1644,7 +1722,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH).getFullName()) + "</b>");
 
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
@@ -1652,12 +1730,12 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move West" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && placeType != PlaceType.GENERIC_IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && !placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='"+tileWidthStyle+"'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='"+tileWidthStyle+getDangerousBackground(placeType)+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='leftButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
+									mapSB.append("<div class='map-tile movement' id='leftButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColourString()+"; border-color:"+
 												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
 														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
@@ -1673,7 +1751,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST).getFullName()) + "</b>");
 
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
@@ -1681,12 +1759,12 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move East" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && placeType != PlaceType.GENERIC_IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && !placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='"+tileWidthStyle+"'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='"+tileWidthStyle+getDangerousBackground(placeType)+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='rightButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
+									mapSB.append("<div class='map-tile movement' id='rightButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColourString()+"; border-color:"+
 												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
 														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
@@ -1702,7 +1780,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST).getFullName()) + "</b>");
 
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
@@ -1711,10 +1789,10 @@ public enum RenderingEngine {
 
 							} else {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile" + (y == playerPosition.getY() && x == playerPosition.getX() ? " player dangerous" : " dangerous") + "' style='"+tileWidthStyle+"'>");
+									mapSB.append("<div class='map-tile" + (y == playerPosition.getY() && x == playerPosition.getX() ? " player dangerous" : " dangerous") + "' style='"+tileWidthStyle+getDangerousBackground(placeType)+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile" + (y == playerPosition.getY() && x == playerPosition.getX() ? " player" : "") + "' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+";'>");
+									mapSB.append("<div class='map-tile" + (y == playerPosition.getY() && x == playerPosition.getX() ? " player" : "") + "' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColourString()+";'>");
 									
 								}
 
@@ -1730,7 +1808,6 @@ public enum RenderingEngine {
 									}
 
 								} else if (y == playerPosition.getY() && x == playerPosition.getX()) {
-
 									if (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 										mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapDangerousIcon() + "</div></div>");
 									} else {
@@ -1746,7 +1823,7 @@ public enum RenderingEngine {
 									}
 								}
 								
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 
@@ -1770,6 +1847,7 @@ public enum RenderingEngine {
 		if(!Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().isTravelDisabled()) {
 			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
 			renderedDisabledMap = true;
+			
 		} else {
 			renderedDisabledMap = false;
 		}
@@ -1784,24 +1862,27 @@ public enum RenderingEngine {
 		return mapSB.toString();
 	}
 	
-	private void appendNPCIcon(World world, int x, int y) {
+	private void appendNPCIcon(World world, int x, int y, float tileWidth) {
 		
 		List<String> mapIcons = new ArrayList<>();
 		List<NPC> charactersPresent = Main.game.getCharactersPresent(world.getCell(x, y));
 
-		for(NPC gc : charactersPresent) {
-			mapIcons.add(gc.getMapIcon());
-		}
-		
-		List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y));
-		for(NPC gc : charactersHome) {
-			if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || (x!=0 && y!=0))) {// && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
-				mapIcons.add(gc.getHomeMapIcon());
+		if(!charactersPresent.isEmpty()) {
+			for(NPC gc : charactersPresent) {
+				mapIcons.add(gc.getMapIcon());
 			}
-		}
-		
-		for(int i = mapIcons.size() ; i>0 ; i--) {
-			mapSB.append("<div class='npc-icon' style='left:"+(((i-1)*6)+2)+"px;'>"+mapIcons.get(i-1)+"</div>");
+			
+			List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y));
+			for(NPC gc : charactersHome) {
+				if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || (x!=0 && y!=0))) {// && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
+					mapIcons.add(gc.getHomeMapIcon());
+				}
+			}
+			
+			float increment = Math.min(20, 75/mapIcons.size());
+			for(int i = mapIcons.size() ; i>0 ; i--) {
+				mapSB.append("<div class='npc-icon' style='left:"+(5+((i-1)*increment))+"%;'>"+mapIcons.get(i-1)+"</div>");
+			}
 		}
 	}
 	
@@ -1819,7 +1900,7 @@ public enum RenderingEngine {
 	
 	private void appendNotVisitedLayer(World world, int x, int y) {
 		if(!world.getCell(x, y).isTravelledTo()) {
-			mapSB.append("<div style='position:absolute;width:100%;height:100%;top:0;left:0;background-color:#000;opacity:0.5;border-radius:5px;'></div>");
+			mapSB.append("<div style='position:absolute;width:100%;height:100%;top:0;left:0;background-color:#000;opacity:0.5;'></div>");
 		}
 	}
 
@@ -1864,7 +1945,8 @@ public enum RenderingEngine {
 
 				+ "<div class='quarterContainer'>"
 					+ "<div class='button" + (Main.game.getCurrentDialogueNode().isTravelDisabled() ? " disabled" : "") + "' id='mapZoom'>"
-						+ (RenderingEngine.isZoomedIn() ? SVGImages.SVG_IMAGE_PROVIDER.getZoomOutIcon() : SVGImages.SVG_IMAGE_PROVIDER.getZoomInIcon()) + (Main.game.getCurrentDialogueNode().isTravelDisabled() ? "<div class='disabledLayer'></div>" : "")
+						+ (RenderingEngine.isZoomedIn() ? SVGImages.SVG_IMAGE_PROVIDER.getZoomOutIcon() : SVGImages.SVG_IMAGE_PROVIDER.getZoomInIcon())
+							+ (Main.game.getCurrentDialogueNode().isTravelDisabled() ? "<div class='disabledLayer'></div>" : "")
 					+ "</div>"
 				+ "</div>");
 	}
@@ -2196,7 +2278,7 @@ public enum RenderingEngine {
 	
 	
 	private static boolean isLimitedSpectatorPanel(GameCharacter character) {
-		return Sex.getSexPositionSlot(character)==SexSlotBipeds.MISC_WATCHING && !character.isPlayer();
+		return Sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING && !character.isPlayer();
 	}
 	
 	private static String getCharacterPanelSexDiv(boolean compact, String idPrefix, GameCharacter character) {

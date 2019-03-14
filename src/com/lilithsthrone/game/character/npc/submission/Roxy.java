@@ -254,7 +254,7 @@ public class Roxy extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_GREY, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_THIGH_HIGH_BOOTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_thigh_high_boots", Colour.CLOTHING_BLACK, false), true, this);
 
 	}
 	

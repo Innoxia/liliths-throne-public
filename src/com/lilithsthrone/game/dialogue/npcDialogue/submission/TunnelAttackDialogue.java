@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
 import java.util.ArrayList;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -23,6 +24,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -238,8 +240,11 @@ public class TunnelAttackDialogue {
 										null,
 										null) {
 									@Override
-									public boolean isPlayerAbleToStopSex() {
-										return false;
+									public SexControl getSexControl(GameCharacter character) {
+										if(character.isPlayer()) {
+											return SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS;
+										}
+										return super.getSexControl(character);
 									}
 								},
 								AFTER_SEX_DEFEAT,
@@ -527,7 +532,7 @@ public class TunnelAttackDialogue {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getMugger())>0) {
+			if(Sex.getNumberOfOrgasms(getMugger())>=getMugger().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_PEACEFUL", getMugger());
 			} else {
 				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_PEACEFUL_NO_ORGASM", getMugger());
@@ -1109,7 +1114,7 @@ public class TunnelAttackDialogue {
 		public String getContent() {
 			if((getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+				if(Sex.getNumberOfOrgasms(getMugger()) >= getMugger().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_VICTORY", getMugger());
 				} else {
 					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_VICTORY_NO_ORGASM", getMugger());
@@ -1185,7 +1190,13 @@ public class TunnelAttackDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
+				return new Response("Continue", "Carry on your way.", AFTER_SEX_DEFEAT) {
+					@Override
+					public void effects() {
+						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							Main.game.banishNPC(getMugger());
+						}
+					}
 					@Override
 					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();

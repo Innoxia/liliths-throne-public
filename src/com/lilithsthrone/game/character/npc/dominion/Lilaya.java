@@ -105,6 +105,10 @@ public class Lilaya extends NPC {
 			this.setStartingBody(true);
 			this.setLegType(LegType.HUMAN);
 		}
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.6")) {
+			this.setWingSize(WingSize.THREE_LARGE.getValue());
+		}
 	}
 	
 	@Override
@@ -136,10 +140,9 @@ public class Lilaya extends NPC {
 
 		// Core:
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
-		this.setHalfDemonSubspecies(Subspecies.HUMAN);
 		this.setAgeAppearanceDifferenceToAppearAsAge(32);
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);
 		this.setTailType(TailType.DEMON_COMMON);
 
@@ -164,7 +167,7 @@ public class Lilaya extends NPC {
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
-		this.setPubicHair(BodyHair.FIVE_UNKEMPT);
+		this.setPubicHair(BodyHair.THREE_TRIMMED);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
 //		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_AMBER));
@@ -201,7 +204,7 @@ public class Lilaya extends NPC {
 		// For when she grows one:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-		this.setPenisSize(6);
+		this.setPenisSize(15);
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();
@@ -234,7 +237,7 @@ public class Lilaya extends NPC {
 		this.equipClothingFromNowhere(labCoat, true, this);
 		this.isAbleToBeDisplaced(labCoat, DisplacementType.UNBUTTONS, true, true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_BLACK, false), true, this);
 		
@@ -258,6 +261,10 @@ public class Lilaya extends NPC {
 
 	@Override
 	public String getArtworkFolderName() {
+		if(this.getRaceStage()==RaceStage.GREATER) {
+			return "LilayaDemon";
+		}
+		
 		switch(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()) {
 			case SKIN_PORCELAIN:
 			case SKIN_PALE:

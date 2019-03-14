@@ -1402,7 +1402,12 @@ public enum TFModifier {
 	
 	private AttributeCategory attributeCategory;
 	private Attribute associatedAttribute;
-	private String name, description, descriptor, SVGString;
+	
+	private String name;
+	private String description;
+	private String descriptor;
+	private String SVGString;
+	
 	private Colour colour;
 	private Rarity rarity;
 	private Fetish fetish;

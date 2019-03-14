@@ -148,7 +148,7 @@ public class LegType {
 						InventorySlot.FOOT),
 				Race.DEMON,
 				"Due to the shape of [npc.namePos] demonic hoofs, only hoof-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HOOFS));
+				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;
@@ -183,7 +183,7 @@ public class LegType {
 						InventorySlot.FOOT),
 				Race.COW_MORPH,
 				"Due to the shape of [npc.namePos] bovine hoofs, only hoof-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HOOFS));
+				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;
@@ -424,7 +424,7 @@ public class LegType {
 						InventorySlot.FOOT),
 				Race.HORSE_MORPH,
 				"Due to the shape of [npc.namePos] equine hoofs, only hoof-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HOOFS));
+				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;
@@ -459,7 +459,7 @@ public class LegType {
 						InventorySlot.FOOT),
 				Race.REINDEER_MORPH,
 				"Due to the shape of [npc.namePos] reindeer-like hoofs, only hoof-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HOOFS));
+				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;
@@ -495,7 +495,7 @@ public class LegType {
 						InventorySlot.SOCK),
 				Race.HARPY,
 				"Due to the shape of [npc.namePos] bird-like talons, only claw-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_TALONS));
+				Util.newArrayListOfValues(ItemTag.FITS_TALONS_EXCLUSIVE, ItemTag.FITS_TALONS));
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;

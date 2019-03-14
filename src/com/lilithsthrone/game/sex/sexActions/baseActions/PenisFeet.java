@@ -656,13 +656,13 @@ public class PenisFeet {
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.cock] in between [npc.her] [npc.feet+],"
 										+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull away.",
 
-								" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep between [npc.her] [npc.feet]"));
+								" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep between [npc.her] [npc.feet]."));
 						break;
 					default:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], [npc2.eagerly] bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] [npc2.eagerly] fucking [npc.her] [npc.feet].",
 
-								" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(slide)] [npc2.her] [npc2.cock+] forwards between [npc.namePos] [npc.feet+]"));
+								" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(slide)] [npc2.her] [npc2.cock+] forwards between [npc.namePos] [npc.feet+]."));
 						break;
 				}
 			}
@@ -681,13 +681,13 @@ public class PenisFeet {
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.cock] in between [npc.her] [npc.feet+],"
 										+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull away.",
 
-								" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep between [npc.her] [npc.feet]"));
+								" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep between [npc.her] [npc.feet]."));
 						break;
 					default:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], [npc2.eagerly] bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] [npc2.eagerly] fucking [npc.her] [npc.feet].",
 
-								" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(slide)] [npc2.her] [npc2.cock+] forwards between [npc.namePos] [npc.feet+]"));
+								" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(slide)] [npc2.her] [npc2.cock+] forwards between [npc.namePos] [npc.feet+]."));
 						break;
 				}
 			}

@@ -73,9 +73,11 @@ public enum Colour {
 	MAP_BACKGROUND_PINK(false, Util.newColour(0xb2a4bb), Util.newColour(0xb2a4bb), "pink"),
 	MAP_BACKGROUND(false, Util.newColour(0xbbbbbb), Util.newColour(0xbbbbbb), "grey"),
 	MAP_BACKGROUND_DARK(false, Util.newColour(0x888888), Util.newColour(0x8f8f8f), "dark grey"),
+	MAP_BACKGROUND_DANGEROUS(false, Util.newColour(0x303030), Util.newColour(0xaaaaaa), "dark grey"),
 	MAP_BACKGROUND_BLUE(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("lightBlue")),
 	
-	GENERIC_SEX(false, BaseColour.PINK_LIGHT, "pink", Util.newArrayListOfValues("sex")),
+	GENERIC_SEX(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sex")),
+	GENERIC_SEX_AS_DOM(false,Util.newColour(0xFF75BA), Util.newColour(0xD82C8B), "pink", Util.newArrayListOfValues("sexDom", "domSex")),
 	GENERIC_COMBAT(false, BaseColour.CRIMSON, "crimson"),
 	GENERIC_ARCANE(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("arcane")),
 	GENERIC_TERRIBLE(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("terrible")),
@@ -104,6 +106,7 @@ public enum Colour {
 	RACE_BESTIAL(false, BaseColour.TAN, "tan", Util.newArrayListOfValues("bestial", "animal", "feral")),
 	RACE_UNKNOWN(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("unknown")),
 	RACE_HUMAN(false, BaseColour.BLUE_STEEL, "pale blue", Util.newArrayListOfValues("human")),
+	RACE_HALF_DEMON(false, BaseColour.LILAC, "lilac", Util.newArrayListOfValues("halfDemon")),
 	RACE_DEMON(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("demon")),
 	RACE_LILIN(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("lilin")),
 	RACE_IMP(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("imp")),
@@ -343,6 +346,7 @@ public enum Colour {
 	CLOTHING_WHITE(false, Util.newColour(0xdddddd), Util.newColour(0xdddddd), "white"),
 	CLOTHING_GREY(false, Util.newColour(0x777777), Util.newColour(0x777777), "grey"),
 	CLOTHING_BLACK(false, Util.newColour(0x333333), Util.newColour(0x333333), "black"),
+	CLOTHING_BLACK_JET(false, Util.newColour(0x1a1a1a), Util.newColour(0x1a1a1a), "jet black"),
 	
 	
 	CLOTHING_RED_VERY_DARK(false, Util.newColour(0x660016), Util.newColour(0x660016), "midnight red"),

@@ -710,7 +710,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_VICTORY_TALK"><![CDATA[
 	<p>
-		As you look down at the defeated form of the [npc.race] before you, you can't help but feel sorry for [npc.herHim]. After all, [npc.she] must really have been desperate to have attacked you like this, and is undoubtedly the victim of unfortunate circumstance. Taking a step back to show [npc.herHim] that you're no further threat, you say, [pc.speech(Don't worry, I'm not going to do anything to you. I just want to know why you attacked me like that.)]
+		As you look down at the defeated form of the [npc.race] before you, you can't help but feel sorry for [npc.herHim]. After all, [npc.she] must really have been desperate to have attacked you like this, and is undoubtedly the victim of unfortunate circumstances. Taking a step back to show [npc.herHim] that you're no further threat, you say, [pc.speech(Don't worry, I'm not going to do anything to you. I just want to know why you attacked me like that.)]
 	</p>
 	<p>
 		[npc.speech(W-What?)] the [npc.race] stammers, caught off guard by the amicable tone of your voice. [npc.speech(Y-You're not going to punish me?)]
@@ -848,7 +848,7 @@
 	
 	<htmlContent tag="AFTER_SEX_PEACEFUL_NO_ORGASM"><![CDATA[
 	<p>
-		Both you and [npc.name] let out a sigh as the two of you step back from one another. Looking into your [pc.eyes], the [npc.race] pouts and says, [npc.speech(That was fun, but I wish you'd let me orgasm... Oh well, it was still nice sharing that time with you, [pc.name].)]
+		Both you and [npc.name] let out a sigh as the two of you step back from one another. Looking into your [pc.eyes], the [npc.race] pouts and says, [npc.speech(That was fun, but you didn't exactly satisfy me... Oh well, it was still nice sharing that time with you, [pc.name].)]
 	</p>
 	<p>
 		The two of you set about gathering your things, and, satisfied from your sexual encounter, you prepare to continue on your way. Saying goodbye to [npc.name], and promising to come back and see [npc.herHim] soon, you then set off on your journey...
@@ -1741,7 +1741,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATIONS_BREASTS_FLAT"><![CDATA[
-	#IF npc.isFeminine()
+	#IF npc.hasBreasts()
 	#THEN
 	<p>
 		Wanting to humiliate [npc.herHim] a little, you order [npc.name] to get rid of [npc.her] breasts, [pc.speech(You're going to get rid of your tits, understand? If you're anything other than flat as a board, I'm walking away!)]
@@ -1765,7 +1765,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATIONS_BREASTS_AA"><![CDATA[
 	<p>
-	#IF npc.isFeminine()
+	#IF npc.hasBreasts()
 	#THEN
 		Wanting to humiliate [npc.herHim] a little, you order [npc.name] to shrink [npc.her] breasts, [pc.speech(You're going to shrink your tits, understand? If they're anything bigger than little double-A's, I'm walking away!)]
 	#ELSE
@@ -1783,9 +1783,9 @@
 	
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATIONS_BREASTS_C"><![CDATA[
 	<p>
-	#IF npc.isFeminine()
+	#IF npc.hasBreasts()
 	#THEN
-		Wanting [npc.herHim] to have averagely-sized breasts, you order [npc.name], [pc.speech(These massive tits of yours are far too big! Make them a more reasonable size! C-cups should do just fine.)]
+		Wanting [npc.herHim] to have averagely-sized breasts, you order [npc.name], [pc.speech(These tits of yours aren't to my liking! Make them a more reasonable size! C-cups should do just fine.)]
 	#ELSE
 		Wanting to humiliate [npc.herHim] a little, you order [npc.name] to grow some breasts, [pc.speech(You're going to grow some tits for me, understand? And if they're anything other than C-cups, I'm walking away!)]
 	#ENDIF
@@ -1801,7 +1801,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATIONS_BREASTS_E"><![CDATA[
 	<p>
-	#IF npc.isFeminine()
+	#IF npc.hasBreasts()
 	#THEN
 		Wanting [npc.herHim] to have large breasts, you order [npc.name], [pc.speech(I want you with big tits! E-cups should do just fine.)]
 	#ELSE
@@ -1818,7 +1818,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATIONS_BREASTS_H"><![CDATA[
-	#IF npc.isFeminine()
+	#IF npc.hasBreasts()
 	#THEN
 		<p>
 			Wanting to make [npc.her] breasts a little bigger, you order [npc.herHim] to make the change, [pc.speech(I thought [npc.races] liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards. Make them at least an H-cup.)]

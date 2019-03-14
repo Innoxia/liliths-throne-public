@@ -7,9 +7,9 @@ package com.lilithsthrone.game.character.race;
  */
 public enum SubspeciesSpawnRarity {
 
-	ZERO_EXTREMELY_RARE(0.025f),
-	ONE_VERY_RARE(0.1f),
-	TWO_RARE(0.25f),
+	ZERO_EXTREMELY_RARE(0.1f),
+	ONE_VERY_RARE(0.2f),
+	TWO_RARE(0.3f),
 	THREE_UNCOMMON(0.5f),
 	FOUR_COMMON(1);
 

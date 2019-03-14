@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
@@ -19,6 +18,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.8
@@ -966,7 +966,7 @@ public class HarpyNestBimbo {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyBimbo.class)) >= Main.game.getNpc(HarpyBimbo.class).getOrgasmsBeforeSatisfied()) {
 				return "<p>"
 							+ "As you step back from [bimboHarpy.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."

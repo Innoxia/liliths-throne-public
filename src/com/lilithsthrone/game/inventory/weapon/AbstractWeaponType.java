@@ -6,18 +6,25 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.StringJoiner;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.DamageVariance;
@@ -59,6 +66,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	private String attackTooltipDescription;
 	private String description;
 
+	public String getAuthorDescription() {
+		return authorDescription;
+	}
+
 	private ClothingSet clothingSet;
 	private Rarity rarity;
 	
@@ -69,6 +80,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	
 	private String pathName;
 	private String pathNameEquipped;
+	
+	private String authorDescription;
 	
 	protected int damage;
 	protected int arcaneCost;
@@ -200,6 +213,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			this.attackTooltipDescription = "Use your "+this.getName()+" to strike at [npc2.name].";
 		}
 		this.description = description;
+		
 		this.rarity = rarity;
 		this.clothingSet = clothingSet;
 
@@ -265,9 +279,12 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			this.missDescriptions = Util.newArrayListOfValues("[npc.Name] misses [npc2.name] with [npc.her] "+this.getName()+"!");
 		}
 		
+		this.authorDescription = ""; // Do not give attribution to Innoxia's items.
+		
 	}
 	
-	public AbstractWeaponType(File weaponXMLFile) {
+	@SuppressWarnings("deprecation")
+	public AbstractWeaponType(File weaponXMLFile, String author) {
 		this.itemTags = new ArrayList<>();
 
 		if (weaponXMLFile.exists()) {
@@ -279,198 +296,151 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				// Cast magic:
 				doc.getDocumentElement().normalize();
 				
-				Element weaponElement = (Element) doc.getElementsByTagName("weapon").item(0);
-				
-				Element coreAttributes = (Element) weaponElement.getElementsByTagName("coreAttributes").item(0);
-				
-				List<ItemTag> defaultItemTags = new ArrayList<>();
-				Element itemTagsElement = (Element)coreAttributes.getElementsByTagName("itemTags").item(0);
+				Element weaponElement = Element.getDocumentRootElement(weaponXMLFile); // Loads the document and returns the root element - in clothing mods it's <clothing>
+				Element coreAttributes = null;
 				try {
-					for(int i=0; i<itemTagsElement.getElementsByTagName("tag").getLength(); i++){
-						Element e = ((Element)itemTagsElement.getElementsByTagName("tag").item(i));
-						defaultItemTags.add(ItemTag.valueOf(e.getTextContent()));
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'itemTags' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
+					coreAttributes = weaponElement.getMandatoryFirstOf("coreAtributes");
+				} catch (XMLMissingTagException ex) {
+					coreAttributes = weaponElement.getMandatoryFirstOf("coreAttributes");
 				}
-				this.itemTags = defaultItemTags;
 				
+				this.itemTags = coreAttributes
+					.getMandatoryFirstOf("itemTags")
+					.getAllOf("tag").stream()
+					.map(Element::getTextContent).map(ItemTag::valueOf)
+					.collect(Collectors.toList());
 				
 				this.isMod = true;
 				
-				this.baseValue = Integer.valueOf(coreAttributes.getElementsByTagName("value").item(0).getTextContent());
-				this.melee = Boolean.valueOf(coreAttributes.getElementsByTagName("melee").item(0).getTextContent());
-				this.twoHanded = Boolean.valueOf(coreAttributes.getElementsByTagName("twoHanded").item(0).getTextContent());
+				this.baseValue = Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
+				this.melee = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("melee").getTextContent());
+				this.twoHanded = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("twoHanded").getTextContent());
 				
-				this.determiner = coreAttributes.getElementsByTagName("determiner").item(0).getTextContent();
-				this.plural = Boolean.valueOf(((Element)coreAttributes.getElementsByTagName("namePlural").item(0)).getAttribute("pluralByDefault"));
-				this.name = coreAttributes.getElementsByTagName("name").item(0).getTextContent();
-				this.namePlural = coreAttributes.getElementsByTagName("namePlural").item(0).getTextContent();
-				this.description = coreAttributes.getElementsByTagName("description").item(0).getTextContent();
-				this.attackDescriptor = coreAttributes.getElementsByTagName("attackDescriptor").item(0).getTextContent();
-				this.attackTooltipDescription = coreAttributes.getElementsByTagName("attackTooltipDescription").item(0).getTextContent();
+				this.determiner = coreAttributes.getMandatoryFirstOf("determiner").getTextContent();
+				this.plural = Boolean.valueOf(((Element)coreAttributes.getMandatoryFirstOf("namePlural")).getAttribute("pluralByDefault"));
+				this.name = coreAttributes.getMandatoryFirstOf("name").getTextContent();
+				this.namePlural = coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
+				this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
+				this.attackDescriptor = coreAttributes.getMandatoryFirstOf("attackDescriptor").getTextContent();
+				this.attackTooltipDescription = coreAttributes.getMandatoryFirstOf("attackTooltipDescription").getTextContent();
 				
-
-				this.equipText = coreAttributes.getElementsByTagName("equipText").item(0).getTextContent();
-				this.unequipText = coreAttributes.getElementsByTagName("unequipText").item(0).getTextContent();
-				
-				this.pathName = weaponXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
-				
-				this.pathNameEquipped = !coreAttributes.getElementsByTagName("imageEquippedName").item(0).hasChildNodes()
-									? pathName
-									: weaponXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageEquippedName").item(0).getTextContent();
-
-				this.damage = Integer.valueOf(coreAttributes.getElementsByTagName("damage").item(0).getTextContent());
-				this.arcaneCost = Integer.valueOf(coreAttributes.getElementsByTagName("arcaneCost").item(0).getTextContent());
-				this.damageVariance = DamageVariance.valueOf(coreAttributes.getElementsByTagName("damageVariance").item(0).getTextContent());
-				
-				this.availableDamageTypes = new ArrayList<>();
-				try {
-					if(coreAttributes.getElementsByTagName("availableDamageTypes").getLength() > 0) {
-						for(int i=0; i<coreAttributes.getElementsByTagName("damageType").getLength(); i++){
-							this.availableDamageTypes.add(DamageType.valueOf(coreAttributes.getElementsByTagName("damageType").item(i).getTextContent()));
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'availableDamageTypes' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
-				}
-				
-				this.spells = new ArrayList<>();
-				try {
-					if(coreAttributes.getElementsByTagName("spells").getLength() > 0) {
-						for(int i=0; i<coreAttributes.getElementsByTagName("spell").getLength(); i++){
-							String spellName = coreAttributes.getElementsByTagName("spell").item(i).getTextContent();
-							if(spellName.equals("DARK_SIREN_BANEFUL_FISSURE")) {
-								spellName = "DARK_SIREN_SIRENS_CALL";
-							}
-							this.spells.add(Spell.valueOf(spellName));
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'spells' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
+				if(coreAttributes.getOptionalFirstOf("weaponAuthorTag").isPresent()) {
+					this.authorDescription = coreAttributes.getMandatoryFirstOf("weaponAuthorTag").getTextContent();
+				} else if(coreAttributes.getOptionalFirstOf("authorTag").isPresent()) {
+					this.authorDescription = coreAttributes.getMandatoryFirstOf("authorTag").getTextContent();
+				} else if(!author.equalsIgnoreCase("innoxia")){
+					this.authorDescription = "A discreet inscription on the surface of the "+(plural?namePlural:name)+" informs you that "+(plural?"they were":"it was")+" made by a certain '"+Util.capitaliseSentence(author)+"'.";
+				} else {
+					this.authorDescription = "";
 				}
 
-				enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
+				this.equipText = coreAttributes.getMandatoryFirstOf("equipText").getTextContent();
+				this.unequipText = coreAttributes.getMandatoryFirstOf("unequipText").getTextContent();
 				
+				this.pathName = weaponXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
 
-				if(coreAttributes.getElementsByTagName("weaponSet").getLength() > 0) {
-					this.clothingSet = !coreAttributes.getElementsByTagName("weaponSet").item(0).hasChildNodes()
-										? null
-										: ClothingSet.valueOf(coreAttributes.getElementsByTagName("weaponSet").item(0).getTextContent());
+				Predicate<Element> filterEmptyElements = element -> !element.getTextContent().isEmpty(); //helper function to filter out empty elements.
+				
+				this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
+					.filter(filterEmptyElements)
+					.map(o -> weaponXMLFile.getParentFile().getAbsolutePath() + "/" + o.getTextContent())
+					.orElse(pathName);
+
+				this.damage = Integer.valueOf(coreAttributes.getMandatoryFirstOf("damage").getTextContent());
+				this.arcaneCost = Integer.valueOf(coreAttributes.getMandatoryFirstOf("arcaneCost").getTextContent());
+				this.damageVariance = DamageVariance.valueOf(coreAttributes.getMandatoryFirstOf("damageVariance").getTextContent());
+				
+				if(coreAttributes.getOptionalFirstOf("availableDamageTypes").isPresent()) {
+					this.availableDamageTypes = coreAttributes
+							.getMandatoryFirstOf("availableDamageTypes")
+							.getAllOf("damageType").stream()
+							.map(Element::getTextContent).map(DamageType::valueOf)
+							.collect(Collectors.toList());
+				} else {
+					this.availableDamageTypes = new ArrayList<>();
 				}
 				
-				List<ItemEffect> defaultEffects = new ArrayList<>();
-				try {
-					Element effectsElement = (Element)coreAttributes.getElementsByTagName("effects").item(0);
-					for(int i=0; i<effectsElement.getElementsByTagName("effect").getLength(); i++){
-						Element e = ((Element)effectsElement.getElementsByTagName("effect").item(i));
-						try {
-							ItemEffect ie = ItemEffect.loadFromXML(e, doc);
-							if(ie!=null) {
-								defaultEffects.add(ie);
-							}
-						}catch(Exception ex) {
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'effects' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
+				if(coreAttributes.getOptionalFirstOf("spells").isPresent()) {
+					this.spells = coreAttributes
+							.getMandatoryFirstOf("spells")
+							.getAllOf("spell").stream()
+							.map(o -> o.getTextContent().replaceAll("DARK_SIREN_BANEFUL_FISSURE", "DARK_SIREN_SIRENS_CALL"))
+							.map(Spell::valueOf)
+							.collect(Collectors.toList());
+				} else {
+					this.spells = new ArrayList<>();
 				}
-				this.effects = defaultEffects;
+				
+				enchantmentLimit = Integer.valueOf(coreAttributes.getMandatoryFirstOf("enchantmentLimit").getTextContent());
 
-				this.rarity = Rarity.valueOf(coreAttributes.getElementsByTagName("rarity").item(0).getTextContent());
+				this.clothingSet = coreAttributes.getOptionalFirstOf("weaponSet")
+					.filter(filterEmptyElements)
+					.map(Element::getTextContent).map(ClothingSet::valueOf)
+					.orElse(null);
+
+				this.effects = coreAttributes
+					.getMandatoryFirstOf("effects") 
+					.getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
+					.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
+					.map( e -> ItemEffect.loadFromXML(e.getInnerElement(), e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
+					.filter(Objects::nonNull) // Ensure that we only add non-null effects
+					.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need! 
+				
+
+				this.rarity = Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
+				
 				
 				// Hit/miss descriptions:
 				
-				this.hitDescriptions = new ArrayList<>();
-				try {
-					if(weaponElement.getElementsByTagName("hitDescriptions").getLength() > 0) {
-						for(int i=0; i<weaponElement.getElementsByTagName("hitText").getLength(); i++){
-							this.hitDescriptions.add(weaponElement.getElementsByTagName("hitText").item(i).getTextContent());
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'hitDescriptions' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
+				if(weaponElement.getOptionalFirstOf("hitDescriptions").isPresent()) {
+					this.hitDescriptions = weaponElement
+							.getMandatoryFirstOf("hitDescriptions")
+							.getAllOf("hitText").stream()
+							.map(o -> o.getTextContent())
+							.collect(Collectors.toList());
+				} else {
+					this.hitDescriptions = new ArrayList<>();
 				}
 				
-				this.missDescriptions = new ArrayList<>();
-				try {
-					if(weaponElement.getElementsByTagName("missDescriptions").getLength() > 0) {
-						for(int i=0; i<weaponElement.getElementsByTagName("missText").getLength(); i++){
-							this.missDescriptions.add(weaponElement.getElementsByTagName("missText").item(i).getTextContent());
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'missDescriptions' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
+				if(weaponElement.getOptionalFirstOf("missDescriptions").isPresent()) {
+					this.missDescriptions = weaponElement
+							.getMandatoryFirstOf("missDescriptions")
+							.getAllOf("missText").stream()
+							.map(o -> o.getTextContent())
+							.collect(Collectors.toList());
+				} else {
+					this.missDescriptions = new ArrayList<>();
 				}
 				
-				
-				List<Colour> importedPrimaryColours = new ArrayList<>();
-				try {
-					if(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values").isEmpty()) {
-						Element primaryColoursElement = ((Element)coreAttributes.getElementsByTagName("primaryColours").item(0));
-						if(primaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-							for(int i=0; i<primaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedPrimaryColours.add(Colour.valueOf(((Element)primaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-							}
-						}
-					} else {
-						importedPrimaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values")).getPresetColourList();
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'primaryColours' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
-				}
 
-				List<Colour> importedPrimaryColoursDye = new ArrayList<>();
-				try {
-					if(((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
-						Element primaryColoursElement = ((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0));
-						if(primaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-							for(int i=0; i<primaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedPrimaryColoursDye.add(Colour.valueOf(((Element)primaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-							}
-						}
-					} else {
-						importedPrimaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'primaryColoursDye' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
-				}
-
-				List<Colour> importedSecondaryColours = new ArrayList<>();
-				try {
-					if((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)!=null) {
-						if(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values").isEmpty()) {
-							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0));
-							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedSecondaryColours.add(Colour.valueOf(((Element)secondaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-								}
-							}
+				Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
+					String values = colorsElement.getAttribute("values");
+					try {
+						if(values.isEmpty()) {
+							return colorsElement.getAllOf("colour").stream()
+									.map(Element::getTextContent).map(Colour::valueOf)
+									.collect(Collectors.toList());
 						} else {
-							importedSecondaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values")).getPresetColourList();
+							return ColourListPresets.getColourListFromId(values);
 						}
+					} catch (Exception e) {
+						printHelpfulErrorForEnumValueMismatches(e);
+						throw new IllegalStateException("Colour tag reading failure: "+colorsElement.getTagName()+" " + e.getMessage(), e);
 					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'secondaryColours' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
-				}
+				};
+				
 
-				List<Colour> importedSecondaryColoursDye = new ArrayList<>();
-				try {
-					if((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)!=null) {
-						if(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
-							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0));
-							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedSecondaryColoursDye.add(Colour.valueOf(((Element)secondaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-								}
-							}
-						} else {
-							importedSecondaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
-						}
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'secondaryColoursDye' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
-				}
+				List<Colour> importedPrimaryColours = getColoursFromElement
+					.apply(coreAttributes.getMandatoryFirstOf("primaryColours"));	
+				List<Colour> importedPrimaryColoursDye = getColoursFromElement
+					.apply(coreAttributes.getMandatoryFirstOf("primaryColoursDye"));		
+
+				List<Colour> importedSecondaryColours = coreAttributes.getOptionalFirstOf("secondaryColours")
+					.map(getColoursFromElement::apply)
+					.orElseGet(ArrayList::new);
+				List<Colour> importedSecondaryColoursDye = coreAttributes.getOptionalFirstOf("secondaryColoursDye")
+					.map(getColoursFromElement::apply)
+					.orElseGet(ArrayList::new);
 				
 				setUpColours(
 						importedPrimaryColours,
@@ -624,6 +594,22 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		this.allAvailableSecondaryColours.addAll(colourSet);
 		this.allAvailableSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
+	}
+
+	@SuppressWarnings("rawtypes")
+	private static void printHelpfulErrorForEnumValueMismatches(Exception ex) {
+		Map<Class, Set<String>> possibleEnumValues = new HashMap<>();
+		possibleEnumValues.put(ColourListPresets.class, ColourListPresets.getIdToColourListMap().keySet());
+		String exMessage = ex.getMessage();
+		if (exMessage.startsWith("No ColourListPreset constant")){
+			for (Entry<Class, Set<String>> possibleMatch : possibleEnumValues.entrySet()) {
+				if (exMessage.contains(possibleMatch.getKey().getCanonicalName())) {
+					StringJoiner valueLister = new StringJoiner(",");
+					Arrays.asList(possibleMatch.getValue()).forEach(enumValue -> valueLister.add(enumValue.toString()));
+					System.err.println("Possible values for "+possibleMatch.getKey().getSimpleName()+" are " + valueLister.toString());
+				}
+			}
+		}
 	}
 	
 	/**

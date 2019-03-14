@@ -695,7 +695,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_VICTORY_TALK"><![CDATA[
 	<p>
-		As you look down at the defeated form of the [npc.race] before you, you can't help but feel sorry for [npc.herHim]. After all, [npc.she] must really have been desperate to have attacked you like this, and is undoubtedly the victim of unfortunate circumstance. Taking a step back to show [npc.herHim] that you're no further threat, you say, [pc.speech(Don't worry, I'm not going to do anything to you. I just want to know why you attacked me like that.)]
+		As you look down at the defeated form of the [npc.race] before you, you can't help but feel sorry for [npc.herHim]. After all, [npc.she] must really have been desperate to have attacked you like this, and is undoubtedly the victim of unfortunate circumstances. Taking a step back to show [npc.herHim] that you're no further threat, you say, [pc.speech(Don't worry, I'm not going to do anything to you. I just want to know why you attacked me like that.)]
 	</p>
 	<p>
 		[npc.speech(W-What?)] the [npc.race] stammers, caught off guard by the amicable tone of your voice. [npc.speech(Y-You're not going to punish me?)]
@@ -833,7 +833,7 @@
 	
 	<htmlContent tag="AFTER_SEX_PEACEFUL_NO_ORGASM"><![CDATA[
 	<p>
-		Both you and [npc.name] let out a sigh as the two of you step back from one another. Looking into your [pc.eyes], the [npc.race] pouts and says, [npc.speech(That was fun, but I wish you'd let me orgasm... Oh well, it was still nice sharing that time with you, [pc.name].)]
+		Both you and [npc.name] let out a sigh as the two of you step back from one another. Looking into your [pc.eyes], the [npc.race] pouts and says, [npc.speech(That was fun, but you didn't exactly satisfy me... Oh well, it was still nice sharing that time with you, [pc.name].)]
 	</p>
 	<p>
 		The two of you set about gathering your things, and, satisfied from your sexual encounter, you prepare to continue on your way. Saying goodbye to [npc.name], and promising to come back and see [npc.herHim] soon, you then set off on your journey...

@@ -4,13 +4,15 @@ import javafx.scene.input.KeyCode;
 
 /**
  * @since 0.1.61
- * @version 0.1.89
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum KeyboardAction {
 
 	MENU("Menu", new KeyCodeWithModifiers(KeyCode.ESCAPE), null),
 
+	FULL_SCREEN("Fullscreen Toggle", new KeyCodeWithModifiers(KeyCode.F11), null),
+	
 	MOVE_NORTH("Move North", new KeyCodeWithModifiers(KeyCode.W), new KeyCodeWithModifiers(KeyCode.UP)),
 	MOVE_WEST("Move West", new KeyCodeWithModifiers(KeyCode.A), new KeyCodeWithModifiers(KeyCode.LEFT)),
 	MOVE_SOUTH("Move South", new KeyCodeWithModifiers(KeyCode.S), new KeyCodeWithModifiers(KeyCode.DOWN)),
@@ -26,7 +28,8 @@ public enum KeyboardAction {
 
 	MENU_SELECT("Select", new KeyCodeWithModifiers(KeyCode.SPACE), new KeyCodeWithModifiers(KeyCode.ENTER)),
 	INVENTORY("Inventory", new KeyCodeWithModifiers(KeyCode.I), new KeyCodeWithModifiers(KeyCode.TAB)),
-	JOURNAL("Phone", new KeyCodeWithModifiers(KeyCode.M), new KeyCodeWithModifiers(KeyCode.H)),
+	JOURNAL("Phone", new KeyCodeWithModifiers(KeyCode.P), new KeyCodeWithModifiers(KeyCode.J)),
+	MAP("Map", new KeyCodeWithModifiers(KeyCode.M), null),
 	CHARACTERS("Characters", new KeyCodeWithModifiers(KeyCode.C), null),
 	ZOOM("Zoom", new KeyCodeWithModifiers(KeyCode.Z), null),
 

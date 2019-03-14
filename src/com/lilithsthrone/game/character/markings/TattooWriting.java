@@ -34,7 +34,7 @@ public class TattooWriting implements XMLSaving {
 	}
 	
 	public static List<Colour> getAvailableColours() {
-		return ColourListPresets.ALL.getPresetColourList();
+		return ColourListPresets.ALL;
 	}
 	
 	@Override

@@ -11,7 +11,6 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -72,11 +71,6 @@ public class PartnerSelfTailAnus {
 		}
 		
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
-		}
-		
-		@Override
 		public String getActionTitle() {
 			return "Gentle tail-pegging (self)";
 		}
@@ -94,7 +88,7 @@ public class PartnerSelfTailAnus {
 					"Gently pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] slowly fucks [npc.her] own [npc.ass].",
 					
 					"Slowly driving [npc.her] [npc.tail] deep inside [npc.her] [npc.asshole], [npc.name] lets out a little whimper as [npc.she] "
-							+(Sex.getActivePartner().hasPenis()?"uses it to gently start massaging [npc.her] prostate.":"gently fucks [npc.her] own [npc.ass+]."),
+							+(Sex.getCharacterPerformingAction().hasPenis()?"uses it to gently start massaging [npc.her] prostate.":"gently fucks [npc.her] own [npc.ass+]."),
 					
 					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] starts gently pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+].");
 		}
@@ -115,11 +109,6 @@ public class PartnerSelfTailAnus {
 		}
 		
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
-		}
-		
-		@Override
 		public String getActionTitle() {
 			return "Tail-pegging (self)";
 		}
@@ -137,7 +126,7 @@ public class PartnerSelfTailAnus {
 					"Pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fucks [npc.her] own [npc.ass].",
 					
 					"Driving [npc.her] [npc.tail] deep inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] "
-							+(Sex.getActivePartner().hasPenis()?"uses it to start massaging [npc.her] prostate.":"steadily fucks [npc.her] own [npc.ass+]."),
+							+(Sex.getCharacterPerformingAction().hasPenis()?"uses it to start massaging [npc.her] prostate.":"steadily fucks [npc.her] own [npc.ass+]."),
 					
 					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] starts pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+].");
 		}
@@ -158,11 +147,6 @@ public class PartnerSelfTailAnus {
 		}
 		
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
-		}
-		
-		@Override
 		public String getActionTitle() {
 			return "Rough tail-pegging (self)";
 		}
@@ -180,7 +164,7 @@ public class PartnerSelfTailAnus {
 					"Roughly pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] ruthlessly fucks [npc.her] own [npc.ass].",
 					
 					"Forcefully driving [npc.her] [npc.tail] deep inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] "
-							+(Sex.getActivePartner().hasPenis()?"starts roughly grinding it up against [npc.her] prostate.":"roughly fucks [npc.her] own [npc.ass+]."),
+							+(Sex.getCharacterPerformingAction().hasPenis()?"starts roughly grinding it up against [npc.her] prostate.":"roughly fucks [npc.her] own [npc.ass+]."),
 					
 					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] starts roughly slamming [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+].");
 		}
@@ -201,11 +185,6 @@ public class PartnerSelfTailAnus {
 		}
 		
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
-		}
-		
-		@Override
 		public String getActionTitle() {
 			return "Tail-pegging (self)";
 		}
@@ -223,7 +202,7 @@ public class PartnerSelfTailAnus {
 					"Pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fucks [npc.her] own [npc.ass].",
 					
 					"Driving [npc.her] [npc.tail] deep inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] "
-							+(Sex.getActivePartner().hasPenis()?"uses it to start massaging [npc.her] prostate.":"steadily fucks [npc.her] own [npc.ass+]."),
+							+(Sex.getCharacterPerformingAction().hasPenis()?"uses it to start massaging [npc.her] prostate.":"steadily fucks [npc.her] own [npc.ass+]."),
 					
 					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] starts pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+].");
 		}
@@ -244,11 +223,6 @@ public class PartnerSelfTailAnus {
 		}
 		
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
-		}
-		
-		@Override
 		public String getActionTitle() {
 			return "Eager tail-pegging (self)";
 		}
@@ -266,7 +240,7 @@ public class PartnerSelfTailAnus {
 					"Enthusiastically pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] frantically fucks [npc.her] own [npc.ass].",
 					
 					"Desperately driving [npc.her] [npc.tail] deep inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] "
-							+(Sex.getActivePartner().hasPenis()?"starts eagerly grinding it up against [npc.her] prostate.":"eagerly fucks [npc.her] own [npc.ass+]."),
+							+(Sex.getCharacterPerformingAction().hasPenis()?"starts eagerly grinding it up against [npc.her] prostate.":"eagerly fucks [npc.her] own [npc.ass+]."),
 					
 					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] eagerly starts slamming [npc.her] [npc.tail] in and out of [npc.her] [npc.asshole+].");
 		}

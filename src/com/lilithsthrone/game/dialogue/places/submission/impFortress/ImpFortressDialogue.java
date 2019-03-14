@@ -62,6 +62,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -95,7 +96,7 @@ public class ImpFortressDialogue {
 		return getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true);
 	}
 	
-	private static PlaceType getSubmissionFortress() {
+	private static AbstractPlaceType getSubmissionFortress() {
 		if(isAlphaFortress()) {
 			return PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA;
 		} else if(isFemalesFortress()) {
@@ -221,7 +222,7 @@ public class ImpFortressDialogue {
 	
 			// Move NPCs out of hiding:
 			for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
-				if(character.getHomeLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA) {
+				if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)) {
 					character.returnToHome();
 				}
 			}
@@ -232,7 +233,7 @@ public class ImpFortressDialogue {
 	
 			// Move NPCs out of hiding:
 			for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
-				if(character.getHomeLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES) {
+				if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
 					character.returnToHome();
 				}
 			}
@@ -243,7 +244,7 @@ public class ImpFortressDialogue {
 	
 			// Move NPCs out of hiding:
 			for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
-				if(character.getHomeLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_MALES) {
+				if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)) {
 					character.returnToHome();
 				}
 			}
@@ -307,7 +308,7 @@ public class ImpFortressDialogue {
 			for(int i=0; i< cells.length;i++) {
 				for(int j=0; j< cells[i].length;j++) {
 					Cell cell = cells[j][i];
-					if(cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA) {
+					if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)) {
 						for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
 							if(!Main.game.getPlayer().getCompanions().contains(character)) {
 								character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
@@ -374,7 +375,7 @@ public class ImpFortressDialogue {
 			for(int i=0; i< cells.length;i++) {
 				for(int j=0; j< cells[i].length;j++) {
 					Cell cell = cells[j][i];
-					if(cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES) {
+					if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
 						for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
 							if(!Main.game.getPlayer().getCompanions().contains(character)) {
 								character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
@@ -442,7 +443,7 @@ public class ImpFortressDialogue {
 			for(int i=0; i< cells.length;i++) {
 				for(int j=0; j< cells[i].length;j++) {
 					Cell cell = cells[j][i];
-					if(cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_MALES) {
+					if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)) {
 						for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
 							if(!Main.game.getPlayer().getCompanions().contains(character)) {
 								character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
@@ -586,14 +587,14 @@ public class ImpFortressDialogue {
 			allCharacters.add(getMainCompanion());
 		}
 		
-		if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_ALPHA_ENTRANCE
-				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_FEMALES_ENTRANCE
-				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_MALES_ENTRANCE) {
+		if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_ALPHA_ENTRANCE)
+				|| Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_FEMALES_ENTRANCE)
+				|| Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_MALES_ENTRANCE)) {
 			allCharacters.addAll(getImpGuards(Main.game.getPlayer().getWorldLocation()));
 			
-		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_ALPHA_KEEP
-				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_FEMALES_KEEP
-				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_MALES_KEEP) {
+		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_ALPHA_KEEP)
+				|| Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_FEMALES_KEEP)
+				|| Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_MALES_KEEP)) {
 			allCharacters.add(getBoss());
 			allCharacters.addAll(getImpBossGroup(Main.game.getPlayer().getWorldLocation(), false));
 		}
@@ -1025,20 +1026,20 @@ public class ImpFortressDialogue {
 				}
 				
 			} else if(isGuardsPacifiedBySex()) {
-				if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
+				if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_BY_SEX_DEMON", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_BY_SEX", getAllCharacters()));
 				}
 				
 			} else if(isGuardsPacified()) {
-				if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
+				if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_DEMON", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED", getAllCharacters()));
 				}
 				
-			} else if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
+			} else if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_DEMON", getAllCharacters()));
 				
 			} else if(Main.game.getPlayer().isElementalSummoned()) {
@@ -1129,7 +1130,7 @@ public class ImpFortressDialogue {
 				
 			} else {
 				if (index == 1) {
-					if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
+					if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
 						return new Response("Command",
 								"The imps seem incredibly nervous at the prospect of being confronted by a demon. Use this to your advantage and order them to step aside.",
 								ENTRANCE_DEMONIC_COMMAND) {
@@ -2124,7 +2125,7 @@ public class ImpFortressDialogue {
 										getBoss().unequipClothingOntoFloor(getBoss().getClothingInSlot(InventorySlot.TORSO_OVER), true, getBoss());
 									} catch(Exception ex) {
 									}
-									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY)) {
+									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY) && !Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
 										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_ALPHA_BRAWLER_KEY", getAllCharacters()));
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY), false));
 									} else if(!isDarkSirenDefeated()) {
@@ -2153,7 +2154,7 @@ public class ImpFortressDialogue {
 								@Override
 								public void effects() {
 									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO", getAllCharacters()));
-									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_3)) {
+									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_3) && !Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
 										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO_KEY", getAllCharacters()));
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3), false));
 									} else if(!isDarkSirenDefeated()) {
@@ -2184,7 +2185,7 @@ public class ImpFortressDialogue {
 								@Override
 								public void effects() {
 									setBossEncountered();
-									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_2)) {
+									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_2) && !Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
 										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_KEY", getAllCharacters()));
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2), false));
 									} else if(!isDarkSirenDefeated()) {
@@ -2206,7 +2207,7 @@ public class ImpFortressDialogue {
 								@Override
 								public void effects() {
 									setBossEncountered();
-									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_2)) {
+									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_2) && !Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
 										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_KEY", getAllCharacters()));
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2), false));
 									} else if(!isDarkSirenDefeated()) {
@@ -3877,7 +3878,7 @@ public class ImpFortressDialogue {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
-						if(isAlphaFortress() || Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA) {
+						if(isAlphaFortress() || Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA)) {
 							List<ItemEffect> effects = Util.newArrayListOfValues(
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0),
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_ORAL_GIVING, TFPotency.MAJOR_BOOST, 0),
@@ -3900,7 +3901,7 @@ public class ImpFortressDialogue {
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(ringGag, true, boss);
 							}
 							
-						} else if(isFemalesFortress() || Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_FORTRESS_FEMALES) {
+						} else if(isFemalesFortress() || Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_FORTRESS_FEMALES)) {
 							List<ItemEffect> effects = Util.newArrayListOfValues(
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0),
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0),
@@ -3925,7 +3926,7 @@ public class ImpFortressDialogue {
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(buttPlug, true, boss);
 							}
 							
-						} else if(isMalesFortress() || Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_FORTRESS_MALES) {
+						} else if(isMalesFortress() || Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_FORTRESS_MALES)) {
 							List<ItemEffect> effects = Util.newArrayListOfValues(
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0),
 									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_PREGNANCY, TFPotency.MAJOR_BOOST, 0),

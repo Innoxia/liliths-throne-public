@@ -5,8 +5,6 @@ import java.time.Month;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.Season;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -31,6 +29,8 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -148,7 +148,7 @@ public class ReindeerOverseer extends NPC {
 			
 			clearNonEquippedInventory();
 			
-			if(this.getLocationPlace().getPlaceType()==PlaceType.DOMINION_STREET && !this.getLocation().equals(Main.game.getPlayer().getLocation())) {
+			if(this.getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_STREET) && !this.getLocation().equals(Main.game.getPlayer().getLocation())) {
 				this.moveToAdjacentMatchingCellType(true);
 				Main.game.getDialogueFlags().dailyReindeerReset(this.getId());
 			}

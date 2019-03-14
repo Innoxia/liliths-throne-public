@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -162,26 +163,32 @@ public class CharacterInventory implements XMLSaving {
 		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
 			clothing.saveAsXML(clothingEquipped, doc);
 		}
-		
-		Element itemsInInventory = doc.createElement("itemsInInventory");
-		characterInventory.appendChild(itemsInInventory);
-		for(Entry<AbstractItem, Integer> item : this.getMapOfDuplicateItems().entrySet()) {
-			Element e = item.getKey().saveAsXML(itemsInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+
+		if(!this.getMapOfDuplicateItems().isEmpty()) {
+			Element itemsInInventory = doc.createElement("itemsInInventory");
+			characterInventory.appendChild(itemsInInventory);
+			for(Entry<AbstractItem, Integer> item : this.getMapOfDuplicateItems().entrySet()) {
+				Element e = item.getKey().saveAsXML(itemsInInventory, doc);
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+			}
 		}
 		
-		Element clothingInInventory = doc.createElement("clothingInInventory");
-		characterInventory.appendChild(clothingInInventory);
-		for(Entry<AbstractClothing, Integer> clothing : this.getMapOfDuplicateClothing().entrySet()) {
-			Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+		if(!this.getMapOfDuplicateClothing().isEmpty()) {
+			Element clothingInInventory = doc.createElement("clothingInInventory");
+			characterInventory.appendChild(clothingInInventory);
+			for(Entry<AbstractClothing, Integer> clothing : this.getMapOfDuplicateClothing().entrySet()) {
+				Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+			}
 		}
 		
-		Element weaponsInInventory = doc.createElement("weaponsInInventory");
-		characterInventory.appendChild(weaponsInInventory);
-		for(Entry<AbstractWeapon, Integer> weapon : this.getMapOfDuplicateWeapons().entrySet()) {
-			Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+		if(!this.getMapOfDuplicateWeapons().isEmpty()) {
+			Element weaponsInInventory = doc.createElement("weaponsInInventory");
+			characterInventory.appendChild(weaponsInInventory);
+			for(Entry<AbstractWeapon, Integer> weapon : this.getMapOfDuplicateWeapons().entrySet()) {
+				Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+			}
 		}
 		
 		return characterInventory;
@@ -217,15 +224,17 @@ public class CharacterInventory implements XMLSaving {
 			}
 		}
 		
-		if(parentElement.getElementsByTagName("mainWeapon").item(0)!=null) {
-			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)parentElement.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0), doc);
+		nodes = parentElement.getElementsByTagName("mainWeapon");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
 			if(weapon!=null) {
 				inventory.equipMainWeapon(weapon);
 			}
 		}
 
-		if(parentElement.getElementsByTagName("offhandWeapon").item(0)!=null) {
-			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)parentElement.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0), doc);
+		nodes = parentElement.getElementsByTagName("offhandWeapon");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
 			if(weapon!=null) {
 				inventory.equipOffhandWeapon(weapon);
 			}
@@ -241,50 +250,59 @@ public class CharacterInventory implements XMLSaving {
 			}
 		}
 		
-		NodeList itemsInInventory = ((Element) parentElement.getElementsByTagName("itemsInInventory").item(0)).getElementsByTagName("item");
-		Map<AbstractItem, Integer> itemMapToAdd = new HashMap<>();
-		for(int i=0; i<itemsInInventory.getLength(); i++){
-			Element e = ((Element)itemsInInventory.item(i));
-			
-			int count = Integer.parseInt(e.getAttribute("count"));
-			String id = e.getAttribute("id");
-			if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
-				itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
+		nodes = parentElement.getElementsByTagName("itemsInInventory");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			NodeList itemsInInventory = ((Element) nodes.item(0)).getElementsByTagName("item");
+			Map<AbstractItem, Integer> itemMapToAdd = new HashMap<>();
+			for(int i=0; i<itemsInInventory.getLength(); i++){
+				Element e = ((Element)itemsInInventory.item(i));
 				
-			} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.MOO_MILKER_FULL))) {
-				itemMapToAdd.put(AbstractFilledBreastPump.loadFromXML(e, doc), count);
-				
-			} else {
-				AbstractItem itemLoadedFromXML = AbstractItem.loadFromXML(e, doc);
-				if (itemLoadedFromXML != null) {
-					itemMapToAdd.put(itemLoadedFromXML, count);
+				int count = Integer.parseInt(e.getAttribute("count"));
+				String id = e.getAttribute("id");
+				if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
+					itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
+					
+				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.MOO_MILKER_FULL))) {
+					itemMapToAdd.put(AbstractFilledBreastPump.loadFromXML(e, doc), count);
+					
+				} else {
+					AbstractItem itemLoadedFromXML = AbstractItem.loadFromXML(e, doc);
+					if (itemLoadedFromXML != null) {
+						itemMapToAdd.put(itemLoadedFromXML, count);
+					}
+				}
+			}
+			inventory.addItems(itemMapToAdd);
+		}
+
+		nodes = parentElement.getElementsByTagName("clothingInInventory");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			Element clothingInInventory = (Element) nodes.item(0);
+			NodeList clothingElements = clothingInInventory.getElementsByTagName("clothing");
+			for(int i=0; i<clothingElements.getLength(); i++){
+				Element e = ((Element)clothingElements.item(i));
+	
+				for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
+					AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
+					if(clothing!=null) {
+						inventory.addClothing(clothing);
+					}
 				}
 			}
 		}
-		inventory.addItems(itemMapToAdd);
-		
-		Element clothingInInventory = (Element) parentElement.getElementsByTagName("clothingInInventory").item(0);
-		NodeList clothingElements = clothingInInventory.getElementsByTagName("clothing");
-		for(int i=0; i<clothingElements.getLength(); i++){
-			Element e = ((Element)clothingElements.item(i));
 
-			for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
-				AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
-				if(clothing!=null) {
-					inventory.addClothing(clothing);
-				}
-			}
-		}
-		
-		Element weaponsInInventory = (Element) parentElement.getElementsByTagName("weaponsInInventory").item(0);
-		NodeList weaponElements = weaponsInInventory.getElementsByTagName("weapon");
-		for(int i=0; i<weaponElements.getLength(); i++){
-			Element e = ((Element)weaponElements.item(i));
-
-			for(int weaponCount = 0; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
-				AbstractWeapon weapon = AbstractWeapon.loadFromXML(e, doc);
-				if(weapon!=null) {
-					inventory.addWeapon(weapon);
+		nodes = parentElement.getElementsByTagName("weaponsInInventory");
+		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+			Element weaponsInInventory = (Element) nodes.item(0);
+			NodeList weaponElements = weaponsInInventory.getElementsByTagName("weapon");
+			for(int i=0; i<weaponElements.getLength(); i++){
+				Element e = ((Element)weaponElements.item(i));
+	
+				for(int weaponCount = 0; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
+					AbstractWeapon weapon = AbstractWeapon.loadFromXML(e, doc);
+					if(weapon!=null) {
+						inventory.addWeapon(weapon);
+					}
 				}
 			}
 		}
@@ -850,13 +868,32 @@ public class CharacterInventory implements XMLSaving {
 				concealedMap.get(slot).add(c);
 			}
 		}
+		
 		for(AbstractClothing c : getClothingCurrentlyEquipped()) {
+			InventorySlot clothingSlot = c.getClothingType().getSlot();
+
+			// Do not count clothing as being concealed if it is only partially covered:
 			for(InventorySlot is : c.getClothingType().getIncompatibleSlots(character)) {
-				if(concealedMap.containsKey(c.getClothingType().getSlot()) && !concealedMap.containsKey(is)) {
-					concealedMap.remove(c.getClothingType().getSlot());
+				if(concealedMap.containsKey(clothingSlot) && !concealedMap.containsKey(is)) {
+					concealedMap.remove(clothingSlot);
+				}
+			}
+
+			// Remove concealed clothing if it is the only clothing which is concealing another slot:
+			if(concealedMap.containsKey(clothingSlot)) {
+				boolean remove = false;
+				for(Entry<InventorySlot, List<AbstractClothing>> entry : concealedMap.entrySet()) {
+					if(entry.getValue().contains(c) && entry.getValue().size()==1) {
+						remove = true;
+						break;
+					}
+				}
+				if(remove) {
+					concealedMap.remove(clothingSlot);
 				}
 			}
 		}
+		
 
 		if(this.getExtraBlockedParts()!=null) {
 			for(InventorySlot slot :this.getExtraBlockedParts().concealedSlots) {
@@ -868,6 +905,40 @@ public class CharacterInventory implements XMLSaving {
 		
 		return concealedMap;
 	}
+	
+
+	public List<AbstractClothing> getVisibleClothingConcealingSlot(GameCharacter character, InventorySlot slot) {
+		List<AbstractClothing> visibleClothing = new ArrayList<>();
+		
+		if(getClothingInSlot(slot)!=null) {
+			visibleClothing.add(getClothingInSlot(slot));
+		}
+		
+		if(getInventorySlotsConcealed(character).get(slot)!=null) {
+			visibleClothing.addAll(getInventorySlotsConcealed(character).get(slot));
+		}
+		
+		if(!visibleClothing.isEmpty()) {
+			List<InventorySlot> slotsToCheck = visibleClothing.stream().map(c -> c.getClothingType().getSlot()).collect(Collectors.toList());
+			
+			while(!slotsToCheck.isEmpty()) {
+				for(InventorySlot checkSlot : new ArrayList<>(slotsToCheck)) {
+					List<AbstractClothing> checkClothingSlot = getInventorySlotsConcealed(character).get(checkSlot);
+					if(checkClothingSlot!=null && !checkClothingSlot.isEmpty()) {
+						visibleClothing = visibleClothing.stream().filter(cl -> cl.getClothingType().getSlot()!=checkSlot).collect(Collectors.toList()); // Remove clothing which is concealed
+						for(AbstractClothing c : checkClothingSlot) {
+							visibleClothing.add(c);
+							slotsToCheck.add(c.getClothingType().getSlot());
+						}
+					}
+					slotsToCheck.remove(checkSlot);
+				}
+			}
+		}
+		
+		return new ArrayList<>(new HashSet<>(visibleClothing)); // Remove duplicates
+	}
+	
 	
 	/**
 	 * @return clothing in the slot specified. Returns null if no clothing in
@@ -1343,7 +1414,7 @@ public class CharacterInventory implements XMLSaving {
 				}
 		}
 
-		if (continuingIsAbleToEquip) {
+		if (continuingIsAbleToEquip && !unequipIfAble) {
 			return true;
 		}
 		
@@ -1369,8 +1440,7 @@ public class CharacterInventory implements XMLSaving {
 
 		// If you want to unequip this clothing now:
 		if (unequipIfAble) {
-			// Sort clothing to remove in zLayer order(so you take off your
-			// shirt before removing bra etc.):
+			// Sort clothing to remove in zLayer order(so you take off your shirt before removing bra etc.):
 			List<AbstractClothing> tempClothingList = new ArrayList<>();
 			tempClothingList.addAll(clothingToRemove.keySet());
 			tempClothingList.sort(new ClothingZLayerComparator());
@@ -1412,7 +1482,6 @@ public class CharacterInventory implements XMLSaving {
 			}
 			
 			clothingCurrentlyEquipped.sort(new AbstractClothingRarityComparator());
-
 		}
 
 		return true;
@@ -1845,7 +1914,8 @@ public class CharacterInventory implements XMLSaving {
 				case CEPHALOPOD:
 				case TAIL:
 				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
-					return isAbleToAccessCoverableArea(character, CoverableArea.STOMACH, false);
+//					return isAbleToAccessCoverableArea(character, CoverableArea.STOMACH, false);
+					return isCoverableAreaExposed(character, CoverableArea.STOMACH, justVisible);
 				case TAUR:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
 					// Should only account for taur-specific clothing:
 					List<AbstractClothing> clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.THIGHS, false);
@@ -1894,30 +1964,38 @@ public class CharacterInventory implements XMLSaving {
 	 */
 	public AbstractClothing getLowestZLayerCoverableArea(GameCharacter character, CoverableArea area) {
 		AbstractClothing c = null;
-
-		for (AbstractClothing clothing : getBlockingCoverableAreaClothingList(character, area, false)) {
+		
+		List<AbstractClothing> clothingBlocking = null;
+		
+		if(area==CoverableArea.BREASTS_CROTCH || area==CoverableArea.NIPPLES_CROTCH) {
+			switch(character.getLegConfiguration()) {
+				case ARACHNID:
+				case BIPEDAL:
+				case CEPHALOPOD:
+				case TAIL:
+				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
+					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
+					break;
+				case TAUR:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
+					// Should only account for taur-specific clothing:
+					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.THIGHS, false);
+					clothingBlocking.removeIf(clothing -> !clothing.getItemTags().contains(ItemTag.FITS_TAUR_BODY) || clothing.getItemTags().contains(ItemTag.TRANSPARENT));
+					break;
+			}
+		} else {
+			clothingBlocking = getBlockingCoverableAreaClothingList(character, area, false);
+		}
+		
+		for (AbstractClothing clothing : clothingBlocking) {
 			if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer()) {
 				c = clothing;
 			}
+//			System.out.println(clothing.getName() + ": "+clothing.getClothingType().getzLayer() +", "+ c.getClothingType().getzLayer());
 		}
-		
-//		// Iterate through currently worn clothing:
-//		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-//			// If this clothing is blocking the slot you are trying to access:
-//			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList(character)) {
-//				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-//					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-//						// Replace if ZLayer is lower than previous found clothing:
-//						if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
-//							c = clothing;
-//					}
-//				}
-//			}
-//		}
 
 		return c;
 	}
-	
+
 	/**
 	 * The highest piece of clothing that is blocking this slot.<br/>
 	 * <b>Note:</b> This takes into account displacement, so, for example, if your yoga pants are displaced, and are revealing your panties,
@@ -1926,25 +2004,32 @@ public class CharacterInventory implements XMLSaving {
 	public AbstractClothing getHighestZLayerCoverableArea(GameCharacter character, CoverableArea area) {
 		AbstractClothing c = null;
 
-		for (AbstractClothing clothing : getBlockingCoverableAreaClothingList(character, area, false)) {
+		List<AbstractClothing> clothingBlocking = null;
+		
+		if(area==CoverableArea.BREASTS_CROTCH || area==CoverableArea.NIPPLES_CROTCH) {
+			switch(character.getLegConfiguration()) {
+				case ARACHNID:
+				case BIPEDAL:
+				case CEPHALOPOD:
+				case TAIL:
+				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
+					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
+					break;
+				case TAUR:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
+					// Should only account for taur-specific clothing:
+					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.THIGHS, false);
+					clothingBlocking.removeIf(clothing -> !clothing.getItemTags().contains(ItemTag.FITS_TAUR_BODY) || clothing.getItemTags().contains(ItemTag.TRANSPARENT));
+					break;
+			}
+		} else {
+			clothingBlocking = getBlockingCoverableAreaClothingList(character, area, false);
+		}
+		
+		for (AbstractClothing clothing : clothingBlocking) {
 			if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer()) {
 				c = clothing;
 			}
 		}
-		
-//		// Iterate through currently worn clothing:
-//		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-//			// If this clothing is blocking the slot you are trying to access:
-//			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList(character)) {
-//				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-//					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-//						// Replace if ZLayer is higher than previous found clothing:
-//						if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
-//							c = clothing;
-//					}
-//				}
-//			}
-//		}
 		
 		return c;
 	}

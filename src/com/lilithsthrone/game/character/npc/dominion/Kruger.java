@@ -141,7 +141,7 @@ public class Kruger extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_EBONY, false, Colour.SKIN_EBONY, false), true);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false), true);
-		this.setHairLength(8);
+		this.setHairLength(20);
 		this.setHairStyle(HairStyle.LOOSE);
 
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
@@ -188,7 +188,7 @@ public class Kruger extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-		this.setPenisSize(8);
+		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(60);
 		this.fillCumToMaxStorage();
@@ -208,7 +208,7 @@ public class Kruger extends NPC {
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_mens_smart_shoes", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torsoOver_suit_jacket", Colour.CLOTHING_BLACK, false), true, this);

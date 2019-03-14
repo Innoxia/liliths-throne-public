@@ -32,7 +32,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -192,6 +192,15 @@ public interface SexActionInterface {
 						Sex.getCharacterTargetedForSexAction(this),
 						entry.getValue());
 			}
+
+			if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaOrifice.MOUTH))
+					|| SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaPenetration.TONGUE))) {
+				Sex.getCharacterPerformingAction().setAreaKnownByCharacter(CoverableArea.MOUTH, Sex.getCharacterTargetedForSexAction(SexActionInterface.this), true);
+				
+			} else if(SexActionInterface.this.getTargetedCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaOrifice.MOUTH))
+					|| SexActionInterface.this.getTargetedCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaPenetration.TONGUE))) {
+				Sex.getCharacterTargetedForSexAction(SexActionInterface.this).setAreaKnownByCharacter(CoverableArea.MOUTH, Sex.getCharacterPerformingAction(), true);
+			}
 		}
 		
 		if(getActionType()==SexActionType.POSITIONING) {
@@ -264,7 +273,7 @@ public interface SexActionInterface {
 				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop non-self ongoing penetrations if full control
 					|| this.getParticipantType()==SexParticipantType.SELF
 					|| Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL)
-				&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotBipeds.MISC_WATCHING // Cannot switch positions as spectator
+				&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotGeneric.MISC_WATCHING // Cannot switch positions as spectator
 					|| this.getActionType()!=SexActionType.POSITIONING); 
 	}
 	
@@ -325,6 +334,9 @@ public interface SexActionInterface {
 					}
 				}
 			}
+			if(!target.isAbleToAccessCoverableArea(orifice.getRelatedCoverableArea(), true)) {
+				canAccessOthersParts = false;
+			}
 		}
 		for(SexAreaPenetration penetration : this.getTargetedCharacterPenetrations()) {
 			if(!penetration.isFree(target)) {
@@ -334,7 +346,11 @@ public interface SexActionInterface {
 					}
 				}
 			}
+			if(!target.isAbleToAccessCoverableArea(penetration.getRelatedCoverableArea(), true)) {
+				canAccessOthersParts = false;
+			}
 		}
+		
 		return canAccessSelfParts && canAccessOthersParts;
 	}
 	
@@ -348,7 +364,11 @@ public interface SexActionInterface {
 				&& isPhysicallyPossible()
 				&& !isBannedFromSexManager()
 				&& !Sex.getPosition().isActionBlocked(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), this)) {
-
+			
+			if(this.getParticipantType()==SexParticipantType.SELF && Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()<SexControl.SELF.getValue()) {
+				return null;
+			}
+			
 			if(this.getActionType()==SexActionType.POSITIONING && !Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())) {
 				return null;
 			}
@@ -387,7 +407,17 @@ public interface SexActionInterface {
 								return null;
 							}
 							break;
-						default:
+						case NIPPLE_CROTCH:
+							if(!Sex.getCharacterTargetedForSexAction(this).isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer())) {
+								return null;
+							}
+							break;
+						case BREAST_CROTCH:
+						case ANUS:
+						case ASS:
+						case BREAST:
+						case MOUTH:
+						case THIGHS:
 							break;
 					}
 				}
@@ -706,6 +736,11 @@ public interface SexActionInterface {
 						return true;
 					}
 					break;
+				case NIPPLE_CROTCH:
+					if(!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && this.getActionType()==SexActionType.START_ONGOING) {
+						return true;
+					}
+					break;
 				case URETHRA_PENIS:
 					if(!Main.getProperties().hasValue(PropertyValue.urethralContent) && this.getActionType()==SexActionType.START_ONGOING) {
 						return true;
@@ -768,7 +803,6 @@ public interface SexActionInterface {
 					if(SexActionInterface.this.getSexPace()!=null) {
 						Sex.setSexPace(Sex.getCharacterPerformingAction(), (SexActionInterface.this.getSexPace()));
 					}
-					
 					Sex.setSexStarted(true);
 					Sex.endSexTurn(SexActionInterface.this);
 				}
@@ -779,6 +813,17 @@ public interface SexActionInterface {
 				@Override
 				public boolean isSexPositioningHighlight() {
 					return getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
+				}
+				@Override
+				public Colour getHighlightColour() {
+					if(isSexPenetrationHighlight()) {
+						if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.isPenetration())) {
+							return Colour.GENERIC_SEX_AS_DOM;
+						} else {
+							return Colour.GENERIC_SEX;
+						}
+					}
+					return super.getHighlightColour();
 				}
 				@Override
 				public SexPace getSexPace() {
@@ -990,6 +1035,7 @@ public interface SexActionInterface {
 			SexAreaOrifice.URETHRA_PENIS,
 			SexAreaOrifice.URETHRA_VAGINA,
 			SexAreaOrifice.VAGINA);
+	
 	public default boolean isPhysicallyPossible() {
 		if(this.getParticipantType()==SexParticipantType.SELF) {
 			if(!Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()) {
@@ -1064,10 +1110,19 @@ public interface SexActionInterface {
 				case ANUS:
 				case ASS:
 				case MOUTH:
+					break;
 				case NIPPLE:
+					if(this.getActionType()==SexActionType.START_ONGOING && !character.isBreastFuckableNipplePenetration()) {
+						return false;
+					}
+					break;
 				case BREAST:
 					break;
 				case NIPPLE_CROTCH:
+					if(!character.hasBreastsCrotch() || (this.getActionType()==SexActionType.START_ONGOING && !character.isBreastCrotchFuckableNipplePenetration())) {
+						return false;
+					}
+					break;
 				case BREAST_CROTCH:
 					if(!character.hasBreastsCrotch()) {
 						return false;
@@ -1151,6 +1206,12 @@ public interface SexActionInterface {
 		if(Sex.getOrificesBeingPenetratedBy(condomWearer, SexAreaPenetration.PENIS, cumTarget).contains(SexAreaOrifice.NIPPLE)
 				&& cumTarget.getBreastRawStoredMilkValue()>0
 				&& cumTarget.getMilk().getFluidModifiers().contains(FluidModifier.MINERAL_OIL)) {
+			return CondomFailure.MINERAL_OIL_MILK;
+		}
+		
+		if(Sex.getOrificesBeingPenetratedBy(condomWearer, SexAreaPenetration.PENIS, cumTarget).contains(SexAreaOrifice.NIPPLE_CROTCH)
+				&& cumTarget.getBreastCrotchRawStoredMilkValue()>0
+				&& cumTarget.getMilkCrotch().getFluidModifiers().contains(FluidModifier.MINERAL_OIL)) {
 			return CondomFailure.MINERAL_OIL_MILK;
 		}
 		

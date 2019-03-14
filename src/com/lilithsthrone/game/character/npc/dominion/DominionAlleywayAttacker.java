@@ -9,11 +9,10 @@ import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.Season;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
@@ -35,12 +34,15 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.2.6
+ * @version 0.3.1
  * @author Innoxia
  */
 public class DominionAlleywayAttacker extends NPC {
@@ -68,10 +70,10 @@ public class DominionAlleywayAttacker extends NPC {
 			this.setLocation(Main.game.getPlayer(), true);
 			
 			boolean canalSpecies = false;
-			PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
-			if(pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
-					|| pt == PlaceType.DOMINION_CANAL
-					|| pt == PlaceType.DOMINION_CANAL_END) {
+			AbstractPlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
+			if(pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
+					|| pt.equals(PlaceType.DOMINION_CANAL)
+					|| pt.equals(PlaceType.DOMINION_CANAL_END)) {
 				canalSpecies = true;
 			}
 			
@@ -107,34 +109,42 @@ public class DominionAlleywayAttacker extends NPC {
 						
 					// Canals spawn only:
 					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(canalSpecies?25:0, gender, s, availableRaces);
+						addToSubspeciesMap((canalSpecies?2000:0), gender, s, availableRaces);
 						break;
 					case SLIME:
-						addToSubspeciesMap(canalSpecies?30:0, gender, s, availableRaces);
+						addToSubspeciesMap((canalSpecies?3000:0), gender, s, availableRaces);
 						break;
 					case RAT_MORPH:
-						addToSubspeciesMap(canalSpecies?15:0, gender, s, availableRaces);
+						addToSubspeciesMap((canalSpecies?2500:0), gender, s, availableRaces);
 						break;
 						
 					// Special spawns:
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
+							addToSubspeciesMap((int) ((canalSpecies?50:1000)* Subspecies.getWorldSpecies().get(WorldType.DOMINION).get(s).getChanceMultiplier()), gender, s, availableRaces);
 						}
 						break;
 						
 					// Regular spawns:
 					default:
 						if(Subspecies.getWorldSpecies().get(WorldType.DOMINION).containsKey(s)) {
-							addToSubspeciesMap((int) (canalSpecies?25:100 * Subspecies.getWorldSpecies().get(WorldType.DOMINION).get(s).getChanceMultiplier()), gender, s, availableRaces);
+							addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies().get(WorldType.DOMINION).get(s).getChanceMultiplier()), gender, s, availableRaces);
 						}
 				}
 			}
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
+			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
+				this.setBody(CharacterUtils.generateHalfDemonBody(this, Subspecies.getFleshSubspecies(this)));
+			}
+			
+			if(Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
+				this.setLegConfiguration(LegConfiguration.TAUR);
+			}
+			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
-	
+			
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
@@ -173,7 +183,7 @@ public class DominionAlleywayAttacker extends NPC {
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	@Override
@@ -203,7 +213,7 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public void hourlyUpdate() {
-		if(this.getHistory()==Occupation.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType()==PlaceType.ANGELS_KISS_BEDROOM) {
+		if(this.getHistory()==Occupation.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
 			// Remove client:
 			List<NPC> charactersPresent = Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation());
 			if(charactersPresent.size()>1) {
@@ -276,13 +286,8 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public DialogueNode getEncounterDialogue() {
-		PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
 		
-		if(pt == PlaceType.DOMINION_BACK_ALLEYS
-				|| pt == PlaceType.DOMINION_CANAL
-				|| pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
-				|| pt == PlaceType.DOMINION_CANAL_END) {
-			
+		if(!isStormAttacker()) {
 			if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 				this.setPlayerKnowsName(true);
 				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
@@ -302,6 +307,13 @@ public class DominionAlleywayAttacker extends NPC {
 
 	// Combat:
 
+	@Override
+	public void applyEscapeCombatEffects() {
+		if(isStormAttacker()) {
+			Main.game.banishNPC(this);
+		}
+	}
+	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
@@ -325,5 +337,15 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 			}
 		}
+	}
+	
+	public boolean isStormAttacker() {
+		AbstractPlaceType pt = this.getLocationPlace().getPlaceType();
+		return (!pt.equals(PlaceType.DOMINION_BACK_ALLEYS)
+				&& !pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
+				&& !pt.equals(PlaceType.DOMINION_CANAL)
+				&& !pt.equals(PlaceType.DOMINION_CANAL_END)
+				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
+				&& (!this.isSlave() || !this.getOwner().isPlayer()));
 	}
 }

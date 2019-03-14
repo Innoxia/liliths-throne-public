@@ -94,7 +94,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			}
 			item.setItemEffects(effectsToBeAdded);
 			
-			if(!effectsToBeAdded.isEmpty() && (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()))) {
+			if(!effectsToBeAdded.isEmpty()
+					&& (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()) || item.getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId()))) {
 				item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?Colour.GENERIC_ARCANE:Colour.valueOf(parentElement.getAttribute("colour"))), effectsToBeAdded));
 			}
 			
@@ -162,7 +163,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	}
 	
 	public String getDisplayName(boolean withRarityColour) {
-		return Util.capitaliseSentence((itemType.getDeterminer()==""?"":itemType.getDeterminer()+" ") + (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
+		return Util.capitaliseSentence(
+				(!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
+						? itemType.getDeterminer() + " "
+						: (Util.isVowel(name.charAt(0)) ? "an " : "a "))
+				+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
 	}
 
 	@Override

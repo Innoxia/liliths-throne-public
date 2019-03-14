@@ -1,10 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
-
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
@@ -20,17 +17,17 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.8
+ * @version 0.3.1
  * @author Innoxia
  */
 public class RoomPlayer {
@@ -79,140 +76,49 @@ public class RoomPlayer {
 			};
 
 		} else if (index == 3) {
-			return new Response("Wash", "Use your room's en-suite to take a bath or shower. Rose will come and clean your clothes while you wash yourself.", AUNT_HOME_PLAYERS_ROOM_WASH){
+			return new Response("Quick wash",
+					"Use your room's en-suite to take a bath or shower. Rose will come and clean your clothes while you wash yourself."
+							+ " [style.italicsGood(This will clean <b>a maximum of "+Units.fluid(500)+"</b> of fluids out of all your orifices.)]",
+					AUNT_HOME_PLAYERS_ROOM_WASH){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					
-					Set<SexAreaOrifice> dirtyOrifices = new HashSet<>();
-					for(SexAreaOrifice ot: SexAreaOrifice.values()) {
-						if(Main.game.getPlayer().getTotalFluidInArea(ot)>0) {
-							dirtyOrifices.add(ot);
-						}
-					}
 					
-					Main.game.getPlayer().washAllOrifices();
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(false));
 					Main.game.getPlayer().calculateStatusEffects(0);
 					Main.game.getPlayer().cleanAllDirtySlots();
-					Main.game.getPlayer().cleanAllClothing();
-					
-					for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
-						if(dirtyOrifices.contains(orifice)) {
-							switch(orifice) {
-								case ANUS:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum out of your [pc.asshole] as you can, but there's so much in there that you're unable to fully clean it all out!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
-												"You wash all of the cum out of your [pc.asshole]."));
-									}
-									break;
-								case ASS:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum off of your [pc.ass] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
-												"You wash all of the cum off of your [pc.ass]."));
-									}
-									break;
-								case BREAST:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum off of your [pc.breasts] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
-												"You wash all of the cum off of your [pc.breasts]."));
-									}
-									break;
-								case BREAST_CROTCH:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum off of your [pc.crotchBoobs] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
-												"You wash all of the cum off of your [pc.crotchBoobs]."));
-									}
-									break;
-								case MOUTH:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"The shower does nothing to clean the cum out of your stomach!"));
-									}
-									break;
-								case NIPPLE:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum out of your [pc.nipples] as you can, but there's so much in there that you're unable to fully clean it all out!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
-												"You wash all of the cum out of your [pc.nipples]."));
-									}
-									break;
-								case NIPPLE_CROTCH:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum out of your [pc.crotchNipples] as you can, but there's so much in there that you're unable to fully clean it all out!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
-												"You wash all of the cum out of your [pc.crotchNipples]."));
-									}
-									break;
-								case THIGHS:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum off of your [pc.thighs] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, 
-												"You wash all of the cum off of your [pc.thighs]."));
-									}
-									break;
-								case URETHRA_PENIS:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum out of your cock's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
-												"You wash all of the cum out of your cock's urethra."));
-									}
-									break;
-								case URETHRA_VAGINA:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum out of your vagina's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
-												"You wash all of the cum out of your vagina's urethra."));
-									}
-									break;
-								case VAGINA:
-									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false,
-												"You wash as much of the cum out of your [pc.pussy] as you can, but there's so much in there that you're unable to fully clean it all out!"));
-									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true,
-												"You wash all of the cum out of your [pc.pussy]."));
-									}
-									break;
-							}
-						}
-					}
-					
-					Main.game.getTextEndStringBuilder().append("<p>"
-								+ "<b style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Your clothes have been cleaned, and you feel refreshed!</b>"
-							+ "</p>");
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing());
+				}
+				@Override
+				public int getSecondsPassed() {
+					return 10*60;
 				}
 			};
 
 		} else if (index == 4) {
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
-				return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
-			} else {
-				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
-			}
-			
+			return new Response("Thorough wash",
+					"Use your room's en-suite to take a bath or shower, in which you will thoroughly clean yourself. Rose will come and clean your clothes while you wash yourself."
+							+ " [style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]",
+					AUNT_HOME_PLAYERS_ROOM_WASH){
+				@Override
+				public void effects() {
+					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
+					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
+					
+					
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(true));
+					Main.game.getPlayer().calculateStatusEffects(0);
+					Main.game.getPlayer().cleanAllDirtySlots();
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing());
+				}
+				@Override
+				public int getSecondsPassed() {
+					return 30*60;
+				}
+			};
+
 		} else if(index == 5) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
 				return new Response("Slavery Overview", "Open the slave management screen.",  ROOM) {
@@ -241,15 +147,16 @@ public class RoomPlayer {
 				}
 			};
 
+		} else if (index == 10) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
+				return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
+			} else {
+				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
+			}
+			
 		} else {
 			return null;
 		}
-	}
-	
-	private static String formatWashingArea(boolean isFullyCleaned, String input) {
-		return "<p style='color:"+(isFullyCleaned?Colour.GENERIC_GOOD.toWebHexString():Colour.CUM.toWebHexString())+";'><i>"
-					+ input
-				+ "</i></p>";
 	}
 
 	public static final DialogueNode ROOM = new DialogueNode("Your Room", "", false) {
@@ -353,11 +260,6 @@ public class RoomPlayer {
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_WASH = new DialogueNode("Your Room", "", false) {
 
 		@Override
-		public int getSecondsPassed() {
-			return 20*60;
-		}
-
-		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append("<p>"
@@ -412,12 +314,7 @@ public class RoomPlayer {
 			}
 			
 			UtilText.nodeContentSB.append(" and see that it's the <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
-						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
-						+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
-						+ " "
-						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
-						+ ", "
-						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH))
+						+ Units.date(Main.game.getDateNow(), Units.DateType.LONG)
 					+"</b>. From a quick calculation "+(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_ARCANE)<IntelligenceLevel.ONE_AVERAGE.getMaximumValue()?"(with some help from your phone's calculator)":"")
 					+ ", you figure out that it's been <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b> since you appeared in this world."
 					+ "</p>");
@@ -651,7 +548,7 @@ public class RoomPlayer {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>0) {
+			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>=NightlifeDistrict.getPartner().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX", NightlifeDistrict.getClubbersPresent());
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX_NO_ORGASM", NightlifeDistrict.getClubbersPresent());

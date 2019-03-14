@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	
+	<coreAtributes>
+		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress' inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
+		<value>1000</value> 
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[evening gown]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[evening gowns]]></namePlural> 
+		<description><![CDATA[An elegant evening gown, perfect for dinner parties with the social elite.]]></description> 
+		<physicalResistance>1</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>TORSO_UNDER</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>evening_gown.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts> 
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"> 
+				</concealedSlots>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>ASS</bodyPart>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>MOUND</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>TESTICLES</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
+					<bodyPart>LEGS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+					<clothingAccess>CALVES</clothingAccess>
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN">
+				    <concealedSlot>LEG</concealedSlot>
+				    <concealedSlot>FOOT</concealedSlot>
+				    <concealedSlot>SOCK</concealedSlot>
+				    <concealedSlot>ANKLE</concealedSlot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/><tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>DRESS</tag>
+		</itemTags>
+	</coreAtributes>
+
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] the back of [npc.her] evening gown, letting it fall to [npc.her] feet.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] the back of [npc2.namePos] evening gown, letting it fall to [npc2.her] feet.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] the back of [npc2.namePos] evening gown, and [npc.verb(yank)] it down to [npc2.her] feet.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the evening gown up to [npc.her] chest, then [npc.verb(zip)] it closed.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the evening gown up to [npc2.namePos] chest, then [npc.verb(zip)] it closed.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] the evening gown up to [npc2.namePos] chest, then [npc.verb(tug)] the zipper closed.]]>
+		</otherRough>
+	</replacementText>
+
+	
+	<displacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] evening gown.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc2.namePos] evening gown.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] up the skirt of [npc2.namePos] evening gown.]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] down the skirt of [npc.her] evening gown.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] down the skirt of [npc2.namePos] evening gown.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] down the skirt of [npc2.namePos] evening gown.]]>
+		</otherRough>
+	</replacementText>
+</clothing>

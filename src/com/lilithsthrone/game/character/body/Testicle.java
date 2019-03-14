@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -189,8 +190,8 @@ public class Testicle implements BodyPartInterface {
 		}
 	}
 
-	public boolean isInternal() {
-		if(!Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+	public boolean isInternal(GameCharacter owner) {
+		if(!Main.getProperties().hasValue(PropertyValue.futanariTesticles) && owner!=null && owner.isFeminine()) {
 			return true;
 		}
 		return internal;
@@ -318,9 +319,9 @@ public class Testicle implements BodyPartInterface {
 		} else {
 			return UtilText.parse(owner, "<p style='text-align:center;'><i style='color:"+Colour.CUM.toWebHexString()+";'>"
 					+ UtilText.returnStringAtRandom(
-							cumChange+"ml of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
-							cumChange+"ml of [npc.cum+] shoots out of [npc.her] [npc.cock+].",
-							cumChange+"ml of [npc.cum+] spurts out of [npc.her] [npc.cock+].")
+							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
+							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] shoots out of [npc.her] [npc.cock+].",
+							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] spurts out of [npc.her] [npc.cock+].")
 				+ "</i>"
 				+ (this.cumStored==0
 					?"<br/><i>[npc.Name] now [npc.has] no more [npc.cum] stored in [npc.her] [npc.balls]!</i>"

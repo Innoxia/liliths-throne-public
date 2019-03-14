@@ -30,6 +30,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -3342,6 +3343,15 @@ public class ItemType {
 		}
 		
 		@Override
+		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
+			if(user.equals(target)) {
+				return "Use the " + getName(false) + " to hypnotise yourself.";
+			} else {
+				return UtilText.parse(target, "Use the " + getName(false) + " to hypnotise [npc.name].");
+			}
+		}
+		
+		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Taking hold of the delicate chain, you start slowly swinging the Hypno-Watch back and forth, fixating your gaze on the swirling face as you allow the item's arcane power to seep into your mind...",
@@ -3439,7 +3449,7 @@ public class ItemType {
 			false,
 			"Moo Milker",
 			"Moo Milkers",
-			"A manual cow-themed breast pump, capable of holding up to 1000ml of liquid in the attached plastic beaker.",
+			"A manual cow-themed breast pump, capable of holding up to "+Units.fluid(1000)+" of liquid in the attached plastic beaker.",
 			"breastPump",
 			Colour.BASE_PURPLE_LIGHT,
 			null,
@@ -3474,7 +3484,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true) && target.getBreastRawMilkStorageValue()>0;
+			return target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true) && target.getBreastRawMilkStorageValue()>=5;
 		}
 
 		@Override
@@ -3483,14 +3493,14 @@ public class ItemType {
 				if(!target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 					return "You need to be able to access your nipples in order to use this!";
 				} else {
-					return "You need to have at least 1ml of milk stored in your breasts in order to use this!";
+					return "You need to have at least "+Units.fluid(5)+" of milk stored in your breasts in order to use this!";
 				}
 				
 			} else {
 				if(!target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 					return UtilText.parse(target, "You need to be able to access [npc.namePos] nipples in order to use this!");
 				} else {
-					return UtilText.parse(target, "[npc.Name] needs to have at least 1ml of milk stored in [npc.her] breasts in order to use this!");
+					return UtilText.parse(target, "[npc.Name] needs to have at least "+Units.fluid(5)+" of milk stored in [npc.her] breasts in order to use this!");
 				}
 			}
 		}
@@ -3673,10 +3683,10 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"You take a smell of the delicate perfume given off by the red Rose.",
-					"You take a smell of the delicate perfume given off by the red Rose.",
-					"You take a smell of the delicate perfume given off by the red Rose.",
-					"You take a smell of the delicate perfume given off by the red Rose.");
+					"You take a smell of the delicate perfume given off by the red rose.",
+					"You get [npc.name] to take a smell of the delicate perfume given off by the red rose.",
+					"[npc.Name] takes a smell of the delicate perfume given off by the red rose.",
+					"[npc.Name] gets you to take a smell of the delicate perfume given off by the red rose.");
 		}
 		
 		@Override
@@ -3706,7 +3716,7 @@ public class ItemType {
 
 		@Override
 		public String getDescription() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP)) {
 				return "A bouquet filled with roses of many colours, it smells pleasant even from a distance."
 						+ " [Ashley.speech(Just in case you're clueless to the point that you don't even know the favourite colour of your intended recipient, every natural colour is included here.)]";
 			} else {
@@ -3722,10 +3732,10 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"You take a smell of the delicate perfume given off by the Rose bouquet.",
-					"You take a smell of the delicate perfume given off by the Rose bouquet.",
-					"You take a smell of the delicate perfume given off by the Rose bouquet.",
-					"You take a smell of the delicate perfume given off by the Rose bouquet.");
+					"You take a smell of the delicate perfume given off by the rose bouquet.",
+					"You get [npc.name] to take a smell of the delicate perfume given off by the rose bouquet.",
+					"[npc.Name] takes a smell of the delicate perfume given off by the rose bouquet.",
+					"[npc.Name] gets you to take a smell of the delicate perfume given off by the rose bouquet.");
 		}
 		
 		@Override
@@ -3753,7 +3763,7 @@ public class ItemType {
 
 		@Override
 		public String getDescription() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP)) {
 				return "A box filled with various chocolates. [Ashley.speech(Generic, but tasty. Yeah, go ahead and pretend that you're buying this for someone other than yourself.)]";
 			} else {
 				return "A box filled with various chocolates.";
@@ -3795,7 +3805,7 @@ public class ItemType {
 
 		@Override
 		public String getDescription() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP)) {
 				return "A small bottle of perfume."
 						+ " [Ashley.speech(A generic scent that most people enjoy. Makes you more attractive to everyone, since nobody likes a stinker!)]";
 			} else {
@@ -3838,7 +3848,7 @@ public class ItemType {
 
 		@Override
 		public String getDescription() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP)) {
 				return "A cute brown teddy bear, with the words 'Hug me!' sewed onto a little heart that it's holding."
 						+ " [Ashley.speech(Warning, this is an inanimate object; it does not actually yearn for your affection and cannot protect you from monsters hiding under the bed!)]";
 			} else {

@@ -200,7 +200,7 @@ public class Kalahari extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_TUBE_TOP, Colour.CLOTHING_TAN, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_PLEATED, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_PLATFORM_BOOTS, Colour.CLOTHING_TAN, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_platform_boots", Colour.CLOTHING_TAN, false), true, this);
 		
 		this.setPiercedEar(true);			
 		this.setPiercedNose(true);

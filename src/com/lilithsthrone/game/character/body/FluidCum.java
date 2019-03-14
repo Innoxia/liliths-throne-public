@@ -49,8 +49,8 @@ public class FluidCum implements FluidInterface, XMLSaving {
 		
 		Element cumModifiers = doc.createElement("cumModifiers");
 		element.appendChild(cumModifiers);
-		for(FluidModifier fm : FluidModifier.values()) {
-			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.hasFluidModifier(fm)));
+		for(FluidModifier fm : this.getFluidModifiers()) {
+			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), "true");
 		}
 		
 		return element;
@@ -86,23 +86,12 @@ public class FluidCum implements FluidInterface, XMLSaving {
 		
 		fluidCum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
 		
-
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
-		List<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
-		
-		Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);
-		
-//		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
-//		fluidCum.fluidModifiers.clear();
-//		for(FluidModifier fm : FluidModifier.values()) {
-//			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-//				if (!fluidCum.hasFluidModifier(fm)) {
-//					fluidCum.fluidModifiers.add(fm);
-//				}
-//			} else if (!cumModifiers.getAttribute(fm.toString()).isEmpty()) {
-//				fluidCum.fluidModifiers.remove(fm);
-//			}
-//		}
+		fluidCum.fluidModifiers.clear();
+		if(cumModifiers!=null) {
+			List<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
+			Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);
+		}
 		
 		return fluidCum;
 	}

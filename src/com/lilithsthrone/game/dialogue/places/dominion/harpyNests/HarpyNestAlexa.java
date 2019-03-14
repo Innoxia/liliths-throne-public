@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
@@ -13,6 +12,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -100,7 +100,7 @@ public class HarpyNestAlexa {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/harpyNests/alexa", "ALEXAS_NEST");
+			return UtilText.parseFromXMLFile("places/dominion/harpyNests/alexa", "ALEXAS_NEST_SCARLETT");
 		}
 
 		@Override

@@ -12,13 +12,12 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.62
- * @version 0.1.87
+ * @version 0.3.1
  * @author Innoxia
  */
 public class MiscDialogue {
 	
 	private static StringBuilder descriptionSB = new StringBuilder();
-	
 	
 	public static final DialogueNode STATUS_EFFECTS = new DialogueNode("Important status effect updates", "", true) {
 

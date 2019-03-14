@@ -20,8 +20,8 @@ public abstract class AbstractHornType implements BodyPartTypeInterface {
 	
 	private int defaultHornsPerRow;
 
-	private String name;
 	private String transformationName;
+	private String name;
 	private String namePlural;
 
 	private List<String> descriptorsMasculine;
