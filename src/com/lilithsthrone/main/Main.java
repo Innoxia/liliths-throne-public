@@ -135,6 +135,8 @@ public class Main extends Application {
 			+"<ul>Added: 'Evening gown' (feminine, torso slot, sold by Nyan). (PR#1097 by Phlarx)</ul>"
 			+"<ul>Added: 'Rockabilly dress' (feminine, torso slot, sold by Nyan). (PR#1097 by Phlarx)</ul>"
 			+"<ul>Added: 'Vintage dress' (feminine, torso slot, sold by Nyan). (PR#1097 by Phlarx)</ul>"
+			+"<ul>Fixed a few issues with the new metric & imperial units support. (PR#1102 by DJ Addi)</ul>"
+			
 
 			+"<li>Clothing:</li>"
 			+"<ul>Moved all shoe clothing into the external res folder, tidied up some of the svg files, and added more colouring options to those which only had one.</ul>"
