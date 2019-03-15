@@ -549,7 +549,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character instanceof Lilaya) {
 			if(this.getRace()==Race.DEMON) {
-				return Util.newHashSetOfValues(Relationship.HalfSibling);
+				return Util.newHashSetOfValues(Relationship.HalfSibling, Relationship.Nibling);
 			}
 			return Util.newHashSetOfValues(Relationship.Nibling);
 		}

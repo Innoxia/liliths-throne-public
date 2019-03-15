@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -10713,6 +10714,8 @@ public class ClothingType {
 	private static Map<InventorySlot, List<AbstractClothingType>> commonClothingMapFemaleIncludingAndrogynous;
 	private static Map<InventorySlot, List<AbstractClothingType>> commonClothingMapMaleIncludingAndrogynous;
 	
+	private static Map<Occupation, ArrayList<AbstractClothingType>> suitableFeminineClothing = new HashMap<>();
+	
 	private static Map<AbstractClothingType, String> clothingToIdMap = new HashMap<>();
 	private static Map<String, AbstractClothingType> idToClothingMap = new HashMap<>();
 	
@@ -10720,20 +10723,26 @@ public class ClothingType {
 	
 	public static AbstractClothingType getClothingTypeFromId(String id) {
 //		System.out.print("ID: "+id);
-//		System.out.println("  set to: "+id);
 		
 		if(oldIdConversionMap.containsKey(id)) {
 			id = oldIdConversionMap.get(id);
 		}
 		
 		id = Util.getClosestStringMatch(id, idToClothingMap.keySet());
+		
+//		System.out.println("  set to: "+id);
+		
 		return idToClothingMap.get(id);
 	}
 	
 	public static String getIdFromClothingType(AbstractClothingType clothingType) {
 		return clothingToIdMap.get(clothingType);
 	}
-	
+
+	public static Map<Occupation, ArrayList<AbstractClothingType>> getSuitableFeminineClothing() {
+		return suitableFeminineClothing;
+	}
+
 	static {
 		oldIdConversionMap.put("EYES_SAFETY_GOGGLES", "SCIENTIST_EYES_SAFETY_GOGGLES");
 		oldIdConversionMap.put("kobolds_belt_leather_belt", "innoxia_hips_leather_belt");
@@ -10807,6 +10816,24 @@ public class ClothingType {
 											moddedClothingList.add(ct);
 											clothingToIdMap.put(ct, id);
 											idToClothingMap.put(id, ct);
+
+											if(ct.getRarity()==Rarity.COMMON) {
+												commonClothingMap.get(ct.getSlot()).add(ct);
+												
+												if (ct.getFemininityRestriction() == Femininity.FEMININE) {
+													commonClothingMapFemale.get(ct.getSlot()).add(ct);
+													commonClothingMapFemaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													
+												} else if (ct.getFemininityRestriction() == Femininity.ANDROGYNOUS || ct.getFemininityRestriction() == null) {
+													commonClothingMapAndrogynous.get(ct.getSlot()).add(ct);
+													commonClothingMapFemaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													commonClothingMapMaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													
+												} else if (ct.getFemininityRestriction() == Femininity.MASCULINE) {
+													commonClothingMapMale.get(ct.getSlot()).add(ct);
+													commonClothingMapMaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+												}
+											}
 											
 										} catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
 											System.err.println(ex);
@@ -10844,6 +10871,25 @@ public class ClothingType {
 											allClothing.add(ct);
 											clothingToIdMap.put(ct, id);
 											idToClothingMap.put(id, ct);
+
+											if(ct.getRarity()==Rarity.COMMON) {
+												commonClothingMap.get(ct.getSlot()).add(ct);
+												
+												if (ct.getFemininityRestriction() == Femininity.FEMININE) {
+													commonClothingMapFemale.get(ct.getSlot()).add(ct);
+													commonClothingMapFemaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													
+												} else if (ct.getFemininityRestriction() == Femininity.ANDROGYNOUS || ct.getFemininityRestriction() == null) {
+													commonClothingMapAndrogynous.get(ct.getSlot()).add(ct);
+													commonClothingMapFemaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													commonClothingMapMaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													
+												} else if (ct.getFemininityRestriction() == Femininity.MASCULINE) {
+													commonClothingMapMale.get(ct.getSlot()).add(ct);
+													commonClothingMapMaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+												}
+											}
+											
 										} catch(Exception ex) {
 											System.err.println("Loading modded clothing failed at 'ClothingType' Code 2. File path: "+innerChild.getAbsolutePath());
 											System.err.println("Actual exception: ");
@@ -10913,6 +10959,54 @@ public class ClothingType {
 			}
 		}
 //  	    System.out.println(allClothing.size());
+		suitableFeminineClothing.put(Occupation.NPC_PROSTITUTE,
+				Util.newArrayListOfValues(
+						ClothingType.getClothingTypeFromId("innoxia_ankle_anklet"),
+						ClothingType.CHEST_LACY_PLUNGE_BRA,
+						ClothingType.CHEST_OPEN_CUP_BRA,
+						ClothingType.CHEST_PLUNGE_BRA,
+						ClothingType.EYES_AVIATORS,
+						ClothingType.FINGER_RING,
+						ClothingType.getClothingTypeFromId("innoxia_foot_chelsea_boots"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_ankle_boots"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_heels"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_thigh_high_boots"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_stiletto_heels"),
+						ClothingType.GROIN_BACKLESS_PANTIES,
+						ClothingType.GROIN_CROTCHLESS_PANTIES,
+						ClothingType.GROIN_CROTCHLESS_THONG,
+						ClothingType.GROIN_LACY_PANTIES,
+						ClothingType.GROIN_THONG,
+						ClothingType.GROIN_VSTRING,
+						ClothingType.getClothingTypeFromId("innoxia_hand_elbow_length_gloves"),
+						ClothingType.HEAD_HEADBAND,
+						ClothingType.HEAD_HEADBAND_BOW,
+						ClothingType.LEG_CROTCHLESS_CHAPS,
+						ClothingType.LEG_MICRO_SKIRT_BELTED,
+						ClothingType.LEG_MICRO_SKIRT_PLEATED,
+						ClothingType.LEG_MINI_SKIRT,
+						ClothingType.LEG_SKIRT,
+						ClothingType.NECK_HEART_NECKLACE,
+						ClothingType.NECK_ANKH_NECKLACE,
+						ClothingType.NIPPLE_TAPE_CROSSES,
+						ClothingType.SOCK_FISHNET_STOCKINGS,
+						ClothingType.SOCK_TIGHTS,
+						ClothingType.STOMACH_OVERBUST_CORSET,
+						ClothingType.STOMACH_UNDERBUST_CORSET,
+						ClothingType.TORSO_FISHNET_TOP,
+						ClothingType.TORSO_KEYHOLE_CROPTOP,
+						ClothingType.TORSO_SHORT_CROPTOP,
+						ClothingType.WRIST_BANGLE,
+						ClothingType.WRIST_WOMENS_WATCH,
+						
+						ClothingType.PIERCING_EAR_BASIC_RING,
+						ClothingType.PIERCING_LIP_RINGS,
+						ClothingType.PIERCING_NAVEL_GEM,
+						ClothingType.PIERCING_NIPPLE_BARS,
+						ClothingType.PIERCING_NOSE_BASIC_RING,
+						ClothingType.PIERCING_PENIS_RING,
+						ClothingType.PIERCING_TONGUE_BAR,
+						ClothingType.PIERCING_VAGINA_BARBELL_RING));
 	}
 	
 	public static List<AbstractClothingType> getAllClothing() {

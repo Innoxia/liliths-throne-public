@@ -20,11 +20,9 @@
 		
 		<blockedPartsList> 
 			<blockedParts>
-			
-				<displacementType>REMOVE_OR_EQUIP</displacementType> <clothingAccessRequired> 
-					<clothingAccess>HEAD</clothingAccess>
-					<clothingAccess>WAIST</clothingAccess>
-				</clothingAccessRequired><blockedBodyParts> 
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts> 
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>
 					<bodyPart>STOMACH</bodyPart>
@@ -39,9 +37,7 @@
 			
 			<blockedParts>
 				<displacementType>PULLS_UP</displacementType>
-				<clothingAccessRequired>
-					<clothingAccess>WAIST</clothingAccess>
-				</clothingAccessRequired>
+				<clothingAccessRequired/>
 				<blockedBodyParts>
 					<bodyPart>ASS</bodyPart>
 					<bodyPart>ANUS</bodyPart>

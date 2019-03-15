@@ -2710,15 +2710,12 @@ public abstract class GameCharacter implements XMLSaving {
 					+Util.capitaliseSentence(this.isPlayerKnowsName()
 						?this.getNameIgnoresPlayerKnowledge() + " " + this.getSurname()
 						:this.getName(true))
-//					+UtilText.parse(this,
-////							"[npc.Name]")
-//						this.isPlayerKnowsName()
-//							?"[npc.Name] [npc.surname]"
-//							:"[npc.Name]")
 				+"</h6>"
 				+ "<p>"
 					+ this.getDescription()
 				+ "</p>");
+		
+		String relationships = this.getRelationshipStrTo(Main.game.getPlayer());
 		
 		if(!this.isRaceConcealed()) {
 			if(!this.isPlayer()) {
@@ -2728,6 +2725,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ (Main.game.getPlayer().hasCompanion(this)
 									?UtilText.parse(this, "[style.boldCompanion(Companion:)]<br/>[npc.Name] is currently following you around as your companion.<br/><br/>")
 									:"")
+							+ (relationships.isEmpty()?"":"[style.boldGreenLight(Family:)]<br/>[npc.She] is your "+relationships+".<br/><br/>")
 							+ "[style.boldAffection(Affection:)]<br/>"
 							+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
 									AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
@@ -4545,7 +4543,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	public GameCharacter getMother() {
-		if(motherId==null || motherId.isEmpty()) {
+		if(motherId==null || motherId.isEmpty() || motherId.equals("NOT_SET")) {
 			return null;
 		}
 		try {
@@ -4569,7 +4567,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public GameCharacter getFather() {
-		if(fatherId==null || fatherId.isEmpty()) {
+		if(fatherId==null || fatherId.isEmpty() || fatherId.equals("NOT_SET")) {
 			return null;
 		}
 		try {
@@ -10304,7 +10302,7 @@ public abstract class GameCharacter implements XMLSaving {
 							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 								if(this.getBreastSize().getMeasurement() >= characterBeingRevealed.getBreastSize().getMeasurement()) {
 									sb.append("[npc2.Name] [npc2.verb(grin)] down at [npc.name] as [npc.her] [npc.breastSize] breasts are revealed, "
-											+ "[npc2.speech(Aww, look at those tiny little things, how cute!)]");
+											+ "[npc2.speech(Hah! They aren't as big as mine!)]");
 									
 								} else {
 									sb.append("[npc2.Name] [npc2.verb(let)] out an annoyed huff as [npc.namePos] [npc.breastSize] breasts are revealed, "
@@ -12682,7 +12680,7 @@ public abstract class GameCharacter implements XMLSaving {
 								?" [npc.She] [npc.verb(feel)] deeply grateful to "+(charactersFluid==null?"":UtilText.parse(charactersFluid, "[npc.namePos]"))+" for providing [npc.herHim] with what [npc.she] needed most..."
 										+ (this.isSlave()?this.incrementObedience(5):"")
 								:" [npc.She] [npc.was]n't suffering from withdrawal, but [npc.she] still [npc.verb(feel)] thankful to "
-										+(charactersFluid==null?"":UtilText.parse(charactersFluid, "[npc.namePos]"))+" for feeding [npc.her] addiction...")
+										+(charactersFluid==null?"":UtilText.parse(charactersFluid, "[npc.name]"))+" for feeding [npc.her] addiction...")
 						+ "</p>"));
 		}
 		
@@ -13377,24 +13375,35 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void performImpregnationCheck() {
-		if(this.fluidsStoredMap.get(SexAreaOrifice.VAGINA)!=null && !this.fluidsStoredMap.get(SexAreaOrifice.VAGINA).isEmpty()) {
-			List<FluidStored> fluids = new ArrayList<>(this.fluidsStoredMap.get(SexAreaOrifice.VAGINA));
-			Collections.shuffle(fluids);
-			for(FluidStored fs : fluids) {
-				if(fs.isCum()) {
-					GameCharacter partner = null;
-					if(fs.getCharactersFluidID().equals(Main.game.getPlayer().getId())) {
-						partner = Main.game.getPlayer();
-					} else {
-						try {
-							partner = Main.game.getNPCById(fs.getCharactersFluidID());
-						} catch(Exception e) {
-							// No need to print to error log - a failure to get the character just means that they've been removed from the game.
-//							Util.logGetNpcByIdError("performImpregnationCheck()", fs.getCharactersFluidID());
+		List<SexAreaOrifice> orificesToCheck;
+		
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			orificesToCheck = new ArrayList<>();
+			Collections.addAll(orificesToCheck, SexAreaOrifice.values());
+		} else {
+			orificesToCheck = Util.newArrayListOfValues(SexAreaOrifice.VAGINA);
+		}
+		
+		for(SexAreaOrifice ot : orificesToCheck) {
+			if(this.fluidsStoredMap.get(ot)!=null && !this.fluidsStoredMap.get(ot).isEmpty()) {
+				List<FluidStored> fluids = new ArrayList<>(this.fluidsStoredMap.get(ot));
+				Collections.shuffle(fluids);
+				for(FluidStored fs : fluids) {
+					if(fs.isCum()) {
+						GameCharacter partner = null;
+						if(fs.getCharactersFluidID().equals(Main.game.getPlayer().getId())) {
+							partner = Main.game.getPlayer();
+						} else {
+							try {
+								partner = Main.game.getNPCById(fs.getCharactersFluidID());
+							} catch(Exception e) {
+								// No need to print to error log - a failure to get the character just means that they've been removed from the game.
+								//Util.logGetNpcByIdError("performImpregnationCheck()", fs.getCharactersFluidID());
+							}
 						}
-					}
-					if(partner!=null) {
-						rollForPregnancy(partner, fs.getMillilitres());
+						if(partner!=null) {
+							rollForPregnancy(partner, fs.getMillilitres());
+						}
 					}
 				}
 			}
@@ -14035,58 +14044,55 @@ public abstract class GameCharacter implements XMLSaving {
 	// -------------------- Inventory -------------------- //
 
 	public String droppedItemText(AbstractCoreItem item) {
+		return droppedItemText(item, 1);
+	}
+	
+	public String droppedItemText(AbstractCoreItem item, int count) {
 		if(this.getLocationPlace().isItemsDisappear()) {
-			if(isPlayer()) {
-				return "<p style='text-align:center;'>"
-							+ "You drop your " + item.getName() + " on the floor."
-							+ "<br/>"
-							+ "<span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>The " + item.getName() + " will be lost if you leave this location!</span>"
-						+ "</p>";
-			} else {
-				return UtilText.parse(this,
-					"<p style='text-align:center;'>"
-						+ "[npc.Name] drops [npc.her] " + item.getName() + " on the floor."
-						+ "<br/>"
-						+ "<span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>The " + item.getName() + " will be lost if you leave this location!</span>"
-					+ "</p>");
-			}
+			return UtilText.parse(this,
+				"<p style='text-align:center;'>"
+					+ "[npc.Name] [npc.verb(drop)] [npc.her] " + (count>1?count+" "+item.getNamePlural():item.getName()) + " on the floor."
+					+ "<br/>"
+					+ "<span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>The " + (count>1?count+" "+item.getNamePlural():item.getName()) + " will be lost if you leave this location!</span>"
+				+ "</p>");
 			
 		} else {
-			if(isPlayer()) {
-				return "<p style='text-align:center;'>"
-							+ "You drop your " + item.getName() + " on the floor."
-							+ "<br/>"
-							+ "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>The " + item.getName() + " will be stored safely in this location!</span>"
-						+ "</p>";
-			} else {
-				return UtilText.parse(this,
-					"<p style='text-align:center;'>"
-						+ "[npc.Name] drops [npc.her] " + item.getName() + " on the floor."
-						+ "<br/>"
-						+ "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>The " + item.getName() + " will be stored safely in this location!</span>"
-					+ "</p>");
-			}
+			return UtilText.parse(this,
+				"<p style='text-align:center;'>"
+					+ "[npc.Name] [npc.verb(drop)] [npc.her] " + (count>1?count+" "+item.getNamePlural():item.getName()) + " on the floor."
+					+ "<br/>"
+					+ "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>The " + (count>1?count+" "+item.getNamePlural():item.getName()) + " will be stored safely in this location!</span>"
+				+ "</p>");
 		}
 	}
 
 	public String addedItemToInventoryText(AbstractCoreItem item) {
-		String returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> <b>" + item.getName() + "</b>";
+		return addedItemToInventoryText(item, 1);
+	}
+	
+	public String addedItemToInventoryText(AbstractCoreItem item, int count) {
+		String countText = "<b>"+count+"x</b> ";
+		if(count ==1) {
+			countText="";
+		}
+		
+		String returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> "
+				+countText+"<b>" + (count>1?item.getNamePlural():item.getName()) + "</b>";
 		
 		if(item instanceof AbstractItem) {
-			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> <b>" + ((AbstractItem)item).getDisplayName(true) + "</b>";
+			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> "
+					+countText+"<b>" + (count>1?((AbstractItem)item).getDisplayNamePlural(true):((AbstractItem)item).getDisplayName(true)) + "</b>";
 			
 		} else if(item instanceof AbstractClothing) {
-			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> <b>" + ((AbstractClothing)item).getDisplayName(true) + "</b>";
+			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> "
+					+countText+"<b>" + ((AbstractClothing)item).getDisplayName(true) + "</b>";
 			
 		} else if(item instanceof AbstractWeapon) {
-			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Weapon added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> <b>" + ((AbstractWeapon)item).getDisplayName(true) + "</b>";
+			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Weapon added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> "
+					+countText+"<b>" + ((AbstractWeapon)item).getDisplayName(true) + "</b>";
 		}
 		
 		return UtilText.parse(this, returnString);
-	}
-
-	public String addedItemToInventoryText(AbstractItemType item) {
-		return "<p style='text-align:center;'>" + "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You add the " + item.getName(false) + " to your inventory.</span>" + "</p>";
 	}
 
 	public String removedItemFromInventoryText(AbstractItemType item) {
@@ -14345,8 +14351,18 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getItem(index);
 	}
 
-	public boolean addItem(AbstractItem item, int count) {
-		return inventory.addItem(item, count);
+	public String addItem(AbstractItem item, int count, boolean appendTextToEventLog) {
+		if (inventory.addItem(item, count)) {
+			updateInventoryListeners();
+			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeItem(item);
+			if(appendTextToEventLog) {
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Item Added", item.getName()), false);
+			}
+			return "<p style='text-align:center;'>"+ addedItemToInventoryText(item, count)+"</p>";
+			
+		} else {
+			return inventoryFullText() + droppedItemText(item, count);
+		}
 	}
 	
 	public String addItem(AbstractItem item, boolean removingFromFloor) {
@@ -15671,11 +15687,17 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isDirtySlot(InventorySlot slot) {
+		if(!slot.isPhysicallyAvailable(this)) {
+			removeDirtySlot(slot);
+		}
 		return inventory.isDirtySlot(slot);
 	}
 	
 	public boolean addDirtySlot(InventorySlot slot) {
-		return inventory.addDirtySlot(slot);
+		if(slot.isPhysicallyAvailable(this)) {
+			return inventory.addDirtySlot(slot);
+		}
+		return false;
 	}
 	
 	public boolean removeDirtySlot(InventorySlot slot) {
@@ -15694,7 +15716,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public Subspecies getSubspeciesOverride() {
-		return body.getSubspeciesOverride();
+		try {
+			return body.getSubspeciesOverride();
+		} catch(Exception ex) {
+			return null;
+		}
 	}
 
 	public void setSubspeciesOverride(Subspecies subspeciesOverride) {
@@ -17993,6 +18019,11 @@ public abstract class GameCharacter implements XMLSaving {
 
 		body.setBodyMaterial(type);
 		postTransformationCalculation(false);
+		
+		// Slimes can get pregnant from cum being stored anywhere:
+		if(type==BodyMaterial.SLIME && !this.isPregnant()) {
+			performImpregnationCheck();
+		}
 		
 		return tfDescription;
 	}

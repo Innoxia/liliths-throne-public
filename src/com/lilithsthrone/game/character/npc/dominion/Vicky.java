@@ -402,7 +402,10 @@ public class Vicky extends NPC {
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
-
+		itemsForSale.clear();
+		weaponsForSale.clear();
+		clothingForSale.clear();
+		
 		int requiredRoomForMiscItems = ItemType.getEssences().size()+SpellSchool.values().length+availableSpellBooks.size()+10;
 		
 		List<AbstractCoreType> types = new ArrayList<>();
@@ -476,7 +479,7 @@ public class Vicky extends NPC {
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			for(AbstractItemType itemType : ItemType.getEssences()) {
 				AbstractItem item = AbstractItemType.generateItem(itemType);
-				for(int i=0; i<+Util.random.nextInt(11);i++) {
+				for(int i=0; i<10+Util.random.nextInt(11);i++) {
 					itemsForSale.add(item);
 				}
 			}

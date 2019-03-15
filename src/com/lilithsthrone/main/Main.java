@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.1.6";
+	public static final String VERSION_NUMBER = "0.3.1.7";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -99,7 +99,11 @@ public class Main extends Application {
 			+ "Here is the version which normally would have been the 'Patreon preview', but due to LT no longer having a Patreon, I decided to package it as a full public release."
 			+ " Once I've got my SubscribeStar page fully set up, these preview releases are likely to be set aside as rewards for backers over there, but the full releases will continue to be made available for everyone at the same time."
 		+ "</p>"
-		
+
+		+ "<p>"
+			+ "v0.3.1.7 is a hotfix for v0.3.1.6 that was made to address some major bugs."
+		+ "</p>"
+			
 		+ "<br/>"
 			
 		+ "<p>"
@@ -230,6 +234,59 @@ public class Main extends Application {
 			+"<ul>Squirting orgasms no longer dirties 'plugs vagina' or 'seals vagina' clothing.</ul>"
 			+"<ul>Fixed issue where even if you had all furry subspecies disabled, slimes could still spawn as a furry subspecies.</ul>"
 			+"<ul>Fixed the 'Command' action at the entrance to the imp fortresses not working correctly.</ul>"
+		+ "</list>"
+			
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.1.7</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'mineral oil' transformation modifier to potion enchanting's cum, girlcum, and milk options. Mineral oil imbued fluids cause condoms to break.</ul>"
+			
+			+"<li>Clothing</li>"
+			+"<ul>Added a 'Colour Test T-shirt' item, which can only be spawned from the debug menu, to assist modders with visualising how colours look in-game.</ul>"
+			+"<ul>Added colour shades: Navy blue, blue-grey, khaki.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Anal content toggle no longer sets newly-spawned NPCs to hating anal fetishes, and instead simply removes all anal-related actions from being available during sex, both for you and all NPCs.</ul>"
+			+"<ul>Added a 'foot content' toggle to the Content Options screen, which works in the same way as the reworked anal toggle to disable foot-related sex actions.</ul>"
+			+"<ul>Added an entry in your room's calendar for May, regarding Mother's week.</ul>"
+			+"<ul>Added a small encounter on Dominion's boulevard tiles during Mother's week (second week of May, in in-game time), in which you are gifted some pills. There is a 5% chance of encountering this each time you move into a boulevard tile.</ul>"
+			+"<ul>Fennec ears are now tagged as being large enough to be used as handles in sex.</ul>"
+			+"<ul>NPC-on-NPC virginity losses (which are known of) are now displayed in more detail in their character view page.</ul>"
+			+"<ul>Added day of the week to the calendar tooltip (just above the minimap).</ul>"
+			+"<ul>Gave the new dresses some slightly more permissive equip conditions, so you can now wear them with clothing in the stomach slot.</ul>"
+			+"<ul>Slightly improved the pregnancy stats table's 'additional relationships' column.</ul>"
+			+"<ul>Added a 'Family' indication in characters' information pages, under the 'Relationships' section, for if they are related to you.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed issue with prostitutes in Angel's Kiss being deleted when you loaded in from a save prior to v0.3.1.6.</ul>"
+			+"<ul>Added catch to delete surplus clients which had spawned in the brothel (as a result of the bug that was fixed in the line above this one).</ul>"
+			+"<ul>Fixed issue with half-demon icons sometimes breaking.</ul>"
+			+"<ul>Fixed issue where entering an imp fortress would break the game.</ul>"
+			+"<ul>Fixed Vixen's Virility tooltip only mentioning that it boosts fertility, not virility.</ul>"
+			+"<ul>Fixed forced creampie dialogue replacing your name with 'you'.</ul>"
+			+"<ul>Fixed 'Molest' action on slaves sometimes not applying affection loss.</ul>"
+			+"<ul>Slimes are now correctly susceptible to getting pregnant for as long as there is any cum stored anywhere in their bodies. (The game was only checking for cum stored in a slime's vagina before.)</ul>"
+			+"<ul>Fixed 'seductive look' action being available in doggy style  even if the performer wasn't in the required slot (on all fours).</ul>"
+			+"<ul>Fixed inventory slots which a character physically didn't have (such as wings, horns, etc.) being able to be dirtied.</ul>"
+			+"<ul>Fixed companions as being treated as submissive spectators when you were dominantly having sex after beating attackers.</ul>"
+			+"<ul>Fixed milk transformation descriptions incorrectly referencing breasts when it was affecting crotch milk and vice versa.</ul>"
+			+"<ul>Fixed slaves who you own being able to end sex with you if they went into the resisting pace.</ul>"
+			+"<ul>Fixed issue with the greyed-out race icons on tiles (indicating that someone is not at home) not showing up.</ul>"
+			+"<ul>Some minor incorrect description fixes.</ul>"
+			+"<ul>Fixed the 'Rest until morning/evening' action in your room sometimes not applying the 'well rested' status effect.</ul>"
+			+"<ul>Fixed prostitutes never spawning in with shoes.</ul>"
+			+"<ul>Fixed modded clothing not being used for random NPC clothing generation.</ul>"
+			+"<ul>Using 'Grow cock (self)' in sex now correctly fills cum to your maximum storage value (which is set to 150ml if less than 150ml).</ul>"
+			+"<ul>Fixed issue with Vicky's inventory never properly clearing upon the daily reset, causing inventory to eventually overflow and cause spells and other items to not be available.</ul>"
+			+"<ul>Fixed Vicky's essences for sale being a random amount from 0 to 10, instead of the intended 10 to 20.</ul>"
+			+"<ul>Tidied up some of the superfluous error logging.</ul>"
+			+"<ul>Fixed issue where pressing enter in the pronouns page blanked the whole page out.</ul>"
+			+"<ul>Fixed issue where exporting an already-imported slave, and then importing that new export at the auction block, would cause your original slave to be moved to the auction block along with the new slave.</ul>"
+			+"<ul>Fixed the 'Test Subject' fetish preventing you from spitting out fetish-altering potions.</ul>"
+			+"<ul>Fixed Lilaya losing her relation as your aunt after undergoing demon transformations.</ul>"
 		+ "</list>"
 	;
 	

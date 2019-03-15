@@ -226,6 +226,7 @@ public class DominionAlleywayAttacker extends NPC {
 				
 			} else if(Math.random()<0.33f) { // Add client:
 				GenericSexualPartner partner;
+//				System.out.println("partner generated for "+this.getNameIgnoresPlayerKnowledge()+" "+this.getLocation().toString()+", "+this.getLocationPlace().getPlaceType().getName());
 				
 				if(Math.random()<0.25f) {
 					partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
@@ -341,11 +342,12 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	public boolean isStormAttacker() {
 		AbstractPlaceType pt = this.getLocationPlace().getPlaceType();
-		return (!pt.equals(PlaceType.DOMINION_BACK_ALLEYS)
+		return this.getWorldLocation().equals(WorldType.DOMINION)
+				&& !pt.equals(PlaceType.DOMINION_BACK_ALLEYS)
 				&& !pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
 				&& !pt.equals(PlaceType.DOMINION_CANAL)
 				&& !pt.equals(PlaceType.DOMINION_CANAL_END)
 				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
-				&& (!this.isSlave() || !this.getOwner().isPlayer()));
+				&& (!this.isSlave() || !this.getOwner().isPlayer());
 	}
 }

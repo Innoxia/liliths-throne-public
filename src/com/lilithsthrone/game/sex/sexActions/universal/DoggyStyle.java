@@ -876,8 +876,11 @@ public class DoggyStyle {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			SexSlot slot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction());
 			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this));
-			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING && (targetedSlot==SexSlotBipeds.DOGGY_BEHIND || targetedSlot==SexSlotBipeds.DOGGY_BEHIND_ORAL);
+			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& (slot==SexSlotBipeds.DOGGY_ON_ALL_FOURS || slot==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND || slot==SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD || slot==SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH)
+					&& (targetedSlot==SexSlotBipeds.DOGGY_BEHIND || targetedSlot==SexSlotBipeds.DOGGY_BEHIND_SECOND || targetedSlot==SexSlotBipeds.DOGGY_BEHIND_ORAL || targetedSlot==SexSlotBipeds.DOGGY_BEHIND_ORAL_SECOND);
 		}
 		
 		@Override

@@ -68,6 +68,11 @@ public class SlaveImport extends NPC {
 			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
 			
 			this.endPregnancy(false);
+
+			this.washAllOrifices(true);
+			this.calculateStatusEffects(0);
+			this.cleanAllDirtySlots();
+			this.cleanAllClothing();
 			
 			this.clearNonEquippedInventory();
 			if(this.getClothingInSlot(InventorySlot.NECK)!=null) {

@@ -279,8 +279,8 @@ public class Game implements XMLSaving {
 				// Load NPCs:
 				SlaveImport importedSlave = new SlaveImport();
 				importedSlave.loadFromXML(characterElement, doc, CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL, CharacterImportSetting.CLEAR_SLAVERY);
-				importedSlave.applyNewlyImportedSlaveVariables();
 				Main.game.addNPC(importedSlave, false);
+				importedSlave.applyNewlyImportedSlaveVariables();
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -901,11 +901,22 @@ public class Game implements XMLSaving {
 					}
 				}
 				
-				// Catch for storm atackers who were stuck on a dominion street tile:
+				// Catch for storm attackers who were stuck on a dominion street tile:
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.1.6")) {
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(npc instanceof DominionAlleywayAttacker && ((DominionAlleywayAttacker) npc).isStormAttacker()) {
 							Main.game.banishNPC(npc);
+						}
+					}
+				}
+				
+				// Fix overflow of clients in brothel:
+				for(Cell cell : Main.game.getWorlds().get(WorldType.ANGELS_KISS_GROUND_FLOOR).getCells(PlaceType.ANGELS_KISS_BEDROOM)) {
+					if(Main.isVersionOlderThan(loadingVersion, "0.3.1.7")) {
+						for(NPC npc : Main.game.getCharactersPresent(cell)) {
+							if(npc instanceof GenericSexualPartner) {
+								Main.game.banishNPC(npc);
+							}
 						}
 					}
 				}
@@ -3450,6 +3461,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.analContent);
 	}
 
+	public boolean isFootContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.footContent);
+	}
+	
 	public boolean isPlotDiscovered() {
 		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
 	}

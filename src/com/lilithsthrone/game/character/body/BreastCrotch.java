@@ -54,7 +54,7 @@ public class BreastCrotch implements BodyPartInterface {
 		
 		nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, elasticity, plasticity, virgin, true);
 		
-		milk = new FluidMilk(type.getFluidType());
+		milk = new FluidMilk(type.getFluidType(), true);
 	}
 	
 	@Override

@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 /**
  * @since 0.1.69.9
- * @version 0.2.5
+ * @version 0.3.2
  * @author Innoxia
  */
 public enum EncounterType {
@@ -13,6 +13,7 @@ public enum EncounterType {
 	
 	DOMINION_STREET_FIND_HAPPINESS, // Kinariu
 	DOMINION_STREET_RENTAL_MOMMY,
+	DOMINION_STREET_VIXEN_VIRILITY_HANDOUT,
 	
 	DOMINION_FIND_ITEM,
 	DOMINION_FIND_CLOTHING,

@@ -68,9 +68,9 @@ public class RoomPlayer {
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					Main.game.getPlayer().setLust(0);
 					if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
-						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer);
+						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer*60);
 					} else {
-						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6*60*60) + sleepTimer);
+						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6*60*60) + sleepTimer*60);
 					}
 				}
 			};
@@ -342,6 +342,9 @@ public class RoomPlayer {
 				return new Response("Back", "Step away from the calendar.", ROOM);
 				
 			} else if(index==1) {
+				return new Response("May", "Read the information on May's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY);
+				
+			} else if(index==1) {
 				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
 				
 			} else if(index==2) {
@@ -350,6 +353,52 @@ public class RoomPlayer {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Your Room", "", false) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "Flicking through the calendar until you're looking at the page for May, you see that this month's image is now of a merman flexing his muscles while perched on a wave-swept rock."
+							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
+						+ "</p>");
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "Flicking through the calendar until you're looking at the page for May, you see that this month's image is now of a beautiful mermaid, who's happily showing off her exposed breasts while perched on a wave-swept rock."
+							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
+						+ "</p>");
+			}
+
+			UtilText.nodeContentSB.append(
+					"<h4 style='text-align:center;'>"
+							+ "<span style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>May</span>"
+							+ "<br/>"
+							+ "<span style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Mother's Week</span>"
+					+ "</h4>"
+					+ "<p><i>"
+						+ "The second week of May is a time in which to celebrate mothers, motherhood, and the nature of maternal bond between mother and child."
+						+ " During this time, fertility-enhancing consumables are generously provided free of charge for all residents of Dominion, and are handed out by volunteers down the main boulevards."
+						+ " In this way, Lilith shows her love for mothers, and ensures that many more will be made!"
+					+ "</i></p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			Response response = AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+			if(response.getNextDialogue().equals(this)) {
+				return new Response("October", "You are already reading the calendar's page concerning the month of May.", null);
+			}
+			return response;
 		}
 	};
 	
@@ -397,18 +446,11 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
-				return new Response("Back", "Stop reading about October.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
-				
-			} else if(index==1) {
-				return new Response("October", "You're already reading October's page!", null);
-				
-			} else if(index==2) {
-				return new Response("December", "Read the information on December's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER);
-				
-			} else {
-				return null;
+			Response response = AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+			if(response.getNextDialogue().equals(this)) {
+				return new Response("October", "You are already reading the calendar's page concerning the month of October.", null);
 			}
+			return response;
 		}
 	};
 	
@@ -459,18 +501,11 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
-				return new Response("Back", "Stop reading about October.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
-				
-			} else if(index==1) {
-				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
-				
-			} else if(index==2) {
-				return new Response("December", "You're already reading December's page.", null);
-				
-			} else {
-				return null;
+			Response response = AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+			if(response.getNextDialogue().equals(this)) {
+				return new Response("December", "You are already reading the calendar's page concerning the month of December.", null);
 			}
+			return response;
 		}
 	};
 	

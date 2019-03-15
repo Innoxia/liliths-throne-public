@@ -268,7 +268,16 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isBasicCoreRequirementsMet() {
-		return (this.getSexPace()==null
+		boolean analAllowed = Main.game.isAnalContentEnabled()
+					|| Collections.disjoint(Util.mergeLists(this.getFetishes(Sex.getCharacterPerformingAction()), this.getFetishesForTargetedPartner(Sex.getCharacterPerformingAction())),
+						Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING));
+		boolean footAllowed = Main.game.isFootContentEnabled()
+				|| Collections.disjoint(Util.mergeLists(this.getFetishes(Sex.getCharacterPerformingAction()), this.getFetishesForTargetedPartner(Sex.getCharacterPerformingAction())),
+					Util.newArrayListOfValues(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
+		
+		return analAllowed
+				&& footAllowed
+				&& (this.getSexPace()==null
 					|| (this.getSexPace().isDom() == Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()))
 				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop non-self ongoing penetrations if full control
 					|| this.getParticipantType()==SexParticipantType.SELF

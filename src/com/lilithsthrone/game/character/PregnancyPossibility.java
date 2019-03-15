@@ -72,7 +72,9 @@ public class PregnancyPossibility implements XMLSaving {
 		try {
 			return Main.game.getNPCById(motherId);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("PregnancyPossibility.getMother()", motherId);
+			if(!motherId.equals("NOT_SET")) {
+				Util.logGetNpcByIdError("PregnancyPossibility.getMother()", motherId);
+			}
 			return Main.game.getNpc(GenericFemaleNPC.class);
 		}
 	}
@@ -81,7 +83,9 @@ public class PregnancyPossibility implements XMLSaving {
 		try {
 			return Main.game.getNPCById(fatherId);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("PregnancyPossibility.getFather()", fatherId);
+			if(!fatherId.equals("NOT_SET")) {
+				Util.logGetNpcByIdError("PregnancyPossibility.getFather()", fatherId);
+			}
 			return Main.game.getNpc(GenericMaleNPC.class);
 		}
 	}

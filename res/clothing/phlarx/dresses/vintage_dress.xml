@@ -20,12 +20,8 @@
 		
 		<blockedPartsList> 	
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				<clothingAccessRequired> 
-					<clothingAccess>HEAD</clothingAccess>
-					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
-					<clothingAccess>WAIST</clothingAccess>
-				</clothingAccessRequired>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
 				<blockedBodyParts> 
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>

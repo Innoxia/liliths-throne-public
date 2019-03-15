@@ -96,7 +96,7 @@ public class FluidStored implements XMLSaving {
 			this.bestial = false;
 		}
 		
-		this.milk = new FluidMilk(milk.getType());
+		this.milk = new FluidMilk(milk.getType(), milk.isCrotchMilk());
 		this.milk.clearFluidModifiers();
 		
 		this.milk.setFlavour(null, milk.getFlavour());

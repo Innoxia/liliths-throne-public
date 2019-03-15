@@ -170,10 +170,10 @@ public class DebugDialogue {
 					return new Response("Race resets", "View the race reset options.", BODY_PART_RACE_RESET);
 					
 				} else if (index == 11) {
-					return new Response(UtilText.formatAsMoney(10000, "span"), "Add 10000 flames.", DEBUG_MENU){
+					return new Response(UtilText.formatAsMoney(100_000, "span"), "Add 100,000 flames.", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().incrementMoney(10000);
+							Main.game.getPlayer().incrementMoney(100_000);
 						}
 					};
 					

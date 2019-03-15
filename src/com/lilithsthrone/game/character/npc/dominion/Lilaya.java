@@ -305,7 +305,7 @@ public class Lilaya extends NPC {
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character.isPlayer()) {
 			if(character.getRace()==Race.DEMON) {
-				return Util.newHashSetOfValues(Relationship.HalfSibling);
+				return Util.newHashSetOfValues(Relationship.HalfSibling, Relationship.Pibling);
 			}
 			return Util.newHashSetOfValues(Relationship.Pibling);
 		}

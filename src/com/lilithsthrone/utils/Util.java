@@ -263,8 +263,10 @@ public class Util {
 		ArrayList<U> mergedList = new ArrayList<>();
 		
 		for(List<U> list : lists) {
-			for(U value : list) {
-				mergedList.add(value);
+			if(list!=null) {
+				for(U value : list) {
+					mergedList.add(value);
+				}
 			}
 		}
 		
@@ -893,9 +895,17 @@ public class Util {
 	}
 
 	public static <Any> Any randomItemFrom(List<Any> list) {
+		if(list.isEmpty()) {
+			return null;
+		}
 		return list.get(Util.random.nextInt(list.size()));
 	}
 
+	public static <Any> Any randomItemFrom(Set<Any> set) {
+		List<Any> list = new ArrayList<>(set);
+		return randomItemFrom(list);
+	}
+	
 	public static <Any> Any randomItemFrom(Any[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}

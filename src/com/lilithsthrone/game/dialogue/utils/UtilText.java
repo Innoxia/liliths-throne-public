@@ -1061,13 +1061,6 @@ public class UtilText {
 				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && character.isPlayer()) {
-					if(command.startsWith("N")) {
-						return "You";
-					} else {
-						return "you";
-					}
-				}
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge();
@@ -1078,6 +1071,13 @@ public class UtilText {
 					return parseSyntaxNew(speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR);
 					
 				} else {
+					if(target.startsWith("npc") && character.isPlayer()) {
+						if(command.startsWith("N")) {
+							return "You";
+						} else {
+							return "you";
+						}
+					}
 					if(character.isPlayerKnowsName() || character.isPlayer()) {
 						return character.getName(true);
 					}
@@ -1095,7 +1095,6 @@ public class UtilText {
 				+ " If you need the actual name (for player third-person reference, or to ignore knowledge of name), pass either ' ' or 'true' as an argument.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+"'s";
@@ -1130,7 +1129,6 @@ public class UtilText {
 				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+"'s";
@@ -1160,14 +1158,15 @@ public class UtilText {
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+" is";
 					}
 					return character.getName(arguments) + " is";
+					
 				} else if(!speechTarget.equals("")) {
 					return parseSyntaxNew(speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" is";
+					
 				} else {
 					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you are";
@@ -1189,7 +1188,6 @@ public class UtilText {
 				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+"'s";
@@ -1219,7 +1217,6 @@ public class UtilText {
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter, followed by 'has' or 'have'.") {
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				
 				if(arguments!=null) {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge()+" has";

@@ -257,7 +257,9 @@ public class Litter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(motherId);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("Litter.getMother()", motherId);
+			if(!motherId.equals("NOT_SET")) {
+				Util.logGetNpcByIdError("Litter.getMother()", motherId);
+			}
 			return Main.game.getNpc(GenericFemaleNPC.class);
 		}
 	}
@@ -270,7 +272,9 @@ public class Litter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(fatherId);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("Litter.getFather()", fatherId);
+			if(!fatherId.equals("NOT_SET")) {
+				Util.logGetNpcByIdError("Litter.getFather()", fatherId);
+			}
 			return Main.game.getNpc(GenericMaleNPC.class);
 		}
 	}
