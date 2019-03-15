@@ -368,7 +368,7 @@ public enum Colour {
 	CLOTHING_GREEN(false, Util.newColour(0x74AA74), Util.newColour(0x74AA74), "green"),
 	CLOTHING_GREEN_DRAB(false, Util.newColour(0x4C5D4C), Util.newColour(0x4C5D4C), "drab green"),
 	CLOTHING_GREEN_DARK(false, Util.newColour(0x3B6F3D), Util.newColour(0x3B6F3D), "dark green"),
-	CLOTHING_GREEN_VERY_DARK(false, Util.newColour(0x112211), Util.newColour(0x112211), "midnight green"),
+	CLOTHING_GREEN_VERY_DARK(false, Util.newColour(0x1C311C), Util.newColour(0x1C311C), "midnight green"),
 	CLOTHING_TURQUOISE(false, Util.newColour(0x6EC4B3), Util.newColour(0x6EC4B3), "turquoise"),
 	CLOTHING_BLUE_LIGHT(false, Util.newColour(0x72CFE3), Util.newColour(0x72CFE3), "light blue"),
 	CLOTHING_BLUE(false, Util.newColour(0x3971C6), Util.newColour(0x3971C6), "blue"),
