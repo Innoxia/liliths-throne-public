@@ -35,7 +35,7 @@ public class PregnancyPossibility implements XMLSaving {
 	
 	@Override
 	public int hashCode() {
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + motherId.hashCode();
 		result = 31 * result + fatherId.hashCode();
 		result = 31 * result + (int)probability;

@@ -154,7 +154,7 @@ public class FluidStored implements XMLSaving {
 	@Override
 	public int hashCode() {
 		// Does not take into account quantity on purpose.
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + this.getFluid().hashCode();
 		result = 31 * result + this.getCharactersFluidID().hashCode();
 		result = 31 * result + (this.isBestial() ? 1 : 0);
@@ -205,7 +205,7 @@ public class FluidStored implements XMLSaving {
 		if(parentElement.getElementsByTagName("milk").item(0)!=null) {
 			FluidStored fluid = new FluidStored(ID, FluidMilk.loadFromXML(parentElement, doc), millimetres);
 			fluid.bestial=bestial;
-			fluid.virility=virility;
+			fluid.virility=0;
 			return fluid;
 		}
 		
@@ -223,7 +223,7 @@ public class FluidStored implements XMLSaving {
 
 		FluidStored fluid = new FluidStored(ID, FluidGirlCum.loadFromXML(parentElement, doc), millimetres);
 		fluid.bestial=bestial;
-		fluid.virility=virility;
+		fluid.virility=0;
 		return fluid;
 	}
 	

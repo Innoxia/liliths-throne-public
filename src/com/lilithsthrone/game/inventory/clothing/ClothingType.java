@@ -5018,7 +5018,7 @@ public class ClothingType {
 			false,
 			"condom belt",
 			"condom belts",
-			"A strip of strong elastic fabric that hugs the wearer's hips. It doens't serve much use, but you could always tie used condoms to it...",
+			"A strip of strong elastic fabric that hugs the wearer's hips. It doesn't really serve much use, but you could always tie used condoms to it...",
 			0,
 			null,
 			InventorySlot.HIPS,

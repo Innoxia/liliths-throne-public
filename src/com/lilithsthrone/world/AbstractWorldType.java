@@ -97,7 +97,7 @@ public abstract class AbstractWorldType {
 	
 	@Override
 	public int hashCode() { // I know it doesn't include everything, but this should be enough to check for equality.
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + getName().hashCode();
 		result = 31 * result + getColour().hashCode();
 		if(getFileLocation()!=null) {

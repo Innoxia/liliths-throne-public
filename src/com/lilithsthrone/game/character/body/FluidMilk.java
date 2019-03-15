@@ -51,6 +51,7 @@ public class FluidMilk implements FluidInterface {
 		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
 		
 		Element milkModifiers = doc.createElement("milkModifiers");
+		element.appendChild(milkModifiers);
 		for(FluidModifier fm : this.getFluidModifiers()) {
 			CharacterUtils.addAttribute(doc, milkModifiers, fm.toString(), "true");
 		}
