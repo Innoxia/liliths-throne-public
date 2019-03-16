@@ -863,7 +863,7 @@ public class SlaveDialogue {
 											:"Spitroast (front)",
 										UtilText.parse(targetedCharacterForSex, companionCharacter, "Move around in front of [npc.name] so that you can use [npc.her] mouth while [npc2.name] takes [npc.her] rear."),
 										null, null, null, null, null, null,
-										isRape, false,
+										!isRape, false,
 										new SMGeneric(
 												Util.newArrayListOfValues(companionCharacter, Main.game.getPlayer()),
 												Util.newArrayListOfValues(targetedCharacterForSex),
@@ -919,7 +919,7 @@ public class SlaveDialogue {
 											:"Spitroast (behind)",
 										UtilText.parse(targetedCharacterForSex, companionCharacter, "Move around behind [npc.name] so that you can use [npc.her] rear while [npc2.name] takes [npc.her] mouth."),
 										null, null, null, null, null, null,
-										isRape, false,
+										!isRape, false,
 										new SMGeneric(
 												Util.newArrayListOfValues(Main.game.getPlayer(), companionCharacter),
 												Util.newArrayListOfValues(targetedCharacterForSex),
@@ -968,7 +968,7 @@ public class SlaveDialogue {
 										:"Side-by-side (as dom)",
 									UtilText.parse(targetedCharacterForSex, companionCharacter, "Push [npc.name] and [npc2.name] down onto all fours, before kneeling behind [npc.name], ready to fuck them both side-by-side."),
 									null, null, null, null, null, null,
-									isRape, false,
+									!isRape, false,
 									new SMGeneric(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(targetedCharacterForSex, companionCharacter),
