@@ -287,6 +287,8 @@ public class Main extends Application {
 			+"<ul>Fixed issue where exporting an already-imported slave, and then importing that new export at the auction block, would cause your original slave to be moved to the auction block along with the new slave.</ul>"
 			+"<ul>Fixed the 'Test Subject' fetish preventing you from spitting out fetish-altering potions.</ul>"
 			+"<ul>Fixed Lilaya losing her relation as your aunt after undergoing demon transformations.</ul>"
+			+"<ul>Fixed issue with milk modifiers not being saved correctly.</ul>"
+			+"<ul>Fixed issue with fluids stored in milking rooms not stacking correctly.</ul>"
 		+ "</list>"
 	;
 	
