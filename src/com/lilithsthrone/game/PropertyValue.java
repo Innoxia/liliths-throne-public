@@ -52,6 +52,8 @@ public enum PropertyValue {
 	voluntaryNTR(false),
 	involuntaryNTR(false),
 
+	opportunisticAttackers(false),
+
 	levelUpHightlight(false),
 	newWeaponDiscovered(false),
 	newClothingDiscovered(false),

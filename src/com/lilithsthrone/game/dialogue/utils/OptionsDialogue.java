@@ -583,7 +583,15 @@ public class OptionsDialogue {
 							:"<span style='color:"+dl.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(dl.getName())+"</span> [style.colourDisabled("+dl.getDescription()+")]")
 						 );
 			}
-			
+
+			UtilText.nodeContentSB.append("<p><b>Other difficulty/scenario options:<b></p>");
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"OPPORTUNISTIC_ATTACKERS",
+					Colour.BASE_CRIMSON,
+					"Opportunistic attackers",
+					"This makes random attacks more likely when you're aroused, low on health or otherwise obviously easy prey.",
+					Main.game.isOpportunisticAttackersEnabled()));
+
 			UtilText.nodeContentSB.append("</p>");
 			
 			return UtilText.nodeContentSB.toString();
