@@ -195,6 +195,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected boolean playerOnFirstNameTerms;
 	protected boolean raceConcealed;
 	protected Map<String, String> petNameMap;
+	protected boolean customDescription;
 	protected String description;
 	protected int level;
 	protected LocalDateTime birthday;
@@ -249,6 +250,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected Map<Fetish, Integer> fetishExperienceMap;
 	protected Map<StatusEffect, Integer> statusEffects;
 	protected Map<StatusEffect, String> statusEffectDescriptions;
+	protected boolean nonConAlwaysActing;
 	
 	
 	// Relationship stats:
@@ -330,7 +332,10 @@ public abstract class GameCharacter implements XMLSaving {
 	private List<Addiction> addictions;
 	private Set<FluidType> psychoactiveFluidsIngested;
 	
-	
+	// Modded Dialogue and Descriptions:
+	protected Map<String, List<ConditionalTextMod>> modSexDialogue;
+	protected Map<String, List<ConditionalTextMod>> modSexDescription;
+
 	// Misc.:
 	protected static List<CharacterChangeEventListener> playerAttributeChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> NPCAttributeChangeEventListeners = new ArrayList<>();
@@ -363,6 +368,8 @@ public abstract class GameCharacter implements XMLSaving {
 		this.description = description;
 		this.level = level;
 		petNameMap = new HashMap<>();
+		customDescription = false;
+		nonConAlwaysActing = true;
 		
 		AbstractRacialBody startingRace = RacialBody.valueOfRace(startingSubspecies.getRace());
 		
@@ -503,6 +510,10 @@ public abstract class GameCharacter implements XMLSaving {
 		// Addictions:
 		addictions = new ArrayList<>();
 		psychoactiveFluidsIngested = new HashSet<>();
+
+		// Dialogue Mods:
+		modSexDialogue = new HashMap<>();
+		modSexDescription = new HashMap<>();
 		
 		// Start all attributes and bonus attributes at 0:
 		for (Attribute a : Attribute.values()) {
@@ -586,7 +597,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "genericName", this.getGenericName());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "customDescription", String.valueOf(this.getCustomDescription()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescriptionRAW());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerOnFirstNameTerms", String.valueOf(this.isPlayerOnFirstNameTerms()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "raceConcealed", String.valueOf(this.isRaceConcealed()));
@@ -795,6 +807,8 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		// Fetishes:
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "nonConAlwaysActing", String.valueOf(this.getNonConAlwaysActing()));
+		
 		Element characterFetishes = doc.createElement("fetishes");
 		properties.appendChild(characterFetishes);
 		for(Fetish f : this.getFetishes()){
@@ -1172,8 +1186,38 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "value", ft.toString());
 		}
 
+		// ************** Dialogue **************//
+		
+		Element modDialogue = doc.createElement("customDialogue");
+		properties.appendChild(modDialogue);
+		for(Entry<String, List<ConditionalTextMod>> entry : this.getCustomDialogueMap().entrySet()){
+			Element dialogueTagEntry = doc.createElement("dialogueSet");
+			modDialogue.appendChild(dialogueTagEntry);
+			CharacterUtils.addAttribute(doc, dialogueTagEntry, "tag", entry.getKey().toString());
+			
+			for(ConditionalTextMod dlgText : entry.getValue()) {
+				Element dialogueText = doc.createElement("htmlContent");
+				dialogueTagEntry.appendChild(dialogueText);
+				dialogueText.setTextContent(dlgText.getTextString());
+				CharacterUtils.addAttribute(doc, dialogueText, "condition", dlgText.getConditionalString());
+			}
+		}
 
-
+		Element modDescription = doc.createElement("customSexDescription");
+		properties.appendChild(modDescription);
+		for(Entry<String, List<ConditionalTextMod>> entry : this.getCustomDescriptionMap().entrySet()){
+			Element descriptionTagEntry = doc.createElement("descriptionSet");
+			modDescription.appendChild(descriptionTagEntry);
+			CharacterUtils.addAttribute(doc, descriptionTagEntry, "tag", entry.getKey().toString());
+			
+			for(ConditionalTextMod dscText : entry.getValue()) {
+				Element descriptionText = doc.createElement("htmlContent");
+				descriptionTagEntry.appendChild(descriptionText);
+				descriptionText.setTextContent(dscText.getTextString());
+				CharacterUtils.addAttribute(doc, descriptionText, "condition", dscText.getConditionalString());
+			}
+		}
+		
 		// ************** Artwork overrides **************//
 
 		if (hasArtwork()) {
@@ -1289,6 +1333,14 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 
+		// Has modded custom description?:
+		if(element.getElementsByTagName("customDescription").getLength()!=0) {
+			character.setCustomDescription(Boolean.valueOf(((Element)element.getElementsByTagName("customDescription").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "<br/>Set custom description flag: " + character.getCustomDescription());
+		} else {
+			character.setCustomDescription(false);
+		}
+		
 		if(element.getElementsByTagName("description").getLength()!=0) {
 			character.setDescription(((Element)element.getElementsByTagName("description").item(0)).getAttribute("value"));
 			CharacterUtils.appendToImportLog(log, "<br/>Set description");
@@ -1849,7 +1901,14 @@ public abstract class GameCharacter implements XMLSaving {
 		} catch(Exception ex) {
 		}
 		
-		// Fetishes:
+		// Fetishes: 
+		if(parentElement.getElementsByTagName("nonConAlwaysActing").getLength()!=0) {
+			character.setNonConAlwaysActing(Boolean.valueOf(((Element)parentElement.getElementsByTagName("nonConAlwaysActing").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "<br/>Set non-con acting flag: " + character.getNonConAlwaysActing());
+		} else {
+			character.setNonConAlwaysActing(true);
+		}
+	
 		nodes = parentElement.getElementsByTagName("fetishes");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
@@ -2476,7 +2535,60 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 
+		
+		// ************** Dialogue **************//
+		
+		nodes = parentElement.getElementsByTagName("customDialogue");
+		element = (Element) nodes.item(0);
+		if(element!=null) {
+			NodeList dialogueElements = element.getElementsByTagName("dialogueSet");
+			for(int i=0; i<dialogueElements.getLength(); i++) {
+				Element e = ((Element)dialogueElements.item(i));
+				
+				try {
+					character.addCustomDialogueTag(e.getAttribute("tag"));
+					CharacterUtils.appendToImportLog(log, "<br/>Added Dialogue Tag: "+e.getAttribute("tag"));
+				}catch(Exception ex){
+				}
+				
+				NodeList dialogueTexts = e.getElementsByTagName("htmlContent");
+				for(int j=0; j<dialogueTexts.getLength(); j++) {
+					try {
+						character.addCustomDialogue(e.getAttribute("tag"), ((Element)dialogueTexts.item(j)).getAttribute("condition"),
+								((Element)dialogueTexts.item(j)).getTextContent());
+						CharacterUtils.appendToImportLog(log, "<br/>Added Dialogue Entry For: "+e.getAttribute("tag"));
+					}catch(Exception ex){
+					}
+				}
+			}
+		}
 
+		nodes = parentElement.getElementsByTagName("customSexDescription");
+		element = (Element) nodes.item(0);
+		if(element!=null) {
+			NodeList descriptionElements = element.getElementsByTagName("descriptionSet");
+			for(int i=0; i<descriptionElements.getLength(); i++) {
+				Element e = ((Element)descriptionElements.item(i));
+				
+				try {
+					character.addCustomDescriptionTag(e.getAttribute("tag"));
+					CharacterUtils.appendToImportLog(log, "<br/>Added Description Tag: "+e.getAttribute("tag"));
+				}catch(Exception ex){
+				}
+				
+				NodeList dialogueTexts = e.getElementsByTagName("htmlContent");
+				for(int j=0; j<dialogueTexts.getLength(); j++) {
+					try {
+						character.addCustomDescription(e.getAttribute("tag"), ((Element)dialogueTexts.item(j)).getAttribute("condition"),
+								((Element)dialogueTexts.item(j)).getTextContent());
+						CharacterUtils.appendToImportLog(log, "<br/>Added Description Entry For: "+e.getAttribute("tag"));
+					}catch(Exception ex){
+					}
+				}
+			}
+		}
+
+		
 		// ************** Artwork **************//
 
 		// Initialize artworks (name and femininity must be set at this point)
@@ -3302,7 +3414,45 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 
+	public boolean getCustomDescription() {
+		return this.customDescription;
+	}
+
+	public void setCustomDescription(boolean cdescription) {
+		this.customDescription = cdescription;
+	}
+	
+	// Gets and sets whether the NPC will always resist just for having "unwilling fuck-toy" as a fetish.
+	public boolean getNonConAlwaysActing() {
+		return this.nonConAlwaysActing;
+	}
+	
+	public void setNonConAlwaysActing(boolean newval) {
+		this.nonConAlwaysActing = newval;
+	}
+	
+	// This function returns the unparsed description, so we can save parse tags.
+	public String getDescriptionRAW() {
+		if(customDescription) {
+			return this.description;
+		} else {
+			return this.getSpecializedDescription();
+		}
+	}
+
+	// Assume this function doesn't get overridden except in exceptional circumstances.
 	public String getDescription() {
+		if(customDescription) {
+			return UtilText.parse(this, description);
+		} else {
+			return this.getSpecializedDescription();
+		}
+	}
+
+	// This is the function that gets overridden in classes that implement GameCharacter.
+	// It allows subclasses to create default descriptions while still allowing for
+	//   custom descriptions to function correctly.
+	public String getSpecializedDescription() {
 		return UtilText.parse(this, description);
 	}
 
@@ -5501,6 +5651,259 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	
+	// Dialogue Modding:
+
+	/* Returns a single applicable sex dialogue in String form. */
+	public String getCustomDialogue(String... dlgTags) {
+		if(this.modSexDialogue.isEmpty()) {
+			return null;
+		} else {
+			List<String> randomStrings = new ArrayList<>();
+
+			for(String dlgTag : dlgTags) {
+				if(this.modSexDialogue.containsKey(dlgTag) && !this.modSexDialogue.get(dlgTag).isEmpty()) {
+					for(ConditionalTextMod s : this.modSexDialogue.get(dlgTag)) {
+						if(s!=null && !s.getTextString().isEmpty() && 
+								(s.getConditionalString().isEmpty() || s.getConditionalString()==null)) {
+							randomStrings.add(s.getTextString()
+					                   .replaceAll("\\[npc.orifice\\]", "")
+					                   .replaceAll("\\[npc2.orifice\\]", ""));
+						} else if(s!=null && !s.getTextString().isEmpty() && !s.getConditionalString().isEmpty() &&
+								UtilText.parseConditional(this, s.getConditionalString(true)
+								                                 .replaceAll("npc\\.getOrifice\\(\\)", "\"\"")
+								                                 .replaceAll("npc2\\.getOrifice\\(\\)", "\"\""))) {
+							randomStrings.add(s.getTextString()
+							                   .replaceAll("\\[npc.orifice\\]", "")
+							                   .replaceAll("\\[npc2.orifice\\]", ""));
+						}
+					}
+				}
+			}
+			
+			if(randomStrings.isEmpty()) { return null; }
+			else { return randomStrings.get(Util.random.nextInt(randomStrings.size())); }
+		}
+	}
+	
+	public String getCustomDialogue(GameCharacter target, String... dlgTags) {
+		if(this.modSexDialogue.isEmpty()) {
+			return null;
+		} else {
+			List<String> randomStrings = new ArrayList<>();
+
+			for(String dlgTag : dlgTags) {
+				if(this.modSexDialogue.containsKey(dlgTag) && !this.modSexDialogue.get(dlgTag).isEmpty()) {
+					for(ConditionalTextMod s : this.modSexDialogue.get(dlgTag)) {
+						if(s!=null && !s.getTextString().isEmpty() && 
+								(s.getConditionalString().isEmpty() || s.getConditionalString()==null)) {
+							randomStrings.add(s.getTextString()
+					                   .replaceAll("\\[npc.orifice\\]", "")
+					                   .replaceAll("\\[npc2.orifice\\]", ""));
+						} else if(s!=null && !s.getTextString().isEmpty() && !s.getConditionalString().isEmpty() &&
+								UtilText.parseConditional(this, target, s.getConditionalString(true)
+								                                         .replaceAll("npc\\.getOrifice\\(\\)", "\"\"")
+								                                         .replaceAll("npc2\\.getOrifice\\(\\)", "\"\""))) {
+							randomStrings.add(s.getTextString()
+							                   .replaceAll("\\[npc.orifice\\]", "")
+							                   .replaceAll("\\[npc2.orifice\\]", ""));
+						}
+					}
+				}
+			}
+			
+			if(randomStrings.isEmpty()) { return null; }
+			else { return randomStrings.get(Util.random.nextInt(randomStrings.size())); }
+		}
+	}
+
+	/* Returns a single applicable sex dialogue in String form. */
+	public String getCustomDialoguePenetrate(String condOrifice1, String condOrifice2,
+			String textOrifice1, String textOrifice2, String... dlgTags) {
+		if(this.modSexDialogue.isEmpty()) {
+			return null;
+		} else {
+			List<String> randomStrings = new ArrayList<>();
+
+			for(String dlgTag : dlgTags) {
+				if(this.modSexDialogue.containsKey(dlgTag) && !this.modSexDialogue.get(dlgTag).isEmpty()) {
+					for(ConditionalTextMod s : this.modSexDialogue.get(dlgTag)) {
+						if(s!=null && !s.getTextString().isEmpty() && 
+								(s.getConditionalString().isEmpty() || s.getConditionalString()==null)) {
+							randomStrings.add(s.getTextString()
+							                   .replaceAll("\\[npc.orifice\\]", textOrifice1)
+							                   .replaceAll("\\[npc2.orifice\\]", textOrifice2));
+						} else if(s!=null && !s.getTextString().isEmpty() && !s.getConditionalString().isEmpty() &&
+								UtilText.parseConditional(this, s.getConditionalString(true)
+								                                 .replaceAll("npc\\.getOrifice\\(\\)", "\""+condOrifice1+"\"")
+								                                 .replaceAll("npc2\\.getOrifice\\(\\)", "\""+condOrifice2+"\""))) {
+							randomStrings.add(s.getTextString()
+							                   .replaceAll("\\[npc.orifice\\]", textOrifice1)
+							                   .replaceAll("\\[npc2.orifice\\]", textOrifice2));
+						}
+					}
+				}
+			}
+			
+			if(randomStrings.isEmpty()) { return null; }
+			else { return randomStrings.get(Util.random.nextInt(randomStrings.size())); }
+		}
+	}
+	
+	public String getCustomDialoguePenetrate(GameCharacter target, String condOrifice1, String condOrifice2,
+			String textOrifice1, String textOrifice2, String... dlgTags) {
+		if(this.modSexDialogue.isEmpty()) {
+			return null;
+		} else {
+			List<String> randomStrings = new ArrayList<>();
+			
+			for(String dlgTag : dlgTags) {
+				if(this.modSexDialogue.containsKey(dlgTag) && !this.modSexDialogue.get(dlgTag).isEmpty()) {
+					for(ConditionalTextMod s : this.modSexDialogue.get(dlgTag)) {
+						if(s!=null && !s.getTextString().isEmpty() && 
+								(s.getConditionalString().isEmpty() || s.getConditionalString()==null)) {
+							randomStrings.add(s.getTextString()
+							                   .replaceAll("\\[npc.orifice\\]", textOrifice1)
+							                   .replaceAll("\\[npc2.orifice\\]", textOrifice2));
+						} else if(s!=null && !s.getTextString().isEmpty() && !s.getConditionalString().isEmpty() &&
+								UtilText.parseConditional(this, target, s.getConditionalString(true)
+								                                         .replaceAll("npc\\.getOrifice\\(\\)", "\""+condOrifice1+"\"")
+								                                         .replaceAll("npc2\\.getOrifice\\(\\)", "\""+condOrifice2+"\""))) {
+							randomStrings.add(s.getTextString()
+							                   .replaceAll("\\[npc.orifice\\]", textOrifice1)
+							                   .replaceAll("\\[npc2.orifice\\]", textOrifice2));
+						}
+					}
+				}
+			}
+			
+			if(randomStrings.isEmpty()) { return null; }
+			else { return randomStrings.get(Util.random.nextInt(randomStrings.size())); }
+		}
+	}
+	
+	/* Returns the entire list. */
+	public List<ConditionalTextMod> getCustomDialogueList(String dlgTag) {
+		if(this.modSexDialogue.isEmpty() || !this.modSexDialogue.containsKey(dlgTag)) {
+			return null;
+		} else if(this.modSexDialogue.get(dlgTag).isEmpty()) {
+			return null;
+		} else {
+			return this.modSexDialogue.get(dlgTag);
+		}
+	}
+	
+	/* Returns the entire map. */
+	public Map<String, List<ConditionalTextMod>> getCustomDialogueMap() {
+		return this.modSexDialogue;
+	}
+	
+	public void addCustomDialogueTag(String dlgTag) {
+		this.modSexDialogue.put(dlgTag, new ArrayList<ConditionalTextMod>());
+	}
+	
+	public void deleteCustomDialogue(String dlgTag) {
+		this.modSexDialogue.remove(dlgTag);
+	}
+	
+	public void emptyCustomDialogue(String dlgTag) {
+		this.modSexDialogue.clear();
+	}
+	
+	public void addCustomDialogue(String dlgTag, String conditional, String dialogue) {
+		if(this.modSexDialogue.isEmpty() || !this.modSexDialogue.containsKey(dlgTag)) {
+			this.addCustomDialogueTag(dlgTag);
+		}
+		this.modSexDialogue.get(dlgTag).add(new ConditionalTextMod(conditional, dialogue));
+	}
+
+	/* Returns a single applicable sex dialogue in String form. */
+	public String getCustomSexDescription(String... dlgTags) {
+		if(this.modSexDescription.isEmpty()) {
+			return null;
+		} else {
+			List<String> randomStrings = new ArrayList<>();
+
+			for(String dlgTag : dlgTags) {
+				if(this.modSexDialogue.containsKey(dlgTag) && !this.modSexDialogue.get(dlgTag).isEmpty()) {
+					for(ConditionalTextMod s : this.modSexDescription.get(dlgTag)) {
+						if(s!=null && !s.getTextString().isEmpty() && 
+								(s.getConditionalString().isEmpty() || s.getConditionalString()==null)) {
+							randomStrings.add(s.getTextString());
+						} else if(s!=null && !s.getTextString().isEmpty() && !s.getConditionalString().isEmpty() &&
+								UtilText.parseConditional(this, s.getConditionalString(true))) {
+							randomStrings.add(s.getTextString());
+						}
+					}
+				}
+			}
+			
+			if(randomStrings.isEmpty()) { return null; }
+			else { return randomStrings.get(Util.random.nextInt(randomStrings.size())); }
+		}
+	}
+	
+	public String getCustomSexDescription(GameCharacter target, String... dlgTags) {
+		if(this.modSexDescription.isEmpty()) {
+			return null;
+		} else {
+			List<String> randomStrings = new ArrayList<>();
+
+			for(String dlgTag : dlgTags) {
+				if(this.modSexDialogue.containsKey(dlgTag) && !this.modSexDialogue.get(dlgTag).isEmpty()) {
+					for(ConditionalTextMod s : this.modSexDescription.get(dlgTag)) {
+						if(s!=null && !s.getTextString().isEmpty() && 
+								(s.getConditionalString().isEmpty() || s.getConditionalString()==null)) {
+							randomStrings.add(s.getTextString());
+						} else if(s!=null && !s.getTextString().isEmpty() && !s.getConditionalString().isEmpty() &&
+								UtilText.parseConditional(this, target, s.getConditionalString(true))) {
+							randomStrings.add(s.getTextString());
+						}
+					}
+				}
+			}
+			
+			if(randomStrings.isEmpty()) { return null; }
+			else { return randomStrings.get(Util.random.nextInt(randomStrings.size())); }
+		}
+	}
+	
+	/* Returns the entire list. */
+	public List<ConditionalTextMod> getCustomDescriptionList(String dlgTag) {
+		if(this.modSexDescription.isEmpty() || !this.modSexDescription.containsKey(dlgTag)) {
+			return null;
+		} else if(this.modSexDescription.get(dlgTag).isEmpty()) {
+			return null;
+		} else {
+			return this.modSexDescription.get(dlgTag);
+		}
+	}
+	
+	/* Returns the entire map. */
+	public Map<String, List<ConditionalTextMod>> getCustomDescriptionMap() {
+		return this.modSexDescription;
+	}
+	
+	public void addCustomDescriptionTag(String dlgTag) {
+		this.modSexDescription.put(dlgTag, new ArrayList<ConditionalTextMod>());
+	}
+	
+	public void deleteCustomDescription(String dlgTag) {
+		this.modSexDescription.remove(dlgTag);
+	}
+	
+	public void emptyCustomDescription(String dlgTag) {
+		this.modSexDescription.clear();
+	}
+	
+	public void addCustomDescription(String dlgTag, String conditional, String dialogue) {
+		if(this.modSexDescription.isEmpty() || !this.modSexDescription.containsKey(dlgTag)) {
+			this.addCustomDescriptionTag(dlgTag);
+		}
+		this.modSexDescription.get(dlgTag).add(new ConditionalTextMod(conditional, dialogue));
+	}
+	
+	
+	
 	// Stats:
 
 	public Map<SexType, Integer> getSexPartnerStats(GameCharacter c) {
@@ -6133,76 +6536,97 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		switch(Sex.getSexPace(this)) {
 			case DOM_GENTLE:
-				returnedLine = UtilText.returnStringAtRandom(
-						"I'll be gentle, don't worry!",
-						"You're going to be a good [npc2.girl] now, aren't you?",
-						"Let's have some fun!",
-						"You're going to love this!");
+				returnedLine = this.getCustomDialogue(target, "nopen_dom_gentle", "nopen_dom_all", "dirtytalk_dom_all");
+				if(returnedLine == null) {
+					returnedLine = UtilText.returnStringAtRandom(
+							"I'll be gentle, don't worry!",
+							"You're going to be a good [npc2.girl] now, aren't you?",
+							"Let's have some fun!",
+							"You're going to love this!");
+				}
 				break;
 			case DOM_NORMAL:
-				returnedLine = UtilText.returnStringAtRandom(
-						"This is going to be good!",
-						"How best to use you, I wonder...",
-						"You're going to be a good [npc2.girl]!",
-						"Ready for some fun?");
+				returnedLine = this.getCustomDialogue(target, "nopen_dom_normal", "nopen_dom_all", "dirtytalk_dom_all");
+				if(returnedLine == null) {
+					returnedLine = UtilText.returnStringAtRandom(
+							"This is going to be good!",
+							"How best to use you, I wonder...",
+							"You're going to be a good [npc2.girl]!",
+							"Ready for some fun?");
+				}
 				break;
 			case DOM_ROUGH:
-				returnedLine = UtilText.returnStringAtRandom(
-						"You ready to get fucked, slut?",
-						"I'm going to fuck you senseless!",
-						"You're my bitch now, understand?!",
-						"I'm going to use you however I want, you fucking slut!");
+				returnedLine = this.getCustomDialogue(target, "nopen_dom_rough", "nopen_dom_all", "dirtytalk_dom_all");
+				if(returnedLine == null) {
+					returnedLine = UtilText.returnStringAtRandom(
+							"You ready to get fucked, slut?",
+							"I'm going to fuck you senseless!",
+							"You're my bitch now, understand?!",
+							"I'm going to use you however I want, you fucking slut!");
+				}
 				break;
 			case SUB_EAGER:
-				if(this.isVaginaVirgin() && this.hasVagina()) {
-					returnedLine = UtilText.returnStringAtRandom(
-							"Come on, fuck me already! Take my virginity!",
-							"I'm still a virgin! Please, break me in already!",
-							"What are you waiting for?! Fuck my virgin pussy already!",
-							"I'm so horny! Please, fuck my pussy! Take my virginity!");
-				} else {
-					returnedLine = UtilText.returnStringAtRandom(
-							"Come on, fuck me already! Please!",
-							"Fuck me! Please!",
-							"What are you waiting for?! Come on, fuck me!",
-							"I'm so horny! Please, fuck me!");
+				returnedLine = this.getCustomDialogue(target, "nopen_sub_eager", "nopen_sub_all");
+				if(returnedLine == null) {
+					if(this.isVaginaVirgin() && this.hasVagina()) {
+						returnedLine = UtilText.returnStringAtRandom(
+								"Come on, fuck me already! Take my virginity!",
+								"I'm still a virgin! Please, break me in already!",
+								"What are you waiting for?! Fuck my virgin pussy already!",
+								"I'm so horny! Please, fuck my pussy! Take my virginity!");
+					} else {
+						returnedLine = UtilText.returnStringAtRandom(
+								"Come on, fuck me already! Please!",
+								"Fuck me! Please!",
+								"What are you waiting for?! Come on, fuck me!",
+								"I'm so horny! Please, fuck me!");
+					}
 				}
 				break;
 			case SUB_NORMAL:
-				if(this.isVaginaVirgin() && this.hasVagina()) {
-					returnedLine = UtilText.returnStringAtRandom(
-							"I'll be a good [npc1.girl]! Just... I'm still a virgin, ok?",
-							"I'll do whatever you want! I'm still a virgin though...",
-							"Let's get started! But... I'm still a virgin...",
-							"Let's have some fun! But... I'm still a virgin, ok?");
-				} else {
-					returnedLine = UtilText.returnStringAtRandom(
-							"I'll be a good [npc.girl]!",
-							"I'll do whatever you want!",
-							"Let's get started!",
-							"Let's have some fun!");
+				returnedLine = this.getCustomDialogue(target, "nopen_sub_normal", "nopen_sub_all");
+				if(returnedLine == null) {
+					if(this.isVaginaVirgin() && this.hasVagina()) {
+						returnedLine = UtilText.returnStringAtRandom(
+								"I'll be a good [npc1.girl]! Just... I'm still a virgin, ok?",
+								"I'll do whatever you want! I'm still a virgin though...",
+								"Let's get started! But... I'm still a virgin...",
+								"Let's have some fun! But... I'm still a virgin, ok?");
+					} else {
+						returnedLine = UtilText.returnStringAtRandom(
+								"I'll be a good [npc.girl]!",
+								"I'll do whatever you want!",
+								"Let's get started!",
+								"Let's have some fun!");
+					}
 				}
 				break;
 			case SUB_RESISTING:
-				if(this.isVaginaVirgin() && this.hasVagina()) {
-					returnedLine = UtilText.returnStringAtRandom(
-							"Go away! I-I'm still a virgin! Leave me alone!",
-							"Stop it! Just go away! I-I'm still a virgin!",
-							"Please stop! I don't want to lose my virginity!",
-							"Don't do this! I'm still a virgin!");
-				} else {
-					returnedLine = UtilText.returnStringAtRandom(
-							"Go away! Leave me alone!",
-							"Stop it! Just go away!",
-							"Please stop! Don't do this!");
+				returnedLine = this.getCustomDialogue(target, "nopen_sub_resist", "nopen_sub_all");
+				if(returnedLine == null) {
+					if(this.isVaginaVirgin() && this.hasVagina()) {
+						returnedLine = UtilText.returnStringAtRandom(
+								"Go away! I-I'm still a virgin! Leave me alone!",
+								"Stop it! Just go away! I-I'm still a virgin!",
+								"Please stop! I don't want to lose my virginity!",
+								"Don't do this! I'm still a virgin!");
+					} else {
+						returnedLine = UtilText.returnStringAtRandom(
+								"Go away! Leave me alone!",
+								"Stop it! Just go away!",
+								"Please stop! Don't do this!");
+					}
 				}
 				break;
 			default:
-				returnedLine = UtilText.returnStringAtRandom(
-						"This is going to be good!",
-						"Time for some fun!",
-						"Let's get started!",
-						"Let's have some fun!");
+				returnedLine = this.getCustomDialogue(target, "nopen_generic");
+				if(returnedLine == null) {
+					returnedLine = UtilText.returnStringAtRandom(
+							"This is going to be good!",
+							"Time for some fun!",
+							"Let's get started!",
+							"Let's have some fun!");
+				}
 		}
 		
 		if(returnedLine.isEmpty()) {
@@ -6210,7 +6634,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return UtilText.parse(this, target, returnedLine);
 	}
-	
+
 	/**
 	 * @return A <b>non-formatted</b> String of this character's speech related to having their vagina used. Returns null if no vagina or penetration found.
 	 */
@@ -6223,199 +6647,343 @@ public abstract class GameCharacter implements XMLSaving {
 					case FINGER:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								returnedLine = UtilText.returnStringAtRandom(
-										"That's right, be a good [npc2.girl] now and push your [npc2.fingers] in deeper!",
-										"Good [npc2.girl]! Keep those [npc2.fingers] of yours busy!",
-										"What a good [npc2.girl]! My pussy loves the feeling of your [npc2.fingers]!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
+										"pened_v_finger_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_gentle",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_gentle");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"That's right, be a good [npc2.girl] now and push your [npc2.fingers] in deeper!",
+											"Good [npc2.girl]! Keep those [npc2.fingers] of yours busy!",
+											"What a good [npc2.girl]! My pussy loves the feeling of your [npc2.fingers]!");
+								}
 								break;
 							case DOM_NORMAL:
-								returnedLine = UtilText.returnStringAtRandom(
-										"That's right, push your [npc2.fingers] in deep!",
-										"Good [npc2.girl]! Get those [npc2.fingers] in deep!",
-										"Keep going! Curl your [npc2.fingers] up a bit!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
+										"pened_v_finger_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_normal",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_normal");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"That's right, push your [npc2.fingers] in deep!",
+											"Good [npc2.girl]! Get those [npc2.fingers] in deep!",
+											"Keep going! Curl your [npc2.fingers] up a bit!");
+								}
 								break;
 							case DOM_ROUGH:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Come on slut, you can get your [npc2.fingers] in deeper than that!",
-										"Keep it up bitch! Get those [npc2.fingers] in deep!",
-										"Keep going slut! Curl your [npc2.fingers] up and put in a little more effort!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
+										"pened_v_finger_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_rough",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_rough");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Come on slut, you can get your [npc2.fingers] in deeper than that!",
+											"Keep it up bitch! Get those [npc2.fingers] in deep!",
+											"Keep going slut! Curl your [npc2.fingers] up and put in a little more effort!");
+								}
 								break;
 							case SUB_EAGER:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Yes! Keep fingering me!",
-										"Keep going! My pussy loves your attention!",
-										"Oh yes! I love being fingered!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
+										"pened_v_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Yes! Keep fingering me!",
+											"Keep going! My pussy loves your attention!",
+											"Oh yes! I love being fingered!");
+								}
 								break;
 							case SUB_NORMAL:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Keep fingering me!",
-										"Keep going! I love this!",
-										"Oh yes!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
+										"pened_v_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Keep fingering me!",
+											"Keep going! I love this!",
+											"Oh yes!");
+								}
 								break;
 							case SUB_RESISTING:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Get your [npc2.fingers] out of me! Stop! Please!",
-										"Stop fingering me! Please, no more!",
-										"Stop it! Stop! Please!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
+										"pened_v_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
+										"pened_by_finger_all", "pened_by_finger_sub_resist");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Get your [npc2.fingers] out of me! Stop! Please!",
+											"Stop fingering me! Please, no more!",
+											"Stop it! Stop! Please!");
+								}
 								break;
 							default:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
+										"pened_v_finger_generic");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!");
+								}
 								break;
 						}
 						break;
 					case PENIS:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								returnedLine = UtilText.returnStringAtRandom(
-										"My pussy loves your [npc2.cock]!",
-										"Good [npc2.girl]! Keep sliding that delicious cock of yours in and out of me!",
-										"What a good [npc2.girl]! Enjoy my pussy as your reward now!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
+										"pened_v_penis_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_gentle",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_gentle");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"My pussy loves your [npc2.cock]!",
+											"Good [npc2.girl]! Keep sliding that delicious cock of yours in and out of me!",
+											"What a good [npc2.girl]! Enjoy my pussy as your reward now!");
+								}
 								break;
 							case DOM_NORMAL:
-								returnedLine = UtilText.returnStringAtRandom(
-										"You like feeling my pussy gripping down on your cock?!",
-										"Good [npc2.girl]! Push your [npc2.cock] in deep!",
-										"Keep going! Get that [npc2.cock] in deep like a good [npc2.girl]!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
+										"pened_v_penis_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_normal",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_normal");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"You like feeling my pussy gripping down on your cock?!",
+											"Good [npc2.girl]! Push your [npc2.cock] in deep!",
+											"Keep going! Get that [npc2.cock] in deep like a good [npc2.girl]!");
+								}
 								break;
 							case DOM_ROUGH:
-								returnedLine = UtilText.returnStringAtRandom(
-										"That's right slut, you're my little fuck toy now!",
-										"Come on bitch! You can get your worthless [npc2.cock] in deeper than that!",
-										"Fucking slut, put some more effort in! My pussy deserves better than your worthless [npc2.cock]!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
+										"pened_v_penis_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_rough",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_rough");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"That's right slut, you're my little fuck toy now!",
+											"Come on bitch! You can get your worthless [npc2.cock] in deeper than that!",
+											"Fucking slut, put some more effort in! My pussy deserves better than your worthless [npc2.cock]!");
+								}
 								break;
 							case SUB_EAGER:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Yes! Fuck me! Fuck me harder! Don't stop!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Fuck me! I love your [npc2.cock]!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
+										"pened_v_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Yes! Fuck me! Fuck me harder! Don't stop!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Fuck me! I love your [npc2.cock]!");
+								}
 								break;
 							case SUB_NORMAL:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
+										"pened_v_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!");
+								}
 								break;
 							case SUB_RESISTING:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Get out of me! Stop! Please!",
-										"Please, no more! Take your cock out!",
-										"Get out of me! Stop! Please!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
+										"pened_v_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
+										"pened_by_penis_all", "pened_by_penis_sub_resist");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Get out of me! Stop! Please!",
+											"Please, no more! Take your cock out!",
+											"Get out of me! Stop! Please!");
+								}
 								break;
 							default:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
+										"pened_v_penis_generic");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!");
+								}
 								break;
 						}
 						break;
 					case TAIL:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								returnedLine = UtilText.returnStringAtRandom(
-										"My pussy loves your [npc2.tail]! Keep going!",
-										"Good [npc2.girl]! Keep fucking me with that [npc2.tail] of yours!",
-										"What a good [npc2.girl]! Enjoy my pussy as your reward now!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
+										"pened_v_tail_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_gentle",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_gentle");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"My pussy loves your [npc2.tail]! Keep going!",
+											"Good [npc2.girl]! Keep fucking me with that [npc2.tail] of yours!",
+											"What a good [npc2.girl]! Enjoy my pussy as your reward now!");
+								}
 								break;
 							case DOM_NORMAL:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Oh yes! Your [npc2.tail] feels so good!",
-										"Good [npc2.girl]! Push your [npc2.tail] in deep!",
-										"Keep going! Get that [npc2.tail] in deep like a good [npc2.girl]!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
+										"pened_v_tail_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_normal",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_normal");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Oh yes! Your [npc2.tail] feels so good!",
+											"Good [npc2.girl]! Push your [npc2.tail] in deep!",
+											"Keep going! Get that [npc2.tail] in deep like a good [npc2.girl]!");
+								}
 								break;
 							case DOM_ROUGH:
-								returnedLine = UtilText.returnStringAtRandom(
-										"That's right slut, get that [npc2.tail] in deep like a good little fuck toy!",
-										"Come on bitch! You can get your [npc2.tail] in deeper than that!",
-										"Fucking bitch, put some more effort in! My pussy deserves better than some slut's [npc2.tail]!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
+										"pened_v_tail_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_rough",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_rough");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"That's right slut, get that [npc2.tail] in deep like a good little fuck toy!",
+											"Come on bitch! You can get your [npc2.tail] in deeper than that!",
+											"Fucking bitch, put some more effort in! My pussy deserves better than some slut's [npc2.tail]!");
+								}
 								break;
 							case SUB_EAGER:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Yes! Fuck me! Fuck me harder! Don't stop!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Fuck me! I love your [npc2.tail]! Get it deeper!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
+										"pened_v_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Yes! Fuck me! Fuck me harder! Don't stop!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Fuck me! I love your [npc2.tail]! Get it deeper!");
+								}
 								break;
 							case SUB_NORMAL:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
+										"pened_v_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!");
+								}
 								break;
 							case SUB_RESISTING:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Get out of me! Stop! Please!",
-										"Please, no more! Take your tail out!",
-										"Get out of me! Stop! Please!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
+										"pened_v_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
+										"pened_by_tail_all", "pened_by_tail_sub_resist");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Get out of me! Stop! Please!",
+											"Please, no more! Take your tail out!",
+											"Get out of me! Stop! Please!");
+								}
 								break;
 							default:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
+										"pened_v_tail_generic");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!");
+								}
 								break;
 						}
 						break;
 					case TONGUE:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								returnedLine = UtilText.returnStringAtRandom(
-										"That's right, keep eating me out!",
-										"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy!",
-										"What a good [npc2.girl]! You love the taste of my pussy, don't you?!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
+										"pened_v_tongue_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_gentle",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_gentle");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"That's right, keep eating me out!",
+											"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy!",
+											"What a good [npc2.girl]! You love the taste of my pussy, don't you?!");
+								}
 								break;
 							case DOM_NORMAL:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Oh yes! Get that [npc2.tongue] in deep!",
-										"Good [npc2.girl]! Get that [npc2.tongue] of yours in deep!",
-										"Keep going! My pussy loves your [npc2.tongue]!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
+										"pened_v_tongue_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_normal",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_normal");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Oh yes! Get that [npc2.tongue] in deep!",
+											"Good [npc2.girl]! Get that [npc2.tongue] of yours in deep!",
+											"Keep going! My pussy loves your [npc2.tongue]!");
+								}
 								break;
 							case DOM_ROUGH:
-								returnedLine = UtilText.returnStringAtRandom(
-										"That's right slut, keep eating me out like the worthless little fuck toy you are!",
-										"Come on bitch! Get that [npc2.tongue] of yours in deeper!",
-										"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to taste my pussy like this?!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
+										"pened_v_tongue_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_vagina_all", "pened_vagina_dom_all", "pened_vagina_dom_rough",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_rough");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"That's right slut, keep eating me out like the worthless little fuck toy you are!",
+											"Come on bitch! Get that [npc2.tongue] of yours in deeper!",
+											"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to taste my pussy like this?!");
+								}
 								break;
 							case SUB_EAGER:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Yes! I love your [npc2.tongue]! Don't stop!",
-										"Don't stop! Deeper! Eat me out! Yes, yes, yes!",
-										"Oh yes! Taste my pussy! I love your [npc2.tongue]! Get it deeper!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
+										"pened_v_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Yes! I love your [npc2.tongue]! Don't stop!",
+											"Don't stop! Deeper! Eat me out! Yes, yes, yes!",
+											"Oh yes! Taste my pussy! I love your [npc2.tongue]! Get it deeper!");
+								}
 								break;
 							case SUB_NORMAL:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Yes! Don't stop!",
-										"Don't stop! I love your [npc2.tongue]!",
-										"Oh yes! Eat me out!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
+										"pened_v_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Yes! Don't stop!",
+											"Don't stop! I love your [npc2.tongue]!",
+											"Oh yes! Eat me out!");
+								}
 								break;
 							case SUB_RESISTING:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Get out of me! Stop! Please!",
-										"Please, no more! Take your tongue out!",
-										"Get out of me! Stop! Please!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
+										"pened_v_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
+										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Get out of me! Stop! Please!",
+											"Please, no more! Take your tongue out!",
+											"Get out of me! Stop! Please!");
+								}
 								break;
 							default:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Yes! Get that tongue deeper!",
-										"Oh yeah! Keep going!",
-										"Deeper! Don't stop!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
+										"pened_v_tongue_generic");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Yes! Get that tongue deeper!",
+											"Oh yeah! Keep going!",
+											"Deeper! Don't stop!");
+								}
 						}
 						break;
 					default:
 						switch(Sex.getSexPace(this)) {
 							case SUB_RESISTING:
-								returnedLine = UtilText.returnStringAtRandom(
-										"Go away! Leave me alone!",
-										"Stop it! Just go away!",
-										"Please stop! Don't do this!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "self", "[npc1.vagina]", "self", 
+										"pened_v_generic_resist", "pened_all", "pened_sub_resist", "pened_self_resist");
+								if(returnedLine == null) {
+									returnedLine = UtilText.returnStringAtRandom(
+											"Go away! Leave me alone!",
+											"Stop it! Just go away!",
+											"Please stop! Don't do this!");
+								}
 								break;
 							default:
-								returnedLine =  UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!");
+								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "self", "[npc1.vagina]", "self", 
+										"pened_v_generic", "pened_all", "pened_self");
+								if(returnedLine == null) {
+									returnedLine =  UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!");
+								}
 								break;
 						}
 				}
@@ -6440,200 +7008,344 @@ public abstract class GameCharacter implements XMLSaving {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
+									"pened_a_finger_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_gentle",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, be a good [npc2.girl] now and push your [npc2.fingers] in deeper!",
 									"Good [npc2.girl]! Keep those [npc2.fingers] of yours busy!",
 									"What a good [npc2.girl]! Keep fingering my ass!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
+									"pened_a_finger_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_normal",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, push your [npc2.fingers] in deep!",
 									"Good [npc2.girl]! Get those [npc2.fingers] in deep!",
 									"Keep going! My ass loves the attention!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
+									"pened_a_finger_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_rough",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Come on slut, you can get your [npc2.fingers] in deeper than that!",
 									"Keep it up bitch! Get those [npc2.fingers] in deep!",
 									"Keep going slut! Get your [npc2.fingers] in deep and put in a little more effort!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
+									"pened_a_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Keep fingering my ass! Don't stop!",
 									"Keep going! My ass loves the attention!",
 									"Oh yes! My ass loves being fingered!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
+									"pened_a_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Keep fingering my ass!",
 									"Keep going! I love this!",
 									"Oh yes!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
+									"pened_a_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
+										"pened_by_finger_all", "pened_by_finger_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop fingering my ass! Stop! Please!",
 									"Please, no more! Take your fingers out of my ass!",
 									"Get out of my ass! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
+									"pened_a_finger_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 					break;
 				case PENIS:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
+									"pened_a_penis_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_gentle",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My ass loves your [npc2.cock]!",
 									"Good [npc2.girl]! Keep sliding that delicious cock of yours in and out of my ass!",
 									"What a good [npc2.girl]! Enjoy my ass as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
+									"pened_a_penis_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_normal",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my slutty little asshole gripping down on your cock?!",
 									"Good [npc2.girl]! Push your [npc2.cock] in deep!",
 									"Keep going! Get that [npc2.cock] in deep like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
+									"pened_a_penis_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_rough",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, you're my little fuck toy now!",
 									"Come on bitch! You can get your worthless [npc2.cock] in deeper than that!",
 									"Fucking slut, put some more effort in! My ass deserves better than your worthless [npc2.cock]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
+									"pened_a_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck me! Fuck me harder! Don't stop!",
 									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
 									"Oh yes! Fuck me! I love your [npc2.cock]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
+									"pened_a_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck me!",
 									"Don't stop! Fuck me!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
+									"pened_a_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
+										"pened_by_penis_all", "pened_by_penis_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your cock out of my ass!",
 									"Get out of my ass! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
+									"pened_a_penis_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TAIL:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
+									"pened_a_tail_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_gentle",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My ass loves your [npc2.tail]! Keep going!",
 									"Good [npc2.girl]! Keep fucking my ass with that [npc2.tail] of yours!",
 									"What a good [npc2.girl]! Enjoy my ass as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
+									"pened_a_tail_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_normal",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! Your [npc2.tail] feels so good!",
 									"Good [npc2.girl]! Push your [npc2.tail] in deep!",
 									"Keep going! Get that [npc2.tail] in deep like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
+									"pened_a_tail_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_rough",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, get that [npc2.tail] in deep like a good little fuck toy!",
 									"Come on bitch! You can get your [npc2.tail] in deeper than that!",
 									"Fucking bitch, put some more effort in! My ass deserves better than some slut's [npc2.tail]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
+									"pened_a_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck me! Fuck me harder! Don't stop!",
 									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
 									"Oh yes! Fuck me! I love your [npc2.tail]! Get it deeper!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
+									"pened_a_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck me!",
 									"Don't stop! Fuck me!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
+									"pened_a_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
+										"pened_by_tail_all", "pened_by_tail_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your tail out of my ass!",
 									"Get out of my ass! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
+									"pened_a_tail_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TONGUE:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
+									"pened_a_tongue_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_gentle",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, keep that rimjob going like a good [npc2.girl]!",
 									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy in my ass!",
 									"What a good [npc2.girl]! You love the taste of my ass, don't you?!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
+									"pened_a_tongue_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_normal",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! Get that [npc2.tongue] in deep!",
 									"Good [npc2.girl]! Get that [npc2.tongue] of yours in deep!",
 									"Keep going! My ass loves your [npc2.tongue]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
+									"pened_a_tongue_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_anus_all", "pened_anus_dom_all", "pened_anus_dom_rough",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, keep that rimjob going like the worthless little fuck toy you are!",
 									"Come on bitch! Get that [npc2.tongue] of yours deeper into my ass!",
 									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to lick my ass like this?!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
+									"pened_a_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! I love your [npc2.tongue]! Don't stop!",
 									"Don't stop! Deeper! Get your [npc2.tongue] into my ass! Yes, yes, yes!",
 									"Oh yes! Taste my ass! I love your [npc2.tongue]! Get it deeper!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
+									"pened_a_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Don't stop!",
 									"Don't stop! I love your [npc2.tongue]!",
 									"Oh yes! Taste my ass!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
+									"pened_a_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
+										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your tongue out of my ass!",
 									"Get your tongue out of my ass! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
+									"pened_a_tongue_default");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Get that tongue deeper!",
 									"Oh yeah! Keep going!",
 									"Deeper! Don't stop!");
+							}
 							break;
 					}
 					break;
 				default:
 					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
-							returnedLine = UtilText.returnStringAtRandom(
-									"Go away! Leave me alone!",
-									"Stop it! Just go away!",
-									"Please stop! Don't do this!");
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "self", "[npc1.anus]", "welf", 
+									"pened_a_generic_resist", "pened_all", "pened_sub_resist", "pened_self_resist");
+							if(returnedLine == null) {
+								returnedLine = UtilText.returnStringAtRandom(
+										"Go away! Leave me alone!",
+										"Stop it! Just go away!",
+										"Please stop! Don't do this!");
+							}
 							break;
 						default:
-							returnedLine = UtilText.returnStringAtRandom(
-									"Fuck!",
-									"Yeah!",
-									"Oh yeah!");
+							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "self", "[npc1.anus]", "welf", 
+									"pened_a_generic", "pened_all", "pened_self");
+							if(returnedLine == null) {
+								returnedLine = UtilText.returnStringAtRandom(
+										"Fuck!",
+										"Yeah!",
+										"Oh yeah!");
+							}
 							break;
 					}
 			}
@@ -6656,194 +7368,338 @@ public abstract class GameCharacter implements XMLSaving {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
+									"pened_m_finger_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_gentle",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Your fingers taste good!",
 									"Good [npc2.girl]! Your [npc2.fingers] taste so good!",
 									"What a good [npc2.girl]!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
+									"pened_m_finger_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_normal",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Your fingers taste good!",
 									"Good [npc2.girl]! Your [npc2.fingers] taste so good!",
 									"What a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
+									"pened_m_finger_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_rough",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fucking slut, let's get your [npc2.fingers] all nice and wet now!",
 									"That's right bitch! Let's get your [npc2.fingers] nice and wet!",
 									"Hold still slut! I need your [npc2.fingers] all nice and lubed up!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
+									"pened_m_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"I love the taste of your [npc2.fingers]! Don't stop!",
 									"Keep going! I love sucking on your [npc2.fingers]!",
 									"Oh yes! I love the taste of your [npc2.fingers]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
+									"pened_m_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"I love the taste of your [npc2.fingers]!",
 									"I love sucking on your [npc2.fingers]!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
+									"pened_m_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
+										"pened_by_finger_all", "pened_by_finger_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your fingers out of my mouth!",
 									"Get out of my mouth! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
+									"pened_m_finger_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 					break;
 				case PENIS:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
+									"pened_m_penis_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_gentle",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"I love your [npc2.cock]!",
 									"Good [npc2.girl]! Your delicious cock deserves this nice reward!",
 									"What a good [npc2.girl]! I hope you're enjoying your reward!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
+									"pened_m_penis_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_normal",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Your cock tastes so good!",
 									"I love sucking your [npc2.cock]!",
 									"Oh yes! Your [npc2.cock] tastes so good!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
+									"pened_m_penis_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_rough",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Hold still slut, be a good little fuck toy and just be thankful that I love sucking cock!",
 									"Stay still bitch! You'd better be happy that your worthless [npc2.cock] is the only thing for me to suck right now!",
 									"Fucking slut, hold still! I need to practice my oral skills on your worthless [npc2.cock]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
+									"pened_m_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! I love your [npc2.cock]! I need it! Use my throat!",
 									"Don't stop! Harder! Fuck my throat! Yes, yes, yes!",
 									"Oh yes! I love your [npc2.cock]! You taste so good!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
+									"pened_m_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"I love your [npc2.cock]! Use my throat!",
 									"Fuck my throat! Oh yes!",
 									"I love your [npc2.cock]! You taste so good!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
+									"pened_m_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
+										"pened_by_penis_all", "pened_by_penis_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your cock out of my mouth!",
 									"Get your cock away from me! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
+									"pened_m_penis_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"I love sucking cock!",
 									"Oh yeah! I love your cock!",
 									"Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TAIL:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
+									"pened_m_tail_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_gentle",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"I love sucking your [npc2.tail]!",
 									"Good [npc2.girl]! Get this delicious [npc2.tail] of yours deep down my throat!",
 									"What a good [npc2.girl]! I hope you're enjoying your reward!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
+									"pened_m_tail_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_normal",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"I love sucking your [npc2.tail]!",
 									"Good [npc2.girl]! Get this delicious [npc2.tail] of yours deep down my throat!",
 									"What a good [npc2.girl]! I hope you're enjoying your reward!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
+									"pened_m_tail_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_rough",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Hold still slut, be a good little fuck toy and just be thankful that I decided to practice oral on your [npc2.tail]!",
 									"Stay still bitch! You'd better be happy that I decided to practice my cock-sucking on your [npc2.tail]!",
 									"Fucking slut, hold still! I need to practice my oral skills on your [npc2.tail]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
+									"pened_m_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! I love your [npc2.tail]! I need it! Use my throat!",
 									"Don't stop! Harder! Fuck my throat! Yes, yes, yes!",
 									"Oh yes! I love your [npc2.tail]! You taste so good!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
+									"pened_m_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"I love your [npc2.tail]! Use my throat!",
 									"Fuck my throat! Oh yes!",
 									"I love your [npc2.tail]! You taste so good!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
+									"pened_m_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
+										"pened_by_tail_all", "pened_by_tail_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your tail out of my mouth!",
 									"Get your tail away from me! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
+									"pened_m_tail_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"I love sucking your [npc2.tail]!",
 									"Oh yeah! I love your [npc2.tail]!",
 									"Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TONGUE:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
+									"pened_m_tongue_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_gentle",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Good [npc2.girl]!",
 									"Good [npc2.girl]! I love your [npc2.lips]!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
+									"pened_m_tongue_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_normal",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Good [npc2.girl]!",
 									"Good [npc2.girl]! I love your [npc2.lips]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
+									"pened_m_tongue_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_mouth_all", "pened_mouth_dom_all", "pened_mouth_dom_rough",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Good bitch!",
 									"Good slut! I love your [npc2.lips]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
+									"pened_m_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Good [npc2.girl]!",
 									"Good [npc2.girl]! I love your [npc2.lips]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
+									"pened_m_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Good [npc2.girl]!",
 									"Good [npc2.girl]! I love your [npc2.lips]!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
+									"pened_m_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
+										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Stop kissing me like this!",
 									"Get away from me! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
+									"pened_m_tongue_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Good [npc2.girl]!",
 									"Good [npc2.girl]! I love your [npc2.lips]!",
 									"Don't stop!");
+							}
 							break;
 					}
 					break;
 				default:// Self penetration:
 					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
-							returnedLine = UtilText.returnStringAtRandom(
-									"Go away! Leave me alone!",
-									"Stop it! Just go away!",
-									"Please stop! Don't do this!");
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "self", "[npc1.mouth]", "self", 
+									"pened_m_generic_resist", "pened_all", "pened_sub_resist", "pened_self_resist");
+							if(returnedLine == null) {
+								returnedLine = UtilText.returnStringAtRandom(
+										"Go away! Leave me alone!",
+										"Stop it! Just go away!",
+										"Please stop! Don't do this!");
+							}
 							break;
 						default:
-							returnedLine = UtilText.returnStringAtRandom(
-									"Fuck!",
-									"Yeah!",
-									"Oh yeah!");
+							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "self", "[npc1.mouth]", "self", 
+									"pened_m_generic", "pened_all", "pened_self");
+							if(returnedLine == null) {
+								returnedLine = UtilText.returnStringAtRandom(
+										"Fuck!",
+										"Yeah!",
+										"Oh yeah!");
+							}
 							break;
 					}
 			}
@@ -6866,200 +7722,344 @@ public abstract class GameCharacter implements XMLSaving {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
+									"pened_n_finger_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_gentle",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, be a good [npc2.girl] now and push your [npc2.fingers] deeper into my nipple!",
 									"Good [npc2.girl]! Keep those [npc2.fingers] of yours busy in my breast!",
 									"What a good [npc2.girl]! My nipples love the feeling of your [npc2.fingers]!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
+									"pened_n_finger_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_normal",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, push your [npc2.fingers] deep into my breast!",
 									"Good [npc2.girl]! Get those [npc2.fingers] deep into my nipple!",
 									"Keep going! Curl your [npc2.fingers] up a bit!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
+									"pened_n_finger_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_rough",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Come on slut, you can get your [npc2.fingers] deeper into my breast than that!",
 									"Keep it up bitch! Get those [npc2.fingers] deep into my nipple!",
 									"Keep going slut! Curl your [npc2.fingers] up and put in a little more effort!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
+									"pened_n_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Keep fingering my nipple!",
 									"Keep going! My nipples love your attention!",
 									"Oh yes! I love getting my nipples fingered!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
+									"pened_n_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Keep fingering my nipple!",
 									"Keep going! I love this!",
 									"Oh yes!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
+									"pened_n_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
+										"pened_by_finger_all", "pened_by_finger_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your fingers out of my nipple!",
 									"Get out of my nipple! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
+									"pened_n_finger_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 					break;
 				case PENIS:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
+									"pened_n_penis_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_gentle",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My nipples love your [npc2.cock]!",
 									"Good [npc2.girl]! Keep sliding that delicious cock of yours in and out of my tits!",
 									"What a good [npc2.girl]! Enjoy my tits as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
+									"pened_n_penis_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_normal",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my nipple gripping down on your cock?!",
 									"Good [npc2.girl]! Push your [npc2.cock] deep into my breast!",
 									"Keep going! Get that [npc2.cock] in deep like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
+									"pened_n_penis_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_rough",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, my tits could use some attention from a little fuck toy like you!",
 									"Come on bitch! You can get your worthless [npc2.cock] deeper into my tits than that!",
 									"Fucking slut, put some more effort in! My breasts deserve better than your worthless [npc2.cock]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
+									"pened_n_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my tits! Fuck them harder! Don't stop!",
 									"Don't stop! Harder! Fuck my nipples! Yes, yes, yes!",
 									"Oh yes! Fuck my tits! I love your [npc2.cock]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
+									"pened_n_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my tits!",
 									"Don't stop! Fuck my nipples!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
+									"pened_n_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
+										"pened_by_penis_all", "pened_by_penis_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your cock out of my breast!",
 									"Get out of my nipple! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
+									"pened_n_penis_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TAIL:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
+									"pened_n_tail_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_gentle",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My tits love your [npc2.tail]! Keep going!",
 									"Good [npc2.girl]! Keep fucking my nipples with that [npc2.tail] of yours!",
 									"What a good [npc2.girl]! Enjoy my tits as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
+									"pened_n_tail_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_normal",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! Your [npc2.tail] feels so good!",
 									"Good [npc2.girl]! Push your [npc2.tail] deep into my breast!",
 									"Keep going! Get that [npc2.tail] deep into my tits like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
+									"pened_n_tail_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_rough",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, get that [npc2.tail] deep into my nipple like a good little fuck toy!",
 									"Come on bitch! You can get your [npc2.tail] deeper into my tits than that!",
 									"Fucking bitch, put some more effort in! My breasts deserve better than some slut's [npc2.tail]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
+									"pened_n_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my tits! Fuck them harder! Don't stop!",
 									"Don't stop! Harder! Fuck my nipples! Yes, yes, yes!",
 									"Oh yes! Fuck my tits! I love your [npc2.tail]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
+									"pened_n_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my tits!",
 									"Don't stop! Fuck my nipples!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
+									"pened_n_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
+										"pened_by_tail_all", "pened_by_tail_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your tail out of my nipple!",
 									"Get out of my nipple! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
+									"pened_n_tail_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TONGUE:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
+									"pened_n_tongue_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_gentle",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, keep sucking on my nipples like a good [npc2.girl]!",
 									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy!",
 									"What a good [npc2.girl]! You love my tits, don't you?!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
+									"pened_n_tongue_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_normal",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! Keep sucking on my nipples!",
 									"Good [npc2.girl]! Get that [npc2.tongue] of yours deep into my nipples!",
 									"Keep going! My tits love the feel of your [npc2.tongue]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
+									"pened_n_tongue_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_nipples_all", "pened_nipples_dom_all", "pened_nipples_dom_rough",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my tits like the worthless little fuck toy you are!",
 									"Come on bitch! Get that [npc2.tongue] of yours deeper into my nipples!",
 									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my tits like this?!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
+									"pened_n_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my tits! Don't stop!",
 									"Don't stop! Suck on my tits! Yes, yes, yes!",
 									"Oh yes! Lick my nipples! I love your [npc2.tongue]! Get it deeper!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
+									"pened_n_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Don't stop!",
 									"Don't stop! I love your [npc2.tongue]!",
 									"Oh yes! Suck on my tits!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
+									"pened_n_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
+										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your tongue out of my nipple!",
 									"Leave me alone! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
+									"pened_n_tongue_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Get that tongue deeper!",
 									"Oh yeah! Keep going!",
 									"Deeper! Don't stop!");
+							}
 							break;
 					}
 					break;
 				default:// Self penetration:
 					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "self", "[npc1.nipples]", "self", 
+									"pened_n_generic_resist", "pened_all", "pened_sub_resist", "pened_self_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
 									"Stop it! Just go away!",
 									"Please stop! Don't do this!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "self", "[npc1.nipples]", "self", 
+									"pened_n_generic", "pened_all", "pened_self");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 			}
@@ -7082,200 +8082,344 @@ public abstract class GameCharacter implements XMLSaving {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "finger", "[npc1.crotchNipples]", "[npc2.fingers]", 
+									"pened_nc_finger_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_gentle",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, be a good [npc2.girl] now and push your [npc2.fingers] deeper into my [npc.crotchNipple]!",
 									"Good [npc2.girl]! Keep those [npc2.fingers] of yours busy in my [npc.crotchNipple]!",
 									"What a good [npc2.girl]! My [npc.crotchNipples] love the feeling of your [npc2.fingers]!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "finger", "[npc1.crotchNipples]", "[npc2.fingers]", 
+									"pened_nc_finger_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_normal",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, push your [npc2.fingers] deep into my [npc.crotchNipple]!",
 									"Good [npc2.girl]! Get those [npc2.fingers] deep into my [npc.crotchNipple]!",
 									"Keep going! Curl your [npc2.fingers] up a bit!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "finger", "[npc1.crotchNipples]", "[npc2.fingers]", 
+									"pened_nc_finger_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_rough",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Come on slut, you can get your [npc2.fingers] deeper into my [npc.crotchNipple] than that!",
 									"Keep it up bitch! Get those [npc2.fingers] deep into my [npc.crotchNipple]!",
 									"Keep going slut! Curl your [npc2.fingers] up and put in a little more effort!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "finger", "[npc1.crotchNipples]", "[npc2.fingers]", 
+									"pened_nc_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Keep fingering my [npc.crotchNipple]!",
 									"Keep going! My [npc.crotchNipples] love your attention!",
 									"Oh yes! I love getting my [npc.crotchNipples] fingered!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "finger", "[npc1.crotchNipples]", "[npc2.fingers]", 
+									"pened_nc_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Keep fingering my [npc.crotchNipple]!",
 									"Keep going! I love this!",
 									"Oh yes!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "finger", "[npc1.crotchNipples]", "[npc2.fingers]", 
+									"pened_nc_finger_sub_rough", "dirtytalk_sub_all", "pened_all", "pened_crotchnipples_all", "pened_crotchnipples_sub_all", "pened_crotchnipples_sub_rough",
+										"pened_by_finger_all", "pened_by_finger_sub_all", "pened_by_finger_sub_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your fingers out of my [npc.crotchNipple]!",
 									"Get out of my [npc.crotchNipple]! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "finger", "[npc1.crotchNipples]", "[npc2.fingers]", 
+									"pened_nc_finger_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 					break;
 				case PENIS:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
+									"pened_nc_penis_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_gentle",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My [npc.crotchNipples] love your [npc2.cock]!",
 									"Good [npc2.girl]! Keep sliding that delicious cock of yours in and out of my [npc.crotchNipples]!",
 									"What a good [npc2.girl]! Enjoy my [npc.crotchNipples] as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
+									"pened_nc_penis_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_normal",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my [npc.crotchNipple] gripping down on your cock?!",
 									"Good [npc2.girl]! Push your [npc2.cock] deep into my [npc.crotchNipple]!",
 									"Keep going! Get that [npc2.cock] in deep like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
+									"pened_nc_penis_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_rough",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, my [npc.crotchNipples] could use some attention from a little fuck toy like you!",
 									"Come on bitch! You can get your worthless [npc2.cock] deeper into my [npc.crotchNipples] than that!",
 									"Fucking slut, put some more effort in! My [npc.crotchNipple]s deserve better than your worthless [npc2.cock]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
+									"pened_nc_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my [npc.crotchNipples]! Fuck them harder! Don't stop!",
 									"Don't stop! Harder! Fuck my [npc.crotchNipples]! Yes, yes, yes!",
 									"Oh yes! Fuck my [npc.crotchNipples]! I love your [npc2.cock]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
+									"pened_nc_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my [npc.crotchNipples]!",
 									"Don't stop! Fuck my [npc.crotchNipples]!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
+									"pened_nc_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchnipples_all", "pened_crotchnipples_sub_resist",
+										"pened_by_penis_all", "pened_by_penis_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your cock out of my [npc.crotchNipple]!",
 									"Get out of my [npc.crotchNipple]! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
+									"pened_nc_penis_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TAIL:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
+									"pened_nc_tail_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_gentle",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My [npc.crotchNipples] love your [npc2.tail]! Keep going!",
 									"Good [npc2.girl]! Keep fucking my [npc.crotchNipples] with that [npc2.tail] of yours!",
 									"What a good [npc2.girl]! Enjoy my [npc.crotchNipples] as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
+									"pened_nc_tail_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_normal",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! Your [npc2.tail] feels so good!",
 									"Good [npc2.girl]! Push your [npc2.tail] deep into my [npc.crotchNipple]!",
 									"Keep going! Get that [npc2.tail] deep into my [npc.crotchNipples] like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
+									"pened_nc_tail_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_rough",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, get that [npc2.tail] deep into my [npc.crotchNipple] like a good little fuck toy!",
 									"Come on bitch! You can get your [npc2.tail] deeper into my [npc.crotchNipples] than that!",
 									"Fucking bitch, put some more effort in! My [npc.crotchNipple]s deserve better than some slut's [npc2.tail]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
+									"pened_nc_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my [npc.crotchNipples]! Fuck them harder! Don't stop!",
 									"Don't stop! Harder! Fuck my [npc.crotchNipples]! Yes, yes, yes!",
 									"Oh yes! Fuck my [npc.crotchNipples]! I love your [npc2.tail]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
+									"pened_nc_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my [npc.crotchNipples]!",
 									"Don't stop! Fuck my [npc.crotchNipples]!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
+									"pened_nc_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchnipples_all", "pened_crotchnipples_sub_resist",
+										"pened_by_tail_all", "pened_by_tail_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your tail out of my [npc.crotchNipple]!",
 									"Get out of my [npc.crotchNipple]! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
+									"pened_nc_tail_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TONGUE:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
+									"pened_nc_tongue_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_gentle",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, keep sucking on my [npc.crotchNipples] like a good [npc2.girl]!",
 									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy!",
 									"What a good [npc2.girl]! You love my [npc.crotchNipples], don't you?!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
+									"pened_nc_tongue_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_normal",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! Keep sucking on my [npc.crotchNipples]!",
 									"Good [npc2.girl]! Get that [npc2.tongue] of yours deep into my [npc.crotchNipples]!",
 									"Keep going! My [npc.crotchNipples] love the feel of your [npc2.tongue]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
+									"pened_nc_tongue_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_crotchnipples_all", "pened_crotchnipples_dom_all", "pened_crotchnipples_dom_rough",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my [npc.crotchNipples] like the worthless little fuck toy you are!",
 									"Come on bitch! Get that [npc2.tongue] of yours deeper into my [npc.crotchNipples]!",
 									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my [npc.crotchNipples] like this?!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
+									"pened_nc_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my [npc.crotchNipples]! Don't stop!",
 									"Don't stop! Suck on my [npc.crotchNipples]! Yes, yes, yes!",
 									"Oh yes! Lick my [npc.crotchNipples]! I love your [npc2.tongue]! Get it deeper!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
+									"pened_nc_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Don't stop!",
 									"Don't stop! I love your [npc2.tongue]!",
 									"Oh yes! Suck on my [npc.crotchNipples]!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
+									"pened_nc_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchnipples_all", "pened_crotchnipples_sub_resist",
+										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Take your tongue out of my [npc.crotchNipple]!",
 									"Leave me alone! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
+									"pened_nc_tongue_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Get that tongue deeper!",
 									"Oh yeah! Keep going!",
 									"Deeper! Don't stop!");
+							}
 							break;
 					}
 					break;
 				default:// Self penetration:
 					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "self", "[npc1.crotchNipples]", "self", 
+									"pened_nc_generic_resist", "pened_all", "pened_sub_resist", "pened_self_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
 									"Stop it! Just go away!",
 									"Please stop! Don't do this!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "self", "[npc1.crotchNipples]", "self", 
+									"pened_nc_generic", "pened_all", "pened_self");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 			}
@@ -7298,200 +8442,344 @@ public abstract class GameCharacter implements XMLSaving {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
+									"pened_b_finger_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_gentle",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, be a good [npc2.girl] and keep fondling my breasts!",
 									"Good [npc2.girl]! Keep those [npc2.hands] of yours busy with my breasts!",
 									"What a good [npc2.girl]! My tits love all of this attention!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
+									"pened_b_finger_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_normal",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, keep fondling my breasts!",
 									"Good [npc2.girl]! Keep those [npc2.hands] of yours busy with my breasts!",
 									"Keep going! My tits love all of this attention!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
+									"pened_b_finger_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_rough",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Come on slut, keep fondling my breasts!",
 									"Keep it up bitch! Keep those [npc2.hands] of yours busy with my breasts!",
 									"Keep going slut! My tits need more attention!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
+									"pened_b_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Keep fondling my breasts!",
 									"Keep going! My tits love all this attention!",
 									"Oh yes! I love getting my breasts fondled!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
+									"pened_b_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Keep fondling my breasts!",
 									"Keep going! I love this!",
 									"Oh yes!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
+									"pened_b_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
+										"pened_by_finger_all", "pened_by_finger_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Get away from my breasts!",
 									"Get away from my breasts! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
+									"pened_b_finger_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 					break;
 				case PENIS:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
+									"pened_b_penis_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_gentle",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My tits love your [npc2.cock]!",
 									"Good [npc2.girl]! Keep sliding that delicious cock of yours between my tits!",
 									"What a good [npc2.girl]! Enjoy my tits as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
+									"pened_b_penis_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_normal",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my tits gripping down around your cock?!",
 									"Good [npc2.girl]! Push your [npc2.cock] deep between my breasts!",
 									"Keep going! Get that [npc2.cock] between my tits like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
+									"pened_b_penis_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_rough",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, my tits could use some attention from a little fuck toy like you!",
 									"Come on bitch! You can get your worthless [npc2.cock] deeper between my tits than that!",
 									"Fucking slut, put some more effort in! My breasts deserve better than your worthless [npc2.cock]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
+									"pened_b_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my tits! Fuck them harder! Don't stop!",
 									"Don't stop! Harder! Fuck my tits! Yes, yes, yes!",
 									"Oh yes! Fuck my tits! I love your [npc2.cock]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
+									"pened_b_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my tits!",
 									"Don't stop! Fuck my breasts!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
+									"pened_b_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
+										"pened_by_penis_all", "pened_by_penis_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Get your cock away from my breasts!",
 									"Get away from me! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
+									"pened_b_penis_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TAIL:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
+									"pened_b_tail_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_gentle",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My tits love your [npc2.tail]!",
 									"Good [npc2.girl]! Keep sliding that delicious tail of yours between my tits!",
 									"What a good [npc2.girl]! Enjoy my tits as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
+									"pened_b_tail_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_normal",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my tits gripping down around your tail?!",
 									"Good [npc2.girl]! Push your [npc2.tail] deep between my breasts!",
 									"Keep going! Get that [npc2.tail] between my tits like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
+									"pened_b_tail_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_rough",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, my tits could use some attention from a little fuck toy like you!",
 									"Come on bitch! You can get your worthless [npc2.tail] deeper between my tits than that!",
 									"Fucking slut, put some more effort in! My breasts deserve better than your worthless [npc2.tail]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
+									"pened_b_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my tits! Fuck them harder! Don't stop!",
 									"Don't stop! Harder! Fuck my tits! Yes, yes, yes!",
 									"Oh yes! Fuck my tits! I love your [npc2.tail]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
+									"pened_b_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my tits!",
 									"Don't stop! Fuck my breasts!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
+									"pened_b_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
+										"pened_by_tail_all", "pened_by_tail_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Get your tail away from my breasts!",
 									"Get away from me! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
+									"pened_b_tail_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TONGUE:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
+									"pened_b_tongue_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_gentle",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, keep sucking on my tits like a good [npc2.girl]!",
 									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy on my tits!",
 									"What a good [npc2.girl]! You love my breasts, don't you?!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
+									"pened_b_tongue_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_normal",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! Keep sucking on my tits!",
 									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy on my tits!",
 									"Keep going! My tits love the feel of your [npc2.tongue]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
+									"pened_b_tongue_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_breasts_all", "pened_breasts_dom_all", "pened_breasts_dom_rough",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my tits like the worthless little fuck toy you are!",
 									"Come on bitch! Keep that [npc2.tongue] of yours busy on my tits!",
 									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my tits like this?!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
+									"pened_b_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my tits! Don't stop!",
 									"Don't stop! Suck on my tits! Yes, yes, yes!",
 									"Oh yes! Lick my nipples! I love your [npc2.tongue]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
+									"pened_b_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Don't stop!",
 									"Don't stop! I love your [npc2.tongue]!",
 									"Oh yes! Suck on my tits!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
+									"pened_b_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
+										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Get away from me!",
 									"Leave me alone! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
+									"pened_b_tongue_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Keep going!",
 									"Oh yeah! Keep going!",
 									"Deeper! Don't stop!");
+							}
 							break;
 					}
 					break;
 				default:// Self penetration:
 					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "self", "[npc1.breasts]", "self", 
+									"pened_b_generic_resist", "pened_all", "pened_sub_resist", "pened_self_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
 									"Stop it! Just go away!",
 									"Please stop! Don't do this!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "self", "[npc1.breasts]", "self", 
+									"pened_b_generic", "pened_all", "pened_self");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 			}
@@ -7515,200 +8803,344 @@ public abstract class GameCharacter implements XMLSaving {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
+									"pened_bc_finger_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_gentle",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, be a good [npc2.girl] and keep fondling my [npc.crotchBoobs]!",
 									"Good [npc2.girl]! Keep those [npc2.hands] of yours busy with my [npc.crotchBoobs]!",
 									"What a good [npc2.girl]! My [npc.crotchBoobs] love all of this attention!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
+									"pened_bc_finger_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_normal",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, keep fondling my [npc.crotchBoobs]!",
 									"Good [npc2.girl]! Keep those [npc2.hands] of yours busy with my [npc.crotchBoobs]!",
 									"Keep going! My [npc.crotchBoobs] love all of this attention!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
+									"pened_bc_finger_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_rough",
+										"pened_by_finger_all", "pened_by_finger_dom_all", "pened_by_finger_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Come on slut, keep fondling my [npc.crotchBoobs]!",
 									"Keep it up bitch! Keep those [npc2.hands] of yours busy with my [npc.crotchBoobs]!",
 									"Keep going slut! My [npc.crotchBoobs] need more attention!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
+									"pened_bc_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Keep fondling my [npc.crotchBoobs]!",
 									"Keep going! My [npc.crotchBoobs] love all this attention!",
 									"Oh yes! I love getting my [npc.crotchBoobs] fondled!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
+									"pened_bc_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
+										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Keep fondling my [npc.crotchBoobs]!",
 									"Keep going! I love this!",
 									"Oh yes!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
+									"pened_bc_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
+										"pened_by_finger_all", "pened_by_finger_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Get away from my [npc.crotchBoobs]!",
 									"Get away from my [npc.crotchBoobs]! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
+									"pened_bc_finger_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 					break;
 				case PENIS:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
+									"pened_bc_penis_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_gentle",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My [npc.crotchBoobs] love your [npc2.cock]!",
 									"Good [npc2.girl]! Keep sliding that delicious cock of yours between my [npc.crotchBoobs]!",
 									"What a good [npc2.girl]! Enjoy my [npc.crotchBoobs] as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
+									"pened_bc_penis_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_normal",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my [npc.crotchBoobs] gripping down around your cock?!",
 									"Good [npc2.girl]! Push your [npc2.cock] deep between my [npc.crotchBoobs]!",
 									"Keep going! Get that [npc2.cock] between my [npc.crotchBoobs] like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
+									"pened_bc_penis_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_rough",
+										"pened_by_penis_all", "pened_by_penis_dom_all", "pened_by_penis_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, my [npc.crotchBoobs] could use some attention from a little fuck toy like you!",
 									"Come on bitch! You can get your worthless [npc2.cock] deeper between my [npc.crotchBoobs] than that!",
 									"Fucking slut, put some more effort in! My [npc.crotchBoobs] deserve better than your worthless [npc2.cock]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
+									"pened_bc_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my [npc.crotchBoobs]! Fuck them harder! Don't stop!",
 									"Don't stop! Harder! Fuck my [npc.crotchBoobs]! Yes, yes, yes!",
 									"Oh yes! Fuck my [npc.crotchBoobs]! I love your [npc2.cock]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
+									"pened_bc_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
+										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my [npc.crotchBoobs]!",
 									"Don't stop! Fuck my [npc.crotchBoobs]!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
+									"pened_bc_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
+										"pened_by_penis_all", "pened_by_penis_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Get your cock away from my [npc.crotchBoobs]!",
 									"Get away from me! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
+									"pened_bc_penis_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TAIL:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
+									"pened_bc_tail_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_gentle",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"My [npc.crotchBoobs] love your [npc2.tail]!",
 									"Good [npc2.girl]! Keep sliding that delicious tail of yours between my [npc.crotchBoobs]!",
 									"What a good [npc2.girl]! Enjoy my [npc.crotchBoobs] as your reward now!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
+									"pened_bc_tail_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_normal",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my [npc.crotchBoobs] gripping down around your tail?!",
 									"Good [npc2.girl]! Push your [npc2.tail] deep between my [npc.crotchBoobs]!",
 									"Keep going! Get that [npc2.tail] between my [npc.crotchBoobs] like a good [npc2.girl]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
+									"pened_bc_tail_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_rough",
+										"pened_by_tail_all", "pened_by_tail_dom_all", "pened_by_tail_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, my [npc.crotchBoobs] could use some attention from a little fuck toy like you!",
 									"Come on bitch! You can get your worthless [npc2.tail] deeper between my [npc.crotchBoobs] than that!",
 									"Fucking slut, put some more effort in! My [npc.crotchBoobs] deserve better than your worthless [npc2.tail]!");
+							}
 							break;
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
+									"pened_bc_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my [npc.crotchBoobs]! Fuck them harder! Don't stop!",
 									"Don't stop! Harder! Fuck my [npc.crotchBoobs]! Yes, yes, yes!",
 									"Oh yes! Fuck my [npc.crotchBoobs]! I love your [npc2.tail]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
+									"pened_bc_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
+										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Fuck my [npc.crotchBoobs]!",
 									"Don't stop! Fuck my [npc.crotchBoobs]!",
 									"Oh yes! Fuck me!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
+									"pened_bc_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
+										"pened_by_tail_all", "pened_by_tail_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Get your tail away from my [npc.crotchBoobs]!",
 									"Get away from me! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
+									"pened_bc_tail_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck me! Yes! Harder!",
 									"Oh yeah! Fuck me!",
 									"Harder! Don't stop!");
+							}
 							break;
 					}
 					break;
 				case TONGUE:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
+									"pened_bc_tongue_dom_gentle", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_gentle", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_gentle",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_gentle");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right, keep sucking on my [npc.crotchBoobs] like a good [npc2.girl]!",
 									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy on my [npc.crotchBoobs]!",
 									"What a good [npc2.girl]! You love my [npc.crotchBoobs], don't you?!");
+							}
 							break;
 						case DOM_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
+									"pened_bc_tongue_dom_normal", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_normal", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_normal",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! Keep sucking on my [npc.crotchBoobs]!",
 									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy on my [npc.crotchBoobs]!",
 									"Keep going! My [npc.crotchBoobs] love the feel of your [npc2.tongue]!");
+							}
 							break;
 						case DOM_ROUGH:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
+									"pened_bc_tongue_dom_rough", "dirtytalk_dom_all", "pened_all", "pened_dom_all", "pened_dom_rough", "pened_crotchboobs_all", "pened_crotchboobs_dom_all", "pened_crotchboobs_dom_rough",
+										"pened_by_tongue_all", "pened_by_tongue_dom_all", "pened_by_tongue_dom_rough");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my [npc.crotchBoobs] like the worthless little fuck toy you are!",
 									"Come on bitch! Keep that [npc2.tongue] of yours busy on my [npc.crotchBoobs]!",
 									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my [npc.crotchBoobs] like this?!");
 							break;
+							}
 						case SUB_EAGER:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
+									"pened_bc_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my [npc.crotchBoobs]! Don't stop!",
 									"Don't stop! Suck on my [npc.crotchBoobs]! Yes, yes, yes!",
 									"Oh yes! Lick my nipples! I love your [npc2.tongue]!");
+							}
 							break;
 						case SUB_NORMAL:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
+									"pened_bc_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
+										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Don't stop!",
 									"Don't stop! I love your [npc2.tongue]!",
 									"Oh yes! Suck on my [npc.crotchBoobs]!");
+							}
 							break;
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
+									"pened_bc_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
+										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
 									"Please, no more! Get away from me!",
 									"Leave me alone! Stop! Please!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
+									"pened_bc_tongue_generic");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! Keep going!",
 									"Oh yeah! Keep going!",
 									"Deeper! Don't stop!");
+							}
 							break;
 					}
 					break;
 				default:// Self penetration:
 					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "self", "[npc1.crotchBoobs]", "self", 
+									"pened_bc_generic_resist", "pened_all", "pened_sub_resist", "pened_self_resist");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
 									"Stop it! Just go away!",
 									"Please stop! Don't do this!");
+							}
 							break;
 						default:
+							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "self", "[npc1.crotchBoobs]", "self", 
+									"pened_bc_generic", "pened_all", "pened_self");
+							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
 									"Fuck!",
 									"Yeah!",
 									"Oh yeah!");
+							}
 							break;
 					}
 			}
@@ -7729,199 +9161,338 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String getDirtyTalkFingerPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
+			String returnedLine;
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FINGER, target).isEmpty()) {
-			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FINGER, target)) {
+			if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FINGER, target).isEmpty()) {
+				for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FINGER, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love feeling my [npc1.fingers] deep in your ass, don't you?",
-										"I love fingering cute little asses like yours!",
-										"What a good [npc2.girl]! Your ass loves the feeling of my [npc1.fingers], doesn't it?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of my [npc1.fingers] deep in your ass, don't you?!",
-										"I love fingering cute little asses like yours!",
-										"You like it when I curl my [npc1.fingers] up inside your ass, like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! I can feel your horny little ass clenching down on my [npc1.fingers]!",
-										"You love this, don't you bitch?! Feeling my [npc1.fingers] pushing deep into your slutty little asshole!",
-										"That's right slut! You love having my [npc1.fingers] stuffed deep in your slutty ass!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Let me get my fingers deep inside your ass!",
-										"I love giving your ass the attention it deserves!",
-										"I love fingering your ass!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love fingering your ass!",
-										"I love giving your ass the attention it deserves!",
-										"I love fingering your ass!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
+										"pening_f_anus_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_gentle",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love feeling my [npc1.fingers] deep in your ass, don't you?",
+											"I love fingering cute little asses like yours!",
+											"What a good [npc2.girl]! Your ass loves the feeling of my [npc1.fingers], doesn't it?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
+										"pening_f_anus_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_normal",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of my [npc1.fingers] deep in your ass, don't you?!",
+											"I love fingering cute little asses like yours!",
+											"You like it when I curl my [npc1.fingers] up inside your ass, like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
+										"pening_f_anus_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_rough",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! I can feel your horny little ass clenching down on my [npc1.fingers]!",
+											"You love this, don't you bitch?! Feeling my [npc1.fingers] pushing deep into your slutty little asshole!",
+											"That's right slut! You love having my [npc1.fingers] stuffed deep in your slutty ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
+										"pening_f_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Let me get my fingers deep inside your ass!",
+											"I love giving your ass the attention it deserves!",
+											"I love fingering your ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
+										"pening_f_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love fingering your ass!",
+											"I love giving your ass the attention it deserves!",
+											"I love fingering your ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
+										"pening_f_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_to_anus_all", "pening_to_anus_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
+										"pening_f_anus_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case ASS:
 						break;
 					case BREAST: case BREAST_CROTCH:
 						String name = orifice==SexAreaOrifice.BREAST?"[npc2.breasts]":"[npc2.crotchBoobs]";
 						String namePlus = orifice==SexAreaOrifice.BREAST?"[npc2.breasts+]":"[npc2.crotchBoobs+]";
+						String cname = orifice==SexAreaOrifice.BREAST?"breasts":"crotchboobs";
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love having your "+name+" fondled like this, don't you?",
-										"I love your "+name+"!",
-										"What a good [npc2.girl]! Your "+name+" love the feeling of my [npc1.fingers], don't they?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of having your "+name+" fondled, don't you?!",
-										"I love your "+namePlus+"!",
-										"You like it when I press my [npc1.fingers] into your "+name+", like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! Moaning as I grope your "+namePlus+"!",
-										"You love this, don't you bitch?! Having your "+name+" groped and fondled like <i>this</i>!",
-										"That's right slut! Your "+namePlus+" are mine to use however I want!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love the feel of your "+name+"!",
-										"I love giving your "+name+" the attention they deserve!",
-										"I love your "+name+"!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love the feel of your "+name+"!",
-										"I love giving your "+name+" the attention they deserve!",
-										"I love your "+name+"!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
+										"pening_f_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love having your "+name+" fondled like this, don't you?",
+											"I love your "+name+"!",
+											"What a good [npc2.girl]! Your "+name+" love the feeling of my [npc1.fingers], don't they?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
+										"pening_f_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of having your "+name+" fondled, don't you?!",
+											"I love your "+namePlus+"!",
+											"You like it when I press my [npc1.fingers] into your "+name+", like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
+										"pening_f_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! Moaning as I grope your "+namePlus+"!",
+											"You love this, don't you bitch?! Having your "+name+" groped and fondled like <i>this</i>!",
+											"That's right slut! Your "+namePlus+" are mine to use however I want!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
+										"pening_f_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love the feel of your "+name+"!",
+											"I love giving your "+name+" the attention they deserve!",
+											"I love your "+name+"!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
+										"pening_f_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love the feel of your "+name+"!",
+											"I love giving your "+name+" the attention they deserve!",
+											"I love your "+name+"!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
+										"pening_f_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
+										"pening_p_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], keep sucking on my [npc1.fingers]!",
-										"That's right, keep swirling your [npc2.tongue] around my [npc1.fingers]!",
-										"What a good [npc2.girl]! You love sucking on my [npc1.fingers], don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love sucking on my [npc1.fingers], don't you?!",
-										"That's right, keep sucking on my [npc1.fingers]!",
-										"Keep sucking on my [npc1.fingers], just like that!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut! Suck on my [npc1.fingers] like you would on a nice thick cock!",
-										"You love this, don't you bitch?! Having my [npc1.fingers] sliding in and out of your mouth!",
-										"That's right slut! Suck on my [npc1.fingers] as I stuff them deep down your throat!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Suck on my [npc1.fingers]! Just like that!",
-										"I love having my [npc1.fingers] sucked! Keep going!",
-										"Keep sucking my [npc1.fingers]! Yes! Just like that!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking on my [npc1.fingers]!",
-										"I love having my [npc1.fingers] sucked!",
-										"Keep sucking my [npc1.fingers]! Yes!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-						}
-						break;
-					case NIPPLE: case NIPPLE_CROTCH:
+								returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
+										"pening_f_mouth_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_gentle",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], keep sucking on my [npc1.fingers]!",
+											"That's right, keep swirling your [npc2.tongue] around my [npc1.fingers]!",
+											"What a good [npc2.girl]! You love sucking on my [npc1.fingers], don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
+										"pening_f_mouth_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_normal",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love sucking on my [npc1.fingers], don't you?!",
+											"That's right, keep sucking on my [npc1.fingers]!",
+											"Keep sucking on my [npc1.fingers], just like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
+										"pening_f_mouth_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_rough",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut! Suck on my [npc1.fingers] like you would on a nice thick cock!",
+											"You love this, don't you bitch?! Having my [npc1.fingers] sliding in and out of your mouth!",
+											"That's right slut! Suck on my [npc1.fingers] as I stuff them deep down your throat!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
+										"pening_f_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Suck on my [npc1.fingers]! Just like that!",
+											"I love having my [npc1.fingers] sucked! Keep going!",
+											"Keep sucking my [npc1.fingers]! Yes! Just like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
+										"pening_f_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking on my [npc1.fingers]!",
+											"I love having my [npc1.fingers] sucked!",
+											"Keep sucking my [npc1.fingers]! Yes!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
+										"pening_f_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
+										"pening_f_mouth_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+							}
+							break;
+						case NIPPLE: case NIPPLE_CROTCH:
 						String nameNipple = orifice==SexAreaOrifice.NIPPLE?"[npc2.nipples]":"[npc2.crotchNipples]";
 						String nameNipplePlus = orifice==SexAreaOrifice.NIPPLE?"[npc2.nipples+]":"[npc2.crotchNipples+]";
+						String cnameNipple = orifice==SexAreaOrifice.NIPPLE?"nipples":"crotchnipples";
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love feeling my [npc1.fingers] deep in your "+nameNipple+", don't you?",
-										"I love fingering cute little "+nameNipple+" like yours!",
-										"What a good [npc2.girl]! Your "+nameNipplePlus+" love the feeling of my [npc1.fingers], don't they?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of my [npc1.fingers] deep in your "+nameNipple+", don't you?!",
-										"I love fingering cute little "+nameNipple+" like yours!",
-										"You like it when I curl my [npc1.fingers] up inside your "+nameNipplePlus+", like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! Moaning as I stuff my [npc1.fingers] deep into your "+nameNipple+"!",
-										"You love this, don't you bitch?! Feeling my [npc1.fingers] pushing deep into your "+nameNipplePlus+"!",
-										"That's right slut! You love having my [npc1.fingers] stuffed deep in your slutty "+nameNipple+"!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Let me get my fingers deep inside your "+nameNipple+"!",
-										"I love giving your "+nameNipplePlus+" the attention they deserve!",
-										"I love fingering your "+nameNipple+"!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love fingering your "+nameNipple+"!",
-										"I love giving your "+nameNipplePlus+" the attention they deserve!",
-										"I love fingering your "+nameNipple+"!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
+										"pening_f_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love feeling my [npc1.fingers] deep in your "+nameNipple+", don't you?",
+											"I love fingering cute little "+nameNipple+" like yours!",
+											"What a good [npc2.girl]! Your "+nameNipplePlus+" love the feeling of my [npc1.fingers], don't they?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
+										"pening_f_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of my [npc1.fingers] deep in your "+nameNipple+", don't you?!",
+											"I love fingering cute little "+nameNipple+" like yours!",
+											"You like it when I curl my [npc1.fingers] up inside your "+nameNipplePlus+", like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
+										"pening_f_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! Moaning as I stuff my [npc1.fingers] deep into your "+nameNipple+"!",
+											"You love this, don't you bitch?! Feeling my [npc1.fingers] pushing deep into your "+nameNipplePlus+"!",
+											"That's right slut! You love having my [npc1.fingers] stuffed deep in your slutty "+nameNipple+"!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
+										"pening_f_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Let me get my fingers deep inside your "+nameNipple+"!",
+											"I love giving your "+nameNipplePlus+" the attention they deserve!",
+											"I love fingering your "+nameNipple+"!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
+										"pening_f_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love fingering your "+nameNipple+"!",
+											"I love giving your "+nameNipplePlus+" the attention they deserve!",
+											"I love fingering your "+nameNipple+"!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
+										"pening_f_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
+										"pening_f_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case THIGHS:
 						break;
 					case URETHRA_PENIS:
@@ -7931,57 +9502,91 @@ public abstract class GameCharacter implements XMLSaving {
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love feeling my [npc1.fingers] deep in your pussy, don't you?",
-										"I love fingering cute little things like you!",
-										"What a good [npc2.girl]! Your pussy loves the feeling of my [npc1.fingers], doesn't it?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of my [npc1.fingers] deep in your pussy, don't you?!",
-										"I love fingering cute [npc2.girl]s like you!",
-										"You like it when I curl my [npc1.fingers] up inside you, like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! I can feel your horny pussy clenching down on my [npc1.fingers]!",
-										"You love this, don't you bitch?! Feeling my [npc1.fingers] pushing deep into your slutty cunt!",
-										"That's right slut! You love having my [npc1.fingers] stuffed deep in your slutty pussy!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Let me get my fingers deep inside your little pussy!",
-										"I love giving your pussy the attention it deserves!",
-										"I love fingering you!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love fingering your pussy!",
-										"I love giving your pussy the attention it deserves!",
-										"I love fingering you!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
+										"pening_f_vagina_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_gentle",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love feeling my [npc1.fingers] deep in your pussy, don't you?",
+											"I love fingering cute little things like you!",
+											"What a good [npc2.girl]! Your pussy loves the feeling of my [npc1.fingers], doesn't it?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
+										"pening_f_vagina_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_normal",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of my [npc1.fingers] deep in your pussy, don't you?!",
+											"I love fingering cute [npc2.girl]s like you!",
+											"You like it when I curl my [npc1.fingers] up inside you, like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
+										"pening_f_vagina_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_finger_all", "pening_finger_dom_all", "pening_finger_dom_rough",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! I can feel your horny pussy clenching down on my [npc1.fingers]!",
+											"You love this, don't you bitch?! Feeling my [npc1.fingers] pushing deep into your slutty cunt!",
+											"That's right slut! You love having my [npc1.fingers] stuffed deep in your slutty pussy!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
+										"pening_f_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Let me get my fingers deep inside your little pussy!",
+											"I love giving your pussy the attention it deserves!",
+											"I love fingering you!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
+										"pening_f_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love fingering your pussy!",
+											"I love giving your pussy the attention it deserves!",
+											"I love fingering you!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
+										"pening_f_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
+										"pening_f_vagina_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 				}
 			}
 		}
 
 		if(availableLines.isEmpty()) {
-			return null;
-		}
-		return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+				return null;
+			}
+			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
 	}
 	
 	/**
@@ -7989,335 +9594,574 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String getDirtyTalkPenisPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
+			String returnedLine;
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target).isEmpty()) {
-			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target)) {
+			if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target).isEmpty()) {
+				for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.cock] slide deep into your ass!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding deep into your hot ass!",
-										"Your ass feels so good squeezing down around my [npc1.cock]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your ass feels so good!",
-										"Oh yes! Take my cock! Take it deep!",
-										"Your ass was made for my cock!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my cock! Your ass belongs to me!",
-										"What a horny bitch! Take my cock you filthy little butt-slut!",
-										"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little ass?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my cock! I love your ass!",
-										"Don't stop! Harder! Use my cock! Yes, yes, yes!",
-										"Oh yes! Use me! I love your ass!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
+										"pening_p_anus_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_gentle",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.cock] slide deep into your ass!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding deep into your hot ass!",
+											"Your ass feels so good squeezing down around my [npc1.cock]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
+										"pening_p_anus_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_normal",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your ass feels so good!",
+											"Oh yes! Take my cock! Take it deep!",
+											"Your ass was made for my cock!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
+										"pening_p_anus_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_rough",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my cock! Your ass belongs to me!",
+											"What a horny bitch! Take my cock you filthy little butt-slut!",
+											"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little ass?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
+										"pening_p_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my cock! I love your ass!",
+											"Don't stop! Harder! Use my cock! Yes, yes, yes!",
+											"Oh yes! Use me! I love your ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
+										"pening_p_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
+										"pening_p_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_to_anus_all", "pening_to_anus_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
+										"pening_p_anus_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case ASS:
 						break;
 					case BREAST:
 						if(target.hasBreasts()) {
 							switch(Sex.getSexPace(this)) {
 								case DOM_GENTLE:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Good [npc2.girl]! Feel my cock slide up between your [npc2.breasts]!",
-											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding up between your [npc2.breasts+]!",
-											"Your [npc2.breasts] feel so good squeezing down around my [npc1.cock]!"));
-									break;
-								case DOM_NORMAL:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Fuck! Your tits feel so good to fuck!",
-											"Oh yes! Wrap your tits around my cock!",
-											"Your tits were made for my cock!"));
-									break;
-								case DOM_ROUGH:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"That's right slut, pleasure my cock! Push your tits together and make this good for me!",
-											"What a horny bitch! Using your tits to please my cock like a desperate slut!",
-											"You like this, fuck toy?! Squeezing your [npc2.breasts] around my cock and pleasing me like the slut you are?!"));
-									break;
-								case SUB_EAGER:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Yes! Use my cock! I love your tits!",
-											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-											"Oh yes! Use me! I love your tits!"));
-									break;
-								case SUB_NORMAL:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Yes! Fuck me!",
-											"Don't stop! Fuck me!",
-											"Oh yes! Fuck me!"));
-									break;
-								case SUB_RESISTING:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"I don't want to do this! Please let me stop!",
-											"Let me go! Get off my cock!",
-											"Please! Stop! I don't want this!"));
-									break;
-								default:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Fuck me! Yes! Harder!",
-											"Oh yeah! Fuck me!",
-											"Harder! Don't stop!"));
-									break;
-							}
-						} else {
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Good [npc2.girl]! Feel my cock slide up between your [npc2.breasts]!",
+												"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding up between your [npc2.breasts+]!",
+												"Your [npc2.breasts] feel so good squeezing down around my [npc1.cock]!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case DOM_NORMAL:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Fuck! Your tits feel so good to fuck!",
+												"Oh yes! Wrap your tits around my cock!",
+												"Your tits were made for my cock!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case DOM_ROUGH:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"That's right slut, pleasure my cock! Push your tits together and make this good for me!",
+												"What a horny bitch! Using your tits to please my cock like a desperate slut!",
+												"You like this, fuck toy?! Squeezing your [npc2.breasts] around my cock and pleasing me like the slut you are?!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case SUB_EAGER:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Yes! Use my cock! I love your tits!",
+												"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+												"Oh yes! Use me! I love your tits!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case SUB_NORMAL:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Yes! Fuck me!",
+												"Don't stop! Fuck me!",
+												"Oh yes! Fuck me!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case SUB_RESISTING:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"I don't want to do this! Please let me stop!",
+												"Let me go! Get off my cock!",
+												"Please! Stop! I don't want this!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									default:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_generic");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Fuck me! Yes! Harder!",
+												"Oh yeah! Fuck me!",
+												"Harder! Don't stop!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+								}
+							} else {
 							switch(Sex.getSexPace(this)) {
 								case DOM_GENTLE:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Good [npc2.girl]! Feel my cock slide over your [npc2.breasts]!",
-											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding over your [npc2.breasts+]!",
-											"Your [npc2.breasts] feel so good squeezing down around my [npc1.cock]!"));
-									break;
-								case DOM_NORMAL:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Fuck! Your [npc2.breasts] feel so good to fuck!",
-											"Oh yes! Feel my [npc1.cock] sliding over your [npc2.breasts]!",
-											"Your [npc2.breasts] were made for my cock!"));
-									break;
-								case DOM_ROUGH:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"That's right slut, pleasure my cock! Push your [npc2.breasts] together and make this good for me!",
-											"What a horny bitch! Using your [npc2.breasts] to please my cock like a desperate slut!",
-											"You like this, fuck toy?! Squeezing your [npc2.breasts] around my cock and pleasing me like the slut you are?!"));
-									break;
-								case SUB_EAGER:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Yes! Use my cock! I love your [npc2.breasts]!",
-											"Don't stop! Yes, yes, yes!",
-											"Oh yes! Use me! I love your [npc2.breasts]!"));
-									break;
-								case SUB_NORMAL:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Yes! Let me fuck your [npc2.breasts]!",
-											"Don't stop! Oh yes!",
-											"Oh yes! I love your [npc2.breasts]!"));
-									break;
-								case SUB_RESISTING:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"I don't want to do this! Please let me stop!",
-											"Let me go! Get off my cock!",
-											"Please! Stop! I don't want this!"));
-									break;
-								default:
-									availableLines.add(UtilText.returnStringAtRandom(
-											"Fuck me! Yes! Harder!",
-											"Oh yeah! Fuck me!",
-											"Harder! Don't stop!"));
-									break;
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Good [npc2.girl]! Feel my cock slide over your [npc2.breasts]!",
+												"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding over your [npc2.breasts+]!",
+												"Your [npc2.breasts] feel so good squeezing down around my [npc1.cock]!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case DOM_NORMAL:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Fuck! Your [npc2.breasts] feel so good to fuck!",
+												"Oh yes! Feel my [npc1.cock] sliding over your [npc2.breasts]!",
+												"Your [npc2.breasts] were made for my cock!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case DOM_ROUGH:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"That's right slut, pleasure my cock! Push your [npc2.breasts] together and make this good for me!",
+												"What a horny bitch! Using your [npc2.breasts] to please my cock like a desperate slut!",
+												"You like this, fuck toy?! Squeezing your [npc2.breasts] around my cock and pleasing me like the slut you are?!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case SUB_EAGER:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Yes! Use my cock! I love your [npc2.breasts]!",
+												"Don't stop! Yes, yes, yes!",
+												"Oh yes! Use me! I love your [npc2.breasts]!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case SUB_NORMAL:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Yes! Let me fuck your [npc2.breasts]!",
+												"Don't stop! Oh yes!",
+												"Oh yes! I love your [npc2.breasts]!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									case SUB_RESISTING:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"I don't want to do this! Please let me stop!",
+												"Let me go! Get off my cock!",
+												"Please! Stop! I don't want this!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+									default:
+										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
+											"pening_p_breast_generic");
+									if(returnedLine == null) {
+										availableLines.add(UtilText.returnStringAtRandom(
+												"Fuck me! Yes! Harder!",
+												"Oh yeah! Fuck me!",
+												"Harder! Don't stop!"));
+									} else { availableLines.add(returnedLine); }
+										break;
+								}
 							}
-						}
 						break;
 					case BREAST_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my cock slide up between your [npc2.crotchBoobs]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding up between your [npc2.crotchBoobs+]!",
-										"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.cock]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your [npc2.crotchBoobs+] feel so good to fuck!",
-										"Oh yes! Wrap your [npc2.crotchBoobs+] around my cock!",
-										"Your [npc2.crotchBoobs+] were made for my cock!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, pleasure my cock! Push your [npc2.crotchBoobs+] together and make this good for me!",
-										"What a horny bitch! Using your [npc2.crotchBoobs+] to please my cock like a desperate slut!",
-										"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my cock and pleasing me like the slut you are?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my cock! I love your [npc2.crotchBoobs+]!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your [npc2.crotchBoobs+]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my cock!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
+										"pening_p_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my cock slide up between your [npc2.crotchBoobs]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding up between your [npc2.crotchBoobs+]!",
+											"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.cock]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
+										"pening_p_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your [npc2.crotchBoobs+] feel so good to fuck!",
+											"Oh yes! Wrap your [npc2.crotchBoobs+] around my cock!",
+											"Your [npc2.crotchBoobs+] were made for my cock!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
+										"pening_p_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, pleasure my cock! Push your [npc2.crotchBoobs+] together and make this good for me!",
+											"What a horny bitch! Using your [npc2.crotchBoobs+] to please my cock like a desperate slut!",
+											"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my cock and pleasing me like the slut you are?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
+										"pening_p_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my cock! I love your [npc2.crotchBoobs+]!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your [npc2.crotchBoobs+]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
+										"pening_p_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
+										"pening_p_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my cock!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
+										"pening_p_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], keep sucking my cock!",
-										"That's right, use your [npc2.tongue] as well! You're good at sucking cock!",
-										"What a good [npc2.girl]! You love sucking my cock, don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You're good at sucking cock!",
-										"Oh yeah! Keep sucking my cock!",
-										"Use your tongue as well! Yeah, like that!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Come on you slut! You can suck cock better than that!",
-										"That's right bitch! Take my cock deep down your throat!",
-										"Put some effort into it slut! You can suck cock better than that!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking my cock! Just like that!",
-										"Oh yes! Wrap those lips of yours around my cock! Keep going!",
-										"Keep sucking my cock! Yes! Just like that!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking my cock!",
-										"Wrap those lips of yours around my cock! Keep going!",
-										"Keep sucking my cock! Yes!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my cock!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
+										"pening_p_mouth_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_gentle",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], keep sucking my cock!",
+											"That's right, use your [npc2.tongue] as well! You're good at sucking cock!",
+											"What a good [npc2.girl]! You love sucking my cock, don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
+										"pening_p_mouth_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_normal",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You're good at sucking cock!",
+											"Oh yeah! Keep sucking my cock!",
+											"Use your tongue as well! Yeah, like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
+										"pening_p_mouth_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_rough",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Come on you slut! You can suck cock better than that!",
+											"That's right bitch! Take my cock deep down your throat!",
+											"Put some effort into it slut! You can suck cock better than that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
+										"pening_p_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking my cock! Just like that!",
+											"Oh yes! Wrap those lips of yours around my cock! Keep going!",
+											"Keep sucking my cock! Yes! Just like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
+										"pening_p_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking my cock!",
+											"Wrap those lips of yours around my cock! Keep going!",
+											"Keep sucking my cock! Yes!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
+										"pening_p_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my cock!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
+										"pening_p_mouth_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my cock slide deep into your breast!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding deep into your cute little nipple!",
-										"Your cute little nipple feels so good squeezing down around my [npc1.cock]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your tits feel so good to fuck!",
-										"Oh yes! Take my cock! Take it deep!",
-										"Your tits were made for my cock!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my cock! Feel it pushing deep into your nipple!",
-										"What a horny bitch! Taking my cock deep into your tit like a slut!",
-										"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little nipple?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my cock! I love your tits!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your tits!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my cock!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipples+]", 
+										"pening_p_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my cock slide deep into your breast!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding deep into your cute little nipple!",
+											"Your cute little nipple feels so good squeezing down around my [npc1.cock]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipples+]", 
+										"pening_p_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your tits feel so good to fuck!",
+											"Oh yes! Take my cock! Take it deep!",
+											"Your tits were made for my cock!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipples+]", 
+										"pening_p_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my cock! Feel it pushing deep into your nipple!",
+											"What a horny bitch! Taking my cock deep into your tit like a slut!",
+											"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little nipple?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipples+]", 
+										"pening_p_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my cock! I love your tits!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipples+]", 
+										"pening_p_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipples+]", 
+										"pening_p_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my cock!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipple+]", 
+										"pening_p_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my cock slide deep into your [npc2.crotchNipple]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding deep into your cute little [npc2.crotchNipple]!",
-										"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.cock]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
-										"Oh yes! Take my cock! Take it deep!",
-										"Your [npc2.crotchNipples] were made for my cock!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my cock! Feel it pushing deep into your [npc2.crotchNipple]!",
-										"What a horny bitch! Taking my cock deep into your [npc2.crotchNipple] like a slut!",
-										"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little [npc2.crotchNipple]?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my cock! I love your [npc2.crotchNipples]!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my cock!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
+										"pening_p_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my cock slide deep into your [npc2.crotchNipple]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding deep into your cute little [npc2.crotchNipple]!",
+											"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.cock]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
+										"pening_p_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
+											"Oh yes! Take my cock! Take it deep!",
+											"Your [npc2.crotchNipples] were made for my cock!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
+										"pening_p_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my cock! Feel it pushing deep into your [npc2.crotchNipple]!",
+											"What a horny bitch! Taking my cock deep into your [npc2.crotchNipple] like a slut!",
+											"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little [npc2.crotchNipple]?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
+										"pening_p_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my cock! I love your [npc2.crotchNipples]!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
+										"pening_p_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
+										"pening_p_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my cock!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
+										"pening_p_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case THIGHS:
 						break;
 					case URETHRA_PENIS:
@@ -8327,57 +10171,91 @@ public abstract class GameCharacter implements XMLSaving {
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.cock] slide deep into your little pussy!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding deep into your cute little cunt!",
-										"Your cute little cunt feels so good squeezing down around my [npc1.cock]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your pussy feels so good!",
-										"Oh yes! Take my cock! Take it deep!",
-										"Your pussy was made for my cock!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my cock! Your pussy belongs to me!",
-										"What a horny bitch! Take my cock you slut!",
-										"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little cunt?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my cock! I love your pussy!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your pussy!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
+										"pening_p_vagina_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_gentle",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.cock] slide deep into your little pussy!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding deep into your cute little cunt!",
+											"Your cute little cunt feels so good squeezing down around my [npc1.cock]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
+										"pening_p_vagina_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_normal",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your pussy feels so good!",
+											"Oh yes! Take my cock! Take it deep!",
+											"Your pussy was made for my cock!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
+										"pening_p_vagina_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_penis_all", "pening_penis_dom_all", "pening_penis_dom_rough",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my cock! Your pussy belongs to me!",
+											"What a horny bitch! Take my cock you slut!",
+											"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little cunt?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
+										"pening_p_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my cock! I love your pussy!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your pussy!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
+										"pening_p_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
+										"pening_p_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
+										"pening_p_vagina_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 				}
 			}
 		}
 
 		if(availableLines.isEmpty()) {
-			return null;
-		}
-		return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+				return null;
+			}
+			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
 	}
 	
 	/**
@@ -8385,288 +10263,492 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String getDirtyTalkTailPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
+			String returnedLine;
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TAIL, target).isEmpty()) {
-			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TAIL, target)) {
+			if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TAIL, target).isEmpty()) {
+				for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TAIL, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tail] slide deep into your cute little ass!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding deep into your cute little ass!",
-										"Your cute little ass feels so good squeezing down around my [npc1.tail]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your ass feels so good!",
-										"Oh yes! Take my [npc1.tail]! Take it deep into your ass!",
-										"Your ass was made for a good tail-fucking!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right bitch, feel my [npc1.tail] pushing deep into your slutty ass!",
-										"What a horny slut! Now moan for me as I fuck your ass with my tail!",
-										"You feel that, fuck toy?! Do you feel my [npc1.tail] sinking deep into your slutty little ass?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tail]! I love your ass!",
-										"Don't stop! Harder! Use my [npc1.tail]! Yes, yes, yes!",
-										"Oh yes! Use me! I love your ass!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
+										"pening_t_anus_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_gentle",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tail] slide deep into your cute little ass!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding deep into your cute little ass!",
+											"Your cute little ass feels so good squeezing down around my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
+										"pening_t_anus_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_normal",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your ass feels so good!",
+											"Oh yes! Take my [npc1.tail]! Take it deep into your ass!",
+											"Your ass was made for a good tail-fucking!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
+										"pening_t_anus_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_rough",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right bitch, feel my [npc1.tail] pushing deep into your slutty ass!",
+											"What a horny slut! Now moan for me as I fuck your ass with my tail!",
+											"You feel that, fuck toy?! Do you feel my [npc1.tail] sinking deep into your slutty little ass?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
+										"pening_t_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tail]! I love your ass!",
+											"Don't stop! Harder! Use my [npc1.tail]! Yes, yes, yes!",
+											"Oh yes! Use me! I love your ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
+										"pening_t_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
+										"pening_t_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_to_anus_all", "pening_to_anus_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
+										"pening_t_anus_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case ASS:
 						break;
 					case BREAST:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tail] slide up between your [npc2.breasts]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding up between your [npc2.breasts+]!",
-										"Your [npc2.breasts] feel so good squeezing down around my [npc1.tail]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your tits feel so good to fuck!",
-										"Oh yes! Wrap your tits around my [npc1.tail]!",
-										"Your tits were made for my [npc1.tail]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, pleasure my [npc1.tail]! Push your tits together and make this good for me!",
-										"What a horny bitch! Using your tits to please my [npc1.tail] like a desperate slut!",
-										"You like this, fuck toy?! Squeezing your [npc2.breasts] around my [npc1.tail] and pleasing me like the slut you are?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tail]! I love your tits!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your tits!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my [npc1.tail]!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.breasts+]", 
+										"pening_t_breast_dom_eager", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_eager", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_eager",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tail] slide up between your [npc2.breasts]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding up between your [npc2.breasts+]!",
+											"Your [npc2.breasts] feel so good squeezing down around my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.breasts+]", 
+										"pening_t_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your tits feel so good to fuck!",
+											"Oh yes! Wrap your tits around my [npc1.tail]!",
+											"Your tits were made for my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.braests+]", 
+										"pening_t_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, pleasure my [npc1.tail]! Push your tits together and make this good for me!",
+											"What a horny bitch! Using your tits to please my [npc1.tail] like a desperate slut!",
+											"You like this, fuck toy?! Squeezing your [npc2.breasts] around my [npc1.tail] and pleasing me like the slut you are?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.breasts+]", 
+										"pening_t_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tail]! I love your tits!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.breasts+]", 
+										"pening_t_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.breasts+]", 
+										"pening_t_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my [npc1.tail]!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.breasts+]", 
+										"pening_t_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case BREAST_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tail] slide up between your [npc2.crotchBoobs]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding up between your [npc2.crotchBoobs+]!",
-										"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.tail]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your [npc2.crotchBoobs] feel so good to fuck!",
-										"Oh yes! Wrap your [npc2.crotchBoobs] around my [npc1.tail]!",
-										"Your [npc2.crotchBoobs] were made for my [npc1.tail]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, pleasure my [npc1.tail]! Push your [npc2.crotchBoobs] together and make this good for me!",
-										"What a horny bitch! Using your [npc2.crotchBoobs] to please my [npc1.tail] like a desperate slut!",
-										"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my [npc1.tail] and pleasing me like the slut you are?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tail]! I love your [npc2.crotchBoobs]!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your [npc2.crotchBoobs]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my [npc1.tail]!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchboobs", "[npc1.tail]", "[npc2.crotchBoobs+]", 
+										"pening_t_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tail] slide up between your [npc2.crotchBoobs]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding up between your [npc2.crotchBoobs+]!",
+											"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchboobs", "[npc1.tail]", "[npc2.crotchBoobs+]", 
+										"pening_t_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your [npc2.crotchBoobs] feel so good to fuck!",
+											"Oh yes! Wrap your [npc2.crotchBoobs] around my [npc1.tail]!",
+											"Your [npc2.crotchBoobs] were made for my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchboobs", "[npc1.tail]", "[npc2.crotchBoobs+]", 
+										"pening_t_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, pleasure my [npc1.tail]! Push your [npc2.crotchBoobs] together and make this good for me!",
+											"What a horny bitch! Using your [npc2.crotchBoobs] to please my [npc1.tail] like a desperate slut!",
+											"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my [npc1.tail] and pleasing me like the slut you are?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchboobs", "[npc1.tail]", "[npc2.crotchBoobs+]", 
+										"pening_t_breast_sub_eaer", "dirtytalk_sub_all");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tail]! I love your [npc2.crotchBoobs]!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your [npc2.crotchBoobs]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchboobs", "[npc1.tail]", "[npc2.crotchBoobs+]", 
+										"pening_t_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchboobs", "[npc1.tail]", "[npc2.crotchBoobs+]", 
+										"pening_t_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my [npc1.tail]!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchboobs", "[npc1.tail]", "[npc2.crotchBoobs+]", 
+										"pening_t_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], keep sucking my [npc1.tail]!",
-										"That's right, use your [npc2.tongue] as well! You're good at this!",
-										"What a good [npc2.girl]! You love sucking my [npc1.tail], don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Take my [npc1.tail] deep down your throat!",
-										"Oh yeah! Keep sucking my [npc1.tail]!",
-										"Use your tongue as well! Yeah, like that!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Come on you slut! Take my [npc1.tail] deep down your throat!",
-										"That's right bitch! Take my [npc1.tail] deep down your throat!",
-										"Put some effort into it slut! You can suck my [npc1.tail] better than that!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking my [npc1.tail]! Just like that!",
-										"Oh yes! Wrap those lips of yours around my [npc1.tail]! Keep going!",
-										"Keep sucking my [npc1.tail]! Yes! Just like that!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking my [npc1.tail]!",
-										"Wrap those lips of yours around my [npc1.tail]! Keep going!",
-										"Keep sucking my [npc1.tail]! Yes!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
+										"pening_t_mouth_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_gentle",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], keep sucking my [npc1.tail]!",
+											"That's right, use your [npc2.tongue] as well! You're good at this!",
+											"What a good [npc2.girl]! You love sucking my [npc1.tail], don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
+										"pening_t_mouth_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_normal",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Take my [npc1.tail] deep down your throat!",
+											"Oh yeah! Keep sucking my [npc1.tail]!",
+											"Use your tongue as well! Yeah, like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
+										"pening_t_mouth_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_rough",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Come on you slut! Take my [npc1.tail] deep down your throat!",
+											"That's right bitch! Take my [npc1.tail] deep down your throat!",
+											"Put some effort into it slut! You can suck my [npc1.tail] better than that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
+										"pening_t_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking my [npc1.tail]! Just like that!",
+											"Oh yes! Wrap those lips of yours around my [npc1.tail]! Keep going!",
+											"Keep sucking my [npc1.tail]! Yes! Just like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
+										"pening_t_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking my [npc1.tail]!",
+											"Wrap those lips of yours around my [npc1.tail]! Keep going!",
+											"Keep sucking my [npc1.tail]! Yes!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
+										"pening_t_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
+										"pening_t_mouth_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tail] slide deep into your breast!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding deep into your cute little nipple!",
-										"Your cute little nipple feels so good squeezing down around my [npc1.tail]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your tits feel so good to fuck!",
-										"Oh yes! Take my [npc1.tail] deep into your nipple!",
-										"Your tits were made for my [npc1.tail]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my [npc1.tail]! Feel it pushing deep into your nipple!",
-										"What a horny bitch! Taking my [npc1.tail] deep into your tit like a slut!",
-										"You feel that, fuck toy?! Do you feel my [npc1.tail] sinking deep into your slutty little nipple?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tail]! I love your tits!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your tits!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
+										"pening_t_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tail] slide deep into your breast!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding deep into your cute little nipple!",
+											"Your cute little nipple feels so good squeezing down around my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
+										"pening_t_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your tits feel so good to fuck!",
+											"Oh yes! Take my [npc1.tail] deep into your nipple!",
+											"Your tits were made for my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
+										"pening_t_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my [npc1.tail]! Feel it pushing deep into your nipple!",
+											"What a horny bitch! Taking my [npc1.tail] deep into your tit like a slut!",
+											"You feel that, fuck toy?! Do you feel my [npc1.tail] sinking deep into your slutty little nipple?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
+										"pening_t_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tail]! I love your tits!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
+										"pening_t_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
+										"pening_t_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
+										"pening_t_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tail] slide deep into your [npc2.crotchNipple]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding deep into your cute little [npc2.crotchNipple]!",
-										"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.tail]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
-										"Oh yes! Take my [npc1.tail] deep into your [npc2.crotchNipple]!",
-										"Your [npc2.crotchNipples] were made for my [npc1.tail]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my [npc1.tail]! Feel it pushing deep into your [npc2.crotchNipple]!",
-										"What a horny bitch! Taking my [npc1.tail] deep into your [npc2.crotchNipple] like a slut!",
-										"You feel that, fuck toy?! Do you feel my [npc1.tail] sinking deep into your slutty little [npc2.crotchNipple]?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tail]! I love your [npc2.crotchNipples]!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
+										"pening_t_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tail] slide deep into your [npc2.crotchNipple]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding deep into your cute little [npc2.crotchNipple]!",
+											"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
+										"pening_t_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
+											"Oh yes! Take my [npc1.tail] deep into your [npc2.crotchNipple]!",
+											"Your [npc2.crotchNipples] were made for my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
+										"pening_t_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my [npc1.tail]! Feel it pushing deep into your [npc2.crotchNipple]!",
+											"What a horny bitch! Taking my [npc1.tail] deep into your [npc2.crotchNipple] like a slut!",
+											"You feel that, fuck toy?! Do you feel my [npc1.tail] sinking deep into your slutty little [npc2.crotchNipple]?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
+										"pening_t_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tail]! I love your [npc2.crotchNipples]!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
+										"pening_t_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
+										"pening_t_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
+										"pening_t_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case THIGHS:
 						break;
 					case URETHRA_PENIS:
@@ -8676,57 +10758,91 @@ public abstract class GameCharacter implements XMLSaving {
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tail] slide deep into your little pussy!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding deep into your cute little cunt!",
-										"Your cute little cunt feels so good squeezing down around my [npc1.tail]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your pussy feels so good!",
-										"Oh yes! Take my [npc1.tail]! Take it deep!",
-										"Your pussy was made for a good tail-fucking!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, feel my [npc1.tail] pushing deep into your worthless little cunt! Your pussy belongs to me!",
-										"What a horny bitch! Now moan for me as I fuck you with my tail!",
-										"You feel that, fuck toy?! Do you feel my [npc1.tail] sinking deep into your slutty little cunt?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tail]! I love your pussy!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your pussy!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
+										"pening_t_vagina_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_gentle",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tail] slide deep into your little pussy!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tail] sliding deep into your cute little cunt!",
+											"Your cute little cunt feels so good squeezing down around my [npc1.tail]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
+										"pening_t_vagina_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_normal",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your pussy feels so good!",
+											"Oh yes! Take my [npc1.tail]! Take it deep!",
+											"Your pussy was made for a good tail-fucking!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
+										"pening_t_vagina_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tail_all", "pening_tail_dom_all", "pening_tail_dom_rough",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, feel my [npc1.tail] pushing deep into your worthless little cunt! Your pussy belongs to me!",
+											"What a horny bitch! Now moan for me as I fuck you with my tail!",
+											"You feel that, fuck toy?! Do you feel my [npc1.tail] sinking deep into your slutty little cunt?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
+										"pening_t_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tail]! I love your pussy!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your pussy!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
+										"pening_t_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
+										"pening_t_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
+										"pening_t_vagina_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 				}
 			}
 		}
 
 		if(availableLines.isEmpty()) {
-			return null;
-		}
-		return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+				return null;
+			}
+			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
 	}
 	
 	/**
@@ -8734,288 +10850,493 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String getDirtyTalkTentaclePenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
+			String returnedLine;
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TENTACLE, target).isEmpty()) {
-			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TENTACLE, target)) {
+			if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TENTACLE, target).isEmpty()) {
+				for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TENTACLE, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tentacle] slide deep into your cute little ass!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding deep into your cute little ass!",
-										"Your cute little ass feels so good squeezing down around my [npc1.tentacle]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your ass feels so good!",
-										"Oh yes! Take my [npc1.tentacle]! Take it deep into your ass!",
-										"Your ass was made for a good tentacle-fucking!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right bitch, feel my [npc1.tentacle] pushing deep into your slutty ass!",
-										"What a horny slut! Now moan for me as I fuck your ass with my tentacle!",
-										"You feel that, fuck toy?! Do you feel my [npc1.tentacle] sinking deep into your slutty little ass?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tentacle]! I love your ass!",
-										"Don't stop! Harder! Use my [npc1.tentacle]! Yes, yes, yes!",
-										"Oh yes! Use me! I love your ass!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
+										"pening_ten_anus_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_gentle",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tentacle] slide deep into your cute little ass!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding deep into your cute little ass!",
+											"Your cute little ass feels so good squeezing down around my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
+										"pening_ten_anus_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_normal",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your ass feels so good!",
+											"Oh yes! Take my [npc1.tentacle]! Take it deep into your ass!",
+											"Your ass was made for a good tentacle-fucking!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
+										"pening_ten_anus_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_rough",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right bitch, feel my [npc1.tentacle] pushing deep into your slutty ass!",
+											"What a horny slut! Now moan for me as I fuck your ass with my tentacle!",
+											"You feel that, fuck toy?! Do you feel my [npc1.tentacle] sinking deep into your slutty little ass?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
+										"pening_ten_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tentacle]! I love your ass!",
+											"Don't stop! Harder! Use my [npc1.tentacle]! Yes, yes, yes!",
+											"Oh yes! Use me! I love your ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
+										"pening_ten_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
+										"pening_ten_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_to_anus_all", "pening_to_anus_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
+										"pening_ten_anus_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case ASS:
 						break;
 					case BREAST:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tentacle] slide up between your [npc2.breasts]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding up between your [npc2.breasts+]!",
-										"Your [npc2.breasts] feel so good squeezing down around my [npc1.tentacle]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your tits feel so good to fuck!",
-										"Oh yes! Wrap your tits around my [npc1.tentacle]!",
-										"Your tits were made for my [npc1.tentacle]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, pleasure my [npc1.tentacle]! Push your tits together and make this good for me!",
-										"What a horny bitch! Using your tits to please my [npc1.tentacle] like a desperate slut!",
-										"You like this, fuck toy?! Squeezing your [npc2.breasts] around my [npc1.tentacle] and pleasing me like the slut you are?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tentacle]! I love your tits!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your tits!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my [npc1.tentacle]!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
+										"pening_ten_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tentacle] slide up between your [npc2.breasts]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding up between your [npc2.breasts+]!",
+											"Your [npc2.breasts] feel so good squeezing down around my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
+										"pening_ten_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your tits feel so good to fuck!",
+											"Oh yes! Wrap your tits around my [npc1.tentacle]!",
+											"Your tits were made for my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
+										"pening_ten_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, pleasure my [npc1.tentacle]! Push your tits together and make this good for me!",
+											"What a horny bitch! Using your tits to please my [npc1.tentacle] like a desperate slut!",
+											"You like this, fuck toy?! Squeezing your [npc2.breasts] around my [npc1.tentacle] and pleasing me like the slut you are?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
+										"pening_ten_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tentacle]! I love your tits!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
+										"pening_ten_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
+										"pening_ten_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my [npc1.tentacle]!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
+										"pening_ten_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case BREAST_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tentacle] slide up between your [npc2.crotchBoobs]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding up between your [npc2.crotchBoobs+]!",
-										"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.tentacle]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your [npc2.crotchBoobs] feel so good to fuck!",
-										"Oh yes! Wrap your [npc2.crotchBoobs] around my [npc1.tentacle]!",
-										"Your [npc2.crotchBoobs] were made for my [npc1.tentacle]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, pleasure my [npc1.tentacle]! Push your [npc2.crotchBoobs] together and make this good for me!",
-										"What a horny bitch! Using your [npc2.crotchBoobs] to please my [npc1.tentacle] like a desperate slut!",
-										"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my [npc1.tentacle] and pleasing me like the slut you are?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tentacle]! I love your [npc2.crotchBoobs]!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your [npc2.crotchBoobs]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my [npc1.tentacle]!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
+										"pening_ten_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tentacle] slide up between your [npc2.crotchBoobs]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding up between your [npc2.crotchBoobs+]!",
+											"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
+										"pening_ten_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your [npc2.crotchBoobs] feel so good to fuck!",
+											"Oh yes! Wrap your [npc2.crotchBoobs] around my [npc1.tentacle]!",
+											"Your [npc2.crotchBoobs] were made for my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
+										"pening_ten_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, pleasure my [npc1.tentacle]! Push your [npc2.crotchBoobs] together and make this good for me!",
+											"What a horny bitch! Using your [npc2.crotchBoobs] to please my [npc1.tentacle] like a desperate slut!",
+											"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my [npc1.tentacle] and pleasing me like the slut you are?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
+										"pening_ten_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tentacle]! I love your [npc2.crotchBoobs]!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your [npc2.crotchBoobs]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
+										"pening_ten_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
+										"pening_ten_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my [npc1.tentacle]!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
+										"pening_ten_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], keep sucking my [npc1.tentacle]!",
-										"That's right, use your [npc2.tongue] as well! You're good at this!",
-										"What a good [npc2.girl]! You love sucking my [npc1.tentacle], don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Take my [npc1.tentacle] deep down your throat!",
-										"Oh yeah! Keep sucking my [npc1.tentacle]!",
-										"Use your tongue as well! Yeah, like that!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Come on you slut! Take my [npc1.tentacle] deep down your throat!",
-										"That's right bitch! Take my [npc1.tentacle] deep down your throat!",
-										"Put some effort into it slut! You can suck my [npc1.tentacle] better than that!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking my [npc1.tentacle]! Just like that!",
-										"Oh yes! Wrap those lips of yours around my [npc1.tentacle]! Keep going!",
-										"Keep sucking my [npc1.tentacle]! Yes! Just like that!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking my [npc1.tentacle]!",
-										"Wrap those lips of yours around my [npc1.tentacle]! Keep going!",
-										"Keep sucking my [npc1.tentacle]! Yes!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
+										"pening_ten_mouth_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_gentle",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], keep sucking my [npc1.tentacle]!",
+											"That's right, use your [npc2.tongue] as well! You're good at this!",
+											"What a good [npc2.girl]! You love sucking my [npc1.tentacle], don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
+										"pening_ten_mouth_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_normal",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Take my [npc1.tentacle] deep down your throat!",
+											"Oh yeah! Keep sucking my [npc1.tentacle]!",
+											"Use your tongue as well! Yeah, like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
+										"pening_ten_mouth_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_rough",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Come on you slut! Take my [npc1.tentacle] deep down your throat!",
+											"That's right bitch! Take my [npc1.tentacle] deep down your throat!",
+											"Put some effort into it slut! You can suck my [npc1.tentacle] better than that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
+										"pening_ten_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking my [npc1.tentacle]! Just like that!",
+											"Oh yes! Wrap those lips of yours around my [npc1.tentacle]! Keep going!",
+											"Keep sucking my [npc1.tentacle]! Yes! Just like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
+										"pening_ten_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking my [npc1.tentacle]!",
+											"Wrap those lips of yours around my [npc1.tentacle]! Keep going!",
+											"Keep sucking my [npc1.tentacle]! Yes!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
+										"pening_ten_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
+										"pening_ten_mouth_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tentacle] slide deep into your breast!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding deep into your cute little nipple!",
-										"Your cute little nipple feels so good squeezing down around my [npc1.tentacle]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your tits feel so good to fuck!",
-										"Oh yes! Take my [npc1.tentacle] deep into your nipple!",
-										"Your tits were made for my [npc1.tentacle]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my [npc1.tentacle]! Feel it pushing deep into your nipple!",
-										"What a horny bitch! Taking my [npc1.tentacle] deep into your tit like a slut!",
-										"You feel that, fuck toy?! Do you feel my [npc1.tentacle] sinking deep into your slutty little nipple?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tentacle]! I love your tits!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your tits!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
+										"pening_ten_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tentacle] slide deep into your breast!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding deep into your cute little nipple!",
+											"Your cute little nipple feels so good squeezing down around my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
+										"pening_ten_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your tits feel so good to fuck!",
+											"Oh yes! Take my [npc1.tentacle] deep into your nipple!",
+											"Your tits were made for my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
+										"pening_ten_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my [npc1.tentacle]! Feel it pushing deep into your nipple!",
+											"What a horny bitch! Taking my [npc1.tentacle] deep into your tit like a slut!",
+											"You feel that, fuck toy?! Do you feel my [npc1.tentacle] sinking deep into your slutty little nipple?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
+										"pening_ten_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tentacle]! I love your tits!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
+										"pening_ten_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
+										"pening_ten_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
+										"pening_ten_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tentacle] slide deep into your [npc2.crotchNipple]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding deep into your cute little [npc2.crotchNipple]!",
-										"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.tentacle]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
-										"Oh yes! Take my [npc1.tentacle] deep into your [npc2.crotchNipple]!",
-										"Your [npc2.crotchNipples] were made for my [npc1.tentacle]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my [npc1.tentacle]! Feel it pushing deep into your [npc2.crotchNipple]!",
-										"What a horny bitch! Taking my [npc1.tentacle] deep into your [npc2.crotchNipple] like a slut!",
-										"You feel that, fuck toy?! Do you feel my [npc1.tentacle] sinking deep into your slutty little [npc2.crotchNipple]?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tentacle]! I love your [npc2.crotchNipples]!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
+										"pening_ten_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tentacle] slide deep into your [npc2.crotchNipple]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding deep into your cute little [npc2.crotchNipple]!",
+											"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
+										"pening_ten_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
+											"Oh yes! Take my [npc1.tentacle] deep into your [npc2.crotchNipple]!",
+											"Your [npc2.crotchNipples] were made for my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
+										"pening_ten_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my [npc1.tentacle]! Feel it pushing deep into your [npc2.crotchNipple]!",
+											"What a horny bitch! Taking my [npc1.tentacle] deep into your [npc2.crotchNipple] like a slut!",
+											"You feel that, fuck toy?! Do you feel my [npc1.tentacle] sinking deep into your slutty little [npc2.crotchNipple]?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
+										"pening_ten_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tentacle]! I love your [npc2.crotchNipples]!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
+										"pening_ten_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
+										"pening_ten_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
+										"pening_ten_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case THIGHS:
 						break;
 					case URETHRA_PENIS:
@@ -9025,57 +11346,91 @@ public abstract class GameCharacter implements XMLSaving {
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.tentacle] slide deep into your little pussy!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding deep into your cute little cunt!",
-										"Your cute little cunt feels so good squeezing down around my [npc1.tentacle]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your pussy feels so good!",
-										"Oh yes! Take my [npc1.tentacle]! Take it deep!",
-										"Your pussy was made for a good tentacle-fucking!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, feel my [npc1.tentacle] pushing deep into your worthless little cunt! Your pussy belongs to me!",
-										"What a horny bitch! Now moan for me as I fuck you with my tentacle!",
-										"You feel that, fuck toy?! Do you feel my [npc1.tentacle] sinking deep into your slutty little cunt?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.tentacle]! I love your pussy!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your pussy!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
+										"pening_ten_vagina_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_gentle",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.tentacle] slide deep into your little pussy!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.tentacle] sliding deep into your cute little cunt!",
+											"Your cute little cunt feels so good squeezing down around my [npc1.tentacle]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
+										"pening_ten_vagina_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_normal",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your pussy feels so good!",
+											"Oh yes! Take my [npc1.tentacle]! Take it deep!",
+											"Your pussy was made for a good tentacle-fucking!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
+										"pening_ten_vagina_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tentacle_all", "pening_tentacle_dom_all", "pening_tentacle_dom_rough",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, feel my [npc1.tentacle] pushing deep into your worthless little cunt! Your pussy belongs to me!",
+											"What a horny bitch! Now moan for me as I fuck you with my tentacle!",
+											"You feel that, fuck toy?! Do you feel my [npc1.tentacle] sinking deep into your slutty little cunt?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
+										"pening_ten_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.tentacle]! I love your pussy!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your pussy!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
+										"pening_ten_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
+										"pening_ten_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
+										"pening_ten_vagina_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 				}
 			}
 		}
 
 		if(availableLines.isEmpty()) {
-			return null;
-		}
-		return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+				return null;
+			}
+			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
 	}
 	
 
@@ -9084,288 +11439,493 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String getDirtyTalkClitPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
+			String returnedLine;
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.CLIT, target).isEmpty()) {
-			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.CLIT, target)) {
+			if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.CLIT, target).isEmpty()) {
+				for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.CLIT, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.clit] slide deep into your ass!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding deep into your hot ass!",
-										"Your ass feels so good squeezing down around my [npc1.clit]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your ass feels so good!",
-										"Oh yes! Take my clit! Take it deep!",
-										"Your ass was made for my clit!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my clit! Your ass belongs to me!",
-										"What a horny bitch! Take my clit you filthy little butt-slut!",
-										"You feel that, fuck toy?! Do you feel my clit sinking deep into your slutty little ass?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my clit! I love your ass!",
-										"Don't stop! Harder! Use my clit! Yes, yes, yes!",
-										"Oh yes! Use me! I love your ass!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
+										"pening_c_anus_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_gentle",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.clit] slide deep into your ass!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding deep into your hot ass!",
+											"Your ass feels so good squeezing down around my [npc1.clit]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
+										"pening_c_anus_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_normal",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your ass feels so good!",
+											"Oh yes! Take my clit! Take it deep!",
+											"Your ass was made for my clit!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
+										"pening_c_anus_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_rough",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my clit! Your ass belongs to me!",
+											"What a horny bitch! Take my clit you filthy little butt-slut!",
+											"You feel that, fuck toy?! Do you feel my clit sinking deep into your slutty little ass?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
+										"pening_c_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my clit! I love your ass!",
+											"Don't stop! Harder! Use my clit! Yes, yes, yes!",
+											"Oh yes! Use me! I love your ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
+										"pening_c_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
+										"pening_c_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_to_anus_all", "pening_to_anus_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
+										"pening_c_anus_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case ASS:
 						break;
 					case BREAST:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my clit slide up between your [npc2.breasts]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding up between your [npc2.breasts+]!",
-										"Your [npc2.breasts] feel so good squeezing down around my [npc1.clit]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your tits feel so good to fuck!",
-										"Oh yes! Wrap your tits around my clit!",
-										"Your tits were made for my clit!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, pleasure my clit! Push your tits together and make this good for me!",
-										"What a horny bitch! Using your tits to please my clit like a desperate slut!",
-										"You like this, fuck toy?! Squeezing your [npc2.breasts] around my clit and pleasing me like the slut you are?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my clit! I love your tits!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your tits!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my clit!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
+										"pening_c_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my clit slide up between your [npc2.breasts]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding up between your [npc2.breasts+]!",
+											"Your [npc2.breasts] feel so good squeezing down around my [npc1.clit]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
+										"pening_c_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your tits feel so good to fuck!",
+											"Oh yes! Wrap your tits around my clit!",
+											"Your tits were made for my clit!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
+										"pening_c_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, pleasure my clit! Push your tits together and make this good for me!",
+											"What a horny bitch! Using your tits to please my clit like a desperate slut!",
+											"You like this, fuck toy?! Squeezing your [npc2.breasts] around my clit and pleasing me like the slut you are?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
+										"pening_c_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my clit! I love your tits!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
+										"pening_c_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
+										"pening_c_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my clit!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
+										"pening_c_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case BREAST_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.clit] slide up between your [npc2.crotchBoobs]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding up between your [npc2.crotchBoobs+]!",
-										"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.clit]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your [npc2.crotchBoobs] feel so good to fuck!",
-										"Oh yes! Wrap your [npc2.crotchBoobs] around my [npc1.clit]!",
-										"Your [npc2.crotchBoobs] were made for my [npc1.clit]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, pleasure my [npc1.clit]! Push your [npc2.crotchBoobs] together and make this good for me!",
-										"What a horny bitch! Using your [npc2.crotchBoobs] to please my [npc1.clit] like a desperate slut!",
-										"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my [npc1.clit] and pleasing me like the slut you are?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.clit]! I love your [npc2.crotchBoobs]!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your [npc2.crotchBoobs]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my [npc1.clit]!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
+										"pening_c_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.clit] slide up between your [npc2.crotchBoobs]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding up between your [npc2.crotchBoobs+]!",
+											"Your [npc2.crotchBoobs] feel so good squeezing down around my [npc1.clit]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
+										"pening_c_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your [npc2.crotchBoobs] feel so good to fuck!",
+											"Oh yes! Wrap your [npc2.crotchBoobs] around my [npc1.clit]!",
+											"Your [npc2.crotchBoobs] were made for my [npc1.clit]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
+										"pening_c_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, pleasure my [npc1.clit]! Push your [npc2.crotchBoobs] together and make this good for me!",
+											"What a horny bitch! Using your [npc2.crotchBoobs] to please my [npc1.clit] like a desperate slut!",
+											"You like this, fuck toy?! Squeezing your [npc2.crotchBoobs] around my [npc1.clit] and pleasing me like the slut you are?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
+										"pening_c_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.clit]! I love your [npc2.crotchBoobs]!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your [npc2.crotchBoobs]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
+										"pening_c_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
+										"pening_c_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my [npc1.clit]!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
+										"pening_c_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], keep sucking my clit!",
-										"That's right, use your [npc2.tongue] as well! You're good at sucking clit!",
-										"What a good [npc2.girl]! You love sucking my clit, don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You're good at sucking clit!",
-										"Oh yeah! Keep sucking my clit!",
-										"Use your tongue as well! Yeah, like that!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Come on you slut! You can suck clit better than that!",
-										"That's right bitch! Take my clit deep down your throat!",
-										"Put some effort into it slut! You can suck clit better than that!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking my clit! Just like that!",
-										"Oh yes! Wrap those lips of yours around my clit! Keep going!",
-										"Keep sucking my clit! Yes! Just like that!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking my clit!",
-										"Wrap those lips of yours around my clit! Keep going!",
-										"Keep sucking my clit! Yes!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my clit!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
+										"pening_c_mouth_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_gentle",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], keep sucking my clit!",
+											"That's right, use your [npc2.tongue] as well! You're good at sucking clit!",
+											"What a good [npc2.girl]! You love sucking my clit, don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
+										"pening_c_mouth_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_normal",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You're good at sucking clit!",
+											"Oh yeah! Keep sucking my clit!",
+											"Use your tongue as well! Yeah, like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
+										"pening_c_mouth_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_rough",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Come on you slut! You can suck clit better than that!",
+											"That's right bitch! Take my clit deep down your throat!",
+											"Put some effort into it slut! You can suck clit better than that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
+										"pening_c_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking my clit! Just like that!",
+											"Oh yes! Wrap those lips of yours around my clit! Keep going!",
+											"Keep sucking my clit! Yes! Just like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
+										"pening_c_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking my clit!",
+											"Wrap those lips of yours around my clit! Keep going!",
+											"Keep sucking my clit! Yes!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
+										"pening_c_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my clit!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
+										"pening_c_mouth_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my clit slide deep into your breast!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding deep into your cute little nipple!",
-										"Your cute little nipple feels so good squeezing down around my [npc1.clit]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your tits feel so good to fuck!",
-										"Oh yes! Take my clit! Take it deep!",
-										"Your tits were made for my clit!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my clit! Feel it pushing deep into your nipple!",
-										"What a horny bitch! Taking my clit deep into your tit like a slut!",
-										"You feel that, fuck toy?! Do you feel my clit sinking deep into your slutty little nipple?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my clit! I love your tits!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your tits!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my clit!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
+										"pening_c_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my clit slide deep into your breast!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding deep into your cute little nipple!",
+											"Your cute little nipple feels so good squeezing down around my [npc1.clit]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
+										"pening_c_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your tits feel so good to fuck!",
+											"Oh yes! Take my clit! Take it deep!",
+											"Your tits were made for my clit!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
+										"pening_c_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my clit! Feel it pushing deep into your nipple!",
+											"What a horny bitch! Taking my clit deep into your tit like a slut!",
+											"You feel that, fuck toy?! Do you feel my clit sinking deep into your slutty little nipple?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
+										"pening_c_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my clit! I love your tits!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
+										"pening_c_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
+										"pening_c_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my clit!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
+										"pening_c_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.clit] slide deep into your [npc2.crotchNipple]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding deep into your cute little [npc2.crotchNipple]!",
-										"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.clit]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
-										"Oh yes! Take my [npc1.clit] deep into your [npc2.crotchNipple]!",
-										"Your [npc2.crotchNipples] were made for my [npc1.clit]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my [npc1.clit]! Feel it pushing deep into your [npc2.crotchNipple]!",
-										"What a horny bitch! Taking my [npc1.clit] deep into your [npc2.crotchNipple] like a slut!",
-										"You feel that, fuck toy?! Do you feel my [npc1.clit] sinking deep into your slutty little [npc2.crotchNipple]?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my [npc1.clit]! I love your [npc2.crotchNipples]!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
+										"pening_c_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.clit] slide deep into your [npc2.crotchNipple]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding deep into your cute little [npc2.crotchNipple]!",
+											"Your cute little [npc2.crotchNipple] feels so good squeezing down around my [npc1.clit]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
+										"pening_c_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your [npc2.crotchNipple] feels so good to fuck!",
+											"Oh yes! Take my [npc1.clit] deep into your [npc2.crotchNipple]!",
+											"Your [npc2.crotchNipples] were made for my [npc1.clit]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
+										"pening_c_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my [npc1.clit]! Feel it pushing deep into your [npc2.crotchNipple]!",
+											"What a horny bitch! Taking my [npc1.clit] deep into your [npc2.crotchNipple] like a slut!",
+											"You feel that, fuck toy?! Do you feel my [npc1.clit] sinking deep into your slutty little [npc2.crotchNipple]?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
+										"pening_c_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my [npc1.clit]! I love your [npc2.crotchNipples]!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your [npc2.crotchNipples]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
+										"pening_c_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
+										"pening_c_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
+										"pening_c_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case THIGHS:
 						break;
 					case URETHRA_PENIS:
@@ -9375,57 +11935,91 @@ public abstract class GameCharacter implements XMLSaving {
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my [npc1.clit] slide deep into your little pussy!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding deep into your cute little cunt!",
-										"Your cute little cunt feels so good squeezing down around my [npc1.clit]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your pussy feels so good!",
-										"Oh yes! Take my clit! Take it deep!",
-										"Your pussy was made for my clit!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, take my clit! Your pussy belongs to me!",
-										"What a horny bitch! Take my clit you slut!",
-										"You feel that, fuck toy?! Do you feel my clit sinking deep into your slutty little cunt?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my clit! I love your pussy!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your pussy!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
+										"pening_c_vagina_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_gentle",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my [npc1.clit] slide deep into your little pussy!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.clit] sliding deep into your cute little cunt!",
+											"Your cute little cunt feels so good squeezing down around my [npc1.clit]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
+										"pening_c_vagina_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_normal",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your pussy feels so good!",
+											"Oh yes! Take my clit! Take it deep!",
+											"Your pussy was made for my clit!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
+										"pening_c_vagina_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_clit_all", "pening_clit_dom_all", "pening_clit_dom_rough",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, take my clit! Your pussy belongs to me!",
+											"What a horny bitch! Take my clit you slut!",
+											"You feel that, fuck toy?! Do you feel my clit sinking deep into your slutty little cunt?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
+										"pening_c_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my clit! I love your pussy!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your pussy!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
+										"pening_c_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
+										"pening_c_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
+										"pening_c_vagina_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 				}
 			}
 		}
 
 		if(availableLines.isEmpty()) {
-			return null;
-		}
-		return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+				return null;
+			}
+			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
 	}
 	
 	/**
@@ -9433,287 +12027,491 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String getDirtyTalkToesPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
+			String returnedLine;
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FOOT, target).isEmpty()) {
-			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FOOT, target)) {
+			if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FOOT, target).isEmpty()) {
+				for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FOOT, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love feeling my [npc1.toes] deep in your ass, don't you?",
-										"I love foot-fucking cute little asses like yours!",
-										"What a good [npc2.girl]! Your ass loves the feeling of my [npc1.toes], doesn't it?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of my [npc1.toes] deep in your ass, don't you?!",
-										"I love foot-fucking cute little asses like yours!",
-										"You like it when I curl my [npc1.toes] up inside your ass, like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! I can feel your horny little ass clenching down on my [npc1.toes]!",
-										"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your slutty little asshole!",
-										"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty ass!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Let me get my toes deep inside your ass!",
-										"I love giving your ass the attention it deserves!",
-										"I love foot-fucking your ass!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love foot-fucking your ass!",
-										"I love giving your ass the attention it deserves!",
-										"I love foot-fucking your ass!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
+										"pening_ft_anus_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_gentle",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love feeling my [npc1.toes] deep in your ass, don't you?",
+											"I love foot-fucking cute little asses like yours!",
+											"What a good [npc2.girl]! Your ass loves the feeling of my [npc1.toes], doesn't it?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
+										"pening_ft_anus_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_normal",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of my [npc1.toes] deep in your ass, don't you?!",
+											"I love foot-fucking cute little asses like yours!",
+											"You like it when I curl my [npc1.toes] up inside your ass, like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
+										"pening_ft_anus_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_rough",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! I can feel your horny little ass clenching down on my [npc1.toes]!",
+											"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your slutty little asshole!",
+											"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
+										"pening_ft_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Let me get my toes deep inside your ass!",
+											"I love giving your ass the attention it deserves!",
+											"I love foot-fucking your ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
+										"pening_ft_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love foot-fucking your ass!",
+											"I love giving your ass the attention it deserves!",
+											"I love foot-fucking your ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
+										"pening_ft_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_to_anus_all", "pening_to_anus_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
+										"pening_ft_anus_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case ASS:
 						break;
 					case BREAST:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love having your [npc2.breasts] fondled like this, don't you?",
-										"I love your [npc2.breasts]!",
-										"What a good [npc2.girl]! Your tits love the feeling of my [npc1.toes], don't they?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of having your [npc2.breasts] fondled, don't you?!",
-										"I love your [npc2.breasts+]!",
-										"You like it when I press my [npc1.toes] into your [npc2.breasts], like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! Moaning as I grope your [npc2.breasts+]!",
-										"You love this, don't you bitch?! Having your [npc2.breasts] groped and fondled like <i>this</i>!",
-										"That's right slut! Your [npc2.breasts+] are mine to use however I want!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love the feel of your [npc2.breasts]!",
-										"I love giving your tits the attention they deserve!",
-										"I love your [npc2.breasts]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love the feel of your [npc2.breasts]!",
-										"I love giving your tits the attention they deserve!",
-										"I love your [npc2.breasts]!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
+										"pening_ft_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love having your [npc2.breasts] fondled like this, don't you?",
+											"I love your [npc2.breasts]!",
+											"What a good [npc2.girl]! Your tits love the feeling of my [npc1.toes], don't they?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
+										"pening_ft_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of having your [npc2.breasts] fondled, don't you?!",
+											"I love your [npc2.breasts+]!",
+											"You like it when I press my [npc1.toes] into your [npc2.breasts], like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
+										"pening_ft_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! Moaning as I grope your [npc2.breasts+]!",
+											"You love this, don't you bitch?! Having your [npc2.breasts] groped and fondled like <i>this</i>!",
+											"That's right slut! Your [npc2.breasts+] are mine to use however I want!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
+										"pening_ft_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love the feel of your [npc2.breasts]!",
+											"I love giving your tits the attention they deserve!",
+											"I love your [npc2.breasts]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
+										"pening_ft_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love the feel of your [npc2.breasts]!",
+											"I love giving your tits the attention they deserve!",
+											"I love your [npc2.breasts]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
+										"pening_ft_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
+										"pening_ft_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case BREAST_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love having your [npc2.crotchBoobs] fondled like this, don't you?",
-										"I love your [npc2.crotchBoobs]!",
-										"What a good [npc2.girl]! Your [npc2.crotchBoobs] love the feeling of my [npc1.toes], don't they?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of having your [npc2.crotchBoobs] fondled, don't you?!",
-										"I love your [npc2.crotchBoobs+]!",
-										"You like it when I press my [npc1.toes] into your [npc2.crotchBoobs], like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! Moaning as I grope your [npc2.crotchBoobs+]!",
-										"You love this, don't you bitch?! Having your [npc2.crotchBoobs] groped and fondled like <i>this</i>!",
-										"That's right slut! Your [npc2.crotchBoobs+] are mine to use however I want!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love the feel of your [npc2.crotchBoobs]!",
-										"I love giving your [npc2.crotchBoobs] the attention they deserve!",
-										"I love your [npc2.crotchBoobs]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love the feel of your [npc2.crotchBoobs]!",
-										"I love giving your [npc2.crotchBoobs] the attention they deserve!",
-										"I love your [npc2.crotchBoobs]!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
+										"pening_ft_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love having your [npc2.crotchBoobs] fondled like this, don't you?",
+											"I love your [npc2.crotchBoobs]!",
+											"What a good [npc2.girl]! Your [npc2.crotchBoobs] love the feeling of my [npc1.toes], don't they?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
+										"pening_ft_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of having your [npc2.crotchBoobs] fondled, don't you?!",
+											"I love your [npc2.crotchBoobs+]!",
+											"You like it when I press my [npc1.toes] into your [npc2.crotchBoobs], like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
+										"pening_ft_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! Moaning as I grope your [npc2.crotchBoobs+]!",
+											"You love this, don't you bitch?! Having your [npc2.crotchBoobs] groped and fondled like <i>this</i>!",
+											"That's right slut! Your [npc2.crotchBoobs+] are mine to use however I want!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
+										"pening_ft_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love the feel of your [npc2.crotchBoobs]!",
+											"I love giving your [npc2.crotchBoobs] the attention they deserve!",
+											"I love your [npc2.crotchBoobs]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
+										"pening_ft_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love the feel of your [npc2.crotchBoobs]!",
+											"I love giving your [npc2.crotchBoobs] the attention they deserve!",
+											"I love your [npc2.crotchBoobs]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
+										"pening_ft_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
+										"pening_ft_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], keep sucking on my [npc1.toes]!",
-										"That's right, keep swirling your [npc2.tongue] around my [npc1.toes]!",
-										"What a good [npc2.girl]! You love sucking on my [npc1.toes], don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love sucking on my [npc1.toes], don't you?!",
-										"That's right, keep sucking on my [npc1.toes]!",
-										"Keep sucking on my [npc1.toes], just like that!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut! Suck on my [npc1.toes] like you would on a nice thick cock!",
-										"You love this, don't you bitch?! Having my [npc1.toes] sliding in and out of your mouth!",
-										"That's right slut! Suck on my [npc1.toes] as I stuff them deep down your throat!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Suck on my [npc1.toes]! Just like that!",
-										"I love having my [npc1.toes] sucked! Keep going!",
-										"Keep sucking my [npc1.toes]! Yes! Just like that!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep sucking on my [npc1.toes]!",
-										"I love having my [npc1.toes] sucked!",
-										"Keep sucking my [npc1.toes]! Yes!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-						}
-						break;
-					case NIPPLE:
+								returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
+										"pening_ft_mouth_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_gentle",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], keep sucking on my [npc1.toes]!",
+											"That's right, keep swirling your [npc2.tongue] around my [npc1.toes]!",
+											"What a good [npc2.girl]! You love sucking on my [npc1.toes], don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
+										"pening_ft_mouth_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_normal",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love sucking on my [npc1.toes], don't you?!",
+											"That's right, keep sucking on my [npc1.toes]!",
+											"Keep sucking on my [npc1.toes], just like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
+										"pening_ft_mouth_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_rough",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut! Suck on my [npc1.toes] like you would on a nice thick cock!",
+											"You love this, don't you bitch?! Having my [npc1.toes] sliding in and out of your mouth!",
+											"That's right slut! Suck on my [npc1.toes] as I stuff them deep down your throat!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
+										"pening_ft_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Suck on my [npc1.toes]! Just like that!",
+											"I love having my [npc1.toes] sucked! Keep going!",
+											"Keep sucking my [npc1.toes]! Yes! Just like that!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
+										"pening_ft_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep sucking on my [npc1.toes]!",
+											"I love having my [npc1.toes] sucked!",
+											"Keep sucking my [npc1.toes]! Yes!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
+										"pening_ft_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
+										"pening_ft_mouth_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+							}
+							break;
+						case NIPPLE:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love feeling my [npc1.toes] deep in your nipples, don't you?",
-										"I love foot-fucking cute little nipples like yours!",
-										"What a good [npc2.girl]! Your tits love the feeling of my [npc1.toes], don't they?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of my [npc1.toes] deep in your nipples, don't you?!",
-										"I love foot-fucking cute little nipples like yours!",
-										"You like it when I curl my [npc1.toes] up inside your tits, like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! Moaning as I stuff my [npc1.toes] deep into your nipples!",
-										"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your tits!",
-										"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty nipples!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Let me get my toes deep inside your nipples!",
-										"I love giving your tits the attention they deserve!",
-										"I love foot-fucking your nipples!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love foot-fucking your nipples!",
-										"I love giving your tits the attention they deserve!",
-										"I love foot-fucking your nipples!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
+										"pening_ft_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love feeling my [npc1.toes] deep in your nipples, don't you?",
+											"I love foot-fucking cute little nipples like yours!",
+											"What a good [npc2.girl]! Your tits love the feeling of my [npc1.toes], don't they?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
+										"pening_ft_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of my [npc1.toes] deep in your nipples, don't you?!",
+											"I love foot-fucking cute little nipples like yours!",
+											"You like it when I curl my [npc1.toes] up inside your tits, like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
+										"pening_ft_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! Moaning as I stuff my [npc1.toes] deep into your nipples!",
+											"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your tits!",
+											"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty nipples!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
+										"pening_ft_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Let me get my toes deep inside your nipples!",
+											"I love giving your tits the attention they deserve!",
+											"I love foot-fucking your nipples!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
+										"pening_ft_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love foot-fucking your nipples!",
+											"I love giving your tits the attention they deserve!",
+											"I love foot-fucking your nipples!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
+										"pening_ft_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
+										"pening_ft_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love feeling my [npc1.toes] deep in your [npc2.crotchNipples], don't you?",
-										"I love foot-fucking cute little [npc2.crotchNipples] like yours!",
-										"What a good [npc2.girl]! Your [npc2.crotchNipples] love the feeling of my [npc1.toes], don't they?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of my [npc1.toes] deep in your [npc2.crotchNipple], don't you?!",
-										"I love foot-fucking cute little [npc2.crotchNipples] like yours!",
-										"You like it when I curl my [npc1.toes] up inside your [npc2.crotchNipples], like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! Moaning as I stuff my [npc1.toes] deep into your [npc2.crotchNipples]!",
-										"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your [npc2.crotchNipples]!",
-										"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty [npc2.crotchNipples]!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Let me get my toes deep inside your [npc2.crotchNipples]!",
-										"I love giving your [npc2.crotchNipples] the attention they deserve!",
-										"I love foot-fucking your [npc2.crotchNipples]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love foot-fucking your [npc2.crotchNipples]!",
-										"I love giving your [npc2.crotchNipples] the attention they deserve!",
-										"I love foot-fucking your [npc2.crotchNipples]!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
+										"pening_ft_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love feeling my [npc1.toes] deep in your [npc2.crotchNipples], don't you?",
+											"I love foot-fucking cute little [npc2.crotchNipples] like yours!",
+											"What a good [npc2.girl]! Your [npc2.crotchNipples] love the feeling of my [npc1.toes], don't they?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
+										"pening_ft_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of my [npc1.toes] deep in your [npc2.crotchNipple], don't you?!",
+											"I love foot-fucking cute little [npc2.crotchNipples] like yours!",
+											"You like it when I curl my [npc1.toes] up inside your [npc2.crotchNipples], like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
+										"pening_ft_nipple_dom_rouch", "dirtytalk_dom_all");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! Moaning as I stuff my [npc1.toes] deep into your [npc2.crotchNipples]!",
+											"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your [npc2.crotchNipples]!",
+											"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty [npc2.crotchNipples]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
+										"pening_ft_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Let me get my toes deep inside your [npc2.crotchNipples]!",
+											"I love giving your [npc2.crotchNipples] the attention they deserve!",
+											"I love foot-fucking your [npc2.crotchNipples]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
+										"pening_ft_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love foot-fucking your [npc2.crotchNipples]!",
+											"I love giving your [npc2.crotchNipples] the attention they deserve!",
+											"I love foot-fucking your [npc2.crotchNipples]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
+										"pening_ft_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
+										"pening_ft_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case THIGHS:
 						break;
 					case URETHRA_PENIS:
@@ -9723,57 +12521,91 @@ public abstract class GameCharacter implements XMLSaving {
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love feeling my [npc1.toes] deep in your pussy, don't you?",
-										"I love foot-fucking cute little things like you!",
-										"What a good [npc2.girl]! Your pussy loves the feeling of my [npc1.toes], doesn't it?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of my [npc1.toes] deep in your pussy, don't you?!",
-										"I love foot-fucking cute [npc2.girl]s like you!",
-										"You like it when I curl my [npc1.toes] up inside you, like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! I can feel your horny pussy clenching down on my [npc1.toes]!",
-										"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your slutty cunt!",
-										"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty pussy!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Let me get my toes deep inside your little pussy!",
-										"I love giving your pussy the attention it deserves!",
-										"I love foot-fucking you!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love foot-fucking your pussy!",
-										"I love giving your pussy the attention it deserves!",
-										"I love foot-fucking you!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
+										"pening_ft_vagina_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_gentle",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl], you love feeling my [npc1.toes] deep in your pussy, don't you?",
+											"I love foot-fucking cute little things like you!",
+											"What a good [npc2.girl]! Your pussy loves the feeling of my [npc1.toes], doesn't it?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
+										"pening_ft_vagina_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_normal",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"You love the feeling of my [npc1.toes] deep in your pussy, don't you?!",
+											"I love foot-fucking cute [npc2.girl]s like you!",
+											"You like it when I curl my [npc1.toes] up inside you, like <i>this</i>?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
+										"pening_ft_vagina_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_rough",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"What a dirty slut! I can feel your horny pussy clenching down on my [npc1.toes]!",
+											"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your slutty cunt!",
+											"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty pussy!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
+										"pening_ft_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Let me get my toes deep inside your little pussy!",
+											"I love giving your pussy the attention it deserves!",
+											"I love foot-fucking you!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
+										"pening_ft_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love foot-fucking your pussy!",
+											"I love giving your pussy the attention it deserves!",
+											"I love foot-fucking you!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
+										"pening_ft_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
+										"pening_ft_vagina_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck!",
+											"Yeah!",
+											"Oh yeah!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 				}
 			}
 		}
 
 		if(availableLines.isEmpty()) {
-			return null;
-		}
-		return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+				return null;
+			}
+			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
 	}
 	
 	/**
@@ -9781,288 +12613,493 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String getDirtyTalkTonguePenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
+			String returnedLine;
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TONGUE, target).isEmpty()) {
-			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TONGUE, target)) {
+			if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TONGUE, target).isEmpty()) {
+				for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TONGUE, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right, moan for me as I pleasure your ass!",
-										"Good [npc2.girl]! I love licking cute little asses like yours!",
-										"What a good [npc2.girl]! You love my tongue in your ass, don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right, moan for me as I lick your ass!",
-										"Feel my tongue deep in your ass! Moan for me!",
-										"You love my tongue in your ass, don't you?"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Keep still slut, I need to practice my oral skills on your worthless ass!",
-										"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
-										"You'd better appreciate this bitch! You know how lucky you are, being used as oral practice?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love your ass! Feel my [npc1.tongue] pushing deep!",
-										"Oh yes! Let me lick your ass! Yes, yes, yes!",
-										"Oh yes! I love licking ass! Let me get my [npc1.tongue] nice and deep!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love licking your ass!",
-										"Let me lick your ass! I love this!",
-										"I love licking your ass!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get your ass away from my face!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Get that tongue deeper!",
-										"Oh yeah! Keep going!",
-										"Deeper! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
+										"pening_tng_anus_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_gentle",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right, moan for me as I pleasure your ass!",
+											"Good [npc2.girl]! I love licking cute little asses like yours!",
+											"What a good [npc2.girl]! You love my tongue in your ass, don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
+										"pening_tng_anus_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_normal",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right, moan for me as I lick your ass!",
+											"Feel my tongue deep in your ass! Moan for me!",
+											"You love my tongue in your ass, don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
+										"pening_tng_anus_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_rough",
+										"pening_to_anus_all", "pening_to_anus_dom_all", "pening_to_anus_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Keep still slut, I need to practice my oral skills on your worthless ass!",
+											"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+											"You'd better appreciate this bitch! You know how lucky you are, being used as oral practice?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
+										"pening_tng_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love your ass! Feel my [npc1.tongue] pushing deep!",
+											"Oh yes! Let me lick your ass! Yes, yes, yes!",
+											"Oh yes! I love licking ass! Let me get my [npc1.tongue] nice and deep!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
+										"pening_tng_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love licking your ass!",
+											"Let me lick your ass! I love this!",
+											"I love licking your ass!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
+										"pening_tng_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_to_anus_all", "pening_to_anus_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get your ass away from my face!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
+										"pening_tng_anus_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Get that tongue deeper!",
+											"Oh yeah! Keep going!",
+											"Deeper! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case ASS:
 						break;
 					case BREAST:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your tits taste so good!",
-										"Good [npc2.girl]! I love the taste of your tits!",
-										"What a good [npc2.girl]! You love having your tits kissed like this, don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Oh yes! Your tits taste so good!",
-										"You like this? Feeling my tongue running over your breasts?!",
-										"I love the taste of your tits!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Keep still slut, and be thankful that I'm giving your tits some attention!",
-										"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
-										"You'd better appreciate this bitch! You know how lucky you are, having me lick your tits?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love your tits! Let me suck on your nipples!",
-										"Oh yes! Let me suck on your nipples! Yes, yes, yes!",
-										"Oh yes! I love your tits!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love your tits! Let me suck on your nipples!",
-										"Oh yes! Let me suck on your nipples!",
-										"I love your tits!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep going!",
-										"Oh yeah! Keep going!",
-										"Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
+										"pening_tng_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Your tits taste so good!",
+											"Good [npc2.girl]! I love the taste of your tits!",
+											"What a good [npc2.girl]! You love having your tits kissed like this, don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
+										"pening_tng_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Oh yes! Your tits taste so good!",
+											"You like this? Feeling my tongue running over your breasts?!",
+											"I love the taste of your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
+										"pening_tng_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Keep still slut, and be thankful that I'm giving your tits some attention!",
+											"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+											"You'd better appreciate this bitch! You know how lucky you are, having me lick your tits?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
+										"pening_tng_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love your tits! Let me suck on your nipples!",
+											"Oh yes! Let me suck on your nipples! Yes, yes, yes!",
+											"Oh yes! I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
+										"pening_tng_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love your tits! Let me suck on your nipples!",
+											"Oh yes! Let me suck on your nipples!",
+											"I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
+										"pening_tng_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
+										"pening_tng_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep going!",
+											"Oh yeah! Keep going!",
+											"Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case BREAST_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your [npc2.crotchBoobs] taste so good!",
-										"Good [npc2.girl]! I love the taste of your [npc2.crotchBoobs]!",
-										"What a good [npc2.girl]! You love having your [npc2.crotchBoobs] kissed like this, don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Oh yes! Your [npc2.crotchBoobs] taste so good!",
-										"You like this? Feeling my tongue running over your [npc2.crotchBoobs]?!",
-										"I love the taste of your [npc2.crotchBoobs]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Keep still slut, and be thankful that I'm giving your [npc2.crotchBoobs] some attention!",
-										"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
-										"You'd better appreciate this bitch! You know how lucky you are, having me lick your [npc2.crotchBoobs]?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
-										"Oh yes! Let me kiss your [npc2.crotchBoobs]! Yes, yes, yes!",
-										"Oh yes! I love your [npc2.crotchBoobs]!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
-										"Oh yes! Let me kiss your [npc2.crotchBoobs]!",
-										"I love your tits!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep going!",
-										"Oh yeah! Keep going!",
-										"Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
+										"pening_tng_breast_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_gentle",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Your [npc2.crotchBoobs] taste so good!",
+											"Good [npc2.girl]! I love the taste of your [npc2.crotchBoobs]!",
+											"What a good [npc2.girl]! You love having your [npc2.crotchBoobs] kissed like this, don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
+										"pening_tng_breast_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_normal",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Oh yes! Your [npc2.crotchBoobs] taste so good!",
+											"You like this? Feeling my tongue running over your [npc2.crotchBoobs]?!",
+											"I love the taste of your [npc2.crotchBoobs]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
+										"pening_tng_breast_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_rough",
+										"pening_to_breasts_all", "pening_to_breasts_dom_all", "pening_to_breasts_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Keep still slut, and be thankful that I'm giving your [npc2.crotchBoobs] some attention!",
+											"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+											"You'd better appreciate this bitch! You know how lucky you are, having me lick your [npc2.crotchBoobs]?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
+										"pening_tng_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
+											"Oh yes! Let me kiss your [npc2.crotchBoobs]! Yes, yes, yes!",
+											"Oh yes! I love your [npc2.crotchBoobs]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
+										"pening_tng_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
+											"Oh yes! Let me kiss your [npc2.crotchBoobs]!",
+											"I love your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
+										"pening_tng_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
+										"pening_tng_breast_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Keep going!",
+											"Oh yeah! Keep going!",
+											"Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case MOUTH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your lips taste so good!",
-										"Good [npc2.girl]! Don't stop!",
-										"What a good [npc2.girl]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your lips taste so good!",
-										"Good [npc2.girl]! Don't stop!",
-										"What a good [npc2.girl]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Come on slut, you can kiss better than that!",
-										"Put some more effort into this bitch! Kiss me like you mean it!",
-										"Fucking slut, you can kiss me better than this! Put some more effort into it!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Oh yes! Your lips taste so good! I need more!",
-										"I love kissing you! Yes, yes, yes!",
-										"Oh yes! Your lips taste so good!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your lips taste so good! I need more!",
-										"I love kissing you!",
-										"Your lips taste so good!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your lips taste so good!",
-										"I love kissing you!",
-										"Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
+										"pening_tng_mouth_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_gentle",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Your lips taste so good!",
+											"Good [npc2.girl]! Don't stop!",
+											"What a good [npc2.girl]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
+										"pening_tng_mouth_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_normal",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Your lips taste so good!",
+											"Good [npc2.girl]! Don't stop!",
+											"What a good [npc2.girl]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
+										"pening_tng_mouth_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_rough",
+										"pening_to_mouth_all", "pening_to_mouth_dom_all", "pening_to_mouth_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Come on slut, you can kiss better than that!",
+											"Put some more effort into this bitch! Kiss me like you mean it!",
+											"Fucking slut, you can kiss me better than this! Put some more effort into it!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
+										"pening_tng_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Oh yes! Your lips taste so good! I need more!",
+											"I love kissing you! Yes, yes, yes!",
+											"Oh yes! Your lips taste so good!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
+										"pening_tng_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Your lips taste so good! I need more!",
+											"I love kissing you!",
+											"Your lips taste so good!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
+										"pening_tng_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
+										"pening_tng_mouth_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Your lips taste so good!",
+											"I love kissing you!",
+											"Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your nipples taste so good!",
-										"Good [npc2.girl]! I love the taste of your tits!",
-										"What a good [npc2.girl]! You love having my tongue in your nipple, don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Oh yes! Your tits taste so good!",
-										"You like this? Feeling my tongue deep in your hot little nipple?!",
-										"I love the taste of your tits!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Keep still slut, I need to practice my skills on fuckable nipples like yours!",
-										"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
-										"You'd better appreciate this bitch! You know how lucky you are, having me lick your nipples?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love your tits! Let me suck on your nipples!",
-										"Oh yes! Let me suck on your nipples! Yes, yes, yes!",
-										"Oh yes! I love your nipples! Let me get my [npc1.tongue] nice and deep!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love your tits! Let me suck on your nipples!",
-										"Oh yes! Let me suck on your nipples!",
-										"I love your nipples! Let me get my [npc1.tongue] nice and deep!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Get that tongue deeper!",
-										"Oh yeah! Keep going!",
-										"Deeper! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
+										"pening_tng_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Your nipples taste so good!",
+											"Good [npc2.girl]! I love the taste of your tits!",
+											"What a good [npc2.girl]! You love having my tongue in your nipple, don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
+										"pening_tng_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Oh yes! Your tits taste so good!",
+											"You like this? Feeling my tongue deep in your hot little nipple?!",
+											"I love the taste of your tits!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
+										"pening_tng_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Keep still slut, I need to practice my skills on fuckable nipples like yours!",
+											"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+											"You'd better appreciate this bitch! You know how lucky you are, having me lick your nipples?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
+										"pening_tng_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love your tits! Let me suck on your nipples!",
+											"Oh yes! Let me suck on your nipples! Yes, yes, yes!",
+											"Oh yes! I love your nipples! Let me get my [npc1.tongue] nice and deep!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
+										"pening_tng_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love your tits! Let me suck on your nipples!",
+											"Oh yes! Let me suck on your nipples!",
+											"I love your nipples! Let me get my [npc1.tongue] nice and deep!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
+										"pening_tng_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
+										"pening_tng_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Get that tongue deeper!",
+											"Oh yeah! Keep going!",
+											"Deeper! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case NIPPLE_CROTCH:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your [npc2.crotchNipples] taste so good!",
-										"Good [npc2.girl]! I love the taste of your [npc2.crotchNipples]!",
-										"What a good [npc2.girl]! You love having my tongue in your [npc2.crotchNipples], don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Oh yes! Your [npc2.crotchNipples] taste so good!",
-										"You like this? Feeling my tongue deep in your hot little [npc2.crotchNipples]?!",
-										"I love the taste of your [npc2.crotchNipples]!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Keep still slut, I need to practice my skills on fuckable [npc2.crotchNipples] like yours!",
-										"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
-										"You'd better appreciate this bitch! You know how lucky you are, having me lick your [npc2.crotchNipples]?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
-										"Oh yes! Let me suck on your [npc2.crotchNipples]! Yes, yes, yes!",
-										"Oh yes! I love your [npc2.crotchNipples]! Let me get my [npc1.tongue] nice and deep!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
-										"Oh yes! Let me suck on your [npc2.crotchNipples]!",
-										"I love your [npc2.crotchNipples]! Let me get my [npc1.tongue] nice and deep!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Get that tongue deeper!",
-										"Oh yeah! Keep going!",
-										"Deeper! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
+										"pening_tng_nipple_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_gentle",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Your [npc2.crotchNipples] taste so good!",
+											"Good [npc2.girl]! I love the taste of your [npc2.crotchNipples]!",
+											"What a good [npc2.girl]! You love having my tongue in your [npc2.crotchNipples], don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
+										"pening_tng_nipple_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_normal",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Oh yes! Your [npc2.crotchNipples] taste so good!",
+											"You like this? Feeling my tongue deep in your hot little [npc2.crotchNipples]?!",
+											"I love the taste of your [npc2.crotchNipples]!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
+										"pening_tng_nipple_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_rough",
+										"pening_to_nipples_all", "pening_to_nipples_dom_all", "pening_to_nipples_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Keep still slut, I need to practice my skills on fuckable [npc2.crotchNipples] like yours!",
+											"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+											"You'd better appreciate this bitch! You know how lucky you are, having me lick your [npc2.crotchNipples]?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
+										"pening_tng_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
+											"Oh yes! Let me suck on your [npc2.crotchNipples]! Yes, yes, yes!",
+											"Oh yes! I love your [npc2.crotchNipples]! Let me get my [npc1.tongue] nice and deep!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
+										"pening_tng_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love your [npc2.crotchBoobs]! Let me suck on your [npc2.crotchNipples]!",
+											"Oh yes! Let me suck on your [npc2.crotchNipples]!",
+											"I love your [npc2.crotchNipples]! Let me get my [npc1.tongue] nice and deep!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
+										"pening_tng_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! I don't want to do this!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
+										"pening_tng_nipple_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Get that tongue deeper!",
+											"Oh yeah! Keep going!",
+											"Deeper! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 					case THIGHS:
 						break;
 					case URETHRA_PENIS:
@@ -10072,57 +13109,91 @@ public abstract class GameCharacter implements XMLSaving {
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your pussy tastes so good!",
-										"Good [npc2.girl]! I love the taste of your pussy!",
-										"What a good [npc2.girl]! You love my tongue in your pussy, don't you?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Oh yes! Your pussy tastes so good!",
-										"You like this? Feeling my tongue deep in your hot little cunt?!",
-										"I love the taste of your pussy!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Keep still slut, I need to practice my oral skills on you!",
-										"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
-										"You'd better appreciate this bitch! You know how lucky you are, being used as oral practice?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! I love your pussy! You taste so good!",
-										"Oh yes! Let me eat you out! Yes, yes, yes!",
-										"Oh yes! I love the taste of your pussy! Let me get my [npc1.tongue] nice and deep!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love your pussy! You taste so good!",
-										"Let me eat you out! You taste good!",
-										"I love the taste of your pussy!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please stop!",
-										"Let me go! Get your pussy away from my face!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Get that tongue deeper!",
-										"Oh yeah! Keep going!",
-										"Deeper! Don't stop!"));
-								break;
-						}
-						break;
+								returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
+										"pening_tng_vagina_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_gentle",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_gentle");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Your pussy tastes so good!",
+											"Good [npc2.girl]! I love the taste of your pussy!",
+											"What a good [npc2.girl]! You love my tongue in your pussy, don't you?"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
+										"pening_tng_vagina_dom_normal", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_normal", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_normal",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Oh yes! Your pussy tastes so good!",
+											"You like this? Feeling my tongue deep in your hot little cunt?!",
+											"I love the taste of your pussy!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case DOM_ROUGH:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
+										"pening_tng_vagina_dom_rough", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_rough", "pening_tongue_all", "pening_tongue_dom_all", "pening_tongue_dom_rough",
+										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_rough");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Keep still slut, I need to practice my oral skills on you!",
+											"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+											"You'd better appreciate this bitch! You know how lucky you are, being used as oral practice?!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_EAGER:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
+										"pening_tng_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! I love your pussy! You taste so good!",
+											"Oh yes! Let me eat you out! Yes, yes, yes!",
+											"Oh yes! I love the taste of your pussy! Let me get my [npc1.tongue] nice and deep!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_NORMAL:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
+										"pening_tng_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I love your pussy! You taste so good!",
+											"Let me eat you out! You taste good!",
+											"I love the taste of your pussy!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								case SUB_RESISTING:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
+										"pening_tng_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please stop!",
+											"Let me go! Get your pussy away from my face!",
+											"Please! Stop! I don't want this!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+								default:
+									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
+										"pening_tng_vagina_generic");
+								if(returnedLine == null) {
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Get that tongue deeper!",
+											"Oh yeah! Keep going!",
+											"Deeper! Don't stop!"));
+								} else { availableLines.add(returnedLine); }
+									break;
+							}
+							break;
 				}
 			}
 		}
 
 		if(availableLines.isEmpty()) {
-			return null;
-		}
-		return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+				return null;
+			}
+			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
 	}
 	
 	

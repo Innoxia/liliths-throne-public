@@ -456,7 +456,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	@Override
-	public String getDescription() {
+	public String getSpecializedDescription() {
 		if(!Main.game.isInNewWorld()) {
 			return ""; // This isn't displayed anywhere before the game starts for real.
 		} else {

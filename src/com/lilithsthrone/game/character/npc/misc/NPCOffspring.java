@@ -177,7 +177,7 @@ public class NPCOffspring extends NPC {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getSpecializedDescription() {
 		int daysToBirth = (int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday());
 		
 		if(this.getMother()==null || this.getFather()==null) {
