@@ -152,7 +152,8 @@ public enum LustLevel {
 			
 		} else {
 			pace = getSexPaceSubmissive();
-			if(character.hasFetish(Fetish.FETISH_NON_CON_SUB) || ((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer))) {
+			if((character.hasFetish(Fetish.FETISH_NON_CON_SUB) && character.getNonConAlwaysActing()) || 
+					((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer))) {
 				pace = SexPace.SUB_RESISTING;
 			}
 		}
