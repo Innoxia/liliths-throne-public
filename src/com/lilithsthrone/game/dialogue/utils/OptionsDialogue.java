@@ -583,7 +583,14 @@ public class OptionsDialogue {
 							:"<span style='color:"+dl.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(dl.getName())+"</span> [style.colourDisabled("+dl.getDescription()+")]")
 						 );
 			}
-			
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"NO_BYPASS_SEX_ACTIONS",
+					Colour.BASE_PINK,
+					"No sex action bypass",
+					"If enabled, action requirements during sex may not be bypassed. (No 'Corruptive' actions)",
+					Main.getProperties().hasValue(PropertyValue.noBypassSexActions)));
+
 			UtilText.nodeContentSB.append("</p>");
 			
 			return UtilText.nodeContentSB.toString();
