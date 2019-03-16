@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.1.7";
+	public static final String VERSION_NUMBER = "0.3.1.8";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -101,7 +101,7 @@ public class Main extends Application {
 		+ "</p>"
 
 		+ "<p>"
-			+ "v0.3.1.7 is a hotfix for v0.3.1.6 that was made to address some major bugs."
+			+ "v0.3.1.7 and v0.3.1.8 are hotfixs for v0.3.1.6 that were made to address some major bugs."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -289,6 +289,21 @@ public class Main extends Application {
 			+"<ul>Fixed Lilaya losing her relation as your aunt after undergoing demon transformations.</ul>"
 			+"<ul>Fixed issue with milk modifiers not being saved correctly.</ul>"
 			+"<ul>Fixed issue with fluids stored in milking rooms not stacking correctly.</ul>"
+		+ "</list>"
+
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.1.8</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Reduced time taken to travel through each of Submission's tiles from 5 to 3 minutes.</ul>"
+	
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed major issue that was causing orgasms to sometimes cause the game to break.</ul>"
+			+"<ul>Fixed calendar in your room not displaying October, and the other two months not working.</ul>"
+			+"<ul>Fixed issues in parsing when milking girlcum in a milking room.</ul>"
+			+"<ul>Fixed some broken lubrication descriptions in sex.</ul>"
 		+ "</list>"
 	;
 	

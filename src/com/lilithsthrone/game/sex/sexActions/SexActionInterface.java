@@ -268,12 +268,22 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isBasicCoreRequirementsMet() {
-		boolean analAllowed = Main.game.isAnalContentEnabled()
+		
+		boolean analAllowed = true;
+		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
+			analAllowed = Main.game.isAnalContentEnabled()
 					|| Collections.disjoint(Util.mergeLists(this.getFetishes(Sex.getCharacterPerformingAction()), this.getFetishesForTargetedPartner(Sex.getCharacterPerformingAction())),
 						Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING));
-		boolean footAllowed = Main.game.isFootContentEnabled()
-				|| Collections.disjoint(Util.mergeLists(this.getFetishes(Sex.getCharacterPerformingAction()), this.getFetishesForTargetedPartner(Sex.getCharacterPerformingAction())),
-					Util.newArrayListOfValues(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
+		} catch(Exception ex) {
+		}
+		
+		boolean footAllowed = true;
+		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
+			footAllowed = Main.game.isFootContentEnabled()
+					|| Collections.disjoint(Util.mergeLists(this.getFetishes(Sex.getCharacterPerformingAction()), this.getFetishesForTargetedPartner(Sex.getCharacterPerformingAction())),
+						Util.newArrayListOfValues(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
+		} catch(Exception ex) {
+		}
 		
 		return analAllowed
 				&& footAllowed

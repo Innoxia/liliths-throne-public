@@ -358,13 +358,13 @@
 	#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_ARTISAN_MILKERS))
 		<p>
 			You lie down on the artisan milker's comfortable, padded leather bed, and, sliding the
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 special 'Vibro-Pump'
 			#ELSE
 				 soft suction tube
 			#ENDIF
 			 down over your [pc.pussy+], you flick the nearby switch to 'on'. Immediately, the machine starts gently humming, and
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 the aftermarket pump begins rapidly vibrating against your [pc.clit+].
 			#ELSE
 				 begins to gently vibrate against your [pc.clit+].
@@ -380,13 +380,13 @@
 	#ELSEIF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS))
 		<p>
 			You lie down on the industrial milker's uncomfortable metal bed, and, sliding the
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 special 'Vibro-Pump'
 			#ELSE
 				 industrial-strength suction tube
 			#ENDIF
 			 down over your [pc.pussy+], you flick the nearby switch to 'on'. Immediately, the machine starts gently humming, and
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 the aftermarket pump begins rapidly vibrating against your [pc.clit+].
 			#ELSE
 				 begins to roughly vibrate against your [pc.clit+].
@@ -402,13 +402,13 @@
 	#ELSE
 		<p>
 			You lie down on the milking machine's leather bed, and, sliding the
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 special 'Vibro-Pump'
 			#ELSE
 				 suction tube
 			#ENDIF
 			 down over your [pc.pussy+], you flick the nearby switch to 'on'. Immediately, the machine starts gently humming, and
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 the aftermarket pump begins rapidly vibrating against your [pc.clit+].
 			#ELSE
 				 begins to vibrate against your [pc.clit+].
@@ -439,7 +439,7 @@
 	<p>
 		#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_ARTISAN_MILKERS))
 			As [npc.name] is already lying down on the artisan milker's comfortable, padded leather bed, you simply confirm that the
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 special 'Vibro-Pump'
 			#ELSE
 				 soft suction tube
@@ -447,7 +447,7 @@
 			 is fastly secured over [npc.her] [npc.pussy+], and that the gently-humming milking machine's switch is set to 'on'.
 		#ELSEIF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS))
 			As [npc.name] is already lying down on the industrial milker's uncomfortable metal bed, you simply confirm that the
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 special 'Vibro-Pump'
 			#ELSE
 				 industrial-strength suction tube
@@ -455,7 +455,7 @@
 			 is fastly secured over [npc.her] [npc.pussy+], and that the loudly-whirring milking machine's switch is set to 'on'.
 		#ELSE
 			As [npc.name] is already lying down on the milking machine's leather bed, you simply confirm that the
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 special 'Vibro-Pump'
 			#ELSE
 				 suction tube
@@ -487,39 +487,39 @@
 	<p>
 		#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_ARTISAN_MILKERS))
 			Wanting to have [npc.namePos] girlcum milked, you get [npc.herHim] to lie down on the artisan milker's comfortable, padded leather bed, and, sliding the
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 special 'Vibro-Pump'
 			#ELSE
 				 soft suction tube
 			#ENDIF
 			 down over [npc.her] [npc.pussy], you flick the nearby switch to 'on'. Immediately, the machine starts gently humming, and
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 the aftermarket pump begins rapidly vibrating against [npc.her] [npc.clit+].
 			#ELSE
 				 begins to vibrate against [npc.her] [npc.clit+].
 			#ENDIF
 		#ELSEIF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS))
 			Wanting to have [npc.name] girlcum, you get [npc.herHim] to lie down on the industrial milker's uncomfortable metal bed, and, sliding the
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 special 'Vibro-Pump'
 			#ELSE
 				 industrial-strength suction tube
 			#ENDIF
 			 down over [npc.her] [npc.cock], you flick the nearby switch to 'on'. Immediately, the machine starts loudly whirring and humming, and
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 the aftermarket pump begins rapidly vibrating against [npc.her] [npc.clit+].
 			#ELSE
 				 begins to roughly vibrate against [npc.her] [npc.clit+].
 			#ENDIF
 		#ELSE
 			Wanting to have [npc.name] girlcum, you get [npc.herHim] to lie down on the milking machine's leather bed, and, sliding the
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 special 'Vibro-Pump'
 			#ELSE
 				 suction tube
 			#ENDIF
 			 down over [npc.her] [npc.cock], you flick the nearby switch to 'on'. Immediately, the machine starts humming, and
-			#IF(upgrades.contains(LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
+			#IF(upgrades.contains(PLACE_UPGRADE_LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY))
 				 the aftermarket pump begins rapidly vibrating against [npc.her] [npc.clit+].
 			#ELSE
 				 begins to vibrate against [npc.her] [npc.clit+].

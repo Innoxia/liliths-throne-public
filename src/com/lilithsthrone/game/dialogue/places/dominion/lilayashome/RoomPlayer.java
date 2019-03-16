@@ -344,10 +344,10 @@ public class RoomPlayer {
 			} else if(index==1) {
 				return new Response("May", "Read the information on May's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY);
 				
-			} else if(index==1) {
+			} else if(index==2) {
 				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
 				
-			} else if(index==2) {
+			} else if(index==3) {
 				return new Response("December", "Read the information on December's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER);
 				
 			} else {
@@ -394,11 +394,10 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			Response response = AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
-			if(response.getNextDialogue().equals(this)) {
-				return new Response("October", "You are already reading the calendar's page concerning the month of May.", null);
+			if(index==1) {
+				return new Response("May", "You are already reading the calendar's page concerning the month of May.", null);
 			}
-			return response;
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
 	
@@ -446,11 +445,10 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			Response response = AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
-			if(response.getNextDialogue().equals(this)) {
+			if(index==2) {
 				return new Response("October", "You are already reading the calendar's page concerning the month of October.", null);
 			}
-			return response;
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
 	
@@ -501,11 +499,10 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			Response response = AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
-			if(response.getNextDialogue().equals(this)) {
+			if(index==3) {
 				return new Response("December", "You are already reading the calendar's page concerning the month of December.", null);
 			}
-			return response;
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
 	

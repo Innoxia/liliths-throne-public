@@ -2346,7 +2346,7 @@ public class Sex {
 					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))
 						+(sexInitFinished
 							?" quickly lubricate"+(lubricationTransferred.size()>1 || !lastLubricationPlural?"s ":" ")
-							:targetArea.isPlural()?" are already lubricated":" is already lubricated")
+							:" has already lubricated ")
 						+(targetCharacter.isPlayer()?"your ":targetCharacter.getName("the")+"'s ")+targetArea.getName(targetCharacter)+"."));
 		}
 		
@@ -2369,7 +2369,7 @@ public class Sex {
 					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))
 						+(sexInitFinished
 							?" quickly lubricate"+(lubricationTransferred.size()>1 || !lastLubricationPlural?"s ":" ")
-							:targetArea.isPlural()?" are already lubricated":" is already lubricated")
+							:" has already lubricated ")
 						+(character.isPlayer()?"your ":character.getName("the")+"'s ")+characterArea.getName(character)+"."));
 		}
 		

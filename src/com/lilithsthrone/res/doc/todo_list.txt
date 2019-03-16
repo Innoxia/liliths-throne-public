@@ -125,54 +125,14 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Added 'mineral oil' transformation modifier to potion enchanting's cum, girlcum, and milk options. Mineral oil imbued fluids cause condoms to break.
-	
-	Clothing
-		Added a 'Colour Test T-shirt' item, which can only be spawned from the debug menu, to assist modders with visualising how colours look in-game.
-		Added colour shades: Navy blue, blue-grey, khaki.
-	
 	Other:
-		Anal content toggle no longer sets newly-spawned NPCs to hating anal fetishes, and instead simply removes all anal-related actions from being available during sex, both for you and all NPCs.
-		Added a 'foot content' toggle to the Content Options screen, which works in the same way as the reworked anal toggle to disable foot-related sex actions.
-		Added an entry in your room's calendar for May, regarding Mother's week.
-		Added a small encounter on Dominion's boulevard tiles during Mother's week (second week of May, in in-game time), in which you are gifted some pills. There is a 5% chance of encountering this each time you move into a boulevard tile.
-		Fennec ears are now tagged as being large enough to be used as handles in sex.
-		NPC-on-NPC virginity losses (which are known of) are now displayed in more detail in their character view page.
-		Added day of the week to the calendar tooltip (just above the minimap).
-		Gave the new dresses some slightly more permissive equip conditions, so you can now wear them with clothing in the stomach slot.
-		Slightly improved the pregnancy stats table's 'additional relationships' column.
-		Added a 'Family' indication in characters' information pages, under the 'Relationships' section, for if they are related to you.
+		Reduced time taken to travel through each of Submission's tiles from 5 to 3 minutes.
 	
 	Bugs:
-		Fixed issue with prostitutes in Angel's Kiss being deleted when you loaded in from a save prior to v0.3.1.6.
-		Added catch to delete surplus clients which had spawned in the brothel (as a result of the bug that was fixed in the line above this one).
-		Fixed issue with half-demon icons sometimes breaking.
-		Fixed issue where entering an imp fortress would break the game.
-		Fixed Vixen's Virility tooltip only mentioning that it boosts fertility, not virility.
-		Fixed forced creampie dialogue replacing your name with 'you'.
-		Fixed 'Molest' action on slaves sometimes not applying affection loss.
-		Slimes are now correctly susceptible to getting pregnant for as long as there is any cum stored anywhere in their bodies. (The game was only checking for cum stored in a slime's vagina before.)
-		Fixed 'seductive look' action being available in doggy style  even if the performer wasn't in the required slot (on all fours).
-		Fixed inventory slots which a character physically didn't have (such as wings, horns, etc.) being able to be dirtied.
-		Fixed companions as being treated as submissive spectators when you were dominantly having sex after beating attackers.
-		Fixed milk transformation descriptions incorrectly referencing breasts when it was affecting crotch milk and vice versa.
-		Fixed slaves who you own being able to end sex with you if they went into the resisting pace.
-		Fixed issue with the greyed-out race icons on tiles (indicating that someone is not at home) not showing up.
-		Some minor incorrect description fixes.
-		Fixed the 'Rest until morning/evening' action in your room sometimes not applying the 'well rested' status effect.
-		Fixed prostitutes never spawning in with shoes.
-		Fixed modded clothing not being used for random NPC clothing generation.
-		Using 'Grow cock (self)' in sex now correctly fills cum to your maximum storage value (which is set to 150ml if less than 150ml).
-		Fixed issue with Vicky's inventory never properly clearing upon the daily reset, causing inventory to eventually overflow and cause spells and other items to not be available.
-		Fixed Vicky's essences for sale being a random amount from 0 to 10, instead of the intended 10 to 20.
-		Tidied up some of the superfluous error logging.
-		Fixed issue where pressing enter in the pronouns page blanked the whole page out.
-		Fixed issue where exporting an already-imported slave, and then importing that new export at the auction block, would cause your original slave to be moved to the auction block along with the new slave.
-		Fixed the 'Test Subject' fetish preventing you from spitting out fetish-altering potions.
-		Fixed Lilaya losing her relation as your aunt after undergoing demon transformations.
-		Fixed issue with milk modifiers not being saved correctly.
-		Fixed issue with fluids stored in milking rooms not stacking correctly.
+		Fixed major issue that was causing orgasms to sometimes cause the game to break.
+		Fixed calendar in your room not displaying October, and the other two months not working.
+		Fixed issues in parsing when milking girlcum in a milking room.
+		Fixed some broken lubrication descriptions in sex.
 	
 	
 	
@@ -180,7 +140,14 @@
 	
 	
 	
-		
+	Dunno if bug or not, but demon/half-demon slaves no longer lose their dicks after being told to grow one during sex.
+	
+	crotch boobs for greater anthros only generated. Show for all if they actually have them
+	
+	Black and jet black skin colours
+	
+	I should have mentioned it in my bug report but yes it was while Lilaya was half demon, that children conceived with her were randomized.
+	
 	need to incorporate outfit logic into clothing and weapon types
 		add effects modding
 	
