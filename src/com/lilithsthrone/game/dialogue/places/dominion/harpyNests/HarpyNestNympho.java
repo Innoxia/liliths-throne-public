@@ -667,7 +667,7 @@ public class HarpyNestNympho {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(!Main.game.isSpittingEnabled()) return Response.getDisallowedSpittingResponse("Lips sealed");
+				if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse("Lips sealed");
 				return new Response("Lips sealed", "Don't let [harpyNympho.Name] get that strange lollipop into your mouth...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
 			} else if (index == 2) {
@@ -778,7 +778,7 @@ public class HarpyNestNympho {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(!Main.game.isSpittingEnabled()) return Response.getDisallowedSpittingResponse("Lips sealed");
+				if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse("Lips sealed");
 				return new Response("Lips sealed", "Don't let [harpyNympho.Name] get that strange lollipop into your mouth...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
 			} else if (index == 2) {

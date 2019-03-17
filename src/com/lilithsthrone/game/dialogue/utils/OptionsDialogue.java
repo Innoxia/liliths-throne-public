@@ -590,7 +590,7 @@ public class OptionsDialogue {
 					Colour.BASE_BLUE,
 					"Spitting disallowed",
 					"Forced TF may not be avoided by spitting/denying.",
-					Main.game.isSpittingEnabled()));
+					Main.game.isSpittingDisabled()));
 
 			UtilText.nodeContentSB.append("</p>");
 			
