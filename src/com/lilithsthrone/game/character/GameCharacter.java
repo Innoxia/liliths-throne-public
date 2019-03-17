@@ -6566,7 +6566,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				break;
 			case SUB_EAGER:
-				returnedLine = this.getCustomDialogue(target, "nopen_sub_eager", "nopen_sub_all");
+				returnedLine = this.getCustomDialogue(target, "nopen_sub_eager", "nopen_sub_all", "dirtytalk_sub_noresist");
 				if(returnedLine == null) {
 					if(this.isVaginaVirgin() && this.hasVagina()) {
 						returnedLine = UtilText.returnStringAtRandom(
@@ -6584,7 +6584,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				break;
 			case SUB_NORMAL:
-				returnedLine = this.getCustomDialogue(target, "nopen_sub_normal", "nopen_sub_all");
+				returnedLine = this.getCustomDialogue(target, "nopen_sub_normal", "nopen_sub_all", "dirtytalk_sub_noresist");
 				if(returnedLine == null) {
 					if(this.isVaginaVirgin() && this.hasVagina()) {
 						returnedLine = UtilText.returnStringAtRandom(
@@ -6602,7 +6602,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				break;
 			case SUB_RESISTING:
-				returnedLine = this.getCustomDialogue(target, "nopen_sub_resist", "nopen_sub_all");
+				returnedLine = this.getCustomDialogue(target, "nopen_sub_resist", "nopen_sub_all", "dirtytalk_sub_resist");
 				if(returnedLine == null) {
 					if(this.isVaginaVirgin() && this.hasVagina()) {
 						returnedLine = UtilText.returnStringAtRandom(
@@ -6681,7 +6681,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_EAGER:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
-										"pened_v_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
+										"pened_v_finger_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6692,7 +6692,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_NORMAL:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
-										"pened_v_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
+										"pened_v_finger_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6703,7 +6703,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_RESISTING:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "finger", "[npc1.vagina]", "[npc2.finger]", 
-										"pened_v_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
+										"pened_v_finger_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
 										"pened_by_finger_all", "pened_by_finger_sub_resist");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6761,7 +6761,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_EAGER:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
-										"pened_v_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
+										"pened_v_penis_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6772,7 +6772,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_NORMAL:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
-										"pened_v_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
+										"pened_v_penis_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6783,7 +6783,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_RESISTING:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "penis", "[npc1.vagina]", "[npc2.penis]", 
-										"pened_v_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
+										"pened_v_penis_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
 										"pened_by_penis_all", "pened_by_penis_sub_resist");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6841,7 +6841,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_EAGER:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
-										"pened_v_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
+										"pened_v_tail_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6852,7 +6852,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_NORMAL:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
-										"pened_v_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
+										"pened_v_tail_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6863,7 +6863,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_RESISTING:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tail", "[npc1.vagina]", "[npc2.tail]", 
-										"pened_v_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
+										"pened_v_tail_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
 										"pened_by_tail_all", "pened_by_tail_sub_resist");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6921,7 +6921,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_EAGER:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
-										"pened_v_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
+										"pened_v_tongue_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_eager",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6932,7 +6932,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_NORMAL:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
-										"pened_v_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
+										"pened_v_tongue_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_vagina_all", "pened_vagina_sub_noresist", "pened_vagina_sub_normal",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -6943,7 +6943,7 @@ public abstract class GameCharacter implements XMLSaving {
 								break;
 							case SUB_RESISTING:
 								returnedLine = this.getCustomDialoguePenetrate(target, "vagina", "tongue", "[npc1.vagina]", "[npc2.tongue]", 
-										"pened_v_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
+										"pened_v_tongue_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_vagina_all", "pened_vagina_sub_resist",
 										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
 								if(returnedLine == null) {
 									returnedLine = UtilText.returnStringAtRandom(
@@ -7042,7 +7042,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
-									"pened_a_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
+									"pened_a_finger_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7053,7 +7053,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
-									"pened_a_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
+									"pened_a_finger_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7064,7 +7064,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "finger", "[npc1.anus]", "[npc2.fingers]", 
-									"pened_a_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
+									"pened_a_finger_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
 										"pened_by_finger_all", "pened_by_finger_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7122,7 +7122,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
-									"pened_a_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
+									"pened_a_penis_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7133,7 +7133,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
-									"pened_a_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
+									"pened_a_penis_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7144,7 +7144,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "penis", "[npc1.anus]", "[npc2.penis]", 
-									"pened_a_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
+									"pened_a_penis_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
 										"pened_by_penis_all", "pened_by_penis_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7202,7 +7202,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
-									"pened_a_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
+									"pened_a_tail_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7213,7 +7213,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
-									"pened_a_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
+									"pened_a_tail_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7224,7 +7224,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tail", "[npc1.anus]", "[npc2.tail]", 
-									"pened_a_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
+									"pened_a_tail_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
 										"pened_by_tail_all", "pened_by_tail_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7282,7 +7282,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
-									"pened_a_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
+									"pened_a_tongue_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_eager",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7293,7 +7293,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
-									"pened_a_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
+									"pened_a_tongue_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_anus_all", "pened_anus_sub_noresist", "pened_anus_sub_normal",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7304,7 +7304,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "anus", "tongue", "[npc1.anus]", "[npc2.tongue]", 
-									"pened_a_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
+									"pened_a_tongue_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_anus_all", "pened_anus_sub_resist",
 										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7402,7 +7402,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
-									"pened_m_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
+									"pened_m_finger_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7413,7 +7413,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
-									"pened_m_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
+									"pened_m_finger_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7423,7 +7423,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "finger", "[npc1.mouth]", "[npc2.fingers]", 
-									"pened_m_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
+									"pened_m_finger_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
 										"pened_by_finger_all", "pened_by_finger_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7481,7 +7481,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
-									"pened_m_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
+									"pened_m_penis_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7492,7 +7492,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
-									"pened_m_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
+									"pened_m_penis_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7503,7 +7503,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "penis", "[npc1.mouth]", "[npc2.penis]", 
-									"pened_m_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
+									"pened_m_penis_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
 										"pened_by_penis_all", "pened_by_penis_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7561,7 +7561,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
-									"pened_m_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
+									"pened_m_tail_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7572,7 +7572,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
-									"pened_m_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
+									"pened_m_tail_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7583,7 +7583,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tail", "[npc1.mouth]", "[npc2.tail]", 
-									"pened_m_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
+									"pened_m_tail_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
 										"pened_by_tail_all", "pened_by_tail_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7638,7 +7638,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
-									"pened_m_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
+									"pened_m_tongue_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_eager",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7648,7 +7648,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
-									"pened_m_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
+									"pened_m_tongue_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_mouth_all", "pened_mouth_sub_noresist", "pened_mouth_sub_normal",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7658,7 +7658,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "mouth", "tongue", "[npc1.mouth]", "[npc2.tongue]", 
-									"pened_m_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
+									"pened_m_tongue_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_mouth_all", "pened_mouth_sub_resist",
 										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7756,7 +7756,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
-									"pened_n_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
+									"pened_n_finger_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7767,7 +7767,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
-									"pened_n_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
+									"pened_n_finger_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7778,7 +7778,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "finger", "[npc1.nipples]", "[npc2.finger]", 
-									"pened_n_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
+									"pened_n_finger_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
 										"pened_by_finger_all", "pened_by_finger_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7836,7 +7836,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
-									"pened_n_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
+									"pened_n_penis_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7847,7 +7847,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
-									"pened_n_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
+									"pened_n_penis_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7858,7 +7858,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "penis", "[npc1.nipples]", "[npc2.penis]", 
-									"pened_n_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
+									"pened_n_penis_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
 										"pened_by_penis_all", "pened_by_penis_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7916,7 +7916,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
-									"pened_n_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
+									"pened_n_tail_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7927,7 +7927,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
-									"pened_n_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
+									"pened_n_tail_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7938,7 +7938,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tail", "[npc1.nipples]", "[npc2.tail]", 
-									"pened_n_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
+									"pened_n_tail_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
 										"pened_by_tail_all", "pened_by_tail_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -7996,7 +7996,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
-									"pened_n_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
+									"pened_n_tongue_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_eager",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8007,7 +8007,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
-									"pened_n_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
+									"pened_n_tongue_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_nipples_all", "pened_nipples_sub_noresist", "pened_nipples_sub_normal",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8018,7 +8018,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "nipples", "tongue", "[npc1.nipples]", "[npc2.tongue]", 
-									"pened_n_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
+									"pened_n_tongue_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_nipples_all", "pened_nipples_sub_resist",
 										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8116,7 +8116,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "finger", "[npc1.crotchNipples]", "[npc2.fingers]", 
-									"pened_nc_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
+									"pened_nc_finger_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8127,7 +8127,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "finger", "[npc1.crotchNipples]", "[npc2.fingers]", 
-									"pened_nc_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
+									"pened_nc_finger_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8196,7 +8196,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
-									"pened_nc_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
+									"pened_nc_penis_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8207,7 +8207,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
-									"pened_nc_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
+									"pened_nc_penis_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8218,7 +8218,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "penis", "[npc1.crotchNipples]", "[npc2.penis]", 
-									"pened_nc_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchnipples_all", "pened_crotchnipples_sub_resist",
+									"pened_nc_penis_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_crotchnipples_all", "pened_crotchnipples_sub_resist",
 										"pened_by_penis_all", "pened_by_penis_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8276,7 +8276,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
-									"pened_nc_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
+									"pened_nc_tail_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8287,7 +8287,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
-									"pened_nc_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
+									"pened_nc_tail_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8298,7 +8298,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tail", "[npc1.crotchNipples]", "[npc2.tail]", 
-									"pened_nc_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchnipples_all", "pened_crotchnipples_sub_resist",
+									"pened_nc_tail_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_crotchnipples_all", "pened_crotchnipples_sub_resist",
 										"pened_by_tail_all", "pened_by_tail_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8356,7 +8356,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
-									"pened_nc_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
+									"pened_nc_tongue_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_eager",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8367,7 +8367,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
-									"pened_nc_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
+									"pened_nc_tongue_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchnipples_all", "pened_crotchnipples_sub_noresist", "pened_crotchnipples_sub_normal",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8378,7 +8378,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchnipples", "tongue", "[npc1.crotchNipples]", "[npc2.tongue]", 
-									"pened_nc_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchnipples_all", "pened_crotchnipples_sub_resist",
+									"pened_nc_tongue_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_crotchnipples_all", "pened_crotchnipples_sub_resist",
 										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8476,7 +8476,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
-									"pened_b_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
+									"pened_b_finger_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8487,7 +8487,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
-									"pened_b_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
+									"pened_b_finger_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8498,7 +8498,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "finger", "[npc1.breasts]", "[npc2.fingers]", 
-									"pened_b_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
+									"pened_b_finger_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
 										"pened_by_finger_all", "pened_by_finger_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8556,7 +8556,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
-									"pened_b_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
+									"pened_b_penis_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8567,7 +8567,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
-									"pened_b_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
+									"pened_b_penis_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8578,7 +8578,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "penis", "[npc1.breasts]", "[npc2.penis]", 
-									"pened_b_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
+									"pened_b_penis_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
 										"pened_by_penis_all", "pened_by_penis_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8636,7 +8636,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
-									"pened_b_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
+									"pened_b_tail_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8647,7 +8647,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
-									"pened_b_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
+									"pened_b_tail_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8658,7 +8658,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tail", "[npc1.breasts]", "[npc2.tail]", 
-									"pened_b_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
+									"pened_b_tail_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
 										"pened_by_tail_all", "pened_by_tail_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8716,7 +8716,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
-									"pened_b_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
+									"pened_b_tongue_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_eager",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8727,7 +8727,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
-									"pened_b_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
+									"pened_b_tongue_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_breasts_all", "pened_breasts_sub_noresist", "pened_breasts_sub_normal",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8738,7 +8738,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "breasts", "tongue", "[npc1.breasts]", "[npc2.tongue]", 
-									"pened_b_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
+									"pened_b_tongue_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_breasts_all", "pened_breasts_sub_resist",
 										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8837,7 +8837,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
-									"pened_bc_finger_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
+									"pened_bc_finger_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8848,7 +8848,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
-									"pened_bc_finger_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
+									"pened_bc_finger_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
 										"pened_by_finger_all", "pened_by_finger_sub_noresist", "pened_by_finger_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8859,7 +8859,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "finger", "[npc1.crotchBoobs]", "[npc2.fingers]", 
-									"pened_bc_finger_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
+									"pened_bc_finger_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
 										"pened_by_finger_all", "pened_by_finger_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8917,7 +8917,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
-									"pened_bc_penis_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
+									"pened_bc_penis_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8928,7 +8928,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
-									"pened_bc_penis_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
+									"pened_bc_penis_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
 										"pened_by_penis_all", "pened_by_penis_sub_noresist", "pened_by_penis_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8939,7 +8939,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "penis", "[npc1.crotchBoobs]", "[npc2.penis]", 
-									"pened_bc_penis_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
+									"pened_bc_penis_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
 										"pened_by_penis_all", "pened_by_penis_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -8997,7 +8997,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
-									"pened_bc_tail_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
+									"pened_bc_tail_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -9008,7 +9008,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
-									"pened_bc_tail_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
+									"pened_bc_tail_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
 										"pened_by_tail_all", "pened_by_tail_sub_noresist", "pened_by_tail_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -9019,7 +9019,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tail", "[npc1.crotchBoobs]", "[npc2.tail]", 
-									"pened_bc_tail_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
+									"pened_bc_tail_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
 										"pened_by_tail_all", "pened_by_tail_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -9077,7 +9077,7 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						case SUB_EAGER:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
-									"pened_bc_tongue_sub_eager", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
+									"pened_bc_tongue_sub_eager", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_eager", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_eager",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_eager");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -9088,7 +9088,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_NORMAL:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
-									"pened_bc_tongue_sub_normal", "dirtytalk_sub_all", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
+									"pened_bc_tongue_sub_normal", "dirtytalk_sub_noresist", "pened_all", "pened_sub_noresist", "pened_sub_normal", "pened_crotchboobs_all", "pened_crotchboobs_sub_noresist", "pened_crotchboobs_sub_normal",
 										"pened_by_tongue_all", "pened_by_tongue_sub_noresist", "pened_by_tongue_sub_normal");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -9099,7 +9099,7 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						case SUB_RESISTING:
 							returnedLine = this.getCustomDialoguePenetrate(target, "crotchboobs", "tongue", "[npc1.crotchBoobs]", "[npc2.tongue]", 
-									"pened_bc_tongue_sub_resist", "dirtytalk_sub_all", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
+									"pened_bc_tongue_sub_resist", "dirtytalk_sub_resist", "pened_all", "pened_sub_resist", "pened_crotchboobs_all", "pened_crotchboobs_sub_resist",
 										"pened_by_tongue_all", "pened_by_tongue_sub_resist");
 							if(returnedLine == null) {
 							returnedLine = UtilText.returnStringAtRandom(
@@ -9203,7 +9203,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
-										"pening_f_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_f_anus_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9214,7 +9214,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
-										"pening_f_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_f_anus_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9225,7 +9225,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "anus", "[npc1.fingers]", "[npc2.anus]", 
-										"pening_f_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_f_anus_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
 										"pening_to_anus_all", "pening_to_anus_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9288,7 +9288,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
-										"pening_f_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_f_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9299,7 +9299,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
-										"pening_f_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_f_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9310,7 +9310,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cname, "[npc1.fingers]", namePlus, 
-										"pening_f_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_f_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9368,7 +9368,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
-										"pening_f_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_f_mouth_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9379,7 +9379,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
-										"pening_f_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_f_mouth_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9390,7 +9390,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "mouth", "[npc1.fingers]", "[npc2.mouth]", 
-										"pening_f_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_f_mouth_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
 										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9450,7 +9450,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
-										"pening_f_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_f_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9461,7 +9461,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
-										"pening_f_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_f_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9472,7 +9472,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", cnameNipple, "[npc1.fingers]", nameNipplePlus, 
-										"pening_f_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_f_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9536,7 +9536,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
-										"pening_f_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
+										"pening_f_vagina_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_eager",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9547,7 +9547,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
-										"pening_f_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
+										"pening_f_vagina_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_finger_all", "pening_finger_sub_noresist", "pening_finger_sub_normal",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9558,7 +9558,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "finger", "vagina", "[npc1.fingers]", "[npc2.vagina]", 
-										"pening_f_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
+										"pening_f_vagina_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_finger_all", "pening_finger_sub_resist",
 										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9636,7 +9636,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
-										"pening_p_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_p_anus_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9647,7 +9647,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
-										"pening_p_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_p_anus_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9658,7 +9658,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "anus", "[npc1.cock]", "[npc2.anus]", 
-										"pening_p_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_p_anus_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
 										"pening_to_anus_all", "pening_to_anus_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9719,7 +9719,7 @@ public abstract class GameCharacter implements XMLSaving {
 										break;
 									case SUB_EAGER:
 										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
-											"pening_p_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+											"pening_p_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 									if(returnedLine == null) {
 										availableLines.add(UtilText.returnStringAtRandom(
@@ -9730,7 +9730,7 @@ public abstract class GameCharacter implements XMLSaving {
 										break;
 									case SUB_NORMAL:
 										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
-											"pening_p_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+											"pening_p_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 									if(returnedLine == null) {
 										availableLines.add(UtilText.returnStringAtRandom(
@@ -9741,7 +9741,7 @@ public abstract class GameCharacter implements XMLSaving {
 										break;
 									case SUB_RESISTING:
 										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
-											"pening_p_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+											"pening_p_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 									if(returnedLine == null) {
 										availableLines.add(UtilText.returnStringAtRandom(
@@ -9798,7 +9798,7 @@ public abstract class GameCharacter implements XMLSaving {
 										break;
 									case SUB_EAGER:
 										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
-											"pening_p_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+											"pening_p_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 									if(returnedLine == null) {
 										availableLines.add(UtilText.returnStringAtRandom(
@@ -9809,7 +9809,7 @@ public abstract class GameCharacter implements XMLSaving {
 										break;
 									case SUB_NORMAL:
 										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
-											"pening_p_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+											"pening_p_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 									if(returnedLine == null) {
 										availableLines.add(UtilText.returnStringAtRandom(
@@ -9820,7 +9820,7 @@ public abstract class GameCharacter implements XMLSaving {
 										break;
 									case SUB_RESISTING:
 										returnedLine = this.getCustomDialoguePenetrate(target, "penis", "breasts", "[npc1.cock]", "[npc2.breasts]", 
-											"pening_p_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+											"pening_p_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 									if(returnedLine == null) {
 										availableLines.add(UtilText.returnStringAtRandom(
@@ -9879,7 +9879,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
-										"pening_p_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_p_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9890,7 +9890,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
-										"pening_p_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_p_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9901,7 +9901,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchboobs", "[npc1.cock]", "[npc2.crotchBoobs+]", 
-										"pening_p_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_p_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9959,7 +9959,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
-										"pening_p_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_p_mouth_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9970,7 +9970,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
-										"pening_p_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_p_mouth_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -9981,7 +9981,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "mouth", "[npc1.cock]", "[npc2.mouth]", 
-										"pening_p_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_p_mouth_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
 										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10039,7 +10039,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipples+]", 
-										"pening_p_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_p_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10050,7 +10050,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipples+]", 
-										"pening_p_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_p_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10061,7 +10061,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "nipples", "[npc1.cock]", "[npc2.nipples+]", 
-										"pening_p_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_p_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10119,7 +10119,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
-										"pening_p_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_p_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10130,7 +10130,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
-										"pening_p_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_p_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10141,7 +10141,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "crotchnipples", "[npc1.cock]", "[npc2.crouthNipples+]", 
-										"pening_p_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_p_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10205,7 +10205,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
-										"pening_p_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
+										"pening_p_vagina_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_eager",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10216,7 +10216,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
-										"pening_p_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
+										"pening_p_vagina_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_penis_all", "pening_penis_sub_noresist", "pening_penis_sub_normal",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10227,7 +10227,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "penis", "vagina", "[npc1.cock]", "[npc2.vagina]", 
-										"pening_p_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
+										"pening_p_vagina_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_penis_all", "pening_penis_sub_resist",
 										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10305,7 +10305,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
-										"pening_t_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_t_anus_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10316,7 +10316,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
-										"pening_t_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_t_anus_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10327,7 +10327,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "anus", "[npc1.tail]", "[npc2.anus]", 
-										"pening_t_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_t_anus_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
 										"pening_to_anus_all", "pening_to_anus_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10387,7 +10387,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.breasts+]", 
-										"pening_t_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_t_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10398,7 +10398,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.breasts+]", 
-										"pening_t_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_t_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10409,7 +10409,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "breasts", "[npc1.tail]", "[npc2.breasts+]", 
-										"pening_t_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_t_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10477,7 +10477,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchboobs", "[npc1.tail]", "[npc2.crotchBoobs+]", 
-										"pening_t_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_t_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10488,7 +10488,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchboobs", "[npc1.tail]", "[npc2.crotchBoobs+]", 
-										"pening_t_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_t_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10546,7 +10546,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
-										"pening_t_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_t_mouth_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10557,7 +10557,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
-										"pening_t_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_t_mouth_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10568,7 +10568,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "mouth", "[npc1.tail]", "[npc2.mouth]", 
-										"pening_t_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_t_mouth_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
 										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10626,7 +10626,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
-										"pening_t_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_t_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10637,7 +10637,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
-										"pening_t_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_t_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10648,7 +10648,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "nipples", "[npc1.tail]", "[npc2.nipples+]", 
-										"pening_t_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_t_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10706,7 +10706,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
-										"pening_t_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_t_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10717,7 +10717,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
-										"pening_t_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_t_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10728,7 +10728,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "crotchnipples", "[npc1.tail]", "[npc2.crotchNipples+]", 
-										"pening_t_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_t_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10792,7 +10792,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
-										"pening_t_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
+										"pening_t_vagina_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_eager",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10803,7 +10803,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
-										"pening_t_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
+										"pening_t_vagina_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tail_all", "pening_tail_sub_noresist", "pening_tail_sub_normal",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10814,7 +10814,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tail", "vagina", "[npc1.tail]", "[npc2.vagina]", 
-										"pening_t_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
+										"pening_t_vagina_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tail_all", "pening_tail_sub_resist",
 										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10892,7 +10892,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
-										"pening_ten_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_ten_anus_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10903,7 +10903,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
-										"pening_ten_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_ten_anus_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10914,7 +10914,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "anus", "[npc1.tentacle]", "[npc2.anus]", 
-										"pening_ten_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_ten_anus_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
 										"pening_to_anus_all", "pening_to_anus_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10974,7 +10974,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
-										"pening_ten_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_ten_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10985,7 +10985,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
-										"pening_ten_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_ten_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -10996,7 +10996,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "breasts", "[npc1.tentacle]", "[npc2.breasts+]", 
-										"pening_ten_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_ten_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11054,7 +11054,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
-										"pening_ten_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_ten_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11065,7 +11065,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
-										"pening_ten_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_ten_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11076,7 +11076,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchboobs", "[npc1.tentacle]", "[npc2.crotchBoobs+]", 
-										"pening_ten_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_ten_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11134,7 +11134,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
-										"pening_ten_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_ten_mouth_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11145,7 +11145,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
-										"pening_ten_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_ten_mouth_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11156,7 +11156,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "mouth", "[npc1.tentacle]", "[npc2.mouth]", 
-										"pening_ten_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_ten_mouth_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
 										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11214,7 +11214,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
-										"pening_ten_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_ten_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11225,7 +11225,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
-										"pening_ten_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_ten_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11236,7 +11236,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "nipples", "[npc1.tentacle]", "[npc2.nipples+]", 
-										"pening_ten_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_ten_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11294,7 +11294,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
-										"pening_ten_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_ten_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11305,7 +11305,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
-										"pening_ten_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_ten_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11316,7 +11316,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "crotchnipples", "[npc1.tentacle]", "[npc2.crotchNipples+]", 
-										"pening_ten_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_ten_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11380,7 +11380,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
-										"pening_ten_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
+										"pening_ten_vagina_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_eager",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11391,7 +11391,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
-										"pening_ten_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
+										"pening_ten_vagina_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tentacle_all", "pening_tentacle_sub_noresist", "pening_tentacle_sub_normal",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11402,7 +11402,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tentacle", "vagina", "[npc1.tentacle]", "[npc2.vagina]", 
-										"pening_ten_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
+										"pening_ten_vagina_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tentacle_all", "pening_tentacle_sub_resist",
 										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11481,7 +11481,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
-										"pening_c_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_c_anus_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11492,7 +11492,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
-										"pening_c_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_c_anus_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11503,7 +11503,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "anus", "[npc1.clit]", "[npc2.anus]", 
-										"pening_c_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_c_anus_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
 										"pening_to_anus_all", "pening_to_anus_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11563,7 +11563,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
-										"pening_c_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_c_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11574,7 +11574,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
-										"pening_c_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_c_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11585,7 +11585,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "breasts", "[npc1.clit]", "[npc2.breasts+]", 
-										"pening_c_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_c_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11643,7 +11643,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
-										"pening_c_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_c_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11654,7 +11654,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
-										"pening_c_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_c_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11665,7 +11665,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchboobs", "[npc1.clit]", "[npc2.crotchBoobs+]", 
-										"pening_c_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_c_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11723,7 +11723,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
-										"pening_c_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_c_mouth_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11734,7 +11734,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
-										"pening_c_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_c_mouth_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11745,7 +11745,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "mouth", "[npc1.clit]", "[npc2.mouth]", 
-										"pening_c_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_c_mouth_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
 										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11803,7 +11803,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
-										"pening_c_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_c_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11814,7 +11814,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
-										"pening_c_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_c_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11825,7 +11825,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "nipples", "[npc1.clit]", "[npc2.nipples+]", 
-										"pening_c_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_c_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11883,7 +11883,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
-										"pening_c_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_c_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11894,7 +11894,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
-										"pening_c_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_c_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11905,7 +11905,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "crotchnipples", "[npc1.clit]", "[npc2.crotchNipples+]", 
-										"pening_c_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_c_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11969,7 +11969,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
-										"pening_c_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
+										"pening_c_vagina_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_eager",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11980,7 +11980,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
-										"pening_c_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
+										"pening_c_vagina_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_clit_all", "pening_clit_sub_noresist", "pening_clit_sub_normal",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -11991,7 +11991,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "clit", "vagina", "[npc1.clit]", "[npc2.vagina]", 
-										"pening_c_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
+										"pening_c_vagina_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_clit_all", "pening_clit_sub_resist",
 										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12069,7 +12069,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
-										"pening_ft_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_ft_anus_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12080,7 +12080,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
-										"pening_ft_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_ft_anus_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12091,7 +12091,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "anus", "[npc1.toes]", "[npc2.anus]", 
-										"pening_ft_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_ft_anus_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
 										"pening_to_anus_all", "pening_to_anus_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12151,7 +12151,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
-										"pening_ft_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_ft_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12162,7 +12162,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
-										"pening_ft_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_ft_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12173,7 +12173,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "breasts", "[npc1.toes]", "[npc2.breasts+]", 
-										"pening_ft_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_ft_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12231,7 +12231,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
-										"pening_ft_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_ft_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12242,7 +12242,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
-										"pening_ft_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_ft_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12253,7 +12253,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchboobs", "[npc1.toes]", "[npc2.crotchBoobs+]", 
-										"pening_ft_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_ft_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12311,7 +12311,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
-										"pening_ft_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_ft_mouth_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12322,7 +12322,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
-										"pening_ft_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_ft_mouth_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12333,7 +12333,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "mouth", "[npc1.toes]", "[npc2.mouth]", 
-										"pening_ft_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_ft_mouth_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
 										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12390,7 +12390,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
-										"pening_ft_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_ft_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12401,7 +12401,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
-										"pening_ft_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_ft_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12412,7 +12412,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "nipples", "[npc1.toes]", "[npc2.nipples+]", 
-										"pening_ft_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_ft_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12469,7 +12469,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
-										"pening_ft_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_ft_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12480,7 +12480,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
-										"pening_ft_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_ft_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12491,7 +12491,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "crotchnipples", "[npc1.toes]", "[npc2.crotchNipples+]", 
-										"pening_ft_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_ft_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12555,7 +12555,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
-										"pening_ft_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
+										"pening_ft_vagina_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_eager",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12566,7 +12566,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
-										"pening_ft_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
+										"pening_ft_vagina_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_toes_all", "pening_toes_sub_noresist", "pening_toes_sub_normal",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12577,7 +12577,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
-										"pening_ft_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
+										"pening_ft_vagina_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_toes_all", "pening_toes_sub_resist",
 										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12655,7 +12655,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
-										"pening_tng_anus_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_tng_anus_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12666,7 +12666,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
-										"pening_tng_anus_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_tng_anus_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
 										"pening_to_anus_all", "pening_to_anus_sub_noresist", "pening_to_anus_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12677,7 +12677,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "anus", "[npc1.tongue]", "[npc2.anus]", 
-										"pening_tng_anus_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_tng_anus_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
 										"pening_to_anus_all", "pening_to_anus_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12737,7 +12737,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
-										"pening_tng_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_tng_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12748,7 +12748,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
-										"pening_tng_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_tng_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12759,7 +12759,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "breasts", "[npc1.tongue]", "[npc2.breasts+]", 
-										"pening_tng_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_tng_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12817,7 +12817,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
-										"pening_tng_breast_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_tng_breast_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12828,7 +12828,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
-										"pening_tng_breast_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_tng_breast_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
 										"pening_to_breasts_all", "pening_to_breasts_sub_noresist", "pening_to_breasts_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12839,7 +12839,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchboobs", "[npc1.tongue]", "[npc2.crotchBoobs+]", 
-										"pening_tng_breast_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_tng_breast_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
 										"pening_to_breasts_all", "pening_to_breasts_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12897,7 +12897,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
-										"pening_tng_mouth_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_tng_mouth_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12908,7 +12908,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
-										"pening_tng_mouth_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_tng_mouth_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
 										"pening_to_mouth_all", "pening_to_mouth_sub_noresist", "pening_to_mouth_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12919,7 +12919,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "mouth", "[npc1.tongue]", "[npc2.mouth]", 
-										"pening_tng_mouth_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_tng_mouth_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
 										"pening_to_mouth_all", "pening_to_mouth_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12977,7 +12977,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
-										"pening_tng_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_tng_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12988,7 +12988,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
-										"pening_tng_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_tng_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -12999,7 +12999,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "nipples", "[npc1.tongue]", "[npc2.nipples+]", 
-										"pening_tng_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_tng_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -13057,7 +13057,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
-										"pening_tng_nipple_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_tng_nipple_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -13068,7 +13068,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
-										"pening_tng_nipple_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_tng_nipple_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
 										"pening_to_nipples_all", "pening_to_nipples_sub_noresist", "pening_to_nipples_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -13079,7 +13079,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "crotchnipples", "[npc1.tongue]", "[npc2.crotchNipples+]", 
-										"pening_tng_nipple_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_tng_nipple_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
 										"pening_to_nipples_all", "pening_to_nipples_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -13143,7 +13143,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_EAGER:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
-										"pening_tng_vagina_sub_eager", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
+										"pening_tng_vagina_sub_eager", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_eager", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_eager",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_eager");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -13154,7 +13154,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_NORMAL:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
-										"pening_tng_vagina_sub_normal", "dirtytalk_sub_all", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
+										"pening_tng_vagina_sub_normal", "dirtytalk_sub_noresist", "pening_all", "pening_sub_noresist", "pening_sub_normal", "pening_tongue_all", "pening_tongue_sub_noresist", "pening_tongue_sub_normal",
 										"pening_to_vagina_all", "pening_to_vagina_sub_noresist", "pening_to_vagina_sub_normal");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(
@@ -13165,7 +13165,7 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 								case SUB_RESISTING:
 									returnedLine = this.getCustomDialoguePenetrate(target, "tongue", "vagina", "[npc1.tongue]", "[npc2.vagina]", 
-										"pening_tng_vagina_sub_resist", "dirtytalk_sub_all", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
+										"pening_tng_vagina_sub_resist", "dirtytalk_sub_resist", "pening_all", "pening_sub_resist", "pening_tongue_all", "pening_tongue_sub_resist",
 										"pening_to_vagina_all", "pening_to_vagina_sub_resist");
 								if(returnedLine == null) {
 									availableLines.add(UtilText.returnStringAtRandom(

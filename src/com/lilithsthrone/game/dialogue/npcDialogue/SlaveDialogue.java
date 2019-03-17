@@ -229,6 +229,7 @@ public class SlaveDialogue {
 
 		@Override
 		public String getContent() {
+			String returnedLine;
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(getSlave().isVisiblyPregnant()){
@@ -246,48 +247,84 @@ public class SlaveDialogue {
 							case DISLIKE:
 								switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 									case DISOBEDIENT:
-										UtilText.nodeContentSB.append(" not bothering to even to try and conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] spits,"
-												+ " [npc.speech(Eugh, it's <i>you</i>. You went and got me pregnant, so I expect some time off work. Fucking asshole...)]");
+										returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+												"slave_start_pregbyyou");
+										if(returnedLine == null) {
+											UtilText.nodeContentSB.append(" not bothering to even to try and conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] spits,"
+													+ " [npc.speech(Eugh, it's <i>you</i>. You went and got me pregnant, so I expect some time off work. Fucking asshole...)]");
+										} else UtilText.nodeContentSB.append(returnedLine);
 										break;
 									case NEUTRAL:
-										UtilText.nodeContentSB.append(" trying to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] remarks,"
-												+ " [npc.speech(Oh, hello, [npc.pcName]. You got me pregnant, so I'll need some time off work.)]");
+										returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+												"slave_start_pregbyyou");
+										if(returnedLine == null) {
+											UtilText.nodeContentSB.append(" trying to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] remarks,"
+													+ " [npc.speech(Oh, hello, [npc.pcName]. You got me pregnant, so I'll need some time off work.)]");
+										} else UtilText.nodeContentSB.append(returnedLine);
 										break;
 									case OBEDIENT:
-										UtilText.nodeContentSB.append(" obediently doing [npc.her] very best to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] calls out,"
-												+ " [npc.speech(Hello, [npc.pcName]. As I'm sure you can see, you've got me pregnant...)]");
+										returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+												"slave_start_pregbyyou");
+										if(returnedLine == null) {
+											UtilText.nodeContentSB.append(" obediently doing [npc.her] very best to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] calls out,"
+													+ " [npc.speech(Hello, [npc.pcName]. As I'm sure you can see, you've got me pregnant...)]");
+										} else UtilText.nodeContentSB.append(returnedLine);
 										break;
 								}
 								break;
 							case NEUTRAL:
 								switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 									case DISOBEDIENT:
-										UtilText.nodeContentSB.append(" sighing,"
-												+ " [npc.speech(Hi, [npc.pcName]. You got me pregnant, so I'm going to need to take it easy for a while, ok?)]");
+										returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+												"slave_start_pregbyyou");
+										if(returnedLine == null) {
+											UtilText.nodeContentSB.append(" sighing,"
+													+ " [npc.speech(Hi, [npc.pcName]. You got me pregnant, so I'm going to need to take it easy for a while, ok?)]");
+										} else UtilText.nodeContentSB.append(returnedLine);
 										break;
 									case NEUTRAL:
-										UtilText.nodeContentSB.append(" sighing,"
-												+ " [npc.speech(Hello, [npc.pcName]. You got me pregnant...)]");
+										returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+												"slave_start_pregbyyou");
+										if(returnedLine == null) {
+											UtilText.nodeContentSB.append(" sighing,"
+													+ " [npc.speech(Hello, [npc.pcName]. You got me pregnant...)]");
+										} else UtilText.nodeContentSB.append(returnedLine);
 										break;
 									case OBEDIENT:
-										UtilText.nodeContentSB.append(" sighing,"
-												+ " [npc.speech(Hello, [npc.pcName]. You got me pregnant... I'll make sure to take good care of our children!)]");
+										returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+												"slave_start_pregbyyou");
+										if(returnedLine == null) {
+											UtilText.nodeContentSB.append(" sighing,"
+													+ " [npc.speech(Hello, [npc.pcName]. You got me pregnant... I'll make sure to take good care of our children!)]");
+										} else UtilText.nodeContentSB.append(returnedLine);
 										break;
 								}
 								break;
 							case LIKE:
 								switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 									case DISOBEDIENT:
-										UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
-												+ " [npc.speech([npc.PcName]! Look! You got me pregnant, isn't it wonderful?! I'm going to need to take it easy for a while, so that I can take good care of myself, ok?)]");
+										returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+												"slave_start_pregbyyou");
+										if(returnedLine == null) {
+											UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
+													+ " [npc.speech([npc.PcName]! Look! You got me pregnant, isn't it wonderful?! I'm going to need to take it easy for a while, so that I can take good care of myself, ok?)]");
+										} else UtilText.nodeContentSB.append(returnedLine);
 										break;
 									case NEUTRAL:
-										UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
-												+ " [npc.speech([npc.PcName]! You got me pregnant, isn't it wonderful?! I'll make sure to take good care of our children!)]");
+										returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+												"slave_start_pregbyyou");
+										if(returnedLine == null) {
+											UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
+													+ " [npc.speech([npc.PcName]! You got me pregnant, isn't it wonderful?! I'll make sure to take good care of our children!)]");
+										} else UtilText.nodeContentSB.append(returnedLine);
 										break;
 									case OBEDIENT:
-										UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
-												+ " [npc.speech(Hello, [npc.pcName]! You got me pregnant! I'll make sure to take good care of our children!)]");
+										returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+												"slave_start_pregbyyou");
+										if(returnedLine == null) {
+											UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
+													+ " [npc.speech(Hello, [npc.pcName]! You got me pregnant! I'll make sure to take good care of our children!)]");
+										} else UtilText.nodeContentSB.append(returnedLine);
 										break;
 								}
 								break;
@@ -304,16 +341,28 @@ public class SlaveDialogue {
 					} else {
 						switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 							case DISOBEDIENT:
-								UtilText.nodeContentSB.append(" sighing,"
-										+ " [npc.speech(Hi, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to take it easy for a while. Get one of the other slaves to cover for me, ok?)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_pregbyother");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" sighing,"
+											+ " [npc.speech(Hi, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to take it easy for a while. Get one of the other slaves to cover for me, ok?)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 							case NEUTRAL:
-								UtilText.nodeContentSB.append(" sighing,"
-										+ " [npc.speech(Hi, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to need to take it easy for a while, ok?)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_pregbyother");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" sighing,"
+											+ " [npc.speech(Hi, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to need to take it easy for a while, ok?)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 							case OBEDIENT:
-								UtilText.nodeContentSB.append(" obediently informing you of what happened,"
-										+ " [npc.speech(Hello, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", but I won't let it get in the way of my duties!)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_pregbyother");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" obediently informing you of what happened,"
+											+ " [npc.speech(Hello, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", but I won't let it get in the way of my duties!)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 						}
 						UtilText.nodeContentSB.append("</p>"
@@ -334,48 +383,84 @@ public class SlaveDialogue {
 						case DISLIKE:
 							switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 								case DISOBEDIENT:
-									UtilText.nodeContentSB.append(" not bothering to even to try and conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] spits,"
-											+ "[npc.speech(Eugh, it's <i>you</i>. What the hell do you want now?!)]");
+									returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+											"slave_start_alreadypreg", "slave_start_nofirstpreg");
+									if(returnedLine == null) {
+										UtilText.nodeContentSB.append(" not bothering to even to try and conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] spits,"
+												+ "[npc.speech(Eugh, it's <i>you</i>. What the hell do you want now?!)]");
+									} else UtilText.nodeContentSB.append(returnedLine);
 									break;
 								case NEUTRAL:
-									UtilText.nodeContentSB.append(" trying to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] remarks,"
-											+ "[npc.speech(Oh, hello, [npc.pcName]. What is it that you want?)]");
+									returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+											"slave_start_alreadypreg", "slave_start_nofirstpreg");
+									if(returnedLine == null) {
+										UtilText.nodeContentSB.append(" trying to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] remarks,"
+												+ "[npc.speech(Oh, hello, [npc.pcName]. What is it that you want?)]");
+									} else UtilText.nodeContentSB.append(returnedLine);
 									break;
 								case OBEDIENT:
-									UtilText.nodeContentSB.append(" obediently doing [npc.her] very best to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] calls out,"
-											+ " [npc.speech(Hello, [npc.pcName]. What can I do for you?)]");
+									returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+											"slave_start_alreadypreg", "slave_start_nofirstpreg");
+									if(returnedLine == null) {
+										UtilText.nodeContentSB.append(" obediently doing [npc.her] very best to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] calls out,"
+												+ " [npc.speech(Hello, [npc.pcName]. What can I do for you?)]");
+									} else UtilText.nodeContentSB.append(returnedLine);
 									break;
 							}
 							break;
 						case NEUTRAL:
 							switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 								case DISOBEDIENT:
-									UtilText.nodeContentSB.append(" sighing,"
-											+ " [npc.speech(Hi, [npc.pcName]. I'm taking it easy, what with the pregnancy and all, ok?)]");
+									returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+											"slave_start_alreadypreg", "slave_start_nofirstpreg");
+									if(returnedLine == null) {
+										UtilText.nodeContentSB.append(" sighing,"
+												+ " [npc.speech(Hi, [npc.pcName]. I'm taking it easy, what with the pregnancy and all, ok?)]");
+									} else UtilText.nodeContentSB.append(returnedLine);
 									break;
 								case NEUTRAL:
-									UtilText.nodeContentSB.append(" sighing,"
-											+ " [npc.speech(Hello, [npc.pcName]. What can I do for you?)]");
+									returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+											"slave_start_alreadypreg", "slave_start_nofirstpreg");
+									if(returnedLine == null) {
+										UtilText.nodeContentSB.append(" sighing,"
+												+ " [npc.speech(Hello, [npc.pcName]. What can I do for you?)]");
+									} else UtilText.nodeContentSB.append(returnedLine);
 									break;
 								case OBEDIENT:
-									UtilText.nodeContentSB.append(" sighing,"
-											+ " [npc.speech(Hello, [npc.pcName]. Is there anything that I can do for you?)]");
+									returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+											"slave_start_alreadypreg", "slave_start_nofirstpreg");
+									if(returnedLine == null) {
+										UtilText.nodeContentSB.append(" sighing,"
+												+ " [npc.speech(Hello, [npc.pcName]. Is there anything that I can do for you?)]");
+									} else UtilText.nodeContentSB.append(returnedLine);
 									break;
 							}
 							break;
 						case LIKE:
 							switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 								case DISOBEDIENT:
-									UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
-											+ " [npc.speech(Hi, [npc.pcName]! How are you doing?! I'm taking it easy at the moment, so that I can take good care of myself, ok?)]");
+									returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+											"slave_start_alreadypreg", "slave_start_nofirstpreg");
+									if(returnedLine == null) {
+										UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
+												+ " [npc.speech(Hi, [npc.pcName]! How are you doing?! I'm taking it easy at the moment, so that I can take good care of myself, ok?)]");
+									} else UtilText.nodeContentSB.append(returnedLine);
 									break;
 								case NEUTRAL:
-									UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
-											+ " [npc.speech(Hello, [npc.pcName]! I'm taking good care of myself! How are you?)]");
+									returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+											"slave_start_alreadypreg", "slave_start_nofirstpreg");
+									if(returnedLine == null) {
+										UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
+												+ " [npc.speech(Hello, [npc.pcName]! I'm taking good care of myself! How are you?)]");
+									} else UtilText.nodeContentSB.append(returnedLine);
 									break;
 								case OBEDIENT:
-									UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
-											+ " [npc.speech(Hello, [npc.pcName]! Is there anything I can do for you?)]");
+									returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+											"slave_start_alreadypreg", "slave_start_nofirstpreg");
+									if(returnedLine == null) {
+										UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
+												+ " [npc.speech(Hello, [npc.pcName]! Is there anything I can do for you?)]");
+									} else UtilText.nodeContentSB.append(returnedLine);
 									break;
 							}
 							break;
@@ -399,48 +484,84 @@ public class SlaveDialogue {
 					case DISLIKE:
 						switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 							case DISOBEDIENT:
-								UtilText.nodeContentSB.append(" not bothering to even to try to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] spits,"
-										+ "[npc.speech(Eugh, it's <i>you</i>. What the hell do you want now?!)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_nopreg", "slave_start_nofirstpreg");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" not bothering to even to try to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] spits,"
+											+ "[npc.speech(Eugh, it's <i>you</i>. What the hell do you want now?!)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 							case NEUTRAL:
-								UtilText.nodeContentSB.append(" trying to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] remarks,"
-										+ "[npc.speech(Oh, hello, [npc.pcName]. What is it that you want?)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_nopreg", "slave_start_nofirstpreg");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" trying to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] remarks,"
+											+ "[npc.speech(Oh, hello, [npc.pcName]. What is it that you want?)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 							case OBEDIENT:
-								UtilText.nodeContentSB.append(" obediently doing [npc.her] very best to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] calls out,"
-										+ " [npc.speech(Hello, [npc.pcName]. What can I do for you?)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_nopreg", "slave_start_nofirstpreg");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" obediently doing [npc.her] very best to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] calls out,"
+											+ " [npc.speech(Hello, [npc.pcName]. What can I do for you?)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 						}
 						break;
 					case NEUTRAL:
 						switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 							case DISOBEDIENT:
-								UtilText.nodeContentSB.append(" sighing,"
-										+ " [npc.speech(Hi, [npc.pcName]. What do you want?)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_nopreg", "slave_start_nofirstpreg");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" sighing,"
+											+ " [npc.speech(Hi, [npc.pcName]. What do you want?)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 							case NEUTRAL:
-								UtilText.nodeContentSB.append(" sighing,"
-										+ " [npc.speech(Hello, [npc.pcName]. What can I do for you?)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_nopreg", "slave_start_nofirstpreg");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" sighing,"
+											+ " [npc.speech(Hello, [npc.pcName]. What can I do for you?)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 							case OBEDIENT:
-								UtilText.nodeContentSB.append(" sighing,"
-										+ " [npc.speech(Hello, [npc.pcName]. Is there anything that I can do for you?)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_nopreg", "slave_start_nofirstpreg");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" sighing,"
+											+ " [npc.speech(Hello, [npc.pcName]. Is there anything that I can do for you?)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 						}
 						break;
 					case LIKE:
 						switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 							case DISOBEDIENT:
-								UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
-										+ " [npc.speech(Hi, [npc.pcName]! Oh, I'm so happy to see you again! I've been on my best behaviour!)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_nopreg", "slave_start_nofirstpreg");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
+											+ " [npc.speech(Hi, [npc.pcName]! Oh, I'm so happy to see you again! I've been on my best behaviour!)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 							case NEUTRAL:
-								UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
-										+ " [npc.speech(Hello, [npc.pcName]! How are you? Is there anything I can do for you?)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_nopreg", "slave_start_nofirstpreg");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
+											+ " [npc.speech(Hello, [npc.pcName]! How are you? Is there anything I can do for you?)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 							case OBEDIENT:
-								UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
-										+ " [npc.speech(Hello, [npc.pcName]! Is there anything I can do for you?)]");
+								returnedLine = getSlave().getCustomSexDescription(Main.game.getPlayer(),
+										"slave_start_nopreg", "slave_start_nofirstpreg");
+								if(returnedLine == null) {
+									UtilText.nodeContentSB.append(" a huge smile breaking out across [npc.her] face as [npc.she] joyously calls out,"
+											+ " [npc.speech(Hello, [npc.pcName]! Is there anything I can do for you?)]");
+								} else UtilText.nodeContentSB.append(returnedLine);
 								break;
 						}
 						break;
