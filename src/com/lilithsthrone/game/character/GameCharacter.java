@@ -5824,7 +5824,7 @@ public abstract class GameCharacter implements XMLSaving {
 			List<String> randomStrings = new ArrayList<>();
 
 			for(String dlgTag : dlgTags) {
-				if(this.modSexDialogue.containsKey(dlgTag) && !this.modSexDialogue.get(dlgTag).isEmpty()) {
+				if(this.modSexDescription.containsKey(dlgTag) && !this.modSexDescription.get(dlgTag).isEmpty()) {
 					for(ConditionalTextMod s : this.modSexDescription.get(dlgTag)) {
 						if(s!=null && !s.getTextString().isEmpty() && 
 								(s.getConditionalString().isEmpty() || s.getConditionalString()==null)) {
@@ -5849,7 +5849,7 @@ public abstract class GameCharacter implements XMLSaving {
 			List<String> randomStrings = new ArrayList<>();
 
 			for(String dlgTag : dlgTags) {
-				if(this.modSexDialogue.containsKey(dlgTag) && !this.modSexDialogue.get(dlgTag).isEmpty()) {
+				if(this.modSexDescription.containsKey(dlgTag) && !this.modSexDescription.get(dlgTag).isEmpty()) {
 					for(ConditionalTextMod s : this.modSexDescription.get(dlgTag)) {
 						if(s!=null && !s.getTextString().isEmpty() && 
 								(s.getConditionalString().isEmpty() || s.getConditionalString()==null)) {
