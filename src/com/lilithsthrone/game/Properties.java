@@ -581,6 +581,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.0.5")) {
 						values.add(PropertyValue.bipedalCloaca);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.1.7")) {
+						values.add(PropertyValue.footContent);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						

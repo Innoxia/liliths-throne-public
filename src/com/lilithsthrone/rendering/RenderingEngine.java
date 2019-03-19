@@ -1866,22 +1866,24 @@ public enum RenderingEngine {
 		
 		List<String> mapIcons = new ArrayList<>();
 		List<NPC> charactersPresent = Main.game.getCharactersPresent(world.getCell(x, y));
+		List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y));
 
-		if(!charactersPresent.isEmpty()) {
+		if(!charactersPresent.isEmpty() || !charactersHome.isEmpty()) {
 			for(NPC gc : charactersPresent) {
 				mapIcons.add(gc.getMapIcon());
 			}
 			
-			List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y));
 			for(NPC gc : charactersHome) {
-				if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || (x!=0 && y!=0))) {// && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
+				if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || (x!=0 && y!=0))) {
 					mapIcons.add(gc.getHomeMapIcon());
 				}
 			}
 			
-			float increment = Math.min(20, 75/mapIcons.size());
-			for(int i = mapIcons.size() ; i>0 ; i--) {
-				mapSB.append("<div class='npc-icon' style='left:"+(5+((i-1)*increment))+"%;'>"+mapIcons.get(i-1)+"</div>");
+			if(!mapIcons.isEmpty()) {
+				float increment = Math.min(20, 75/mapIcons.size());
+				for(int i = mapIcons.size() ; i>0 ; i--) {
+					mapSB.append("<div class='npc-icon' style='left:"+(5+((i-1)*increment))+"%;'>"+mapIcons.get(i-1)+"</div>");
+				}
 			}
 		}
 	}

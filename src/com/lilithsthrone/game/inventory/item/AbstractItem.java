@@ -169,6 +169,10 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 						: (Util.isVowel(name.charAt(0)) ? "an " : "a "))
 				+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
 	}
+	
+	public String getDisplayNamePlural(boolean withRarityColour) {
+		return Util.capitaliseSentence((withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural));
+	}
 
 	@Override
 	public String getDescription() {

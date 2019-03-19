@@ -6,7 +6,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -32,7 +31,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.79
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class GenericActions {
@@ -194,10 +193,10 @@ public class GenericActions {
 			} else {
 				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Subspecies.getFleshSubspecies(Main.game.getPlayer()).getRace()).getPenisType()));
 			}
-			if(Main.game.getPlayer().getPenisRawCumStorageValue() < CumProduction.FIVE_HUGE.getMedianValue()) {
-				sb.append(Main.game.getPlayer().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue()));
-				Main.game.getPlayer().fillCumToMaxStorage();
+			if(Main.game.getPlayer().getPenisRawCumStorageValue() < 150) {
+				sb.append(Main.game.getPlayer().setPenisCumStorage(150));
 			}
+			Main.game.getPlayer().fillCumToMaxStorage();
 			if(Main.game.getPlayer().getPenisRawSizeValue() < 20) {
 				sb.append(Main.game.getPlayer().setPenisSize(20));
 			}
@@ -1283,6 +1282,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.getCharacterPerformingAction().isPlayer()
+					&& (!Sex.getCharacterPerformingAction().isSlave() || !Sex.getAllParticipants().contains(Sex.getCharacterPerformingAction().getOwner()))
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
 					&& !Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB);

@@ -1247,7 +1247,7 @@ public class CharacterUtils {
 		body.getFace().setFacialHair(null, hair);
 		body.getArm().setUnderarmHair(null, hair);
 		body.getAss().getAnus().setAssHair(null, hair);
-
+		
 		if(species!=null) {
 			if(stage!=RaceStage.HUMAN) {
 				species.applySpeciesChanges(body);
@@ -1868,6 +1868,11 @@ public class CharacterUtils {
 			availableFetishes.remove(Fetish.FETISH_ANAL_GIVING);
 			availableFetishes.remove(Fetish.FETISH_ANAL_RECEIVING);
 		}
+
+		if(!Main.getProperties().hasValue(PropertyValue.footContent)) {
+			availableFetishes.remove(Fetish.FETISH_FOOT_GIVING);
+			availableFetishes.remove(Fetish.FETISH_FOOT_RECEIVING);
+		}
 		
 		while(fetishesAssigned < numberOfFetishes && !availableFetishes.isEmpty()) {
 			Fetish f = Util.randomItemFrom(availableFetishes);
@@ -1901,16 +1906,12 @@ public class CharacterUtils {
 		if(!Main.getProperties().hasValue(PropertyValue.analContent)) {
 			availableFetishes.remove(Fetish.FETISH_ANAL_GIVING);
 			availableFetishes.remove(Fetish.FETISH_ANAL_RECEIVING);
-			
-			character.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.ZERO_HATE);
-			character.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.ZERO_HATE);
 		}
-		// Decided against this. Made the EXPOSED status effects less severe for non-bipeds instead.
-//		if((!character.getLegConfiguration().isBipedalPositionedGenitals() || !character.getLegConfiguration().isBipedalPositionedCrotchBoobs())
-//				&& !character.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-//			availableFetishes.remove(Fetish.FETISH_EXHIBITIONIST);
-//			character.setFetishDesire(Fetish.FETISH_EXHIBITIONIST, FetishDesire.THREE_LIKE);
-//		}
+
+		if(!Main.getProperties().hasValue(PropertyValue.footContent)) {
+			availableFetishes.remove(Fetish.FETISH_FOOT_GIVING);
+			availableFetishes.remove(Fetish.FETISH_FOOT_RECEIVING);
+		}
 		
 		// Desires:
 		int[] posDesireProb = new int[] {1, 1, 2, 2, 2, 3, 3};
@@ -2060,10 +2061,13 @@ public class CharacterUtils {
 					// Don't add leg clothing if dress has been added
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-						if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty()) {
-							
+
+						List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot);
+						if(character.getHistory()==Occupation.NPC_PROSTITUTE) {
+							clothingToUse = ClothingType.getSuitableFeminineClothing().get(Occupation.NPC_PROSTITUTE);
+						}
+						if(!clothingToUse.isEmpty()) {
 							BodyPartClothingBlock block = slot.getBodyPartClothingBlock(character);
-							List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot);
 							clothingToUse = clothingToUse.stream().filter((c) ->
 								!c.isCondom()
 									&& (block==null || !Collections.disjoint(c.getItemTags(), block.getRequiredTags()))
@@ -2074,9 +2078,6 @@ public class CharacterUtils {
 											|| character.getInventorySlotsConcealed().containsKey(InventorySlot.STOMACH))
 								).collect(Collectors.toList());
 							
-							if(character.getHistory()==Occupation.NPC_PROSTITUTE) {
-								clothingToUse = suitableFeminineClothing.get(Occupation.NPC_PROSTITUTE);
-							}
 							
 							if(!clothingToUse.isEmpty()) {
 								AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
@@ -2115,10 +2116,11 @@ public class CharacterUtils {
 					
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-						if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty()) {
-
+						
+						List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot);
+						
+						if(!clothingToUse.isEmpty()) {
 							BodyPartClothingBlock block = slot.getBodyPartClothingBlock(character);
-							List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot);
 							clothingToUse = clothingToUse.stream().filter((c) ->
 								!c.isCondom()
 								&& (block==null || !Collections.disjoint(c.getItemTags(), block.getRequiredTags()))
@@ -2292,57 +2294,6 @@ public class CharacterUtils {
 		return Math.max(150, (int) (prostitutePrice * 750)); // Minimum value is 150 flames.
 	}
 
-	private static Map<Occupation, ArrayList<AbstractClothingType>> suitableFeminineClothing = new HashMap<>();
-	
-	static {
-		suitableFeminineClothing.put(Occupation.NPC_PROSTITUTE,
-				Util.newArrayListOfValues(
-						ClothingType.getClothingTypeFromId("innoxia_ankle_anklet"),
-						ClothingType.CHEST_LACY_PLUNGE_BRA,
-						ClothingType.CHEST_OPEN_CUP_BRA,
-						ClothingType.CHEST_PLUNGE_BRA,
-						ClothingType.EYES_AVIATORS,
-						ClothingType.FINGER_RING,
-						ClothingType.getClothingTypeFromId("innoxia_foot_ankle_boots"),
-						ClothingType.getClothingTypeFromId("innoxia_foot_heels"),
-						ClothingType.getClothingTypeFromId("innoxia_foot_thigh_high_boots"),
-						ClothingType.getClothingTypeFromId("innoxia_foot_stiletto_heels"),
-						ClothingType.GROIN_BACKLESS_PANTIES,
-						ClothingType.GROIN_CROTCHLESS_PANTIES,
-						ClothingType.GROIN_CROTCHLESS_THONG,
-						ClothingType.GROIN_LACY_PANTIES,
-						ClothingType.GROIN_THONG,
-						ClothingType.GROIN_VSTRING,
-						ClothingType.getClothingTypeFromId("innoxia_hand_elbow_length_gloves"),
-						ClothingType.HEAD_HEADBAND,
-						ClothingType.HEAD_HEADBAND_BOW,
-						ClothingType.LEG_CROTCHLESS_CHAPS,
-						ClothingType.LEG_MICRO_SKIRT_BELTED,
-						ClothingType.LEG_MICRO_SKIRT_PLEATED,
-						ClothingType.LEG_MINI_SKIRT,
-						ClothingType.LEG_SKIRT,
-						ClothingType.NECK_HEART_NECKLACE,
-						ClothingType.NECK_ANKH_NECKLACE,
-						ClothingType.NIPPLE_TAPE_CROSSES,
-						ClothingType.SOCK_FISHNET_STOCKINGS,
-						ClothingType.SOCK_TIGHTS,
-						ClothingType.STOMACH_OVERBUST_CORSET,
-						ClothingType.STOMACH_UNDERBUST_CORSET,
-						ClothingType.TORSO_FISHNET_TOP,
-						ClothingType.TORSO_KEYHOLE_CROPTOP,
-						ClothingType.TORSO_SHORT_CROPTOP,
-						ClothingType.WRIST_BANGLE,
-						ClothingType.WRIST_WOMENS_WATCH,
-						
-						ClothingType.PIERCING_EAR_BASIC_RING,
-						ClothingType.PIERCING_LIP_RINGS,
-						ClothingType.PIERCING_NAVEL_GEM,
-						ClothingType.PIERCING_NIPPLE_BARS,
-						ClothingType.PIERCING_NOSE_BASIC_RING,
-						ClothingType.PIERCING_PENIS_RING,
-						ClothingType.PIERCING_TONGUE_BAR,
-						ClothingType.PIERCING_VAGINA_BARBELL_RING));
-	}
 	
 //	private static void equipPreset(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
 //		boolean feminineClothing = (character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER));

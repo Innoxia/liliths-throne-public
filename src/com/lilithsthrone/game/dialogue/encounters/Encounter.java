@@ -190,35 +190,40 @@ public enum Encounter {
 			if(getSlaveWantingToUseYouInDominion()!=null) {
 				return Util.newHashMapOfValues(
 						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
+						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT, 5f),
 						new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f));
 			} else {
 				return Util.newHashMapOfValues(
-						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f));
+						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
+						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT, 5f));
 			}
 		}
 		
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
-			if(node == EncounterType.DOMINION_STREET_RENTAL_MOMMY) {
-				LocalDateTime time = Main.game.getDateNow();
-				
-				if(time.getMonth().equals(Month.MAY) /*&& time.getDayOfWeek().equals(DayOfWeek.SUNDAY)*/ && time.getDayOfMonth()>7 && time.getDayOfMonth()<=14
+			LocalDateTime time = Main.game.getDateNow();
+			if(time.getMonth().equals(Month.MAY) && time.getDayOfMonth()>7 && time.getDayOfMonth()<=14) {
+				if(node == EncounterType.DOMINION_STREET_RENTAL_MOMMY
 						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.mommyFound)
 						&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
-					
 					Main.game.setActiveNPC(new RentalMommy());
-					
 					try {
 						Main.game.addNPC(Main.game.getActiveNPC(), false);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-		
 					return Main.game.getActiveNPC().getEncounterDialogue();
 					
+				} else if(node==EncounterType.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT
+						&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+					
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), true));
+					
+					return DominionEncounterDialogue.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT;
 				}
-				
-			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+			}
+			
+			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
 				if(slave==null) {
 					return null;

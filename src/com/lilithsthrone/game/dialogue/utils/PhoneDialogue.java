@@ -3,6 +3,8 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -1080,7 +1082,14 @@ public class PhoneDialogue {
 								: npc.getSubspecies().getSingularMaleName(npc);
 			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : npc.getMother().getName(true));
 			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : npc.getFather().getName(true));
-			String extraRelationships = Main.game.getPlayer().getRelationshipStrTo(npc, Relationship.Parent);
+			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
+			boolean isGreyedOut = extraRelationships.isEmpty();
+			List<String> relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
+			if(npc.getMother().isPlayer()) {
+				relationships.add(0, "Mother");
+			} else {
+				relationships.add(0, "Father");
+			}
 
 			output.append("<tr>");
 				output.append("<td style='min-width:100px;'>");
@@ -1106,9 +1115,9 @@ public class PhoneDialogue {
 				output.append("<td style='min-width:100px;'>");
 					output.append("<b>");
 						output.append(
-								extraRelationships.isEmpty()
-									?"[style.italicsDisabled(None)]"
-									:extraRelationships);
+								isGreyedOut
+									?"[style.boldDisabled("+Util.stringsToStringList(relationships, false)+")]"
+									:Util.stringsToStringList(relationships, false));
 					output.append("</b>");
 				output.append("</td>");
 			output.append("</tr>");
@@ -1157,7 +1166,7 @@ public class PhoneDialogue {
 					+ "<div class='container-full-width' style='text-align:center;'>"
 					
 					+ "<table align='center'>"
-					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th><th>Your additional relationships</th></tr>"
+					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th><th>You are their:</th></tr>"
 					+ "<tr style='height:8px;'></tr>");
 			
 			for(NPC npc : Main.game.getOffspring()) {

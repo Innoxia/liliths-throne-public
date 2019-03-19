@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -1711,13 +1712,14 @@ public class GenericOrgasms {
 	}
 
 	private static List<InventorySlot> getNakedAreasCummedOn(GameCharacter target, CoverableArea area) {
-		List<InventorySlot> areaList = new ArrayList<>();
+		Set<InventorySlot> areaList = new HashSet<>();
 		for(InventorySlot slot : area.getAssociatedInventorySlots(target)) {
 			if(target.getVisibleClothingConcealingSlot(slot).isEmpty()) {
 				areaList.add(slot);
 			}
 		}
-		return new ArrayList<>(new HashSet<>(areaList));
+		areaList.removeIf((covArea) -> !covArea.isPhysicallyAvailable(target));
+		return new ArrayList<>(areaList);
 	}
 	
 	private static String getClothingCummedOnText(GameCharacter characterOrgasming, GameCharacter target, CoverableArea area, List<AbstractClothing> clothing) {

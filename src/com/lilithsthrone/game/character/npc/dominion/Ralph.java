@@ -221,11 +221,11 @@ public class Ralph extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25);
+		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false);
 		
 		for(AbstractItemType item : ItemType.getAllItems()) {
 			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
-				this.addItem(AbstractItemType.generateItem(item), 6+Util.random.nextInt(12));
+				this.addItem(AbstractItemType.generateItem(item), 6+Util.random.nextInt(12), false);
 			}
 		}
 		

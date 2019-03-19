@@ -3158,6 +3158,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			weight-=100000;
 		}
 
+		if((fetishes.contains(Fetish.FETISH_FOOT_GIVING) || fetishes.contains(Fetish.FETISH_FOOT_RECEIVING)) && !Main.game.isFootContentEnabled()) {
+			weight-=100000;
+		}
+		
 		// Anal actions are not available unless the person likes anal.
 		if(fetishes.contains(Fetish.FETISH_ANAL_RECEIVING) && !isRequest) {
 			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {

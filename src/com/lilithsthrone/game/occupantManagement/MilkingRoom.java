@@ -1,9 +1,11 @@
 package com.lilithsthrone.game.occupantManagement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import com.lilithsthrone.utils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -26,6 +28,11 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
+import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -101,6 +108,22 @@ public class MilkingRoom implements XMLSaving {
 					room.getFluidsStored().add(FluidStored.loadFromXML(null, fluidElement, doc));
 				}
 			} catch(Exception ex) {
+			}
+
+			Map<FluidStored, Float> uniqueFluids = new HashMap<>();
+			
+			for(FluidStored fluid : room.getFluidsStored()) {
+				if(uniqueFluids.containsKey(fluid)) {
+					uniqueFluids.put(fluid, fluid.getMillilitres()+uniqueFluids.get(fluid));
+				} else {
+					uniqueFluids.put(fluid, fluid.getMillilitres());
+				}
+			}
+
+			room.fluidsStored = new ArrayList<>();
+			for(Entry<FluidStored, Float> entry : uniqueFluids.entrySet()) {
+				entry.getKey().setMillilitres(entry.getValue());
+				room.fluidsStored.add(entry.getKey());
 			}
 			
 			return room;
@@ -263,6 +286,7 @@ public class MilkingRoom implements XMLSaving {
 	}
 
 	public List<FluidStored> getFluidsStored() {
+		
 		return fluidsStored;
 	}
 

@@ -221,7 +221,8 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType VIXENS_VIRILITY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Temporarily boosts fertility."),
+			"Temporary fertility boost",
+			"Temporary virility boost"),
 			Colour.GENERIC_SEX) {
 		
 		@Override
@@ -3157,6 +3158,7 @@ public class ItemEffectType {
 		return itemEffectTypeToIdMap.get(itemEffectType);
 	}
 	
+	// set in ItemType
 	public static AbstractItemEffectType getBookEffectFromSubspecies(Subspecies subspecies) {
 		String id = Util.getClosestStringMatch("BOOK_READ_"+subspecies.toString(), idToItemEffectTypeMap.keySet());
 		return idToItemEffectTypeMap.get(id);

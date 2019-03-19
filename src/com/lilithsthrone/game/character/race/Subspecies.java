@@ -204,7 +204,8 @@ public enum Subspecies {
 			Race.DEMON,
 			Colour.RACE_DEMON,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical demon.", Util.newHashMapOfValues(
+			"A typical demon.",
+			Util.newHashMapOfValues(
 					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldType.NIGHTLIFE_CLUB,  SubspeciesSpawnRarity.TWO_RARE))) {
 		
@@ -2852,11 +2853,13 @@ public enum Subspecies {
 				break;
 		}
 		
-		if(!ignoreOverride && body.getSubspeciesOverride()!=null) {
-			if(body.getSubspeciesOverride()==Subspecies.DEMON
-					|| body.getSubspeciesOverride()==Subspecies.HALF_DEMON
-					|| body.getSubspeciesOverride()==Subspecies.IMP
-					|| body.getSubspeciesOverride()==Subspecies.IMP_ALPHA) {
+		Subspecies subOverride = body.getSubspeciesOverride();
+		
+		if(!ignoreOverride && subOverride!=null) {
+			if(subOverride==Subspecies.DEMON
+					|| subOverride==Subspecies.HALF_DEMON
+					|| subOverride==Subspecies.IMP
+					|| subOverride==Subspecies.IMP_ALPHA) {
 				if(character!=null && character.isPlayer()) { // The player is a special case, as they are the only 'demon' that can take on any form.
 					return Subspecies.DEMON;
 				}
@@ -2871,7 +2874,7 @@ public enum Subspecies {
 				}
 			}
 			
-			return body.getSubspeciesOverride();
+			return subOverride;
 		}
 		
 		switch(body.getLeg().getLegConfiguration()) {
@@ -3231,7 +3234,7 @@ public enum Subspecies {
 						case LILIN:
 						case DEMON:
 							return CharacterUtils.generateHalfDemonBody(linkedCharacter, mother.getHalfDemonSubspecies());
-						case HALF_DEMON: // IF bother are non-human half-demons, it's random as to whose species is birthed
+						case HALF_DEMON: // IF both are non-human half-demons, it's random as to whose species is birthed
 							if(Math.random()<0.5f || father.getHalfDemonSubspecies()==Subspecies.HUMAN) {
 								return CharacterUtils.generateHalfDemonBody(linkedCharacter, mother.getHalfDemonSubspecies());
 							} else {
@@ -3579,7 +3582,7 @@ public enum Subspecies {
 	}
 
 	public String getHalfDemonSVGString(GameCharacter character) {
-		if(character.getSubspeciesOverride().equals(Subspecies.DEMON)) {
+		if(character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().equals(Subspecies.DEMON)) {
 			return getBipedBackground(demonSVGString, character, Colour.RACE_DEMON);
 		} else {
 			return getBipedBackground(halfDemonSVGString, character, Colour.RACE_HALF_DEMON);

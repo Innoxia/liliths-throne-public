@@ -777,16 +777,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public String getDisplayName(boolean withRarityColour) {
 		
 		if(!this.getName().replaceAll("\u00A0"," ").equalsIgnoreCase(this.getClothingType().getName().replaceAll("\u00A0"," "))) { // If this item has a custom name, just display that:
-//			for(int i=0;i<this.getName().toCharArray().length;i++) {
-//				System.out.print("["+Character.codePointAt(this.getName().toCharArray(), i)+"]");
-//			}
-//			System.out.println();
-//			for(int i=0;i<this.getClothingType().getName().toCharArray().length;i++) {
-//				System.out.print("["+Character.codePointAt(this.getClothingType().getName().toCharArray(), i)+"]");
-//			}
-//			System.out.println();
-//			System.out.println();
-			
 			return (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
 					: getName());

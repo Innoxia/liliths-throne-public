@@ -1,9 +1,11 @@
 package com.lilithsthrone.controller;
 
 import java.net.URL;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
@@ -575,15 +577,6 @@ public class MainController implements Initializable {
 								}
 							}
 						}
-						if(Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM){
-							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
-								allowInput = false;
-								if (event.getCode() == KeyCode.ENTER) {
-									enterConsumed = true;
-									Main.game.setContent(1);
-								}
-							}
-						}
 						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('new_save_name') === document.activeElement")) {
 								allowInput = false;
@@ -718,6 +711,45 @@ public class MainController implements Initializable {
 							}
 						}
 						
+						//TODO for some reason, if this catches a ResponseEffectsOnly and sets content using that, it blanks the main page. I have absolutely no idea why.
+						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS_PRONOUNS) {
+							allowInput = false;
+							if (event.getCode() == KeyCode.ENTER) {
+								enterConsumed = true;
+								boolean found = false;
+								for(GenderPronoun gp : GenderPronoun.values()) {
+									if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('feminine_" + gp + "') === document.activeElement")
+										|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('masculine_" + gp + "') === document.activeElement")) {
+										Main.game.setContent(
+												new Response("Save", "Save all the pronouns that are currently displayed.", OptionsDialogue.OPTIONS_PRONOUNS) {
+													@Override
+													public void effects() {
+														OptionsDialogue.OPTIONS_PRONOUNS.getResponse(0, 1).effects();
+													}
+												});
+										found = true;
+										break;
+									}
+								}
+								if(!found) {
+									for(GenderNames genderName : GenderNames.values()) {
+										if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_MASCULINE_" + genderName + "') === document.activeElement")
+											|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_ANDROGYNOUS_" + genderName + "') === document.activeElement")
+											|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_FEMININE_" + genderName + "') === document.activeElement")) {
+											Main.game.setContent(
+													new Response("Save", "Save all the pronouns that are currently displayed.", OptionsDialogue.OPTIONS_PRONOUNS) {
+														@Override
+														public void effects() {
+															OptionsDialogue.OPTIONS_PRONOUNS.getResponse(0, 1).effects();
+														}
+													});
+										}
+									}
+								}
+							}
+						}
+						
+						
 						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
 							allowInput = false;
 							if (event.getCode() == KeyCode.ENTER) {
@@ -746,30 +778,6 @@ public class MainController implements Initializable {
 										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
 									}
 									
-								}
-							}
-						}
-						
-						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS_PRONOUNS){
-							for(GenderPronoun gp : GenderPronoun.values()) {
-								if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('feminine_" + gp + "') === document.activeElement")
-									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('masculine_" + gp + "') === document.activeElement")) {
-									allowInput = false;
-									if (event.getCode() == KeyCode.ENTER) {
-										enterConsumed = true;
-										Main.game.setContent(1);
-									}
-								}
-							}
-							for(GenderNames genderName : GenderNames.values()) {
-								if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_MASCULINE_" + genderName + "') === document.activeElement")
-									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_ANDROGYNOUS_" + genderName + "') === document.activeElement")
-									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_FEMININE_" + genderName + "') === document.activeElement")) {
-									allowInput = false;
-									if (event.getCode() == KeyCode.ENTER) {
-										enterConsumed = true;
-										Main.game.setContent(1);
-									}
 								}
 							}
 						}
@@ -1419,11 +1427,13 @@ public class MainController implements Initializable {
 			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+			String day = Main.game.getDateNow().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
 					"Toggle the date's display between a calendar and day count.<br/>"
 						+ "The current date is: <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
 						+ Main.game.getDisplayDate(true)
 						+"</b><br/>"
+						+ "It is currently <b>"+UtilText.generateSingularDeterminer(day)+" "+day+"</b>.<br/>"
 						+ "You've been in this new world for: <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
