@@ -12567,7 +12567,11 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		//TODO convert all instances of this method to just (GameCharacter charactersFluid, BodyPartInterface fluid, int millilitres)
 		boolean found = false;
-
+		
+		if((orificeIngestedThrough.equals(SexAreaOrifice.VAGINA) || orificeIngestedThrough.equals(SexAreaOrifice.URETHRA_VAGINA)) && this.isVisiblyPregnant()) { // Limit intake based on 250ml max for pregnant characters:
+			millilitres = Math.min(millilitres, 250-this.getTotalFluidInArea(orificeIngestedThrough));
+		}
+		
 		FluidStored newFluid;
 		if(fluid instanceof FluidCum) {
 			newFluid = new FluidStored(charactersFluid, ((FluidCum) fluid), millilitres);
@@ -13532,6 +13536,12 @@ public abstract class GameCharacter implements XMLSaving {
 				c = getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 			}
 			
+			this.drainTotalFluidsStored(SexAreaOrifice.VAGINA, this.getTotalFluidInArea(SexAreaOrifice.VAGINA));
+			this.drainTotalFluidsStored(SexAreaOrifice.URETHRA_VAGINA, this.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA));
+			
+			this.removeDirtySlot(InventorySlot.VAGINA);
+			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA);
+			
 			Litter birthedLitter = pregnantLitter;
 			
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
@@ -13711,15 +13721,21 @@ public abstract class GameCharacter implements XMLSaving {
 		return total;
 	}
 	
+	/**
+	 * Drains the specified quantity of fluids from the specified orifice.
+	 * @param area The area to drain.
+	 * @param drain The value to be drained. Value can be either <b>positive or negative</b> float - the method automatically converts it to always be a drain.
+	 */
 	public void drainTotalFluidsStored(SexAreaOrifice area, float drain) {
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		float drained = 0;
+		drain = Math.abs(drain);
 		for(FluidStored f : fluidsStoredMap.get(area)) {
-			if(drained>=Math.abs(drain)) {
+			if(drained>=drain) {
 				break;
 			}
 			
-			float drainAmount = Math.min(Math.abs(drain), f.getMillilitres());
+			float drainAmount = Math.min(drain, f.getMillilitres());
 			f.incrementMillilitres(-drainAmount);
 			drained+=drainAmount;
 		}
@@ -14401,13 +14417,14 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 
-	/**
-	 * @return true If an item was removed.
-	 */
 	public void removeItem(AbstractItem item) {
 		inventory.removeItem(item);
 	}
 
+	public void removeItem(AbstractItem item, int count) {
+		inventory.removeItem(item, count);
+	}
+	
 	/**
 	 * @return true If this item is in the character's inventory.
 	 */
@@ -18156,6 +18173,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getBreastRawLactationRegenerationValue() {
 		return body.getBreast().getRawLactationRegenerationValue();
 	}
+	public float getLactationRegenerationPerSecond() {
+		return body.getBreast().getRawLactationRegenerationValue()/(60*60*24f);
+	}
 	public String setBreastLactationRegeneration(int regenerationValue) {
 		return body.getBreast().setLactationRegeneration(this, regenerationValue);
 	}
@@ -18483,6 +18503,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public int getBreastCrotchRawLactationRegenerationValue() {
 		return body.getBreastCrotch().getRawLactationRegenerationValue();
+	}
+	public float getCrotchLactationRegenerationPerSecond() {
+		return body.getBreastCrotch().getRawLactationRegenerationValue()/(60*60*24f);
 	}
 	public String setBreastCrotchLactationRegeneration(int regenerationValue) {
 		return body.getBreastCrotch().setLactationRegeneration(this, regenerationValue);
@@ -19279,6 +19302,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasHorns() {
 		return body.getHorn().getType() != HornType.NONE;
 	}
+	public boolean isHornsAbleToBeUsedAsHandlesInSex() {
+		return this.hasHorns() && HornLength.getHornLengthFromInt(this.getHornLength()).isSuitableAsHandles();
+	}
 	// Names:
 	public String getHornName() {
 		return body.getHorn().getName(this);
@@ -19941,7 +19967,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return body.getPenis().getTesticle().getCumExpulsion();
 	}
-	/** As a percentage from 0 -> 100. */
+	/** As a percentage from 5 -> 100. */
 	public int getPenisRawCumExpulsionValue() {
 		if (!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
 			return FluidExpulsion.FOUR_HUGE.getMaximumValue();
@@ -19977,6 +20003,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public int getPenisRawCumProductionRegenerationValue() {
 		return body.getPenis().getTesticle().getRawCumProductionRegenerationValue();
+	}
+	public float getCumRegenerationPerSecond() {
+		return body.getPenis().getTesticle().getRawCumProductionRegenerationValue()/(60*60*24f);
 	}
 	public String setPenisCumProductionRegeneration(int regenerationValue) {
 		return body.getPenis().getTesticle().setCumProductionRegeneration(this, regenerationValue);

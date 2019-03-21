@@ -539,6 +539,15 @@ public class CharacterInventory implements XMLSaving {
 			return false;
 		}
 	}
+
+	public boolean removeItem(AbstractItem item, int count) { //TODO
+		if(itemsInInventory.remove(item)) {
+			recalculateMapOfDuplicateItems();
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	public boolean hasItem(AbstractItem item) {
 		return itemsInInventory.contains(item);

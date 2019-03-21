@@ -92,6 +92,13 @@ public class SlimeQueen extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this)!=Subspecies.HUMAN) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN);
 		}
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.2")) {
+			this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay());
+			this.setBreastMilkStorage(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
+			this.setBreastStoredMilk(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
+		}
+		
 		this.setSurname("Mercier");
 	}
 	
@@ -187,10 +194,10 @@ public class SlimeQueen extends NPC {
 		this.setNippleElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 		this.setNipplePlasticity(OrificePlasticity.FIVE_YIELDING.getValue());
 		
-		this.setBreastLactationRegeneration(FluidRegeneration.ONE_AVERAGE.getValue());
+		this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay());
 		this.setMilkFlavour(FluidFlavour.STRAWBERRY);
-		this.setBreastMilkStorage(Lactation.FIVE_VERY_LARGE_DROOLING.getMedianValue());
-		this.setBreastStoredMilk(Lactation.FIVE_VERY_LARGE_DROOLING.getMedianValue());
+		this.setBreastMilkStorage(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
+		this.setBreastStoredMilk(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
 		
 		// Ass:
 		this.setAssVirgin(false);

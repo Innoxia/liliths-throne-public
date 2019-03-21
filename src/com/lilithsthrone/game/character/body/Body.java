@@ -53,6 +53,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -933,6 +934,9 @@ public class Body implements XMLSaving {
 		try {
 			importedBreast.milkStored = Float.valueOf(breasts.getAttribute("storedMilk"));
 			importedBreast.milkRegeneration = Integer.valueOf(breasts.getAttribute("milkRegeneration"));
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.9")) { // Change from percentage-based to set value:
+				importedBreast.milkRegeneration = FluidRegeneration.ONE_AVERAGE.getMedianRegenerationValuePerDay();
+			}
 		} catch(Exception ex) {
 		}
 		
@@ -1274,7 +1278,10 @@ public class Body implements XMLSaving {
 		try {
 			importedPenis.testicle.cumStored = Float.valueOf(testicles.getAttribute("storedCum"));
 			importedPenis.testicle.cumRegeneration = Integer.valueOf(testicles.getAttribute("cumRegeneration"));
-			importedPenis.testicle.cumExpulsion = Integer.valueOf(testicles.getAttribute("cumExpulsion"));
+			importedPenis.testicle.setCumExpulsion(null, Integer.valueOf(testicles.getAttribute("cumExpulsion")));
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.9")) { // Change from percentage-based to set value:
+				importedPenis.testicle.cumRegeneration = FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay();
+			}
 		} catch(Exception ex) {
 		}
 		
@@ -1539,6 +1546,9 @@ public class Body implements XMLSaving {
 			try {
 				importedCrotchBreast.milkStored = Float.valueOf(breasts.getAttribute("storedMilk"));
 				importedCrotchBreast.milkRegeneration = Integer.valueOf(breasts.getAttribute("milkRegeneration"));
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.2")) { // Change from percentage-based to set value:
+					importedCrotchBreast.milkRegeneration = FluidRegeneration.ONE_AVERAGE.getMedianRegenerationValuePerDay();
+				}
 			} catch(Exception ex) {
 			}
 

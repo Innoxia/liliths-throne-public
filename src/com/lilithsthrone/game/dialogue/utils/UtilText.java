@@ -152,7 +152,7 @@ public class UtilText {
 		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO)) {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
 		}
-
+		
 		if(Main.game.getPlayer().getAlcoholLevel().getSlurredSpeechFrequency()>0) {
 			modifiedSentence = Util.addDrunkSlur(modifiedSentence, Main.game.getPlayer().getAlcoholLevel().getSlurredSpeechFrequency());
 		}
@@ -185,6 +185,10 @@ public class UtilText {
 					}
 				}
 			}
+		}
+		
+		if(Main.game.getPlayer().getLipSize().isImpedesSpeech()) {
+			modifiedSentence = Util.applyLisp(modifiedSentence);
 		}
 
 		if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE_STRONG)
@@ -262,10 +266,14 @@ public class UtilText {
 			}
 		}
 		
+		if(target.getLipSize().isImpedesSpeech()) {
+			modifiedSentence = Util.applyLisp(modifiedSentence);
+		}
+		
 		if(splitOnConditional.length>1) {
 			modifiedSentence = splitOnConditional[0]+"#THEN"+modifiedSentence;
 		}
-
+		
 		Colour glow = target.getSpeechGlowColour();
 		if (target.getSpeechColour() != null) {
 			return "<span class='speech' style='color:" + target.getSpeechColour() + ";"+getGlowStyle(glow)+"'>"
@@ -332,11 +340,12 @@ public class UtilText {
 
 	public static String parseNPCSpeech(String text, Femininity femininity, boolean bimbo, boolean stutter) {
 		modifiedSentence = text;
-		if (bimbo)
+		if (bimbo) {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
-		if (stutter)
+		}
+		if (stutter) {
 			modifiedSentence = Util.addStutter(modifiedSentence, 6);
-
+		}
 		return "<span class='speech' style='color:" + femininity.getColour().toWebHexString() + ";'>" + modifiedSentence + "</span>";
 	}
 	

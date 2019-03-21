@@ -189,7 +189,7 @@ public class RentalMommy extends NPC {
 		this.setNippleSize(NippleSize.THREE_LARGE.getValue());
 		this.setAreolaeSize(AreolaeSize.THREE_LARGE.getValue());
 		this.addNippleOrificeModifier(OrificeModifier.PUFFY);
-		this.setBreastLactationRegeneration(FluidRegeneration.THREE_PLUMP.getValue());
+		this.setBreastLactationRegeneration(FluidRegeneration.TWO_FAST.getMedianRegenerationValuePerDay());
 		this.setBreastMilkStorage(500);
 		this.setBreastStoredMilk(500);
 		

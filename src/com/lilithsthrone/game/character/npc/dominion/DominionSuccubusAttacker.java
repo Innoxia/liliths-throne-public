@@ -63,10 +63,6 @@ public class DominionSuccubusAttacker extends NPC {
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), true);
 			
-			// BODY RANDOMISATION:
-			addFetish(Fetish.FETISH_DEFLOWERING);
-			addFetish(Fetish.FETISH_DOMINANT);
-			CharacterUtils.addFetishes(this);
 			
 			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
 				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
@@ -74,6 +70,11 @@ public class DominionSuccubusAttacker extends NPC {
 			}
 			
 			CharacterUtils.randomiseBody(this, true);
+			
+			addFetish(Fetish.FETISH_DEFLOWERING);
+			addFetish(Fetish.FETISH_DOMINANT);
+			CharacterUtils.addFetishes(this);
+			
 			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
 			
 			this.setVaginaVirgin(false);

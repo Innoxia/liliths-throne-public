@@ -3,51 +3,48 @@ package com.lilithsthrone.game.character.body.valueEnums;
 import com.lilithsthrone.utils.Colour;
 
 /**
- * The amount of fluid that gets replenished every second.
+ * Defined according to how much fluid is replenished every day, in ml.
  * 
  * @since 0.2.1
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public enum FluidRegeneration {
 
-	// I named these wrong...
+	/** 0-249 ml/day. */
+	ZERO_SLOW("slow", 0, 250, "slowly", Colour.GENERIC_SIZE_ONE),
 	
-	ZERO_MINIMUM(0, 0.0005f/60f, "slow", "slowly", Colour.GENERIC_SIZE_ONE),
+	/** 250-749 ml/day. <b>Median value of 500ml/day is roughly the average for breasts producing milk.</b> */
+	ONE_AVERAGE("average", 250, 750, "", Colour.GENERIC_SIZE_TWO),
+
+	/** 750-4999 ml/day. Maximum value is roughly 3.5ml per minute. */
+	TWO_FAST("fast", 750, 5000, "quickly", Colour.GENERIC_SIZE_THREE),
+
+	/** 5000-99,999 ml/day. <b>Median value of ~50,000ml/day is average for seminal fluid replenishment.</b> Maximum value is roughly 1.15ml per second. */
+	THREE_RAPID("rapid", 5000, 100_000, "rapidly", Colour.GENERIC_SIZE_FOUR),
 	
-	ONE_AVERAGE(1, 0.0025f/60f, "average", "", Colour.GENERIC_SIZE_TWO),
+	/** 100,000-10,000,000 ml/day. Maximum value is roughly 11.5ml per second. */
+	FOUR_VERY_RAPID("very rapid", 100_000, 1_000_000, "very rapidly", Colour.GENERIC_SIZE_FIVE);
 	
-	TWO_FULL(2, 0.0075f/60f, "fast", "quickly", Colour.GENERIC_SIZE_THREE),
-	
-	THREE_PLUMP(3, 0.015f/60f, "rapid", "rapidly", Colour.GENERIC_SIZE_FOUR),
-	
-	FOUR_MAXIMUM(4, 0.05f/60f, "very rapid", "very rapidly", Colour.GENERIC_SIZE_FIVE);
-	
-	
-	private int value;
-	private float percentageRegen;
-	private String descriptor;
+
+	private int minimumValue;
+	private int maximumValue;
+	private String name;
 	private String verb;
 	private Colour colour;
 
-	private FluidRegeneration(int value, float percentageRegen, String descriptor, String verb, Colour colour) {
-		this.value = value;
-		this.percentageRegen = percentageRegen;
-		this.descriptor = descriptor;
+	private FluidRegeneration(String name, int minimumValue, int maximumValue, String verb, Colour colour) {
+		this.name = name;
+		
+		this.minimumValue = minimumValue;
+		this.maximumValue = maximumValue;
+		
 		this.verb = verb;
 		this.colour = colour;
 	}
 
-	public int getValue() {
-		return value;
-	}
-
-	public float getPercentageRegen() {
-		return percentageRegen;
-	}
-
 	public String getName() {
-		return descriptor;
+		return name;
 	}
 
 	public String getVerb() {
@@ -55,15 +52,38 @@ public enum FluidRegeneration {
 	}
 	
 	public static FluidRegeneration getFluidRegenerationFromInt(int value) {
-		for(FluidRegeneration ls : FluidRegeneration.values()) {
-			if(value == ls.getValue()) {
-				return ls;
+		for(FluidRegeneration regeneration : FluidRegeneration.values()) {
+			if(value>=regeneration.getMinimumRegenerationValuePerDay() && value<regeneration.getMaximumRegenerationValuePerDay()) {
+				return regeneration;
 			}
 		}
-		return ZERO_MINIMUM;
+		return FOUR_VERY_RAPID;
 	}
 
 	public Colour getColour() {
 		return colour;
+	}
+
+	// I gave them long method names as I know that I'll forget they're defined as ml/day otherwise...
+	
+	/**
+	 * Will need to be divided by seconds per day (60*60*24), as the value returned is defined as ml per day.
+	 * @return
+	 */
+	public int getMinimumRegenerationValuePerDay() {
+		return minimumValue;
+	}
+
+	/**
+	 * Will need to be divided by seconds per day (60*60*24), as the value returned is defined as ml per day.
+	 * @return
+	 */
+	public int getMaximumRegenerationValuePerDay() {
+		return maximumValue;
+	}
+	
+
+	public int getMedianRegenerationValuePerDay() {
+		return minimumValue + ((maximumValue - minimumValue) / 2);
 	}
 }

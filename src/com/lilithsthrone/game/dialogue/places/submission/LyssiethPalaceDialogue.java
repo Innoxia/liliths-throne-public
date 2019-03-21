@@ -174,6 +174,12 @@ public class LyssiethPalaceDialogue {
 	};
 
 	public static final DialogueNode SIREN_OFFICE = new DialogueNode("", "", true) {
+
+		@Override
+		public boolean isInventoryDisabled() {
+			return false;
+		}
+		
 		@Override
 		public int getSecondsPassed() {
 			return 60;
@@ -361,6 +367,11 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LYSSIETH_OFFICE_ENTER = new DialogueNode("", "", true) {
 
 		@Override
+		public boolean isInventoryDisabled() {
+			return false;
+		}
+		
+		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
@@ -521,6 +532,11 @@ public class LyssiethPalaceDialogue {
 	};
 
 	public static final DialogueNode LYSSIETH_OFFICE_TALK = new DialogueNode("", "", true) {
+
+		@Override
+		public boolean isInventoryDisabled() {
+			return false;
+		}
 
 		@Override
 		public int getSecondsPassed() {

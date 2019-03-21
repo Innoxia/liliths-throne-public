@@ -122,15 +122,17 @@ public class Util {
 	
 	public static Color midpointColor(Color first, Color second) {
 		
-		double r = (first.getRed() + second.getRed())/2,
-				g = (first.getGreen() + second.getGreen())/2,
-					b = (first.getBlue() + second.getBlue())/2;
-		
-		return newColour(r*255, g*255, b*255);
+		double r = (first.getRed() + second.getRed())/2;
+		double g = (first.getGreen() + second.getGreen())/2;
+		double b = (first.getBlue() + second.getBlue())/2;
+//		System.out.println(r+","+g+","+b);
+		return Color.color(r, g, b);
 	}
 	
 	public static String toWebHexString(Color colour) {
-		return colour.toString().substring(2, 8);
+		String c = colour.toString().substring(2, 8);
+//		System.out.println(c);
+		return "#"+c;
 	}
 	
 	public static Color newColour(double r, double g, double b) {
@@ -808,7 +810,25 @@ public class Util {
 			.replaceAll("So", "Sho")
 			.replaceAll("so", "sho");
 	}
-
+	
+	/**
+	 * Applies a lisp to speech (a speech defect in which s is pronounced like th in thick and z is pronounced like th in this). Modified sibilants are italicised in order to assist with reading.<br/>
+	 * Example:<br/>
+	 * "Is there a zoo that's nearby?"<br/>
+	 * "I<i>th</i> there a <i>th</i>oo that'<i>th</i> nearby?"<br/>
+	 *
+	 * @param sentence The speech to which the lisp should be applied.
+	 * @return The modified sentence.
+	 */
+	public static String applyLisp(String sentence) {
+		return sentence
+			.replaceAll("s", "<i>th</i>")
+			.replaceAll("z", "<i>th</i>")
+			.replaceAll("S", "<i>Th</i>")
+			.replaceAll("Z", "<i>Th</i>");
+	}
+	
+	
 	/**
 	 * Builds a string representing the list of items in a collection.
 	 *

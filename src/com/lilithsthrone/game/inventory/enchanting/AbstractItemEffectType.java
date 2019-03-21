@@ -320,7 +320,7 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_WETNESS:
 						return Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue();
 					case TF_MOD_REGENERATION:
-						return FluidRegeneration.FOUR_MAXIMUM.getValue();
+						return FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay();
 					default:
 						break;
 				}
@@ -366,7 +366,7 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_CUM_EXPULSION:
 						return FluidExpulsion.FOUR_HUGE.getMaximumValue();
 					case TF_MOD_REGENERATION:
-						return FluidRegeneration.FOUR_MAXIMUM.getValue();
+						return FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay();
 					default:
 						break;
 				}

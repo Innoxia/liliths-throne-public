@@ -6819,16 +6819,13 @@ public class InventoryDialogue {
 					.filter(item::equals)
 					.collect(Collectors.toList());
 				
-				for(int i = 0 ; i<count; i++) {
-					if(from.isPlayer()) {
-						Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice));
-					} else {
-						to.addItem(items.get(i), false);
-					}
-					from.incrementMoney(itemPrice);
-					to.incrementMoney(-itemPrice);
-					from.removeItem(items.get(i));
-				}
+				//TODO
+				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice));
+				
+				to.addItem(item, count, false);
+				from.incrementMoney(itemPrice*count);
+				to.incrementMoney(-itemPrice*count);
+				from.removeItem(item, count);
 			}
 			
 			if(to.isPlayer()) {

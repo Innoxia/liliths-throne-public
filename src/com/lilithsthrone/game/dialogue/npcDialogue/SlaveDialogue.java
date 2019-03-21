@@ -703,14 +703,11 @@ public class SlaveDialogue {
 								getSlave().NPCFlagValues.add(NPCFlagValue.flagSlaveMolest);
 								Main.game.getTextEndStringBuilder().append(getSlave().incrementObedience(10));
 								
-								if(getSlave().getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive() || getSlave().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
-									if(getSlave().isAttractedTo(Main.game.getPlayer())) {
-										Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 10));
-									} else {
-										Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), -10));
-									}
+								if(getSlave().isAttractedTo(Main.game.getPlayer())
+										&& (getSlave().getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive() || getSlave().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive())) {
+									Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 10));
 									
-								} else {
+								} else if(!getSlave().isAttractedTo(Main.game.getPlayer())) {
 									Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), -10));
 								}
 							}

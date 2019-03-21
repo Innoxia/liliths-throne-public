@@ -762,8 +762,8 @@ public class PhoneDialogue {
 						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getBreastRawMilkStorageValue()),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastMilkStorage().getDescriptor()),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration (%/minute)",
-						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(Math.round((character.getBreastLactationRegeneration().getPercentageRegen()*60*100)*100)/100f),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration",
+						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond()*60)+"/minute",
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
@@ -795,12 +795,12 @@ public class PhoneDialogue {
 									Colour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(character.getBreastCrotchRows()),
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(Util.intToString(character.getBreastCrotchRows()))+" pair"+(character.getBreastCrotchRows()==1?"":"s"),
 									true)
-							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Storage (mL)",
-									Colour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(character.getBreastCrotchRawMilkStorageValue()),
+							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Storage",
+									Colour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getBreastCrotchRawMilkStorageValue()),
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchMilkStorage().getDescriptor()),
 									false)
-							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration (%/minute)",
-									Colour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(Math.round((character.getBreastCrotchLactationRegeneration().getPercentageRegen()*60*100)*100)/100f),
+							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration",
+									Colour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getCrotchLactationRegenerationPerSecond()*60)+"/minute",
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchLactationRegeneration().getName()),
 									false)
 							+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
@@ -836,8 +836,8 @@ public class PhoneDialogue {
 						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisCumStorage().getPregnancyModifier())),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":"N/A",
 						true)
-				+ (Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) ? statRow(Colour.TRANSFORMATION_GENERIC, "Cum Regeneration (%/minute)",
-						Colour.TEXT, !knowsPenis?"Unknown":String.valueOf(Math.round((character.getPenisCumProductionRegeneration().getPercentageRegen()*60*100)*100)/100f),
+				+ (Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) ? statRow(Colour.TRANSFORMATION_GENERIC, "Cum Regeneration",
+						Colour.TEXT, !knowsPenis?"Unknown":Units.fluid(character.getCumRegenerationPerSecond()*60)+"/minute",
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":Util.capitaliseSentence(character.getPenisCumProductionRegeneration().getName()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Expulsion (% of stored cum)",

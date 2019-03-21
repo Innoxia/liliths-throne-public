@@ -125,27 +125,93 @@
 	
 	Patch notes:
 	
+	Gameplay:
+	
 	Other:
-		Reduced time taken to travel through each of Submission's tiles from 5 to 3 minutes.
+		<b>Altered:</b> Cum and milk regeneration is no longer based ona  percentage of maximum storage, and is instead a fixed value from 0-1,000,000mL per day. As part of this change, regeneration values will be reset to default values when you load in.
+		Added milk regeneration, milk flavour, cum regeneration, cum flavour, cum expulsion, and girlcum flavour to transform menu.
+		Compacted and reorganised the self-transform menu UI, added tooltips to help explain what each part affects, and added nipple shape as a self-transform option.
+		Added three more lip sizes, all of which are large enough to cause the character to speak with a lisp.
+		Added 'Horn grab' for when fucking someone in the doggy-style position (similar to 'Twintails pull' and 'Ear pull').
+		Added 'Twintails pull', 'Ear pull', and 'Horn grab' to dominant cunnilingus actions.
+		Inventory is no longer disabled in Lyssieth's nor Merxais's office.
 	
 	Bugs:
-		Fixed major issue that was causing orgasms to sometimes cause the game to break.
-		Fixed calendar in your room not displaying October, and the other two months not working.
-		Fixed issues in parsing when milking girlcum in a milking room.
-		Fixed some broken lubrication descriptions in sex.
+		Start of pregnancy now correctly expels all fluids from vagina & vaginal urethra, and fluid storage in those orifices for a pregnant character is now limited to 250ml.
+		Ending pregnancy now correctly expels all fluids from vagina & vaginal urethra, and cleans the related inventory slots.
+		Fixed issue with the 'ripped' body shape colour not being the correct shade of green.
+		Fixed bugged saving/loading of milk & cum regeneration values.
+		Corrected some references to harpy faces referring to a 'mouth' instead of 'beak'.
+		Parsing fixes.
+		Fixed issue with demon attackers in Dominion's alleyways sometimes having nonsensical fetishes.
+		Fixed issue with the 'Molest' action on slaves not applying affection changes as described in the text.
 	
 	
 	
 	
+	Optimise the selling of huge stacks of items
 	
+	Add support for [##methods] and [//methods] to suppress output
 	
+	taurs spawning with shoes
+		Suggestion: Taurs favor clothing items/sets that don't cover their paws and either stick with thigh highs or no socks at all to bring them in line with most tauric porn depictions
 	
 	Dunno if bug or not, but demon/half-demon slaves no longer lose their dicks after being told to grow one during sex.
 	
+	Lilaya's description of the arcane is also contradicted pretty heavily.
+	Elemental Magic doesn't seem to have any tie whatsoever to your lust, being just as powerful for a Pure character as a Corrupt one. It's the Arcane "school" that runs on lust.
+	
+	Also lust is dropping in cases it shouldn't like unwilling fuck toy fetish npcs resisting
+	
 	crotch boobs for greater anthros only generated. Show for all if they actually have them
+	
+	i let my companion fuck her while i watched
+		Theyve both surpassed the min orgasm limit and are still going at it
+	
+	
+	
+	
+	Sex improvements:
+		need lipple suck
+		clit fucking
+		size difference - penis girth
+		tongue length/mods and lips/throat mods need to affect sex 
+		Need oral actions cum eating descriptions & effects
+	
+	By the way you need to rework the Lilaya pregnancy stuff a bit
+	She shouldn't react as horribly if you're wearing a condom for example
+	And she also shouldn't react much if something indirectly leads to pregnancy
+	
+	>"As X is an unique character, who isn't your slave, you can't force her to wear X clothing"
+	>"You try to give the potion to X but she refuses, you put it back in the inventory" 
+	>no longer dedicking shit futa characters
+	>no longer giving them better fetishes 
+	>no longer removing their disgusting furryness
+	?????
+	what matter of bullshit is this? I won in combat i should be able to do whatever i want with the character, but the "unique" character is protected lol.
+	wtf inno
+	
+	>keeping NPCs with plot armor to prevent them from being modified
+	>implying they don't act like generic ncps in sex regardless (good boy!)
+	>implying that furry shit makes them "unique" and that's fine to have them when they're cancer.
+	>implying that adding a dick on a woman isn't gay as fuck with no option to remove it.
+	>implying that i shouldn't be able to do whatever the hell i want to a character beaten in combat.
+	>implyig that we can avoid transformations if we lose instead when it's forced no matter what.
+	nice try inno, next time make them so we can customize them instead of being forced to see 100% furryshit npcs when i don't want them, for example why can't i fuck the aunt while she's pregnant anymore?
+	Why the fuck imps are so idiotic? they shouldn't be able to have 100% of demon transformations or potion immunity, they are nothing more than midget demons when they should be unable to transform or anything, they should be weak period.
+	bug: if you go in the demon race and then you try 100% human again, you are still branded as half demon.
+
+	
+	Suggestion: Orgasms desired should be doubled during an arcane storm
+	imp gang bang orgasm limit is insane
+	
 	
 	Black and jet black skin colours
 	
+	npc.patch
+	
+	>disable furry
+	>human half-succubus gives birth to furries
 	I should have mentioned it in my bug report but yes it was while Lilaya was half demon, that children conceived with her were randomized.
 	
 	need to incorporate outfit logic into clothing and weapon types
@@ -164,6 +230,25 @@
 	
 	really need dialogue indication of what NPCs want
 		Upon position change, or when generating preferences?
+	
+	go over forced TF and fix it all
+	
+	add rose picking quest
+		after picking 100 roses, William appears
+		says he was growing them all over the city in an attempt to harvest them for a gift to a lilin he loves (and keeps visiting, but never has the courage to confess)
+		You can pick them for him
+		Requires 50,000 roses
+		lilin is nymph in woods
+		she falls in love with him
+		you get the crown of roses as a reward
+	
+	discord bugs
+	
+	
+	
+	
+	
+	
 	
 	Finish orgasm denial scenes.
 	    - Add sex action(s).
@@ -231,6 +316,10 @@
 		they keep adding random items
 	
 	Lipstick essentially it is purely cosmetic in general but if you have lipstick on your lips during sex you can choose to give a big long kiss to a certain body part leaving a lipstick kiss mark. It can be washed off, enchanted to grant bonuses to those who have it and provide a buff to exhibitionists (since it shows you have been having fun with someone). 
+	
+	humanoid genitalia and plantigrade foot settings
+	
+	make it so that non-plantigrade feet have footwear restrictions
 	
 	If you enter the imp fortress and fight the two guard imps, and enslave one of them; you'll fight the remaining one again but the text code appears informing you of the other missing imp. 
 	
