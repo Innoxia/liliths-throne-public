@@ -3592,20 +3592,26 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public String getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target){
 		// Player is using an item:
 		if(user.isPlayer()) {
-			// Player uses item on themselves:
 			if(target.isPlayer()) {
+				// Player uses item on themselves:
 				return itemOwner.useItem(item, target, false);
 				
-			// Player uses item on NPC:
 			} else {
+				//Player uses item on NPC:
 				boolean isItemOrdinary = !item.getItemType().isTransformative() && !item.getItemType().isFetishGiving();
-				
-				if(((target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user)) || ((isItemOrdinary || !target.isUnique())) // Cannot TF non-player-slave uniques
-							&& ((Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target))
-								|| (target.getPartyLeader()==null || (target.getPartyLeader().equals(user) && isItemOrdinary))
-								|| (!target.isUnique()
-										&& ((target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative())
-												|| (target.hasFetish(Fetish.FETISH_KINK_RECEIVING) && item.getItemType().isFetishGiving())))))) {
+				if(isItemOrdinary) {
+					return itemOwner.useItem(item,  target,  false);
+					
+				} else if(target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user)) {
+					return itemOwner.useItem(item,  target,  false);
+					
+				} else if(!target.isUnique()
+					&& ((target.hasStatusEffect(StatusEffect.DRUNK_5)
+							|| target.hasStatusEffect(StatusEffect.DRUNK_4)
+							|| target.hasStatusEffect(StatusEffect.PSYCHOACTIVE))
+						|| (target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative())
+						|| (target.hasFetish(Fetish.FETISH_KINK_RECEIVING) && item.getItemType().isFetishGiving())
+						|| (Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target)))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					
 				} else if(target instanceof Elemental) {

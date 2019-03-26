@@ -132,6 +132,11 @@
 	
 	Gameplay:
 	
+	Contributors:
+		Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)
+		Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)
+		
+		
 	Sex:
 		Base loss after orgasming changed from a flat -50% to a variable amount based on arcane storm vulnerability (negates all lust loss), attraction (50% reduction/increase), psychoactive fluid ingestion (75% reduction), and affection (50% reduction/50% increase).
 		Stabilised lust changes by limiting it to +/-2.5 for each character on every character's turn (meaning that it has a maximum change of +/-5 per turn with 2 non-spectator participants, but +/-7.5 per turn with 3 non-spectator participants).
@@ -179,8 +184,6 @@
 	
 	
 	
-	
-	npc.patch
 	
 	discord bugs
 	
