@@ -2,7 +2,7 @@
 <!-- Look in the mods folder for a commented version of this. -->
 <outfit>
 	<coreAttributes>
-		<name><![CDATA[dominion mugger (masculine)]]></name>
+		<name><![CDATA[generic mugger (masculine)]]></name>
 		
 		<description><![CDATA[Simple clothing, with the possibility of a weapon or two...]]></description>
 		
@@ -10,6 +10,7 @@
 		
 		<worldTypes>
 			<world>DOMINION</world>
+			<world>SUBMISSION</world>
 		</worldTypes>
 		
 		<outfitTypes>
@@ -28,6 +29,7 @@
 		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional2> <!-- knuckle dusters or pipe -->
 		<clothingConditional3 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional3>
 		<clothingConditional4 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional4> <!-- weapons -->
+		<clothingConditional5 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL]]></clothingConditional5> <!-- is bipedal -->
 		
 		
 		<presetColourGroup1>
@@ -171,8 +173,9 @@
 			<tertiaryColours/>
 		</clothingType>
 		
+		<!-- Non-taur socks: -->
 		<clothingType>
-			<conditional/>
+			<conditional><![CDATA[clothingConditional5]]></conditional>
 			<types>
 				<type>SOCK_SOCKS</type>
 			</types>
@@ -181,8 +184,9 @@
 			<tertiaryColours/>
 		</clothingType>
 		
+		<!-- Non-taur shoes: -->
 		<clothingType>
-			<conditional/>
+			<conditional><![CDATA[clothingConditional5]]></conditional>
 			<types>
 				<type>FOOT_WORK_BOOTS</type>
 				<type>FOOT_TRAINERS</type>

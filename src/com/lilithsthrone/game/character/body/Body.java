@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -121,7 +122,7 @@ public class Body implements XMLSaving {
 	
 	private GenitalArrangement genitalArrangement;
 
-	private Map<Race, Integer> raceWeightMap = new HashMap<>();
+	private Map<Race, Integer> raceWeightMap = new ConcurrentHashMap<>();
 	private Subspecies subspecies;
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
@@ -3156,7 +3157,7 @@ public class Body implements XMLSaving {
 	/** To be called after every transformation. Returns the body's race. */
 	public void calculateRace(GameCharacter target) {
 		
-		// Every time race is calculates, it's because parts have changed, so reset the body parts list:
+		// Every time race is calculated, it's because parts have changed, so reset the body parts list:
 		handleAllBodyPartsList();
 		
 		if(target!=null) {
@@ -3252,15 +3253,15 @@ public class Body implements XMLSaving {
 		boolean demonPartFound = false;
 		
 		for(Entry<Race, Integer> e : raceWeightMap.entrySet()) {
-			if(e.getKey()!=null && e.getKey()!=Race.HUMAN && e.getValue()>max) {
+			if(e.getKey()!=null && e.getKey()==Race.DEMON) {
+				demonPartFound = true;
+				
+			} else if(e.getKey()!=null && e.getKey()!=Race.HUMAN && e.getValue()>max) {
 				race = e.getKey();
 				max = e.getValue();
 			}
-			if(e.getKey()!=null && e.getKey()==Race.DEMON) {
-				demonPartFound = true;
-			}
 		}
-		if(!ignoreOverride && (demonPartFound)) { // Just one demon part is enough to make any character a demon:
+		if(!ignoreOverride && demonPartFound) { // Just one demon part is enough to make any character a demon:
 			return Race.DEMON;
 		}
 		

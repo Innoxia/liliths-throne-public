@@ -225,7 +225,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, Colour.CLOTHING_WHITE, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_platform_boots", Colour.CLOTHING_BLACK, false), true, this);
 		
 //		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false), true, this);

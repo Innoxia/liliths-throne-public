@@ -476,7 +476,7 @@ public class MainControllerInitMethod {
 			
 			// Gifts:
 			if(Main.game.getCurrentDialogueNode().equals(GiftDialogue.GIFT_DIALOGUE)) {
-				for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
+				for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getAllWeaponsInInventory().entrySet()) {
 					id = "GIFT_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -496,7 +496,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
-				for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getMapOfDuplicateItems().entrySet()) {
+				for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getAllItemsInInventory().entrySet()) {
 					id = "GIFT_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -516,7 +516,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
-				for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
+				for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getAllClothingInInventory().entrySet()) {
 					id = "GIFT_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -548,7 +548,7 @@ public class MainControllerInitMethod {
 			
 			
 			// Player:
-			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
+			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getAllWeaponsInInventory().entrySet()) {
 				id = "PLAYER_WEAPON_" + entry.getKey().hashCode();
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), Main.game.getPlayer());
@@ -559,7 +559,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
-			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getMapOfDuplicateItems().entrySet()) {
+			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getAllItemsInInventory().entrySet()) {
 				id = "PLAYER_ITEM_" + entry.getKey().hashCode();
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), Main.game.getPlayer());
@@ -570,7 +570,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
-			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
+			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getAllClothingInInventory().entrySet()) {
 				id = "PLAYER_CLOTHING_" + entry.getKey().hashCode();
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), Main.game.getPlayer());
@@ -585,7 +585,7 @@ public class MainControllerInitMethod {
 			// Partner:
 			if(InventoryDialogue.getInventoryNPC()!=null) {
 				String idModifier = "NPC_"+InventoryDialogue.getInventoryNPC().getId()+"_";
-				for (Entry<AbstractWeapon, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateWeapons().entrySet()) {
+				for (Entry<AbstractWeapon, Integer> entry : InventoryDialogue.getInventoryNPC().getAllWeaponsInInventory().entrySet()) {
 					id = idModifier+"WEAPON_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
@@ -597,7 +597,7 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for (Entry<AbstractClothing, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateClothing().entrySet()) {
+				for (Entry<AbstractClothing, Integer> entry : InventoryDialogue.getInventoryNPC().getAllClothingInInventory().entrySet()) {
 					id = idModifier+"CLOTHING_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
@@ -609,7 +609,7 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for (Entry<AbstractItem, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateItems().entrySet()) {
+				for (Entry<AbstractItem, Integer> entry : InventoryDialogue.getInventoryNPC().getAllItemsInInventory().entrySet()) {
 					id = idModifier+"ITEM_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
@@ -624,7 +624,7 @@ public class MainControllerInitMethod {
 			// Floor:
 			} else {
 				// Weapons on floor:
-				for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+				for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 					id = "FLOOR_WEAPON_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null);
@@ -637,7 +637,7 @@ public class MainControllerInitMethod {
 				}
 				
 				// Clothing on floor:
-				for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+				for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
 					id = "FLOOR_CLOTHING_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null);
@@ -650,7 +650,7 @@ public class MainControllerInitMethod {
 				}
 				
 				// Items on floor:
-				for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+				for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
 					id = "FLOOR_ITEM_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), null);
@@ -5639,6 +5639,16 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Overwrite", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+				id = "overwrite_saved_"+ fileIdentifier+"_disabled";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Overwrite (Disabled)",
+							(!Main.game.isStarted()
+									?"You need to have started a game before you can overwrite a save!"
+									:"You cannot overwrite save files unless you are in a tile's default scene!"));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 				id = "load_saved_" + fileIdentifier;

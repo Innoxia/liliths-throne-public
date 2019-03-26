@@ -53,7 +53,7 @@ public class NPCOffspring extends NPC {
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
 		super(false, null, null, "",
 				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
-				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER,
+				3, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 
 

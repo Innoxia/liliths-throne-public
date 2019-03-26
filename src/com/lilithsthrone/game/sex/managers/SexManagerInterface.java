@@ -136,8 +136,8 @@ public interface SexManagerInterface {
 			return false; 
 		}
 		
-		// Do not allow player-owned slaves to end sex if the player is also a dom:
-		if(Sex.isDom(Main.game.getPlayer()) && Sex.getInitialSexManager().isPlayerAbleToStopSex() && partner.isSlave() && partner.getOwner().isPlayer()) {
+		// Do not allow player-owned slaves to end sex if the player is also a dom and is not a spectator:
+		if(Sex.isDom(Main.game.getPlayer()) && !Sex.isSpectator(Main.game.getPlayer()) && Sex.getInitialSexManager().isPlayerAbleToStopSex() && partner.isSlave() && partner.getOwner().isPlayer()) {
 			return false;
 		}
 		

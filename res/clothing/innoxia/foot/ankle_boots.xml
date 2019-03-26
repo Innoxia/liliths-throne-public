@@ -34,8 +34,8 @@
 		
 		<incompatibleSlots/> 
 		
-		<primaryColours values="ALL"/> 
-		<primaryColoursDye/>
+		<primaryColours values="LEATHER"/> 
+		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours>

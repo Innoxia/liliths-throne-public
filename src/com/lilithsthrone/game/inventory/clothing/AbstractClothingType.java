@@ -2095,7 +2095,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					} else {
 						List<Colour> condomColours = new ArrayList<>();
 						// Draw all backs:
-						for(AbstractItem item : character.getAllItemsInInventory()) {
+						for(AbstractItem item : character.getAllItemsInInventory().keySet()) {
 							if(item.getItemType().equals(ItemType.CONDOM_USED)) {
 								if(condomColours.size()<8) {
 									condomColours.add(item.getColour());

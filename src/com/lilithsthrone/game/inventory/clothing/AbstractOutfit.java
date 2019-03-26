@@ -13,6 +13,7 @@ import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -107,7 +108,9 @@ public abstract class AbstractOutfit {
 		switch(this.getFemininity()) {
 			case FEMININE:
 			case FEMININE_STRONG:
-				if(!character.isFeminine()) {
+				if(character.isFeminine()
+						?character.hasFetish(Fetish.FETISH_CROSS_DRESSER)
+						:!character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
 					return false;
 				}
 				break;
@@ -115,7 +118,9 @@ public abstract class AbstractOutfit {
 				break;
 			case MASCULINE:
 			case MASCULINE_STRONG:
-				if(character.isFeminine()) {
+				if(character.isFeminine()
+						?!character.hasFetish(Fetish.FETISH_CROSS_DRESSER)
+						:character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
 					return false;
 				}
 				break;

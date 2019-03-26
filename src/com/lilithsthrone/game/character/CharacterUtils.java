@@ -852,6 +852,12 @@ public class CharacterUtils {
 			}
 		}
 		
+		if(Main.getProperties().udders==0
+				|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().udders==1)
+				|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && body.getRaceStage()!=RaceStage.GREATER)) {
+			body.getBreastCrotch().setType(null, BreastType.NONE);
+		}
+		
 		raceTakesAfter.applySpeciesChanges(body);
 		
 		body.setTakesAfterMother(takesAfterMother);
@@ -989,6 +995,12 @@ public class CharacterUtils {
 				demonBody.getBreastCrotchPlasticity(), 
 				true));
 
+		if(Main.getProperties().udders==0
+				|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().udders==1)
+				|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && body.getRaceStage()!=RaceStage.GREATER)) {
+			body.getBreastCrotch().setType(null, BreastType.NONE);
+		}
+
 		if(halfSubspecies==Subspecies.HUMAN) {
 			body.setEar(new Ear(EarType.DEMON_COMMON));
 		}
@@ -1018,6 +1030,13 @@ public class CharacterUtils {
 			for(PenetrationModifier mod : RacialBody.valueOfRace(halfSubspecies.getRace()).getPenisType().getDefaultPenisModifiers()) {
 				body.getPenis().addPenisModifier(linkedCharacter, mod);
 			}
+		}
+
+		if(body.getPenis().getType()!=PenisType.NONE
+				&& body.getPenis().getType()!=PenisType.DILDO
+				&& body.getVagina().getType()!=VaginaType.NONE
+				&& !Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+			body.getPenis().getTesticle().setInternal(null, true);
 		}
 		
 		
@@ -1234,6 +1253,12 @@ public class CharacterUtils {
 							true))
 				.build();
 		
+		if(Main.getProperties().udders==0
+				|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().udders==1)
+				|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && body.getRaceStage()!=RaceStage.GREATER)) {
+			body.getBreastCrotch().setType(null, BreastType.NONE);
+		}
+		
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
@@ -1374,6 +1399,13 @@ public class CharacterUtils {
 		body.setTentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE));
 		
 		body.setWing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())));
+		
+
+		if(Main.getProperties().udders==0
+				|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().udders==1)
+				|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && body.getRaceStage()!=RaceStage.GREATER)) {
+			body.getBreastCrotch().setType(null, BreastType.NONE);
+		}
 		
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO

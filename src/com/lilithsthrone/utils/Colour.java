@@ -346,7 +346,7 @@ public enum Colour {
 	CLOTHING_WHITE(false, Util.newColour(0xdddddd), Util.newColour(0xdddddd), "white"),
 	CLOTHING_GREY(false, Util.newColour(0x777777), Util.newColour(0x777777), "grey"),
 	CLOTHING_BLACK(false, Util.newColour(0x333333), Util.newColour(0x333333), "black"),
-	CLOTHING_BLACK_JET(false, Util.newColour(0x1a1a1a), Util.newColour(0x1a1a1a), "jet black"),
+	CLOTHING_BLACK_JET(false, Util.newColour(0x1a1a1a), Util.newColour(0x1a1a1a), "pitch black"),
 	
 	
 	CLOTHING_RED_VERY_DARK(false, Util.newColour(0x660016), Util.newColour(0x660016), "midnight red"),
@@ -430,6 +430,9 @@ public enum Colour {
 	SKIN_PURPLE_DARK(false, BaseColour.PURPLE_DARK, "dark purple"),
 	SKIN_IVORY(false, BaseColour.WHITE, "ivory"),
 	SKIN_GREY(false, BaseColour.GREY, "grey"),
+	SKIN_JET_BLACK(false, BaseColour.BLACK, "pitch black") {
+		public boolean isJetBlack() { return true; }
+	},
 
 	// Slime types:
 
@@ -456,6 +459,9 @@ public enum Colour {
 	SLIME_CLEAR(false, BaseColour.WHITE, "clear"),
 	SLIME_GREY(false, BaseColour.GREY, "translucent grey"),
 	SLIME_BLACK(false, BaseColour.BLACK, "translucent black"),
+	SLIME_JET_BLACK(false, BaseColour.BLACK, "translucent pitch black") {
+		public boolean isJetBlack() { return true; }
+	},
 	SLIME_WHITE(false, BaseColour.WHITE, "translucent white"),
 	SLIME_RAINBOW(false, BaseColour.PINK,
 			"translucent "
@@ -499,6 +505,9 @@ public enum Colour {
 	HORN_GREY(false, BaseColour.GREY, "grey"),
 	HORN_DARK_GREY(false, BaseColour.GREY_DARK, "dark-grey"),
 	HORN_BLACK(false, BaseColour.BLACK, "black"),
+	HORN_JET_BLACK(false, BaseColour.BLACK, "pitch black") {
+		public boolean isJetBlack() { return true; }
+	},
 	
 	HORN_RED(false, BaseColour.RED, "red"),
 	HORN_SCARLET(false, BaseColour.CRIMSON, "scarlet"),
@@ -520,6 +529,9 @@ public enum Colour {
 	ANTLER_GREY(false, BaseColour.GREY, "grey"),
 	ANTLER_DARK_GREY(false, BaseColour.GREY_DARK, "dark-grey"),
 	ANTLER_BLACK(false, BaseColour.BLACK, "black"),
+	ANTLER_JET_BLACK(false, BaseColour.BLACK, "pitch black") {
+		public boolean isJetBlack() { return true; }
+	},
 	
 	ANTLER_RED(false, BaseColour.RED, "red"),
 	ANTLER_SCARLET(false, BaseColour.CRIMSON, "scarlet"),
@@ -547,6 +559,9 @@ public enum Colour {
 	COVERING_BROWN(false, BaseColour.BROWN, "brown"),
 	COVERING_BROWN_DARK(false, BaseColour.BROWN_DARK, "dark brown"),
 	COVERING_BLACK(false, BaseColour.BLACK, "black"),
+	COVERING_JET_BLACK(false, BaseColour.BLACK, "pitch black") {
+		public boolean isJetBlack() { return true; }
+	},
 	COVERING_GREY(false, BaseColour.GREY, "grey"),
 	COVERING_DIRTY_BLONDE(false, BaseColour.TAN, "dirty-blonde"),
 	COVERING_BLONDE(false, BaseColour.YELLOW, "blonde"),
@@ -645,6 +660,7 @@ public enum Colour {
 			Colour.SKIN_EBONY,
 			Colour.SKIN_IVORY,
 			Colour.SKIN_GREY,
+			Colour.SKIN_JET_BLACK,
 			Colour.SKIN_RED,
 			Colour.SKIN_RED_DARK,
 			Colour.SKIN_BROWN,
@@ -674,6 +690,7 @@ public enum Colour {
 			Colour.SKIN_EBONY,
 			Colour.SKIN_IVORY,
 			Colour.SKIN_GREY,
+			Colour.SKIN_JET_BLACK,
 			Colour.SKIN_RED,
 			Colour.SKIN_RED_DARK,
 			Colour.SKIN_BROWN,
@@ -698,6 +715,7 @@ public enum Colour {
 			Colour.SLIME_WHITE,
 			Colour.SLIME_GREY,
 			Colour.SLIME_BLACK,
+			Colour.SLIME_JET_BLACK,
 			Colour.SLIME_RED,
 			Colour.SLIME_RED_DARK,
 			Colour.SLIME_BROWN_DARK,
@@ -727,6 +745,7 @@ public enum Colour {
 			Colour.COVERING_WHITE,
 			Colour.COVERING_GREY,
 			Colour.COVERING_BLACK,
+			Colour.COVERING_JET_BLACK,
 			Colour.COVERING_RED_LIGHT,
 			Colour.COVERING_RED,
 			Colour.COVERING_RED_DARK,
@@ -773,7 +792,8 @@ public enum Colour {
 			Colour.COVERING_TAN,
 			Colour.COVERING_BROWN_DARK,
 			Colour.COVERING_GREY,
-			Colour.COVERING_BLACK);
+			Colour.COVERING_BLACK,
+			Colour.COVERING_JET_BLACK);
 
 	public static List<Colour> allCoveringColours = Util.newArrayListOfValues(
 			Colour.COVERING_PLATINUM,
@@ -786,6 +806,7 @@ public enum Colour {
 			Colour.COVERING_WHITE,
 			Colour.COVERING_GREY,
 			Colour.COVERING_BLACK,
+			Colour.COVERING_JET_BLACK,
 			Colour.COVERING_RED_LIGHT,
 			Colour.COVERING_RED,
 			Colour.COVERING_RED_DARK,
@@ -821,13 +842,15 @@ public enum Colour {
 			Colour.COVERING_BROWN,
 			Colour.COVERING_TAN,
 			Colour.COVERING_BROWN_DARK,
-			Colour.COVERING_BLACK);
+			Colour.COVERING_BLACK,
+			Colour.COVERING_JET_BLACK);
 
 	public static List<Colour> hornColours = Util.newArrayListOfValues(
 			Colour.HORN_WHITE,
 			Colour.HORN_GREY,
 			Colour.HORN_DARK_GREY,
-			Colour.HORN_BLACK);
+			Colour.HORN_BLACK,
+			Colour.HORN_JET_BLACK);
 	
 	public static List<Colour> dyeHornColours = Util.newArrayListOfValues(
 			Colour.HORN_RED,
@@ -851,7 +874,8 @@ public enum Colour {
 			Colour.ANTLER_DARK_BROWN,
 			Colour.ANTLER_GREY,
 			Colour.ANTLER_DARK_GREY,
-			Colour.ANTLER_BLACK);
+			Colour.ANTLER_BLACK,
+			Colour.ANTLER_JET_BLACK);
 	
 
 	public static List<Colour> dyeAntlerColours = Util.newArrayListOfValues(
@@ -876,7 +900,8 @@ public enum Colour {
 			Colour.COVERING_BROWN_DARK,
 			Colour.COVERING_AUBURN,
 			Colour.COVERING_GREY,
-			Colour.COVERING_BLACK);
+			Colour.COVERING_BLACK,
+			Colour.COVERING_JET_BLACK);
 	
 	// Eyes:
 	
@@ -1068,6 +1093,10 @@ public enum Colour {
 		return false;
 	}
 
+	public boolean isJetBlack() {
+		return false;
+	}
+	
 	public String getName() {
 		return name;
 	}

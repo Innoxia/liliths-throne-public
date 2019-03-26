@@ -1770,7 +1770,7 @@ public class MainController implements Initializable {
 		
 		if(Main.game.getPlayer()!=null) {
 			// Weapons on floor:
-			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 				id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1785,7 +1785,7 @@ public class MainController implements Initializable {
 			}
 			
 			// Clothing on floor:
-			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
 				id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1800,7 +1800,7 @@ public class MainController implements Initializable {
 			}
 			
 			// Items on floor:
-			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
 				id = "ITEM_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {

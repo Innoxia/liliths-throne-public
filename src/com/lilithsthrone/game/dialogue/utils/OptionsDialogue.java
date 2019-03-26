@@ -479,11 +479,11 @@ public class OptionsDialogue {
 							+ baseName
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
-							+ (Main.game.isStarted() && !Main.game.isInCombat() && !Main.game.isInSex()
+							+ (Main.isSaveGameAvailable()
 									?(name.equals(overwriteConfirmationName)
 										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
 										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
-											:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+									:"<div class='square-button saveIcon disabled' id='overwrite_saved_" + baseName + "_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 							
 							+ (name.equals(loadConfirmationName)
 									?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"

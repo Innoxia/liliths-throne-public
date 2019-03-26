@@ -107,6 +107,7 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
+import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Units.ValueType;
@@ -4262,8 +4263,10 @@ public class CharacterModificationUtils {
 															+ "#c49cdf "+5*rainbowIncrement+"px, #c49cdf "+6*rainbowIncrement+"px,"
 															+ "#6599e2 "+6*rainbowIncrement+"px, #6599e2 "+7*rainbowIncrement+"px,"
 															+ "#61c2e4 "+7*rainbowIncrement+"px, #61c2e4 "+8*rainbowIncrement+"px);"
-													:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"))
-										+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")
+											:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
+										+(c==Colour.COVERING_NONE
+											?" color:"+Colour.BASE_RED.toWebHexString()+";'>X"
+											:"'>")
 									+"</div>"
 								+ "</div>");
 			}

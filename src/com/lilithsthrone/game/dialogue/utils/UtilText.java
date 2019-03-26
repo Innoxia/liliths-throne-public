@@ -663,6 +663,7 @@ public class UtilText {
 	}
 	
 	private static String speechTarget = "";
+	private static boolean suppressOutput = false;
 
 	public static String parse(List<GameCharacter> specialNPC, String input, ParserTag... tags) {
 		return parse(specialNPC, input, true, tags);
@@ -914,8 +915,14 @@ public class UtilText {
 							closeBrackets++;
 							
 							if (openBrackets == closeBrackets) {
-								if (command == null) {
-									command = sb.toString().substring(2); // Cut off the '[#' at the start.
+								if(command == null) {
+									if(sb.charAt(2)=='#') {
+										suppressOutput = true;
+										command = sb.toString().substring(3); // Cut off the '[##' at the start.
+									} else {
+										suppressOutput = false;
+										command = sb.toString().substring(2); // Cut off the '[#' at the start.
+									}
 									sb.setLength(0);
 								}
 			
@@ -925,25 +932,15 @@ public class UtilText {
 					}
 				}
 				
-				//TODO
 				if (openBrackets>0 && ((target!=null && command!=null) || (!Character.isWhitespace(c) || c==' '))) {
-						//(Character.isLetterOrDigit(c) || c=='+' || c=='.' || c=='[' || c=='(' || c==')'))) {
-					//String.valueOf(c).matches(".") || c!=' ')) {
 					sb.append(c);
 				}
 				
 				if (endIndex != 0) {
 					resultBuilder.append(input.substring(startedParsingSegmentAt, startIndex));
 					UtilText.specialNPCList = new ArrayList<>(specialNPC);
-//					if(Main.game.isInSex()) {
-//						for(GameCharacter character : specialNPC) {
-//							System.out.print(character.getName()+" ");
-//						}
-//					}
-					// resetParsingEngine();
 					String subResult = currentParseMode == ParseMode.CONDITIONAL
 							? parseConditionalSyntaxNew(conditionals)
-//									parseConditionalSyntaxNew(conditionalStatement, conditionalTrue, conditionalFalse)
 							: parseSyntaxNew(target, command, arguments, currentParseMode);
 					if (openBrackets > 1) {
 						subResult = parse(new ArrayList<>(specialNPC), subResult, false);
@@ -954,23 +951,19 @@ public class UtilText {
 					}
 					resultBuilder.append(subResult);
 					startedParsingSegmentAt = endIndex + 1;
-					//This is the lamest version of recursion unrolling there is:
-					//just reset all your variables by hand.
+					//This is the lamest version of recursion unrolling there is: just reset all your variables by hand.
 					sb = new StringBuilder();
 					
 					openBrackets = 0;
 					closeBrackets = 0;
 					openArg = 0;
 					closeArg = 0;
-//					conditionalThens = 0;
 					startIndex = 0;
 					endIndex = 0;
 					
 					target = null;
 					command = null;
 					arguments = null;
-//					conditionalTrue = null;
-//					conditionalFalse = null;
 					conditionalStatement = null;
 					conditionals = null;
 					conditionalOpenBrackets = 0;
@@ -6148,6 +6141,10 @@ public class UtilText {
 			}
 			
 			try {
+				if(suppressOutput) {
+					engine.eval(command);
+					return "";
+				}
 				return String.valueOf(engine.eval(command));
 				
 			} catch (ScriptException e) {
@@ -6193,6 +6190,9 @@ public class UtilText {
 
 
 		String output = cmd.parse(command, arguments, target, character);
+		if(suppressOutput) {
+			return "";
+		}
 		parseCapitalise = parseCapitalise && cmd.isAllowsCapitalisation();
 		parseAddPronoun = parseAddPronoun && cmd.isAllowsPronoun();
 		

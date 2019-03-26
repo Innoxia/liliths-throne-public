@@ -203,7 +203,7 @@ public class Sex {
 	private static Map<GameCharacter, Map<GameCharacter, Map<SexType, Integer>>> sexCountMap;
 	private static Map<GameCharacter, Map<GameCharacter, Integer>> cummedInsideMap;
 
-	// Positioning and requests:
+	// Positioning, requests, tracking:
 	private static Map<GameCharacter, List<SexType>> requestsBlocked;
 	private static PositioningData positionRequest;
 	private static Set<GameCharacter> charactersBannedFromPositioning;
@@ -211,6 +211,8 @@ public class Sex {
 	private static Set<GameCharacter> charactersSelfActionsBlocked;
 	private static Set<GameCharacter> charactersDeniedOrgasm;
 	private static Map<GameCharacter, SexControl> forcedSexControlMap;
+
+	private static Set<GameCharacter> charactersGrewCock;
 
 	private static Value<GameCharacter, Class<? extends BodyPartInterface>> creampieLockedBy;
 	
@@ -367,6 +369,7 @@ public class Sex {
 		
 		charactersSelfActionsBlocked = new HashSet<>();
 		charactersDeniedOrgasm = new HashSet<>();
+		charactersGrewCock = new HashSet<>();
 		
 		forcedSexControlMap = new HashMap<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
@@ -667,8 +670,8 @@ public class Sex {
 			}
 		}
 		
-		if(SexFlags.playerGrewDemonicCock) {
-			Main.game.getPlayer().setPenisType(PenisType.NONE);
+		for(GameCharacter character : Sex.getCharactersGrewCock()) {
+			character.setPenisType(PenisType.NONE);
 		}
 	}
 
@@ -1814,14 +1817,14 @@ public class Sex {
 		}
 		
 		// Base lust gains are based on arousal gains:
-		if(Sex.getSexPace(activeCharacter)==SexPace.SUB_RESISTING) {
+		if(Sex.getSexPace(activeCharacter)==SexPace.SUB_RESISTING && !activeCharacter.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
 			lustIncrements.put(activeCharacter, -2.5f);
 		} else {
 			lustIncrements.put(activeCharacter, Math.min(2.5f, Math.max(-2.5f, sexAction.getArousalGainSelf().getArousalIncreaseValue())));
 		}
 		lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + (activeCharacter.getAffection(targetCharacter)/40)); //+-2.5
 		
-		if(Sex.getSexPace(targetCharacter)==SexPace.SUB_RESISTING) {
+		if(Sex.getSexPace(targetCharacter)==SexPace.SUB_RESISTING && !targetCharacter.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
 			lustIncrements.put(targetCharacter, -2.5f);
 		} else {
 			lustIncrements.put(targetCharacter, Math.min(2.5f, Math.max(-2.5f, sexAction.getArousalGainTarget().getArousalIncreaseValue())));
@@ -1843,7 +1846,7 @@ public class Sex {
 		}
 
 		// Arousal increments for related fetishes:
-		if(sexAction.getFetishes(activeCharacter)!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING) {
+		if(sexAction.getFetishes(activeCharacter)!=null) {// && sexAction.getSexPace()!=SexPace.SUB_RESISTING) {
 			for(Fetish f : sexAction.getFetishes(activeCharacter)) {
 				if(activeCharacter.hasFetish(f)) {
 					arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + activeCharacter.getFetishLevel(f).getBonusArousalIncrease());
@@ -1873,19 +1876,50 @@ public class Sex {
 		
 		// Increment lust:
 		for(Entry<GameCharacter, Float> entry : lustIncrements.entrySet()) {
-			if(sexAction.getActionType().isOrgasmOption() && entry.getKey().equals(activeCharacter)) { // Lose 50% lust when orgasm, making sure that lust doesn't fall into resisting range:
-				float lustLoss = (entry.getKey().getLust()/2);
-				if(Sex.getSexPace(activeCharacter)!=SexPace.SUB_RESISTING && !Sex.isDom(activeCharacter) && entry.getKey().getLust()-lustLoss < Math.min(entry.getKey().getLust(), LustLevel.ONE_HORNY.getMinimumValue()+5)) {
-					entry.getKey().setLust(Math.min(entry.getKey().getLust(), LustLevel.ONE_HORNY.getMinimumValue()+5));
-				} else {
+			if(Sex.getSexPositionSlot(activeCharacter)!=SexSlotGeneric.MISC_WATCHING || entry.getKey().equals(activeCharacter)) { // Spectators only influence themselves.
+				if(sexAction.getActionType().isOrgasmOption() && entry.getKey().equals(activeCharacter)) { // Orgasm actions causes lust to drop:
+					float lustLoss = 50;
+					
+					if(activeCharacter.hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If vulnerable to storm, lust does not drop.
+						lustLoss=0;
+						
+					} else {
+						if(activeCharacter.isAttractedTo(targetCharacter)) { // -50% loss if attracted.
+							lustLoss*=0.5f;
+						}
+						if(activeCharacter.hasStatusEffect(StatusEffect.PSYCHOACTIVE)) { // -75% loss if on drugs.
+							lustLoss*=0.25f;
+						}
+						switch(activeCharacter.getAffectionLevelBasic(targetCharacter)) { // -50% loss if positive affection, +50% increase if negative affection.
+							case DISLIKE:
+								lustLoss*=1.5f;
+								break;
+							case LIKE:
+								lustLoss*=0.5f;
+								break;
+							case NEUTRAL:
+								break;
+						}
+					}
+					
+					// This was to limit lust loss falling into resist bracket. (May need to be restored?)
+	//				if(Sex.getSexPace(activeCharacter)!=SexPace.SUB_RESISTING && !Sex.isDom(activeCharacter) && entry.getKey().getLust()-lustLoss < Math.min(entry.getKey().getLust(), LustLevel.ONE_HORNY.getMinimumValue()+5)) {
+	//					entry.getKey().setLust(Math.min(entry.getKey().getLust(), LustLevel.ONE_HORNY.getMinimumValue()+5));
+	//				} else {
+	//					entry.getKey().incrementLust(-lustLoss, false);
+	//				}
+					
 					entry.getKey().incrementLust(-lustLoss, false);
-				}
-				
-			} else {
-				if(Sex.getSexPace(entry.getKey())==SexPace.SUB_RESISTING && !entry.getKey().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
-					entry.getKey().incrementLust(Math.min(5, entry.getValue()), false);
+					
 				} else {
-					entry.getKey().incrementLust(entry.getValue(), false);
+					float lustValue = entry.getValue();
+					entry.getKey().incrementLust(Math.max(-2.5f, Math.min(2.5f, lustValue)), false);
+					
+	//				if(Sex.getSexPace(entry.getKey())==SexPace.SUB_RESISTING && !entry.getKey().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
+	//					entry.getKey().incrementLust(Math.min(5, entry.getValue()), false);
+	//				} else {
+	//					entry.getKey().incrementLust(entry.getValue(), false);
+	//				}
 				}
 			}
 		}
@@ -2042,12 +2076,12 @@ public class Sex {
 					|| Sex.getCharacterPerformingAction().hasVagina()
 					|| Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())>0) {
 				incrementNumberOfOrgasms(Sex.getCharacterPerformingAction(), 1);
-				Sex.getCharacterPerformingAction().setArousal(0);
+				Sex.getCharacterPerformingAction().setArousal(Sex.getCharacterPerformingAction().getLust()/4f);
 				Sex.getCharacterPerformingAction().applyOrgasmCumEffect();
 				
 			} else {
 				incrementNumberOfOrgasms(Sex.getCharacterPerformingAction(), 1);
-				Sex.getCharacterPerformingAction().setArousal(20);
+				Sex.getCharacterPerformingAction().setArousal(Sex.getCharacterPerformingAction().getLust()/2f);
 				Sex.getCharacterPerformingAction().addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, (4*60*60)+(postSexDialogue.getSecondsPassed()));
 				stringBuilderForAppendingDescriptions.append(UtilText.parse(Sex.getCharacterPerformingAction(),
 						"<p style='text-align:center'>Without producing any cum, [npc.namePos] climax can't be counted as a real orgasm, and makes [npc.name] feel [style.boldBad(frustrated and horny)]!</p>"));
@@ -4387,6 +4421,14 @@ public class Sex {
 	
 	public static boolean removeCharacterDeniedOrgasm(GameCharacter character) {
 		return charactersDeniedOrgasm.remove(character);
+	}
+
+	public static Set<GameCharacter> getCharactersGrewCock() {
+		return charactersGrewCock;
+	}
+
+	public static void setCharactersGrewCock(Set<GameCharacter> charactersGrewCock) {
+		Sex.charactersGrewCock = charactersGrewCock;
 	}
 	
 }

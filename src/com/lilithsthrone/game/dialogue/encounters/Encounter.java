@@ -887,7 +887,7 @@ public enum Encounter {
 	};
 
 	private static List<NPC> UnspawnedChildren(Predicate<NPC> matcher) {
-		List<NPC> offspringAvailable = Main.game.getOffspring().stream().filter(npc -> !npc.isSlave())
+		List<NPC> offspringAvailable = Main.game.getOffspring(false).stream().filter(npc -> !npc.isSlave())
 										.filter(npc -> npc.getWorldLocation()==WorldType.EMPTY)
 										.filter(npc -> npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE)
 										.filter(matcher).collect(Collectors.toList());

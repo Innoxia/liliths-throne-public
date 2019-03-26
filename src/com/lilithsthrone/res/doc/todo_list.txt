@@ -125,16 +125,32 @@
 	
 	Patch notes:
 	
+	Engine:
+		Refactored inventory code to address issue with selling of huge stacks of items causing the game to crash. It will also have sped up normal inventory interactions, but probably by an unnoticable amount.
+		Added support for inline scripting methods to suppress output (use two hash symbols (##) at the start of an inline parsing statement instead of one (#) to suppress output Strings).
+		Added xml definition files for patterns, so that names and default pattern booleans can be defined.
+	
 	Gameplay:
 	
+	Sex:
+		Base loss after orgasming changed from a flat -50% to a variable amount based on arcane storm vulnerability (negates all lust loss), attraction (50% reduction/increase), psychoactive fluid ingestion (75% reduction), and affection (50% reduction/50% increase).
+		Stabilised lust changes by limiting it to +/-2.5 for each character on every character's turn (meaning that it has a maximum change of +/-5 per turn with 2 non-spectator participants, but +/-7.5 per turn with 3 non-spectator participants).
+		Removed restriction that was preventing two futa characters from simultaneously fucking one another.
+		Orgasming no longer resets arousal to 0, but instead to 25% of the cahracter's lust value.
+	
 	Other:
-		<b>Altered:</b> Cum and milk regeneration is no longer based ona  percentage of maximum storage, and is instead a fixed value from 0-1,000,000mL per day. As part of this change, regeneration values will be reset to default values when you load in.
+		<b>Altered:</b> Cum and milk regeneration is no longer based on a percentage of maximum storage, and is instead a fixed value from 0-1,000,000mL per day. As part of this change, regeneration values will be reset to default values when you load in.
 		Added milk regeneration, milk flavour, cum regeneration, cum flavour, cum expulsion, and girlcum flavour to transform menu.
 		Compacted and reorganised the self-transform menu UI, added tooltips to help explain what each part affects, and added nipple shape as a self-transform option.
 		Added three more lip sizes, all of which are large enough to cause the character to speak with a lisp.
 		Added 'Horn grab' for when fucking someone in the doggy-style position (similar to 'Twintails pull' and 'Ear pull').
 		Added 'Twintails pull', 'Ear pull', and 'Horn grab' to dominant cunnilingus actions.
 		Inventory is no longer disabled in Lyssieth's nor Merxais's office.
+		Moved all socks and rainbow clothing set items out into the external res folder.
+		Defined prostitue clothing in outfit files.
+		NPCs who are vulnerable to arcane storms (and who are out in an arcane storm) now require 2 orgasms to be satisfied during sex instead of 1.
+		Imps now require 1 orgasm to be satisfied, instead of 3.
+		Added 'pitch black' colour for covering types. (Available for skin, hair, horns, antlers, fur, and scales.)
 	
 	Bugs:
 		Start of pregnancy now correctly expels all fluids from vagina & vaginal urethra, and fluid storage in those orifices for a pregnant character is now limited to 250ml.
@@ -145,28 +161,47 @@
 		Parsing fixes.
 		Fixed issue with demon attackers in Dominion's alleyways sometimes having nonsensical fetishes.
 		Fixed issue with the 'Molest' action on slaves not applying affection changes as described in the text.
+		Fixed uncommon bug where items of clothing could sometimes appear in random tiles.
+		Taurs will no longer spawn wearing shoes or socks.
+		Cross-dressing muggers will now correctly wear outfits appropriate for that fetish.
+		Characters who grow a slime or demonic cock in sex should now correctly self-transform it away after sex ends.
+		Pattern names for polka dots no longer read awkwardly. (e.g. 'polka dots big' has been changed to 'big polka-dotted'.)
+		Fixed minor lore inconsistency in the intro regarding the arcane.
+		Fixed inconsistent application of crotch-boob/udders content option. This option will now correctly only influence crotch-boob/udder creation on newly-spawned NPCs, and will not retroactively affect NPCs who already have crotch-boobs, nor interfere with TF potions that add/remove crotch-boobs.
+		Fixed rare bug where sometimes characters would not load in correctly.
+		Fixed issue with Elizabeth and her guards (outside Lyssieth's palace) not showing up in the 'characters present' box.
+		Disabled ability to overwrite save files when not in a tile's default scene (as this was causing a huge number of issues upon loading).
+		Fixed bug where NPCs with the 'unwilling fuck toy' fetish would lose lust in non-con sex.
+		Fixed issue with sex scenes never stopping if you were a spectator.
+		Fixed issue with half-demons giving birth to random half-demon subspecies.
 	
 	
 	
 	
-	Optimise the selling of huge stacks of items
 	
-	Add support for [##methods] and [//methods] to suppress output
 	
-	taurs spawning with shoes
-		Suggestion: Taurs favor clothing items/sets that don't cover their paws and either stick with thigh highs or no socks at all to bring them in line with most tauric porn depictions
+	npc.patch
 	
-	Dunno if bug or not, but demon/half-demon slaves no longer lose their dicks after being told to grow one during sex.
+	discord bugs
 	
-	Lilaya's description of the arcane is also contradicted pretty heavily.
-	Elemental Magic doesn't seem to have any tie whatsoever to your lust, being just as powerful for a Pure character as a Corrupt one. It's the Arcane "school" that runs on lust.
+	Finish orgasm denial scenes.
+	    - Add sex action(s).
+	    	Need variations for ongoing penetration or not
+	    	BDSM set effect - cannot perform any sex actions when a sub
+	    - Add variations for if chastity belt/cage is being worn.
 	
-	Also lust is dropping in cases it shouldn't like unwilling fuck toy fetish npcs resisting
+	change weapon damage types
 	
-	crotch boobs for greater anthros only generated. Show for all if they actually have them
+	need missionary oral position
 	
-	i let my companion fuck her while i watched
-		Theyve both surpassed the min orgasm limit and are still going at it
+	4. Add a centaur field exploration encounter.
+	    - Tidy up encounter code.
+	need a 'rampaging Lunette' status effect
+	    - Enable movement over field tiles.
+	    - Add dialogue framework.
+	    - Write dialogue.
+	    - Test.
+	
 	
 	
 	
@@ -178,49 +213,11 @@
 		tongue length/mods and lips/throat mods need to affect sex 
 		Need oral actions cum eating descriptions & effects
 	
-	By the way you need to rework the Lilaya pregnancy stuff a bit
-	She shouldn't react as horribly if you're wearing a condom for example
-	And she also shouldn't react much if something indirectly leads to pregnancy
-	
-	>"As X is an unique character, who isn't your slave, you can't force her to wear X clothing"
-	>"You try to give the potion to X but she refuses, you put it back in the inventory" 
-	>no longer dedicking shit futa characters
-	>no longer giving them better fetishes 
-	>no longer removing their disgusting furryness
-	?????
-	what matter of bullshit is this? I won in combat i should be able to do whatever i want with the character, but the "unique" character is protected lol.
-	wtf inno
-	
-	>keeping NPCs with plot armor to prevent them from being modified
-	>implying they don't act like generic ncps in sex regardless (good boy!)
-	>implying that furry shit makes them "unique" and that's fine to have them when they're cancer.
-	>implying that adding a dick on a woman isn't gay as fuck with no option to remove it.
-	>implying that i shouldn't be able to do whatever the hell i want to a character beaten in combat.
-	>implyig that we can avoid transformations if we lose instead when it's forced no matter what.
-	nice try inno, next time make them so we can customize them instead of being forced to see 100% furryshit npcs when i don't want them, for example why can't i fuck the aunt while she's pregnant anymore?
-	Why the fuck imps are so idiotic? they shouldn't be able to have 100% of demon transformations or potion immunity, they are nothing more than midget demons when they should be unable to transform or anything, they should be weak period.
-	bug: if you go in the demon race and then you try 100% human again, you are still branded as half demon.
-
-	
-	Suggestion: Orgasms desired should be doubled during an arcane storm
-	imp gang bang orgasm limit is insane
-	
-	
-	Black and jet black skin colours
-	
-	npc.patch
-	
-	>disable furry
-	>human half-succubus gives birth to furries
-	I should have mentioned it in my bug report but yes it was while Lilaya was half demon, that children conceived with her were randomized.
-	
 	need to incorporate outfit logic into clothing and weapon types
 		add effects modding
 	
 	Another thing you really ought to do is make it so you don't have to "stop" one action to start another except as a sub with a rough paced dom
 		Needs dialogue for stop pen and into other action
-	
-	optimise endturn iterations over NPCs
 	
 	calculateSexTypeWeighting
 		Should be neutral if both like and dislike related fetishes. Adjust sex lust increments based on this as well
@@ -242,40 +239,12 @@
 		she falls in love with him
 		you get the crown of roses as a reward
 	
-	discord bugs
-	
-	
-	
-	
-	
-	
-	
-	Finish orgasm denial scenes.
-	    - Add sex action(s).
-	    	Need variations for ongoing penetration or not
-	    	BDSM set effect - cannot perform any sex actions when a sub
-	    - Add variations for if chastity belt/cage is being worn.
-	
-	change weapon damage types
-	
-	need missionary oral position
-	
-	4. Add a centaur field exploration encounter.
-	    - Tidy up encounter code.
-	need a 'rampaging Lunette' status effect
-	    - Enable movement over field tiles.
-	    - Add dialogue framework.
-	    - Write dialogue.
-	    - Test.
-	
 	my Horse Morph Damage Bonus should never go over +5% even if I find another Equine Encyclopedia and read it?
 		Specifically I'm occasionally (very occasionally, doesn't affect all books) able to reread books that I've already read. I've had it happen with more than just Equine Encyclopedia. No idea what the specific trigger is, but there were a few ingame days between each instance
 	
 	need extra strong seal, which prevents all displacements
 	
 	plans still for being able to masturbate the other partner through their clothes if you are dominant
-	
-	message K
 	
 	Bug: 0.3.1.1: Sex-equip enabled items can be enchanted with "Enslave", but equipping them during sex does not enslave the wearer.
 	

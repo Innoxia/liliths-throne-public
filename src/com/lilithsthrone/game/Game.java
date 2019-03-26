@@ -463,7 +463,8 @@ public class Game implements XMLSaving {
 				}
 			} catch(Exception ex) {
 				System.err.println("XML writing failed!");
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "XML writing failure"), false);
+				ex.printStackTrace();
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail</span>", "XML writing failure"), false);
 			}
 			
 			if(timeLog) {
@@ -565,7 +566,7 @@ public class Game implements XMLSaving {
 				}
 				
 				if(debug) {
-					System.out.println("Core info finished");
+					System.out.println("Core info finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
 				
 				// Maps:
@@ -644,13 +645,13 @@ public class Game implements XMLSaving {
 				}
 				
 				if(debug) {
-					System.out.println("Maps finished");
+					System.out.println("Maps finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
 				
 				Main.game.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
 
 				if(debug) {
-					System.out.println("Player finished");
+					System.out.println("Player finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
 
 				// Load NPCs:
@@ -706,8 +707,9 @@ public class Game implements XMLSaving {
 								System.err.println("duplicate character attempted to be imported");
 							}
 						});
+				
 				if(debug) {
-					System.out.println("NPCs finished");
+					System.out.println("NPCs finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
 
 				
@@ -3063,13 +3065,13 @@ public class Game implements XMLSaving {
 		}
 	}
 
-	public List<NPC> getOffspring() {
+	public List<NPC> getOffspring(boolean includeNotBorn) {
 		List<NPC> offspring = new ArrayList<>();
 		
 		for(NPC npc : NPCMap.values()) {
 			if((npc.getMother()!=null && npc.getMother().isPlayer()) || (npc.getFather()!=null && npc.getFather().isPlayer())) {
 				if(npc.getMother()!=null) {
-					if(npc.getMother().getPregnantLitter() == null || !npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
+					if(includeNotBorn || npc.getMother().getPregnantLitter()==null || !npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 						offspring.add(npc);
 					}
 				} else {
@@ -3082,7 +3084,7 @@ public class Game implements XMLSaving {
 	}
 	
 	public List<NPC> getOffspringSpawned() {
-		List<NPC> offspringSpawned = new ArrayList<>(getOffspring());
+		List<NPC> offspringSpawned = new ArrayList<>(getOffspring(false));
 		
 		offspringSpawned.removeIf(npc -> npc.getWorldLocation()==WorldType.EMPTY);
 		

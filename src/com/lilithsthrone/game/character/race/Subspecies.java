@@ -2863,7 +2863,7 @@ public enum Subspecies {
 				if(character!=null && character.isPlayer()) { // The player is a special case, as they are the only 'demon' that can take on any form.
 					return Subspecies.DEMON;
 				}
-				if(body.getRaceStage()!=RaceStage.GREATER || body.getRaceFromPartWeighting(true)!=Race.DEMON) {
+				if(body.getRaceStage()!=RaceStage.GREATER) {// || body.getRaceFromPartWeighting(true)!=Race.DEMON) {
 					return Subspecies.HALF_DEMON;
 				} else if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
 					return Subspecies.IMP;
@@ -3190,9 +3190,12 @@ public enum Subspecies {
 	public static Body getPreGeneratedBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
 		Subspecies motherSubspecies = mother.getSubspecies(); //Subspecies.getFleshSubspecies(mother);
 		Subspecies fatherSubspecies = father.getSubspecies(); //Subspecies.getFleshSubspecies(father);
+		
 		if(startingGender==null) {
 			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
 		}
+		
+//		System.out.println(motherSubspecies.getName(mother));
 		
 		switch(motherSubspecies) {
 			case ELDER_LILIN:
@@ -3582,7 +3585,7 @@ public enum Subspecies {
 	}
 
 	public String getHalfDemonSVGString(GameCharacter character) {
-		if(character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().equals(Subspecies.DEMON)) {
+		if(character!=null && character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().equals(Subspecies.DEMON)) {
 			return getBipedBackground(demonSVGString, character, Colour.RACE_DEMON);
 		} else {
 			return getBipedBackground(halfDemonSVGString, character, Colour.RACE_HALF_DEMON);

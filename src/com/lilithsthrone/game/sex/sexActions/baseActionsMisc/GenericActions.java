@@ -17,7 +17,6 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
-import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
@@ -185,7 +184,7 @@ public class GenericActions {
 
 		@Override
 		public String applyEffectsString() {
-			SexFlags.playerGrewDemonicCock = true;
+			Sex.getCharactersGrewCock().add(Main.game.getPlayer());
 			
 			StringBuilder sb = new StringBuilder();
 			if(Main.game.getPlayer().getRace()==Race.DEMON) {
@@ -257,6 +256,8 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharactersGrewCock().add(Sex.getCharacterTargetedForSexAction(this));
+			
 			if(Sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON) {
 				Sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON);
 			} else {

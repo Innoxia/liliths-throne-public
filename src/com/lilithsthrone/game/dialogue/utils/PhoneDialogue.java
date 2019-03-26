@@ -1148,7 +1148,7 @@ public class PhoneDialogue {
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Sons", Colour.MASCULINE.toWebHexString(), sonsFathered);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Daughters", Colour.FEMININE.toWebHexString(), daughtersFathered);
 
-			for (NPC npc : Main.game.getOffspring()) {
+			for (NPC npc : Main.game.getOffspring(false)) {
 				childrenMet += ChildMet(npc) ? 1 : 0;
 			}
 			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
@@ -1169,7 +1169,7 @@ public class PhoneDialogue {
 					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th><th>You are their:</th></tr>"
 					+ "<tr style='height:8px;'></tr>");
 			
-			for(NPC npc : Main.game.getOffspring()) {
+			for(NPC npc : Main.game.getOffspring(false)) {
 				OffspringTableLine(UtilText.nodeContentSB, npc);
 			}
 			

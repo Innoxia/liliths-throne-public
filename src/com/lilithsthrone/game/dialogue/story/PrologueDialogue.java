@@ -704,10 +704,9 @@ public class PrologueDialogue {
 					@Override
 					public void effects() {
 						// Equip clothing:
-						List<AbstractClothing> tempList = new ArrayList<>();
-						tempList.addAll(Main.game.getPlayerCell().getInventory().getAllClothingInInventory());
+						List<AbstractClothing> tempList = new ArrayList<>(Main.game.getPlayerCell().getInventory().getAllClothingInInventory().keySet());
 
-						for (AbstractClothing c : tempList) {
+						for(AbstractClothing c : tempList) {
 							if(!c.getClothingType().equals(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES)) {
 								Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
 							}

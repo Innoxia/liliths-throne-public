@@ -173,7 +173,7 @@ public class Cultist extends NPC {
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
-		clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_sock_thighhigh_socks"));
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
 
 		equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", witchColour, false), true, this);

@@ -204,7 +204,7 @@ public class Loppy extends NPC {
 		this.unequipAllClothingIntoVoid(true);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_LOWBACK_BODY, Colour.CLOTHING_PURPLE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_pantyhose", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_stiletto_heels", Colour.CLOTHING_PURPLE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_COLLAR_BOWTIE, Colour.CLOTHING_PURPLE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_SUIT_CUFFS, false), true, this);

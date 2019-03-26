@@ -1,10 +1,11 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -267,7 +268,7 @@ public class InventoryDialogue {
 								public void effects(){
 									responseSB.setLength(0);
 
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory());
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory().keySet());
 									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
 									Set<InventorySlot> slotsTaken = new HashSet<>();
 
@@ -306,24 +307,14 @@ public class InventoryDialogue {
 								return new Response("Take all", "Pick up everything on the ground.", INVENTORY_MENU){
 									@Override
 									public void effects(){
-										//TODO if this starts printing it will complain about the player's inventory being full
-										//TODO optimize (what if someone stores a thousand panties somewhere?)
-										int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
-										while(i > 0) {
-											Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true, true);
-											i--;
+										for(Entry<AbstractItem, Integer> entry : new HashMap<>(Main.game.getPlayerCell().getInventory().getAllItemsInInventory()).entrySet()) {
+											Main.game.getPlayer().addItem(entry.getKey(), entry.getValue(), true, true);
 										}
-
-										i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
-										while(i > 0) {
-											Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
-											i--;
+										for(Entry<AbstractWeapon, Integer> entry : new HashMap<>(Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory()).entrySet()) {
+											Main.game.getPlayer().addWeapon(entry.getKey(), entry.getValue(), true, true);
 										}
-
-										i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
-										while(i > 0) {
-											Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
-											i--;
+										for(Entry<AbstractClothing, Integer> entry : new HashMap<>(Main.game.getPlayerCell().getInventory().getAllClothingInInventory()).entrySet()) {
+											Main.game.getPlayer().addClothing(entry.getKey(), entry.getValue(), true, true);
 										}
 									}
 								};
@@ -337,39 +328,29 @@ public class InventoryDialogue {
 								return new Response("Take all", UtilText.parse(inventoryNPC, "Take everything from [npc.namePos] inventory."), INVENTORY_MENU){
 									@Override
 									public void effects(){
-										//TODO if this starts printing it will complain about the player's inventory being full
-										//TODO optimize (what if someone stores a thousand panties somewhere?)
-										int i = inventoryNPC.getAllItemsInInventory().size();
-										while(i > 0) {
+										for(Entry<AbstractItem, Integer> entry : new HashMap<>(inventoryNPC.getAllItemsInInventory()).entrySet()) {
 											if(!Main.game.getPlayer().isInventoryFull()
-													|| Main.game.getPlayer().hasItem(inventoryNPC.getAllItemsInInventory().get(i-1))
-													|| inventoryNPC.getAllItemsInInventory().get(i-1).getRarity()==Rarity.QUEST) {
-												Main.game.getPlayer().addItem(inventoryNPC.getAllItemsInInventory().get(i-1), false, true);
-												inventoryNPC.removeItem(inventoryNPC.getAllItemsInInventory().get(i-1));
+													|| Main.game.getPlayer().hasItem(entry.getKey())
+													|| entry.getKey().getRarity()==Rarity.QUEST) {
+												inventoryNPC.removeItem(entry.getKey(), entry.getValue());
+												Main.game.getPlayer().addItem(entry.getKey(), entry.getValue(), true, true);
 											}
-											i--;
 										}
-
-										i = inventoryNPC.getAllClothingInInventory().size();
-										while(i > 0) {
+										for(Entry<AbstractClothing, Integer> entry : new HashMap<>(inventoryNPC.getAllClothingInInventory()).entrySet()) {
 											if(!Main.game.getPlayer().isInventoryFull()
-													|| Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))
-													|| inventoryNPC.getAllClothingInInventory().get(i-1).getRarity()==Rarity.QUEST) {
-												Main.game.getPlayer().addClothing(inventoryNPC.getAllClothingInInventory().get(i-1), true);
-												inventoryNPC.removeClothing(inventoryNPC.getAllClothingInInventory().get(i-1));
+													|| Main.game.getPlayer().hasClothing(entry.getKey())
+													|| entry.getKey().getRarity()==Rarity.QUEST) {
+												inventoryNPC.removeClothing(entry.getKey(), entry.getValue());
+												Main.game.getPlayer().addClothing(entry.getKey(), entry.getValue(), true, true);
 											}
-											i--;
 										}
-
-										i = inventoryNPC.getAllWeaponsInInventory().size();
-										while(i > 0) {
+										for(Entry<AbstractWeapon, Integer> entry : new HashMap<>(inventoryNPC.getAllWeaponsInInventory()).entrySet()) {
 											if(!Main.game.getPlayer().isInventoryFull()
-													|| Main.game.getPlayer().hasWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1))
-													|| inventoryNPC.getAllWeaponsInInventory().get(i-1).getRarity()==Rarity.QUEST) {
-												Main.game.getPlayer().addWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1), true);
-												inventoryNPC.removeWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1));
+													|| Main.game.getPlayer().hasWeapon(entry.getKey())
+													|| entry.getKey().getRarity()==Rarity.QUEST) {
+												inventoryNPC.removeWeapon(entry.getKey(), entry.getValue());
+												Main.game.getPlayer().addWeapon(entry.getKey(), entry.getValue(), true, true);
 											}
-											i--;
 										}
 									}
 								};
@@ -447,7 +428,7 @@ public class InventoryDialogue {
 							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory());
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory().keySet());
 									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
 									Set<InventorySlot> slotsTaken = new HashSet<>();
 
@@ -588,24 +569,14 @@ public class InventoryDialogue {
 							return new Response("Take all", "Pick up everything on the ground.", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									//TODO if this starts printing it will complain about the player's inventory being full
-									//TODO optimize (what if someone stores a thousand panties somewhere?)
-									int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
-									while(i > 0) {
-										Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true, true);
-										i--;
+									for(Entry<AbstractItem, Integer> entry : new HashMap<>(Main.game.getPlayerCell().getInventory().getAllItemsInInventory()).entrySet()) {
+										Main.game.getPlayer().addItem(entry.getKey(), entry.getValue(), true, true);
 									}
-
-									i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
-									while(i > 0) {
-										Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
-										i--;
+									for(Entry<AbstractWeapon, Integer> entry : new HashMap<>(Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory()).entrySet()) {
+										Main.game.getPlayer().addWeapon(entry.getKey(), entry.getValue(), true, true);
 									}
-
-									i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
-									while(i > 0) {
-										Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
-										i--;
+									for(Entry<AbstractClothing, Integer> entry : new HashMap<>(Main.game.getPlayerCell().getInventory().getAllClothingInInventory()).entrySet()) {
+										Main.game.getPlayer().addClothing(entry.getKey(), entry.getValue(), true, true);
 									}
 								}
 							};
@@ -682,7 +653,7 @@ public class InventoryDialogue {
 							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory());
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory().keySet());
 									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
 									Set<InventorySlot> slotsTaken = new HashSet<>();
 
@@ -2419,7 +2390,7 @@ public class InventoryDialogue {
 					} else if (index==4) {
 						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
-							boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
+							boolean isDyeingStackItem = Main.game.getPlayer().getAllWeaponsInInventory().get(weapon) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
 								return new Response("Dye",
@@ -2616,7 +2587,7 @@ public class InventoryDialogue {
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
-									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
+									boolean isDyeingStackItem = Main.game.getPlayer().getAllWeaponsInInventory().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
 										return new Response("Dye",
@@ -2805,7 +2776,7 @@ public class InventoryDialogue {
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
-									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
+									boolean isDyeingStackItem = Main.game.getPlayer().getAllWeaponsInInventory().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
 										return new Response("Dye", 
@@ -2942,7 +2913,7 @@ public class InventoryDialogue {
 					} else if (index==4) {
 						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							boolean hasFullInventory = Main.game.getPlayerCell().getInventory().isInventoryFull();
-							boolean isDyeingStackItem = Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().get(weapon) > 1;
+							boolean isDyeingStackItem = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().get(weapon) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
 								return new Response("Dye", 
@@ -3078,7 +3049,7 @@ public class InventoryDialogue {
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = inventoryNPC.isInventoryFull();
-									boolean isDyeingStackItem = inventoryNPC.getMapOfDuplicateWeapons().get(weapon) > 1;
+									boolean isDyeingStackItem = inventoryNPC.getAllWeaponsInInventory().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
 										return new Response("Dye", 
@@ -3444,7 +3415,7 @@ public class InventoryDialogue {
 					} else if (index==4) {
 						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && clothing.getRarity()!=Rarity.QUEST;
-							boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
+							boolean isDyeingStackItem = Main.game.getPlayer().getAllClothingInInventory().get(clothing) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
 								return new Response("Dye",
@@ -3637,7 +3608,7 @@ public class InventoryDialogue {
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
-									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
+									boolean isDyeingStackItem = Main.game.getPlayer().getAllClothingInInventory().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
 										return new Response("Dye",
@@ -3916,7 +3887,7 @@ public class InventoryDialogue {
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && clothing.getRarity()!=Rarity.QUEST;
-									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
+									boolean isDyeingStackItem = Main.game.getPlayer().getAllClothingInInventory().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
 										return new Response("Dye", 
@@ -4145,7 +4116,7 @@ public class InventoryDialogue {
 					} else if (index==4) {
 						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							boolean hasFullInventory = Main.game.getPlayerCell().getInventory().isInventoryFull();
-							boolean isDyeingStackItem = Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().get(clothing) > 1;
+							boolean isDyeingStackItem = Main.game.getPlayerCell().getInventory().getAllClothingInInventory().get(clothing) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
 								return new Response("Dye", 
@@ -4276,7 +4247,7 @@ public class InventoryDialogue {
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = inventoryNPC.isInventoryFull();
-									boolean isDyeingStackItem = clothing!=null && inventoryNPC.getMapOfDuplicateClothing().get(clothing) > 1;
+									boolean isDyeingStackItem = clothing!=null && inventoryNPC.getAllClothingInInventory().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
 										return new Response("Dye", 
@@ -6289,8 +6260,8 @@ public class InventoryDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-												?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
-														+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 												:"You have <b>0</b> dye-brushes left!")
 									+ "</p>");
 							
@@ -6380,8 +6351,8 @@ public class InventoryDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-												?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
-														+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 												:"You have <b>0</b> dye-brushes left!")
 									+ "</p>");
 							
@@ -6541,8 +6512,8 @@ public class InventoryDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-												?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
-														+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 												:"You have <b>0</b> dye-brushes left!")
 									+ "</p>");
 							
@@ -6616,8 +6587,8 @@ public class InventoryDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-												?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
-														+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 												:"You have <b>0</b> dye-brushes left!")
 									+ "</p>");
 							
@@ -6763,51 +6734,28 @@ public class InventoryDialogue {
 	
 	private static void transferItems(GameCharacter from, GameCharacter to, AbstractItem item, int count) {
 		if (!to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
-			
-			List<AbstractItem> items = from.getAllItemsInInventory().stream()
-				.filter(item::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				to.addItem(items.get(i), false, to.isPlayer());
-				from.removeItem(items.get(i));
-			}
+			from.removeItem(item, count);
+			to.addItem(item, count, to.isPlayer());
 		}
 		resetPostAction();
 	}
 	
 	private static void dropItems(GameCharacter from, AbstractItem item, int count) {
 		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasItem(item)) {
-			
-			List<AbstractItem> items = from.getAllItemsInInventory().stream()
-				.filter(item::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				Main.game.getPlayerCell().getInventory().addItem(items.get(i));
-				from.removeItem(items.get(i));
-			}
+			from.dropItem(item, count);
 		}
 		resetPostAction();
 	}
 	
 	private static void pickUpItems(GameCharacter to, AbstractItem item, int count) {
 		if (!to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
-			
-			List<AbstractItem> items = Main.game.getPlayerCell().getInventory().getAllItemsInInventory().stream()
-				.filter(item::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				to.addItem(items.get(i), true, to.isPlayer());
-			}
+			to.addItem(item, count, true, to.isPlayer());
 		}
 		resetPostAction();
 	}
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
-			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);
 				from.incrementMoney(itemPrice);
@@ -6815,14 +6763,10 @@ public class InventoryDialogue {
 				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 				
 			} else {
-				List<AbstractItem> items = from.getAllItemsInInventory().stream()
-					.filter(item::equals)
-					.collect(Collectors.toList());
-				
 				//TODO
 				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice));
 				
-				to.addItem(item, count, false);
+				to.addItem(item, count, to.isPlayer());
 				from.incrementMoney(itemPrice*count);
 				to.incrementMoney(-itemPrice*count);
 				from.removeItem(item, count);
@@ -6840,44 +6784,22 @@ public class InventoryDialogue {
 	
 	private static void transferWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count) {
 		if (!to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
-			
-			List<AbstractWeapon> weapons = from.getAllWeaponsInInventory().stream()
-				.filter(weapon::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				to.addWeapon(weapons.get(i), false);
-				from.removeWeapon(weapons.get(i));
-			}
+			from.removeWeapon(weapon, count);
+			to.addWeapon(weapon, count, false, to.isPlayer());
 		}
 		resetPostAction();
 	}
 	
 	private static void dropWeapons(GameCharacter from, AbstractWeapon weapon, int count) {
 		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasWeapon(weapon)) {
-			
-			List<AbstractWeapon> weapons = from.getAllWeaponsInInventory().stream()
-				.filter(weapon::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				Main.game.getPlayerCell().getInventory().addWeapon(weapons.get(i));
-				from.removeWeapon(weapons.get(i));
-			}
+			from.dropWeapon(weapon, count);
 		}
 		resetPostAction();
 	}
 	
 	private static void pickUpWeapons(GameCharacter to, AbstractWeapon weapon, int count) {
 		if (!to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
-			
-			List<AbstractWeapon> weapons = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().stream()
-				.filter(weapon::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				to.addWeapon(weapons.get(i), true);
-			}
+			to.addWeapon(weapon, count, true, to.isPlayer());
 		}
 		resetPostAction();
 	}
@@ -6892,20 +6814,13 @@ public class InventoryDialogue {
 				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 				
 			} else {
-				List<AbstractWeapon> weapons = from.getAllWeaponsInInventory().stream()
-					.filter(weapon::equals)
-					.collect(Collectors.toList());
-				
-				for(int i = 0 ; i<count; i++) {
-					if(from.isPlayer()) {
-						Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(weapon, itemPrice));
-					} else {
-						to.addWeapon(weapons.get(i), false);
-					}
-					from.incrementMoney(itemPrice);
-					to.incrementMoney(-itemPrice);
-					from.removeWeapon(weapons.get(i));
-				}
+				//TODO
+				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(weapon, itemPrice));
+
+				to.addWeapon(weapon, count, false, to.isPlayer());
+				from.incrementMoney(itemPrice*count);
+				to.incrementMoney(-itemPrice*count);
+				from.removeWeapon(weapon, count);
 			}
 			
 			if(to.isPlayer()) {
@@ -6920,16 +6835,56 @@ public class InventoryDialogue {
 	
 	private static void transferClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count) {
 		if (!to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
-			
-			List<AbstractClothing> clothings = from.getAllClothingInInventory().stream()
-				.filter(clothing::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				to.addClothing(clothings.get(i), false);
-				from.removeClothing(clothings.get(i));
-			}
+			from.removeClothing(clothing, count);
+			to.addClothing(clothing, count, false, to.isPlayer());
 			owner = to;
+		}
+		resetPostAction();
+	}
+	
+	
+	private static void dropClothing(GameCharacter from, AbstractClothing clothing, int count) {
+		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasClothing(clothing)) {
+			from.dropClothing(clothing, count);
+			
+			if(from.getClothingCount(clothing) == 0) {
+				owner = null;
+			}
+		}
+		resetPostAction();
+	}
+	
+	private static void pickUpClothing(GameCharacter to, AbstractClothing clothing, int count) {
+		if (!to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
+			to.addClothing(clothing, count, true, to.isPlayer());
+			
+			owner = to;
+		}
+		resetPostAction();
+	}
+	
+	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
+		if (!to.isPlayer() || !to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
+			
+			if(buyback && to.isPlayer()) {
+				Main.game.getPlayer().incrementMoney(-itemPrice);
+				from.incrementMoney(itemPrice);
+				Main.game.getPlayer().addClothing(clothing, false);
+				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
+				
+			} else {
+				//TODO
+				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(clothing, itemPrice));
+
+				to.addClothing(clothing, count, false, to.isPlayer());
+				from.incrementMoney(itemPrice*count);
+				to.incrementMoney(-itemPrice*count);
+				from.removeClothing(clothing, count);
+			}
+			
+			if(to.isPlayer()) {
+				((NPC) from).handleSellingEffects(clothing, count, itemPrice);
+			}
 		}
 		resetPostAction();
 	}
@@ -6984,75 +6939,6 @@ public class InventoryDialogue {
 		return to.equipClothingFromGround(clothing, true, equipper);
 	}
 	
-	
-	private static void dropClothing(GameCharacter from, AbstractClothing clothing, int count) {
-		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasClothing(clothing)) {
-			
-			List<AbstractClothing> clothings = from.getAllClothingInInventory().stream()
-				.filter(clothing::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				Main.game.getPlayerCell().getInventory().addClothing(clothings.get(i));
-				from.removeClothing(clothings.get(i));
-			}
-			
-			if(from.getClothingCount(clothing) == 0) {
-				owner = null;
-			}
-		}
-		resetPostAction();
-	}
-	
-	private static void pickUpClothing(GameCharacter to, AbstractClothing clothing, int count) {
-		if (!to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
-			
-			List<AbstractClothing> clothings = Main.game.getPlayerCell().getInventory().getAllClothingInInventory().stream()
-				.filter(clothing::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				to.addClothing(clothings.get(i), true);
-			}
-			
-			owner = to;
-		}
-		resetPostAction();
-	}
-	
-	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
-		if (!to.isPlayer() || !to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
-			
-			if(buyback && to.isPlayer()) {
-				Main.game.getPlayer().incrementMoney(-itemPrice);
-				from.incrementMoney(itemPrice);
-				Main.game.getPlayer().addClothing(clothing, false);
-				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
-				
-			} else {
-				List<AbstractClothing> clothings = from.getAllClothingInInventory().stream()
-					.filter(clothing::equals)
-					.collect(Collectors.toList());
-				
-				for(int i = 0 ; i<count; i++) {
-					if(from.isPlayer()) {
-						Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(clothing, itemPrice));
-					} else {
-						to.addClothing(clothings.get(i), false);
-					}
-					from.incrementMoney(itemPrice);
-					to.incrementMoney(-itemPrice);
-					from.removeClothing(clothings.get(i));
-				}
-			}
-			
-			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(clothing, count, itemPrice);
-			}
-		}
-		resetPostAction();
-	}
-	
 	private static Response getCondomSabotageResponse(AbstractClothing clothing) {
 		if(clothing.getCondomEffect().getPotency().isNegative()) {
 			if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= 1) {
@@ -7068,21 +6954,32 @@ public class InventoryDialogue {
 								+ "<p style='text-align:center;'>"
 									+ "Repairing the condom has cost you [style.boldBad(1)] [style.boldArcane(Arcane Essence)]!"
 								+ "</p>");
-						setClothing((AbstractClothing) EnchantmentDialogue.craftItem(clothing, clothing.getClothingType().getEffects()));
-						clothing.setName(clothing.getClothingType().getName());
-						RenderingEngine.setPage(Main.game.getPlayer(), clothing);
+						AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftItem(clothing, clothing.getClothingType().getEffects());
+
+						Main.game.getPlayer().removeClothing(c);
+						c.setName(c.getClothingType().getName());
+						setClothing(c);
+						Main.game.getPlayer().addClothing(c, false);
+						
+						RenderingEngine.setPage(Main.game.getPlayer(), c);
 					}
 				};
 			} else {
 				return new Response("Repair (<i>1 Essence</i>)", "You need at least 1 arcane essence in order to repair the condom!", null);
 			}
+			
 		} else {
 			return new Response("Sabotage", "By making a small tear in the end of this condom, you can ensure that it will break at the moment of orgasm!", CLOTHING_INVENTORY) {
 				@Override
 				public void effects(){
-					setClothing((AbstractClothing) EnchantmentDialogue.craftItem(clothing, Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_CONDOM, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0))));
-					clothing.setName(clothing.getClothingType().getName());
-					RenderingEngine.setPage(Main.game.getPlayer(), clothing);
+					AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftItem(clothing, Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_CONDOM, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0)));
+					
+					Main.game.getPlayer().removeClothing(c);
+					c.setName(c.getClothingType().getName());
+					setClothing(c);
+					Main.game.getPlayer().addClothing(c, false);
+
+					RenderingEngine.setPage(Main.game.getPlayer(), c);
 					Main.game.getTextEndStringBuilder().append(
 							"<p>"
 								+ "By making a tiny, near-invisible tear in the end of the condom, you ensure that it will split when filled with cum..."
