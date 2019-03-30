@@ -2899,7 +2899,9 @@ public enum Subspecies {
 					if(body.getWing().getType()!=WingType.NONE) {
 						return Subspecies.PEGATAUR;
 					}
-					return Subspecies.CENTAUR;
+					if(body.getTail().getType()!=TailType.HORSE_MORPH_ZEBRA) {
+						return Subspecies.CENTAUR;
+					}
 				}
 				break;
 		}

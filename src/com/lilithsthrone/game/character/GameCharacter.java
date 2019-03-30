@@ -13801,22 +13801,24 @@ public abstract class GameCharacter implements XMLSaving {
 		StringBuilder washingSB = new StringBuilder();
 		
 		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
-			if(dirtyOrifices.contains(orifice)) {
-				if(orifice.isInternalOrifice()) {
-					if(this.getTotalFluidInArea(orifice)>0) {
-						washingSB.append(formatWashingArea(false,
-								"[npc.Name] [npc.verb(wash)] as much of the cum out of [npc.her] "+orifice.getName(this)+" as [npc.she] can, but there's so much in there that [npc.sheIs] unable to fully clean it all out!"));
+			if(!orifice.equals(SexAreaOrifice.MOUTH)) { // Don't give description of puking up
+				if(dirtyOrifices.contains(orifice)) {
+					if(orifice.isInternalOrifice()) {
+						if(this.getTotalFluidInArea(orifice)>0) {
+							washingSB.append(formatWashingArea(false,
+									"[npc.Name] [npc.verb(wash)] as much of the cum out of [npc.her] "+orifice.getName(this)+" as [npc.she] can, but there's so much in there that [npc.sheIs] unable to fully clean it all out!"));
+						} else {
+							washingSB.append(formatWashingArea(true,
+									"[npc.Name] [npc.verb(wash)] all of the cum out of [npc.her] "+orifice.getName(this)+"."));
+						}
 					} else {
-						washingSB.append(formatWashingArea(true,
-								"[npc.Name] [npc.verb(wash)] all of the cum out of [npc.her] "+orifice.getName(this)+"."));
-					}
-				} else {
-					if(this.getTotalFluidInArea(orifice)>0) {
-						washingSB.append(formatWashingArea(false,
-								"[npc.Name] [npc.verb(wash)] as much of the cum off of [npc.her] "+orifice.getName(this)+" as [npc.she] can, but there's just so much that [npc.sheIs] unable to fully clean it all off!"));
-					} else {
-						washingSB.append(formatWashingArea(true,
-								"[npc.Name] [npc.verb(wash)] all of the cum off of [npc.her] "+orifice.getName(this)+"."));
+						if(this.getTotalFluidInArea(orifice)>0) {
+							washingSB.append(formatWashingArea(false,
+									"[npc.Name] [npc.verb(wash)] as much of the cum off of [npc.her] "+orifice.getName(this)+" as [npc.she] can, but there's just so much that [npc.sheIs] unable to fully clean it all off!"));
+						} else {
+							washingSB.append(formatWashingArea(true,
+									"[npc.Name] [npc.verb(wash)] all of the cum off of [npc.her] "+orifice.getName(this)+"."));
+						}
 					}
 				}
 			}
@@ -14129,6 +14131,10 @@ public abstract class GameCharacter implements XMLSaving {
 		unequipAllClothingIntoVoid(includeWeapons);
 		
 		this.inventory = new CharacterInventory(0);
+	}
+	
+	public void sortInventory() {
+		inventory.sortInventory();
 	}
 	
 	public int getMoney() {
@@ -14960,16 +14966,14 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return Equip description
 	 */
 	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper, GameCharacter fromCharactersInventory) {
+		fromCharactersInventory.removeClothing(newClothing);
+		
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 
 		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
 			applyEquipClothingEffects(newClothing);
 			
-			fromCharactersInventory.removeClothing(newClothing);
-
-			newClothing.setEnchantmentKnown(this, true);
-
 			updateInventoryListeners();
 
 			if (isPlayer() && Main.game.isInNewWorld()) {
@@ -14977,6 +14981,9 @@ public abstract class GameCharacter implements XMLSaving {
 					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
+			
+		} else {
+			fromCharactersInventory.addClothing(newClothing, false);
 		}
 
 		return inventory.getEquipDescription();
@@ -15016,12 +15023,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String equipClothingFromNowhere(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 		
-		// If this item was able to be equipped, and it was equipped, apply it's
-		// attribute bonuses:
+		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
 			applyEquipClothingEffects(newClothing);
-			
-			newClothing.setEnchantmentKnown(this, true);
 			
 			updateInventoryListeners();
 			
@@ -15037,24 +15041,25 @@ public abstract class GameCharacter implements XMLSaving {
 
 
 	public String equipClothingFromGround(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
+
+		Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
+		
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 
-		// If this item was able to be equipped, and it was equipped, apply it's
-		// attribute bonuses:
+		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
 			applyEquipClothingEffects(newClothing);
 
-			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
-
-			newClothing.setEnchantmentKnown(this, true);
-
 			updateInventoryListeners();
 
-			if (isPlayer() && Main.game.isInNewWorld()) {
+			if(isPlayer() && Main.game.isInNewWorld()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
+			
+		} else {
+			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(newClothing, 1);
 		}
 
 		return inventory.getEquipDescription();

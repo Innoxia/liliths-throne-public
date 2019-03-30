@@ -487,6 +487,13 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
+	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
+		weaponsForSale.remove(item);
+		clothingForSale.remove(item);
+		itemsForSale.remove(item);
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	

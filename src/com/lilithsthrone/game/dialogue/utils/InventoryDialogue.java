@@ -6083,7 +6083,7 @@ public class InventoryDialogue {
 			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isPrimaryRecolourAvailable()) {
 				inventorySB.append("<div class='container-full-width'>"
 						+ "Pattern Primary Colour:<br/>");
-				for (Colour c : clothing.getClothingType().getAvailablePatternPrimaryColours()) {
+				for (Colour c : clothing.getClothingType().getAllAvailablePatternPrimaryColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"
@@ -6099,7 +6099,7 @@ public class InventoryDialogue {
 			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isSecondaryRecolourAvailable()) {
 				inventorySB.append("<div class='container-full-width'>"
 						+ "Pattern Secondary Colour:<br/>");
-				for (Colour c : clothing.getClothingType().getAvailablePatternSecondaryColours()) {
+				for (Colour c : clothing.getClothingType().getAllAvailablePatternSecondaryColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"
@@ -6115,7 +6115,7 @@ public class InventoryDialogue {
 			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isTertiaryRecolourAvailable()) {
 				inventorySB.append("<div class='container-full-width'>"
 						+ "Pattern Tertiary Colour:<br/>");
-				for (Colour c : clothing.getClothingType().getAvailablePatternTertiaryColours()) {
+				for (Colour c : clothing.getClothingType().getAllAvailablePatternTertiaryColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"

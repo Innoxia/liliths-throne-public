@@ -69,9 +69,7 @@
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 		
-		<itemTags> 
-			<tag>SOLD_BY_NYAN</tag>
-		</itemTags>
+		<itemTags/>
 	</coreAttributes>
 
   <replacementText type="REMOVE_OR_EQUIP">

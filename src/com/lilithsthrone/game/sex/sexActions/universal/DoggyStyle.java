@@ -866,14 +866,16 @@ public class DoggyStyle {
 			UtilText.nodeContentSB.append("<br/><br/>");
 			if(Sex.getCharacterPerformingAction().isWearingCondom()) {
 				UtilText.nodeContentSB.append("Reaching down, you grab a fistful of [npc.namePos] [npc.hair+],"
-						+ " and before [npc.she] has a chance to react, you slide your condom off and roughly shove [npc.her] [npc.face+] down onto your [pc.cock+].");
+						+ " and before [npc.she] has a chance to react, you slide your condom off and roughly shove [npc.her] [npc.face+] down onto your [pc.cock+]."
+						+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of your cock, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
+						+ "<br/>"
+						+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 			} else {
-				UtilText.nodeContentSB.append("Reaching down, you grab a fistful of [npc.namePos] [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+].");
+				UtilText.nodeContentSB.append("Reaching down, you grab a fistful of [npc.namePos] [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
+						+" [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
+						+ "<br/>"
+						+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 			}
-			UtilText.nodeContentSB.append(
-					" [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
-					+ "<br/>"
-					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 
 			return UtilText.nodeContentSB.toString();
 		}

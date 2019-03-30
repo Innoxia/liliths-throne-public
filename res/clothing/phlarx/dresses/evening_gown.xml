@@ -29,6 +29,7 @@
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked> 
+					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
 
@@ -50,7 +51,6 @@
 					<bodyPart>LEGS</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked>
-					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
 					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
 					<clothingAccess>GROIN</clothingAccess>
@@ -73,7 +73,8 @@
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
-		<tertiaryColours/><tertiaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
 		
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>

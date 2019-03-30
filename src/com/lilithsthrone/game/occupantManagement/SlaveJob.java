@@ -467,7 +467,8 @@ public enum SlaveJob {
 	}
 	
 	public boolean isAvailable(GameCharacter character) {
-		return character.getSlaveJob()==this || (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && character.getOwner().getSlavesWorkingJob(this)<this.getSlaveLimit());
+		return character.getSlaveJob()==this
+				|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && character.getOwner().getSlavesWorkingJob(this)<this.getSlaveLimit());
 	}
 	
 	public String getAvailabilityText(GameCharacter character) {

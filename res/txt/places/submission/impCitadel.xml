@@ -773,7 +773,7 @@
 	
 	<htmlContent tag="KEEP_DEFEATED"><![CDATA[
 	<p>
-		The siren's throne room is almost completely caved-in, and you find yourself thinking that it was a miracle how everyone was able to escape unharmed. The dias upon which her throne once stood is now buried under a mound of rubble and rock, but despite the ruinous state of this room, it looks like you'll be able to make your way around the piles of debris to reach the far side.
+		The siren's throne room is almost completely caved-in, and you find yourself thinking that it was a miracle how everyone was able to escape unharmed. The dais upon which her throne once stood is now buried under a mound of rubble and rock, but despite the ruinous state of this room, it looks like you'll be able to make your way around the piles of debris to reach the far side.
 	</p>
 	]]>
 	</htmlContent>
@@ -816,7 +816,7 @@
 		The impressive architecture doesn't hold your attention for too long, however, as waiting right there in front of you are the three demons from the imp fortresses. [impMalesLeader.Name] appears to be the most senior of them, as he's standing at the head, with [impAlphaLeader.name] to his right, and [impFemalesLeader.name] to his left. As the huge wooden gates swing shut behind you, he smirks and asks, [impMalesLeader.speech(What? You didn't expect us to let you walk right up to the dark siren, did you?)]
 	</p>
 	<p>
-		Looking past these demons, you see a raised dias, and upon the top, there sits a dark stone throne. Sitting upon this seat of power is the citadel's leader, the dark siren herself. Although the rest of this huge hall is well lit by the arcane lanterns, the figure sitting upon the throne itself is curiously shrouded in shadow.
+		Looking past these demons, you see a raised dais, and upon the top, there sits a dark stone throne. Sitting upon this seat of power is the citadel's leader, the dark siren herself. Although the rest of this huge hall is well lit by the arcane lanterns, the figure sitting upon the throne itself is curiously shrouded in shadow.
 		#IF pc.hasTraitActivated(PERK_CHUUNI)
 		#THEN Wanting this reclusive leader of the imp gangs to reveal herself, you call out your challenge, [pc.speech(So you're the one who presumes to call herself the 'dark siren', are you?! It's time for you to meet your end!)]
 		#ELSE Wanting this reclusive leader of the imp gangs to reveal herself, you call out, [pc.speech(So you're the one who's responsible for the imp gangs terrorising the tunnels of Submission! I've come to put a stop to all that, siren!)]
@@ -830,7 +830,7 @@
 		#THEN You can't help but notice [impAlphaLeader.name] flinching at the siren's impressive introduction, but, as intimidating as she may be, you know that she's no match for your ultimate power!
 		#ELSE You can't help but notice [impAlphaLeader.name] flinching at the siren's cringe-worthy introduction, and, as she describes herself as the 'destroyer of worlds', you find yourself letting out a low groan as you share in the second-hand embarrassment.
 		#ENDIF
-		 Looking up at the raised dias, you see the leader of these demons standing up, and as she steps forwards into the light, you find yourself looking upon a rather surprising figure.
+		 Looking up at the raised dais, you see the leader of these demons standing up, and as she steps forwards into the light, you find yourself looking upon a rather surprising figure.
 	</p>
 	<p>
 		Not only is the siren a half-demon, just like Lilaya, she's also surprisingly small and fresh-faced. From her appearance, she definitely looks to be no older than eighteen or nineteen, and stands at a rather diminutive five feet tall. Unlike all the other succubi you've seen, she's completely lacking any curvaceous, womanly parts, as not only is she almost completely flat-chested, but she also has a small ass and only slightly girly hips.
@@ -890,7 +890,7 @@
 		[impMalesLeader.speech(Mistress, w-we've failed you!)] [impMalesLeader.name] cries out, before collapsing to the floor beside [impAlphaLeader.name] and [impFemalesLeader.name].
 	</p>
 	<p>
-		Looking over at the siren's throne, you see [siren.name] stepping down from the raised dias as she laughs, [siren.speech(Fool! Now you shall witness my vast astronomical powers! The very fabric of space and time bends to my will!)]
+		Looking over at the siren's throne, you see [siren.name] stepping down from the raised dais as she laughs, [siren.speech(Fool! Now you shall witness my vast astronomical powers! The very fabric of space and time bends to my will!)]
 	</p>
 	<p>
 		Thrusting one foot forwards, [siren.name] strikes a heroic pose, and, lifting her huge scythe above her head with one arm, she effortlessly twirls it around in an impressive display of strength and finesse. Reaching up to grab the shaft with her other hand, she then swings it around into a low-ready position, before letting out another #IFpc.hasTraitActivated(PERK_CHUUNI)#THENspirited#ELSEridiculous#ENDIF laugh, [siren.speech(~Mwhaha!~ Prepare for your obliteration!)]
@@ -910,7 +910,7 @@
 		As impressive as [siren.namePos] speech was, you know that she's no match for your indomitable might. Knowing that it's a waste of your precious time to be swatting these pathetic demons out of your way, you smirk at the half-succubus and call out, [pc.speech(Big words, from someone too terrified to fight me one-on-one! I honestly expected more from someone calling herself the 'dark siren', but I see that you're just another poser, hiding behind her minions!)]
 	</p>
 	<p>
-		[siren.speech(You dare speak to me in such a manner?! Have you no understanding of the arcane powers that I wield? You are nothing to me!)] [siren.name] replies, stepping down from her dias. While this forwards movement was undoubtedly intended to intimidate you, the loss of the extra height afforded to her by her raised platform causes her to end up being hidden behind her demon lieutenants. In a flustered attempt to resolve this issue, she calls out, [siren.speech(S-Stand aside, minions!)]
+		[siren.speech(You dare speak to me in such a manner?! Have you no understanding of the arcane powers that I wield? You are nothing to me!)] [siren.name] replies, stepping down from her dais. While this forwards movement was undoubtedly intended to intimidate you, the loss of the extra height afforded to her by her raised platform causes her to end up being hidden behind her demon lieutenants. In a flustered attempt to resolve this issue, she calls out, [siren.speech(S-Stand aside, minions!)]
 	</p>
 	<p>
 		As the demons do as they're commanded, you respond to the siren's last threat, [pc.speech(You think that I, [pc.master] of the arcane, vanquisher of demons, and future ruler of all Dominion, would consider one as weak as you to be a threat?! Foolish succubus! I'll give you one chance to surrender, as a symbol of my supreme mercy!)]

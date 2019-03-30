@@ -3599,22 +3599,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} else {
 				//Player uses item on NPC:
 				boolean isItemOrdinary = !item.getItemType().isTransformative() && !item.getItemType().isFetishGiving();
-				if(isItemOrdinary) {
-					return itemOwner.useItem(item,  target,  false);
-					
-				} else if(target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user)) {
-					return itemOwner.useItem(item,  target,  false);
-					
-				} else if(!target.isUnique()
-					&& ((target.hasStatusEffect(StatusEffect.DRUNK_5)
-							|| target.hasStatusEffect(StatusEffect.DRUNK_4)
-							|| target.hasStatusEffect(StatusEffect.PSYCHOACTIVE))
-						|| (target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative())
-						|| (target.hasFetish(Fetish.FETISH_KINK_RECEIVING) && item.getItemType().isFetishGiving())
-						|| (Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target)))) {
-					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
-					
-				} else if(target instanceof Elemental) {
+				
+				if(target instanceof Elemental) {
 					if(item.getItemType().isTransformative()) {
 						return "<p>"
 									+ UtilText.parse(this, "As you move to get [npc.name] to "+item.getItemType().getUseName()+" the "+item.getName()+", [npc.she] calmly states,"
@@ -3626,6 +3612,20 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					} else {
 						return itemOwner.useItem(item, target, false);
 					}
+					
+				} else if(isItemOrdinary
+						|| (!Main.game.isInCombat() && Combat.isPlayerVictory() && Combat.getEnemies().contains(target))
+						|| (target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))) {
+					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
+					
+				} else if(!target.isUnique()
+					&& ((target.hasStatusEffect(StatusEffect.DRUNK_5)
+							|| target.hasStatusEffect(StatusEffect.DRUNK_4)
+							|| target.hasStatusEffect(StatusEffect.PSYCHOACTIVE))
+						|| (target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative())
+						|| (target.hasFetish(Fetish.FETISH_KINK_RECEIVING) && item.getItemType().isFetishGiving())
+						|| (Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target)))) {
+					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					
 				} else {
 					if(item.getItemType().isTransformative()) {

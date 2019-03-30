@@ -227,15 +227,9 @@ public class UtilText {
 			}
 			if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-			} else {
-				if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-						if(c.getClothingType().isMufflesSpeech()) {
-							modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-							break;
-						}
-					}
-				}
+				
+			} else if(target.isSpeechMuffled()) {
+				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			}
 			
 		} else if(Main.game.isInSex() && Sex.getAllParticipants().contains(target)) {
@@ -246,24 +240,12 @@ public class UtilText {
 			if(!Sex.getContactingSexAreas(target, SexAreaOrifice.MOUTH).isEmpty()) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				
-			} else {
-				if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-						if(c.getClothingType().isMufflesSpeech()) {
-							modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-							break;
-						}
-					}
-				}
+			} else if(target.isSpeechMuffled()) {
+				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			}
 			
-		} else if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-			for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-				if(c.getClothingType().isMufflesSpeech()) {
-					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-					break;
-				}
-			}
+		} else if(target.isSpeechMuffled()) {
+			modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 		}
 		
 		if(target.getLipSize().isImpedesSpeech()) {

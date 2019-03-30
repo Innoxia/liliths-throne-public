@@ -402,6 +402,35 @@ public class CharacterInventory implements XMLSaving {
 		return extraBlockedParts;
 	}
 	
+	public void sortInventory() {
+		List<AbstractItem> itemToSort = new ArrayList<>(itemDuplicates.keySet());
+		Collections.sort(itemToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+		
+		Map<AbstractItem, Integer> iMap = new LinkedHashMap<>();
+		for(AbstractItem i : itemToSort) {
+			iMap.put(i, itemDuplicates.get(i));
+		}
+		itemDuplicates = iMap;
+
+		List<AbstractWeapon> weaponsToSort = new ArrayList<>(weaponDuplicates.keySet());
+		Collections.sort(weaponsToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+		
+		Map<AbstractWeapon, Integer> wMap = new LinkedHashMap<>();
+		for(AbstractWeapon w : weaponsToSort) {
+			wMap.put(w, weaponDuplicates.get(w));
+		}
+		weaponDuplicates = wMap;
+		
+		List<AbstractClothing> clothingToSort = new ArrayList<>(clothingDuplicates.keySet());
+		Collections.sort(clothingToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+		
+		Map<AbstractClothing, Integer> cMap = new LinkedHashMap<>();
+		for(AbstractClothing c : clothingToSort) {
+			cMap.put(c, clothingDuplicates.get(c));
+		}
+		clothingDuplicates = cMap;
+	}
+	
 	
 	// -------------------- Items -------------------- //
 	
@@ -1952,16 +1981,23 @@ public class CharacterInventory implements XMLSaving {
 						&& !clothing.getDisplacedList().contains(bp.displacementType)
 						&& !isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea)) {
 					// this clothing is blocking the part we want access to, so make that our starting point:
-					return findNextClothingDisplacement(character, coverableArea, clothing, bp.displacementType, zLayerSortedList);
+					return findNextClothingDisplacement(character, coverableArea, clothing, bp.displacementType, zLayerSortedList, true);
 				}
 			}
 		}
 		//System.err.print("There is no clothing covering this part!");
 		return null;
 	}
-
-	private SimpleEntry<AbstractClothing, DisplacementType> findNextClothingDisplacement(GameCharacter character, CoverableArea coverableArea, AbstractClothing clothingToRemove, DisplacementType displacement, List<AbstractClothing> zLayerSortedList) {
-		for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList(character)) {
+	
+	private Map<AbstractClothing, DisplacementType> previousDisplacements;
+	private SimpleEntry<AbstractClothing, DisplacementType> findNextClothingDisplacement(
+			GameCharacter character, CoverableArea coverableArea, AbstractClothing clothingToRemove, DisplacementType displacement, List<AbstractClothing> zLayerSortedList, boolean initialMethodCall) {
+		if(initialMethodCall) {
+			previousDisplacements = new HashMap<>();
+			previousDisplacements.put(clothingToRemove, displacement);
+		}
+		
+		for(BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList(character)) {
 			if (bp.displacementType == displacement) {
 				for (ClothingAccess ca : bp.clothingAccessRequired) {
 					for (AbstractClothing clothing : zLayerSortedList) {
@@ -1969,10 +2005,15 @@ public class CharacterInventory implements XMLSaving {
 							for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsList(character)) {
 								if (bpIterated.clothingAccessBlocked.contains(ca) 
 										&& !clothing.getDisplacedList().contains(bpIterated.displacementType)
-										&& !isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea) //TODO This was commented out, which was causing issues with NOCs performing redundant displacements (unzipping + pulling down). Why?
+										&& !isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea) // This fixes issues with NPCs performing redundant displacements (unzipping + pulling down).
 										) {
-									// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to displace this new clothing:
-									return findNextClothingDisplacement(character, coverableArea, clothing, bpIterated.displacementType, zLayerSortedList);
+									if(previousDisplacements.containsKey(clothing) && previousDisplacements.get(clothing).equals(bpIterated.displacementType)) {
+										System.err.println("findNextClothingDisplacement() error: "+clothing.getName()+" is interfering with "+clothingToRemove.getName());
+										return new SimpleEntry<>(clothing, bpIterated.displacementType);
+									}
+									previousDisplacements.put(clothing, bpIterated.displacementType);
+									// This clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to displace this new clothing:
+									return findNextClothingDisplacement(character, coverableArea, clothing, bpIterated.displacementType, zLayerSortedList, false);
 								}
 							}
 						}

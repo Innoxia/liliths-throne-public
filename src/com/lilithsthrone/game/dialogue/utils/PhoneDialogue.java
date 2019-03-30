@@ -1085,7 +1085,7 @@ public class PhoneDialogue {
 			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
 			boolean isGreyedOut = extraRelationships.isEmpty();
 			List<String> relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
-			if(npc.getMother().isPlayer()) {
+			if(npc.getMother()!=null && npc.getMother().isPlayer()) {
 				relationships.add(0, "Mother");
 			} else {
 				relationships.add(0, "Father");

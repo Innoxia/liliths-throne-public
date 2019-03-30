@@ -825,7 +825,6 @@ public class SlaveDialogue {
 							};
 						}
 						
-					// dialogue left unchanged -- somebody else would have to write that
 					} else if (index == 2) {
 						if(companionCharacter==null) {
 							return new Response("Spitroast (front)", "You'd need a third person to be present in order to get a spitroast going...", null);

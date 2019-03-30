@@ -28,6 +28,7 @@
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked> 
+					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"> 
@@ -48,7 +49,6 @@
 					<bodyPart>LEGS</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked>
-					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
 					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
 					<clothingAccess>GROIN</clothingAccess>

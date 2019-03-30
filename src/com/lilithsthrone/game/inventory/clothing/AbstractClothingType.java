@@ -76,6 +76,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	private boolean plural;
 	private boolean isMod;
+	private boolean isColourDerivedFromPattern;
 	private int baseValue;
 	private int physicalResistance;
 	private int femininityMinimum;
@@ -114,12 +115,23 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private List<Colour> availableTertiaryDyeColours;
 	private List<Colour> allAvailableTertiaryColours;
 
+	// Patterns:
 	private float patternChance;
 	private List<Pattern> defaultPatterns;
+	
 	private List<Colour> availablePatternPrimaryColours;
+	private List<Colour> availablePatternPrimaryDyeColours;
+	private List<Colour> allAvailablePatternPrimaryColours;
+	
 	private List<Colour> availablePatternSecondaryColours;
+	private List<Colour> availablePatternSecondaryDyeColours;
+	private List<Colour> allAvailablePatternSecondaryColours;
+	
 	private List<Colour> availablePatternTertiaryColours;
+	private List<Colour> availablePatternTertiaryDyeColours;
+	private List<Colour> allAvailablePatternTertiaryColours;
 
+	// Other:
 	private List<DisplacementType> displacementTypesAvailableWithoutNONE;
 	
 	private List<ItemTag> itemTags;
@@ -207,6 +219,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.baseValue = baseValue;
 		
 		this.isMod = false;
+		isColourDerivedFromPattern = false;
 		
 		this.determiner = determiner;
 		this.plural = plural;
@@ -267,9 +280,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		patternChance = 0;
 		defaultPatterns = new ArrayList<>(Pattern.getAllDefaultPatterns().values());
-		availablePatternPrimaryColours = new ArrayList<>(ColourListPresets.ALL);
-		availablePatternSecondaryColours = new ArrayList<>(ColourListPresets.ALL);
-		availablePatternTertiaryColours = new ArrayList<>(ColourListPresets.ALL);
+		setUpPatternColours(null, null, null, null, null, null);
 
 		this.itemTags = new ArrayList<>();
 		if(itemTags!=null) {
@@ -386,7 +397,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 			
 			this.isMod = true;
-
+			
 			this.name =        coreAttributes.getMandatoryFirstOf("name").getTextContent();
 			this.namePlural =  coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
 			this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
@@ -487,8 +498,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			
 			 if(coreAttributes.getOptionalFirstOf("defaultPatterns").isPresent()) {
 				 patternChance = Float.valueOf(coreAttributes.getMandatoryFirstOf("defaultPatterns").getAttribute("patternChance"));
+				 isColourDerivedFromPattern = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("defaultPatterns").getAttribute("colourNameDerivedFromPattern"));
+				 
 			 } else {
 				 patternChance = 0;
+				 isColourDerivedFromPattern = false;
 			 }
 			
 			Function<Element, List<Pattern> > getPatternsFromElement = (patternsElement) -> { //Helper function to get the patterns
@@ -526,15 +540,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					.map(getPatternsFromElement::apply)
 					.orElse(new ArrayList<>(Pattern.getAllDefaultPatterns().values()));
 					
-			availablePatternPrimaryColours = coreAttributes.getOptionalFirstOf("patternPrimaryColours")
-					.map(getPatternColoursFromElement::apply)
-					.orElse(new ArrayList<>(ColourListPresets.ALL));
-			availablePatternSecondaryColours = coreAttributes.getOptionalFirstOf("patternSecondaryColours")
-					.map(getPatternColoursFromElement::apply)
-					.orElse(new ArrayList<>(ColourListPresets.ALL));
-			availablePatternTertiaryColours = coreAttributes.getOptionalFirstOf("patternTertiaryColours")
-					.map(getPatternColoursFromElement::apply)
-					.orElse(new ArrayList<>(ColourListPresets.ALL));
+			setUpPatternColours(
+					coreAttributes.getOptionalFirstOf("patternPrimaryColours")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(new ArrayList<>(ColourListPresets.ALL)),
+					coreAttributes.getOptionalFirstOf("patternPrimaryColoursDye")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(null),
+					coreAttributes.getOptionalFirstOf("patternSecondaryColours")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(new ArrayList<>(ColourListPresets.ALL)),
+					coreAttributes.getOptionalFirstOf("patternSecondaryColoursDye")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(null),
+					coreAttributes.getOptionalFirstOf("patternTertiaryColours")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(new ArrayList<>(ColourListPresets.ALL)),
+					coreAttributes.getOptionalFirstOf("patternTertiaryColoursDye")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(null));
 			
 			finalSetUp();
 		}
@@ -633,6 +657,83 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 		this.allAvailableTertiaryColours.addAll(colourSet);
 		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
+	}
+	
+	private void setUpPatternColours(List<Colour> availablePatternPrimaryColours,
+			List<Colour> availablePatternPrimaryDyeColours,
+			List<Colour> availablePatternSecondaryColours,
+			List<Colour> availablePatternSecondaryDyeColours,
+			List<Colour> availablePatternTertiaryColours,
+			List<Colour> availablePatternTertiaryDyeColours) {
+		
+		this.availablePatternPrimaryColours = new ArrayList<>();
+		if (availablePatternPrimaryColours != null) {
+			this.availablePatternPrimaryColours.addAll(availablePatternPrimaryColours);
+		} else {
+			this.availablePatternPrimaryColours.addAll(ColourListPresets.ALL);
+		}
+
+		Set<Colour> colourSet = new HashSet<>();
+		
+		this.availablePatternPrimaryDyeColours = new ArrayList<>();
+		if (availablePatternPrimaryDyeColours != null) {
+			this.availablePatternPrimaryDyeColours.addAll(availablePatternPrimaryDyeColours);
+		}
+		
+		this.allAvailablePatternPrimaryColours = new ArrayList<>();
+		colourSet.addAll(this.availablePatternPrimaryColours);
+		if(availablePatternPrimaryDyeColours!=null) {
+			colourSet.addAll(availablePatternPrimaryDyeColours);
+		}
+		this.allAvailablePatternPrimaryColours.addAll(colourSet);
+		this.allAvailablePatternPrimaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		
+		this.availablePatternSecondaryColours = new ArrayList<>();
+		if (availablePatternSecondaryColours != null) {
+			this.availablePatternSecondaryColours.addAll(availablePatternSecondaryColours);
+		} else {
+			this.availablePatternSecondaryColours.addAll(ColourListPresets.ALL);
+		}
+		
+		this.availablePatternSecondaryDyeColours = new ArrayList<>();
+		if (availablePatternSecondaryDyeColours != null) {
+			this.availablePatternSecondaryDyeColours.addAll(availablePatternSecondaryDyeColours);
+		}
+
+		colourSet.clear();
+		this.allAvailablePatternSecondaryColours = new ArrayList<>();
+		if(availablePatternSecondaryColours!=null) {
+			colourSet.addAll(availablePatternSecondaryColours);
+		}
+		if(availablePatternSecondaryDyeColours!=null) {
+			colourSet.addAll(availablePatternSecondaryDyeColours);
+		}
+		this.allAvailablePatternSecondaryColours.addAll(colourSet);
+		this.allAvailablePatternSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
+
+		
+		this.availablePatternTertiaryColours = new ArrayList<>();
+		if (availablePatternTertiaryColours != null) {
+			this.availablePatternTertiaryColours.addAll(availablePatternTertiaryColours);
+		} else {
+			this.availablePatternTertiaryColours.addAll(ColourListPresets.ALL);
+		}
+		
+		this.availablePatternTertiaryDyeColours = new ArrayList<>();
+		if (availablePatternTertiaryDyeColours != null) {
+			this.availablePatternTertiaryDyeColours.addAll(availablePatternTertiaryDyeColours);
+		}
+
+		colourSet.clear();
+		this.allAvailablePatternTertiaryColours = new ArrayList<>();
+		if(availablePatternTertiaryColours!=null) {
+			colourSet.addAll(availablePatternTertiaryColours);
+		}
+		if(availablePatternTertiaryDyeColours!=null) {
+			colourSet.addAll(availablePatternTertiaryDyeColours);
+		}
+		this.allAvailablePatternTertiaryColours.addAll(colourSet);
+		this.allAvailablePatternTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -1051,6 +1152,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
+		if(clothingOwner==null || clothingEquipper==null) {
+			return "";
+		}
+		
 		if(displacementDescriptions!=null && !displacementDescriptions.isEmpty()) {
 			if(clothingOwner.equals(clothingEquipper)) {
 				if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
@@ -1156,6 +1261,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+		if(clothingOwner==null || clothingRemover==null) {
+			return "";
+		}
+		
 		if(displacementDescriptions!=null && !displacementDescriptions.isEmpty()) {
 			if(clothingOwner.equals(clothingRemover)) {
 				if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
@@ -1258,6 +1367,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+		if(clothingOwner==null || clothingRemover==null) {
+			return "";
+		}
+		
 		if(displacementDescriptions!=null && !displacementDescriptions.isEmpty()) {
 			if(clothingOwner.equals(clothingRemover)) {
 				if(displacementDescriptions.containsKey(dt)
@@ -1361,6 +1474,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+		if(clothingOwner==null || clothingRemover==null) {
+			return "";
+		}
+		
 		if(displacementDescriptions!=null && !displacementDescriptions.isEmpty()) {
 			if(clothingOwner.equals(clothingRemover)) {
 				if(displacementDescriptions.containsKey(dt)
@@ -2376,6 +2493,30 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return availablePatternTertiaryColours;
 	}
 
+	public List<Colour> getAvailablePatternPrimaryDyeColours() {
+		return availablePatternPrimaryDyeColours;
+	}
+
+	public List<Colour> getAllAvailablePatternPrimaryColours() {
+		return allAvailablePatternPrimaryColours;
+	}
+
+	public List<Colour> getAvailablePatternSecondaryDyeColours() {
+		return availablePatternSecondaryDyeColours;
+	}
+
+	public List<Colour> getAllAvailablePatternSecondaryColours() {
+		return allAvailablePatternSecondaryColours;
+	}
+
+	public List<Colour> getAvailablePatternTertiaryDyeColours() {
+		return availablePatternTertiaryDyeColours;
+	}
+
+	public List<Colour> getAllAvailablePatternTertiaryColours() {
+		return allAvailablePatternTertiaryColours;
+	}
+
 	public Rarity getRarity() {
 		return rarity;
 	}
@@ -2443,5 +2584,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public boolean isTransparent() {
 		return getItemTags().contains(ItemTag.TRANSPARENT);
+	}
+
+	public boolean isColourDerivedFromPattern() {
+		return isColourDerivedFromPattern;
 	}
 }

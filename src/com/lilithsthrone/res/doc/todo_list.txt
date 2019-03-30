@@ -130,12 +130,14 @@
 		Added support for inline scripting methods to suppress output (use two hash symbols (##) at the start of an inline parsing statement instead of one (#) to suppress output Strings).
 		Added xml definition files for patterns, so that names and default pattern booleans can be defined.
 	
-	Gameplay:
-	
 	Contributors:
 		Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)
 		Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)
 		
+	Clothing:
+		Added 'colourNameDerivedFromPattern' attribute to the 'defaultPatterns' element in clothing xml files, which makes the clothing use the pattern's primary colour instead of the base colour. (Used for rockabilly dress.)
+		Reduced pattern spawn rate for recently-added dresses from 100% to 50%.
+		Added pattern dye elements to clothing xml files, which work in the same way as normal colour definitions. Examples can be seen in the rockabilly dress and vintage dress files.
 		
 	Sex:
 		Base loss after orgasming changed from a flat -50% to a variable amount based on arcane storm vulnerability (negates all lust loss), attraction (50% reduction/increase), psychoactive fluid ingestion (75% reduction), and affection (50% reduction/50% increase).
@@ -163,7 +165,7 @@
 		Fixed issue with the 'ripped' body shape colour not being the correct shade of green.
 		Fixed bugged saving/loading of milk & cum regeneration values.
 		Corrected some references to harpy faces referring to a 'mouth' instead of 'beak'.
-		Parsing fixes.
+		Lots of typo, parsing, and grammar fixes.
 		Fixed issue with demon attackers in Dominion's alleyways sometimes having nonsensical fetishes.
 		Fixed issue with the 'Molest' action on slaves not applying affection changes as described in the text.
 		Fixed uncommon bug where items of clothing could sometimes appear in random tiles.
@@ -179,13 +181,155 @@
 		Fixed bug where NPCs with the 'unwilling fuck toy' fetish would lose lust in non-con sex.
 		Fixed issue with sex scenes never stopping if you were a spectator.
 		Fixed issue with half-demons giving birth to random half-demon subspecies.
+		Fixed issue with the pregnancy stats page sometimes breaking.
+		Fixed bug where you couldn't give potions to enemies that you'd just beaten.
+		Fixed background error related to equipping/unequipping clothing which in some instances was game-breaking.
+		Fixed incorrect dialogue when requesting a partner to pull out at moment of orgasm.
+		Fixed zebra-morph background not changing if they are a half-demon.
+		Fixed incorrect condom breakage text.
+		Vicky's inventory will no longer restock after every time you close & re-open her trade actions.
+		Fixed issue with some items of clothing blocking one another's removal, which was causing the sex AI to break the game.
+		Fixed issue with some items of clothing not saving/loading their colours correctly.
+		Fixed the 'colour test T-shirt' being sold by Nyan.
+		Fixed zebrataurs being incorrectly classified as the generic 'centaurs'.
+		Fixed issue with vaginal and urethral orifices not resetting their 'stretched' value after being removed and regained.
+		Paizuri actions should now work for centaurs who are performing oral.
+		Fixed clothing (such as the ball gag) not causing speech to be muffled.
+		Fixed incorrect description of washing fluids out of your mouth when using the 'wash' actions in your room.
 	
 	
 	
 	
 	
 	
-	discord bugs
+	
+	Bug: Equipping an NPC with sealed equipment does nothing to prevent them from removing it.
+		I tried to torment an NPC by sealing them with a ball gag that gives an oral fetish, a fox tail that gives an anal fetish, and a dildo that gives a vaginal fetish.
+		I then immediately refought them, and the equipment had vanished.
+	
+	So you can speak to Lilaya about the date even after the exposition with Lyssieth and she seems to go back in time and forget everything that was learned.
+	
+	>Wearing a condom
+	>Pull out! I don't want to get pregnant!
+	
+	Unexpected behaviors are to be expected considering Inno's gift is a cheat item, right now if you turn someone into a Half-Demon they still retain their arcane level, which can be in the range of arcane impotence, I suppose fixing this will be useful for whenever we get the legitimate power to TF NPCs into demons
+	
+	Bug: In the milking room it says my elemental "requires a positive desire for the cum addict fetish" to pump them full of cum. They have the cum addict fetish.
+	
+	Bug: I remember I used to be able to 69 with Frysia after brawling, but I can't do it any more.
+		Right now all the positions are listed as available, but only the buttons for doggy stuff work :\
+	
+	After starting a new game with the difficulty on "morph", the enemy will spawn with the same level as the old character you used
+		So my level 1 is fighting a level 50 as his first fight
+	
+	Fennec-morphs subspecies seem to be bugged. When I encounter one or find one at the club the game just calls them normal Fox morphs.
+		the bug is that their fur is the wrong color it needs to be Tan
+		
+	youko children don't seem to turn up (though I think the only kids I've had since turning in to a youko have been with Lyssieth)
+		
+	Their first action was:
+	> The alpha-imp leader: Finger nipples (self)
+	But "Hates: Self breast play"
+	
+	"Before you can offer any words of your own, your half-sister and aunt breaks off the hug with your mother, and immediately throws herself into your arms.​ Gazing happily happily into your eyes, she sighs, Thank you sho much as well, ~Hic!~ Casey! I'm sho lucky to have such a ~Hic!~ loving command_unknown!"
+	
+	The (error in conditional parsing) appears when Meraxis would normally defend you from Lyssieth when you tricked her into wearing the ring.
+		It also appears in the scene after
+		
+	Bug: Position request to change to give oral to taur and subsequent refusal by taur has the text for them refusing to give oral.
+		"I'm <i>not</i> performing oral on you"
+	
+	Not sure if this is a bug or just maybe unfinished, but after moving out your kids to apartments, if you impregnate them/get pregnant by them, they revert back to the generic companion lines of acknowledging the pregnancy instead of the new specific ones for your kids
+	
+	wrong color text when fucking noxinia my char is male
+		"That was fun! Maybe I'll pay you a visit another time!"
+	
+	There seems to be a bug when I invite a demon from a dark alleyway to the manor. All the other demons start acting like regular muggers like in this shot.
+		"You find yourself walking down yet another..." (mit companion)
+		
+	Bug: If Alexander cums in you it shows the "arcane accelerated pregnancy" tooltip text while you're still in the museum.
+	
+	Bug: When the player is Submissive in sex the options for penetrating a partner are not available.
+		Make this clearer
+	
+	Bug: In the missionary position I used "Receive Anal", and the NPC then used "Hotdogging Tease" in the same turn. That is biologically improbable.
+	
+	I'm not entirely sure if this is has been mentioned before, but whenever I go to milk myself with one of my milking rooms, it always defaults to the base numbers no matter what type of milkers/added accessories I have. So even on Industrial Milkers with the add-ons, I still get the base numbers instead of the massively boosted ones. Slaves, however, use the correct values when they get milked.
+	
+	A small thing in 0.3.1.8: In the slavery activity log, when using metric units, milk amounts from regular breasts use litres ("2 L milked") where possible, while udders/crotch-boobs stay at millilitres ("2000.0ml milked")
+	
+	can't submit during storm - ignores storm attraction?
+	
+	"be a good boy and hold still while I fuck Amani"
+		instead of "fuck you"
+		Either way though, I'm Amani, and the sub is supposed to be Alex so it doesn't work anyway lol
+		
+	"Scarlett leaves your party for unknown reasons"
+	
+	
+	java.lang.NullPointerException
+	    at com.lilithsthrone.game.occupantManagement.SlaveJob.isAvailable(SlaveJob.java:470)
+	    at com.lilithsthrone.game.dialogue.OccupantManagementDialogue$8.getContent(OccupantManagementDialogue.java:1761)
+	ya no it happened after midnight this time
+	Scarlett is in Empty City?
+	That is quite odd. It sounds like the game forgets that Scarlett has an owner
+	
+	I just encountered that bug where you fight an arcane storm NPC, then go home and rest, at it goes to the post-sex scene with that NPC
+	 Ok, I got more information:
+	I beat the NPC, had sex, then enslaved them.
+	 I then moved them into a room, and interacted with them.
+	 I then rested until the next Arcane Storm happened.
+	This NPC, now enslaved, is located at Empty, City
+	
+	
+	Condoms can break twice if the person orgasms multiple times, it seems like this is because the condom does not turn into a nonfunctional version or unequip itself after the first orgasm
+	
+	Bug: if you don't have the key necklace because you gave it to a companion, Jthorax gives you another key and uses the dialogue from the first time you beat him
+	
+	When I encountered my demon child, and tried to enslave her. I'd still get the message that she couldn't be enslaved because demon and reasons yadada.
+	
+	"Yes, [pc.name]" ... "Please, I want you..."
+	So even when they actually hate my very being they still want to fuck and are totally submissive and nice about it?
+		The only time their disposition shows is when I tell them to dominate me
+	
+	Bug: Fetishes given by tattoos are not shown in the stats screen, but their effects are still active.
+	
+	Equip condom on incubus (grabbing the little foil packet and tearing it in two) parses it all as player
+	
+	Bug: NPCs at the gloryhole consider 'present asshole' to be a valid position to get their pussy fucked, and vice versa.
+		You frequently see people whose aura tells you they want their pussy fucked, but they choose the anal option, and rather than switch, they're like 'welp, guess I'm getting buttfucked instead'.
+		Asking them for pussy doesn't change their position, because they think they're already in position.
+	
+	bug: i had a manor guest in my party. she was a slime. i was doing the imp fortresses and she got impregnated; i tried to use the pregancy tester and it said that the father was [code missing] or something of that sort
+	
+	Alright, so a lot of weird stuff just started happening seemingly all at once here. Started seeing random NPCs appear that didn't fit the content /furry preferences, and I no longer have the option to submit to any random NPC regardless of masculinity or femininity. This has happened both to a save file I've imported from a previous version and a fresh save I started the other day on 3.1.8, but any new characters I make now can submit to NPCs for some reason.
+		If I export my current characters and import them into a new save, I can for some reason see the names of random NPCs as soon as they spawn.
+	
+	I assume Quest Items like Lyssieth's Signet Ring are gonna be used later in the game. If that's the case you should probably make it so that NPCs can't be removed from the game while wearing said items.
+	
+	I’m pretty sure there is an issue with Imps/demons in submission not giving you demon characteristics when they say they want to “transform you into a male/female demon”
+		Yet I still get messages like “You lack wings, so nothing happens” or “you lack horns, so nothing happens”
+	
+	Something that might be a bug or an oversight but when you go into the alleyways during an arcane storm and someone walks up to you, they still accept money as an option to leave you alone
+	
+	Why does Meraxis (Post Slavery), Lyssieth and Lilaya's Clothes appear on the ground a few days after transformation and why Lyssieth has a Silver Earrings on the inventory instead of equipped
+	
+	Suggestion Cherry/Other flavours fluids
+	
+	Forced TF not working for someone
+		Ah, yeah, that's intended with the way the non-con option works right now. I'll improve it for the next version so that you can turn on/off sex after defeat as a separate option. your words
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	Finish orgasm denial scenes.
 	    - Add sex action(s).

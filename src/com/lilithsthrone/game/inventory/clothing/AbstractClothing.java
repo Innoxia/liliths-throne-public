@@ -364,6 +364,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			if(!parentElement.getAttribute("pattern").isEmpty()) {
 				String pat = parentElement.getAttribute("pattern");
 				clothing.setPattern(pat);
+			} else {
+				clothing.setPattern("none");
 			}
 			
 			if(!parentElement.getAttribute("patternColour").isEmpty()) {
@@ -746,13 +748,26 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return !this.getEffects().isEmpty() || !name.isEmpty()?name:this.getClothingType().getName();
 	}
 	
+	private String getColourName() {
+		if(this.getClothingType().isColourDerivedFromPattern() && this.getPattern()!="none") {
+			return this.getPatternColour().getName();
+		}
+		return getColour().getName();
+	}
+	
 	/**
 	 * @param withDeterminer
 	 *            True if you want the determiner to prefix the name
 	 * @return A string in the format "blue shirt" or "a blue shirt"
 	 */
 	public String getName(boolean withDeterminer) {
-		return (withDeterminer ? (getClothingType().isPlural() ? getClothingType().getDeterminer() + " " : (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a ")) : "") + getColour().getName() + " " + getName();
+		return (withDeterminer
+				? (getClothingType().isPlural()
+						? getClothingType().getDeterminer() + " "
+						: (Util.isVowel(getColourName().charAt(0))
+								? "an "
+								: "a "))
+				: "") + getColourName() + " " + getName();
 	}
 	
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
@@ -760,9 +775,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			return (withDeterminer
 						? (getClothingType().isPlural()
 								? getClothingType().getDeterminer() + " "
-								: (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a "))
+								: (Util.isVowel(getColourName().charAt(0)) ? "an " : "a "))
 						: "")
-					+ getColour().getName()
+					+ getColourName()
 					+ (withRarityColour
 							? (" <span style='color: " + Colour.RARITY_UNKNOWN.toWebHexString() + ";'>" + getName() + "</span>")
 							: " "+getName());
@@ -770,9 +785,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			return (withDeterminer
 					? (getClothingType().isPlural()
 							? getClothingType().getDeterminer() + " "
-							: (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a "))
+							: (Util.isVowel(getColourName().charAt(0)) ? "an " : "a "))
 					: "")
-					+ getColour().getName()
+					+ getColourName()
 					+ (withRarityColour
 							? (" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>" + getName() + "</span>")
 							: " "+getName());
@@ -793,7 +808,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					: getName());
 		}
 		
-		return Util.capitaliseSentence(getColour().getName()) + " "
+		return Util.capitaliseSentence(getColourName()) + " "
 				+ (!this.getPattern().equalsIgnoreCase("none")?Pattern.getPattern(this.getPattern()).getNiceName():"")
 				+ (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
@@ -819,7 +834,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	 */
 	public String onEquipApplyEffects(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough) {
 		if (!enchantmentKnown) {
-			enchantmentKnown = true;
+			this.setEnchantmentKnown(clothingOwner, true);
 			
 			pointlessSB.setLength(0);
 				if (this.isBadEnchantment()) {
@@ -1237,6 +1252,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				AbstractClothing c = new AbstractClothing(this) {};
 				c.enchantmentKnown = enchantmentKnown;
 				owner.addClothing(c, false);
+			} else {
+				this.enchantmentKnown = enchantmentKnown;
 			}
 		} else {
 			this.enchantmentKnown = enchantmentKnown;
