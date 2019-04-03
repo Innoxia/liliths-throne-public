@@ -61,6 +61,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 		this.skinType = skinType;
 		this.fluidType = fluidType;
 		this.race = race;
+		this.eggLaying = eggLaying;
 		
 		this.defaultRacialOrificeModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultRacialOrificeModifiers, defaultRacialOrificeModifiers);
