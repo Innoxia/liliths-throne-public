@@ -82,7 +82,9 @@ public abstract class AbstractSexPosition {
 	public abstract String getDescription();
 	
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
-		if(action.getActionType()==SexActionType.START_ONGOING) {
+		if(action.getActionType()==SexActionType.START_ONGOING
+				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
+				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
 			// Block penis+non-appendage-non-pussy actions if target's penis is already in use:
 			
 			if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)

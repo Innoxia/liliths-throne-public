@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.submission;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -11,6 +12,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -74,6 +76,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
@@ -84,8 +87,8 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.submission.SMLilayaDemonTF;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethDemonTF;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionOrgasmOverride;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
@@ -133,7 +136,19 @@ public class Lyssieth extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5")) {
 			this.setStartingBody(true);
-			this.equipClothing(true, true, true, true);
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.2.1")) {
+			this.setPiercedEar(true);
+			AbstractClothing earrings = null;
+			for(Entry<AbstractClothing, Integer> c : this.getAllClothingInInventory().entrySet()) {
+				if(c.getKey().getClothingType().equals(ClothingType.PIERCING_EAR_BASIC_RING)) {
+					earrings = c.getKey();
+				}
+			}
+			if(earrings!=null) {
+				this.equipClothingFromInventory(earrings, true, this, this);
+			}
 		}
 	}
 	
@@ -263,7 +278,7 @@ public class Lyssieth extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.resetInventory(true);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_eye_half_rim_glasses", Colour.CLOTHING_BROWN_VERY_DARK, Colour.CLOTHING_BRASS, Colour.CLOTHING_GREY, false), true, this);
@@ -366,6 +381,7 @@ public class Lyssieth extends NPC {
 		if(Main.game.isInSex() && Sex.getAllParticipants().contains(Main.game.getNpc(DarkSiren.class))) {
 			Main.game.getNpc(DarkSiren.class).setArousal(100);
 		}
+		Main.game.getNpc(daughterClass).loadImages(true);
 	}
 	
 	@Override
@@ -693,6 +709,17 @@ public class Lyssieth extends NPC {
 	public void setLilinBody() {
 		
 		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER);
+
+		this.setPiercedEar(true);
+		AbstractClothing earrings = null;
+		for(Entry<AbstractClothing, Integer> c : this.getAllClothingInInventory().entrySet()) {
+			if(c.getKey().getClothingType().equals(ClothingType.PIERCING_EAR_BASIC_RING)) {
+				earrings = c.getKey();
+			}
+		}
+		if(earrings!=null) {
+			this.equipClothingFromInventory(earrings, true, this, this);
+		}
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.ELDER_LILIN);

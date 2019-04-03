@@ -1478,9 +1478,9 @@ public class GenericOffspringDialogue {
 						}
 						@Override
 						public void effects() {
-							Main.game.getActiveNPC().applyEnslavementEffects(Main.game.getPlayer());
+							offspring().applyEnslavementEffects(Main.game.getPlayer());
 							Main.game.getPlayer().addSlave((NPC) Main.game.getActiveNPC());
-							Main.game.getActiveNPC().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+							offspring().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 						}
 					};
 				} else {

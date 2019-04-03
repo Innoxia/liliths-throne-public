@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -273,7 +274,10 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = UnspawnedChildren(
-						npc-> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION) || npc.getSubspecies()==Subspecies.ANGEL));
+						npc-> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+								|| npc.getSubspecies()==Subspecies.ANGEL
+								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
+								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -636,7 +640,7 @@ public enum Encounter {
 						impGroup.add(imp);
 						
 						for(GameCharacter impGangMember : impGroup) {
-							((NPC) impGangMember).equipClothing(true, true, true, true);
+							((NPC) impGangMember).equipClothing(EquipClothingSetting.getAllClothingSettings());
 						}
 						
 					} catch (Exception e) {
@@ -686,7 +690,7 @@ public enum Encounter {
 						impGroup.add(imp);
 						
 						for(GameCharacter impGangMember : impGroup) {
-							((NPC) impGangMember).equipClothing(true, true, true, true);
+							((NPC) impGangMember).equipClothing(EquipClothingSetting.getAllClothingSettings());
 						}
 						
 					} catch (Exception e) {
@@ -732,7 +736,7 @@ public enum Encounter {
 						impGroup.add(imp);
 						
 						for(GameCharacter impGangMember : impGroup) {
-							((NPC) impGangMember).equipClothing(true, true, true, true);
+							((NPC) impGangMember).equipClothing(EquipClothingSetting.getAllClothingSettings());
 						}
 						
 					} catch (Exception e) {
@@ -783,7 +787,7 @@ public enum Encounter {
 						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 						
 						for(GameCharacter impGangMember : impGroup) {
-							((NPC) impGangMember).equipClothing(true, true, true, true);
+							((NPC) impGangMember).equipClothing(EquipClothingSetting.getAllClothingSettings());
 						}
 						
 					} catch (Exception e) {

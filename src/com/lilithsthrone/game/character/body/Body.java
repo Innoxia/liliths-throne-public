@@ -3813,8 +3813,8 @@ public class Body implements XMLSaving {
 						case PINEAPPLE:
 							descriptionSB.append(" [npc.Her] [npc.milk] tastes of pineapple.");
 							break;
-						case SLIME:
-							descriptionSB.append(" [npc.Her] [npc.milk] is mostly tasteless, but very sweet.");
+						case BUBBLEGUM:
+							descriptionSB.append(" [npc.Her] [npc.milk] has the fruity taste of bubblegum.");
 							break;
 						case STRAWBERRY:
 							descriptionSB.append(" [npc.Her] [npc.milk] tastes of strawberries.");
@@ -3824,6 +3824,9 @@ public class Body implements XMLSaving {
 							break;
 						case VANILLA:
 							descriptionSB.append(" [npc.Her] [npc.milk] tastes of vanilla.");
+							break;
+						case CHERRY:
+							descriptionSB.append(" [npc.Her] [npc.milk] tastes of cherries.");
 							break;
 					}
 					
@@ -4065,8 +4068,8 @@ public class Body implements XMLSaving {
 						case PINEAPPLE:
 							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of pineapple.");
 							break;
-						case SLIME:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] is mostly tasteless, but very sweet.");
+						case BUBBLEGUM:
+							descriptionSB.append(" [npc.Her] [npc.crotchMilk] has the fruity taste of bubblegum.");
 							break;
 						case STRAWBERRY:
 							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of strawberries.");
@@ -4076,6 +4079,9 @@ public class Body implements XMLSaving {
 							break;
 						case VANILLA:
 							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of vanilla.");
+							break;
+						case CHERRY:
+							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of cherries.");
 							break;
 					}
 					
@@ -4686,17 +4692,20 @@ public class Body implements XMLSaving {
 				case PINEAPPLE:
 					descriptionSB.append(" tastes of pineapple.");
 					break;
-				case SLIME:
-					descriptionSB.append(" is mostly tasteless, but very sweet.");
+				case BUBBLEGUM:
+					descriptionSB.append(" has the fruity taste of bubblegum.");
 					break;
 				case STRAWBERRY:
 					descriptionSB.append(" tastes of strawberries.");
 					break;
 				case BEER:
-					descriptionSB.append(", which tastes like beer.");
+					descriptionSB.append(" tastes like beer.");
 					break;
 				case VANILLA:
-					descriptionSB.append(", which tastes of vanilla.");
+					descriptionSB.append(" tastes of vanilla.");
+					break;
+				case CHERRY:
+					descriptionSB.append(" tastes of cherries.");
 					break;
 			}
 			
@@ -5057,6 +5066,47 @@ public class Body implements XMLSaving {
 					}
 				}
 			}
+		}
+		
+		descriptionSB.append(" [npc.Her] [npc.girlcum]");
+		
+		switch(viewedVagina.getGirlcum().getFlavour()) {
+			case CHOCOLATE:
+				descriptionSB.append(" tastes of chocolate.");
+				break;
+			case CUM:
+				descriptionSB.append(" tastes of salty cum.");
+				break;
+			case GIRL_CUM:
+				descriptionSB.append(", much to nobody's surprise, tastes like ordinary girlcum.");
+				break;
+			case HONEY:
+				descriptionSB.append(" tastes of honey.");
+				break;
+			case MILK:
+				descriptionSB.append(" tastes like milk.");
+				break;
+			case MINT:
+				descriptionSB.append(" tastes of mint.");
+				break;
+			case PINEAPPLE:
+				descriptionSB.append(" tastes of pineapple.");
+				break;
+			case BUBBLEGUM:
+				descriptionSB.append(" has the fruity taste of bubblegum.");
+				break;
+			case STRAWBERRY:
+				descriptionSB.append(" tastes of strawberries.");
+				break;
+			case BEER:
+				descriptionSB.append(" tastes like beer.");
+				break;
+			case VANILLA:
+				descriptionSB.append(" tastes of vanilla.");
+				break;
+			case CHERRY:
+				descriptionSB.append(" tastes of cherries.");
+				break;
 		}
 		
 		descriptionSB.append("<br/>");

@@ -2310,12 +2310,12 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformLactationRegenerationDiv() {
-		return applyVariableWrapperFluids("Milk Regeneration",
-				UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which milk is produced in [npc.namePos] breasts."
+		return applyVariableWrapperFluids("Milk Regeneration Per Breast",
+				UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which milk is produced in <b>each</b> of [npc.namePos] breasts. The more breasts [npc.sheHasFull], the more milk [npc.she] produces per second."
 						+ "<br/><i>Once drained, [npc.namePos] breasts fill with milk up to their maximum storage value at this rate.</i>"),
 				"MILK_REGENERATION",
 				Units.fluid(BodyChanging.getTarget().getBreastRawLactationRegenerationValue(), ValueType.PRECISE)+"/day"
-					+"<br/>("+Units.fluid(BodyChanging.getTarget().getLactationRegenerationPerSecond()*60, ValueType.PRECISE)+"/minute)"
+					+"<br/>("+Units.fluid(BodyChanging.getTarget().getLactationRegenerationPerSecond(false)*60, ValueType.PRECISE)+"/minute)"
 					+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastLactationRegeneration().getName())+"</i>",
 				BodyChanging.getTarget().getBreastRawLactationRegenerationValue()<=0,
 				BodyChanging.getTarget().getBreastRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
@@ -2325,12 +2325,12 @@ public class CharacterModificationUtils {
 	}
 
 	public static String getSelfTransformLactationCrotchRegenerationDiv() {
-		return applyVariableWrapperFluids("Milk Regeneration",
-				UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which milk is produced in [npc.namePos] [npc.crotchBoobs]."
+		return applyVariableWrapperFluids("Milk Regeneration Per Crotch-boob",
+				UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which milk is produced in <b>each</b> of [npc.namePos] [npc.crotchBoobs]. The more [npc.crotchBoobs] [npc.sheHasFull], the more milk [npc.she] produces per second."
 						+ "<br/><i>Once drained, [npc.namePos] [npc.crotchBoobs] fill with milk up to their maximum storage value at this rate.</i>"),
 				"MILK_CROTCH_REGENERATION",
 				Units.fluid(BodyChanging.getTarget().getBreastRawLactationRegenerationValue(), ValueType.PRECISE)+"/day"
-						+"<br/>("+Units.fluid(BodyChanging.getTarget().getCrotchLactationRegenerationPerSecond()*60, ValueType.PRECISE)+"/minute)"
+						+"<br/>("+Units.fluid(BodyChanging.getTarget().getCrotchLactationRegenerationPerSecond(false)*60, ValueType.PRECISE)+"/minute)"
 						+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchLactationRegeneration().getName())+"</i>",
 				BodyChanging.getTarget().getBreastRawLactationRegenerationValue()<=0,
 				BodyChanging.getTarget().getBreastRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),

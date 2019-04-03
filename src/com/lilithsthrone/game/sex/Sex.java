@@ -2037,14 +2037,16 @@ public class Sex {
 		// Handle orgasms:
 		if(sexAction.getActionType()==SexActionType.ORGASM) {
 			// Condom removal:
-			if(Sex.getCharacterPerformingAction().isWearingCondom() && sexAction.getCondomFailure(activeCharacter, targetCharacter)==CondomFailure.NONE){
-				Sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).setSealed(false);
-				if(Sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0) {
-					stringBuilderForAppendingDescriptions.append(Main.game.getPlayer().addItem(
-							AbstractItemType.generateFilledCondom(
-									Sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).getColour(),
-									Sex.getCharacterPerformingAction(), Sex.getCharacterPerformingAction().getCum(), Sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()),
-							false, true));
+			if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+				if(sexAction.getCondomFailure(activeCharacter, targetCharacter)==CondomFailure.NONE) {
+					Sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).setSealed(false);
+					if(Sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0) {
+						stringBuilderForAppendingDescriptions.append(Main.game.getPlayer().addItem(
+								AbstractItemType.generateFilledCondom(
+										Sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).getColour(),
+										Sex.getCharacterPerformingAction(), Sex.getCharacterPerformingAction().getCum(), Sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()),
+								false, true));
+					}
 				}
 				Sex.getCharacterPerformingAction().unequipClothingIntoVoid(Sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS), true, Sex.getCharacterPerformingAction());
 			}

@@ -55,6 +55,9 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.*;
+import com.lilithsthrone.utils.comparators.ClothingTypeRarityComparator;
+import com.lilithsthrone.utils.comparators.ItemTypeRarityComparator;
+import com.lilithsthrone.utils.comparators.WeaponTypeRarityComparator;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -762,8 +765,12 @@ public class PhoneDialogue {
 						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getBreastRawMilkStorageValue()),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastMilkStorage().getDescriptor()),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration",
-						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond()*60)+"/minute",
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration Per Breast",
+						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond(false)*60)+"/minute",
+						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()),
+						false)
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration Total",
+						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond(true)*60)+"/minute",
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
@@ -799,8 +806,12 @@ public class PhoneDialogue {
 									Colour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getBreastCrotchRawMilkStorageValue()),
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchMilkStorage().getDescriptor()),
 									false)
-							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration",
-									Colour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getCrotchLactationRegenerationPerSecond()*60)+"/minute",
+							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration Per Crotch-boob",
+									Colour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getCrotchLactationRegenerationPerSecond(false)*60)+"/minute",
+									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchLactationRegeneration().getName()),
+									false)
+							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration Total",
+									Colour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getCrotchLactationRegenerationPerSecond(true)*60)+"/minute",
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchLactationRegeneration().getName()),
 									false)
 							+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
@@ -1702,13 +1713,13 @@ public class PhoneDialogue {
 	static {
 		
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
-		itemsDiscoveredList.sort(new ItemRarityComparator());
+		itemsDiscoveredList.sort(new ItemTypeRarityComparator());
 		
 		weaponsDiscoveredList.addAll(WeaponType.getAllweapons());
-		weaponsDiscoveredList.sort(new WeaponRarityComparator());
+		weaponsDiscoveredList.sort(new WeaponTypeRarityComparator());
 		
 		clothingDiscoveredList.addAll(ClothingType.getAllClothing());
-		clothingDiscoveredList.sort(new ClothingRarityComparator());
+		clothingDiscoveredList.sort(new ClothingTypeRarityComparator());
 	}
 	public static final DialogueNode WEAPON_CATALOGUE = new DialogueNode("Discovered Weapons", "", true) {
 

@@ -112,7 +112,8 @@ public class GloryHole {
 					&& Sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 					&& (Sex.getCharacterPerformingAction().isPlayer()
 							|| (!Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isNegative()
-									&& ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotBipeds.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
+									&& ((NPC) Sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.game.getPlayer()).getPerformingSexArea()==SexAreaOrifice.ANUS));
+//									&& ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotBipeds.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
 		}
 		
 		@Override
@@ -214,7 +215,8 @@ public class GloryHole {
 					&& Sex.getCharacterPerformingAction().hasVagina()
 					&& (Sex.getCharacterPerformingAction().isPlayer()
 							|| (!Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()
-									&& ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotBipeds.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
+									&& ((NPC) Sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.game.getPlayer()).getPerformingSexArea()==SexAreaOrifice.VAGINA));
+//									&& ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotBipeds.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
 		}
 		
 		@Override

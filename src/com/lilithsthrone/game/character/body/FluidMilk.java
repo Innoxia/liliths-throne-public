@@ -87,7 +87,12 @@ public class FluidMilk implements FluidInterface {
 		
 		FluidMilk fluidMilk = new FluidMilk(fluidType, crotchMilk);
 		
-		fluidMilk.flavour = (FluidFlavour.valueOf(milk.getAttribute("flavour")));
+		String flavourId = milk.getAttribute("flavour");
+		if(flavourId.equalsIgnoreCase("SLIME")) {
+			fluidMilk.flavour = FluidFlavour.BUBBLEGUM;
+		} else {
+			fluidMilk.flavour = FluidFlavour.valueOf(flavourId);
+		}
 		
 		Element milkModifiersElement = (Element)milk.getElementsByTagName("milkModifiers").item(0);
 		fluidMilk.fluidModifiers.clear();
@@ -497,7 +502,7 @@ public class FluidMilk implements FluidInterface {
 	}
 	
 	public float getValuePerMl() {
-		return 0.1f + this.getFluidModifiers().size()*0.4f + (this.getFlavour()!=FluidFlavour.MILK?0.5f:0);
+		return (0.1f + (this.getFluidModifiers().size()*0.1f)) + (this.getFlavour()!=FluidFlavour.MILK?1.5f:1);
 	}
 
 	public boolean isCrotchMilk() {

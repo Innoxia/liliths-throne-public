@@ -702,13 +702,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 		colourSet.clear();
 		this.allAvailablePatternSecondaryColours = new ArrayList<>();
-		if(availablePatternSecondaryColours!=null) {
-			colourSet.addAll(availablePatternSecondaryColours);
-		}
-		if(availablePatternSecondaryDyeColours!=null) {
-			colourSet.addAll(availablePatternSecondaryDyeColours);
-		}
-		this.allAvailablePatternSecondaryColours.addAll(colourSet);
+//		if(availablePatternSecondaryColours!=null) {
+//			colourSet.addAll(availablePatternSecondaryColours);
+//		}
+//		if(availablePatternSecondaryDyeColours!=null) {
+//			colourSet.addAll(availablePatternSecondaryDyeColours);
+//		}
+//		this.allAvailablePatternSecondaryColours.addAll(colourSet);
+		this.allAvailablePatternSecondaryColours.addAll(this.availablePatternSecondaryColours);
+		this.allAvailablePatternSecondaryColours.addAll(this.availablePatternSecondaryDyeColours);
 		this.allAvailablePatternSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
 
 		

@@ -127,6 +127,12 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		this.primaryColour = primaryColour;
 		this.secondaryColour = secondaryColour;
 	}
+
+	public AbstractWeapon(AbstractWeapon weapon) {
+		this(weapon.getWeaponType(), weapon.getDamageType(), weapon.getPrimaryColour(), weapon.getSecondaryColour());
+		
+		this.setEffects(new ArrayList<>(weapon.getEffects()));
+	}
 	
 	@Override
 	public boolean equals(Object o) {

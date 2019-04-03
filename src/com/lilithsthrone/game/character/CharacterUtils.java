@@ -28,6 +28,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Antenna;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Ass;
@@ -925,7 +926,7 @@ public class CharacterUtils {
 //		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
 	}
 
-	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Subspecies halfSubspecies) {
+	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Subspecies halfSubspecies, boolean applyHalfDemonAttributeChanges) {
 		Gender startingGender;
 		RaceStage stage;
 		AbstractRacialBody demonBody = RacialBody.DEMON;
@@ -933,6 +934,15 @@ public class CharacterUtils {
 		if(linkedCharacter!=null) {
 			startingGender = linkedCharacter.getGender();
 			stage = linkedCharacter.getRaceStage();
+			
+			if(applyHalfDemonAttributeChanges) {
+				if(linkedCharacter.getAttributeValue(Attribute.MAJOR_CORRUPTION)<75) {
+					linkedCharacter.setAttribute(Attribute.MAJOR_CORRUPTION, 75+Util.random.nextInt(26));
+				}
+				if(linkedCharacter.getAttributeValue(Attribute.MAJOR_ARCANE)<25) {
+					linkedCharacter.setAttribute(Attribute.MAJOR_ARCANE, 25+Util.random.nextInt(11));
+				}
+			}
 			
 		} else {
 			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
@@ -1152,7 +1162,7 @@ public class CharacterUtils {
 				species = Util.randomItemFrom(slimeSubspecies);
 				
 				if(isHalfDemon) {
-					return generateHalfDemonBody(linkedCharacter, species);
+					return generateHalfDemonBody(linkedCharacter, species, true);
 				}
 				
 				if(startingGender.isFeminine()) {
@@ -1861,10 +1871,10 @@ public class CharacterUtils {
 		List<Fetish> availableFetishes = getAllowedFetishes(character);
 		
 		// Remove existing fetishes:
-		availableFetishes.removeAll(character.getFetishes());
+		availableFetishes.removeAll(character.getFetishes(false));
 		
 		int[] numberProb = new int[] {1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5};
-		int numberOfFetishes = Util.randomItemFrom(numberProb) - character.getFetishes().size();
+		int numberOfFetishes = Util.randomItemFrom(numberProb) - character.getFetishes(false).size();
 		
 		int fetishesAssigned = 0;
 		
@@ -1919,9 +1929,9 @@ public class CharacterUtils {
 	public static void generateDesires(GameCharacter character) {
 		
 		List<Fetish> availableFetishes = getAllowedFetishes(character);
-		availableFetishes.removeAll(character.getFetishes());
+		availableFetishes.removeAll(character.getFetishes(false));
 		availableFetishes.removeIf((f) -> !f.getFetishesForAutomaticUnlock().isEmpty()); //Do not allow derived fetishes
-		for(Fetish f : character.getFetishes()) {
+		for(Fetish f : character.getFetishes(false)) {
 			switch(f) {
 				default:
 					break;
@@ -1952,7 +1962,7 @@ public class CharacterUtils {
 		int numberOfNegativeDesires = Util.randomItemFrom(negDesireProb);
 		
 		int desiresAssigned = 0;
-		List<Fetish> fetishesLiked = new ArrayList<>(character.getFetishes());
+		List<Fetish> fetishesLiked = new ArrayList<>(character.getFetishes(false));
 		while(desiresAssigned < numberOfPositiveDesires && !availableFetishes.isEmpty()) {
 			Fetish f = Util.randomItemFrom(availableFetishes);
 			character.setFetishDesire(f, FetishDesire.THREE_LIKE);
@@ -2020,15 +2030,15 @@ public class CharacterUtils {
 	}
 	
 
-	public static void equipClothingFromOutfitFolderId(GameCharacter character, OutfitType outfitType, String folderId, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		equipClothingFromOutfits(character, OutfitType.getOutfitsFromIdStart(folderId), outfitType, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	public static void equipClothingFromOutfitFolderId(GameCharacter character, OutfitType outfitType, String folderId, List<EquipClothingSetting> settings) {
+		equipClothingFromOutfits(character, OutfitType.getOutfitsFromIdStart(folderId), outfitType, settings);
 	}
 
-	public static void equipClothingFromOutfitType(GameCharacter character, OutfitType outfitType, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		equipClothingFromOutfits(character, OutfitType.getAllOutfits(), outfitType, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	public static void equipClothingFromOutfitType(GameCharacter character, OutfitType outfitType, List<EquipClothingSetting> settings) {
+		equipClothingFromOutfits(character, OutfitType.getAllOutfits(), outfitType, settings);
 	}
 
-	private static void equipClothingFromOutfits(GameCharacter character, List<AbstractOutfit> availableOutfits, OutfitType outfitType, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	private static void equipClothingFromOutfits(GameCharacter character, List<AbstractOutfit> availableOutfits, OutfitType outfitType, List<EquipClothingSetting> settings) {
 		Map<AbstractOutfit, Integer> weightedOutfits = new HashMap<>();
 		
 		for(AbstractOutfit outfit : availableOutfits) {
@@ -2038,20 +2048,20 @@ public class CharacterUtils {
 		}
 		
 		if(weightedOutfits.isEmpty()) {
-			equipClothingFromOutfit(character, null, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+			equipClothingFromOutfit(character, null, settings);
 		} else {
-			equipClothingFromOutfit(character, Util.getRandomObjectFromWeightedMap(weightedOutfits), replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+			equipClothingFromOutfit(character, Util.getRandomObjectFromWeightedMap(weightedOutfits), settings);
 		}
 	}
 
-	public static void equipClothingFromOutfitId(GameCharacter character, String outfitId, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		equipClothingFromOutfit(character, OutfitType.getOutfitTypeFromId(outfitId), replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	public static void equipClothingFromOutfitId(GameCharacter character, String outfitId, List<EquipClothingSetting> settings) {
+		equipClothingFromOutfit(character, OutfitType.getOutfitTypeFromId(outfitId), settings);
 	}
 	
-	public static void equipClothingFromOutfit(GameCharacter character, AbstractOutfit outfit, boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public static void equipClothingFromOutfit(GameCharacter character, AbstractOutfit outfit, List<EquipClothingSetting> settings) {
 		if(outfit!=null) {
 			try {
-				outfit.applyOutfit(character, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+				outfit.applyOutfit(character, settings);
 				return;
 			} catch (XMLLoadException e) {
 				System.err.println("Outfit '"+outfit.getName()+"' could not be applied in CharacterUtils equipClothing(). Proceeding to randomly generate outfit...");
@@ -2063,7 +2073,7 @@ public class CharacterUtils {
 				lingerieColour = ColourListPresets.LINGERIE.get(Util.random.nextInt(ColourListPresets.LINGERIE.size()));
 		
 		// Remove exposing underwear if replaceUnsuitableClothing and is exposed:
-		if(replaceUnsuitableClothing
+		if(settings.contains(EquipClothingSetting.REPLACE_CLOTHING)
 				&& character.getClothingInSlot(InventorySlot.GROIN)!=null
 				&& (character.hasStatusEffect(StatusEffect.EXPOSED) || character.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))) {
 			character.unequipClothingIntoVoid(character.getClothingInSlot(InventorySlot.GROIN), true, character);
@@ -2079,7 +2089,7 @@ public class CharacterUtils {
 		
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			for(InventorySlot slot : inventorySlotsInPriorityOrder) {
-				if(replaceUnsuitableClothing) {
+				if(settings.contains(EquipClothingSetting.REPLACE_CLOTHING)) {
 					if(character.getClothingInSlot(slot)!=null) {
 						if(character.getClothingInSlot(slot).getClothingType().getFemininityRestriction() == Femininity.MASCULINE) {
 							character.unequipClothingIntoVoid(character.getClothingInSlot(slot), true, character);
@@ -2133,7 +2143,7 @@ public class CharacterUtils {
 			
 		} else {
 			for(InventorySlot slot : inventorySlotsInPriorityOrder) {
-				if(replaceUnsuitableClothing) {
+				if(settings.contains(EquipClothingSetting.REPLACE_CLOTHING)) {
 					if(character.getClothingInSlot(slot)!=null) {
 						if(character.getClothingInSlot(slot).getClothingType().getFemininityRestriction() == Femininity.FEMININE) {
 							character.unequipClothingIntoVoid(character.getClothingInSlot(slot), true, character);

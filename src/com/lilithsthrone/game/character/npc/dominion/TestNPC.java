@@ -1,11 +1,13 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -148,7 +150,7 @@ public class TestNPC extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.resetInventory(true);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
@@ -501,14 +503,14 @@ public class TestNPC extends NPC {
 						+ "<p>"
 							+ "You knew [test.she] was a slut from the moment you saw [test.herHim], and the fact that [test.she] orgasmed during your fun only proves you right."
 							+ " As you reach the door, you turn around and chuckle,"
-							+ " [test.speech(You were a good fuck, slut. Maybe I'll pay you another visit some time!)]"
+							+ " [pc.speech(You were a good fuck, slut. Maybe I'll pay you another visit some time!)]"
 						+ "</p>";
 			} else {
 				return "<p>"
 							+ "The [test.race] collapses to the floor, sobbing."
 							+ " Grinning down at [test.her] despoiled body, you turn to the door and prepare to make your exit."
 							+ " As you reach for the handle, you turn around and chuckle,"
-							+ " [test.speech(You were a good fuck, slut. Maybe I'll pay you another visit some time!)]"
+							+ " [pc.speech(You were a good fuck, slut. Maybe I'll pay you another visit some time!)]"
 						+ "</p>";
 			}
 		}
@@ -538,14 +540,14 @@ public class TestNPC extends NPC {
 							+ "The [test.race] collapses to the floor, totally worn out and satisfied from the orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+" you gave to [test.herHim]."
 							+ " Grinning down at [test.her] delicate body, you turn to the door and prepare to make your exit."
 							+ " As you reach for the handle, you turn around and chuckle,"
-							+ " [test.speech(That was fun! Maybe I'll pay you another visit some time!)]"
+							+ " [pc.speech(That was fun! Maybe I'll pay you another visit some time!)]"
 						+ "</p>";
 			} else {
 				return "<p>"
 							+ "The [test.race] collapses to the floor, totally worn out."
 							+ " Grinning down at [test.her] delicate body, you turn to the door and prepare to make your exit."
 							+ " As you reach for the handle, you turn around and chuckle,"
-							+ " [test.speech(That was fun! Maybe I'll pay you another visit some time!)]"
+							+ " [pc.speech(That was fun! Maybe I'll pay you another visit some time!)]"
 						+ "</p>";
 			}
 		}

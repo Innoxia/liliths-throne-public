@@ -17,6 +17,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -150,7 +151,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(!isImported) {
 			setStartingBody(true);
 			if(!flags.contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
-				equipClothing(true, true, true, true);
+				equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
 		}
 		
@@ -253,8 +254,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * <b>-</b> Piercings.<br/>
 	 * <b>-</b> Clothing (remember underwear and accessories).<br/>
 	 */
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothingFromOutfit(this, null, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		CharacterUtils.equipClothingFromOutfit(this, null, settings);
 	}
 	
 	protected void resetBodyAfterVersion_2_10_5() {
@@ -264,7 +265,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		float milkStored = this.getBreastRawStoredMilkValue();
 		
 		setStartingBody(true);
-		equipClothing(true, true, true, true);
+		equipClothing(EquipClothingSetting.getAllClothingSettings());
 		
 		this.setBreastSize(size.getMeasurement());
 		this.setBreastMilkStorage((int) milkStorage);
@@ -3098,6 +3099,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public void setMainSexPreference(GameCharacter target, SexType mainSexPreference) {
 		this.mainSexPreference.put(target, mainSexPreference);
 	}
+
+	public SexType getCurrentSexPreference(GameCharacter target) {
+		if(Sex.isInForeplay(this)) {
+			return getForeplayPreference(target);
+		} else {
+			return getMainSexPreference(target);
+		}
+	}
 	
 	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request) {
 		int weight = 0;
@@ -3118,12 +3127,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					case TWO_NEUTRAL:
 						weight+=1;
 						break;
-					// They really should never want to perform actions they dislike or hate:
 					case ONE_DISLIKE:
-						weight-=100;
+						weight-=3;
 						break;
 					case ZERO_HATE:
-						weight-=200;
+						weight-=5;
 						break;
 				}
 			}

@@ -599,7 +599,7 @@ public class LilayaHomeGeneric {
 							MILKED) {
 						@Override
 						public void effects() {
-							int milked = MilkingRoom.getActualMilkPerHour(getMilkingTarget());
+							int milked = MilkingRoom.getActualCrotchMilkPerHour(getMilkingTarget());
 							if(milked < getMilkingTarget().getBreastCrotchRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(getMilkingTarget())) {
 								milked = (int) Math.min(getMilkingTarget().getBreastCrotchRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(getMilkingTarget()));
 							}
