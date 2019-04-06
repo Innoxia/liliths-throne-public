@@ -53,7 +53,7 @@ import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
+import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -532,7 +532,7 @@ public class MainController implements Initializable {
 						boolean enterConsumed = false;
 						
 						// Name selections:
-						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME || Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM){
+						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME || Main.game.getCurrentDialogueNode() == CityHallDemographics.NAME_CHANGE){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
@@ -1652,7 +1652,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
-			for (Fetish f : character.getFetishes()) {
+			for (Fetish f : character.getFetishes(true)) {
 				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + f)) != null) {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseleave", hideTooltipListener, false);
@@ -1770,7 +1770,7 @@ public class MainController implements Initializable {
 		
 		if(Main.game.getPlayer()!=null) {
 			// Weapons on floor:
-			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 				id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1785,7 +1785,7 @@ public class MainController implements Initializable {
 			}
 			
 			// Clothing on floor:
-			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
 				id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1800,7 +1800,7 @@ public class MainController implements Initializable {
 			}
 			
 			// Items on floor:
-			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
 				id = "ITEM_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1965,7 +1965,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mouseenter", el, false);
 					}
 				}
-				for (Fetish f : character.getFetishes()) {
+				for (Fetish f : character.getFetishes(true)) {
 					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + f)) != null) {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseleave", hideTooltipListener, false);

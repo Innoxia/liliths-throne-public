@@ -83,10 +83,14 @@
 			[pc.speech(I know what it is you want,)] you tease, looking down at [npc.name], who, thanks to your order of having to crawl everywhere [npc.she] goes, is on all fours before you. [pc.speech(You just want your [pc.mistress] to give you some attention, don't you?)]
 		</p>
 		<p>
-			#IF(npc.isFeminine())
-				[npc.speech(Yes, [pc.name],)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] looks up at you, [npc.speech(Please, I want you to take me...)]
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				[npc.speech(Eugh, I hate you so much...)] [npc.name] remarks, scowling at you for a moment before hungrily gazing up and down over your body and stating, [npc.speech(I guess I have no choice in the matter, do I? Anyway, a good hate-fuck wouldn't be so bad...)]
 			#ELSE
-				[npc.speech(Yes, [pc.name],)] [npc.name] replies, smiling at you and letting out a hungry groan as [npc.she] looks up at you, [npc.speech(Please, I want you to take me...)]
+				#IF(npc.isFeminine())
+					[npc.speech(Yes, [pc.name],)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] looks up at you, [npc.speech(Please, I want you to take me...)]
+				#ELSE
+					[npc.speech(Yes, [pc.name],)] [npc.name] replies, smiling at you and letting out a hungry groan as [npc.she] looks up at you, [npc.speech(Please, I want you to take me...)]
+				#ENDIF
 			#ENDIF
 		</p>
 		<p>
@@ -104,10 +108,14 @@
 			[pc.speech(I know what it is you want,)] you tease, stepping forwards and reaching out to take hold of [npc.namePos] [npc.hips+]. [pc.speech(You just want your [pc.mistress] to give you some attention, don't you?)]
 		</p>
 		<p>
-			#IF(npc.isFeminine())
-				[npc.speech(Yes, [pc.name],)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				[npc.speech(Eugh, I hate you so much...)] [npc.name] remarks, scowling at you for a moment before hungrily gazing up and down over your body and stating, [npc.speech(I guess I have no choice in the matter, do I? Anyway, a good hate-fuck wouldn't be so bad...)]
 			#ELSE
-				[npc.speech(Yes, [pc.name],)] [npc.name] replies, smiling at you and letting out a hungry groan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
+				#IF(npc.isFeminine())
+					[npc.speech(Yes, [pc.name],)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
+				#ELSE
+					[npc.speech(Yes, [pc.name],)] [npc.name] replies, smiling at you and letting out a hungry groan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
+				#ENDIF
 			#ENDIF
 		</p>
 		<p>

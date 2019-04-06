@@ -83,7 +83,12 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 		
 		FluidGirlCum fluidGirlcum = new FluidGirlCum(fluidType);
 		
-		fluidGirlcum.flavour = (FluidFlavour.valueOf(girlcum.getAttribute("flavour")));
+		String flavourId = girlcum.getAttribute("flavour");
+		if(flavourId.equalsIgnoreCase("SLIME")) {
+			fluidGirlcum.flavour = FluidFlavour.BUBBLEGUM;
+		} else {
+			fluidGirlcum.flavour = FluidFlavour.valueOf(flavourId);
+		}
 		
 
 		Element girlcumModifiersElement = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
@@ -478,7 +483,7 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 	}
 
 	public float getValuePerMl() {
-		return 4f + this.getFluidModifiers().size()*1f + (this.getFlavour()!=FluidFlavour.GIRL_CUM?1f:0);
+		return (4f + (this.getFluidModifiers().size()*0.5f)) * (this.getFlavour()!=FluidFlavour.GIRL_CUM?1.5f:1);
 	}
 
 	@Override

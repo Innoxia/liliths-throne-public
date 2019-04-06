@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
@@ -292,7 +293,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -301,7 +302,7 @@ public class ImpFortressDialogue {
 			
 			// Move boss back to fortress:
 			Main.game.getNpc(FortressAlphaLeader.class).setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP);
-			Main.game.getNpc(FortressAlphaLeader.class).equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressAlphaLeader.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -359,7 +360,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -368,7 +369,7 @@ public class ImpFortressDialogue {
 			
 			// Move boss back to fortress:
 			Main.game.getNpc(FortressFemalesLeader.class).setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP);
-			Main.game.getNpc(FortressFemalesLeader.class).equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressFemalesLeader.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -427,7 +428,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -436,7 +437,7 @@ public class ImpFortressDialogue {
 			
 			// Move boss back to fortress:
 			Main.game.getNpc(FortressMalesLeader.class).setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP);
-			Main.game.getNpc(FortressMalesLeader.class).equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressMalesLeader.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -624,7 +625,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -651,7 +652,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -682,7 +683,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {

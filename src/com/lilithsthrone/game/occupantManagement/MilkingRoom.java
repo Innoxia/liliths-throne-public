@@ -56,6 +56,18 @@ public class MilkingRoom implements XMLSaving {
 	private static GameCharacter targetedCharacter = Main.game.getPlayer();
 	
 	public static final int INGESTION_AMOUNT = 100;
+
+	public static final int ARTISAN_MILKING_AMOUNT = 2000;
+	public static final int BASE_MILKING_AMOUNT = 2500;
+	public static final int INDUSTRIAL_MILKING_AMOUNT = 5000;
+
+	public static final int ARTISAN_CUM_MILKING_AMOUNT = 200;
+	public static final int BASE_CUM_MILKING_AMOUNT = 250;
+	public static final int INDUSTRIAL_CUM_MILKING_AMOUNT = 500;
+
+	public static final int ARTISAN_GIRLCUM_MILKING_AMOUNT = 40;
+	public static final int BASE_GIRLCUM_MILKING_AMOUNT = 50;
+	public static final int INDUSTRIAL_GIRLCUM_MILKING_AMOUNT = 100;
 	
 	public MilkingRoom(WorldType worldType, Vector2i location) {
 		autoSellMilk = false;
@@ -171,17 +183,17 @@ public class MilkingRoom implements XMLSaving {
 	
 	public static int getMaximumMilkPerHour(GameCharacter character) {
 		Cell c = getMilkingCell(character, false);
-		int milked = 500;
+		int milked = MilkingRoom.BASE_MILKING_AMOUNT;
 
 		if(c==null) {
 			return milked;
 		}
 		
 		if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
-			milked = 250;
+			milked = MilkingRoom.ARTISAN_MILKING_AMOUNT;
 			
 		} else if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
-			milked = 1000;
+			milked = MilkingRoom.INDUSTRIAL_MILKING_AMOUNT;
 		}
 		
 		if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)) {
@@ -192,22 +204,26 @@ public class MilkingRoom implements XMLSaving {
 	}
 
 	public static int getActualMilkPerHour(GameCharacter character) {
-		return (int) Math.min(getMaximumMilkPerHour(character), (character.getBreastLactationRegeneration().getPercentageRegen() * character.getBreastRawMilkStorageValue() * 60 * 60));
+		return (int) Math.min(getMaximumMilkPerHour(character), (character.getLactationRegenerationPerSecond(true) * 60 * 60));
+	}
+	
+	public static int getActualCrotchMilkPerHour(GameCharacter character) {
+		return (int) Math.min(getMaximumMilkPerHour(character), (character.getCrotchLactationRegenerationPerSecond(true) * 60 * 60));
 	}
 	
 	public static int getMaximumCumPerHour(GameCharacter character) {
 		Cell c = getMilkingCell(character, false);
-		int milked = 50;
+		int milked = MilkingRoom.BASE_CUM_MILKING_AMOUNT;
 
 		if(c==null) {
 			return milked;
 		}
 		
 		if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
-			milked = 25;
+			milked = MilkingRoom.ARTISAN_CUM_MILKING_AMOUNT;
 			
 		} else if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
-			milked = 250;
+			milked = MilkingRoom.INDUSTRIAL_CUM_MILKING_AMOUNT;
 		}
 		
 		if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)) {
@@ -221,22 +237,22 @@ public class MilkingRoom implements XMLSaving {
 		if(!character.hasPenisIgnoreDildo()) {
 			return 0;
 		}
-		return (int) Math.min(getMaximumCumPerHour(character), (character.getPenisCumProductionRegeneration().getPercentageRegen() * character.getPenisRawCumStorageValue() * 60 * 60));
+		return (int) Math.min(getMaximumCumPerHour(character), (character.getCumRegenerationPerSecond() * 60 * 60));
 	}
 	
 	public static int getMaximumGirlcumPerHour(GameCharacter character) {
 		Cell c = getMilkingCell(character, false);
-		int milked = 10;
+		int milked = MilkingRoom.BASE_GIRLCUM_MILKING_AMOUNT;
 		
 		if(c==null) {
 			return milked;
 		}
 		
 		if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
-			milked = 5;
+			milked = MilkingRoom.ARTISAN_GIRLCUM_MILKING_AMOUNT;
 			
 		} else if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
-			milked = 50;
+			milked = MilkingRoom.INDUSTRIAL_GIRLCUM_MILKING_AMOUNT;
 		}
 		
 		if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)) {
@@ -511,12 +527,13 @@ public class MilkingRoom implements XMLSaving {
 							+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you.<br/>"));
 				
 			} else if(fluidType==FluidTypeBase.CUM
-					&& (!ingestingCharacter.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive() || (!ingestingCharacter.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() || area!=CoverableArea.VAGINA))) {
+					&& (area==CoverableArea.VAGINA
+						?!ingestingCharacter.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()
+						:!ingestingCharacter.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive())) {
 				 sb.append(UtilText.parse(ingestingCharacter,
-						"[npc.Name] requires a positive desire for the "+Fetish.FETISH_CUM_ADDICT.getName(ingestingCharacter)+" fetish"
-										+ (ingestingCharacter.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() && area==CoverableArea.VAGINA
-											?", and a non-negative desire for the "+Fetish.FETISH_PREGNANCY.getName(ingestingCharacter)+" fetish.<br/>"
-											:".<br/>")));
+						 area==CoverableArea.VAGINA
+						 	?"[npc.Name] requires a positive desire for the "+Fetish.FETISH_PREGNANCY.getName(ingestingCharacter)+" fetish.<br/>"
+							:"[npc.Name] requires a positive desire for the "+Fetish.FETISH_CUM_ADDICT.getName(ingestingCharacter)+" fetish.<br/>"));
 				
 			} else if(fluidType==FluidTypeBase.MILK && !ingestingCharacter.getFetishDesire(Fetish.FETISH_LACTATION_OTHERS).isPositive()) {
 				 sb.append(UtilText.parse(ingestingCharacter,

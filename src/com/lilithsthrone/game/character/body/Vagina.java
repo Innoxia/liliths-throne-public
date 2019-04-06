@@ -146,6 +146,11 @@ public class Vagina implements BodyPartInterface {
 	}
 	
 	public String setType(GameCharacter owner, VaginaType type, boolean overridePregnancyPrevention) {
+		if(this.type==VaginaType.NONE) {
+			this.orificeVagina.setStretchedCapacity(this.orificeVagina.getRawCapacityValue());
+			this.orificeUrethra.setStretchedCapacity(this.orificeUrethra.getRawCapacityValue());
+		}
+		
 		if(!Main.game.isStarted() || owner==null) {// This always overrides pregnancy prevention, as the only times where this is true are for utility methods:
 			this.type = type;
 			this.girlcum.setType(type.getFluidType());

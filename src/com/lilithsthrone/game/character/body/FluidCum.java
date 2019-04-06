@@ -84,7 +84,12 @@ public class FluidCum implements FluidInterface, XMLSaving {
 		
 		FluidCum fluidCum = new FluidCum(fluidType);
 		
-		fluidCum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
+		String flavourId = cum.getAttribute("flavour");
+		if(flavourId.equalsIgnoreCase("SLIME")) {
+			fluidCum.flavour = FluidFlavour.BUBBLEGUM;
+		} else {
+			fluidCum.flavour = FluidFlavour.valueOf(flavourId);
+		}
 		
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
 		fluidCum.fluidModifiers.clear();
@@ -498,7 +503,7 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	}
 
 	public float getValuePerMl() {
-		return 0.1f + this.getFluidModifiers().size()*0.1f + (this.getFlavour()!=FluidFlavour.CUM?0.5f:0);
+		return (0.1f + (this.getFluidModifiers().size()*0.1f)) * (this.getFlavour()!=FluidFlavour.CUM?1.5f:1);
 	}
 
 	@Override

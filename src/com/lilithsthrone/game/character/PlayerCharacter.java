@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -220,7 +221,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
-
+		
+		character.sortInventory();
+		
 		NodeList nodes = parentElement.getElementsByTagName("core");
 		Element element = (Element) nodes.item(0);
 		String version = "";
@@ -549,7 +552,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character instanceof Lilaya) {
 			if(this.getRace()==Race.DEMON) {
-				return Util.newHashSetOfValues(Relationship.HalfSibling, Relationship.Nibling);
+				Set<Relationship> rSet = new LinkedHashSet<>();
+				rSet.add(Relationship.HalfSibling);
+				rSet.add(Relationship.Nibling);
+				return rSet;
 			}
 			return Util.newHashSetOfValues(Relationship.Nibling);
 		}

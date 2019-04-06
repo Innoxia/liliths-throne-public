@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -373,9 +374,9 @@ public enum TFModifier {
 			Colour.TRANSFORMATION_SEXUAL,
 			Rarity.UNCOMMON),
 	
-	TF_SKIN("skin",
-			"Applies a transformative effect to your skin.",
-			"skin",
+	TF_SKIN("torso",
+			"Applies a transformative effect to your torso.",
+			"torso",
 			"modifier_circle_tf_skin",
 			Colour.TRANSFORMATION_GREATER,
 			Rarity.EPIC),
@@ -1050,83 +1051,90 @@ public enum TFModifier {
 			Colour.BASE_BLACK,
 			Rarity.COMMON),
 	
-	// fluid flavours:
+	// fluid flavours: TODO background
 	
 	TF_MOD_FLAVOUR_CUM("cum-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"cum-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_cum",
 			Colour.BASE_YELLOW_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_MILK("milk-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"milk-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_cum",
 			Colour.BASE_WHITE,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_GIRLCUM("girlcum-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"milk-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_cum",
 			Colour.BASE_PINK_LIGHT,
 			Rarity.COMMON),
 	
-	TF_MOD_FLAVOUR_SLIME("slime-flavour",
+	TF_MOD_FLAVOUR_BUBBLEGUM("bubblegum-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
-			"slime-flavour",
-			"modifier_circle_flavour",
-			Colour.BASE_BLUE_LIGHT,
+			"bubblegum-flavour",
+			"modifier_circle_flavour_bubblegum",
+			Colour.BASE_PINK,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_BEER("beer-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"beer-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_beer",
 			Colour.BASE_ORANGE,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_VANILLA("vanilla-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"vanilla-flavour",
-			"modifier_circle_flavour",
-			Colour.BASE_YELLOW,
+			"modifier_circle_flavour_vanilla",
+			Colour.BASE_YELLOW_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_STRAWBERRY("strawberry-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"strawberry-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_strawberry",
 			Colour.BASE_RED,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_CHOCOLATE("chocolate-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"chocolate-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_chocolate",
 			Colour.BASE_BROWN_DARK,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_PINEAPPLE("pineapple-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"pineapple-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_pineapple",
 			Colour.BASE_YELLOW_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_HONEY("honey-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"honey-flavour",
-			"modifier_circle_flavour",
-			Colour.BASE_ORANGE,
+			"modifier_circle_flavour_honey",
+			Colour.BASE_YELLOW,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_MINT("mint-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"mint-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_mint",
 			Colour.BASE_GREEN_LIME,
+			Rarity.COMMON),
+
+	TF_MOD_FLAVOUR_CHERRY("cherry-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"cherry-flavour",
+			"modifier_circle_flavour_cherry",
+			Colour.BASE_CRIMSON,
 			Rarity.COMMON),
 	
 	
@@ -1436,7 +1444,21 @@ public enum TFModifier {
 			}
 			String s = Util.inputStreamToString(is);
 
-			s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			is.close();
+			
+			if(SVGString.contains("flavour")) {
+				String SVGStringBackground = "";
+				is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/crafting/modifier_circle_flavour_background.svg");
+				if(is==null) {
+					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'modifier_circle_flavour_background')!");
+				}
+				SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SvgUtil.colourReplacement(this.toString()+"_B", colour, Util.inputStreamToString(is))+"</div>";
+				
+				s = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SvgUtil.colourReplacement(this.toString(), colour, s)+"</div>";
+				
+			} else {
+				s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			}
 			
 			this.SVGString = s;
 
@@ -1467,7 +1489,21 @@ public enum TFModifier {
 			}
 			String s = Util.inputStreamToString(is);
 
-			s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			is.close();
+			
+			if(SVGString.contains("flavour")) {
+				String SVGStringBackground = "";
+				is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/crafting/modifier_circle_flavour_background.svg");
+				if(is==null) {
+					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'modifier_circle_flavour_background')!");
+				}
+				SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SvgUtil.colourReplacement(this.toString()+"_B", colour, Util.inputStreamToString(is))+"</div>";
+				
+				s = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SvgUtil.colourReplacement(this.toString(), colour, s)+"</div>";
+				
+			} else {
+				s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			}
 			
 			this.SVGString = s;
 

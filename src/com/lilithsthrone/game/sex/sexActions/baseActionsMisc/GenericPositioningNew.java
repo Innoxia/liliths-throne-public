@@ -1332,7 +1332,7 @@ public class GenericPositioningNew {
 					
 				} else {
 					return "Outright refusing to do as you ask, [npc.name] pulls you back into your old position as [npc.she] angrily scolds you, "
-							+ "[npc.speech(I'm <i>not</i> performing oral on you! Don't you <i>dare</i> try that again!)]";
+							+ "[npc.speech(I'm <i>not</i> interested in having you perform oral on me! Don't you <i>dare</i> try that again!)]";
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.ALL_FOURS_FUCKED) {

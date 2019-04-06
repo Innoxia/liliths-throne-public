@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -932,7 +933,7 @@ public class EnforcerHQDialogue {
 						
 						Main.game.getNpc(Brax.class).setVaginaVirgin(true);
 
-						Main.game.getNpc(Brax.class).equipClothing(true, false, false, true);
+						Main.game.getNpc(Brax.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_ACCESSORIES));
 					}
 				};
 				
@@ -1116,7 +1117,7 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
 						Main.game.getNpc(Brax.class).setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false), true);
 						
-						Main.game.getNpc(Brax.class).equipClothing(true, false, false, true);
+						Main.game.getNpc(Brax.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_ACCESSORIES));
 					}
 				};
 				

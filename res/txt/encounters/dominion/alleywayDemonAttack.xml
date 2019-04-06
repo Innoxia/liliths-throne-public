@@ -81,7 +81,7 @@
 		#IF pc.getPregnantLitter().isFatherId(npc.getId())
 		#THEN
 			#IF npc.hasFetish(FETISH_IMPREGNATION)
-			#THEN [npc.speech(Well, well, well,)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like I filled your belly with imps! Seeing as you've been put in your place, you should just submit for another good fuck, slut!)]
+			#THEN [npc.speech(Well, well, well,)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like I got you knocked up! Seeing as you've been put in your place, you should just submit for another good fuck, slut!)]
 			#ELSE [npc.speech(Hah, I got you pregnant?!)] [npc.name] exclaims, staring down at your swollen belly. [npc.speech(Looks like you'll be giving birth to lots of imps!)]
 			#ENDIF
 		#ELSE

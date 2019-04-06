@@ -2,14 +2,15 @@ package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Set;
 
-import com.lilithsthrone.utils.Units;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -22,20 +23,19 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
@@ -53,7 +53,7 @@ public class NPCOffspring extends NPC {
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
 		super(false, null, null, "",
 				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
-				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER,
+				3, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 
 
@@ -104,12 +104,14 @@ public class NPCOffspring extends NPC {
 		resetInventory(true);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
-		equipClothing(true, true, true, true);
+		equipClothing(EquipClothingSetting.getAllClothingSettings());
 		
 		CharacterUtils.applyMakeup(this, true);
 
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+
+		this.setEnslavementDialogue(GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	
@@ -124,20 +126,21 @@ public class NPCOffspring extends NPC {
 		} else if(Math.abs((int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday()))>300) {
 			this.setConceptionDate(this.getBirthday().minusMonths(2));
 		}
+		this.setEnslavementDialogue(GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE, true);
 	}
 
-	@Override
-	public DialogueNode getEnslavementDialogue(AbstractClothing enslavementClothing) {
-		SlaveDialogue.setEnslavementTarget(this);
-		this.enslavementClothing = enslavementClothing;
-		
-		return GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE;
-	}
+//	@Override
+//	public DialogueNode getEnslavementDialogue(AbstractClothing enslavementClothing) {
+//		SlaveDialogue.setEnslavementTarget(this);
+//		this.enslavementClothing = enslavementClothing;
+//		
+//		return GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE;
+//	}
 	
-	@Override
-	public boolean isAbleToBeEnslaved() {
-		return this.getSubspecies()!=Subspecies.DEMON;
-	}
+//	@Override
+//	public boolean isAbleToBeEnslaved() {
+//		return this.getSubspecies()!=Subspecies.DEMON;
+//	}
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {
@@ -145,8 +148,8 @@ public class NPCOffspring extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		super.equipClothing(replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories); //TODO - add unique outfit type
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		super.equipClothing(settings); //TODO - add unique outfit type
 	}
 	
 	@Override

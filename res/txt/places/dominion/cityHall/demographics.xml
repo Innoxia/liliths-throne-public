@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="CITY_HALL_DEMOGRAPHICS_CORRIDOR"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Sign on door says that name change and offspring tracking services are provided in here. It also says that only one person can be seen at a time, and if the door is closed, to please wait until the current visitor has been seen. The door is open, so you tell [npc.name] to wait outside before entering.
+		</p>
+	#ELSE
+		<p>
+			Sign on door says that name change and offspring tracking services are provided in here. It also says that only one person can be seen at a time, and if the door is closed, to please wait until the current visitor has been seen. The door is open, so you step inside.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CITY_HALL_DEMOGRAPHICS_CORRIDOR_BACK"><![CDATA[
+	<p>
+		You decide against entering and turn back.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="CITY_HALL_DEMOGRAPHICS_ENTRANCE"><![CDATA[
+	<p>
+		Description of office desk and chair, with the room stretching off to your left. You see that it looks like a massive archive, as it is filled with bookcases. Nameplate on desk saying 'Ms. Cunningham', and beside that, a sign saying to ring the bell if she isn't present.
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaIntroduced))
+		<p>
+			[vanessa.Name] must be cataloguing records in the archive, so if you wanted to get her attention, you could do as the sign says and ring the bell, or simply turn around and leave.
+		</p>
+	#ELSE
+		<p>
+			Whoever this 'Ms. Cunningham' is, she must be busy in the archive. You could try ringing the bell on the desk, or simply turn around and leave.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CITY_HALL_DEMOGRAPHICS_RING_BELL"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			You ring the bell, and after about ten seconds or so, the familiar figure of [vanessa.name] appears from behind a nearby bookcase. In contrast to the first time you met her, you notice that there's a jovial spring to her step, and her bright blue eyes light up in delight as she sees that it's you who's come to visit her. [vanessa.speech([pc.Name]! It's wonderful to see you again!)]
+		</p>
+		<p>
+			After the intimate affair the two of you had in this very office, you've obviously left quite a lasting impression upon the elderly fox-girl, and instead of striding over and collapsing down into her chair, she rushes up to stand close in front of you, before seductively biting her lip and teasing, [vanessa.speech(You know, I'm still having to be up and about on my feet all day... I couldn't persuade you to give me another of those special massages of yours, could I?)]
+		</p>
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_vanessaIntroduced))
+		<p>
+			You ring the bell, and after about thirty seconds or so, the familiar figure of [vanessa.name] appears from behind a nearby bookcase. Walking confidently over to her desk, she collapses down into her chair with a sigh, before peering at you over the top of her half-moon glasses and asking, [vanessa.speech(Hello again, what can I do for you this time?)]
+		</p>
+	#ELSE
+		<p>
+			You ring the bell, and after about thirty seconds or so, a womanly figure, dressed in smart office attire, appears from behind a nearby bookcase. Looking over at the woman who must be 'Ms. Cunningham', the first thing you notice is that, with the exception of a fox's tail and a pair of fox ears on top of her head, she appears to be entirely human. As she confidently walks over to her desk, you note that she appears to be in her mid-fifties, and that both the fur covering her fox parts, as well as her long, braided hair, are grey with age. Despite the fact that she seems to be getting on in years, she's aged remarkably well, and while she doesn't possess the same youthful good-looks of someone half her age, she nevertheless has a refined, elegant beauty about her.
+		</p>
+		<p>
+			While not having a detrimental effect on her looks, her age does seem to be taking a toll on her in a couple of other ways. First of all, there's the fact that she's wearing a pair of half-moon reading glasses, letting you know that her eyesight isn't perfect. Furthermore, as confidently as she tries to carry herself, you can't help but notice that there's a slight air of lethargy about her, and as she steps up to her desk, she half-sits, half-collapses down into her chair.
+		</p>
+		<p>
+			Letting out a weary sigh, the elderly fox-girl peers at you over the top of her glasses and says, [vanessa.speech(Good #IF(game.isMorning())morning#ELSEafternoon#ENDIF, my name is 'Ms. Cunningham', and I am both the manager of, and sole employee assigned to, the Bureau of Demographics. I don't wish to seem rude, but I have a considerable amount of cataloguing work to get done by the end of today, so if you could keep your business sharp and to the point, it would be much appreciated. As the sign outside should have told you, I am able to handle the procedure of getting your name changed, and can also issue offspring tracking maps to persons without a criminal record. So, what will it be, [pc.mister]...?)]
+		</p>
+		<p>
+			#IF(pc.getSurname().isEmpty())
+				[pc.speech(It's [pc.name],)] you introduce yourself to [vanessa.name], before moving on to the business at hand... 
+			#ELSE
+				[pc.speech([pc.Surname]. [pc.Name] [pc.Surname],)] you introduce yourself to [vanessa.name], before moving on to the business at hand... 
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUESTION_CATALOGUING"><![CDATA[
+	<p>
+		[pc.speech(What are you cataloguing? And what's this huge archive used for?)] you ask, curious to hear what it is that [vanessa.name] gets up to in here.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+			Letting out a mildly frustrated huff as she hears that you're not offering her a massage, [vanessa.name] nevertheless replies,
+		#ELSE
+			Letting out a mildly frustrated huff as she hears that you're not getting straight down to business, [vanessa.name] nevertheless replies,
+		#ENDIF
+		#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaAskedAboutCatalogue))
+			 [vanessa.speech(Well, as I've already told you once before, everybody has a unique signature to their arcane aura, much in the same way that everyone has a unique fingerprint. One of the larger rooms in the upper floor of this building houses an arcane device which can identify any unique arcane signature within all of the realm of Dominion. As soon as a new signature is detected, the relevant technical information is printed off and sent down here to be catalogued for future reference.)]
+		#ELSE
+			 [vanessa.speech(Well, as you may or may not know, everybody has a unique signature to their arcane aura, much in the same way that everyone has a unique fingerprint. One of the larger rooms in the upper floor of this building houses an arcane device which can identify any unique arcane signature within all of the realm of Dominion. As soon as a new signature is detected, the relevant technical information is printed off and sent down here to be catalogued for future reference.)]
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(So it's a record of everyone who lives, or has ever lived, in Dominion?)] you ask.
+	</p>
+	<p>
+		[vanessa.speech(Correct. Although it's a far more complicated procedure, the same apparatus can be used to track the rough location of people. I'm no expert, but I believe that this is the same sort of method that's used to track those who are wanted for enslavement by the Enforcers. Once an arcane signature has been entered into their tracking system, there's no way for the criminal to remove their designation for enslavement.)] [vanessa.name] explains, before concluding, [vanessa.speech(We here at city hall have access to a more limited version of this tracking system, and this very department is licensed to use it in order to create offspring tracking maps.)]
+	</p>
+	<p>
+		With your question now answered, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUESTION_SOLITARY"><![CDATA[
+	<p>
+		[pc.speech(Why are you the only one working here?)] you ask, wondering why such a huge department only has a single employee assigned to its management.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+			Pouting at you as she hears that you're not offering her a massage, [vanessa.name] nevertheless replies,
+		#ELSE
+			Impatiently tapping her fingers on her desk as she hears that you're not getting straight down to business, [vanessa.name] nevertheless replies,
+		#ENDIF
+		#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaAskedAboutSolitary))
+			 [vanessa.speech(I already told you this... There's very little demand for name changes or offspring tracking maps, so this department is considered to only need enough staff to cover cataloguing work. As a result, the higher-ups have determined that it only takes one person to do everything in here. I do manage to get all of my work done on time, so I suppose they're right, but it does get a little lonely...)]
+		#ELSE
+			 [vanessa.speech(Well, there's very little demand for name changes or offspring tracking maps, so this department is considered to only need enough staff to cover cataloguing work. As a result, the higher-ups have determined that it only takes one person to do everything in here. I do manage to get all of ym work done on time, so I suppose they're right, but it does get a little lonely...)]
+		#ENDIF
+	</p>
+	<p>
+		With your question now answered, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFER_HELP"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			Looking across to the archive's shelves, you see quite a large number of boxes piled up that are marked 'For sorting', and you realise that [vanessa.name] is once again struggling to keep on top of her work. Although she appears to have a lot more energy and enthusiasm since the two of you had sex, you imagine that the elderly fox-girl would still appreciate an offer of help. Smiling fondly at her, you ask, [pc.speech(Would you like some help with your cataloguing work again? I have some time to spare.)]
+		</p>
+		<p>
+			[vanessa.speech(Without filing the assistance forms?)] [vanessa.name] teases, blushing at the thought of accepting help without following the proper procedure. [vanessa.speech(I suppose we could be naughty and do it together again...)]
+		</p>
+		<p>
+			Having obtained [vanessa.namePos] consent, you start walking over towards the boxes. As you do so, the fox-girl quickly follows in your footsteps, and as you come to a halt, she leans in against your back and sighs, [vanessa.speech(Perhaps after we're finished, we could do something else that's very naughty together...)]
+		</p>
+		<p>
+			Stepping around in front of you, [vanessa.name] picks up the top box, before telling you to grab one and follow her into the archives. Doing as you're told, you grab the box and follow [vanessa.namePos] lead as she heads into the maze-like shelving of the archives. Soon arriving at your destination, the fox-girl turns towards you and says, [vanessa.speech(The papers within the box are already sorted alphabetically, so all you need to do is to slot them into the shelves in the correct order. Let's get to it.)]
+		</p>
+		<p>
+			As you each set about filing the papers in your respective boxes, [vanessa.name] smirks and remarks, [vanessa.speech(Getting help without submitting the proper forms... This is so naughty!)]
+		</p>
+	#ELSE
+		<p>
+			From both the way [vanessa.name] collapsed down into her chair, as well as the weary look on her face, you can tell that her work is taking a toll on her health. Looking across to the archive's shelves, you see quite a large number of boxes piled up that are marked 'For sorting', and you realise that [vanessa.name] has a significant amount of work still to do. Not wanting to leave the elderly fox-girl to deal with it all by herself, you ask, [pc.speech(Would you like some help with your cataloguing work? I have some time to spare.)]
+		</p>
+		<p>
+			[vanessa.speech(You want to help?)] [vanessa.name] asks, surprised at your sudden offer, [vanessa.speech(But you haven't even filed the 'application for unpaid assistance' form 22-F, have you? And that's not to mention the liability waiver forms that need to be submitted and approved. I... I can't accept your help without those...)]
+		</p>
+		<p>
+			Although she's sticking to regulations, you can tell that [vanessa.name] really does want some help, and so you press her, [pc.speech(You're the only one in here; nobody's going to know if I've helped you out or not. Do you want me to help?)]
+		</p>
+		<p>
+			[vanessa.speech(Well, yes, but-)] [vanessa.name] replies, but she cuts her sentence short as you turn and start walking over towards the boxes. [vanessa.speech(Wait! You can't enter that area without filing form 41-A!)]
+		</p>
+		<p>
+			Ignoring [vanessa.namePos] objection, you walk over to the boxes and ask, [pc.speech(So what do I need to do with these?)]
+		</p>
+		<p>
+			Walking over to you, [vanessa.name] lets out an exasperated sigh, before answering, [vanessa.speech(Just take that top box and follow me around here.)]
+		</p>
+		<p>
+			Doing as you're told, you grab the box and follow in [vanessa.namePos] footsteps as she leads you into the maze-like shelving of the archives. Soon arriving at your destination, the fox-girl turns towards you and says, [vanessa.speech(The papers within the box are already sorted alphabetically, so all you need to do is to slot them into the shelves in the correct order. I'll be back in a moment.)]
+		</p>
+		<p>
+			With that, [vanessa.name] hurries off to fetch a box of her own, and within a couple of minutes, she returns and places it down next to yours. Although initially distressed at the thought of the two of you being caught, [vanessa.name] soon starts to relax, and as you each set about filing the papers in your respective boxes, she smirks and remarks, [vanessa.speech(Getting help without submitting the proper forms... This is so naughty!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFER_HELP_FINISH"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			The two of you spend the next couple of hours cataloguing papers, making small talk, and flirting with one another. [vanessa.NamePos] department is just as quiet as the last time you were here, and for the whole period during which the two of you are working, you're only interrupted by the ring of the front desk's bell once.
+		</p>
+		<p>
+			Before you know it, the two of you have worked you way through all of the boxes which needed to be sorted by the end of today. Heading back over to the front desk, [vanessa.name] collapses down onto her chair with a sigh, [vanessa.speech(Phew... Thank you for your help again, [pc.name]. You know, even with you doing over half of the work, my feet are still killing me after that...)]
+		</p>
+		<p>
+			Leaning down to rub at the tops of her feet, [vanessa.name] looks up at you and flashes you a seductive smile. As the top couple of buttons of her shirt are undone, the fox-girl flashes you with a view straight down to her cleavage, and you find yourself with a clear view of not only her lacy black plunge bra, but also the tops of her [vanessa.breastSize], pale [vanessa.breasts]. Letting out a little laugh, she pushes out her chest and teases, [vanessa.speech(Did you think I flashed you by accident the first time you helped me? I just wanted to show off what you could get if you took some initiative... So, are you going to give me another of your foot massages again, or do I have to beg for it?)]
+		</p>
+		<p>
+			Smiling down at the horny fox-girl, you wonder if you should drop down onto your knees and start massaging her feet, or perhaps you could do as she suggests and get her to beg for it...
+		</p>
+	#ELSE
+		<p>
+			The two of you spend the next couple of hours cataloguing papers and making small talk. [vanessa.NamePos] department turns out to be extremely quiet, and during the whole time that the two of you are working, you're only interrupted by the ring of the front desk's bell once.
+		</p>
+		<p>
+			Before you know it, the two of you have worked you way through all of the boxes which needed to be sorted by the end of today. Heading back over to the front desk, [vanessa.name] collapses down onto her chair with a sigh, [vanessa.speech(Phew... Thank you for your help, [pc.name]. You know, even with you doing over half of the work, my feet are still killing me after that...)]
+		</p>
+		<p>
+			Leaning down to rub at the tops of her feet, [vanessa.name] looks up at you and smiles. As the top couple of buttons of her shirt are undone, the fox-girl inadvertently flashes you with a view straight down to her cleavage, and you find yourself with a clear view of not only her lacy black plunge bra, but also the tops of her [vanessa.breastSize], pale [vanessa.breasts].
+		</p>
+		<p>
+			[pc.speech(You're welcome,)] you reply in response to her thanks, before wondering if you should take advantage of the fact that [vanessa.namePos] feet are hurting to offer her a foot massage...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="FOOT_MASSAGE"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			You drop to your knees and slip off her flats.
+		</p>
+	#ELSE
+		<p>
+			You offer her a foot massage. she accepts.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOT_MASSAGE_BEG"><![CDATA[
+	<p>
+		You get her to beg for a foot massage. She kicks of her flats and enticingly wiggles her toes at you. You drop down onto your knees and start giving her a massage.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOT_MASSAGE_CORE"><![CDATA[
+	<p>
+		Foot massage scene.
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			She is very satisfied, but wants more. She asks you to take off her pantyhose like you did before. 
+		</p>
+	#ELSE
+		<p>
+			She is very satisfied, but you can tell that she wants more.
+		</p>
+
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOT_MASSAGE_STOP"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			You say you don't have time for more right now. She pouts, but says ok.
+		</p>
+	#ELSE
+		<p>
+			You bring an end to the massage.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARE_FOOT_MASSAGE"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			You tell her that you're going to give her a bare foot massage again. Pull down her pantyhose, much to her delight.
+		</p>
+	#ELSE
+		<p>
+			You tell her that it would feel a lot better if she had bare feet. She helps you to pull down her pantyhose.
+		</p>
+	#ENDIF
+	<p>
+		Bare foot massage scene. She says she hasn't done anything this naughty since her younger days. She says she was quite wild back then, and bought a potion to make her pussy taste like honey. You look up to see her pull up her skirt and spread her legs, and there's a slightly darker patch in the middle of her lacy black panties.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARE_FOOT_MASSAGE_STOP"><![CDATA[
+	<p>
+		You say you don't have time to go any further. She pouts, but understands. Puts pantyhose and flats back on.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_ORAL"><![CDATA[
+	<p>
+		Shuffle forwards between [vanessa.namePos] legs. She shifts aside her panties to reveal her wet pussy. You lean in and give it a lick - it has the exact same sweet taste as honey.
+	</p>
+	<p>
+		[vanessa.Name] moans and grabs the back of your head, taking control as she pulls your face into her cunt as you start easting her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END_ORAL_SEX"><![CDATA[
+	#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
+		<p>
+			[vanessa.Name] pushes you back and asks if you want to go further. Stands up and sits down on her desk, before spreading her legs to show you her now-dripping-wet pussy. Asks you to fuck her.
+		</p>
+	#ELSEIF(pc.hasVagina())
+		<p>
+			[vanessa.Name] pushes you back and asks if you want to go further. She offers to return the favour and eat you out.
+		</p>
+	#ELSE
+		<p>
+			[vanessa.Name] pushes you back and says that was fun. Asks if you want her to return the favour.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END_ORAL_SEX_NO_ORGASM"><![CDATA[
+	#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
+		<p>
+			[vanessa.Name] pushes you back and says that she wants to get you to orgasm. Stands up and sits down on her desk, before spreading her legs to show you her now-dripping-wet pussy. Asks you to fuck her.
+		</p>
+	#ELSEIF(pc.hasVagina())
+		<p>
+			[vanessa.Name] pushes you back and says that she wants to get you to orgasm. She offers to return the favour and eat you out.
+		</p>
+	#ELSE
+		<p>
+			[vanessa.Name] pushes you back and says that was fun. Asks if you want her to return the favour.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SEX_FUCK_ON_DESK"><![CDATA[
+	<p>
+		You push [vanessa.name] back over her desk, before stepping up between her legs and teasing your cock over her sloppy pussy. As she begs you to penetrate her, you step forwards, sinking your cock into her cunt before starting to fuck her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SEX_EATEN_OUT"><![CDATA[
+	<p>
+		You swap positions with [vanessa.name], so that you're sitting on her chair and she's kneeling between your legs. Leaning in to plant a wet kiss on your pussy lips, she shuffles closer before starting to enthusiastically eat you out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END_ORAL_SEX_DECLINE_MORE"><![CDATA[
+	<p>
+		You say to [vanessa.name] that you're satisfied having just got a taste of her pussy. The two of you get your clothing back in order, and then you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END_SEX"><![CDATA[
+	<p>
+		Having had your fun, the two of you bring an end to the sex. [vanessa.Name] is pleased that she got you to orgasm, and leans in to kiss you on the cheek before grabbing some wet wipes out of her desk's drawer and cleaning herself off, before getting her clothing back in order.
+	</p>
+	<p>
+		Once the two of you have tidied up, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END_SEX_NO_PLAYER_ORGASM"><![CDATA[
+	<p>
+		Having had your fun, the two of you bring an end to the sex. [vanessa.Name] is mildly upset that she didn't get you to orgasm, and leans in to kiss you on the cheek before grabbing some wet wipes out of her desk's drawer and cleaning herself off, before getting her clothing back in order.
+	</p>
+	<p>
+		Once the two of you have tidied up, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END_SEX_ORAL_RECEIVING"><![CDATA[
+	<p>
+		Having had your fun, the two of you bring an end to the sex. [vanessa.Name] is pleased that she got you to orgasm, and leans in to kiss you on the cheek before grabbing some wet wipes out of her desk's drawer and cleaning herself off, before getting her clothing back in order.
+	</p>
+	<p>
+		Once the two of you have tidied up, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END_SEX_ORAL_RECEIVING_NO_PLAYER_ORGASM"><![CDATA[
+	<p>
+		Having had your fun, the two of you bring an end to the sex. [vanessa.Name] is mildly upset that she didn't get you to orgasm, and leans in to kiss you on the cheek before grabbing some wet wipes out of her desk's drawer and cleaning herself off, before getting her clothing back in order.
+	</p>
+	<p>
+		Once the two of you have tidied up, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFSPRING_MAP"><![CDATA[
+	<p>
+		
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NAME_CHANGE"><![CDATA[
+	<p>
+		
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NAME_CHANGE_BACK"><![CDATA[
+	<p>
+		
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

@@ -52,7 +52,16 @@ public class Element {
 			String fileDirectory = xmlFile.getAbsolutePath();
 			Document parsedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
 			parsedDocument.getDocumentElement().normalize();
-			return new Element(parsedDocument.getDocumentElement(),fileDirectory, parsedDocument);
+			return new Element(parsedDocument.getDocumentElement(), fileDirectory, parsedDocument);
+			
+		} catch(Exception e){
+			throw new XMLLoadException(e);
+		}
+	}
+
+	public static Element getElement(org.w3c.dom.Element w3cElement, String fileDirectory, org.w3c.dom.Document document) throws XMLLoadException{
+		try{
+			return new Element(w3cElement, "", document);
 			
 		} catch(Exception e){
 			throw new XMLLoadException(e);

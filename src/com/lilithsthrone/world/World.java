@@ -81,7 +81,7 @@ public class World implements XMLSaving {
 		for(int i = 0; i < cells.getLength(); i++){
 			Element e = (Element) cells.item(i);
 			
-			Cell c = Cell.loadFromXML(e, doc);
+			Cell c = Cell.loadFromXML(e, doc, type);
 			newGrid[c.getLocation().getX()][c.getLocation().getY()] = c;
 		}
 		

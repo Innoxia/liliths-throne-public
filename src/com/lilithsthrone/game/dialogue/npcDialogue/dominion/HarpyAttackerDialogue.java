@@ -950,7 +950,7 @@ public class HarpyAttackerDialogue {
 						:Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 				
 				if (index == 1) {
-					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(), Util.newArrayListOfValues(applicableFetish))) {
+					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(true), Util.newArrayListOfValues(applicableFetish))) {
 						return new Response("Spit",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+applicableFetish.getName(Main.game.getPlayer())
 									+"</b> fetish, you love "+applicableFetish.getShortDescriptor()+" so much that you can't bring yourself to spit out the transformative liquid!",

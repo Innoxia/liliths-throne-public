@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -100,7 +101,7 @@ public class FortressMalesLeader extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.8")) {
 			setStartingBody(true);
-			equipClothing(true, true, true, true);
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
 			this.setAttribute(Attribute.MAJOR_ARCANE, 35);
@@ -228,16 +229,16 @@ public class FortressMalesLeader extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_WRAPS, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_mens_hakama"), Colour.CLOTHING_BLACK, false), true, this);
 
-		if(addWeapons) {
+		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_katana"), DamageType.PHYSICAL));
 			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.FIRE));
 		}

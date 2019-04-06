@@ -25,7 +25,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class Penis implements BodyPartInterface {
@@ -171,6 +171,10 @@ public class Penis implements BodyPartInterface {
 	}
 	
 	public String setType(GameCharacter owner, PenisType type) {
+		if(this.type==PenisType.NONE) {
+			this.orificeUrethra.setStretchedCapacity(this.orificeUrethra.getRawCapacityValue());
+		}
+		
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
 			testicle.setType(owner, type.getTesticleType());

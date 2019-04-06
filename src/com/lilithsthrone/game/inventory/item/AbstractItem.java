@@ -110,6 +110,15 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		return itemType;
 	}
 
+	public boolean isBreakOutOfInventory() {
+		for(ItemEffect effect : this.getEffects()) {
+			if(effect.getItemEffectType().isBreakOutOfInventory()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public List<ItemEffect> getEffects() {
 		return itemEffects;
@@ -233,11 +242,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	}
 
 	public boolean isAbleToBeUsedInCombat(){
-		return itemType.isAbleToBeUsedInCombat();
+		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInCombat();
 	}
 
 	public boolean isAbleToBeUsedInSex(){
-		return itemType.isAbleToBeUsedInSex();
+		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInSex();
 	}
 	
 	public boolean isGift() {

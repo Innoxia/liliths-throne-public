@@ -17,7 +17,6 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
-import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
@@ -189,7 +188,7 @@ public class GenericActions {
 
 		@Override
 		public String applyEffectsString() {
-			SexFlags.playerGrewDemonicCock = true;
+			Sex.getCharactersGrewCock().add(Main.game.getPlayer());
 			
 			StringBuilder sb = new StringBuilder();
 			if(Main.game.getPlayer().getRace()==Race.DEMON) {
@@ -261,6 +260,8 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharactersGrewCock().add(Sex.getCharacterTargetedForSexAction(this));
+			
 			if(Sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON) {
 				Sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON);
 			} else {
@@ -366,7 +367,7 @@ public class GenericActions {
 			
 			if(Sex.getCharacterTargetedForSexAction(this).isPlayer()) {
 				sb.append("<p>"
-							+ "As [npc2.name] says this, you suddenly feel a fuzzy warmth clouding your mind, and you're vaguely aware of your [npc2.eyes] glazing over as you answer,"
+							+ "As [npc.name] says this, you suddenly feel a fuzzy warmth clouding your mind, and you're vaguely aware of your [npc2.eyes] glazing over as you answer,"
 							+ " [npc2.speech(Yes... I... I love having sex with you...)]"
 						+ "</p>");
 			} else {
@@ -383,7 +384,7 @@ public class GenericActions {
 
 			if(Sex.getCharacterTargetedForSexAction(this).isPlayer()) {
 				sb.append("<p>"
-							+ "As your mind well adn truely gives in to the hypnotic suggestion, you find yourself wanting nothing more than to be fucked by [npc2.name], and you eagerly [npc2.moansVerb],"
+							+ "As your mind well and truly gives in to the hypnotic suggestion, you find yourself wanting nothing more than to be fucked by [npc.name], and you eagerly [npc2.moansVerb],"
 							+ " [npc2.speech(Yes... Yes! Please, fuck me! I <i>need</i> you to fuck me!)]"
 						+ "</p>");
 			} else {

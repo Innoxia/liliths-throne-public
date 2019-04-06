@@ -2,7 +2,7 @@
 
 <clothing>
 	<coreAttributes>
-		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress' inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
+		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress's inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
 		<value>800</value> 
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[vintage dress]]></name>
@@ -29,6 +29,7 @@
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked> 
+					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"> 
@@ -37,9 +38,7 @@
 			
 			<blockedParts>
 				<displacementType>PULLS_UP</displacementType>
-				<clothingAccessRequired>
-					<clothingAccess>WAIST</clothingAccess>
-				</clothingAccessRequired>
+				<clothingAccessRequired/>
 				<blockedBodyParts>
 					<bodyPart>ASS</bodyPart>
 					<bodyPart>ANUS</bodyPart>
@@ -50,7 +49,6 @@
 					<bodyPart>THIGHS</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked>
-					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
 					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
 					<clothingAccess>GROIN</clothingAccess>
@@ -71,7 +69,7 @@
 		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		<tertiaryColoursDye/>
 		
-		<defaultPatterns patternChance="1"> 
+		<defaultPatterns patternChance="0.5" colourNameDerivedFromPattern="false"> 
 			<pattern>polka_dots_tiny</pattern>
 			<pattern>polka_dots_small</pattern>
 			<pattern>polka_dots_big</pattern>
@@ -82,11 +80,14 @@
 			<colour>CLOTHING_BLACK</colour>
 			<colour>CLOTHING_WHITE</colour>
 		</patternPrimaryColours>
+		<patternPrimaryColoursDye values="ALL"/>
 		<patternSecondaryColours>
 			<colour>CLOTHING_BLACK</colour>
 			<colour>CLOTHING_WHITE</colour>
 		</patternSecondaryColours>
+		<patternSecondaryColoursDye values="ALL"/>
 		<patternTertiaryColours/>
+		<patternTertiaryColoursDye/>
 		
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>

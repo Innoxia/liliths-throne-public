@@ -19,6 +19,7 @@ import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -811,7 +812,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element characterFetishes = doc.createElement("fetishes");
 		properties.appendChild(characterFetishes);
-		for(Fetish f : this.getFetishes()){
+		for(Fetish f : this.getFetishes(false)){
 			Element element = doc.createElement("fetish");
 			characterFetishes.appendChild(element);
 			
@@ -2655,7 +2656,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public void loadImages(boolean forceReload) {
 		String folder = getArtworkFolderName();
 		
-//		System.out.println(folder);
+//		if(Main.game.isStarted())
+//			System.out.println(folder);
 		
 		if (folder.equals(artworkFolderName) && !forceReload) {
 			// Nothing changed, abort loading
@@ -2676,6 +2678,10 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 			}
+		}
+		
+		if(artworkIndex >= getArtworkList().size()) {
+			artworkIndex = getDefaultArtworkIndex();
 		}
 	}
 
@@ -3766,7 +3772,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getValueAsSlave(boolean includeInventory) {
 		int value = this.getSubspecies().getBaseSlaveValue(this);
 		
-		value *= 1+(0.05f*getFetishes().size());
+		value *= 1+(0.05f*getFetishes(true).size());
 		
 		value *= (100+(getObedienceValue()/2))/100f;
 		
@@ -3774,14 +3780,14 @@ public abstract class GameCharacter implements XMLSaving {
 			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 				value+=c.getValue();
 			}
-			for(AbstractClothing c : this.getAllClothingInInventory()) {
-				value+=c.getValue();
+			for(Entry<AbstractClothing, Integer> c : this.getAllClothingInInventory().entrySet()) {
+				value+=c.getKey().getValue()*c.getValue();
 			}
-			for(AbstractWeapon w : this.getAllWeaponsInInventory()) {
-				value+=w.getValue();
+			for(Entry<AbstractWeapon, Integer> w : this.getAllWeaponsInInventory().entrySet()) {
+				value+=w.getKey().getValue()*w.getValue();
 			}
-			for(AbstractItem i : this.getAllItemsInInventory()) {
-				value+=i.getValue();
+			for(Entry<AbstractItem, Integer> i : this.getAllItemsInInventory().entrySet()) {
+				value+=i.getKey().getValue()*i.getValue();
 			}
 		}
 		
@@ -4524,6 +4530,7 @@ public abstract class GameCharacter implements XMLSaving {
 			case IMP_FORTRESS_DEMON:
 			case IMP_FORTRESS_FEMALES:
 			case IMP_FORTRESS_MALES:
+			case CITY_HALL:
 				return "This isn't a suitable place to be having sex with [npc.name]!";
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
@@ -4621,7 +4628,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
-		EnumSet<Relationship> result = EnumSet.noneOf(Relationship.class);
+		Set<Relationship> result = new LinkedHashSet<>();//EnumSet.noneOf(Relationship.class);
 
         if(character.getParents(0, null).contains(this))
             result.add(Relationship.Parent);
@@ -5248,8 +5255,12 @@ public abstract class GameCharacter implements XMLSaving {
 	// Fetishes:
 
 	/**The returned list is ordered by rendering priority.*/
-	public List<Fetish> getFetishes() {
-		List<Fetish> tempFetishList = new ArrayList<>(fetishes);
+	public List<Fetish> getFetishes(boolean includeFetishesFromClothing) {
+		Set<Fetish> tempFetishSet = new HashSet<>(fetishes);
+		if(includeFetishesFromClothing) {
+			tempFetishSet.addAll(fetishesFromClothing);
+		}
+		List<Fetish> tempFetishList = new ArrayList<>(tempFetishSet);
 		tempFetishList.sort(Comparator.comparingInt(Fetish::getRenderingPriority).reversed());
 		return tempFetishList;
 	}
@@ -5341,7 +5352,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void clearFetishes() {
-		for(Fetish fetish : this.getFetishes()) {
+		for(Fetish fetish : this.getFetishes(false)) {
 			removeFetish(fetish);
 		}
 	}
@@ -6086,10 +6097,13 @@ public abstract class GameCharacter implements XMLSaving {
 			if(this.getSubspeciesOverride()!=null && this.getSubspeciesOverride().equals(Subspecies.HALF_DEMON)) {
 				return 2;
 			} else if(this.getRace().equals(Race.DEMON)) {
+				if(this.getSubspecies().equals(Subspecies.IMP) || this.getSubspecies().equals(Subspecies.IMP_ALPHA)) {
+					return 1;
+				}
 				return 3;
 			}
 		}
-		return 1;
+		return 1 * (this.hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)?2:1);
 	}
 	
 	public SexCount getSexCount(GameCharacter partner) {
@@ -6229,7 +6243,99 @@ public abstract class GameCharacter implements XMLSaving {
 			};
 	}
 
+
+	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request) {
+		int weight = 0;
+		
+		List<Fetish> fetishes = type.getRelatedFetishes(this, target, true, false);
+		
+		for(Fetish fetish : fetishes) {
+			if(this.hasFetish(fetish)) {
+				weight+=7;
+			} else {
+				switch(this.getFetishDesire(fetish)) {
+					case FOUR_LOVE:
+						weight+=5;
+						break;
+					case THREE_LIKE:
+						weight+=3;
+						break;
+					case TWO_NEUTRAL:
+						weight+=1;
+						break;
+					case ONE_DISLIKE:
+						weight-=3;
+						break;
+					case ZERO_HATE:
+						weight-=5;
+						break;
+				}
+			}
+		}
+		
+		boolean isRequest = false;
+		if(request!=null && weight>=0) { // Do not increase weighting if the base action is not wanted by this character.
+			for(SexType st : request) {
+				if((st.getTargetedSexArea()==type.getTargetedSexArea() || st.getPerformingSexArea()==type.getPerformingSexArea())) {
+					weight += 50;
+					isRequest = true;
+				}
+			}
+		}
+		
+		if(fetishes.contains(Fetish.FETISH_ORAL_GIVING)) {
+			for(Addiction add : this.getAddictions()) {
+				if(target.hasPenisIgnoreDildo() && add.getFluid() == target.getCumType() && fetishes.contains(Fetish.FETISH_PENIS_RECEIVING)) {
+					weight+=10;
+				}
+				if(target.hasVagina() && add.getFluid() == target.getGirlcumType() && fetishes.contains(Fetish.FETISH_VAGINAL_GIVING)) {
+					weight+=10;
+				}
+				if(target.getBreastRawMilkStorageValue()>0 && add.getFluid() == target.getMilkType() && fetishes.contains(Fetish.FETISH_BREASTS_OTHERS)) {
+					weight+=10;
+				}
+			}
+		}
+		
+		if((fetishes.contains(Fetish.FETISH_ANAL_GIVING) || fetishes.contains(Fetish.FETISH_ANAL_RECEIVING)) && !Main.game.isAnalContentEnabled()) {
+			weight-=100000;
+		}
+
+		if((fetishes.contains(Fetish.FETISH_FOOT_GIVING) || fetishes.contains(Fetish.FETISH_FOOT_RECEIVING)) && !Main.game.isFootContentEnabled()) {
+			weight-=100000;
+		}
+		
+		// Anal actions are not available unless the person likes anal.
+		if(fetishes.contains(Fetish.FETISH_ANAL_RECEIVING) && !isRequest) {
+			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+				weight-=100000; // ban self-anal actions unless the character likes anal
+			}
+			if(!fetishes.contains(Fetish.FETISH_PENIS_RECEIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
+			}
+		}
+		if(fetishes.contains(Fetish.FETISH_ANAL_GIVING) && !isRequest) {
+			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+				weight-=100000; // ban self-anal actions unless the character likes anal
+			}
+			if(!fetishes.contains(Fetish.FETISH_PENIS_GIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
+			}
+		}
+
+		List<Fetish> fetishesOpposite = type.getOppositeFetishes(this, target, true, false);
+		if(fetishesOpposite.contains(Fetish.FETISH_DEFLOWERING)
+				&& this.hasFetish(Fetish.FETISH_PURE_VIRGIN)
+				&& fetishes.contains(Fetish.FETISH_VAGINAL_RECEIVING)) {
+			weight-=50;
+		}
+		
+		return weight;
+	}
+	
+	
 	// Cum:
+	
 	public void incrementCumCount(SexType sexType) {
 		cumCountMap.merge(sexType, 1, Integer::sum);
 	}
@@ -15638,7 +15744,11 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		//TODO convert all instances of this method to just (GameCharacter charactersFluid, BodyPartInterface fluid, int millilitres)
 		boolean found = false;
-
+		
+		if((orificeIngestedThrough.equals(SexAreaOrifice.VAGINA) || orificeIngestedThrough.equals(SexAreaOrifice.URETHRA_VAGINA)) && this.isVisiblyPregnant()) { // Limit intake based on 250ml max for pregnant characters:
+			millilitres = Math.min(millilitres, 250-this.getTotalFluidInArea(orificeIngestedThrough));
+		}
+		
 		FluidStored newFluid;
 		if(fluid instanceof FluidCum) {
 			newFluid = new FluidStored(charactersFluid, ((FluidCum) fluid), millilitres);
@@ -16603,6 +16713,12 @@ public abstract class GameCharacter implements XMLSaving {
 				c = getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 			}
 			
+			this.drainTotalFluidsStored(SexAreaOrifice.VAGINA, this.getTotalFluidInArea(SexAreaOrifice.VAGINA));
+			this.drainTotalFluidsStored(SexAreaOrifice.URETHRA_VAGINA, this.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA));
+			
+			this.removeDirtySlot(InventorySlot.VAGINA);
+			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA);
+			
 			Litter birthedLitter = pregnantLitter;
 			
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
@@ -16782,15 +16898,21 @@ public abstract class GameCharacter implements XMLSaving {
 		return total;
 	}
 	
+	/**
+	 * Drains the specified quantity of fluids from the specified orifice.
+	 * @param area The area to drain.
+	 * @param drain The value to be drained. Value can be either <b>positive or negative</b> float - the method automatically converts it to always be a drain.
+	 */
 	public void drainTotalFluidsStored(SexAreaOrifice area, float drain) {
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		float drained = 0;
+		drain = Math.abs(drain);
 		for(FluidStored f : fluidsStoredMap.get(area)) {
-			if(drained>=Math.abs(drain)) {
+			if(drained>=drain) {
 				break;
 			}
 			
-			float drainAmount = Math.min(Math.abs(drain), f.getMillilitres());
+			float drainAmount = Math.min(drain, f.getMillilitres());
 			f.incrementMillilitres(-drainAmount);
 			drained+=drainAmount;
 		}
@@ -16853,22 +16975,24 @@ public abstract class GameCharacter implements XMLSaving {
 		StringBuilder washingSB = new StringBuilder();
 		
 		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
-			if(dirtyOrifices.contains(orifice)) {
-				if(orifice.isInternalOrifice()) {
-					if(this.getTotalFluidInArea(orifice)>0) {
-						washingSB.append(formatWashingArea(false,
-								"[npc.Name] [npc.verb(wash)] as much of the cum out of [npc.her] "+orifice.getName(this)+" as [npc.she] can, but there's so much in there that [npc.sheIs] unable to fully clean it all out!"));
+			if(!orifice.equals(SexAreaOrifice.MOUTH)) { // Don't give description of puking up
+				if(dirtyOrifices.contains(orifice)) {
+					if(orifice.isInternalOrifice()) {
+						if(this.getTotalFluidInArea(orifice)>0) {
+							washingSB.append(formatWashingArea(false,
+									"[npc.Name] [npc.verb(wash)] as much of the cum out of [npc.her] "+orifice.getName(this)+" as [npc.she] can, but there's so much in there that [npc.sheIs] unable to fully clean it all out!"));
+						} else {
+							washingSB.append(formatWashingArea(true,
+									"[npc.Name] [npc.verb(wash)] all of the cum out of [npc.her] "+orifice.getName(this)+"."));
+						}
 					} else {
-						washingSB.append(formatWashingArea(true,
-								"[npc.Name] [npc.verb(wash)] all of the cum out of [npc.her] "+orifice.getName(this)+"."));
-					}
-				} else {
-					if(this.getTotalFluidInArea(orifice)>0) {
-						washingSB.append(formatWashingArea(false,
-								"[npc.Name] [npc.verb(wash)] as much of the cum off of [npc.her] "+orifice.getName(this)+" as [npc.she] can, but there's just so much that [npc.sheIs] unable to fully clean it all off!"));
-					} else {
-						washingSB.append(formatWashingArea(true,
-								"[npc.Name] [npc.verb(wash)] all of the cum off of [npc.her] "+orifice.getName(this)+"."));
+						if(this.getTotalFluidInArea(orifice)>0) {
+							washingSB.append(formatWashingArea(false,
+									"[npc.Name] [npc.verb(wash)] as much of the cum off of [npc.her] "+orifice.getName(this)+" as [npc.she] can, but there's just so much that [npc.sheIs] unable to fully clean it all off!"));
+						} else {
+							washingSB.append(formatWashingArea(true,
+									"[npc.Name] [npc.verb(wash)] all of the cum off of [npc.her] "+orifice.getName(this)+"."));
+						}
 					}
 				}
 			}
@@ -17178,59 +17302,13 @@ public abstract class GameCharacter implements XMLSaving {
 	 * First unequips all clothing into void, so that clothing effects are preserved.
 	 */
 	public void resetInventory(boolean includeWeapons){
-		unequipAllClothingIntoVoid(includeWeapons);
+		unequipAllClothingIntoVoid(true, includeWeapons);
 		
 		this.inventory = new CharacterInventory(0);
 	}
 	
-	public void unequipAllClothingIntoVoid(boolean includeWeapons) {
-		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
-		for(AbstractClothing clothing : clothingEquipped) {
-			clothing.setSealed(false);
-		}
-		for(AbstractClothing clothing : clothingEquipped) {
-			this.unequipClothingIntoVoid(clothing, true, this);
-		}
-		
-		if(includeWeapons) {
-			this.unequipMainWeaponIntoVoid();
-			this.unequipOffhandWeaponIntoVoid();
-		}
-	}
-	
-	private StringBuilder unequipAllClothingSB = new StringBuilder(0);
-	
-	public String getUnequipAllClothingDescription() {
-		return unequipAllClothingSB.toString();
-	}
-
-	/**
-	 * <b>Note:</b> You can get the generated description of this action by calling:<br/>
-	 * <i>getUnequipAllClothingDescription()</i>
-	 * @param remover The character who is removing the clothing.
-	 * @return A list containing all of the clothing that was unequipped.
-	 */
-	public List<AbstractClothing> unequipAllClothing(GameCharacter remover, boolean removeSeals) {
-		unequipAllClothingSB.setLength(0);
-		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
-		List<AbstractClothing> clothingRemoved = new ArrayList<>();
-		
-		clothingEquipped.sort((c1, c2) -> c1.getClothingType().getSlot().getZLayer() - c2.getClothingType().getSlot().getZLayer());
-		
-		if(removeSeals) {
-			for(AbstractClothing clothing : clothingEquipped) {
-				clothing.setSealed(false);
-			}
-		}
-		
-		for(AbstractClothing clothing : clothingEquipped) {
-			if(this.isAbleToUnequip(clothing, true, remover)) {
-				clothingRemoved.add(clothing);
-				unequipAllClothingSB.append(this.unequipClothingIntoVoid(clothing, true, remover));
-			}
-		}
-		
-		return clothingRemoved;
+	public void sortInventory() {
+		inventory.sortInventory();
 	}
 	
 	public int getMoney() {
@@ -17356,14 +17434,11 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getInventorySlotsTaken();
 	}
 	
-	public Map<AbstractWeapon, Integer> getMapOfDuplicateWeapons() {
-		return inventory.getMapOfDuplicateWeapons();
-	}
 	public int getUniqueWeaponCount() {
 		return inventory.getUniqueWeaponCount();
 	}
-	public int getWeaponCount() {
-		return inventory.getWeaponCount();
+	public int getTotalWeaponCount() {
+		return inventory.getTotalWeaponCount();
 	}
 	public int getWeaponCount(AbstractWeapon weapon) {
 		return inventory.getWeaponCount(weapon);
@@ -17372,14 +17447,11 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getUniqueQuestWeaponCount();
 	}
 
-	public Map<AbstractClothing, Integer> getMapOfDuplicateClothing() {
-		return inventory.getMapOfDuplicateClothing();
-	}
 	public int getUniqueClothingCount() {
 		return inventory.getUniqueClothingCount();
 	}
 	public int getClothingCount() {
-		return inventory.getClothingCount();
+		return inventory.getTotalClothingCount();
 	}
 	public int getClothingCount(AbstractClothing clothing) {
 		return inventory.getClothingCount(clothing);
@@ -17388,14 +17460,11 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getUniqueQuestClothingCount();
 	}
 	
-	public Map<AbstractItem, Integer> getMapOfDuplicateItems() {
-		return inventory.getMapOfDuplicateItems();
-	}
 	public int getUniqueItemCount() {
 		return inventory.getUniqueItemCount();
 	}
 	public int getItemCount() {
-		return inventory.getItemCount();
+		return inventory.getTotalItemCount();
 	}
 	public int getItemCount(AbstractItem item) {
 		return inventory.getItemCount(item);
@@ -17414,12 +17483,8 @@ public abstract class GameCharacter implements XMLSaving {
 	/**
 	 * <b>DO NOT MODIFY!</b>
 	 */
-	public List<AbstractItem> getAllItemsInInventory() {
+	public Map<AbstractItem, Integer> getAllItemsInInventory() {
 		return inventory.getAllItemsInInventory();
-	}
-	
-	public AbstractItem getItem(int index) {
-		return inventory.getItem(index);
 	}
 
 	public String addItem(AbstractItem item, int count, boolean appendTextToEventLog) {
@@ -17437,48 +17502,54 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String addItem(AbstractItem item, boolean removingFromFloor) {
-		return addItem(item, removingFromFloor, false);
+		return addItem(item, 1, removingFromFloor, false);
 	}
+	
+	public String addItem(AbstractItem item, boolean removingFromFloor, boolean appendTextToEventLog) {
+		return addItem(item, 1, removingFromFloor, appendTextToEventLog);
+	}
+		
 	/**
 	 * Add an item to this character's inventory. If the inventory is full, the item is dropped in the character's current location.
 	 * 
 	 * @param removingFromFloor true if this item should be removed from the floor of the area the character is currently in on a successful pick up.
 	 * @return Description of what happened.
 	 */
-	public String addItem(AbstractItem item, boolean removingFromFloor, boolean appendTextToEventLog) {
+	public String addItem(AbstractItem item, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
 		if (removingFromFloor) {
-			if (inventory.addItem(item)) {
+			if (inventory.addItem(item, count)) {
 				updateInventoryListeners();
-				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeItem(item);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeItem(item, count);
 				if(appendTextToEventLog) {
 					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Item Added", item.getName()), false);
 				}
-				return "<p style='text-align:center;'>"+ addedItemToInventoryText(item)+"</p>";
+				return "<p style='text-align:center;'>"+ addedItemToInventoryText(item, count)+"</p>";
 			} else {
-				return inventoryFullText() + droppedItemText(item);
+				return inventoryFullText() + droppedItemText(item, count);
 			}
 			
 		} else {
-			if (inventory.addItem(item)) {
+			if (inventory.addItem(item, count)) {
 				updateInventoryListeners();
 				if(appendTextToEventLog) {
 					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Item Added", item.getName()), false);
 				}
-				return "<p style='text-align:center;'>"+ addedItemToInventoryText(item)+"</p>";
+				return "<p style='text-align:center;'>"+ addedItemToInventoryText(item, count)+"</p>";
 			} else {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addItem(item);
-				return inventoryFullText() + droppedItemText(item);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addItem(item, count);
+				return inventoryFullText() + droppedItemText(item, count);
 			}
 		}
 	}
 
-	/**
-	 * @return true If an item was removed.
-	 */
 	public void removeItem(AbstractItem item) {
 		inventory.removeItem(item);
 	}
 
+	public void removeItem(AbstractItem item, int count) {
+		inventory.removeItem(item, count);
+	}
+	
 	/**
 	 * @return true If this item is in the character's inventory.
 	 */
@@ -17499,14 +17570,18 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean removeItemByType(AbstractItemType item) {
 		return inventory.removeItemByType(item);
 	}
+
+	public String dropItem(AbstractItem item) {
+		return dropItem(item, 1);
+	}
 	
 	/**
 	 * Drops the item in the cell this character is currently in.
 	 * @return Description of what happened.
 	 */
-	public String dropItem(AbstractItem item) {
-		if (inventory.dropItem(item, location)) {
-			return droppedItemText(item);
+	public String dropItem(AbstractItem item, int count) {
+		if (inventory.dropItem(item, count, Main.game.getWorlds().get(this.worldLocation), location)) {
+			return droppedItemText(item, count);
 			
 		} else {
 			return "";
@@ -17554,27 +17629,37 @@ public abstract class GameCharacter implements XMLSaving {
 	/**
 	 * <b>DO NOT MODIFY!</b>
 	 */
-	public List<AbstractWeapon> getAllWeaponsInInventory() {
+	public Map<AbstractWeapon, Integer> getAllWeaponsInInventory() {
 		return inventory.getAllWeaponsInInventory();
 	}
-	
-	public AbstractWeapon getWeapon(int index) {
-		return inventory.getWeapon(index);
+
+	public String addWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
+		return addWeapon(weapon, 1, removingFromFloor, false);
 	}
 	
-	public String addWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
-		if (inventory.addWeapon(weapon)) {
+	public String addWeapon(AbstractWeapon weapon, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
+		if (inventory.addWeapon(weapon, count)) {
 			if (removingFromFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeWeapon(weapon);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeWeapon(weapon, count);
 			}
-			return "<p style='text-align:center;'>" + addedItemToInventoryText(weapon)+"</p>";
+			if(appendTextToEventLog) {
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Weapon Added", weapon.getName()), false);
+			}
+			return "<p style='text-align:center;'>" + addedItemToInventoryText(weapon, count)+"</p>";
 			
 		} else {
 			if(!removingFromFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addWeapon(weapon);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addWeapon(weapon, count);
 			}
-			return inventoryFullText() + "<br/>" + droppedItemText(weapon);
+			if(appendTextToEventLog) {
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Weapon Added", weapon.getName()), false);
+			}
+			return inventoryFullText() + "<br/>" + droppedItemText(weapon, count);
 		}
+	}
+	
+	public boolean removeWeapon(AbstractWeapon weapon, int count) {
+		return inventory.removeWeapon(weapon, count);
 	}
 	
 	public boolean removeWeapon(AbstractWeapon weapon) {
@@ -17589,10 +17674,14 @@ public abstract class GameCharacter implements XMLSaving {
 		return (getMainWeapon()!=null && getMainWeapon().equals(weapon))
 				|| (getOffhandWeapon()!=null && getOffhandWeapon().equals(weapon));
 	}
-	
+
 	public String dropWeapon(AbstractWeapon weapon) {
-		if (inventory.dropWeapon(weapon, location)) {
-			return droppedItemText(weapon);
+		return dropWeapon(weapon, 1);
+	}
+	
+	public String dropWeapon(AbstractWeapon weapon, int count) {
+		if (inventory.dropWeapon(weapon, count, Main.game.getWorlds().get(this.worldLocation), location)) {
+			return droppedItemText(weapon, count);
 			
 		} else
 			return "";
@@ -17787,16 +17876,8 @@ public abstract class GameCharacter implements XMLSaving {
 	/**
 	 * <b>DO NOT MODIFY!</b>
 	 */
-	public List<AbstractClothing> getAllClothingInInventory() {
+	public Map<AbstractClothing, Integer> getAllClothingInInventory() {
 		return inventory.getAllClothingInInventory();
-	}
-	
-	public void recalculateMapOfDuplicateClothing() {
-		inventory.recalculateMapOfDuplicateClothing();
-	}
-	
-	public AbstractClothing getClothing(int index) {
-		return inventory.getClothing(index);
 	}
 	
 	public String cleanAllClothing() {
@@ -17807,29 +17888,48 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String addClothing(AbstractClothing clothing, boolean removingFromFloor) {
-		if (inventory.addClothing(clothing)) {
+		return addClothing(clothing, 1, removingFromFloor, false);
+	}
+	
+	
+	public String addClothing(AbstractClothing clothing, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
+		if (inventory.addClothing(clothing, count)) {
 			updateInventoryListeners();
 			if (removingFromFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(clothing);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(clothing, count);
 			}
-			return "<p style='text-align:center;'>" + addedItemToInventoryText(clothing)+"</p>";
+			if(appendTextToEventLog) {
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Clothing Added", clothing.getName()), false);
+			}
+			return "<p style='text-align:center;'>" + addedItemToInventoryText(clothing, count)+"</p>";
 		} else {
 			if (!removingFromFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(clothing);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(clothing, count);
 			}
-			return inventoryFullText() + droppedItemText(clothing);
+			if(appendTextToEventLog) {
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Clothing Added", clothing.getName()), false);
+			}
+			return inventoryFullText() + droppedItemText(clothing, count);
 		}
 	}
 
+	public boolean removeClothing(AbstractClothing clothing, int count) {
+		return inventory.removeClothing(clothing, count);
+	}
+	
 	public boolean removeClothing(AbstractClothing clothing) {
 		return inventory.removeClothing(clothing);
 	}
 
 	public String dropClothing(AbstractClothing clothing) {
-		if (inventory.dropClothing(clothing, location)) {
+		return dropClothing(clothing, 1);
+	}
+	
+	public String dropClothing(AbstractClothing clothing, int count) {
+		if (inventory.dropClothing(clothing, count, Main.game.getWorlds().get(this.worldLocation),location)) {
 			updateInventoryListeners();
 
-			return droppedItemText(clothing);
+			return droppedItemText(clothing, count);
 		} else
 			return "";
 	}
@@ -17863,7 +17963,7 @@ public abstract class GameCharacter implements XMLSaving {
 		Map<InventorySlot, List<AbstractClothing>> concealedMap = new HashMap<>(inventory.getInventorySlotsConcealed(this));
 		
 		if(Main.game.isInSex()) {
-			for(InventorySlot slot : Sex.getSexManager().getSlotsConcealed(this)) {
+			for(InventorySlot slot : Sex.getInitialSexManager().getSlotsConcealed(this)) {
 				concealedMap.put(slot, new ArrayList<>());
 			}
 		}
@@ -18040,16 +18140,14 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return Equip description
 	 */
 	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper, GameCharacter fromCharactersInventory) {
+		fromCharactersInventory.removeClothing(newClothing);
+		
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 
 		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
 			applyEquipClothingEffects(newClothing);
 			
-			fromCharactersInventory.removeClothing(newClothing);
-
-			newClothing.setEnchantmentKnown(this, true);
-
 			updateInventoryListeners();
 
 			if (isPlayer() && Main.game.isInNewWorld()) {
@@ -18057,6 +18155,9 @@ public abstract class GameCharacter implements XMLSaving {
 					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
+			
+		} else {
+			fromCharactersInventory.addClothing(newClothing, false);
 		}
 
 		return inventory.getEquipDescription();
@@ -18096,12 +18197,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String equipClothingFromNowhere(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 		
-		// If this item was able to be equipped, and it was equipped, apply it's
-		// attribute bonuses:
+		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
 			applyEquipClothingEffects(newClothing);
-			
-			newClothing.setEnchantmentKnown(this, true);
 			
 			updateInventoryListeners();
 			
@@ -18117,24 +18215,25 @@ public abstract class GameCharacter implements XMLSaving {
 
 
 	public String equipClothingFromGround(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
+
+		Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
+		
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 
-		// If this item was able to be equipped, and it was equipped, apply it's
-		// attribute bonuses:
+		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
 			applyEquipClothingEffects(newClothing);
 
-			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
-
-			newClothing.setEnchantmentKnown(this, true);
-
 			updateInventoryListeners();
 
-			if (isPlayer() && Main.game.isInNewWorld()) {
+			if(isPlayer() && Main.game.isInNewWorld()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
+			
+		} else {
+			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(newClothing, 1);
 		}
 
 		return inventory.getEquipDescription();
@@ -18490,8 +18589,59 @@ public abstract class GameCharacter implements XMLSaving {
 							+ characterClothingUnequipper.getMoundRevealDescription(this, Util.newArrayListOfValues(characterClothingUnequipper))
 							:""));
 	}
+	
+	public void unequipAllClothingIntoVoid(boolean removeSeals, boolean includeWeapons) {
+		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
+		if(removeSeals) {
+			for(AbstractClothing clothing : clothingEquipped) {
+				clothing.setSealed(false);
+			}
+		}
+		for(AbstractClothing clothing : clothingEquipped) {
+			this.unequipClothingIntoVoid(clothing, true, this);
+		}
+		
+		if(includeWeapons) {
+			this.unequipMainWeaponIntoVoid();
+			this.unequipOffhandWeaponIntoVoid();
+		}
+	}
+	
+	private StringBuilder unequipAllClothingSB = new StringBuilder(0);
+	
+	public String getUnequipAllClothingDescription() {
+		return unequipAllClothingSB.toString();
+	}
 
-
+	/**
+	 * <b>Note:</b> You can get the generated description of this action by calling:<br/>
+	 * <i>getUnequipAllClothingDescription()</i>
+	 * @param remover The character who is removing the clothing.
+	 * @return A list containing all of the clothing that was unequipped.
+	 */
+	public List<AbstractClothing> unequipAllClothing(GameCharacter remover, boolean removeSeals) {
+		unequipAllClothingSB.setLength(0);
+		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
+		List<AbstractClothing> clothingRemoved = new ArrayList<>();
+		
+		clothingEquipped.sort((c1, c2) -> c1.getClothingType().getSlot().getZLayer() - c2.getClothingType().getSlot().getZLayer());
+		
+		if(removeSeals) {
+			for(AbstractClothing clothing : clothingEquipped) {
+				clothing.setSealed(false);
+			}
+		}
+		
+		for(AbstractClothing clothing : clothingEquipped) {
+			if(this.isAbleToUnequip(clothing, true, remover)) {
+				clothingRemoved.add(clothing);
+				unequipAllClothingSB.append(this.unequipClothingIntoVoid(clothing, true, remover));
+			}
+		}
+		
+		return clothingRemoved;
+	}
+	
 	public boolean isAbleToUnequip(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingRemover) {
 		return inventory.isAbleToUnequip(clothing, false, automaticClothingManagement, this, characterClothingRemover);
 	}
@@ -21227,6 +21377,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getBreastRawLactationRegenerationValue() {
 		return body.getBreast().getRawLactationRegenerationValue();
 	}
+	public float getLactationRegenerationPerSecond(boolean multiplyByBreastCount) {
+		return (body.getBreast().getRawLactationRegenerationValue()/(60*60*24f)) * (multiplyByBreastCount?(this.getBreastRows()*2):1);
+	}
 	public String setBreastLactationRegeneration(int regenerationValue) {
 		return body.getBreast().setLactationRegeneration(this, regenerationValue);
 	}
@@ -21433,11 +21586,6 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// Misc:
 	public boolean hasBreastsCrotch() {
-		if(Main.getProperties().udders==0
-				|| (this.getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().udders==1)
-				|| (this.getLegConfiguration()==LegConfiguration.BIPEDAL && this.getRaceStage()!=RaceStage.GREATER)) {
-			return false;
-		}
 		return body.getBreastCrotch().getType()!=BreastType.NONE;
 	}
 	public boolean isBreastsCrotchVisibleThroughClothing() {
@@ -21554,6 +21702,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public int getBreastCrotchRawLactationRegenerationValue() {
 		return body.getBreastCrotch().getRawLactationRegenerationValue();
+	}
+	public float getCrotchLactationRegenerationPerSecond(boolean multiplyByBreastCount) {
+		return body.getBreastCrotch().getRawLactationRegenerationValue()/(60*60*24f)  * (multiplyByBreastCount?(this.getBreastCrotchRows()*2):1);
 	}
 	public String setBreastCrotchLactationRegeneration(int regenerationValue) {
 		return body.getBreastCrotch().setLactationRegeneration(this, regenerationValue);
@@ -22350,6 +22501,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasHorns() {
 		return body.getHorn().getType() != HornType.NONE;
 	}
+	public boolean isHornsAbleToBeUsedAsHandlesInSex() {
+		return this.hasHorns() && HornLength.getHornLengthFromInt(this.getHornLength()).isSuitableAsHandles();
+	}
 	// Names:
 	public String getHornName() {
 		return body.getHorn().getName(this);
@@ -23012,7 +23166,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return body.getPenis().getTesticle().getCumExpulsion();
 	}
-	/** As a percentage from 0 -> 100. */
+	/** As a percentage from 5 -> 100. */
 	public int getPenisRawCumExpulsionValue() {
 		if (!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
 			return FluidExpulsion.FOUR_HUGE.getMaximumValue();
@@ -23048,6 +23202,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public int getPenisRawCumProductionRegenerationValue() {
 		return body.getPenis().getTesticle().getRawCumProductionRegenerationValue();
+	}
+	public float getCumRegenerationPerSecond() {
+		return body.getPenis().getTesticle().getRawCumProductionRegenerationValue()/(60*60*24f);
 	}
 	public String setPenisCumProductionRegeneration(int regenerationValue) {
 		return body.getPenis().getTesticle().setCumProductionRegeneration(this, regenerationValue);

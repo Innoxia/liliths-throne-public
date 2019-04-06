@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -24,7 +25,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class Cell implements XMLSaving {
@@ -59,8 +60,6 @@ public class Cell implements XMLSaving {
 		Element element = doc.createElement("cell");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "worldType", this.getType().toString());
-		
 		Element location = doc.createElement("location");
 		element.appendChild(location);
 		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
@@ -77,20 +76,15 @@ public class Cell implements XMLSaving {
 		return element;
 	}
 	
-	public static Cell loadFromXML(Element parentElement, Document doc) {
+	public static Cell loadFromXML(Element parentElement, Document doc, WorldType type) {
 		
-		WorldType type = WorldType.EMPTY;
-		if(parentElement.getAttribute("worldType").equals("SEWERS")) {
-			type = WorldType.SUBMISSION;
-		} else {
-			type = WorldType.valueOf(parentElement.getAttribute("worldType"));
-		}
+		Element locationElement = ((Element)parentElement.getElementsByTagName("location").item(0));
 		
 		Cell cell = new Cell(
 				type,
 				new Vector2i(
-					Integer.valueOf(((Element)parentElement.getElementsByTagName("location").item(0)).getAttribute("x")),
-					Integer.valueOf(((Element)parentElement.getElementsByTagName("location").item(0)).getAttribute("y"))));
+					Integer.valueOf(locationElement.getAttribute("x")),
+					Integer.valueOf(locationElement.getAttribute("y"))));
 		
 		cell.setDiscovered(Boolean.valueOf(parentElement.getAttribute("discovered")));
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
@@ -107,13 +101,12 @@ public class Cell implements XMLSaving {
 			}
 		}
 		
-		
-		
 		cell.setPlace(GenericPlace.loadFromXML(((Element)parentElement.getElementsByTagName("place").item(0)), doc, cell), false);
 		
 		try {
-			if(parentElement.getElementsByTagName("characterInventory").getLength()>0) {
-				cell.setInventory(CharacterInventory.loadFromXML(((Element)parentElement.getElementsByTagName("characterInventory").item(0)), doc));
+			Node invNode = parentElement.getElementsByTagName("characterInventory").item(0);
+			if(invNode!=null) {
+				cell.setInventory(CharacterInventory.loadFromXML(((Element)invNode), doc));
 			}
 		} catch(Exception ex) {	
 			System.err.println("Cell import error 1");
@@ -195,21 +188,21 @@ public class Cell implements XMLSaving {
 	public void resetInventory(List<Rarity> rarityOfItemsToSave){
 		if(rarityOfItemsToSave!=null && !rarityOfItemsToSave.isEmpty()) {
 			List<AbstractItem> itemsToSave = new ArrayList<>();
-			for(AbstractItem item : this.inventory.getItemsInInventory()) {
+			for(AbstractItem item : this.inventory.getAllItemsInInventory().keySet()) {
 				if(rarityOfItemsToSave.contains(item.getRarity())) {
 					itemsToSave.add(item);
 				}
 			}
 			
 			List<AbstractWeapon> weaponsToSave = new ArrayList<>();
-			for(AbstractWeapon weapon : this.inventory.getWeaponsInInventory()) {
+			for(AbstractWeapon weapon : this.inventory.getAllWeaponsInInventory().keySet()) {
 				if(rarityOfItemsToSave.contains(weapon.getRarity())) {
 					weaponsToSave.add(weapon);
 				}
 			}
 			
 			List<AbstractClothing> clothingToSave = new ArrayList<>();
-			for(AbstractClothing clothing : this.inventory.getClothingInInventory()) {
+			for(AbstractClothing clothing : this.inventory.getAllClothingInInventory().keySet()) {
 				if(rarityOfItemsToSave.contains(clothing.getRarity())) {
 					clothingToSave.add(clothing);
 				}

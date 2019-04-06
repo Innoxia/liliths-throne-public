@@ -11,6 +11,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -375,16 +376,16 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.setMoney(10);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CORSET_DRESS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HIPS_SUSPENDER_BELT, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_stockings", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_thigh_high_boots", Colour.CLOTHING_BLACK, false), true, this);
 
 	}
@@ -484,6 +485,13 @@ public class Vicky extends NPC {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
+		weaponsForSale.remove(item);
+		clothingForSale.remove(item);
+		itemsForSale.remove(item);
 	}
 	
 	@Override

@@ -125,45 +125,192 @@
 	
 	Patch notes:
 	
+	Engine:
+		Refactored inventory code to address issue with selling of huge stacks of items causing the game to crash. It will also have sped up normal inventory interactions, but probably by an unnoticable amount.
+		Added support for inline scripting methods to suppress output (use two hash symbols (##) at the start of an inline parsing statement instead of one (#) to suppress output Strings).
+		Added xml definition files for patterns, so that names and default pattern booleans can be defined.
+	
+	Gameplay:
+		Offspring can now be encountered even when the incest content option is turned off. All sexual actions will be hidden & unavailable while incest is toggled off.
+	
+	Contributors:
+		Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)
+		Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)
+		
+	Clothing:
+		Added: 'flats' (feminine, foot slot, sold by Nyan).
+		Added: 'half-moon glasses' (unisex, eye slot, sold by Nyan).
+		Added: 'pearl stud earrings' (feminine, ear-piercing slot, sold by Kate).
+		Added 'colourNameDerivedFromPattern' attribute to the 'defaultPatterns' element in clothing xml files, which makes the clothing use the pattern's primary colour instead of the base colour. (Used for rockabilly dress.)
+		Reduced pattern spawn rate for recently-added dresses from 100% to 50%.
+		Added pattern dye elements to clothing xml files, which work in the same way as normal colour definitions. Examples can be seen in the rockabilly dress and vintage dress files.
+		
+	Sex:
+		Base loss after orgasming changed from a flat -50% to a variable amount based on arcane storm vulnerability (negates all lust loss), attraction (50% reduction/increase), psychoactive fluid ingestion (75% reduction), and affection (50% reduction/50% increase).
+		Stabilised lust changes by limiting it to +/-2.5 for each character on every character's turn (meaning that it has a maximum change of +/-5 per turn with 2 non-spectator participants, but +/-7.5 per turn with 3 non-spectator participants).
+		Removed restriction that was preventing two futa characters from simultaneously fucking one another.
+		Orgasming no longer resets arousal to 0, but instead to 25% of the cahracter's lust value.
+		Improved methods responsible for determining an NPC's willingness to deny requests, choose what action to take in sex, and the amount of arousal & lust gained from actions each turn.
+		NPCs with competing fetish desires (e.g. hating anal, but loving taking cock) will now sometimes be willing to perform those actions, and should not be losing arousal or lust as a result.
+		NPCs should no longer be choosing to perform actions which they dislike or hate.
+	
 	Other:
-		Reduced time taken to travel through each of Submission's tiles from 5 to 3 minutes.
+		<b>Altered:</b> Cum and milk regeneration is no longer based on a percentage of maximum storage, and is instead a fixed value from 0-1,000,000mL per day. As part of this change, regeneration values will be reset to default values when you load in.
+		Added milk regeneration, milk flavour, cum regeneration, cum flavour, cum expulsion, and girlcum flavour to transform menu.
+		Compacted and reorganised the self-transform menu UI, added tooltips to help explain what each part affects, and added nipple shape as a self-transform option.
+		Added three more lip sizes, all of which are large enough to cause the character to speak with a lisp.
+		Added 'Horn grab' for when fucking someone in the doggy-style position (similar to 'Twintails pull' and 'Ear pull').
+		Added 'Twintails pull', 'Ear pull', and 'Horn grab' to dominant cunnilingus actions.
+		Inventory is no longer disabled in Lyssieth's nor Merxais's office.
+		Moved all socks and rainbow clothing set items out into the external res folder.
+		Defined prostitue clothing in outfit files.
+		NPCs who are vulnerable to arcane storms (and who are out in an arcane storm) now require 2 orgasms to be satisfied during sex instead of 1.
+		Imps now require 1 orgasm to be satisfied, instead of 3.
+		Added 'pitch black' colour for covering types. (Available for skin, hair, horns, antlers, fur, and scales.)
+		Youko offspring can now be found in Dominion's back alleys, but I will move them out into the 'Shinrin highlands' area once I've added that content, so this is just temporary.
+		Renamed the 'skin' modifier in TF potion creation to 'torso', to make it clearer that it's only affecting the torso's skin.
+		Increased maximum milk, cum, and girlcum that can be extracted per hour in the milking room.
+		Milk regeneration is now multiplied by the number of breasts a character has.
+		Slightly altered value calculations for milk, cum, and girlcum. (Flavour now counts for a lot more.)
+		Changed lion-morph icon to a standard recoloured cat-morph icon, as I wanted to keep subspecies icons as consistent as possible.
+		Added 'cherry' flavour to fluids, changed 'slime' flavour to 'bubblegum', and improved enchantment icons for fluid modifiers.
 	
 	Bugs:
-		Fixed major issue that was causing orgasms to sometimes cause the game to break.
-		Fixed calendar in your room not displaying October, and the other two months not working.
-		Fixed issues in parsing when milking girlcum in a milking room.
-		Fixed some broken lubrication descriptions in sex.
+		Start of pregnancy now correctly expels all fluids from vagina & vaginal urethra, and fluid storage in those orifices for a pregnant character is now limited to 250ml.
+		Ending pregnancy now correctly expels all fluids from vagina & vaginal urethra, and cleans the related inventory slots.
+		Fixed issue with the 'ripped' body shape colour not being the correct shade of green.
+		Fixed bugged saving/loading of milk & cum regeneration values.
+		Corrected some references to harpy faces referring to a 'mouth' instead of 'beak'.
+		Lots of typo, parsing, and grammar fixes.
+		Fixed issue with demon attackers in Dominion's alleyways sometimes having nonsensical fetishes.
+		Fixed issue with the 'Molest' action on slaves not applying affection changes as described in the text.
+		Fixed uncommon bug where items of clothing could sometimes appear in random tiles.
+		Taurs will no longer spawn wearing shoes or socks.
+		Cross-dressing muggers will now correctly wear outfits appropriate for that fetish.
+		Characters who grow a slime or demonic cock in sex should now correctly self-transform it away after sex ends.
+		Pattern names for polka dots no longer read awkwardly. (e.g. 'polka dots big' has been changed to 'big polka-dotted'.)
+		Fixed minor lore inconsistency in the intro regarding the arcane.
+		Fixed inconsistent application of crotch-boob/udders content option. This option will now correctly only influence crotch-boob/udder creation on newly-spawned NPCs, and will not retroactively affect NPCs who already have crotch-boobs, nor interfere with TF potions that add/remove crotch-boobs.
+		Fixed rare bug where sometimes characters would not load in correctly.
+		Fixed issue with Elizabeth and her guards (outside Lyssieth's palace) not showing up in the 'characters present' box.
+		Disabled ability to overwrite save files when not in a tile's default scene (as this was causing a huge number of issues upon loading).
+		Fixed bug where NPCs with the 'unwilling fuck toy' fetish would lose lust in non-con sex.
+		Fixed issue with sex scenes never stopping if you were a spectator.
+		Fixed issue with half-demons giving birth to random half-demon subspecies.
+		Fixed issue with the pregnancy stats page sometimes breaking.
+		Fixed bug where you couldn't give potions to enemies that you'd just beaten.
+		Fixed background error related to equipping/unequipping clothing which in some instances was game-breaking.
+		Fixed incorrect dialogue when requesting a partner to pull out at moment of orgasm.
+		Fixed zebra-morph background not changing if they are a half-demon.
+		Fixed incorrect condom breakage text.
+		Vicky's inventory will no longer restock after every time you close & re-open her trade actions.
+		Fixed issue with some items of clothing blocking one another's removal, which was causing the sex AI to break the game.
+		Fixed issue with some items of clothing not saving/loading their colours correctly.
+		Fixed the 'colour test T-shirt' being sold by Nyan.
+		Fixed zebrataurs being incorrectly classified as the generic 'centaurs'.
+		Fixed issue with vaginal and urethral orifices not resetting their 'stretched' value after being removed and regained.
+		Paizuri actions should now work for centaurs who are performing oral.
+		Fixed clothing (such as the ball gag) not causing speech to be muffled.
+		Fixed incorrect description of washing fluids out of your mouth when using the 'wash' actions in your room.
+		Fixed issue with Lilaya's images not updating after she's transformed into a demon.
+		Fixed NPCs automatically removing sealed clothing that you'd locked onto them.
+		Fixed bugs in parsing 'Help' screen, and added entry for script command with output suppression.
+		Fixed issue with Lilaya reacting as though she was unaware of the plot progression when talking to her about the date in her lab after resolving the business with Lyssieth.
+		Fixed issue with 'request pullout' and 'request creampie' not taking into account if a condom is being worn.
+		Fixed half-demons sometimes not having appropriate corruption or aura attribute values. Also affects attributes when turning someone into a half-demon via the debug item 'Innoxia's gift'.
+		Fixed broken NPC refusal conditions for having cum pumped into them in the milking room.
+		Fixed issue with clothing with a pattern not stacking in inventory properly, and sometimes displaying the wrong icon.
+		Fixed issue with dying stacked clothing and weapons deleting all other clothing/weapons in that stack.
+		Fixed issue with inventory sorting not working properly.
+		Fixed issue with fennec-morph subspecies not being properly identified.
+		Fixed some cumbersome parsing of relationships.
+		Fixed issue with drunk speech causing parsing to sometimes break.
+		Fixed incorrect position denial reaction when asking an NPC to perform oral on them.
+		Fixed issue in sex where some actions were able to be performed when they should have been physically impossible (such as being able to receive a hotdogging tease from someone while fucking their ass).
+		Fixed some instances of 'mL' not being changed to imperial units (if you had the imperial units option on).
+		Fixed milking room using breast milk regeneration instead of crotch boob milk regeneration.
+		Upon orgasm, cum is no longer described as being splattered on the target's 'over-torso'.
+		Fixed Lyssieth's earrings being moved into her inventory when she takes on her demonic form.
+		Condoms are now correctly unequipped & discarded if they break during orgasm.
+		You can no longer equip 'quest' clothing or weapons onto NPCs. If you had already done this, and then removed the NPC who had 'quest' items, you can re-spawn them via the debug menu. (Type 'buggy' in a neutral scene to bring up the debug menu.)
+		You can now enslave all of your offspring, including demons.
+		Fixed slaves who hated you acting overly-friendly when starting sex with them.
+		Fixed numerous minor issues related to fetishes gained from clothing & tattoos sometimes not being taken into account.
+		Fixed issue with gloryhole NPCs not using positioning actions correctly.
+		Fixed issue with gloryhole NPCs not having their groin areas revealed when they moved into a 'present asshole' or 'present pussy' position. (This was also causing ongoing sex actions to not be available.)
+		Fixed 'ear pull', 'horn grab', and 'twintails pull' sex actions being available in gloryhole sex.
+		Fixed issue with the game soft-locking when identifying clothing.
 	
 	
 	
 	
 	
 	
+	Finish & test city hall
 	
-	Dunno if bug or not, but demon/half-demon slaves no longer lose their dicks after being told to grow one during sex.
+	need pregnancy variations
 	
-	crotch boobs for greater anthros only generated. Show for all if they actually have them
+	Add town hall internal map
+		Demographics:
+			Change name
+			Buy map from town hall to find kids
+			Also for imports
+				Use in empty alleyway to find them
 	
-	Black and jet black skin colours
+	test incest off offspring encounters
 	
-	I should have mentioned it in my bug report but yes it was while Lilaya was half demon, that children conceived with her were randomized.
+	item.isBreakOutOfInventory() is not covering use on NPCs in InventoryDialogue
 	
-	need to incorporate outfit logic into clothing and weapon types
-		add effects modding
+	outfits
+		make non-regular feet not spawn with shoes/socks
 	
-	Another thing you really ought to do is make it so you don't have to "stop" one action to start another except as a sub with a rough paced dom
-		Needs dialogue for stop pen and into other action
+	Forced TF not working for someone
+		Ah, yeah, that's intended with the way the non-con option works right now. I'll improve it for the next version so that you can turn on/off sex after defeat as a separate option. your words
+	go over forced TF and fix it all
 	
-	optimise endturn iterations over NPCs
+	rabbit morphs need pregnancy fetish chance modifier
 	
-	calculateSexTypeWeighting
-		Should be neutral if both like and dislike related fetishes. Adjust sex lust increments based on this as well
+	Not sure if this is a bug or just maybe unfinished, but after moving out your kids to apartments, if you impregnate them/get pregnant by them,
+	 they revert back to the generic companion lines of acknowledging the pregnancy instead of the new specific ones for your kids
 	
-	need sex slot tags like "lying down", "submissive", "dominant", so position switching can take this into account
-		make it so NPCs will not choose sub positioning when dom, or lying down when in dirty area
+	Bug: When the player is Submissive in sex the options for penetrating a partner are not available.
+		Make this clearer
 	
-	really need dialogue indication of what NPCs want
-		Upon position change, or when generating preferences?
+	Add option to get Arthur to move out
+	
+	can't submit during storm - ignores storm attraction?
+	
+	Something that might be a bug or an oversight but when you go into the alleyways during an arcane storm and someone walks up to you, they still accept money as an option to leave you alone
+	
+	Slaves forgetting owner?
+		"Scarlett leaves your party for unknown reasons"
+		
+		java.lang.NullPointerException
+		    at com.lilithsthrone.game.occupantManagement.SlaveJob.isAvailable(SlaveJob.java:470)
+		    at com.lilithsthrone.game.dialogue.OccupantManagementDialogue$8.getContent(OccupantManagementDialogue.java:1761)
+		ya no it happened after midnight this time
+		Scarlett is in Empty City?
+		That is quite odd. It sounds like the game forgets that Scarlett has an owner
+		
+		I just encountered that bug where you fight an arcane storm NPC, then go home and rest, at it goes to the post-sex scene with that NPC
+		 Ok, I got more information:
+		I beat the NPC, had sex, then enslaved them.
+		 I then moved them into a room, and interacted with them.
+		 I then rested until the next Arcane Storm happened.
+		This NPC, now enslaved, is located at Empty, City
+	
+	Make generic template:
+		I’m pretty sure there is an issue with Imps/demons in submission not giving you demon characteristics when they say they want to “transform you into a male/female demon”
+			Yet I still get messages like “You lack wings, so nothing happens” or “you lack horns, so nothing happens”
+	
+	Too many people are spawning with beards
+	
+	Sex improvements:
+		need lipple suck
+		clit fucking
+		size difference - penis girth
+		tongue length/mods and lips/throat mods need to affect sex 
+		Need oral actions cum eating descriptions & effects
 	
 	Finish orgasm denial scenes.
 	    - Add sex action(s).
@@ -182,6 +329,44 @@
 	    - Add dialogue framework.
 	    - Write dialogue.
 	    - Test.
+    
+   Innoxia if you're here, please make it that if a slave has the "Use You" permission and you try to take a shower in your room, there's a rare chance the slave will come in and rape you.
+
+   Innoxia if you're here, please write dialogue for a slave with the "Use You" permission trying to rape you when you're so far above them in strength it's hilarious.
+
+	 I noticed on the build from friday that Rose wasn't cleaning my clothes anymore
+	  
+	
+	
+	
+	
+	followers reset perk points when you send them home?
+	
+	
+	need to incorporate outfit logic into clothing and weapon types
+		add effects modding
+	
+	Another thing you really ought to do is make it so you don't have to "stop" one action to start another except as a sub with a rough paced dom
+		Needs dialogue for stop pen and into other action
+	
+	calculateSexTypeWeighting
+		Should be neutral if both like and dislike related fetishes. Adjust sex lust increments based on this as well
+	
+	need sex slot tags like "lying down", "submissive", "dominant", so position switching can take this into account
+		make it so NPCs will not choose sub positioning when dom, or lying down when in dirty area
+	
+	really need dialogue indication of what NPCs want
+		Upon position change, or when generating preferences?
+		Also indication of lust loss (include huge lust loss for start of ongoing penetration)
+	
+	add rose picking quest
+		after picking 100 roses, William appears
+		says he was growing them all over the city in an attempt to harvest them for a gift to a lilin he loves (and keeps visiting, but never has the courage to confess)
+		You can pick them for him
+		Requires 50,000 roses
+		lilin is nymph in woods
+		she falls in love with him
+		you get the crown of roses as a reward
 	
 	my Horse Morph Damage Bonus should never go over +5% even if I find another Equine Encyclopedia and read it?
 		Specifically I'm occasionally (very occasionally, doesn't affect all books) able to reread books that I've already read. I've had it happen with more than just Equine Encyclopedia. No idea what the specific trigger is, but there were a few ingame days between each instance
@@ -189,8 +374,6 @@
 	need extra strong seal, which prevents all displacements
 	
 	plans still for being able to masturbate the other partner through their clothes if you are dominant
-	
-	message K
 	
 	Bug: 0.3.1.1: Sex-equip enabled items can be enchanted with "Enslave", but equipping them during sex does not enslave the wearer.
 	
@@ -231,6 +414,10 @@
 		they keep adding random items
 	
 	Lipstick essentially it is purely cosmetic in general but if you have lipstick on your lips during sex you can choose to give a big long kiss to a certain body part leaving a lipstick kiss mark. It can be washed off, enchanted to grant bonuses to those who have it and provide a buff to exhibitionists (since it shows you have been having fun with someone). 
+	
+	humanoid genitalia and plantigrade foot settings
+	
+	make it so that non-plantigrade feet have footwear restrictions
 	
 	If you enter the imp fortress and fight the two guard imps, and enslave one of them; you'll fight the remaining one again but the text code appears informing you of the other missing imp. 
 	

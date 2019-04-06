@@ -145,6 +145,12 @@ public class SexActionPresets {
 			SexAreaOrifice.BREAST,
 			SexAreaPenetration.TONGUE,
 			SexAreaOrifice.MOUTH);
+
+	public static List<SexAreaInterface> allowedInterPenetrationAreas = Util.newArrayListOfValues(
+			SexAreaPenetration.FINGER,
+			SexAreaPenetration.TAIL,
+			SexAreaPenetration.TENTACLE,
+			SexAreaOrifice.VAGINA);
 	
 	private static List<SexAreaInterface> alLAreas = Util.mergeLists(appendageAreas, groinAreas, assAreas, mouthAreas, breastAreas);
 	
@@ -199,6 +205,8 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> assToGroin = new HashMap<>();
 
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> kissing = new HashMap<>();
+
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> breastsToPenis = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToBreasts = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToLowerHalf = new HashMap<>();
@@ -208,6 +216,7 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToCrotchBoobs = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> breastsToMouth = new HashMap<>();
+	
 	
 	static {
 
@@ -270,6 +279,8 @@ public class SexActionPresets {
 		
 		for(SexAreaInterface area : breastAreas) {
 			breastsToMouth.put(area, mouthAreas);
+			
+			breastsToPenis.put(area, penisAreas);
 		}
 		
 		for(SexAreaInterface area : penisAreas) {

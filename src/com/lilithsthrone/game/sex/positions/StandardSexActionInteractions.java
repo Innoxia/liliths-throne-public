@@ -76,6 +76,7 @@ public class StandardSexActionInteractions {
 						new SexActionInteractions(
 						Util.mergeMaps(
 								SexActionPresets.mouthToPenis,
+								SexActionPresets.breastsToPenis,
 								target.getLegConfiguration().isBipedalPositionedGenitals()
 									?SexActionPresets.mouthToVagina
 									:null,

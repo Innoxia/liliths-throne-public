@@ -1769,7 +1769,7 @@ public class ZaranixHomeGroundFloorRepeat {
 								break;
 							}
 							owner.addSlave(pet);
-							pet.unequipAllClothingIntoVoid(true);
+							pet.unequipAllClothingIntoVoid(true, true);
 							pet.clearFetishDesires();
 							pet.clearFetishes();
 							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {

@@ -40,7 +40,7 @@ public class Generation extends Task<Boolean> {
 	}
 
 	public void worldGeneration(WorldType worldType) {
-		
+//		System.out.println(worldType);
 		if(worldType.isUsesFile()) {
 			try {
 				BufferedImage img = ImageIO.read((getClass().getResource(worldType.getFileLocation())));
