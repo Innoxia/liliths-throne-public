@@ -81,6 +81,8 @@ import java.time.Month;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -1156,6 +1158,9 @@ public class Game implements XMLSaving {
 			if(addedNpcs.contains(HarpyNymphoCompanion.class)) {
 				Main.game.getNpc(HarpyNymphoCompanion.class).setAffection(Main.game.getNpc(HarpyNympho.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 			}
+			
+			// City hall:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Vanessa.class))) { addNPC(new Vanessa(), false); addedNpcs.add(Vanessa.class); }
 			
 			// Slaver alley:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Finch.class))) { addNPC(new Finch(), false); addedNpcs.add(Finch.class); }
@@ -3090,6 +3095,14 @@ public class Game implements XMLSaving {
 		offspringSpawned.removeIf(npc -> npc.getWorldLocation()==WorldType.EMPTY);
 		
 		return offspringSpawned;
+	}
+
+	public List<NPC> getOffspringNotSpawned(Predicate<NPC> matcher) {
+		List<NPC> offspringAvailable = Main.game.getOffspring(false).stream().filter(npc -> !npc.isSlave())
+										.filter(npc -> npc.getWorldLocation()==WorldType.EMPTY)
+										.filter(npc -> npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE)
+										.filter(matcher).collect(Collectors.toList());
+		return offspringAvailable;
 	}
 	
 	public List<NPC> getReindeerOverseers() {

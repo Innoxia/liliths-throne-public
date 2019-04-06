@@ -130,11 +130,17 @@
 		Added support for inline scripting methods to suppress output (use two hash symbols (##) at the start of an inline parsing statement instead of one (#) to suppress output Strings).
 		Added xml definition files for patterns, so that names and default pattern booleans can be defined.
 	
+	Gameplay:
+		Offspring can now be encountered even when the incest content option is turned off. All sexual actions will be hidden & unavailable while incest is toggled off.
+	
 	Contributors:
 		Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)
 		Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)
 		
 	Clothing:
+		Added: 'flats' (feminine, foot slot, sold by Nyan).
+		Added: 'half-moon glasses' (unisex, eye slot, sold by Nyan).
+		Added: 'pearl stud earrings' (feminine, ear-piercing slot, sold by Kate).
 		Added 'colourNameDerivedFromPattern' attribute to the 'defaultPatterns' element in clothing xml files, which makes the clothing use the pattern's primary colour instead of the base colour. (Used for rockabilly dress.)
 		Reduced pattern spawn rate for recently-added dresses from 100% to 50%.
 		Added pattern dye elements to clothing xml files, which work in the same way as normal colour definitions. Examples can be seen in the rockabilly dress and vintage dress files.
@@ -144,6 +150,9 @@
 		Stabilised lust changes by limiting it to +/-2.5 for each character on every character's turn (meaning that it has a maximum change of +/-5 per turn with 2 non-spectator participants, but +/-7.5 per turn with 3 non-spectator participants).
 		Removed restriction that was preventing two futa characters from simultaneously fucking one another.
 		Orgasming no longer resets arousal to 0, but instead to 25% of the cahracter's lust value.
+		Improved methods responsible for determining an NPC's willingness to deny requests, choose what action to take in sex, and the amount of arousal & lust gained from actions each turn.
+		NPCs with competing fetish desires (e.g. hating anal, but loving taking cock) will now sometimes be willing to perform those actions, and should not be losing arousal or lust as a result.
+		NPCs should no longer be choosing to perform actions which they dislike or hate.
 	
 	Other:
 		<b>Altered:</b> Cum and milk regeneration is no longer based on a percentage of maximum storage, and is instead a fixed value from 0-1,000,000mL per day. As part of this change, regeneration values will be reset to default values when you load in.
@@ -230,24 +239,36 @@
 		Fixed issue with gloryhole NPCs not using positioning actions correctly.
 		Fixed issue with gloryhole NPCs not having their groin areas revealed when they moved into a 'present asshole' or 'present pussy' position. (This was also causing ongoing sex actions to not be available.)
 		Fixed 'ear pull', 'horn grab', and 'twintails pull' sex actions being available in gloryhole sex.
+		Fixed issue with the game soft-locking when identifying clothing.
 	
 	
 	
 	
-	Fix arousal/lust gains and action choices:
-		Their first action was:
-		> The alpha-imp leader: Finger nipples (self)
-		But "Hates: Self breast play"
+	
+	
+	Finish & test city hall
+	
+	need pregnancy variations
 	
 	Add town hall internal map
-		Buy map from town hall to find kids
-		Also for imports
-			Use in empty alleyway to find them
+		Demographics:
+			Change name
+			Buy map from town hall to find kids
+			Also for imports
+				Use in empty alleyway to find them
+	
+	test incest off offspring encounters
+	
+	item.isBreakOutOfInventory() is not covering use on NPCs in InventoryDialogue
+	
+	outfits
+		make non-regular feet not spawn with shoes/socks
 	
 	Forced TF not working for someone
 		Ah, yeah, that's intended with the way the non-con option works right now. I'll improve it for the next version so that you can turn on/off sex after defeat as a separate option. your words
 	go over forced TF and fix it all
 	
+	rabbit morphs need pregnancy fetish chance modifier
 	
 	Not sure if this is a bug or just maybe unfinished, but after moving out your kids to apartments, if you impregnate them/get pregnant by them,
 	 they revert back to the generic companion lines of acknowledging the pregnancy instead of the new specific ones for your kids
@@ -282,6 +303,8 @@
 		I’m pretty sure there is an issue with Imps/demons in submission not giving you demon characteristics when they say they want to “transform you into a male/female demon”
 			Yet I still get messages like “You lack wings, so nothing happens” or “you lack horns, so nothing happens”
 	
+	Too many people are spawning with beards
+	
 	Sex improvements:
 		need lipple suck
 		clit fucking
@@ -306,10 +329,18 @@
 	    - Add dialogue framework.
 	    - Write dialogue.
 	    - Test.
+    
+   Innoxia if you're here, please make it that if a slave has the "Use You" permission and you try to take a shower in your room, there's a rare chance the slave will come in and rape you.
+
+   Innoxia if you're here, please write dialogue for a slave with the "Use You" permission trying to rape you when you're so far above them in strength it's hilarious.
+
+	 I noticed on the build from friday that Rose wasn't cleaning my clothes anymore
+	  
 	
 	
 	
 	
+	followers reset perk points when you send them home?
 	
 	
 	need to incorporate outfit logic into clothing and weapon types

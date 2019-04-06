@@ -42,6 +42,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.utils.OffspringMapDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -3139,6 +3141,21 @@ public class ItemEffectType {
 			return "";
 		}
 	};
+	
+	public static AbstractItemEffectType OFFSPRING_MAP = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"Facilitates the discovery of offspring."),
+			Colour.RARITY_LEGENDARY) {
+		@Override
+		public boolean isBreakOutOfInventory() {
+			return true;
+		}
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			Main.game.setContent(new Response("", "", OffspringMapDialogue.OFFSPRING_CHOICE));
+			return "";
+		}
+	};
+	
 	
 	public static Map<AbstractItemEffectType, String> itemEffectTypeToIdMap = new HashMap<>();
 	public static Map<String, AbstractItemEffectType> idToItemEffectTypeMap = new HashMap<>();

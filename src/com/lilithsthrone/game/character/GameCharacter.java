@@ -4380,6 +4380,7 @@ public abstract class GameCharacter implements XMLSaving {
 			case IMP_FORTRESS_DEMON:
 			case IMP_FORTRESS_FEMALES:
 			case IMP_FORTRESS_MALES:
+			case CITY_HALL:
 				return "This isn't a suitable place to be having sex with [npc.name]!";
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
@@ -5839,7 +5840,99 @@ public abstract class GameCharacter implements XMLSaving {
 			};
 	}
 
+
+	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request) {
+		int weight = 0;
+		
+		List<Fetish> fetishes = type.getRelatedFetishes(this, target, true, false);
+		
+		for(Fetish fetish : fetishes) {
+			if(this.hasFetish(fetish)) {
+				weight+=7;
+			} else {
+				switch(this.getFetishDesire(fetish)) {
+					case FOUR_LOVE:
+						weight+=5;
+						break;
+					case THREE_LIKE:
+						weight+=3;
+						break;
+					case TWO_NEUTRAL:
+						weight+=1;
+						break;
+					case ONE_DISLIKE:
+						weight-=3;
+						break;
+					case ZERO_HATE:
+						weight-=5;
+						break;
+				}
+			}
+		}
+		
+		boolean isRequest = false;
+		if(request!=null && weight>=0) { // Do not increase weighting if the base action is not wanted by this character.
+			for(SexType st : request) {
+				if((st.getTargetedSexArea()==type.getTargetedSexArea() || st.getPerformingSexArea()==type.getPerformingSexArea())) {
+					weight += 50;
+					isRequest = true;
+				}
+			}
+		}
+		
+		if(fetishes.contains(Fetish.FETISH_ORAL_GIVING)) {
+			for(Addiction add : this.getAddictions()) {
+				if(target.hasPenisIgnoreDildo() && add.getFluid() == target.getCumType() && fetishes.contains(Fetish.FETISH_PENIS_RECEIVING)) {
+					weight+=10;
+				}
+				if(target.hasVagina() && add.getFluid() == target.getGirlcumType() && fetishes.contains(Fetish.FETISH_VAGINAL_GIVING)) {
+					weight+=10;
+				}
+				if(target.getBreastRawMilkStorageValue()>0 && add.getFluid() == target.getMilkType() && fetishes.contains(Fetish.FETISH_BREASTS_OTHERS)) {
+					weight+=10;
+				}
+			}
+		}
+		
+		if((fetishes.contains(Fetish.FETISH_ANAL_GIVING) || fetishes.contains(Fetish.FETISH_ANAL_RECEIVING)) && !Main.game.isAnalContentEnabled()) {
+			weight-=100000;
+		}
+
+		if((fetishes.contains(Fetish.FETISH_FOOT_GIVING) || fetishes.contains(Fetish.FETISH_FOOT_RECEIVING)) && !Main.game.isFootContentEnabled()) {
+			weight-=100000;
+		}
+		
+		// Anal actions are not available unless the person likes anal.
+		if(fetishes.contains(Fetish.FETISH_ANAL_RECEIVING) && !isRequest) {
+			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+				weight-=100000; // ban self-anal actions unless the character likes anal
+			}
+			if(!fetishes.contains(Fetish.FETISH_PENIS_RECEIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
+			}
+		}
+		if(fetishes.contains(Fetish.FETISH_ANAL_GIVING) && !isRequest) {
+			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+				weight-=100000; // ban self-anal actions unless the character likes anal
+			}
+			if(!fetishes.contains(Fetish.FETISH_PENIS_GIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
+			}
+		}
+
+		List<Fetish> fetishesOpposite = type.getOppositeFetishes(this, target, true, false);
+		if(fetishesOpposite.contains(Fetish.FETISH_DEFLOWERING)
+				&& this.hasFetish(Fetish.FETISH_PURE_VIRGIN)
+				&& fetishes.contains(Fetish.FETISH_VAGINAL_RECEIVING)) {
+			weight-=50;
+		}
+		
+		return weight;
+	}
+	
+	
 	// Cum:
+	
 	public void incrementCumCount(SexType sexType) {
 		cumCountMap.merge(sexType, 1, Integer::sum);
 	}

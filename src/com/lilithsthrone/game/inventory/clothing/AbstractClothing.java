@@ -1262,6 +1262,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	private StringBuilder pointlessSB = new StringBuilder();
+	public static AbstractClothing enchantmentRemovedClothing;
 	public String setEnchantmentKnown(GameCharacter owner, boolean enchantmentKnown) {
 		pointlessSB.setLength(0);
 		
@@ -1270,6 +1271,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				AbstractClothing c = new AbstractClothing(this) {};
 				c.enchantmentKnown = enchantmentKnown;
 				owner.addClothing(c, false);
+				enchantmentRemovedClothing = c;
 			} else {
 				this.enchantmentKnown = enchantmentKnown;
 			}

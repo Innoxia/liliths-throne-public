@@ -153,7 +153,7 @@ public class RentalMommy extends NPC {
 
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_HAZEL));
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_HAZEL));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_COW_MORPH, Colour.EYE_HAZEL));
 		this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.SPOTTED, Colour.COVERING_WHITE, false, Colour.COVERING_BLACK, false), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
@@ -163,7 +163,7 @@ public class RentalMommy extends NPC {
 		this.setHairStyle(HairStyle.STRAIGHT);
 
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_FELINE_FUR, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, Colour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);

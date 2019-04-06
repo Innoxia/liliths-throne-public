@@ -3,15 +3,15 @@
 	<coreAttributes>
 		<value>250</value>
 		<determiner><![CDATA[a pair of]]></determiner>
-		<name><![CDATA[heel]]></name>
-		<namePlural pluralByDefault="true"><![CDATA[heels]]></namePlural>
-		<description><![CDATA[A pair of slip-on shoes, with the heel being raised off the ground in order to make the wearer taller, as well as to accentuate their calf muscles and the overall length of their legs.]]></description>
+		<name><![CDATA[flat]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[flats]]></namePlural>
+		<description><![CDATA[Styled on women's ballet shoes, these feminine, slip-on flats have a very thin heel and a low-cut front.]]></description>
 		<physicalResistance>1</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>
 		<clothingSet/> 
-		<imageName>heels.svg</imageName>
+		<imageName>flats.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
@@ -38,7 +38,7 @@
 		<primaryColoursDye/>
 		<secondaryColours values="JUST_TAN"/>
 		<secondaryColoursDye values="ALL"/>
-		<tertiaryColours values="JSUT_BLACK"/>
+		<tertiaryColours values="JUST_BLACK"/>
 		<tertiaryColoursDye values="ALL"/>
 		
 		<itemTags> 
@@ -48,25 +48,25 @@
 
   <replacementText type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the flats.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the heels.]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the flats.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the heels.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the flats.]]>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the heels.]]>
     </otherRough>
   </replacementText>
 
   <displacementText type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] flats.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] heels.]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slips)] off [npc2.namePos] flats.]]>
+      <![CDATA[[npc.Name] [npc.verb(slips)] off [npc2.namePos] heels.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] flats.]]>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] heels.]]>
     </otherRough>
   </displacementText>
 	

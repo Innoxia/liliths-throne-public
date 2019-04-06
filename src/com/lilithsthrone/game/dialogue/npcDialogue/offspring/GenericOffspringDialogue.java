@@ -193,7 +193,7 @@ public class GenericOffspringDialogue {
 						}
 					};
 					
-				} else if (index == 4) {
+				} else if (index == 4 && Main.game.isIncestEnabled()) {
 					return new Response("Passionate kiss", "Passionately kiss [npc.name] on the lips, and feel [npc.herHim] up as you do so.", OFFSPRING_ENCOUNTER_TALKING,
 							Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 							CorruptionLevel.FOUR_LUSTFUL,
@@ -489,7 +489,7 @@ public class GenericOffspringDialogue {
 						return null;
 					}
 					
-				} else if (index == 8) {
+				} else if (index == 8 && Main.game.isIncestEnabled()) {
 					return new Response("Sex", "Tell [npc.name] that you want to have sex with [npc.herHim].", OFFSPRING_ENCOUNTER_SEX,
 							Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 							CorruptionLevel.FIVE_CORRUPT,
@@ -969,7 +969,7 @@ public class GenericOffspringDialogue {
 					}
 				};
 				
-			} else if (index == 2) {
+			} else if (index == 2 && Main.game.isIncestEnabled()) {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
@@ -1002,7 +1002,7 @@ public class GenericOffspringDialogue {
 					};
 				}
 				
-			} else if (index == 3) {
+			} else if (index == 3 && Main.game.isIncestEnabled()) {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
@@ -1037,7 +1037,7 @@ public class GenericOffspringDialogue {
 					};
 				}
 				
-			} else if (index == 4) {
+			} else if (index == 4 && Main.game.isIncestEnabled()) {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
@@ -1072,7 +1072,7 @@ public class GenericOffspringDialogue {
 					};
 				}
 				
-			} else if (index == 5) {
+			} else if (index == 5 && Main.game.isIncestEnabled()) {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Submit",
 							"You're not really sure what to do now...<br/>"

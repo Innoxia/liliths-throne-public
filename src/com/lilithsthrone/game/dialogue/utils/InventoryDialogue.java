@@ -1009,6 +1009,17 @@ public class InventoryDialogue {
 						} else if (!item.isAbleToBeUsed(Main.game.getPlayer())) {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 						} else {
+							if(item.isBreakOutOfInventory()) {
+								return new ResponseEffectsOnly(
+										Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+										item.getItemType().getUseTooltipDescription(owner, owner)){
+									@Override
+									public void effects(){
+										Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
+										resetPostAction();
+									}
+								};
+							}
 							return new Response(
 									Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
 									item.getItemType().getUseTooltipDescription(owner, owner),
@@ -1029,6 +1040,21 @@ public class InventoryDialogue {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 							
 						} else {
+							if(item.isBreakOutOfInventory()) {
+								return new ResponseEffectsOnly(
+										Util.capitaliseSentence(item.getItemType().getUseName()) +" all (self)",
+										item.getItemType().getUseTooltipDescription(owner, owner)
+											+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]"){
+									@Override
+									public void effects(){
+										int itemCount = Main.game.getPlayer().getItemCount(item);
+										for(int i=0;i<itemCount;i++) {
+											Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
+										}
+										resetPostAction();
+									}
+								};
+							}
 							return new Response(
 									Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
 									item.getItemType().getUseTooltipDescription(owner, owner)
@@ -1259,6 +1285,17 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
+									if(item.isBreakOutOfInventory()) {
+										return new ResponseEffectsOnly(
+												Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+												item.getItemType().getUseTooltipDescription(owner, owner)){
+											@Override
+											public void effects(){
+												Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
+												resetPostAction();
+											}
+										};
+									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
 											item.getItemType().getUseTooltipDescription(owner, owner),
@@ -1279,6 +1316,21 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
+									if(item.isBreakOutOfInventory()) {
+										return new ResponseEffectsOnly(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+											item.getItemType().getUseTooltipDescription(owner, owner)
+												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]"){
+											@Override
+											public void effects(){
+												int itemCount = Main.game.getPlayer().getItemCount(item);
+												for(int i=0;i<itemCount;i++) {
+													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
+												}
+												resetPostAction();
+											}
+										};
+									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
 											item.getItemType().getUseTooltipDescription(owner, owner)
@@ -1619,6 +1671,17 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
+									if(item.isBreakOutOfInventory()) {
+										return new ResponseEffectsOnly(
+												Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+												item.getItemType().getUseTooltipDescription(owner, owner)){
+											@Override
+											public void effects(){
+												Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
+												resetPostAction();
+											}
+										};
+									}
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
 											item.getItemType().getUseTooltipDescription(owner, owner),
 											INVENTORY_MENU){
@@ -1638,6 +1701,20 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 									
 								} else {
+									if(item.isBreakOutOfInventory()) {
+										return new ResponseEffectsOnly(
+												Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+												item.getItemType().getUseTooltipDescription(owner, owner)){
+											@Override
+											public void effects(){
+												int itemCount = Main.game.getPlayer().getItemCount(item);
+												for(int i=0;i<itemCount;i++) {
+													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
+												}
+												resetPostAction();
+											}
+										};
+									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
 											item.getItemType().getUseTooltipDescription(owner, owner)
@@ -1727,6 +1804,17 @@ public class InventoryDialogue {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 							
 						} else {
+							if(item.isBreakOutOfInventory()) {
+								return new ResponseEffectsOnly(
+										Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+										item.getItemType().getUseTooltipDescription(owner, owner)){
+									@Override
+									public void effects(){
+										Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true);
+										resetPostAction();
+									}
+								};
+							}
 							return new Response(
 									Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
 									item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), Main.game.getPlayer()),
@@ -1747,6 +1835,20 @@ public class InventoryDialogue {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
 							
 						} else {
+							if(item.isBreakOutOfInventory()) {
+								return new ResponseEffectsOnly(
+										Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
+										item.getItemType().getUseTooltipDescription(owner, owner)){
+									@Override
+									public void effects(){
+										int itemCount = Main.game.getPlayerCell().getInventory().getItemCount(item);
+										for(int i=0;i<itemCount;i++) {
+											Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true);
+										}
+										resetPostAction();
+									}
+								};
+							}
 							return new Response(
 									Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
 									item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), Main.game.getPlayer())
@@ -3461,12 +3563,17 @@ public class InventoryDialogue {
 										@Override
 										public void effects() {
 											Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+											
+											String enchantmentRemovedString = clothing.setEnchantmentKnown(owner, true);
+											
+											clothing = AbstractClothing.enchantmentRemovedClothing;
+											
 											Main.game.getTextEndStringBuilder().append(
 													"<p>"
 														+ "You channel the power of "+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+" of your arcane essences into the "+clothing.getName()
 															+", and as it emits a faint purple glow, you find yourself able to detect what sort of enchantment it has!"
 													+ "</p>"
-													+ clothing.setEnchantmentKnown(owner, true)
+													+ enchantmentRemovedString
 													+ "<p style='text-align:center;'>"
 														+ "Identifying the "+clothing.getName()+" has cost you [style.boldBad("+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+")] [style.boldArcane(Arcane Essences)]!"
 													+ "</p>");
@@ -3654,12 +3761,17 @@ public class InventoryDialogue {
 												@Override
 												public void effects() {
 													Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+
+													String enchantmentRemovedString = clothing.setEnchantmentKnown(owner, true);
+													
+													clothing = AbstractClothing.enchantmentRemovedClothing;
+													
 													Main.game.getTextEndStringBuilder().append(
 															"<p>"
 																+ "You channel the power of "+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+" of your arcane essences into the "+clothing.getName()
 																	+", and as it emits a faint purple glow, you find yourself able to detect what sort of enchantment it has!"
 															+ "</p>"
-															+ clothing.setEnchantmentKnown(owner, true)
+															+ enchantmentRemovedString
 															+ "<p style='text-align:center;'>"
 																+ "Identifying the "+clothing.getName()+" has cost you [style.boldBad("+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+")] [style.boldArcane(Arcane Essences)]!"
 															+ "</p>");
@@ -3940,12 +4052,17 @@ public class InventoryDialogue {
 												@Override
 												public void effects() {
 													Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+
+													String enchantmentRemovedString = clothing.setEnchantmentKnown(owner, true);
+													
+													clothing = AbstractClothing.enchantmentRemovedClothing;
+													
 													Main.game.getTextEndStringBuilder().append(
 															"<p>"
 																+ "You channel the power of "+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+" of your arcane essences into the "+clothing.getName()
 																	+", and as it emits a faint purple glow, you find yourself able to detect what sort of enchantment it has!"
 															+ "</p>"
-															+ clothing.setEnchantmentKnown(owner, true)
+															+ enchantmentRemovedString
 															+ "<p style='text-align:center;'>"
 																+ "Identifying the "+clothing.getName()+" has cost you [style.boldBad("+Util.intToString(IDENTIFICATION_ESSENCE_PRICE)+")] [style.boldArcane(Arcane Essences)]!"
 															+ "</p>");
@@ -4003,13 +4120,18 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Main.game.getPlayer().removeClothing(clothing);
+
+											String enchantmentRemovedString = clothing.setEnchantmentKnown(owner, true);
+											
+											clothing = AbstractClothing.enchantmentRemovedClothing;
+											
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
 														+ UtilText.parse(inventoryNPC,
 																"You hand over " + UtilText.formatAsMoney(IDENTIFICATION_PRICE) + " to [npc.name],"
 																		+ " who promptly feeds several bottles of arcane essence into a specialist identification device, before using it to reveal the enchantment on your "+clothing.getName()+".")
 													+ "</p>"
-													+clothing.setEnchantmentKnown(owner, true));
+													+enchantmentRemovedString);
 											
 											Main.game.getPlayer().addClothing(clothing, false);
 											Main.game.getPlayer().incrementMoney(-IDENTIFICATION_PRICE);

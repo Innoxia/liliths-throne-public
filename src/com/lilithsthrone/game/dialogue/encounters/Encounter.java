@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -58,7 +56,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.2
  * @author Innoxia
  */
 public enum Encounter {
@@ -273,7 +271,7 @@ public enum Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = UnspawnedChildren(
+					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc-> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
 								|| npc.getSubspecies()==Subspecies.ANGEL
 								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
@@ -391,7 +389,7 @@ public enum Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = UnspawnedChildren(
+					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION));
 					
 					if(!offspringAvailable.isEmpty()) {
@@ -446,7 +444,7 @@ public enum Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = UnspawnedChildren(
+					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST));
 					
 					if(!offspringAvailable.isEmpty()) {
@@ -531,7 +529,7 @@ public enum Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = UnspawnedChildren(
+					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST));
 					
 					if(!offspringAvailable.isEmpty()) {
@@ -805,7 +803,7 @@ public enum Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) {
-					List<NPC> offspringAvailable = UnspawnedChildren(
+					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION));
 					
 					if(!offspringAvailable.isEmpty()) {
@@ -890,14 +888,6 @@ public enum Encounter {
 		}
 	};
 
-	private static List<NPC> UnspawnedChildren(Predicate<NPC> matcher) {
-		List<NPC> offspringAvailable = Main.game.getOffspring(false).stream().filter(npc -> !npc.isSlave())
-										.filter(npc -> npc.getWorldLocation()==WorldType.EMPTY)
-										.filter(npc -> npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE)
-										.filter(matcher).collect(Collectors.toList());
-		return offspringAvailable;
-	}
-
 	private static DialogueNode SpawnAndStartChildHere(List<NPC> offspringAvailable) {
 		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
 		Main.game.getOffspringSpawned().add(offspring);
@@ -953,9 +943,9 @@ public enum Encounter {
 	private static final double INCEST_ENCOUNTER_RATE = 0.2f;
 
 	private static double IncestEncounterRate() {
-		if (!Main.game.isIncestEnabled()) {
-			return -1;
-		}
+//		if (!Main.game.isIncestEnabled()) {
+//			return -1;
+//		}
 		return INCEST_ENCOUNTER_RATE;
 	}
 

@@ -2195,7 +2195,7 @@ public class Body implements XMLSaving {
 		}
 		
 		// Ear:
-		sb.append(ear.getType().getBodyDescription(owner));
+		sb.append(" "+ear.getType().getBodyDescription(owner));
 		
 		sb.append("</p>"
 				+ "<p>");

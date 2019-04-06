@@ -1625,10 +1625,7 @@ public class Sex {
 						
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
-						if(weight<0) {
-							lowPriority.add(sexAction);
-							
-						} else {
+						if(weight>=0) {
 							switch(sexAction.getPriority()){
 								case LOW:
 									lowPriority.add(sexAction);
@@ -1679,10 +1676,7 @@ public class Sex {
 					if (sexAction.isAddedToAvailableSexActions()) {
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
-						if(weight<0) {
-							lowPriority.add(sexAction);
-							
-						} else {
+						if(weight>=0) {
 							switch(sexAction.getPriority()){
 								case LOW:
 									lowPriority.add(sexAction);
@@ -1739,13 +1733,9 @@ public class Sex {
 						
 					} else {
 						// Add action as normal:
-						
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
-						if(weight<0 && !sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)) {
-							lowPriority.add(sexAction);
-							
-						} else {
+						if(weight>=0 || sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)) {
 							switch(sexAction.getPriority()){
 								case LOW:
 									lowPriority.add(sexAction);
@@ -1844,7 +1834,7 @@ public class Sex {
 				}
 			}
 		}
-
+		
 		// Arousal increments for related fetishes:
 		if(sexAction.getFetishes(activeCharacter)!=null) {// && sexAction.getSexPace()!=SexPace.SUB_RESISTING) {
 			for(Fetish f : sexAction.getFetishes(activeCharacter)) {
@@ -1855,9 +1845,10 @@ public class Sex {
 					}
 					activeCharacter.incrementFetishExperience(f, f.getExperienceGainFromSexAction());
 				}
-				lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + activeCharacter.getFetishDesire(f).getLustIncrement());
 			}
 		}
+		lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + (activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null)*0.25f));
+		
 		if(sexAction.getParticipantType()!=SexParticipantType.SELF) {
 			// Arousal increments for this target's related fetishes:
 			if(sexAction.getFetishesForTargetedPartner(activeCharacter)!=null && Sex.getSexPace(targetCharacter)!=SexPace.SUB_RESISTING) {
@@ -1869,9 +1860,9 @@ public class Sex {
 						}
 						targetCharacter.incrementFetishExperience(f, f.getExperienceGainFromSexAction());
 					}
-					lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + targetCharacter.getFetishDesire(f).getLustIncrement());
 				}
 			}
+			lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + (targetCharacter.calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null)*0.25f));
 		}
 		
 		// Increment lust:
@@ -1901,25 +1892,12 @@ public class Sex {
 								break;
 						}
 					}
-					
-					// This was to limit lust loss falling into resist bracket. (May need to be restored?)
-	//				if(Sex.getSexPace(activeCharacter)!=SexPace.SUB_RESISTING && !Sex.isDom(activeCharacter) && entry.getKey().getLust()-lustLoss < Math.min(entry.getKey().getLust(), LustLevel.ONE_HORNY.getMinimumValue()+5)) {
-	//					entry.getKey().setLust(Math.min(entry.getKey().getLust(), LustLevel.ONE_HORNY.getMinimumValue()+5));
-	//				} else {
-	//					entry.getKey().incrementLust(-lustLoss, false);
-	//				}
-					
 					entry.getKey().incrementLust(-lustLoss, false);
 					
 				} else {
 					float lustValue = entry.getValue();
-					entry.getKey().incrementLust(Math.max(-2.5f, Math.min(2.5f, lustValue)), false);
 					
-	//				if(Sex.getSexPace(entry.getKey())==SexPace.SUB_RESISTING && !entry.getKey().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
-	//					entry.getKey().incrementLust(Math.min(5, entry.getValue()), false);
-	//				} else {
-	//					entry.getKey().incrementLust(entry.getValue(), false);
-	//				}
+					entry.getKey().incrementLust(Math.max(-2.5f, Math.min(2.5f, lustValue)), false);
 				}
 			}
 		}
@@ -1933,46 +1911,55 @@ public class Sex {
 
 		float startArousal = Main.game.getPlayer().getArousal();
 		
-		// Modify arousal value based on lust:
+		// Increment arousal:
 		for(Entry<GameCharacter, Float> entry : arousalIncrements.entrySet()) {
 			if(Sex.getSexPositionSlot(activeCharacter)!=SexSlotGeneric.MISC_WATCHING || entry.getKey().equals(activeCharacter)) { // Spectators only influence themselves.
 				boolean foreplay = Sex.isInForeplay(entry.getKey());
 				float arousal = entry.getValue();
+
+				// Raises the cap for positive arousal increments:
+				int arousalCapIncrease = Math.min(10,
+						entry.getKey().equals(activeCharacter)
+							?activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null)
+							:entry.getKey().calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null));
 				
 				if(Sex.isMasturbation()) {
 					arousal*=2;
 				}
-				if(entry.getKey().equals(activeCharacter) && sexAction.getArousalGainSelf().getArousalIncreaseValue()<0) {
+				
+				if(entry.getKey().equals(activeCharacter) && sexAction.getArousalGainSelf().getArousalIncreaseValue()<0) { // For special negative arousal values.
 					entry.getKey().incrementArousal(sexAction.getArousalGainSelf().getArousalIncreaseValue());
 					
-				} else if(entry.getKey().equals(targetCharacter) && sexAction.getArousalGainTarget().getArousalIncreaseValue()<0) {
+				} else if(entry.getKey().equals(targetCharacter) && sexAction.getArousalGainTarget().getArousalIncreaseValue()<0) { // For special negative arousal values.
 					entry.getKey().incrementArousal(sexAction.getArousalGainTarget().getArousalIncreaseValue());
-//					System.out.println(targetCharacter.getName()+" "+sexAction.getArousalGainTarget().getArousalIncreaseValue());
 					
 				} else {
-					float increment = Math.min(15f/Sex.getTotalParticipantCount(false), arousal * entry.getKey().getLustLevel().getArousalModifier());
-//					System.out.println(activeCharacter.getName()+": "+entry.getKey().getName()+" "+increment);
+					float increment = Math.min(
+							(5f+arousalCapIncrease)/Sex.getTotalParticipantCount(false),
+							arousal * entry.getKey().getLustLevel().getArousalModifier()); // Modify arousal value based on lust
+					
 					entry.getKey().incrementArousal(increment);
 				}
+				
 				// Player arousal can only reach 99 during partner's turns, to give them all a chance to react:
 				if(!isOverridePlayerArousalRestriction()
 						&& entry.getKey().isPlayer()
 						&& !activeCharacter.isPlayer()
 						&& entry.getKey().getArousal()>=100
 						&& (startArousal<100 || sexAction.getActionType().isOrgasmOption())) {
-//					System.out.println("Set to 99, "+activeCharacter.getNameIgnoresPlayerKnowledge());
 					entry.getKey().setArousal(99);
 				}
+				
 				if(foreplay && !Sex.isInForeplay(entry.getKey())) { // Reset positioning blocked when moving from foreplay to main sex:
 					Sex.removeCharacterBannedFromPositioning(entry.getKey());
 				}
 			}
 		}
 		
+		
 		// Cummed in areas:
 		
 		// Add any areas that have been cummed in:
-		// TODO Take into account condom being used on other penetrationTypes
 		boolean condomBrokeAppended = false;
 		for(GameCharacter cumProvider : Sex.getAllParticipants()) {
 			for(GameCharacter cumTarget :Sex.getAllParticipants()) {
@@ -2127,16 +2114,23 @@ public class Sex {
 								if(entry.getKey().isPenetration()) {
 									stringBuilderForAppendingDescriptions.append(applyPenetrationEffects(sexAction, character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea));
 								}
+								
+								SexType ongoingSexType = new SexType(SexParticipantType.NORMAL, entry.getKey(), sArea);
+								
+								int weight = character.calculateSexTypeWeighting(ongoingSexType, characterTarget, null);
+								int targetWeight = characterTarget.calculateSexTypeWeighting(ongoingSexType.getReversedSexType(), character, null);
+
+								character.incrementLust(Math.max(-2.5f, Math.min(2.5f, (weight*0.25f))), false);
+								characterTarget.incrementLust(Math.max(-2.5f, Math.min(2.5f, (targetWeight*0.25f))), false);
+								
+								// Half xp from ongoing:
 								List<Fetish> selfFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, true);
 								List<Fetish> targetFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, false);
 								
-								// Half lust and xp from ongoing:
 								for(Fetish f : selfFetishes) {
-									character.incrementLust(character.getFetishDesire(f).getLustIncrement()/2, false);
 									character.incrementFetishExperience(f, f.getExperienceGainFromSexAction()/2);
 								}
 								for(Fetish f : targetFetishes) {
-									characterTarget.incrementLust(characterTarget.getFetishDesire(f).getLustIncrement()/2, false);
 									characterTarget.incrementFetishExperience(f, f.getExperienceGainFromSexAction()/2);
 								}
 							}

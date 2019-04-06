@@ -95,7 +95,15 @@ public abstract class AbstractItemEffectType {
 	public String getPotionDescriptor() {
 		return "";
 	}
-
+	
+	/**
+	 * <b>This disables use in sex or combat automatically.</b>
+	 * @return true if the use of this item should exit inventory management. i.e. If it's meant to set the content to a specific scene.
+	 */
+	public boolean isBreakOutOfInventory() {
+		return false;
+	}
+	
 	public List<TFModifier> getPrimaryModifiers() {
 		return new ArrayList<>();
 	}

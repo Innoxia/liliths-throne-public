@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="CITY_HALL_PROPERTY_ENTRANCE"><![CDATA[
+	<p>
+		While the door before you bears the promising sign <i>'Bureau of Property and Commerce; Open to the public'</i>, someone has stuck a sheet of paper beneath it, which reads:
+	</p>
+	<p style='text-align:center;'>
+		<i>
+			Transfer of property rights has been suspended until further notice. We expect to have business return to normal once form v0.4.0 has been filed correctly.<br/>
+			Sorry for the inconvenience.
+		</i>
+	</p>
+	<p>
+		Letting out a sigh as you realise that purchasing property within Dominion will remain impossible until this 'v0.4.0' has been completed, you turn around and decide to head elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>
