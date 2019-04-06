@@ -793,22 +793,38 @@ public class Util {
 	 * Turns a normal sentence into a drunk one.<br/>
 	 * Example:<br/>
 	 * "How far is it to the town hall?"<br/>
-	 * "How ~Hic!~ far is it ~Hic!~ to the town ~Hic!~ hall?"<br/>
+	 * "How ~Hic!~ far ish it ~Hic!~ to the town ~Hic!~ hall?"<br/>
 	 *
-	 * @param sentence
-	 *            sentence to apply sexy modifications
-	 * @param frequency
-	 *            of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
-	 * @return
-	 *            modified sentence
+	 * @param sentence to apply drunk modifications to.
+	 * @param frequency of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
+	 * @return modified sentence
 	 */
 	public static String addDrunkSlur(String sentence, int frequency) {
-		return insertIntoSentences(sentence, frequency, drunkSounds, false)
-			.replaceAll("Hi ", "Heeey ")
-			.replaceAll("yes", "yesh")
-			.replaceAll("is", "ish")
-			.replaceAll("So", "Sho")
-			.replaceAll("so", "sho");
+		sentence = insertIntoSentences(sentence, frequency, drunkSounds, false);
+		
+		String [] split = sentence.split("\\[(.*?)\\]");
+		for(String s : split) {
+			String sReplace = s
+					.replaceAll("Hi ", "Heeey ")
+					.replaceAll("yes", "yesh")
+					.replaceAll("Is", "Ish")
+					.replaceAll("is", "ish")
+					.replaceAll("It's", "It'sh")
+					.replaceAll("it's", "it'sh")
+					.replaceAll("So", "Sho")
+					.replaceAll("so", "sho");
+			
+			sentence = sentence.replace(s, sReplace);
+		}
+		
+		return sentence;
+		
+//		return insertIntoSentences(sentence, frequency, drunkSounds, false)
+//			.replaceAll("Hi ", "Heeey ")
+//			.replaceAll("yes", "yesh")
+//			.replaceAll("is", "ish")
+//			.replaceAll("So", "Sho")
+//			.replaceAll("so", "sho");
 	}
 	
 	/**
@@ -821,11 +837,23 @@ public class Util {
 	 * @return The modified sentence.
 	 */
 	public static String applyLisp(String sentence) {
-		return sentence
-			.replaceAll("s", "<i>th</i>")
-			.replaceAll("z", "<i>th</i>")
-			.replaceAll("S", "<i>Th</i>")
-			.replaceAll("Z", "<i>Th</i>");
+		String [] split = sentence.split("\\[(.*?)\\]");
+		for(String s : split) {
+			String sReplace = s
+				.replaceAll("s", "<i>th</i>")
+				.replaceAll("z", "<i>th</i>")
+				.replaceAll("S", "<i>Th</i>")
+				.replaceAll("Z", "<i>Th</i>");
+			
+			sentence = sentence.replace(s, sReplace);
+		}
+		
+		return sentence;
+//		return sentence
+//			.replaceAll("s", "<i>th</i>")
+//			.replaceAll("z", "<i>th</i>")
+//			.replaceAll("S", "<i>Th</i>")
+//			.replaceAll("Z", "<i>Th</i>");
 	}
 	
 	

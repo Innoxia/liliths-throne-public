@@ -19,6 +19,7 @@ import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -797,7 +798,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// Fetishes:
 		Element characterFetishes = doc.createElement("fetishes");
 		properties.appendChild(characterFetishes);
-		for(Fetish f : this.getFetishes()){
+		for(Fetish f : this.getFetishes(false)){
 			Element element = doc.createElement("fetish");
 			characterFetishes.appendChild(element);
 			
@@ -2543,7 +2544,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public void loadImages(boolean forceReload) {
 		String folder = getArtworkFolderName();
 		
-//		System.out.println(folder);
+//		if(Main.game.isStarted())
+//			System.out.println(folder);
 		
 		if (folder.equals(artworkFolderName) && !forceReload) {
 			// Nothing changed, abort loading
@@ -2564,6 +2566,10 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 			}
+		}
+		
+		if(artworkIndex >= getArtworkList().size()) {
+			artworkIndex = getDefaultArtworkIndex();
 		}
 	}
 
@@ -3616,7 +3622,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getValueAsSlave(boolean includeInventory) {
 		int value = this.getSubspecies().getBaseSlaveValue(this);
 		
-		value *= 1+(0.05f*getFetishes().size());
+		value *= 1+(0.05f*getFetishes(true).size());
 		
 		value *= (100+(getObedienceValue()/2))/100f;
 		
@@ -4374,6 +4380,7 @@ public abstract class GameCharacter implements XMLSaving {
 			case IMP_FORTRESS_DEMON:
 			case IMP_FORTRESS_FEMALES:
 			case IMP_FORTRESS_MALES:
+			case CITY_HALL:
 				return "This isn't a suitable place to be having sex with [npc.name]!";
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
@@ -4471,7 +4478,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
-		EnumSet<Relationship> result = EnumSet.noneOf(Relationship.class);
+		Set<Relationship> result = new LinkedHashSet<>();//EnumSet.noneOf(Relationship.class);
 
         if(character.getParents(0, null).contains(this))
             result.add(Relationship.Parent);
@@ -5098,8 +5105,12 @@ public abstract class GameCharacter implements XMLSaving {
 	// Fetishes:
 
 	/**The returned list is ordered by rendering priority.*/
-	public List<Fetish> getFetishes() {
-		List<Fetish> tempFetishList = new ArrayList<>(fetishes);
+	public List<Fetish> getFetishes(boolean includeFetishesFromClothing) {
+		Set<Fetish> tempFetishSet = new HashSet<>(fetishes);
+		if(includeFetishesFromClothing) {
+			tempFetishSet.addAll(fetishesFromClothing);
+		}
+		List<Fetish> tempFetishList = new ArrayList<>(tempFetishSet);
 		tempFetishList.sort(Comparator.comparingInt(Fetish::getRenderingPriority).reversed());
 		return tempFetishList;
 	}
@@ -5191,7 +5202,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void clearFetishes() {
-		for(Fetish fetish : this.getFetishes()) {
+		for(Fetish fetish : this.getFetishes(false)) {
 			removeFetish(fetish);
 		}
 	}
@@ -5829,7 +5840,99 @@ public abstract class GameCharacter implements XMLSaving {
 			};
 	}
 
+
+	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request) {
+		int weight = 0;
+		
+		List<Fetish> fetishes = type.getRelatedFetishes(this, target, true, false);
+		
+		for(Fetish fetish : fetishes) {
+			if(this.hasFetish(fetish)) {
+				weight+=7;
+			} else {
+				switch(this.getFetishDesire(fetish)) {
+					case FOUR_LOVE:
+						weight+=5;
+						break;
+					case THREE_LIKE:
+						weight+=3;
+						break;
+					case TWO_NEUTRAL:
+						weight+=1;
+						break;
+					case ONE_DISLIKE:
+						weight-=3;
+						break;
+					case ZERO_HATE:
+						weight-=5;
+						break;
+				}
+			}
+		}
+		
+		boolean isRequest = false;
+		if(request!=null && weight>=0) { // Do not increase weighting if the base action is not wanted by this character.
+			for(SexType st : request) {
+				if((st.getTargetedSexArea()==type.getTargetedSexArea() || st.getPerformingSexArea()==type.getPerformingSexArea())) {
+					weight += 50;
+					isRequest = true;
+				}
+			}
+		}
+		
+		if(fetishes.contains(Fetish.FETISH_ORAL_GIVING)) {
+			for(Addiction add : this.getAddictions()) {
+				if(target.hasPenisIgnoreDildo() && add.getFluid() == target.getCumType() && fetishes.contains(Fetish.FETISH_PENIS_RECEIVING)) {
+					weight+=10;
+				}
+				if(target.hasVagina() && add.getFluid() == target.getGirlcumType() && fetishes.contains(Fetish.FETISH_VAGINAL_GIVING)) {
+					weight+=10;
+				}
+				if(target.getBreastRawMilkStorageValue()>0 && add.getFluid() == target.getMilkType() && fetishes.contains(Fetish.FETISH_BREASTS_OTHERS)) {
+					weight+=10;
+				}
+			}
+		}
+		
+		if((fetishes.contains(Fetish.FETISH_ANAL_GIVING) || fetishes.contains(Fetish.FETISH_ANAL_RECEIVING)) && !Main.game.isAnalContentEnabled()) {
+			weight-=100000;
+		}
+
+		if((fetishes.contains(Fetish.FETISH_FOOT_GIVING) || fetishes.contains(Fetish.FETISH_FOOT_RECEIVING)) && !Main.game.isFootContentEnabled()) {
+			weight-=100000;
+		}
+		
+		// Anal actions are not available unless the person likes anal.
+		if(fetishes.contains(Fetish.FETISH_ANAL_RECEIVING) && !isRequest) {
+			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+				weight-=100000; // ban self-anal actions unless the character likes anal
+			}
+			if(!fetishes.contains(Fetish.FETISH_PENIS_RECEIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
+			}
+		}
+		if(fetishes.contains(Fetish.FETISH_ANAL_GIVING) && !isRequest) {
+			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+				weight-=100000; // ban self-anal actions unless the character likes anal
+			}
+			if(!fetishes.contains(Fetish.FETISH_PENIS_GIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
+			}
+		}
+
+		List<Fetish> fetishesOpposite = type.getOppositeFetishes(this, target, true, false);
+		if(fetishesOpposite.contains(Fetish.FETISH_DEFLOWERING)
+				&& this.hasFetish(Fetish.FETISH_PURE_VIRGIN)
+				&& fetishes.contains(Fetish.FETISH_VAGINAL_RECEIVING)) {
+			weight-=50;
+		}
+		
+		return weight;
+	}
+	
+	
 	// Cum:
+	
 	public void incrementCumCount(SexType sexType) {
 		cumCountMap.merge(sexType, 1, Integer::sum);
 	}
@@ -14128,7 +14231,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * First unequips all clothing into void, so that clothing effects are preserved.
 	 */
 	public void resetInventory(boolean includeWeapons){
-		unequipAllClothingIntoVoid(includeWeapons);
+		unequipAllClothingIntoVoid(true, includeWeapons);
 		
 		this.inventory = new CharacterInventory(0);
 	}
@@ -14789,7 +14892,7 @@ public abstract class GameCharacter implements XMLSaving {
 		Map<InventorySlot, List<AbstractClothing>> concealedMap = new HashMap<>(inventory.getInventorySlotsConcealed(this));
 		
 		if(Main.game.isInSex()) {
-			for(InventorySlot slot : Sex.getSexManager().getSlotsConcealed(this)) {
+			for(InventorySlot slot : Sex.getInitialSexManager().getSlotsConcealed(this)) {
 				concealedMap.put(slot, new ArrayList<>());
 			}
 		}
@@ -15416,10 +15519,12 @@ public abstract class GameCharacter implements XMLSaving {
 							:""));
 	}
 	
-	public void unequipAllClothingIntoVoid(boolean includeWeapons) {
+	public void unequipAllClothingIntoVoid(boolean removeSeals, boolean includeWeapons) {
 		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
-		for(AbstractClothing clothing : clothingEquipped) {
-			clothing.setSealed(false);
+		if(removeSeals) {
+			for(AbstractClothing clothing : clothingEquipped) {
+				clothing.setSealed(false);
+			}
 		}
 		for(AbstractClothing clothing : clothingEquipped) {
 			this.unequipClothingIntoVoid(clothing, true, this);
@@ -18201,8 +18306,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getBreastRawLactationRegenerationValue() {
 		return body.getBreast().getRawLactationRegenerationValue();
 	}
-	public float getLactationRegenerationPerSecond() {
-		return body.getBreast().getRawLactationRegenerationValue()/(60*60*24f);
+	public float getLactationRegenerationPerSecond(boolean multiplyByBreastCount) {
+		return (body.getBreast().getRawLactationRegenerationValue()/(60*60*24f)) * (multiplyByBreastCount?(this.getBreastRows()*2):1);
 	}
 	public String setBreastLactationRegeneration(int regenerationValue) {
 		return body.getBreast().setLactationRegeneration(this, regenerationValue);
@@ -18527,8 +18632,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getBreastCrotchRawLactationRegenerationValue() {
 		return body.getBreastCrotch().getRawLactationRegenerationValue();
 	}
-	public float getCrotchLactationRegenerationPerSecond() {
-		return body.getBreastCrotch().getRawLactationRegenerationValue()/(60*60*24f);
+	public float getCrotchLactationRegenerationPerSecond(boolean multiplyByBreastCount) {
+		return body.getBreastCrotch().getRawLactationRegenerationValue()/(60*60*24f)  * (multiplyByBreastCount?(this.getBreastCrotchRows()*2):1);
 	}
 	public String setBreastCrotchLactationRegeneration(int regenerationValue) {
 		return body.getBreastCrotch().setLactationRegeneration(this, regenerationValue);

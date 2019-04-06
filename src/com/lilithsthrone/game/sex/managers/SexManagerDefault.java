@@ -431,6 +431,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.START_ONGOING);
+			System.out.println("hmm");
 		}
 		
 		availableActions.removeAll(bannedActions);
@@ -712,7 +713,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 								|| action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TAIL)
 								|| action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.PENIS)
 								|| action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TAIL)) {
-							if(!Collections.disjoint(performingCharacter.getFetishes(), action.getFetishes(performingCharacter))) {
+							if(!Collections.disjoint(performingCharacter.getFetishes(true), action.getFetishes(performingCharacter))) {
 								penetrativeActionList.add(action); // Start any penis/tail penetrations that are loved by the performing character
 							} else {
 								returnableActions.add(action);

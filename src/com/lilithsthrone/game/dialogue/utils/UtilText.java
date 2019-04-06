@@ -1495,7 +1495,7 @@ public class UtilText {
 				true,
 				true,
 				"(target)",
-				"Prints out the name of this character's affection towards the target. e.g. lilaya.relation(pc) would print 'likes' by default"){
+				"Prints out the name of this character's affection towards the target. e.g. lilaya.affection(pc) would print 'likes' by default"){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
@@ -1516,13 +1516,42 @@ public class UtilText {
 				true,
 				true,
 				"(target)",
-				"Prints out the name of this character's relation towards the target. e.g. blaze.relation(crystal) would print 'brother'"){
+				"Prints out the most important name of this character's relation towards the target (it will cut off multiple relation names). e.g. blaze.relation(crystal) would print 'brother'"){
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
+				try {
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase());
+					Set<Relationship> set = character.getRelationshipsTo(targetedCharacter);
+					if(set.size()>=1) {
+						return set.iterator().next().getName(character);
+					} else {
+						return "no relation";
+					}
+//					return character.getRelationshipStrTo(targetedCharacter);
+					
+				} catch(Exception ex) {
+					ex.printStackTrace();
+					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";
+				}
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"relationFull",
+						"relationshipFull"),
+				true,
+				true,
+				"(target)",
+				"Prints out all of this character's relations towards the target. e.g. lilaya.relation(pc) might print 'half-sister and aunt'"){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
 					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase());
 					return character.getRelationshipStrTo(targetedCharacter);
+					
 				} catch(Exception ex) {
 					ex.printStackTrace();
 					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";

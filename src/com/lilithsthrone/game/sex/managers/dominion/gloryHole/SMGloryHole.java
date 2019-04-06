@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.managers.dominion;
+package com.lilithsthrone.game.sex.managers.dominion.gloryHole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,9 +57,17 @@ public class SMGloryHole extends SexManagerDefault {
 	public List<InventorySlot> getSlotsConcealed(GameCharacter character) {
 		List<InventorySlot> concealedSlots = new ArrayList<>();
 		
+		
 		if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_KNEELING)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.MOUTH);
+			
+		} else if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_FUCKED)) {
+			Collections.addAll(concealedSlots, InventorySlot.values());
+			concealedSlots.remove(InventorySlot.VAGINA);
+			concealedSlots.remove(InventorySlot.ANUS);
+			concealedSlots.remove(InventorySlot.GROIN);
+			concealedSlots.remove(InventorySlot.LEG);
 			
 		} else if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE)
 				||Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_TWO)) {

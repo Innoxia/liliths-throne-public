@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -153,7 +154,7 @@ public abstract class AbstractOutfit {
 	 * @throws XMLLoadException
 	 */
 	@SuppressWarnings("deprecation")
-	public String applyOutfit(GameCharacter character, boolean stripCharacterBeforehand, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) throws XMLLoadException {
+	public String applyOutfit(GameCharacter character, List<EquipClothingSetting> settings) throws XMLLoadException {
 		StringBuilder sb = new StringBuilder();
 		
 		boolean debug = false;
@@ -162,8 +163,8 @@ public abstract class AbstractOutfit {
 		
 		if(outfitXMLFile.exists()) {
 			try {
-				if(stripCharacterBeforehand) {
-					character.unequipAllClothingIntoVoid(false);
+				if(settings.contains(EquipClothingSetting.REPLACE_CLOTHING)) {
+					character.unequipAllClothingIntoVoid(settings.contains(EquipClothingSetting.REMOVE_SEALS), false);
 				}
 				
 				Element outfitElement = Element.getDocumentRootElement(outfitXMLFile); // Loads the document and returns the root element - in outfit mods it's <outfit>
@@ -226,7 +227,7 @@ public abstract class AbstractOutfit {
 				
 				
 				// Main weapon:
-				if(addWeapons) {
+				if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 					try {
 						List<AbstractWeapon> weapons = new ArrayList<>();
 						for(Element e : generationAttributes.getMandatoryFirstOf("mainWeapons").getAllOf("weapon")) {
@@ -328,7 +329,7 @@ public abstract class AbstractOutfit {
 					
 					Collections.shuffle(guaranteedClothingEquips);
 					for(AbstractClothing c : guaranteedClothingEquips) {
-						if(c.getClothingType().getSlot().isCoreClothing() || addAccessories) {
+						if(c.getClothingType().getSlot().isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
 							c.setName(UtilText.parse(character, c.getName()));
 							character.equipClothingOverride(c, false, false);
 						}
@@ -519,7 +520,7 @@ public abstract class AbstractOutfit {
 					Collections.shuffle(ot.getTypes());
 					for(AbstractClothingType ct : ot.getTypes()) {
 						if(character.getClothingInSlot(ct.getSlot())==null
-								&& (ct.getSlot().isCoreClothing() || addAccessories)) {
+								&& (ct.getSlot().isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES))) {
 							AbstractClothing clothing = AbstractClothingType.generateClothing(
 									ct,
 									ot.getPrimaryColours().isEmpty()?null:Util.randomItemFrom(ot.getPrimaryColours()),

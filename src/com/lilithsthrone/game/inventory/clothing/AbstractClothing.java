@@ -156,6 +156,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public AbstractClothing(AbstractClothing clothing) {
 		this(clothing.getClothingType(), clothing.getColour(), clothing.getSecondaryColour(), clothing.getTertiaryColour(), clothing.getEffects());
 		
+		this.setEnchantmentKnown(null, clothing.isEnchantmentKnown());
+		
 		this.setPattern(clothing.getPattern());
 		this.setPatternColour(clothing.getPatternColour());
 		this.setPatternSecondaryColour(clothing.getPatternSecondaryColour());
@@ -197,6 +199,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 						&& ((AbstractClothing)o).getSecondaryColour()==getSecondaryColour()
 						&& ((AbstractClothing)o).getTertiaryColour()==getTertiaryColour()
 						&& ((AbstractClothing)o).getPattern().equals(getPattern())
+						&& (this.getPattern()!="none"
+							?((AbstractClothing)o).getPatternColour()==this.getPatternColour()
+								&& ((AbstractClothing)o).getPatternSecondaryColour()==this.getPatternSecondaryColour()
+								&& ((AbstractClothing)o).getPatternTertiaryColour()==this.getPatternTertiaryColour()
+							:true)
 						&& ((AbstractClothing)o).isSealed()==this.isSealed()
 						&& ((AbstractClothing)o).isDirty()==this.isDirty()
 						&& ((AbstractClothing)o).isEnchantmentKnown()==this.isEnchantmentKnown()
@@ -221,6 +228,17 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			result = 31 * result + getTertiaryColour().hashCode();
 		}
 		result = 31 * result + getPattern().hashCode();
+		if(this.getPattern()!="none") {
+			if(this.getPatternColour()!=null) {
+				result = 31 * result + getPatternColour().hashCode();
+			}
+			if(getPatternSecondaryColour()!=null) {
+				result = 31 * result + getPatternSecondaryColour().hashCode();
+			}
+			if(getPatternTertiaryColour()!=null) {
+				result = 31 * result + getPatternTertiaryColour().hashCode();
+			}
+		}
 		result = 31 * result + (this.isSealed() ? 1 : 0);
 		result = 31 * result + (this.isDirty() ? 1 : 0);
 		result = 31 * result + (this.isEnchantmentKnown() ? 1 : 0);
@@ -1244,6 +1262,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	private StringBuilder pointlessSB = new StringBuilder();
+	public static AbstractClothing enchantmentRemovedClothing;
 	public String setEnchantmentKnown(GameCharacter owner, boolean enchantmentKnown) {
 		pointlessSB.setLength(0);
 		
@@ -1252,6 +1271,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				AbstractClothing c = new AbstractClothing(this) {};
 				c.enchantmentKnown = enchantmentKnown;
 				owner.addClothing(c, false);
+				enchantmentRemovedClothing = c;
 			} else {
 				this.enchantmentKnown = enchantmentKnown;
 			}

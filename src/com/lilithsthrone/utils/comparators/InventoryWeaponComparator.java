@@ -1,4 +1,4 @@
-package com.lilithsthrone.utils;
+package com.lilithsthrone.utils.comparators;
 
 import java.util.Comparator;
 

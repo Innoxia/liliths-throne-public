@@ -158,6 +158,8 @@ public enum Occupation {
 			return DayOfWeek.SATURDAY;
 		}
 	},
+
+	NPC_OFFICE_WORKER(Perk.JOB_MISC, "office worker", "-"),
 	
 	NPC_RECEPTIONIST(Perk.JOB_MISC, "receptionist", "-"),
 	

@@ -1,4 +1,4 @@
-package com.lilithsthrone.utils;
+package com.lilithsthrone.utils.comparators;
 
 import java.util.Comparator;
 
@@ -11,7 +11,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
  * @version 0.1.0
  * @author Innoxia
  */
-public class AbstractClothingRarityComparator implements Comparator<AbstractClothing> {
+public class ClothingRarityComparator implements Comparator<AbstractClothing> {
 	@Override
 	public int compare(AbstractClothing first, AbstractClothing second) {
 		if (!first.isEnchantmentKnown() && !second.isEnchantmentKnown())

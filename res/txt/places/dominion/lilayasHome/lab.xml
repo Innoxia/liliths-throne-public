@@ -651,6 +651,48 @@
 	
 	
 	
+	<!-- LILAYA_CURRENT_DATE_TALK -->
+	
+	<htmlContent tag="LILAYA_CURRENT_DATE_TALK"><![CDATA[
+	<p>
+		Curious about the date shown on the calendar in your room, you decide to ask Lilaya about it, [pc.speech(Is the calendar in my room accurate? It's three years into the future from my world...)]
+	</p>
+	<p>
+		Lilaya frowns as she hears you say that, and leans back against the desk behind her. [lilaya.speech(Well, I can assure you that the year is [#game.getYear()]. Your world was still in [#game.getStartingDate().minusYears(3).getYear()], huh?)]
+	</p>
+	<p>
+		You answer in the affirmative, and Lilaya pushes her glasses up to the bridge of her nose, before crossing her arms and sighing, [lilaya.speech(It shouldn't be anything to worry about. There must have been a chain of events in our world's past that led to the year being counted slightly differently to yours. Or maybe you time-travelled when you were teleported into this world!)] As she starts thinking out loud, you can hear the growing excitement in her voice, [lilaya.speech(In fact, it's pretty incredible that your world even uses the same calendar system as ours! And, thinking about it even more, why do we even speak the same language? And how come your customs, clothing, and even your appearance are similar to ours?!)]
+	</p>
+	<p>
+		You start to chat with Lilaya about the peculiarities of these shared features between your worlds. The more you start to delve into it, however, the more surprised you are at the lack of historical knowledge that Lilaya has. [lilaya.speech(Well, the only history that anyone really knows about is stuff concerning Lilith. She's been ruling this world since before any trace of civilisation even existed, so I guess all of our customs come from her direct influence. I don't think anybody other than Lilith herself really knows much about this world's history. Maybe mommy-)]
+	</p>
+	<p>
+		Lilaya's cheeks suddenly flush red, and she turns away as she brings a close to the conversation, [lilaya.speech(Anyway! D-Don't worry about anything! Three years into the future is nothing! I-I'll try and investigate a little more, ok?!)]
+	</p>
+	<p>
+		It's quite apparent that Lilaya isn't interested in discussing the matter any more...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_CURRENT_DATE_TALK_KNOW_TRUTH"><![CDATA[
+	<p>
+		Wanting to talk to Lilaya about the date shown on the calendar in your room, you observe, [pc.speech(So, not only did Lilith change my old reality, but I also travelled three years into the future...)]
+	</p>
+	<p>
+		Lilaya sighs as she hears you say that, and leans back against the desk behind her. [lilaya.speech(It would appear so. The year is most definitely [#game.getYear()], but even if it was still [#game.getStartingDate().minusYears(3).getYear()], there still wouldn't be any indication that this is the altered version of reality.)]
+	</p>
+	<p>
+		As you make an affirmative noise, Lilaya pushes her glasses up to the bridge of her nose, before crossing her arms and sighing, [lilaya.speech(Well, there's nothing that can be done about it now, except continuing with our plan to overthrow the elder lilin. At least now we know why your language, customs, clothing, and even your appearance are similar to those in this reality.)]
+	</p>
+	<p>
+		With nothing more to be said on the matter, Lilaya brings a close to the conversation, [lilaya.speech(Anyway, I should get back on with my work, unless there's anything else you needed?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
 	<!-- Pregnancy stuff -->
 	
 	<htmlContent tag="DETECT_PREGNANCY_TYPE_SLIME"><![CDATA[

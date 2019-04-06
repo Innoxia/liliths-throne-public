@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.nightlife;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -31,17 +30,14 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.BlockedParts;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.dominion.SMGloryHole;
 import com.lilithsthrone.game.sex.managers.dominion.SMKrugerChair;
-import com.lilithsthrone.game.sex.managers.dominion.SMStallSex;
+import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
+import com.lilithsthrone.game.sex.managers.dominion.toiletStall.SMStallSex;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
@@ -58,7 +54,7 @@ import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.3.2
  * @author Innoxia
  */
 public class NightlifeDistrict {
@@ -3584,27 +3580,27 @@ public class NightlifeDistrict {
 		
 		npc.setRaceConcealed(true);
 		
-		List<CoverableArea> blockedAreas = new ArrayList<>();
-		Collections.addAll(blockedAreas, CoverableArea.values());
-		blockedAreas.remove(CoverableArea.PENIS);
-		blockedAreas.remove(CoverableArea.VAGINA);
-		blockedAreas.remove(CoverableArea.TESTICLES);
-		blockedAreas.remove(CoverableArea.THIGHS);
-		blockedAreas.remove(CoverableArea.LEGS);
-
-		List<InventorySlot> concealedSlots = new ArrayList<>();
-		Collections.addAll(concealedSlots, InventorySlot.values());
-		concealedSlots.remove(InventorySlot.PENIS);
-		concealedSlots.remove(InventorySlot.VAGINA);
-		concealedSlots.remove(InventorySlot.GROIN);
-		concealedSlots.remove(InventorySlot.LEG);
-		
-		npc.setExtraBlockedParts(new BlockedParts(
-				DisplacementType.OPEN,
-				new ArrayList<>(),
-				blockedAreas,
-				new ArrayList<>(),
-				concealedSlots));
+//		List<CoverableArea> blockedAreas = new ArrayList<>();
+//		Collections.addAll(blockedAreas, CoverableArea.values());
+//		blockedAreas.remove(CoverableArea.PENIS);
+//		blockedAreas.remove(CoverableArea.VAGINA);
+//		blockedAreas.remove(CoverableArea.TESTICLES);
+//		blockedAreas.remove(CoverableArea.THIGHS);
+//		blockedAreas.remove(CoverableArea.LEGS);
+//
+//		List<InventorySlot> concealedSlots = new ArrayList<>();
+//		Collections.addAll(concealedSlots, InventorySlot.values());
+//		concealedSlots.remove(InventorySlot.PENIS);
+//		concealedSlots.remove(InventorySlot.VAGINA);
+//		concealedSlots.remove(InventorySlot.GROIN);
+//		concealedSlots.remove(InventorySlot.LEG);
+//		
+//		npc.setExtraBlockedParts(new BlockedParts(
+//				DisplacementType.OPEN,
+//				new ArrayList<>(),
+//				blockedAreas,
+//				new ArrayList<>(),
+//				concealedSlots));
 		
 		double rnd = Math.random();
 		if(rnd<0.1f && !gloryholdNpcNameDescriptor.equals("wasted")) {
@@ -3667,22 +3663,22 @@ public class NightlifeDistrict {
 		
 		npc.setRaceConcealed(true);
 		
-		List<CoverableArea> blockedAreas = new ArrayList<>();
-		Collections.addAll(blockedAreas, CoverableArea.values());
-		blockedAreas.remove(CoverableArea.MOUTH);
-
-		List<InventorySlot> concealedSlots = new ArrayList<>();
-		Collections.addAll(concealedSlots, InventorySlot.values());
-		concealedSlots.remove(InventorySlot.MOUTH);
-		concealedSlots.remove(InventorySlot.PIERCING_LIP);
-		concealedSlots.remove(InventorySlot.PIERCING_TONGUE);
-		
-		npc.setExtraBlockedParts(new BlockedParts(
-				DisplacementType.OPEN,
-				new ArrayList<>(),
-				blockedAreas,
-				new ArrayList<>(),
-				concealedSlots));
+//		List<CoverableArea> blockedAreas = new ArrayList<>();
+//		Collections.addAll(blockedAreas, CoverableArea.values());
+//		blockedAreas.remove(CoverableArea.MOUTH);
+//
+//		List<InventorySlot> concealedSlots = new ArrayList<>();
+//		Collections.addAll(concealedSlots, InventorySlot.values());
+//		concealedSlots.remove(InventorySlot.MOUTH);
+//		concealedSlots.remove(InventorySlot.PIERCING_LIP);
+//		concealedSlots.remove(InventorySlot.PIERCING_TONGUE);
+//		
+//		npc.setExtraBlockedParts(new BlockedParts(
+//				DisplacementType.OPEN,
+//				new ArrayList<>(),
+//				blockedAreas,
+//				new ArrayList<>(),
+//				concealedSlots));
 
 		List<String> descriptors;
 		double rnd = Math.random();

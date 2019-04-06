@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.managers.dominion;
+package com.lilithsthrone.game.sex.managers.dominion.toiletStall;
 
 import java.util.Map;
 
@@ -12,10 +12,10 @@ import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
  * @version 0.2.8
  * @author Innoxia
  */
-public class SMStallKneeling extends SexManagerDefault {
+public class SMStallSex extends SexManagerDefault {
 
-	public SMStallKneeling(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.KNEELING_ORAL_STALL,
+	public SMStallSex(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionBipeds.STANDING_STALL,
 				dominants,
 				submissives);
 	}

@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.managers.dominion;
+package com.lilithsthrone.game.sex.managers.dominion.toiletStall;
 
 import java.util.Map;
 

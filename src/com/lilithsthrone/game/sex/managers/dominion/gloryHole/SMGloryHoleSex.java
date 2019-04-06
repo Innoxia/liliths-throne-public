@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.managers.dominion;
+package com.lilithsthrone.game.sex.managers.dominion.gloryHole;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -197,7 +197,7 @@ public enum CoverableArea {
 	}
 	
 	public List<InventorySlot> getAssociatedInventorySlots(GameCharacter owner) {
-		return associatedInventorySlots;
+		return new ArrayList<>(associatedInventorySlots);
 	}
 
 	/**

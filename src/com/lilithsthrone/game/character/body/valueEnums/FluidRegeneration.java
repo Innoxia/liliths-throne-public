@@ -23,8 +23,8 @@ public enum FluidRegeneration {
 	/** 5000-99,999 ml/day. <b>Median value of ~50,000ml/day is average for seminal fluid replenishment.</b> Maximum value is roughly 1.15ml per second. */
 	THREE_RAPID("rapid", 5000, 100_000, "rapidly", Colour.GENERIC_SIZE_FOUR),
 	
-	/** 100,000-10,000,000 ml/day. Maximum value is roughly 11.5ml per second. */
-	FOUR_VERY_RAPID("very rapid", 100_000, 1_000_000, "very rapidly", Colour.GENERIC_SIZE_FIVE);
+	/** 100,000-500,000 ml/day. Maximum value is roughly 5.8ml per second. */
+	FOUR_VERY_RAPID("very rapid", 100_000, 500_000, "very rapidly", Colour.GENERIC_SIZE_FIVE);
 	
 
 	private int minimumValue;

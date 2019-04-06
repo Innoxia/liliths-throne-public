@@ -1445,7 +1445,7 @@ public class GenericOrgasms {
 								cumTargetSB.append(" The unusual taste of [npc.namePos] beer-flavoured");
 								break;
 							case CHOCOLATE:
-								cumTargetSB.append(" The unusual taste of [npc.namePos] chocolate-flavoured");
+								cumTargetSB.append(" The sweet taste of [npc.namePos] chocolate-flavoured");
 								break;
 							case CUM:
 								cumTargetSB.append(" The salty taste of");
@@ -1454,25 +1454,28 @@ public class GenericOrgasms {
 								cumTargetSB.append(" The unusual taste of [npc.namePos] sweet");
 								break;
 							case HONEY:
-								cumTargetSB.append(" The unusual taste of [npc.namePos] honey-flavoured");
+								cumTargetSB.append(" The sweet taste of [npc.namePos] honey-flavoured");
 								break;
 							case MILK:
 								cumTargetSB.append(" The unusual taste of [npc.namePos] milk-flavoured");
 								break;
 							case MINT:
-								cumTargetSB.append(" The unusual taste of [npc.namePos] mint-flavoured");
+								cumTargetSB.append(" The taste of [npc.namePos] mint-flavoured");
 								break;
 							case PINEAPPLE:
-								cumTargetSB.append(" The unusual taste of [npc.namePos] pineapple-flavoured");
+								cumTargetSB.append(" The sweet taste of [npc.namePos] pineapple-flavoured");
 								break;
-							case SLIME:
-								cumTargetSB.append(" The unusual taste of [npc.namePos] sweet");
+							case BUBBLEGUM:
+								cumTargetSB.append(" The fruity taste of [npc.namePos] bubblegum-flavoured");
 								break;
 							case STRAWBERRY:
-								cumTargetSB.append(" The unusual taste of [npc.namePos] strawberry-flavoured");
+								cumTargetSB.append(" The sweet taste of [npc.namePos] strawberry-flavoured");
 								break;
 							case VANILLA:
-								cumTargetSB.append(" The unusual taste of [npc.namePos] vanilla-flavoured");
+								cumTargetSB.append(" The taste of [npc.namePos] vanilla-flavoured");
+								break;
+							case CHERRY:
+								cumTargetSB.append(" The sweet taste of [npc.namePos] cherry-flavoured");
 								break;
 						}
 						cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
@@ -1713,7 +1716,13 @@ public class GenericOrgasms {
 
 	private static List<InventorySlot> getNakedAreasCummedOn(GameCharacter target, CoverableArea area) {
 		Set<InventorySlot> areaList = new HashSet<>();
-		for(InventorySlot slot : area.getAssociatedInventorySlots(target)) {
+		List<InventorySlot> slotsTargeted = area.getAssociatedInventorySlots(target);
+		
+		// Remove slots which don't make any sense to be cummed on:
+		slotsTargeted.remove(InventorySlot.ANKLE); // This is covered by the SOCK slot
+		slotsTargeted.remove(InventorySlot.TORSO_OVER); // This is covered by the TORSO_UNDER slot
+		
+		for(InventorySlot slot : slotsTargeted) {
 			if(target.getVisibleClothingConcealingSlot(slot).isEmpty()) {
 				areaList.add(slot);
 			}
@@ -3533,6 +3542,37 @@ public class GenericOrgasms {
 							+ " [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.name] to keep fucking [npc.herHim] as [npc2.she] orgasms,"
 						+" [npc.speech(Fuck! Yes! Keep fucking me!)]";
 				}
+
+			} else if(Sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
+				boolean petName = false;
+				if(!Sex.getCharacterPerformingAction().getPetName(Sex.getCharacterTargetedForSexAction(this)).equals(Sex.getCharacterTargetedForSexAction(this).getName(true))) {
+					petName = true;
+				}
+				
+				if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.name] to cum,"
+							+" [npc.speech(Finish inside of me if you want"+(petName?", [#npc.getPetName(npc2)]":"")+"! Spurt it all out into that condom!)]";
+
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.name] to cum,"
+							+ " [npc.speech(Finish inside of me if you want"+(petName?", [#npc.getPetName(npc2)]":"")+"! Spurt it all out into that condom!)]";
+
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.name] to cum,"
+							+ " [npc.speech(Finish inside of me if you want"+(petName?", [#npc.getPetName(npc2)]":"")+"! Spurt it all out into that condom!)]";
+
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.BREAST)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.name] to cum,"
+							+ " [npc.speech(Yes! Cum for me"+(petName?", [#npc.getPetName(npc2)]":"")+"! Spurt it all out into that condom!)]";
+
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.name] to cum,"
+							+ " [npc.speech(Yes! Cum for me"+(petName?", [#npc.getPetName(npc2)]":"")+"! Spurt it all out into that condom!)]";
+					
+				} else {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.name] to cum,"
+							+ " [npc.speech(Yes! Cum for me"+(petName?", [#npc.getPetName(npc2)]":"")+"! Spurt it all out into that condom!)]";
+				}
 				
 			} else {
 				boolean petName = false;
@@ -4667,6 +4707,40 @@ public class GenericOrgasms {
 				} else {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to cry out around [npc2.namePos] [npc2.cock], "
 							+ "[npc.speech(Pull out! Get that dildo out of my mouth!)]";
+				}
+				
+			} else if(Sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
+				if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "
+							+ "[npc.speech(Pull out! I don't want to risk that condom breaking in my pussy!)]";
+
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.URETHRA_VAGINA)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "
+							+ "[npc.speech(Pull out! I don't want to risk that condom breaking!)]";
+					
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.URETHRA_PENIS)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "
+							+ "[npc.speech(Pull out! I don't want to risk that condom breaking!)]";
+					
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "
+							+ "[npc.speech(Pull out! I don't want that condom breaking in my ass!)]";
+
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "
+							+ "[npc.speech(Pull out! I don't want that condom breaking in my nipple!)]";
+
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.BREAST)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "
+							+ "[npc.speech(Get back! I don't want that condom breaking all over my tits!)]";
+
+				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT)) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "
+							+ "[npc.speech(Get back! I don't want that condom breaking all over my [npc.feet]!)]";
+					
+				} else {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to cry out around [npc2.namePos] [npc2.cock], "
+							+ "[npc.speech(Pull out! Please!)]";
 				}
 				
 			} else {

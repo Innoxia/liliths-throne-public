@@ -2,7 +2,7 @@
 <clothing>
 	
 	<coreAtributes>
-		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress' inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
+		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress's inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
 		<value>1000</value> 
 		<determiner><![CDATA[an]]></determiner>
 		<name><![CDATA[evening gown]]></name>

@@ -39,13 +39,16 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.AbstractClothingRarityComparator;
-import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ReverseClothingZLayerComparator;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.comparators.ClothingRarityComparator;
+import com.lilithsthrone.utils.comparators.ClothingZLayerComparator;
+import com.lilithsthrone.utils.comparators.InventoryClothingComparator;
+import com.lilithsthrone.utils.comparators.InventoryItemComparator;
+import com.lilithsthrone.utils.comparators.InventoryWeaponComparator;
+import com.lilithsthrone.utils.comparators.ReverseClothingZLayerComparator;
 import com.lilithsthrone.world.World;
 
 /**
@@ -404,7 +407,7 @@ public class CharacterInventory implements XMLSaving {
 	
 	public void sortInventory() {
 		List<AbstractItem> itemToSort = new ArrayList<>(itemDuplicates.keySet());
-		Collections.sort(itemToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+		Collections.sort(itemToSort, new InventoryItemComparator());
 		
 		Map<AbstractItem, Integer> iMap = new LinkedHashMap<>();
 		for(AbstractItem i : itemToSort) {
@@ -413,7 +416,7 @@ public class CharacterInventory implements XMLSaving {
 		itemDuplicates = iMap;
 
 		List<AbstractWeapon> weaponsToSort = new ArrayList<>(weaponDuplicates.keySet());
-		Collections.sort(weaponsToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+		Collections.sort(weaponsToSort, new InventoryWeaponComparator());
 		
 		Map<AbstractWeapon, Integer> wMap = new LinkedHashMap<>();
 		for(AbstractWeapon w : weaponsToSort) {
@@ -422,7 +425,7 @@ public class CharacterInventory implements XMLSaving {
 		weaponDuplicates = wMap;
 		
 		List<AbstractClothing> clothingToSort = new ArrayList<>(clothingDuplicates.keySet());
-		Collections.sort(clothingToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+		Collections.sort(clothingToSort, new InventoryClothingComparator());
 		
 		Map<AbstractClothing, Integer> cMap = new LinkedHashMap<>();
 		for(AbstractClothing c : clothingToSort) {
@@ -479,7 +482,7 @@ public class CharacterInventory implements XMLSaving {
 		
 		if(Main.game.isStarted()) {
 			List<AbstractItem> itemToSort = new ArrayList<>(itemDuplicates.keySet());
-			Collections.sort(itemToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+			Collections.sort(itemToSort, new InventoryItemComparator());
 			
 			Map<AbstractItem, Integer> iMap = new LinkedHashMap<>();
 			for(AbstractItem i : itemToSort) {
@@ -504,7 +507,7 @@ public class CharacterInventory implements XMLSaving {
 
 			if(Main.game.isStarted()) {
 				List<AbstractItem> itemToSort = new ArrayList<>(itemDuplicates.keySet());
-				Collections.sort(itemToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+				Collections.sort(itemToSort, new InventoryItemComparator());
 				
 				Map<AbstractItem, Integer> iMap = new LinkedHashMap<>();
 				for(AbstractItem i : itemToSort) {
@@ -653,7 +656,7 @@ public class CharacterInventory implements XMLSaving {
 
 			if(Main.game.isStarted()) {
 				List<AbstractWeapon> weaponsToSort = new ArrayList<>(weaponDuplicates.keySet());
-				Collections.sort(weaponsToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+				Collections.sort(weaponsToSort, new InventoryWeaponComparator());
 				
 				Map<AbstractWeapon, Integer> wMap = new LinkedHashMap<>();
 				for(AbstractWeapon w : weaponsToSort) {
@@ -821,7 +824,7 @@ public class CharacterInventory implements XMLSaving {
 
 			if(Main.game.isStarted()) {
 				List<AbstractClothing> clothingToSort = new ArrayList<>(clothingDuplicates.keySet());
-				Collections.sort(clothingToSort, (e1, e2) -> e1.getRarity().compareTo(e2.getRarity()));
+				Collections.sort(clothingToSort, new InventoryClothingComparator());
 				
 				Map<AbstractClothing, Integer> cMap = new LinkedHashMap<>();
 				for(AbstractClothing c : clothingToSort) {
@@ -1416,7 +1419,7 @@ public class CharacterInventory implements XMLSaving {
 
 			}
 
-			clothingCurrentlyEquipped.sort(new AbstractClothingRarityComparator());
+			clothingCurrentlyEquipped.sort(new ClothingRarityComparator());
 
 		} else {
 			if(clothingToRemove.isEmpty()) {
@@ -1603,7 +1606,7 @@ public class CharacterInventory implements XMLSaving {
 				clothingSetCount.put(clothing.getClothingType().getClothingSet(), clothingSetCount.get(clothing.getClothingType().getClothingSet()) - 1);
 			}
 			
-			clothingCurrentlyEquipped.sort(new AbstractClothingRarityComparator());
+			clothingCurrentlyEquipped.sort(new ClothingRarityComparator());
 		}
 
 		return true;

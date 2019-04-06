@@ -40,6 +40,7 @@ public enum DialogueFlagValue {
 	nyanIntroduced,
 	kateIntroduced,
 	vickyIntroduced,
+	vanessaIntroduced,
 
 	roxyIntroduced,
 	axelIntroduced,
@@ -49,6 +50,14 @@ public enum DialogueFlagValue {
 	
 	// Red-light district:
 	prostitutionLicenseObtained,
+
+	
+	// City hall:
+	vanessaDailyHelped,
+	vanessaDailyMassage,
+	vanessaFucked,
+	vanessaAskedAboutCatalogue,
+	vanessaAskedAboutSolitary,
 	
 	
 	// Shopping arcade:

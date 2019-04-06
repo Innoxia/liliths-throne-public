@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.2";
+	public static final String VERSION_NUMBER = "0.3.2.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -413,6 +413,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Destont", "", 0, 0, 16, 0));
 		credits.add(new CreditsSlot("Nordo", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Di", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("DLI", "", 0, 0, 0, 14));
 		credits.add(new CreditsSlot("suka", "", 0, 0, 19, 0));
 		credits.add(new CreditsSlot("rinoskin", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("Alatar", "", 0, 0, 0, 2));
@@ -543,6 +544,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 19, 0));
 		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 18, 0));
 		credits.add(new CreditsSlot("Sheltem", "", 0, 0, 16, 0));
+		credits.add(new CreditsSlot("Shilou", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("shrikes", "", 0, 0, 8, 2));
 		credits.add(new CreditsSlot("Sig", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("Silentark", "", 0, 0, 16, 0));

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -48,7 +49,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class Lab {
@@ -569,7 +570,7 @@ public class Lab {
 							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 							Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 							
-							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
+							Main.game.getNpc(Lilaya.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
@@ -581,7 +582,7 @@ public class Lab {
 							Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 							
-							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
+							Main.game.getNpc(Lilaya.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
@@ -863,7 +864,7 @@ public class Lab {
 						
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
 						
-						Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
+						Main.game.getNpc(Lilaya.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 						
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
@@ -931,7 +932,7 @@ public class Lab {
 							}
 							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 
-							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
+							Main.game.getNpc(Lilaya.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
@@ -943,7 +944,7 @@ public class Lab {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
 							Main.game.getNpc(Lilaya.class).washAllOrifices(true);
 							
-							Main.game.getNpc(Lilaya.class).equipClothing(true, true, true, true);
+							Main.game.getNpc(Lilaya.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
@@ -1626,39 +1627,12 @@ public class Lab {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "Curious about the date shown on the calendar in your room, you decide to ask Lilaya about it,"
-					+ " [pc.speech(Is the calendar in my room accurate? It's three years into the future from my world...)]"
-				+ "</p>"
-				+ "<p>"
-					+ "Lilaya frowns as she hears you say that, and leans back against the desk behind her."
-					+ " [lilaya.speech(Well, I can assure you that the year is "+Main.game.getYear()+". Your world was still in "+(Main.game.getYear()-3)+", huh?)]"
-				+ "</p>"
-				+ "<p>"
-					+ "You answer in the affirmative, and Lilaya pushes her glasses up to the bridge of her nose, before crossing her arms and sighing,"
-					+ " [lilaya.speech(It shouldn't be anything to worry about."
-					+ " There must have been a chain of events in our world's past that led to the year being counted slightly differently to yours."
-					+ " Or maybe you time-travelled when you were teleported into this world!)]"
-					+ " As she starts thinking out loud, you can hear the growing excitement in her voice,"
-					+ " [lilaya.speech(In fact, it's pretty incredible that your world even uses the same calendar system as ours!"
-					+ " And, thinking about it even more, why do we even speak the same language?"
-					+ " And how come your customs, clothing, and even your appearance are similar to ours?!)]"
-				+ "</p>"
-				+ "<p>"
-					+ "You start to chat with Lilaya about the peculiarities of these shared features between your worlds."
-					+ " The more you start to delve into it, however, the more surprised you are at the lack of historical knowledge that Lilaya has."
-					+ " [lilaya.speech(Well, the only history that anyone really knows about is stuff concerning Lilith."
-					+ " She's been ruling this world since before any trace of civilisation even existed, so I guess all of our customs come from her direct influence."
-					+ " I don't think anybody other than Lilith herself really knows much about this world's history."
-					+ " Maybe mommy-)]"
-				+ "</p>"
-				+ "<p>"
-					+ "Lilaya's cheeks suddenly flush red, and she turns away as she brings a close to the conversation,"
-					+ " [lilaya.speech(Anyway! D-Don't worry about anything! Three years into the future is nothing! I-I'll try and investigate a little more, ok?!)]"
-				+ "</p>"
-				+ "<p>"
-					+ "It's quite apparent that Lilaya isn't interested in discussing the matter any more..."
-				+ "</p>";
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)) {
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_CURRENT_DATE_TALK_KNOW_TRUTH");
+				
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_CURRENT_DATE_TALK");
+			}
 		}
 
 		@Override

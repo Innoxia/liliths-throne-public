@@ -453,7 +453,7 @@ public class OccupancyUtil implements XMLSaving {
 						}
 					}
 					if(slave.hasBreastsCrotch() && slave.getBreastCrotchRawStoredMilkValue()>0 && !slave.hasSlaveJobSetting(SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)) {
-						float milked = MilkingRoom.getActualMilkPerHour(slave);
+						float milked = MilkingRoom.getActualCrotchMilkPerHour(slave);
 						if(milked < slave.getBreastCrotchRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(slave)) {
 							milked = Math.min(slave.getBreastCrotchRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(slave));
 						}
@@ -468,7 +468,7 @@ public class OccupancyUtil implements XMLSaving {
 										SlaveEvent.JOB_MILK_CROTCH_MILKED,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_MILK_SOLD),
-										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										Util.newArrayListOfValues("[style.boldGood("+ Units.fluid(milked) +")] milked: +"+UtilText.formatAsMoney(income, "bold")),
 										true));
 								
 							} else {
@@ -478,7 +478,7 @@ public class OccupancyUtil implements XMLSaving {
 										SlaveEvent.JOB_MILK_CROTCH_MILKED,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_MILK_CROTCH_MILKED),
-										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
+										Util.newArrayListOfValues("[style.boldGood("+ Units.fluid(milked) +")] added to storage."),
 										true));
 							}
 						}
