@@ -111,7 +111,7 @@
 		#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaAskedAboutSolitary))
 			 [vanessa.speech(I already told you this... There's very little demand for name changes or offspring tracking maps, so this department is considered to only need enough staff to cover cataloguing work. As a result, the higher-ups have determined that it only takes one person to do everything in here. I do manage to get all of my work done on time, so I suppose they're right, but it does get a little lonely...)]
 		#ELSE
-			 [vanessa.speech(Well, there's very little demand for name changes or offspring tracking maps, so this department is considered to only need enough staff to cover cataloguing work. As a result, the higher-ups have determined that it only takes one person to do everything in here. I do manage to get all of ym work done on time, so I suppose they're right, but it does get a little lonely...)]
+			 [vanessa.speech(Well, there's very little demand for name changes or offspring tracking maps, so this department is considered to only need enough staff to cover cataloguing work. As a result, the higher-ups have determined that it only takes one person to do everything in here. I do manage to get all of my work done on time, so I suppose they're right, but it does get a little lonely...)]
 		#ENDIF
 	</p>
 	<p>
