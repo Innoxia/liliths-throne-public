@@ -3555,4 +3555,8 @@ public class Game implements XMLSaving {
 	public boolean isSpittingDisabled() {
 		return !Main.getProperties().hasValue(PropertyValue.spittingEnabled);
 	}
+	
+	public boolean isOpportunisticAttackersEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.opportunisticAttackers);
+	}
 }

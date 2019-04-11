@@ -53,6 +53,7 @@ public enum PropertyValue {
 	involuntaryNTR(false),
 
 	spittingEnabled(true),
+	opportunisticAttackers(false),
 
 	levelUpHightlight(false),
 	newWeaponDiscovered(false),
