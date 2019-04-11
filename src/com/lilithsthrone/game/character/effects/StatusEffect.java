@@ -3051,6 +3051,35 @@ public enum StatusEffect {
 		}
 	},
 
+	MENOPAUSE(
+			80,
+			"Menopause (total infertility)",
+			"menopause",
+			Colour.BASE_CRIMSON,
+			false,
+			null,
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"Due to being over fifty-two years of age, [npc.nameHasFull] undergone menopause, and as [npc.sheIsFull] not a demon, [npc.sheHasFull] been rendered completely unable to bear children.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasVagina()
+					&& target.getAgeValue()>=52
+					&& target.getSubspeciesOverride()==null
+					&& !(target instanceof Elemental);
+		}
+	},
+	
 	PREGNANT_0(
 			80,
 			"risk of pregnancy",
@@ -5847,7 +5876,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {//British Auxiliary Territorial Service
-			return "While wearing the uniform of Lyssieth's guard, [npc.name] [npc.verb(feel)] as though [npc.sheIs] more easily able to keep [npc.her] composure.";
+			return UtilText.parse(target, "While wearing the uniform of Lyssieth's guard, [npc.name] [npc.verb(feel)] as though [npc.sheIs] more easily able to keep [npc.her] composure.");
 		}
 
 		@Override

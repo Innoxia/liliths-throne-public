@@ -390,7 +390,10 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION));
+						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+							|| npc.getSubspecies()==Subspecies.SLIME
+							|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
+							|| npc.getSubspecies()==Subspecies.RAT_MORPH);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);

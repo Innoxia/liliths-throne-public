@@ -2918,6 +2918,13 @@ public class Body implements XMLSaving {
 							sb.append("a long, [npc.tailColour(true)] rat-like tail, over which [npc.sheHasFull] has complete control, and [npc.she] can easily use it to grip and hold objects.");
 						}
 						break;
+					case BAT_MORPH:
+						if (tail.isBestial(owner)) {
+							sb.append("[style.colourBestial(a feral)], [npc.tailColour(true)] bat tail.");
+						} else {
+							sb.append("a long, [npc.tailColour(true)] bat-like tail.");
+						}
+						break;
 					case RABBIT_MORPH:
 						if (tail.isBestial(owner)) {
 							sb.append("[style.colourBestial(a feral)], [npc.tailColour(true)] rabbit tail, which is really no more than a large ball of downy fluff.");
@@ -3057,6 +3064,13 @@ public class Body implements XMLSaving {
 							sb.append("[style.colourBestial(feral)], [npc.tailColour(true)] rat tails, over which [npc.she] has complete control, and [npc.she] can easily use them to grip and hold objects.");
 						} else {
 							sb.append("long, [npc.tailColour(true)] rat-like tails, over which [npc.she] has complete control, and [npc.she] can easily use them to grip and hold objects.");
+						}
+						break;
+					case BAT_MORPH:
+						if (tail.isBestial(owner)) {
+							sb.append("[style.colourBestial(feral)], [npc.tailColour(true)] bat tails.");
+						} else {
+							sb.append("long, [npc.tailColour(true)] bat-like tails.");
 						}
 						break;
 					case RABBIT_MORPH:
@@ -3710,7 +3724,7 @@ public class Body implements XMLSaving {
 				descriptionSB.append(" They have been pierced.");
 			}
 			
-			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
+			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE && Main.game.isNipplePenEnabled()) {
 				if (viewedBreast.isFuckable()) {
 					descriptionSB.append("<br/>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, allowing [npc.her] [npc.breastCapacity] [npc.nipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(viewedBreast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
@@ -3787,89 +3801,90 @@ public class Body implements XMLSaving {
 					descriptionSB.append(" [style.colourGood([npc.Name] [npc.has] retained [npc.her] nipple virginity.)]");
 				}
 				
-				if (viewedBreast.getRawMilkStorageValue() > 0) {
-					descriptionSB.append("<br/>[npc.SheIsFull] currently producing "+ Units.fluid(viewedBreast.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.milkPrimaryColour(true)] [npc.milk]"
-							+ " ("+ Units.fluid(viewedBreast.getRawStoredMilkValue()) + " currently stored) at [npc.a_milkRegen] rate.");
-					
-					switch(viewedBreast.getMilk().getFlavour()) {
-						case CHOCOLATE:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of chocolate.");
-							break;
-						case CUM:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes exactly like cum.");
-							break;
-						case GIRL_CUM:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of girl-cum.");
-							break;
-						case HONEY:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of honey.");
-							break;
-						case MILK:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes like regular milk.");
-							break;
-						case MINT:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of mint.");
-							break;
-						case PINEAPPLE:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of pineapple.");
-							break;
-						case BUBBLEGUM:
-							descriptionSB.append(" [npc.Her] [npc.milk] has the fruity taste of bubblegum.");
-							break;
-						case STRAWBERRY:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of strawberries.");
-							break;
-						case BEER:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes like beer.");
-							break;
-						case VANILLA:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of vanilla.");
-							break;
-						case CHERRY:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of cherries.");
-							break;
-					}
-					
-					for(FluidModifier fm : FluidModifier.values()) {
-						if(owner.hasMilkModifier(fm)) {
-							switch(fm) {
-								case ADDICTIVE:
-									descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-									break;
-								case BUBBLING:
-									descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-									break;
-								case HALLUCINOGENIC:
-									descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-									break;
-								case MUSKY:
-									descriptionSB.append(" It has a strong, musky smell.");
-									break;
-								case SLIMY:
-									descriptionSB.append(" It has a slimy, oily texture.");
-									break;
-								case STICKY:
-									descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-									break;
-								case VISCOUS:
-									descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-									break;
-								case ALCOHOLIC:
-									descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-									break;
-								case MINERAL_OIL:
-									descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
-							}
-						}
-					}
-					
-				} else {
-					descriptionSB.append("<br/>[npc.SheIsFull] not producing any milk.");
-				}
 			} else {
 				if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
 					descriptionSB.append(" [npc.Her] [npc.nipples] have swollen up to be exceptionally plump and puffy.");
+				}	
+			}
+			
+			if (viewedBreast.getRawMilkStorageValue() > 0) {
+				descriptionSB.append("<br/>[npc.SheIsFull] currently producing "+ Units.fluid(viewedBreast.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.milkPrimaryColour(true)] [npc.milk]"
+						+ " ("+ Units.fluid(viewedBreast.getRawStoredMilkValue()) + " currently stored) at [npc.a_milkRegen] rate.");
+				
+				switch(viewedBreast.getMilk().getFlavour()) {
+					case CHOCOLATE:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of chocolate.");
+						break;
+					case CUM:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes exactly like cum.");
+						break;
+					case GIRL_CUM:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of girl-cum.");
+						break;
+					case HONEY:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of honey.");
+						break;
+					case MILK:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes like regular milk.");
+						break;
+					case MINT:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of mint.");
+						break;
+					case PINEAPPLE:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of pineapple.");
+						break;
+					case BUBBLEGUM:
+						descriptionSB.append(" [npc.Her] [npc.milk] has the fruity taste of bubblegum.");
+						break;
+					case STRAWBERRY:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of strawberries.");
+						break;
+					case BEER:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes like beer.");
+						break;
+					case VANILLA:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of vanilla.");
+						break;
+					case CHERRY:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of cherries.");
+						break;
 				}
+				
+				for(FluidModifier fm : FluidModifier.values()) {
+					if(owner.hasMilkModifier(fm)) {
+						switch(fm) {
+							case ADDICTIVE:
+								descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
+								break;
+							case BUBBLING:
+								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
+								break;
+							case HALLUCINOGENIC:
+								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
+								break;
+							case MUSKY:
+								descriptionSB.append(" It has a strong, musky smell.");
+								break;
+							case SLIMY:
+								descriptionSB.append(" It has a slimy, oily texture.");
+								break;
+							case STICKY:
+								descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
+								break;
+							case VISCOUS:
+								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
+								break;
+							case ALCOHOLIC:
+								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
+								break;
+							case MINERAL_OIL:
+								descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
+						}
+					}
+				}
+				
+			} else {
+				descriptionSB.append("<br/>[npc.SheIsFull] not producing any milk.");
 			}
 		}
 
@@ -3964,7 +3979,7 @@ public class Body implements XMLSaving {
 				descriptionSB.append(" They have been pierced.");
 			}
 			
-			if(owner.getNippleCrotchCapacity() != Capacity.ZERO_IMPENETRABLE) {
+			if(owner.getNippleCrotchCapacity() != Capacity.ZERO_IMPENETRABLE && Main.game.isNipplePenEnabled()) {
 				if (viewedBreastCrotch.isFuckable()) {
 					descriptionSB.append("<br/>[npc.Her] [npc.crotchBoobs] have internal, [npc.crotchNippleSecondaryColour(true)] channels, allowing [npc.her] [npc.crotchBoobsCapacity] [npc.crotchNipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(viewedBreastCrotch.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
@@ -4040,91 +4055,92 @@ public class Body implements XMLSaving {
 				} else {
 					descriptionSB.append(" [style.colourGood([npc.Name] [npc.has] retained [npc.her] [npc.crotchNipple] virginity.)]");
 				}
-
-				if (viewedBreastCrotch.getRawMilkStorageValue() > 0) {
-					descriptionSB.append("<br/>[npc.SheIsFull] currently producing "
-							+ Units.fluid(viewedBreastCrotch.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.crotchMilkPrimaryColour(true)] [npc.crotchMilk] ("
-							+ Units.fluid(viewedBreastCrotch.getRawStoredMilkValue(), Units.UnitType.LONG) + " currently stored) at [npc.a_crotchMilkRegen] rate.");
-					
-					switch(viewedBreastCrotch.getMilk().getFlavour()) {
-						case CHOCOLATE:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of chocolate.");
-							break;
-						case CUM:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes exactly like cum.");
-							break;
-						case GIRL_CUM:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of girl-cum.");
-							break;
-						case HONEY:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of honey.");
-							break;
-						case MILK:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like regular milk.");
-							break;
-						case MINT:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of mint.");
-							break;
-						case PINEAPPLE:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of pineapple.");
-							break;
-						case BUBBLEGUM:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] has the fruity taste of bubblegum.");
-							break;
-						case STRAWBERRY:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of strawberries.");
-							break;
-						case BEER:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like beer.");
-							break;
-						case VANILLA:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of vanilla.");
-							break;
-						case CHERRY:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of cherries.");
-							break;
-					}
-					
-					for(FluidModifier fm : FluidModifier.values()) {
-						if(owner.hasMilkCrotchModifier(fm)) {
-							switch(fm) {
-								case ADDICTIVE:
-									descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-									break;
-								case BUBBLING:
-									descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-									break;
-								case HALLUCINOGENIC:
-									descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-									break;
-								case MUSKY:
-									descriptionSB.append(" It has a strong, musky smell.");
-									break;
-								case SLIMY:
-									descriptionSB.append(" It has a slimy, oily texture.");
-									break;
-								case STICKY:
-									descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-									break;
-								case VISCOUS:
-									descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-									break;
-								case ALCOHOLIC:
-									descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-									break;
-								case MINERAL_OIL:
-									descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
-							}
-						}
-					}
-					
-				} else {
-					descriptionSB.append("<br/>[npc.SheIsFull] not producing any milk.");
-				}
+				
 			} else {
 				if(owner.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
 					descriptionSB.append(" [npc.Her] [npc.crotchNipples] have swollen up to be exceptionally plump and puffy.");
+				}	
+			}
+			
+			if (viewedBreastCrotch.getRawMilkStorageValue() > 0) {
+				descriptionSB.append("<br/>[npc.SheIsFull] currently producing "
+						+ Units.fluid(viewedBreastCrotch.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.crotchMilkPrimaryColour(true)] [npc.crotchMilk] ("
+						+ Units.fluid(viewedBreastCrotch.getRawStoredMilkValue(), Units.UnitType.LONG) + " currently stored) at [npc.a_crotchMilkRegen] rate.");
+				
+				switch(viewedBreastCrotch.getMilk().getFlavour()) {
+					case CHOCOLATE:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of chocolate.");
+						break;
+					case CUM:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes exactly like cum.");
+						break;
+					case GIRL_CUM:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of girl-cum.");
+						break;
+					case HONEY:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of honey.");
+						break;
+					case MILK:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like regular milk.");
+						break;
+					case MINT:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of mint.");
+						break;
+					case PINEAPPLE:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of pineapple.");
+						break;
+					case BUBBLEGUM:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] has the fruity taste of bubblegum.");
+						break;
+					case STRAWBERRY:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of strawberries.");
+						break;
+					case BEER:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like beer.");
+						break;
+					case VANILLA:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of vanilla.");
+						break;
+					case CHERRY:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of cherries.");
+						break;
 				}
+				
+				for(FluidModifier fm : FluidModifier.values()) {
+					if(owner.hasMilkCrotchModifier(fm)) {
+						switch(fm) {
+							case ADDICTIVE:
+								descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
+								break;
+							case BUBBLING:
+								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
+								break;
+							case HALLUCINOGENIC:
+								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
+								break;
+							case MUSKY:
+								descriptionSB.append(" It has a strong, musky smell.");
+								break;
+							case SLIMY:
+								descriptionSB.append(" It has a slimy, oily texture.");
+								break;
+							case STICKY:
+								descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
+								break;
+							case VISCOUS:
+								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
+								break;
+							case ALCOHOLIC:
+								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
+								break;
+							case MINERAL_OIL:
+								descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
+						}
+					}
+				}
+				
+			} else {
+				descriptionSB.append("<br/>[npc.SheIsFull] not producing any milk.");
 			}
 //		}
 

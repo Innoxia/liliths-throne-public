@@ -160,7 +160,7 @@
 	
 	<htmlContent tag="TUNNEL_ATTACK_REPEAT"><![CDATA[
 	<p>
-		[npc.speech(You two again?!)] [npc.she] shouts. [npc.speech(This'll be a lot easier if you both just give up right now!)] 
+		[npc.speech(You two again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you both just give up right now!)] 
 	</p>
 	]]>
 	</htmlContent>

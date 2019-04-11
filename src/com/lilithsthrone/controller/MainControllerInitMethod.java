@@ -4573,6 +4573,20 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
+				for (DamageType dt : weapon.getAvailableDamageTypes()) {
+					id = "DAMAGE_TYPE_"+weapon.hashCode() + "_" + dt.toString();
+					if ((EventTarget) MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							InventoryDialogue.damageTypePreview = dt;
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDamageTypeWeapon(InventoryDialogue.getWeapon(), dt);
+						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+					}
+				}
 			}
 			
 			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
@@ -6129,15 +6143,10 @@ public class MainControllerInitMethod {
 						Main.game.getTextEndStringBuilder().append("</p>");
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
-										+ "<i style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>"+Units.fluid(MilkingRoom.INGESTION_AMOUNT)+" of "+fluidOwnerName+" "+fluidName+" has been consumed!</i>"
+										+ "<i style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>"+Units.fluid(milkAmount)+" of "+fluidOwnerName+" "+fluidName+" has been consumed!</i>"
 								+ "</p>");
 						
-						try {
-							GameCharacter c = fluid.getFluidCharacter();
-							room.incrementFluidStored(c, fluid.getFluid(), -milkAmount);
-						} catch (Exception e1) {
-							room.incrementFluidStored(null, fluid.getFluid(), -milkAmount);
-						}
+						room.incrementFluidStored(fluid, -milkAmount);
 						
 						Main.game.setContent(new Response("", "", LilayaHomeGeneric.MILKED));
 						

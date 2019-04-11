@@ -491,7 +491,7 @@ public class PenisMouth {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Sobbing] and squirming in discomfort, [npc2.she] desperately tries to pull away from [npc.herHim],"
+							" [npc2.Sobbing] and squirming in discomfort, [npc2.she] desperately [npc2.verb(try)] to pull away from [npc.herHim],"
 									+ " begging to be left alone as [npc.she] [npc.verb(shift)] [npc.her] attention back down to [npc2.her] [npc2.cock+] once again.",
 
 							" With [npc2.a_sob+], [npc2.name] tries to push [npc.name] away, squirming in discomfort as [npc.she] [npc.verb(move)] back to focusing [npc.her] attention on [npc2.her] [npc2.cock+].",

@@ -1090,12 +1090,7 @@ public class CharacterUtils {
 
 		body.updateCoverings(true, true, true, true);
 		
-
-		BodyHair hair = BodyHair.getRandomBodyHair();
-		body.setPubicHair(hair);
-		body.getFace().setFacialHair(null, hair);
-		body.getArm().setUnderarmHair(null, hair);
-		body.getAss().getAnus().setAssHair(null, hair);
+		setBodyHair(body);
 		
 		return body;
 	}
@@ -1277,11 +1272,7 @@ public class CharacterUtils {
 		}
 		
 		// Pubic hair:
-		BodyHair hair = BodyHair.getRandomBodyHair();
-		body.setPubicHair(hair);
-		body.getFace().setFacialHair(null, hair);
-		body.getArm().setUnderarmHair(null, hair);
-		body.getAss().getAnus().setAssHair(null, hair);
+		setBodyHair(body);
 		
 		if(species!=null) {
 			if(stage!=RaceStage.HUMAN) {
@@ -1425,11 +1416,7 @@ public class CharacterUtils {
 		}
 		
 		// Pubic hair:
-		BodyHair hair = BodyHair.getRandomBodyHair();
-		body.setPubicHair(hair);
-		body.getFace().setFacialHair(null, hair);
-		body.getArm().setUnderarmHair(null, hair);
-		body.getAss().getAnus().setAssHair(null, hair);
+		setBodyHair(body);
 		
 		if(species!=null && stage!=RaceStage.HUMAN) {
 			species.applySpeciesChanges(body);
@@ -1441,6 +1428,86 @@ public class CharacterUtils {
 		}
 		
 		return body;
+	}
+	
+	private static void setBodyHair(Body body) {
+		int slobLevel = Util.random.nextInt(101);
+
+		if(body.isFeminine()) {
+			body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+			if(slobLevel>=95) {
+				body.getArm().setUnderarmHair(null, BodyHair.SIX_BUSHY);
+				body.setPubicHair(BodyHair.SEVEN_WILD);
+				body.getAss().getAnus().setAssHair(null, BodyHair.FIVE_UNKEMPT);
+				
+			} else if(slobLevel>=80) {
+				body.getArm().setUnderarmHair(null, BodyHair.FOUR_NATURAL);
+				body.setPubicHair(BodyHair.SIX_BUSHY);
+				body.getAss().getAnus().setAssHair(null, BodyHair.FOUR_NATURAL);
+				
+			} else if(slobLevel>=60) {
+				body.getArm().setUnderarmHair(null, BodyHair.ZERO_NONE);
+				body.setPubicHair(BodyHair.FOUR_NATURAL);
+				body.getAss().getAnus().setAssHair(null, BodyHair.TWO_MANICURED);
+				
+			} else if(slobLevel>=40) {
+				body.getArm().setUnderarmHair(null, BodyHair.ZERO_NONE);
+				body.setPubicHair(BodyHair.TWO_MANICURED);
+				body.getAss().getAnus().setAssHair(null, BodyHair.ZERO_NONE);
+				
+			} else {
+				body.getArm().setUnderarmHair(null, BodyHair.ZERO_NONE);
+				body.setPubicHair(BodyHair.ZERO_NONE);
+				body.getAss().getAnus().setAssHair(null, BodyHair.ZERO_NONE);
+			}
+			
+		} else {
+			if(slobLevel>=95) {
+				if(Math.random()>0.5) {
+					body.getFace().setFacialHair(null, BodyHair.SEVEN_WILD);
+				} else {
+					body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+				}
+				body.getArm().setUnderarmHair(null, BodyHair.SIX_BUSHY);
+				body.setPubicHair(BodyHair.SEVEN_WILD);
+				body.getAss().getAnus().setAssHair(null, BodyHair.FIVE_UNKEMPT);
+				
+			} else if(slobLevel>=80) {
+				if(Math.random()>0.6) {
+					body.getFace().setFacialHair(null, BodyHair.SIX_BUSHY);
+				} else {
+					body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+				}
+				body.getArm().setUnderarmHair(null, BodyHair.FOUR_NATURAL);
+				body.setPubicHair(BodyHair.SIX_BUSHY);
+				body.getAss().getAnus().setAssHair(null, BodyHair.FOUR_NATURAL);
+				
+			} else if(slobLevel>=60) {
+				if(Math.random()>0.7) {
+					body.getFace().setFacialHair(null, BodyHair.FOUR_NATURAL);
+				} else {
+					body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+				}
+				body.getArm().setUnderarmHair(null, BodyHair.FOUR_NATURAL);
+				body.setPubicHair(BodyHair.FOUR_NATURAL);
+				body.getAss().getAnus().setAssHair(null, BodyHair.TWO_MANICURED);
+				
+			} else if(slobLevel>=20) {
+				if(Math.random()>0.8) {
+					body.getFace().setFacialHair(null, BodyHair.ONE_STUBBLE);
+				} else {
+					body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+				}
+				body.getArm().setUnderarmHair(null, BodyHair.FOUR_NATURAL);
+				body.setPubicHair(BodyHair.THREE_TRIMMED);
+				body.getAss().getAnus().setAssHair(null, BodyHair.ZERO_NONE);
+				
+			} else {
+				body.getArm().setUnderarmHair(null, BodyHair.ZERO_NONE);
+				body.setPubicHair(BodyHair.ZERO_NONE);
+				body.getAss().getAnus().setAssHair(null, BodyHair.ZERO_NONE);
+			}
+		}
 	}
 	
 	
@@ -1923,6 +1990,13 @@ public class CharacterUtils {
 			fetishesAssigned++;
 		}
 		
+		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasVagina()) {
+			character.addFetish(Fetish.FETISH_PREGNANCY);
+		}
+		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasPenis()) {
+			character.addFetish(Fetish.FETISH_IMPREGNATION);
+		}
+		
 		generateDesires(character);
 	}
 	
@@ -1970,7 +2044,16 @@ public class CharacterUtils {
 			fetishesLiked.add(f);
 			desiresAssigned++;
 		}
-
+		
+		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasVagina() && availableFetishes.contains(Fetish.FETISH_PREGNANCY)) {
+			character.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.THREE_LIKE);
+		}
+		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasPenis() && availableFetishes.contains(Fetish.FETISH_IMPREGNATION)) {
+			character.setFetishDesire(Fetish.FETISH_IMPREGNATION, FetishDesire.THREE_LIKE);
+		}
+		
+		
+		// Disliked fetishes:
 		// Related fetishes cannot be liked and disliked at the same time:
 		for(Fetish f : fetishesLiked) {
 			switch(f) {
@@ -2008,6 +2091,10 @@ public class CharacterUtils {
 		if(character.getSexualOrientation()!=SexualOrientation.ANDROPHILIC) {
 			availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
 			availableFetishes.remove(Fetish.FETISH_BREASTS_OTHERS);
+		}
+		if(character.getRace()==Race.RABBIT_MORPH) {
+			availableFetishes.remove(Fetish.FETISH_PREGNANCY);
+			availableFetishes.remove(Fetish.FETISH_IMPREGNATION);
 		}
 		
 		// Remove 'natural' fetish dislikes:

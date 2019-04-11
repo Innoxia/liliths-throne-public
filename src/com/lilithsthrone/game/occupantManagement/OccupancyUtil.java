@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -441,7 +442,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 								
 							} else {
-								room.incrementFluidStored(slave, slave.getMilk(), milked);
+								room.incrementFluidStored(new FluidStored(slave.getId(), slave.getMilk(), milked), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_MILK_MILKED,
@@ -472,7 +473,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 								
 							} else {
-								room.incrementFluidStored(slave, slave.getMilkCrotch(), milked);
+								room.incrementFluidStored(new FluidStored(slave.getId(), slave.getMilkCrotch(), milked), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_MILK_CROTCH_MILKED,
@@ -499,7 +500,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 							
 							} else {
-								room.incrementFluidStored(slave, slave.getCum(), milked);
+								room.incrementFluidStored(new FluidStored(slave, slave.getCum(), milked), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_CUM_MILKED,
@@ -526,7 +527,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 							
 							} else {
-								room.incrementFluidStored(slave, slave.getGirlcum(), milked);
+								room.incrementFluidStored(new FluidStored(slave.getId(), slave.getGirlcum(), milked), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_GIRLCUM_MILKED,
@@ -1025,7 +1026,8 @@ public class OccupancyUtil implements XMLSaving {
 								&& slave.hasPenis()
 								&& slave.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
 								&& npc.hasVagina()
-								&& npc.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
+								&& npc.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
+								&& !npc.isVisiblyPregnant();
 						
 						boolean canBeImpregnated = 
 								!slave.isVaginaVirgin()
@@ -1034,7 +1036,8 @@ public class OccupancyUtil implements XMLSaving {
 								&& npc.hasPenis()
 								&& npc.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
 								&& slave.hasVagina()
-								&& slave.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
+								&& slave.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
+								&& !slave.isVisiblyPregnant();
 						
 						boolean impregnationAttempt = false, gettingPregnantAttempt = false;
 						

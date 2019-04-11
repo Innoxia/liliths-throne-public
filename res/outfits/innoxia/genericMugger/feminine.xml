@@ -30,7 +30,7 @@
 		<clothingConditional3 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional3>
 		<clothingConditional4 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional4> <!-- For legwear femininity -->
 		<clothingConditional5 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional5> <!-- weapons -->
-		<clothingConditional6 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL]]></clothingConditional6> <!-- is bipedal -->
+		<clothingConditional6 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></clothingConditional6> <!-- is bipedal -->
 		
 		<presetColourGroup1>
 			<randomColour>CLOTHING_BLACK</randomColour>

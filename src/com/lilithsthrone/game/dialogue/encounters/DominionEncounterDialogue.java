@@ -275,7 +275,7 @@ public class DominionEncounterDialogue {
 						+ " [genericFemale.speech(There's no charge for the pills! Just make sure to use them!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "With nothing to be done expect pocketing the pills for another time, you continue on your way..."
+						+ "With nothing to be done except pocketing the pills for another time, you continue on your way..."
 					+ "</p>";
 		}
 		

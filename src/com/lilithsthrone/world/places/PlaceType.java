@@ -814,21 +814,6 @@ public class PlaceType {
 			null,
 			"in Dominion's city hall") {
 	}.initWeatherImmune();
-
-	public static final AbstractPlaceType CITY_HALL_BUREAU_OF_DEMOGRAPHICS_CORRIDOR = new AbstractPlaceType(
-			"Corridor",
-			"The marble corridors of Dominion's city hall allow the resident bureaucrats to easily stride from one office to another.",
-			null,
-			BaseColour.BLACK,
-			CityHallDemographics.CITY_HALL_DEMOGRAPHICS_CORRIDOR,
-			null,
-			"in Dominion's city hall") {
-
-		@Override
-		public Population getPopulation() {
-			return new Population(PopulationType.OFFICE_WORKERS, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies().get(WorldType.DOMINION));
-		}
-	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType CITY_HALL_BUREAU_OF_DEMOGRAPHICS = new AbstractPlaceType(
 			"Bureau of Demographics",

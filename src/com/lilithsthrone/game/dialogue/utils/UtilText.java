@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -1049,9 +1050,12 @@ public class UtilText {
 					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
 						return character.getNameIgnoresPlayerKnowledge();
 					}
-					return character.getName(arguments);
-					
-				} else if(!speechTarget.equals("")) {
+					if(!character.isPlayer()) {
+						return character.getName(arguments);
+					}
+				}
+				
+				if(!speechTarget.equals("")) {
 					return parseSyntaxNew(speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR);
 					
 				} else {
@@ -6275,6 +6279,9 @@ public class UtilText {
 		}
 		for(LegConfiguration legConf : LegConfiguration.values()) {
 			engine.put("LEG_CONFIGURATION_"+legConf.toString(), legConf);
+		}
+		for(FootStructure footStructure : FootStructure.values()) {
+			engine.put("FOOT_STRUCTURE_"+footStructure.toString(), footStructure);
 		}
 		for(BodyMaterial material : BodyMaterial.values()) {
 			engine.put("BODY_MATERIAL_"+material.toString(), material);

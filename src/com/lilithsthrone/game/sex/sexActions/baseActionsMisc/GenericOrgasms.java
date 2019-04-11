@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -1975,22 +1976,40 @@ public class GenericOrgasms {
 		}
 		
 		if(characterOrgasming.isVaginaSquirter()) {
-			if(characterOrgasming.isPlayer()) {
-				genericOrgasmSB.append(" As your inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from your [npc.pussy+].");
-				if(targetArea == OrgasmCumTarget.LILAYA_PANTIES) {
-					genericOrgasmSB.append(" You quickly drop Lilaya's panties down between your legs, squirting directly into her underwear as you let out [pc.a_moan+].");
-					LilayasRoom.lilayasPanties.setDirty(true);
-				}
+			genericOrgasmSB.append("<br/>As [npc.namePos] inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from [npc.her] [npc.pussy+].");
+			
+			if(targetArea == OrgasmCumTarget.LILAYA_PANTIES) {
+				genericOrgasmSB.append("<br/>You quickly drop Lilaya's panties down between your legs, squirting directly into her underwear as you let out [pc.a_moan+].");
+				LilayasRoom.lilayasPanties.setDirty(true);
+				
 			} else {
-				genericOrgasmSB.append(" As [npc.namePos] inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from [npc.her] [npc.pussy+].");
+				AbstractClothing vaginaClothing = Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA);
+				if(vaginaClothing!=null) {
+					if(!vaginaClothing.getItemTags().contains(ItemTag.PLUGS_VAGINA)
+							&& !vaginaClothing.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
+						genericOrgasmSB.append(" [npc.She] [npc.verb(let)] out a deep sigh as [npc.she] [npc.verb(feel)] [npc.her] "
+							+vaginaClothing.getName()+" "+(vaginaClothing.getClothingType().isPlural()?"are":"is")+" quickly getting dirtied by [npc.her] fluids.");
+						
+					} else {
+						genericOrgasmSB.append(" As [npc.her] "+vaginaClothing.getName()+" "+(vaginaClothing.getClothingType().isPlural()?"are":"is")+" sealing [npc.her] [npc.pussy], nothing gets dirtied by [npc.her] fluids.");
+					}
+					vaginaClothing.setDirty(true);
+					
+				} else {
+					Set<GameCharacter> charactersEatingOut = new HashSet<>(Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE));
+					charactersEatingOut.addAll(Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaOrifice.MOUTH));
+					
+					for(GameCharacter character : charactersEatingOut) { // Should only be one character
+						genericOrgasmSB.append(UtilText.parse(characterOrgasming, character,
+								" As [npc2.nameIsFull] eating [npc.herHim] out, [npc.namePos] fluids squirt out both into [npc2.her] mouth, as well as all over [npc2.her] [npc2.face]."));
+					}
+				}
 			}
 		}
 		
-		if(characterOrgasming.isPlayer()) {	
-			genericOrgasmSB.append(" With a deeply-satisfied sigh, your feminine climax starts to fade, and you take a few deep gasps of air as you seek to catch your breath.");
-		} else {
-			genericOrgasmSB.append(" With a deeply-satisfied sigh, [npc.namePos] feminine climax starts to fade, and [npc.she] takes a few deep gasps of air as [npc.she] seeks to catch [npc.her] breath.");
-		}
+		//TODO into underwear, or oral eating out
+		
+		genericOrgasmSB.append("<br/>With a deeply-satisfied sigh, [npc.namePos] feminine climax starts to fade, and [npc.she] [npc.verb(take)] a few deep gasps of air as [npc.she] [npc.verb(seek)] to catch [npc.her] breath.");
 		
 		if(characterPenetrating!=null) {
 			return UtilText.parse(characterOrgasming, characterPenetrating, genericOrgasmSB.toString());
@@ -4746,7 +4765,7 @@ public class GenericOrgasms {
 			} else {
 				if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA)) {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "
-							+(Sex.getCharacterPerformingAction().isVisiblyPregnant()
+							+(Sex.getCharacterPerformingAction().isVisiblyPregnant() || Sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.MENOPAUSE)
 									?"[npc.speech(Pull out! I don't want you to cum in me!)]"
 									:"[npc.speech(Pull out! I don't want to get pregnant!)]");
 
