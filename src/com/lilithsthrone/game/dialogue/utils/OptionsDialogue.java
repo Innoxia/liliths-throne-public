@@ -1817,11 +1817,18 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.sillyMode)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"OPPORTUNISTIC_ATTACKERS",
-					Colour.BASE_CRIMSON,
-					"Opportunistic attackers",
-					"This makes random attacks more likely when you're high on lust, low on energy, covered in fluids, exposed, or drunk.",
-					Main.game.isOpportunisticAttackersEnabled()));
+							"OPPORTUNISTIC_ATTACKERS",
+							Colour.BASE_CRIMSON,
+							"Opportunistic attackers",
+							"This makes random attacks more likely when you're high on lust, low on energy, covered in fluids, exposed, or drunk.",
+							Main.game.isOpportunisticAttackersEnabled()));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"BYPASS_SEX_ACTIONS",
+							Colour.BASE_PINK,
+							"Sex action bypass",
+							"If disabled, action requirements during sex may no longer be bypassed. (i.e. All 'Corruptive' actions will be unavailable.)",
+							Main.getProperties().hasValue(PropertyValue.bypassSexActions)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"VOLUNTARY_NTR",

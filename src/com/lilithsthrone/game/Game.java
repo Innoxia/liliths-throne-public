@@ -3559,4 +3559,8 @@ public class Game implements XMLSaving {
 	public boolean isOpportunisticAttackersEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.opportunisticAttackers);
 	}
+	
+	public boolean isBypassSexActions() {
+		return Main.getProperties().hasValue(PropertyValue.bypassSexActions);
+	}
 }
