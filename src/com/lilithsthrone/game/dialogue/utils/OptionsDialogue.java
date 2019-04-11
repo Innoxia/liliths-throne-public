@@ -584,14 +584,6 @@ public class OptionsDialogue {
 						 );
 			}
 
-			UtilText.nodeContentSB.append("<p><b>Other difficulty/scenario options:<b></p>");
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"SPITTING_DISABLED",
-					Colour.BASE_BLUE,
-					"Spitting disallowed",
-					"Forced TF may not be avoided by spitting/denying.",
-					Main.game.isSpittingDisabled()));
-
 			UtilText.nodeContentSB.append("</p>");
 			
 			return UtilText.nodeContentSB.toString();
@@ -1970,6 +1962,13 @@ public class OptionsDialogue {
 							Main.getProperties().forcedTFPercentage,
 							0,
 							100));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"SPITTING_ENABLED",
+					Colour.BASE_BLUE,
+					"Rejecting TF potions",
+					"Forced TF potions may be spat out if this is enabled.",
+					!Main.game.isSpittingDisabled()));
 
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
 			UtilText.nodeContentSB.append((Main.getProperties().getForcedTFTendency()==ForcedTFTendency.NEUTRAL

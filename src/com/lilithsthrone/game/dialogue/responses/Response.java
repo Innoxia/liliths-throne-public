@@ -662,6 +662,6 @@ public class Response {
 	}
 
 	public static Response getDisallowedSpittingResponse(String desc) {
-		return new Response(desc, "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Spitting disallowed</b>Your opponent won't allow you to resist.", null);
+		return new Response(desc, "[style.italicsBad(Rejection of TF potions is disabled!)]<br/>Your opponent is forcing you to drink down the potion!", null);
 	}
 }

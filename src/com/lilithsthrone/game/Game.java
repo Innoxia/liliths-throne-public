@@ -3553,6 +3553,6 @@ public class Game implements XMLSaving {
 	}
 
 	public boolean isSpittingDisabled() {
-		return Main.getProperties().hasValue(PropertyValue.spittingDisabled);
+		return !Main.getProperties().hasValue(PropertyValue.spittingEnabled);
 	}
 }
