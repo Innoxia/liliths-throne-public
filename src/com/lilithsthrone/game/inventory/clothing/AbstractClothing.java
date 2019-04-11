@@ -673,9 +673,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	@Override
 	public Rarity getRarity() {
-		
 		if(this.isCondom()) {
-			if(this.getEffects().get(0).getPotency().isNegative()) {
+			if(!this.getEffects().isEmpty() && this.getEffects().get(0).getPotency().isNegative()) {
 				return Rarity.JINXED;
 			} else {
 				return rarity;

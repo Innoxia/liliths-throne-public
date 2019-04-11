@@ -224,6 +224,7 @@ public class Ralph extends NPC {
 		clearNonEquippedInventory();
 		
 		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false);
+		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false);
 		
 		for(AbstractItemType item : ItemType.getAllItems()) {
 			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {

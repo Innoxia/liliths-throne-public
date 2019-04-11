@@ -2698,11 +2698,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		partner.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
 		
 		if(isDom) {
-			this.setSexAsDomCount(partner, this.getSexAsSubCount(partner)+1);
-			partner.setSexAsSubCount(partner, partner.getSexAsSubCount(partner)+1);
+			this.setSexAsDomCount(partner, this.getSexAsDomCount(partner)+1);
+			partner.setSexAsSubCount(this, partner.getSexAsSubCount(this)+1);
 			
 		} else {
-			partner.setSexAsDomCount(partner, partner.getSexAsSubCount(partner)+1);
+			partner.setSexAsDomCount(this, partner.getSexAsDomCount(this)+1);
 			this.setSexAsSubCount(partner, this.getSexAsSubCount(partner)+1);
 		}
 		

@@ -45,7 +45,7 @@ public class SMVanessaOral extends SexManagerDefault {
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
 		if(character.isPlayer() && !Sex.isDom(character)) {
-			return SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS;
+			return SexControl.ONGOING_ONLY;
 		}
 		return super.getSexControl(character);
 	}

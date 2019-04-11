@@ -3250,6 +3250,7 @@ public enum Subspecies {
 							return CharacterUtils.generateHalfDemonBody(linkedCharacter, mother.getHalfDemonSubspecies(), true);
 					}
 				}
+			case IMP_ALPHA:
 			case IMP:
 				switch(fatherSubspecies) {
 					case IMP:

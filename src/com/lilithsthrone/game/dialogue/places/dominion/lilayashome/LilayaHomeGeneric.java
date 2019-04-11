@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -369,7 +370,7 @@ public class LilayaHomeGeneric {
 							if(milked < getMilkingTarget().getBreastRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(getMilkingTarget())) {
 								milked = (int) Math.min(getMilkingTarget().getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(getMilkingTarget()));
 							}
-							room.incrementFluidStored(getMilkingTarget(), getMilkingTarget().getMilk(), milked);
+							room.incrementFluidStored(new FluidStored(getMilkingTarget().getId(), getMilkingTarget().getMilk(), milked), milked);
 							getMilkingTarget().incrementBreastStoredMilk(-milked);
 
 							if(getMilkingTarget().isPlayer()) {
@@ -444,7 +445,7 @@ public class LilayaHomeGeneric {
 						@Override
 						public void effects() {
 							int milked = MilkingRoom.getActualCumPerHour(getMilkingTarget());
-							room.incrementFluidStored(getMilkingTarget(), getMilkingTarget().getCum(), milked);
+							room.incrementFluidStored(new FluidStored(getMilkingTarget(), getMilkingTarget().getCum(), milked), milked);
 
 							if(getMilkingTarget().isPlayer()) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/milking", "MILKING_COCK_PLAYER"));
@@ -511,7 +512,7 @@ public class LilayaHomeGeneric {
 						@Override
 						public void effects() {
 							int milked = MilkingRoom.getActualGirlcumPerHour(getMilkingTarget());
-							room.incrementFluidStored(getMilkingTarget(), getMilkingTarget().getGirlcum(), milked);
+							room.incrementFluidStored(new FluidStored(getMilkingTarget().getId(), getMilkingTarget().getGirlcum(), milked), milked);
 							
 							if(getMilkingTarget().isPlayer()) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/milking", "MILKING_PUSSY_PLAYER"));
@@ -603,7 +604,7 @@ public class LilayaHomeGeneric {
 							if(milked < getMilkingTarget().getBreastCrotchRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(getMilkingTarget())) {
 								milked = (int) Math.min(getMilkingTarget().getBreastCrotchRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(getMilkingTarget()));
 							}
-							room.incrementFluidStored(getMilkingTarget(), getMilkingTarget().getMilkCrotch(), milked);
+							room.incrementFluidStored(new FluidStored(getMilkingTarget().getId(), getMilkingTarget().getMilkCrotch(), milked), milked);
 							getMilkingTarget().incrementBreastCrotchStoredMilk(-milked);
 
 							if(getMilkingTarget().isPlayer()) {

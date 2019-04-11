@@ -359,7 +359,6 @@ public enum WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.CITY_HALL_WAITING_AREA),
 					new Value<>(new Color(0xff8000), PlaceType.CITY_HALL_OFFICE),
 					new Value<>(new Color(0x00ff00), PlaceType.CITY_HALL_STAIRS),
-					new Value<>(new Color(0x0000ff), PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS_CORRIDOR),
 					new Value<>(new Color(0xff0080), PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS),
 					new Value<>(new Color(0xff00ff), PlaceType.CITY_HALL_ARCHIVES),
 					new Value<>(new Color(0xffff80), PlaceType.CITY_HALL_BUREAU_OF_PROPERTY_RIGHTS_AND_COMMERCE))),

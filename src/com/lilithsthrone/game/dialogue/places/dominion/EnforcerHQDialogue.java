@@ -1390,7 +1390,7 @@ public class EnforcerHQDialogue {
 						+ "[pc.speech(I'm here to find out what's happened to my friend, Arthur. His apartment was empty, and your name was on the arrest warrant stamped to his door.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As you mention Arthur's name, [brax.name] lets out a dismissive grunt, and as you finish speaking, he stands up behind his desk. "
+						+ "As you mention Arthur's name, [brax.name] lets out a dismissive grunt, and as you finish speaking, he huffs, "
 						+ "[brax.speech(As if I'd tell you that! You come barging into my office, then expect me to hand out classified information?! I think I know exactly what punishment you deserve!)]"
 					+ "</p>"
 					+ "<p>"

@@ -577,7 +577,7 @@ public class Sex {
 			
 			initialSexActionSB.setLength(0);
 			if(sexAction.isAppendDescription()) {
-				initialSexActionSB.append("<p>" + sexAction.getSexAction().getDescription() + "</p>");
+				initialSexActionSB.append("<p>" + sexAction.getSexAction().getDescription() + sexAction.getSexAction().getFlavourDescription(sexAction.getPerformer(), sexAction.getTarget()) + "</p>");
 			}
 			String endString = sexAction.getSexAction().baseEffects();
 			if(sexAction.isAppendEffects()) {
@@ -1331,7 +1331,7 @@ public class Sex {
 //		startTurnPlayerArousal = Main.game.getPlayer().getArousal(); //TODO test
 //		System.out.println("startTurnPlayerArousal: "+startTurnPlayerArousal);
 		
-		sexSB.append("<p>" + sexActionPlayer.getDescription() + "</p>");
+		sexSB.append("<p>" + sexActionPlayer.getDescription() + sexActionPlayer.getFlavourDescription(Main.game.getPlayer(), Sex.getTargetedPartner(Main.game.getPlayer())) + "</p>");
 		
 		String endString = sexActionPlayer.baseEffects();
 		
@@ -1393,6 +1393,7 @@ public class Sex {
 										+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>&gt; "+UtilText.parse(character, "[npc.Name]")+": "+(Util.capitaliseSentence(sexActionPartner.getActionTitle()))+"</span>"
 										+ "</br>"
 										+ sexActionPartner.getDescription()
+										+ sexActionPartner.getFlavourDescription(character, Sex.getTargetedPartner(character))
 									+ "</p>");
 				
 							endString = sexActionPartner.baseEffects();
@@ -1579,6 +1580,11 @@ public class Sex {
 											
 													@Override
 													public String getDescription() {
+														return "";
+													}
+											
+													@Override
+													public String getFlavourDescription(GameCharacter performing, GameCharacter receiving) {
 														return "";
 													}
 													
@@ -1916,12 +1922,13 @@ public class Sex {
 			if(Sex.getSexPositionSlot(activeCharacter)!=SexSlotGeneric.MISC_WATCHING || entry.getKey().equals(activeCharacter)) { // Spectators only influence themselves.
 				boolean foreplay = Sex.isInForeplay(entry.getKey());
 				float arousal = entry.getValue();
-
+				
 				// Raises the cap for positive arousal increments:
-				int arousalCapIncrease = Math.min(10,
+				int arousalCapIncrease = Math.max(0,
+						Math.min(10,
 						entry.getKey().equals(activeCharacter)
 							?activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null)
-							:entry.getKey().calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null));
+							:entry.getKey().calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null)));
 				
 				if(Sex.isMasturbation()) {
 					arousal*=2;
@@ -1935,8 +1942,11 @@ public class Sex {
 					
 				} else {
 					float increment = Math.min(
-							(5f+arousalCapIncrease)/Sex.getTotalParticipantCount(false),
+							(5f+arousalCapIncrease)/(Math.min(2, Sex.getTotalParticipantCount(false))),
 							arousal * entry.getKey().getLustLevel().getArousalModifier()); // Modify arousal value based on lust
+					
+					if(increment<0)
+					System.out.println(entry.getKey().getName(false)+": "+increment);
 					
 					entry.getKey().incrementArousal(increment);
 				}
@@ -2050,6 +2060,18 @@ public class Sex {
 					charactersEatingOut.addAll(getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaOrifice.MOUTH));
 					
 					for(GameCharacter character : charactersEatingOut) {
+						List<InventorySlot> squirterSlots = Util.newArrayListOfValues(InventorySlot.MOUTH, InventorySlot.EYES, InventorySlot.HAIR);
+						for(InventorySlot slot : squirterSlots) {
+							List<AbstractClothing> dirtyClothing = character.getVisibleClothingConcealingSlot(slot);
+							if(!dirtyClothing.isEmpty()) {
+								for(AbstractClothing c : dirtyClothing) {
+									c.setDirty(true);
+								}
+							} else {
+								character.addDirtySlot(slot);
+							}
+						}
+						
 						stringBuilderForAppendingDescriptions.append(character.ingestFluid(
 								Sex.getCharacterPerformingAction(),
 								Sex.getCharacterPerformingAction().getGirlcum(),

@@ -870,7 +870,7 @@ public class LyssiethPalaceDialogue {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Lyssieth.class).cleanAllDirtySlots();
-						Main.game.getNpc(Lyssieth.class).cleanAllClothing();
+						Main.game.getNpc(Lyssieth.class).cleanAllClothing(true);
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 					}
 				};

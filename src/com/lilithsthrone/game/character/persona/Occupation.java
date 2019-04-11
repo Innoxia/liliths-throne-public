@@ -316,6 +316,7 @@ public enum Occupation {
 	public Perk getAssociatedPerk() {
 		return associatedPerk;
 	}
+	
 	public String getName() {
 		return name;
 	}

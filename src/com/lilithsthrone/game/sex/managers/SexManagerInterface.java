@@ -160,6 +160,9 @@ public interface SexManagerInterface {
 		}
 		
 		if(Sex.isDom(partner) && (!Sex.isConsensual() || subsResisting || !Sex.isSubHasEqualControl() || (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
+			if(Sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()*2) {
+				return true;
+			}
 			return domsSatisfied;
 			
 		} else if(Sex.getSexControl(partner)!=SexControl.FULL) {

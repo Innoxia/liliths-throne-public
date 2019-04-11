@@ -1,8 +1,12 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -14,13 +18,29 @@ import com.lilithsthrone.world.WorldType;
  * @author Innoxia
  */
 public class OffspringMapDialogue {
-
+	
+	private static List<NPC> getOffspringList() {
+		WorldType worldType = Main.game.getPlayer().getWorldLocation();
+		
+		return Main.game.getOffspringNotSpawned(npc->
+			npc.getSubspecies().getWorldLocations().keySet().contains(worldType)
+			|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
+					&& (npc.getSubspecies()==Subspecies.ANGEL
+						|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
+						|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
+			|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
+					&& (npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
+						|| npc.getSubspecies()==Subspecies.SLIME
+						|| npc.getSubspecies()==Subspecies.RAT_MORPH)));
+	}
+	
+	
 	public static final DialogueNode OFFSPRING_CHOICE = new DialogueNode("Offspring list", "-", true) {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			boolean noOffspring = Main.game.getOffspringNotSpawned(npc->npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)).isEmpty();
+			boolean noOffspring = getOffspringList().isEmpty();
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
@@ -37,7 +57,7 @@ public class OffspringMapDialogue {
 					
 				} else {
 					for(NPC npc : Main.game.getOffspringNotSpawned(npc->true)) {
-						if(!npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)) {
+						if(!getOffspringList().contains(npc)) {
 							UtilText.nodeContentSB.append("[style.colourDisabled("+npc.getName(true)+")] ("+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+")"
 									+ " Mother: "+npc.getMother().getName(true)
 									+ " Father: "+npc.getFather().getName(true)+"<br/>");
@@ -62,7 +82,7 @@ public class OffspringMapDialogue {
 			} else if(index-1 < Main.game.getOffspringNotSpawned(npc->true).size()) {
 				NPC offspring = Main.game.getOffspringNotSpawned(npc->true).get(index-1);
 				
-				if(!offspring.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)) {
+				if(!getOffspringList().contains(offspring)) {
 					return new Response(offspring.getName(true),
 							UtilText.parse(offspring,"[npc.Name] cannot be found in Dominion, due to [npc.her] subspecies..."),
 							null);

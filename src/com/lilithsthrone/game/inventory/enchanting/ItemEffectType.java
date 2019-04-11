@@ -86,6 +86,18 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType REFORGE_HAMMER = new AbstractItemEffectType(Util.newArrayListOfValues(
+				"Changes a weapon's damage type."),
+			Colour.GENERIC_ARCANE) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return "<p>"
+					+ "You use the reforge hammer."
+					+ "</p>";
+		}
+	};
+	
 	public static AbstractItemEffectType USED_CONDOM_DRINK = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"Provides a slimy snack."),
 			Colour.GENERIC_SEX) {

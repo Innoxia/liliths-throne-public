@@ -930,7 +930,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public boolean isAnyClothingDirty() {
-		for(AbstractClothing c : this.getAllClothingInInventory().keySet()) {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			if(c.isDirty()) {
 				return true;
 			}
@@ -938,18 +938,20 @@ public class CharacterInventory implements XMLSaving {
 		return false;
 	}
 	
-	public void cleanAllClothing() {
+	public void cleanAllClothing(boolean includeNotEquippedClothing) {
 		if(!isAnyClothingDirty()) {
 			return;
 		}
 		
-		HashMap<AbstractClothing, Integer> cleanedClothingMap = new HashMap<>(clothingDuplicates);
-		clothingDuplicates.clear();
-		
-		for(Entry<AbstractClothing, Integer> e : cleanedClothingMap.entrySet()) {
-			AbstractClothing c = e.getKey();
-			c.setDirty(false);
-			this.addClothing(c, e.getValue());
+		if(includeNotEquippedClothing) {
+			HashMap<AbstractClothing, Integer> cleanedClothingMap = new HashMap<>(clothingDuplicates);
+			clothingDuplicates.clear();
+			
+			for(Entry<AbstractClothing, Integer> e : cleanedClothingMap.entrySet()) {
+				AbstractClothing c = e.getKey();
+				c.setDirty(false);
+				this.addClothing(c, e.getValue());
+			}
 		}
 		
 		for(AbstractClothing c : clothingCurrentlyEquipped) {

@@ -1357,6 +1357,17 @@ public class InventoryDialogue {
 								} else if (!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
+								} else if(item.isBreakOutOfInventory()) {
+									return new ResponseEffectsOnly(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
+											item.getItemType().getUseTooltipDescription(owner, owner)){
+										@Override
+										public void effects(){
+											Main.game.getPlayer().useItem(item, inventoryNPC, false);
+											resetPostAction();
+										}
+									};
+									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
 											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
@@ -1405,6 +1416,20 @@ public class InventoryDialogue {
 									
 								} else if(!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
+									
+								} else if(item.isBreakOutOfInventory()) {
+									return new ResponseEffectsOnly(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)",
+											item.getItemType().getUseTooltipDescription(owner, owner)){
+										@Override
+										public void effects(){
+											int itemCount = Main.game.getPlayer().getItemCount(item);
+											for(int i=0;i<itemCount;i++) {
+												Main.game.getPlayer().useItem(item, inventoryNPC, false);
+											}
+											resetPostAction();
+										}
+									};
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
@@ -2005,6 +2030,17 @@ public class InventoryDialogue {
 								} else if (!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
+								} else if(item.isBreakOutOfInventory()) {
+									return new ResponseEffectsOnly(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
+											item.getItemType().getUseTooltipDescription(owner, owner)){
+										@Override
+										public void effects(){
+											Main.game.getPlayer().useItem(item, inventoryNPC, false);
+											resetPostAction();
+										}
+									};
+									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
@@ -2057,6 +2093,20 @@ public class InventoryDialogue {
 									
 								} else if(!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
+									
+								} else if(item.isBreakOutOfInventory()) {
+									return new ResponseEffectsOnly(
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)",
+											item.getItemType().getUseTooltipDescription(owner, owner)){
+										@Override
+										public void effects(){
+											int itemCount = Main.game.getPlayer().getItemCount(item);
+											for(int i=0;i<itemCount;i++) {
+												Main.game.getPlayer().useItem(item, inventoryNPC, false);
+											}
+											resetPostAction();
+										}
+									};
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(
@@ -2491,15 +2541,17 @@ public class InventoryDialogue {
 						}
 						
 					} else if (index==4) {
-						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+								|| Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+								|| Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 							boolean isDyeingStackItem = Main.game.getPlayer().getAllWeaponsInInventory().get(weapon) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
-								return new Response("Dye",
+								return new Response("Dye/Reforge",
 										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
-											:"Use a dye-brush to dye this weapon.",
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye or reforge this item."
+											:"Use a dye-brush or reforge hammer to alter this weapon's properties.",
 										DYE_WEAPON) {
 									@Override
 									public void effects() {
@@ -2507,10 +2559,10 @@ public class InventoryDialogue {
 									}
 								};
 							} else {
-								return new Response("Dye", "Your inventory is full, so you can't dye this weapon.", null);
+								return new Response("Dye/Reforge", "Your inventory is full, so you can't alter this weapon's properties.", null);
 							}
 						} else {
-							return new Response("Dye", "You'll need to find a dye-brush if you want to dye your weapons.", null);
+							return new Response("Dye/Reforge", "You'll need to find a dye-brush or reforge hammer if you want to alter this weapon's properties.", null);
 						}
 						
 					} else if(index == 5) {
@@ -2688,15 +2740,17 @@ public class InventoryDialogue {
 								};
 								
 							} else if (index==4) {
-								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+										|| Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+										|| Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 									boolean isDyeingStackItem = Main.game.getPlayer().getAllWeaponsInInventory().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
-										return new Response("Dye",
+										return new Response("Dye/Reforge",
 												Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
-													:"Use a dye-brush to dye this weapon.",
+													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye or reforge this item."
+													:"Use a dye-brush or reforge hammer to alter this weapon's properties.",
 												DYE_WEAPON) {
 											@Override
 											public void effects() {
@@ -2704,10 +2758,10 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Dye", "Your inventory is full, so you can't dye this weapon.", null);
+										return new Response("Dye/Reforge", "Your inventory is full, so you can't alter this weapon's properties.", null);
 									}
 								} else {
-									return new Response("Dye", "You'll need to find a dye-brush if you want to dye your weapons.", null);
+									return new Response("Dye/Reforge", "You'll need to find a dye-brush or reforge hammer if you want to alter this weapon's properties.", null);
 								}
 								
 							} else if(index == 5) {
@@ -2884,15 +2938,17 @@ public class InventoryDialogue {
 								}
 								
 							} else if (index==4) {
-								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+										|| Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+										|| Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 									boolean isDyeingStackItem = Main.game.getPlayer().getAllWeaponsInInventory().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
-										return new Response("Dye", 
+										return new Response("Dye/Reforge",
 												Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
-													:"Use a dye-brush to dye this weapon.",
+													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye or reforge this item."
+													:"Use a dye-brush or reforge hammer to alter this weapon's properties.",
 												DYE_WEAPON) {
 											@Override
 											public void effects() {
@@ -2900,10 +2956,10 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Dye", "Your inventory is full, so you can't dye this weapon.", null);
+										return new Response("Dye/Reforge", "Your inventory is full, so you can't alter this weapon's properties.", null);
 									}
 								} else {
-									return new Response("Dye", "You'll need to find a dye-brush if you want to dye your weapons.", null);
+									return new Response("Dye/Reforge", "You'll need to find a dye-brush or reforge hammer if you want to alter this weapon's properties.", null);
 								}
 								
 							} else if(index == 5) {
@@ -3021,15 +3077,17 @@ public class InventoryDialogue {
 						};
 						
 					} else if (index==4) {
-						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-							boolean hasFullInventory = Main.game.getPlayerCell().getInventory().isInventoryFull();
+						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+								|| Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+								|| Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							boolean hasFullInventory = Main.game.getPlayerCell().getInventory().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 							boolean isDyeingStackItem = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().get(weapon) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
-								return new Response("Dye", 
+								return new Response("Dye/Reforge",
 										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
-											:"Use a dye-brush to dye this weapon.",
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye or reforge this item."
+											:"Use a dye-brush or reforge hammer to alter this weapon's properties.",
 										DYE_WEAPON) {
 									@Override
 									public void effects() {
@@ -3037,10 +3095,10 @@ public class InventoryDialogue {
 									}
 								};
 							} else {
-								return new Response("Dye", "Your inventory is full, so you can't dye this weapon.", null);
+								return new Response("Dye/Reforge", "Your inventory is full, so you can't alter this weapon's properties.", null);
 							}
 						} else {
-							return new Response("Dye", "You'll need to find a dye-brush if you want to dye your weapons.", null);
+							return new Response("Dye/Reforge", "You'll need to find a dye-brush or reforge hammer if you want to alter this weapon's properties.", null);
 						}
 						
 					} else if(index == 5) {
@@ -3157,15 +3215,17 @@ public class InventoryDialogue {
 								};
 								
 							} else if (index==4) {
-								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-									boolean hasFullInventory = inventoryNPC.isInventoryFull();
+								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+										|| Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+										|| Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+									boolean hasFullInventory = inventoryNPC.isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 									boolean isDyeingStackItem = inventoryNPC.getAllWeaponsInInventory().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
-										return new Response("Dye", 
+										return new Response("Dye/Reforge",
 												Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
-													:"Use a dye-brush to dye this weapon.",
+													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye or reforge this item."
+													:"Use a dye-brush or reforge hammer to alter this weapon's properties.",
 												DYE_WEAPON) {
 											@Override
 											public void effects() {
@@ -3173,10 +3233,10 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is full, so you can't dye this weapon."), null);
+										return new Response("Dye/Reforge", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is full, so you can't alter this weapon's properties."), null);
 									}
 								} else {
-									return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find another dye-brush if you want to dye [npc.namePos] weapons."), null);
+									return new Response("Dye/Reforge", UtilText.parse(inventoryNPC, "You'll need to find a dye-brush or reforge hammer if you want to alter the properties of [npc.namePos] weapons."), null);
 								}
 								
 							} else if(index == 5) {
@@ -3855,7 +3915,7 @@ public class InventoryDialogue {
 										};
 									}
 								} else {
-									return new Response("Equip ([npc.Name])", clothing.getCannotBeEquippedText(inventoryNPC), null);
+									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), clothing.getCannotBeEquippedText(inventoryNPC), null);
 								}
 							
 							} else {
@@ -3920,17 +3980,17 @@ public class InventoryDialogue {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), "You cannot give away the " + clothing.getName() + "!", null);
 								}
 								if(!clothing.getClothingType().isCondom() && inventoryNPC.isUnique() && (!inventoryNPC.isSlave() || !inventoryNPC.getOwner().isPlayer())) {
-									return new Response("Equip ([npc.Name])",
+									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"),
 											UtilText.parse(inventoryNPC, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to wear the "+clothing.getName()+"."),
 											null);
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC)) {
 									if(clothing.getClothingType().isAbleToBeEquippedDuringSex()) {
 										if(!Sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
-											return new Response("Equip ([npc.Name])", "As this is a special sex scene, you cannot equip clothing during it!", null);
+											return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
 										if (inventoryNPC.isAbleToEquip(clothing, false, Main.game.getPlayer())) {
-											return new Response("Equip ([npc.Name])", UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."), Sex.SEX_DIALOGUE){
+											return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."), Sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
 													AbstractClothing c = clothing;
@@ -3949,7 +4009,7 @@ public class InventoryDialogue {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), "You can't equip clothing while having sex with someone!", null);
 									}
 								} else {
-									return new Response("Equip ([npc.Name])", clothing.getCannotBeEquippedText(inventoryNPC), null);
+									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), clothing.getCannotBeEquippedText(inventoryNPC), null);
 								}
 								
 							} else {
@@ -4430,7 +4490,7 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 								if(!clothing.getClothingType().isCondom() && inventoryNPC.isUnique() && (!inventoryNPC.isSlave() || !inventoryNPC.getOwner().isPlayer())) {
-									return new Response("Equip ([npc.Name])",
+									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"),
 											UtilText.parse(inventoryNPC, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to wear the "+clothing.getName()+"."),
 											null);
 								}
@@ -4469,7 +4529,7 @@ public class InventoryDialogue {
 										};
 									}
 								} else {
-									return new Response("Equip ([npc.Name])", clothing.getCannotBeEquippedText(inventoryNPC), null);
+									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), clothing.getCannotBeEquippedText(inventoryNPC), null);
 								}
 								
 							} else {
@@ -4531,17 +4591,17 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 								if(!clothing.getClothingType().isCondom() && inventoryNPC.isUnique() && (!inventoryNPC.isSlave() || !inventoryNPC.getOwner().isPlayer())) {
-									return new Response("Equip ([npc.Name])",
+									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"),
 											UtilText.parse(inventoryNPC, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to wear the "+clothing.getName()+"."),
 											null);
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC)) {
 									if(clothing.getClothingType().isAbleToBeEquippedDuringSex() && !inventoryNPC.isTrader()) {
 										if(!Sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
-											return new Response("Equip ([npc.Name])", "As this is a special sex scene, you cannot equip clothing during it!", null);
+											return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
 										if (inventoryNPC.isAbleToEquip(clothing, false, Main.game.getPlayer())) {
-											return new Response("Equip ([npc.Name])", UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."), Sex.SEX_DIALOGUE){
+											return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."), Sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
 													AbstractClothing c = clothing;
@@ -4560,7 +4620,7 @@ public class InventoryDialogue {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), "You can't equip this clothing while having sex with someone!", null);
 									}
 								} else {
-									return new Response("Equip ([npc.Name])", clothing.getCannotBeEquippedText(inventoryNPC), null);
+									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), clothing.getCannotBeEquippedText(inventoryNPC), null);
 								}
 								
 							} else {
@@ -4775,7 +4835,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if (index==4) {
-							return new Response("Dye", "You can't dye "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" weapons in combat!", null);
+							return new Response("Dye/Reforge", "You can't alter the properties of "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" weapons in combat!", null);
 							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);
@@ -4848,11 +4908,13 @@ public class InventoryDialogue {
 							}
 							
 						} else if (index==4) {
-							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-								return new Response("Dye", 
+							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+									|| Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+									|| Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+								return new Response("Dye/Reforge", 
 										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
-											:"Use a dye-brush to dye this weapon.",
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to alter this weapon's properties."
+											:"Use a dye-brush or reforge hammer to alter this weapon's properties.",
 										DYE_EQUIPPED_WEAPON) {
 									@Override
 									public void effects() {
@@ -4860,7 +4922,7 @@ public class InventoryDialogue {
 									}
 								};
 							} else {
-								return new Response("Dye", "You need a dye-brush in order to dye this weapon.", null);
+								return new Response("Dye", "You need a dye-brush or reforge hammer in order to alter this weapon's properties.", null);
 							}
 							
 						} else if(index == 5) {
@@ -4943,7 +5005,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if (index==4) {
-							return new Response("Dye", "You can't dye "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" weapons in sex!", null);
+							return new Response("Dye/Reforge", "You can't alter the proptries of "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" weapons in sex!", null);
 							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);
@@ -4968,7 +5030,7 @@ public class InventoryDialogue {
 							return new Response("Drop", "You can't make someone drop their weapon while fighting them!", null);
 							
 						} else if (index==4) {
-							return new Response("Dye", "You can't dye someone else's equipped weapons while you're fighting them!", null);
+							return new Response("Dye/Reforge", "You can't alter the properties of someone else's equipped weapons while you're fighting them!", null);
 							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant someone else's equipped weapon, especially not while fighting them!", null);
@@ -5041,20 +5103,21 @@ public class InventoryDialogue {
 							}
 							
 						} else if (index==4) {
-							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-								return new Response("Dye", 
+							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+									|| Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+									|| Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+								return new Response("Dye/Reforge", 
 										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
-											:"Use a dye-brush to dye this weapon.",
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to alter this weapon's properties."
+											:"Use a dye-brush or reforge hammer to alter this weapon's properties.",
 										DYE_EQUIPPED_WEAPON) {
 									@Override
 									public void effects() {
 										resetWeaponDyeColours();
 									}
 								};
-								
 							} else {
-								return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find a dye-brush if you want to dye [npc.namePos] weapons."), null);
+								return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find a dye-brush or reforge hammer if you want to alter the properties of [npc.namePos] weapons."), null);
 							}
 							
 						} else if(index == 5) {
@@ -5075,7 +5138,7 @@ public class InventoryDialogue {
 							return new Response("Drop", "You can't unequip someone's weapon while having sex with them!", null);
 							
 						} else if (index==4) {
-							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.namePos] weapons in sex!"), null);
+							return new Response("Dye/Reforge", UtilText.parse(inventoryNPC, "You can't alter the properties of [npc.namePos] weapons in sex!"), null);
 						
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);
@@ -5095,7 +5158,7 @@ public class InventoryDialogue {
 							return new Response("Drop", "You can't make someone drop their weapon!", null);
 							
 						} else if (index==4) {
-							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.namePos] weapons!"), null);
+							return new Response("Dye/Reforge", UtilText.parse(inventoryNPC, "You can't alter the properties of [npc.namePos] weapons!"), null);
 							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant someone else's equipped weapon!", null);
@@ -6101,6 +6164,8 @@ public class InventoryDialogue {
 		}
 	};
 
+	public static DamageType damageTypePreview;
+	
 	public static Colour dyePreviewPrimary;
 	public static Colour dyePreviewSecondary;
 	public static Colour dyePreviewTertiary;
@@ -6122,6 +6187,8 @@ public class InventoryDialogue {
 	private static void resetWeaponDyeColours() {
 		dyePreviewPrimary = weapon.getPrimaryColour();
 		dyePreviewSecondary = weapon.getSecondaryColour();
+		
+		damageTypePreview = weapon.getDamageType();
 	}
 	
 	private static String getClothingDyeUI() {
@@ -6288,7 +6355,7 @@ public class InventoryDialogue {
 				+ "<div class='container-full-width'>"
 					+ "<div class='inventoryImage'>"
 						+ "<div class='inventoryImage-content'>"
-							+ weapon.getWeaponType().getSVGImage(weapon.getDamageType(), dyePreviewPrimary, dyePreviewSecondary)
+							+ weapon.getWeaponType().getSVGImage(damageTypePreview, dyePreviewPrimary, dyePreviewSecondary)
 						+ "</div>"
 					+ "</div>"
 					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>");
@@ -6297,11 +6364,11 @@ public class InventoryDialogue {
 		inventorySB.append("<div class='container-quarter-width' style='text-align:center;'>"
 				+ "<b>Damage type:</b>");
 		for(DamageType dt : weapon.getWeaponType().getAvailableDamageTypes()) {
-			if(weapon.getDamageType()==dt) {
-				inventorySB.append("<br/><b style='color:"+weapon.getDamageType().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(weapon.getDamageType().getName())+"</b>");
-			} else {
-				inventorySB.append("<br/>[style.colourDisabled("+Util.capitaliseSentence(dt.getName())+")]");
-			}
+			inventorySB.append("<br/>"
+					+ "<div class='normal-button' id='DAMAGE_TYPE_" + weapon.getWeaponType().hashCode() + "_" + dt.toString() + "'"
+							+ "style='width:75%; color:"+(damageTypePreview==dt?dt.getColour().toWebHexString():Colour.TEXT_GREY.toWebHexString())+";'>"
+						+ Util.capitaliseSentence(dt.getName())
+					+ "</div>");
 		}
 		inventorySB.append("</div>");
 
@@ -6627,6 +6694,13 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
+				if (!Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+						&& !Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					return new Response("Dye",
+							"You do not have a dye-brush, so cannot change the colours of the " + weapon.getName() + "...",
+							null); 
+				}
+				
 				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
@@ -6681,8 +6755,148 @@ public class InventoryDialogue {
 					}
 				};
 
-			} else
+			} else if (index == 2) {
+				if (!Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+						&& !Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					return new Response("Reforge",
+							"You do not have a reforging hammer, so cannot change the damage type of the " + weapon.getName() + "...",
+							null); 
+				}
+				
+				if(damageTypePreview == weapon.getDamageType()) {
+					return new Response("Reforge",
+							"You need to choose a different damage type before being able to reforge the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				return new Response("Reforge",
+						"Reforge the " + weapon.getName() + " into the damage type you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can reforge it at any time."
+										:" This action is permanent, and you'll need another reforging hammer if you want to change its damage type again."),
+						INVENTORY_MENU){
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), owner, false);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+									+ "</p>"
+									+ "<p>"
+										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " reforged</b>!"
+									+ "</p>"
+									+ "<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER))
+														+ "</b> reforging " + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER)) == 1 ? "hammer" : "hammers") + " left!"
+												:"You have <b>0</b> reforging hammers left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to reforge the " + weapon.getName() + " without needing to use a reforging hammer!"
+										+ "</p>");
+						}
+						 
+						if(owner!=null) {
+							owner.removeWeapon(weapon);
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							owner.addWeapon(modifiedWeapon, false);
+
+						} else {
+							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							Main.game.getPlayerCell().getInventory().addWeapon(modifiedWeapon);
+						}
+					}
+				};
+
+			} else if (index == 3) {
+				if ((!Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER) || !Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH))
+						&& !Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					return new Response("Dye & reforge",
+							"You do not have both a dye brush and a reforging hammer, so cannot dye and reforge the " + weapon.getName() + "...",
+							null); 
+				}
+				
+				if(damageTypePreview == weapon.getDamageType()) {
+					return new Response("Dye & reforge",
+							"You need to choose a different damage type before being able to reforge the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+					return new Response("Dye & reforge",
+							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				return new Response("Dye & reforge",
+						"Dye and reforge the " + weapon.getName() + " into the colours and damage type you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye and reforge it at any time."
+										:" This action is permanent, and you'll need another dye-brush and another reforging hammer if you want to change its colours and damage type again."),
+						INVENTORY_MENU){
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), owner, false);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p style='text-align:center;'>"
+										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+									+ "</p>"
+									+ "<p>"
+										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " reforged</b>!"
+									+ "</p>"
+									+ "<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+										+"<br/>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER))
+														+ "</b> reforging " + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER)) == 1 ? "hammer" : "hammers") + " left!"
+												:"You have <b>0</b> reforging hammers left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye and reforge the " + weapon.getName() + " without needing to use a dye-brush or reforging hammer!"
+										+ "</p>");
+						}
+						
+						if(owner!=null) {
+							owner.removeWeapon(weapon);
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							owner.addWeapon(modifiedWeapon, false);
+
+						} else {
+							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							Main.game.getPlayerCell().getInventory().addWeapon(modifiedWeapon);
+						}
+					}
+				};
+
+			} else {
 				return null;
+			}
 		}
 
 		@Override
@@ -6704,6 +6918,13 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
+				if (!Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+						&& !Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					return new Response("Dye",
+							"You do not have a dye-brush, so cannot change the colours of the " + weapon.getName() + "...",
+							null); 
+				}
+				
 				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
@@ -6711,11 +6932,11 @@ public class InventoryDialogue {
 				}
 				
 				return new Response("Dye",
-								"Dye the " + weapon.getName() + " in the colours you have chosen."
-										+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-												?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye it a different colour at any time."
-												:" This action is permanent, and you'll need another dye-brush if you want to change its colour again."),
-								INVENTORY_MENU){
+						"Dye the " + weapon.getName() + " in the colours you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye it a different colour at any time."
+										:" This action is permanent, and you'll need another dye-brush if you want to change its colour again."),
+						INVENTORY_MENU){
 					@Override
 					public void effects(){
 						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
@@ -6740,14 +6961,130 @@ public class InventoryDialogue {
 											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + weapon.getName() + " without needing to use a dye-brush!"
 										+ "</p>");
 						}
-						
+							
 						weapon.setPrimaryColour(dyePreviewPrimary);
 						weapon.setSecondaryColour(dyePreviewSecondary);
 					}
 				};
 
-			} else
+			} else if (index == 2) {
+				if (!Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+						&& !Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					return new Response("Reforge",
+							"You do not have a reforging hammer, so cannot change the damage type of the " + weapon.getName() + "...",
+							null); 
+				}
+				
+				if(damageTypePreview == weapon.getDamageType()) {
+					return new Response("Reforge",
+							"You need to choose a different damage type before being able to reforge the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				return new Response("Reforge",
+						"Reforge the " + weapon.getName() + " into the damage type you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can reforge it at any time."
+										:" This action is permanent, and you'll need another reforging hammer if you want to change its damage type again."),
+						INVENTORY_MENU){
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), owner, false);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+									+ "</p>"
+									+ "<p>"
+										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " reforged</b>!"
+									+ "</p>"
+									+ "<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER))
+														+ "</b> reforging " + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER)) == 1 ? "hammer" : "hammers") + " left!"
+												:"You have <b>0</b> reforging hammers left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to reforge the " + weapon.getName() + " without needing to use a reforging hammer!"
+										+ "</p>");
+						}
+						
+						weapon.setDamageType(damageTypePreview);
+					}
+				};
+
+			} else if (index == 3) {
+				if ((!Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER) || !Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH))
+						&& !Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					return new Response("Dye & reforge",
+							"You do not have both a dye brush and a reforging hammer, so cannot dye and reforge the " + weapon.getName() + "...",
+							null); 
+				}
+				
+				if(damageTypePreview == weapon.getDamageType()) {
+					return new Response("Dye & reforge",
+							"You need to choose a different damage type before being able to reforge the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+					return new Response("Dye & reforge",
+							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				return new Response("Dye & reforge",
+						"Dye and reforge the " + weapon.getName() + " into the colours and damage type you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye and reforge it at any time."
+										:" This action is permanent, and you'll need another dye-brush and another reforging hammer if you want to change its colours and damage type again."),
+						INVENTORY_MENU){
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), owner, false);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p style='text-align:center;'>"
+										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+									+ "</p>"
+									+ "<p>"
+										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " reforged</b>!"
+									+ "</p>"
+									+ "<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+										+"<br/>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER))
+														+ "</b> reforging " + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER)) == 1 ? "hammer" : "hammers") + " left!"
+												:"You have <b>0</b> reforging hammers left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye and reforge the " + weapon.getName() + " without needing to use a dye-brush or reforging hammer!"
+										+ "</p>");
+						}
+						
+						weapon.setDamageType(damageTypePreview);
+						weapon.setPrimaryColour(dyePreviewPrimary);
+						weapon.setSecondaryColour(dyePreviewSecondary);
+					}
+				};
+
+			} else {
 				return null;
+			}
 		}
 
 		@Override

@@ -61,6 +61,8 @@ public interface SexActionInterface {
 	public abstract String getActionDescription();
 	
 	public abstract String getDescription();
+	
+	public abstract String getFlavourDescription(GameCharacter performing, GameCharacter receiving);
 
 	public CorruptionLevel getCorruptionNeeded();
 	

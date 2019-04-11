@@ -441,6 +441,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Goldmember", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Grakcnar", "", 0, 0, 9, 0));
 		credits.add(new CreditsSlot("Grave Indignation", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("GravyRainbow", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("WodashGSJ", "", 0, 0, 15, 0));
 		credits.add(new CreditsSlot("Aceofspades", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Assiyalos", "", 0, 0, 9, 0));
@@ -526,6 +527,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Raruke", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("The Void Prince", "", 0, 0, 13, 0));
 		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 19));
+		credits.add(new CreditsSlot("Arpie", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Reila Oda", "", 0, 0, 0, 9));
 		credits.add(new CreditsSlot("Roarik", "", 0, 0, 0, 10));
 		credits.add(new CreditsSlot("Dark_Lord", "", 0, 0, 2, 6));
