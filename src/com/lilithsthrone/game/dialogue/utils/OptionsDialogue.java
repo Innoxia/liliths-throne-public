@@ -583,7 +583,15 @@ public class OptionsDialogue {
 							:"<span style='color:"+dl.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(dl.getName())+"</span> [style.colourDisabled("+dl.getDescription()+")]")
 						 );
 			}
-			
+
+			UtilText.nodeContentSB.append("<p><b>Other difficulty/scenario options:<b></p>");
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"SPITTING_DISABLED",
+					Colour.BASE_BLUE,
+					"Spitting disallowed",
+					"Forced TF may not be avoided by spitting/denying.",
+					Main.game.isSpittingDisabled()));
+
 			UtilText.nodeContentSB.append("</p>");
 			
 			return UtilText.nodeContentSB.toString();

@@ -242,6 +242,7 @@ public class TunnelImpsDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(potion != null) {
 				if (index == 1) {
+					if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse();
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
@@ -314,6 +315,7 @@ public class TunnelImpsDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(companionPotion != null) {
 				if (index == 1) {
+					if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse();
 					return new Response("Order spit",
 							UtilText.parse(getMainCompanion(), "Tell [npc.name] to spit out the potion the imps are trying to force [npc.herHim] to drink."
 									+ (getMainCompanion().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)
@@ -416,6 +418,7 @@ public class TunnelImpsDialogue {
 				Util.Value<String, AbstractItem> companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), false);
 				
 				if (index == 1) {
+					if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse();
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
 									"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
@@ -505,6 +508,7 @@ public class TunnelImpsDialogue {
 					};
 					
 				} else if (index == 6) {
+					if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse("Spit (both)");
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit (both)",
 								UtilText.parse(getMainCompanion(),
@@ -612,6 +616,7 @@ public class TunnelImpsDialogue {
 				Util.Value<String, AbstractItem> potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), false);
 				
 				if (index == 1) {
+					if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse();;
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
@@ -664,6 +669,7 @@ public class TunnelImpsDialogue {
 							null);
 					
 				}  else if (index == 7) {
+					if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse("Spit (both)");
 					return new Response("Spit (both)",
 							UtilText.parse(getMainCompanion(), "As the imps are unable to access [npc.namePos] mouth, they are not attempting to force [npc.herHim] to drink their transformative potion."),
 							null);
@@ -680,6 +686,7 @@ public class TunnelImpsDialogue {
 					return new Response("Swallow", UtilText.parse(getMainCompanion(),"As the imps cannot gain access to your mouth, they are ignoring you and focusing on transforming [npc.name]!"), null);
 					
 				} else if (index == 6) {
+					if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse("Order spit");
 					return new Response("Order spit",
 							UtilText.parse(getMainCompanion(), "Tell [npc.name] to spit out the potion the imps are trying to force [npc.herHim] to drink."
 									+ (getMainCompanion().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)

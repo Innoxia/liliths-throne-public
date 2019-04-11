@@ -141,7 +141,8 @@
 		Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)
 		Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)
 		Added a configurable chance for NPCs' forced TFs to change you into a random race, rather than their race. (PR#1101 by Eliria)
-		made imp fortress subspecies checks null-safe. (PR#1105 by Niranufoti)
+		Made imp fortress subspecies checks null-safe. (PR#1105 by Niranufoti)
+		Add difficulty option: No Spitting. (PR#1111 by 0d721077)
 		
 	Clothing:
 		Added: 'flats' (feminine, foot slot, sold by Nyan).
