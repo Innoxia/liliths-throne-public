@@ -174,14 +174,14 @@ public class PrologueDialogue {
 	};
 	
 
-	public static final DialogueNode AFTER_SEX = new DialogueNode("In the Museum", "", true) {
+	public static final DialogueNode AFTER_SEX = new DialogueNode("In the Museum", "Now that you've had your fun, you really should go and find your aunt Lily...", true) {
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(femalePrologueNPC()) {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueFemale.class))>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueFemale.class))>=Main.game.getNpc(PrologueFemale.class).getOrgasmsBeforeSatisfied()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_FEMALE_SATISFIED"));
 					
 				} else {
@@ -189,7 +189,7 @@ public class PrologueDialogue {
 				}
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueMale.class))>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueMale.class))>=Main.game.getNpc(PrologueMale.class).getOrgasmsBeforeSatisfied()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_MALE_SATISFIED"));
 					
 				} else {
@@ -704,10 +704,9 @@ public class PrologueDialogue {
 					@Override
 					public void effects() {
 						// Equip clothing:
-						List<AbstractClothing> tempList = new ArrayList<>();
-						tempList.addAll(Main.game.getPlayerCell().getInventory().getAllClothingInInventory());
+						List<AbstractClothing> tempList = new ArrayList<>(Main.game.getPlayerCell().getInventory().getAllClothingInInventory().keySet());
 
-						for (AbstractClothing c : tempList) {
+						for(AbstractClothing c : tempList) {
 							if(!c.getClothingType().equals(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES)) {
 								Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
 							}

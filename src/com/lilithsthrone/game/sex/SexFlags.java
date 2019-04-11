@@ -20,7 +20,6 @@ public class SexFlags {
 	// Generic:
 	public static boolean mutualOrgasmsAllowed;
 	public static List<GameCharacter> playerPreparedForCharactersOrgasm;
-	public static boolean playerGrewDemonicCock;
 
 	// Brax: TODO Temporary awaiting Brax rewrite
 	public static boolean braxCumOnChest;
@@ -49,8 +48,6 @@ public class SexFlags {
 		
 		mutualOrgasmsAllowed = true;
 		playerPreparedForCharactersOrgasm = new ArrayList<>();
-		
-		playerGrewDemonicCock = false;
 		
 		// Brax:
 		braxCumOnChest = false;

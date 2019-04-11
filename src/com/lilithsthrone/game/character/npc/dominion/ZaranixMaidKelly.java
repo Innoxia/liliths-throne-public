@@ -1,12 +1,13 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.time.Month;
+import java.time.Month; import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
@@ -99,7 +100,7 @@ public class ZaranixMaidKelly extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
 			this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		}
-		this.setDescription("One of Zaranix's succubi maid twins, Katherine is assigned by her master to keep the ground floor clean.");
+		this.setDescription("One of Zaranix's succubi maid twins, Kelly is assigned by her master to keep the ground floor clean.");
 	}
 	
 	@Override
@@ -213,9 +214,9 @@ public class ZaranixMaidKelly extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
 		
@@ -408,7 +409,7 @@ public class ZaranixMaidKelly extends NPC {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(ZaranixMaidKelly.class)) >= Main.game.getNpc(ZaranixMaidKelly.class).getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With a satisfied sigh, Kelly slumps back against the wall,"
@@ -423,7 +424,7 @@ public class ZaranixMaidKelly extends NPC {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With a desperate moan, Kelly slumps back against the wall,"
-							+ " [kelly.speech(~Ah!~ I didn't even get to cum!)]"
+							+ " [kelly.speech(~Ah!~ I need more!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Her hands instantly slip down between her legs, and, with an exceptionally lewd moan, she starts fingering herself."

@@ -1,12 +1,14 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -189,9 +191,9 @@ public class Ralph extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
@@ -221,11 +223,12 @@ public class Ralph extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25);
+		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false);
+		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false);
 		
 		for(AbstractItemType item : ItemType.getAllItems()) {
 			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
-				this.addItem(AbstractItemType.generateItem(item), 6+Util.random.nextInt(12));
+				this.addItem(AbstractItemType.generateItem(item), 6+Util.random.nextInt(12), false);
 			}
 		}
 		

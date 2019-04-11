@@ -627,7 +627,7 @@ public class PenisThighs {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.cock] in between [npc.her] [npc.legs+],"
-									+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull away.",
+									+ " and, struggling against [npc.herHim], [npc2.she] desperately [npc2.verb(try)] to pull away.",
 
 							" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep between [npc.her] thighs."));
 					break;

@@ -930,7 +930,7 @@ public class OccupantDialogue {
 			if(Sex.getAllParticipants().size()>2) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", occupant(), Main.game.getPlayer().getCompanions().get(0));
 				
-			} else if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			} else if(Sex.getNumberOfOrgasms(occupant()) >= occupant().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX", occupant());
 				
 			} else {
@@ -1621,8 +1621,8 @@ public class OccupantDialogue {
 		public String getContent() {
 			if(Sex.getAllParticipants().size()>2) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_AFTER_SEX_THREESOME", occupant(), Main.game.getPlayer().getCompanions().get(0));
-				
-			} else if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+
+			} else if(Sex.getNumberOfOrgasms(occupant()) >= occupant().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_AFTER_SEX", occupant());
 				
 			} else {

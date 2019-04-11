@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
+import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 
@@ -20,8 +23,10 @@ import com.lilithsthrone.utils.SvgUtil;
 public class Pattern {
 	
 	private static Map<String, Pattern> allPatterns;
+	private static Map<String, Pattern> defaultPatterns;
 	
 	private String name;
+	private String displayName;
 	
 	private boolean primaryRecolourAvailable;
 	private boolean secondaryRecolourAvailable;
@@ -32,16 +37,18 @@ public class Pattern {
 	
 	static {
 		allPatterns = new TreeMap<>();
+		defaultPatterns = new TreeMap<>();
 		
 		File dir = new File("res/patterns");
 		
 		allPatterns.put("none", new Pattern("none")); // Adding empty pattern
+		defaultPatterns.put("none", new Pattern("none"));
 		
 		if(dir.exists()) {
 			FilenameFilter textFilter = new FilenameFilter() {
 				public boolean accept(File dir, String name) {
 					String lowercaseName = name.toLowerCase();
-					if (lowercaseName.endsWith(".svg")) {
+					if (lowercaseName.endsWith(".xml")) {
 						return true;
 					} else {
 						return false;
@@ -50,14 +57,20 @@ public class Pattern {
 			};
 			
 			for(File subFile : dir.listFiles(textFilter)) {
-				if (subFile.exists()) {
-					try {
-						String newPatternName = subFile.getName().substring(0, subFile.getName().indexOf(".svg"));
-						allPatterns.put(newPatternName, new Pattern(newPatternName));
-						//System.out.println("Added Pattern: " + newPatternName);
-						
-					} catch(Exception ex) {
-					}
+				if(subFile.exists()) {
+					loadFromFile(subFile);
+					
+					
+//					try {
+//						String newPatternName = subFile.getName().substring(0, subFile.getName().indexOf(".svg"));
+//						allPatterns.put(newPatternName, new Pattern(newPatternName));
+//						if(!newPatternName.equalsIgnoreCase("rainbow")) {
+//							defaultPatterns.put(newPatternName, new Pattern(newPatternName));
+//						}
+//						//System.out.println("Added Pattern: " + newPatternName);
+//						
+//					} catch(Exception ex) {
+//					}
 				}
 			}
 		}
@@ -105,6 +118,32 @@ public class Pattern {
 		
 	}
 	
+	private static Pattern loadFromFile(File clothingXMLFile) {
+		try {
+			Element patternElement = Element.getDocumentRootElement(clothingXMLFile);
+			String loadedDisplayName = patternElement.getMandatoryFirstOf("name").getTextContent();
+			boolean loadedDefaultPattern = Boolean.valueOf(patternElement.getMandatoryFirstOf("defaultPattern").getTextContent());
+			String loadedPatternName = patternElement.getMandatoryFirstOf("patternName").getTextContent().replace(".svg", "");
+
+			Pattern pattern = new Pattern(loadedPatternName);
+			pattern.displayName = loadedDisplayName;
+			
+			allPatterns.put(loadedPatternName, pattern);
+			if(loadedDefaultPattern) {
+				defaultPatterns.put(loadedPatternName, pattern);
+			}
+			
+			return pattern;
+			
+		} catch (XMLLoadException e) {
+			e.printStackTrace();
+		} catch (XMLMissingTagException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * Checks all found patterns and returns one if available.
 	 */
@@ -117,6 +156,13 @@ public class Pattern {
 	 */
 	public static Map<String, Pattern> getAllPatterns() {
 		return allPatterns;
+	}
+
+	/**
+	 * Returns all default patterns which clothing can spawn with
+	 */
+	public static Map<String, Pattern> getAllDefaultPatterns() {
+		return defaultPatterns;
 	}
 	
 	/**
@@ -131,6 +177,9 @@ public class Pattern {
 	 * @return
 	 */
 	public String getNiceName() {
+		if(displayName!=null && displayName.length()>0) {
+			return displayName;
+		}
 		return this.name.replace('_', ' ');
 	}
 	

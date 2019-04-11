@@ -548,6 +548,19 @@ public class Tail implements BodyPartInterface {
 							);
 				}
 				break;
+			case BAT_MORPH:
+				UtilText.transformationContentSB.append(
+						(owner.getTailCount()==1
+							?" A small tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about as long as one of [npc.her] forearms."
+								+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a decent amount of control over it, and can twist it almost anywhere [npc.she] [npc.verb(please)]."
+								+ "<br/>"
+								+ "[npc.Name] now [npc.has] a [style.boldBatMorph(bat-like tail)]"
+							:" [npc.TailCount] small tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about as long as one of [npc.her] forearms."
+								+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a decent amount of control over them, and can twist them almost anywhere [npc.she] [npc.verb(please)]."
+								+ "<br/>"
+								+ "[npc.Name] now [npc.has] [npc.tailCount] [style.boldBatMorph(bat-like tails)]")
+						);
+				break;
 			case RABBIT_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

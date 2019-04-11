@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -120,7 +121,7 @@ public class Cultist extends NPC {
 			
 			// CLOTHING:
 			
-			equipClothing(true, true, true, true);
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -147,7 +148,7 @@ public class Cultist extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		List<Colour> colours = new ArrayList<>();
 		colours.add(Colour.CLOTHING_ORANGE);
 		colours.add(Colour.CLOTHING_BLACK);
@@ -173,7 +174,7 @@ public class Cultist extends NPC {
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
-		clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_sock_thighhigh_socks"));
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
 
 		equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", witchColour, false), true, this);
@@ -188,7 +189,7 @@ public class Cultist extends NPC {
 			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", witchColour, false), true, this);
 		}
 		
-		if(addWeapons) {
+		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
 		}
 		
@@ -467,20 +468,22 @@ public class Cultist extends NPC {
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
 			if((Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl()) && !target.isPlayer()) {
-				return "<p>"
+				return UtilText.parse(target,
+						"<p>"
 							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
 							+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
 							+ " [npc.speech(This is an insult to Lilith...)]"
-						+ "</p>";
+						+ "</p>");
 			} else if (!target.isPlayer()){
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.getClothingType().isCondom()) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
 				}
-				return "<p>"
-							+ "You pull out a condom and try to give it to [npc.name], but she simply laughs in your face before grabbing the little foil packet and tearing it in two,"
+				return UtilText.parse(target,
+						"<p>"
+							+ "You pull out a condom and try to give it to [npc.name], but she simply laughs in your face as [npc.she] grabs the little foil packet and tears it in two,"
 							+ " [npc.speech(I don't think so! You're going to take my seed, and you're going to love it!)]"
-						+ "</p>";
+						+ "</p>");
 			}
 		}
 		

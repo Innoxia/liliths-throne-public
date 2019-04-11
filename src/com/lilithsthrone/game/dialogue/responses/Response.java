@@ -656,4 +656,12 @@ public class Response {
 	public Race getRaceRequired() {
 		return raceRequired;
 	}
+
+	public static Response getDisallowedSpittingResponse() {
+		return getDisallowedSpittingResponse("Spit");
+	}
+
+	public static Response getDisallowedSpittingResponse(String desc) {
+		return new Response(desc, "[style.italicsBad(Rejection of TF potions is disabled!)]<br/>Your opponent is forcing you to drink down the potion!", null);
+	}
 }

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Look in the mods folder for a commented version of this. -->
+<outfit>
+	<coreAttributes>
+		<name><![CDATA[generic fishnet prostitute (feminine)]]></name>
+		
+		<description><![CDATA[Revealing fishnet clothing.]]></description>
+		
+		<femininity>FEMININE</femininity>
+		
+		<worldTypes>
+			<world>DOMINION</world>
+			<world>SUBMISSION</world>
+		</worldTypes>
+		
+		<outfitTypes>
+		  <type>PROSTITUTE</type>
+		</outfitTypes>
+		
+		<acceptableLegConfigurations/>
+		
+		<conditional/>
+		
+		<weight>100</weight>
+	</coreAttributes>
+	
+	<generationAttributes>
+		<clothingConditional1 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></clothingConditional1> <!-- is bipedal -->
+		<clothingConditional2 constant="true"><![CDATA[npc.hasFetish(FETISH_EXHIBITIONIST)]]></clothingConditional2> <!-- Exhibitionist -->
+		
+		<presetColourGroup1 singleColour="true">
+			<randomColour>CLOTHING_BLACK_JET</randomColour>
+			<randomColour>CLOTHING_RED_DARK</randomColour>
+			<randomColour>CLOTHING_PURPLE_DARK</randomColour>
+			<randomColour>CLOTHING_PURPLE_LIGHT</randomColour>
+			<randomColour>CLOTHING_PINK_LIGHT</randomColour>
+			<randomColour>CLOTHING_PINK_DARK</randomColour>
+			<randomColour>CLOTHING_PINK_HOT</randomColour>
+		</presetColourGroup1>
+		
+		<presetColourGroup2 values="ALL_METAL"/>
+		
+		<presetColourGroup3 singleColour="true">
+			<randomColour>CLOTHING_BLACK_JET</randomColour>
+			<randomColour>CLOTHING_WHITE</randomColour>
+			<randomColour>CLOTHING_PINK_LIGHT</randomColour>
+			<randomColour>CLOTHING_PINK_DARK</randomColour>
+			<randomColour>CLOTHING_PINK_HOT</randomColour>
+		</presetColourGroup3>
+		
+		
+        <mainWeapons/>
+        <offhandWeapons/>
+		
+		
+		<guaranteedClothingEquips/>
+		
+		
+		<genericClothingType> <!-- Generic jewellery. -->
+			<itemTags/>
+			<acceptableFemininities>
+				<femininity>FEMININE</femininity>
+				<femininity>ANDROGYNOUS</femininity>
+			</acceptableFemininities>
+			<slot/>
+			<rarity>COMMON</rarity>
+			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=75 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional>
+			<primaryColours>
+				<colour>presetColourGroup2</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</genericClothingType>
+		
+		
+		
+		<clothingType>
+			<conditional><![CDATA[clothingConditional1]]></conditional>
+			<types>
+				<type>innoxia_sock_stockings</type>
+				<type>innoxia_sock_kneehigh_socks</type>
+				<type>innoxia_sock_thighhigh_socks</type>
+			</types>
+			<primaryColours values="BLACK_OR_WHITE"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[clothingConditional1]]></conditional>
+			<types>
+				<type>innoxia_foot_thigh_high_boots</type>
+				<type>innoxia_foot_stiletto_heels</type>
+				<type>innoxia_foot_heels</type>
+				<type>innoxia_foot_ankle_boots</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[!clothingConditional2]]></conditional>
+			<types>
+				<type>TORSO_KEYHOLE_CROPTOP</type>
+				<type>TORSO_SHORT_CROPTOP</type>
+				<type>innoxia_torso_plunge_blouse</type>
+				<type>TORSO_SLEEVELESS_TURTLENECK</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[!clothingConditional2]]></conditional>
+			<types>
+				<type>CHEST_LACY_PLUNGE_BRA</type>
+				<type>CHEST_PLUNGE_BRA</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup3</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		<clothingType>
+			<conditional><![CDATA[clothingConditional2]]></conditional>
+			<types>
+				<type>CHEST_OPEN_CUP_BRA</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup3</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional/>
+			<types>
+				<type>LEG_MICRO_SKIRT_BELTED</type>
+				<type>LEG_MICRO_SKIRT_PLEATED</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup3</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!-- Underwear, based on exhibitionist: -->
+		<clothingType>
+			<conditional><![CDATA[!clothingConditional2]]></conditional>
+			<types>
+				<type>GROIN_LACY_PANTIES</type>
+				<type>GROIN_THONG</type>
+				<type>GROIN_VSTRING</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup3</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		<clothingType>
+			<conditional><![CDATA[clothingConditional2 && RND.​nextInt(100)<=50]]></conditional>
+			<types>
+				<type>GROIN_CROTCHLESS_PANTIES</type>
+				<type>GROIN_CROTCHLESS_THONG</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup3</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!--Accessories:-->
+		
+		<clothingType>
+			<conditional><![CDATA[RND.​nextInt(100)<=25]]></conditional>
+			<types>
+				<type>EYES_AVIATORS</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.​nextInt(100)<=90]]></conditional>
+			<types>
+				<type>FINGER_RING</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup2</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.​nextInt(100)<=25]]></conditional>
+			<types>
+				<type>WRIST_WOMENS_WATCH</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.​nextInt(100)<=75]]></conditional>
+			<types>
+				<type>NECK_HEART_NECKLACE</type>
+				<type>NECK_ANKH_NECKLACE</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup2</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+	</generationAttributes>
+
+</outfit>

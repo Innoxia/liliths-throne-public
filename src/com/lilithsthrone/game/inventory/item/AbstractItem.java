@@ -110,6 +110,15 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		return itemType;
 	}
 
+	public boolean isBreakOutOfInventory() {
+		for(ItemEffect effect : this.getEffects()) {
+			if(effect.getItemEffectType().isBreakOutOfInventory()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public List<ItemEffect> getEffects() {
 		return itemEffects;
@@ -168,6 +177,10 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 						? itemType.getDeterminer() + " "
 						: (Util.isVowel(name.charAt(0)) ? "an " : "a "))
 				+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
+	}
+	
+	public String getDisplayNamePlural(boolean withRarityColour) {
+		return Util.capitaliseSentence((withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural));
 	}
 
 	@Override
@@ -229,11 +242,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	}
 
 	public boolean isAbleToBeUsedInCombat(){
-		return itemType.isAbleToBeUsedInCombat();
+		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInCombat();
 	}
 
 	public boolean isAbleToBeUsedInSex(){
-		return itemType.isAbleToBeUsedInSex();
+		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInSex();
 	}
 	
 	public boolean isGift() {

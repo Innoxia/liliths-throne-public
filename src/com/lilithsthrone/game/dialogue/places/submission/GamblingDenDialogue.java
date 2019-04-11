@@ -1058,7 +1058,7 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Epona.class))>0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Epona.class))>=Main.game.getNpc(Epona.class).getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_POST_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_POST_SEX_NO_ORGASM");

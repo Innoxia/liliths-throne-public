@@ -768,7 +768,7 @@ public class CityPlaces {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 1*60;
+			return 30;
 		}
 
 		@Override

@@ -36,7 +36,7 @@ import java.util.*;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class Properties {
@@ -73,12 +73,19 @@ public class Properties {
 	public int forcedTFPercentage = 40;
 	public int forcedFetishPercentage = 0;
 
+	public float randomRacePercentage = 0.15f;
+
 	public int pregnancyBreastGrowthVariance = 2;
 	public int pregnancyBreastGrowth = 1;
 	public int pregnancyBreastGrowthLimit = CupSize.E.getMeasurement();
 	public int pregnancyLactationIncreaseVariance = 100;
 	public int pregnancyLactationIncrease = 250;
 	public int pregnancyLactationLimit = 1000;
+	
+	public int breastSizePreference = 0;
+	public int penisSizePreference = 0;
+//	public String[] breastSizePreferenceLabels = new String[] {"Minimum", "Tiny", "Small", "Reduced", "Default", "Big", "Huge", "Massive", "Maximum"};
+//	public int[] breastSizePreferenceMultiplierLabels = new int[] {-8, -6, -4, -2, 0, 2, 4, 8, 16};
 	
 	public Set<PropertyValue> values;
 	
@@ -237,6 +244,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
+			createXMLElementWithValue(doc, settings, "randomRacePercentage", String.valueOf(randomRacePercentage)); 
 
 			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthVariance", String.valueOf(pregnancyBreastGrowthVariance));
 			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowth", String.valueOf(pregnancyBreastGrowth));
@@ -244,6 +252,9 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "pregnancyLactationIncreaseVariance", String.valueOf(pregnancyLactationIncreaseVariance));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationIncrease", String.valueOf(pregnancyLactationIncrease));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationLimit", String.valueOf(pregnancyLactationLimit));
+
+			createXMLElementWithValue(doc, settings, "breastSizePreference", String.valueOf(breastSizePreference));
+			createXMLElementWithValue(doc, settings, "penisSizePreference", String.valueOf(penisSizePreference));
 			
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
 
@@ -573,6 +584,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.0.5")) {
 						values.add(PropertyValue.bipedalCloaca);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.1.7")) {
+						values.add(PropertyValue.footContent);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -668,6 +682,10 @@ public class Properties {
 				if(element.getElementsByTagName("forcedFetishPercentage").item(0)!=null) {
 					forcedFetishPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedFetishPercentage").item(0)).getAttribute("value"));
 				}
+				// Randomized percentage of body pref race.
+				if(element.getElementsByTagName("randomRacePercentage").item(0)!=null) {
+					randomRacePercentage = Float.parseFloat(((Element)element.getElementsByTagName("randomRacePercentage").item(0)).getAttribute("value"));
+				}
 
 				// Forced TF preference:
 				if(element.getElementsByTagName("forcedTFPreference").item(0)!=null) {
@@ -687,6 +705,9 @@ public class Properties {
 					pregnancyLactationIncreaseVariance = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncreaseVariance").item(0)).getAttribute("value"));
 					pregnancyLactationIncrease = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncrease").item(0)).getAttribute("value"));
 					pregnancyLactationLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationLimit").item(0)).getAttribute("value"));
+
+					breastSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("breastSizePreference").item(0)).getAttribute("value"));
+					penisSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("penisSizePreference").item(0)).getAttribute("value"));
 				}catch(Exception ex) {
 				}
 				
@@ -1065,5 +1086,10 @@ public class Properties {
 
 	public void setForcedFetishTendency(ForcedFetishTendency forcedFetishTendency) {
 		this.forcedFetishTendency = forcedFetishTendency;
+	}
+	
+	public float getRandomRacePercentage() {
+		return randomRacePercentage;
+		
 	}
 }

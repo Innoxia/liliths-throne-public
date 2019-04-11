@@ -680,7 +680,7 @@ public class AlleywayDemonDialogueCompanions {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getDemon())>0) {
+			if(Sex.getNumberOfOrgasms(getDemon())>=getDemon().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_SEX_PEACEFUL", getAllCharacters());
 			} else {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_SEX_PEACEFUL_NO_ORGASM", getAllCharacters());
@@ -889,8 +889,8 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-							null,
-							Util.newArrayListOfValues(getMainCompanion())),
+									Util.newArrayListOfValues(getMainCompanion()),
+									null),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
 					
 				} else if (index == 3) {
@@ -900,8 +900,8 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-									null,
 									Util.newArrayListOfValues(getMainCompanion()),
+									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
 					
@@ -912,8 +912,8 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-									null,
 									Util.newArrayListOfValues(getMainCompanion()),
+									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
 					
@@ -1071,8 +1071,8 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-							null,
-							null),
+									Util.newArrayListOfValues(getMainCompanion()),
+									null),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE", getAllCharacters()));
 					
 				} else if (index == 3) {
@@ -1085,7 +1085,7 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-									null,
+									Util.newArrayListOfValues(getMainCompanion()),
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getAllCharacters()));
@@ -1100,7 +1100,7 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-									null,
+									Util.newArrayListOfValues(getMainCompanion()),
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH), AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getAllCharacters()));
 					
@@ -1636,7 +1636,12 @@ public class AlleywayDemonDialogueCompanions {
 		public Response getResponse(int responseTab, int index) {
 			if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.banishNPC(getDemon());
+						}
+					};
 				}
 				return null;
 			}
@@ -1745,7 +1750,7 @@ public class AlleywayDemonDialogueCompanions {
 		public String getContent() {
 			if((getDemon().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+				if(Sex.getNumberOfOrgasms(getDemon()) >= getDemon().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_SEX_VICTORY", getAllCharacters());
 				} else {
 					return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_SEX_VICTORY_NO_ORGASM", getAllCharacters());
@@ -1821,7 +1826,13 @@ public class AlleywayDemonDialogueCompanions {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
+				return new Response("Continue", "Carry on your way.", AFTER_SEX_DEFEAT) {
+					@Override
+					public void effects() {
+						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							Main.game.banishNPC(getDemon());
+						}
+					}
 					@Override
 					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();

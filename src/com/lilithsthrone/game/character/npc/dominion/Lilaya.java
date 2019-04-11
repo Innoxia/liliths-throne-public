@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -101,9 +103,13 @@ public class Lilaya extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
 			this.setAgeAppearanceDifferenceToAppearAsAge(32);
-			this.equipClothing(true, true, true, true);
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setStartingBody(true);
 			this.setLegType(LegType.HUMAN);
+		}
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.6")) {
+			this.setWingSize(WingSize.THREE_LARGE.getValue());
 		}
 	}
 	
@@ -136,10 +142,9 @@ public class Lilaya extends NPC {
 
 		// Core:
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
-		this.setHalfDemonSubspecies(Subspecies.HUMAN);
 		this.setAgeAppearanceDifferenceToAppearAsAge(32);
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);
 		this.setTailType(TailType.DEMON_COMMON);
 
@@ -164,7 +169,7 @@ public class Lilaya extends NPC {
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
-		this.setPubicHair(BodyHair.FIVE_UNKEMPT);
+		this.setPubicHair(BodyHair.THREE_TRIMMED);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
 //		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_AMBER));
@@ -221,9 +226,9 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, this);
@@ -234,7 +239,7 @@ public class Lilaya extends NPC {
 		this.equipClothingFromNowhere(labCoat, true, this);
 		this.isAbleToBeDisplaced(labCoat, DisplacementType.UNBUTTONS, true, true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_BLACK, false), true, this);
 		
@@ -302,7 +307,10 @@ public class Lilaya extends NPC {
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character.isPlayer()) {
 			if(character.getRace()==Race.DEMON) {
-				return Util.newHashSetOfValues(Relationship.HalfSibling);
+				Set<Relationship> rSet = new LinkedHashSet<>();
+				rSet.add(Relationship.HalfSibling);
+				rSet.add(Relationship.Pibling);
+				return rSet;
 			}
 			return Util.newHashSetOfValues(Relationship.Pibling);
 		}

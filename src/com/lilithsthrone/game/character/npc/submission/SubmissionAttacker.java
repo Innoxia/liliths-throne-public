@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Document;
@@ -9,6 +10,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -19,6 +21,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -84,6 +87,10 @@ public class SubmissionAttacker extends NPC {
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
+			if(Math.random()<0.05 && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { //5% chance for the NPC to be a half-demon
+				this.setBody(CharacterUtils.generateHalfDemonBody(this, Subspecies.getFleshSubspecies(this), true));
+			}
+			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
@@ -115,7 +122,7 @@ public class SubmissionAttacker extends NPC {
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 	
-			equipClothing(true, true, true, true);
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
@@ -139,9 +146,9 @@ public class SubmissionAttacker extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
-//		super.equipClothing(replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+//		super.equipClothing(settings);
 	}
 	
 	@Override

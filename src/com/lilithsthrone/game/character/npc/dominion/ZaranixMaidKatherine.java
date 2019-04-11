@@ -1,12 +1,13 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.time.Month;
+import java.time.Month; import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
@@ -213,9 +214,9 @@ public class ZaranixMaidKatherine extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
 		
@@ -411,7 +412,7 @@ public class ZaranixMaidKatherine extends NPC {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(ZaranixMaidKatherine.class)) >= Main.game.getNpc(ZaranixMaidKatherine.class).getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With a satisfied sigh, Katherine slumps back against the wall,"
@@ -426,7 +427,7 @@ public class ZaranixMaidKatherine extends NPC {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With a desperate moan, Katherine slumps back against the wall,"
-							+ " [katherine.speech(~Ah!~ I didn't even get to cum!)]"
+							+ " [katherine.speech(~Ah!~ That wasn't enough for me!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Her hands instantly slip down between her legs, and, with an exceptionally lewd moan, she starts fingering herself."

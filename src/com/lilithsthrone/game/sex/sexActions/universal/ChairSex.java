@@ -25,18 +25,16 @@ public class ChairSex {
 
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
 		return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-				&& !(Sex.getPosition() == data.getPosition() && Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0))
+				&& !(Sex.getPosition() == data.getPosition()
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0)
+					&& Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))==data.getPartnerSlots().get(0))
 				&& data.getPosition().getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 				&& Sex.getTotalParticipantCount(false)==(data.getPerformerSlots().size()+data.getPartnerSlots().size())
 				&& (request
-						?Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL
-						:(Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL)
-						|| !Sex.isCharacterForbiddenByOthersFromPositioning(Sex.getCharacterPerformingAction())
-						//Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					)
-				&& (request
-						?Sex.getCharacterPerformingAction().isPlayer()
-						:true)
+						?Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL
+						:(Sex.getCharacterPerformingAction().isPlayer()
+							?Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
+							:!Sex.isCharacterForbiddenByOthersFromPositioning(Sex.getCharacterPerformingAction())))
 				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
 						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))
 						:true);
@@ -361,8 +359,14 @@ public class ChairSex {
 
 		@Override
 		public String getDescription() {
+			boolean isHappy = ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+					Sex.getPositionRequest().getPosition(),
+					Sex.getPositionRequest().getPartnerSlots().get(0),
+					Sex.getPositionRequest().getPerformerSlots().get(0),
+					Main.game.getPlayer());
+			
 			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_TOP) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX, SexSlotBipeds.CHAIR_TOP, Main.game.getPlayer())) {
+				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Roughly pushing [npc2.name] down, [npc.name] [npc.verb(straddle)] [npc2.her] lap, leaning forwards to glare into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
@@ -378,7 +382,7 @@ public class ChairSex {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_BOTTOM) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX, SexSlotBipeds.CHAIR_BOTTOM, Main.game.getPlayer())) {
+				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Sitting down, [npc.name] [npc.verb(grab)] hold of [npc2.namePos] [npc2.arm], and with a sharp tug,"
@@ -396,7 +400,7 @@ public class ChairSex {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_ORAL_SITTING) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX_ORAL, SexSlotBipeds.CHAIR_ORAL_SITTING, Main.game.getPlayer())) {
+				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Sitting down, [npc.name] [npc.verb(grab)] hold of [npc2.namePos] [npc2.arm], and with a sharp tug, [npc.she] [npc.verb(pull)] [npc2.herHim] down onto [npc2.her] knees before [npc.herHim]."
@@ -414,7 +418,7 @@ public class ChairSex {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_KNEELING) {
-				if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX_ORAL, SexSlotBipeds.CHAIR_KNEELING, Main.game.getPlayer())) {
+				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Roughly pushing [npc2.name] down, [npc.name] kneels before [npc2.herHim], leaning forwards to glare up into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
@@ -435,17 +439,11 @@ public class ChairSex {
 
 		@Override
 		public void applyEffects() {
-			if((Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_TOP
-					&& ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX, SexSlotBipeds.CHAIR_TOP, Main.game.getPlayer()))
-					
-				|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_BOTTOM
-						&& ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX, SexSlotBipeds.CHAIR_BOTTOM, Main.game.getPlayer()))
-				
-				|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_ORAL_SITTING
-						&& ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX_ORAL, SexSlotBipeds.CHAIR_ORAL_SITTING, Main.game.getPlayer()))
-				
-				|| (Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.CHAIR_KNEELING
-						&& ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.CHAIR_SEX_ORAL, SexSlotBipeds.CHAIR_KNEELING, Main.game.getPlayer()))) {
+			if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+					Sex.getPositionRequest().getPosition(),
+					Sex.getPositionRequest().getPartnerSlots().get(0),
+					Sex.getPositionRequest().getPerformerSlots().get(0),
+					Main.game.getPlayer())) {
 				GenericPositioningNew.setNewSexManager(Sex.getPositionRequest(), true);
 			}
 			

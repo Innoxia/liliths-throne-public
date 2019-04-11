@@ -193,12 +193,12 @@ public class SexPositionOther {
 			}
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvidor) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character sucking cock can use their arms to force a creampie:
 			if((Sex.getSexPositionSlot(cumTarget)==SexSlotOther.PERFORMING_ORAL
 					|| Sex.getSexPositionSlot(cumTarget)==SexSlotOther.PERFORMING_ORAL_TWO)
-				&& (Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.RECEIVING_ORAL
-						|| Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.RECEIVING_ORAL_TWO)) {
+				&& (Sex.getSexPositionSlot(cumProvider)==SexSlotOther.RECEIVING_ORAL
+						|| Sex.getSexPositionSlot(cumProvider)==SexSlotOther.RECEIVING_ORAL_TWO)) {
 				return Util.newHashMapOfValues(
 						new Value<>(Arm.class, genericFaceForceCreampieAreas));
 			}
@@ -313,19 +313,19 @@ public class SexPositionOther {
 			}
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvidor) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			if((Sex.getSexPositionSlot(cumTarget)==SexSlotOther.ALL_FOURS_FUCKED
 					|| Sex.getSexPositionSlot(cumTarget)==SexSlotOther.ALL_FOURS_FUCKED_TWO)) {
 				// The character being fucked can use their tails or tentacles to force a creampie:
-				if((Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.ALL_FOURS_MOUNTING
-						|| Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.ALL_FOURS_MOUNTING_TWO)) {
+				if((Sex.getSexPositionSlot(cumProvider)==SexSlotOther.ALL_FOURS_MOUNTING
+						|| Sex.getSexPositionSlot(cumProvider)==SexSlotOther.ALL_FOURS_MOUNTING_TWO)) {
 					return Util.newHashMapOfValues(
 							new Value<>(Tail.class, genericGroinForceCreampieAreas),
 							new Value<>(Tentacle.class, genericGroinForceCreampieAreas));
 				}
 				// The character performing oral can use their arm(s) to force a mouth creampie:
-				if((Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET
-						|| Sex.getSexPositionSlot(cumProvidor)==SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO)) {
+				if((Sex.getSexPositionSlot(cumProvider)==SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET
+						|| Sex.getSexPositionSlot(cumProvider)==SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO)) {
 					return Util.newHashMapOfValues(
 							new Value<>(Arm.class, genericFaceForceCreampieAreas));
 				}

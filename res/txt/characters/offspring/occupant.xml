@@ -515,7 +515,7 @@
 			[npc2.speech(I'll take [pc.her] rear,)] [npc2.name] says to [npc.name].
 		</p>
 		<p>
-			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips+]!)]
+			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
 			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
@@ -556,7 +556,7 @@
 			[npc2.speech(I'll take [pc.her] rear,)] [npc2.name] says to [npc.name].
 		</p>
 		<p>
-			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips+]!)]
+			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
 			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
@@ -589,7 +589,7 @@
 			[npc2.speech(You take [pc.her] mouth,)] [npc2.name] says to [npc.name], [npc2.speech(My [pc.relation(npc2)]'s ass belongs to me.)]
 		</p>
 		<p>
-			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips+]!)]
+			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
 			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
@@ -805,7 +805,7 @@
 		You and [npc.name] collapse down onto [npc.her] bed together, before rolling over and gazing lovingly into one another's eyes. Lying like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
 	</p>
 	<p>
-		[npc.speech(That was fun, but I really could have done with an orgasm,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] bed.
+		[npc.speech(That was fun, but you didn't really satisfy me,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] bed.
 	</p>
 	<p>
 		[pc.speech(Yeah, maybe next time,)] you reply, returning [npc.her] smile as you wonder if you'll let [npc.herHim] climax the next time the two of you have sex.
@@ -1231,7 +1231,7 @@
 		You and [npc.name] collapse down onto [npc.her] sofa together, before rolling over and gazing lovingly into one another's eyes. Slumping down like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
 	</p>
 	<p>
-		[npc.speech(That was fun, but I really could have done with an orgasm,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] sofa.
+		[npc.speech(That was fun, but you didn't really satisfy me,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] sofa.
 	</p>
 	<p>
 		[pc.speech(Yeah, maybe next time,)] you reply, returning [npc.her] smile as you wonder if you'll let [npc.herHim] climax the next time the two of you have sex.

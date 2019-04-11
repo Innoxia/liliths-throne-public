@@ -1,9 +1,11 @@
 package com.lilithsthrone.controller;
 
 import java.net.URL;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
@@ -51,7 +53,7 @@ import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
+import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -530,7 +532,7 @@ public class MainController implements Initializable {
 						boolean enterConsumed = false;
 						
 						// Name selections:
-						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME || Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM){
+						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME || Main.game.getCurrentDialogueNode() == CityHallDemographics.NAME_CHANGE){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
@@ -572,15 +574,6 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename Room", "", Main.game.getCurrentDialogueNode()));
 										}
 									}
-								}
-							}
-						}
-						if(Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM){
-							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
-								allowInput = false;
-								if (event.getCode() == KeyCode.ENTER) {
-									enterConsumed = true;
-									Main.game.setContent(1);
 								}
 							}
 						}
@@ -718,6 +711,45 @@ public class MainController implements Initializable {
 							}
 						}
 						
+						//TODO for some reason, if this catches a ResponseEffectsOnly and sets content using that, it blanks the main page. I have absolutely no idea why.
+						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS_PRONOUNS) {
+							allowInput = false;
+							if (event.getCode() == KeyCode.ENTER) {
+								enterConsumed = true;
+								boolean found = false;
+								for(GenderPronoun gp : GenderPronoun.values()) {
+									if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('feminine_" + gp + "') === document.activeElement")
+										|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('masculine_" + gp + "') === document.activeElement")) {
+										Main.game.setContent(
+												new Response("Save", "Save all the pronouns that are currently displayed.", OptionsDialogue.OPTIONS_PRONOUNS) {
+													@Override
+													public void effects() {
+														OptionsDialogue.OPTIONS_PRONOUNS.getResponse(0, 1).effects();
+													}
+												});
+										found = true;
+										break;
+									}
+								}
+								if(!found) {
+									for(GenderNames genderName : GenderNames.values()) {
+										if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_MASCULINE_" + genderName + "') === document.activeElement")
+											|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_ANDROGYNOUS_" + genderName + "') === document.activeElement")
+											|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_FEMININE_" + genderName + "') === document.activeElement")) {
+											Main.game.setContent(
+													new Response("Save", "Save all the pronouns that are currently displayed.", OptionsDialogue.OPTIONS_PRONOUNS) {
+														@Override
+														public void effects() {
+															OptionsDialogue.OPTIONS_PRONOUNS.getResponse(0, 1).effects();
+														}
+													});
+										}
+									}
+								}
+							}
+						}
+						
+						
 						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
 							allowInput = false;
 							if (event.getCode() == KeyCode.ENTER) {
@@ -746,30 +778,6 @@ public class MainController implements Initializable {
 										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
 									}
 									
-								}
-							}
-						}
-						
-						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS_PRONOUNS){
-							for(GenderPronoun gp : GenderPronoun.values()) {
-								if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('feminine_" + gp + "') === document.activeElement")
-									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('masculine_" + gp + "') === document.activeElement")) {
-									allowInput = false;
-									if (event.getCode() == KeyCode.ENTER) {
-										enterConsumed = true;
-										Main.game.setContent(1);
-									}
-								}
-							}
-							for(GenderNames genderName : GenderNames.values()) {
-								if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_MASCULINE_" + genderName + "') === document.activeElement")
-									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_ANDROGYNOUS_" + genderName + "') === document.activeElement")
-									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_FEMININE_" + genderName + "') === document.activeElement")) {
-									allowInput = false;
-									if (event.getCode() == KeyCode.ENTER) {
-										enterConsumed = true;
-										Main.game.setContent(1);
-									}
 								}
 							}
 						}
@@ -1419,11 +1427,13 @@ public class MainController implements Initializable {
 			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+			String day = Main.game.getDateNow().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
 					"Toggle the date's display between a calendar and day count.<br/>"
 						+ "The current date is: <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
 						+ Main.game.getDisplayDate(true)
 						+"</b><br/>"
+						+ "It is currently <b>"+UtilText.generateSingularDeterminer(day)+" "+day+"</b>.<br/>"
 						+ "You've been in this new world for: <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
@@ -1642,7 +1652,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
-			for (Fetish f : character.getFetishes()) {
+			for (Fetish f : character.getFetishes(true)) {
 				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + f)) != null) {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseleave", hideTooltipListener, false);
@@ -1760,7 +1770,7 @@ public class MainController implements Initializable {
 		
 		if(Main.game.getPlayer()!=null) {
 			// Weapons on floor:
-			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 				id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1775,7 +1785,7 @@ public class MainController implements Initializable {
 			}
 			
 			// Clothing on floor:
-			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
 				id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1790,7 +1800,7 @@ public class MainController implements Initializable {
 			}
 			
 			// Items on floor:
-			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
 				id = "ITEM_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1955,7 +1965,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mouseenter", el, false);
 					}
 				}
-				for (Fetish f : character.getFetishes()) {
+				for (Fetish f : character.getFetishes(true)) {
 					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + f)) != null) {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseleave", hideTooltipListener, false);

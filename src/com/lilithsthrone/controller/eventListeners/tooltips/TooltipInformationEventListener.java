@@ -768,13 +768,13 @@ public class TooltipInformationEventListener implements EventListener {
 						if(!owner.isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer())) {
 							tooltipSB.append(getEmptyBodyPartDiv("Nipples",
 									"Unknown!",
-									(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
+									(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
 						} else {
 							tooltipSB.append(getBodyPartDiv("Nipples",
 									owner.getBreastCrotchRace(),
 									owner.getNippleCrotchCovering(),
 									owner.isNippleCrotchBestial(),
-									(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
+									(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
 						}
 					}
 					

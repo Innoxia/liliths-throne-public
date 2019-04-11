@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -400,7 +401,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		} else {
 			partsList.add(" [style.boldTfGeneric("
 					+(body.getTail().getTailCount()==1
-						?(body.getTail().getType()==TailType.HARPY?"a plume of ":UtilText.generateSingularDeterminer(body.getTail().getName(null)))
+						?(body.getTail().getType()==TailType.HARPY?"a plume of ":UtilText.generateSingularDeterminer(body.getTail().getName(null))+" ")
 						:Util.intToString(body.getTail().getTailCount())+" "+(body.getTail().getType()==TailType.HARPY?" plumes of ":""))
 					+body.getTail().getName(null)+")]");
 		}
@@ -418,9 +419,9 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		Penis penis = body.getPenis();
 		if(penis.getType()!=PenisType.NONE) {
 			if(feral) {
-				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a feral "+bestialRaceName+"'s, and not only produces musky, animal-like cum, but is also an impressive "+penis.getRawSizeValue()+" inches long.");
+				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a feral "+bestialRaceName+"'s, and not only produces musky, animal-like cum, but is also an impressive "+Units.size(penis.getRawSizeValue())+" long.");
 			} else {
-				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a regular "+this.getRace().getName(false)+", and is "+penis.getRawSizeValue()+" inches long.");
+				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a regular "+this.getRace().getName(false)+", and is "+Units.size(penis.getRawSizeValue())+" long.");
 			}
 		}
 		
@@ -511,6 +512,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			body.setTentacle(new Tentacle(startingBodyType.getTentacleType()));
 		}
 		if(legConfiguration.getBestialParts().contains(Penis.class)) { // Penis (includes Testicle):
+			boolean virgin = body.getPenis().isVirgin();
 			body.setPenis(body.getPenis().getType()!=PenisType.NONE && body.getPenis().getType()!=PenisType.DILDO
 					? new Penis(startingBodyType.getPenisType(),
 						(int) (startingBodyType.getPenisSize()*(largeGenitals?2.5:1)),
@@ -520,8 +522,10 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						startingBodyType.getTesticleQuantity())
 					: new Penis(PenisType.NONE, 0, 0, 0, 0, 2));
 			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getPenis().setVirgin(virgin);
 		}
 		if(legConfiguration.getBestialParts().contains(Vagina.class)) { // Vagina (includes Clitoris):
+			boolean virgin = body.getVagina().getType()!=VaginaType.NONE?body.getVagina().getOrificeVagina().isVirgin():true;
 			body.setVagina(
 					body.getVagina().getType()!=VaginaType.NONE
 						? new Vagina(startingBodyType.getVaginaType(),
@@ -534,6 +538,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 								true)
 						: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true));
 			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getVagina().getOrificeVagina().setVirgin(virgin);
 		}
  	}
 	

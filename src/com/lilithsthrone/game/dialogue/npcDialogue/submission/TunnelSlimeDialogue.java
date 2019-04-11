@@ -33,7 +33,7 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class TunnelSlimeDialogue {
 	
-	private static NPC slime() {
+	private static NPC getSlime() {
 		return Main.game.getActiveNPC();
 	}
 	
@@ -45,11 +45,11 @@ public class TunnelSlimeDialogue {
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_INTRO"));
 			
-			if(slime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+			if(getSlime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
 				if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
 					
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_TRANSFORMER_PLAYER_SLIME"));
-					if(slime().isAttractedTo(Main.game.getPlayer())) {
+					if(getSlime().isAttractedTo(Main.game.getPlayer())) {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMER_PLAYER_SLIME_OFFER_SEX"));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMER_PLAYER_SLIME_NO_SEX"));
@@ -67,20 +67,20 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(slime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+			if(getSlime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
 				if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
 					if (index == 1) {
 						return new ResponseCombat("Fight",
 								"You aren't going to stand for [npc.name] transforming people into slimes. Teach [npc.herHim] a lesson!", Main.game.getActiveNPC(),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getPlayer(), "[pc.speech(You aren't going to be stalking these tunnels on my watch!)] you shout, launching into an attack!"),
-										new Value<>(slime(), "[npc.speech(Traitor! You'll pay for this!)] [npc.Name] cries out as [npc.she] prepares to defend [npc.herself].")));
+										new Value<>(getSlime(), "[npc.speech(Traitor! You'll pay for this!)] [npc.Name] cries out as [npc.she] prepares to defend [npc.herself].")));
 						
 					} else if (index == 2) {
 						return new Response("Leave", "Continue on your journey.", ATTACK) {
 							@Override
 							public void effects(){
-								if(slime().isAttractedTo(Main.game.getPlayer())) {
+								if(getSlime().isAttractedTo(Main.game.getPlayer())) {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_TRANSFORMER_PLAYER_SLIME_TURN_DOWN_SEX"));
 								} else {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_TRANSFORMER_PLAYER_SLIME_LEAVE"));
@@ -93,10 +93,10 @@ public class TunnelSlimeDialogue {
 						};
 						
 					} else if (index == 3) {
-						if(!slime().isAttractedTo(Main.game.getPlayer())) {
+						if(!getSlime().isAttractedTo(Main.game.getPlayer())) {
 							return new Response("Dominant Sex", "[npc.Name] isn't attracted to you!", null);
 							
-						} else if(slime().hasFetish(Fetish.FETISH_DOMINANT) && !slime().hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+						} else if(getSlime().hasFetish(Fetish.FETISH_DOMINANT) && !getSlime().hasFetish(Fetish.FETISH_SUBMISSIVE)) {
 							return new Response("Dominant Sex", "[npc.Name] isn't willing to let you be the dominant partner.", null);
 							
 						} else {
@@ -106,16 +106,16 @@ public class TunnelSlimeDialogue {
 									true, true,
 									new SMGeneric(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
-											Util.newArrayListOfValues(slime()),
+											Util.newArrayListOfValues(getSlime()),
 									null,
 									null), AFTER_SLIME_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_DOM"));
 						}
 						
 					} else if (index == 4) {
-						if(!slime().isAttractedTo(Main.game.getPlayer())) {
+						if(!getSlime().isAttractedTo(Main.game.getPlayer())) {
 							return new Response("Submissive Sex", "[npc.Name] isn't attracted to you!", null);
 							
-						} else if(slime().hasFetish(Fetish.FETISH_SUBMISSIVE) && !slime().hasFetish(Fetish.FETISH_DOMINANT)) {
+						} else if(getSlime().hasFetish(Fetish.FETISH_SUBMISSIVE) && !getSlime().hasFetish(Fetish.FETISH_DOMINANT)) {
 							return new Response("Submissive Sex", "[npc.Name] isn't willing to let you be the submissive partner.", null);
 							
 						} else {
@@ -124,7 +124,7 @@ public class TunnelSlimeDialogue {
 									null, null, null,
 									true, true,
 									new SMGeneric(
-											Util.newArrayListOfValues(slime()),
+											Util.newArrayListOfValues(getSlime()),
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
 									null), AFTER_SLIME_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_SUB"));
@@ -140,7 +140,7 @@ public class TunnelSlimeDialogue {
 								"Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC(),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getPlayer(), ""),
-										new Value<>(slime(), "")));
+										new Value<>(getSlime(), "")));
 						
 					} else if (index == 2) {
 						return new Response("Offer Money", "[npc.Name] isn't interested in your money! All [npc.she] wants to do is turn you into a slime!", null);
@@ -155,7 +155,7 @@ public class TunnelSlimeDialogue {
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
 								
-								if(slime().isAttractedTo(Main.game.getPlayer())) {
+								if(getSlime().isAttractedTo(Main.game.getPlayer())) {
 									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_OFFER_SEX"));
 								} else {
 									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_NO_SEX"));
@@ -174,7 +174,7 @@ public class TunnelSlimeDialogue {
 							"Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC(),
 							Util.newHashMapOfValues(
 									new Value<>(Main.game.getPlayer(), ""),
-									new Value<>(slime(), "")));
+									new Value<>(getSlime(), "")));
 				
 				} else if (index == 2) {
 					if(Main.game.getPlayer().getMoney()<250) {
@@ -195,7 +195,7 @@ public class TunnelSlimeDialogue {
 								null, null, null,
 								true, true,
 								new SMGeneric(
-										Util.newArrayListOfValues(slime()),
+										Util.newArrayListOfValues(getSlime()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
 										null) {
@@ -226,12 +226,12 @@ public class TunnelSlimeDialogue {
 		
 		@Override
 		public String getContent() {
-			if(slime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+			if(getSlime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
 				if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
 					UtilText.nodeContentSB.setLength(0);
 					
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_REPEAT_TRANSFORMER_PLAYER_SLIME"));
-					if(slime().isAttractedTo(Main.game.getPlayer())) {
+					if(getSlime().isAttractedTo(Main.game.getPlayer())) {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMER_PLAYER_SLIME_OFFER_SEX"));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMER_PLAYER_SLIME_NO_SEX"));
@@ -257,12 +257,12 @@ public class TunnelSlimeDialogue {
 		
 		@Override
 		public String getContent() {
-			if(slime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+			if(getSlime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
 				if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
 					UtilText.nodeContentSB.setLength(0);
 					
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_PREGNANCY_REVEAL_TRANSFORMER_PLAYER_SLIME"));
-					if(slime().isAttractedTo(Main.game.getPlayer())) {
+					if(getSlime().isAttractedTo(Main.game.getPlayer())) {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMER_PLAYER_SLIME_OFFER_SEX"));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMER_PLAYER_SLIME_NO_SEX"));
@@ -294,7 +294,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM_NO_ORGASM");
@@ -331,7 +331,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_SUB");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_SUB_NO_ORGASM");
@@ -372,7 +372,7 @@ public class TunnelSlimeDialogue {
 				return new Response("Leave", "Continue on your journey.", TRANSFORMED) {
 					@Override
 					public void effects(){
-						if(slime().isAttractedTo(Main.game.getPlayer())) {
+						if(getSlime().isAttractedTo(Main.game.getPlayer())) {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_TRANSFORMER_PLAYER_SLIME_TURN_DOWN_SEX"));
 						}
 					}
@@ -383,10 +383,10 @@ public class TunnelSlimeDialogue {
 				};
 				
 			} else if (index == 2) {
-				if(!slime().isAttractedTo(Main.game.getPlayer())) {
+				if(!getSlime().isAttractedTo(Main.game.getPlayer())) {
 					return new Response("Dominant Sex", "[npc.Name] isn't attracted to you!", null);
 					
-				} else if(slime().hasFetish(Fetish.FETISH_DOMINANT) && !slime().hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+				} else if(getSlime().hasFetish(Fetish.FETISH_DOMINANT) && !getSlime().hasFetish(Fetish.FETISH_SUBMISSIVE)) {
 					return new Response("Dominant Sex", "[npc.Name] isn't willing to let you be the dominant partner.", null);
 					
 				} else {
@@ -396,16 +396,16 @@ public class TunnelSlimeDialogue {
 							true, true,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									Util.newArrayListOfValues(slime()),
+									Util.newArrayListOfValues(getSlime()),
 							null,
 							null), AFTER_SLIME_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_DOM"));
 				}
 				
 			} else if (index == 3) {
-				if(!slime().isAttractedTo(Main.game.getPlayer())) {
+				if(!getSlime().isAttractedTo(Main.game.getPlayer())) {
 					return new Response("Submissive Sex", "[npc.Name] isn't attracted to you!", null);
 					
-				} else if(slime().hasFetish(Fetish.FETISH_SUBMISSIVE) && !slime().hasFetish(Fetish.FETISH_DOMINANT)) {
+				} else if(getSlime().hasFetish(Fetish.FETISH_SUBMISSIVE) && !getSlime().hasFetish(Fetish.FETISH_DOMINANT)) {
 					return new Response("Submissive Sex", "[npc.Name] isn't willing to let you be the submissive partner.", null);
 					
 				} else {
@@ -414,7 +414,7 @@ public class TunnelSlimeDialogue {
 							null, null, null,
 							true, true,
 							new SMGeneric(
-									Util.newArrayListOfValues(slime()),
+									Util.newArrayListOfValues(getSlime()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
 							null), AFTER_SLIME_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_SUB"));
@@ -439,7 +439,7 @@ public class TunnelSlimeDialogue {
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "RESIST_TRANSFORMED"));
 			
-			if(slime().isAttractedTo(Main.game.getPlayer()) && slime().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+			if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "RESIST_TRANSFORMED_RAPE"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "RESIST_TRANSFORMED_NO_RAPE"));
@@ -585,27 +585,27 @@ public class TunnelSlimeDialogue {
 				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
-						if(slime().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-							Main.game.banishNPC(slime());
+						if(getSlime().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							Main.game.banishNPC(getSlime());
 						}
 					}
 				};
 				
 			} else if (index == 2) {
-				if(!slime().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(!getSlime().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(slime().isAttractedTo(Main.game.getPlayer())) {
+				} else if(getSlime().isAttractedTo(Main.game.getPlayer())) {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									Util.newArrayListOfValues(slime()),
+									Util.newArrayListOfValues(getSlime()),
 							null,
 							null),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX", slime()));
+							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX", getSlime()));
 					
 				} else {
 					return new ResponseSex(
@@ -615,29 +615,29 @@ public class TunnelSlimeDialogue {
 							false, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									Util.newArrayListOfValues(slime()),
+									Util.newArrayListOfValues(getSlime()),
 							null,
 							null),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_RAPE", slime()));
+							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_RAPE", getSlime()));
 				}
 				
 			} else if (index == 3) {
-				if(!slime().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(!getSlime().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Gentle Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(slime().isAttractedTo(Main.game.getPlayer())){
+				} else if(getSlime().isAttractedTo(Main.game.getPlayer())){
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									Util.newArrayListOfValues(slime()),
+									Util.newArrayListOfValues(getSlime()),
 									null,
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_GENTLE", slime()));
+							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getSlime()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
@@ -645,30 +645,30 @@ public class TunnelSlimeDialogue {
 							false, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									Util.newArrayListOfValues(slime()),
+									Util.newArrayListOfValues(getSlime()),
 									null,
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", slime()));
+							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getSlime()));
 				}
 				
 			} else if (index == 4) {
-				if(!slime().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(!getSlime().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Rough Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(slime().isAttractedTo(Main.game.getPlayer())){
+				} else if(getSlime().isAttractedTo(Main.game.getPlayer())){
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									Util.newArrayListOfValues(slime()),
+									Util.newArrayListOfValues(getSlime()),
 									null,
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_ROUGH", slime()));
+							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getSlime()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
@@ -676,15 +676,15 @@ public class TunnelSlimeDialogue {
 							false, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									Util.newArrayListOfValues(slime()),
+									Util.newArrayListOfValues(getSlime()),
 									null,
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", slime()));
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getSlime()));
 				}
 				
 			} else if (index == 5) {
-				if(!slime().isAttractedTo(Main.game.getPlayer())) {
+				if(!getSlime().isAttractedTo(Main.game.getPlayer())) {
 					return new Response("Submit",
 							"You can't submit to [npc.name], as [npc.she] has no interest in having sex with you!",
 							null);
@@ -695,19 +695,19 @@ public class TunnelSlimeDialogue {
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							false, false,
 							new SMGeneric(
-									Util.newArrayListOfValues(slime()),
+									Util.newArrayListOfValues(getSlime()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
 							null),
 							AFTER_SLIME_SEX_AS_SUB,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", slime()));
+							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getSlime()));
 				}
 				
 			} else if (index == 6) {
 				return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
 					@Override
 					public void effects() {
-						Main.mainController.openInventory(slime(), InventoryInteraction.FULL_MANAGEMENT);
+						Main.mainController.openInventory(getSlime(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
 				
@@ -728,26 +728,26 @@ public class TunnelSlimeDialogue {
 //				}
 //				
 //			} 
-			else if (index == 8 && slime().isAbleToSelfTransform()) {
+			else if (index == 8 && getSlime().isAbleToSelfTransform()) {
 				return new Response("Transform [npc.herHim]",
 						"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
 						BodyChanging.BODY_CHANGING_CORE){
 					@Override
 					public void effects() {
 						Main.game.saveDialogueNode();
-						BodyChanging.setTarget(slime());
+						BodyChanging.setTarget(getSlime());
 					}
 				};
 				
-			} else if (index == 10 && !slime().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+			} else if (index == 10 && !getSlime().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 						Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_BANISH_NPC", slime()));
-						Main.game.banishNPC(slime());
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_BANISH_NPC", getSlime()));
+						Main.game.banishNPC(getSlime());
 					}
 				};
 				
@@ -771,11 +771,11 @@ public class TunnelSlimeDialogue {
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT"));
 			
-			if(slime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+			if(getSlime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_TRANSFORMER"));
 				
 			} else {
-				if(slime().isAttractedTo(Main.game.getPlayer()) && slime().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+				if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_RAPE"));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_NO_RAPE"));
@@ -787,8 +787,11 @@ public class TunnelSlimeDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(slime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+			if(getSlime().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
 				if (index == 1) {
+					if(Main.game.isSpittingDisabled()) {
+						return Response.getDisallowedSpittingResponse("Resist");
+					}
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Resist",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
@@ -888,7 +891,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM_NO_ORGASM");

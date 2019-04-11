@@ -11,10 +11,10 @@ import com.lilithsthrone.game.character.attributes.AttributeRange;
 import com.lilithsthrone.game.character.body.types.AbstractArmType;
 import com.lilithsthrone.game.character.body.types.AbstractAssType;
 import com.lilithsthrone.game.character.body.types.AbstractBreastType;
+import com.lilithsthrone.game.character.body.types.AbstractEarType;
 import com.lilithsthrone.game.character.body.types.AbstractHornType;
 import com.lilithsthrone.game.character.body.types.AbstractLegType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.HairType;
@@ -58,7 +58,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public abstract class AbstractRacialBody {
@@ -146,7 +146,7 @@ public abstract class AbstractRacialBody {
 	// Face:
 	private FaceType faceType;
 	private EyeType eyeType;
-	private EarType earType;
+	private AbstractEarType earType;
 	private int maleLipSize;
 	private int femaleLipSize;
 
@@ -195,7 +195,7 @@ public abstract class AbstractRacialBody {
 				NippleSize breastCrotchNippleSize, NippleShape breastCrotchNippleShape, AreolaeSize breastCrotchAreolaeSize, int nippleCountPerBreastCrotch,
 			int maleHeight, int maleFemininity, int maleBodySize, int maleMuscle,
 			int femaleHeight, int femaleFemininity, int femaleBodySize, int femaleMuscle,
-			EarType earType,
+			AbstractEarType earType,
 			EyeType eyeType,
 			FaceType faceType, LipSize maleLipSize, LipSize femaleLipSize,
 			HairType hairType, HairLength maleHairLength, HairLength femaleHairLength,
@@ -424,7 +424,7 @@ public abstract class AbstractRacialBody {
 		return eyeType;
 	}
 
-	public EarType getEarType() {
+	public AbstractEarType getEarType() {
 		return earType;
 	}
 

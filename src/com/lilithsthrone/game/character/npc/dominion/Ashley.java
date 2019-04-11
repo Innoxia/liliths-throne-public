@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
@@ -8,6 +9,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -184,9 +186,9 @@ public class Ashley extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		// No weapons
 		

@@ -30,6 +30,8 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Units.UnitType;
+import com.lilithsthrone.utils.Units.ValueType;
 
 import java.awt.*;
 import java.io.File;
@@ -57,8 +59,8 @@ public class OptionsDialogue {
 		
 		@Override
 		public String getContent(){
-			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>Lilith's Throne</h1>"
-					+ "<h5 class='special-text' style='text-align:center;'>Created by Innoxia</h5>"
+			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>"+Main.GAME_NAME+"</h1>"
+					+ "<h5 class='special-text' style='text-align:center;'>Created by "+Main.AUTHOR+"</h5>"
 					+ "<br/>"
 					+ "<p>"
 						+ "This game is a text-based erotic RPG, and contains a lot of graphic sexual content. You must agree to the game's disclaimer before playing this game!"
@@ -276,7 +278,10 @@ public class OptionsDialogue {
 		return sb.toString();
 	}
 
-	public static String loadConfirmationName = "", overwriteConfirmationName = "", deleteConfirmationName = "";
+	public static String loadConfirmationName = "";
+	public static String overwriteConfirmationName = "";
+	public static String deleteConfirmationName = "";
+	
 	public static final DialogueNode SAVE_LOAD = new DialogueNode("Save game files", "", true) {
 
 		@Override
@@ -288,12 +293,15 @@ public class OptionsDialogue {
 		public String getHeaderContent(){
 			StringBuilder saveLoadSB = new StringBuilder();
 
-			saveLoadSB.append("<p>"
-					+ "<b>Please Note:</b><br/>"
-					+ "1. Only standard characters (letters and numbers) will work for save file names.<br/>"
-					+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.<br/>"
-					+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (default keybind is F5).<br/>"
-					+ "<b>You cannot save during combat or sex due to some bugs that I need to fix!</b>"
+			saveLoadSB.append(
+					"<p style='text-align:center;'>"
+						+ "<b>Please Note:</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "1. Only standard characters (letters and numbers) will work for save file names.<br/>"
+						+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.<br/>"
+						+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (binding is "+Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKSAVE).getFullName()+").<br/>"
+						+ "4. You cannot save during scenes which restrict your movement, including combat and sex."
 					+ "</p>"
 					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
@@ -471,11 +479,11 @@ public class OptionsDialogue {
 							+ baseName
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
-							+ (Main.game.isStarted() && !Main.game.isInCombat() && !Main.game.isInSex()
+							+ (Main.isSaveGameAvailable()
 									?(name.equals(overwriteConfirmationName)
 										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
 										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
-											:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+									:"<div class='square-button saveIcon disabled' id='overwrite_saved_" + baseName + "_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 							
 							+ (name.equals(loadConfirmationName)
 									?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
@@ -575,7 +583,7 @@ public class OptionsDialogue {
 							:"<span style='color:"+dl.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(dl.getName())+"</span> [style.colourDisabled("+dl.getDescription()+")]")
 						 );
 			}
-			
+
 			UtilText.nodeContentSB.append("</p>");
 			
 			return UtilText.nodeContentSB.toString();
@@ -919,10 +927,10 @@ public class OptionsDialogue {
 	public static final DialogueNode OPTIONS_PRONOUNS = new DialogueNode("Options", "Options", true) {
 
 		@Override
-		public String getHeaderContent() {
-			UtilText.nodeContentSB.setLength(0);
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
 			
-			UtilText.nodeContentSB.append("<p>"
+			sb.append("<p>"
 						+ "<h5 style='text-align:center;'>Global gender names:</h5>"
 						+ "<table align='center'>"
 							+ "<tr>"
@@ -933,10 +941,10 @@ public class OptionsDialogue {
 							+ "</tr>");
 			
 			for(GenderNames gn : GenderNames.values()) {
-				UtilText.nodeContentSB.append(getGenderNameTableRow(gn));
+				sb.append(getGenderNameTableRow(gn));
 			}
 							
-			UtilText.nodeContentSB.append("</table>"
+			sb.append("</table>"
 					+ "</p>"
 					
 					+ "<p>"
@@ -964,19 +972,14 @@ public class OptionsDialogue {
 							+ " If clothing is neutral, treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.<br/>"
 					+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine:</b> Treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.<br/>"
 					+ "</p>");
-							
-			return UtilText.nodeContentSB.toString();	
+			
+			return sb.toString();	
 		}
 		
 		@Override
-		public String getContent(){
-			return "";
-		}
-
-		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Save", "Save all the pronouns that are currently displayed."){
+				return new ResponseEffectsOnly("Save", "Save all the pronouns that are currently displayed.") {
 					@Override
 					public void effects() {
 						for(GenderNames gn : GenderNames.values()) {
@@ -1814,6 +1817,20 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.sillyMode)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"OPPORTUNISTIC_ATTACKERS",
+							Colour.BASE_CRIMSON,
+							"Opportunistic attackers",
+							"This makes random attacks more likely when you're high on lust, low on energy, covered in fluids, exposed, or drunk.",
+							Main.game.isOpportunisticAttackersEnabled()));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"BYPASS_SEX_ACTIONS",
+							Colour.BASE_PINK,
+							"Sex action bypass",
+							"If disabled, action requirements during sex may no longer be bypassed. (i.e. All 'Corruptive' actions will be unavailable.)",
+							Main.getProperties().hasValue(PropertyValue.bypassSexActions)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"VOLUNTARY_NTR",
 							Colour.GENERIC_MINOR_BAD,
 							"Voluntary NTR",
@@ -1853,7 +1870,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"URETHRAL",
 							Colour.BASE_PINK_DEEP,
-							"Urethral",
+							"Urethral content",
 							"This enables urethral transformations and penetrations.",
 							Main.getProperties().hasValue(PropertyValue.urethralContent)));
 				
@@ -1867,21 +1884,28 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"ANAL",
 							Colour.BASE_ORANGE,
-							"Anal content",
-							"When disabled, all non-unique NPCs will spawn in hating anal (which will make them never use anal actions in sex).",
+							"Anal Content",
+							"When disabled, removes all anal-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.analContent)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"FOOT",
+							Colour.BASE_TAN,
+							"Foot Content",
+							"When disabled, removes all foot-related actions from being available during sex.",
+							Main.getProperties().hasValue(PropertyValue.footContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FUTA_BALLS",
 							Colour.BASE_PINK,
 							"Futanari Testicles",
-							"When enabled, futanari NPCs will spawn with external testicles. When disabled, they will always be internal.",
+							"When enabled, futanari NPCs will be able to have external testicles. When disabled, they are locked to always being internal.",
 							Main.getProperties().hasValue(PropertyValue.futanariTesticles)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"CLOACA",
 							Colour.BASE_PINK_LIGHT,
-							"Bipedal cloacas",
+							"Bipedal Cloacas",
 							"When enabled, certain bipedal races (such as harpies and alligator-morphs) will have cloacas."
 									+ " When disabled, all bipeds with cloacas will be treated as having a regular genitalia configuration."
 									+ " Some special races, such as lamia, always have cloacas, and are not affected by this.",
@@ -1952,6 +1976,13 @@ public class OptionsDialogue {
 							Main.getProperties().forcedTFPercentage,
 							0,
 							100));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"SPITTING_ENABLED",
+					Colour.BASE_BLUE,
+					"Rejecting TF potions",
+					"Forced TF potions may be spat out if this is enabled.",
+					!Main.game.isSpittingDisabled()));
 
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
 			UtilText.nodeContentSB.append((Main.getProperties().getForcedTFTendency()==ForcedTFTendency.NEUTRAL
@@ -2100,6 +2131,26 @@ public class OptionsDialogue {
 							Main.getProperties().pregnancyLactationLimit,
 							0,
 							Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
+
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+							"BREAST_SIZE_PREFERENCE",
+							Colour.NIPPLES,
+							"Cup Size Preference",
+							"Affects randomly-generated NPCs' cup sizes (will not be reduced to below AA-cup).",
+							(Main.getProperties().breastSizePreference>=0?"+":"") + Main.getProperties().breastSizePreference,
+							Main.getProperties().breastSizePreference,
+							-20,
+							20));
+
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+							"PENIS_SIZE_PREFERENCE",
+							Colour.PENIS,
+							"Penis Size Preference",
+							"Affects randomly-generated NPCs' penis sizes (will not be reduced to below "+Units.size(8)+").",
+							(Main.getProperties().penisSizePreference>=0?"+":"") + Units.size(Main.getProperties().penisSizePreference, ValueType.PRECISE, UnitType.SHORT),
+							Main.getProperties().penisSizePreference,
+							-20,
+							20));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2133,9 +2184,9 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
@@ -2147,9 +2198,9 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 		
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
@@ -2182,21 +2233,21 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
 		
 		contentSB.append(
-				"<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+				"<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
 						+ (value==maximum?"[style.boldDisabled(+)]":"[style.boldGood(+)]")
 				+ "</div>"
-				+ "<div class='container-full-width' style='text-align:center; width:calc(20%); float:right; margin:0;'>"
+				+ "<div class='container-full-width' style='text-align:center; width:calc(30%); float:right; margin:0;'>"
 					+ "<b>"+valueDisplay+"</b>"
 				+ "</div>"
-				+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+				+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
 					+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
 				+ "</div>");
 		
@@ -2215,11 +2266,11 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "Thank you for playing Lilith's Throne, I hope you enjoy it just as much as I do making it!"
-						+ " Thank you so much to all of the supporters on Patreon! Thanks to you, I'm able to spend more time working on Lilith's Throne, and I promise that I'll make this game the very best that I can!"
+						+ "Thank you for playing "+Main.GAME_NAME+", I hope you enjoy it just as much as I do making it!"
+						+ " Thank you so much to all of you who offer financial support! Thanks to you, I'm able to spend more time working on "+Main.GAME_NAME+", and I promise that I'll make this game the very best that I can!"
 					+ "</p>"
 					+"<p style='text-align:center;'>"
-						+ "Lilith's Throne has been created by:<br/>"
+						+ Main.GAME_NAME+" has been created by:<br/>"
 						+ "<b style='color:#9b78fa;'>Innoxia</b>"
 						+ "<br/><br/>"
 						+ "Artists whose character art can be found in the game:<br/>");
@@ -2246,7 +2297,7 @@ public class OptionsDialogue {
 						+ "<b>Sensei</b>,<br/>"
 						+ "<b style='color:#fa0063;'>loveless</b>, <b style='color:#c790b2;'>Blue999</b>, and <b style='color:#ec9538;'>DesuDemona</b><br/>"
 						+ "<b style='color:#21bec4;'>Github & wiki contributors</b><br/>"
-						+ "<b style='color:#e06e5f;'>Everyone who's supported me on Patreon</b>,<br/>"
+						+ "<b style='color:#e06e5f;'>Everyone who's financially supported me</b>,<br/>"
 						+ "<b>Bug reporters</b>,<br/>"
 						+ "and<br/>"
 						+ "<b>Everyone for playing Lilith's Throne!</b>"

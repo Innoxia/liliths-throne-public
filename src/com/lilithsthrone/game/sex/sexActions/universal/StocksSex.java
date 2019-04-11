@@ -53,7 +53,7 @@ public class StocksSex {
 			return "Deciding that [npc.she] [npc.verb(want)] to fuck [npc2.name] while [npc2.sheIs] locked in the stocks,"
 						+ " [npc.name] [npc.verb(step)] up behind [npc2.herHim] and [npc.verb(start)] grinding [npc.her] groin up against [npc2.her] [npc2.ass+]."
 					+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.moanVerb], "
-					+ "[npc.speech(Be a good [npc2.girl] and hold still while I fuck [npc.name]!)]";
+					+ "[npc.speech(Be a good [npc2.girl] and hold still while I fuck you!)]";
 		}
 
 		@Override

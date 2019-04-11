@@ -48,15 +48,16 @@ public enum Combat {
 
 	private static NPC activeNPC;
 	private static GameCharacter targetedCombatant;
-	private static List<NPC> allies;
+	private static List<NPC> allies = new ArrayList<>();
 	private static NPC enemyLeader;
-	private static List<NPC> enemies;
+	private static List<NPC> enemies = new ArrayList<>();
 	private static List<NPC> allCombatants;
 	private static Map<GameCharacter, Map<SpecialAttack, Integer>> cooldowns;
 	private static float escapeChance = 0;
 	private static Map<GameCharacter, Float> totalDamageTaken;
 	private static int turn = 0;
 	private static boolean escaped = false;
+	private static boolean playerVictory = false;
 	private static StringBuilder combatStringBuilder = new StringBuilder();
 	private static StringBuilder attackStringBuilder = new StringBuilder();
 	private static StringBuilder postCombatStringBuilder = new StringBuilder();
@@ -106,7 +107,8 @@ public enum Combat {
 		activeNPC = enemies.get(0);
 
 		escaped = false;
-		
+		playerVictory = false;
+				
 		totalDamageTaken = new HashMap<>();
 		combatContent = "";
 		turn = 0;
@@ -203,7 +205,6 @@ public enum Combat {
 		Main.game.setInCombat(true);
 		
 		Main.mainController.openInventory();
-		
 	}
 
 	public static void appendTurnText(GameCharacter character, String title, String description) {
@@ -238,6 +239,8 @@ public enum Combat {
 	public static void endCombat(boolean playerVictory) {
 		
 		postCombatStringBuilder.setLength(0);
+		
+		Combat.playerVictory = playerVictory;
 		
 		if (playerVictory) {
 			// Give the player experience and money if they won:
@@ -1984,5 +1987,12 @@ public enum Combat {
 
 	public static void incrementTotalDamageTaken(GameCharacter character, float increment) {
 		setTotalDamageTaken(character, getTotalDamageTaken(character) + increment);
+	}
+
+	/**
+	 * @return true if the last combat that took place resulted in the player's victory.
+	 */
+	public static boolean isPlayerVictory() {
+		return playerVictory;
 	}
 }

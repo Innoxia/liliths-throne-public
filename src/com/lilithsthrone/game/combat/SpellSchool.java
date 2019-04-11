@@ -22,7 +22,7 @@ public enum SpellSchool {
 				+ "A prerequisite to harnessing Earth spells is the ability to freely manipulate solid, non-organic matter."
 				+ " Easily learned by anyone possessing a demon-strength aura, and outlined in the introduction of all Earth spell books, this ability allows the practitioner to change the colour and material of any object."
 			+ "</p>",
-			"Dye clothing without a dye-brush.",
+			"Dye clothing and reforge weapons at will.",
 			Colour.BASE_BROWN),
 
 	WATER("water",
