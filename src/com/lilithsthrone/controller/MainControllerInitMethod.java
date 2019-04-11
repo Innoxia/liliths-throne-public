@@ -5326,7 +5326,8 @@ public class MainControllerInitMethod {
 					new Value<>("FURRY_TAIL_PENETRATION", PropertyValue.furryTailPenetrationContent),
 					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
 					new Value<>("SPITTING_ENABLED", PropertyValue.spittingEnabled),
-					new Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers));
+					new Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers),
+					new Value<>("BYPASS_SEX_ACTIONS", PropertyValue.bypassSexActions));
 			
 			for(Entry<String, PropertyValue> entry : settingsMap.entrySet()) {
 				createToggleListener(entry.getKey()+"_ON", entry.getValue(), true);
