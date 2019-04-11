@@ -460,12 +460,10 @@ public class BatCavernSlimeAttackerDialogue {
 						:Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 
 				if (index == 1) {
-<<<<<<< HEAD
+					if(Main.game.isSpittingDisabled()) {
+						return Response.getDisallowedSpittingResponse();
+					}
 					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(true), Util.newArrayListOfValues(applicableFetish))) {
-=======
-					if(Main.game.isSpittingDisabled()) return Response.getDisallowedSpittingResponse();
-					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(), Util.newArrayListOfValues(applicableFetish))) {
->>>>>>> 53e74fa9e777c4c014367f2e8f8eb9453c4770c5
 						return new Response("Spit",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+applicableFetish.getName(Main.game.getPlayer())
 									+"</b> fetish, you love "+applicableFetish.getShortDescriptor()+" so much that you can't bring yourself to spit out the transformative liquid!",
