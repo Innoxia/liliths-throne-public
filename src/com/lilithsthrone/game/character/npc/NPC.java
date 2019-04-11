@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.character.npc.util.TFPotionGenerator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -1282,7 +1283,23 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(generateNew) {
 			this.heldTransformativePotion = null;
 			
-			if(hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && hasFetish(Fetish.FETISH_KINK_GIVING)) {
+			if(Main.game.isAlternativeForcedTFEnabled()) {
+				TFPotionGenerator generator = new TFPotionGenerator(this, Main.game.getPlayer());
+				List<ItemEffect> tfPotionEffects = new ArrayList<>();
+
+				tfPotionEffects = generator.getPotionEffects();
+
+				Value<String, AbstractItem> fetishPotionPair = generateFetishPotion(true);
+				if(fetishPotionPair == null)fetishPotionPair = generateFetishPotion(false);
+				if(fetishPotionPair != null)
+					tfPotionEffects.addAll(fetishPotionPair.getValue().getEffects());
+
+				if(tfPotionEffects.size() > 0)
+					this.heldTransformativePotion = new Value<>(
+							generator.getReaction(),
+							EnchantingUtils.craftItem(AbstractItemType.generateItem(generator.getItemType()), tfPotionEffects)
+					);
+			} else if(hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && hasFetish(Fetish.FETISH_KINK_GIVING)) {
 				int randNum = Util.random.nextInt(100);
 				Boolean pairedFetishAvailable = generateFetishPotion(true) == null ? false : true;
 				

@@ -52,12 +52,14 @@ public enum PropertyValue {
 	voluntaryNTR(false),
 	involuntaryNTR(false),
 
+	alternativeForcedTF(true),
+
 	levelUpHightlight(false),
 	newWeaponDiscovered(false),
 	newClothingDiscovered(false),
 	newItemDiscovered(false),
 	newRaceDiscovered(false);
-	
+
 	
 	private boolean defaultValue;
 
