@@ -90,7 +90,8 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Full packaged release out tomorrow..."//TODO
+			+ "There were a huge amount of bugs to be fixed for this version, so the only new content I managed to get added was the internal map & new NPC for city hall."
+			+ " I think that the vast majority of major bugs have been fixed now, so provided that this version doesn't introduce many more, I should be able to get a lot more content added in v0.3.3."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -294,7 +295,12 @@ public class Main extends Application {
 			+"<ul>Fixed issues in parsing when milking girlcum in a milking room.</ul>"
 			+"<ul>Fixed some broken lubrication descriptions in sex.</ul>"
 		+ "</list>"
-			
+
+
+		+ "<br/>"
+
+		+ "<list>"
+		+ "<h6>v0.3.2.2</h6>"
 			+"<li>Engine:</li>"
 			+"<ul>Refactored inventory code to address issue with selling of huge stacks of items causing the game to crash. It will also have sped up normal inventory interactions, but probably by an unnoticable amount.</ul>"
 			+"<ul>Added support for inline scripting methods to suppress output (use two hash symbols (##) at the start of an inline parsing statement instead of one (#) to suppress output Strings).</ul>"
@@ -310,6 +316,11 @@ public class Main extends Application {
 			+"<li>Contributors:</li>"
 			+"<ul>Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)</ul>"
 			+"<ul>Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)</ul>"
+			+"<ul>Added a configurable chance for NPCs' forced TFs to change you into a random race, rather than their race. (PR#1101 by Eliria)</ul>"
+			+"<ul>Made imp fortress subspecies checks null-safe. (PR#1105 by Niranufoti)</ul>"
+			+"<ul>Add difficulty option: No Spitting. This enables/disables the ability for you to spit out forced TF potions. (PR#1111 by 0d721077)</ul>"
+			+"<ul>Add difficulty option: Opportunistic Attackers. This enables/disables an increased likelihood of being attacked when high in lust, exposed, drunk, covered in sexual fluids, or low on energy. (PR#1113 by 0d721077)</ul>"
+			+"<ul>Add difficulty option: Sex Action Bypass. This enables/disables the ability for you to select sex actions outside of your corruption range. (PR#1112 by 0d721077)</ul>"
 			
 			+"<li>Clothing:</li>"
 			+"<ul>Added: 'flats' (feminine, foot slot, sold by Nyan).</ul>"
@@ -434,6 +445,7 @@ public class Main extends Application {
 			+"<ul>Fixed slave event log displaying impregnation possibility on NPCs who were already pregnant.</ul>"
 			+"<ul>Fixed issue with alpha-imps producing non-imp offspring.</ul>"
 			+"<ul>Fixed milking room's fluids not being drained correctly when there were several instances of a fluid with varying virilities. Also fixed the consumption text always reading 100ml, even if it was less.</ul>"
+		+ "</list>"
 	;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"

@@ -140,6 +140,11 @@
 	Contributors:
 		Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)
 		Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)
+		Added a configurable chance for NPCs' forced TFs to change you into a random race, rather than their race. (PR#1101 by Eliria)
+		Made imp fortress subspecies checks null-safe. (PR#1105 by Niranufoti)
+		Add difficulty option: No Spitting. This enables/disables the ability for you to spit out forced TF potions. (PR#1111 by 0d721077)
+		Add difficulty option: Opportunistic Attackers. This enables/disables an increased likelihood of being attacked when high in lust, exposed, drunk, covered in sexual fluids, or low on energy. (PR#1113 by 0d721077)
+		Add difficulty option: Sex Action Bypass. This enables/disables the ability for you to select sex actions outside of your corruption range. (PR#1112 by 0d721077)
 		
 	Clothing:
 		Added: 'flats' (feminine, foot slot, sold by Nyan).
@@ -269,9 +274,8 @@
 	
 	
 	
-	Merge PRs
 	
-	Package
+	
 	
 	
 	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it

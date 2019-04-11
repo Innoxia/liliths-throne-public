@@ -854,6 +854,14 @@ public interface SexActionInterface {
 				public SexActionType getSexActionType() {
 					return getActionType();
 				}
+
+				@Override
+				public boolean isAbleToBypass() {
+					if(!Main.game.isBypassSexActions()) {
+						return false;
+					}
+					return super.isAbleToBypass();
+				}
 			};
 			
 		} else {
