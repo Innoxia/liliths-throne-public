@@ -140,6 +140,8 @@
 	Contributors:
 		Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)
 		Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)
+		Added a configurable chance for NPCs' forced TFs to change you into a random race, rather than their race. (PR#1101 by Eliria)
+		made imp fortress subspecies checks null-safe. (PR#1105 by Niranufoti)
 		
 	Clothing:
 		Added: 'flats' (feminine, foot slot, sold by Nyan).
@@ -264,6 +266,9 @@
 		Fixed slave event log displaying impregnation possibility on NPCs who were already pregnant.
 		Fixed issue with alpha-imps producing non-imp offspring.
 		Fixed milking room's fluids not being drained correctly when there were several instances of a fluid with varying virilities. Also fixed the consumption text always reading 100ml, even if it was less.
+	
+	
+	
 	
 	
 	
