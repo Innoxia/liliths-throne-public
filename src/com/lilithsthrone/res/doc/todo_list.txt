@@ -277,6 +277,15 @@
 	
 	
 	
+	So, I go out of dominion, walk around a bit to the right until a reach the ocean and try to get into the ocean (blocked tile). Then I fast travel to the city up north, try to enter the city (and fail). Then fast travel back to dominion and click "Enter".
+	Happens when you fast travel directly on the Dominion tile.
+		java.lang.NullPointerException
+			at com.lilithsthrone.game.dialogue.places.global.GlobalFoloiFields$1$1.effects(GlobalFoloiFields.java:37)
+			at com.lilithsthrone.game.dialogue.responses.Response.applyEffects(Response.java:196)
+			at com.lilithsthrone.game.Game.setContent(Game.java:1729)
+			at com.lilithsthrone.controller.eventListeners.SetContentEventListener.handleEvent(SetContentEventListener.java:36)
+			at com.sun.webkit.dom.EventListenerImpl.fwkHandleEvent(EventListenerImpl.java:129)
+			at com.sun.webkit.WebPage.twkProcessMouseEvent(Native Method)
 	
 	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
 	
