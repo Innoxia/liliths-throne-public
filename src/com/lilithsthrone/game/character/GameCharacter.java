@@ -3628,10 +3628,10 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		value += (this.isAssVirgin()?virginValueIncrease:0);
 		if(this.hasPenis()) {
-			value *= (this.isPenisVirgin()?virginValueIncrease:0);
+			value += (this.isPenisVirgin()?virginValueIncrease:0);
 		}
 		if(this.hasVagina()) {
-			value *= (this.isVaginaVirgin()?virginValueIncrease:0);
+			value += (this.isVaginaVirgin()?virginValueIncrease:0);
 		}
 		
 		value *= 1+(0.05f*getFetishes(true).size());
