@@ -395,6 +395,7 @@ public enum Colour {
 	CLOTHING_GOLD(true, Util.newColour(0xEBC633), Util.newColour(0xEBC633), "gold"),
 	CLOTHING_ROSE_GOLD(true, BaseColour.ROSE_GOLD, "rose gold"),
 	CLOTHING_PLATINUM(true, BaseColour.PLATINUM, "platinum"),
+	CLOTHING_GUNMETAL(true, Util.newColour(0x555555), Util.newColour(0x555555), "gunmetal gray"),
 	
 	// For special use with rainbow clothing:
 	CLOTHING_MULTICOLOURED(false, Util.newColour(0xff3030), Util.newColour(0xccffff), "multicoloured"),
