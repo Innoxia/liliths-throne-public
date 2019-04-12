@@ -9,23 +9,25 @@ package com.lilithsthrone.game.character.body.valueEnums;
  */
 public enum HornLength {
 	
-	ZERO_TINY("tiny", 0, 5),
+	ZERO_TINY("tiny", 0, 5, false),
 
-	ONE_SMALL("small", 5, 15),
+	ONE_SMALL("small", 5, 15, false),
 
-	TWO_LONG("long", 15, 30),
+	TWO_LONG("long", 15, 30, true),
 
-	THREE_HUGE("huge", 30, 50),
+	THREE_HUGE("huge", 30, 50, true),
 
-	FOUR_MASSIVE("massive", 50, 75);
+	FOUR_MASSIVE("massive", 50, 75, true);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;
+	private boolean suitableAsHandles;
 
-	private HornLength(String descriptor, int minimumValue, int maximumValue) {
+	private HornLength(String descriptor, int minimumValue, int maximumValue, boolean suitableAsHandles) {
 		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
+		this.suitableAsHandles = suitableAsHandles;
 	}
 
 	public int getMinimumValue() {
@@ -51,5 +53,9 @@ public enum HornLength {
 	
 	public String getDescriptor() {
 		return descriptor;
+	}
+
+	public boolean isSuitableAsHandles() {
+		return suitableAsHandles;
 	}
 }

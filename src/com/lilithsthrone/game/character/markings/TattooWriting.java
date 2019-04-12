@@ -34,7 +34,7 @@ public class TattooWriting implements XMLSaving {
 	}
 	
 	public static List<Colour> getAvailableColours() {
-		return ColourListPresets.ALL.getPresetColourList();
+		return ColourListPresets.ALL;
 	}
 	
 	@Override
@@ -52,7 +52,7 @@ public class TattooWriting implements XMLSaving {
 	
 	@Override
 	public int hashCode() {
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + getText().hashCode();
 		result = 31 * result + getColour().hashCode();
 		result = 31 * result + (isGlow() ? 1 : 0);

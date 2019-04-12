@@ -486,7 +486,7 @@
 	
 	<htmlContent tag="LILIN_PALACE_GATE_ENTRY_BLOCKED"><![CDATA[
 	<p>
-		As you approach, a light-skinned half-succubus, with crimson-skinned demonic parts, steps forwards to bar your passage. [elizabeth.speech(Stop right there, [pc.race]. Her Highness, Lyssieth, isn't receiving visitors at the moment, and it's quite out of the ordinary for someone to just waltz up to us like this. Identify yourself!)]
+		As you approach, a light-skinned half-succubus, with crimson-skinned demonic parts, steps forwards to bar your passage. [elizabeth.speech(Stop right there#IF(pc.getRace()==RACE_HUMAN)!#ELSE, [pc.race].#ENDIF Her Highness, Lyssieth, isn't receiving visitors at the moment, and it's quite out of the ordinary for someone to just waltz up to us like this. Identify yourself!)]
 	</p>
 	<p>
 		You notice that the small army of demons around you are alert and ready for a fight, and, realising that it would be best to cooperate, you decide to do as the half-succubus asks.

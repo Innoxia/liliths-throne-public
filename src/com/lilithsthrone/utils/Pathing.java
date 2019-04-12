@@ -229,7 +229,7 @@ public class Pathing {
 		if(!getMapTravelType().isAvailable(Main.game.getPlayer())) {
 			setMapTravelType(MapTravelType.WALK_SAFE);
 		}
-		setPathingCells(new ArrayList<>(), new Vector2i(Main.game.getPlayer().getLocation()));
+		setPathingCells(new ArrayList<>(), new Vector2i(-1, -1));//new Vector2i(Main.game.getPlayer().getLocation()));
 		destinationWorld = Main.game.getPlayer().getWorldLocation();
 	}
 	

@@ -170,7 +170,7 @@ public class RacialBody {
 			VaginaType.DEMON_COMMON,
 			Wetness.SEVEN_DROOLING,
 			Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			Util.newArrayListOfValues(WingType.DEMON_COMMON, WingType.DEMON_FEATHERED), WingSize.ONE_SMALL, WingSize.ONE_SMALL,
+			Util.newArrayListOfValues(WingType.DEMON_COMMON, WingType.DEMON_FEATHERED), WingSize.THREE_LARGE, WingSize.THREE_LARGE,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -594,10 +594,10 @@ public class RacialBody {
 			LegType.BAT_MORPH, LegConfiguration.BIPEDAL,
 			SkinType.BAT_MORPH,
 			BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY,
-			Util.newArrayListOfValues(HornType.NONE), PenisType.BAT_MORPH, 13,
-			PenisGirth.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, 2,
-			CumProduction.THREE_AVERAGE, Util.newArrayListOfValues(TailType.NONE), TentacleType.NONE,
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
+			PenisType.BAT_MORPH, 13, PenisGirth.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
+			Util.newArrayListOfValues(TailType.BAT_MORPH),
+			TentacleType.NONE,
 			VaginaType.BAT_MORPH,
 			Wetness.TWO_MOIST,
 			Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,

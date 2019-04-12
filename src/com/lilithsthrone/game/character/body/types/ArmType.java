@@ -391,7 +391,7 @@ public class ArmType {
 						InventorySlot.WRIST),
 				Race.HARPY,
 				"Due to the fact that [npc.nameHasFull] bird-like wings instead of arms, only specialist clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HARPY_WINGS));
+				Util.newArrayListOfValues(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE, ItemTag.FITS_HARPY_WINGS));
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;

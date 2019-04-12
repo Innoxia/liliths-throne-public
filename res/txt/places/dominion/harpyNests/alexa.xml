@@ -132,7 +132,7 @@
 		Deciding that it would be best to avoid Alexa's wrath, you say nothing as she spreads her white-feathered wings, and look on as she launches herself off the platform, flying off in the direction of Slaver Alley. You're confident that you did the right thing; after all, who knows what horrific punishment Alexa would have given you.
 	</p>
 	<p>
-		Alexa's inner-circle of harpies pay you no heed as their matriarch soars off into the +(Main.game.isDayTime()?sky.:night.) They're far too concerned with speculating as to what Alexa is going to do to Scarlett, and as you overhear some of their more frightful ideas, you suddenly remember that you need the abrasive harpy to tell you what happened to Arthur.
+		Alexa's inner-circle of harpies pay you no heed as their matriarch soars off into the #IF(game.isDayTime())sky#ELSEnight#ENDIF. They're far too concerned with speculating as to what Alexa is going to do to Scarlett, and as you overhear some of their more frightful ideas, you suddenly remember that you need the abrasive harpy to tell you what happened to Arthur.
 	</p>
 	<p>
 		It doesn't look like anyone's going to prevent you from leaving, so you quickly move to make your exit. You should probably hurry back to Scarlett's shop and find out what Alexa had in store for her...

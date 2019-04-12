@@ -3,6 +3,8 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -53,6 +55,9 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.*;
+import com.lilithsthrone.utils.comparators.ClothingTypeRarityComparator;
+import com.lilithsthrone.utils.comparators.ItemTypeRarityComparator;
+import com.lilithsthrone.utils.comparators.WeaponTypeRarityComparator;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -136,7 +141,7 @@ public class PhoneDialogue {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().sortCharactersEncountered();
-							charactersEncountered = Main.game.getPlayer().getCharactersEncounteredAsGameCharacters();
+							charactersEncountered = Main.game.getPlayer().getCharactersEncounteredAsGameCharacters(false);
 						}
 					};
 				}
@@ -760,8 +765,12 @@ public class PhoneDialogue {
 						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getBreastRawMilkStorageValue()),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastMilkStorage().getDescriptor()),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration (%/minute)",
-						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(Math.round((character.getBreastLactationRegeneration().getPercentageRegen()*60*100)*100)/100f),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration Per Breast",
+						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond(false)*60)+"/minute",
+						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()),
+						false)
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration Total",
+						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond(true)*60)+"/minute",
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
@@ -793,12 +802,16 @@ public class PhoneDialogue {
 									Colour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(character.getBreastCrotchRows()),
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(Util.intToString(character.getBreastCrotchRows()))+" pair"+(character.getBreastCrotchRows()==1?"":"s"),
 									true)
-							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Storage (mL)",
-									Colour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(character.getBreastCrotchRawMilkStorageValue()),
+							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Storage",
+									Colour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getBreastCrotchRawMilkStorageValue()),
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchMilkStorage().getDescriptor()),
 									false)
-							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration (%/minute)",
-									Colour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(Math.round((character.getBreastCrotchLactationRegeneration().getPercentageRegen()*60*100)*100)/100f),
+							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration Per Crotch-boob",
+									Colour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getCrotchLactationRegenerationPerSecond(false)*60)+"/minute",
+									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchLactationRegeneration().getName()),
+									false)
+							+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration Total",
+									Colour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getCrotchLactationRegenerationPerSecond(true)*60)+"/minute",
 									Colour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchLactationRegeneration().getName()),
 									false)
 							+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
@@ -834,8 +847,8 @@ public class PhoneDialogue {
 						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisCumStorage().getPregnancyModifier())),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":"N/A",
 						true)
-				+ (Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) ? statRow(Colour.TRANSFORMATION_GENERIC, "Cum Regeneration (%/minute)",
-						Colour.TEXT, !knowsPenis?"Unknown":String.valueOf(Math.round((character.getPenisCumProductionRegeneration().getPercentageRegen()*60*100)*100)/100f),
+				+ (Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) ? statRow(Colour.TRANSFORMATION_GENERIC, "Cum Regeneration",
+						Colour.TEXT, !knowsPenis?"Unknown":Units.fluid(character.getCumRegenerationPerSecond()*60)+"/minute",
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":Util.capitaliseSentence(character.getPenisCumProductionRegeneration().getName()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Expulsion (% of stored cum)",
@@ -1080,7 +1093,14 @@ public class PhoneDialogue {
 								: npc.getSubspecies().getSingularMaleName(npc);
 			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : npc.getMother().getName(true));
 			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : npc.getFather().getName(true));
-			String extraRelationships = Main.game.getPlayer().getRelationshipStrTo(npc, Relationship.Parent);
+			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
+			boolean isGreyedOut = extraRelationships.isEmpty();
+			List<String> relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
+			if(npc.getMother()!=null && npc.getMother().isPlayer()) {
+				relationships.add(0, "Mother");
+			} else {
+				relationships.add(0, "Father");
+			}
 
 			output.append("<tr>");
 				output.append("<td style='min-width:100px;'>");
@@ -1106,9 +1126,9 @@ public class PhoneDialogue {
 				output.append("<td style='min-width:100px;'>");
 					output.append("<b>");
 						output.append(
-								extraRelationships.isEmpty()
-									?"[style.italicsDisabled(None)]"
-									:extraRelationships);
+								isGreyedOut
+									?"[style.boldDisabled("+Util.stringsToStringList(relationships, false)+")]"
+									:Util.stringsToStringList(relationships, false));
 					output.append("</b>");
 				output.append("</td>");
 			output.append("</tr>");
@@ -1139,7 +1159,7 @@ public class PhoneDialogue {
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Sons", Colour.MASCULINE.toWebHexString(), sonsFathered);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Daughters", Colour.FEMININE.toWebHexString(), daughtersFathered);
 
-			for (NPC npc : Main.game.getOffspring()) {
+			for (NPC npc : Main.game.getOffspring(false)) {
 				childrenMet += ChildMet(npc) ? 1 : 0;
 			}
 			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
@@ -1157,10 +1177,10 @@ public class PhoneDialogue {
 					+ "<div class='container-full-width' style='text-align:center;'>"
 					
 					+ "<table align='center'>"
-					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th><th>Your additional relationships</th></tr>"
+					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th><th>You are their:</th></tr>"
 					+ "<tr style='height:8px;'></tr>");
 			
-			for(NPC npc : Main.game.getOffspring()) {
+			for(NPC npc : Main.game.getOffspring(false)) {
 				OffspringTableLine(UtilText.nodeContentSB, npc);
 			}
 			
@@ -1693,13 +1713,13 @@ public class PhoneDialogue {
 	static {
 		
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
-		itemsDiscoveredList.sort(new ItemRarityComparator());
+		itemsDiscoveredList.sort(new ItemTypeRarityComparator());
 		
 		weaponsDiscoveredList.addAll(WeaponType.getAllweapons());
-		weaponsDiscoveredList.sort(new WeaponRarityComparator());
+		weaponsDiscoveredList.sort(new WeaponTypeRarityComparator());
 		
 		clothingDiscoveredList.addAll(ClothingType.getAllClothing());
-		clothingDiscoveredList.sort(new ClothingRarityComparator());
+		clothingDiscoveredList.sort(new ClothingTypeRarityComparator());
 	}
 	public static final DialogueNode WEAPON_CATALOGUE = new DialogueNode("Discovered Weapons", "", true) {
 

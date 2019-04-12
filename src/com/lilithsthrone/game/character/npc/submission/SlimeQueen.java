@@ -1,12 +1,14 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -92,6 +94,13 @@ public class SlimeQueen extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this)!=Subspecies.HUMAN) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN);
 		}
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.2")) {
+			this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay());
+			this.setBreastMilkStorage(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
+			this.setBreastStoredMilk(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
+		}
+		
 		this.setSurname("Mercier");
 	}
 	
@@ -187,10 +196,10 @@ public class SlimeQueen extends NPC {
 		this.setNippleElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 		this.setNipplePlasticity(OrificePlasticity.FIVE_YIELDING.getValue());
 		
-		this.setBreastLactationRegeneration(FluidRegeneration.ONE_AVERAGE.getValue());
+		this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay());
 		this.setMilkFlavour(FluidFlavour.STRAWBERRY);
-		this.setBreastMilkStorage(Lactation.FIVE_VERY_LARGE_DROOLING.getMedianValue());
-		this.setBreastStoredMilk(Lactation.FIVE_VERY_LARGE_DROOLING.getMedianValue());
+		this.setBreastMilkStorage(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
+		this.setBreastStoredMilk(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
 		
 		// Ass:
 		this.setAssVirgin(false);
@@ -228,9 +237,9 @@ public class SlimeQueen extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 

@@ -4,10 +4,8 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -19,7 +17,6 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
-import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
@@ -33,7 +30,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.79
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class GenericActions {
@@ -187,7 +184,7 @@ public class GenericActions {
 
 		@Override
 		public String applyEffectsString() {
-			SexFlags.playerGrewDemonicCock = true;
+			Sex.getCharactersGrewCock().add(Main.game.getPlayer());
 			
 			StringBuilder sb = new StringBuilder();
 			if(Main.game.getPlayer().getRace()==Race.DEMON) {
@@ -195,10 +192,10 @@ public class GenericActions {
 			} else {
 				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Subspecies.getFleshSubspecies(Main.game.getPlayer()).getRace()).getPenisType()));
 			}
-			if(Main.game.getPlayer().getPenisRawCumStorageValue() < CumProduction.FIVE_HUGE.getMedianValue()) {
-				sb.append(Main.game.getPlayer().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue()));
-				Main.game.getPlayer().fillCumToMaxStorage();
+			if(Main.game.getPlayer().getPenisRawCumStorageValue() < 150) {
+				sb.append(Main.game.getPlayer().setPenisCumStorage(150));
 			}
+			Main.game.getPlayer().fillCumToMaxStorage();
 			if(Main.game.getPlayer().getPenisRawSizeValue() < 20) {
 				sb.append(Main.game.getPlayer().setPenisSize(20));
 			}
@@ -259,6 +256,8 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
+			Sex.getCharactersGrewCock().add(Sex.getCharacterTargetedForSexAction(this));
+			
 			if(Sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON) {
 				Sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON);
 			} else {
@@ -277,7 +276,7 @@ public class GenericActions {
 	};
 
 	
-	public static final SexAction PLAYER_HYPNOTIC_SUGGESTION_LUST_DECREASE = new SexAction(
+	public static final SexAction HYPNOTIC_SUGGESTION_LUST_DECREASE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
@@ -287,7 +286,7 @@ public class GenericActions {
 		
 		@Override
 		public String getActionTitle() {
-			return "[style.colourPsychoactive(Calming Suggestion)]";
+			return "[style.colourPsychoactive(Calming suggestion)]";
 		}
 
 		@Override
@@ -297,30 +296,31 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getActivePartner().getPsychoactiveFluidsIngested().isEmpty()
-					&& Sex.getCharacterPerformingAction().isPlayer();
+			return !Sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
+					&& (Sex.getCharacterPerformingAction().isPlayer() || (Sex.getCharacterTargetedForSexAction(this).getLust()>25 && Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_DOM)));
 		}
 
 		@Override
 		public String getDescription() {
-			return "Wanting to take advantage of the fact that [npc2.name] is under the strong effect of a psychoactive substance, you lean towards [npc2.herHim] and [npc.moan],"
-					+ " [npc.speech(You aren't really interested in having sex with me, are you?)]"
-				+ "</p>"
-				+ "<p>"
-					+ "[npc2.NamePos] [npc2.eyes] glaze over a little as [npc2.she] answers,"
-					+ " [npc2.speech(Yes... I... I don't know why I'm having sex with you...)]"
-				+ "</p>"
-				+ "<p>"
-					+ "Pushing a little further, you continue,"
-					+ " [npc.speech(You'd rather I wasn't fucking you right now, isn't that right?)]"
-				+ "</p>"
-				+ "<p>"
-					+ (Sex.isDom(Sex.getActivePartner())
-							?"As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] starts to sound a lot calmer, and sighs,"
-								+ " [npc2.speech(This isn't really all that fun...)]"
-							:"As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] starts to sound a lot more distressed, and cries out,"
-								+ " [npc2.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]")
-				+ "</p>";
+			return "<p>"
+					+ "Wanting to take advantage of the fact that [npc2.nameIsFull] under the strong effect of a psychoactive substance, [npc.name] [npc.verb(lean)] towards [npc2.herHim] and [npc.moansVerb],"
+						+ " [npc.speech(You aren't really interested in having sex with me, are you?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[npc2.Name] can't help but agree with what [npc.sheIs] saying, and [npc2.name] haltingly [npc2.verb(answer)],"
+						+ " [npc2.speech(Yes... I... I don't know why I'm having sex with you...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Pushing a little further,"+(!Sex.getCharacterPerformingAction().isPlayer()?" and driven on by [npc.her] fetish for having non-consensual sex,":"")+" [npc.name] [npc.verb(continue)],"
+						+ " [npc.speech(You'd rather I wasn't fucking you right now, isn't that right?)]"
+					+ "</p>"
+					+ "<p>"
+					+ (Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
+						?"As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] [npc2.verb(let)] out a disappointed sigh,"
+							+ " [npc2.speech(This isn't really all that fun...)]"
+						:"As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] [npc2.verb(let)] out a distressed cry,"
+							+ " [npc2.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]")
+					+ "</p>";
 		}
 
 		@Override
@@ -339,7 +339,7 @@ public class GenericActions {
 		
 		@Override
 		public String getActionTitle() {
-			return "[style.colourPsychoactive(Lustful Suggestion)]";
+			return "[style.colourPsychoactive(Lustful suggestion)]";
 		}
 
 		@Override
@@ -350,7 +350,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
-					&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getCharacterTargetedForSexAction(this).getLust()<25);
+					&& (Sex.getCharacterPerformingAction().isPlayer() || (Sex.getCharacterTargetedForSexAction(this).getLust()<75 && !Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_DOM)));
 		}
 
 		@Override
@@ -363,7 +363,7 @@ public class GenericActions {
 			
 			if(Sex.getCharacterTargetedForSexAction(this).isPlayer()) {
 				sb.append("<p>"
-							+ "As [npc2.name] says this, you suddenly feel a fuzzy warmth clouding your mind, and you're vaguely aware of your [npc2.eyes] glazing over as you answer,"
+							+ "As [npc.name] says this, you suddenly feel a fuzzy warmth clouding your mind, and you're vaguely aware of your [npc2.eyes] glazing over as you answer,"
 							+ " [npc2.speech(Yes... I... I love having sex with you...)]"
 						+ "</p>");
 			} else {
@@ -380,7 +380,7 @@ public class GenericActions {
 
 			if(Sex.getCharacterTargetedForSexAction(this).isPlayer()) {
 				sb.append("<p>"
-							+ "As your mind well adn truely gives in to the hypnotic suggestion, you find yourself wanting nothing more than to be fucked by [npc2.name], and you eagerly [npc2.moansVerb],"
+							+ "As your mind well and truly gives in to the hypnotic suggestion, you find yourself wanting nothing more than to be fucked by [npc.name], and you eagerly [npc2.moansVerb],"
 							+ " [npc2.speech(Yes... Yes! Please, fuck me! I <i>need</i> you to fuck me!)]"
 						+ "</p>");
 			} else {
@@ -391,7 +391,7 @@ public class GenericActions {
 			}
 			
 			sb.append( "<p>"
-						+ "[npc.speech(That's a good [npc2.girl],)] [npc.name] [npc.verb(say)], pleased to hear that [npc2.namePos] mind is [npc.hers] to twist as [npc.she] [npc.verb(see)] fit. [np.speech(I'll give you what you want!)]"
+						+ "[npc.speech(That's a good [npc2.girl],)] [npc.name] [npc.verb(say)], pleased to hear that [npc2.namePos] mind is [npc.hers] to twist as [npc.she] [npc.verb(see)] fit. [npc.speech(I'll give you what you want!)]"
 					+ "</p>");
 			
 			return sb.toString();
@@ -781,6 +781,98 @@ public class GenericActions {
 			Sex.setCharacterAllowedToUseSelfActions(Sex.getCharacterTargetedForSexAction(this), true);
 		}
 	};
+
+	public static final SexAction PLAYER_FORBID_PARTNER_CONNTROL = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Restrict control";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Restrict [npc2.namePos] level of control, preventing [npc2.herHim] from initiating any non-self penetrative actions.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			
+			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
+					&& !Sex.isDom(target)
+					&& !Sex.isMasturbation()
+					&& Sex.getSexControl(target).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()
+					&& Sex.getCharacterPerformingAction().isPlayer();
+		}
+
+		@Override
+		public String getDescription() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("[npc.speech(You're not to do anything without being told,)] you order [npc2.name].<br/><br/>"
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] now has a restricted level of control, and cannot initiate any non-self penetrative actions.</i>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public void applyEffects() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			Sex.setForcedSexControl(target, SexControl.ONGOING_ONLY);
+		}
+	};
+	
+	public static final SexAction PLAYER_PERMIT_PARTNER_CONNTROL = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Unrestrict control";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Unrestrict [npc2.namePos] level of control, allowing [npc2.herHim] to initiate non-self penetrative actions.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			
+			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
+					&& !Sex.isDom(target)
+					&& !Sex.isMasturbation()
+					&& Sex.getSexControl(target).getValue()<SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()
+					&& Sex.getCharacterPerformingAction().isPlayer();
+		}
+
+		@Override
+		public String getDescription() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("[npc.speech(You can do what you like,)] you say to [npc2.name], freeing [npc2.herHim] to do as [npc2.she] pleases.<br/><br/>"
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] now has an unrestricted level of control, and can initiate non-self penetrative actions at will.</i>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public void applyEffects() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+			Sex.setForcedSexControl(target, SexControl.FULL);
+		}
+	};
 	
 	public static final SexAction PLAYER_FORBID_PARTNER_POSITIONING_SELF = new SexAction(
 			SexActionType.SPECIAL,
@@ -1098,113 +1190,6 @@ public class GenericActions {
 		}
 	};
 	
-	// Partner:
-	
-	public static final SexAction PARTNER_HYPNOTIC_SUGGESTION_LUST_DECREASE = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.ONE_MINIMUM,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.THREE_DIRTY,
-			null,
-			SexParticipantType.NORMAL) {
-		
-		@Override
-		public String getActionTitle() {
-			return "[style.colourPsychoactive(Calming Suggestion)]";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "[npc2.Name] is under the effect of a psychoactive substance. Use this to your advantage and hypnotically suggest that [npc2.she] doesn't like having sex with you.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Sex.getActivePartner())
-					&& !Sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
-					&& Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_DOM)
-					&& Sex.getCharacterTargetedForSexAction(this).getLust()>LustLevel.ONE_HORNY.getMaximumValue()
-					&& !Sex.getCharacterPerformingAction().isPlayer();
-		}
-
-		@Override
-		public String getDescription() {
-			return "<p>"
-					+ "Wanting to take advantage of the fact that [npc2.nameIs] under the strong effect of a psychoactive substance, [npc.name] leans towards [npc2.herHim] and [npc.moansVerb],"
-						+ " [npc.speech(You aren't really interested in having sex with me, are you?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[npc2.Name] can't help but agree with what [npc.sheIs] saying, and [npc2.name] haltingly [npc2.verb(answer)],"
-						+ " [npc2.speech(Yes... I... I don't know why I'm having sex with you...)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Pushing a little further, and driven on by [npc.her] fetish for having non-consensual sex, [npc.name] continues,"
-						+ " [npc.speech(You'd rather I wasn't fucking you right now, isn't that right?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] [npc2.verb(start)] to feel a lot more distressed, and [npc2.verb(cry)] out,"
-							+ " [npc2.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]"
-					+ "</p>";
-		}
-
-		@Override
-		public void applyEffects() {
-			Sex.getCharacterTargetedForSexAction(this).incrementLust(-50, false);
-		}
-	};
-	
-	public static final SexAction PARTNER_HYPNOTIC_SUGGESTION_LUST_INCREASE = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.ONE_MINIMUM,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.THREE_DIRTY,
-			null,
-			SexParticipantType.NORMAL) {
-		
-		@Override
-		public String getActionTitle() {
-			return "[style.colourPsychoactive(Lustful Suggestion)]";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "[npc2.Name] is under the effect of a psychoactive substance. Use this to your advantage and hypnotically suggest that [npc2.she] loves to have sex with you.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Sex.getActivePartner())
-					&& !Sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
-					&& !Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_DOM)
-					&& Sex.getCharacterTargetedForSexAction(this).getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue()
-					&& !Sex.getCharacterPerformingAction().isPlayer();
-		}
-
-		@Override
-		public String getDescription() {
-				return "Wanting to take advantage of the fact that [npc2.nameIs] under the strong effect of a psychoactive substance, [npc.name] leans towards [npc2.herHim] and [npc.moansVerb],"
-						+ " [npc.speech(You love having sex with me, don't you?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[npc2.Name] can't help but agree with what [npc.sheIs] saying, and haltingly [npc2.verb(answer)],"
-						+ " [npc2.speech(Yes... I... I love having sex with you...)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Pushing a little further, [npc.name] continues,"
-						+ " [npc.speech(You love begging for me to fuck you, isn't that right?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] can't help but feel a lot more eager, and [npc2.moanVerb],"
-						+ " [npc2.speech(Yes! I love it! Please, fuck me! I <i>need</i> you to fuck me!)]"
-					+ "</p>";
-		}
-
-		@Override
-		public void applyEffects() {
-			Sex.getCharacterTargetedForSexAction(this).incrementLust(50, false);
-		}
-	};
-	
 	public static final SexAction PARTNER_STOP_PLAYER_SELF = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -1298,6 +1283,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.getCharacterPerformingAction().isPlayer()
+					&& (!Sex.getCharacterPerformingAction().isSlave() || !Sex.getAllParticipants().contains(Sex.getCharacterPerformingAction().getOwner()))
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
 					&& !Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB);

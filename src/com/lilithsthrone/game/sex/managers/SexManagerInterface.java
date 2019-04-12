@@ -130,9 +130,15 @@ public interface SexManagerInterface {
 		boolean subsResisting = true;
 		boolean subsDenied = true;
 		
+		// Do not skip orgasms at end of sex:
 		if(Sex.getLastUsedPlayerAction().getActionType().isOrgasmOption()
 				|| Sex.getLastUsedPlayerAction().getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM) {
-			return false; // Do not skip orgasms at end of sex.
+			return false; 
+		}
+		
+		// Do not allow player-owned slaves to end sex if the player is also a dom and is not a spectator:
+		if(Sex.isDom(Main.game.getPlayer()) && !Sex.isSpectator(Main.game.getPlayer()) && Sex.getInitialSexManager().isPlayerAbleToStopSex() && partner.isSlave() && partner.getOwner().isPlayer()) {
+			return false;
 		}
 		
 		for(GameCharacter character : Sex.getDominantParticipants(false).keySet()) {
@@ -154,6 +160,9 @@ public interface SexManagerInterface {
 		}
 		
 		if(Sex.isDom(partner) && (!Sex.isConsensual() || subsResisting || !Sex.isSubHasEqualControl() || (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
+			if(Sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()*2) {
+				return true;
+			}
 			return domsSatisfied;
 			
 		} else if(Sex.getSexControl(partner)!=SexControl.FULL) {

@@ -552,48 +552,48 @@ public class FingerBreasts {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking [npc2.namePos] [npc2.hands] in [npc.hers],"
-								+ " [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest, letting out a soft [npc.moan] as [npc.name] [npc.verb(press)] them into [npc.namePos] [npc.breasts+].",
+								+ " [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest, letting out a soft [npc.moan] as [npc.name] [npc.verb(press)] them into [npc.her] [npc.breasts+].",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], guiding them up to gently [npc.verb(press)] into the soft flesh of [npc.namePos] [npc.breasts].",
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], guiding them up to gently [npc.verb(press)] into the soft flesh of [npc.her] [npc.breasts].",
 
-								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] gently [npc.verb(guide)] [npc2.her] [npc2.fingers] up to softly [npc.verb(press)] into [npc.namePos] [npc.breasts+]."));
+								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] gently [npc.verb(guide)] [npc2.her] [npc2.fingers] up to softly [npc.verb(press)] into [npc.her] [npc.breasts+]."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking [npc2.namePos] [npc2.hands] in [npc.hers],"
-								+ " [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest, letting out [npc.a_moan+] as [npc.name] eagerly [npc.verb(press)] them into [npc.namePos] [npc.breasts+].",
+								+ " [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest, letting out [npc.a_moan+] as [npc.name] eagerly [npc.verb(press)] them into [npc.her] [npc.breasts+].",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], eagerly guiding them up to [npc.verb(press)] into the soft flesh of [npc.namePos] [npc.breasts].",
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], eagerly guiding them up to [npc.verb(press)] into the soft flesh of [npc.her] [npc.breasts].",
 
-								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] eagerly [npc.verb(guide)] [npc2.her] [npc2.fingers] up to enthusiastically [npc.verb(press)] into [npc.namePos] [npc.breasts+]."));
+								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] eagerly [npc.verb(guide)] [npc2.her] [npc2.fingers] up to enthusiastically press them into [npc.her] [npc.breasts+]."));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking [npc2.namePos] [npc2.hands] in [npc.hers],"
-								+ " [npc.name] yank them up to [npc.namePos] chest, letting out [npc.a_moan+] as [npc.name] roughly [npc.verb(press)] them into [npc.namePos] [npc.breasts+].",
+								+ " [npc.name] yank them up to [npc.namePos] chest, letting out [npc.a_moan+] as [npc.name] roughly [npc.verb(press)] them into [npc.her] [npc.breasts+].",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], roughly yanking them up to [npc.verb(press)] into the soft flesh of [npc.namePos] [npc.breasts].",
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], roughly yanking them up to [npc.verb(press)] into the soft flesh of [npc.her] [npc.breasts].",
 
 								"Taking hold of [npc2.namePos] [npc2.hands],"
-								+ " [npc.name] violently [npc.verb(pull)] them up to [npc.namePos] chest, forcing [npc2.her] [npc2.fingers] to [npc.verb(press)] into the soft flesh of [npc.namePos] [npc.breasts+]."));
+								+ " [npc.name] violently [npc.verb(pull)] them up to [npc.namePos] chest, forcing [npc2.her] [npc2.fingers] to [npc.verb(press)] into the soft flesh of [npc.her] [npc.breasts+]."));
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking [npc2.namePos] [npc2.hands] in [npc.hers],"
-								+ " [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest, letting out [npc.a_moan+] as [npc.name] eagerly [npc.verb(press)] them into [npc.namePos] [npc.breasts+].",
+								+ " [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest, letting out [npc.a_moan+] as [npc.name] eagerly [npc.verb(press)] them into [npc.her] [npc.breasts+].",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], eagerly guiding them up to [npc.verb(press)] into the soft flesh of [npc.namePos] [npc.breasts].",
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], eagerly guiding them up to [npc.verb(press)] into the soft flesh of [npc.her] [npc.breasts].",
 
-								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] eagerly [npc.verb(guide)] [npc2.her] [npc2.fingers] up to enthusiastically [npc.verb(press)] them into [npc.namePos] [npc.breasts+]."));
+								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] eagerly [npc.verb(guide)] [npc2.her] [npc2.fingers] up to enthusiastically press them into [npc.her] [npc.breasts+]."));
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking [npc2.namePos] [npc2.hands] in [npc.hers],"
-								+ " [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest, letting out [npc.a_moan+] as [npc.name] [npc.verb(press)] them into [npc.namePos] [npc.breasts+].",
+								+ " [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest, letting out [npc.a_moan+] as [npc.name] [npc.verb(press)] them into [npc.her] [npc.breasts+].",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], guiding them up to [npc.verb(press)] into the soft flesh of [npc.namePos] [npc.breasts].",
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], guiding them up to [npc.verb(press)] into the soft flesh of [npc.her] [npc.breasts].",
 
-								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] [npc.verb(guide)] [npc2.her] [npc2.fingers] up to [npc.verb(press)] them into [npc.namePos] [npc.breasts+]."));
+								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] [npc.verb(guide)] [npc2.her] [npc2.fingers] up to [npc.verb(press)] them into [npc.her] [npc.breasts+]."));
 						break;
 					default:
 						break;

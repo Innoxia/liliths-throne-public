@@ -50,7 +50,7 @@ public class SexType implements XMLSaving {
 	
 	@Override
 	public String toString() {
-		return "Participant: "+asParticipant.toString()+"  Performing/Target: "+performingSexArea.toString()+"/"+targetedSexArea.toString();
+		return "Participant: "+asParticipant.toString()+"  Performing/Target: "+(performingSexArea==null?"null":performingSexArea.toString())+"/"+(targetedSexArea==null?"null":targetedSexArea.toString());
 	}
 	
 	@Override
@@ -86,6 +86,10 @@ public class SexType implements XMLSaving {
 
 	public SexAreaInterface getTargetedSexArea() {
 		return targetedSexArea;
+	}
+	
+	public SexType getReversedSexType() {
+		return new SexType(getAsParticipant(), getTargetedSexArea(), getPerformingSexArea());
 	}
 	
 	public List<Fetish> getRelatedFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {

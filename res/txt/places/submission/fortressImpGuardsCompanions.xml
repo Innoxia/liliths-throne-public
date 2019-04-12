@@ -285,7 +285,7 @@
 		Thinking that these imps look particularly cowardly, you think that simply summoning your elemental would be enough to intimidate them. Grinning down at the leader, you declare, [pc.speech(You really think you stand a chance against me?! Perhaps if you can defeat my elemental, you'll have earned the right to challenge me!)]
 	</p>
 	<p>
-		The colour instantly drains from [npc3.namePos] cheeks, and [npc3.she] hisses to [npc3.her] superior, [npc3.speech('Ey! A-An elemental?! Ain't that one o' those arcane thingies?! W-We can't fight that!)]
+		The colour instantly drains from [npc2.namePos] cheeks, and [npc2.she] hisses to [npc2.her] superior, [npc2.speech('Ey! A-An elemental?! Ain't that one o' those arcane thingies?! W-We can't fight that!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -389,7 +389,7 @@
 		[pc.speech(Move!)] you command, glaring down at the leader.
 	</p>
 	<p>
-		[npc2.speech(S-Sorry!)] [npc2.She] instantly cries, tripping over [npc2.her] own feet as [npc2.she] hurries to get out of your way. [npc2.speech(Y-You cna come an' go as yer please, of course! S-Sorry fer the trouble!)]
+		[npc2.speech(S-Sorry!)] [npc2.She] instantly cries, tripping over [npc2.her] own feet as [npc2.she] hurries to get out of your way. [npc2.speech(Y-You can come an' go as yer please, of course! S-Sorry fer the trouble!)]
 	</p>
 	<p>
 		Ignoring the imps' cowardly words, you hold your head up high as they abandon the duty that was given to them. Your way now unobstructed, you move forwards through the gates, trying your best to filter out the imps' pathetic apologies as you stride past them...

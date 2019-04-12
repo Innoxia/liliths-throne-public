@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -234,9 +235,9 @@ public class Amber extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
 		
@@ -454,7 +455,7 @@ public class Amber extends NPC {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Amber.class)) >= Main.game.getNpc(Amber.class).getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Amber lets out a deeply satisfied sigh, before sinking to the floor in total exhaustion."
@@ -466,7 +467,7 @@ public class Amber extends NPC {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Amber lets out a desperate whine, before sinking to the floor and pressing both of her hands to her groin."
-							+ " Having not orgasmed during sex, she's quite clearly still overcome by her intense lust, and starts frantically masturbating right there on the floor."
+							+ " Having not been satisfied, she's quite clearly still overcome by her intense lust, and starts frantically masturbating right there on the floor."
 							+ " She's obviously not going to pose much of a threat like this, so you turn your attention back towards the task at hand; that of finding Zaranix and rescuing Arthur."
 						+ "</p>");
 			}

@@ -216,31 +216,31 @@ public class SuccubisSecrets {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotBipeds.CHAIR_BOTTOM))),
 						null,
-						null, Kate.AFTER_SEX, "<p>"
-						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
-						+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
-						+ " She glances up at you with big, innocent eyes, and begs, "
-						+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...",
-							Main.game.getNpc(Kate.class))
+						null,
+						Kate.AFTER_SEX,
+						"<p>"
+							+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
+							+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
+							+ " She glances up at you with big, innocent eyes, and begs, "
+							+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...", Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
-						+ "She is, without doubt, one of the most attractive women you've ever seen."
-						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
-						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
-						+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
+							+ "She is, without doubt, one of the most attractive women you've ever seen."
+							+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
+							+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
+							+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
 						+ "</p>"
 						+ "<p>"
-						+ "You step forwards, and as you do, the demon lets out a delighted squeal."
-						+ " She spreads her legs even further apart, and you see her tail slide out of her warmed-up slit as she prepares herself for your entrance."
-						+ " Leaning down, the scent of strawberries and sex overwhelms your senses, and as your lips press against hers, you feel her tail wrapping around one of your legs."
+							+ "You step forwards, and as you do, the demon lets out a delighted squeal."
+							+ " She spreads her legs even further apart, and you see her tail slide out of her warmed-up slit as she prepares herself for your entrance."
+							+ " Leaning down, the scent of strawberries and sex overwhelms your senses, and as your lips press against hers, you feel her tail wrapping around one of your legs."
 						+ "</p>"
 						+ "<p>"
-						+ "She briefly pushes you back for a moment, panting, "
-						+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.",
-							Main.game.getNpc(Kate.class))
+							+ "She briefly pushes you back for a moment, panting, "
+							+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.", Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
-						+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
+							+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
 						+ "</p>");
 				
 			} else if (index == 2) {
@@ -358,7 +358,7 @@ public class SuccubisSecrets {
 						+ "</p>"
 						+ "<p>"
 						+ "She seems to have got her own lust under control by now, and as she looks up, she seems rather ashamed of what she just did. "
-						+ UtilText.parseSpeech("Ehhh, sorry about that... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
+						+ UtilText.parseSpeech("Mmm, sorry about that... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
 								+ " Weren't you deterred by the boarded-up windows and stuff?",
 							Main.game.getNpc(Kate.class))
 						+ "</p>"

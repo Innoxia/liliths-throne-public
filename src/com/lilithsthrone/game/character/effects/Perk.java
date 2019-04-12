@@ -703,7 +703,7 @@ public enum Perk {
 	ARCANE_CRITICALS(60,
 			true,
 			"arcane precision",
-			PerkCategory.PHYSICAL,
+			PerkCategory.ARCANE,
 			"perks/physical_accurate",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),

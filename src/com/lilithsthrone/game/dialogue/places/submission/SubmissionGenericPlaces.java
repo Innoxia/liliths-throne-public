@@ -47,7 +47,7 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -73,7 +73,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -132,7 +132,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -161,7 +161,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -184,7 +184,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -230,7 +230,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -523,7 +523,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -604,7 +604,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -686,7 +686,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -768,7 +768,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override
@@ -864,7 +864,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 3*60;
 		}
 		
 		@Override

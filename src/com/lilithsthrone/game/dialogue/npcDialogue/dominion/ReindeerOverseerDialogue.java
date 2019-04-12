@@ -16,40 +16,40 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.96
- * @version 0.1.96
+ * @version 0.3.2
  * @author Innoxia
  */
 public class ReindeerOverseerDialogue {
 	
-	private static NPC reindeer() {
+	private static NPC getReindeer() {
 		return Main.game.getActiveNPC();
 	}
 	
 	private static Response getDefaultResponses(int index) {
 		if(index == 1) {
-			return new ResponseTrade("Trade", "Ask [npc.name] what Yuletide presents [npc.sheIs] selling.", reindeer()) {
+			return new ResponseTrade("Trade", "Ask [npc.name] what Yuletide presents [npc.sheIs] selling.", getReindeer()) {
 				@Override
 				public void effects() {
-					Main.game.getDialogueFlags().addReindeerEncountered(reindeer().getId());
+					Main.game.getDialogueFlags().addReindeerEncountered(getReindeer().getId());
 				}
 			};
 			
 		} else if(index == 2) {
-			if(Main.game.getDialogueFlags().hasWorkedForReindeer(reindeer().getId())) {
+			if(Main.game.getDialogueFlags().hasWorkedForReindeer(getReindeer().getId())) {
 				return new Response("Work", "You've already helped [npc.name] to finish all of the work [npc.she] had today, so you'll need to come back tomorrow if you wanted to work for [npc.herHim] again.", null);
 				
 			} else {
 				return new Response("Work", "Offer to work with the reindeer-morphs.", ENCOUNTER_WORK) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().addReindeerEncountered(reindeer().getId());
-						Main.game.getDialogueFlags().addReindeerDailyWorkedFor(reindeer().getId());
+						Main.game.getDialogueFlags().addReindeerEncountered(getReindeer().getId());
+						Main.game.getDialogueFlags().addReindeerDailyWorkedFor(getReindeer().getId());
 					}
 				};
 			}
 			
 		} else if(index == 3) {
-			if(!Main.game.getDialogueFlags().hasWorkedForReindeer(reindeer().getId())) {
+			if(!Main.game.getDialogueFlags().hasWorkedForReindeer(getReindeer().getId())) {
 				return new Response("Relieve stress", "[npc.Name] is far too busy to take any time off work right now. Perhaps if you helped out first, [npc.she]'d have time to have sex with you...", null);
 				
 			} else {
@@ -58,7 +58,7 @@ public class ReindeerOverseerDialogue {
 					true, true,
 					new SMGeneric(
 							Util.newArrayListOfValues(Main.game.getPlayer()),
-							Util.newArrayListOfValues(reindeer()),
+							Util.newArrayListOfValues(getReindeer()),
 					null,
 					null) {
 						@Override
@@ -86,7 +86,7 @@ public class ReindeerOverseerDialogue {
 					+ "</p>") {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().addReindeerEncountered(reindeer().getId());
+							Main.game.getDialogueFlags().addReindeerEncountered(getReindeer().getId());
 						}
 					};
 			}
@@ -95,7 +95,7 @@ public class ReindeerOverseerDialogue {
 			return new Response("Leave", "Tell [npc.name] that you might come back another time, before taking your leave.", ENCOUNTER_START){
 				@Override
 				public void effects() {
-					Main.game.getDialogueFlags().addReindeerEncountered(reindeer().getId());
+					Main.game.getDialogueFlags().addReindeerEncountered(getReindeer().getId());
 				}
 				@Override
 				public DialogueNode getNextDialogue(){
@@ -114,7 +114,7 @@ public class ReindeerOverseerDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getDialogueFlags().hasEncounteredReindeer(reindeer().getId())) {
+			if(Main.game.getDialogueFlags().hasEncounteredReindeer(getReindeer().getId())) {
 				UtilText.nodeContentSB.append("<p>"
 							+ "Wanting to speak with [npc.name] again, you look around for a little while, before eventually spotting [npc.herHim] issuing orders to some of [npc.her] workers."
 							+ " Walking up to [npc.herHim], you call out a greeting,"
@@ -170,8 +170,8 @@ public class ReindeerOverseerDialogue {
 				}
 			}
 			
-			if(Main.game.getDialogueFlags().hasWorkedForReindeer(reindeer().getId())) {
-				if(Main.game.getDialogueFlags().hasFuckedReindeer(reindeer().getId())) {
+			if(Main.game.getDialogueFlags().hasWorkedForReindeer(getReindeer().getId())) {
+				if(Main.game.getDialogueFlags().hasFuckedReindeer(getReindeer().getId())) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "[npc.Name] smiles fondly at you as [npc.she] steps closer."
@@ -507,7 +507,7 @@ public class ReindeerOverseerDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(getReindeer()) >= getReindeer().getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With a satisfied sigh, [npc.name] begins to get [npc.her] clothing in order."
@@ -518,7 +518,7 @@ public class ReindeerOverseerDialogue {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With an annoyed huff, [npc.name] begins to get [npc.her] clothing in order."
-							+ " [npc.speech(Fuck... I didn't even get to cum! That was pretty disappointing...)]"
+							+ " [npc.speech(Fuck... I'm still so horny! That was pretty disappointing...)]"
 						+ "</p>");
 			}
 			

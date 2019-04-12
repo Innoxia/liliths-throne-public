@@ -632,17 +632,17 @@ public enum RenderingEngine {
 		inventorySB.setLength(0);
 		
 		Map<AbstractCoreItem, Integer> giftsAvailable = new HashMap<>();
-		for(Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getMapOfDuplicateItems().entrySet()) {
+		for(Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getAllItemsInInventory().entrySet()) {
 			if(receiver.getGiftReaction(entry.getKey(), false) != null) {
 				giftsAvailable.put(entry.getKey(), entry.getValue());
 			}
 		}
-		for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
+		for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getAllClothingInInventory().entrySet()) {
 			if(receiver.getGiftReaction(entry.getKey(), false) != null) {
 				giftsAvailable.put(entry.getKey(), entry.getValue());
 			}
 		}
-		for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
+		for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getAllWeaponsInInventory().entrySet()) {
 			if(receiver.getGiftReaction(entry.getKey(), false) != null) {
 				giftsAvailable.put(entry.getKey(), entry.getValue());
 			}
@@ -680,21 +680,21 @@ public enum RenderingEngine {
 		pageSB.setLength(0);
 		
 		if(charactersInventoryToRender == null) {
-			for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+			for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 				if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
 					pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
 				}
 				uniqueItemCount++;
 			}
 			
-			for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+			for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
 				if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
 					pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
 				}
 				uniqueItemCount++;
 			}
 			
-			for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+			for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
 				if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
 					pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
 				}
@@ -703,7 +703,7 @@ public enum RenderingEngine {
 			
 		} else {
 			if(page==5) { // Quest:
-				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getMapOfDuplicateWeapons().entrySet()) {
+				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
 					if(entry.getKey().getRarity()==Rarity.QUEST && charactersInventoryToRender.isPlayer()) {
 						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
@@ -712,7 +712,7 @@ public enum RenderingEngine {
 					}
 				}
 				
-				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getMapOfDuplicateClothing().entrySet()) {
+				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
 					if(entry.getKey().getRarity()==Rarity.QUEST && charactersInventoryToRender.isPlayer()) {
 						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
@@ -721,7 +721,7 @@ public enum RenderingEngine {
 					}
 				}
 				
-				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getMapOfDuplicateItems().entrySet()) {
+				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
 					if(entry.getKey().getRarity()==Rarity.QUEST && charactersInventoryToRender.isPlayer()) {
 						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
@@ -731,7 +731,7 @@ public enum RenderingEngine {
 				}
 				
 			} else {
-				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getMapOfDuplicateWeapons().entrySet()) {
+				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
 					if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
 						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
@@ -740,7 +740,7 @@ public enum RenderingEngine {
 					}
 				}
 				
-				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getMapOfDuplicateClothing().entrySet()) {
+				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
 					if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
 						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
@@ -749,7 +749,7 @@ public enum RenderingEngine {
 					}
 				}
 				
-				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getMapOfDuplicateItems().entrySet()) {
+				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
 					if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
 						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
@@ -1265,7 +1265,7 @@ public enum RenderingEngine {
 			
 			int count = 0;
 			if(Main.game.isInNewWorld()) {
-				for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+				for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 					if(count%2==0) {
 						uiAttributeSB.append(
 								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"
@@ -1281,7 +1281,7 @@ public enum RenderingEngine {
 					}
 					count++;
 				}
-				for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+				for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
 					if(count%2==0) {
 						uiAttributeSB.append(
 								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"
@@ -1297,7 +1297,7 @@ public enum RenderingEngine {
 					}
 					count++;
 				}
-				for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+				for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
 					if(count%2==0) {
 						uiAttributeSB.append(
 								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"
@@ -1482,7 +1482,7 @@ public enum RenderingEngine {
 								);
 
 					if(withNPCIcons) {
-						appendNPCIcon(Main.game.getWorlds().get(world), j, i);
+						appendNPCIcon(Main.game.getWorlds().get(world), j, i, width);
 					}
 //					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
 					
@@ -1693,7 +1693,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH).getFullName()) + "</b>");
 								
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
@@ -1722,7 +1722,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH).getFullName()) + "</b>");
 
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
@@ -1751,7 +1751,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST).getFullName()) + "</b>");
 
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
@@ -1780,7 +1780,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST).getFullName()) + "</b>");
 
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
@@ -1823,7 +1823,7 @@ public enum RenderingEngine {
 									}
 								}
 								
-								appendNPCIcon(Main.game.getActiveWorld(), x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
 								appendItemsInAreaIcon(x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 
@@ -1862,24 +1862,29 @@ public enum RenderingEngine {
 		return mapSB.toString();
 	}
 	
-	private void appendNPCIcon(World world, int x, int y) {
+	private void appendNPCIcon(World world, int x, int y, float tileWidth) {
 		
 		List<String> mapIcons = new ArrayList<>();
 		List<NPC> charactersPresent = Main.game.getCharactersPresent(world.getCell(x, y));
-
-		for(NPC gc : charactersPresent) {
-			mapIcons.add(gc.getMapIcon());
-		}
-		
 		List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y));
-		for(NPC gc : charactersHome) {
-			if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || (x!=0 && y!=0))) {// && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
-				mapIcons.add(gc.getHomeMapIcon());
+
+		if(!charactersPresent.isEmpty() || !charactersHome.isEmpty()) {
+			for(NPC gc : charactersPresent) {
+				mapIcons.add(gc.getMapIcon());
 			}
-		}
-		
-		for(int i = mapIcons.size() ; i>0 ; i--) {
-			mapSB.append("<div class='npc-icon' style='left:"+(((i-1)*6)+2)+"px;'>"+mapIcons.get(i-1)+"</div>");
+			
+			for(NPC gc : charactersHome) {
+				if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || (x!=0 && y!=0))) {
+					mapIcons.add(gc.getHomeMapIcon());
+				}
+			}
+			
+			if(!mapIcons.isEmpty()) {
+				float increment = Math.min(20, 75/mapIcons.size());
+				for(int i = mapIcons.size() ; i>0 ; i--) {
+					mapSB.append("<div class='npc-icon' style='left:"+(5+((i-1)*increment))+"%;'>"+mapIcons.get(i-1)+"</div>");
+				}
+			}
 		}
 	}
 	
@@ -2188,7 +2193,7 @@ public enum RenderingEngine {
 			}
 			
 			if(!character.isPlayer()) {
-				for (Fetish f : character.getFetishes()) {
+				for (Fetish f : character.getFetishes(true)) {
 					panelSB.append(
 						"<div class='icon effect'>"
 							+ "<div class='icon-content'>"
@@ -2444,7 +2449,7 @@ public enum RenderingEngine {
 			}
 			
 			if(!character.isPlayer()) {
-				for (Fetish f : character.getFetishes()) {
+				for (Fetish f : character.getFetishes(true)) {
 					panelSB.append(
 						"<div class='icon effect'>"
 							+ "<div class='icon-content'>"
@@ -2472,7 +2477,7 @@ public enum RenderingEngine {
 	public static void setPage(GameCharacter charactersInventoryToRender, AbstractCoreItem item) {
 		int uniqueItemCount = 0;
 		
-		for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getMapOfDuplicateWeapons().entrySet()) {
+		for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
 			if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
 				uniqueItemCount++;
 				if(entry.getKey().equals(item)) {
@@ -2487,7 +2492,7 @@ public enum RenderingEngine {
 			}
 		}
 		
-		for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getMapOfDuplicateClothing().entrySet()) {
+		for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
 			if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
 				uniqueItemCount++;
 				if(entry.getKey().equals(item)) {
@@ -2502,7 +2507,7 @@ public enum RenderingEngine {
 			}
 		}
 		
-		for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getMapOfDuplicateItems().entrySet()) {
+		for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
 			if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
 				uniqueItemCount++;
 				if(entry.getKey().equals(item)) {

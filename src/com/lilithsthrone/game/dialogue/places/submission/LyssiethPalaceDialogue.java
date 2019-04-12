@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.submission;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -33,8 +34,8 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.submission.SMLilayaDemonTF;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethDemonTF;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethSex;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
@@ -174,6 +175,12 @@ public class LyssiethPalaceDialogue {
 	};
 
 	public static final DialogueNode SIREN_OFFICE = new DialogueNode("", "", true) {
+
+		@Override
+		public boolean isInventoryDisabled() {
+			return false;
+		}
+		
 		@Override
 		public int getSecondsPassed() {
 			return 60;
@@ -361,6 +368,11 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode LYSSIETH_OFFICE_ENTER = new DialogueNode("", "", true) {
 
 		@Override
+		public boolean isInventoryDisabled() {
+			return false;
+		}
+		
+		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
@@ -521,6 +533,11 @@ public class LyssiethPalaceDialogue {
 	};
 
 	public static final DialogueNode LYSSIETH_OFFICE_TALK = new DialogueNode("", "", true) {
+
+		@Override
+		public boolean isInventoryDisabled() {
+			return false;
+		}
 
 		@Override
 		public int getSecondsPassed() {
@@ -795,7 +812,7 @@ public class LyssiethPalaceDialogue {
 						}
 						// Lyssieth back to human
 						Main.game.getNpc(Lyssieth.class).setStartingBody(false);
-						Main.game.getNpc(Lyssieth.class).equipClothing(true, true, true, true);
+						Main.game.getNpc(Lyssieth.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 					}
 				};
 				
@@ -853,7 +870,7 @@ public class LyssiethPalaceDialogue {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Lyssieth.class).cleanAllDirtySlots();
-						Main.game.getNpc(Lyssieth.class).cleanAllClothing();
+						Main.game.getNpc(Lyssieth.class).cleanAllClothing(true);
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 					}
 				};
