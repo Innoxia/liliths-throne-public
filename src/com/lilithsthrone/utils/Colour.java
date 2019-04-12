@@ -344,7 +344,9 @@ public enum Colour {
 
 	// Standard colours used for clothing:
 	CLOTHING_WHITE(false, Util.newColour(0xdddddd), Util.newColour(0xdddddd), "white"),
+	CLOTHING_GREY_LIGHT(false, Util.newColour(0xaaaaaa), Util.newColour(0xaaaaaa), "light grey"),
 	CLOTHING_GREY(false, Util.newColour(0x777777), Util.newColour(0x777777), "grey"),
+	CLOTHING_GREY_DARK(false, Util.newColour(0x555555), Util.newColour(0x555555), "dark grey"),
 	CLOTHING_BLACK(false, Util.newColour(0x333333), Util.newColour(0x333333), "black"),
 	CLOTHING_BLACK_JET(false, Util.newColour(0x1a1a1a), Util.newColour(0x1a1a1a), "pitch black"),
 	
