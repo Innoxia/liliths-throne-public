@@ -67,8 +67,8 @@ The GIT plugin of Eclipse tries to run the "bash" command, and if you hadn't ins
 6. Try Importing once again.
 
 ## Using Maven
-[Maven](https://maven.apache.org) is a Java build system that can be used to build applications.  
-Support is integrated into Eclipse, but it can be used without an IDE, so you can build the game without Eclipse.  
+[Maven](https://maven.apache.org) is a Java build system that can be used to build applications.
+Support is integrated into Eclipse, but it can be used without an IDE, so you can build the game without Eclipse.
 All build information is provided in [pom.xml](/pom.xml).
 
 ### Building
@@ -78,7 +78,7 @@ From the root of the repository (the folder where `pom.xml` is) run:
 mvn package
 ```
 
-This creates the JAR file in `/target/game-1.jar`.  
+This creates the JAR file in `/target/game-1.jar`.
 Your first build will take longer than the subsequent ones as only changed files are recompiled.
 
 ## Using NetBeans
@@ -121,8 +121,7 @@ Since this does not create a .jar file, you can add Maven run configurations to 
 
 Running the newly created configuration (Shift + F10, make sure that the correct configuration is selected in the top right corner) should create a runnable .jar file in the "target" directory within your working directory. You can rename this file to whatever you want.
 
-Note that executing it will display a warning that the "res" folder wasn't found. This is because it is copied to the wrong location during the Maven building process. You can manually copy it either from your project root directory or from "target/classes" so that it resides in the same directory as the .jar file.
-Also note that the "data" directory (that stores settings and save games) may be overriden during the building process, so make a backup of it beforehand.
+Note that the "data" directory (that stores settings and save games) may be overriden during the building process, so make a backup of it beforehand.
 
 ### Common issues
 
