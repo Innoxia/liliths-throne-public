@@ -19,7 +19,7 @@
 			</resource>
 			<resource>
 				<directory>res</directory>
-				<targetPath>../res</targetPath>
+				<targetPath>${project.build.directory}/res</targetPath>
 			</resource>
 		</resources>
 		<plugins>
