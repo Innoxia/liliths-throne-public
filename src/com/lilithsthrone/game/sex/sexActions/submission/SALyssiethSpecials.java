@@ -132,6 +132,10 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 			Main.game.getPlayer().setHeight(168);
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+			if(Main.game.getPlayer().getBreastCrotchType()!=BreastType.NONE) {
+				Main.game.getPlayer().setBreastCrotchType(BreastType.DEMON_COMMON);
+				// Main.game.getPlayer().setBreastCrotchSize(CupSize.D); // leave as is?
+			}
 			Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
 			Main.game.getPlayer().setBreastSize(CupSize.DD);
 			Main.game.getPlayer().setPenisType(PenisType.NONE);
@@ -201,6 +205,10 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+				if(Main.game.getPlayer().getBreastCrotchType()!=BreastType.NONE) {
+					Main.game.getPlayer().setBreastCrotchType(BreastType.DEMON_COMMON);
+					// Main.game.getPlayer().setBreastCrotchSize(CupSize.D); // leave as is?
+				}
 				Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
 				Main.game.getPlayer().setBreastSize(CupSize.AA);
 				
@@ -213,6 +221,10 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+				if(Main.game.getPlayer().getBreastCrotchType()!=BreastType.NONE) {
+					Main.game.getPlayer().setBreastCrotchType(BreastType.DEMON_COMMON);
+					// Main.game.getPlayer().setBreastCrotchSize(CupSize.D); // leave as is?
+				}
 				Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
 				Main.game.getPlayer().setBreastSize(CupSize.DD);
 			}
@@ -286,6 +298,9 @@ public class SALyssiethSpecials {
 			
 			playerGrowDemonicPenis();
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+			if(Main.game.getPlayer().getBreastCrotchType()!=BreastType.NONE) {
+			    Main.game.getPlayer().setBreastCrotchType(BreastType.DEMON_COMMON);
+			}
 			Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
 			
 			if(!Main.game.getPlayer().isFeminine()) {
@@ -622,6 +637,10 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 			Main.game.getPlayer().setHeight(168);
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+			if(Main.game.getPlayer().getBreastCrotchType()!=BreastType.NONE) {
+			    Main.game.getPlayer().setBreastCrotchType(BreastType.DEMON_COMMON);
+			    // Main.game.getPlayer().setBreastCrotchSize(CupSize.D); // leave as is?
+			}
 			Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
 			Main.game.getPlayer().setBreastSize(CupSize.F);
 			playerGrowDemonicVagina();
@@ -689,6 +708,10 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+				if(Main.game.getPlayer().getBreastCrotchType()!=BreastType.NONE) {
+					Main.game.getPlayer().setBreastCrotchType(BreastType.DEMON_COMMON);
+					// Main.game.getPlayer().setBreastCrotchSize(CupSize.D); // leave as is?
+				}
 				Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
 				Main.game.getPlayer().setBreastSize(CupSize.F);
 				
@@ -701,6 +724,10 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+				if(Main.game.getPlayer().getBreastCrotchType()!=BreastType.NONE) {
+					Main.game.getPlayer().setBreastCrotchType(BreastType.DEMON_COMMON);
+					// Main.game.getPlayer().setBreastCrotchSize(CupSize.D); // leave as is?
+				}
 				Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
 				Main.game.getPlayer().setBreastSize(CupSize.AA);
 			}
