@@ -14,6 +14,8 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.Vagina;
+import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
@@ -52,6 +54,10 @@ public enum LegConfiguration {
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
 			return null; // Bipedal configuration doesn't block any slots by default.
 		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+		    character.setLegType(LegType.DEMON_COMMON);
+		}
 	},
 
 	/**
@@ -81,6 +87,10 @@ public enum LegConfiguration {
 						Util.newArrayListOfValues(
 								ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
 								ItemTag.FITS_TAUR_BODY));
+			}
+			@Override
+			public void setLegsToDemon(GameCharacter character) {
+			    character.setLegType(LegType.DEMON_HOOFED);
 			}
 	},
 
@@ -378,6 +388,15 @@ public enum LegConfiguration {
 
 	public String getCrotchBoobLocationDescription() {
 		return crotchBoobLocationDescription;
+	}
+	
+	public void setLegsToDemon(GameCharacter character) {
+	    throw new IllegalArgumentException("Demon legs for this leg configuration is not yet implemented!");
+	}
+
+	public void setWingsToDemon(GameCharacter character) {
+	    character.setWingType(WingType.DEMON_COMMON);
+	    character.setWingSize(this.minimumWingSizeForFlight.getValue());
 	}
 
 	/**
