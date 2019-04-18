@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.submission;
 
+import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BreastType;
@@ -76,15 +77,16 @@ public class SALyssiethSpecials {
 	}
 
 	public static final void playerGrowDemonicBreasts(CupSize breastCup, CupSize crotchBreastCup) {
-		if(Main.game.getPlayer().getBreastCrotchType()!=BreastType.NONE) {
-			Main.game.getPlayer().setBreastCrotchType(BreastType.DEMON_COMMON);
-			if (crotchBreastCup!=null) {
-				Main.game.getPlayer().setBreastCrotchSize(crotchBreastCup);
+		PlayerCharacter player = Main.game.getPlayer();
+		if (player.getBreastCrotchType() != BreastType.NONE) {
+			player.setBreastCrotchType(BreastType.DEMON_COMMON);
+			if (crotchBreastCup != null) {
+				player.setMinimumBreastCrotchSize(crotchBreastCup);
 			}
 		}
-		Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
-		if(breastCup!=null) {
-			Main.game.getPlayer().setBreastSize(breastCup);
+		player.setBreastType(BreastType.DEMON_COMMON);
+		if (breastCup != null) {
+			player.setMinimumBreastSize(breastCup);
 		}
 	}
 
