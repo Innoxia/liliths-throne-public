@@ -56,7 +56,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-		    character.setLegType(LegType.DEMON_COMMON);
+			character.setLegType(LegType.DEMON_COMMON);
 		}
 	},
 
@@ -90,7 +90,7 @@ public enum LegConfiguration {
 			}
 			@Override
 			public void setLegsToDemon(GameCharacter character) {
-			    character.setLegType(LegType.DEMON_HOOFED);
+				character.setLegType(LegType.DEMON_HOOFED);
 			}
 	},
 
@@ -391,12 +391,12 @@ public enum LegConfiguration {
 	}
 	
 	public void setLegsToDemon(GameCharacter character) {
-	    throw new IllegalArgumentException("Demon legs for this leg configuration is not yet implemented!");
+		throw new IllegalArgumentException("Demon legs for this leg configuration is not yet implemented!");
 	}
 
 	public void setWingsToDemon(GameCharacter character) {
-	    character.setWingType(WingType.DEMON_COMMON);
-	    character.setWingSize(this.minimumWingSizeForFlight.getValue());
+		character.setWingType(WingType.DEMON_COMMON);
+		character.setWingSize(this.minimumWingSizeForFlight.getValue());
 	}
 
 	/**
