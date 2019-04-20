@@ -3653,12 +3653,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if(value < 0)
-		{
-			value = 0;
-		}
-		
-		return value;
+		return Math.max(0, value);
 	}
 	
 	public SlaveJob getSlaveJob() {
