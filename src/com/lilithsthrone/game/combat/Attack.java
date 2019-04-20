@@ -19,26 +19,16 @@ import java.util.Optional;
  */
 public enum Attack {
 	
-	NONE("none"),
-	MAIN("main"),
-	OFFHAND("offhand"),
-	DUAL("dual strike"),
-	SEDUCTION("seduction"),
-	SPELL("spell"),
-	SPECIAL_ATTACK("special attack"),
-	USE_ITEM("use item"),
-	ESCAPE("escape"),
-	WAIT("wait");
-
-	private String name;
-
-	private Attack(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
-	}
+	NONE,
+	MAIN,
+	OFFHAND,
+	DUAL,
+	SEDUCTION,
+	SPELL,
+	SPECIAL_ATTACK,
+	USE_ITEM,
+	ESCAPE,
+	WAIT;
 
 	/**
 	 * @param attacker The attacking character.
