@@ -291,7 +291,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			case BIPEDAL:
 				feral = false;
 				if(applyEffects) {
-					appyExtraLegConfigurationTransformations(body, body.getLeg().getLegConfiguration(), false); // revert feral parts based on current configuration
+					applyExtraLegConfigurationTransformations(body, body.getLeg().getLegConfiguration(), false); // revert feral parts based on current configuration
 					// Changing back to bipedal reverts crotch-boobs based on preferences:
 					AbstractRacialBody startingBodyType = RacialBody.valueOfRace(this.getRace());
 					if(body.getRaceStage()!=RaceStage.GREATER || Main.getProperties().udders<2 || !body.getGender().isFeminine()) {
@@ -321,7 +321,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				break;
 			case ARACHNID:
 				if(applyEffects) {
-					appyExtraLegConfigurationTransformations(body, legConfiguration, true);
+					applyExtraLegConfigurationTransformations(body, legConfiguration, true);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
 				bestialStringBuilder.append(
@@ -333,7 +333,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				break;
 			case CEPHALOPOD:
 				if(applyEffects) {
-					appyExtraLegConfigurationTransformations(body, legConfiguration, false);
+					applyExtraLegConfigurationTransformations(body, legConfiguration, false);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
 				bestialStringBuilder.append(
@@ -345,7 +345,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				break;
 			case TAIL:
 				if(applyEffects) {
-					appyExtraLegConfigurationTransformations(body, legConfiguration, false);
+					applyExtraLegConfigurationTransformations(body, legConfiguration, false);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
 				bestialStringBuilder.append(
@@ -357,7 +357,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				break;
 			case TAIL_LONG:
 				if(applyEffects) {
-					appyExtraLegConfigurationTransformations(body, legConfiguration, false);
+					applyExtraLegConfigurationTransformations(body, legConfiguration, false);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
 				bestialStringBuilder.append(
@@ -369,7 +369,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				break;
 			case TAUR:
 				if(applyEffects) {
-					appyExtraLegConfigurationTransformations(body, legConfiguration, true);
+					applyExtraLegConfigurationTransformations(body, legConfiguration, true);
 					body.setGenitalArrangement(GenitalArrangement.NORMAL);
 				}
 				bestialStringBuilder.append(
@@ -470,7 +470,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	}
 	
 	// Setting parts is applied directly through body to circumvent transformation blocks
-	private void appyExtraLegConfigurationTransformations(Body body, LegConfiguration legConfiguration, boolean largeGenitals) {
+	private void applyExtraLegConfigurationTransformations(Body body, LegConfiguration legConfiguration, boolean largeGenitals) {
 		AbstractRacialBody startingBodyType = RacialBody.valueOfRace(this.getRace());
 		
 		if(legConfiguration.getBestialParts().contains(Ass.class)) { // Ass (includes Anus):

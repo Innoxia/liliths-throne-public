@@ -49,7 +49,7 @@ public class LyssiethReveal {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Follow", "Let Elizabeth lead you towards Lysseth's throne room.", FORWARDS_1) {
+				return new Response("Follow", "Let Elizabeth lead you towards Lyssieth's throne room.", FORWARDS_1) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()+1));
