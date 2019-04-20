@@ -65,7 +65,7 @@ public class CharacterInventory implements XMLSaving {
 	private Map<AbstractClothing, Integer> clothingDuplicates;
 	private Map<AbstractItem, Integer> itemDuplicates;
 	
-	private Map<TFEssence, Integer> essenceMap;
+	private final Map<TFEssence, Integer> essenceMap;
 	
 	protected int money;
 	
@@ -82,7 +82,7 @@ public class CharacterInventory implements XMLSaving {
 	private List<AbstractClothing> clothingCurrentlyEquipped;
 
 	// ClothingSets being worn:
-	private Map<ClothingSet, Integer> clothingSetCount = new EnumMap<>(ClothingSet.class);
+	private final Map<ClothingSet, Integer> clothingSetCount;
 
 	@SuppressWarnings("unused")
 	private int maxInventorySpace;
@@ -405,33 +405,43 @@ public class CharacterInventory implements XMLSaving {
 		return extraBlockedParts;
 	}
 	
-	public void sortInventory() {
+	private void sortItemDuplicates() {
 		List<AbstractItem> itemToSort = new ArrayList<>(itemDuplicates.keySet());
-		Collections.sort(itemToSort, new InventoryItemComparator());
-		
+		itemToSort.sort(new InventoryItemComparator());
+
 		Map<AbstractItem, Integer> iMap = new LinkedHashMap<>();
 		for(AbstractItem i : itemToSort) {
 			iMap.put(i, itemDuplicates.get(i));
 		}
 		itemDuplicates = iMap;
+	}
 
+	private void sortWeaponDuplicates() {
 		List<AbstractWeapon> weaponsToSort = new ArrayList<>(weaponDuplicates.keySet());
-		Collections.sort(weaponsToSort, new InventoryWeaponComparator());
-		
+		weaponsToSort.sort(new InventoryWeaponComparator());
+
 		Map<AbstractWeapon, Integer> wMap = new LinkedHashMap<>();
 		for(AbstractWeapon w : weaponsToSort) {
 			wMap.put(w, weaponDuplicates.get(w));
 		}
 		weaponDuplicates = wMap;
-		
+	}
+
+	private void sortClothingDuplicates() {
 		List<AbstractClothing> clothingToSort = new ArrayList<>(clothingDuplicates.keySet());
-		Collections.sort(clothingToSort, new InventoryClothingComparator());
-		
+		clothingToSort.sort(new InventoryClothingComparator());
+
 		Map<AbstractClothing, Integer> cMap = new LinkedHashMap<>();
 		for(AbstractClothing c : clothingToSort) {
 			cMap.put(c, clothingDuplicates.get(c));
 		}
 		clothingDuplicates = cMap;
+	}
+
+	public void sortInventory() {
+		sortItemDuplicates();
+		sortWeaponDuplicates();
+		sortClothingDuplicates();
 	}
 	
 	
@@ -463,10 +473,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public int getItemCount(AbstractItem item) {
-		if(itemDuplicates.containsKey(item)) {
-			return itemDuplicates.get(item);
-		}
-		return 0;
+		return itemDuplicates.getOrDefault(item, 0);
 	}
 	
 	/**
@@ -475,20 +482,11 @@ public class CharacterInventory implements XMLSaving {
 	 */
 	private void addItems(Map<AbstractItem, Integer> itemMap) {
 		for (Map.Entry<AbstractItem, Integer> entry : itemMap.entrySet()) {
-			AbstractItem item = entry.getKey();
-			itemDuplicates.putIfAbsent(item, 0);
-			itemDuplicates.put(item, itemDuplicates.get(item)+entry.getValue());
+			itemDuplicates.merge(entry.getKey(), entry.getValue(), Integer::sum);
 		}
 		
 		if(Main.game.isStarted()) {
-			List<AbstractItem> itemToSort = new ArrayList<>(itemDuplicates.keySet());
-			Collections.sort(itemToSort, new InventoryItemComparator());
-			
-			Map<AbstractItem, Integer> iMap = new LinkedHashMap<>();
-			for(AbstractItem i : itemToSort) {
-				iMap.put(i, itemDuplicates.get(i));
-			}
-			itemDuplicates = iMap;
+			sortItemDuplicates();
 		}
 	}
 	
@@ -502,18 +500,10 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if(canAddItem(item)) {
-			itemDuplicates.putIfAbsent(item, 0);
-			itemDuplicates.put(item, itemDuplicates.get(item)+count);
+			itemDuplicates.merge(item, count, Integer::sum);
 
 			if(Main.game.isStarted()) {
-				List<AbstractItem> itemToSort = new ArrayList<>(itemDuplicates.keySet());
-				Collections.sort(itemToSort, new InventoryItemComparator());
-				
-				Map<AbstractItem, Integer> iMap = new LinkedHashMap<>();
-				for(AbstractItem i : itemToSort) {
-					iMap.put(i, itemDuplicates.get(i));
-				}
-				itemDuplicates = iMap;
+				sortItemDuplicates();
 			}
 			
 			return true;
@@ -635,10 +625,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public int getWeaponCount(AbstractWeapon weapon) {
-		if(weaponDuplicates.containsKey(weapon)) {
-			return weaponDuplicates.get(weapon);
-		}
-		return 0;
+		return weaponDuplicates.getOrDefault(weapon, 0);
 	}
 	
 	/**
@@ -651,18 +638,10 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if(canAddWeapon(weapon)) {
-			weaponDuplicates.putIfAbsent(weapon, 0);
-			weaponDuplicates.put(weapon, weaponDuplicates.get(weapon)+count);
+			weaponDuplicates.merge(weapon, count, Integer::sum);
 
 			if(Main.game.isStarted()) {
-				List<AbstractWeapon> weaponsToSort = new ArrayList<>(weaponDuplicates.keySet());
-				Collections.sort(weaponsToSort, new InventoryWeaponComparator());
-				
-				Map<AbstractWeapon, Integer> wMap = new LinkedHashMap<>();
-				for(AbstractWeapon w : weaponsToSort) {
-					wMap.put(w, weaponDuplicates.get(w));
-				}
-				weaponDuplicates = wMap;
+				sortWeaponDuplicates();
 			}
 			
 			return true;
@@ -803,10 +782,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public int getClothingCount(AbstractClothing clothing) {
-		if(clothingDuplicates.containsKey(clothing)) {
-			return clothingDuplicates.get(clothing);
-		}
-		return 0;
+		return clothingDuplicates.getOrDefault(clothing, 0);
 	}
 
 	/**
@@ -819,18 +795,10 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if(canAddClothing(clothing)) {
-			clothingDuplicates.putIfAbsent(clothing, 0);
-			clothingDuplicates.put(clothing, clothingDuplicates.get(clothing)+count);
+			clothingDuplicates.merge(clothing, count, Integer::sum);
 
 			if(Main.game.isStarted()) {
-				List<AbstractClothing> clothingToSort = new ArrayList<>(clothingDuplicates.keySet());
-				Collections.sort(clothingToSort, new InventoryClothingComparator());
-				
-				Map<AbstractClothing, Integer> cMap = new LinkedHashMap<>();
-				for(AbstractClothing c : clothingToSort) {
-					cMap.put(c, clothingDuplicates.get(c));
-				}
-				clothingDuplicates = cMap;
+				sortClothingDuplicates();
 			}
 			
 			return true;
