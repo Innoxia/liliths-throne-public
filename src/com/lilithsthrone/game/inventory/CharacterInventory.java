@@ -323,20 +323,15 @@ public class CharacterInventory implements XMLSaving {
 	/**
 	 * Does not allow money to fall below 0.
 	 */
-	public void setMoney(int money) {
-		if (money < 0)
-			this.money = 0;
-		else
-			this.money = money;
+	public void setMoney(int newValue) {
+		money = Math.max(0, newValue);
 	}
 	
 	/**
 	 * Does not allow money to fall below 0.
 	 */
 	public void incrementMoney(int increment) {
-		money += increment;
-		if (money < 0)
-			money = 0;
+		setMoney(money + increment);
 	}
 	
 	public Map<TFEssence, Integer> getEssenceMap() {
@@ -352,10 +347,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public void incrementEssenceCount(TFEssence essence, int increment) {
-		if(getEssenceCount(essence)+increment < 0)
-			essenceMap.put(essence, 0);
-		else
-			essenceMap.put(essence, getEssenceCount(essence)+increment);
+		essenceMap.merge(essence, increment, (currentCount, added) -> Math.max(0, currentCount + added));
 	}
 
 	public int getMaximumInventorySpace() {
@@ -367,7 +359,7 @@ public class CharacterInventory implements XMLSaving {
 		clothingDuplicates.clear();
 		weaponDuplicates.clear();
 		itemDuplicates.clear();
-		money=0;
+		money = 0;
 	}
 	
 	public void setMaximumInventorySpace(int maxInventorySpace) {
@@ -455,7 +447,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	public int getTotalItemCount() {
-		return getAllItemsInInventory().values().stream().mapToInt((e)->e).sum();
+		return getAllItemsInInventory().values().stream().mapToInt(e -> e).sum();
 	}
 	
 	public int getUniqueItemCount() {
@@ -607,7 +599,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	public int getTotalWeaponCount() {
-		return getAllItemsInInventory().values().stream().mapToInt((e)->e).sum();
+		return getAllItemsInInventory().values().stream().mapToInt(e -> e).sum();
 	}
 
 	public int getUniqueWeaponCount() {
@@ -764,7 +756,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	public int getTotalClothingCount() {
-		return getAllClothingInInventory().values().stream().mapToInt((e)->e).sum();
+		return getAllClothingInInventory().values().stream().mapToInt(e -> e).sum();
 	}
 
 	public int getUniqueClothingCount() {
@@ -1056,10 +1048,6 @@ public class CharacterInventory implements XMLSaving {
 		return clothingSetCount.get(clothingSet);
 	}
 
-	public int getClothingSetCount(ClothingSet clothingSet, int increment) {
-		return clothingSetCount.get(clothingSet);
-	}
-	
 	// Lasciate ogne speranza, voi ch'entrate //
 
 	private StringBuilder tempSB;
@@ -1379,12 +1367,9 @@ public class CharacterInventory implements XMLSaving {
 				}
 				
 				// Check for clothing sets:
-				if (newClothing.getClothingType().getClothingSet() != null) {
-					if (clothingSetCount.get(newClothing.getClothingType().getClothingSet()) == null) {
-						clothingSetCount.put(newClothing.getClothingType().getClothingSet(), 1);
-					} else {
-						clothingSetCount.put(newClothing.getClothingType().getClothingSet(), clothingSetCount.get(newClothing.getClothingType().getClothingSet()) + 1);
-					}
+				ClothingSet clothingSetOfNewClothing = newClothing.getClothingType().getClothingSet();
+				if (clothingSetOfNewClothing != null) {
+					clothingSetCount.merge(clothingSetOfNewClothing, 1, Integer::sum);
 				}
 
 			}
