@@ -4032,12 +4032,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean hasDiscoveredElemental() {
-		try {
-			Main.game.getNPCById(elementalID);
-			return true;
-		}catch(Exception e) {
-			return false;
-		}
+		return Main.game.isCharacterExisting(elementalID);
 	}
 	
 	public boolean isElementalSummoned() {
