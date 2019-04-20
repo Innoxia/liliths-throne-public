@@ -2136,7 +2136,7 @@ public enum Spell {
 				if(success) {
 					target.setHealthPercentage(0);
 					target.setManaPercentage(0);
-					target.setLust(100);
+					target.setLustNoText(100);
 					descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 					if(target.isPlayer()) {
 						descriptionSB.append(
