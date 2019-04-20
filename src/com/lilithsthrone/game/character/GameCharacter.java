@@ -13419,14 +13419,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public void setLustNoText(float lust) {
-		if (lust < 0) {
-			setAttribute(Attribute.LUST, 0, false);
-		} else if (lust > 100) {
-			setAttribute(Attribute.LUST, 100, false);
-		} else {
-			setAttribute(Attribute.LUST, lust, false);
-		}
-
+		setAttribute(Attribute.LUST, Math.max(0, Math.min(lust, 100)), false);
 		updateAttributeListeners();
 	}
 	
