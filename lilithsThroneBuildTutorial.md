@@ -81,6 +81,19 @@ mvn package
 This creates the JAR file in `/target/game-1.jar`.  
 Your first build will take longer than the subsequent ones as only changed files are recompiled.
 
+### Running tests
+
+Test framework support is new to Lilith's Throne and thus disabled by default.
+To enable tests, run `mvn` with the `-Dtest` profile:
+
+`mvn -Dtest test` will only run Unit Tests.
+
+`mvn -Dtest verify` will run Unit and Integration Tests and also includes the `mvn package` goal,
+so if all tests are successful, there is no need to run `mvn package` again.
+
+Both Eclipse and IDEA have plugins for the TestNG framework, which allow single tests to be executed on-click.
+NetBeans ought to have TestNG support integrated and offer the same functionality.
+
 ## Using NetBeans
 You should be able to use NetBeans' import zip feature to easily import this project.
 1. Use the green "Clone or Download" button on the project's main page, and choose "Download ZIP".
