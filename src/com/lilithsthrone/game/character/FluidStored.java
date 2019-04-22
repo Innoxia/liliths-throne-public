@@ -234,7 +234,7 @@ public class FluidStored implements XMLSaving {
 	
 	/**
 	 * @return The character whose fluid this is.
-	 * @throws Exception A NulllPointerException if the character does not exist.
+	 * @throws Exception A NullPointerException if the character does not exist.
 	 */
 	public GameCharacter getFluidCharacter() throws Exception {
 		if(charactersFluidID.equals(Main.game.getPlayer().getId())) {

@@ -16,7 +16,7 @@ public enum ItemTag {
 
 	NOT_FOR_SALE(false),
 	
-	REINDEER_GIFT(false), // Can be found in the presents that the reindeer sell (who appear in DOminion during winter months).
+	REINDEER_GIFT(false), // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
 	SOLD_BY_RALPH(false), // Will also be used for any future consumable and miscellaneous item vendors.
 	SOLD_BY_NYAN(false), // Clothing
 	SOLD_BY_KATE(false), // Jewellery

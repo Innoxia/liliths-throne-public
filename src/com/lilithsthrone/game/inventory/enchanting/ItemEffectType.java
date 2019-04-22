@@ -2410,10 +2410,10 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			if(target.isPlayer()) {
-				return "<p style='text-align:center'>[style.italicsDisbaled(This item does not work on you...)]</p>";
+				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on you...)]</p>";
 			}
 			if(target.isUnique() && (!target.isSlave() || target.getOwner().isPlayer())) {
-				return "<p style='text-align:center'>[style.italicsDisbaled(This item does not work on non-slave unique characters...)]</p>";
+				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
 			Subspecies sub = Subspecies.getFleshSubspecies(target);
