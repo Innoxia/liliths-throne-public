@@ -131,6 +131,7 @@
 		Fixed issue with un/equipping chastity belts being blocked by sealed ankle slot clothing. (PR#1130 by Zsar)
 		Massively improved save file loading times. As an example one file went from 19 seconds down to 4. (PR#1136 by Pimgd)
 		Clean character inventory code. (PR#1137 by Pimgd)
+		Lots of typo fixes. (PR#1138 by Pimgd)
 		
 	
 	
