@@ -596,6 +596,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Krejil", "", 0, 0, 13, 0));
 		credits.add(new CreditsSlot("Joeybear", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Eushully", "", 0, 0, 0, 12));
+		credits.add(new CreditsSlot("Joshua Walter", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Garth614", "", 0, 0, 0, 15));
 		credits.add(new CreditsSlot("Justicia Anthony", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("HerrKommissar11", "", 0, 0, 1, 4));
