@@ -129,7 +129,9 @@
 		Fixed deprecated method being used. (PR#1125 by King-Drake)
 		Fixed virginity cost errors. (PR#1124 by GynoidDoesGames)
 		Fixed issue with un/equipping chastity belts being blocked by sealed ankle slot clothing. (PR#1130 by Zsar)
-		massively improved save file loading times. As an example one file went from 19 seconds down to 4. (PR#1136 by Pimgd)
+		Massively improved save file loading times. As an example one file went from 19 seconds down to 4. (PR#1136 by Pimgd)
+		Clean character inventory code. (PR#1137 by Pimgd)
+		
 	
 	
 	
