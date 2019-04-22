@@ -535,7 +535,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
-		setLust(getRestingLust());
+		setLustNoText(getRestingLust());
 		
 		//Companion initialization
 		elementalID = "";
@@ -3628,10 +3628,10 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		value += (this.isAssVirgin()?virginValueIncrease:0);
 		if(this.hasPenis()) {
-			value *= (this.isPenisVirgin()?virginValueIncrease:0);
+			value += (this.isPenisVirgin()?virginValueIncrease:0);
 		}
 		if(this.hasVagina()) {
-			value *= (this.isVaginaVirgin()?virginValueIncrease:0);
+			value += (this.isVaginaVirgin()?virginValueIncrease:0);
 		}
 		
 		value *= 1+(0.05f*getFetishes(true).size());
@@ -3653,7 +3653,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		return value;
+		return Math.max(0, value);
 	}
 	
 	public SlaveJob getSlaveJob() {
@@ -4032,12 +4032,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean hasDiscoveredElemental() {
-		try {
-			Main.game.getNPCById(elementalID);
-			return true;
-		}catch(Exception e) {
-			return false;
-		}
+		return Main.game.isCharacterExisting(elementalID);
 	}
 	
 	public boolean isElementalSummoned() {
@@ -13388,7 +13383,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void alignLustToRestingLust(int secondsPassed) {
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
-			setLust(75);
+			setLustNoText(75);
 		} else {
 			if(getLust()>getRestingLust()) {
 				incrementLust(-Math.min(getLust()-getRestingLust(), 0.008f*secondsPassed), false);
@@ -13407,18 +13402,9 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String setLust(float lust) {
 		int increment = (int) (lust-this.getLust());
-		if (lust < 0) {
-			setAttribute(Attribute.LUST, 0, false);
-			
-		} else if (lust > 100) {
-			setAttribute(Attribute.LUST, 100, false);
-			
-		} else {
-			setAttribute(Attribute.LUST, lust, false);
-		}
 
-		updateAttributeListeners();
-		
+		setLustNoText(lust);
+
 		if(this.isPlayer()) {
 			return "<p style='text-align:center;'>"
 						+ "You "+(increment>0?"gained":"lost")+" [style.boldDmgLust("+increment+" lust)], and are now feeling"
@@ -13430,6 +13416,11 @@ public abstract class GameCharacter implements XMLSaving {
 							+ " <b style='color:"+this.getLustLevel().getColour().toWebHexString()+";'>"+this.getLustLevel().getName()+"</b>.")
 				+ "</p>";
 		}
+	}
+
+	public void setLustNoText(float lust) {
+		setAttribute(Attribute.LUST, Math.max(0, Math.min(lust, 100)), false);
+		updateAttributeListeners();
 	}
 	
 	/**

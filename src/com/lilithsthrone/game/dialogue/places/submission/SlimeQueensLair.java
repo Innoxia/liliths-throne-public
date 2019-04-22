@@ -715,7 +715,7 @@ public class SlimeQueensLair {
 					return new Response("Seduce", "Seduce [slimeRoyalGuard.name] and encourage [slimeRoyalGuard.him] to show off to you in an attempt to get [slimeRoyalGuard.him] to wear [slimeRoyalGuard.himself] out.", ROYAL_GUARD_POST_ADMIRE_SEDUCE) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(SlimeRoyalGuard.class).setLust(80);
+							Main.game.getNpc(SlimeRoyalGuard.class).setLustNoText(80);
 						}
 					};
 					

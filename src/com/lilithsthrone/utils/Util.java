@@ -963,6 +963,9 @@ public class Util {
 	}
 	
 	public static String getClosestStringMatch(String input, Collection<String> choices) {
+		if (choices.contains(input)) {
+			return input;
+		}
 		int distance = Integer.MAX_VALUE;
 		String closestString = input;
 		for(String choice : choices) {
