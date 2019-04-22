@@ -184,7 +184,7 @@ public class Main extends Application {
 			+"<ul>Fixed incorrect instance of Kelly being referred to as Katherine (Zaranix's maids).</ul>"
 			+"<ul>Demonic harpies (furies) no longer spawn with back wings in addition to arm wings.</ul>"
 			+"<ul>Fixed bug in Alexa's dialogue, where some code was displayed instead of the intended result.</ul>"
-			+"<ul>Fixed issue in the main quest where you first meet Alexa, where her intial dialogue would repeat after selecting the action 'Scarlett's woe'.</ul>"
+			+"<ul>Fixed issue in the main quest where you first meet Alexa, where her initial dialogue would repeat after selecting the action 'Scarlett's woe'.</ul>"
 			+"<ul>Slaves owned by you, the player, can no longer choose to end sex if you are both in a dominant slot and are able to end sex yourself.</ul>"
 			+"<ul>Fixed incorrect description in Lilaya's TF orgasm scene, in which Lyssieth was fucking her pussy.</ul>"
 			+"<ul>Fixed slightly odd orgasm descriptions when tail-fucking or fingering yourself.</ul>"
@@ -334,7 +334,7 @@ public class Main extends Application {
 			+"<ul>Base loss after orgasming changed from a flat -50% to a variable amount based on arcane storm vulnerability (negates all lust loss), attraction (50% reduction/increase), psychoactive fluid ingestion (75% reduction), and affection (50% reduction/50% increase).</ul>"
 			+"<ul>Stabilised lust changes by limiting it to +/-2.5 for each character on every character's turn (meaning that it has a maximum change of +/-5 per turn with 2 non-spectator participants, but +/-7.5 per turn with 3 non-spectator participants).</ul>"
 			+"<ul>Removed restriction that was preventing two futa characters from simultaneously fucking one another.</ul>"
-			+"<ul>Orgasming no longer resets arousal to 0, but instead to 25% of the cahracter's lust value.</ul>"
+			+"<ul>Orgasming no longer resets arousal to 0, but instead to 25% of the character's lust value.</ul>"
 			+"<ul>Improved methods responsible for determining an NPC's willingness to deny requests, choose what action to take in sex, and the amount of arousal & lust gained from actions each turn.</ul>"
 			+"<ul>NPCs with competing fetish desires (e.g. hating anal, but loving taking cock) will now sometimes be willing to perform those actions, and should not be losing arousal or lust as a result.</ul>"
 			+"<ul>NPCs should no longer be choosing to perform actions which they dislike or hate.</ul>"
@@ -349,9 +349,9 @@ public class Main extends Application {
 			+"<ul>Added three more lip sizes, all of which are large enough to cause the character to speak with a lisp.</ul>"
 			+"<ul>Added 'Horn grab' for when fucking someone in the doggy-style position (similar to 'Twintails pull' and 'Ear pull').</ul>"
 			+"<ul>Added 'Twintails pull', 'Ear pull', and 'Horn grab' to dominant cunnilingus actions.</ul>"
-			+"<ul>Inventory is no longer disabled in Lyssieth's nor Merxais's office.</ul>"
+			+"<ul>Inventory is no longer disabled in Lyssieth's nor Meraxis's office.</ul>"
 			+"<ul>Moved all socks and rainbow clothing set items out into the external res folder.</ul>"
-			+"<ul>Defined prostitue clothing in outfit files.</ul>"
+			+"<ul>Defined prostitute clothing in outfit files.</ul>"
 			+"<ul>NPCs who are vulnerable to arcane storms (and who are out in an arcane storm) now require 2 orgasms to be satisfied during sex instead of 1.</ul>"
 			+"<ul>Imps now require 1 orgasm to be satisfied, instead of 3.</ul>"
 			+"<ul>Added 'pitch black' colour for covering types. (Available for skin, hair, horns, antlers, fur, and scales.)</ul>"
@@ -965,8 +965,8 @@ public class Main extends Application {
 		String[] v2 = versionToCheckAgainst.split("\\.");
 		
 		try {
-			int maxlength = (v1.length > v2.length) ? v1.length : v2.length;
-			for (int i = 0; i < maxlength; i++) {
+			int maxLength = (v1.length > v2.length) ? v1.length : v2.length;
+			for (int i = 0; i < maxLength; i++) {
 				int v1i;
 				int v2i;
 				

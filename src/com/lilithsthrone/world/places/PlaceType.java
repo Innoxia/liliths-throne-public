@@ -658,7 +658,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType ENFORCER_HQ_CORRIDOR = new AbstractPlaceType(
 			"Corridor",
-			"Many doors line either side of this rather ordinary-looking corridor, each one marked with a different Enforcer divison's name and speciality.",
+			"Many doors line either side of this rather ordinary-looking corridor, each one marked with a different Enforcer division's name and speciality.",
 			null,
 			BaseColour.BLACK,
 			EnforcerHQDialogue.CORRIDOR,
@@ -1429,7 +1429,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType ZARANIX_GF_GARDEN_ENTRY = new AbstractPlaceType(
 			"Garden",
-			"This particular area is next to the fence separating Zaranix's garden from Doominion's streets.",
+			"This particular area is next to the fence separating Zaranix's garden from Dominion's streets.",
 			"dominion/zaranixHome/entranceHall",
 			BaseColour.GREEN,
 			ZaranixHomeGroundFloor.GARDEN_ENTRY,
@@ -1765,7 +1765,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType SHOPPING_ARCADE_PIXS_GYM = new AbstractPlaceType(
 			"Pix's Playground",
-			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a aprticularly energetic border-collie-girl.",
+			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a particularly energetic border-collie-girl.",
 			"dominion/shoppingArcade/gym",
 			BaseColour.GOLD,
 			PixsPlayground.GYM_EXTERIOR,
@@ -1800,7 +1800,7 @@ public class PlaceType {
 		@Override
 		public String getTooltipDescription() {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return "With the Dobermanns dealt with, the corridor in the rear of the building has been rennovated, and is now both clean and well-lit.";
+				return "With the Dobermanns dealt with, the corridor in the rear of the building has been renovated, and is now both clean and well-lit.";
 			} else {
 				return tooltipDescription;
 			}
@@ -1863,7 +1863,7 @@ public class PlaceType {
 		@Override
 		public String getTooltipDescription() {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return "With the Dobermanns dealt with, the offices in the rear of the building have been rennovated, and are used by the Supplier Depot's many salespersons.";
+				return "With the Dobermanns dealt with, the offices in the rear of the building have been renovated, and are used by the Supplier Depot's many salespersons.";
 			} else {
 				return tooltipDescription;
 			}
@@ -2932,7 +2932,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType SLIME_QUEENS_LAIR_ROOM = new AbstractPlaceType(
 			"Bedroom",
-			"The place in which one or more of the tower's guards rest, this bedroom houses a neatly made four-poster bed, as well as the uusal bedroom furnishings.",
+			"The place in which one or more of the tower's guards rest, this bedroom houses a neatly made four-poster bed, as well as the usual bedroom furnishings.",
 			"submission/slimeQueensLair/room",
 			BaseColour.BLUE_LIGHT,
 			SlimeQueensLair.ROOM,
@@ -2973,7 +2973,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType SLIME_QUEENS_LAIR_ROYAL_GUARD = new AbstractPlaceType(
 			"Royal Guard Post",
-			"A powerful, purple-hued incubus-slime guards this particualr stretch of the corridor.",
+			"A powerful, purple-hued incubus-slime guards this particular stretch of the corridor.",
 			"submission/slimeQueensLair/royalGuards",
 			BaseColour.PURPLE,
 			SlimeQueensLair.ROYAL_GUARD_POST,
