@@ -574,7 +574,7 @@ public enum Units {
      */
     public static float round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException("Amount of fractional places cannot be less than 0.");
-        return BigDecimal.valueOf(value).setScale(places, java.math.RoundingMode.HALF_UP).floatValue();
+        return BigDecimal.valueOf(value).setScale(places, RoundingMode.HALF_UP).floatValue();
     }
 
     /**
