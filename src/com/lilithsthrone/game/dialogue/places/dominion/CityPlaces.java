@@ -234,24 +234,49 @@ public class CityPlaces {
 					
 					
 				} else { // Storm:
-					UtilText.nodeContentSB.append("<p>"
-								+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
-								+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-								+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees and arcane-powered street lamps."
-								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
-								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
-							+ "</p>"
-							+ " <p>"
-								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
-								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
-								+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
-							+ "</p>"
-							+ " <p>"
-								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
-								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
-								+ " If they catch you, they'll be sure to force you into a fight."
-							+ "</p>");
+					switch(Main.game.getPlayer().getRace()) {
+						case DEMON:
+							UtilText.nodeContentSB.append("<p>"
+									+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
+									+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
+									+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees and arcane-powered street lamps."
+									+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
+									+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
+								+ "</p>"
+								+ " <p>"
+									+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
+									+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
+									+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
+									+ " They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you."
+								+ "</p>"
+								+ " <p>"
+									+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
+									+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
+									+ " If they catch you, they'll be sure to force you into a fight."
+								+ "</p>");
+							break;
+						
+						default:
+							UtilText.nodeContentSB.append("<p>"
+									+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
+									+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
+									+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees and arcane-powered street lamps."
+									+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
+									+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
+								+ "</p>"
+								+ " <p>"
+									+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
+									+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
+									+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
+									+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
+								+ "</p>"
+								+ " <p>"
+									+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
+									+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
+									+ " If they catch you, they'll be sure to force you into a fight."
+								+ "</p>");
+							break;
+					}
 				}
 				
 			} else { // Night time:
@@ -299,26 +324,49 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append(getRandomStreetEvent());
 
 				} else { // Storm:
-					UtilText.nodeContentSB.append("<p>"
-								+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
-								+ "The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-								+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees, all illuminated by the soft amber glow of arcane-powered street lamps."
-								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
-								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
-							+ "</p>"
-							+ " <p>"
-								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
-								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
-								+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
-							+ "</p>"
-							+ " <p>"
-								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
-								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
-								+ " If they catch you, they'll be sure to force you into a fight."
-							+ "</p>");
-					
-					
+					switch(Main.game.getPlayer().getRace()) {
+						case DEMON:
+							UtilText.nodeContentSB.append("<p>"
+									+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
+									+ "The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
+									+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees, all illuminated by the soft amber glow of arcane-powered street lamps."
+									+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
+									+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
+								+ "</p>"
+								+ " <p>"
+									+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
+									+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
+									+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
+									+ " They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you."
+								+ "</p>"
+								+ " <p>"
+									+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
+									+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
+									+ " If they catch you, they'll be sure to force you into a fight."
+								+ "</p>");
+							break;
+						
+						default:
+							UtilText.nodeContentSB.append("<p>"
+									+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
+									+ "The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
+									+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees, all illuminated by the soft amber glow of arcane-powered street lamps."
+									+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
+									+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
+								+ "</p>"
+								+ " <p>"
+									+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
+									+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
+									+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
+									+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
+								+ "</p>"
+								+ " <p>"
+									+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
+									+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
+									+ " If they catch you, they'll be sure to force you into a fight."
+								+ "</p>");
+							break;
+					}
 				}
 			}
 			
