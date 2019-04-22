@@ -95,7 +95,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	// Pattern data:
 	private boolean isPatternAvailable;
-	private boolean isPatternAvalableInitCompleted;
+	private boolean isPatternAvailableInitCompleted;
 	
 	// Access and block stuff:
 	private List<BlockedParts> blockedPartsList;
@@ -241,7 +241,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.pathNameEquipped = pathNameEquipped;
 		
 		this.isPatternAvailable = false;
-		this.isPatternAvalableInitCompleted = false;
+		this.isPatternAvailableInitCompleted = false;
 
 		enchantmentLimit = -1;
 		
@@ -2361,7 +2361,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	private String getSVGWithHandledPattern(String s, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
-		isPatternAvalableInitCompleted = true;
+		isPatternAvailableInitCompleted = true;
 		if(!s.contains("patternLayer")) { // Making sure that the pattern layer exists.
 			return s;
 		}
@@ -2468,9 +2468,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public boolean isPatternAvailable() {
-		if(!isPatternAvailable && !isPatternAvalableInitCompleted) {
+		if(!isPatternAvailable && !isPatternAvailableInitCompleted) {
 			isPatternAvailable = this.getSVGImage().contains("patternLayer");
-			isPatternAvalableInitCompleted = true;
+			isPatternAvailableInitCompleted = true;
 		}
 		return this.isPatternAvailable;
 	}

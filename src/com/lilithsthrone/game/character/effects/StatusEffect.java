@@ -5858,7 +5858,7 @@ public enum StatusEffect {
 				if(target.isPlayer()) {
 					return "By wearing the entire Milk Maid's outfit, you're filled with the energy you need in order to perform all of your milking duties!";
 				} else {
-					return UtilText.parse(target, "By wearing the entire Milk Maid'full ofnpc.name] is filled with the energy [npc.she] needs in order to perform all of [npc.her] milking duties.");
+					return UtilText.parse(target, "By wearing the entire Milk Maid's outfit, [npc.name] is filled with the energy [npc.she] needs in order to perform all of [npc.her] milking duties.");
 				}
 				
 			} else {

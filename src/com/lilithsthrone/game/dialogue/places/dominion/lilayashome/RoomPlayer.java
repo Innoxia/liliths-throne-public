@@ -47,7 +47,7 @@ public class RoomPlayer {
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-					Main.game.getPlayer().setLust(0);
+					Main.game.getPlayer().setLustNoText(0);
 					if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
 						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + 240);
 					} else {
@@ -66,7 +66,7 @@ public class RoomPlayer {
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-					Main.game.getPlayer().setLust(0);
+					Main.game.getPlayer().setLustNoText(0);
 					if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
 						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer*60);
 					} else {

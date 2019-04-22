@@ -173,7 +173,7 @@ public abstract class AbstractSexPosition {
 	 * @param cumTarget The character who is both receiving and forcing the creampie.
 	 * @param cumProvider The one who is being forced to cum inside the cumTarget.
 	 * @return A map containing keys of body parts, which then map to lists of orifices.
-	 * The key represents the body part that can be used by the cumTarget in order to force the cumcumProvider to cum inside any of the orifices in the value list.
+	 * The key represents the body part that can be used by the cumTarget in order to force the cumProvider to cum inside any of the orifices in the value list.
 	 */
 	protected Map<Class<? extends BodyPartInterface>, List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 		return null;

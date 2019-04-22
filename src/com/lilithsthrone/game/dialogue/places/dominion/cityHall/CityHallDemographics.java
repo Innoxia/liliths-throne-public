@@ -51,7 +51,7 @@ public class CityHallDemographics {
 			if (index == 1) {
 				return new Response("Ring bell",
 						Main.game.getPlayer().hasCompanions()
-							?UtilText.parse(Main.game.getPlayer().getMainCompanion(), "Tell [npc.name] to wait outside, before ringing the little bell on [vanessa.namePos] desk and waitint for her to appear.")
+							?UtilText.parse(Main.game.getPlayer().getMainCompanion(), "Tell [npc.name] to wait outside, before ringing the little bell on [vanessa.namePos] desk and waiting for her to appear.")
 							:"Ring the little bell on [vanessa.namePos] desk and wait for her to appear.",
 						CITY_HALL_DEMOGRAPHICS_MAIN) {
 					@Override
