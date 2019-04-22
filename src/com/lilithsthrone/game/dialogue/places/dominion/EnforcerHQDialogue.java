@@ -1478,7 +1478,7 @@ public class EnforcerHQDialogue {
 				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself at least a small advantage by tricking him like this!", Main.game.getNpc(Brax.class)){
 					@Override
 					public void effects(){
-						Main.game.getNpc(Brax.class).setLust(30);
+						Main.game.getNpc(Brax.class).setLustNoText(30);
 					}
 				};
 					
@@ -1638,7 +1638,7 @@ public class EnforcerHQDialogue {
 				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself a big advantage by tricking him like this!", Main.game.getNpc(Brax.class)){
 					@Override
 					public void effects(){
-						Main.game.getNpc(Brax.class).setLust(50);
+						Main.game.getNpc(Brax.class).setLustNoText(50);
 					}
 				};
 					

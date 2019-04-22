@@ -427,25 +427,25 @@ public class Sex {
 				}
 				switch(sexManager.getStartingSexPaceModifier(character)) {
 					case DOM_GENTLE:
-						character.setLust(10);
+						character.setLustNoText(10);
 						break;
 					case DOM_NORMAL:
 						character.setArousal(5);
 						break;
 					case DOM_ROUGH:
-						character.setLust(85);
+						character.setLustNoText(85);
 						character.setArousal(10);
 						break;
 					case SUB_EAGER:
-						character.setLust(85);
+						character.setLustNoText(85);
 						character.setArousal(10);
 						break;
 					case SUB_NORMAL:
-						character.setLust(Math.max(character.getLust(), 10));
+						character.setLustNoText(Math.max(character.getLust(), 10));
 						character.setArousal(5);
 						break;
 					case SUB_RESISTING:
-						character.setLust(0);
+						character.setLustNoText(0);
 						break;
 				}
 			}
@@ -454,25 +454,25 @@ public class Sex {
 				forceSexPaceMap.put(character, sexManager.getForcedSexPace(character));
 				switch(sexManager.getForcedSexPace(character)) {
 					case DOM_GENTLE:
-						character.setLust(10);
+						character.setLustNoText(10);
 						break;
 					case DOM_NORMAL:
 						character.setArousal(5);
 						break;
 					case DOM_ROUGH:
-						character.setLust(85);
+						character.setLustNoText(85);
 						character.setArousal(10);
 						break;
 					case SUB_EAGER:
-						character.setLust(85);
+						character.setLustNoText(85);
 						character.setArousal(10);
 						break;
 					case SUB_NORMAL:
-						character.setLust(Math.max(character.getLust(), 10));
+						character.setLustNoText(Math.max(character.getLust(), 10));
 						character.setArousal(5);
 						break;
 					case SUB_RESISTING:
-						character.setLust(0);
+						character.setLustNoText(0);
 						break;
 				}
 			}
@@ -666,7 +666,7 @@ public class Sex {
 			}
 			
 			if(getNumberOfOrgasms(participant) > 0) {
-				participant.setLust(0);
+				participant.setLustNoText(0);
 			}
 		}
 		
