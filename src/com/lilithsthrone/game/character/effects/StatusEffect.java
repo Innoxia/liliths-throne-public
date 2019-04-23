@@ -1970,6 +1970,13 @@ public enum StatusEffect {
 		}
 
 		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly clothes seem to attract trouble.";
+			return super.getAdditionalDescription(target);
+		}
+
+		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(!isCumEffectPositive(target)) {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -2008,6 +2015,13 @@ public enum StatusEffect {
 				return UtilText.parse(target, "Some of [npc.namePos] clothes have been covered in cum, milk or other sexual fluids."
 						+ " [npc.sheIs] feeling incredibly turned on to be walking around in such filthy clothing.");
 			}
+		}
+
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly clothes seem to attract trouble.";
+			return super.getAdditionalDescription(target);
 		}
 
 		@Override
@@ -2097,6 +2111,12 @@ public enum StatusEffect {
 						+ " [npc.sheIs] feeling incredibly embarrassed to be walking around in such a filthy state.");
 			}
 		}
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly body seems to attract trouble.";
+			return super.getAdditionalDescription(target);
+		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -2127,6 +2147,13 @@ public enum StatusEffect {
 				return UtilText.parse(target, "Some parts of [npc.namePos] body have been covered in cum, milk or other sexual fluids."
 						+ " [npc.sheIs] feeling incredibly turned on by walking around in such a filthy state.");
 			}
+		}
+
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly body seems to attract trouble.";
+			return super.getAdditionalDescription(target);
 		}
 
 		@Override
@@ -2585,6 +2612,13 @@ public enum StatusEffect {
 		}
 
 		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You're obviously drunk and some might think you're easy prey.";
+			return super.getAdditionalDescription(target);
+		}
+
+		@Override
 		public boolean isSexEffect() {
 			return true;
 		}
@@ -2625,6 +2659,13 @@ public enum StatusEffect {
 		}
 
 		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You're obviously drunk and some might think you're easy prey.";
+			return super.getAdditionalDescription(target);
+		}
+
+		@Override
 		public boolean isSexEffect() {
 			return true;
 		}
@@ -2662,6 +2703,13 @@ public enum StatusEffect {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling completely wasted...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
+		}
+
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You're obviously drunk and some might think you're easy prey.";
+			return super.getAdditionalDescription(target);
 		}
 
 		@Override
@@ -3051,6 +3099,35 @@ public enum StatusEffect {
 		}
 	},
 
+	MENOPAUSE(
+			80,
+			"Menopause (total infertility)",
+			"menopause",
+			Colour.BASE_CRIMSON,
+			false,
+			null,
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"Due to being over fifty-two years of age, [npc.nameHasFull] undergone menopause, and as [npc.sheIsFull] not a demon, [npc.sheHasFull] been rendered completely unable to bear children.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasVagina()
+					&& target.getAgeValue()>=52
+					&& target.getSubspeciesOverride()==null
+					&& !(target instanceof Elemental);
+		}
+	},
+	
 	PREGNANT_0(
 			80,
 			"risk of pregnancy",
@@ -5171,6 +5248,12 @@ public enum StatusEffect {
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] highly embarrassed to be walking around in such an exposed fashion.");
 		}
 		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+			return super.getAdditionalDescription(target);
+		}
+		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& target.getLegConfiguration()==LegConfiguration.BIPEDAL
@@ -5247,6 +5330,12 @@ public enum StatusEffect {
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] highly embarrassed to be walking around in such an exposed fashion.");
 		}
 		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+			return super.getAdditionalDescription(target);
+		}
+		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& (target.getLegConfiguration()==LegConfiguration.BIPEDAL || ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaVisible(CoverableArea.NIPPLES)))
@@ -5278,6 +5367,12 @@ public enum StatusEffect {
 				return "";
 			}
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] highly embarrassed to be walking around in such an exposed fashion.");
+		}
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+			return super.getAdditionalDescription(target);
 		}
 
 		@Override
@@ -5313,6 +5408,12 @@ public enum StatusEffect {
 			}
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] incredibly sexy and empowered to be walking around in such an exposed fashion.");
 		}
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+			return super.getAdditionalDescription(target);
+		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -5346,6 +5447,12 @@ public enum StatusEffect {
 			}
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] incredibly sexy and empowered to be walking around in such an exposed fashion.");
 		}
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+			return super.getAdditionalDescription(target);
+		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -5378,6 +5485,12 @@ public enum StatusEffect {
 				return "";
 			}
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] incredibly sexy and empowered to be walking around in such an exposed fashion.");
+		}
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
+				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+			return super.getAdditionalDescription(target);
 		}
 
 		@Override
@@ -5745,7 +5858,7 @@ public enum StatusEffect {
 				if(target.isPlayer()) {
 					return "By wearing the entire Milk Maid's outfit, you're filled with the energy you need in order to perform all of your milking duties!";
 				} else {
-					return UtilText.parse(target, "By wearing the entire Milk Maid'full ofnpc.name] is filled with the energy [npc.she] needs in order to perform all of [npc.her] milking duties.");
+					return UtilText.parse(target, "By wearing the entire Milk Maid's outfit, [npc.name] is filled with the energy [npc.she] needs in order to perform all of [npc.her] milking duties.");
 				}
 				
 			} else {
@@ -5847,7 +5960,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {//British Auxiliary Territorial Service
-			return "While wearing the uniform of Lyssieth's guard, [npc.name] [npc.verb(feel)] as though [npc.sheIs] more easily able to keep [npc.her] composure.";
+			return UtilText.parse(target, "While wearing the uniform of Lyssieth's guard, [npc.name] [npc.verb(feel)] as though [npc.sheIs] more easily able to keep [npc.her] composure.");
 		}
 
 		@Override

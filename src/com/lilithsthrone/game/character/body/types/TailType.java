@@ -40,6 +40,8 @@ public enum TailType implements BodyPartTypeInterface {
 	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
+
+	BAT_MORPH(BodyCoveringType.BAT_SKIN, Race.BAT_MORPH, true, true),
 	
 	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, true, true),
 	
@@ -165,6 +167,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case RAT_MORPH:
 				return UtilText.returnStringAtRandom("rat-like");
+			case BAT_MORPH:
+				return UtilText.returnStringAtRandom("bat-like");
 			case RABBIT_MORPH:
 				return UtilText.returnStringAtRandom("rabbit-like", "fluffy");
 		}
@@ -215,6 +219,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return "none";
 			case RAT_MORPH:
 				return "rat";
+			case BAT_MORPH:
+				return "bat";
 			case RABBIT_MORPH:
 				return "rabbit";
 		}

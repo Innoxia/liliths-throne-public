@@ -786,7 +786,7 @@ public class GenericActions {
 		}
 	};
 
-	public static final SexAction PLAYER_FORBID_PARTNER_CONNTROL = new SexAction(
+	public static final SexAction PLAYER_FORBID_PARTNER_CONTROL = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -832,7 +832,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static final SexAction PLAYER_PERMIT_PARTNER_CONNTROL = new SexAction(
+	public static final SexAction PLAYER_PERMIT_PARTNER_CONTROL = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

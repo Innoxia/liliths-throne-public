@@ -52,12 +52,16 @@ public enum PropertyValue {
 	voluntaryNTR(false),
 	involuntaryNTR(false),
 
+	spittingEnabled(true),
+	opportunisticAttackers(false),
+	bypassSexActions(true),
+
 	levelUpHightlight(false),
 	newWeaponDiscovered(false),
 	newClothingDiscovered(false),
 	newItemDiscovered(false),
 	newRaceDiscovered(false);
-	
+
 	
 	private boolean defaultValue;
 

@@ -46,7 +46,7 @@ public enum WorldType {
 					
 					new Value<>(new Color(0x98c488), PlaceType.WORLD_MAP_YOUKO_FOREST), // shinrin highland
 					
-					new Value<>(new Color(0x62e6d3), PlaceType.WORLD_MAP_WILD_RIVER), // dangrous river
+					new Value<>(new Color(0x62e6d3), PlaceType.WORLD_MAP_WILD_RIVER), // dangerous river
 					new Value<>(new Color(0xa7fce8), PlaceType.WORLD_MAP_RIVER), // river
 					
 					new Value<>(new Color(0xc4fcff), PlaceType.WORLD_MAP_SEA), // endless sea
@@ -359,7 +359,6 @@ public enum WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.CITY_HALL_WAITING_AREA),
 					new Value<>(new Color(0xff8000), PlaceType.CITY_HALL_OFFICE),
 					new Value<>(new Color(0x00ff00), PlaceType.CITY_HALL_STAIRS),
-					new Value<>(new Color(0x0000ff), PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS_CORRIDOR),
 					new Value<>(new Color(0xff0080), PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS),
 					new Value<>(new Color(0xff00ff), PlaceType.CITY_HALL_ARCHIVES),
 					new Value<>(new Color(0xffff80), PlaceType.CITY_HALL_BUREAU_OF_PROPERTY_RIGHTS_AND_COMMERCE))),
@@ -748,7 +747,7 @@ public enum WorldType {
 	}
 	
 	/**
-	 * Reveals all tiles as though the player knows about them, but has not travelled to them. Behaviour may be overriden by isRevealedOnStart().
+	 * Reveals all tiles as though the player knows about them, but has not travelled to them. Behaviour may be overridden by isRevealedOnStart().
 	 */
 	public boolean isDiscoveredOnStart() {
 		return false;

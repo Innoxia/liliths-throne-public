@@ -1390,7 +1390,7 @@ public class EnforcerHQDialogue {
 						+ "[pc.speech(I'm here to find out what's happened to my friend, Arthur. His apartment was empty, and your name was on the arrest warrant stamped to his door.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As you mention Arthur's name, [brax.name] lets out a dismissive grunt, and as you finish speaking, he stands up behind his desk. "
+						+ "As you mention Arthur's name, [brax.name] lets out a dismissive grunt, and as you finish speaking, he huffs, "
 						+ "[brax.speech(As if I'd tell you that! You come barging into my office, then expect me to hand out classified information?! I think I know exactly what punishment you deserve!)]"
 					+ "</p>"
 					+ "<p>"
@@ -1478,7 +1478,7 @@ public class EnforcerHQDialogue {
 				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself at least a small advantage by tricking him like this!", Main.game.getNpc(Brax.class)){
 					@Override
 					public void effects(){
-						Main.game.getNpc(Brax.class).setLust(30);
+						Main.game.getNpc(Brax.class).setLustNoText(30);
 					}
 				};
 					
@@ -1638,7 +1638,7 @@ public class EnforcerHQDialogue {
 				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself a big advantage by tricking him like this!", Main.game.getNpc(Brax.class)){
 					@Override
 					public void effects(){
-						Main.game.getNpc(Brax.class).setLust(50);
+						Main.game.getNpc(Brax.class).setLustNoText(50);
 					}
 				};
 					

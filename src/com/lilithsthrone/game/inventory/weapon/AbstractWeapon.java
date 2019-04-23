@@ -397,6 +397,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		return damageType;
 	}
 
+	public void setDamageType(DamageType damageType) {
+		this.damageType = damageType;
+	}
+	
 	public AbstractWeaponType getWeaponType() {
 		return weaponType;
 	}

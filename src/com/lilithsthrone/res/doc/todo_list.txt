@@ -131,11 +131,20 @@
 		Added xml definition files for patterns, so that names and default pattern booleans can be defined.
 	
 	Gameplay:
+		Added an internal map to city hall, along with a new NPC who manages name changes and the sale of the new item 'offspring tracking map'.
+		Added 'offspring tracking map' item (purchased from city hall for 50,000 flames), which can be used in any tiles in which offspring can be naturally encountered in order to force an encounter with an offspring of your choice.
 		Offspring can now be encountered even when the incest content option is turned off. All sexual actions will be hidden & unavailable while incest is toggled off.
+		Added 'menopause' status effect for all non-demon characters over 52 (which completely disables their ability to get pregnant).
+		Added 'reforging hammer' item, which allows you to change a weapon's damage type in the same way that dye-brushes change clothing's colour. The Earth spell school's special unlock now also allows you to do free reforging of weapons.
 	
 	Contributors:
 		Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)
 		Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)
+		Added a configurable chance for NPCs' forced TFs to change you into a random race, rather than their race. (PR#1101 by Eliria)
+		Made imp fortress subspecies checks null-safe. (PR#1105 by Niranufoti)
+		Add difficulty option: No Spitting. This enables/disables the ability for you to spit out forced TF potions. (PR#1111 by 0d721077)
+		Add difficulty option: Opportunistic Attackers. This enables/disables an increased likelihood of being attacked when high in lust, exposed, drunk, covered in sexual fluids, or low on energy. (PR#1113 by 0d721077)
+		Add difficulty option: Sex Action Bypass. This enables/disables the ability for you to select sex actions outside of your corruption range. (PR#1112 by 0d721077)
 		
 	Clothing:
 		Added: 'flats' (feminine, foot slot, sold by Nyan).
@@ -153,6 +162,9 @@
 		Improved methods responsible for determining an NPC's willingness to deny requests, choose what action to take in sex, and the amount of arousal & lust gained from actions each turn.
 		NPCs with competing fetish desires (e.g. hating anal, but loving taking cock) will now sometimes be willing to perform those actions, and should not be losing arousal or lust as a result.
 		NPCs should no longer be choosing to perform actions which they dislike or hate.
+		Added indication of sexual parts not tasting like normal. i.e. When performing an oral action on a vagina, penis, or nipples whose associated fluid does not taste like normal, then a line is appended to tell you what it tastes like.
+		Characters who are eating out squirters at the moment of their orgasm will now have their face covered in female ejaculate, dirtying the relevant clothing and inventory slots.
+		Dominant NPCs will now always want to end sex if they have had over twice the number of orgasms they need to be satisfied.
 	
 	Other:
 		<b>Altered:</b> Cum and milk regeneration is no longer based on a percentage of maximum storage, and is instead a fixed value from 0-1,000,000mL per day. As part of this change, regeneration values will be reset to default values when you load in.
@@ -174,6 +186,13 @@
 		Slightly altered value calculations for milk, cum, and girlcum. (Flavour now counts for a lot more.)
 		Changed lion-morph icon to a standard recoloured cat-morph icon, as I wanted to keep subspecies icons as consistent as possible.
 		Added 'cherry' flavour to fluids, changed 'slime' flavour to 'bubblegum', and improved enchantment icons for fluid modifiers.
+		Changed hypno-watch rarity from 'legendary' to 'quest' (so it will be in the 'quest items' section of your inventory now).
+		Added description for when any fluid is ingested, to let you know exactly how much was pumped inside the orifice. (Mostly seen in sex when orgasm actions are used.)
+		Slave value now takes into account whether or not they are anal, vagina, and penis virgins. (Vagina and penis virginity value modifier only applies if they actually have a vagina or penis.)
+		NPCs should now never take their own virginities during sex.
+		Rabbit-morphs are now more likely to spawn in with the pregnancy and impregnation fetishes, and will never spawn in disliking those fetishes.
+		Improved body hair spawning method, so randomly spawned NPCs will no longer have all body hair values set to the same value, and male NPCs will no longer almost always have beards.
+		Added bat-morph tail type.
 	
 	Bugs:
 		Start of pregnancy now correctly expels all fluids from vagina & vaginal urethra, and fluid storage in those orifices for a pregnant character is now limited to 250ml.
@@ -240,47 +259,37 @@
 		Fixed issue with gloryhole NPCs not having their groin areas revealed when they moved into a 'present asshole' or 'present pussy' position. (This was also causing ongoing sex actions to not be available.)
 		Fixed 'ear pull', 'horn grab', and 'twintails pull' sex actions being available in gloryhole sex.
 		Fixed issue with the game soft-locking when identifying clothing.
+		Fixed the 'wash' actions in your room not cleaning your clothing.
+		Fixed tattoos counters for total dominant/submissive sex not incrementing properly for when npcs had sex with other npcs (such as when your slaves had sex with random people).
+		NPCs which use the mugger and prostitute outfit files will no longer spawn in wearing shoes and socks if their feet are not plantigrade.
+		Fixed incorrect virginity loss text for NPCs.
+		Fixed issue with NPCs' arousal in multiple-partner sex scenes sometimes randomly dropping by huge amounts.
+		Fixed arousal in multiple-partner scenes incrementing by tiny amounts.
+		Fixed issue in character view screen where nipple's milk descriptions would only be displayed if they were fuckable, and also the issue where nipples would be described as being fuckable even if you had nipple penetration content turned off.
+		Fixed slave event log displaying impregnation possibility on NPCs who were already pregnant.
+		Fixed issue with alpha-imps producing non-imp offspring.
+		Fixed milking room's fluids not being drained correctly when there were several instances of a fluid with varying virilities. Also fixed the consumption text always reading 100ml, even if it was less.
 	
 	
 	
 	
 	
 	
-	Finish & test city hall
 	
-	need pregnancy variations
 	
-	Add town hall internal map
-		Demographics:
-			Change name
-			Buy map from town hall to find kids
-			Also for imports
-				Use in empty alleyway to find them
 	
-	test incest off offspring encounters
+	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
 	
-	item.isBreakOutOfInventory() is not covering use on NPCs in InventoryDialogue
+	occassionally when allowing party member to have sex with an enemy when the enemy orgasms right after party member all buttons disappear and you can't prepare or deny or leave the encounter forcing loading save file
 	
-	outfits
-		make non-regular feet not spawn with shoes/socks
+	The npc was wearing pantyhose and a one piece swimsuit. Neither could be removed. The pantyhose was blocked by the swimsuit and the swimsuit was blocked by the pantyhose.
 	
-	Forced TF not working for someone
-		Ah, yeah, that's intended with the way the non-con option works right now. I'll improve it for the next version so that you can turn on/off sex after defeat as a separate option. your words
-	go over forced TF and fix it all
+	after beating an npc in submission, when using a consumable or reading a book in their inventory, the descriptions make it seem as if they're the one who's forcing you to read or drink a potion or eat
 	
-	rabbit morphs need pregnancy fetish chance modifier
+	Inviting my character's daughter to a guest room has her ask if I'm royalty.  Shouldn't it be "Are we royalty???"?  Even more so because she's a lesser demon.
+	Related: "With her opinions on your aunt..." in small talk from the daughter could be "With her opinions on her great aunt..."
 	
-	Not sure if this is a bug or just maybe unfinished, but after moving out your kids to apartments, if you impregnate them/get pregnant by them,
-	 they revert back to the generic companion lines of acknowledging the pregnancy instead of the new specific ones for your kids
-	
-	Bug: When the player is Submissive in sex the options for penetrating a partner are not available.
-		Make this clearer
-	
-	Add option to get Arthur to move out
-	
-	can't submit during storm - ignores storm attraction?
-	
-	Something that might be a bug or an oversight but when you go into the alleyways during an arcane storm and someone walks up to you, they still accept money as an option to leave you alone
+	Harpies with a cloaca can still be fucked in the ass and vagene even when they're blocked by a butt plug or dildo
 	
 	Slaves forgetting owner?
 		"Scarlett leaves your party for unknown reasons"
@@ -299,11 +308,34 @@
 		 I then rested until the next Arcane Storm happened.
 		This NPC, now enslaved, is located at Empty, City
 	
+   Innoxia if you're here, please make it that if a slave has the "Use You" permission and you try to take a shower in your room, there's a rare chance the slave will come in and rape you.
+
+   Innoxia if you're here, please write dialogue for a slave with the "Use You" permission trying to rape you when you're so far above them in strength it's hilarious.
+	
+	Not sure if this is a bug or just maybe unfinished, but after moving out your kids to apartments, if you impregnate them/get pregnant by them,
+	 they revert back to the generic companion lines of acknowledging the pregnancy instead of the new specific ones for your kids
+	
+	Bug: When the player is Submissive in sex the options for penetrating a partner are not available.
+		Make this clearer
+	
+	Add option to get Arthur to move out
+	
+	can't submit during storm - ignores storm attraction?
+	
+	Something that might be a bug or an oversight but when you go into the alleyways during an arcane storm and someone walks up to you, they still accept money as an option to leave you alone
+	
+	need toy-fuck and toy-fuck (anal) sex actions, where you use the toy in the orifice to fuck them
+	
+	Forced TF not working for someone
+		Ah, yeah, that's intended with the way the non-con option works right now. I'll improve it for the next version so that you can turn on/off sex after defeat as a separate option. your words
+	go over forced TF and fix it all
+	
+	
 	Make generic template:
 		I’m pretty sure there is an issue with Imps/demons in submission not giving you demon characteristics when they say they want to “transform you into a male/female demon”
 			Yet I still get messages like “You lack wings, so nothing happens” or “you lack horns, so nothing happens”
 	
-	Too many people are spawning with beards
+	Saving in a milking room and loading that save leaves the pump and sell buttons unresponsive until leaving and re-entering the room or opening and closing a menu.
 	
 	Sex improvements:
 		need lipple suck
@@ -318,8 +350,6 @@
 	    	BDSM set effect - cannot perform any sex actions when a sub
 	    - Add variations for if chastity belt/cage is being worn.
 	
-	change weapon damage types
-	
 	need missionary oral position
 	
 	4. Add a centaur field exploration encounter.
@@ -330,17 +360,9 @@
 	    - Write dialogue.
 	    - Test.
     
-   Innoxia if you're here, please make it that if a slave has the "Use You" permission and you try to take a shower in your room, there's a rare chance the slave will come in and rape you.
-
-   Innoxia if you're here, please write dialogue for a slave with the "Use You" permission trying to rape you when you're so far above them in strength it's hilarious.
-
-	 I noticed on the build from friday that Rose wasn't cleaning my clothes anymore
-	  
+	portal panties
+		two 'ends' interacting
 	
-	
-	
-	
-	followers reset perk points when you send them home?
 	
 	
 	need to incorporate outfit logic into clothing and weapon types

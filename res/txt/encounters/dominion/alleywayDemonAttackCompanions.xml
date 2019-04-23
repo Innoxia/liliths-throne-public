@@ -14,9 +14,6 @@
 	<p>
 		As [npc.she] steps over the fallen webbing, you recognise your tormentor as the [npc.fullRace(true)] you've run into before.
 	</p>
-	<p>
-		[npc.speech(It's you two again?!)] [npc.she] laughs, and you see the same hungry look in [npc.her] eyes that [npc.she] had the last time you saw [npc.herHim]. [npc.speech(You're both just begging to get fucked!)]
-	</p>
 	]]>
 	</htmlContent>
 	
@@ -172,7 +169,7 @@
 	
 	<htmlContent tag="ALLEY_ATTACK_REPEAT"><![CDATA[
 	<p>
-		[npc.speech(You two again?!)] [npc.she] shouts. [npc.speech(This'll be a lot easier if you both just give up right now!)] 
+		[npc.speech(You two again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you both just give up right now!)] 
 	</p>
 	]]>
 	</htmlContent>
@@ -813,7 +810,7 @@
 	
 	<htmlContent tag="ALLEY_PEACEFUL_OFFER_ROOM_BACK_HOME"><![CDATA[
 	<p>
-		After just a minute, you find yourself opening the door to [npc.namePos] new room, and, leading [npc.herHim] inside, you turn towards [npc.herHim] and tell [npc.herHim] that this is it, [pc.speech(Well, this is your room, [npc.name]. I hope it's alright. You've got an ensuite bathroom over here, and if you put your dirty clothes in the laundry basket, they'll be cleaned for you for the next day.)]
+		After just a minute, you find yourself opening the door to [npc.namePos] new room, and, leading [npc.herHim] inside, you turn towards [npc.herHim] and tell [npc.herHim] that this is it, [pc.speech(Well, this is your room, [npc.name]. I hope it's alright. You've got an en suite bathroom over here, and if you put your dirty clothes in the laundry basket, they'll be cleaned for you for the next day.)]
 	</p>
 	<p>
 		[npc.NamePos] slowly steps forwards, looking all around in awe as [npc.she] mutters, [npc.speech(I-Is this really happening? I... I get to live <i>here</i>?)]

@@ -2131,7 +2131,7 @@ public class MainController implements Initializable {
 								@Override
 								public void initStartingLustAndArousal(GameCharacter character) {
 									if(!character.isPlayer()) {
-										character.setLust(100);
+										character.setLustNoText(100);
 										character.setArousal(25);
 									} else {
 										super.initStartingLustAndArousal(character);
@@ -2208,7 +2208,7 @@ public class MainController implements Initializable {
 								}
 								@Override
 								public void initStartingLustAndArousal(GameCharacter character) {
-									character.setLust(100);
+									character.setLustNoText(100);
 									character.setArousal(25);
 								}
 								@Override

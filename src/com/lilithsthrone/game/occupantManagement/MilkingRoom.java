@@ -18,7 +18,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
-import com.lilithsthrone.game.character.body.FluidInterface;
 import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
@@ -324,37 +323,18 @@ public class MilkingRoom implements XMLSaving {
 		return girlcumFluids;
 	}
 	
-	public void incrementFluidStored(GameCharacter character, FluidInterface fluidToStore, float quantity) {
+	public void incrementFluidStored(FluidStored fluid, float millilitres) {
 		boolean fluidIncremented = false;
 		
-		FluidStored newFluid;
-		if(fluidToStore instanceof FluidCum) {
-			newFluid = new FluidStored(character, ((FluidCum) fluidToStore), quantity);
-		} else if(fluidToStore instanceof FluidMilk) {
-			newFluid = new FluidStored(character.getId(), ((FluidMilk)fluidToStore), quantity);
-		} else {
-			newFluid = new FluidStored(character.getId(), ((FluidGirlCum)fluidToStore), quantity);
-		}
-		
-		for(FluidStored fluid : getFluidsStored()) {
-			if(fluid.getCharactersFluidID().equals(character.getId()) && fluid.equals(newFluid)) {
-				fluid.incrementMillilitres((int) quantity);
+		for(FluidStored f : getFluidsStored()) {
+			if(fluid.equals(f)) {
+				f.incrementMillilitres(millilitres);
 				fluidIncremented = true;
 				break;
 			}
 		}
 		if(!fluidIncremented) {
-			switch(fluidToStore.getType().getBaseType()) {
-				case CUM:
-					getFluidsStored().add(new FluidStored(character.getId(), character.getSubspecies(), (FluidCum) fluidToStore, (int) quantity));
-					break;
-				case MILK:
-					getFluidsStored().add(new FluidStored(character.getId(), (FluidMilk) fluidToStore, (int) quantity));
-					break;
-				case GIRLCUM:
-					getFluidsStored().add(new FluidStored(character.getId(), (FluidGirlCum) fluidToStore, (int) quantity));
-					break;
-			}
+			getFluidsStored().add(fluid);
 		}
 		
 		getFluidsStored().removeIf((fs) -> fs.getMillilitres()<=0);

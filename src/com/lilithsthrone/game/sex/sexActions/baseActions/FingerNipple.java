@@ -464,7 +464,7 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] and [npc2.verb(try)] to pull away, but, with a forceful yank, [npc.name] [npc.verb(pull)] [npc2.her] [npc2.hands] back into [npc.her] [npc.breasts],"
 									+ " making it quite clear that [npc2.she] has no choice but to squeeze the [npc.milk+] from [npc.her] [npc.nipples].",
 
-							" [npc2.Name] desperately tries to pull away from [npc.namePos] [npc.breasts],"
+							" [npc2.Name] desperately [npc2.verb(try)] to pull away from [npc.namePos] [npc.breasts],"
 									+ " but, grabbing hold of [npc2.her] [npc2.hand], [npc.name] [npc.verb(force)] [npc2.her] to continue squeezing the [npc.milk+] from [npc.her] [npc.nipples]."));
 					break;
 			}
@@ -1092,7 +1092,7 @@ public class FingerNipple {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.fingers] inside of [npc.herHim],"
-									+ " struggling against [npc.namePos] firm grip on [npc2.her] [npc2.hand] as [npc2.she] tries to pull [npc2.herself] free.",
+									+ " struggling against [npc.namePos] firm grip on [npc2.her] [npc2.hand] as [npc2.she] [npc2.verb(try)] to pull [npc2.herself] free.",
 
 							" With [npc2.a_sob+], [npc2.name] [npc2.verb(start)] struggling against [npc.namePos] tight grip on [npc2.her] [npc2.hand],"
 									+ " pleading for [npc.name] to stop as [npc.she] [npc2.verb(force)] [npc2.her] [npc2.fingers] deep into [npc.her] [npc.nipple+]."));

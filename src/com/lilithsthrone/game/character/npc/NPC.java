@@ -1893,7 +1893,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 			
 			// Chance for race to be random:
-			if(Math.random()>0.85f) {
+			if(Math.random() <= Main.getProperties().getRandomRacePercentage()) {
 				List<Subspecies> availableRaces = new ArrayList<>();
 				availableRaces.add(Subspecies.CAT_MORPH);
 				availableRaces.add(Subspecies.DOG_MORPH);
@@ -2698,11 +2698,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		partner.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
 		
 		if(isDom) {
-			this.setSexAsDomCount(partner, this.getSexAsSubCount(partner)+1);
-			partner.setSexAsSubCount(partner, partner.getSexAsSubCount(partner)+1);
+			this.setSexAsDomCount(partner, this.getSexAsDomCount(partner)+1);
+			partner.setSexAsSubCount(this, partner.getSexAsSubCount(this)+1);
 			
 		} else {
-			partner.setSexAsDomCount(partner, partner.getSexAsSubCount(partner)+1);
+			partner.setSexAsDomCount(this, partner.getSexAsDomCount(this)+1);
 			this.setSexAsSubCount(partner, this.getSexAsSubCount(partner)+1);
 		}
 		

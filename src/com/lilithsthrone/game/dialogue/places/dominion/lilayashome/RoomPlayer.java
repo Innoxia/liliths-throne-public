@@ -47,7 +47,7 @@ public class RoomPlayer {
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-					Main.game.getPlayer().setLust(0);
+					Main.game.getPlayer().setLustNoText(0);
 					if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
 						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + 240);
 					} else {
@@ -66,7 +66,7 @@ public class RoomPlayer {
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-					Main.game.getPlayer().setLust(0);
+					Main.game.getPlayer().setLustNoText(0);
 					if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
 						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer*60);
 					} else {
@@ -78,7 +78,8 @@ public class RoomPlayer {
 		} else if (index == 3) {
 			return new Response("Quick wash",
 					"Use your room's en-suite to take a bath or shower. Rose will come and clean your clothes while you wash yourself."
-							+ " [style.italicsGood(This will clean <b>a maximum of "+Units.fluid(500)+"</b> of fluids out of all your orifices.)]",
+							+ " [style.italicsGood(This will clean <b>a maximum of "+Units.fluid(500)+"</b> of fluids out of all your orifices.)]"
+									+ " [style.italicsExcellent(This will clean all of your equipped clothing.)]",
 					AUNT_HOME_PLAYERS_ROOM_WASH){
 				@Override
 				public void effects() {
@@ -89,7 +90,7 @@ public class RoomPlayer {
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(false));
 					Main.game.getPlayer().calculateStatusEffects(0);
 					Main.game.getPlayer().cleanAllDirtySlots();
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing());
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing(false));
 				}
 				@Override
 				public int getSecondsPassed() {
@@ -100,18 +101,18 @@ public class RoomPlayer {
 		} else if (index == 4) {
 			return new Response("Thorough wash",
 					"Use your room's en-suite to take a bath or shower, in which you will thoroughly clean yourself. Rose will come and clean your clothes while you wash yourself."
-							+ " [style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]",
+							+ " [style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
+							+ " [style.italicsExcellent(This will clean <b>all</b> clothing in your inventory.)]",
 					AUNT_HOME_PLAYERS_ROOM_WASH){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					
-					
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(true));
 					Main.game.getPlayer().calculateStatusEffects(0);
 					Main.game.getPlayer().cleanAllDirtySlots();
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing());
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing(true));
 				}
 				@Override
 				public int getSecondsPassed() {

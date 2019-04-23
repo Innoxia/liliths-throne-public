@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -109,6 +110,10 @@ public class Vagina implements BodyPartInterface {
 		descriptorList.add(wetnessDescriptor);
 		if(owner.getPubicHair().getValue()>=BodyHair.FOUR_NATURAL.getValue() && Main.game.isPubicHairEnabled()) {
 			descriptorList.add("hairy");
+		}
+		
+		if(this.getGirlcum().getFlavour()!=FluidFlavour.GIRL_CUM) {
+			descriptorList.add(this.getGirlcum().getFlavour().getName()+"-flavoured");
 		}
 		
 		if(owner.isVaginaBestial()) {

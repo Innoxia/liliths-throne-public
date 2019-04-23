@@ -3574,7 +3574,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	private static String gloryholdNpcNameDescriptor="";
+	private static String gloryholeNpcNameDescriptor ="";
 	private static void spawnDomGloryHoleNPC(String genericName) {
 		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
 		
@@ -3603,25 +3603,25 @@ public class NightlifeDistrict {
 //				concealedSlots));
 		
 		double rnd = Math.random();
-		if(rnd<0.1f && !gloryholdNpcNameDescriptor.equals("wasted")) {
+		if(rnd<0.1f && !gloryholeNpcNameDescriptor.equals("wasted")) {
 			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
 			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
-			gloryholdNpcNameDescriptor="wasted";
+			gloryholeNpcNameDescriptor ="wasted";
 			npc.setGenericName("wasted "+genericName);
 			
-		} else if(Math.random()<0.3f && !gloryholdNpcNameDescriptor.equals("drunk")) {
+		} else if(Math.random()<0.3f && !gloryholeNpcNameDescriptor.equals("drunk")) {
 			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY), npc, false);
 			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
-			gloryholdNpcNameDescriptor="drunk";
+			gloryholeNpcNameDescriptor ="drunk";
 			npc.setGenericName("drunk "+genericName);
 			
-		} else if(Math.random()<0.4f && !gloryholdNpcNameDescriptor.equals("tipsy")) {
+		} else if(Math.random()<0.4f && !gloryholeNpcNameDescriptor.equals("tipsy")) {
 			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
-			gloryholdNpcNameDescriptor="tipsy";
+			gloryholeNpcNameDescriptor ="tipsy";
 			npc.setGenericName("tipsy "+genericName);
 			
 		} else {
-			gloryholdNpcNameDescriptor = CharacterUtils.setGenericName(npc, genericName, Util.newArrayListOfValues(gloryholdNpcNameDescriptor));
+			gloryholeNpcNameDescriptor = CharacterUtils.setGenericName(npc, genericName, Util.newArrayListOfValues(gloryholeNpcNameDescriptor));
 		}
 		
 		npc.setDescription("[npc.Name] is one of the Water Hole's patrons, who, seeking to take a break from the club floor, has wandered into the toilets to find you servicing the glory holes...");

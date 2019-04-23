@@ -142,7 +142,7 @@ public class ItemEffect implements XMLSaving {
 		}
 		
 		ItemEffect ie;
-		try { // Wrap this in a try, as the TFModifier.valueof might fail, due to removing Broodmother/Seeder fetish modifiers in 0.2.7.5.
+		try { // Wrap this in a try, as the TFModifier.valueOf might fail, due to removing Broodmother/Seeder fetish modifiers in 0.2.7.5.
 			TFModifier primary = (primaryMod.equals("null") || primaryMod.isEmpty()?null:TFModifier.valueOf(primaryMod));
 			TFModifier secondary = (secondaryMod.equals("null") || secondaryMod.isEmpty()?null:TFModifier.valueOf(secondaryMod));
 			

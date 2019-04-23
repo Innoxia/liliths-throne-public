@@ -330,18 +330,28 @@ public enum LustLevel {
 					break;
 				case ONE_HORNY:
 					sb.append("[npc.NameIsFull] currently quite horny, but [npc.is] still in control of [npc.her] lust.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>It seems you're beginning to attract trouble.");
 					break;
 				case TWO_AMOROUS:
 					sb.append("[npc.NameIsFull] currently feeling more than a little lustful, and [npc.is] thinking about sex quite a lot.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You can feel more and more troublesome gazes.");
 					break;
 				case THREE_LUSTFUL:
 					sb.append("[npc.NameIsFull] currently burning with lust, and [npc.is] struggling to think of anything other than sex.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your lust-filled aura can no longer be denied.");
 					break;
 				case FOUR_IMPASSIONED:
 					sb.append("[npc.NameIsFull] completely burning with lust, and [npc.is] struggling to think of anything other than sex.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Almost every passerby turns to you with lustful gazes.");
 					break;
 				case FIVE_BURNING:
 					sb.append("[npc.NameIsFull] completely overwhelmed with lust, and [npc.is] incapable of thinking of anything but sex.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Everyone can tell you're completely filled with lust. Some will probably try take advantage.");
 					break;
 			}
 		}

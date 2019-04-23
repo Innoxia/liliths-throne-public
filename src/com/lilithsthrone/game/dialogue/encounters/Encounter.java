@@ -390,7 +390,10 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION));
+						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+							|| npc.getSubspecies()==Subspecies.SLIME
+							|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
+							|| npc.getSubspecies()==Subspecies.RAT_MORPH);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -982,8 +985,52 @@ public enum Encounter {
 			}
 			r *= Math.random();
 		}
-		
+
+		float opportunisticMultiplier = 1;
+		if(Main.game.isOpportunisticAttackersEnabled()) {
+			// lust: linear boost; 25% max
+			opportunisticMultiplier += Main.game.getPlayer().getLust() / 200;
+			// energy: linear boost; 25% (theoretical) max
+			opportunisticMultiplier += 0.25f - Main.game.getPlayer().getHealthPercentage() * 0.25f;
+			// smelly body: 25% boost
+			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM)
+					|| Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM_MASOCHIST))
+				opportunisticMultiplier += 0.25f;
+			// smelly clothes: 25% boost
+			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM)
+					|| Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM_MASOCHIST))
+				opportunisticMultiplier += 0.25f;
+			// exposure: 50% or 75% boost
+			if(!Collections.disjoint(Util.newArrayListOfValues(
+					StatusEffect.EXPOSED,
+					StatusEffect.EXPOSED_BREASTS,
+					StatusEffect.FETISH_EXHIBITIONIST,
+					StatusEffect.FETISH_EXHIBITIONIST_BREASTS
+			), Main.game.getPlayer().getStatusEffects()))
+				opportunisticMultiplier += 0.5f;
+			if(!Collections.disjoint(Util.newArrayListOfValues(
+					StatusEffect.EXPOSED_PLUS_BREASTS,
+					StatusEffect.FETISH_EXHIBITIONIST_PLUS_BREASTS
+			), Main.game.getPlayer().getStatusEffects()))
+				opportunisticMultiplier += 0.75f;
+			// drunk: 50% boost
+			if(!Collections.disjoint(Util.newArrayListOfValues(
+					StatusEffect.DRUNK_3,
+					StatusEffect.DRUNK_4,
+					StatusEffect.DRUNK_5
+			), Main.game.getPlayer().getStatusEffects()))
+				opportunisticMultiplier += 0.5f;
+		}
+
 		for (Entry<EncounterType, Float> e : getDialogues().entrySet()) {
+			EncounterType encounter = e.getKey();
+			float encounterChance = e.getValue();
+			// opportunistic attackers: compare with amplified chance
+			if(encounter.isOpportunistic()) encounterChance *= opportunisticMultiplier;
+			if (r <= total + encounterChance) {
+				return initialiseEncounter(encounter);
+			}
+			// add unmodified chance
 			total += e.getValue();
 			if (r <= total) {
 				return initialiseEncounter(e.getKey());

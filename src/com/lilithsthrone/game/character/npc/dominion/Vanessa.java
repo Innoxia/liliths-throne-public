@@ -160,7 +160,7 @@ public class Vanessa extends NPC {
 		// Face:
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
-		this.setFaceCapacity(Capacity.SIX_STRETCHED_OPEN, true);
+		this.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
@@ -212,7 +212,7 @@ public class Vanessa extends NPC {
 
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_RED_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_BLACK, false), true, this);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
@@ -294,7 +294,7 @@ public class Vanessa extends NPC {
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
-		return true;
+		return false;
 	}
 	
 	@Override

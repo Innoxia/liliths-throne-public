@@ -1211,7 +1211,7 @@ public enum Race {
 	}
 
 	/**
-	 * <b>Should only be used in Subspecies' getDamageMultipler() method!</b>
+	 * <b>Should only be used in Subspecies' getDamageMultiplier() method!</b>
 	 */
 	public Attribute getDefaultDamageMultiplier() {
 		return damageMultiplier;

@@ -4573,6 +4573,20 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
+				for (DamageType dt : weapon.getAvailableDamageTypes()) {
+					id = "DAMAGE_TYPE_"+weapon.hashCode() + "_" + dt.toString();
+					if ((EventTarget) MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							InventoryDialogue.damageTypePreview = dt;
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDamageTypeWeapon(InventoryDialogue.getWeapon(), dt);
+						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+					}
+				}
 			}
 			
 			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
@@ -4596,7 +4610,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			for (AbstractWeaponType weapon : WeaponType.getAllweapons()) {
+			for (AbstractWeaponType weapon : WeaponType.getAllWeapons()) {
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					if ((EventTarget) MainController.document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {
 						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mousemove", MainController.moveTooltipListener, false);
@@ -5255,7 +5269,9 @@ public class MainControllerInitMethod {
 		
 		// Content preferences:
 
-		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.CONTENT_PREFERENCE || Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCES) {
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.CONTENT_PREFERENCE
+				|| Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCES
+				|| Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS) {
 			createToggleListener("ARTWORK_ON", PropertyValue.artwork, true);
 			createToggleListener("ARTWORK_OFF", PropertyValue.artwork, false);
 			createToggleListener("SILLY_ON", PropertyValue.sillyMode, true);
@@ -5308,7 +5324,10 @@ public class MainControllerInitMethod {
 					new Value<>("HAIR_ASS", PropertyValue.assHairContent),
 					new Value<>("FEMININE_BEARD", PropertyValue.feminineBeardsContent),
 					new Value<>("FURRY_TAIL_PENETRATION", PropertyValue.furryTailPenetrationContent),
-					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent));
+					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
+					new Value<>("SPITTING_ENABLED", PropertyValue.spittingEnabled),
+					new Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers),
+					new Value<>("BYPASS_SEX_ACTIONS", PropertyValue.bypassSexActions));
 			
 			for(Entry<String, PropertyValue> entry : settingsMap.entrySet()) {
 				createToggleListener(entry.getKey()+"_ON", entry.getValue(), true);
@@ -6129,15 +6148,10 @@ public class MainControllerInitMethod {
 						Main.game.getTextEndStringBuilder().append("</p>");
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
-										+ "<i style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>"+Units.fluid(MilkingRoom.INGESTION_AMOUNT)+" of "+fluidOwnerName+" "+fluidName+" has been consumed!</i>"
+										+ "<i style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>"+Units.fluid(milkAmount)+" of "+fluidOwnerName+" "+fluidName+" has been consumed!</i>"
 								+ "</p>");
 						
-						try {
-							GameCharacter c = fluid.getFluidCharacter();
-							room.incrementFluidStored(c, fluid.getFluid(), -milkAmount);
-						} catch (Exception e1) {
-							room.incrementFluidStored(null, fluid.getFluid(), -milkAmount);
-						}
+						room.incrementFluidStored(fluid, -milkAmount);
 						
 						Main.game.setContent(new Response("", "", LilayaHomeGeneric.MILKED));
 						

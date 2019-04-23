@@ -637,6 +637,9 @@ public class Game implements XMLSaving {
 					if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
 						gen.worldGeneration(WorldType.LYSSIETH_PALACE);
 					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.3.2.2")) {
+						gen.worldGeneration(WorldType.CITY_HALL);
+					}
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
 					}
@@ -1376,7 +1379,7 @@ public class Game implements XMLSaving {
 			// Non-slave NPCs clean clothes:
 			if(!Main.game.getCharactersPresent().contains(npc) && (!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer()))) {
 				if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
-					npc.cleanAllClothing();
+					npc.cleanAllClothing(true);
 				}
 				if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)) {
 					npc.cleanAllDirtySlots();
@@ -3548,5 +3551,16 @@ public class Game implements XMLSaving {
 	public void setRequestAutosave(boolean requestAutosave) {
 		this.requestAutosave = requestAutosave;
 	}
+
+	public boolean isSpittingDisabled() {
+		return !Main.getProperties().hasValue(PropertyValue.spittingEnabled);
+	}
 	
+	public boolean isOpportunisticAttackersEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.opportunisticAttackers);
+	}
+	
+	public boolean isBypassSexActions() {
+		return Main.getProperties().hasValue(PropertyValue.bypassSexActions);
+	}
 }

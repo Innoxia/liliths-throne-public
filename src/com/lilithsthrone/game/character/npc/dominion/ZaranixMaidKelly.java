@@ -231,7 +231,7 @@ public class ZaranixMaidKelly extends NPC {
 	}
 	
 	@Override
-	public String getName(boolean applynameAlteringEffects) {
+	public String getName(boolean applyNameAlteringEffects) {
 		if(!playerKnowsName) {
 			return "Zaranix's Maid";
 			

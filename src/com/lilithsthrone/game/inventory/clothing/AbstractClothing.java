@@ -673,9 +673,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	@Override
 	public Rarity getRarity() {
-		
 		if(this.isCondom()) {
-			if(this.getEffects().get(0).getPotency().isNegative()) {
+			if(!this.getEffects().isEmpty() && this.getEffects().get(0).getPotency().isNegative()) {
 				return Rarity.JINXED;
 			} else {
 				return rarity;
@@ -1371,12 +1370,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		for(ItemEffect ie : getEffects()) {
 			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
-				if(attributeModifiers.containsKey(ie.getSecondaryModifier().getAssociatedAttribute())) {
-					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), attributeModifiers.get(ie.getSecondaryModifier().getAssociatedAttribute()) + ie.getPotency().getClothingBonusValue());
-				} else {
-					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), ie.getPotency().getClothingBonusValue());
-				}
-				
+				attributeModifiers.merge(ie.getSecondaryModifier().getAssociatedAttribute(), ie.getPotency().getClothingBonusValue(), Integer::sum);
 			}
 		}
 		
