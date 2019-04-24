@@ -152,7 +152,7 @@ public class EarType {
 
 	public static AbstractEarType FOX_MORPH_BIG = new AbstractEarType(BodyCoveringType.FOX_FUR,
 			Race.FOX_MORPH,
-			false,
+			true,
 			"fennec fox",
 			"ear",
 			"ears",

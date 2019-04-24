@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -136,7 +137,7 @@ public class DominionAlleywayAttacker extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
 			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
-				this.setBody(CharacterUtils.generateHalfDemonBody(this, Subspecies.getFleshSubspecies(this)));
+				this.setBody(CharacterUtils.generateHalfDemonBody(this, Subspecies.getFleshSubspecies(this), true));
 			}
 			
 			if(Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
@@ -172,7 +173,7 @@ public class DominionAlleywayAttacker extends NPC {
 			CharacterUtils.generateItemsInInventory(this);
 			
 			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
-				this.equipClothing(true, true, true, true);
+				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
 			CharacterUtils.applyMakeup(this, true);
 			
@@ -197,12 +198,12 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
 		} else {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
-//			super.equipClothing(replaceUnsuitableClothing, addWeapons, addScarsAndTattoos, addAccessories);
+			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+//			super.equipClothing(settings);
 		}
 	}
 	
@@ -226,6 +227,7 @@ public class DominionAlleywayAttacker extends NPC {
 				
 			} else if(Math.random()<0.33f) { // Add client:
 				GenericSexualPartner partner;
+//				System.out.println("partner generated for "+this.getNameIgnoresPlayerKnowledge()+" "+this.getLocation().toString()+", "+this.getLocationPlace().getPlaceType().getName());
 				
 				if(Math.random()<0.25f) {
 					partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
@@ -341,11 +343,12 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	public boolean isStormAttacker() {
 		AbstractPlaceType pt = this.getLocationPlace().getPlaceType();
-		return (!pt.equals(PlaceType.DOMINION_BACK_ALLEYS)
+		return this.getWorldLocation().equals(WorldType.DOMINION)
+				&& !pt.equals(PlaceType.DOMINION_BACK_ALLEYS)
 				&& !pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
 				&& !pt.equals(PlaceType.DOMINION_CANAL)
 				&& !pt.equals(PlaceType.DOMINION_CANAL_END)
 				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
-				&& (!this.isSlave() || !this.getOwner().isPlayer()));
+				&& (!this.isSlave() || !this.getOwner().isPlayer());
 	}
 }

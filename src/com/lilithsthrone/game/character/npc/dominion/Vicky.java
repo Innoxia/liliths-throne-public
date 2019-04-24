@@ -11,6 +11,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -375,16 +376,16 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.setMoney(10);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CORSET_DRESS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HIPS_SUSPENDER_BELT, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_stockings", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_thigh_high_boots", Colour.CLOTHING_BLACK, false), true, this);
 
 	}
@@ -402,12 +403,15 @@ public class Vicky extends NPC {
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
-
+		itemsForSale.clear();
+		weaponsForSale.clear();
+		clothingForSale.clear();
+		
 		int requiredRoomForMiscItems = ItemType.getEssences().size()+SpellSchool.values().length+availableSpellBooks.size()+10;
 		
 		List<AbstractCoreType> types = new ArrayList<>();
 		
-		for(AbstractWeaponType wt : WeaponType.getAllweapons()) {
+		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
 			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
 				types.add(wt);
 			}
@@ -476,11 +480,18 @@ public class Vicky extends NPC {
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			for(AbstractItemType itemType : ItemType.getEssences()) {
 				AbstractItem item = AbstractItemType.generateItem(itemType);
-				for(int i=0; i<+Util.random.nextInt(11);i++) {
+				for(int i=0; i<10+Util.random.nextInt(11);i++) {
 					itemsForSale.add(item);
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
+		weaponsForSale.remove(item);
+		clothingForSale.remove(item);
+		itemsForSale.remove(item);
 	}
 	
 	@Override

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
+import java.util.Collections;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -13,6 +15,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
@@ -471,11 +474,21 @@ public class BatCavernBatAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(getBat().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null && getBat().isWillingToRape(Main.game.getPlayer())) {
+				Fetish applicableFetish = potion.getValue().getItemType() == ItemType.FETISH_REFINED
+						?Fetish.FETISH_KINK_RECEIVING
+						:Fetish.FETISH_TRANSFORMATION_RECEIVING;
+				CorruptionLevel applicableCorruptionLevel = potion.getValue().getItemType() == ItemType.FETISH_REFINED
+						?Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel()
+						:Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+
 				if (index == 1) {
-					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+					if(Main.game.isSpittingDisabled()) {
+						return Response.getDisallowedSpittingResponse();
+					}
+					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(true), Util.newArrayListOfValues(applicableFetish))) {
 						return new Response("Spit",
-								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
-									+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
+								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+applicableFetish.getName(Main.game.getPlayer())
+									+"</b> fetish, you love "+applicableFetish.getShortDescriptor()+" so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
 						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
@@ -483,8 +496,8 @@ public class BatCavernBatAttackerDialogue {
 					
 				} else if (index == 2) {
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
-							Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
-							Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+							Util.newArrayListOfValues(applicableFetish),
+							applicableCorruptionLevel,
 							null,
 							null,
 							null){

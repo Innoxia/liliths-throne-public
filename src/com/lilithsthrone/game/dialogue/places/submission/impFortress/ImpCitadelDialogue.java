@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -130,7 +131,7 @@ public class ImpCitadelDialogue {
 		// Sort out boss:
 		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
 		Main.game.getNpc(Lyssieth.class).addSlave((NPC) getBoss());
-		((NPC) getBoss()).equipClothing(true, true, true, true); // In case the player used steal on her.
+		((NPC) getBoss()).equipClothing(EquipClothingSetting.getAllClothingSettings()); // In case the player used steal on her.
 		
 		// Increment quest:
 		if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_2_B_SIRENS_CALL) {
@@ -212,7 +213,7 @@ public class ImpCitadelDialogue {
 			
 			for(GameCharacter impCharacter : impGroup) {
 				impCharacter.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
-				((NPC)impCharacter).equipClothing(true, true, true, true);
+				((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
 
 		} catch (Exception e) {
@@ -504,7 +505,7 @@ public class ImpCitadelDialogue {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY", getAllCharacters());
-			// IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST is appended to this (in ImpAttacker class's endCOmbat() method)
+			// IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST is appended to this (in ImpAttacker class's endCombat() method)
 		}
 
 		@Override

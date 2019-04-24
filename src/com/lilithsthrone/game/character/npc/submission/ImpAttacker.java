@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -143,11 +144,11 @@ public class ImpAttacker extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) { //TODO gang tattoos?
+	public void equipClothing(List<EquipClothingSetting> settings) { //TODO gang tattoos?
 		CharacterUtils.equipPiercings(this, true);
 		
 		if(!this.getAllSpells().isEmpty()) {
-			if(addWeapons) {
+			if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 				this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_arcanistStaff_arcanist_staff")));
 			}
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_impArcanist_arcanist_hat"), false), true, this);
@@ -361,7 +362,7 @@ public class ImpAttacker extends NPC {
 						if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_LAB)) {
 							if(Main.game.isNonConEnabled() && (Main.game.getPlayer().isFeminine() || (ImpCitadelDialogue.isCompanionDialogue() && ImpCitadelDialogue.getMainCompanion().isFeminine()))) {
 								ImpCitadelDialogue.getArcanist().displaceClothingForAccess(CoverableArea.VAGINA);
-								ImpCitadelDialogue.getArcanist().setLust(50);
+								ImpCitadelDialogue.getArcanist().setLustNoText(50);
 							}
 						}
 						ImpCitadelDialogue.getArcanist().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_LAB);

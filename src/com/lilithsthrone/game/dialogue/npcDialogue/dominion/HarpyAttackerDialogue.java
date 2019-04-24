@@ -1,6 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
-import java.util.ArrayList;
+import java.util.Collections;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -942,32 +942,30 @@ public class HarpyAttackerDialogue {
 			if(getHarpy().hasTransformationFetish()
 					&& potion != null
 					&& getHarpy().isWillingToRape(Main.game.getPlayer())) {
-				
-//				System.out.println("Potion Check 2"); 
-//				System.out.println(potion); 
-//				System.out.println(potion.getValue()); 
+				Fetish applicableFetish = potion.getValue().getItemType() == ItemType.FETISH_REFINED
+						?Fetish.FETISH_KINK_RECEIVING
+						:Fetish.FETISH_TRANSFORMATION_RECEIVING;
+				CorruptionLevel applicableCorruptionLevel = potion.getValue().getItemType() == ItemType.FETISH_REFINED
+						?Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel()
+						:Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 				
 				if (index == 1) {
-					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+					if(Main.game.isSpittingDisabled()) {
+						return Response.getDisallowedSpittingResponse();
+					}
+					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(true), Util.newArrayListOfValues(applicableFetish))) {
 						return new Response("Spit",
-								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
-									+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
+								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+applicableFetish.getName(Main.game.getPlayer())
+									+"</b> fetish, you love "+applicableFetish.getShortDescriptor()+" so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
 						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
 					}
 					
 				} else if (index == 2) {
-					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
-					
-					if(potion.getValue().getItemType() == ItemType.FETISH_REFINED) {
-						applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_KINK_RECEIVING);
-						applicableCorruptionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
-					}
 					
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
-							applicableFetishes,
+							Util.newArrayListOfValues(applicableFetish),
 							applicableCorruptionLevel,
 							null,
 							null,

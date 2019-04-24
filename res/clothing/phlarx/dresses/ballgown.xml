@@ -2,7 +2,7 @@
 <clothing>
 	
 	<coreAttributes>
-		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress' inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
+		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress's inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
 		<value>1500</value> 
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[ballgown]]></name>
@@ -20,9 +20,7 @@
 		<blockedPartsList> 	
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
-				<clothingAccessRequired>
-					<clothingAccess>WAIST</clothingAccess>
-				</clothingAccessRequired>
+				<clothingAccessRequired/>
 				<blockedBodyParts> 
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>
@@ -30,6 +28,7 @@
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked> 
+					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"> 
@@ -38,9 +37,7 @@
 			
 			<blockedParts>
 				<displacementType>PULLS_UP</displacementType>
-				<clothingAccessRequired>
-					<clothingAccess>WAIST</clothingAccess>
-				</clothingAccessRequired>
+				<clothingAccessRequired/>
 				<blockedBodyParts>
 					<bodyPart>ASS</bodyPart>
 					<bodyPart>ANUS</bodyPart>
@@ -52,7 +49,6 @@
 					<bodyPart>LEGS</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked>
-					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
 					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
 					<clothingAccess>GROIN</clothingAccess>

@@ -88,6 +88,10 @@ public class SexType implements XMLSaving {
 		return targetedSexArea;
 	}
 	
+	public SexType getReversedSexType() {
+		return new SexType(getAsParticipant(), getTargetedSexArea(), getPerformingSexArea());
+	}
+	
 	public List<Fetish> getRelatedFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
 		List<Fetish> fetishes = new ArrayList<>();
 		

@@ -42,6 +42,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.utils.OffspringMapDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -80,6 +82,18 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "<p>"
 					+ "You use the dye brush."
+					+ "</p>";
+		}
+	};
+	
+	public static AbstractItemEffectType REFORGE_HAMMER = new AbstractItemEffectType(Util.newArrayListOfValues(
+				"Changes a weapon's damage type."),
+			Colour.GENERIC_ARCANE) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return "<p>"
+					+ "You use the reforge hammer."
 					+ "</p>";
 		}
 	};
@@ -221,7 +235,8 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType VIXENS_VIRILITY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Temporarily boosts fertility."),
+			"Temporary fertility boost",
+			"Temporary virility boost"),
 			Colour.GENERIC_SEX) {
 		
 		@Override
@@ -343,15 +358,17 @@ public class ItemEffectType {
 				
 				target.getPotentialPartnersAsMother().removeIf((pp) -> !pp.getFatherId().equals(target.getPregnantLitter().getFatherId()));
 				
+				GameCharacter father = target.getPregnantLitter().getFather();
+				
 				return "<p>"
 						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
 					+ "</p>"
 					+ "<p>"
 						+ "Underneath the flashing pregnancy confirmation, there's some extra information, which reads:<br/>"
 						+ "<i>"
-						+ "Father: "+(target.getPregnantLitter().getFather()!=null
-										?target.getPregnantLitter().getFather().getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(target))+")"
-										:"Unknown!")+"<br/>"
+						+ "Father: "+(father!=null
+										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father))+")"
+										:"Unknown!"+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(target))+")")+"<br/>"
 						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"<br/>"
 						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"<br/>"
 						+ "[style.colourMasculine(Sons)]: " +(target.getPregnantLitter().getSonsFromFather()+target.getPregnantLitter().getSonsFromMother())+"<br/>"
@@ -2393,15 +2410,15 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			if(target.isPlayer()) {
-				return "<p style='text-align:center'>[style.italicsDisbaled(This item does not work on you...)]</p>";
+				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on you...)]</p>";
 			}
 			if(target.isUnique() && (!target.isSlave() || target.getOwner().isPlayer())) {
-				return "<p style='text-align:center'>[style.italicsDisbaled(This item does not work on non-slave unique characters...)]</p>";
+				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
 			Subspecies sub = Subspecies.getFleshSubspecies(target);
 			if(sub.getRace()!=Race.DEMON) {
-				target.setBody(CharacterUtils.generateHalfDemonBody(target, sub));
+				target.setBody(CharacterUtils.generateHalfDemonBody(target, sub, true));
 				return UtilText.parse(target, "<p style='text-align:center; color:"+Colour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
 			} else {
 				target.setBody(target.getGender(), Subspecies.DEMON, RaceStage.GREATER);
@@ -3137,6 +3154,21 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType OFFSPRING_MAP = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"Facilitates the discovery of offspring."),
+			Colour.RARITY_LEGENDARY) {
+		@Override
+		public boolean isBreakOutOfInventory() {
+			return true;
+		}
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			Main.game.setContent(new Response("", "", OffspringMapDialogue.OFFSPRING_CHOICE));
+			return "";
+		}
+	};
+	
+	
 	public static Map<AbstractItemEffectType, String> itemEffectTypeToIdMap = new HashMap<>();
 	public static Map<String, AbstractItemEffectType> idToItemEffectTypeMap = new HashMap<>();
 	public static List<AbstractItemEffectType> allEffectTypes = new ArrayList<>();
@@ -3157,6 +3189,7 @@ public class ItemEffectType {
 		return itemEffectTypeToIdMap.get(itemEffectType);
 	}
 	
+	// set in ItemType
 	public static AbstractItemEffectType getBookEffectFromSubspecies(Subspecies subspecies) {
 		String id = Util.getClosestStringMatch("BOOK_READ_"+subspecies.toString(), idToItemEffectTypeMap.keySet());
 		return idToItemEffectTypeMap.get(id);

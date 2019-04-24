@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -5017,7 +5018,7 @@ public class ClothingType {
 			false,
 			"condom belt",
 			"condom belts",
-			"A strip of strong elastic fabric that hugs the wearer's hips. It doens't serve much use, but you could always tie used condoms to it...",
+			"A strip of strong elastic fabric that hugs the wearer's hips. It doesn't really serve much use, but you could always tie used condoms to it...",
 			0,
 			null,
 			InventorySlot.HIPS,
@@ -7149,540 +7150,6 @@ public class ClothingType {
 		}
 	};
 
-	// SOCK
-	
-	public static AbstractClothingType SOCK_SOCKS = new AbstractClothingType(50,
-			"a pair of",
-			true,
-			"socks",
-			"socks",
-			"A pair of standard socks, made from cotton and with an elastic band at the top.",
-			1,
-			null,
-			InventorySlot.SOCK,
-			Rarity.COMMON,
-			null,
-			"clothing/sock_socks",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.FEET),
-							Util.newArrayListOfValues(CoverableArea.FEET),
-							null,
-							null)),
-			null,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull on the socks.",
-					"You pull the socks onto [npc.namePos] [npc.feet].",
-					"You force the socks onto [npc.namePos] [npc.feet].",
-					"[npc.Name] pulls on the socks.",
-					"[npc.Name] pushes your [pc.feet] into the socks.",
-					"[npc.Name] forces the socks onto your [pc.feet].", null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull off your socks.",
-					"You pull [npc.namePos] socks off.",
-					"You grab [npc.namePos] [npc.feet] and pull [npc.her] socks off.",
-					"[npc.Name] pulls off [npc.her] socks.",
-					"[npc.Name] pulls off your socks.",
-					"[npc.Name] grabs your [pc.feet] and pulls your socks off.", null, null);
-		}
-	};
-	
-	public static AbstractClothingType SOCK_TRAINER_SOCKS = new AbstractClothingType(50,
-			"a pair of",
-			true,
-			"trainer socks",
-			"trainer socks",
-			"A pair of trainer socks, made from cotton and with an elastic band at the top. Their short size allows them to hide neatly inside any footwear.",
-			1,
-			null,
-			InventorySlot.SOCK,
-			Rarity.COMMON,
-			null,
-			"clothing/sock_trainer_socks",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.FEET),
-							Util.newArrayListOfValues(CoverableArea.FEET),
-							null,
-							null)),
-			null,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull on the socks.",
-					"You pull the socks onto [npc.namePos] [npc.feet].",
-					"You force the socks onto [npc.namePos] [npc.feet].",
-					"[npc.Name] pulls on the socks.",
-					"[npc.Name] pushes your [pc.feet] into the socks.",
-					"[npc.Name] forces the socks onto your [pc.feet].", null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull off your socks.",
-					"You pull [npc.namePos] socks off.",
-					"You grab [npc.namePos] [npc.feet] and pull [npc.her] socks off.",
-					"[npc.Name] pulls off [npc.her] socks.",
-					"[npc.Name] pulls off your socks.",
-					"[npc.Name] grabs your [pc.feet] and pulls your socks off.", null, null);
-		}
-	};
-	
-	public static AbstractClothingType SOCK_KNEEHIGH_SOCKS = new AbstractClothingType(100,
-			"a pair of",
-			true,
-			"knee-high socks",
-			"knee-high socks",
-			"A pair of knee-high socks, made from cotton and with an elastic band at the top.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.SOCK,
-			Rarity.COMMON,
-			null,
-			"clothing/sock_kneehigh_socks",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FEET,
-									ClothingAccess.CALVES),
-							Util.newArrayListOfValues(CoverableArea.FEET),
-							null,
-							null)),
-			null,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull on the socks.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls on " + clothing.getName(true) + ".");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off your socks.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls off [npc.her] socks.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls off your socks.";
-				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] socks.");
-			}
-		}
-	};
-
-	public static AbstractClothingType SOCK_THIGHHIGH_SOCKS = new AbstractClothingType(150,
-			"a pair of",
-			true,
-			"thigh-high socks",
-			"thigh-high socks",
-			"A pair of thigh-high socks, made from cotton and with an elastic band at the top.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.SOCK,
-			Rarity.COMMON,
-			null,
-			"clothing/sock_thighhigh_socks",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FEET,
-									ClothingAccess.CALVES),
-							Util.newArrayListOfValues(
-									CoverableArea.FEET),
-							null,
-							null)),
-			null,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on the socks and pull them up to your mid-thigh.",
-					"You put the socks on [npc.name] and pull them up to [npc.her] mid-thigh.",
-					null,
-					"[npc.Name] puts on the socks and pulls them up to [npc.her] mid-thigh.",
-					"[npc.Name] puts the socks on your [pc.feet] and pulls them up to your mid-thigh.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull off your socks.",
-					"You pull off [npc.namePos] socks.",
-					null,
-					"[npc.Name] pulls off [npc.her] socks.",
-					"[npc.Name] pulls off your socks.",
-					null, null, null);
-		}
-	};
-
-	public static AbstractClothingType SOCK_STOCKINGS = new AbstractClothingType(80,
-			"a pair of",
-			true,
-			"stocking",
-			"stockings",
-			"A pair of nylon stockings, which reach up to the wearer's upper-thigh.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.SOCK,
-			Rarity.COMMON,
-			null,
-			"clothing/sock_stockings",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FEET,
-									ClothingAccess.CALVES),
-							Util.newArrayListOfValues(
-									CoverableArea.FEET),
-							null,
-							null)),
-			null,
-			ColourListPresets.JUST_BLACK,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on the stockings and pull them up to your upper-thigh.",
-					"You put the stockings on [npc.name] and pull them up to [npc.her] upper-thigh.",
-					null,
-					"[npc.Name] puts on the stockings and pulls them up to [npc.her] upper-thigh.",
-					"[npc.Name] puts the stockings on your [pc.feet] and pulls them up to your upper-thigh.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull off your stockings.",
-					"You pull off [npc.namePos] stockings.",
-					null,
-					"[npc.Name] pulls off [npc.her] stockings.",
-					"[npc.Name] pulls off your stockings.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType SOCK_TOELESS_STRIPED_STOCKINGS = new AbstractClothingType(100,
-			"a pair of",
-			true,
-			"toeless striped stocking",
-			"toeless striped stockings",
-			"A pair of striped nylon stockings, which reach up to the wearer's upper-thigh."
-					+ " The material around the toes and heel has been cut out, leaving the wearer's feet mostly exposed.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.SOCK,
-			Rarity.COMMON,
-			null,
-			"clothing/sock_toeless_striped_stockings",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FEET,
-									ClothingAccess.CALVES),
-							Util.newArrayListOfValues(
-									CoverableArea.FEET),
-							null,
-							null)),
-			null,
-			ColourListPresets.JUST_WHITE,
-			ColourListPresets.ALL,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(
-					ItemTag.SOLD_BY_NYAN,
-					ItemTag.FITS_TALONS)){
-		
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on the stockings and pull them up to your upper-thigh.",
-					"You put the stockings on [npc.name] and pull them up to [npc.her] upper-thigh.",
-					null,
-					"[npc.Name] puts on the stockings and pulls them up to [npc.her] upper-thigh.",
-					"[npc.Name] puts the stockings on your [pc.feet] and pulls them up to your upper-thigh.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull off your stockings.",
-					"You pull off [npc.namePos] stockings.",
-					null,
-					"[npc.Name] pulls off [npc.her] stockings.",
-					"[npc.Name] pulls off your stockings.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType SOCK_THIGHHIGH_SOCKS_STRIPED = new AbstractClothingType(150,
-			"a pair of",
-			true,
-			"striped thigh-high socks",
-			"striped thigh-high socks",
-			"A pair of striped thigh-high socks, made from cotton and with an elastic band at the top.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.SOCK,
-			Rarity.COMMON,
-			null,
-			"clothing/sock_thighhigh_socks_striped",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FEET,
-									ClothingAccess.CALVES),
-							Util.newArrayListOfValues(
-									CoverableArea.FEET),
-							null,
-							null)),
-			null,
-			ColourListPresets.NOT_WHITE,
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_WHITE,
-			ColourListPresets.ALL,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on the socks and pull them up to your mid-thigh.",
-					"You put the socks on [npc.name] and pull them up to [npc.her] mid-thigh.",
-					null,
-					"[npc.Name] puts on the socks and pulls them up to [npc.her] mid-thigh.",
-					"[npc.Name] puts the socks on your [pc.feet] and pulls them up to your mid-thigh.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull off your socks.",
-					"You pull off [npc.namePos] socks.",
-					null,
-					"[npc.Name] pulls off [npc.her] socks.",
-					"[npc.Name] pulls off your socks.",
-					null, null, null);
-		}
-	};
-
-	public static AbstractClothingType SOCK_TIGHTS = new AbstractClothingType(100,
-			"a pair of",
-			true,
-			"pantyhose",
-			"pantyhose",
-			"A pair of pantyhose that reach up to the wearer's lower abdomen.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.SOCK,
-			Rarity.COMMON,
-			null,
-			"clothing/sock_tights",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FEET,
-									ClothingAccess.CALVES,
-									ClothingAccess.LEGS_UP_TO_GROIN),
-							Util.newArrayListOfValues(
-									CoverableArea.FEET),
-							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-							null),
-					new BlockedParts(
-							DisplacementType.PULLS_DOWN,
-							Util.newArrayListOfValues(
-									ClothingAccess.GROIN),
-							Util.newArrayListOfValues(
-									CoverableArea.ANUS,
-									CoverableArea.PENIS,
-									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
-							null)),
-
-			null,
-			ColourListPresets.JUST_BLACK,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You push your feet into the pantyhose and pull them up to your waist.";
-			else
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] pushes [npc.her] feet into " + clothing.getName(true) + " and pulls them up to [npc.her] waist.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off your pantyhose.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls off [npc.her] pantyhose.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls off your pantyhose.";
-				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] pantyhose.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull the top part of your pantyhose down.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls the top part of [npc.her] pantyhose down.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls the top part of your pantyhose down.";
-				else
-					return UtilText.parse(clothingOwner, "You pull the top part of [npc.namePos] pantyhose down.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your pantyhose back up to your waist.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] pantyhose back up to [npc.her] waist.");
-		}
-	};
-	
-	public static AbstractClothingType SOCK_FISHNET_STOCKINGS = new AbstractClothingType(150,
-			"a pair of",
-			true,
-			"fishnet stockings",
-			"fishnet stockings",
-			"A pair of fishnet stockings that reach up to the wearer's mid-thigh.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.SOCK,
-			Rarity.COMMON,
-			null,
-			"clothing/sock_fishnets",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FEET,
-									ClothingAccess.CALVES),
-							Util.newArrayListOfValues(
-									CoverableArea.FEET),
-							null,
-							null)),
-			null,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(
-					ItemTag.TRANSPARENT,
-					ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull on the fishnet stockings.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls on " + clothing.getName(true) + ".");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off your fishnet stockings.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls off [npc.her] fishnet stockings.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls off your fishnet stockings.";
-				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] fishnet stockings.");
-			}
-		}
-	};
-
 	// CLOTHING SETS:
 
 	// MAID:
@@ -9126,115 +8593,6 @@ public class ClothingType {
 					"[npc.Name] takes [npc.her] kerchief off.",
 					"[npc.Name] takes your kerchief off.",
 					null, null, null);
-		}
-	};
-
-	public static AbstractClothingType SOCK_RAINBOW_STOCKINGS = new AbstractClothingType(250,
-			"a pair of",
-			true,
-			"rainbow stockings",
-			"rainbow stockings",
-			"A pair of brightly coloured rainbow stockings that reach up to mid-thigh.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.SOCK,
-			Rarity.EPIC,
-			ClothingSet.RAINBOW,
-			"clothing/sock_rainbow_stockings",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FEET,
-									ClothingAccess.CALVES),
-							null, null, null)),
-			null,
-			Util.newArrayListOfValues(Colour.CLOTHING_MULTICOLOURED),
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You push your feet into the rainbow stockings and pull them up to your thighs.";
-			else
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] pushes [npc.her] feet into " + clothing.getName(true) + " and pulls them up to [npc.her] thighs.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off your rainbow stockings.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls off [npc.her] rainbow stockings.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls off your rainbow stockings.";
-				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] rainbow stockings.");
-			}
-		}
-	};
-	
-	public static AbstractClothingType HAND_RAINBOW_FINGERLESS_GLOVES = new AbstractClothingType(250,
-			"a pair of",
-			true,
-			"rainbow glove",
-			"rainbow gloves",
-			"A pair of brightly-coloured rainbow fingerless gloves.",
-			1,
-			Femininity.FEMININE,
-			InventorySlot.HAND,
-			Rarity.EPIC,
-			ClothingSet.RAINBOW,
-			"clothing/hand_rainbow_fingerless_gloves",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.FINGERS,
-									ClothingAccess.WRISTS),
-							null,
-							null, null)),
-			null,
-			Util.newArrayListOfValues(Colour.CLOTHING_MULTICOLOURED),
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull on the gloves and give your fingers an experimental wiggle.";
-			else
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] pulls on " + clothing.getName(true) + " and gives [npc.her] fingers an experimental wiggle.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off your gloves.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls off [npc.her] gloves.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls your gloves off.";
-				else
-					return UtilText.parse(clothingOwner, "You pull [npc.namePos] gloves off.");
-			}
 		}
 	};
 	
@@ -10713,6 +10071,8 @@ public class ClothingType {
 	private static Map<InventorySlot, List<AbstractClothingType>> commonClothingMapFemaleIncludingAndrogynous;
 	private static Map<InventorySlot, List<AbstractClothingType>> commonClothingMapMaleIncludingAndrogynous;
 	
+	private static Map<Occupation, ArrayList<AbstractClothingType>> suitableFeminineClothing = new HashMap<>();
+	
 	private static Map<AbstractClothingType, String> clothingToIdMap = new HashMap<>();
 	private static Map<String, AbstractClothingType> idToClothingMap = new HashMap<>();
 	
@@ -10720,20 +10080,26 @@ public class ClothingType {
 	
 	public static AbstractClothingType getClothingTypeFromId(String id) {
 //		System.out.print("ID: "+id);
-//		System.out.println("  set to: "+id);
 		
 		if(oldIdConversionMap.containsKey(id)) {
 			id = oldIdConversionMap.get(id);
 		}
 		
 		id = Util.getClosestStringMatch(id, idToClothingMap.keySet());
+		
+//		System.out.println("  set to: "+id);
+		
 		return idToClothingMap.get(id);
 	}
 	
 	public static String getIdFromClothingType(AbstractClothingType clothingType) {
 		return clothingToIdMap.get(clothingType);
 	}
-	
+
+	public static Map<Occupation, ArrayList<AbstractClothingType>> getSuitableFeminineClothing() {
+		return suitableFeminineClothing;
+	}
+
 	static {
 		oldIdConversionMap.put("EYES_SAFETY_GOGGLES", "SCIENTIST_EYES_SAFETY_GOGGLES");
 		oldIdConversionMap.put("kobolds_belt_leather_belt", "innoxia_hips_leather_belt");
@@ -10756,7 +10122,19 @@ public class ClothingType {
 		oldIdConversionMap.put("FOOT_WORK_BOOTS", "innoxia_foot_work_boots");
 
 		oldIdConversionMap.put("TORSO_TSHIRT", "innoxia_torso_tshirt");
-		
+
+		oldIdConversionMap.put("SOCK_SOCKS", "innoxia_sock_socks");
+		oldIdConversionMap.put("SOCK_TRAINER_SOCKS", "innoxia_sock_trainer_socks");
+		oldIdConversionMap.put("SOCK_KNEEHIGH_SOCKS", "innoxia_sock_kneehigh_socks");
+		oldIdConversionMap.put("SOCK_STOCKINGS", "innoxia_sock_stockings");
+		oldIdConversionMap.put("SOCK_THIGHHIGH_SOCKS", "innoxia_sock_thighhigh_socks");
+		oldIdConversionMap.put("SOCK_THIGHHIGH_SOCKS_STRIPED", "innoxia_sock_thighhigh_socks_striped");
+		oldIdConversionMap.put("SOCK_TIGHTS", "innoxia_sock_pantyhose");
+		oldIdConversionMap.put("SOCK_FISHNET_STOCKINGS", "innoxia_sock_fishnets");
+		oldIdConversionMap.put("SOCK_TOELESS_STRIPED_STOCKINGS", "innoxia_sock_toeless_striped_stockings");
+
+		oldIdConversionMap.put("SOCK_RAINBOW_STOCKINGS", "innoxia_rainbow_stockings");
+		oldIdConversionMap.put("HAND_RAINBOW_FINGERLESS_GLOVES", "innoxia_rainbow_gloves");
 		
 		oldIdConversionMap.put("WITCH_HAT", "innoxia_witch_witch_hat");
 		oldIdConversionMap.put("WITCH_DRESS", "innoxia_witch_witch_dress");
@@ -10807,6 +10185,24 @@ public class ClothingType {
 											moddedClothingList.add(ct);
 											clothingToIdMap.put(ct, id);
 											idToClothingMap.put(id, ct);
+
+											if(ct.getRarity()==Rarity.COMMON) {
+												commonClothingMap.get(ct.getSlot()).add(ct);
+												
+												if (ct.getFemininityRestriction() == Femininity.FEMININE) {
+													commonClothingMapFemale.get(ct.getSlot()).add(ct);
+													commonClothingMapFemaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													
+												} else if (ct.getFemininityRestriction() == Femininity.ANDROGYNOUS || ct.getFemininityRestriction() == null) {
+													commonClothingMapAndrogynous.get(ct.getSlot()).add(ct);
+													commonClothingMapFemaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													commonClothingMapMaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													
+												} else if (ct.getFemininityRestriction() == Femininity.MASCULINE) {
+													commonClothingMapMale.get(ct.getSlot()).add(ct);
+													commonClothingMapMaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+												}
+											}
 											
 										} catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
 											System.err.println(ex);
@@ -10844,6 +10240,25 @@ public class ClothingType {
 											allClothing.add(ct);
 											clothingToIdMap.put(ct, id);
 											idToClothingMap.put(id, ct);
+
+											if(ct.getRarity()==Rarity.COMMON) {
+												commonClothingMap.get(ct.getSlot()).add(ct);
+												
+												if (ct.getFemininityRestriction() == Femininity.FEMININE) {
+													commonClothingMapFemale.get(ct.getSlot()).add(ct);
+													commonClothingMapFemaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													
+												} else if (ct.getFemininityRestriction() == Femininity.ANDROGYNOUS || ct.getFemininityRestriction() == null) {
+													commonClothingMapAndrogynous.get(ct.getSlot()).add(ct);
+													commonClothingMapFemaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													commonClothingMapMaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+													
+												} else if (ct.getFemininityRestriction() == Femininity.MASCULINE) {
+													commonClothingMapMale.get(ct.getSlot()).add(ct);
+													commonClothingMapMaleIncludingAndrogynous.get(ct.getSlot()).add(ct);
+												}
+											}
+											
 										} catch(Exception ex) {
 											System.err.println("Loading modded clothing failed at 'ClothingType' Code 2. File path: "+innerChild.getAbsolutePath());
 											System.err.println("Actual exception: ");
@@ -10913,6 +10328,54 @@ public class ClothingType {
 			}
 		}
 //  	    System.out.println(allClothing.size());
+		suitableFeminineClothing.put(Occupation.NPC_PROSTITUTE,
+				Util.newArrayListOfValues(
+						ClothingType.getClothingTypeFromId("innoxia_ankle_anklet"),
+						ClothingType.CHEST_LACY_PLUNGE_BRA,
+						ClothingType.CHEST_OPEN_CUP_BRA,
+						ClothingType.CHEST_PLUNGE_BRA,
+						ClothingType.EYES_AVIATORS,
+						ClothingType.FINGER_RING,
+						ClothingType.getClothingTypeFromId("innoxia_foot_chelsea_boots"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_ankle_boots"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_heels"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_thigh_high_boots"),
+						ClothingType.getClothingTypeFromId("innoxia_foot_stiletto_heels"),
+						ClothingType.GROIN_BACKLESS_PANTIES,
+						ClothingType.GROIN_CROTCHLESS_PANTIES,
+						ClothingType.GROIN_CROTCHLESS_THONG,
+						ClothingType.GROIN_LACY_PANTIES,
+						ClothingType.GROIN_THONG,
+						ClothingType.GROIN_VSTRING,
+						ClothingType.getClothingTypeFromId("innoxia_hand_elbow_length_gloves"),
+						ClothingType.HEAD_HEADBAND,
+						ClothingType.HEAD_HEADBAND_BOW,
+						ClothingType.LEG_CROTCHLESS_CHAPS,
+						ClothingType.LEG_MICRO_SKIRT_BELTED,
+						ClothingType.LEG_MICRO_SKIRT_PLEATED,
+						ClothingType.LEG_MINI_SKIRT,
+						ClothingType.LEG_SKIRT,
+						ClothingType.NECK_HEART_NECKLACE,
+						ClothingType.NECK_ANKH_NECKLACE,
+						ClothingType.NIPPLE_TAPE_CROSSES,
+						ClothingType.getClothingTypeFromId("innoxia_sock_fishnets"),
+						ClothingType.getClothingTypeFromId("innoxia_sock_pantyhose"),
+						ClothingType.STOMACH_OVERBUST_CORSET,
+						ClothingType.STOMACH_UNDERBUST_CORSET,
+						ClothingType.TORSO_FISHNET_TOP,
+						ClothingType.TORSO_KEYHOLE_CROPTOP,
+						ClothingType.TORSO_SHORT_CROPTOP,
+						ClothingType.WRIST_BANGLE,
+						ClothingType.WRIST_WOMENS_WATCH,
+						
+						ClothingType.PIERCING_EAR_BASIC_RING,
+						ClothingType.PIERCING_LIP_RINGS,
+						ClothingType.PIERCING_NAVEL_GEM,
+						ClothingType.PIERCING_NIPPLE_BARS,
+						ClothingType.PIERCING_NOSE_BASIC_RING,
+						ClothingType.PIERCING_PENIS_RING,
+						ClothingType.PIERCING_TONGUE_BAR,
+						ClothingType.PIERCING_VAGINA_BARBELL_RING));
 	}
 	
 	public static List<AbstractClothingType> getAllClothing() {

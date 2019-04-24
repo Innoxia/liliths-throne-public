@@ -108,15 +108,17 @@ public class Util {
 	
 	public static Color midpointColor(Color first, Color second) {
 		
-		double r = (first.getRed() + second.getRed())/2,
-				g = (first.getGreen() + second.getGreen())/2,
-					b = (first.getBlue() + second.getBlue())/2;
-		
-		return newColour(r*255, g*255, b*255);
+		double r = (first.getRed() + second.getRed())/2;
+		double g = (first.getGreen() + second.getGreen())/2;
+		double b = (first.getBlue() + second.getBlue())/2;
+//		System.out.println(r+","+g+","+b);
+		return Color.color(r, g, b);
 	}
 	
 	public static String toWebHexString(Color colour) {
-		return colour.toString().substring(2, 8);
+		String c = colour.toString().substring(2, 8);
+//		System.out.println(c);
+		return "#"+c;
 	}
 	
 	public static Color newColour(double r, double g, double b) {
@@ -239,8 +241,10 @@ public class Util {
 		ArrayList<U> mergedList = new ArrayList<>();
 		
 		for(List<U> list : lists) {
-			for(U value : list) {
-				mergedList.add(value);
+			if(list!=null) {
+				for(U value : list) {
+					mergedList.add(value);
+				}
 			}
 		}
 		
@@ -765,24 +769,70 @@ public class Util {
 	 * Turns a normal sentence into a drunk one.<br/>
 	 * Example:<br/>
 	 * "How far is it to the town hall?"<br/>
-	 * "How ~Hic!~ far is it ~Hic!~ to the town ~Hic!~ hall?"<br/>
+	 * "How ~Hic!~ far ish it ~Hic!~ to the town ~Hic!~ hall?"<br/>
 	 *
-	 * @param sentence
-	 *            sentence to apply sexy modifications
-	 * @param frequency
-	 *            of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
-	 * @return
-	 *            modified sentence
+	 * @param sentence to apply drunk modifications to.
+	 * @param frequency of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
+	 * @return modified sentence
 	 */
 	public static String addDrunkSlur(String sentence, int frequency) {
-		return insertIntoSentences(sentence, frequency, drunkSounds, false)
-			.replaceAll("Hi ", "Heeey ")
-			.replaceAll("yes", "yesh")
-			.replaceAll("is", "ish")
-			.replaceAll("So", "Sho")
-			.replaceAll("so", "sho");
+		sentence = insertIntoSentences(sentence, frequency, drunkSounds, false);
+		
+		String [] split = sentence.split("\\[(.*?)\\]");
+		for(String s : split) {
+			String sReplace = s
+					.replaceAll("Hi ", "Heeey ")
+					.replaceAll("yes", "yesh")
+					.replaceAll("Is", "Ish")
+					.replaceAll("is", "ish")
+					.replaceAll("It's", "It'sh")
+					.replaceAll("it's", "it'sh")
+					.replaceAll("So", "Sho")
+					.replaceAll("so", "sho");
+			
+			sentence = sentence.replace(s, sReplace);
+		}
+		
+		return sentence;
+		
+//		return insertIntoSentences(sentence, frequency, drunkSounds, false)
+//			.replaceAll("Hi ", "Heeey ")
+//			.replaceAll("yes", "yesh")
+//			.replaceAll("is", "ish")
+//			.replaceAll("So", "Sho")
+//			.replaceAll("so", "sho");
 	}
-
+	
+	/**
+	 * Applies a lisp to speech (a speech defect in which s is pronounced like th in thick and z is pronounced like th in this). Modified sibilants are italicised in order to assist with reading.<br/>
+	 * Example:<br/>
+	 * "Is there a zoo that's nearby?"<br/>
+	 * "I<i>th</i> there a <i>th</i>oo that'<i>th</i> nearby?"<br/>
+	 *
+	 * @param sentence The speech to which the lisp should be applied.
+	 * @return The modified sentence.
+	 */
+	public static String applyLisp(String sentence) {
+		String [] split = sentence.split("\\[(.*?)\\]");
+		for(String s : split) {
+			String sReplace = s
+				.replaceAll("s", "<i>th</i>")
+				.replaceAll("z", "<i>th</i>")
+				.replaceAll("S", "<i>Th</i>")
+				.replaceAll("Z", "<i>Th</i>");
+			
+			sentence = sentence.replace(s, sReplace);
+		}
+		
+		return sentence;
+//		return sentence
+//			.replaceAll("s", "<i>th</i>")
+//			.replaceAll("z", "<i>th</i>")
+//			.replaceAll("S", "<i>Th</i>")
+//			.replaceAll("Z", "<i>Th</i>");
+	}
+	
+	
 	/**
 	 * Builds a string representing the list of items in a collection.
 	 *
@@ -869,9 +919,17 @@ public class Util {
 	}
 
 	public static <Any> Any randomItemFrom(List<Any> list) {
+		if(list.isEmpty()) {
+			return null;
+		}
 		return list.get(Util.random.nextInt(list.size()));
 	}
 
+	public static <Any> Any randomItemFrom(Set<Any> set) {
+		List<Any> list = new ArrayList<>(set);
+		return randomItemFrom(list);
+	}
+	
 	public static <Any> Any randomItemFrom(Any[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
@@ -881,6 +939,9 @@ public class Util {
 	}
 	
 	public static String getClosestStringMatch(String input, Collection<String> choices) {
+		if (choices.contains(input)) {
+			return input;
+		}
 		int distance = Integer.MAX_VALUE;
 		String closestString = input;
 		for(String choice : choices) {

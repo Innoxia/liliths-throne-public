@@ -1030,7 +1030,7 @@ public class WeaponType {
 	};
 	
 	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>();
-	private static List<AbstractWeaponType> allweapons = new ArrayList<>();
+	private static List<AbstractWeaponType> allWeapons = new ArrayList<>();
 	public static List<AbstractWeaponType> moddedWeapons = new ArrayList<>();
 	
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
@@ -1084,7 +1084,7 @@ public class WeaponType {
 			}
 		}
 		
-		allweapons.addAll(moddedWeapons);
+		allWeapons.addAll(moddedWeapons);
 		
 		
 		// Add in external res clothing:
@@ -1104,7 +1104,7 @@ public class WeaponType {
 										try {
 											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
 											AbstractWeaponType ct = new AbstractWeaponType(innerChild, authorDirectory.getName()) {};
-											allweapons.add(ct);
+											allWeapons.add(ct);
 											weaponToIdMap.put(ct, id);
 											idToWeaponMap.put(id, ct);
 										} catch(Exception ex) {
@@ -1134,7 +1134,7 @@ public class WeaponType {
 					weaponToIdMap.put(weapon, f.getName());
 					idToWeaponMap.put(f.getName(), weapon);
 					
-					allweapons.add(weapon);
+					allWeapons.add(weapon);
 				
 					if (weapon.getRarity() == Rarity.RARE) {
 						rareWeapons.add(weapon);
@@ -1147,7 +1147,7 @@ public class WeaponType {
 		}
 	}
 
-	public static List<AbstractWeaponType> getAllweapons() {
-		return allweapons;
+	public static List<AbstractWeaponType> getAllWeapons() {
+		return allWeapons;
 	}
 }

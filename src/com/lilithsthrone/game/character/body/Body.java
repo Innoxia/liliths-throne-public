@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -53,6 +54,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -120,7 +122,7 @@ public class Body implements XMLSaving {
 	
 	private GenitalArrangement genitalArrangement;
 
-	private Map<Race, Integer> raceWeightMap = new HashMap<>();
+	private Map<Race, Integer> raceWeightMap = new ConcurrentHashMap<>();
 	private Subspecies subspecies;
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
@@ -933,6 +935,9 @@ public class Body implements XMLSaving {
 		try {
 			importedBreast.milkStored = Float.valueOf(breasts.getAttribute("storedMilk"));
 			importedBreast.milkRegeneration = Integer.valueOf(breasts.getAttribute("milkRegeneration"));
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.9")) { // Change from percentage-based to set value:
+				importedBreast.milkRegeneration = FluidRegeneration.ONE_AVERAGE.getMedianRegenerationValuePerDay();
+			}
 		} catch(Exception ex) {
 		}
 		
@@ -970,7 +975,7 @@ public class Body implements XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 		
-		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedBreast.getType().getFluidType());
+		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedBreast.getType().getFluidType(), false);
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
 			importedBreast.milk.type = importedBreast.getType().getFluidType();
 		}
@@ -1274,7 +1279,10 @@ public class Body implements XMLSaving {
 		try {
 			importedPenis.testicle.cumStored = Float.valueOf(testicles.getAttribute("storedCum"));
 			importedPenis.testicle.cumRegeneration = Integer.valueOf(testicles.getAttribute("cumRegeneration"));
-			importedPenis.testicle.cumExpulsion = Integer.valueOf(testicles.getAttribute("cumExpulsion"));
+			importedPenis.testicle.setCumExpulsion(null, Integer.valueOf(testicles.getAttribute("cumExpulsion")));
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.9")) { // Change from percentage-based to set value:
+				importedPenis.testicle.cumRegeneration = FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay();
+			}
 		} catch(Exception ex) {
 		}
 		
@@ -1539,6 +1547,9 @@ public class Body implements XMLSaving {
 			try {
 				importedCrotchBreast.milkStored = Float.valueOf(breasts.getAttribute("storedMilk"));
 				importedCrotchBreast.milkRegeneration = Integer.valueOf(breasts.getAttribute("milkRegeneration"));
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.2")) { // Change from percentage-based to set value:
+					importedCrotchBreast.milkRegeneration = FluidRegeneration.ONE_AVERAGE.getMedianRegenerationValuePerDay();
+				}
 			} catch(Exception ex) {
 			}
 
@@ -1576,7 +1587,7 @@ public class Body implements XMLSaving {
 
 			CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 
-			importedCrotchBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedCrotchBreast.getType().getFluidType());
+			importedCrotchBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedCrotchBreast.getType().getFluidType(), true);
 			if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
 				importedCrotchBreast.milk.type = importedCrotchBreast.getType().getFluidType();
 			}
@@ -2184,7 +2195,7 @@ public class Body implements XMLSaving {
 		}
 		
 		// Ear:
-		sb.append(ear.getType().getBodyDescription(owner));
+		sb.append(" "+ear.getType().getBodyDescription(owner));
 		
 		sb.append("</p>"
 				+ "<p>");
@@ -2907,6 +2918,13 @@ public class Body implements XMLSaving {
 							sb.append("a long, [npc.tailColour(true)] rat-like tail, over which [npc.sheHasFull] has complete control, and [npc.she] can easily use it to grip and hold objects.");
 						}
 						break;
+					case BAT_MORPH:
+						if (tail.isBestial(owner)) {
+							sb.append("[style.colourBestial(a feral)], [npc.tailColour(true)] bat tail.");
+						} else {
+							sb.append("a long, [npc.tailColour(true)] bat-like tail.");
+						}
+						break;
 					case RABBIT_MORPH:
 						if (tail.isBestial(owner)) {
 							sb.append("[style.colourBestial(a feral)], [npc.tailColour(true)] rabbit tail, which is really no more than a large ball of downy fluff.");
@@ -3048,6 +3066,13 @@ public class Body implements XMLSaving {
 							sb.append("long, [npc.tailColour(true)] rat-like tails, over which [npc.she] has complete control, and [npc.she] can easily use them to grip and hold objects.");
 						}
 						break;
+					case BAT_MORPH:
+						if (tail.isBestial(owner)) {
+							sb.append("[style.colourBestial(feral)], [npc.tailColour(true)] bat tails.");
+						} else {
+							sb.append("long, [npc.tailColour(true)] bat-like tails.");
+						}
+						break;
 					case RABBIT_MORPH:
 						if (tail.isBestial(owner)) {
 							sb.append("[style.colourBestial(feral)], [npc.tailColour(true)] rabbit-like tails, which really are no more than large balls of downy fluff.");
@@ -3146,7 +3171,7 @@ public class Body implements XMLSaving {
 	/** To be called after every transformation. Returns the body's race. */
 	public void calculateRace(GameCharacter target) {
 		
-		// Every time race is calculates, it's because parts have changed, so reset the body parts list:
+		// Every time race is calculated, it's because parts have changed, so reset the body parts list:
 		handleAllBodyPartsList();
 		
 		if(target!=null) {
@@ -3242,15 +3267,15 @@ public class Body implements XMLSaving {
 		boolean demonPartFound = false;
 		
 		for(Entry<Race, Integer> e : raceWeightMap.entrySet()) {
-			if(e.getKey()!=null && e.getKey()!=Race.HUMAN && e.getValue()>max) {
+			if(e.getKey()!=null && e.getKey()==Race.DEMON) {
+				demonPartFound = true;
+				
+			} else if(e.getKey()!=null && e.getKey()!=Race.HUMAN && e.getValue()>max) {
 				race = e.getKey();
 				max = e.getValue();
 			}
-			if(e.getKey()!=null && e.getKey()==Race.DEMON) {
-				demonPartFound = true;
-			}
 		}
-		if(!ignoreOverride && (demonPartFound)) { // Just one demon part is enough to make any character a demon:
+		if(!ignoreOverride && demonPartFound) { // Just one demon part is enough to make any character a demon:
 			return Race.DEMON;
 		}
 		
@@ -3443,8 +3468,6 @@ public class Body implements XMLSaving {
 	public String getAssDescription(GameCharacter owner, boolean locationSpecific) {
 		descriptionSB = new StringBuilder();
 		
-		boolean isPlayer = owner.isPlayer();
-		
 		switch(owner.getGenitalArrangement()) {
 			case CLOACA:
 				if(locationSpecific) {
@@ -3476,29 +3499,22 @@ public class Body implements XMLSaving {
 		descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is "+Capacity.getCapacityFromValue(ass.getAnus().getOrificeAnus().getStretchedCapacity()).getDescriptor()+", and can comfortably take "
 				+ Capacity.getCapacityFromValue(ass.getAnus().getOrificeAnus().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with enough lube.</span>");
 		
-		if (isPlayer) {
-			if (ass.getAnus().getOrificeAnus().isVirgin()){
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have retained your anal virginity.</span>");
-			}else{
-				boolean virginityLossFound = false;
-				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-					if(pt.isTakesVirginity()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt))!=null) {
-							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt)) + "</span>");
-							virginityLossFound = true;
-							break;
-						}
+		if (ass.getAnus().getOrificeAnus().isVirgin()){
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>[npc.Name] [npc.has] retained [npc.her] anal virginity.</span>");
+			
+		}else{
+			boolean virginityLossFound = false;
+			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+				if(pt.isTakesVirginity()) {
+					if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt))!=null) {
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt)) + "</span>");
+						virginityLossFound = true;
+						break;
 					}
 				}
-				if(!virginityLossFound) {
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You have lost your anal virginity.</span>");
-				}
 			}
-		} else {
-			if (ass.getAnus().getOrificeAnus().isVirgin()){
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>[npc.She] has retained [npc.her] anal virginity.</span>");
-			} else {
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.She] has lost [npc.her] anal virginity.</span>");
+			if(!virginityLossFound) {
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Name] [npc.has] lost [npc.her] anal virginity.</span>");
 			}
 		}
 		
@@ -3708,7 +3724,7 @@ public class Body implements XMLSaving {
 				descriptionSB.append(" They have been pierced.");
 			}
 			
-			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
+			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE && Main.game.isNipplePenEnabled()) {
 				if (viewedBreast.isFuckable()) {
 					descriptionSB.append("<br/>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, allowing [npc.her] [npc.breastCapacity] [npc.nipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(viewedBreast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
@@ -3767,96 +3783,108 @@ public class Body implements XMLSaving {
 				}
 				
 				if (!viewedBreast.getNipples().getOrificeNipples().isVirgin()) {
+					boolean virginityLossFound = false;
 					for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt))!=null) {
-							descriptionSB.append(" [style.colourArcane("+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)) + ")]");
-							break;
+						if(pt.isTakesVirginity()) {
+							if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt))!=null) {
+								descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)) + "</span>");
+								virginityLossFound = true;
+								break;
+							}
 						}
 					}
+					if(!virginityLossFound) {
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Name] [npc.has] lost [npc.her] nipple virginity.</span>");
+					}
+					
 				} else {
 					descriptionSB.append(" [style.colourGood([npc.Name] [npc.has] retained [npc.her] nipple virginity.)]");
 				}
 				
-				if (viewedBreast.getRawMilkStorageValue() > 0) {
-					descriptionSB.append("<br/>[npc.SheIsFull] currently producing "+ Units.fluid(viewedBreast.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.milkPrimaryColour(true)] [npc.milk]"
-							+ " ("+ Units.fluid(viewedBreast.getRawStoredMilkValue()) + " currently stored) at [npc.a_milkRegen] rate.");
-					
-					switch(viewedBreast.getMilk().getFlavour()) {
-						case CHOCOLATE:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of chocolate.");
-							break;
-						case CUM:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes exactly like cum.");
-							break;
-						case GIRL_CUM:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of girl-cum.");
-							break;
-						case HONEY:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of honey.");
-							break;
-						case MILK:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes like regular milk.");
-							break;
-						case MINT:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of mint.");
-							break;
-						case PINEAPPLE:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of pineapple.");
-							break;
-						case SLIME:
-							descriptionSB.append(" [npc.Her] [npc.milk] is mostly tasteless, but very sweet.");
-							break;
-						case STRAWBERRY:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of strawberries.");
-							break;
-						case BEER:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes like beer.");
-							break;
-						case VANILLA:
-							descriptionSB.append(" [npc.Her] [npc.milk] tastes of vanilla.");
-							break;
-					}
-					
-					for(FluidModifier fm : FluidModifier.values()) {
-						if(owner.hasMilkModifier(fm)) {
-							switch(fm) {
-								case ADDICTIVE:
-									descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-									break;
-								case BUBBLING:
-									descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-									break;
-								case HALLUCINOGENIC:
-									descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-									break;
-								case MUSKY:
-									descriptionSB.append(" It has a strong, musky smell.");
-									break;
-								case SLIMY:
-									descriptionSB.append(" It has a slimy, oily texture.");
-									break;
-								case STICKY:
-									descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-									break;
-								case VISCOUS:
-									descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-									break;
-								case ALCOHOLIC:
-									descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-									break;
-								case MINERAL_OIL:
-									descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
-							}
-						}
-					}
-					
-				} else {
-					descriptionSB.append("<br/>[npc.SheIsFull] not producing any milk.");
-				}
 			} else {
 				if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
 					descriptionSB.append(" [npc.Her] [npc.nipples] have swollen up to be exceptionally plump and puffy.");
+				}	
+			}
+			
+			if (viewedBreast.getRawMilkStorageValue() > 0) {
+				descriptionSB.append("<br/>[npc.SheIsFull] currently producing "+ Units.fluid(viewedBreast.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.milkPrimaryColour(true)] [npc.milk]"
+						+ " ("+ Units.fluid(viewedBreast.getRawStoredMilkValue()) + " currently stored) at [npc.a_milkRegen] rate.");
+				
+				switch(viewedBreast.getMilk().getFlavour()) {
+					case CHOCOLATE:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of chocolate.");
+						break;
+					case CUM:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes exactly like cum.");
+						break;
+					case GIRL_CUM:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of girl-cum.");
+						break;
+					case HONEY:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of honey.");
+						break;
+					case MILK:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes like regular milk.");
+						break;
+					case MINT:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of mint.");
+						break;
+					case PINEAPPLE:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of pineapple.");
+						break;
+					case BUBBLEGUM:
+						descriptionSB.append(" [npc.Her] [npc.milk] has the fruity taste of bubblegum.");
+						break;
+					case STRAWBERRY:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of strawberries.");
+						break;
+					case BEER:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes like beer.");
+						break;
+					case VANILLA:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of vanilla.");
+						break;
+					case CHERRY:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes of cherries.");
+						break;
 				}
+				
+				for(FluidModifier fm : FluidModifier.values()) {
+					if(owner.hasMilkModifier(fm)) {
+						switch(fm) {
+							case ADDICTIVE:
+								descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
+								break;
+							case BUBBLING:
+								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
+								break;
+							case HALLUCINOGENIC:
+								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
+								break;
+							case MUSKY:
+								descriptionSB.append(" It has a strong, musky smell.");
+								break;
+							case SLIMY:
+								descriptionSB.append(" It has a slimy, oily texture.");
+								break;
+							case STICKY:
+								descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
+								break;
+							case VISCOUS:
+								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
+								break;
+							case ALCOHOLIC:
+								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
+								break;
+							case MINERAL_OIL:
+								descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
+						}
+					}
+				}
+				
+			} else {
+				descriptionSB.append("<br/>[npc.SheIsFull] not producing any milk.");
 			}
 		}
 
@@ -3951,7 +3979,7 @@ public class Body implements XMLSaving {
 				descriptionSB.append(" They have been pierced.");
 			}
 			
-			if(owner.getNippleCrotchCapacity() != Capacity.ZERO_IMPENETRABLE) {
+			if(owner.getNippleCrotchCapacity() != Capacity.ZERO_IMPENETRABLE && Main.game.isNipplePenEnabled()) {
 				if (viewedBreastCrotch.isFuckable()) {
 					descriptionSB.append("<br/>[npc.Her] [npc.crotchBoobs] have internal, [npc.crotchNippleSecondaryColour(true)] channels, allowing [npc.her] [npc.crotchBoobsCapacity] [npc.crotchNipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(viewedBreastCrotch.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
@@ -4010,97 +4038,109 @@ public class Body implements XMLSaving {
 				}
 				
 				if (!viewedBreastCrotch.getNipples().getOrificeNipples().isVirgin()) {
+					boolean virginityLossFound = false;
 					for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, pt))!=null) {
-							descriptionSB.append(" [style.colourArcane("+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, pt)) + ")]");
-							break;
-						}
-					}
-				} else {
-					descriptionSB.append(" [style.colourGood([npc.Name] [npc.has] retained [npc.her] [npc.crotchNipple] virginity.)]");
-				}
-
-				if (viewedBreastCrotch.getRawMilkStorageValue() > 0) {
-					descriptionSB.append("<br/>[npc.SheIsFull] currently producing "
-							+ Units.fluid(viewedBreastCrotch.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.crotchMilkPrimaryColour(true)] [npc.crotchMilk] ("
-							+ Units.fluid(viewedBreastCrotch.getRawStoredMilkValue(), Units.UnitType.LONG) + " currently stored) at [npc.a_crotchMilkRegen] rate.");
-					
-					switch(viewedBreastCrotch.getMilk().getFlavour()) {
-						case CHOCOLATE:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of chocolate.");
-							break;
-						case CUM:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes exactly like cum.");
-							break;
-						case GIRL_CUM:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of girl-cum.");
-							break;
-						case HONEY:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of honey.");
-							break;
-						case MILK:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like regular milk.");
-							break;
-						case MINT:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of mint.");
-							break;
-						case PINEAPPLE:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of pineapple.");
-							break;
-						case SLIME:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] is mostly tasteless, but very sweet.");
-							break;
-						case STRAWBERRY:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of strawberries.");
-							break;
-						case BEER:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like beer.");
-							break;
-						case VANILLA:
-							descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of vanilla.");
-							break;
-					}
-					
-					for(FluidModifier fm : FluidModifier.values()) {
-						if(owner.hasMilkCrotchModifier(fm)) {
-							switch(fm) {
-								case ADDICTIVE:
-									descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-									break;
-								case BUBBLING:
-									descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-									break;
-								case HALLUCINOGENIC:
-									descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-									break;
-								case MUSKY:
-									descriptionSB.append(" It has a strong, musky smell.");
-									break;
-								case SLIMY:
-									descriptionSB.append(" It has a slimy, oily texture.");
-									break;
-								case STICKY:
-									descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-									break;
-								case VISCOUS:
-									descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-									break;
-								case ALCOHOLIC:
-									descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-									break;
-								case MINERAL_OIL:
-									descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
+						if(pt.isTakesVirginity()) {
+							if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, pt))!=null) {
+								descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, pt)) + "</span>");
+								virginityLossFound = true;
+								break;
 							}
 						}
 					}
+					if(!virginityLossFound) {
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Name] [npc.has] lost [npc.her] [npc.crotchNipple] virginity.</span>");
+					}
 					
 				} else {
-					descriptionSB.append("<br/>[npc.SheIsFull] not producing any milk.");
+					descriptionSB.append(" [style.colourGood([npc.Name] [npc.has] retained [npc.her] [npc.crotchNipple] virginity.)]");
 				}
+				
 			} else {
 				if(owner.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
 					descriptionSB.append(" [npc.Her] [npc.crotchNipples] have swollen up to be exceptionally plump and puffy.");
+				}	
+			}
+			
+			if (viewedBreastCrotch.getRawMilkStorageValue() > 0) {
+				descriptionSB.append("<br/>[npc.SheIsFull] currently producing "
+						+ Units.fluid(viewedBreastCrotch.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.crotchMilkPrimaryColour(true)] [npc.crotchMilk] ("
+						+ Units.fluid(viewedBreastCrotch.getRawStoredMilkValue(), Units.UnitType.LONG) + " currently stored) at [npc.a_crotchMilkRegen] rate.");
+				
+				switch(viewedBreastCrotch.getMilk().getFlavour()) {
+					case CHOCOLATE:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of chocolate.");
+						break;
+					case CUM:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes exactly like cum.");
+						break;
+					case GIRL_CUM:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of girl-cum.");
+						break;
+					case HONEY:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of honey.");
+						break;
+					case MILK:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like regular milk.");
+						break;
+					case MINT:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of mint.");
+						break;
+					case PINEAPPLE:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of pineapple.");
+						break;
+					case BUBBLEGUM:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] has the fruity taste of bubblegum.");
+						break;
+					case STRAWBERRY:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of strawberries.");
+						break;
+					case BEER:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like beer.");
+						break;
+					case VANILLA:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of vanilla.");
+						break;
+					case CHERRY:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of cherries.");
+						break;
 				}
+				
+				for(FluidModifier fm : FluidModifier.values()) {
+					if(owner.hasMilkCrotchModifier(fm)) {
+						switch(fm) {
+							case ADDICTIVE:
+								descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
+								break;
+							case BUBBLING:
+								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
+								break;
+							case HALLUCINOGENIC:
+								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
+								break;
+							case MUSKY:
+								descriptionSB.append(" It has a strong, musky smell.");
+								break;
+							case SLIMY:
+								descriptionSB.append(" It has a slimy, oily texture.");
+								break;
+							case STICKY:
+								descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
+								break;
+							case VISCOUS:
+								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
+								break;
+							case ALCOHOLIC:
+								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
+								break;
+							case MINERAL_OIL:
+								descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
+						}
+					}
+				}
+				
+			} else {
+				descriptionSB.append("<br/>[npc.SheIsFull] not producing any milk.");
 			}
 //		}
 
@@ -4114,7 +4154,6 @@ public class Body implements XMLSaving {
 		
 		Penis viewedPenis = owner.getCurrentPenis();
 		
-		boolean hallucinating = false;
 		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.CUM)) {
 			viewedPenis = new Penis(penis.getType(),
 					(int) (penis.getRawSizeValue() * 2.25f),
@@ -4123,7 +4162,6 @@ public class Body implements XMLSaving {
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),
 					penis.getTesticle().getTesticleCount());
 			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive cum you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.namePos]")+" cock to be distorted!</i> ");
-			hallucinating = true;
 		}
 
 		switch(owner.getGenitalArrangement()) {
@@ -4271,34 +4309,24 @@ public class Body implements XMLSaving {
 			}
 		}
 
-		if(viewedPenis.getType()!=PenisType.DILDO) {
-			if(owner.isPlayer()) {
-				if (!viewedPenis.isVirgin()) {
-						for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-							if(ot.isInternalOrifice()) {
-								if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL,SexAreaPenetration.PENIS, ot)) != null) {
-									descriptionSB.append(" [style.colourArcane("+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot)) + ")]");
-									break;
-								}
-							}
-						}
-				} else {
-					descriptionSB.append(" [style.colourGood(You have retained your penile virginity.)]");
-				}
-				
-			} else if(!hallucinating) {
-				if (!viewedPenis.isVirgin()) {
-					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-						if(ot.isInternalOrifice()) {
-							if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot))!=null) {
-								descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
-								break;
-							}
+		if(owner.getCurrentPenis().getType()!=PenisType.DILDO) {
+			if (!owner.getCurrentPenis().isVirgin()) {
+				boolean virginityLossFound = false;
+				for(SexAreaOrifice ot : SexAreaOrifice.values()) {
+					if(ot.isInternalOrifice()) {
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot))!=null) {
+							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot)) + "</span>");
+							virginityLossFound = true;
+							break;
 						}
 					}
-				} else {
-					descriptionSB.append(" [style.colourGood([npc.Name] has retained [npc.her] penile virginity.)]");
 				}
+				if(!virginityLossFound) {
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Name] [npc.has] lost [npc.her] penile virginity.</span>");
+				}
+				
+			} else {
+				descriptionSB.append(" [style.colourGood([npc.Name] [npc.has] retained [npc.her] penile virginity.)]");
 			}
 		}
 		
@@ -4680,17 +4708,20 @@ public class Body implements XMLSaving {
 				case PINEAPPLE:
 					descriptionSB.append(" tastes of pineapple.");
 					break;
-				case SLIME:
-					descriptionSB.append(" is mostly tasteless, but very sweet.");
+				case BUBBLEGUM:
+					descriptionSB.append(" has the fruity taste of bubblegum.");
 					break;
 				case STRAWBERRY:
 					descriptionSB.append(" tastes of strawberries.");
 					break;
 				case BEER:
-					descriptionSB.append(", which tastes like beer.");
+					descriptionSB.append(" tastes like beer.");
 					break;
 				case VANILLA:
-					descriptionSB.append(", which tastes of vanilla.");
+					descriptionSB.append(" tastes of vanilla.");
+					break;
+				case CHERRY:
+					descriptionSB.append(" tastes of cherries.");
 					break;
 			}
 			
@@ -4900,24 +4931,23 @@ public class Body implements XMLSaving {
 				descriptionSB.append(" [style.colourSex(Your pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
 						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 				
-				boolean virginityLossFound = false;
-				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-					if(pt.isTakesVirginity()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt))!=null) {
-							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt)) + "</span>");
-							virginityLossFound = true;
-							break;
-						}
-					}
-				}
-				if(!virginityLossFound) {
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You have lost your virginity.</span>");
-				}
-				
 			} else if(!hallucinating) {
 				descriptionSB.append(" [style.colourSex([npc.Her] pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
-						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]"
-						+ " <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.She] has lost [npc.her] virginity.</span>");
+						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
+			}
+
+			boolean virginityLossFound = false;
+			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+				if(pt.isTakesVirginity()) {
+					if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt))!=null) {
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt)) + "</span>");
+						virginityLossFound = true;
+						break;
+					}
+				}
+			}
+			if(!virginityLossFound) {
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Name] [npc.has] lost [npc.her] virginity.</span>");
 			}
 		}
 		
@@ -5052,6 +5082,47 @@ public class Body implements XMLSaving {
 					}
 				}
 			}
+		}
+		
+		descriptionSB.append(" [npc.Her] [npc.girlcum]");
+		
+		switch(viewedVagina.getGirlcum().getFlavour()) {
+			case CHOCOLATE:
+				descriptionSB.append(" tastes of chocolate.");
+				break;
+			case CUM:
+				descriptionSB.append(" tastes of salty cum.");
+				break;
+			case GIRL_CUM:
+				descriptionSB.append(", much to nobody's surprise, tastes like ordinary girlcum.");
+				break;
+			case HONEY:
+				descriptionSB.append(" tastes of honey.");
+				break;
+			case MILK:
+				descriptionSB.append(" tastes like milk.");
+				break;
+			case MINT:
+				descriptionSB.append(" tastes of mint.");
+				break;
+			case PINEAPPLE:
+				descriptionSB.append(" tastes of pineapple.");
+				break;
+			case BUBBLEGUM:
+				descriptionSB.append(" has the fruity taste of bubblegum.");
+				break;
+			case STRAWBERRY:
+				descriptionSB.append(" tastes of strawberries.");
+				break;
+			case BEER:
+				descriptionSB.append(" tastes like beer.");
+				break;
+			case VANILLA:
+				descriptionSB.append(" tastes of vanilla.");
+				break;
+			case CHERRY:
+				descriptionSB.append(" tastes of cherries.");
+				break;
 		}
 		
 		descriptionSB.append("<br/>");

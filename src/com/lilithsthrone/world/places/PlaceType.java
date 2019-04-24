@@ -13,12 +13,14 @@ import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
-import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
+import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
+import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
+import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallProperty;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestAlexa;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
@@ -423,7 +425,7 @@ public class PlaceType {
 	};
 	
 	public static final AbstractPlaceType DOMINION_CITY_HALL = new AbstractPlaceType(
-			"City Hall",
+			"City hall",
 			"Acting as a centre for regional government, the city hall handles the administrative affairs of not only Dominion, but of all of Lilith's Domain.",
 			"dominion/townHallIcon",
 			BaseColour.LILAC,
@@ -656,7 +658,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType ENFORCER_HQ_CORRIDOR = new AbstractPlaceType(
 			"Corridor",
-			"Many doors line either side of this rather ordinary-looking corridor, each one marked with a different Enforcer divison's name and speciality.",
+			"Many doors line either side of this rather ordinary-looking corridor, each one marked with a different Enforcer division's name and speciality.",
 			null,
 			BaseColour.BLACK,
 			EnforcerHQDialogue.CORRIDOR,
@@ -728,6 +730,122 @@ public class PlaceType {
 			null,
 			"")
 			.initWeatherImmune();
+	
+	
+	
+	// city hall:
+	
+	public static final AbstractPlaceType CITY_HALL_CORRIDOR = new AbstractPlaceType(
+			"Corridor",
+			"The marble corridors of Dominion's city hall allow the resident bureaucrats to easily stride from one office to another.",
+			null,
+			BaseColour.BLACK,
+			CityHall.CITY_HALL_CORRIDOR,
+			null,
+			"in Dominion's city hall") {
+
+		@Override
+		public Population getPopulation() {
+			return new Population(PopulationType.OFFICE_WORKERS, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies().get(WorldType.DOMINION));
+		}
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType CITY_HALL_ENTRANCE = new AbstractPlaceType(
+			"Entrance",
+			"The entrance to city hall takes the form of a pair of revolving glass doors; one of them is marked 'Exit', and the other, 'Entrance: no access'.",
+			"dominion/cityHall/exit",
+			BaseColour.RED,
+			CityHall.CITY_HALL_FOYER,
+			null,
+			"in Dominion's city hall") {
+
+		@Override
+		public Population getPopulation() {
+			return new Population(PopulationType.PEOPLE, PopulationDensity.SEVERAL, Subspecies.getDominionStormImmuneSpecies());
+		}
+	}.initWeatherImmune();
+	
+	public static final AbstractPlaceType CITY_HALL_INFORMATION_DESK = new AbstractPlaceType(
+			"Information Desk",
+			"A circular desk, staffed by several receptionists, sits in the middle of the large entrance hall.",
+			"dominion/cityHall/front_desk",
+			BaseColour.BLUE_LIGHT,
+			CityHall.CITY_HALL_INFORMATION_DESK,
+			null,
+			"in Dominion's city hall") {
+
+		@Override
+		public Population getPopulation() {
+			return new Population(PopulationType.PEOPLE, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies().get(WorldType.DOMINION));
+		}
+	}.initWeatherImmune();
+	
+	public static final AbstractPlaceType CITY_HALL_WAITING_AREA = new AbstractPlaceType(
+			"Waiting Room",
+			"A large analogue clock hangs on the far side of the open-plan waiting room; the slow ticking of the second hand a constant reminder to all those who are present of the crippling inefficiency of the bureaucracy.",
+			"dominion/cityHall/waiting_area",
+			BaseColour.PURPLE_LIGHT,
+			CityHall.CITY_HALL_WAITING_AREA,
+			null,
+			"in Dominion's city hall") {
+
+		@Override
+		public Population getPopulation() {
+			return new Population(PopulationType.PEOPLE, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies().get(WorldType.DOMINION));
+		}
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType CITY_HALL_OFFICE = new AbstractPlaceType(
+			"Office",
+			"The door to this particular office is marked 'Private', letting everybody know that absolutely nothing of importance happens inside.",
+			"dominion/cityHall/office",
+			BaseColour.ORANGE,
+			CityHall.CITY_HALL_OFFICE,
+			null,
+			"in Dominion's city hall") {
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType CITY_HALL_STAIRS = new AbstractPlaceType(
+			"Staircase",
+			"The staircases to city hall's upper floors are marked as private, and are cordoned off by means of red rope barriers.",
+			"dominion/cityHall/stairs",
+			BaseColour.GREY,
+			CityHall.CITY_HALL_STAIRS,
+			null,
+			"in Dominion's city hall") {
+	}.initWeatherImmune();
+	
+	public static final AbstractPlaceType CITY_HALL_BUREAU_OF_DEMOGRAPHICS = new AbstractPlaceType(
+			"Bureau of Demographics",
+			"The 'Bureau of Demographics' consists of a small office adjoining a vast, library-like storage area.",
+			"dominion/cityHall/officeDemographics",
+			BaseColour.TEAL,
+			CityHallDemographics.CITY_HALL_DEMOGRAPHICS_ENTRANCE,
+			null,
+			"in Dominion's city hall") {
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType CITY_HALL_ARCHIVES = new AbstractPlaceType(
+			"Bureau of Demographics (Archives)",
+			"The 'Bureau of Demographics' consists of a small office adjoining a vast, library-like storage area.",
+			"dominion/cityHall/officeDemographicsArchives",
+			BaseColour.BLUE,
+			CityHallDemographics.CITY_HALL_DEMOGRAPHICS_ENTRANCE, // Player cannot enter this tile.
+			null,
+			"in Dominion's city hall") {
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType CITY_HALL_BUREAU_OF_PROPERTY_RIGHTS_AND_COMMERCE = new AbstractPlaceType(
+			"Corridor",
+			"The 'Bureau of Property and Commerce' is one of the largest and most well-funded departments in city hall, and consists of numerous interlinked offices and meeting rooms.",
+			"dominion/cityHall/officeProperty",
+			BaseColour.GOLD,
+			CityHallProperty.CITY_HALL_PROPERTY_ENTRANCE,
+			null,
+			"in Dominion's city hall") {
+	}.initWeatherImmune();
+	
+	
 	
 	
 	
@@ -1311,7 +1429,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType ZARANIX_GF_GARDEN_ENTRY = new AbstractPlaceType(
 			"Garden",
-			"This particular area is next to the fence separating Zaranix's garden from Doominion's streets.",
+			"This particular area is next to the fence separating Zaranix's garden from Dominion's streets.",
 			"dominion/zaranixHome/entranceHall",
 			BaseColour.GREEN,
 			ZaranixHomeGroundFloor.GARDEN_ENTRY,
@@ -1647,7 +1765,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType SHOPPING_ARCADE_PIXS_GYM = new AbstractPlaceType(
 			"Pix's Playground",
-			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a aprticularly energetic border-collie-girl.",
+			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a particularly energetic border-collie-girl.",
 			"dominion/shoppingArcade/gym",
 			BaseColour.GOLD,
 			PixsPlayground.GYM_EXTERIOR,
@@ -1682,7 +1800,7 @@ public class PlaceType {
 		@Override
 		public String getTooltipDescription() {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return "With the Dobermanns dealt with, the corridor in the rear of the building has been rennovated, and is now both clean and well-lit.";
+				return "With the Dobermanns dealt with, the corridor in the rear of the building has been renovated, and is now both clean and well-lit.";
 			} else {
 				return tooltipDescription;
 			}
@@ -1745,7 +1863,7 @@ public class PlaceType {
 		@Override
 		public String getTooltipDescription() {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return "With the Dobermanns dealt with, the offices in the rear of the building have been rennovated, and are used by the Supplier Depot's many salespersons.";
+				return "With the Dobermanns dealt with, the offices in the rear of the building have been renovated, and are used by the Supplier Depot's many salespersons.";
 			} else {
 				return tooltipDescription;
 			}
@@ -2814,7 +2932,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType SLIME_QUEENS_LAIR_ROOM = new AbstractPlaceType(
 			"Bedroom",
-			"The place in which one or more of the tower's guards rest, this bedroom houses a neatly made four-poster bed, as well as the uusal bedroom furnishings.",
+			"The place in which one or more of the tower's guards rest, this bedroom houses a neatly made four-poster bed, as well as the usual bedroom furnishings.",
 			"submission/slimeQueensLair/room",
 			BaseColour.BLUE_LIGHT,
 			SlimeQueensLair.ROOM,
@@ -2855,7 +2973,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType SLIME_QUEENS_LAIR_ROYAL_GUARD = new AbstractPlaceType(
 			"Royal Guard Post",
-			"A powerful, purple-hued incubus-slime guards this particualr stretch of the corridor.",
+			"A powerful, purple-hued incubus-slime guards this particular stretch of the corridor.",
 			"submission/slimeQueensLair/royalGuards",
 			BaseColour.PURPLE,
 			SlimeQueensLair.ROYAL_GUARD_POST,

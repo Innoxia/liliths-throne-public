@@ -1769,7 +1769,7 @@ public class ZaranixHomeGroundFloorRepeat {
 								break;
 							}
 							owner.addSlave(pet);
-							pet.unequipAllClothingIntoVoid(true);
+							pet.unequipAllClothingIntoVoid(true, true);
 							pet.clearFetishDesires();
 							pet.clearFetishes();
 							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
@@ -1925,7 +1925,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						Main.game.getNpc(Amber.class).returnToHome();
 						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 						Main.game.banishNPC(owner);
-						owner.removeSlave(pet); //To stop issues with banisNPC() TODO fix this
+						owner.removeSlave(pet); //To stop issues with banishNPC() TODO fix this
 						Main.game.banishNPC(pet);
 					}
 				};

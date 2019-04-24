@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -8,6 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -151,7 +153,7 @@ public class RentalMommy extends NPC {
 
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_HAZEL));
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_HAZEL));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_COW_MORPH, Colour.EYE_HAZEL));
 		this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.SPOTTED, Colour.COVERING_WHITE, false, Colour.COVERING_BLACK, false), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
@@ -161,7 +163,7 @@ public class RentalMommy extends NPC {
 		this.setHairStyle(HairStyle.STRAIGHT);
 
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_FELINE_FUR, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, Colour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -189,7 +191,7 @@ public class RentalMommy extends NPC {
 		this.setNippleSize(NippleSize.THREE_LARGE.getValue());
 		this.setAreolaeSize(AreolaeSize.THREE_LARGE.getValue());
 		this.addNippleOrificeModifier(OrificeModifier.PUFFY);
-		this.setBreastLactationRegeneration(FluidRegeneration.THREE_PLUMP.getValue());
+		this.setBreastLactationRegeneration(FluidRegeneration.TWO_FAST.getMedianRegenerationValuePerDay());
 		this.setBreastMilkStorage(500);
 		this.setBreastStoredMilk(500);
 		
@@ -222,9 +224,9 @@ public class RentalMommy extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		

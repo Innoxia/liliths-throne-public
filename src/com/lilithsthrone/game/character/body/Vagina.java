@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -111,6 +112,10 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add("hairy");
 		}
 		
+		if(this.getGirlcum().getFlavour()!=FluidFlavour.GIRL_CUM) {
+			descriptorList.add(this.getGirlcum().getFlavour().getName()+"-flavoured");
+		}
+		
 		if(owner.isVaginaBestial()) {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					(this.getType().getRace()==Race.HORSE_MORPH?"mare":null),
@@ -146,6 +151,11 @@ public class Vagina implements BodyPartInterface {
 	}
 	
 	public String setType(GameCharacter owner, VaginaType type, boolean overridePregnancyPrevention) {
+		if(this.type==VaginaType.NONE) {
+			this.orificeVagina.setStretchedCapacity(this.orificeVagina.getRawCapacityValue());
+			this.orificeUrethra.setStretchedCapacity(this.orificeUrethra.getRawCapacityValue());
+		}
+		
 		if(!Main.game.isStarted() || owner==null) {// This always overrides pregnancy prevention, as the only times where this is true are for utility methods:
 			this.type = type;
 			this.girlcum.setType(type.getFluidType());

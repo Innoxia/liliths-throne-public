@@ -107,6 +107,7 @@ public class ColourListPresets {
 			Colour.CLOTHING_PURPLE_LIGHT,
 			Colour.CLOTHING_GREEN,
 			Colour.CLOTHING_TAN,
+			Colour.CLOTHING_KHAKI,
 			Colour.CLOTHING_BROWN,
 			Colour.CLOTHING_BLACK);
 	
@@ -118,7 +119,8 @@ public class ColourListPresets {
 			Colour.CLOTHING_BROWN,
 			Colour.CLOTHING_BROWN_DARK,
 			Colour.CLOTHING_BROWN_VERY_DARK,
-			Colour.CLOTHING_TAN);
+			Colour.CLOTHING_TAN,
+			Colour.CLOTHING_KHAKI);
 	
 	public static ArrayList<Colour> LINGERIE = Util.newArrayListOfValues(
 			Colour.CLOTHING_WHITE,
@@ -136,6 +138,7 @@ public class ColourListPresets {
 			Colour.CLOTHING_BROWN_DARK,
 			Colour.CLOTHING_BROWN_VERY_DARK,
 			Colour.CLOTHING_TAN,
+			Colour.CLOTHING_KHAKI,
 			Colour.CLOTHING_OLIVE,
 			Colour.CLOTHING_YELLOW,
 			Colour.CLOTHING_YELLOW_DARK,
@@ -147,6 +150,8 @@ public class ColourListPresets {
 			Colour.CLOTHING_TURQUOISE,
 			Colour.CLOTHING_BLUE_LIGHT,
 			Colour.CLOTHING_BLUE,
+			Colour.CLOTHING_BLUE_GREY,
+			Colour.CLOTHING_BLUE_NAVY,
 			Colour.CLOTHING_BLUE_DARK,
 			Colour.CLOTHING_BLUE_VERY_DARK,
 			Colour.CLOTHING_PURPLE_VERY_DARK,
@@ -186,6 +191,7 @@ public class ColourListPresets {
 			Colour.CLOTHING_BROWN_DARK,
 			Colour.CLOTHING_BROWN_VERY_DARK,
 			Colour.CLOTHING_TAN,
+			Colour.CLOTHING_KHAKI,
 			Colour.CLOTHING_OLIVE,
 			Colour.CLOTHING_YELLOW,
 			Colour.CLOTHING_YELLOW_DARK,
@@ -197,6 +203,8 @@ public class ColourListPresets {
 			Colour.CLOTHING_TURQUOISE,
 			Colour.CLOTHING_BLUE_LIGHT,
 			Colour.CLOTHING_BLUE,
+			Colour.CLOTHING_BLUE_GREY,
+			Colour.CLOTHING_BLUE_NAVY,
 			Colour.CLOTHING_BLUE_DARK,
 			Colour.CLOTHING_BLUE_VERY_DARK,
 			Colour.CLOTHING_PURPLE_VERY_DARK,
@@ -225,6 +233,7 @@ public class ColourListPresets {
 			Colour.CLOTHING_BROWN_DARK,
 			Colour.CLOTHING_BROWN_VERY_DARK,
 			Colour.CLOTHING_TAN,
+			Colour.CLOTHING_KHAKI,
 			Colour.CLOTHING_OLIVE,
 			Colour.CLOTHING_YELLOW_DARK,
 			Colour.CLOTHING_YELLOW,
@@ -236,6 +245,8 @@ public class ColourListPresets {
 			Colour.CLOTHING_TURQUOISE,
 			Colour.CLOTHING_BLUE_LIGHT,
 			Colour.CLOTHING_BLUE,
+			Colour.CLOTHING_BLUE_GREY,
+			Colour.CLOTHING_BLUE_NAVY,
 			Colour.CLOTHING_BLUE_DARK,
 			Colour.CLOTHING_BLUE_VERY_DARK,
 			Colour.CLOTHING_PURPLE_VERY_DARK,

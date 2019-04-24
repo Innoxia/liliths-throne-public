@@ -47,7 +47,7 @@ public class RoomPlayer {
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-					Main.game.getPlayer().setLust(0);
+					Main.game.getPlayer().setLustNoText(0);
 					if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
 						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + 240);
 					} else {
@@ -66,11 +66,11 @@ public class RoomPlayer {
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-					Main.game.getPlayer().setLust(0);
+					Main.game.getPlayer().setLustNoText(0);
 					if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
-						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer);
+						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer*60);
 					} else {
-						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6*60*60) + sleepTimer);
+						Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6*60*60) + sleepTimer*60);
 					}
 				}
 			};
@@ -78,7 +78,8 @@ public class RoomPlayer {
 		} else if (index == 3) {
 			return new Response("Quick wash",
 					"Use your room's en-suite to take a bath or shower. Rose will come and clean your clothes while you wash yourself."
-							+ " [style.italicsGood(This will clean <b>a maximum of "+Units.fluid(500)+"</b> of fluids out of all your orifices.)]",
+							+ " [style.italicsGood(This will clean <b>a maximum of "+Units.fluid(500)+"</b> of fluids out of all your orifices.)]"
+									+ " [style.italicsExcellent(This will clean all of your equipped clothing.)]",
 					AUNT_HOME_PLAYERS_ROOM_WASH){
 				@Override
 				public void effects() {
@@ -89,7 +90,7 @@ public class RoomPlayer {
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(false));
 					Main.game.getPlayer().calculateStatusEffects(0);
 					Main.game.getPlayer().cleanAllDirtySlots();
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing());
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing(false));
 				}
 				@Override
 				public int getSecondsPassed() {
@@ -100,18 +101,18 @@ public class RoomPlayer {
 		} else if (index == 4) {
 			return new Response("Thorough wash",
 					"Use your room's en-suite to take a bath or shower, in which you will thoroughly clean yourself. Rose will come and clean your clothes while you wash yourself."
-							+ " [style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]",
+							+ " [style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
+							+ " [style.italicsExcellent(This will clean <b>all</b> clothing in your inventory.)]",
 					AUNT_HOME_PLAYERS_ROOM_WASH){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					
-					
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(true));
 					Main.game.getPlayer().calculateStatusEffects(0);
 					Main.game.getPlayer().cleanAllDirtySlots();
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing());
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing(true));
 				}
 				@Override
 				public int getSecondsPassed() {
@@ -342,14 +343,62 @@ public class RoomPlayer {
 				return new Response("Back", "Step away from the calendar.", ROOM);
 				
 			} else if(index==1) {
-				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
+				return new Response("May", "Read the information on May's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY);
 				
 			} else if(index==2) {
+				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
+				
+			} else if(index==3) {
 				return new Response("December", "Read the information on December's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER);
 				
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Your Room", "", false) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "Flicking through the calendar until you're looking at the page for May, you see that this month's image is now of a merman flexing his muscles while perched on a wave-swept rock."
+							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
+						+ "</p>");
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "Flicking through the calendar until you're looking at the page for May, you see that this month's image is now of a beautiful mermaid, who's happily showing off her exposed breasts while perched on a wave-swept rock."
+							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
+						+ "</p>");
+			}
+
+			UtilText.nodeContentSB.append(
+					"<h4 style='text-align:center;'>"
+							+ "<span style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>May</span>"
+							+ "<br/>"
+							+ "<span style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Mother's Week</span>"
+					+ "</h4>"
+					+ "<p><i>"
+						+ "The second week of May is a time in which to celebrate mothers, motherhood, and the nature of maternal bond between mother and child."
+						+ " During this time, fertility-enhancing consumables are generously provided free of charge for all residents of Dominion, and are handed out by volunteers down the main boulevards."
+						+ " In this way, Lilith shows her love for mothers, and ensures that many more will be made!"
+					+ "</i></p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("May", "You are already reading the calendar's page concerning the month of May.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
 	
@@ -397,18 +446,10 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
-				return new Response("Back", "Stop reading about October.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
-				
-			} else if(index==1) {
-				return new Response("October", "You're already reading October's page!", null);
-				
-			} else if(index==2) {
-				return new Response("December", "Read the information on December's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER);
-				
-			} else {
-				return null;
+			if(index==2) {
+				return new Response("October", "You are already reading the calendar's page concerning the month of October.", null);
 			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
 	
@@ -459,18 +500,10 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
-				return new Response("Back", "Stop reading about October.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
-				
-			} else if(index==1) {
-				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
-				
-			} else if(index==2) {
-				return new Response("December", "You're already reading December's page.", null);
-				
-			} else {
-				return null;
+			if(index==3) {
+				return new Response("December", "You are already reading the calendar's page concerning the month of December.", null);
 			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
 	

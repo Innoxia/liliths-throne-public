@@ -20,7 +20,7 @@ public enum SlaveEvent {
 	WASHED_CLOTHES("Washed Clothes", "[npc.Name] washed [npc.her] clothes.") {
 		public void applyEffects(GameCharacter character) {
 			character.cleanAllDirtySlots();
-			character.cleanAllClothing();
+			character.cleanAllClothing(true);
 			character.calculateStatusEffects(0);
 		}
 	},

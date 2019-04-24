@@ -666,6 +666,9 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				if(Main.game.isSpittingDisabled()) {
+					return Response.getDisallowedSpittingResponse("Smash bottle");
+				}
 				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
 			} else if (index == 2) {
@@ -772,6 +775,9 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				if(Main.game.isSpittingDisabled()) {
+					return Response.getDisallowedSpittingResponse("Smash bottle");
+				}
 				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
 			} else if (index == 2) {

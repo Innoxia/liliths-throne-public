@@ -170,10 +170,10 @@ public class DebugDialogue {
 					return new Response("Race resets", "View the race reset options.", BODY_PART_RACE_RESET);
 					
 				} else if (index == 11) {
-					return new Response(UtilText.formatAsMoney(10000, "span"), "Add 10000 flames.", DEBUG_MENU){
+					return new Response(UtilText.formatAsMoney(100_000, "span"), "Add 100,000 flames.", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().incrementMoney(10000);
+							Main.game.getPlayer().incrementMoney(100_000);
 						}
 					};
 					
@@ -443,15 +443,16 @@ public class DebugDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			for(NPC npc : Main.game.getOffspring()) {
-				if(npc.isFeminine()) {
-					UtilText.nodeContentSB.append(npc.getName(true)+" "+npc.getMother().getName(true)+"'s daughter ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName(true)+" Mother:"+npc.getMother().getName(true)+"<br/>");
-				} else {
-					UtilText.nodeContentSB.append(npc.getName(true)+" "+npc.getFather().getName(true)+"'s son ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName(true)+" Mother:"+npc.getMother().getName(true)+"<br/>");
+			for(NPC npc : Main.game.getOffspring(true)) {
+				boolean isBorn = true;
+				if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
+					isBorn = false;
 				}
+				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span> ("+npc.getSubspecies().getName(npc)+")"
+						+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
 			}
 			if(activeOffspring!=null) {
-				for(Fetish f : activeOffspring.getFetishes()) {
+				for(Fetish f : activeOffspring.getFetishes(true)) {
 					UtilText.nodeContentSB.append("<br/>[style.boldSex(Fetish:)] "+f.getName(activeOffspring));
 				}
 				UtilText.nodeContentSB.append(
@@ -467,11 +468,11 @@ public class DebugDialogue {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
-			} else if(index-1 < Main.game.getOffspring().size()) {
-				return new Response(Main.game.getOffspring().get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
+			} else if(index-1 < Main.game.getOffspring(true).size()) {
+				return new Response(Main.game.getOffspring(true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
 					@Override
 					public void effects() {
-						activeOffspring = Main.game.getOffspring().get(index-1);
+						activeOffspring = Main.game.getOffspring(true).get(index-1);
 						for(CoverableArea ca : CoverableArea.values()) {
 							activeOffspring.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 						}
@@ -494,7 +495,7 @@ public class DebugDialogue {
 		clothingTotal.addAll(ClothingType.getAllClothing());
 		clothingTotal.removeIf((c) -> c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
 		
-		weaponsTotal.addAll(WeaponType.getAllweapons());
+		weaponsTotal.addAll(WeaponType.getAllWeapons());
 		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
 
 		itemsTotal.addAll(ItemType.getAllItems());
@@ -969,20 +970,23 @@ public class DebugDialogue {
 					+ "<h6>Input:</h6><br/>"
 					+"Everything is parsed using square brackets, split into the following pattern:<br/>"
 					+"[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
-					+"or, for the few special commands that require arguments,<br/>"
+					+"or, for the few special commands that require arguments:<br/>"
 					+"[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
 							+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]<br/>"
-					+"or, for parsing as a script,<br/>"
+					+"or, for parsing as a script:<br/>"
 					+"[#<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
+					+"or, for parsing as a script which suppresses output:<br/>"
+					+"[##<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
+					+ "<i>(This means that the command will be executed, but no String output will be displayed.)</i>"
 					+ "</p>"
 					
 					+ "<p>"
 					+"An example of use in a sentence would be:<br/><br/>"
-					+"As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
-					+" Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName()]!)]'<br/><br/>"
+					+"<i>As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
+					+" Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName(true)]!)]'</i><br/><br/>"
 					+ "parses to:<br/><br/>"
 					+ UtilText.parse("As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
-							+ " Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName()]!)]")
+							+ " Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName(true)]!)]")
 					+ "</p>"
 					+ "<br/>"
 					

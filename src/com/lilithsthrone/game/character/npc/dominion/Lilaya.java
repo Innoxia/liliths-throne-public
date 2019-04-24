@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -101,7 +103,7 @@ public class Lilaya extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
 			this.setAgeAppearanceDifferenceToAppearAsAge(32);
-			this.equipClothing(true, true, true, true);
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setStartingBody(true);
 			this.setLegType(LegType.HUMAN);
 		}
@@ -224,9 +226,9 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, this);
@@ -305,7 +307,10 @@ public class Lilaya extends NPC {
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character.isPlayer()) {
 			if(character.getRace()==Race.DEMON) {
-				return Util.newHashSetOfValues(Relationship.HalfSibling);
+				Set<Relationship> rSet = new LinkedHashSet<>();
+				rSet.add(Relationship.HalfSibling);
+				rSet.add(Relationship.Pibling);
+				return rSet;
 			}
 			return Util.newHashSetOfValues(Relationship.Pibling);
 		}

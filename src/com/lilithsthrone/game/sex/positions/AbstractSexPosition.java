@@ -82,20 +82,23 @@ public abstract class AbstractSexPosition {
 	public abstract String getDescription();
 	
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
-		if(action.getActionType()==SexActionType.START_ONGOING) {
-			// Block penis+non-appendage actions if target's penis is already in use:
+		if(action.getActionType()==SexActionType.START_ONGOING
+				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
+				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
+			// Block penis+non-appendage-non-pussy actions if target's penis is already in use:
+			
 			if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
-					&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)
+					&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.allowedInterPenetrationAreas)
 					&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
 					&& Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).containsKey(performer)
-					&& Collections.disjoint(Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).get(performer), SexActionPresets.appendageAreas)) {
+					&& Collections.disjoint(Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).get(performer), SexActionPresets.allowedInterPenetrationAreas)) {
 				return true;
 			}
 			if(action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)
-					&& Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)
+					&& Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.allowedInterPenetrationAreas)
 					&& Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS)
 					&& Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).containsKey(target)
-					&& Collections.disjoint(Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).get(target), SexActionPresets.appendageAreas)) {
+					&& Collections.disjoint(Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).get(target), SexActionPresets.allowedInterPenetrationAreas)) {
 				return true;
 			}
 			
@@ -168,16 +171,16 @@ public abstract class AbstractSexPosition {
 	 * The underlying map of body parts to orifice lists which is used in the public method isForcedCreampieEnabled(). This is overridden in SexPositionTypes that need to define forced creampies.
 	 * 
 	 * @param cumTarget The character who is both receiving and forcing the creampie.
-	 * @param cumProvidor The one who is being forced to cum inside the cumTarget.
+	 * @param cumProvider The one who is being forced to cum inside the cumTarget.
 	 * @return A map containing keys of body parts, which then map to lists of orifices.
-	 * The key represents the body part that can be used by the cumTarget in order to force the cumcumProvidor to cum inside any of the orifices in the value list.
+	 * The key represents the body part that can be used by the cumTarget in order to force the cumProvider to cum inside any of the orifices in the value list.
 	 */
-	protected Map<Class<? extends BodyPartInterface>, List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvidor) {
+	protected Map<Class<? extends BodyPartInterface>, List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 		return null;
 	}
 	
 	/**
-	 * Taking into account the AbstractSexSlot of the two characters specified, as well as the body part being used, this method returns a list of areas which the cumTarget can force the cumProvidor to cum inside of.
+	 * Taking into account the AbstractSexSlot of the two characters specified, as well as the body part being used, this method returns a list of areas which the cumTarget can force the cumProvider to cum inside of.
 	 * This is used in determining whether the 'leg-lock', 'tail-lock', 'tentacle-lock', or 'force creampie' actions (in the GenericOrgasms class) are available.
 	 * 
 	 * @param bodyPartUsed The body part which the cumTarget is using to force the creampie. Will almost certainly be either:<br/>
@@ -188,12 +191,12 @@ public abstract class AbstractSexPosition {
 	 * <b>{@link Skin.class}:</b> Used to represent the full body being used.
 	 * @param orifice The orifice into which the creampie is to be forced.
 	 * @param cumTarget The character who is both receiving and forcing the creampie.
-	 * @param cumProvidor The one who is being forced to cum inside the cumTarget.
+	 * @param cumProvider The one who is being forced to cum inside the cumTarget.
 	 * @return True if the orifice can be forcibly creampied by the supplied body part.
 	 */
-	public boolean isForcedCreampieEnabled(Class<? extends BodyPartInterface> bodyPartUsed, SexAreaOrifice orifice, GameCharacter cumTarget, GameCharacter cumProvidor) {
-		if(getForcedCreampieMap(cumTarget, cumProvidor)!=null && getForcedCreampieMap(cumTarget, cumProvidor).containsKey(bodyPartUsed)) {
-			return getForcedCreampieMap(cumTarget, cumProvidor).get(bodyPartUsed).contains(orifice);
+	public boolean isForcedCreampieEnabled(Class<? extends BodyPartInterface> bodyPartUsed, SexAreaOrifice orifice, GameCharacter cumTarget, GameCharacter cumProvider) {
+		if(getForcedCreampieMap(cumTarget, cumProvider)!=null && getForcedCreampieMap(cumTarget, cumProvider).containsKey(bodyPartUsed)) {
+			return getForcedCreampieMap(cumTarget, cumProvider).get(bodyPartUsed).contains(orifice);
 		}
 		return false;
 	}

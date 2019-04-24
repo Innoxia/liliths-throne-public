@@ -889,8 +889,8 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-							null,
-							Util.newArrayListOfValues(getMainCompanion())),
+									Util.newArrayListOfValues(getMainCompanion()),
+									null),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
 					
 				} else if (index == 3) {
@@ -900,8 +900,8 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-									null,
 									Util.newArrayListOfValues(getMainCompanion()),
+									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
 					
@@ -912,8 +912,8 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-									null,
 									Util.newArrayListOfValues(getMainCompanion()),
+									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
 					
@@ -1071,8 +1071,8 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-							null,
-							null),
+									Util.newArrayListOfValues(getMainCompanion()),
+									null),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE", getAllCharacters()));
 					
 				} else if (index == 3) {
@@ -1085,7 +1085,7 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-									null,
+									Util.newArrayListOfValues(getMainCompanion()),
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getAllCharacters()));
@@ -1100,7 +1100,7 @@ public class AlleywayDemonDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getDemon()),
-									null,
+									Util.newArrayListOfValues(getMainCompanion()),
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH), AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getAllCharacters()));
 					

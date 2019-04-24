@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -3243,6 +3244,56 @@ public class ItemType {
 			return false;
 		}
 	};
+	
+	public static AbstractItemType REFORGE_HAMMER = new AbstractItemType(150,
+			"a",
+			false,
+			"reforging hammer",
+			"reforging hammers",
+			"A small hammer, with a solid metal head and wooden shaft."
+					+ " It has been imbued with a unique arcane enchantment, which has not only made it as light as a feather, but has also granted it the ability to instantly reforge any weapon.",
+			"reforge_hammer",
+			Colour.CLOTHING_WHITE,
+			null,
+			null,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.REFORGE_HAMMER)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
+
+
+		@Override
+		public String getUseName() {
+			return "use";
+		}
+		
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return false;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return false;
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "As you take hold of the reforging hammer, you see the metal head start to emit a deep purple glow."
+						+ " The closer you move it to a weapon, the brighter this glow becomes, until suddenly, images of different damage types start flashing through your mind."
+						+ " As you touch the metal head  to the weapon of your choice, the reforge hammer instantly evaporates!"
+						+ " You see that the arcane enchantment has reforged the weapon into the damage type you wanted."
+					+ "</p>";
+		}
+
+		@Override
+		public boolean isAbleToBeUsedFromInventory() {
+			return false;
+		}
+	};
 
 	public static AbstractItemType CONDOM_USED = new AbstractItemType(1,
 			"a",
@@ -3307,7 +3358,7 @@ public class ItemType {
 			Colour.ANDROGYNOUS,
 			null,
 			null,
-			Rarity.LEGENDARY,
+			Rarity.QUEST,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE)), null) {
 
@@ -3366,7 +3417,6 @@ public class ItemType {
 		public boolean isConsumedOnUse() {
 			return false;
 		}
-
 	};
 	
 	public static AbstractItemType VIXENS_VIRILITY = new AbstractItemType(20,
@@ -4120,6 +4170,59 @@ public class ItemType {
 			return UtilText.parse(user, "The ring feels warm to the touch, revealing the fact that it's carrying a potent enchantment. Maybe once all this is over, Lyssieth will allow you to keep it as a reward...");
 		}
 		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	
+	public static AbstractItemType OFFSPRING_MAP = new AbstractItemType(50_000,
+			"an",
+			false,
+			"arcane offspring map",
+			"arcane offspring maps",
+			"An arcane-enchanted map, obtained from Dominion's city hall, which is able to track the rough location of any of your offspring.",
+			"offspring_map",
+			Colour.BASE_BROWN,
+			null,
+			null,
+			Rarity.QUEST,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.OFFSPRING_MAP)), null) {
+		@Override
+		public String getUseName() {
+			return "consult";
+		}
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return false;
+		}
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return false;
+		}
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return target.isPlayer()
+					&& (target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
+							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
+							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.HARPY_NEST_WALKWAYS
+							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.SUBMISSION_TUNNELS)
+					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).isEmpty();
+		}
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You need to be in one of Dominion's alleyway tiles, and with no character present in that tile, in order to be able to use the map!";
+		}
+		@Override
+		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
+			return "Consult the map to see if any of your offspring are in this area.";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "You consult the map...";
+		}
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;

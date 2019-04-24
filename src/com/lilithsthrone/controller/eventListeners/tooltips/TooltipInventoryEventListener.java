@@ -52,7 +52,7 @@ import com.lilithsthrone.utils.Util;
  * Shows the tooltip at the given element's position.
  * 
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.3.2
  * @author Innoxia
  */
 public class TooltipInventoryEventListener implements EventListener {
@@ -72,6 +72,7 @@ public class TooltipInventoryEventListener implements EventListener {
 	private AbstractClothingType genericClothing;
 	private AbstractClothing dyeClothing;
 	private AbstractWeapon dyeWeapon;
+	private DamageType damageType;
 	private InventorySlot invSlot;
 	private TFModifier enchantmentModifier;
 	private TFPotency potency;
@@ -83,6 +84,7 @@ public class TooltipInventoryEventListener implements EventListener {
 	
 	@Override
 	public void handleEvent(Event event) {
+		
 		if (item != null || (coreItem instanceof AbstractItem)) {
 			if(coreItem != null) {
 				item = (AbstractItem) coreItem;
@@ -157,20 +159,22 @@ public class TooltipInventoryEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (dyeWeapon != null) {
-			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH-40, 446);
 
 			tooltipSB.setLength(0);
+			tooltipSB.append("<div class='title' style='color:" + dyeWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeWeapon.getName()) + "</div>");
 			
 			if(colour!=null) {
-				tooltipSB.append("<div class='title' style='color:" + dyeWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeWeapon.getName()) + "</div>"
-						+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
+				tooltipSB.append("<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
 						+ "<div class='picture full' style='position:relative;'>" + dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), colour, InventoryDialogue.dyePreviewSecondary) + "</div>");
 			
 			} else if(secondaryColour!=null) {
-				tooltipSB.append("<div class='title' style='color:" + dyeWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeWeapon.getName()) + "</div>"
-						+ "<div class='subTitle'>" + Util.capitaliseSentence(secondaryColour.getName()) + "</div>"
+				tooltipSB.append("<div class='subTitle'>" + Util.capitaliseSentence(secondaryColour.getName()) + "</div>"
 						+ "<div class='picture full' style='position:relative;'>" + dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), InventoryDialogue.dyePreviewPrimary, secondaryColour) + "</div>");
 				
+			} else if(damageType!=null) {
+				tooltipSB.append("<div class='subTitle'>" + Util.capitaliseSentence(damageType.getName()) + "</div>"
+						+ "<div class='picture full' style='position:relative;'>" + dyeWeapon.getWeaponType().getSVGImage(damageType, InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary) + "</div>");
 			}
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
@@ -608,6 +612,13 @@ public class TooltipInventoryEventListener implements EventListener {
 		return this;
 	}
 	
+	public TooltipInventoryEventListener setDamageTypeWeapon(AbstractWeapon dyeWeapon, DamageType damageType) {
+		resetVariables();
+		this.dyeWeapon = dyeWeapon;
+		this.damageType = damageType;
+		return this;
+	}
+	
 	public TooltipInventoryEventListener setDyeClothingPattern(AbstractClothing dyeClothing, Pattern pattern) {
 		resetVariables();
 		this.dyeClothing = dyeClothing;
@@ -679,6 +690,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		colour = null;
 		dyeClothing = null;
 		dyeWeapon = null;
+		damageType = null;
 		secondaryColour = null;
 		tertiaryColour = null;
 		pattern = null;

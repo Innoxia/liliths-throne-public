@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
@@ -292,7 +294,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -301,7 +303,7 @@ public class ImpFortressDialogue {
 			
 			// Move boss back to fortress:
 			Main.game.getNpc(FortressAlphaLeader.class).setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP);
-			Main.game.getNpc(FortressAlphaLeader.class).equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressAlphaLeader.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -359,7 +361,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -368,7 +370,7 @@ public class ImpFortressDialogue {
 			
 			// Move boss back to fortress:
 			Main.game.getNpc(FortressFemalesLeader.class).setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP);
-			Main.game.getNpc(FortressFemalesLeader.class).equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressFemalesLeader.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -427,7 +429,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -436,7 +438,7 @@ public class ImpFortressDialogue {
 			
 			// Move boss back to fortress:
 			Main.game.getNpc(FortressMalesLeader.class).setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP);
-			Main.game.getNpc(FortressMalesLeader.class).equipClothing(true, true, false, true);
+			Main.game.getNpc(FortressMalesLeader.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
 			
 			// Move NPCs into hiding:
 			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
@@ -624,7 +626,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -651,7 +653,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -682,7 +684,7 @@ public class ImpFortressDialogue {
 				
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE, true);
-					((NPC)impCharacter).equipClothing(true, true, true, true);
+					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
 				}
 	
 			} catch (Exception e) {
@@ -1026,20 +1028,20 @@ public class ImpFortressDialogue {
 				}
 				
 			} else if(isGuardsPacifiedBySex()) {
-				if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
+				if(Objects.equals(Main.game.getPlayer().getSubspeciesOverride(), Subspecies.DEMON)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_BY_SEX_DEMON", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_BY_SEX", getAllCharacters()));
 				}
 				
 			} else if(isGuardsPacified()) {
-				if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
+				if(Objects.equals(Main.game.getPlayer().getSubspeciesOverride(), Subspecies.DEMON)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_DEMON", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED", getAllCharacters()));
 				}
 				
-			} else if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
+			} else if(Objects.equals(Main.game.getPlayer().getSubspeciesOverride(), Subspecies.DEMON)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_DEMON", getAllCharacters()));
 				
 			} else if(Main.game.getPlayer().isElementalSummoned()) {
@@ -1130,7 +1132,7 @@ public class ImpFortressDialogue {
 				
 			} else {
 				if (index == 1) {
-					if(Main.game.getPlayer().getSubspeciesOverride().equals(Subspecies.DEMON)) {
+					if(Objects.equals(Main.game.getPlayer().getSubspeciesOverride(), Subspecies.DEMON)) {
 						return new Response("Command",
 								"The imps seem incredibly nervous at the prospect of being confronted by a demon. Use this to your advantage and order them to step aside.",
 								ENTRANCE_DEMONIC_COMMAND) {

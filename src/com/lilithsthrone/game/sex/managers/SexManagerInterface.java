@@ -136,8 +136,8 @@ public interface SexManagerInterface {
 			return false; 
 		}
 		
-		// Do not allow player-owned slaves to end sex if the player is also a dom:
-		if(Sex.isDom(Main.game.getPlayer()) && Sex.getInitialSexManager().isPlayerAbleToStopSex() && partner.isSlave() && partner.getOwner().isPlayer()) {
+		// Do not allow player-owned slaves to end sex if the player is also a dom and is not a spectator:
+		if(Sex.isDom(Main.game.getPlayer()) && !Sex.isSpectator(Main.game.getPlayer()) && Sex.getInitialSexManager().isPlayerAbleToStopSex() && partner.isSlave() && partner.getOwner().isPlayer()) {
 			return false;
 		}
 		
@@ -160,6 +160,9 @@ public interface SexManagerInterface {
 		}
 		
 		if(Sex.isDom(partner) && (!Sex.isConsensual() || subsResisting || !Sex.isSubHasEqualControl() || (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
+			if(Sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()*2) {
+				return true;
+			}
 			return domsSatisfied;
 			
 		} else if(Sex.getSexControl(partner)!=SexControl.FULL) {
@@ -171,18 +174,18 @@ public interface SexManagerInterface {
 	}
 	
 	public default void initStartingLustAndArousal(GameCharacter character) {
-		character.setLust(50);
+		character.setLustNoText(50);
 		character.setArousal(0);
 		if(Sex.isDom(character)) {
 			if(character.hasFetish(Fetish.FETISH_DOMINANT)) {
-				character.setLust(85);
+				character.setLustNoText(85);
 				character.setArousal(10);
 			} else if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-				character.setLust(10);
+				character.setLustNoText(10);
 			}
 		} else {
 			if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-				character.setLust(85);
+				character.setLustNoText(85);
 				character.setArousal(10);
 			}
 		}
@@ -199,9 +202,9 @@ public interface SexManagerInterface {
 					}
 				}
 				if(attracted==0) {
-					character.setLust(0); // If they aren't attracted to anyone, start resisting
+					character.setLustNoText(0); // If they aren't attracted to anyone, start resisting
 				} else if(unattracted>0) {
-					character.setLust(character.getLust()/2); // If they are attracted to some, but not all, halve starting lust
+					character.setLustNoText(character.getLust()/2); // If they are attracted to some, but not all, halve starting lust
 				}
 			}
 		}

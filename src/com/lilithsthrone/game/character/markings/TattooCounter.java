@@ -48,7 +48,7 @@ public class TattooCounter implements XMLSaving {
 	
 	@Override
 	public int hashCode() {
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + getType().hashCode();
 		result = 31 * result + getCountType().hashCode();
 		result = 31 * result + getColour().hashCode();

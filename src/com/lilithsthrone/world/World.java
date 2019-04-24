@@ -81,7 +81,7 @@ public class World implements XMLSaving {
 		for(int i = 0; i < cells.getLength(); i++){
 			Element e = (Element) cells.item(i);
 			
-			Cell c = Cell.loadFromXML(e, doc);
+			Cell c = Cell.loadFromXML(e, doc, type);
 			newGrid[c.getLocation().getX()][c.getLocation().getY()] = c;
 		}
 		
@@ -117,6 +117,24 @@ public class World implements XMLSaving {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @param place The AbstractPlaceType to find all Cells of.
+	 * @return A List of Cells of the PlaceType defined by the argument 'place'.
+	 */
+	public List<Cell> getCells(AbstractPlaceType place) {
+		List<Cell> cellsFound = new ArrayList<>();
+		
+		for(int i=0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceType().equals(place)) {
+					cellsFound.add(grid[i][j]);
+				}
+			}
+		}
+		
+		return cellsFound;
 	}
 	
 	public Cell getClosestCell(Vector2i location, AbstractPlaceType place) {

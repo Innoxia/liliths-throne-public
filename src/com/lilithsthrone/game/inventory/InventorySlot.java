@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public enum InventorySlot {
@@ -28,7 +28,12 @@ public enum InventorySlot {
 
 	/** Clothing slot "hair". Used for ribbons and hairbands.<br/>
 	 *  Tattoo slot "ears".*/
-	HAIR(20, "hair", false, false, false, "ears"),
+	HAIR(20, "hair", false, false, false, "ears") {
+		@Override
+		public boolean isPhysicallyAvailable(GameCharacter character) {
+			return character.hasHair();
+		}
+	},
 
 	/** Clothing slot "mouth". Used for ballgags.<br/>
 	 *  Tattoo slot "lower face".*/
@@ -116,23 +121,48 @@ public enum InventorySlot {
 
 	/** Clothing slot "horns". Used for horn decorations.<br/>
 	 *  Tattoo slot "horns".*/
-	HORNS(50, "horns", true, false, false, "horns"),
+	HORNS(50, "horns", true, false, false, "horns") {
+		@Override
+		public boolean isPhysicallyAvailable(GameCharacter character) {
+			return character.hasHorns();
+		}
+	},
 
 	/** Clothing slot "wings". Used for wing decorations.<br/>
 	 *  Tattoo slot "wings".*/
-	WINGS(50, "wings", true, false, false, "wings"),
+	WINGS(50, "wings", true, false, false, "wings") {
+		@Override
+		public boolean isPhysicallyAvailable(GameCharacter character) {
+			return character.hasWings();
+		}
+	},
 
 	/** Clothing slot "tail". Used for tail decorations.<br/>
 	 *  Tattoo slot "tail".*/
-	TAIL(50, "tail", false, false, false, "tail"),
+	TAIL(50, "tail", false, false, false, "tail") {
+		@Override
+		public boolean isPhysicallyAvailable(GameCharacter character) {
+			return character.hasTail();
+		}
+	},
 
 	/** Clothing slot "penis". Used for cock socks, cages, and plugs.<br/>
 	 *  Tattoo slot "penis".*/
-	PENIS(0, "penis", false, false, false, "penis"), // 
+	PENIS(0, "penis", false, false, false, "penis") {
+		@Override
+		public boolean isPhysicallyAvailable(GameCharacter character) {
+			return character.hasPenis();
+		}
+	},
 
 	/** Clothing slot "vagina". Used for plugs.<br/>
 	 *  Tattoo slot "vagina".*/
-	VAGINA(0, "vagina", false, false, false, "vagina"),
+	VAGINA(0, "vagina", false, false, false, "vagina") {
+		@Override
+		public boolean isPhysicallyAvailable(GameCharacter character) {
+			return character.hasVagina();
+		}
+	},
 
 	// PIERCING:
 	PIERCING_EAR(0, "ear piercing", false, false, true, null),
@@ -141,8 +171,18 @@ public enum InventorySlot {
 	PIERCING_LIP(0, "lip piercing", false, false, true, null),
 	PIERCING_STOMACH(0, "navel piercing", false, false, true, null),
 	PIERCING_NIPPLE(0, "nipple piercing", false, false, true, null),
-	PIERCING_VAGINA(0, "vaginal piercing", false, false, true, null),
-	PIERCING_PENIS(0, "cock piercing", false, false, true, null),
+	PIERCING_VAGINA(0, "vaginal piercing", false, false, true, null) {
+		@Override
+		public boolean isPhysicallyAvailable(GameCharacter character) {
+			return character.hasVagina();
+		}
+	},
+	PIERCING_PENIS(0, "cock piercing", false, false, true, null) {
+		@Override
+		public boolean isPhysicallyAvailable(GameCharacter character) {
+			return character.hasPenis();
+		}
+	},
 
 	// EQUIPPABLE:
 	WEAPON_MAIN(0, "primary weapon", false, false, false, null),
@@ -289,6 +329,10 @@ public enum InventorySlot {
 		return jewellery;
 	}
 
+	public boolean isPhysicallyAvailable(GameCharacter character) {
+		return true;
+	}
+	
 	public static List<InventorySlot> getHumanoidSlots() {
 		return humanoidSlots;
 	}

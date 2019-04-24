@@ -476,11 +476,11 @@ public class OptionsDialogue {
 							+ baseName
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
-							+ (Main.game.isStarted() && !Main.game.isInCombat() && !Main.game.isInSex()
+							+ (Main.isSaveGameAvailable()
 									?(name.equals(overwriteConfirmationName)
 										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
 										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
-											:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+									:"<div class='square-button saveIcon disabled' id='overwrite_saved_" + baseName + "_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 							
 							+ (name.equals(loadConfirmationName)
 									?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
@@ -580,7 +580,7 @@ public class OptionsDialogue {
 							:"<span style='color:"+dl.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(dl.getName())+"</span> [style.colourDisabled("+dl.getDescription()+")]")
 						 );
 			}
-			
+
 			UtilText.nodeContentSB.append("</p>");
 			
 			return UtilText.nodeContentSB.toString();
@@ -924,10 +924,10 @@ public class OptionsDialogue {
 	public static final DialogueNode OPTIONS_PRONOUNS = new DialogueNode("Options", "Options", true) {
 
 		@Override
-		public String getHeaderContent() {
-			UtilText.nodeContentSB.setLength(0);
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
 			
-			UtilText.nodeContentSB.append("<p>"
+			sb.append("<p>"
 						+ "<h5 style='text-align:center;'>Global gender names:</h5>"
 						+ "<table align='center'>"
 							+ "<tr>"
@@ -938,10 +938,10 @@ public class OptionsDialogue {
 							+ "</tr>");
 			
 			for(GenderNames gn : GenderNames.values()) {
-				UtilText.nodeContentSB.append(getGenderNameTableRow(gn));
+				sb.append(getGenderNameTableRow(gn));
 			}
 							
-			UtilText.nodeContentSB.append("</table>"
+			sb.append("</table>"
 					+ "</p>"
 					
 					+ "<p>"
@@ -969,19 +969,14 @@ public class OptionsDialogue {
 							+ " If clothing is neutral, treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.<br/>"
 					+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine:</b> Treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.<br/>"
 					+ "</p>");
-							
-			return UtilText.nodeContentSB.toString();	
+			
+			return sb.toString();	
 		}
 		
 		@Override
-		public String getContent(){
-			return "";
-		}
-
-		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Save", "Save all the pronouns that are currently displayed."){
+				return new ResponseEffectsOnly("Save", "Save all the pronouns that are currently displayed.") {
 					@Override
 					public void effects() {
 						for(GenderNames gn : GenderNames.values()) {
@@ -1819,6 +1814,20 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.sillyMode)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"OPPORTUNISTIC_ATTACKERS",
+							Colour.BASE_CRIMSON,
+							"Opportunistic attackers",
+							"This makes random attacks more likely when you're high on lust, low on energy, covered in fluids, exposed, or drunk.",
+							Main.game.isOpportunisticAttackersEnabled()));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"BYPASS_SEX_ACTIONS",
+							Colour.BASE_PINK,
+							"Sex action bypass",
+							"If disabled, action requirements during sex may no longer be bypassed. (i.e. All 'Corruptive' actions will be unavailable.)",
+							Main.getProperties().hasValue(PropertyValue.bypassSexActions)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"VOLUNTARY_NTR",
 							Colour.GENERIC_MINOR_BAD,
 							"Voluntary NTR",
@@ -1873,8 +1882,15 @@ public class OptionsDialogue {
 							"ANAL",
 							Colour.BASE_ORANGE,
 							"Anal Content",
-							"When disabled, all non-unique NPCs will spawn in hating anal (which will make them never use anal actions in sex).",
+							"When disabled, removes all anal-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.analContent)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"FOOT",
+							Colour.BASE_TAN,
+							"Foot Content",
+							"When disabled, removes all foot-related actions from being available during sex.",
+							Main.getProperties().hasValue(PropertyValue.footContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FUTA_BALLS",
@@ -1957,6 +1973,13 @@ public class OptionsDialogue {
 							Main.getProperties().forcedTFPercentage,
 							0,
 							100));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"SPITTING_ENABLED",
+					Colour.BASE_BLUE,
+					"Rejecting TF potions",
+					"Forced TF potions may be spat out if this is enabled.",
+					!Main.game.isSpittingDisabled()));
 
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
 			UtilText.nodeContentSB.append((Main.getProperties().getForcedTFTendency()==ForcedTFTendency.NEUTRAL

@@ -6,12 +6,12 @@ import com.lilithsthrone.utils.Colour;
  * Anything over ZERO_AVERAGE is basically a pseudo penis
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.3.2
  * @author Innoxia
  */
 public enum ClitorisSize {
 	
-	ZERO_AVERAGE("normal-sized", 0, 1, Colour.GENERIC_SIZE_ONE),
+	ZERO_AVERAGE("small", 0, 1, Colour.GENERIC_SIZE_ONE),
 	
 	ONE_BIG("big", 1, 8, Colour.GENERIC_SIZE_TWO),
 	
@@ -25,7 +25,7 @@ public enum ClitorisSize {
 	
 	SIX_GIGANTIC("gigantic", 75, 100, Colour.GENERIC_SIZE_SEVEN),
 	
-	SEVEN_STALLION("stallion-sized", 100, 125, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_STALLION("absurdly colossal", 100, 125, Colour.GENERIC_SIZE_EIGHT);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;

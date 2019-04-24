@@ -84,7 +84,12 @@ public class FluidCum implements FluidInterface, XMLSaving {
 		
 		FluidCum fluidCum = new FluidCum(fluidType);
 		
-		fluidCum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
+		String flavourId = cum.getAttribute("flavour");
+		if(flavourId.equalsIgnoreCase("SLIME")) {
+			fluidCum.flavour = FluidFlavour.BUBBLEGUM;
+		} else {
+			fluidCum.flavour = FluidFlavour.valueOf(flavourId);
+		}
 		
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
 		fluidCum.fluidModifiers.clear();
@@ -263,14 +268,27 @@ public class FluidCum implements FluidInterface, XMLSaving {
 			case HALLUCINOGENIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a series of strange pulses shoot up into your [pc.balls], causing you to let out [pc.a_moan+].<br/>"
+								+ "You feel a series of strange pulses shoot down into your [pc.balls], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.cum] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A series of strange pulses shoot up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "A series of strange pulses shoot down into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(psychoactive)]!"
+							+ "</p>");
+				}
+			case MINERAL_OIL:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a soothing warmth flow into your [pc.balls], causing you to let out [pc.a_moan+].<br/>"
+								+ "Your [pc.cum] is now imbued with [style.boldGrow(mineral oil)], and can melt condoms!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A soothing warmth flows into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.cum] is now imbued with [style.boldGrow(mineral oil)], and can melt condoms!"
 							+ "</p>");
 				}
 			case MUSKY:
@@ -323,19 +341,6 @@ public class FluidCum implements FluidInterface, XMLSaving {
 							"<p>"
 								+ "A heavy heat slowly rises up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(viscous)]!"
-							+ "</p>");
-				}
-			case MINERAL_OIL:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a prolongued heat flow up into your [pc.balls], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.cum] is now [style.boldGrow(mineral oil)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A prolongued heat flows up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(mineral oil)]!"
 							+ "</p>");
 				}
 		}
@@ -498,7 +503,7 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	}
 
 	public float getValuePerMl() {
-		return 0.1f + this.getFluidModifiers().size()*0.1f + (this.getFlavour()!=FluidFlavour.CUM?0.5f:0);
+		return (0.1f + (this.getFluidModifiers().size()*0.1f)) * (this.getFlavour()!=FluidFlavour.CUM?1.5f:1);
 	}
 
 	@Override

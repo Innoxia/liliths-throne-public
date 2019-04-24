@@ -549,6 +549,25 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		};
 	}
 
+	public static AbstractWeapon generateWeapon(AbstractWeapon weapon) {
+		return new AbstractWeapon(weapon) {
+			@Override
+			public String onEquip(GameCharacter character) {
+				if (character.isPlayer()) {
+					if (Main.getProperties().addWeaponDiscovered(weapon.getWeaponType())) {
+						Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(weapon.getWeaponType().getName(), weapon.getWeaponType().getRarity().getColour()), true);
+					}
+				}
+				return weapon.getWeaponType().equipText(character);
+			}
+
+			@Override
+			public String onUnequip(GameCharacter character) {
+				return weapon.getWeaponType().unequipText(character);
+			}
+		};
+	}
+	
 	private void setUpColours(List<Colour> availablePrimaryColours,
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,

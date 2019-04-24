@@ -55,7 +55,7 @@ public class Addiction implements XMLSaving {
 	
 	@Override
 	public int hashCode() {
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + this.getFluid().hashCode();
 		result = 31 * result + (int)this.getLastTimeSatisfied();
 		result = 31 * result + this.getProviderIDs().hashCode();
