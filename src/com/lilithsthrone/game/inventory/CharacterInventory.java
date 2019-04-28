@@ -1499,20 +1499,16 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if (!automaticClothingManagement && clothingToRemove.size() > 1) { // Greater than 1, as it will contain the item of clothing that's trying to be removed.
+			Set<AbstractClothing> blockingClothingSet = clothingToRemove.keySet().stream().filter(c -> c != clothing).collect(Collectors.toSet());
 			equipTextSB.append(characterClothingOwner.isPlayer()
-					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
-						+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."
+					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(blockingClothingSet, false) + " need"
+						+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."
 					:UtilText.parse(characterClothingOwner,
-							"Before [npc.namePos] " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
-									+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."));
+							"Before [npc.namePos] " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(blockingClothingSet, false) + " need"
+									+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."));
 			
-			for(AbstractClothing c : clothingToRemove.keySet()) {
-				if(c!=clothing) {
-					blockingClothing=c;
-					break;
-				}
-			}
-			
+			blockingClothing = blockingClothingSet.stream().findAny().orElse(blockingClothing);
+
 			return false;
 		}
 
