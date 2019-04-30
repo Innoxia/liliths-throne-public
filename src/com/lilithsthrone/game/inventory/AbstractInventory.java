@@ -42,6 +42,17 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		duplicateCounts = newlySortedMap;
 	}
 
+	public void transform(Function<T, T> transformFunction) {
+		Map<T, Integer> oldMap = new LinkedHashMap<>(duplicateCounts);
+		duplicateCounts.clear();
+
+		for(Map.Entry<T, Integer> e : oldMap.entrySet()) {
+			T oldItem = e.getKey();
+			T newItem = transformFunction.apply(oldItem);
+			addItem(newItem, e.getValue());
+		}
+	}
+
 	/**
 	 * @return a Non-modifiable Map
 	 */

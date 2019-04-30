@@ -62,7 +62,7 @@ import com.lilithsthrone.world.World;
 public class CharacterInventory implements XMLSaving {
 	
 	private Map<AbstractWeapon, Integer> weaponDuplicates;
-	private Map<AbstractClothing, Integer> clothingDuplicates;
+	private final AbstractInventory<AbstractClothing, AbstractClothingType> clothingSubInventory;
 	private final AbstractInventory<AbstractItem, AbstractItemType> itemSubInventory;
 
 	private final Map<TFEssence, Integer> essenceMap;
@@ -95,7 +95,7 @@ public class CharacterInventory implements XMLSaving {
 		this.money = money;
 		
 		weaponDuplicates = new LinkedHashMap<>();
-		clothingDuplicates = new LinkedHashMap<>();
+		clothingSubInventory = new AbstractInventory<>(new InventoryClothingComparator(), AbstractClothing::getClothingType);
 		itemSubInventory = new AbstractInventory<>(new InventoryItemComparator(), AbstractItem::getItemType);
 		
 		
@@ -318,7 +318,7 @@ public class CharacterInventory implements XMLSaving {
 	
 	public boolean isEmpty() {
 		return money == 0
-				&& clothingDuplicates.isEmpty()
+				&& clothingSubInventory.isEmpty()
 				&& weaponDuplicates.isEmpty()
 				&& itemSubInventory.isEmpty()
 				&& essenceMap.get(TFEssence.ARCANE) == 0
@@ -368,7 +368,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public void clearNonEquippedInventory(){
-		clothingDuplicates.clear();
+		clothingSubInventory.clear();
 		weaponDuplicates.clear();
 		itemSubInventory.clear();
 		money = 0;
@@ -425,14 +425,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	private void sortClothingDuplicates() {
-		List<AbstractClothing> clothingToSort = new ArrayList<>(clothingDuplicates.keySet());
-		clothingToSort.sort(new InventoryClothingComparator());
-
-		Map<AbstractClothing, Integer> cMap = new LinkedHashMap<>();
-		for(AbstractClothing c : clothingToSort) {
-			cMap.put(c, clothingDuplicates.get(c));
-		}
-		clothingDuplicates = cMap;
+		clothingSubInventory.sort();
 	}
 
 	public void sortInventory() {
@@ -723,11 +716,11 @@ public class CharacterInventory implements XMLSaving {
 	 * <b>DO NOT MODIFY!</b>
 	 */
 	public Map<AbstractClothing, Integer> getAllClothingInInventory() {
-		return clothingDuplicates;
+		return clothingSubInventory.getDuplicateCounts();
 	}
 
 	public int getTotalClothingCount() {
-		return getAllClothingInInventory().values().stream().mapToInt(e -> e).sum();
+		return clothingSubInventory.getTotalItemCount();
 	}
 
 	public int getUniqueClothingCount() {
@@ -735,17 +728,11 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	public int getUniqueQuestClothingCount() {
-		int count = 0;
-		for(Entry<AbstractClothing, Integer> e : getAllClothingInInventory().entrySet()) {
-			if(e.getKey().getRarity()==Rarity.QUEST) {
-				count++;
-			}
-		}
-		return count;
+		return clothingSubInventory.getQuestEntryCount();
 	}
 	
 	public int getClothingCount(AbstractClothing clothing) {
-		return clothingDuplicates.getOrDefault(clothing, 0);
+		return clothingSubInventory.getItemCount(clothing);
 	}
 
 	/**
@@ -758,7 +745,7 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if(canAddClothing(clothing)) {
-			clothingDuplicates.merge(clothing, count, Integer::sum);
+			clothingSubInventory.addItem(clothing, count);
 
 			if(Main.game.isStarted()) {
 				sortClothingDuplicates();
@@ -796,54 +783,26 @@ public class CharacterInventory implements XMLSaving {
 	 * @return true if a clothing was removed, false if no clothing was found.
 	 */
 	public boolean removeClothing(AbstractClothing clothing, int count) {
-		if(hasClothing(clothing)) {
-			clothingDuplicates.put(clothing, clothingDuplicates.get(clothing)-count);
-			if(clothingDuplicates.get(clothing)<=0) {
-				clothingDuplicates.remove(clothing);
-			}
-			return true;
-		} else {
-			return false;
-		}
+		return clothingSubInventory.removeItem(clothing, count);
 	}
 
 	public boolean hasClothing(AbstractClothing clothing) {
-		return clothingDuplicates.containsKey(clothing);
+		return clothingSubInventory.hasItem(clothing);
 	}
 	
 	/**
 	 * @return true if one of the clothings in this inventory has the same type as the Clothing provided.
 	 */
 	public boolean hasClothingType(AbstractClothingType type, boolean includeEquipped) {
-		for(AbstractClothing abstractClothing : clothingDuplicates.keySet()) {
-			if(abstractClothing.getClothingType().equals(type)) {
-				return true;
-			}
-		}
-		if(includeEquipped) {
-			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-				if(c.getClothingType().equals(type)) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return clothingSubInventory.hasItemType(type) || (includeEquipped && hasEquippedClothingType(type));
+	}
+
+	private boolean hasEquippedClothingType(AbstractClothingType type) {
+		return getClothingCurrentlyEquipped().stream().anyMatch(c -> c.getClothingType().equals(type));
 	}
 	
 	public boolean removeClothingByType(AbstractClothingType clothingType) {
-		AbstractClothing clothing = null;
-		for(AbstractClothing abstractClothing : clothingDuplicates.keySet()) {
-			if(abstractClothing.getClothingType().equals(clothingType)) {
-				clothing = abstractClothing;
-				break;
-			}
-		}
-		
-		if(clothing!=null) {
-			removeClothing(clothing);
-		}
-		
-		return false;
+		return clothingSubInventory.removeItemByType(clothingType);
 	}
 
 	public boolean dropClothing(AbstractClothing clothing, World world, Vector2i location) {
@@ -875,14 +834,10 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if(includeNotEquippedClothing) {
-			HashMap<AbstractClothing, Integer> cleanedClothingMap = new HashMap<>(clothingDuplicates);
-			clothingDuplicates.clear();
-			
-			for(Entry<AbstractClothing, Integer> e : cleanedClothingMap.entrySet()) {
-				AbstractClothing c = e.getKey();
+			clothingSubInventory.transform(c -> {
 				c.setDirty(false);
-				this.addClothing(c, e.getValue());
-			}
+				return c;
+			});
 		}
 		
 		for(AbstractClothing c : clothingCurrentlyEquipped) {
