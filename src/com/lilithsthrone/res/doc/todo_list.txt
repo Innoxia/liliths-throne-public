@@ -138,6 +138,8 @@
 		Clean character inventory code. (PR#1137 by Pimgd)
 		Lots of typo fixes. (PR#1138 by Pimgd)
 		Slightly modified the description of background characters on the streets during an arcane storm if the player is a demon. (PR#1141 by DL-Vadric)
+		Typo fixes. (PR#1133 by Pimgd)
+		Alter clothing blocked by message to not include the clothing which is blocked. (PR#1145 by Pimgd)
 	
 	Bugs:
 		Typo and grammatical fixes.
