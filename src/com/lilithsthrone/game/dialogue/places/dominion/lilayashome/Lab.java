@@ -90,7 +90,7 @@ public class Lab {
 					}
 				}
 				
-				return new Response("Enter", "Step through the door and enter Lilaya's laboratory", LAB_ENTRY) {
+				return new Response("Enter", "Step through the door and enter Lilaya's laboratory.", LAB_ENTRY) {
 					@Override
 					public void effects() {
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)
@@ -2419,7 +2419,7 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
-					return new Response("Give birth", "Tell Lilaya that you're ready to give birth", LILAYA_DETECTS_BIRTHING_TYPE){
+					return new Response("Give birth", "Tell Lilaya that you're ready to give birth.", LILAYA_DETECTS_BIRTHING_TYPE){
 						@Override
 						public void effects() {
 							if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
