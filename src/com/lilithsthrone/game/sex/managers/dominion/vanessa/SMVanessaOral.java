@@ -67,8 +67,9 @@ public class SMVanessaOral extends SexManagerDefault {
 			return Sex.getNumberOfOrgasms(partner)>=1;
 		}
 
-		// When player is receiving cunnilingus, or fucking Vanessa, she stops after player is satisfied:
-		return Sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied();
+		// When player is receiving cunnilingus, or fucking Vanessa, she stops after both of you are satisfied:
+		return Sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied()
+				&& Sex.getNumberOfOrgasms(Main.game.getNpc(Vanessa.class))>=Main.game.getNpc(Vanessa.class).getOrgasmsBeforeSatisfied();
 	}
 	
 }

@@ -20,7 +20,7 @@ public enum FluidRegeneration {
 	/** 750-4999 ml/day. Maximum value is roughly 3.5ml per minute. */
 	TWO_FAST("fast", 750, 5000, "quickly", Colour.GENERIC_SIZE_THREE),
 
-	/** 5000-99,999 ml/day. <b>Median value of ~50,000ml/day is average for seminal fluid replenishment.</b> Maximum value is roughly 1.15ml per second. */
+	/** 5000-99,999 ml/day. <b>This median value of ~50,000ml/day is a more realistic average for seminal fluid replenishment, but for gameplay purposes, the default is 10,000.</b> Maximum value is roughly 1.15ml per second. */
 	THREE_RAPID("rapid", 5000, 100_000, "rapidly", Colour.GENERIC_SIZE_FOUR),
 	
 	/** 100,000-500,000 ml/day. Maximum value is roughly 5.8ml per second. */
@@ -32,6 +32,8 @@ public enum FluidRegeneration {
 	private String name;
 	private String verb;
 	private Colour colour;
+	
+	public static int CUM_REGEN_DEFAULT = 10_000;
 
 	private FluidRegeneration(String name, int minimumValue, int maximumValue, String verb, Colour colour) {
 		this.name = name;

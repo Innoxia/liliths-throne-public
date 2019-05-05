@@ -163,7 +163,11 @@ public class CharacterInventory implements XMLSaving {
 			characterInventory.appendChild(itemsInInventory);
 			for(Entry<AbstractItem, Integer> item : this.getAllItemsInInventory().entrySet()) {
 				Element e = item.getKey().saveAsXML(itemsInInventory, doc);
-				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+				int value = 1;
+				if(item.getValue()!=null) {
+					value = item.getValue();
+				}
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(value));
 			}
 		}
 		
@@ -172,7 +176,11 @@ public class CharacterInventory implements XMLSaving {
 			characterInventory.appendChild(clothingInInventory);
 			for(Entry<AbstractClothing, Integer> clothing : this.getAllClothingInInventory().entrySet()) {
 				Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
-				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+				int value = 1;
+				if(clothing.getValue()!=null) { // TODO figure out how this was being assigned to null
+					value = clothing.getValue();
+				}
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(value));
 			}
 		}
 		
@@ -181,7 +189,11 @@ public class CharacterInventory implements XMLSaving {
 			characterInventory.appendChild(weaponsInInventory);
 			for(Entry<AbstractWeapon, Integer> weapon : this.getAllWeaponsInInventory().entrySet()) {
 				Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
-				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+				int value = 1;
+				if(weapon.getValue()!=null) {
+					value = weapon.getValue();
+				}
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(value));
 			}
 		}
 		

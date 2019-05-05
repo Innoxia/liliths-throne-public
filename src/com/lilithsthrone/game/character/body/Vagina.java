@@ -275,9 +275,11 @@ public class Vagina implements BodyPartInterface {
 							+ "[npc.Name] blushes as [npc.she] feels a strange heat spreading through [npc.her] groin,"
 								+ " and can't help but let out an involuntary moan as [npc.she] feels the [npc.skin] between [npc.her] [npc.legs] starting to cave inwards."
 							+ " Within moments, a deep furrow has formed "
-							+ (owner.getPenisType() == PenisType.NONE
+							+ (!owner.hasPenisIgnoreDildo()
 								? "in the middle of [npc.her] groin,"
-								: "beneath [npc.her] cock,")
+								: (owner.getLegConfiguration().isBipedalPositionedGenitals()
+										?"beneath [npc.her] cock,"
+										:"above and behind [npc.her] cock,"))
 							+ " and [npc.she] starts panting and squirming as the strange feeling shows no sign of stopping there."
 							+ " A sudden, penetrating sensation tears through [npc.her] groin, and while it isn't painful, [npc.she] still cries out in shock as the groove between [npc.her] legs splits and forms into a new, virgin pussy."
 							+ " As the feeling finally starts to fade away, [npc.her] new clit and labia finish forming, and a trickle of girl-cum leaks out from [npc.her] excited slit."

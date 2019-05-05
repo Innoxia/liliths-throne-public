@@ -91,14 +91,14 @@ public abstract class AbstractSexPosition {
 					&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.allowedInterPenetrationAreas)
 					&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
 					&& Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).containsKey(performer)
-					&& Collections.disjoint(Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).get(performer), SexActionPresets.allowedInterPenetrationAreas)) {
+					&& !Collections.disjoint(Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).get(performer), SexActionPresets.allowedInterPenetrationAreas)) {
 				return true;
 			}
 			if(action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)
 					&& Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.allowedInterPenetrationAreas)
 					&& Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS)
 					&& Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).containsKey(target)
-					&& Collections.disjoint(Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).get(target), SexActionPresets.allowedInterPenetrationAreas)) {
+					&& !Collections.disjoint(Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).get(target), SexActionPresets.allowedInterPenetrationAreas)) {
 				return true;
 			}
 			

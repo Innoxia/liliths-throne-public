@@ -153,6 +153,7 @@ public enum DialogueFlagValue {
 	slimeGuardsDefeated,
 	slimeRoyalGuardIntroduced,
 	slimeRoyalGuardDefeated,
+	slimeRoyalGuardDefeatReacted,
 	slimeQueenHelped,
 	slimeQueenConvinced,
 	slimeQueenForced,

@@ -1278,17 +1278,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			} else {
 				if(rough) {
 					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
-							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
-						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
-					}
-					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] [npc.verb(get)] [npc2.name] to unequip [npc2.her] "+clothing.getName());
-					
-				} else {
-					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
 							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
 						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
 					}
 					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] roughly [npc.verb(unequip)] [npc2.namePos] "+clothing.getName());
+					
+				} else {
+					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
+					}
+					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] [npc.verb(get)] [npc2.name] to unequip [npc2.her] "+clothing.getName());
 				}
 			}
 			

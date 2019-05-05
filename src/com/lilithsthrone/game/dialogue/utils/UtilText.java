@@ -6247,7 +6247,7 @@ public class UtilText {
 	}
 	
 	
-	private static void initScriptEngine() {
+	public static void initScriptEngine() {
 		
 		NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
 		// http://hg.openjdk.java.net/jdk8/jdk8/nashorn/rev/eb7b8340ce3a
@@ -6457,6 +6457,7 @@ public class UtilText {
 				engine.put("npc"+(i+1), specialNPCList.get(i));
 //				System.out.println("Added: npc"+(i+1));
 			}
+			
 		} else {
 			try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
 				engine.put("npc", ParserTarget.NPC.getCharacter("npc"));

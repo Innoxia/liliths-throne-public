@@ -1041,6 +1041,8 @@ public class Game implements XMLSaving {
 		started = true;
 		
 		SlaverAlleyDialogue.dailyReset();
+		
+		UtilText.initScriptEngine();
 
 		setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode));
 	}
@@ -1377,7 +1379,7 @@ public class Game implements XMLSaving {
 		}
 		for(NPC npc : NPCMap.values()) {
 			// Non-slave NPCs clean clothes:
-			if(!Main.game.getCharactersPresent().contains(npc) && (!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer()))) {
+			if(!Main.game.getCharactersPresent().contains(npc)) {
 				if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
 					npc.cleanAllClothing(true);
 				}

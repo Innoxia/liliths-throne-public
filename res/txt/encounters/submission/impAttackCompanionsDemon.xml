@@ -21,7 +21,7 @@
 		#ENDIF
 	</p>
 	<p>
-		As [npc.she] catches sight of you, the alpha-imp stops in [npc.her] tracks. Obviously being the leader of this gang, [npc2.she] steps forwards and sizes you up, before declaring, in a rather high-pitched voice, [npc2.speech(Hah! What mere mortal dares to stand before my arcane power! You'll pay dearly for trespassing on our territory!)]
+		As [npc2.she] catches sight of you, the alpha-imp stops in [npc2.her] tracks. Obviously being the leader of this gang, [npc2.she] steps forwards and sizes you up, before declaring, in a rather high-pitched voice, [npc2.speech(Hah! What mere mortal dares to stand before my arcane power! You'll pay dearly for trespassing on our territory!)]
 	</p>
 	<p>
 		The three smaller imps flutter forwards to back their leader up, and [npc4.name] sneers, [npc4.speech([pc.InsultPlural]! You're gonna get a taste of [npc.her] spells now!)]

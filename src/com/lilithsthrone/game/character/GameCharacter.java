@@ -4199,7 +4199,11 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.companions != null) {
 			for(String companionID : this.companions) {
 				try {
-					listToReturn.add(Main.game.getNPCById(companionID));
+					GameCharacter npc = Main.game.getNPCById(companionID);
+					listToReturn.add(npc);
+					if(npc.isElementalSummoned()) { // Add all summoned elementals:
+						listToReturn.add(npc.getElemental());
+					}
 				} catch(Exception e) {
 					Util.logGetNpcByIdError("getCompanions()", companionID);
 				}
@@ -10264,6 +10268,10 @@ public abstract class GameCharacter implements XMLSaving {
 		StringBuilder sb = new StringBuilder();
 		
 		if(characterBeingRevealed.isPlayer()) {
+			if(Main.game.isInSex() && Sex.isCharacterSealed(charactersReacting.get(0))) {
+				return UtilText.parse(charactersReacting.get(0), "[npc.Name] tries to make a move as your [pc.asshole+] is revealed, but the Witch's Seal keeps [npc.herHim] locked in place.");
+			}
+			
 			sb.append("<p>");
 			switch(reactingPace) {
 				case DOM_GENTLE:
@@ -10305,6 +10313,9 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(characterBeingRevealed.isPlayer()) {
+			if(Main.game.isInSex() && Sex.isCharacterSealed(charactersReacting.get(0))) {
+				return UtilText.parse(charactersReacting.get(0), "[npc.Name] tries to make a move as your [pc.breasts+] are revealed, but the Witch's Seal keeps [npc.herHim] locked in place.");
+			}
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("<p>");
@@ -10544,6 +10555,9 @@ public abstract class GameCharacter implements XMLSaving {
 		GameCharacter npcReacting = charactersReacting.get(0);
 		
 		if(characterBeingRevealed.equals(npcReacting)) {
+			if(Main.game.isInSex() && Sex.isCharacterSealed(charactersReacting.get(0))) {
+				return UtilText.parse(charactersReacting.get(0), "[npc.Name] tries to make a move as [npc.her] [npc.crotchBoobs+] are revealed, but the Witch's Seal keeps [npc.herHim] locked in place.");
+			}
 			switch(reactingPace) {
 				case DOM_GENTLE:
 					sb.append("[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.her] [npc.crotchBoobs+] are revealed.");
@@ -10566,6 +10580,9 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 		} else {
+			if(Main.game.isInSex() && Sex.isCharacterSealed(charactersReacting.get(0))) {
+				return UtilText.parse(charactersReacting.get(0), "[npc2.Name] tries to make a move as [npc.namePos] [npc.crotchBoobs+] are revealed, but the Witch's Seal keeps [npc2.herHim] locked in place.");
+			}
 			switch(reactingPace) {
 				case DOM_GENTLE:
 					sb.append("[npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc.namePos] [npc.crotchBoobs+] are revealed.");
@@ -10601,6 +10618,10 @@ public abstract class GameCharacter implements XMLSaving {
 		if(Main.game.isInSex()) {
 			selfPace = Sex.getSexPace(characterBeingRevealed);
 			reactingPace = Sex.getSexPace(charactersReacting.get(0));
+		}
+		
+		if(Main.game.isInSex() && Sex.isCharacterSealed(charactersReacting.get(0))) {
+			return UtilText.parse(charactersReacting.get(0), characterBeingRevealed, "[npc.Name] tries to make a move as [npc2.namePos] [npc2.cock+] is revealed, but the Witch's Seal keeps [npc.herHim] locked in place.");
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -10821,6 +10842,10 @@ public abstract class GameCharacter implements XMLSaving {
 			reactingPace = Sex.getSexPace(charactersReacting.get(0));
 		}
 		
+		if(Main.game.isInSex() && Sex.isCharacterSealed(charactersReacting.get(0))) {
+			return UtilText.parse(charactersReacting.get(0), characterBeingRevealed, "[npc.Name] tries to make a move as [npc2.namePos] [npc2.pussy+] is revealed, but the Witch's Seal keeps [npc.herHim] locked in place.");
+		}
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append("<p>");
 		
@@ -10943,6 +10968,10 @@ public abstract class GameCharacter implements XMLSaving {
 		if(Main.game.isInSex()) {
 //			selfPace = Sex.getSexPace(characterBeingRevealed);
 			reactingPace = Sex.getSexPace(charactersReacting.get(0));
+		}
+
+		if(Main.game.isInSex() && Sex.isCharacterSealed(charactersReacting.get(0))) {
+			return UtilText.parse(charactersReacting.get(0), characterBeingRevealed, "[npc.Name] tries to make a move as [npc2.namePos] genderless mound is revealed, but the Witch's Seal keeps [npc.herHim] locked in place.");
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -20902,7 +20931,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getVagina().getOrificeUrethra().setElasticity(this, elasticity);
 	}
 	public String incrementVaginaUrethraElasticity(int increment) {
-		return setUrethraElasticity(getVaginaUrethraElasticity().getValue() + increment);
+		return setVaginaUrethraElasticity(getVaginaUrethraElasticity().getValue() + increment);
 	}
 	// Plasticity:
 	public OrificePlasticity getVaginaUrethraPlasticity() {

@@ -287,8 +287,19 @@ public interface SexActionInterface {
 		} catch(Exception ex) {
 		}
 		
+		boolean crotchBoobsAllowed = true;
+		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
+			crotchBoobsAllowed = Main.getProperties().udders>0
+					|| (!this.getTargetedCharacterAreas().contains(SexAreaOrifice.BREAST_CROTCH)
+							&& !this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)
+							&& !this.getPerformingCharacterAreas().contains(SexAreaOrifice.BREAST_CROTCH)
+							&& !this.getPerformingCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH));
+		} catch(Exception ex) {
+		}
+		
 		return analAllowed
 				&& footAllowed
+				&& crotchBoobsAllowed
 				&& (this.getSexPace()==null
 					|| (this.getSexPace().isDom() == Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()))
 				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop non-self ongoing penetrations if full control

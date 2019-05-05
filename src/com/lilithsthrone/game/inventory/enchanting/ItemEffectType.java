@@ -2418,7 +2418,7 @@ public class ItemEffectType {
 			
 			Subspecies sub = Subspecies.getFleshSubspecies(target);
 			if(sub.getRace()!=Race.DEMON) {
-				target.setBody(CharacterUtils.generateHalfDemonBody(target, sub, true));
+				target.setBody(CharacterUtils.generateHalfDemonBody(target, target.getGender(), sub, true));
 				return UtilText.parse(target, "<p style='text-align:center; color:"+Colour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
 			} else {
 				target.setBody(target.getGender(), Subspecies.DEMON, RaceStage.GREATER);

@@ -1246,10 +1246,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(Main.game.isDayTime()) {
-				return "The sun shines down on you, and you let out a contented sigh as you look up at the clear blue sky."
+				return "The sun shines down from a perfectly clear blue sky."
 						+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
 			} else {
-				return "The moon shines down through a clear night's sky, and you let out a contented sigh as you look up at the stars."
+				return "The moon and stars shine down from a perfectly clear night's sky."
 						+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
 			}
 		}
@@ -3813,6 +3813,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasBreastsCrotch()
+					&& Main.getProperties().udders>0
 					&& target.getBreastCrotchRawMilkStorageValue()>0
 					&& target.getBreastCrotchRawStoredMilkValue()!=target.getBreastCrotchRawMilkStorageValue();
 		}
@@ -3859,6 +3860,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasBreastsCrotch()
+					&& Main.getProperties().udders>0
 					&& target.getBreastCrotchRawMilkStorageValue()>0
 					&& target.getBreastCrotchRawStoredMilkValue()==target.getBreastCrotchRawMilkStorageValue();
 		}
@@ -3901,7 +3903,9 @@ public enum StatusEffect {
 				sb.append(" Nipples");
 				i++;
 			}
-			if (target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
+			if (target.hasBreastsCrotch()
+					&& Main.getProperties().udders>0
+					&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 				sb.append(" Crotch Nipples");
 				i++;
 			}
@@ -4081,7 +4085,9 @@ public enum StatusEffect {
 			return ((target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity())
 					|| (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity())
 					|| (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity())
-					|| (target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity())
+					|| (target.hasBreastsCrotch()
+							&& Main.getProperties().udders>0
+							&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity())
 					|| (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity())
 					|| (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()));
 		}
@@ -5289,10 +5295,12 @@ public enum StatusEffect {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& target.getLegConfiguration()!=LegConfiguration.BIPEDAL
 					&& !((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaVisible(CoverableArea.NIPPLES))
-					&& ((target.hasBreastsCrotch() && target.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH))
-							|| target.isCoverableAreaVisible(CoverableArea.ANUS)
-							|| (target.isCoverableAreaVisible(CoverableArea.PENIS) && target.hasPenis())
-							|| (target.isCoverableAreaVisible(CoverableArea.VAGINA) && target.hasVagina()));
+					&& ((target.hasBreastsCrotch()
+							&& Main.getProperties().udders>0
+							&& target.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH))
+						|| target.isCoverableAreaVisible(CoverableArea.ANUS)
+						|| (target.isCoverableAreaVisible(CoverableArea.PENIS) && target.hasPenis())
+						|| (target.isCoverableAreaVisible(CoverableArea.VAGINA) && target.hasVagina()));
 		}
 
 		@Override
@@ -11065,7 +11073,8 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
 					&& Sex.getAllParticipants(true).contains(target)
-					&& target.hasBreastsCrotch();
+					&& target.hasBreastsCrotch()
+					&& Main.getProperties().udders>0;
 		}
 		
 		@Override
@@ -11212,6 +11221,7 @@ public enum StatusEffect {
 			return Main.game.isInSex()
 					&& Sex.getAllParticipants(true).contains(target)
 					&& target.hasBreastsCrotch()
+					&& Main.getProperties().udders>0
 					&& target.isBreastCrotchFuckableNipplePenetration()
 					&& Main.getProperties().hasValue(PropertyValue.nipplePenContent);
 		}
@@ -12351,7 +12361,9 @@ public enum StatusEffect {
 		} else if (owner.isFeminine() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES)) {
 			names.add("nipples");
 		}
-		if(owner.hasBreastsCrotch() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH)) {
+		if(owner.hasBreastsCrotch()
+				&& Main.getProperties().udders>0
+				&& owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH)) {
 			names.add(UtilText.parse(owner, "[npc.crotchBoobs]"));
 		}
 		if(owner.isCoverableAreaVisible(CoverableArea.ANUS)) {
@@ -12378,7 +12390,9 @@ public enum StatusEffect {
 		
 		boolean breastsExposed = owner.hasBreasts() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES);
 		boolean nipplesExposed = ! breastsExposed && owner.isFeminine() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES);
-		boolean crotchBoobsExposed = owner.hasBreastsCrotch() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH);
+		boolean crotchBoobsExposed = owner.hasBreastsCrotch()
+				&& Main.getProperties().udders>0
+				&& owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH);
 
 		boolean anusExposed = owner.isCoverableAreaVisible(CoverableArea.ANUS);
 		
@@ -12437,7 +12451,9 @@ public enum StatusEffect {
 		boolean vaginaRecovering = owner.hasVagina() && owner.getVaginaRawCapacityValue()!=owner.getVaginaStretchedCapacity();
 		boolean anusRecovering = owner.getAssRawCapacityValue()!=owner.getAssStretchedCapacity();
 		boolean nipplesRecovering = owner.getNippleRawCapacityValue()!=owner.getNippleStretchedCapacity();
-		boolean nipplesCrotchRecovering = owner.hasBreastsCrotch() && owner.getNippleCrotchRawCapacityValue()!=owner.getNippleCrotchStretchedCapacity();
+		boolean nipplesCrotchRecovering = owner.hasBreastsCrotch()
+				&& Main.getProperties().udders>0
+				&& owner.getNippleCrotchRawCapacityValue()!=owner.getNippleCrotchStretchedCapacity();
 		boolean penileUrethraRecovering = owner.hasPenis() && owner.getPenisRawCapacityValue()!=owner.getPenisStretchedCapacity();
 		boolean vaginalUrethraRecovering = owner.hasVagina() && owner.getVaginaUrethraRawCapacityValue()!=owner.getVaginaUrethraStretchedCapacity();
 		

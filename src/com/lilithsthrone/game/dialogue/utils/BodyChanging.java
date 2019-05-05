@@ -984,6 +984,11 @@ public class BodyChanging {
 						+ "</div>"
 						
 						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformBreastChoiceDiv(slimeRaces)
+							+ CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformBreastSizeDiv()
 							+ CharacterModificationUtils.getSelfTransformBreastShapeDiv()
 						+"</div>"

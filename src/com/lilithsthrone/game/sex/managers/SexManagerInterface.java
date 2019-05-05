@@ -3,8 +3,10 @@ package com.lilithsthrone.game.sex.managers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -33,7 +35,7 @@ import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -56,6 +58,10 @@ public interface SexManagerInterface {
 	 */
 	public default SexPace getForcedSexPace(GameCharacter character) {
 		return null;
+	}
+	
+	public default Set<GameCharacter> getCharactersSealed() {
+		return new HashSet<>();
 	}
 	
 	public default boolean isPlayerDom() {

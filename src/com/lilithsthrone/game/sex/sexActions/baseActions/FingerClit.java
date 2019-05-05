@@ -284,7 +284,7 @@ public class FingerClit {
 										+ " [npc2.moaning] in delight as [npc2.she] [npc2.verb(encourage)] [npc.herHim] to continue playing with [npc2.her] [npc2.clit+].",
 	
 								" [npc2.Name] [npc2.verb(push)] [npc2.her] [npc2.hips] out against [npc.namePos] [npc.fingers],"
-										+ " [npc2.moaning] and arching [npc2.her] back as [npc2.name] [npc2.verb(press)] [npc2.her] [npc2.clit+] down against [npc.namePos] touch."));
+										+ " [npc2.moaning] and arching [npc2.her] back as [npc2.she] [npc2.verb(press)] [npc2.her] [npc2.clit+] down against [npc.namePos] touch."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

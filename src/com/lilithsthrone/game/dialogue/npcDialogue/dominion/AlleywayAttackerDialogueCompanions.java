@@ -323,14 +323,15 @@ public class AlleywayAttackerDialogueCompanions {
 					} else {
 						return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 								UtilText.parse(getMugger(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
-								true, true,
+								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(getMugger()),
 										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
 										null,
 										null,
 										ResponseTag.PREFER_DOGGY),
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_BODY_WITH_COMPANION", getMugger(), companion)) {
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_BODY_WITH_COMPANION", getMugger(), companion)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -501,7 +502,7 @@ public class AlleywayAttackerDialogueCompanions {
 					} else {
 						return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 								UtilText.parse(getMugger(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name]."),
-								true, true,
+								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(getMugger()),
 										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
@@ -827,7 +828,7 @@ public class AlleywayAttackerDialogueCompanions {
 				} else {
 					return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 							UtilText.parse(getMugger(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
-							true, true,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer(), companion),

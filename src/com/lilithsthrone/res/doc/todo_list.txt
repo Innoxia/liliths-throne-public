@@ -125,6 +125,11 @@
 	
 	Patch notes:
 	
+	
+	Other:
+		Reduced default cum regeneration value from 50,000ml per day to 10,000 per day, as it was a little too fast at regenerating during sex.
+		NPCs are now a lot more likely to choose a 'proper' penetrative action as their main preference in sex (such as penis/vagina, penis/anus, etc.).
+	
 	Contributors:
 		Fixed deprecated method being used. (PR#1125 by King-Drake)
 		Fixed virginity cost errors. (PR#1124 by GynoidDoesGames)
@@ -132,64 +137,79 @@
 		Massively improved save file loading times. As an example one file went from 19 seconds down to 4. (PR#1136 by Pimgd)
 		Clean character inventory code. (PR#1137 by Pimgd)
 		Lots of typo fixes. (PR#1138 by Pimgd)
+		Slightly modified the description of background characters on the streets during an arcane storm if the player is a demon. (PR#1141 by DL-Vadric)
+	
+	Bugs:
+		Typo and grammatical fixes.
+		Fixed half-demon offspring always being females.
+		Zebra-morphs are now identified by white and both black and jet-black stripes.
+		Fixed issue where save games would sometimes get corrupted by assigning an item's count to null.
+		Slaves should now correctly clean their clothes, if they have permission to do so.
+		New positioning actions (for taurs) now have fetish-related corruption bypasses.
+		Fixed issue with all sex actions disappearing when you were in a spectator slot and someone involved in sex was about to orgasm.
+		Fixed positioning actions being available when targeting subs while a sub, or doms while a dom.
+		Fixed the 'Offer threesome' action putting you into a sex scene in which you had full control as a sub.
+		Fixed incorrect position descriptions for when growing a vagina or penis on a taur body.
+		Fixed transformation into a taur sometimes resetting subspecies (such as lion-morph to cat-morph).
+		Self-cest offspring will now correctly have you listed as both their father and mother in the pregnnacy stats screen.
+		Fixed some incorrect formatting in the offspring map usage.
+		Fixed issue where using imported characters, or starting a new game after having already played on a different character, would produce 'error in conditional parsing' errors all over the place.
+		Fixed the 'Knocked up' dialogue in the library deleting response tabs.
+		Offspring now use the same clothing generation as muggers.
+		Fixed tiles in Demon Home taking 5 minutes to traverse instead of 2.
+		Fixed Ms Cunningham's pubic hair being a random colour.
+		Fixed issue with Ms. Cunningham's scene in which she eats you out applying the penis-vagina interaction instead of tongue-vagina.
+		Fixed issue with Ms. Cunningham finishing sex early, and thus losing 2 affection towards you.
+		Sealed NPCs during sex (i.e. the cultists) no longer use default reaction text to sexual parts being revealed.
+		Changes to milk and cum regeneration values via crafted potions have been increased from 1/2/3 to 25/100/500.
+		Fixed slimes not being able to self-transform their breast type.
+		Fixed a few issues with companions' elementals, so that they will no longer show up in places they shouldn't (such as prostitutes in the bedrooms in Angel's Kiss).
+		Fixed issue with Maximilian's post-victory scene only displaying sex options.
+		Fixed some issues with sex actions not being blocked when they should have been (such as being able to intercrural someone who is fucking you in the mating press position).
+		Fixed tattoos not incrementing cum counts when in non-player sex (such as slaves in the brothel or stocks).
+		Fixed vaginal urethra elasticity enchantments not working.
+		Crotch boob status effects will no longer be displayed if you have crotch boobs turned off.
+		Fixed crotch boob sex actions being available even if you had crotch boobs disabled.
+		Fixed unequip clothing descriptions during sex using the 'rough' variant when you were not in the rough pace.
+		Fixed issue with NPCs taking their own virginities with their tails in sex.
+		Fixed 'Offer part' actions in sex not working.
+		Fixed issue with Entering Dominion from teh world map sometimes not working.
+	
+	
+	
+	Item issues:
+		Storage order gets screwed up and isn't sorted by item type anymore when you load your save. Your inventory isn't affected by this bug.
+		Stacks of differently enchanted items that are dyed the same sometimes delete one of the items when you equip one.
+		Due to the new and improved way stacks of items are handled, condoms of the same type and color no longer show up properly on the condom belt.
+		dont know if this has been reported yet but if you try to give a piece of clothing with the enslavement enchantment to your half succubus daughter thats in your party nothing happens and you get stuck in the inventory management window unable to press any button and it also shows the said piece of clothing to be in there inventory
+		I was using Nyan to identify items and they were disappearing. Idk how this happened, restarting game doesn't fix it.
+		Bug in this line related to identifying:
+			+ " who promptly feeds several bottles of arcane essence into a specialist identification device, before using it to reveal the enchantment on your "+clothing.getName()+".")
 		
-	
-	
-	
-	form SS done
-	
-	bug template github
-	
-	When Ms. Cunningham gives me a cunnilingus, she somehow ends up taking the D while fingering me
-	
-	Creampie while not having a cock?
-	
-	She loses 2 affection at the end of sex
-	
-	ss messages
-	
-	update blog pages
-	
-	Due to her sadist fetish, X takes 1.60000000025769 damage!
+		I got an item duplication bug on sealed clothing's from "Black arcane karada" after unsealing.
+		 I wanted to complete the encyclopedia and buy all items from Finch in Slavers Alley.
+		  After putting all on unsealing and try to get them of the karada don't get of but inserted in inventory or in the room I stand.
+		   It seems to by an conflict with an solved quest or questitem and its connected with sealed clothing.
+		    I tried to get the issues from the bug but it's kind of random. I can only put it off when I take a other stomach clothing on.
+		     The bug disappears when I load the save after shutting LT down. The duplication effect is endless.
+		      In my test I got over 1k Items... After loading the Save only 1 duplication happend, then you can take the bugged clothing off. 
+		
+	Error: fishnet top and women's leather jacket are blocking one another's removal!!!
+	Error: Enforcer's shirt and women's leather jacket are blocking one another's removal!!!
+	Error: panties and hotpants are blocking one another's removal!!!
+	Error: fullcup bra and hoodie are blocking one another's removal!!!
 	
 	Clothing removal: Maid's dress
 		Before your Maid's dress is able to be removed, dress coat and Maid's dress need to be removed.​
 		NPCS end up doing that every time when i am wearing both a Over-Torso and a Torso clothes, feel free to ask her to fix this by Github if you want to.
 	
-	Speaking of bug fixing, have you fixed the bug where transformation potions/enchanted items that increase the elasticity of the urethra don't function correctly? For as long as I've been playing this game, effects that should increase the elasticity of the urethra don't work correctly, and sometimes seem to actually decrease elasticity.
-	
-	Slave value is insanely high
-	
 	Okay, real bug. When creating a new character, I selected the black hoodie, dyed it, then on the clothing menu, clicked "selected item" and "equip", giving me a hoodie of the original color while the dyed one is still in the wardrobe.
 	
-	All offer buttons are nto working?
-	java.lang.NullPointerException
-	at com.lilithsthrone.game.sex.SexType.getRelatedFetishes(SexType.java:257)
-	at com.lilithsthrone.game.character.GameCharacter.calculateSexTypeWeighting(GameCharacter.java:5859)
-	at com.lilithsthrone.game.character.npc.NPC.getSexBehaviourDeniesRequests(NPC.java:2879)
-	at com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk$2.getDescription(PlayerTalk.java:424)
-	at com.lilithsthrone.game.sex.Sex.endSexTurn(Sex.java:1334)
-	at com.lilithsthrone.game.sex.sexActions.SexActionInterface$1.effects(SexActionInterface.java:828)
-	at com.lilithsthrone.game.dialogue.responses.Response.applyEffects(Response.java:196)
-	at com.lilithsthrone.game.Game.setContent(Game.java:1729)
-	at com.lilithsthrone.controller.eventListeners.SetContentEventListener.handleEvent(SetContentEventListener.java:36)
-	at com.sun.webkit.dom.EventListenerImpl.fwkHandleEvent(EventListenerImpl.java:129)
-	at com.sun.webkit.WebPage.twkProcessMouseEvent(Native Method)
-	at com.sun.webkit.WebPage.dispatchMouseEvent(WebPage.java:807)
 	
 	
-	the ui element (status effect) refers to crotchboobs despite them having been disabled. The character description correctly does not refer to them
 	
 	
-	So, I go out of dominion, walk around a bit to the right until a reach the ocean and try to get into the ocean (blocked tile). Then I fast travel to the city up north, try to enter the city (and fail). Then fast travel back to dominion and click "Enter".
-	Happens when you fast travel directly on the Dominion tile.
-		java.lang.NullPointerException
-			at com.lilithsthrone.game.dialogue.places.global.GlobalFoloiFields$1$1.effects(GlobalFoloiFields.java:37)
-			at com.lilithsthrone.game.dialogue.responses.Response.applyEffects(Response.java:196)
-			at com.lilithsthrone.game.Game.setContent(Game.java:1729)
-			at com.lilithsthrone.controller.eventListeners.SetContentEventListener.handleEvent(SetContentEventListener.java:36)
-			at com.sun.webkit.dom.EventListenerImpl.fwkHandleEvent(EventListenerImpl.java:129)
-			at com.sun.webkit.WebPage.twkProcessMouseEvent(Native Method)
+	
 	
 	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
 	

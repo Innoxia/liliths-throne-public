@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.2.2";
+	public static final String VERSION_NUMBER = "0.3.2.3";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -882,6 +882,7 @@ public class Main extends Application {
 		
 		// Open error log
 		if(!DEBUG) {
+			System.out.println("Printing to error.log");
 			try {
 				@SuppressWarnings("resource")
 				PrintStream stream = new PrintStream("data/error.log");

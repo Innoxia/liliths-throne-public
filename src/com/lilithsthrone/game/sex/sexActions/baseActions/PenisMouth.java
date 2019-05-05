@@ -744,7 +744,7 @@ public class PenisMouth {
 
 		@Override
 		public String getActionDescription() {
-			return "Grab one of [npc2.namePos] [npc.horns+] in each [npc.hand] and pull [npc2.her] forwards onto your [npc.cock+].";
+			return "Grab one of [npc2.namePos] [npc2.horns+] in each [npc.hand] and pull [npc2.her] forwards onto your [npc.cock+].";
 		}
 		
 		@Override
@@ -769,28 +769,28 @@ public class PenisMouth {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Taking hold of one of [npc2.namePos] [npc.horns+] in each [npc.hand], [npc.name] gently [npc.verb(pull)] [npc2.her] forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
-							"Reaching down to take a gentle, but firm, grip on each of [npc2.namePos] [npc.horns+], [npc.name] slowly [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+							"Taking hold of one of [npc2.namePos] [npc2.horns+] in each [npc.hand], [npc.name] gently [npc.verb(pull)] [npc2.her] forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to take a gentle, but firm, grip on each of [npc2.namePos] [npc2.horns+], [npc.name] slowly [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
-							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc.horns+],"
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc2.horns+],"
 									+ " before gently pulling [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
 									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Roughly grasping [npc2.namePos] [npc.horns+] in each [npc.hand], [npc.name] violently [npc.verb(jerk)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
-							"Reaching down to grab [npc2.namePos] [npc.horns+] in each fist, [npc.name] mercilessly [npc.verb(yank)] [npc2.her] head into [npc2.her] groin,"
+							"Roughly grasping [npc2.namePos] [npc2.horns+] in each [npc.hand], [npc.name] violently [npc.verb(jerk)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to grab [npc2.namePos] [npc2.horns+] in each fist, [npc.name] mercilessly [npc.verb(yank)] [npc2.her] head into [npc2.her] groin,"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
-							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] [npc.horns+],"
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] [npc2.horns+],"
 									+ " before violently yanking [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
 									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
 					break;
 				default: // For dom normal, sub normal, and sub eager:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Taking hold of one of [npc2.namePos] [npc.horns+] in each [npc.hand], [npc.name] firmly [npc.verb(pull)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
-							"Reaching down to take a firm grip on each of [npc2.namePos] [npc.horns+], [npc.name] steadily [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+							"Taking hold of one of [npc2.namePos] [npc2.horns+] in each [npc.hand], [npc.name] firmly [npc.verb(pull)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to take a firm grip on each of [npc2.namePos] [npc2.horns+], [npc.name] steadily [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
-							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc.horns+],"
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc2.horns+],"
 									+ " before steadily pulling [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
 									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
 					break;
@@ -799,7 +799,7 @@ public class PenisMouth {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" With thorns welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment gently caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
+							" With tears welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment gently caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
 									+ " before finally being able to gasp for air as [npc.she] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
 							" Gently humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to softly caress the underside of [npc.namePos] [npc.cock],"
 									+ " obediently holding [npc2.her] breath until [npc.her] [npc.cock+] is eventually pulled free from [npc2.her] throat."));
@@ -821,7 +821,7 @@ public class PenisMouth {
 					break;
 				default: // For dom normal, sub normal, and sub eager:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" With thorns welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
+							" With tears welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
 									+ " before finally being able to gasp for air as [npc.she] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
 							" Happily humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to lovingly caress the underside of [npc.namePos] [npc.cock],"
 									+ " obediently holding [npc2.her] breath until [npc.her] [npc.cock+] is eventually pulled free from [npc2.her] throat."));

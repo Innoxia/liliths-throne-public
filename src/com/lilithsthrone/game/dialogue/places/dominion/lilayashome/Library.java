@@ -162,7 +162,7 @@ public class Library {
 					};
 
 				} else if (index == 4) {
-					return new Response("Knocked Up", "A small paperback book which contains all the information you'd ever need concerning pregnancies in this world.", PREGNANCY_INFO) {
+					return new Response("Knocked up", "A small paperback book which contains all the information you'd ever need concerning pregnancies in this world.", PREGNANCY_INFO) {
 						@Override
 						public void effects() {
 							if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook4)) {
@@ -479,7 +479,7 @@ public class Library {
 		public String getContent() {
 			return "<p>"
 						+ "You slide the small paperback book out from the shelf, and, turning it over in your [pc.hands], you take a look at the front cover."
-						+ " On it, the title 'Knocked Up' is displayed in bold pink lettering, and beneath that, there's a picture of a heavily-pregnant rabbit-girl cradling her swollen belly."
+						+ " On it, the title 'Knocked up' is displayed in bold pink lettering, and beneath that, there's a picture of a heavily-pregnant rabbit-girl cradling her swollen belly."
 						+ " A little speech-bubble is drawn coming from her mouth, and in it, you read the words 'All you need to know about being a parent!'."
 					+ "</p>"
 					+ "<p>"
@@ -497,6 +497,11 @@ public class Library {
 						+ " Despite this almost-immediate separation, a parent will always share special maternal or paternal bonds with their children, and, whether due to the arcane or some natural intuition,"
 							+ " a parent and child, as well as siblings, will always recognise each other at first sight."
 					+ "</p>";
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
 		}
 
 		@Override

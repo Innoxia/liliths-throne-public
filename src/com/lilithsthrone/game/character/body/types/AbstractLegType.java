@@ -505,7 +505,9 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			if(body.getLeg().getType().getRace()==Race.DEMON) {
 				body.setTail(new Tail(TailType.DEMON_HORSE));
 			} else {
-				body.setTail(new Tail(startingBodyType.getTailType().get(0)));
+				if(body.getTail().getType().getRace()!=startingBodyType.getTailType().get(0).getRace()) {
+					body.setTail(new Tail(startingBodyType.getTailType().get(0)));
+				}
 			}
 		}
 		if(legConfiguration.getBestialParts().contains(Tentacle.class)) { // Tentacle:

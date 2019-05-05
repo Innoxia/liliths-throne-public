@@ -985,10 +985,10 @@ public enum RenderingEngine {
 			
 			for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
 				uiAttributeSB.append(getCharacterPanelDiv(true, "NPC_"+character.getId()+"_", character));
-				for(GameCharacter characterCompanion : character.getCompanions()) {
-					uiAttributeSB.append(getCharacterPanelDiv(true, "NPC_"+characterCompanion.getId()+"_", characterCompanion));
-					
-				}
+//				for(GameCharacter characterCompanion : character.getCompanions()) {
+//					uiAttributeSB.append(getCharacterPanelDiv(true, "NPC_"+characterCompanion.getId()+"_", characterCompanion));
+//					
+//				}
 			}
 			
 			uiAttributeSB.append("</div>");
