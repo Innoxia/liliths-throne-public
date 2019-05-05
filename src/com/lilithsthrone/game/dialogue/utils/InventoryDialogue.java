@@ -4179,7 +4179,7 @@ public class InventoryDialogue {
 												"Have the " + clothing.getName() + " identified for " + UtilText.formatAsMoney(IDENTIFICATION_PRICE, "span") + ".", CLOTHING_INVENTORY){
 										@Override
 										public void effects(){
-											Main.game.getPlayer().removeClothing(clothing);
+											Main.game.getPlayer().incrementMoney(-IDENTIFICATION_PRICE);
 
 											String enchantmentRemovedString = clothing.setEnchantmentKnown(owner, true);
 											
@@ -4193,8 +4193,6 @@ public class InventoryDialogue {
 													+ "</p>"
 													+enchantmentRemovedString);
 											
-											Main.game.getPlayer().addClothing(clothing, false);
-											Main.game.getPlayer().incrementMoney(-IDENTIFICATION_PRICE);
 											RenderingEngine.setPage(Main.game.getPlayer(), clothing);
 										}
 									};
@@ -4242,7 +4240,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if(index == 3) {
-							return new Response("Change Colour", "Change the colour of this item of clothing.", DYE_CLOTHING_CHARACTER_CREATION) {
+							return new Response("Change colour", "Change the colour of this item of clothing.", DYE_CLOTHING_CHARACTER_CREATION) {
 								@Override
 								public void effects() {
 									resetClothingDyeColours();
@@ -5538,7 +5536,7 @@ public class InventoryDialogue {
 							};
 								
 						} else if(index == 3) {
-							return new Response("Change Colour", "Change the colour of this item of clothing.", DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION) {
+							return new Response("Change colour", "Change the colour of this item of clothing.", DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION) {
 								@Override
 								public void effects() {
 									resetClothingDyeColours();
@@ -6623,6 +6621,7 @@ public class InventoryDialogue {
 						dyedClothing.setPatternColour(dyePreviewPatternPrimary);
 						dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
 						dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+						clothing = dyedClothing;
 						Main.game.getPlayerCell().getInventory().addClothing(dyedClothing);
 					}
 				};

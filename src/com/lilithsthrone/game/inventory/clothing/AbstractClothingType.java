@@ -2216,14 +2216,16 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						// Draw all backs:
 						for(AbstractItem item : character.getAllItemsInInventory().keySet()) {
 							if(item.getItemType().equals(ItemType.CONDOM_USED)) {
-								if(condomColours.size()<8) {
-									condomColours.add(item.getColour());
-									
-									is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
-									s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
-									s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-									s = SvgUtil.colourReplacement(this.getId(), item.getColour(), null, null, s);
-									is.close();
+								for(int count=0; count<character.getItemCount(item); count++) {
+									if(condomColours.size()<8) {
+										condomColours.add(item.getColour());
+										
+										is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
+										s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+										s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
+										s = SvgUtil.colourReplacement(this.getId(), item.getColour(), null, null, s);
+										is.close();
+									}
 								}
 							}
 						}

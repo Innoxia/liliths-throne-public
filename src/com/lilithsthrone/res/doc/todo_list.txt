@@ -175,43 +175,28 @@
 		Fixed unequip clothing descriptions during sex using the 'rough' variant when you were not in the rough pace.
 		Fixed issue with NPCs taking their own virginities with their tails in sex.
 		Fixed 'Offer part' actions in sex not working.
-		Fixed issue with Entering Dominion from teh world map sometimes not working.
+		Fixed issue with Entering Dominion from the world map sometimes not working.
+		Fixed elementals not being able to be milked in the milking rooms.
+		Fixed issue with inventories not being sorted after saving/loading.
+		Spending flames to identify clothing/weapons at a shop should now work correctly.
+		Equipped condom belt now correctly renders any stacked condoms in the wearer's inventory.
+		Fixed issue with clothing sometimes able to be duplicated in character creation when cahnging colours.
 	
 	
 	
-	Item issues:
-		Storage order gets screwed up and isn't sorted by item type anymore when you load your save. Your inventory isn't affected by this bug.
-		Stacks of differently enchanted items that are dyed the same sometimes delete one of the items when you equip one.
-		Due to the new and improved way stacks of items are handled, condoms of the same type and color no longer show up properly on the condom belt.
-		dont know if this has been reported yet but if you try to give a piece of clothing with the enslavement enchantment to your half succubus daughter thats in your party nothing happens and you get stuck in the inventory management window unable to press any button and it also shows the said piece of clothing to be in there inventory
-		I was using Nyan to identify items and they were disappearing. Idk how this happened, restarting game doesn't fix it.
-		Bug in this line related to identifying:
-			+ " who promptly feeds several bottles of arcane essence into a specialist identification device, before using it to reveal the enchantment on your "+clothing.getName()+".")
-		
-		I got an item duplication bug on sealed clothing's from "Black arcane karada" after unsealing.
-		 I wanted to complete the encyclopedia and buy all items from Finch in Slavers Alley.
-		  After putting all on unsealing and try to get them of the karada don't get of but inserted in inventory or in the room I stand.
-		   It seems to by an conflict with an solved quest or questitem and its connected with sealed clothing.
-		    I tried to get the issues from the bug but it's kind of random. I can only put it off when I take a other stomach clothing on.
-		     The bug disappears when I load the save after shutting LT down. The duplication effect is endless.
-		      In my test I got over 1k Items... After loading the Save only 1 duplication happend, then you can take the bugged clothing off. 
-		
+	
+	
+	
 	Error: fishnet top and women's leather jacket are blocking one another's removal!!!
 	Error: Enforcer's shirt and women's leather jacket are blocking one another's removal!!!
 	Error: panties and hotpants are blocking one another's removal!!!
 	Error: fullcup bra and hoodie are blocking one another's removal!!!
 	
 	Clothing removal: Maid's dress
-		Before your Maid's dress is able to be removed, dress coat and Maid's dress need to be removed.​
+		Before your Maid's dress is able to be removed, dress coat need to be removed.​
 		NPCS end up doing that every time when i am wearing both a Over-Torso and a Torso clothes, feel free to ask her to fix this by Github if you want to.
 	
-	Okay, real bug. When creating a new character, I selected the black hoodie, dyed it, then on the clothing menu, clicked "selected item" and "equip", giving me a hoodie of the original color while the dyed one is still in the wardrobe.
-	
-	
-	
-	
-	
-	
+	the Youko in that imp fort can transform elementals into foxes
 	
 	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
 	
