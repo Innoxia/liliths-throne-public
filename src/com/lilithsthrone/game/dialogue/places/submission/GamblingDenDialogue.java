@@ -856,7 +856,7 @@ public class GamblingDenDialogue {
 				
 			} else {
 				if(index == 1) {
-					return new Response("Rules", "Ask Epona about the rules for pregnancy roulette", PREGNANCY_ROULETTE_RULES);
+					return new Response("Rules", "Ask Epona about the rules for pregnancy roulette.", PREGNANCY_ROULETTE_RULES);
 					
 				} else if(index==2) {
 					if(Main.game.getPlayer().isPregnant()) {
