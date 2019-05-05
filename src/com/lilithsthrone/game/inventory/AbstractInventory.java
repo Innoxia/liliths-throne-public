@@ -32,12 +32,12 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		if (duplicateCounts.size() < 2) {
 			return;
 		}
-		List<T> weaponsToSort = new ArrayList<>(duplicateCounts.keySet());
-		weaponsToSort.sort(comparator);
+		List<T> itemsToSort = new ArrayList<>(duplicateCounts.keySet());
+		itemsToSort.sort(comparator);
 
 		Map<T, Integer> newlySortedMap = new LinkedHashMap<>();
-		for(T w : weaponsToSort) {
-			newlySortedMap.put(w, duplicateCounts.get(w));
+		for(T item : itemsToSort) {
+			newlySortedMap.put(item, duplicateCounts.get(item));
 		}
 		duplicateCounts = newlySortedMap;
 	}
@@ -89,10 +89,16 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 	}
 
 	boolean removeItem(T item, int count) {
-		return duplicateCounts.computeIfPresent(item, (ignoredKey, currentCount) -> {
-			int newValue = currentCount - count;
-			return newValue > 0 ? newValue : null; //removes from map if 0 or less items left
-		}) != null;
+		boolean hasItem = hasItem(item);
+		if (hasItem) {
+			int newValue = duplicateCounts.get(item) - count;
+			if (newValue <= 0) {
+				duplicateCounts.remove(item);
+			} else {
+				duplicateCounts.put(item, newValue);
+			}
+		}
+		return hasItem;
 	}
 
 	private Optional<T> getItemByType(U type) {
