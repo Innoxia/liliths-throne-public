@@ -87,7 +87,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
 		CharacterUtils.addAttribute(doc, element, "colour", String.valueOf(this.getColour()));
-		CharacterUtils.addAttribute(doc, element, "cumProvider", this.getCumProviderId());
+		CharacterUtils.addAttribute(doc, element, "cumProvider", Main.game.checkId(this.getCumProviderId()));
 		CharacterUtils.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
 		
 		Element innerElement = doc.createElement("itemEffects");

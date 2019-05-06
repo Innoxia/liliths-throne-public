@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
+import com.lilithsthrone.utils.FileUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
@@ -560,24 +561,21 @@ public class MainController implements Initializable {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
 									enterConsumed = true;
-									boolean unsuitableName = false;
+									String name = "";
 									if(Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput')")!=null) {
 										 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+											name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
 										}
 										
-										if (!unsuitableName) {
+										if (FileUtils.isValid(name)) {
 											Main.game.setContent(new Response("Rename Room", "Rename this room to whatever you've entered in the text box.", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
 													Main.game.getPlayerCell().getPlace().setName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
-										} else {
-											Main.game.setContent(new Response("Rename Room", "", Main.game.getCurrentDialogueNode()));
 										}
 									}
 								}

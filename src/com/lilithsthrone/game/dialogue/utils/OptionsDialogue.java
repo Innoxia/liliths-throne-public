@@ -2,7 +2,6 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -26,10 +25,7 @@ import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.ArtistWebsite;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.CreditsSlot;
-import com.lilithsthrone.utils.Units;
-import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.*;
 import com.lilithsthrone.utils.Units.UnitType;
 import com.lilithsthrone.utils.Units.ValueType;
 
@@ -326,7 +322,7 @@ public class OptionsDialogue {
 			Main.getSavedGames().sort(Comparator.comparingLong(File::lastModified).reversed());
 			
 			for(File f : Main.getSavedGames()){
-				saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
+				saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+FileUtils.getFileTime(f)+"</span>", f.getName(), i%2==0));
 				i++;
 			}
 			
@@ -407,7 +403,8 @@ public class OptionsDialogue {
 			Main.getCharactersForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
 			int i = 0;
 			for(File f : Main.getCharactersForImport()){
-				saveLoadSB.append(OptionsDialogue.getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
+				saveLoadSB.append(OptionsDialogue.getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+FileUtils.getFileTime(f)+"</span>", f.getName(), i%2==0));
+				i++;
 			}
 			
 			saveLoadSB.append("<p id='hiddenPField' style='display:none;'></p>");
@@ -445,7 +442,7 @@ public class OptionsDialogue {
 					return new Response("Export character", "Exports your character file to the 'data/characters/' folder.", IMPORT_EXPORT){
 						@Override
 						public void effects() {
-							CharacterUtils.saveCharacterAsXML(Main.game.getPlayer());
+							Game.exportCharacter(Main.game.getPlayer());
 							Main.game.flashMessage(Colour.GENERIC_GOOD, "Character exported!");
 						}
 					};

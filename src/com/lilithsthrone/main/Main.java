@@ -32,6 +32,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
+import com.lilithsthrone.utils.FileUtils;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -802,122 +803,32 @@ public class Main extends Application {
 	}
 	
 	public static void deleteGame(String name) {
-		File file = new File("data/saves/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			
-		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
-		}
-	}
-	
-	public static void deleteExportedGame(String name) {
-		File file = new File("data/saves/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			
-		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+		if (FileUtils.deleteFile("data/saves/"+name+".xml")) {
+			game.setContent(new Response("", "", game.getCurrentDialogueNode()));
 		}
 	}
 	
 	public static void deleteExportedCharacter(String name) {
-		File file = new File("data/characters/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			
-		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+		if (FileUtils.deleteFile("data/characters/"+name+".xml") && FileUtils.deleteDirectory("data/characters/"+name)) {
+			game.setContent(new Response("", "", game.getCurrentDialogueNode()));
 		}
 	}
 	
 	public static List<File> getSavedGames() {
-		List<File> filesList = new ArrayList<>();
-		
-		File dir = new File("data/saves");
-		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
-			if (directoryListing != null) {
-				filesList.addAll(Arrays.asList(directoryListing));
-			}
-		}
-
-		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
-		
-		return filesList;
+		return FileUtils.listFiles("data/saves", "*.xml");
 	}
 	
 	public static List<File> getCharactersForImport() {
-		List<File> filesList = new ArrayList<>();
-		
-		File dir = new File("data/characters");
-		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
-			if (directoryListing != null) {
-				filesList.addAll(Arrays.asList(directoryListing));
-			}
-		}
-
-		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
-		
-		return filesList;
+		return FileUtils.listFiles("data/characters", "*.xml");
 	}
 	
-	public static List<File> getSlavesForImport() {
-		List<File> filesList = new ArrayList<>();
-		
-		File dir = new File("data/characters");
-		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
-			if (directoryListing != null) {
-				filesList.addAll(Arrays.asList(directoryListing));
-			}
-		}
-		
-		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
-		
-		return filesList;
-	}
-	
-	public static List<File> getGamesForImport() {
-		List<File> filesList = new ArrayList<>();
-		
-		File dir = new File("data/saves");
-		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
-			if (directoryListing != null) {
-				filesList.addAll(Arrays.asList(directoryListing));
-			}
-		}
-
-		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
-		
-		return filesList;
-	}
-	
-	public static void importCharacter(File file) {
-		if (file != null) {
+	public static void importCharacter(File xml, String folder) {
+		if (xml != null) {
 			try {
 				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
-				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer(),
+				FileUtils.copyDirectory("data/characters/" + folder,
+                        "res/images/characters/" + game.getPlayer().getArtworkFolderName());
+				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(xml, Main.game.getPlayer(),
 						CharacterImportSetting.NO_PREGNANCY,
 						CharacterImportSetting.NO_COMPANIONS,
 						CharacterImportSetting.NO_ELEMENTAL,

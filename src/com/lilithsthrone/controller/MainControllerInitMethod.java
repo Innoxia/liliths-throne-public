@@ -1,15 +1,5 @@
 package com.lilithsthrone.controller;
 
-import java.io.File;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.events.EventTarget;
-
 import com.lilithsthrone.controller.eventListeners.EnchantmentEventListener;
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
@@ -19,75 +9,9 @@ import com.lilithsthrone.game.Properties;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Arm;
-import com.lilithsthrone.game.character.body.Breast;
-import com.lilithsthrone.game.character.body.BreastCrotch;
-import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.Eye;
-import com.lilithsthrone.game.character.body.Horn;
-import com.lilithsthrone.game.character.body.Tail;
-import com.lilithsthrone.game.character.body.Testicle;
-import com.lilithsthrone.game.character.body.types.AbstractArmType;
-import com.lilithsthrone.game.character.body.types.AbstractAssType;
-import com.lilithsthrone.game.character.body.types.AbstractBreastType;
-import com.lilithsthrone.game.character.body.types.AbstractEarType;
-import com.lilithsthrone.game.character.body.types.AbstractHornType;
-import com.lilithsthrone.game.character.body.types.AbstractLegType;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.FootStructure;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
-import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.HornLength;
-import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
-import com.lilithsthrone.game.character.body.valueEnums.Lactation;
-import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.character.body.valueEnums.LipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
-import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
-import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
-import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.body.*;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -96,33 +20,17 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
-import com.lilithsthrone.game.character.markings.AbstractTattooType;
-import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.character.markings.TattooCountType;
-import com.lilithsthrone.game.character.markings.TattooCounter;
-import com.lilithsthrone.game.character.markings.TattooCounterType;
-import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.character.markings.TattooWriting;
-import com.lilithsthrone.game.character.markings.TattooWritingStyle;
+import com.lilithsthrone.game.character.markings.*;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
-import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
+import com.lilithsthrone.game.character.persona.*;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.DialogueNodeType;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.*;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
@@ -131,40 +39,20 @@ import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
-import com.lilithsthrone.game.dialogue.utils.BodyChanging;
-import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
-import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
-import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
-import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
-import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
-import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
-import com.lilithsthrone.game.dialogue.utils.MapTravelType;
-import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
-import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.dialogue.utils.*;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.enchanting.*;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.occupantManagement.MilkingRoom;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobHours;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.*;
 import com.lilithsthrone.game.settings.ContentPreferenceValue;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
@@ -178,18 +66,22 @@ import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
-import com.lilithsthrone.utils.Pathing;
-import com.lilithsthrone.utils.Units;
-import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.*;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
-
 import javafx.stage.FileChooser;
+import org.w3c.dom.Document;
+import org.w3c.dom.events.EventTarget;
+
+import java.io.File;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * This method was causing MainController to lag out Eclipse, so I moved it to a separate file.
@@ -246,10 +138,10 @@ public class MainControllerInitMethod {
 			id = "ARTWORK_ADD";
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					// Create file chooser for .jpg and .png images in the most recently used directory
+					// Create file chooser for JPEG, PNG and BMP images in the most recently used directory
 					FileChooser chooser = new FileChooser();
 					chooser.setTitle("Add Images");
-					chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.gif"));
+					chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.bmp", "*.gif"));
 					if (lastOpened != null)
 						chooser.setInitialDirectory(lastOpened);
 
@@ -269,13 +161,35 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
 						"Add custom artwork",
 						"Browse your own images and add them to the character."
-								+ " Please note that GIF animation files are limited to a <b>maximum of 10MB</b> in size, and if over 1MB, <b>may</b> cause [style.italicsBad(significant lag)], depending on your system."),
-						false);
+								+ (character.isPlayer() ? "" : " File names starting with 'naked' are only visible after having sex with the character.")
+								+ " Please note that GIF animation files are limited to a <b>maximum of 10MB</b> in size, and if over 1MB, <b>may</b> cause [style.italicsBad(significant lag)], depending on your system."), false);
 			}
 
 			if (character.hasArtwork()) {
 				try {
 					Artwork artwork = character.getCurrentArtwork();
+
+					id = "ARTWORK_REMOVE";
+					if (MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if (FileUtils.deleteFile(character.getCurrentArtwork().getCurrentImage().toPath())) {
+								character.loadImages(GameCharacter.LoadOption.FORCE_RELOAD);
+
+								// Clean up empty artwork folders
+								if (!character.hasArtwork()) {
+									FileUtils.deleteDirectory("res/images/characters/" + character.getArtworkFolderName());
+								}
+
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								"Delete artwork","Remove this image from the character."),false);
+					}
 
 					id = "ARTWORK_INFO";
 					if (MainController.document.getElementById(id) != null) {
@@ -1154,16 +1068,15 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 
-						boolean unsuitableName = false;
+						String name = "";
 						if(Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput')")!=null) {
 							 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
 							}
 							
-							if (!unsuitableName) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename Room", "Rename this room to whatever you've entered in the text box.", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
@@ -1216,26 +1129,22 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 	
-						boolean unsuitableName = false;
+						String name;
 					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveNameInput')")!=null) {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+							} else {
+								name = "";
 							}
 							
-							if (!unsuitableName) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
 										NPC slave = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
-										slave.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
-										slave.loadImages();
+										slave.setName(new NameTriplet(name));
 									}
 								});
 							}
@@ -1282,20 +1191,21 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 	
-						boolean unsuitableName = false;
+						String name;
 					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+							} else {
+								name = "";
 							}
 							
-							if (!unsuitableName) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPetName(Main.game.getPlayer(), name);
 									}
 								});
 							}
@@ -1309,22 +1219,23 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 
-						boolean unsuitableName = false;
+						String name;
 					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+							} else {
+								name = "";
 							}
 							
-							if (!unsuitableName) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
 										for(String id: Main.game.getPlayer().getSlavesOwned()) {
 											try {
-												Main.game.getNPCById(id).setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+												Main.game.getNPCById(id).setPetName(Main.game.getPlayer(), name);
 											} catch (Exception e) {
 												Util.logGetNpcByIdError("initMainControllerListeners(), instance 1.", id);
 											}
@@ -1904,20 +1815,17 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 	
-						boolean unsuitableName = false;
+						String name;
 					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput')")!=null) {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('offspringPetNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+							} else {
+								name = "";
 							}
 							
-							if (!unsuitableName) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
@@ -5780,7 +5688,7 @@ public class MainControllerInitMethod {
 				
 				if (((EventTarget) MainController.document.getElementById("character_import_" + fileIdentifier )) != null) {
 					((EventTarget) MainController.document.getElementById("character_import_" + fileIdentifier )).addEventListener("click", e -> {
-						Main.importCharacter(f);
+						Main.importCharacter(f, fileIdentifier);
 						
 					}, false);
 				}
@@ -5789,7 +5697,7 @@ public class MainControllerInitMethod {
 		
 		// Slave import:
 		if (Main.game.getCurrentDialogueNode() == SlaverAlleyDialogue.AUCTION_IMPORT) {
-			for (File f : Main.getSlavesForImport()) {
+			for (File f : Main.getCharactersForImport()) {
 				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
 				
 				if (((EventTarget) MainController.document.getElementById("import_slave_" + fileIdentifier )) != null) {

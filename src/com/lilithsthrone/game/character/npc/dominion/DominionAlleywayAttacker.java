@@ -234,7 +234,7 @@ public class DominionAlleywayAttacker extends NPC {
 					partner = new GenericSexualPartner(Gender.M_P_MALE, this.getWorldLocation(), this.getLocation(), false);
 				}
 				try {
-					Main.game.addNPC(partner, false);
+					Main.game.addNPC(partner);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

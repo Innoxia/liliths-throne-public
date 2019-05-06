@@ -403,7 +403,7 @@ public class DebugDialogue {
 						public void effects(){
 							NPC target = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false,  false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s!=Subspecies.CENTAUR);
 							try {
-								Main.game.addNPC(target, false);
+								Main.game.addNPC(target);
 								Main.game.setActiveNPC(target);
 							} catch (Exception e) {
 								e.printStackTrace();

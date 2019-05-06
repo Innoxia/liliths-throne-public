@@ -74,7 +74,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<genders.length; i++) {
 			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -97,7 +97,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<genders.length; i++) {
 			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -118,7 +118,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<3; i++) {
 			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -151,7 +151,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<3; i++) {
 			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -175,7 +175,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<3; i++) {
 			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -215,7 +215,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<4; i++) {
 			SlaveInStocks slave = new SlaveInStocks(Gender.getGenderFromUserPreferences(false, false));
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -780,9 +780,9 @@ public class SlaverAlleyDialogue {
 					+ "<p>"
 						+ "<table align='center'>");
 			
-			Main.getSlavesForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
+			Main.getCharactersForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
 			
-			for(File f : Main.getSlavesForImport()){
+			for(File f : Main.getCharactersForImport()){
 				saveLoadSB.append(getImportRow(f.getName()));
 			}
 			
@@ -986,7 +986,8 @@ public class SlaverAlleyDialogue {
 			for(NPC npc : charactersPresent) {
 				UtilText.nodeContentSB.append(UtilText.parse(npc, 
 						"<p>"
-							+ "[npc.Name]," + (npc.getOwner().isPlayer()?" <b style=color:"+Colour.GENERIC_ARCANE.toWebHexString()+";>who is your slave</b>, and is":"")
+							+ "[npc.Name]," + (npc.getOwner() != null && npc.getOwner().isPlayer()
+								?" <b style=color:"+Colour.GENERIC_ARCANE.toWebHexString()+";>who is your slave</b>, and is":"")
 							+ " <span style='color:"+npc.getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span>"
 									+ " <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
 				

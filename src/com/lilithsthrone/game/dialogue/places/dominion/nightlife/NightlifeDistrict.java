@@ -1164,7 +1164,7 @@ public class NightlifeDistrict {
 		}
 		
 		try {
-			Main.game.addNPC(clubber, false);
+			Main.game.addNPC(clubber);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3651,7 +3651,7 @@ public class NightlifeDistrict {
 		npc.setPenisVirgin(false);
 		npc.setVaginaVirgin(false);
 		try {
-			Main.game.addNPC(npc, false);
+			Main.game.addNPC(npc);
 			Main.game.setActiveNPC(npc);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -3730,7 +3730,7 @@ public class NightlifeDistrict {
 		npc.setAssVirgin(false);
 		npc.setFaceVirgin(false);
 		try {
-			Main.game.addNPC(npc, false);
+			Main.game.addNPC(npc);
 			Main.game.setActiveNPC(npc);
 		} catch (Exception e) {
 			e.printStackTrace();

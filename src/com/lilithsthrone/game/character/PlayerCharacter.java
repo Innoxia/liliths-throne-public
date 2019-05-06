@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -70,12 +71,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionOrgasmOverride;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.SizedStack;
-import com.lilithsthrone.utils.TreeNode;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -146,6 +141,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public boolean isUnique() {
 		return true;
 	}
+
+	@Override
+	public String generateId() {
+		return "PC_" + UID.get();
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if (id.equals("PlayerCharacter")) return id; // Legacy ID
+		return "generic/" + getId();
+	}
 	
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -174,7 +180,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		Element charactersEncounteredElement = doc.createElement("charactersEncountered");
 		playerSpecific.appendChild(charactersEncounteredElement);
 		for(String id : charactersEncountered) {
-			CharacterUtils.createXMLElementWithValue(doc, charactersEncounteredElement, "id", id);
+			CharacterUtils.createXMLElementWithValue(doc, charactersEncounteredElement, "id", Main.game.checkId(id));
 		}
 		
 		innerElement = doc.createElement("questMap");
@@ -192,7 +198,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Element element = doc.createElement("occupant");
 			friendlyOccupants.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", occupant);
+			CharacterUtils.addAttribute(doc, element, "id", Main.game.checkId(occupant));
 		}
 		
 		Element worldsVisitedElement = doc.createElement("worldsVisited");
@@ -424,11 +430,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if (playerInventoryChangeEventListeners != null)
 			for (CharacterChangeEventListener eventListener : playerInventoryChangeEventListeners)
 				eventListener.onChange();
-	}
-	
-	@Override
-	public String getId() {
-		return "PlayerCharacter";//-"+Main.game.getNpcTally();
 	}
 	
 	@Override

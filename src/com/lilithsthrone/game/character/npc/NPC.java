@@ -161,8 +161,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 			}
 		}
-		
-		loadImages();
 	}
 	
 

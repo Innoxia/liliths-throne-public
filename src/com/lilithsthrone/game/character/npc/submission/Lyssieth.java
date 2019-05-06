@@ -381,7 +381,7 @@ public class Lyssieth extends NPC {
 		if(Main.game.isInSex() && Sex.getAllParticipants().contains(Main.game.getNpc(DarkSiren.class))) {
 			Main.game.getNpc(DarkSiren.class).setArousal(100);
 		}
-		Main.game.getNpc(daughterClass).loadImages(true);
+		Main.game.getNpc(daughterClass).loadImages(LoadOption.FORCE_RELOAD);
 	}
 	
 	@Override

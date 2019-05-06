@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.effects;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -75,7 +76,7 @@ public class Addiction implements XMLSaving {
 		for(String id : this.getProviderIDs()) {
 			Element idElement = doc.createElement("id");
 			innerElement.appendChild(idElement);
-			CharacterUtils.addAttribute(doc, idElement, "value", id);
+			CharacterUtils.addAttribute(doc, idElement, "value", Main.game.checkId(id));
 		}
 		
 		return element;

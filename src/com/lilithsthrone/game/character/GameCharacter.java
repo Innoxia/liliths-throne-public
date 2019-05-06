@@ -1,69 +1,12 @@
 package com.lilithsthrone.game.character;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-import com.lilithsthrone.utils.*;
-import org.w3c.dom.Comment;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
-import com.lilithsthrone.game.character.attributes.AlcoholLevel;
-import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.AttributeRange;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
-import com.lilithsthrone.game.character.attributes.LustLevel;
-import com.lilithsthrone.game.character.attributes.ObedienceLevel;
-import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
-import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.BodyPartInterface;
-import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.Dildo;
-import com.lilithsthrone.game.character.body.FluidCum;
-import com.lilithsthrone.game.character.body.FluidGirlCum;
-import com.lilithsthrone.game.character.body.FluidInterface;
-import com.lilithsthrone.game.character.body.FluidMilk;
-import com.lilithsthrone.game.character.body.Penis;
-import com.lilithsthrone.game.character.body.Testicle;
+import com.lilithsthrone.game.character.attributes.*;
+import com.lilithsthrone.game.character.body.*;
 import com.lilithsthrone.game.character.body.types.*;
 import com.lilithsthrone.game.character.body.valueEnums.*;
-import com.lilithsthrone.game.character.effects.Addiction;
-import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.PerkCategory;
-import com.lilithsthrone.game.character.effects.PerkManager;
-import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.effects.*;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
@@ -72,44 +15,13 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.markings.Scar;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Alexa;
-import com.lilithsthrone.game.character.npc.dominion.Cultist;
-import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
-import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
-import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
-import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.dominion.*;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
-import com.lilithsthrone.game.character.persona.MoralityValue;
-import com.lilithsthrone.game.character.persona.Name;
-import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.persona.OccupationTag;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
-import com.lilithsthrone.game.character.persona.Relationship;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.AbstractRacialBody;
-import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.SpecialAttack;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.character.persona.*;
+import com.lilithsthrone.game.character.race.*;
+import com.lilithsthrone.game.combat.*;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -120,16 +32,8 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.ParserTag;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.AbstractCoreItem;
-import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.Rarity;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.BlockedParts;
-import com.lilithsthrone.game.inventory.clothing.ClothingSet;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.inventory.*;
+import com.lilithsthrone.game.inventory.clothing.*;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -143,31 +47,35 @@ import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.DifficultyLevel;
-import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrgasmCumTarget;
-import com.lilithsthrone.game.sex.PregnancyDescriptor;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionOrgasmOverride;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.rendering.Artist;
-import com.lilithsthrone.rendering.Artwork;
-import com.lilithsthrone.rendering.CachedImage;
-import com.lilithsthrone.rendering.ImageCache;
-import com.lilithsthrone.rendering.SVGImages;
+import com.lilithsthrone.rendering.*;
+import com.lilithsthrone.utils.*;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
+import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 /**
  * The class for all the game's characters. I think this is the biggest class in the game.
@@ -354,9 +262,8 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterInventory inventory,
 			WorldType worldLocation,
 			AbstractPlaceType startingPlace) {
-		
-		id = "NOT_SET"; // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
-		
+
+		id = "NOT_SET";
 		genericName = "";
 		playerKnowsName = true;
 		playerOnFirstNameTerms = false;
@@ -526,13 +433,15 @@ public abstract class GameCharacter implements XMLSaving {
 		genderIdentity = startingGender;
 		
 		initAttributes();
-		
+
 		if(nameTriplet==null) {
 			this.nameTriplet = Name.getRandomTriplet(this.getRace());
 		} else {
 			this.nameTriplet = nameTriplet;
 		}
-		
+
+		id = generateId();
+
 		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
 		setLustNoText(getRestingLust());
@@ -545,9 +454,8 @@ public abstract class GameCharacter implements XMLSaving {
 		calculateStatusEffects(0);
 		
 		artworkList = new ArrayList<>();
-		if(isUnique()) {
-			loadImages();
-		}
+		if (isUnique())
+			loadImages(LoadOption.NO_CACHE);
 
 		this.resetPerksMap();
 //		PerkManager.initialisePerks(this);
@@ -598,7 +506,7 @@ public abstract class GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elemental", this.getElementalID());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elemental", Main.game.checkId(getElementalID()));
 		
 		Element petnamesElement = doc.createElement("petNames");
 		characterCoreInfo.appendChild(petnamesElement);
@@ -847,7 +755,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element relationship = doc.createElement("relationship");
 			characterRelationships.appendChild(relationship);
 			
-			CharacterUtils.addAttribute(doc, relationship, "character", entry.getKey());
+			CharacterUtils.addAttribute(doc, relationship, "character", Main.game.checkId(entry.getKey()));
 			CharacterUtils.addAttribute(doc, relationship, "value", String.valueOf(entry.getValue()));
 		}
 		
@@ -913,8 +821,8 @@ public abstract class GameCharacter implements XMLSaving {
 		Element characterFamily = doc.createElement("family");
 		properties.appendChild(characterFamily);
 		
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "motherId", this.getMotherId());
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "fatherId", this.getFatherId());
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "motherId", Main.game.checkId(getMotherId()));
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "fatherId", Main.game.checkId(getFatherId()));
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "monthOfConception", this.getConceptionDate().getMonth().toString());
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
@@ -936,10 +844,10 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("slave");
 			slavesOwned.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", slave);
+			CharacterUtils.addAttribute(doc, element, "id", Main.game.checkId(slave));
 		}
 		
-		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":this.getOwner().getId());
+		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":Main.game.checkId(getOwner().getId()));
 		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "slaveJob", this.getSlaveJob().toString());
 		
 		Element slaveJobSettings = doc.createElement("slaveJobSettings");
@@ -985,10 +893,10 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("companion");
 			companionsFollowing.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", companion);
+			CharacterUtils.addAttribute(doc, element, "id", Main.game.checkId(companion));
 		}
 		
-		CharacterUtils.createXMLElementWithValue(doc, companionElement, "partyLeader", this.getPartyLeader()==null?"":this.getPartyLeader().getId());
+		CharacterUtils.createXMLElementWithValue(doc, companionElement, "partyLeader", this.getPartyLeader()==null?"":Main.game.checkId(this.getPartyLeader().getId()));
 		CharacterUtils.createXMLElementWithValue(doc, companionElement, "maxCompanions", String.valueOf(this.getMaxCompanions()));
 		
 		
@@ -1021,7 +929,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("sexPartner");
 			sexPartnerCount.appendChild(element);
 
-			CharacterUtils.addAttribute(doc, element, "partner", entry.getKey());
+			CharacterUtils.addAttribute(doc, element, "partner", Main.game.checkId(entry.getKey()));
 			CharacterUtils.addAttribute(doc, element, "sexConsensualCount", String.valueOf(entry.getValue().getSexConsensualCount()));
 			CharacterUtils.addAttribute(doc, element, "sexAsSubCount", String.valueOf(entry.getValue().getSexAsSubCount()));
 			CharacterUtils.addAttribute(doc, element, "sexAsDomCount", String.valueOf(entry.getValue().getSexAsDomCount()));
@@ -1132,12 +1040,12 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element sexPartnerMapElement = doc.createElement("sexPartnerMap");
 		characterSexStats.appendChild(sexPartnerMapElement);
-		for(String s : sexPartnerMap.keySet()) {
+		for(String id : sexPartnerMap.keySet()) {
 			Element element = doc.createElement("id");
 			sexPartnerMapElement.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "value", s);
+			CharacterUtils.addAttribute(doc, element, "value", Main.game.checkId(id));
 			
-			for(Entry<SexType, Integer> entry : sexPartnerMap.get(s).entrySet()) {
+			for(Entry<SexType, Integer> entry : sexPartnerMap.get(id).entrySet()) {
 				Element entryElement = doc.createElement("entry");
 				element.appendChild(entryElement);
 
@@ -1232,16 +1140,16 @@ public abstract class GameCharacter implements XMLSaving {
 		String nameElementValue = nameElement.getAttribute("value");
 		if (!nameElementValue.isEmpty()) {
 			character.setName(new NameTriplet(nameElementValue));
-			CharacterUtils.appendToImportLog(log, "<br/>Set name: " + nameElementValue);
+			CharacterUtils.appendToImportLog(log, "<br/>Set name: " + FileUtils.validate(nameElementValue));
 		} else {
 			String nameMasculine = nameElement.getAttribute("nameMasculine");
 			String nameAndrogynous = nameElement.getAttribute("nameAndrogynous");
 			String nameFeminine = nameElement.getAttribute("nameFeminine");
 			NameTriplet backup = Name.getRandomTriplet(Race.HUMAN);
 			character.setName(new NameTriplet(
-					nameMasculine.isEmpty()?backup.getMasculine():nameMasculine,
-					nameAndrogynous.isEmpty()?backup.getAndrogynous():nameAndrogynous,
-					nameFeminine.isEmpty()?backup.getFeminine():nameFeminine));
+                    FileUtils.validate(nameMasculine.isEmpty()?backup.getMasculine():nameMasculine),
+                    FileUtils.validate(nameAndrogynous.isEmpty()?backup.getAndrogynous():nameAndrogynous),
+                    FileUtils.validate(nameFeminine.isEmpty()?backup.getFeminine():nameFeminine)));
 		}
 		
 		// Surname:
@@ -2481,7 +2389,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// ************** Artwork **************//
 
 		// Initialize artworks (name and femininity must be set at this point)
-		character.loadImages();
+		character.loadImages(LoadOption.NO_CACHE);
 
 		if (character.hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork)) {
 			// Retrieve overrides for artist and image index
@@ -2530,29 +2438,32 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	/**
-	 * Equivalent to {@link GameCharacter#loadImages(boolean)} without forcing a reload if the folder didn't change.
+	 * Parameter options for loading images.
+	 * {@link LoadOption#FORCE_RELOAD} indicates that the image directory should be reloaded, even if the name didn't change.
+	 * {@link LoadOption#NO_CACHE} indicates that no caching should occur after loading.
 	 */
-	public void loadImages() {
-		loadImages(false);
+	public enum LoadOption {
+		FORCE_RELOAD,
+		NO_CACHE,
 	}
 
 	/**
-	 * Load or reload all artworks associated with the character. If the parameter is set to true, a reload will always
-	 * happen. Otherwise, nothing will be done if the folder name didn't change.
-	 * @param forceReload Always reload, even if the folder name didn't change
+	 * Load or reload all artworks associated with the character. If the parameters contain {@link LoadOption#FORCE_RELOAD},
+	 * a reload will always happen. Otherwise, nothing will be done if the folder name didn't change. The current image
+	 * will be cached unless artworks are disabled globally or the option {@link LoadOption#NO_CACHE} is set.
+	 * @param options Parameters to influence loading behavior
 	 */
-	public void loadImages(boolean forceReload) {
+	public void loadImages(LoadOption... options) {
 		String folder = getArtworkFolderName();
-		
-//		if(Main.game.isStarted())
-//			System.out.println(folder);
-		
-		if (folder.equals(artworkFolderName) && !forceReload) {
+		List<LoadOption> optionList = Arrays.asList(options);
+
+		if (folder.equals(artworkFolderName) && !optionList.contains(LoadOption.FORCE_RELOAD)) {
 			// Nothing changed, abort loading
 			return;
 		} else {
 			artworkList.clear();
 			artworkFolderName = folder;
+			if (optionList.contains(LoadOption.FORCE_RELOAD)) artworkIndex = -1;
 		}
 
 		if(!folder.isEmpty()) {
@@ -2567,9 +2478,9 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
-		
-		if(artworkIndex >= getArtworkList().size()) {
-			artworkIndex = getDefaultArtworkIndex();
+
+		if (!optionList.contains(LoadOption.NO_CACHE) && Main.getProperties().hasValue(PropertyValue.artwork) && hasArtwork()) {
+			ImageCache.INSTANCE.requestCache(getCurrentArtwork().getCurrentImage());
 		}
 	}
 
@@ -2578,26 +2489,19 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param imageFiles The list of files to import
 	 */
 	public void importImages(List<File> imageFiles) {
-		try {
-			// Copy files to the character's custom image folder
-			Path destination = Paths.get("res", "images", "characters", getArtworkFolderName(), "custom");
-			Files.createDirectories(destination);
-			for (File source : imageFiles) {
-				// Copy to temporary file and use atomic move to guarantee that the file is available
-				Path tmp = destination.resolve(source.getName() + ".tmp");
-				Files.copy(source.toPath(), tmp);
-				Files.move(tmp, destination.resolve(source.getName()), StandardCopyOption.ATOMIC_MOVE);
+		// Copy files to the character's custom image folder
+		Path destination = Paths.get("res", "images", "characters", getArtworkFolderName(), "custom");
+		for (File source : imageFiles) {
+			if (!FileUtils.copyFile(source.toPath(), destination.resolve(source.getName()), false)) {
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourBad(Image import failed)]",
+						"See error.log for details"), false);
 			}
-
-			// Reload the character's images
-			loadImages(true);
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Images imported)]",
-					imageFiles.size() + (imageFiles.size() > 1 ? " images were" : " image was") + " added"), false);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourBad(Image import failed)]",
-					"See error.log for details"), false);
 		}
+
+		// Reload the character's images
+		loadImages(LoadOption.FORCE_RELOAD);
+		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Images imported)]",
+				imageFiles.size() + (imageFiles.size() > 1 ? " images were" : " image was") + " added"), false);
 	}
 	
 	public abstract boolean isUnique();
@@ -2616,6 +2520,50 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * Generates a new locally unique identifier string for this NPC (see {@link UID}).
+	 * @return A string containing unique id.
+	 */
+	public String generateId() {
+		if (isUnique()) {
+			return getClass().getSimpleName();
+		} else {
+			String nameTag = getNameIgnoresPlayerKnowledge();
+			return (nameTag.length() > 3 ? nameTag.substring(0, 3) : nameTag) + UID.get();
+		}
+	}
+
+	/**
+	 * Applies a new id and moves artwork if necessary.
+	 * @param id The new id to apply
+	 */
+	public void changeId(String id) {
+		if (id != getId()) {
+			String oldArtworkFolder = null;
+			if (hasArtwork()) {
+				// Check previous artwork location (parent is the artist folder, so parent's parent is required)
+				File currentImage = getCurrentArtwork().getCurrentImage();
+				oldArtworkFolder = currentImage.getParentFile().getParent();
+				ImageCache.INSTANCE.cancelQueue(currentImage);
+			}
+
+			setId(id);
+
+			if (oldArtworkFolder != null) {
+				// Move artwork to new location and reload it
+				String newArtworkFolder = "res/images/characters/" + getArtworkFolderName();
+				if (Files.isDirectory(Paths.get(oldArtworkFolder))) {
+					if (FileUtils.moveDirectory(oldArtworkFolder, newArtworkFolder)) {
+						loadImages();
+					} else {
+						System.err.println("Artwork migration for " + getNameIgnoresPlayerKnowledge()
+								+ " (" + getId() + ") failed.");
+					}
+				}
+			}
+		}
 	}
 	
 	public String getMapIcon() {
@@ -2637,8 +2585,8 @@ public abstract class GameCharacter implements XMLSaving {
 	protected StringBuilder infoScreenSB = new StringBuilder();
 
 	public Artwork getCurrentArtwork() {
-		// Index is not set, use default
-		if(artworkIndex == -1) {
+		// Index is not set or out of bounds, use default
+		if(artworkIndex == -1 || artworkIndex >= getArtworkList().size()) {
 			artworkIndex = getDefaultArtworkIndex();
 		}
 
@@ -2695,7 +2643,8 @@ public abstract class GameCharacter implements XMLSaving {
 								+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
 								+ (revealed ? "" : "<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
 								+ "</div>"
-								+ "<div class='title-button' id='ARTWORK_ADD' style='background:transparent; left:auto; right:28px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getAddIcon()+"</div>"
+								+ "<div class='title-button' id='ARTWORK_ADD' style='background:transparent; left:auto; right:52px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getAddIcon()+"</div>"
+								+ "<div class='title-button' id='ARTWORK_REMOVE' style='background:transparent; left:auto; right:28px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRemoveIcon()+"</div>"
 								+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 								+ "</div>"
 								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0; padding:0; text-align:center;'>&lt;</div>"
@@ -2836,8 +2785,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String getArtworkFolderName() {
-		// Get folder by class name if unique, character name otherwise
-		return this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
+		if (isUnique()) return getClass().getSimpleName();
+		if (id.contains(",")) return "generic/" + getNameIgnoresPlayerKnowledge(); // Legacy IDs
+		return "generic/" + getId();
 	}
 
 	public boolean hasArtwork() {
@@ -4012,7 +3962,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			Elemental elemental = new Elemental(Gender.F_V_B_FEMALE, this, false);
 			try {
-				Main.game.addNPC(elemental, false);
+				Main.game.addNPC(elemental);
 			} catch (Exception e2) {
 				e.printStackTrace();
 			}
@@ -4093,10 +4043,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Returns true if the character is currently the character's companion.
 	 */
 	public boolean hasCompanion(GameCharacter character) {
-		if(this.companions == null) {
-			return false;
-		}
-		return this.companions.contains(character.getId());
+		return getCompanions().contains(character);
 	}
 	
 	public boolean hasCompanions() {
@@ -13647,7 +13594,7 @@ public abstract class GameCharacter implements XMLSaving {
 					NPC npc = new NPCOffspring(this, partner);
 					offspring.add(npc);
 					try {
-						Main.game.addNPC(npc, false);
+						Main.game.addNPC(npc);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -14739,7 +14686,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 			
-			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getMainWeapon()) && getMainWeapon().getRarity()!=Rarity.QUEST;
+			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getMainWeapon()) && getMainWeapon().getRarity()!= Rarity.QUEST;
 			String s;
 			if (mustDropToFloor || dropToFloor) {
 				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addWeapon(getMainWeapon());
@@ -15504,6 +15451,10 @@ public abstract class GameCharacter implements XMLSaving {
 		applyUnequipClothingEffects(clothing);
 		inventory.forceUnequipClothingIntoVoid(this, characterRemovingClothing, clothing);
 	}
+
+	public boolean isOnPlayerTile() {
+		return Main.game.getPlayerCell().getCharactersPresentIds().contains(getId());
+	}
 	
 	public String unequipClothingIntoVoid(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
 		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.PENIS);
@@ -15532,7 +15483,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return "";
 		}
 		
-		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner()!=null && this.getOwner().isPlayer()))) {
+		if(!this.isPlayer() && (this.isOnPlayerTile() || (this.isSlave() && this.getOwner()!=null && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(this.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
@@ -15670,7 +15621,7 @@ public abstract class GameCharacter implements XMLSaving {
 			updateInventoryListeners();
 		}
 		
-		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
+		if(!this.isPlayer() && (this.isOnPlayerTile() || (this.isSlave() && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(this.isCoverableAreaVisible(ca) && ca!=CoverableArea.MOUTH) {
 					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
@@ -16999,7 +16950,6 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if (body.getFemininity() < femininity) {
 			if (body.setFemininity(femininity)) {
-				loadImages();
 				if(isPlayer()) {
 						return "<p>"
 									+ "You feel your body subtly shifting to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.<br/>"
@@ -17017,7 +16967,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		} else {
 			if (body.setFemininity(femininity)) {
-				loadImages();
 				if(isPlayer()) {
 					return "<p>"
 								+ "You feel your body subtly shifting to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.<br/>"

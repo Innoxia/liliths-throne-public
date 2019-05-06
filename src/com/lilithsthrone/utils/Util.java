@@ -1,38 +1,24 @@
-package com.lilithsthrone.utils;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.NoSuchElementException;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.function.Function;
-import java.util.regex.Pattern;
+package com.lilithsthrone.utils;
 
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+
+import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 
 /**
  * This is just a big mess of utility classes that I wanted to throw somewhere.
@@ -233,16 +219,6 @@ public class Util {
 				e0.printStackTrace();
 			}
 		}
-	}
-
-	public static String getFileTime(File file) {
-		try {
-			Instant fileTime = Files.getLastModifiedTime(file.toPath()).toInstant();
-			return Units.dateTime(fileTime);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "Unknown";
 	}
 	
 	@SafeVarargs

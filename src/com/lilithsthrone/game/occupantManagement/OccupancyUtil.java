@@ -775,7 +775,7 @@ public class OccupancyUtil implements XMLSaving {
 						partner = new GenericSexualPartner(Gender.M_P_MALE, slave.getWorldLocation(), slave.getLocation(), false);
 					}
 					try {
-						Main.game.addNPC(partner, false);
+						Main.game.addNPC(partner);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

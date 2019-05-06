@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -88,7 +89,11 @@ public class Artwork {
 		this.nakedImages = new ArrayList<>();
 
 		// Add all images to their respective lists
-		for (File f : folder.listFiles((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png") || name.endsWith(".gif"))) {
+		for (File f : Objects.requireNonNull(folder.listFiles((dir, name) ->
+				name.endsWith(".jpg") || name.endsWith(".jpeg")
+				|| name.endsWith(".png")
+				|| name.endsWith(".bmp")
+				|| name.endsWith((".gif"))))) {
 			if (f.getName().startsWith("partial"))
 				partialImages.add(f.getAbsolutePath());
 			else if (f.getName().startsWith("naked"))

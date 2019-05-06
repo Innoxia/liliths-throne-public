@@ -74,7 +74,7 @@ public class SlaveryEventLogEntry implements XMLSaving {
 		parentElement.appendChild(element);
 		
 		CharacterUtils.addAttribute(doc, element, "time", String.valueOf(time));
-		CharacterUtils.addAttribute(doc, element, "slaveID", slaveID);
+		CharacterUtils.addAttribute(doc, element, "slaveID", Main.game.checkId(slaveID));
 		CharacterUtils.addAttribute(doc, element, "event", event.toString());
 
 		if(tags!=null) {
