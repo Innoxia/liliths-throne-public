@@ -57,6 +57,7 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.FileUtils;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
@@ -666,7 +667,7 @@ public class CharacterCreation {
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='surnameInput' value='"+ UtilText.parseForHTMLDisplay(Main.game.getPlayer().getSurname())+ "'></form>"
 						+ "</div>"
 						+ "<br/>"
-						+ "<i>Your name must be between 2 and 16 characters long. You cannot use the square bracket characters or full stops. (Surname may be left blank.)</i>"
+						+ "<i>Your name must be between 2 and 32 characters long and must not contain special characters such as dots, slashes, etc. The surname may be left blank.</i>"
 						+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid name.</b></p>" : "")
 						+ (unsuitableSurname ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid Surname.</b></p>" : "")
 					+ "</div>"
@@ -695,22 +696,20 @@ public class CharacterCreation {
 					public void effects() {
 						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 						if(Main.mainController.getWebEngine().getDocument()!=null) {
-							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
-									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
-									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
-								unsuitableName = true;
-							else {
+							String name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+							if (name.equals(FileUtils.validate(name)))
 								unsuitableName = false;
+							else {
+								unsuitableName = true;
 							}
 						}
 						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
 						if(Main.mainController.getWebEngine().getDocument()!=null) {
-							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
-									&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
-											|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
-								unsuitableSurname = true;
-							else {
+							String surname = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent();
+							if (surname.isEmpty() || surname.equals(FileUtils.validate(surname)))
 								unsuitableSurname = false;
+							else {
+								unsuitableSurname = true;
 							}
 						}
 						if (unsuitableName || unsuitableSurname)  {

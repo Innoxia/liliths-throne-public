@@ -21,7 +21,7 @@ public class CachedImage {
 
 	/**
 	 * Load an image from the given file path into a reusable string.
-	 * @param f A File containing the path to a .jpg or .png image
+	 * @param f A File containing the path to a JPEG, PNG or BMP image
 	 * @return True if the image was successfully loaded, false otherwise
 	 */
 	public boolean load(File f) {

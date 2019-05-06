@@ -1,22 +1,17 @@
 package com.lilithsthrone.world.places;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.FileUtils;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.util.*;
 
 /**
  * @since 0.1.?
@@ -109,7 +104,7 @@ public class GenericPlace implements XMLSaving {
 		else if(placeType.equals("DOMINION_EXIT_TO_SEA")) {
 			placeType = "DOMINION_EXIT_WEST";
 		}
-		
+
 		GenericPlace place = new GenericPlace(PlaceType.getPlaceTypeFromId(placeType));
 		if(!parentElement.getAttribute("name").isEmpty()
 				&& (!Main.isVersionOlderThan(Game.loadingVersion, "0.3")
@@ -117,7 +112,7 @@ public class GenericPlace implements XMLSaving {
 						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_SOUTH)
 						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_EAST)
 						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_WEST)))) {
-			place.setName(parentElement.getAttribute("name"));
+			place.setName(FileUtils.validate(parentElement.getAttribute("name")));
 		}
 		
 		try {

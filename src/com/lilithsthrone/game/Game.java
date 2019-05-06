@@ -196,16 +196,16 @@ public class Game implements XMLSaving {
 				System.out.println(timeStart);
 			}
 			// Starting stuff:
-			
+
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			
+
 			Document doc = docBuilder.newDocument();
-			
+
 
 			// Writing game stuff to export:
-			
-			Element characterNode = doc.createElement("exportedCharacter");
+
+			Element characterNode = doc.createElement(character.isPlayer() ? "playerCharacter" : "exportedCharacter");
 			doc.appendChild(characterNode);
 			// If player, modify birth date so that imported characters are the same age:
 			if(character.isPlayer()) {
@@ -217,48 +217,44 @@ public class Game implements XMLSaving {
 			}
 			
 			// Ending stuff:
-			
+
 			TransformerFactory tf = TransformerFactory.newInstance();
 			Transformer transformer1 = tf.newTransformer();
 			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			StringWriter writer = new StringWriter();
 
 			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
-			
+
 			// Save this xml:
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
-			
-			File dir = new File("data/");
-			dir.mkdir();
-			
+
 			File dirCharacter = new File("data/characters/");
-			dirCharacter.mkdir();
-			
+			dirCharacter.mkdirs();
+
 			int saveNumber = 0;
-			String saveLocation = "data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+".xml";
-			if(new File("data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+".xml").exists()) {
-				saveLocation = "data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
-			}
-			
-			while(new File("data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml").exists()) {
-				saveNumber++;
-				saveLocation = "data/characters/exported_"+character.getName(false)+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
-			}
-			StreamResult result = new StreamResult(saveLocation);
-			
+			String saveLocation;
+			do {
+				saveLocation = "data/characters/"+character.getName(false)+"_day"+Main.game.getDayNumber()+"("+saveNumber+")";
+				++saveNumber;
+			} while (new File(saveLocation + ".xml").exists());
+
+			StreamResult result = new StreamResult(saveLocation + ".xml");
 			transformer.transform(source, result);
+
+			// Copy images recursively
+			if (character.hasArtwork()) {
+				FileUtils.copyDirectory("res/images/characters/" + character.getArtworkFolderName(), saveLocation);
+			}
 
 			if(timeLog) {
 				System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
 			}
-		} catch (ParserConfigurationException pce) {
+		} catch (ParserConfigurationException | TransformerException pce) {
 			pce.printStackTrace();
-		} catch (TransformerException tfe) {
-			tfe.printStackTrace();
 		}
 	}
 	
@@ -282,6 +278,10 @@ public class Game implements XMLSaving {
 				// Load NPCs:
 				SlaveImport importedSlave = new SlaveImport();
 				importedSlave.loadFromXML(characterElement, doc, CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL, CharacterImportSetting.CLEAR_SLAVERY);
+				if (FileUtils.copyDirectory("data/characters/" + name,
+						"res/images/characters/" + importedSlave.getArtworkFolderName())) {
+					importedSlave.loadImages(GameCharacter.LoadOption.FORCE_RELOAD);
+				}
 				Main.game.addNPC(importedSlave, false);
 				importedSlave.applyNewlyImportedSlaveVariables();
 				
