@@ -335,6 +335,12 @@ public class MainController implements Initializable {
 				Main.game.saveDialogueNode();
 			}
 			
+			if(npc!=null) {
+				npc.sortInventory();
+			} else {
+				Main.game.getPlayerCell().getInventory().sortInventory();
+			}
+			
 			Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 		}
 	}

@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -244,10 +245,17 @@ public class CityPlaces {
 							+ " <p>"
 								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
 								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
-								+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
-							+ "</p>"
-							+ " <p>"
+								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
+					
+					if(Main.game.getPlayer().getRace()==Race.DEMON) {
+						UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
+					} else {
+						UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
+					}
+					
+					UtilText.nodeContentSB.append(
+							"</p>"
+							+ "<p>"
 								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
 								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
 								+ " If they catch you, they'll be sure to force you into a fight."
@@ -306,12 +314,19 @@ public class CityPlaces {
 								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
 								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
 							+ "</p>"
-							+ " <p>"
+							+ "<p>"
 								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
 								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
-								+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
-							+ "</p>"
+								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
+				
+				if(Main.game.getPlayer().getRace()==Race.DEMON) {
+					UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
+				} else {
+					UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
+				}
+				
+				UtilText.nodeContentSB.append(
+							"</p>"
 							+ " <p>"
 								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
 								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."

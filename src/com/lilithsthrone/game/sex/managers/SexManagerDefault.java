@@ -340,9 +340,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							break;
 						case MOUTH:
 							// NPCs don't care about losing oral virginity.
-//							if(Sex.getCharacterPerformingAction().isFaceVirgin() && Sex.getCharacterPerformingAction().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue()) {
-//								bannedActions.add(action);
-//							}
 							break;
 						case NIPPLE:
 							if(Sex.getCharacterPerformingAction().isNippleVirgin() && (Sex.getCharacterPerformingAction().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue() || action.getParticipantType()==SexParticipantType.SELF)) {
@@ -377,6 +374,53 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 						case BREAST_CROTCH:
 						case THIGHS:
 							break;
+					}
+				}
+				if(action.getParticipantType()==SexParticipantType.SELF) {
+					for(SexAreaOrifice sArea : action.getTargetedCharacterOrifices()) {
+						switch(sArea) {
+							case ANUS:
+								if(Sex.getCharacterPerformingAction().isAssVirgin() && Sex.getCharacterPerformingAction().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue()) {
+									bannedActions.add(action);
+								}
+								break;
+							case MOUTH:
+								// NPCs don't care about losing oral virginity.
+								break;
+							case NIPPLE:
+								if(Sex.getCharacterPerformingAction().isNippleVirgin() && Sex.getCharacterPerformingAction().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue()) {
+									bannedActions.add(action);
+								}
+								break;
+							case NIPPLE_CROTCH:
+								if(Sex.getCharacterPerformingAction().isNippleCrotchVirgin() && Sex.getCharacterPerformingAction().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue()) {
+									bannedActions.add(action);
+								}
+								break;
+							case URETHRA_PENIS:
+								if(Sex.getCharacterPerformingAction().isUrethraVirgin() && Sex.getCharacterPerformingAction().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue()) {
+									bannedActions.add(action);
+								}
+								break;
+							case URETHRA_VAGINA:
+								if(Sex.getCharacterPerformingAction().isVaginaUrethraVirgin() && Sex.getCharacterPerformingAction().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue()) {
+									bannedActions.add(action);
+								}
+								break;
+							case VAGINA:
+								if(Sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
+										|| Sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN)
+										|| (Sex.getCharacterPerformingAction().isVaginaVirgin() && Sex.getCharacterPerformingAction().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue())) {
+									bannedActions.add(action);
+								}
+								break;
+							// No virginity to lose:
+							case ASS:
+							case BREAST:
+							case BREAST_CROTCH:
+							case THIGHS:
+								break;
+						}
 					}
 				}
 			}

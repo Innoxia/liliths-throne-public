@@ -663,7 +663,9 @@ public class TooltipInformationEventListener implements EventListener {
 						displayImage = image != null;
 					}
 					
-					boolean crotchBreasts = owner.hasBreastsCrotch() && (owner.isBreastsCrotchVisibleThroughClothing()||owner.isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer()));
+					boolean crotchBreasts = owner.hasBreastsCrotch()
+							&& Main.getProperties().udders>0
+							&& (owner.isBreastsCrotchVisibleThroughClothing()||owner.isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer()));
 					int crotchBreastAddition = crotchBreasts?24:0;
 					
 					int[] dimensions = new int[]{419, 508+crotchBreastAddition};

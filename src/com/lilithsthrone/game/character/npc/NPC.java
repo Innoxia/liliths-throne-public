@@ -2725,6 +2725,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if(partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
 							partnerCummed = true;
 							this.ingestFluid(partner, partner.getCum(), (SexAreaOrifice)performingArea, partner.getPenisRawOrgasmCumQuantity());
+							this.incrementCumCount(new SexType(SexParticipantType.NORMAL, performingArea, SexAreaPenetration.PENIS));
 						}
 					}
 					break;
@@ -3174,11 +3175,38 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 		mainSexPreference.put(target, null);
 		if(!mainSexTypes.isEmpty()) {
+			if(debug) {
+				for(Entry<SexType, Integer> e : mainSexTypes.entrySet()) {
+					System.out.println("Main entry: "+e.getKey().toString()+", "+e.getValue());
+				}
+			}
 			if(request!=null) {
+				if(debug)
+					System.out.println("Main request");
 				Map<SexType, Integer> requestedSexTypes = new HashMap<>(mainSexTypes);
 				requestedSexTypes.keySet().removeIf((type) -> type.getTargetedSexArea()!=request);
 				if(!requestedSexTypes.isEmpty()) {
 					mainSexPreference.put(target, Util.getRandomObjectFromWeightedMap(requestedSexTypes));
+				}
+			}
+//			if(debug) {
+//				for(int i=0; i<10; i++) {
+//					SexType st = Util.getRandomObjectFromWeightedMap(mainSexTypes);
+//					System.out.println("Main entry: "+st.toString());
+//				}
+//			}
+			List<SexType> stList = new ArrayList<>();
+			for(Entry<SexType, Integer> e : mainSexTypes.entrySet()) {
+				if(e.getKey().isTakesVirginity()) { // Prefer to have a main sex type that is actually penetrative sex
+					stList.add(e.getKey());
+				}
+			}
+			for(SexType st : stList) {
+				mainSexTypes.computeIfPresent(st, (k, v) -> v*=2);
+			}
+			if(debug) {
+				for(Entry<SexType, Integer> e : mainSexTypes.entrySet()) {
+					System.out.println("Main entry: "+e.getKey().toString()+", "+e.getValue());
 				}
 			}
 			if(mainSexPreference.get(target)==null) {

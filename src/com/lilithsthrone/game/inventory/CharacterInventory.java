@@ -163,7 +163,11 @@ public class CharacterInventory implements XMLSaving {
 			characterInventory.appendChild(itemsInInventory);
 			for(Entry<AbstractItem, Integer> item : this.getAllItemsInInventory().entrySet()) {
 				Element e = item.getKey().saveAsXML(itemsInInventory, doc);
-				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+				int value = 1;
+				if(item.getValue()!=null) {
+					value = item.getValue();
+				}
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(value));
 			}
 		}
 		
@@ -172,7 +176,11 @@ public class CharacterInventory implements XMLSaving {
 			characterInventory.appendChild(clothingInInventory);
 			for(Entry<AbstractClothing, Integer> clothing : this.getAllClothingInInventory().entrySet()) {
 				Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
-				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+				int value = 1;
+				if(clothing.getValue()!=null) { // TODO figure out how this was being assigned to null
+					value = clothing.getValue();
+				}
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(value));
 			}
 		}
 		
@@ -181,7 +189,11 @@ public class CharacterInventory implements XMLSaving {
 			characterInventory.appendChild(weaponsInInventory);
 			for(Entry<AbstractWeapon, Integer> weapon : this.getAllWeaponsInInventory().entrySet()) {
 				Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
-				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+				int value = 1;
+				if(weapon.getValue()!=null) {
+					value = weapon.getValue();
+				}
+				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(value));
 			}
 		}
 		
@@ -1499,20 +1511,16 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if (!automaticClothingManagement && clothingToRemove.size() > 1) { // Greater than 1, as it will contain the item of clothing that's trying to be removed.
+			Set<AbstractClothing> blockingClothingSet = clothingToRemove.keySet().stream().filter(c -> c != clothing).collect(Collectors.toSet());
 			equipTextSB.append(characterClothingOwner.isPlayer()
-					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
-						+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."
+					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(blockingClothingSet, false) + " need"
+						+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."
 					:UtilText.parse(characterClothingOwner,
-							"Before [npc.namePos] " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
-									+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."));
+							"Before [npc.namePos] " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(blockingClothingSet, false) + " need"
+									+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."));
 			
-			for(AbstractClothing c : clothingToRemove.keySet()) {
-				if(c!=clothing) {
-					blockingClothing=c;
-					break;
-				}
-			}
-			
+			blockingClothing = blockingClothingSet.stream().findAny().orElse(blockingClothing);
+
 			return false;
 		}
 

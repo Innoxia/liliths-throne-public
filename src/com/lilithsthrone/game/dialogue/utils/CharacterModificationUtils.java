@@ -786,7 +786,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Tail",
 				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] tail type."
 						+ "<br/><i>Some types of tail are prehensile (marked by an asterisk), and can be used as penetrative objects in sex scenes."
-						+ " (If the fail is furry, it is subject to the 'furry tail penetration' content option.)</i>"),
+						+ " (If the tail is furry, it is subject to the 'furry tail penetration' content option.)</i>"),
 				"TAIL_TYPE",
 				contentSB.toString(),
 				true);

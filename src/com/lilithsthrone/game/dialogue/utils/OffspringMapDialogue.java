@@ -58,13 +58,18 @@ public class OffspringMapDialogue {
 				} else {
 					for(NPC npc : Main.game.getOffspringNotSpawned(npc->true)) {
 						if(!getOffspringList().contains(npc)) {
-							UtilText.nodeContentSB.append("[style.colourDisabled("+npc.getName(true)+")] ("+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+")"
+							UtilText.nodeContentSB.append("[style.colourDisabled("+(npc.isPlayer()?"You":Util.capitaliseSentence(npc.getName(true)))+")]"
+									+ " ("+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+")"
 									+ " Mother: "+npc.getMother().getName(true)
-									+ " Father: "+npc.getFather().getName(true)+"<br/>");
+									+ " Father: "+npc.getFather().getName(true)
+									+ "<br/>");
 							
 						} else {
-							UtilText.nodeContentSB.append("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span> ("+npc.getSubspecies().getName(npc)+")"
-									+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
+							UtilText.nodeContentSB.append("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+(npc.isPlayer()?"You":Util.capitaliseSentence(npc.getName(true)))+"</span>"
+									+ " ("+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+")"
+									+ " Mother: "+npc.getMother().getName(true)
+									+ " Father: "+npc.getFather().getName(true)
+									+ "<br/>");
 						}
 					}
 				}

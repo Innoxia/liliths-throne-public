@@ -125,158 +125,78 @@
 	
 	Patch notes:
 	
-	Engine:
-		Refactored inventory code to address issue with selling of huge stacks of items causing the game to crash. It will also have sped up normal inventory interactions, but probably by an unnoticable amount.
-		Added support for inline scripting methods to suppress output (use two hash symbols (##) at the start of an inline parsing statement instead of one (#) to suppress output Strings).
-		Added xml definition files for patterns, so that names and default pattern booleans can be defined.
-	
-	Gameplay:
-		Added an internal map to city hall, along with a new NPC who manages name changes and the sale of the new item 'offspring tracking map'.
-		Added 'offspring tracking map' item (purchased from city hall for 50,000 flames), which can be used in any tiles in which offspring can be naturally encountered in order to force an encounter with an offspring of your choice.
-		Offspring can now be encountered even when the incest content option is turned off. All sexual actions will be hidden & unavailable while incest is toggled off.
-		Added 'menopause' status effect for all non-demon characters over 52 (which completely disables their ability to get pregnant).
-		Added 'reforging hammer' item, which allows you to change a weapon's damage type in the same way that dye-brushes change clothing's colour. The Earth spell school's special unlock now also allows you to do free reforging of weapons.
-	
-	Contributors:
-		Made item usage restriction logic a bit saner - can now get normally unwilling NPCs to drink TF potions if they are drunk or experiencing psychotic effects. (patch by Anon)
-		Fixed some flags in SlaveDialogue. (PR#1108 by GynoidDoesGames)
-		Added a configurable chance for NPCs' forced TFs to change you into a random race, rather than their race. (PR#1101 by Eliria)
-		Made imp fortress subspecies checks null-safe. (PR#1105 by Niranufoti)
-		Add difficulty option: No Spitting. This enables/disables the ability for you to spit out forced TF potions. (PR#1111 by 0d721077)
-		Add difficulty option: Opportunistic Attackers. This enables/disables an increased likelihood of being attacked when high in lust, exposed, drunk, covered in sexual fluids, or low on energy. (PR#1113 by 0d721077)
-		Add difficulty option: Sex Action Bypass. This enables/disables the ability for you to select sex actions outside of your corruption range. (PR#1112 by 0d721077)
-		
-	Clothing:
-		Added: 'flats' (feminine, foot slot, sold by Nyan).
-		Added: 'half-moon glasses' (unisex, eye slot, sold by Nyan).
-		Added: 'pearl stud earrings' (feminine, ear-piercing slot, sold by Kate).
-		Added 'colourNameDerivedFromPattern' attribute to the 'defaultPatterns' element in clothing xml files, which makes the clothing use the pattern's primary colour instead of the base colour. (Used for rockabilly dress.)
-		Reduced pattern spawn rate for recently-added dresses from 100% to 50%.
-		Added pattern dye elements to clothing xml files, which work in the same way as normal colour definitions. Examples can be seen in the rockabilly dress and vintage dress files.
-		
-	Sex:
-		Base loss after orgasming changed from a flat -50% to a variable amount based on arcane storm vulnerability (negates all lust loss), attraction (50% reduction/increase), psychoactive fluid ingestion (75% reduction), and affection (50% reduction/50% increase).
-		Stabilised lust changes by limiting it to +/-2.5 for each character on every character's turn (meaning that it has a maximum change of +/-5 per turn with 2 non-spectator participants, but +/-7.5 per turn with 3 non-spectator participants).
-		Removed restriction that was preventing two futa characters from simultaneously fucking one another.
-		Orgasming no longer resets arousal to 0, but instead to 25% of the cahracter's lust value.
-		Improved methods responsible for determining an NPC's willingness to deny requests, choose what action to take in sex, and the amount of arousal & lust gained from actions each turn.
-		NPCs with competing fetish desires (e.g. hating anal, but loving taking cock) will now sometimes be willing to perform those actions, and should not be losing arousal or lust as a result.
-		NPCs should no longer be choosing to perform actions which they dislike or hate.
-		Added indication of sexual parts not tasting like normal. i.e. When performing an oral action on a vagina, penis, or nipples whose associated fluid does not taste like normal, then a line is appended to tell you what it tastes like.
-		Characters who are eating out squirters at the moment of their orgasm will now have their face covered in female ejaculate, dirtying the relevant clothing and inventory slots.
-		Dominant NPCs will now always want to end sex if they have had over twice the number of orgasms they need to be satisfied.
 	
 	Other:
-		<b>Altered:</b> Cum and milk regeneration is no longer based on a percentage of maximum storage, and is instead a fixed value from 0-1,000,000mL per day. As part of this change, regeneration values will be reset to default values when you load in.
-		Added milk regeneration, milk flavour, cum regeneration, cum flavour, cum expulsion, and girlcum flavour to transform menu.
-		Compacted and reorganised the self-transform menu UI, added tooltips to help explain what each part affects, and added nipple shape as a self-transform option.
-		Added three more lip sizes, all of which are large enough to cause the character to speak with a lisp.
-		Added 'Horn grab' for when fucking someone in the doggy-style position (similar to 'Twintails pull' and 'Ear pull').
-		Added 'Twintails pull', 'Ear pull', and 'Horn grab' to dominant cunnilingus actions.
-		Inventory is no longer disabled in Lyssieth's nor Merxais's office.
-		Moved all socks and rainbow clothing set items out into the external res folder.
-		Defined prostitue clothing in outfit files.
-		NPCs who are vulnerable to arcane storms (and who are out in an arcane storm) now require 2 orgasms to be satisfied during sex instead of 1.
-		Imps now require 1 orgasm to be satisfied, instead of 3.
-		Added 'pitch black' colour for covering types. (Available for skin, hair, horns, antlers, fur, and scales.)
-		Youko offspring can now be found in Dominion's back alleys, but I will move them out into the 'Shinrin highlands' area once I've added that content, so this is just temporary.
-		Renamed the 'skin' modifier in TF potion creation to 'torso', to make it clearer that it's only affecting the torso's skin.
-		Increased maximum milk, cum, and girlcum that can be extracted per hour in the milking room.
-		Milk regeneration is now multiplied by the number of breasts a character has.
-		Slightly altered value calculations for milk, cum, and girlcum. (Flavour now counts for a lot more.)
-		Changed lion-morph icon to a standard recoloured cat-morph icon, as I wanted to keep subspecies icons as consistent as possible.
-		Added 'cherry' flavour to fluids, changed 'slime' flavour to 'bubblegum', and improved enchantment icons for fluid modifiers.
-		Changed hypno-watch rarity from 'legendary' to 'quest' (so it will be in the 'quest items' section of your inventory now).
-		Added description for when any fluid is ingested, to let you know exactly how much was pumped inside the orifice. (Mostly seen in sex when orgasm actions are used.)
-		Slave value now takes into account whether or not they are anal, vagina, and penis virgins. (Vagina and penis virginity value modifier only applies if they actually have a vagina or penis.)
-		NPCs should now never take their own virginities during sex.
-		Rabbit-morphs are now more likely to spawn in with the pregnancy and impregnation fetishes, and will never spawn in disliking those fetishes.
-		Improved body hair spawning method, so randomly spawned NPCs will no longer have all body hair values set to the same value, and male NPCs will no longer almost always have beards.
-		Added bat-morph tail type.
+		Reduced default cum regeneration value from 50,000ml per day to 10,000 per day, as it was a little too fast at regenerating during sex.
+		NPCs are now a lot more likely to choose a 'proper' penetrative action as their main preference in sex (such as penis/vagina, penis/anus, etc.).
+	
+	Contributors:
+		Fixed deprecated method being used. (PR#1125 by King-Drake)
+		Fixed virginity cost errors. (PR#1124 by GynoidDoesGames)
+		Fixed issue with un/equipping chastity belts being blocked by sealed ankle slot clothing. (PR#1130 by Zsar)
+		Massively improved save file loading times. As an example one file went from 19 seconds down to 4. (PR#1136 by Pimgd)
+		Clean character inventory code. (PR#1137 by Pimgd)
+		Lots of typo fixes. (PR#1138 by Pimgd)
+		Slightly modified the description of background characters on the streets during an arcane storm if the player is a demon. (PR#1141 by DL-Vadric)
+		Typo fixes. (PR#1133 by Pimgd)
+		Alter clothing blocked by message to not include the clothing which is blocked. (PR#1145 by Pimgd)
 	
 	Bugs:
-		Start of pregnancy now correctly expels all fluids from vagina & vaginal urethra, and fluid storage in those orifices for a pregnant character is now limited to 250ml.
-		Ending pregnancy now correctly expels all fluids from vagina & vaginal urethra, and cleans the related inventory slots.
-		Fixed issue with the 'ripped' body shape colour not being the correct shade of green.
-		Fixed bugged saving/loading of milk & cum regeneration values.
-		Corrected some references to harpy faces referring to a 'mouth' instead of 'beak'.
-		Lots of typo, parsing, and grammar fixes.
-		Fixed issue with demon attackers in Dominion's alleyways sometimes having nonsensical fetishes.
-		Fixed issue with the 'Molest' action on slaves not applying affection changes as described in the text.
-		Fixed uncommon bug where items of clothing could sometimes appear in random tiles.
-		Taurs will no longer spawn wearing shoes or socks.
-		Cross-dressing muggers will now correctly wear outfits appropriate for that fetish.
-		Characters who grow a slime or demonic cock in sex should now correctly self-transform it away after sex ends.
-		Pattern names for polka dots no longer read awkwardly. (e.g. 'polka dots big' has been changed to 'big polka-dotted'.)
-		Fixed minor lore inconsistency in the intro regarding the arcane.
-		Fixed inconsistent application of crotch-boob/udders content option. This option will now correctly only influence crotch-boob/udder creation on newly-spawned NPCs, and will not retroactively affect NPCs who already have crotch-boobs, nor interfere with TF potions that add/remove crotch-boobs.
-		Fixed rare bug where sometimes characters would not load in correctly.
-		Fixed issue with Elizabeth and her guards (outside Lyssieth's palace) not showing up in the 'characters present' box.
-		Disabled ability to overwrite save files when not in a tile's default scene (as this was causing a huge number of issues upon loading).
-		Fixed bug where NPCs with the 'unwilling fuck toy' fetish would lose lust in non-con sex.
-		Fixed issue with sex scenes never stopping if you were a spectator.
-		Fixed issue with half-demons giving birth to random half-demon subspecies.
-		Fixed issue with the pregnancy stats page sometimes breaking.
-		Fixed bug where you couldn't give potions to enemies that you'd just beaten.
-		Fixed background error related to equipping/unequipping clothing which in some instances was game-breaking.
-		Fixed incorrect dialogue when requesting a partner to pull out at moment of orgasm.
-		Fixed zebra-morph background not changing if they are a half-demon.
-		Fixed incorrect condom breakage text.
-		Vicky's inventory will no longer restock after every time you close & re-open her trade actions.
-		Fixed issue with some items of clothing blocking one another's removal, which was causing the sex AI to break the game.
-		Fixed issue with some items of clothing not saving/loading their colours correctly.
-		Fixed the 'colour test T-shirt' being sold by Nyan.
-		Fixed zebrataurs being incorrectly classified as the generic 'centaurs'.
-		Fixed issue with vaginal and urethral orifices not resetting their 'stretched' value after being removed and regained.
-		Paizuri actions should now work for centaurs who are performing oral.
-		Fixed clothing (such as the ball gag) not causing speech to be muffled.
-		Fixed incorrect description of washing fluids out of your mouth when using the 'wash' actions in your room.
-		Fixed issue with Lilaya's images not updating after she's transformed into a demon.
-		Fixed NPCs automatically removing sealed clothing that you'd locked onto them.
-		Fixed bugs in parsing 'Help' screen, and added entry for script command with output suppression.
-		Fixed issue with Lilaya reacting as though she was unaware of the plot progression when talking to her about the date in her lab after resolving the business with Lyssieth.
-		Fixed issue with 'request pullout' and 'request creampie' not taking into account if a condom is being worn.
-		Fixed half-demons sometimes not having appropriate corruption or aura attribute values. Also affects attributes when turning someone into a half-demon via the debug item 'Innoxia's gift'.
-		Fixed broken NPC refusal conditions for having cum pumped into them in the milking room.
-		Fixed issue with clothing with a pattern not stacking in inventory properly, and sometimes displaying the wrong icon.
-		Fixed issue with dying stacked clothing and weapons deleting all other clothing/weapons in that stack.
-		Fixed issue with inventory sorting not working properly.
-		Fixed issue with fennec-morph subspecies not being properly identified.
-		Fixed some cumbersome parsing of relationships.
-		Fixed issue with drunk speech causing parsing to sometimes break.
-		Fixed incorrect position denial reaction when asking an NPC to perform oral on them.
-		Fixed issue in sex where some actions were able to be performed when they should have been physically impossible (such as being able to receive a hotdogging tease from someone while fucking their ass).
-		Fixed some instances of 'mL' not being changed to imperial units (if you had the imperial units option on).
-		Fixed milking room using breast milk regeneration instead of crotch boob milk regeneration.
-		Upon orgasm, cum is no longer described as being splattered on the target's 'over-torso'.
-		Fixed Lyssieth's earrings being moved into her inventory when she takes on her demonic form.
-		Condoms are now correctly unequipped & discarded if they break during orgasm.
-		You can no longer equip 'quest' clothing or weapons onto NPCs. If you had already done this, and then removed the NPC who had 'quest' items, you can re-spawn them via the debug menu. (Type 'buggy' in a neutral scene to bring up the debug menu.)
-		You can now enslave all of your offspring, including demons.
-		Fixed slaves who hated you acting overly-friendly when starting sex with them.
-		Fixed numerous minor issues related to fetishes gained from clothing & tattoos sometimes not being taken into account.
-		Fixed issue with gloryhole NPCs not using positioning actions correctly.
-		Fixed issue with gloryhole NPCs not having their groin areas revealed when they moved into a 'present asshole' or 'present pussy' position. (This was also causing ongoing sex actions to not be available.)
-		Fixed 'ear pull', 'horn grab', and 'twintails pull' sex actions being available in gloryhole sex.
-		Fixed issue with the game soft-locking when identifying clothing.
-		Fixed the 'wash' actions in your room not cleaning your clothing.
-		Fixed tattoos counters for total dominant/submissive sex not incrementing properly for when npcs had sex with other npcs (such as when your slaves had sex with random people).
-		NPCs which use the mugger and prostitute outfit files will no longer spawn in wearing shoes and socks if their feet are not plantigrade.
-		Fixed incorrect virginity loss text for NPCs.
-		Fixed issue with NPCs' arousal in multiple-partner sex scenes sometimes randomly dropping by huge amounts.
-		Fixed arousal in multiple-partner scenes incrementing by tiny amounts.
-		Fixed issue in character view screen where nipple's milk descriptions would only be displayed if they were fuckable, and also the issue where nipples would be described as being fuckable even if you had nipple penetration content turned off.
-		Fixed slave event log displaying impregnation possibility on NPCs who were already pregnant.
-		Fixed issue with alpha-imps producing non-imp offspring.
-		Fixed milking room's fluids not being drained correctly when there were several instances of a fluid with varying virilities. Also fixed the consumption text always reading 100ml, even if it was less.
+		Typo and grammatical fixes.
+		Fixed half-demon offspring always being females.
+		Zebra-morphs are now identified by white and both black and jet-black stripes.
+		Fixed issue where save games would sometimes get corrupted by assigning an item's count to null.
+		Slaves should now correctly clean their clothes, if they have permission to do so.
+		New positioning actions (for taurs) now have fetish-related corruption bypasses.
+		Fixed issue with all sex actions disappearing when you were in a spectator slot and someone involved in sex was about to orgasm.
+		Fixed positioning actions being available when targeting subs while a sub, or doms while a dom.
+		Fixed the 'Offer threesome' action putting you into a sex scene in which you had full control as a sub.
+		Fixed incorrect position descriptions for when growing a vagina or penis on a taur body.
+		Fixed transformation into a taur sometimes resetting subspecies (such as lion-morph to cat-morph).
+		Self-cest offspring will now correctly have you listed as both their father and mother in the pregnnacy stats screen.
+		Fixed some incorrect formatting in the offspring map usage.
+		Fixed issue where using imported characters, or starting a new game after having already played on a different character, would produce 'error in conditional parsing' errors all over the place.
+		Fixed the 'Knocked up' dialogue in the library deleting response tabs.
+		Offspring now use the same clothing generation as muggers.
+		Fixed tiles in Demon Home taking 5 minutes to traverse instead of 2.
+		Fixed Ms Cunningham's pubic hair being a random colour.
+		Fixed issue with Ms. Cunningham's scene in which she eats you out applying the penis-vagina interaction instead of tongue-vagina.
+		Fixed issue with Ms. Cunningham finishing sex early, and thus losing 2 affection towards you.
+		Sealed NPCs during sex (i.e. the cultists) no longer use default reaction text to sexual parts being revealed.
+		Changes to milk and cum regeneration values via crafted potions have been increased from 1/2/3 to 25/100/500.
+		Fixed slimes not being able to self-transform their breast type.
+		Fixed a few issues with companions' elementals, so that they will no longer show up in places they shouldn't (such as prostitutes in the bedrooms in Angel's Kiss).
+		Fixed issue with Maximilian's post-victory scene only displaying sex options.
+		Fixed some issues with sex actions not being blocked when they should have been (such as being able to intercrural someone who is fucking you in the mating press position).
+		Fixed tattoos not incrementing cum counts when in non-player sex (such as slaves in the brothel or stocks).
+		Fixed vaginal urethra elasticity enchantments not working.
+		Crotch boob status effects will no longer be displayed if you have crotch boobs turned off.
+		Fixed crotch boob sex actions being available even if you had crotch boobs disabled.
+		Fixed unequip clothing descriptions during sex using the 'rough' variant when you were not in the rough pace.
+		Fixed issue with NPCs taking their own virginities with their tails in sex.
+		Fixed 'Offer part' actions in sex not working.
+		Fixed issue with Entering Dominion from the world map sometimes not working.
+		Fixed elementals not being able to be milked in the milking rooms.
+		Fixed issue with inventories not being sorted after saving/loading.
+		Spending flames to identify clothing/weapons at a shop should now work correctly.
+		Equipped condom belt now correctly renders any stacked condoms in the wearer's inventory.
+		Fixed issue with clothing sometimes able to be duplicated in character creation when cahnging colours.
 	
 	
 	
 	
 	
 	
+	Error: fishnet top and women's leather jacket are blocking one another's removal!!!
+	Error: Enforcer's shirt and women's leather jacket are blocking one another's removal!!!
+	Error: panties and hotpants are blocking one another's removal!!!
+	Error: fullcup bra and hoodie are blocking one another's removal!!!
 	
+	Clothing removal: Maid's dress
+		Before your Maid's dress is able to be removed, dress coat need to be removed.​
+		NPCS end up doing that every time when i am wearing both a Over-Torso and a Torso clothes, feel free to ask her to fix this by Github if you want to.
 	
+	the Youko in that imp fort can transform elementals into foxes
 	
 	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
 	
@@ -362,6 +282,9 @@
     
 	portal panties
 		two 'ends' interacting
+	
+	
+	
 	
 	
 	

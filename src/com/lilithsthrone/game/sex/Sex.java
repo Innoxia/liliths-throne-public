@@ -78,7 +78,7 @@ import com.lilithsthrone.utils.Util.Value;
  * Lasciate ogni speranza, voi ch'entrate.
  *
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class Sex {
@@ -206,6 +206,7 @@ public class Sex {
 	// Positioning, requests, tracking:
 	private static Map<GameCharacter, List<SexType>> requestsBlocked;
 	private static PositioningData positionRequest;
+	private static Set<GameCharacter> charactersSealed;
 	private static Set<GameCharacter> charactersBannedFromPositioning;
 	private static Set<GameCharacter> charactersForbiddenByOthersFromPositioning;
 	private static Set<GameCharacter> charactersSelfActionsBlocked;
@@ -364,8 +365,9 @@ public class Sex {
 		}
 		
 		positionRequest = null;
-		charactersBannedFromPositioning = new HashSet<>();
 		
+		charactersSealed = new HashSet<>(sexManager.getCharactersSealed());
+		charactersBannedFromPositioning = new HashSet<>();
 		
 		charactersSelfActionsBlocked = new HashSet<>();
 		charactersDeniedOrgasm = new HashSet<>();
@@ -1184,7 +1186,6 @@ public class Sex {
 				
 			// Orgasm actions:
 			} else if(isReadyToOrgasm(Main.game.getPlayer()) || Sex.isCharacterDeniedOrgasm(Main.game.getPlayer()) || (Sex.getActivePartner()!=null && isReadyToOrgasm(Sex.getActivePartner()))) {
-					
 				if(index == 0){
 					return null;
 
@@ -1201,7 +1202,6 @@ public class Sex {
 				
 			// Normal sex actions:
 			} else {
-				
 				if(responseTab==0) {
 					if(index>=15) {
 						if(index < miscActionsPlayer.size()) {
@@ -1631,7 +1631,7 @@ public class Sex {
 						
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
-						if(weight>=0) {
+						if(weight>=0 || sexAction.getActionType()==SexActionType.POSITIONING) { // Positioning actions should always be available
 							switch(sexAction.getPriority()){
 								case LOW:
 									lowPriority.add(sexAction);
@@ -1682,7 +1682,7 @@ public class Sex {
 					if (sexAction.isAddedToAvailableSexActions()) {
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
-						if(weight>=0) {
+						if(weight>=0 || sexAction.getActionType()==SexActionType.POSITIONING) { // Positioning actions should always be available
 							switch(sexAction.getPriority()){
 								case LOW:
 									lowPriority.add(sexAction);
@@ -1741,7 +1741,7 @@ public class Sex {
 						// Add action as normal:
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
-						if(weight>=0 || sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)) {
+						if(weight>=0 || sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN) || sexAction.getActionType()==SexActionType.POSITIONING) { // Positioning actions should always be available
 							switch(sexAction.getPriority()){
 								case LOW:
 									lowPriority.add(sexAction);
@@ -1853,7 +1853,9 @@ public class Sex {
 				}
 			}
 		}
-		lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + (activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null)*0.25f));
+		if(sexAction.getActionType()!=SexActionType.POSITIONING) { // Positioning actions should not be affected by lust increments
+			lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + (activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null)*0.25f));
+		}
 		
 		if(sexAction.getParticipantType()!=SexParticipantType.SELF) {
 			// Arousal increments for this target's related fetishes:
@@ -1868,7 +1870,9 @@ public class Sex {
 					}
 				}
 			}
-			lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + (targetCharacter.calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null)*0.25f));
+			if(sexAction.getActionType()!=SexActionType.POSITIONING) { // Positioning actions should not be affected by lust increments
+				lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + (targetCharacter.calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null)*0.25f));
+			}
 		}
 		
 		// Increment lust:
@@ -1929,6 +1933,10 @@ public class Sex {
 						entry.getKey().equals(activeCharacter)
 							?activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null)
 							:entry.getKey().calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null)));
+
+				if(sexAction.getActionType()==SexActionType.POSITIONING) { // Positioning actions should not affect arousal increments
+					arousalCapIncrease = 0;
+				}
 				
 				if(Sex.isMasturbation()) {
 					arousal*=2;
@@ -2026,8 +2034,7 @@ public class Sex {
 			}
 		}
 
-		if(sexAction.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM
-				&& Sex.getCharacterPerformingAction().isPlayer()) {
+		if(sexAction.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM && Sex.getCharacterPerformingAction().isPlayer()) {
 			SexFlags.playerPreparedForCharactersOrgasm.add(Sex.getCharacterTargetedForSexAction(sexAction));
 		}
 		
@@ -3066,7 +3073,9 @@ public class Sex {
 	}
 	
 	public static boolean isPositionChangingAllowed(GameCharacter characterWantingToChangePosition) {
-		if(isCharacterBannedFromPositioning(characterWantingToChangePosition) || Sex.isCharacterForbiddenByOthersFromPositioning(characterWantingToChangePosition)) {
+		if(isCharacterBannedFromPositioning(characterWantingToChangePosition)
+				|| Sex.isCharacterForbiddenByOthersFromPositioning(characterWantingToChangePosition)
+				|| (Sex.isDom(characterWantingToChangePosition) == Sex.isDom(Sex.getTargetedPartner(characterWantingToChangePosition)))) { // DO ont allow position changing if the character/target are sub/sub or dom/dom
 			return false;
 		}
 		
@@ -3783,7 +3792,7 @@ public class Sex {
 		for(GameCharacter character : Sex.allParticipants) {
 			for(GameCharacter target : Sex.allParticipants) {
 				if((!character.equals(target) || Sex.isMasturbation())
-						&& Sex.sexManager.getPosition().getAllAvailableSexPositions().contains(Sex.getSexPositionSlot(character))) {
+						&& (Sex.sexManager.getPosition().getAllAvailableSexPositions().contains(Sex.getSexPositionSlot(character)) || Sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING)) { //TODO check spectator check here
 					SexActionInteractions interactions;
 					if(Sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING || Sex.getSexPositionSlot(target)==SexSlotGeneric.MISC_WATCHING) {
 						interactions = StandardSexActionInteractions.spectator;
@@ -3932,6 +3941,7 @@ public class Sex {
 										|| action.getParticipantType()==SexParticipantType.SELF
 										|| action.getActionType().isOrgasmOption()
 										|| action.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)) {
+							
 							if (action.getActionType().isOrgasmOption()) {
 								if(addedForCharacter) {
 									orgasmActionsAvailable.get(character).get(target).add(action);
@@ -4366,7 +4376,23 @@ public class Sex {
 	public static void setPositionRequest(PositioningData positionRequest) {
 		Sex.positionRequest = positionRequest;
 	}
+	
+	public static Set<GameCharacter> getCharactersSealed() {
+		return charactersSealed;
+	}
+	
+	public static boolean isCharacterSealed(GameCharacter character) {
+		return getCharactersSealed().contains(character);
+	}
+	
+	public static boolean addCharacterSealed(GameCharacter character) {
+		return getCharactersSealed().add(character);
+	}
 
+	public static boolean removeCharacterSealed(GameCharacter character) {
+		return getCharactersSealed().remove(character);
+	}
+	
 	public static Set<GameCharacter> getCharactersBannedFromPositioning() {
 		return charactersBannedFromPositioning;
 	}

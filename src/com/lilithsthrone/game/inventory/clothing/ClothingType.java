@@ -7855,10 +7855,7 @@ public class ClothingType {
 			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
-									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
@@ -7914,10 +7911,7 @@ public class ClothingType {
 			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
-									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA,

@@ -338,7 +338,7 @@ public class LilayaHomeGeneric {
 							UtilText.parse(getMilkingTarget(), "There are no free milking machines for [npc.name] to use!"),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
+				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.Name]")),
 							UtilText.parse(getMilkingTarget(),
@@ -346,7 +346,7 @@ public class LilayaHomeGeneric {
 											+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you."),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave()
+				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental)
 						&& (getMilkingTarget().getFetishDesire(Fetish.FETISH_LACTATION_SELF).isNegative() || getMilkingTarget().getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative())) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]")),
@@ -416,7 +416,7 @@ public class LilayaHomeGeneric {
 							UtilText.parse(getMilkingTarget(), "There are no free milking machines for [npc.name] to use!"),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
+				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" cum",
 							UtilText.parse(getMilkingTarget(),
@@ -424,7 +424,7 @@ public class LilayaHomeGeneric {
 											+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you."),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave()
+				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental)
 						&& (getMilkingTarget().getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || getMilkingTarget().getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative())) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" cum",
@@ -490,7 +490,7 @@ public class LilayaHomeGeneric {
 							UtilText.parse(getMilkingTarget(), "There are no free milking machines for [npc.name] to use!"),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
+				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" girlcum",
 							UtilText.parse(getMilkingTarget(),
@@ -498,7 +498,7 @@ public class LilayaHomeGeneric {
 											+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you."),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && getMilkingTarget().getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()) {
+				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" girlcum",
 							UtilText.parse(getMilkingTarget(), "As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for the "+Fetish.FETISH_VAGINAL_RECEIVING.getName(getMilkingTarget())+" fetish."),
@@ -566,7 +566,7 @@ public class LilayaHomeGeneric {
 							UtilText.parse(getMilkingTarget(), "There are no free milking machines for [npc.name] to use!"),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
+				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
 					return new Response(
 							(getMilkingTarget().isPlayer()
 									?"Milk self [pc.crotchBoobs]"
@@ -576,7 +576,7 @@ public class LilayaHomeGeneric {
 											+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you."),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave()
+				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental)
 						&& (getMilkingTarget().getFetishDesire(Fetish.FETISH_LACTATION_SELF).isNegative() || getMilkingTarget().getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative())) {
 					return new Response(
 							(getMilkingTarget().isPlayer()

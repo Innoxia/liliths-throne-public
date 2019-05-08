@@ -700,7 +700,7 @@
 		[pc.speech(I seriously doubt that she's in the citadel anymore,)] you state, [pc.speech(Where could I find her?)]
 	</p>
 	<p>
-		[siren.speech(I first met her in the town of Elis, back before I decided to conquer all of Submission. It's the closest town to the youko's forest homeland, and one of the largest and post prosperous in all the Foloi fields. She's probably gone back there.)]
+		[siren.speech(I first met her in the town of Elis, back before I decided to conquer all of Submission. It's the closest town to the youko's forest homeland, and one of the largest and most prosperous in all the Foloi fields. She's probably gone back there.)]
 	</p>
 	<p>
 		[pc.speech(I suppose a 'probably' is better than nothing, and I will need some help against those centaurs,)] you sigh, [pc.speech(I guess I head there.)]

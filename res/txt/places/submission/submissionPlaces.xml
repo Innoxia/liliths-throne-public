@@ -616,13 +616,13 @@
 		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you bested Lyssieth's daughter in combat. As you recount the battle you had in the stone keep, Elizabeth raises her eyebrows and gazes at you in disbelief. [elizabeth.speech(You actually beat her in a fight?! There's no way... But that would mean you still have the ring I gave you! Show it to me, and prove that you're not lying.)]
 	</p>
 	<p>
-		Producing Lyssieth's signet ring, you hand it over to Elizabeth, who stammers and trips over her words as she realises that you were actually telling the truth. [elizabeth.speech(Wow... But Lyssieth herself taught her how to use the arcane... i_I mean, everyone in the palace knows about how she over-estimates her abilities, but she... I mean... Who <i>are</i> you?!)]
+		Producing Lyssieth's signet ring, you hand it over to Elizabeth, who stammers and trips over her words as she realises that you were actually telling the truth, [elizabeth.speech(Wow... But Lyssieth herself taught her how to use the arcane... I-I mean, everyone in the palace knows about how she over-estimates her abilities, but she... I mean... Who <i>are</i> you?!)]
 	</p>
 	<p>
 		[pc.speech(As I told you before, I'm Lilaya's [pc.niece]. Well, sort of, anyway. That's why I need to speak with Lyssieth so badly; I have a lot of questions that I need answered.)]
 	</p>
 	<p>
-		[elizabeth.speech(Well, as promised, you've earned the right to do just that,)] Elizabeth replies, before handing the ring you've just given her over to one of her subordinates, and then producing an identical ring from one of her pockets. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you as a reward if you managed to deal with her daughter.)]
+		[elizabeth.speech(Well, as promised, you've earned the right to do just that,)] Elizabeth replies, before handing the ring to one of her subordinates, and then producing an identical ring from her pocket. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you as a reward if you managed to deal with her daughter.)]
 	</p>
 	<p>
 		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as they're commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [elizabeth.speech(You're now free to come and go as you please. That being said, I will have to escort you through the palace. We can't just let people wander around in there unsupervised, I'm sure you understand.)]
@@ -638,13 +638,13 @@
 		[elizabeth.speech(So, how did you do it?)]
 	</p>
 	<p>
-		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you tricked Lyssieth's daughter into wearing the ring you were given. As you recount the conversation the two of you had in the stone keep, Elizabeth rolls her eyes and starts impatiently tapping her foot on the ground. As your story comes to an end, she sighs, [elizabeth.speech(I can't imagine what it must be like to be in the presence of the two of you at once...)]
+		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you tricked Lyssieth's daughter into wearing the enslavement ring. As you recount the conversation the two of you had in the stone keep, Elizabeth rolls her eyes and starts impatiently tapping her foot on the ground. As your story comes to an end, she sighs, [elizabeth.speech(I can't imagine what it must be like to be in the presence of the two of you at once...)]
 	</p>
 	<p>
-		Taking that as a compliment, you smirk as you reply, [pc.speech(It is rather hard to picture such a cataclysmic encounter between two of the greatest arcane-wielders to ever have lived! But anyway, enough of that! I have a lot of questions that I need Lyssieth to answer. Can I please enter the palace now?)]
+		Taking that as a compliment, you smirk as you reply, [pc.speech(I suppose that it must be rather hard for you to picture such a cataclysmic encounter between two of the greatest arcane-wielders to ever have lived! But anyway, enough of that! I have a lot of questions that I need Lyssieth to answer. Can I please enter the palace now?)]
 	</p>
 	<p>
-		[elizabeth.speech(Well, as promised, you've earned the right to do just that,)] Elizabeth replies, before producing a very familiar-looking signet ring from her right pocket. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you as a reward if you managed to deal with her daughter.)]
+		[elizabeth.speech(Well, as promised, you've earned the right to do just that,)] Elizabeth replies, before producing a very familiar-looking signet ring from her pocket. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you as a reward if you managed to deal with her daughter.)]
 	</p>
 	<p>
 		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as they're commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [elizabeth.speech(You're now free to come and go as you please. That being said, I will have to escort you through the palace. We can't just let people wander around in there unsupervised, I'm sure you understand.)]
