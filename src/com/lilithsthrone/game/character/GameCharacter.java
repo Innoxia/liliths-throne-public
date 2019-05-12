@@ -20120,6 +20120,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getPenisRawCumStorageValue() {
 		return body.getPenis().getTesticle().getRawCumStorageValue();
 	}
+	public int getCurrentPenisRawCumStorageValue() {
+		return getCurrentPenis().getTesticle().getRawCumStorageValue();
+	}
 	public String setPenisCumStorage(int cumProduction) {
 		return body.getPenis().getTesticle().setCumStorage(this, cumProduction);
 	}
@@ -20175,12 +20178,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public int getPenisRawOrgasmCumQuantity() {
 		if (!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
-			return body.getPenis().getTesticle().getRawCumStorageValue();
+			return getCurrentPenis().getTesticle().getRawCumStorageValue();
 		}
-		if(body.getPenis().getTesticle().getRawStoredCumValue() <= Testicle.MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED) {
-			return (int) body.getPenis().getTesticle().getRawStoredCumValue();
+		if(getCurrentPenis().getTesticle().getRawStoredCumValue() <= Testicle.MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED) {
+			return (int) getCurrentPenis().getTesticle().getRawStoredCumValue();
 		}
-		return (int) (body.getPenis().getTesticle().getRawStoredCumValue() * (getPenisRawCumExpulsionValue()/100f));
+		return (int) (getCurrentPenis().getTesticle().getRawStoredCumValue() * (getPenisRawCumExpulsionValue()/100f));
 	}
 	public void applyOrgasmCumEffect() {
 		if(Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
