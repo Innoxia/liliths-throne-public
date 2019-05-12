@@ -394,6 +394,7 @@ public class ResponseSex extends Response {
 			}
 		}
 		
+		// Prevent duplicate characters on differente positions.
 		if(this.sexManager != null) {
 			
 			// We have to use iterator to be able to safely remove elements without "ConcurrentModificationException"
@@ -425,8 +426,9 @@ public class ResponseSex extends Response {
 				GameCharacter val = i.next();
 				if(this.sexManager.getDominants().containsKey(val)) 
 					i.remove();
-			}
+			}			
 		}
+		
 		this.postSexDialogue = postSexDialogue;
 		this.sexStartDescription = sexStartDescription;
 	}
