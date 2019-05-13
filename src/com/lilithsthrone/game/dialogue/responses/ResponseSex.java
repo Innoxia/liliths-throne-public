@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.responses;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -379,7 +378,7 @@ public class ResponseSex extends Response {
 		if(dominantSpectators==null) {
 			this.dominantSpectators = new ArrayList<>();
 		} else {
-			this.dominantSpectators = new ArrayList<>(dominantSpectators);
+			this.dominantSpectators = dominantSpectators;
 			while(this.dominantSpectators.contains(null)) {
 				this.dominantSpectators.remove(null);
 			}
@@ -388,45 +387,10 @@ public class ResponseSex extends Response {
 		if(submissiveSpectators==null) {
 			this.submissiveSpectators = new ArrayList<>();
 		} else {
-			this.submissiveSpectators = new ArrayList<>(submissiveSpectators);
+			this.submissiveSpectators = submissiveSpectators;
 			while(this.submissiveSpectators.contains(null)) {
 				this.submissiveSpectators.remove(null);
 			}
-		}
-		
-		// Prevent duplicate characters on differente positions.
-		if(this.sexManager != null) {
-			
-			// We have to use iterator to be able to safely remove elements without "ConcurrentModificationException"
-			Iterator<GameCharacter> i;
-
-			// If in sex and dominant spectator,
-			// remove from spectator.
-			i = this.dominantSpectators.iterator();
-			while(i.hasNext()) {
-				GameCharacter val = i.next();
-				if(this.sexManager.getDominants().containsKey(val) || this.sexManager.getSubmissives().containsKey(val)) 
-					i.remove();
-			}
-			
-			// If in sex and submissive spectator, 
-			// or in dominant and submissive spectator, 
-			// remove from submissive spectator.
-			i = this.submissiveSpectators.iterator();
-			while(i.hasNext()) {
-				GameCharacter val = i.next();
-				if(this.dominantSpectators.contains(val) || this.sexManager.getDominants().containsKey(val) || this.sexManager.getSubmissives().containsKey(val)) 
-					i.remove();
-			}
-			
-			// If dominant and submissive, 
-			// remove from submissive.
-			i = this.sexManager.getSubmissives().keySet().iterator();
-			while(i.hasNext()) {
-				GameCharacter val = i.next();
-				if(this.sexManager.getDominants().containsKey(val)) 
-					i.remove();
-			}			
 		}
 		
 		this.postSexDialogue = postSexDialogue;

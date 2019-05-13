@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -3744,6 +3745,8 @@ public class Sex {
 		
 		Sex.sexManager = sexManager;
 		
+		preventClones();
+		
 		Main.game.setInSex(true);
 		
 		updateAvailableActions();
@@ -4475,4 +4478,61 @@ public class Sex {
 		Sex.charactersGrewCock = charactersGrewCock;
 	}
 	
+	/**
+	 * Prevents cloned characters in more than one position, to prevent common bugs when using companions and similar.
+	 * Priority to maintain characters in their positions is:
+	 * - dominants (High priority to keep as is)
+	 * - submissives
+	 * - dominantSpectators
+	 * - submissiveSpectators (Low priority)
+	 * 
+	 * This function WILL remove members if needed. Do not pass lists you don't want to be edited.
+	 * @return None
+	 */
+	public static void preventClones(Map<GameCharacter, SexSlot> dominants,
+			Map<GameCharacter, SexSlot> submissives,
+			List<GameCharacter> dominantSpectators,
+			List<GameCharacter> submissiveSpectators) {
+		// Prevent Clones
+		
+		// We have to use iterator to be able to safely remove elements without "ConcurrentModificationException"
+		Iterator<GameCharacter> i;
+
+		// If in sex and dominant spectator,
+		// remove from spectator.
+		i = dominantSpectators.iterator();
+		while(i.hasNext()) {
+			GameCharacter val = i.next();
+			if(dominants.containsKey(val) || submissives.containsKey(val)) 
+				i.remove();
+		}
+		
+		// If in sex and submissive spectator, 
+		// or in dominant and submissive spectator, 
+		// remove from submissive spectator.
+		i = submissiveSpectators.iterator();
+		while(i.hasNext()) {
+			GameCharacter val = i.next();
+			if(dominantSpectators.contains(val) || dominants.containsKey(val) || submissives.containsKey(val)) 
+				i.remove();
+		}
+		
+		// If dominant and submissive, 
+		// remove from submissive 
+		// ONLY if there are more submissives. Remove from Dominant if not.
+		i = submissives.keySet().iterator();
+		while(i.hasNext()) {
+			GameCharacter val = i.next();
+			if(dominants.containsKey(val)) 
+				if(submissives.size() > 1) i.remove();
+				else dominants.remove(val);
+		}
+		
+		// We don't cover the case of only one character being submissive and dominant at the same time.
+		// Such case would be probably an error from the caller.
+	}
+
+	public static void preventClones() {
+		preventClones(Sex.dominants,Sex.submissives,Sex.dominantSpectators,Sex.submissiveSpectators);
+	}
 }
