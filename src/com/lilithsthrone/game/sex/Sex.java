@@ -64,6 +64,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
@@ -325,7 +326,7 @@ public class Sex {
 		
 		sexStarted = false;
 
-		resetAllOngoingActions();
+		resetAllOngoingActions(true);
 
 		
 		lastUsedSexAction = new HashMap<>();
@@ -579,7 +580,11 @@ public class Sex {
 			
 			initialSexActionSB.setLength(0);
 			if(sexAction.isAppendDescription()) {
-				initialSexActionSB.append("<p>" + sexAction.getSexAction().getDescription() + sexAction.getSexAction().getFlavourDescription(sexAction.getPerformer(), sexAction.getTarget()) + "</p>");
+				initialSexActionSB.append("<p>"
+											+ sexAction.getSexAction().preDescriptionBaseEffects()
+											+ sexAction.getSexAction().getDescription()
+											+ sexAction.getSexAction().getFlavourDescription(sexAction.getPerformer(), sexAction.getTarget())
+										+ "</p>");
 			}
 			String endString = sexAction.getSexAction().baseEffects();
 			if(sexAction.isAppendEffects()) {
@@ -1331,7 +1336,11 @@ public class Sex {
 //		startTurnPlayerArousal = Main.game.getPlayer().getArousal(); //TODO test
 //		System.out.println("startTurnPlayerArousal: "+startTurnPlayerArousal);
 		
-		sexSB.append("<p>" + sexActionPlayer.getDescription() + sexActionPlayer.getFlavourDescription(Main.game.getPlayer(), Sex.getTargetedPartner(Main.game.getPlayer())) + "</p>");
+		sexSB.append("<p>"
+						+ sexActionPlayer.preDescriptionBaseEffects()
+						+ sexActionPlayer.getDescription()
+						+ sexActionPlayer.getFlavourDescription(Main.game.getPlayer(), Sex.getTargetedPartner(Main.game.getPlayer()))
+					+ "</p>");
 		
 		String endString = sexActionPlayer.baseEffects();
 		
@@ -1392,6 +1401,7 @@ public class Sex {
 									+ "<p>"
 										+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>&gt; "+UtilText.parse(character, "[npc.Name]")+": "+(Util.capitaliseSentence(sexActionPartner.getActionTitle()))+"</span>"
 										+ "</br>"
+										+ sexActionPartner.preDescriptionBaseEffects()
 										+ sexActionPartner.getDescription()
 										+ sexActionPartner.getFlavourDescription(character, Sex.getTargetedPartner(character))
 									+ "</p>");
@@ -1854,7 +1864,7 @@ public class Sex {
 			}
 		}
 		if(sexAction.getActionType()!=SexActionType.POSITIONING) { // Positioning actions should not be affected by lust increments
-			lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + (activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null)*0.25f));
+			lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + (activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null, true)*0.25f));
 		}
 		
 		if(sexAction.getParticipantType()!=SexParticipantType.SELF) {
@@ -1871,7 +1881,7 @@ public class Sex {
 				}
 			}
 			if(sexAction.getActionType()!=SexActionType.POSITIONING) { // Positioning actions should not be affected by lust increments
-				lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + (targetCharacter.calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null)*0.25f));
+				lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + (targetCharacter.calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null, true)*0.25f));
 			}
 		}
 		
@@ -1931,8 +1941,8 @@ public class Sex {
 				int arousalCapIncrease = Math.max(0,
 						Math.min(10,
 						entry.getKey().equals(activeCharacter)
-							?activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null)
-							:entry.getKey().calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null)));
+							?activeCharacter.calculateSexTypeWeighting(sexAction.getAsSexType(), targetCharacter, null, true)
+							:entry.getKey().calculateSexTypeWeighting(sexAction.getAsSexType().getReversedSexType(), activeCharacter, null, true)));
 
 				if(sexAction.getActionType()==SexActionType.POSITIONING) { // Positioning actions should not affect arousal increments
 					arousalCapIncrease = 0;
@@ -1986,7 +1996,7 @@ public class Sex {
 					continue;
 				}
 				
-				if (cumProvider.getPenisOrgasmCumQuantity() == CumProduction.ZERO_NONE) {
+				if (cumProvider.getPenisOrgasmCumQuantity() == CumProduction.ZERO_NONE || cumProvider.getPenisType()==PenisType.DILDO) {
 					continue;
 				}
 				
@@ -2009,7 +2019,11 @@ public class Sex {
 						cumProvider.incrementCumCount(
 								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, area));
 						if (area.isOrifice() && ((SexAreaOrifice) area).isInternalOrifice()) {
-							stringBuilderForAppendingDescriptions.append(cumTarget.ingestFluid(cumProvider, cumProvider.getCum(), (SexAreaOrifice) area, cumProvider.getPenisRawOrgasmCumQuantity()));
+							if(sexAction==GenericOrgasms.GENERIC_ORGASM_DOUBLE_CREAMPIE) {
+								stringBuilderForAppendingDescriptions.append(cumTarget.ingestFluid(cumProvider, cumProvider.getCum(), (SexAreaOrifice) area, cumProvider.getPenisRawOrgasmCumQuantity()/2));
+							} else {
+								stringBuilderForAppendingDescriptions.append(cumTarget.ingestFluid(cumProvider, cumProvider.getCum(), (SexAreaOrifice) area, cumProvider.getPenisRawOrgasmCumQuantity()));
+							}
 						}
 					}
 					Sex.incrementTimesCummedInside(cumProvider, cumTarget, 1);
@@ -2095,7 +2109,7 @@ public class Sex {
 					|| Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())>0) {
 				incrementNumberOfOrgasms(Sex.getCharacterPerformingAction(), 1);
 				Sex.getCharacterPerformingAction().setArousal(Sex.getCharacterPerformingAction().getLust()/4f);
-				Sex.getCharacterPerformingAction().applyOrgasmCumEffect();
+				Sex.getCharacterPerformingAction().applyOrgasmCumEffect(sexAction==GenericOrgasms.GENERIC_ORGASM_DOUBLE_CREAMPIE?0.5f:1);
 				
 			} else {
 				incrementNumberOfOrgasms(Sex.getCharacterPerformingAction(), 1);
@@ -2146,8 +2160,8 @@ public class Sex {
 								
 								SexType ongoingSexType = new SexType(SexParticipantType.NORMAL, entry.getKey(), sArea);
 								
-								int weight = character.calculateSexTypeWeighting(ongoingSexType, characterTarget, null);
-								int targetWeight = characterTarget.calculateSexTypeWeighting(ongoingSexType.getReversedSexType(), character, null);
+								int weight = character.calculateSexTypeWeighting(ongoingSexType, characterTarget, null, true);
+								int targetWeight = characterTarget.calculateSexTypeWeighting(ongoingSexType.getReversedSexType(), character, null, true);
 
 								character.incrementLust(Math.max(-2.5f, Math.min(2.5f, (weight*0.25f))), false);
 								characterTarget.incrementLust(Math.max(-2.5f, Math.min(2.5f, (targetWeight*0.25f))), false);
@@ -2602,19 +2616,28 @@ public class Sex {
 			}
 		}
 	}
-	
-	public static void stopOngoingAction(GameCharacter characterPerformingAction, SexAreaInterface performerArea, GameCharacter characterTargeted, SexAreaInterface targetedArea) {
-		stopOngoingAction(characterPerformingAction, performerArea, characterTargeted, targetedArea, true);
+
+	/**
+	 * @return The description of this action being stopped.
+	 */
+	public static String stopOngoingAction(GameCharacter characterPerformingAction, SexAreaInterface performerArea, GameCharacter characterTargeted, SexAreaInterface targetedArea) {
+		return stopOngoingAction(characterPerformingAction, performerArea, characterTargeted, targetedArea, true);
 	}
 	
-	public static void stopOngoingAction(GameCharacter characterPerformingAction, SexAreaInterface performerArea, GameCharacter characterTargeted, SexAreaInterface targetedArea, boolean appendRemovalText) {
-		
+	/**
+	 * @return The description of this action being stopped.
+	 */
+	public static String stopOngoingAction(GameCharacter characterPerformingAction, SexAreaInterface performerArea, GameCharacter characterTargeted, SexAreaInterface targetedArea, boolean appendRemovalText) {
+		String removalText = "";
 		if(ongoingActionsMap.get(characterPerformingAction).get(performerArea).containsKey(characterTargeted)) {
 			if(ongoingActionsMap.get(characterPerformingAction).get(performerArea).get(characterTargeted).remove(targetedArea)) {
 				ongoingActionsMap.get(characterTargeted).get(targetedArea).get(characterPerformingAction).remove(performerArea);
-				if(appendRemovalText && characterTargeted!=null && performerArea.isPenetration() && targetedArea.isOrifice()) {
+				if(characterTargeted!=null && performerArea.isPenetration() && targetedArea.isOrifice()) {
 					//TODO add variants for pen/pen and ori/ori
-					sexSB.append(formatStopPenetration(characterTargeted.getStopPenetrationDescription(characterPerformingAction, (SexAreaPenetration)performerArea, characterTargeted, (SexAreaOrifice)targetedArea)));
+					removalText = formatStopPenetration(characterTargeted.getStopPenetrationDescription(characterPerformingAction, (SexAreaPenetration)performerArea, characterTargeted, (SexAreaOrifice)targetedArea));
+					if(appendRemovalText) {
+						sexSB.append(removalText);
+					}
 				}
 			}
 			
@@ -2627,7 +2650,7 @@ public class Sex {
 				ongoingActionsMap.get(characterTargeted).get(targetedArea).remove(characterPerformingAction);
 			}
 		}
-		
+		return removalText;
 	}
 
 	private static boolean displayOngoingPenetrationEffects = false;
@@ -3075,13 +3098,12 @@ public class Sex {
 	public static boolean isPositionChangingAllowed(GameCharacter characterWantingToChangePosition) {
 		if(isCharacterBannedFromPositioning(characterWantingToChangePosition)
 				|| Sex.isCharacterForbiddenByOthersFromPositioning(characterWantingToChangePosition)
-				|| (Sex.isDom(characterWantingToChangePosition) == Sex.isDom(Sex.getTargetedPartner(characterWantingToChangePosition)))) { // DO ont allow position changing if the character/target are sub/sub or dom/dom
+				|| Sex.isDom(characterWantingToChangePosition)==Sex.isDom(Sex.getTargetedPartner(characterWantingToChangePosition))) { // Don't allow position changing if the character/target are sub/sub or dom/dom as it can break positioning
 			return false;
 		}
 		
 		return Sex.getInitialSexManager().isPositionChangingAllowed(characterWantingToChangePosition);
 	}
-	
 	
 	public static List<SexType> getRequestsBlocked(GameCharacter character) {
 		return requestsBlocked.get(character);
@@ -3665,7 +3687,7 @@ public class Sex {
 		Sex.allParticipants.addAll(dominantSpectators);
 		Sex.allParticipants.addAll(submissiveSpectators);
 		
-		Sex.resetAllOngoingActions();
+		Sex.resetAllOngoingActions(!sexInitFinished);
 		
 		actionsAvailable.clear();
 		orgasmActionsAvailable.clear();
@@ -3766,15 +3788,19 @@ public class Sex {
 				+"<i><b>"+Sex.sexManager.getPosition().getDescription()+"</b></i></p>");
 	}
 	
-	public static void resetAllOngoingActions() {
-		ongoingActionsMap = new HashMap<>();
+	public static void resetAllOngoingActions(boolean includeSpectators) {
+		if(ongoingActionsMap==null) {
+			ongoingActionsMap = new HashMap<>();
+		}
 		for(GameCharacter character : Sex.getAllParticipants()) {
-			ongoingActionsMap.put(character, new HashMap<>());
-			for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
-				ongoingActionsMap.get(character).put(orifice, new HashMap<>());
-			}
-			for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
-				ongoingActionsMap.get(character).put(penetration, new HashMap<>());
+			if(!Sex.isSpectator(character) || includeSpectators) {
+				ongoingActionsMap.put(character, new HashMap<>());
+				for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+					ongoingActionsMap.get(character).put(orifice, new HashMap<>());
+				}
+				for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
+					ongoingActionsMap.get(character).put(penetration, new HashMap<>());
+				}
 			}
 		}
 	}
@@ -4077,7 +4103,7 @@ public class Sex {
 			Sex.submissives.put(character2, characterSlot1);
 		}
 		
-		Sex.resetAllOngoingActions();
+		Sex.resetAllOngoingActions(false);
 		
 		updateAvailableActions();
 	}

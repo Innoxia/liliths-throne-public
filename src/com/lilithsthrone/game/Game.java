@@ -2902,6 +2902,12 @@ public class Game implements XMLSaving {
 	public int getWeatherTimeRemainingInSeconds() {
 		return weatherTimeRemainingInSeconds;
 	}
+
+	public String getWeatherTimeRemainingAsTimeString() {
+		long minutes = weatherTimeRemainingInSeconds/60;
+		long hours = minutes/60;
+		return (hours/24)+" days, "+hours%24+" hours, "+minutes%60+" minutes";
+	}
 	
 	public void setWeatherInSeconds(Weather weather, int secondsRemaining) {
 		currentWeather = weather;

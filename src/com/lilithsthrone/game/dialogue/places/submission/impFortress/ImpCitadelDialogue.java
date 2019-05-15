@@ -1374,6 +1374,20 @@ public class ImpCitadelDialogue {
 								"As [npc2.name] doesn't like being transformed, [npc2.she] will refuse to drink [npc.namePos] potion. As [npc2.she] is not your slave, you can't force [npc2.herHim] to do it, either..."),
 							null);
 				}
+				if(getMainCompanion().getRace()==Race.FOX_MORPH) {
+					return new Response(UtilText.parse(
+							getMainCompanion(), "Accept ([npc.name])"),
+							UtilText.parse(getArcanist(), getMainCompanion(),
+								"As [npc2.name] is already a fox-morph, [npc.name] is unwilling to use a potion on [npc2.herHim]..."),
+							null);
+				}
+				if(getMainCompanion().getRace()==Race.DEMON || (getMainCompanion() instanceof Elemental)) {
+					return new Response(UtilText.parse(
+							getMainCompanion(), "Accept ([npc.name])"),
+							UtilText.parse(getArcanist(), getMainCompanion(),
+								"As [npc2.name] is a demon, and therefore unable to be transformed, [npc.name] is unwilling to waste a potion on [npc2.herHim]..."),
+							null);
+				}
 				return new Response(
 						UtilText.parse(getMainCompanion(), "Accept ([npc.name])"),
 						UtilText.parse(getArcanist(), getMainCompanion(),
@@ -1446,6 +1460,13 @@ public class ImpCitadelDialogue {
 								"As [npc2.name] is already a fox-morph, [npc.name] is unwilling to use a potion on [npc2.herHim]..."),
 							null);
 				}
+				if(getMainCompanion().getRace()==Race.DEMON || (getMainCompanion() instanceof Elemental)) {
+					return new Response(UtilText.parse(
+							getMainCompanion(), "Accept (both)"),
+							UtilText.parse(getArcanist(), getMainCompanion(),
+								"As [npc2.name] is a demon, and therefore unable to be transformed, [npc.name] is unwilling to waste a potion on [npc2.herHim]..."),
+							null);
+				}
 				if(Main.game.getPlayer().getRace()==Race.FOX_MORPH) {
 					return new Response(UtilText.parse(
 							getMainCompanion(), "Accept (both)"),
@@ -1473,7 +1494,7 @@ public class ImpCitadelDialogue {
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF", getAllCharacters()));
 						potion = ((NPC)getArcanist()).getTransformativePotion(getMainCompanion(), true);
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion.getValue(), getMainCompanion(), false));
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF_OFFER_SEX", getAllCharacters()));
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_BOTH_TF_OFFER_SEX", getAllCharacters()));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF, true);
 					}
 					@Override

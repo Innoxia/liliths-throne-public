@@ -225,6 +225,15 @@ public class TongueVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			try {
+				if(!Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)) {
+					return false;
+				}
+			} catch(Exception ex) {
+				return false; // No available finger-mouth actions, so can't reach face
+			}
+			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Sex.getPenetrationTypeFreeCount(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
 					&& !Sex.getSexManager().getSlotsConcealed(Sex.getCharacterTargetedForSexAction(this)).contains(InventorySlot.HAIR)
@@ -330,6 +339,15 @@ public class TongueVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			try {
+				if(!Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)) {
+					return false;
+				}
+			} catch(Exception ex) {
+				return false; // No available finger-mouth actions, so can't reach face
+			}
+			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Sex.getPenetrationTypeFreeCount(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
 					&& !Sex.getSexManager().getSlotsConcealed(Sex.getCharacterTargetedForSexAction(this)).contains(InventorySlot.HEAD)
@@ -432,6 +450,15 @@ public class TongueVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			try {
+				if(!Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)) {
+					return false;
+				}
+			} catch(Exception ex) {
+				return false; // No available finger-mouth actions, so can't reach face
+			}
+			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Sex.getPenetrationTypeFreeCount(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
 					&& !Sex.getSexManager().getSlotsConcealed(Sex.getCharacterTargetedForSexAction(this)).contains(InventorySlot.HORNS)

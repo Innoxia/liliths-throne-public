@@ -1327,7 +1327,6 @@ public class ConChairBottom {
 				return null;
 			}
 		}
-		
 	};
 	
 	public static final SexAction PLAYER_FEEL_BREASTS = new SexAction(

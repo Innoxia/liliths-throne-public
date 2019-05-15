@@ -5619,6 +5619,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"pussyUrethra",
 						"vaginaUrethra",
 						"vaginalUrethra",
 						"urethraVagina",
@@ -5636,11 +5637,13 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"pussyUrethra+",
 						"vaginaUrethra+",
 						"vaginalUrethra+",
 						"urethraVagina+",
 						"urethraVaginal+",
 						"vaginaUrethraD",
+						"pussyUrethraD",
 						"vaginalUrethraD",
 						"urethraVaginaD",
 						"urethraVaginalD"),

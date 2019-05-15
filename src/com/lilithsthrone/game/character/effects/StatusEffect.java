@@ -1594,6 +1594,22 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStorm();
 			}
 		}
+
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"[style.boldExcellent(Double)] all <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat",
+						"Time until <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
+						Main.game.getWeatherTimeRemainingAsTimeString());
+				
+			} else {
+				return Util.newArrayListOfValues(
+						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"[style.boldExcellent(Double)] all <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat");
+			}
+		}
 	},
 	
 	WEATHER_STORM_VULNERABLE(100,
@@ -1650,6 +1666,24 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStorm();
 			}
 		}
+
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
+						"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat",
+						"Time until <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
+						Main.game.getWeatherTimeRemainingAsTimeString());
+				
+			} else {
+				return Util.newArrayListOfValues(
+						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
+						"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat");
+			}
+		}
 	},
 	
 	WEATHER_STORM_PROTECTED(100,
@@ -1702,6 +1736,20 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayStormProtected();
 			} else {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStormProtected();
+			}
+		}
+
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"Time until <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
+						Main.game.getWeatherTimeRemainingAsTimeString());
+				
+			} else {
+				return Util.newArrayListOfValues(
+						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>");
 			}
 		}
 	},
@@ -12176,6 +12224,10 @@ public enum StatusEffect {
 	
 	public String getPenetrationSVGString(GameCharacter owner, SexAreaInterface penetration, String baseSVG) {
 		SVGImageSB = new StringBuilder();
+
+		if(!Sex.getContactingSexAreas(owner, penetration).isEmpty()) {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getActiveSexBackground()+"</div>");
+		}
 		
 		SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+baseSVG+"</div>");
 		
@@ -12221,6 +12273,10 @@ public enum StatusEffect {
 	
 	public String getOrificeSVGString(GameCharacter owner, SexAreaInterface orifice, String baseSVG) {
 		SVGImageSB = new StringBuilder();
+
+		if(!Sex.getContactingSexAreas(owner, orifice).isEmpty()) {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getActiveSexBackground()+"</div>");
+		}
 		
 		SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+baseSVG+"</div>");
 		

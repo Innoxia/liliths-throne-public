@@ -3161,6 +3161,10 @@ public abstract class GameCharacter implements XMLSaving {
 		this.genderIdentity = genderIdentity;
 	}
 
+	public String getName() {
+		return getName(true);
+	}
+	
 	/**
 	 * @param applyNameAlteringEffects true if you want special effects to be applied. This mainly affects youko, as their special name effect is using their surname instead of their first name when their full name is not known.
 	 * @return This character's name.
@@ -5850,9 +5854,22 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			};
 	}
-
-
+	
+	/**
+	 * Overloaded method in which lustOrArousalCalculation is considered false.
+	 */
 	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request) {
+		return calculateSexTypeWeighting(type, target, request, false);
+	}
+	
+	/**
+	 * @param type The SexType to find the weight of.
+	 * @param target The targeted character for the type.
+	 * @param request Any requests from the target that should be taken into account for weighting.
+	 * @param lustOrArousalCalculation True if this weighting calculation is for calculating lust or arousal increases. This slightly differs from normal by removing hugely negative weightings from anal actions.
+	 * @return The weight value of the type, usually of a value of around +/- 20, but sometimes higher for requests.
+	 */
+	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request, boolean lustOrArousalCalculation) {
 		int weight = 0;
 		
 		List<Fetish> fetishes = type.getRelatedFetishes(this, target, true, false);
@@ -5918,7 +5935,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
 				weight-=100000; // ban self-anal actions unless the character likes anal
 			}
-			if(!fetishes.contains(Fetish.FETISH_PENIS_RECEIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+			if(!fetishes.contains(Fetish.FETISH_PENIS_RECEIVING) && ((!this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive() && !lustOrArousalCalculation) || this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isNegative())) {
 				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
 			}
 		}
@@ -5926,7 +5943,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
 				weight-=100000; // ban self-anal actions unless the character likes anal
 			}
-			if(!fetishes.contains(Fetish.FETISH_PENIS_GIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+			if(!fetishes.contains(Fetish.FETISH_PENIS_GIVING) && ((!this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive() && !lustOrArousalCalculation) || this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isNegative())) {
 				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
 			}
 		}
@@ -20182,10 +20199,16 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return (int) (body.getPenis().getTesticle().getRawStoredCumValue() * (getPenisRawCumExpulsionValue()/100f));
 	}
-	public void applyOrgasmCumEffect() {
+	/**
+	 * @param cumQuantityModifier A percentage of the normal cum expulsion that you want to be drained. Should nowmally be 1.
+	 */
+	public void applyOrgasmCumEffect(float cumQuantityModifier) {
 		if(Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
 			this.incrementPenisStoredCum(-getPenisRawOrgasmCumQuantity());
 		}
+	}
+	public void applyOrgasmCumEffect() {
+		this.applyOrgasmCumEffect(1);
 	}
 	// Regen:
 	public FluidRegeneration getPenisCumProductionRegeneration() {

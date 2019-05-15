@@ -947,13 +947,13 @@ public class SlaveDialogue {
 						} else if((!Main.game.isNonConEnabled() || !companionCharacter.isSlave()) && !companionCharacter.isAttractedTo(Main.game.getPlayer())) {
 							return new Response("Side-by-side (as dom)",
 									UtilText.parse(companionCharacter,
-											"[npc.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc2.she] interacts with you..."),
+											"[npc.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc.she] interacts with you..."),
 									null);
 								
 						} else if((!Main.game.isNonConEnabled() || !targetedCharacterForSex.isSlave()) && !targetedCharacterForSex.isAttractedTo(Main.game.getPlayer())) {
 							return new Response("Side-by-side (as dom)",
 									UtilText.parse(targetedCharacterForSex,
-											"[npc2.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc2.she] interacts with you..."),
+											"[npc.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc.she] interacts with you..."),
 									null);
 							
 						} else {

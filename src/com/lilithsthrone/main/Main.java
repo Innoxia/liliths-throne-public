@@ -53,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.3
  * @author Innoxia
  */
 public class Main extends Application {
@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.2.3";
+	public static final String VERSION_NUMBER = "0.3.2.5";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -159,7 +159,7 @@ public class Main extends Application {
 			+"<ul>Fixed issue with inventories not being sorted after saving/loading.</ul>"
 			+"<ul>Spending flames to identify clothing/weapons at a shop should now work correctly.</ul>"
 			+"<ul>Equipped condom belt now correctly renders any stacked condoms in the wearer's inventory.</ul>"
-			+"<ul>Fixed issue with clothing sometimes able to be duplicated in character creation when cahnging colours.</ul>"
+			+"<ul>Fixed issue with clothing sometimes able to be duplicated in character creation when changing colours.</ul>"
 		+ "</list>"
 	;
 	
@@ -196,6 +196,11 @@ public class Main extends Application {
 		
 		credits.add(new CreditsSlot("Anonymous", "", 99, 99, 99, 99));
 
+		
+		
+		credits.add(new CreditsSlot("Kyle S P", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Paradoxiso", "", 0, 0, 0, 0, Subspecies.DEMON));
+		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Akira", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Aleskah", "", 0, 0, 0, 1));
@@ -328,6 +333,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Kiroberos", "", 0, 0, 0, 17));
 		credits.add(new CreditsSlot("Kernog", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 19));
+		credits.add(new CreditsSlot("Krozoz", "", 0, 0, 2, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Krulin", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Kyralon", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Chris Turpin", "", 0, 0, 17, 0));
@@ -376,7 +382,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("BLKCandy", "", 0, 0, 12, 0));
 		credits.add(new CreditsSlot("Pierre Mura", "", 0, 0, 0, 11));
 		credits.add(new CreditsSlot("Pokys", "", 0, 0, 9, 0));
-		credits.add(new CreditsSlot("PoyntFury", "", 0, 0, 1, 4));
+		credits.add(new CreditsSlot("PoyntFury", "", 0, 0, 1, 4, Subspecies.DEMON));
 		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 19));
 		credits.add(new CreditsSlot("awrfyu_", "", 0, 0, 0, 7));
 		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 8, 0));

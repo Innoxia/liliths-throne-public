@@ -87,6 +87,9 @@ public class Horn implements BodyPartInterface {
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp and [npc.verb(rub)] at [npc.her] forehead as [npc.she] [npc.verb(feel)] it growing hot and sensitive."
 						+ " After just a moment, [npc.her] [npc.eyes] widen in shock as something starts pushing out from under the [npc.faceSkin] of [npc.her] forehead."));
 		} else {
+			if(type==HornType.HORSE_STRAIGHT) {
+				this.setHornsPerRow(owner, 1);
+			}
 			UtilText.transformationContentSB.append(UtilText.parse(owner, 
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] an odd tingling sensation at the base of [npc.her] "+(owner.getTotalHorns()==1?"[npc.horn]":"[npc.horns]")+"."
