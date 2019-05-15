@@ -218,7 +218,7 @@ public class OccupantDialogue {
 						} else if(Main.game.getPlayer().canHaveMoreCompanions()) {
 							return new Response("Add to party",
 									UtilText.parse(occupant(), "Ask [npc.name] if [npc.she] would like to accompany you for a while."),
-									OCCUPANT_START){
+									Main.game.getDefaultDialogueNoEncounter()){
 								@Override
 								public void effects() {
 									applyReactionReset();
