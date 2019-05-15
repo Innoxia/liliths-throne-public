@@ -61,10 +61,10 @@ import com.lilithsthrone.world.World;
  */
 public class CharacterInventory implements XMLSaving {
 	
-	private Map<AbstractWeapon, Integer> weaponDuplicates;
-	private Map<AbstractClothing, Integer> clothingDuplicates;
-	private Map<AbstractItem, Integer> itemDuplicates;
-	
+	private final AbstractInventory<AbstractWeapon, AbstractWeaponType> weaponSubInventory;
+	private final AbstractInventory<AbstractClothing, AbstractClothingType> clothingSubInventory;
+	private final AbstractInventory<AbstractItem, AbstractItemType> itemSubInventory;
+
 	private final Map<TFEssence, Integer> essenceMap;
 	
 	protected int money;
@@ -93,10 +93,10 @@ public class CharacterInventory implements XMLSaving {
 		
 	public CharacterInventory(int money, int maxInventorySpace) {
 		this.money = money;
-		
-		weaponDuplicates = new LinkedHashMap<>();
-		clothingDuplicates = new LinkedHashMap<>();
-		itemDuplicates = new LinkedHashMap<>();
+
+		weaponSubInventory = new AbstractInventory<>(new InventoryWeaponComparator(), AbstractWeapon::getWeaponType);
+		clothingSubInventory = new AbstractInventory<>(new InventoryClothingComparator(), AbstractClothing::getClothingType);
+		itemSubInventory = new AbstractInventory<>(new InventoryItemComparator(), AbstractItem::getItemType);
 		
 		
 		dirtySlots = new HashSet<>();
@@ -318,9 +318,9 @@ public class CharacterInventory implements XMLSaving {
 	
 	public boolean isEmpty() {
 		return money == 0
-				&& clothingDuplicates.isEmpty()
-				&& weaponDuplicates.isEmpty()
-				&& itemDuplicates.isEmpty()
+				&& clothingSubInventory.isEmpty()
+				&& weaponSubInventory.isEmpty()
+				&& itemSubInventory.isEmpty()
 				&& essenceMap.get(TFEssence.ARCANE) == 0
 				&& dirtySlots.isEmpty()
 				&& mainWeapon == null
@@ -368,9 +368,9 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public void clearNonEquippedInventory(){
-		clothingDuplicates.clear();
-		weaponDuplicates.clear();
-		itemDuplicates.clear();
+		clothingSubInventory.clear();
+		weaponSubInventory.clear();
+		itemSubInventory.clear();
 		money = 0;
 	}
 	
@@ -410,36 +410,15 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	private void sortItemDuplicates() {
-		List<AbstractItem> itemToSort = new ArrayList<>(itemDuplicates.keySet());
-		itemToSort.sort(new InventoryItemComparator());
-
-		Map<AbstractItem, Integer> iMap = new LinkedHashMap<>();
-		for(AbstractItem i : itemToSort) {
-			iMap.put(i, itemDuplicates.get(i));
-		}
-		itemDuplicates = iMap;
+		itemSubInventory.sort();
 	}
 
 	private void sortWeaponDuplicates() {
-		List<AbstractWeapon> weaponsToSort = new ArrayList<>(weaponDuplicates.keySet());
-		weaponsToSort.sort(new InventoryWeaponComparator());
-
-		Map<AbstractWeapon, Integer> wMap = new LinkedHashMap<>();
-		for(AbstractWeapon w : weaponsToSort) {
-			wMap.put(w, weaponDuplicates.get(w));
-		}
-		weaponDuplicates = wMap;
+		weaponSubInventory.sort();
 	}
 
 	private void sortClothingDuplicates() {
-		List<AbstractClothing> clothingToSort = new ArrayList<>(clothingDuplicates.keySet());
-		clothingToSort.sort(new InventoryClothingComparator());
-
-		Map<AbstractClothing, Integer> cMap = new LinkedHashMap<>();
-		for(AbstractClothing c : clothingToSort) {
-			cMap.put(c, clothingDuplicates.get(c));
-		}
-		clothingDuplicates = cMap;
+		clothingSubInventory.sort();
 	}
 
 	public void sortInventory() {
@@ -455,11 +434,11 @@ public class CharacterInventory implements XMLSaving {
 	 * <b>DO NOT MODIFY!</b>
 	 */
 	public Map<AbstractItem, Integer> getAllItemsInInventory() {
-		return itemDuplicates;
+		return itemSubInventory.getDuplicateCounts();
 	}
 
 	public int getTotalItemCount() {
-		return getAllItemsInInventory().values().stream().mapToInt(e -> e).sum();
+		return itemSubInventory.getTotalItemCount();
 	}
 	
 	public int getUniqueItemCount() {
@@ -467,17 +446,11 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public int getUniqueQuestItemCount() {
-		int count = 0;
-		for(Entry<AbstractItem, Integer> e : getAllItemsInInventory().entrySet()) {
-			if(e.getKey().getRarity()==Rarity.QUEST) {
-				count++;
-			}
-		}
-		return count;
+		return itemSubInventory.getQuestEntryCount();
 	}
 	
 	public int getItemCount(AbstractItem item) {
-		return itemDuplicates.getOrDefault(item, 0);
+		return itemSubInventory.getItemCount(item);
 	}
 	
 	/**
@@ -485,11 +458,9 @@ public class CharacterInventory implements XMLSaving {
 	 * @param itemMap
 	 */
 	private void addItems(Map<AbstractItem, Integer> itemMap) {
-		for (Map.Entry<AbstractItem, Integer> entry : itemMap.entrySet()) {
-			itemDuplicates.merge(entry.getKey(), entry.getValue(), Integer::sum);
-		}
-		
-		if(Main.game.isStarted()) {
+		itemSubInventory.addFromMap(itemMap);
+
+		if (Main.game.isStarted()) {
 			sortItemDuplicates();
 		}
 	}
@@ -502,18 +473,17 @@ public class CharacterInventory implements XMLSaving {
 		if(item==null) {
 			return false;
 		}
-		
-		if(canAddItem(item)) {
-			itemDuplicates.merge(item, count, Integer::sum);
 
-			if(Main.game.isStarted()) {
+		boolean canAddItem = canAddItem(item);
+		if (canAddItem) {
+			itemSubInventory.addItem(item, count);
+
+			if (Main.game.isStarted()) {
 				sortItemDuplicates();
 			}
-			
-			return true;
 		}
-		
-		return false;
+
+		return canAddItem;
 	}
 	
 	/**
@@ -542,47 +512,22 @@ public class CharacterInventory implements XMLSaving {
 	 * @return true if an item was removed, false if no item was found.
 	 */
 	public boolean removeItem(AbstractItem item, int count) {
-		if(hasItem(item)) {
-			itemDuplicates.put(item, itemDuplicates.get(item)-count);
-			if(itemDuplicates.get(item)<=0) {
-				itemDuplicates.remove(item);
-			}
-			return true;
-		} else {
-			return false;
-		}
+		return itemSubInventory.removeItem(item, count);
 	}
 	
 	public boolean hasItem(AbstractItem item) {
-		return itemDuplicates.containsKey(item);
+		return itemSubInventory.hasItem(item);
 	}
 	
 	/**
 	 * @return true if one of the items in this inventory has the same type as the Item provided.
 	 */
 	public boolean hasItemType(AbstractItemType item) {
-		for(AbstractItem abstractItem : itemDuplicates.keySet()) {
-			if(abstractItem.getItemType().equals(item)) {
-				return true;
-			}
-		}
-		return false;
+		return itemSubInventory.hasItemType(item);
 	}
 	
 	public boolean removeItemByType(AbstractItemType itemType) {
-		AbstractItem item = null;
-		for(AbstractItem abstractItem : itemDuplicates.keySet()) {
-			if(abstractItem.getItemType().equals(itemType)) {
-				item = abstractItem;
-				break;
-			}
-		}
-		
-		if(item!=null) {
-			removeItem(item);
-		}
-		
-		return false;
+		return itemSubInventory.removeItemByType(itemType);
 	}
 
 	public boolean dropItem(AbstractItem item, World world, Vector2i location) {
@@ -607,11 +552,11 @@ public class CharacterInventory implements XMLSaving {
 	 * <b>DO NOT MODIFY!</b>
 	 */
 	public Map<AbstractWeapon, Integer> getAllWeaponsInInventory() {
-		return weaponDuplicates;
+		return weaponSubInventory.getDuplicateCounts();
 	}
 
 	public int getTotalWeaponCount() {
-		return getAllItemsInInventory().values().stream().mapToInt(e -> e).sum();
+		return weaponSubInventory.getTotalItemCount();
 	}
 
 	public int getUniqueWeaponCount() {
@@ -619,17 +564,11 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public int getUniqueQuestWeaponCount() {
-		int count = 0;
-		for(Entry<AbstractWeapon, Integer> e : getAllWeaponsInInventory().entrySet()) {
-			if(e.getKey().getRarity()==Rarity.QUEST) {
-				count++;
-			}
-		}
-		return count;
+		return weaponSubInventory.getQuestEntryCount();
 	}
 	
 	public int getWeaponCount(AbstractWeapon weapon) {
-		return weaponDuplicates.getOrDefault(weapon, 0);
+		return weaponSubInventory.getItemCount(weapon);
 	}
 	
 	/**
@@ -642,7 +581,7 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if(canAddWeapon(weapon)) {
-			weaponDuplicates.merge(weapon, count, Integer::sum);
+			weaponSubInventory.addItem(weapon, count);
 
 			if(Main.game.isStarted()) {
 				sortWeaponDuplicates();
@@ -680,47 +619,22 @@ public class CharacterInventory implements XMLSaving {
 	 * @return true if a weapon was removed, false if no weapon was found.
 	 */
 	public boolean removeWeapon(AbstractWeapon weapon, int count) {
-		if(hasWeapon(weapon)) {
-			weaponDuplicates.put(weapon, weaponDuplicates.get(weapon)-count);
-			if(weaponDuplicates.get(weapon)<=0) {
-				weaponDuplicates.remove(weapon);
-			}
-			return true;
-		} else {
-			return false;
-		}
+		return weaponSubInventory.removeItem(weapon, count);
 	}
 
 	public boolean hasWeapon(AbstractWeapon weapon) {
-		return weaponDuplicates.containsKey(weapon);
+		return weaponSubInventory.hasItem(weapon);
 	}
 	
 	/**
 	 * @return true if one of the weapons in this inventory has the same type as the Weapon provided.
 	 */
 	public boolean hasWeaponType(AbstractWeaponType weapon) {
-		for(AbstractWeapon abstractWeapon : weaponDuplicates.keySet()) {
-			if(abstractWeapon.getWeaponType().equals(weapon)) {
-				return true;
-			}
-		}
-		return false;
+		return weaponSubInventory.hasItemType(weapon);
 	}
 	
 	public boolean removeWeaponByType(AbstractWeaponType weaponType) {
-		AbstractWeapon weapon = null;
-		for(AbstractWeapon abstractWeapon : weaponDuplicates.keySet()) {
-			if(abstractWeapon.getWeaponType().equals(weaponType)) {
-				weapon = abstractWeapon;
-				break;
-			}
-		}
-		
-		if(weapon!=null) {
-			removeWeapon(weapon);
-		}
-		
-		return false;
+		return weaponSubInventory.removeItemByType(weaponType);
 	}
 
 	public boolean dropWeapon(AbstractWeapon weapon, World world, Vector2i location) {
@@ -764,11 +678,11 @@ public class CharacterInventory implements XMLSaving {
 	 * <b>DO NOT MODIFY!</b>
 	 */
 	public Map<AbstractClothing, Integer> getAllClothingInInventory() {
-		return clothingDuplicates;
+		return clothingSubInventory.getDuplicateCounts();
 	}
 
 	public int getTotalClothingCount() {
-		return getAllClothingInInventory().values().stream().mapToInt(e -> e).sum();
+		return clothingSubInventory.getTotalItemCount();
 	}
 
 	public int getUniqueClothingCount() {
@@ -776,17 +690,11 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	public int getUniqueQuestClothingCount() {
-		int count = 0;
-		for(Entry<AbstractClothing, Integer> e : getAllClothingInInventory().entrySet()) {
-			if(e.getKey().getRarity()==Rarity.QUEST) {
-				count++;
-			}
-		}
-		return count;
+		return clothingSubInventory.getQuestEntryCount();
 	}
 	
 	public int getClothingCount(AbstractClothing clothing) {
-		return clothingDuplicates.getOrDefault(clothing, 0);
+		return clothingSubInventory.getItemCount(clothing);
 	}
 
 	/**
@@ -799,7 +707,7 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if(canAddClothing(clothing)) {
-			clothingDuplicates.merge(clothing, count, Integer::sum);
+			clothingSubInventory.addItem(clothing, count);
 
 			if(Main.game.isStarted()) {
 				sortClothingDuplicates();
@@ -837,54 +745,26 @@ public class CharacterInventory implements XMLSaving {
 	 * @return true if a clothing was removed, false if no clothing was found.
 	 */
 	public boolean removeClothing(AbstractClothing clothing, int count) {
-		if(hasClothing(clothing)) {
-			clothingDuplicates.put(clothing, clothingDuplicates.get(clothing)-count);
-			if(clothingDuplicates.get(clothing)<=0) {
-				clothingDuplicates.remove(clothing);
-			}
-			return true;
-		} else {
-			return false;
-		}
+		return clothingSubInventory.removeItem(clothing, count);
 	}
 
 	public boolean hasClothing(AbstractClothing clothing) {
-		return clothingDuplicates.containsKey(clothing);
+		return clothingSubInventory.hasItem(clothing);
 	}
 	
 	/**
 	 * @return true if one of the clothings in this inventory has the same type as the Clothing provided.
 	 */
 	public boolean hasClothingType(AbstractClothingType type, boolean includeEquipped) {
-		for(AbstractClothing abstractClothing : clothingDuplicates.keySet()) {
-			if(abstractClothing.getClothingType().equals(type)) {
-				return true;
-			}
-		}
-		if(includeEquipped) {
-			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-				if(c.getClothingType().equals(type)) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return clothingSubInventory.hasItemType(type) || (includeEquipped && hasEquippedClothingType(type));
+	}
+
+	private boolean hasEquippedClothingType(AbstractClothingType type) {
+		return getClothingCurrentlyEquipped().stream().anyMatch(c -> c.getClothingType().equals(type));
 	}
 	
 	public boolean removeClothingByType(AbstractClothingType clothingType) {
-		AbstractClothing clothing = null;
-		for(AbstractClothing abstractClothing : clothingDuplicates.keySet()) {
-			if(abstractClothing.getClothingType().equals(clothingType)) {
-				clothing = abstractClothing;
-				break;
-			}
-		}
-		
-		if(clothing!=null) {
-			removeClothing(clothing);
-		}
-		
-		return false;
+		return clothingSubInventory.removeItemByType(clothingType);
 	}
 
 	public boolean dropClothing(AbstractClothing clothing, World world, Vector2i location) {
@@ -916,14 +796,10 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if(includeNotEquippedClothing) {
-			HashMap<AbstractClothing, Integer> cleanedClothingMap = new HashMap<>(clothingDuplicates);
-			clothingDuplicates.clear();
-			
-			for(Entry<AbstractClothing, Integer> e : cleanedClothingMap.entrySet()) {
-				AbstractClothing c = e.getKey();
+			clothingSubInventory.transform(c -> {
 				c.setDirty(false);
-				this.addClothing(c, e.getValue());
-			}
+				return c;
+			});
 		}
 		
 		for(AbstractClothing c : clothingCurrentlyEquipped) {
