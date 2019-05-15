@@ -125,6 +125,9 @@
 	
 	Patch notes:
 	
+	Contributors:
+		Cleaned up inventory code. (PR#1146 by Pimgd)
+	
 	Other:
 		Time until end of arcane storm is now displayed in tooltip if you have the arcane spell school ability unlocked.
 		Added a pink background for ongoing sex action status effects, to help to highlight what's happening during sex scenes.
