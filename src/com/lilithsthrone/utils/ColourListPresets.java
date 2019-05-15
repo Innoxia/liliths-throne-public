@@ -169,14 +169,14 @@ public class ColourListPresets {
 	
 	public static ArrayList<Colour> ALL_METAL = Util.newArrayListOfValues(
 			Colour.CLOTHING_BLACK_STEEL,
+			Colour.CLOTHING_GUNMETAL,
 			Colour.CLOTHING_STEEL,
 			Colour.CLOTHING_BRASS,
 			Colour.CLOTHING_COPPER,
 			Colour.CLOTHING_SILVER,
 			Colour.CLOTHING_ROSE_GOLD,
 			Colour.CLOTHING_GOLD,
-			Colour.CLOTHING_PLATINUM,
-			Colour.CLOTHING_GUNMETAL);
+			Colour.CLOTHING_PLATINUM);
 			
 	
 	public static ArrayList<Colour> ALL = Util.newArrayListOfValues(
@@ -267,14 +267,14 @@ public class ColourListPresets {
 			Colour.CLOTHING_PINK_HOT,
 			Colour.CLOTHING_PINK_DARK,
 			Colour.CLOTHING_BLACK_STEEL,
+			Colour.CLOTHING_GUNMETAL,
 			Colour.CLOTHING_STEEL,
 			Colour.CLOTHING_BRASS,
 			Colour.CLOTHING_COPPER,
 			Colour.CLOTHING_SILVER,
 			Colour.CLOTHING_ROSE_GOLD,
 			Colour.CLOTHING_GOLD,
-			Colour.CLOTHING_PLATINUM,
-			Colour.CLOTHING_GUNMETAL);
+			Colour.CLOTHING_PLATINUM);
 	
 	public static ArrayList<Colour> NOT_WHITE = new ArrayList<>(ALL);
 	

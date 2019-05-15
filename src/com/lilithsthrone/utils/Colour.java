@@ -390,6 +390,7 @@ public enum Colour {
 	
 	
 	CLOTHING_BLACK_STEEL(true, Util.newColour(0x333333), Util.newColour(0x333333), "black steel"),
+	CLOTHING_GUNMETAL(true, Util.newColour(0x555555), Util.newColour(0x555555), "gunmetal gray"),
 	CLOTHING_STEEL(true, Util.newColour(0x969696), Util.newColour(0x969696), "steel"),
 	CLOTHING_BRASS(true, Util.newColour(0xab8317), Util.newColour(0xab8317), "brass"),
 	CLOTHING_COPPER(true, Util.newColour(0xD46F2B), Util.newColour(0xD46F2B), "copper", Util.newArrayListOfValues("copper")),
@@ -397,7 +398,6 @@ public enum Colour {
 	CLOTHING_GOLD(true, Util.newColour(0xEBC633), Util.newColour(0xEBC633), "gold"),
 	CLOTHING_ROSE_GOLD(true, BaseColour.ROSE_GOLD, "rose gold"),
 	CLOTHING_PLATINUM(true, BaseColour.PLATINUM, "platinum"),
-	CLOTHING_GUNMETAL(true, Util.newColour(0x555555), Util.newColour(0x555555), "gunmetal gray"),
 	
 	// For special use with rainbow clothing:
 	CLOTHING_MULTICOLOURED(false, Util.newColour(0xff3030), Util.newColour(0xccffff), "multicoloured"),

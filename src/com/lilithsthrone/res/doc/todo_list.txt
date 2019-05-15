@@ -127,6 +127,7 @@
 	
 	Contributors:
 		Cleaned up inventory code. (PR#1146 by Pimgd)
+		Added 'light grey', 'dark grey', and 'gunmetal grey' colours. (PR#1147 by GynoidDoesGames)
 	
 	Other:
 		Time until end of arcane storm is now displayed in tooltip if you have the arcane spell school ability unlocked.
@@ -168,6 +169,8 @@
 		Takahashi will no longer be willing to use a potion on your companion if they're a demon or elemental.
 
 
+
+	Make damage type buttons not fully greyed out
 
 	PRs
 	
