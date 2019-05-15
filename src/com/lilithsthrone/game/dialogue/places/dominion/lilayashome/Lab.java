@@ -810,7 +810,7 @@ public class Lab {
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+							+ (Main.game.getPlayer().hasPenisIgnoreDildo() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
 									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
@@ -839,7 +839,7 @@ public class Lab {
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+							+ (Main.game.getPlayer().hasPenisIgnoreDildo() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
 									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
@@ -1834,7 +1834,7 @@ public class Lab {
 							+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+							+ (Main.game.getPlayer().hasPenisIgnoreDildo() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
 									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
@@ -2087,7 +2087,7 @@ public class Lab {
 							+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+							+ (Main.game.getPlayer().hasPenisIgnoreDildo() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
 									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
